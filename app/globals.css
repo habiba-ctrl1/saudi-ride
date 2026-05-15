@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+:root {
+  --charcoal: #121417;
+  --charcoal-soft: #1b1f24;
+  --gold: #c7a66b;
+  --gold-soft: #e6d3af;
+  --paper: #f8f8f6;
+  --muted: #7c8088;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--paper);
+  color: var(--charcoal);
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.hero-glow::before {
+  content: "";
+  position: absolute;
+  inset: -40% auto auto -12%;
+  width: 30rem;
+  height: 30rem;
+  border-radius: 9999px;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(199, 166, 107, 0.18) 0%, rgba(199, 166, 107, 0) 70%);
+}
+
+.hero-glow::after {
+  content: "";
+  position: absolute;
+  inset: auto -12% -42% auto;
+  width: 26rem;
+  height: 26rem;
+  border-radius: 9999px;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(18, 20, 23, 0.09) 0%, rgba(18, 20, 23, 0) 70%);
+}
+
+.section-container {
+  margin-inline: auto;
+  max-width: 72rem;
+  padding-inline: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .section-container {
+    padding-inline: 2.5rem;
+  }
+}
