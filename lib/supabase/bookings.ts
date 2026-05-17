@@ -1,7 +1,7 @@
-import { getSupabaseServerClient } from "@/lib/supabase/server";
+import { db } from "@/lib/db";
 
 export type AdminBookingRow = {
-  id: number;
+  id: string;
   booking_id: string;
   pickup: string;
   dropoff: string;
@@ -11,6 +11,7 @@ export type AdminBookingRow = {
   locale: "en" | "ar" | string;
   source: string;
   created_at: string;
+  status: string;
 };
 
 export async function getRecentBookings(limit = 50): Promise<{
@@ -18,21 +19,34 @@ export async function getRecentBookings(limit = 50): Promise<{
   error: string | null;
   configured: boolean;
 }> {
-  const supabase = getSupabaseServerClient();
-  if (!supabase) {
-    return { rows: [], error: null, configured: false };
+  try {
+    const bookings = await db.booking.findMany({
+      orderBy: { createdAt: "desc" },
+      take: limit,
+    });
+
+    const rows: AdminBookingRow[] = bookings.map((b) => ({
+      id: b.id,
+      booking_id: b.bookingRef,
+      pickup: b.pickupLocation,
+      dropoff: b.dropoffLocation,
+      travel_date: b.pickupDateTime.toISOString().split("T")[0],
+      travel_time: b.pickupDateTime.toISOString().split("T")[1].slice(0, 5),
+      passengers: b.passengers,
+      locale: "en",
+      source: "website",
+      created_at: b.createdAt.toISOString(),
+      status: b.status,
+    }));
+
+    return { rows, error: null, configured: true };
+  } catch (error) {
+    console.error("Error fetching bookings:", error);
+    return { 
+      rows: [], 
+      error: error instanceof Error ? error.message : "An unknown error occurred", 
+      configured: true 
+    };
   }
-
-  const tableName = process.env.SUPABASE_BOOKINGS_TABLE || "bookings";
-  const { data, error } = await supabase
-    .from(tableName)
-    .select("*")
-    .order("created_at", { ascending: false })
-    .limit(limit);
-
-  if (error) {
-    return { rows: [], error: error.message, configured: true };
-  }
-
-  return { rows: (data as AdminBookingRow[]) ?? [], error: null, configured: true };
 }
+
