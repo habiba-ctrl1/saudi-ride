@@ -1,204 +1,263 @@
 "use client";
 
-import { useLanguage } from "@/lib/context/LanguageContext";
-import { motion } from "framer-motion";
-import { Users, Briefcase, ChevronRight } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Users, Briefcase, MessageCircle, ChevronRight, Star } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
+import { contactConfig } from "@/lib/config/contact";
+import { FLEET_VEHICLES } from "@/lib/fleet-data";
 
-const translations = {
-  en: {
-    badge: "Our Luxury Fleet",
-    title: "Elegant fleet for every travel profile",
-    description: "Experience the height of comfort and status with our highly maintained vehicles. Guided by professional, certified local chauffeurs.",
-    passengers: "passengers",
-    luggage: "luggage",
-    bookNow: "Book Selected Vehicle",
-    cars: [
-      {
-        name: "Toyota Camry Executive",
-        type: "Standard VIP",
-        passengers: 4,
-        luggage: 2,
-        features: ["Fully Air Conditioned", "Professional English/Arabic Speaking Chauffeur", "Smooth Executive City Ride"],
-      },
-      {
-        name: "GMC Yukon Denali XL",
-        type: "Luxury SUV",
-        passengers: 7,
-        luggage: 5,
-        features: ["AC with Individual Climate Control", "Premium Leather VIP Cabin", "Extra Legroom & Reclining Seats"],
-      },
-      {
-        name: "Hyundai Staria Premium",
-        type: "Executive Van",
-        passengers: 7,
-        luggage: 4,
-        features: ["Multi-zone Air Conditioning", "Family Friendly & Spacious Interior", "Panoramic Views & Luxury Trim"],
-      },
-    ]
-  },
-  ar: {
-    badge: "أسطولنا الفاخر",
-    title: "أسطول فاخر يناسب جميع متطلبات السفر",
-    description: "استمتع بأعلى مستويات الراحة والهيبة مع مركباتنا المصانة بعناية فائقة. برفقة نخبة من السائقين المحليين المعتمدين.",
-    passengers: "ركاب",
-    luggage: "حقائب",
-    bookNow: "احجز هذه السيارة",
-    cars: [
-      {
-        name: "تويوتا كامري التنفيذية",
-        type: "في آي بي القياسية",
-        passengers: 4,
-        luggage: 2,
-        features: ["تكييف هواء كامل وممتاز", "سائق محترف يتحدث العربية والإنجليزية", "رحلة ناعمة ومريحة داخل المدينة"],
-      },
-      {
-        name: "جي ام سي يوكون دينالي XL",
-        type: "سيارة دفع رباعي فاخرة",
-        passengers: 7,
-        luggage: 5,
-        features: ["تحكم فردي في المناخ وتكييف قوي", "مقصورة VIP من الجلد الفاخر", "مساحة إضافية للأرجل ومقاعد قابلة للإمالة"],
-      },
-      {
-        name: "هيونداي ستاريا بريميوم",
-        type: "فان تنفيذي فاخر",
-        passengers: 7,
-        luggage: 4,
-        features: ["تكييف هواء متعدد المناطق", "مناسب للعائلات ومقصورة واسعة جداً", "إطلالات بانورامية وتشطيبات فاخرة"],
-      },
-    ]
-  },
-  ur: {
-    badge: "ہماری گاڑیاں",
-    title: "ہر قسم کے سفر کے لیے بہترین گاڑیاں",
-    description: "ہماری بہترین دیکھ بھال والی گاڑیوں کے ساتھ انتہائی آرام دہ اور پروقار سفر کا تجربہ کریں۔ پیشہ ورانہ، مصدقہ مقامی ڈرائیوروں کی رہنمائی میں۔",
-    passengers: "مسافر",
-    luggage: "سامان",
-    bookNow: "گاڑی منتخب کریں اور بک کریں",
-    cars: [
-      {
-        name: "ٹویوٹا کیمری ایگزیکٹو",
-        type: "اسٹینڈرڈ وی آئی پی",
-        passengers: 4,
-        luggage: 2,
-        features: ["مکمل ایئر کنڈیشنڈ", "پیشہ ور انگریزی/عربی بولنے والا ڈرائیور", "ہموار ایگزیکٹو سٹی رائیڈ"],
-      },
-      {
-        name: "جی ایم سی یوکون ڈینالی XL",
-        type: "لگزری ایس یو وی",
-        passengers: 7,
-        luggage: 5,
-        features: ["انفرادی کلائمیٹ کنٹرول کے ساتھ اے سی", "پریمیم لیدر وی آئی پی کیبن", "اضافی لیگ روم اور ٹیک لگانے والی سیٹیں"],
-      },
-      {
-        name: "ہونڈائی اسٹاریا پریمیم",
-        type: "ایگزیکٹو وین",
-        passengers: 7,
-        luggage: 4,
-        features: ["ملٹی زون ایئر کنڈیشننگ", "فیملی فرینڈلی اور کشادہ انٹیریئر", "پینورامک مناظر اور لگژری ٹرم"],
-      },
-    ]
-  }
-};
+const CATEGORIES = [
+  { key: "all", label: "All Fleet" },
+  { key: "sedan", label: "Sedans" },
+  { key: "suv", label: "SUVs" },
+  { key: "van", label: "Vans" },
+  { key: "luxury", label: "Luxury" },
+  { key: "bus", label: "Buses" },
+];
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0 }
+  hidden: { opacity: 0, y: 28 },
+  show: { opacity: 1, y: 0 },
 };
 
 export default function FleetPage() {
-  const { language } = useLanguage();
-  const t = translations[language];
+  const [activeCategory, setActiveCategory] = useState("all");
+
+  const filtered = FLEET_VEHICLES.filter(
+    (v) => activeCategory === "all" || v.category === activeCategory
+  );
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pt-28 pb-16">
-      <section className="section-container">
-        {/* Entrance Hero text */}
-        <motion.div
-          initial="hidden"
-          animate="show"
-          variants={fadeUp}
-          transition={{ duration: 0.6 }}
-          className="max-w-3xl"
-        >
-          <span className="text-xs uppercase tracking-[0.2em] text-[#C9A84C] font-semibold">
-            {t.badge}
-          </span>
-          <h1 className="mt-4 font-heading text-4xl font-bold leading-tight md:text-5.5xl text-[#F5F0E8]">
-            {t.title}
-          </h1>
-          <p className="mt-6 text-sm md:text-base leading-relaxed text-[#A1A1A6]">
-            {t.description}
+    <div className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8]">
+
+      {/* ─── HERO ─────────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden pt-32 pb-20">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#C9A84C]/6 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute top-0 right-0 h-[500px] w-[500px] rounded-full bg-[#C9A84C]/3 blur-3xl pointer-events-none" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#C9A84C_1px,transparent_1px),linear-gradient(to_bottom,#C9A84C_1px,transparent_1px)] bg-[size:40px_40px] opacity-[0.03] pointer-events-none" />
+
+        <div className="section-container relative z-10 max-w-5xl">
+          <motion.div initial="hidden" animate="show" variants={fadeUp} transition={{ duration: 0.6 }}>
+            <span className="inline-block rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#C9A84C]">
+              Our Premium Fleet
+            </span>
+            <h1 className="mt-6 font-heading text-4xl font-bold leading-tight md:text-6xl text-[#F5F0E8]">
+              14 World-Class Vehicles<br />
+              <span className="text-[#C9A84C]">Across Every Class</span>
+            </h1>
+            <p className="mt-6 max-w-2xl text-sm md:text-base leading-relaxed text-[#A1A1A6]">
+              From executive airport sedans to full luxury coaches — every vehicle is immaculately
+              maintained, chauffeur-driven, and available 24/7 across Saudi Arabia, GCC, and international transfers.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            animate="show"
+            variants={fadeUp}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="mt-10 flex flex-wrap gap-6"
+          >
+            {[
+              { value: "14", label: "Vehicle Classes" },
+              { value: "100%", label: "Licensed & Insured" },
+              { value: "24/7", label: "Availability" },
+              { value: "4.9★", label: "Fleet Rating" },
+            ].map((s) => (
+              <div key={s.label} className="flex flex-col">
+                <span className="font-heading text-2xl font-bold text-[#C9A84C]">{s.value}</span>
+                <span className="text-[0.65rem] text-[#7C8088] font-bold uppercase tracking-wider">{s.label}</span>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ─── FILTER BAR ───────────────────────────────────────────── */}
+      <section className="sticky top-[72px] z-30 bg-[#0A0A0A]/95 backdrop-blur-md border-b border-[#C9A84C]/10 py-4">
+        <div className="section-container max-w-5xl">
+          <div className="flex items-center gap-2 overflow-x-auto">
+            {CATEGORIES.map((cat) => (
+              <button
+                key={cat.key}
+                onClick={() => setActiveCategory(cat.key)}
+                className={`shrink-0 rounded-full px-5 py-2 text-xs font-bold uppercase tracking-wider transition-all ${
+                  activeCategory === cat.key
+                    ? "bg-[#C9A84C] text-[#0A0A0A] shadow-[0_4px_14px_rgba(201,168,76,0.3)]"
+                    : "border border-[#C9A84C]/20 text-[#A1A1A6] hover:border-[#C9A84C]/50 hover:text-[#F5F0E8]"
+                }`}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── VEHICLE GRID ─────────────────────────────────────────── */}
+      <section className="section-container max-w-7xl py-16">
+        <div className="mb-6 flex items-center justify-between">
+          <p className="text-xs text-[#7C8088] font-bold uppercase tracking-wider">
+            Showing {filtered.length} vehicle{filtered.length !== 1 ? "s" : ""}
           </p>
-        </motion.div>
+        </div>
 
-        {/* Fleet dynamic list showcase */}
-        <div className="mt-14 grid gap-8 md:grid-cols-3">
-          {t.cars.map((car, index) => (
-            <motion.article
-              key={car.name}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.2 }}
-              variants={fadeUp}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative flex flex-col justify-between rounded-3xl border border-[#C9A84C]/15 bg-[#121212] p-8 shadow-2xl hover:border-[#C9A84C]/45 transition-all duration-300 overflow-hidden"
-              whileHover={{ y: -6 }}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeCategory}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.3 }}
+            className="grid gap-8 md:grid-cols-2 xl:grid-cols-3"
+          >
+            {filtered.map((vehicle, index) => (
+              <motion.article
+                key={vehicle.slug}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.1 }}
+                variants={fadeUp}
+                transition={{ duration: 0.45, delay: (index % 6) * 0.07 }}
+                className="group relative flex flex-col overflow-hidden rounded-3xl border border-[#C9A84C]/12 bg-[#111111] shadow-2xl hover:border-[#C9A84C]/40 transition-all duration-300"
+                whileHover={{ y: -5 }}
+              >
+                {/* Vehicle Image */}
+                <div className="relative h-52 w-full overflow-hidden">
+                  <Image
+                    src={vehicle.image}
+                    alt={`${vehicle.name} — Riyadh Luxe Taxi Saudi Arabia`}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent" />
+
+                  <div className="absolute top-4 left-4">
+                    <span className="rounded-full bg-[#C9A84C] px-3 py-1 text-[0.6rem] font-bold uppercase tracking-wider text-[#0A0A0A]">
+                      {vehicle.badge}
+                    </span>
+                  </div>
+
+                  <div className="absolute top-4 right-4">
+                    <span className="rounded-full bg-black/70 border border-[#C9A84C]/25 px-3 py-1 text-[0.55rem] font-bold uppercase tracking-wider text-[#C9A84C]">
+                      {vehicle.subtitle}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Card Body */}
+                <div className="flex flex-col flex-1 p-6 space-y-4">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <h2 className="font-heading text-xl font-bold text-[#F5F0E8] group-hover:text-[#C9A84C] transition-colors">
+                        {vehicle.name}
+                      </h2>
+                      <div className="mt-1 flex items-center gap-1.5">
+                        <Star className="h-3 w-3 fill-[#C9A84C] text-[#C9A84C]" />
+                        <span className="text-[0.65rem] text-[#C9A84C] font-bold">{vehicle.rating}</span>
+                        <span className="text-[0.6rem] text-[#7C8088]">({vehicle.reviews} reviews)</span>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-[0.55rem] text-[#7C8088] uppercase font-bold tracking-wider">From</p>
+                      <p className="font-heading text-xl font-bold text-[#C9A84C]">SAR {vehicle.startingPrice}</p>
+                    </div>
+                  </div>
+
+                  {/* Capacity */}
+                  <div className="flex items-center gap-5 border-y border-[#C9A84C]/8 py-3 text-xs text-[#A1A1A6] font-medium">
+                    <div className="flex items-center gap-1.5">
+                      <Users className="h-3.5 w-3.5 text-[#C9A84C]/75" />
+                      <span>{vehicle.passengers} Passengers</span>
+                    </div>
+                    <div className="h-3 w-px bg-[#C9A84C]/15" />
+                    <div className="flex items-center gap-1.5">
+                      <Briefcase className="h-3.5 w-3.5 text-[#C9A84C]/75" />
+                      <span>{vehicle.luggage} Bags</span>
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-[0.7rem] leading-relaxed text-[#A1A1A6] line-clamp-2">
+                    {vehicle.description}
+                  </p>
+
+                  {/* Features */}
+                  <ul className="space-y-1.5">
+                    {vehicle.features.slice(0, 3).map((f) => (
+                      <li key={f} className="flex items-center gap-2 text-[0.65rem] text-[#A1A1A6]">
+                        <span className="text-[#C9A84C] font-bold shrink-0">✓</span>
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* CTA Buttons */}
+                  <div className="mt-auto grid grid-cols-2 gap-3 pt-3">
+                    <Link
+                      href={`/book?vehicle=${vehicle.slug}`}
+                      className="flex items-center justify-center gap-1.5 rounded-full bg-[#C9A84C] py-3 text-[0.65rem] font-bold uppercase tracking-wider text-[#0A0A0A] transition-all hover:bg-[#B8963B] shadow-[0_4px_14px_rgba(201,168,76,0.25)]"
+                    >
+                      <span>Book Now</span>
+                      <ChevronRight className="h-3.5 w-3.5" />
+                    </Link>
+                    <a
+                      href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam, I would like a quote for the ${vehicle.name} (${vehicle.subtitle})`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-1.5 rounded-full border border-[#C9A84C]/30 bg-black/25 py-3 text-[0.65rem] font-bold uppercase tracking-wider text-[#C9A84C] transition-all hover:bg-[#C9A84C]/10"
+                    >
+                      <MessageCircle className="h-3.5 w-3.5 fill-current" />
+                      <span>WA Quote</span>
+                    </a>
+                  </div>
+
+                  {/* Detail Link */}
+                  <Link
+                    href={`/fleet/${vehicle.slug}`}
+                    className="block text-center text-[0.6rem] text-[#7C8088] hover:text-[#C9A84C] transition-colors pt-1 underline underline-offset-2"
+                  >
+                    View full specs &amp; gallery →
+                  </Link>
+                </div>
+              </motion.article>
+            ))}
+          </motion.div>
+        </AnimatePresence>
+      </section>
+
+      {/* ─── BOTTOM CTA ───────────────────────────────────────────── */}
+      <section className="section-container max-w-3xl text-center pb-24">
+        <div className="rounded-3xl border border-[#C9A84C]/20 bg-[#111111] p-10 space-y-5 shadow-2xl relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-[#C9A84C]/4 to-transparent pointer-events-none rounded-3xl" />
+          <span className="text-[0.65rem] uppercase tracking-[0.2em] text-[#C9A84C] font-bold">Custom Fleet Request</span>
+          <h2 className="font-heading text-2xl font-bold text-[#F5F0E8]">
+            Need a specific vehicle class<br />or long-term lease?
+          </h2>
+          <p className="text-sm text-[#A1A1A6] leading-relaxed max-w-xl mx-auto">
+            Contact our dispatch team for corporate accounts, pilgrimage operators,
+            wedding planners, and exclusive long-term fleet agreements.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
+            <a
+              href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam, I am looking for a custom fleet arrangement.`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 rounded-full bg-[#C9A84C] px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-[#0A0A0A] transition-all hover:bg-[#B8963B] shadow-[0_4px_20px_rgba(201,168,76,0.3)]"
             >
-              {/* Dynamic light gold aura */}
-              <div className="absolute -left-10 -top-10 h-32 w-32 rounded-full bg-[#C9A84C]/5 blur-2xl group-hover:bg-[#C9A84C]/10 transition-colors pointer-events-none" />
-
-              <div>
-                {/* Car Header */}
-                <div className="flex items-center justify-between">
-                  <span className="text-[0.65rem] uppercase tracking-[0.18em] text-[#C9A84C] font-bold">
-                    {car.type}
-                  </span>
-                </div>
-
-                <h2 className="mt-3 font-heading text-2xl font-bold text-[#F5F0E8] group-hover:text-[#C9A84C] transition-colors">
-                  {car.name}
-                </h2>
-
-                {/* Capacity Badges */}
-                <div className="mt-4 flex items-center gap-4 border-b border-[#C9A84C]/10 pb-4 text-xs text-[#A1A1A6] font-medium">
-                  <div className="flex items-center gap-1.5">
-                    <Users className="h-3.5 w-3.5 text-[#C9A84C]/80" />
-                    <span>
-                      {car.passengers} {t.passengers}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <Briefcase className="h-3.5 w-3.5 text-[#C9A84C]/80" />
-                    <span>
-                      {car.luggage} {t.luggage}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Features Checklist */}
-                <ul className="mt-6 space-y-3 text-xs text-[#A1A1A6]">
-                  {car.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-2.5">
-                      <span className="text-[#C9A84C] shrink-0 font-bold">✓</span>
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Booking Action button at the bottom */}
-              <div className="mt-8 pt-4">
-                <Link
-                  href="/#booking"
-                  className="flex items-center justify-center gap-2 w-full rounded-full border border-[#C9A84C]/35 bg-black/20 py-3 text-xs font-bold uppercase tracking-wider text-[#C9A84C] transition-all hover:bg-[#C9A84C] hover:text-[#0A0A0A]"
-                >
-                  <span>{t.bookNow}</span>
-                  <ChevronRight className="h-3.5 w-3.5" />
-                </Link>
-              </div>
-            </motion.article>
-          ))}
+              <MessageCircle className="h-4 w-4 fill-current" />
+              WhatsApp Fleet Manager
+            </a>
+            <Link
+              href="/contact"
+              className="flex items-center gap-2 rounded-full border border-[#C9A84C]/30 px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-[#C9A84C] transition-all hover:bg-[#C9A84C]/10"
+            >
+              Send Inquiry Form
+            </Link>
+          </div>
         </div>
       </section>
     </div>
