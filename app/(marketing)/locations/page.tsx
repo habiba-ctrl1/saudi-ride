@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Plane, Building2, Award, Star, MessageCircle, ChevronRight, Landmark } from "lucide-react";
+import { MapPin, Plane, Building2, Award, MessageCircle, ChevronRight, Landmark } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { contactConfig } from "@/lib/config/contact";
@@ -18,8 +18,9 @@ const LOCATIONS = [
     tagline: "The Holiest City on Earth",
     airports: ["Jeddah KAI Airport (80 km)"],
     popularRoutes: ["JED Airport → Makkah", "Makkah → Madinah", "Makkah → Taif"],
-    startingPrice: 180,
+    startingPrice: 150,
     note: "No-go zone for non-Muslims. All chauffeurs are Muslim & trained for respectful pilgrimage service.",
+    slug: "makkah"
   },
   {
     id: "madinah",
@@ -30,8 +31,9 @@ const LOCATIONS = [
     tagline: "City of the Prophet ﷺ",
     airports: ["Prince Mohammad Bin Abdulaziz Airport (MED)"],
     popularRoutes: ["Madinah → JED Airport", "Madinah → Makkah", "MED Airport → Hotels"],
-    startingPrice: 350,
+    startingPrice: 80,
     note: "Transfers to Al-Masjid Al-Nabawi, Quba Mosque, Al-Baqi' and all Ziyarah points.",
+    slug: "madinah"
   },
   // Major Cities
   {
@@ -45,6 +47,7 @@ const LOCATIONS = [
     popularRoutes: ["RUH Airport → City", "Riyadh → Dammam", "Riyadh → Jeddah"],
     startingPrice: 100,
     note: "Full city coverage: KAFD, Olaya, Diplomatic Quarter, King Abdullah Financial District.",
+    slug: "riyadh"
   },
   {
     id: "jeddah",
@@ -57,6 +60,7 @@ const LOCATIONS = [
     popularRoutes: ["JED → Makkah", "JED → Madinah", "JED → Taif", "JED → KAEC"],
     startingPrice: 80,
     note: "Terminal 1 (International), North Terminal (Domestic), and Hajj Terminal all covered.",
+    slug: "jeddah"
   },
   {
     id: "dammam",
@@ -69,6 +73,33 @@ const LOCATIONS = [
     popularRoutes: ["DMM → Al Khobar", "Dammam → Doha", "Dammam → Riyadh"],
     startingPrice: 120,
     note: "Covers Al Khobar, Dhahran, Jubail, and King Fahd Causeway (Bahrain border) transfers.",
+    slug: "dammam"
+  },
+  {
+    id: "alkhobar",
+    name: "Al-Khobar",
+    nameAr: "الخبر",
+    category: "city",
+    image: "https://images.unsplash.com/photo-1582236940866-24ba00daea8a?auto=format&fit=crop&w=800&q=80",
+    tagline: "The Coastal Resort City",
+    airports: ["King Fahd International Airport (DMM)"],
+    popularRoutes: ["Khobar → DMM Airport", "Khobar → Bahrain"],
+    startingPrice: 150,
+    note: "Corporate transfers and Bahrain causeway VIP transport.",
+    slug: "alkhobar"
+  },
+  {
+    id: "yanbu",
+    name: "Yanbu",
+    nameAr: "ينبع",
+    category: "city",
+    image: "https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=800&q=80",
+    tagline: "The Pearl of the Red Sea",
+    airports: ["Prince Abdul Mohsin bin Abdulaziz Airport (YNB)"],
+    popularRoutes: ["YNB Airport → City", "Yanbu → Madinah", "Yanbu → Jeddah"],
+    startingPrice: 100,
+    note: "Transfers to Yanbu Industrial City and Royal Commission areas.",
+    slug: "yanbu"
   },
   // Tourism
   {
@@ -79,9 +110,10 @@ const LOCATIONS = [
     image: "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=800&q=80",
     tagline: "Saudi Arabia's Archaeological Wonder",
     airports: ["Prince Abdulmajeed Airport (ULH)"],
-    popularRoutes: ["Riyadh → AlUla", "Jeddah → AlUla", "AlUla → NEOM"],
-    startingPrice: 1100,
+    popularRoutes: ["ULH Airport → Resorts", "Riyadh → AlUla", "Jeddah → AlUla"],
+    startingPrice: 150,
     note: "Transfers to Hegra (Mada'in Salih), Dadan, Jabal Ikmah, and all luxury resort camps.",
+    slug: "alula"
   },
   {
     id: "neom",
@@ -90,10 +122,11 @@ const LOCATIONS = [
     category: "tourism",
     image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80",
     tagline: "The Future Giga-City",
-    airports: ["Prince Sultan Bin Abdulaziz Airport (TUU)"],
-    popularRoutes: ["Riyadh → NEOM", "Jeddah → NEOM", "AlUla → NEOM"],
-    startingPrice: 1400,
+    airports: ["Prince Sultan Bin Abdulaziz Airport (TUU)", "NEOM Bay Airport (NUM)"],
+    popularRoutes: ["Tabuk → NEOM", "NUM Airport → Sindalah"],
+    startingPrice: 200,
     note: "Gateway transfers to The LINE, Sindalah Island, Aqaba coastal area, and Sharma resort.",
+    slug: "neom"
   },
   {
     id: "taif",
@@ -103,9 +136,10 @@ const LOCATIONS = [
     image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80",
     tagline: "City of Roses & Mountain Resorts",
     airports: ["Taif Regional Airport (TIF)"],
-    popularRoutes: ["Jeddah → Taif", "Makkah → Taif", "Taif Cable Car Area"],
-    startingPrice: 200,
+    popularRoutes: ["TIF Airport → City", "Jeddah → Taif", "Makkah → Taif"],
+    startingPrice: 100,
     note: "Scenic mountain road transfers to Rose Festival areas, Al-Hada, and Shafa resort zone.",
+    slug: "taif"
   },
   {
     id: "abha",
@@ -116,33 +150,9 @@ const LOCATIONS = [
     tagline: "Cloud City & Green Mountains",
     airports: ["Abha International Airport (AHB)"],
     popularRoutes: ["AHB Airport → City", "Abha → Rijal Alma", "Abha → Soudah Peak"],
-    startingPrice: 150,
+    startingPrice: 120,
     note: "Mountain tourism transfers across the Asir highlands — ideal for nature tourism escapes.",
-  },
-  // International
-  {
-    id: "dubai",
-    name: "Dubai, UAE",
-    nameAr: "دبي، الإمارات",
-    category: "international",
-    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80",
-    tagline: "GCC Cross-Border Transfer",
-    airports: ["Via Riyadh or Dammam (Road)"],
-    popularRoutes: ["Riyadh → Dubai", "Dammam → Dubai", "Dubai → Riyadh"],
-    startingPrice: 1200,
-    note: "Licensed cross-border GCC operation. Saudi & UAE transit documentation handled.",
-  },
-  {
-    id: "doha",
-    name: "Doha, Qatar",
-    nameAr: "الدوحة، قطر",
-    category: "international",
-    image: "https://images.unsplash.com/photo-1572116469696-31de0f17cc34?auto=format&fit=crop&w=800&q=80",
-    tagline: "Qatar Border — King Fahd Causeway",
-    airports: ["Via King Fahd Causeway"],
-    popularRoutes: ["Dammam → Doha", "Al Khobar → Doha", "Doha → Dammam"],
-    startingPrice: 500,
-    note: "Premium road transfer via Abu Samra border crossing. Qatar entry documentation guidance provided.",
+    slug: "abha"
   },
 ];
 
@@ -151,7 +161,6 @@ const CATEGORIES = [
   { key: "holy", label: "Holy Cities", icon: Landmark },
   { key: "city", label: "Major Cities", icon: Building2 },
   { key: "tourism", label: "Tourism", icon: Award },
-  { key: "international", label: "GCC International", icon: Plane },
 ];
 
 const fadeUp = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0 } };
@@ -176,29 +185,12 @@ export default function LocationsPage() {
             </span>
             <h1 className="mt-6 font-heading text-4xl font-bold leading-tight md:text-6xl">
               We Operate Across<br />
-              <span className="text-[#C9A84C]">All of Saudi Arabia & GCC</span>
+              <span className="text-[#C9A84C]">Saudi Arabia & Beyond</span>
             </h1>
             <p className="mt-6 max-w-2xl text-sm md:text-base leading-relaxed text-[#A1A1A6]">
               From the Holy Cities of Makkah and Madinah to the futuristic NEOM — we provide
-              fixed-price VIP transfers across 11 destinations with airport-to-hotel precision.
+              fixed-price VIP transfers across the Kingdom with airport-to-hotel precision.
             </p>
-          </motion.div>
-
-          <motion.div
-            initial="hidden" animate="show" variants={fadeUp} transition={{ duration: 0.6, delay: 0.15 }}
-            className="mt-10 flex flex-wrap gap-5"
-          >
-            {[
-              { v: "11", l: "Cities Covered" },
-              { v: "4", l: "Countries" },
-              { v: "24/7", l: "Operations" },
-              { v: "Fixed", l: "All-Inclusive Price" },
-            ].map((s) => (
-              <div key={s.l} className="flex flex-col">
-                <span className="font-heading text-2xl font-bold text-[#C9A84C]">{s.v}</span>
-                <span className="text-[0.65rem] text-[#7C8088] font-bold uppercase tracking-wider">{s.l}</span>
-              </div>
-            ))}
           </motion.div>
         </div>
       </section>
@@ -267,14 +259,6 @@ export default function LocationsPage() {
                       {CATEGORIES.find((c) => c.key === loc.category)?.label}
                     </span>
                   </div>
-
-                  {/* Price badge */}
-                  <div className="absolute top-4 right-4">
-                    <div className="rounded-full bg-black/70 border border-[#C9A84C]/25 px-3 py-1 text-center">
-                      <p className="text-[0.5rem] text-[#7C8088] font-bold uppercase">From</p>
-                      <p className="text-xs font-bold text-[#C9A84C]">SAR {loc.startingPrice}</p>
-                    </div>
-                  </div>
                 </div>
 
                 {/* Content */}
@@ -298,17 +282,6 @@ export default function LocationsPage() {
                     ))}
                   </div>
 
-                  {/* Popular routes */}
-                  <div className="space-y-1.5">
-                    <p className="text-[0.55rem] uppercase font-bold tracking-wider text-[#7C8088]">Popular Transfers</p>
-                    {loc.popularRoutes.map((r) => (
-                      <div key={r} className="flex items-center gap-1.5 text-[0.65rem] text-[#A1A1A6]">
-                        <Star className="h-3 w-3 text-[#C9A84C]/60 shrink-0" />
-                        <span>{r}</span>
-                      </div>
-                    ))}
-                  </div>
-
                   {/* Note */}
                   <p className="text-[0.6rem] leading-relaxed text-[#7C8088] italic border-l-2 border-[#C9A84C]/20 pl-3">
                     {loc.note}
@@ -317,10 +290,10 @@ export default function LocationsPage() {
                   {/* CTAs */}
                   <div className="grid grid-cols-2 gap-3 pt-2 mt-auto">
                     <Link
-                      href={`/book?pickup=${encodeURIComponent(loc.name)}`}
+                      href={`/locations/${loc.slug}`}
                       className="flex items-center justify-center gap-1.5 rounded-full bg-[#C9A84C] py-3 text-[0.65rem] font-bold uppercase tracking-wider text-[#0A0A0A] hover:bg-[#B8963B] transition-all"
                     >
-                      Book Now <ChevronRight className="h-3.5 w-3.5" />
+                      View City <ChevronRight className="h-3.5 w-3.5" />
                     </Link>
                     <a
                       href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam, I need a transfer to/from ${loc.name}.`}
@@ -337,32 +310,6 @@ export default function LocationsPage() {
             ))}
           </motion.div>
         </AnimatePresence>
-
-        {/* Custom location CTA */}
-        <div className="mt-14 rounded-3xl border border-[#C9A84C]/20 bg-[#111111] p-8 text-center space-y-4">
-          <span className="text-[0.65rem] uppercase tracking-[0.2em] text-[#C9A84C] font-bold">Custom Transfer</span>
-          <h2 className="font-heading text-2xl font-bold">Your location not listed?</h2>
-          <p className="text-sm text-[#A1A1A6] max-w-lg mx-auto">
-            We cover every corner of Saudi Arabia. Message our concierge and get a fixed price within 15 minutes.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4 pt-2">
-            <a
-              href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam, I need a transfer to a custom location.`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full bg-[#C9A84C] px-7 py-3.5 text-xs font-bold uppercase text-[#0A0A0A] hover:bg-[#B8963B] transition-all shadow-[0_4px_20px_rgba(201,168,76,0.3)]"
-            >
-              <MessageCircle className="h-4 w-4 fill-current" />
-              Contact Concierge
-            </a>
-            <Link
-              href="/routes"
-              className="flex items-center gap-2 rounded-full border border-[#C9A84C]/30 px-7 py-3.5 text-xs font-bold uppercase text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
-            >
-              View All Routes
-            </Link>
-          </div>
-        </div>
       </section>
     </div>
   );

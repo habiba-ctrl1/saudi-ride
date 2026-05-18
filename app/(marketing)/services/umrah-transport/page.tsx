@@ -1,0 +1,247 @@
+import { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { Landmark, Languages, ShieldCheck, HeartHandshake, CheckCircle2, MessageCircle } from "lucide-react";
+import { contactConfig } from "@/lib/config/contact";
+
+export const metadata: Metadata = {
+  title: "Premium Umrah Taxi & VIP Transport | Riyadh Luxe Taxi",
+  description: "Spiritual, comfortable, and reliable Umrah transportation. We offer VIP transfers from Jeddah to Makkah, Madinah Ziyarat tours, and multi-lingual chauffeurs.",
+};
+
+const PACKAGES = [
+  {
+    title: "Airport to Makkah (One-Way)",
+    desc: "Direct VIP transfer from Jeddah Airport to your Makkah hotel.",
+    price: "From SAR 180",
+    features: ["Meet & Greet at Arrivals", "Luggage Assistance", "Zamzam Water Provided", "Direct Haram Drop-off"]
+  },
+  {
+    title: "Full Umrah Package",
+    desc: "Complete transport solution for your entire journey.",
+    price: "From SAR 1,200",
+    features: ["JED to Makkah", "Makkah to Madinah", "Madinah to Airport", "24/7 Support via WhatsApp"]
+  },
+  {
+    title: "Ziyarat Tours (Makkah or Madinah)",
+    desc: "4-hour guided transport to historical Islamic sites.",
+    price: "From SAR 250",
+    features: ["Jabal Al-Nour / Quba Mosque", "Knowledgeable Driver", "Flexible Timing", "Comfortable SUV/Van"]
+  }
+];
+
+const TESTIMONIALS = [
+  {
+    quote: "Our driver was extremely respectful and spoke fluent Urdu, which helped my parents immensely. The SUV was pristine. Made our Umrah journey so peaceful.",
+    author: "Tariq Mahmood",
+    location: "UK"
+  },
+  {
+    quote: "We booked the full package. From landing in Jeddah to our Ziyarat in Madinah, the service was flawless. They even guided us on the best time to visit the Rawdah.",
+    author: "Fatima Al-Sayed",
+    location: "UAE"
+  }
+];
+
+const FAQS = [
+  {
+    q: "Where do you drop us off in Makkah?",
+    a: "We drop you off directly at your hotel's lobby. If your hotel is located on the immediate Haram boundary where vehicles are restricted during prayer times, we will safely drop you at the closest permitted security checkpoint."
+  },
+  {
+    q: "What languages do your drivers speak?",
+    a: "We understand pilgrims come from all over the world. We offer chauffeurs who speak fluent Arabic, English, Urdu, and Hindi. You can request a specific language during booking."
+  },
+  {
+    q: "Can you take us to the Miqat if we forgot to enter Ihram?",
+    a: "Yes. If you land in Jeddah and need to assume Ihram, we can arrange a dedicated trip to the nearest Miqat (Al-Juhfah) before heading to Makkah."
+  }
+];
+
+export default function UmrahTransportPage() {
+  return (
+    <main className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pb-24">
+      {/* ─── HERO ─────────────────────────────────────────────────── */}
+      <section className="relative pt-32 pb-20 overflow-hidden border-b border-[#C9A84C]/10">
+        <div className="absolute inset-0 z-0">
+          <Image 
+            src="https://images.unsplash.com/photo-1591604466107-ec97de577aff?auto=format&fit=crop&w=1920&q=80" 
+            alt="Makkah Umrah Pilgrimage" 
+            fill 
+            className="object-cover opacity-30" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/80 to-[#0A0A0A]/40" />
+        </div>
+
+        <div className="section-container relative z-10 max-w-5xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 backdrop-blur-md px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-6">
+            <Landmark className="h-3 w-3" /> Spiritual Journeys
+          </span>
+          <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+            Premium Transport for <br />
+            <span className="text-[#C9A84C]">Your Sacred Journey</span>
+          </h1>
+          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#A1A1A6] leading-relaxed mb-10">
+            Serving the Guests of Allah with dignity, comfort, and unmatched reliability. From Jeddah Airport arrivals to complete Ziyarat tours in Madinah.
+          </p>
+          <div className="flex justify-center gap-4">
+            <Link
+              href="/book"
+              className="inline-flex items-center gap-2 rounded-full bg-[#C9A84C] px-8 py-3.5 text-xs font-bold uppercase text-[#0A0A0A] hover:bg-[#B8963B] transition-all"
+            >
+              Book Umrah Transfer
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── KNOWLEDGE SECTION ────────────────────────────────────── */}
+      <section className="section-container max-w-6xl py-20 border-b border-[#C9A84C]/10">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="space-y-8">
+            <div>
+              <h2 className="font-heading text-3xl font-bold mb-4">Dedicated to Pilgrims</h2>
+              <p className="text-[#A1A1A6] leading-relaxed">
+                We understand that Umrah is a profoundly physical and spiritual undertaking. Our drivers are trained specifically in the logistics of Makkah and Madinah to ensure you face zero transport stress.
+              </p>
+            </div>
+            
+            <div className="space-y-6">
+              <div className="flex gap-4">
+                <div className="bg-[#C9A84C]/10 p-3 rounded-xl h-fit">
+                  <Languages className="h-6 w-6 text-[#C9A84C]" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-[#F5F0E8] mb-1">Multi-Lingual Chauffeurs</h4>
+                  <p className="text-sm text-[#A1A1A6]">Our team includes drivers fluent in Arabic, English, and Urdu to ensure perfect communication with you and your family.</p>
+                </div>
+              </div>
+              
+              <div className="flex gap-4">
+                <div className="bg-[#C9A84C]/10 p-3 rounded-xl h-fit">
+                  <ShieldCheck className="h-6 w-6 text-[#C9A84C]" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-[#F5F0E8] mb-1">Haram Drop-Off Expertise</h4>
+                  <p className="text-sm text-[#A1A1A6]">Navigating road closures during Salah (prayer) times requires deep local knowledge. We guarantee the closest possible legal drop-off to your hotel.</p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="bg-[#C9A84C]/10 p-3 rounded-xl h-fit">
+                  <HeartHandshake className="h-6 w-6 text-[#C9A84C]" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-[#F5F0E8] mb-1">Elderly & Family Friendly</h4>
+                  <p className="text-sm text-[#A1A1A6]">Spacious SUVs and Vans available with ample room for wheelchairs, large luggage, and large families.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="relative h-[500px] rounded-3xl overflow-hidden border border-[#C9A84C]/20">
+            <Image src="https://images.unsplash.com/photo-1564769662533-4f00a87b4056?auto=format&fit=crop&w=1000&q=80" alt="Madinah Ziyarat Transport" fill className="object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] to-transparent" />
+            <div className="absolute bottom-8 left-8 right-8">
+              <div className="bg-[#111]/90 backdrop-blur-md p-6 rounded-2xl border border-[#C9A84C]/30">
+                <p className="text-xs text-[#C9A84C] font-bold uppercase tracking-wider mb-2">Ziyarat Guidance</p>
+                <p className="text-sm text-[#F5F0E8]">Our drivers can guide you to all historical sites including Jabal Uhud, Quba Mosque, and Jabal Al-Nour with dedicated waiting time.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── PACKAGES ─────────────────────────────────────────────── */}
+      <section className="section-container max-w-7xl py-20">
+        <div className="text-center mb-16">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">Umrah Transport Packages</h2>
+          <p className="text-[#A1A1A6]">Choose the transport tier that fits your pilgrimage needs.</p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          {PACKAGES.map((pkg, i) => (
+            <div key={i} className="bg-[#111] border border-[#C9A84C]/15 rounded-3xl p-8 flex flex-col hover:border-[#C9A84C]/40 transition-colors">
+              <h3 className="font-heading text-xl font-bold mb-2 text-[#F5F0E8]">{pkg.title}</h3>
+              <p className="text-sm text-[#A1A1A6] mb-6 min-h-[40px]">{pkg.desc}</p>
+              <div className="text-2xl font-bold text-[#C9A84C] mb-8">{pkg.price}</div>
+              
+              <ul className="space-y-4 mb-8 flex-1">
+                {pkg.features.map((feat, idx) => (
+                  <li key={idx} className="flex items-start gap-3 text-sm text-[#A1A1A6]">
+                    <CheckCircle2 className="h-4 w-4 text-[#C9A84C] shrink-0 mt-0.5" />
+                    {feat}
+                  </li>
+                ))}
+              </ul>
+
+              <Link
+                href="/book"
+                className="w-full text-center rounded-full border border-[#C9A84C]/30 py-3 text-xs font-bold uppercase text-[#C9A84C] hover:bg-[#C9A84C] hover:text-[#0A0A0A] transition-all"
+              >
+                Select Package
+              </Link>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ─── TESTIMONIALS ─────────────────────────────────────────── */}
+      <section className="bg-[#111] py-20 border-y border-[#C9A84C]/10">
+        <div className="section-container max-w-5xl">
+          <h2 className="font-heading text-3xl font-bold mb-12 text-center">Words from Pilgrims</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            {TESTIMONIALS.map((test, i) => (
+              <div key={i} className="bg-[#0A0A0A] p-8 rounded-3xl border border-[#C9A84C]/10">
+                <p className="text-[#A1A1A6] italic leading-relaxed mb-6">&quot;{test.quote}&quot;</p>
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-full bg-[#C9A84C]/20 flex items-center justify-center text-[#C9A84C] font-bold">
+                    {test.author.charAt(0)}
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-[#F5F0E8]">{test.author}</p>
+                    <p className="text-xs text-[#7C8088]">{test.location}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── FAQ ──────────────────────────────────────────────────── */}
+      <section className="section-container max-w-4xl py-20">
+        <h2 className="font-heading text-3xl font-bold mb-12 text-center">Umrah Transport FAQ</h2>
+        <div className="space-y-6">
+          {FAQS.map((faq, i) => (
+            <div key={i} className="bg-[#111] border border-[#C9A84C]/15 rounded-2xl p-6">
+              <h4 className="font-bold text-[#F5F0E8] mb-3 flex items-start gap-3">
+                <CheckCircle2 className="h-5 w-5 text-[#C9A84C] shrink-0 mt-0.5" />
+                {faq.q}
+              </h4>
+              <p className="text-sm text-[#A1A1A6] leading-relaxed pl-8">{faq.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ─── CTA ──────────────────────────────────────────────────── */}
+      <section className="section-container max-w-5xl pb-20">
+        <div className="bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] border border-[#C9A84C]/30 rounded-3xl p-12 text-center">
+          <h2 className="font-heading text-2xl font-bold mb-4 text-[#F5F0E8]">Have custom itinerary requirements?</h2>
+          <p className="text-[#A1A1A6] mb-8 max-w-lg mx-auto">
+            Our team is available 24/7 on WhatsApp to help you plan complex family itineraries across Makkah and Madinah.
+          </p>
+          <a
+            href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam, I need help planning my Umrah transportation.`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C] px-8 py-4 text-xs font-bold uppercase text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
+          >
+            <MessageCircle className="h-4 w-4" /> Message on WhatsApp
+          </a>
+        </div>
+      </section>
+    </main>
+  );
+}

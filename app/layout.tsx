@@ -6,6 +6,7 @@ import { Providers } from "@/components/providers";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/shared/WhatsAppButton";
+import { Analytics } from "@vercel/analytics/react";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -146,6 +147,7 @@ export default function RootLayout({
           </main>
           <Footer />
           <WhatsAppButton />
+          <Analytics />
         </Providers>
       </body>
     </html>

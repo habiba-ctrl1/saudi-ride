@@ -1,3 +1,5 @@
+export const revalidate = 86400; // revalidate every 24 hours
+
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -110,8 +112,38 @@ export default async function VehicleDetailPage({
 
   const waLink = `https://wa.me/${contactConfig.whatsappNumber}?text=Salam, I would like to book the ${vehicle.name} (${vehicle.subtitle}). Please share availability and pricing.`;
 
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": vehicle.name,
+    "image": vehicle.image,
+    "description": vehicle.description,
+    "brand": {
+      "@type": "Brand",
+      "name": "Riyadh Luxe Taxi"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": `https://riyadhluxetaxi.com/fleet/${vehicle.slug}`,
+      "priceCurrency": "SAR",
+      "price": vehicle.startingPrice,
+      "priceValidUntil": "2027-12-31",
+      "availability": "https://schema.org/InStock",
+      "itemCondition": "https://schema.org/NewCondition"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": vehicle.rating,
+      "reviewCount": vehicle.reviews
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
 
       {/* ─── HERO IMAGE ───────────────────────────────────────────── */}
       <section className="relative h-[55vh] min-h-[380px] w-full overflow-hidden">

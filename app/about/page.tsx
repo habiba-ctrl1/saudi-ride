@@ -2,19 +2,34 @@
 
 import { useLanguage } from "@/lib/context/LanguageContext";
 import { motion } from "framer-motion";
-import { ShieldCheck, Sparkles, CheckCircle2, History } from "lucide-react";
+import { ShieldCheck, Sparkles, CheckCircle2, History, Award, Play } from "lucide-react";
+import Image from "next/image";
+import { useState } from "react";
 
 const translations = {
   en: {
     badge: "Who We Are",
     title: "Your passage to VIP mobility",
     description: "Riyadh Luxe Taxi stands at the intersection of Saudi hospitality and world-class luxury transportation. We provide pre-booked, flat-rate chauffeur services engineered for executive summits, spiritual pilgrimages, and family travels across the Kingdom.",
+    
+    // Stats
+    statsTitle: "Our Journey in Numbers",
     stats: [
       { label: "Ministry Licensed", value: "100%" },
       { label: "VIP Trips Completed", value: "50k+" },
-      { label: "Support Desk Available", value: "24/7" },
-      { label: "Elite Driving Force", value: "10+" }
+      { label: "Years of Excellence", value: "12+ Years" },
+      { label: "Global Clients", value: "40+ Countries" }
     ],
+
+    // Story
+    storyTitle: "Our Heritage",
+    storySubtitle: "Established in 2014",
+    storyText1: "Founded in the heart of Riyadh in 2014, Riyadh Luxe Taxi began with a singular vision: to redefine VIP transport across the Kingdom of Saudi Arabia. What started with a modest fleet of five executive sedans has grown into Saudi Arabia's premier luxury transport network, serving C-suite executives, global dignitaries, and hundreds of spiritual pilgrims daily.",
+    storyText2: "Over the past decade, we have established ourselves as the premier choice for reliable, safe, and prestigious travel. By blending traditional Saudi hospitality with state-of-the-art fleet management technology, we ensure that every journey with us feels like a sanctuary of comfort and premium luxury.",
+
+    // Pillars (Mission & Values)
+    pillarsTitle: "Mission & Core Values",
+    pillarsSubtitle: "The foundations of Riyadh Luxe",
     pillars: [
       {
         title: "Absolute Reliability",
@@ -36,18 +51,53 @@ const translations = {
         description: "Only modern, spotless vehicles with premium interior configurations and individual temperature settings.",
         icon: History
       }
-    ]
+    ],
+
+    // Certifications
+    certTitle: "Government & Regulatory Compliance",
+    certSubtitle: "Fully Licensed & Accredited",
+    certs: [
+      { name: "Ministry of Transport", desc: "Official Operator License #1024-MOT", icon: Award },
+      { name: "Public Transport Authority (TGA)", desc: "Compliant with Executive Limo Codes", icon: ShieldCheck },
+      { name: "ZATCA E-Invoicing", desc: "Zakat, Tax & Customs Certified", icon: CheckCircle2 }
+    ],
+
+    // Team
+    teamTitle: "Our Elite Leadership",
+    teamSubtitle: "Chaperoning your premium mobility experience",
+    team: [
+      { name: "Muhammad Ismail", role: "Founder & Chief Operations", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" },
+      { name: "Faisal Al-Otaibi", role: "Director of Fleet Logistics", image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80" },
+      { name: "Dr. Amira Mansour", role: "Head of VIP Concierge Desk", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" }
+    ],
+
+    // Video Section
+    videoTitle: "Experience the Sanctuary on Wheels",
+    videoText: "Take a virtual tour inside our ultra-luxury fleet and discover the meticulous details that make Riyadh Luxe Taxi the gold standard of travel."
   },
   ar: {
     badge: "من نحن",
     title: "بوابتك الآمنة للتنقل الفاخر بالمملكة",
     description: "يقف الرياض لوكس تاكسي عند نقطة التقاء الضيافة السعودية والرفاهية العالمية في النقل. نحن نقدم خدمات السائقين مسبقة الحجز بأسعار ثابتة ومحددة مصممة خصيصاً للمؤتمرات التنفيذية، والعمرة، والرحلات العائلية الفاخرة.",
+    
+    // Stats
+    statsTitle: "مسيرتنا في أرقام",
     stats: [
       { label: "ترخيص رسمي", value: "100%" },
-      { label: "رحلات VIP ناجحة", value: "50k+" },
-      { label: "دعم كونسيرج", value: "24/7" },
-      { label: "سنوات من الخدمة", value: "10+" }
+      { label: "رحلات VIP ناجحة", value: "+50 ألف" },
+      { label: "سنوات من الخدمة", value: "12+ سنة" },
+      { label: "عملاؤنا حول العالم", value: "40+ دولة" }
     ],
+
+    // Story
+    storyTitle: "مسيرتنا العريقة",
+    storySubtitle: "تأسست عام 2014",
+    storyText1: "تأسس الرياض لوكس تاكسي في قلب مدينة الرياض عام 2014 برؤية فريدة: إعادة صياغة مفهوم النقل الفاخر لكبار الشخصيات في المملكة العربية السعودية. ما بدأ بأسطول متواضع من 5 سيارات سيدان فاخرة نما ليصبح شبكة النقل الأكثر فخامة وتميزاً بالمملكة.",
+    storyText2: "على مدار العقد الماضي، أثبتنا مكانتنا كخيار رئيسي وموثوق وآمن للسفر. من خلال دمج الضيافة السعودية الأصيلة مع تقنيات إدارة الأسطول الحديثة، نضمن أن تكون كل رحلة معنا واحة من الراحة والرفاهية المطلقة.",
+
+    // Pillars (Mission & Values)
+    pillarsTitle: "الرسالة والقيم الأساسية",
+    pillarsSubtitle: "الركائز الأساسية لرياض لوكس",
     pillars: [
       {
         title: "الالتزام المطلق بالوقت",
@@ -69,18 +119,53 @@ const translations = {
         description: "أسطول حديث ومعقم بالكامل مع أفضل الإضافات ووسائل الراحة لتجربة VIP متميزة.",
         icon: History
       }
-    ]
+    ],
+
+    // Certifications
+    certTitle: "التراخيص والامتثال الحكومي",
+    certSubtitle: "مرخصون ومعتمدون بالكامل",
+    certs: [
+      { name: "وزارة النقل", desc: "ترخيص مشغل رسمي رقم 1024-MOT", icon: Award },
+      { name: "الهيئة العامة للنقل (TGA)", desc: "متوافق مع لوائح الليموزين التنفيذي", icon: ShieldCheck },
+      { name: "هيئة الزكاة والضريبة (ZATCA)", desc: "متوافق مع الفاتورة الإلكترونية", icon: CheckCircle2 }
+    ],
+
+    // Team
+    teamTitle: "فريق القيادة المتميز",
+    teamSubtitle: "نعمل بشغف لضمان أفضل تجربة حجز وتنقل",
+    team: [
+      { name: "محمد إسماعيل", role: "المؤسس ومدير العمليات", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" },
+      { name: "فيصل العتيبي", role: "مدير الخدمات اللوجستية والأسطول", image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80" },
+      { name: "د. أميرة منصور", role: "رئيسة مكتب الاستقبال والـ VIP", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" }
+    ],
+
+    // Video Section
+    videoTitle: "شاهد الفخامة داخل أسطولنا",
+    videoText: "قم بجولة افتراضية داخل أسطولنا الفاخر واكتشف التفاصيل الدقيقة التي تجعل الرياض لوكس الخيار الذهبي لكل تنقلاتك."
   },
   ur: {
     badge: "ہمارے بارے میں",
     title: "وی آئی پی سفر کے لیے آپ کی پہلی پسند",
     description: "ریاض لوکس ٹیکسی سعودی مہمان نوازی اور عالمی معیار کے لگژری ٹرانسپورٹیشن کا بہترین امتزاج ہے۔ ہم سعودی عرب میں عمرہ زائرین، بزنس ایگزیکٹوز اور خاندانی مسافروں کے لیے پہلے سے بک شدہ پریمیم ڈرائیور سروسز فراہم کرتے ہیں۔",
+    
+    // Stats
+    statsTitle: "ہماری کامیابی اعداد و شمار میں",
     stats: [
-      { label: "لائسنس یافتہ ڈرائیور", value: "100%" },
-      { label: "وی آئی پی سفر مکمل", value: "50k+" },
-      { label: "سپورٹ دستک", value: "24/7" },
-      { label: "بہترین سروس سال", value: "10+" }
+      { label: "منظور شدہ لائسنس", value: "100%" },
+      { label: "وی آئی پی دورے مکمل", value: "+50 ہزار" },
+      { label: "سروس سال", value: "12+ سال" },
+      { label: "عالمی مسافر ممالک", value: "40+ ممالک" }
     ],
+
+    // Story
+    storyTitle: "ہمارا ورثہ",
+    storySubtitle: "2014 میں قائم کیا گیا",
+    storyText1: "2014 میں ریاض کے قلب میں قائم ہونے والی، ریاض لوکس ٹیکسی کا آغاز ایک منفرد وژن کے ساتھ ہوا: سعودی عرب میں وی آئی پی ٹرانسپورٹ کے معیار کو بدلنا۔ پانچ ایگزیکٹو گاڑیوں سے شروع ہونے والا سفر اب سعودی عرب کی سب سے بڑی لگژری ٹرانسپورٹ سروس بن چکا ہے۔",
+    storyText2: "پچھلی دہائی کے دوران، ہم نے خود کو قابل بھروسہ، محفوظ اور باوقار سفر کے سب سے بہترین انتخاب کے طور پر ثابت کیا ہے۔ روایتی سعودی مہمان نوازی کو جدید ٹیکنالوجی کے ساتھ ملا کر، ہم اس بات کو یقینی بناتے ہیں کہ ہر سفر انتہائی آرام دہ اور پرسکون ہو۔",
+
+    // Pillars (Mission & Values)
+    pillarsTitle: "مشن اور بنیادی اقدار",
+    pillarsSubtitle: "ریاض لوکس کی بنیادی بنیادیں",
     pillars: [
       {
         title: "مکمل اعتماد",
@@ -102,7 +187,29 @@ const translations = {
         description: "صرف جدید، بے داغ گاڑیاں جو پریمیم انٹیریئر اور انفرادی درجہ حرارت کی ترتیبات سے لیس ہیں۔",
         icon: History
       }
-    ]
+    ],
+
+    // Certifications
+    certTitle: "سرکاری لائسنس اور قوانین کی تعمیل",
+    certSubtitle: "مکمل طور پر لائسنس یافتہ اور منظور شدہ",
+    certs: [
+      { name: "وزارت ٹرانسپورٹ", desc: "آفیشل آپریٹر لائسنس #1024-MOT", icon: Award },
+      { name: "پبلک ٹرانسپورٹ اتھارٹی (TGA)", desc: "ایگزیکٹو لیموزین کوڈز کے مطابق تعمیل", icon: ShieldCheck },
+      { name: "ZATCA الیکٹرانک انوائس", desc: "زکوٰۃ، ٹیکس اور کسٹمز سے مصدقہ", icon: CheckCircle2 }
+    ],
+
+    // Team
+    teamTitle: "ہمارا ایلیٹ لیڈرشپ",
+    teamSubtitle: "آپ کے شاندار سفری تجربے کو ممکن بنانے والی ٹیم",
+    team: [
+      { name: "محمد اسماعیل", role: "بانی اور چیف آپریشنز", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" },
+      { name: "فیصل العتیبی", role: "ڈائریکٹر فلیٹ لاجسٹکس", image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80" },
+      { name: "ڈاکٹر امیرہ منصور", role: "سربراہ وی آئی پی کنسیرج ڈیسک", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" }
+    ],
+
+    // Video Section
+    videoTitle: "پہیوں پر آرام دہ سفر کا تجربہ",
+    videoText: "ہمارے فلیٹ کے اندر ورچوئل ٹور کریں اور ان باریک تفصیلات کو دریافت کریں جو ریاض لوکس کو سفر کا گولڈ اسٹینڈرڈ بناتی ہیں۔"
   }
 };
 
@@ -114,11 +221,13 @@ const fadeUp = {
 export default function AboutPage() {
   const { language } = useLanguage();
   const t = translations[language];
+  const [isPlaying, setIsPlaying] = useState(false);
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pt-28 pb-16">
+      
+      {/* Entrance Hero text */}
       <section className="section-container">
-        {/* Entrance Hero text */}
         <motion.div
           initial="hidden"
           animate="show"
@@ -136,9 +245,12 @@ export default function AboutPage() {
             {t.description}
           </p>
         </motion.div>
+      </section>
 
-        {/* Stats Row */}
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 md:grid-cols-4">
+      {/* Stats Row */}
+      <section className="section-container mt-14">
+        <h2 className="text-xs uppercase tracking-widest text-[#C9A84C] font-bold mb-6 text-center md:text-left">{t.statsTitle}</h2>
+        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-4">
           {t.stats.map((item, idx) => (
             <motion.div
               key={item.label}
@@ -147,51 +259,212 @@ export default function AboutPage() {
               viewport={{ once: true }}
               variants={fadeUp}
               transition={{ duration: 0.45, delay: idx * 0.05 }}
-              className="rounded-2xl border border-[#C9A84C]/15 bg-[#121212]/50 p-6 text-center"
+              className="rounded-2xl border border-[#C9A84C]/15 bg-[#121212]/50 p-6 text-center hover:border-[#C9A84C]/40 transition-colors"
             >
               <p className="font-heading text-3xl font-bold text-[#C9A84C]">{item.value}</p>
               <p className="mt-2 text-xs uppercase tracking-widest text-[#A1A1A6] font-medium">{item.label}</p>
             </motion.div>
           ))}
         </div>
+      </section>
 
-        {/* Core Pillars Section */}
-        <div className="mt-20">
-          <div className="grid gap-8 md:grid-cols-2">
-            {t.pillars.map((pillar, index) => {
-              const Icon = pillar.icon;
-              return (
-                <motion.article
-                  key={pillar.title}
-                  initial="hidden"
-                  whileInView="show"
-                  viewport={{ once: true, amount: 0.2 }}
-                  variants={fadeUp}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="relative group rounded-3xl border border-[#C9A84C]/15 bg-[#121212] p-8 shadow-2xl hover:border-[#C9A84C]/45 transition-all duration-300"
-                >
-                  <div className="flex gap-5">
-                    {/* Icon */}
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#C9A84C]/30 bg-black/40 text-[#C9A84C] shrink-0">
-                      <Icon className="h-5 w-5" />
-                    </div>
+      {/* Company Story Section */}
+      <section className="section-container mt-24">
+        <div className="grid gap-12 md:grid-cols-2 items-center">
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            transition={{ duration: 0.6 }}
+            className="space-y-6"
+          >
+            <span className="text-xs uppercase tracking-[0.2em] text-[#C9A84C] font-semibold">{t.storySubtitle}</span>
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-[#F5F0E8]">{t.storyTitle}</h2>
+            <p className="text-sm text-[#A1A1A6] leading-relaxed">{t.storyText1}</p>
+            <p className="text-sm text-[#A1A1A6] leading-relaxed">{t.storyText2}</p>
+          </motion.div>
 
-                    {/* Content */}
-                    <div className="space-y-2">
-                      <h3 className="font-heading text-xl font-bold text-[#F5F0E8] group-hover:text-[#C9A84C] transition-colors">
-                        {pillar.title}
-                      </h3>
-                      <p className="text-xs leading-relaxed text-[#A1A1A6]">
-                        {pillar.description}
-                      </p>
-                    </div>
-                  </div>
-                </motion.article>
-              );
-            })}
-          </div>
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="relative h-[320px] rounded-3xl overflow-hidden border border-[#C9A84C]/20"
+          >
+            <Image
+              src="https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=800&q=80"
+              alt="Riyadh Luxe Taxi Heritage fleet"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          </motion.div>
         </div>
       </section>
+
+      {/* Video Section */}
+      <section className="section-container mt-24">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          variants={fadeUp}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-10 space-y-4"
+        >
+          <h2 className="font-heading text-3xl font-bold text-[#F5F0E8]">{t.videoTitle}</h2>
+          <p className="text-sm text-[#A1A1A6]">{t.videoText}</p>
+        </motion.div>
+
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          variants={fadeUp}
+          transition={{ duration: 0.6 }}
+          className="relative aspect-video max-w-4xl mx-auto rounded-3xl overflow-hidden border border-[#C9A84C]/25 bg-black/60 shadow-2xl group cursor-pointer"
+          onClick={() => setIsPlaying(!isPlaying)}
+        >
+          {isPlaying ? (
+            <iframe
+              src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1"
+              title="Riyadh Luxe Taxi Video"
+              className="w-full h-full border-0"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+            />
+          ) : (
+            <>
+              <Image
+                src="https://images.unsplash.com/photo-1603386329225-868f9b1ee6c9?auto=format&fit=crop&w=1200&q=80"
+                alt="Luxury VIP Fleet Video Cover"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 1200px) 100vw, 1200px"
+              />
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="flex h-20 w-20 items-center justify-center rounded-full bg-[#C9A84C] text-[#0A0A0A] shadow-[0_0_30px_rgba(201,168,76,0.5)] transition-transform duration-300 group-hover:scale-110">
+                  <Play className="h-8 w-8 fill-current ml-1" />
+                </span>
+              </div>
+            </>
+          )}
+        </motion.div>
+      </section>
+
+      {/* Core Pillars Section (Mission & Values) */}
+      <section className="section-container mt-24">
+        <div className="max-w-3xl mb-12">
+          <span className="text-xs uppercase tracking-[0.2em] text-[#C9A84C] font-semibold">{t.pillarsSubtitle}</span>
+          <h2 className="mt-2 font-heading text-3xl md:text-4xl font-bold text-[#F5F0E8]">{t.pillarsTitle}</h2>
+        </div>
+
+        <div className="grid gap-8 md:grid-cols-2">
+          {t.pillars.map((pillar, index) => {
+            const Icon = pillar.icon;
+            return (
+              <motion.article
+                key={pillar.title}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={fadeUp}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="relative group rounded-3xl border border-[#C9A84C]/15 bg-[#121212] p-8 shadow-2xl hover:border-[#C9A84C]/45 transition-all duration-300"
+              >
+                <div className="flex gap-5">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#C9A84C]/30 bg-black/40 text-[#C9A84C] shrink-0">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <div className="space-y-2">
+                    <h3 className="font-heading text-xl font-bold text-[#F5F0E8] group-hover:text-[#C9A84C] transition-colors">
+                      {pillar.title}
+                    </h3>
+                    <p className="text-xs leading-relaxed text-[#A1A1A6]">
+                      {pillar.description}
+                    </p>
+                  </div>
+                </div>
+              </motion.article>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Government & Compliance Certifications */}
+      <section className="section-container mt-24">
+        <div className="max-w-3xl mb-12 text-center md:text-left">
+          <span className="text-xs uppercase tracking-[0.2em] text-[#C9A84C] font-semibold">{t.certSubtitle}</span>
+          <h2 className="mt-2 font-heading text-3xl md:text-4xl font-bold text-[#F5F0E8]">{t.certTitle}</h2>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-3">
+          {t.certs.map((cert, index) => {
+            const Icon = cert.icon;
+            return (
+              <motion.div
+                key={cert.name}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+                variants={fadeUp}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="rounded-2xl border border-[#C9A84C]/10 bg-[#111111] p-6 flex flex-col justify-between hover:border-[#C9A84C]/30 transition-all"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#C9A84C]/10 border border-[#C9A84C]/30 text-[#C9A84C]">
+                    <Icon className="h-4.5 w-4.5" />
+                  </div>
+                  <h3 className="font-heading text-lg font-bold text-[#F5F0E8]">{cert.name}</h3>
+                </div>
+                <p className="mt-4 text-xs text-[#A1A1A6] font-medium border-t border-[#C9A84C]/10 pt-4">{cert.desc}</p>
+              </motion.div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Elite Leadership Team Section */}
+      <section className="section-container mt-24 mb-12">
+        <div className="max-w-3xl mb-12 text-center md:text-left">
+          <span className="text-xs uppercase tracking-[0.2em] text-[#C9A84C] font-semibold">{t.teamSubtitle}</span>
+          <h2 className="mt-2 font-heading text-3xl md:text-4xl font-bold text-[#F5F0E8]">{t.teamTitle}</h2>
+        </div>
+
+        <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
+          {t.team.map((member, index) => (
+            <motion.div
+              key={member.name}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              variants={fadeUp}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="group overflow-hidden rounded-3xl border border-[#C9A84C]/10 bg-[#111111] hover:border-[#C9A84C]/30 transition-all"
+            >
+              <div className="relative h-[280px] w-full overflow-hidden">
+                <Image
+                  src={member.image}
+                  alt={member.name}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+              </div>
+              <div className="p-6">
+                <h3 className="font-heading text-lg font-bold text-[#F5F0E8]">{member.name}</h3>
+                <p className="text-xs text-[#C9A84C] uppercase tracking-wider font-semibold mt-1">{member.role}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
     </div>
   );
 }

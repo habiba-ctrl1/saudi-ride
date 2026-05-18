@@ -9,10 +9,10 @@ import { contactConfig } from "@/lib/config/contact";
 
 const GALLERY_CATEGORIES = [
   { key: "all", label: "All Media" },
-  { key: "fleet", label: "Elite Fleet" },
-  { key: "vip", label: "VIP Arrivals" },
+  { key: "fleet", label: "Fleet" },
   { key: "destinations", label: "Destinations" },
-  { key: "weddings", label: "Weddings & Events" },
+  { key: "pilgrims", label: "Pilgrims" },
+  { key: "corporate", label: "Corporate" },
 ];
 
 const GALLERY_ITEMS = [
@@ -26,7 +26,7 @@ const GALLERY_ITEMS = [
   },
   {
     id: "g2",
-    category: "vip",
+    category: "corporate",
     type: "image",
     src: "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
     title: "VIP Airport Meet & Greet",
@@ -42,7 +42,7 @@ const GALLERY_ITEMS = [
   },
   {
     id: "g4",
-    category: "destinations",
+    category: "pilgrims",
     type: "image",
     src: "https://images.unsplash.com/photo-1591604466107-ec97de577aff?auto=format&fit=crop&w=1200&q=80",
     title: "Makkah Grand Mosque",
@@ -50,7 +50,7 @@ const GALLERY_ITEMS = [
   },
   {
     id: "g5",
-    category: "weddings",
+    category: "corporate",
     type: "image",
     src: "https://images.unsplash.com/photo-1464219789935-c2d9d9aba644?auto=format&fit=crop&w=1200&q=80",
     title: "Royal Wedding Convoy",
@@ -58,7 +58,7 @@ const GALLERY_ITEMS = [
   },
   {
     id: "g6",
-    category: "vip",
+    category: "corporate",
     type: "image",
     src: "https://images.unsplash.com/photo-1485291571150-772bcfc10da5?auto=format&fit=crop&w=1200&q=80",
     title: "Executive Cabin Comfort",
@@ -82,7 +82,7 @@ const GALLERY_ITEMS = [
   },
   {
     id: "g9",
-    category: "weddings",
+    category: "corporate",
     type: "image",
     src: "https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1200&q=80",
     title: "Event Transportation Logistics",
@@ -98,7 +98,7 @@ const GALLERY_ITEMS = [
   },
   {
     id: "g11",
-    category: "destinations",
+    category: "pilgrims",
     type: "image",
     src: "https://images.unsplash.com/photo-1564769662533-4f00a87b4056?auto=format&fit=crop&w=1200&q=80",
     title: "Al-Masjid An-Nabawi, Madinah",
@@ -106,7 +106,7 @@ const GALLERY_ITEMS = [
   },
   {
     id: "g12",
-    category: "vip",
+    category: "corporate",
     type: "image",
     src: "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80",
     title: "Business Delegation Support",

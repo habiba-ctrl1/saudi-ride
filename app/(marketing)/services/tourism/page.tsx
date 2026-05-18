@@ -1,0 +1,161 @@
+import { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { Map, Clock, Compass, ChevronRight, CheckCircle2 } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Tourism Transport & Charters | Riyadh Luxe Taxi",
+  description: "Explore Saudi Arabia's heritage and natural beauty. Private charters and guided transport to AlUla, NEOM, Abha, Taif, and more. Hourly and daily rates available.",
+};
+
+const DESTINATIONS = [
+  { name: "AlUla & Khaybar", tag: "Heritage", desc: "Transport to Hegra, Elephant Rock, and ancient oasis towns.", img: "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=800&q=80" },
+  { name: "NEOM & Tabuk", tag: "Future City", desc: "Executive transfers across the developing giga-project zones.", img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80" },
+  { name: "Abha (Asir)", tag: "Mountains", desc: "Navigate the high-altitude winding roads of Soudah Peak.", img: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80" },
+  { name: "Taif", tag: "Nature", desc: "Day trips from Jeddah/Makkah to the city of roses.", img: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80" }
+];
+
+const CHARTER_RATES = [
+  { class: "Executive Sedan", ex: "Toyota Camry / Ford Taurus", hourly: "SAR 120/hr", daily: "SAR 1,000/day" },
+  { class: "Premium SUV", ex: "GMC Yukon / Chevy Tahoe", hourly: "SAR 180/hr", daily: "SAR 1,500/day" },
+  { class: "Luxury Sedan", ex: "Mercedes S-Class / BMW 7", hourly: "SAR 300/hr", daily: "SAR 2,500/day" },
+  { class: "VIP Van", ex: "Mercedes V-Class (7 Pax)", hourly: "SAR 250/hr", daily: "SAR 2,000/day" }
+];
+
+export default function TourismChartersPage() {
+  return (
+    <main className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pb-24">
+      {/* ─── HERO ─────────────────────────────────────────────────── */}
+      <section className="relative pt-32 pb-20 overflow-hidden border-b border-[#C9A84C]/10">
+        <div className="absolute inset-0 z-0">
+          <Image 
+            src="https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=1920&q=80" 
+            alt="Saudi Tourism Transport" 
+            fill 
+            className="object-cover opacity-40" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/80 to-[#0A0A0A]/40" />
+        </div>
+
+        <div className="section-container relative z-10 max-w-5xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 backdrop-blur-md px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-6">
+            <Compass className="h-3 w-3" /> Explore Saudi Arabia
+          </span>
+          <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+            Tourism Transport & <br />
+            <span className="text-[#C9A84C]">Private Charters</span>
+          </h1>
+          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#A1A1A6] leading-relaxed mb-10">
+            From the ancient ruins of AlUla to the cool mountains of Abha. Hire a private chauffeur by the hour or by the day to explore the Kingdom at your own pace.
+          </p>
+          <div className="flex justify-center gap-4">
+            <Link
+              href="/book?type=charter"
+              className="inline-flex items-center gap-2 rounded-full bg-[#C9A84C] px-8 py-3.5 text-xs font-bold uppercase text-[#0A0A0A] hover:bg-[#B8963B] transition-all"
+            >
+              Book a Charter
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── DESTINATIONS ─────────────────────────────────────────── */}
+      <section className="section-container max-w-7xl py-20 border-b border-[#C9A84C]/10">
+        <div className="text-center mb-16">
+          <h2 className="font-heading text-3xl font-bold mb-4">Top Tourism Destinations</h2>
+          <p className="text-[#A1A1A6]">We provide specialized logistics for remote and mountainous heritage sites.</p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {DESTINATIONS.map((dest, i) => (
+            <div key={i} className="group rounded-3xl overflow-hidden border border-[#C9A84C]/15 bg-[#111] hover:border-[#C9A84C]/40 transition-all duration-300">
+              <div className="relative h-64 w-full">
+                <Image src={dest.img} alt={dest.name} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#111] via-black/40 to-transparent" />
+                <div className="absolute top-4 left-4">
+                  <span className="rounded-full bg-[#0A0A0A]/80 backdrop-blur-md px-3 py-1 text-[0.55rem] font-bold uppercase tracking-wider text-[#C9A84C] border border-[#C9A84C]/20">
+                    {dest.tag}
+                  </span>
+                </div>
+                <div className="absolute bottom-6 left-6 right-6">
+                  <h3 className="font-heading text-xl font-bold text-[#F5F0E8] mb-2">{dest.name}</h3>
+                  <p className="text-xs text-[#A1A1A6] line-clamp-2">{dest.desc}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ─── CHARTER VS DAY TRIP ──────────────────────────────────── */}
+      <section className="section-container max-w-5xl py-20">
+        <div className="grid md:grid-cols-2 gap-12">
+          <div className="bg-[#111] p-10 rounded-3xl border border-[#C9A84C]/20">
+            <Clock className="h-10 w-10 text-[#C9A84C] mb-6" />
+            <h3 className="font-heading text-2xl font-bold mb-4 text-[#F5F0E8]">Hourly Charters</h3>
+            <p className="text-[#A1A1A6] text-sm leading-relaxed mb-6">
+              Perfect for city tours in Riyadh or Jeddah. Your chauffeur stays with you, waiting at every stop. Ideal for shopping trips, restaurant hopping, or visiting multiple museums in a single afternoon.
+            </p>
+            <ul className="space-y-2 mb-8">
+              <li className="flex gap-2 text-sm text-[#F5F0E8]"><CheckCircle2 className="h-4 w-4 text-[#C9A84C] shrink-0 mt-0.5" /> Minimum 4 hours</li>
+              <li className="flex gap-2 text-sm text-[#F5F0E8]"><CheckCircle2 className="h-4 w-4 text-[#C9A84C] shrink-0 mt-0.5" /> Mileage limits apply per hour</li>
+            </ul>
+          </div>
+          <div className="bg-[#111] p-10 rounded-3xl border border-[#C9A84C]/20">
+            <Map className="h-10 w-10 text-[#C9A84C] mb-6" />
+            <h3 className="font-heading text-2xl font-bold mb-4 text-[#F5F0E8]">Multi-Day Packages</h3>
+            <p className="text-[#A1A1A6] text-sm leading-relaxed mb-6">
+              Essential for trips to AlUla, NEOM, or the Asir region. The chauffeur and vehicle are exclusively yours for consecutive days, giving you total freedom to explore remote areas.
+            </p>
+            <ul className="space-y-2 mb-8">
+              <li className="flex gap-2 text-sm text-[#F5F0E8]"><CheckCircle2 className="h-4 w-4 text-[#C9A84C] shrink-0 mt-0.5" /> 10 to 12 hours of service per day</li>
+              <li className="flex gap-2 text-sm text-[#F5F0E8]"><CheckCircle2 className="h-4 w-4 text-[#C9A84C] shrink-0 mt-0.5" /> Driver accommodation handled by us</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── CHARTER RATES TABLE ──────────────────────────────────── */}
+      <section className="section-container max-w-5xl py-20 border-t border-[#C9A84C]/10">
+        <div className="text-center mb-16">
+          <h2 className="font-heading text-3xl font-bold mb-4">Charter Pricing Estimates</h2>
+          <p className="text-[#A1A1A6]">Base rates for inside-city charters. Intercity charters may incur surcharges.</p>
+        </div>
+
+        <div className="bg-[#111] rounded-3xl border border-[#C9A84C]/15 overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-[#1A1A1A] border-b border-[#C9A84C]/10 text-[0.65rem] uppercase tracking-widest text-[#7C8088]">
+                  <th className="p-6 font-bold">Vehicle Class</th>
+                  <th className="p-6 font-bold">Example Models</th>
+                  <th className="p-6 font-bold text-center">Hourly Rate</th>
+                  <th className="p-6 font-bold text-center">Daily Rate (10 Hrs)</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[#C9A84C]/5">
+                {CHARTER_RATES.map((rate, i) => (
+                  <tr key={i} className="hover:bg-[#1A1A1A]/50 transition-colors">
+                    <td className="p-6 font-bold text-sm text-[#F5F0E8]">{rate.class}</td>
+                    <td className="p-6 text-sm text-[#A1A1A6]">{rate.ex}</td>
+                    <td className="p-6 font-bold text-[#C9A84C] text-center">{rate.hourly}</td>
+                    <td className="p-6 font-bold text-[#C9A84C] text-center">{rate.daily}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <div className="mt-12 text-center">
+            <Link
+              href="/book?type=charter"
+              className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C] px-8 py-4 text-xs font-bold uppercase text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
+            >
+              Request Custom Quote <ChevronRight className="h-4 w-4" />
+            </Link>
+        </div>
+      </section>
+    </main>
+  );
+}
