@@ -5,40 +5,93 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --charcoal: #0A0A0A;
-  --charcoal-soft: #121212;
-  --gold: #C9A84C;
-  --gold-soft: #E6D3AF;
-  --paper: #0A0A0A;
+  --charcoal: #FAF8F5;
+  --charcoal-soft: #FFFFFF;
+  --gold: #B8963B;
+  --gold-soft: #FDF7EA;
+  --paper: #FAF8F5;
   
-  --background: #0A0A0A;
-  --foreground: #F5F0E8;
-  --card: #121212;
-  --card-foreground: #F5F0E8;
-  --popover: #121212;
-  --popover-foreground: #F5F0E8;
-  --primary: #C9A84C;
-  --primary-foreground: #0A0A0A;
-  --secondary: #1C1C1E;
-  --secondary-foreground: #F5F0E8;
-  --muted: #1A1A1A;
-  --muted-foreground: #A1A1A6;
-  --accent: #C9A84C;
-  --accent-foreground: #0A0A0A;
+  --background: #FAF8F5;
+  --foreground: #1C1A17;
+  --card: #FFFFFF;
+  --card-foreground: #1C1A17;
+  --popover: #FFFFFF;
+  --popover-foreground: #1C1A17;
+  --primary: #B8963B;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F3EFE9;
+  --secondary-foreground: #1C1A17;
+  --muted: #F7F4EE;
+  --muted-foreground: #7C766F;
+  --accent: #B8963B;
+  --accent-foreground: #FFFFFF;
   --destructive: #E5484D;
-  --border: rgba(201, 168, 76, 0.15);
-  --input: #121212;
-  --ring: #C9A84C;
+  --border: rgba(184, 150, 59, 0.18);
+  --input: #FFFFFF;
+  --ring: #B8963B;
   --radius: 0.625rem;
   
-  --sidebar: #121212;
-  --sidebar-foreground: #F5F0E8;
-  --sidebar-primary: #C9A84C;
-  --sidebar-primary-foreground: #0A0A0A;
-  --sidebar-accent: #1C1C1E;
-  --sidebar-accent-foreground: #F5F0E8;
-  --sidebar-border: rgba(201, 168, 76, 0.15);
-  --sidebar-ring: #C9A84C;
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #1C1A17;
+  --sidebar-primary: #B8963B;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F3EFE9;
+  --sidebar-accent-foreground: #1C1A17;
+  --sidebar-border: rgba(184, 150, 59, 0.18);
+  --sidebar-ring: #B8963B;
+}
+
+/* Custom Light Theme CSS Class Overrides for Hardcoded Dark Classes */
+.bg-\[\#0A0A0A\],
+.bg-black {
+  background-color: var(--background) !important;
+}
+.bg-\[\#121212\],
+.bg-\[\#111111\],
+.bg-zinc-900,
+.bg-neutral-900 {
+  background-color: var(--card) !important;
+}
+.bg-\[\#0A0A0A\]\/95 {
+  background-color: rgba(250, 248, 245, 0.95) !important;
+}
+.bg-\[\#0A0A0A\]\/98 {
+  background-color: rgba(250, 248, 245, 0.98) !important;
+}
+.text-\[\#F5F0E8\],
+.text-white {
+  color: var(--foreground) !important;
+}
+.text-\[\#A1A1A6\],
+.text-zinc-400,
+.text-neutral-400 {
+  color: var(--muted-foreground) !important;
+}
+.text-\[\#7C8088\],
+.text-zinc-500,
+.text-neutral-500 {
+  color: #7C766F !important;
+}
+.border-\[\#C9A84C\]\/10,
+.border-\[\#C9A84C\]\/15,
+.border-\[\#C9A84C\]\/20,
+.border-\[\#C9A84C\]\/25,
+.border-\[\#C9A84C\]\/30 {
+  border-color: var(--border) !important;
+}
+.text-\[\#C9A84C\],
+.text-yellow-500 {
+  color: var(--primary) !important;
+}
+.bg-\[\#C9A84C\],
+.bg-yellow-500 {
+  background-color: var(--primary) !important;
+}
+.border-\[\#C9A84C\] {
+  border-color: var(--primary) !important;
+}
+.hover\:bg-\[\#B8963B\]:hover {
+  background-color: #A3822E !important;
 }
 
 * {
@@ -140,32 +193,32 @@ a {
 }
 
 .dark {
-  --background: #0A0A0A;
-  --foreground: #F5F0E8;
-  --card: #121212;
-  --card-foreground: #F5F0E8;
-  --popover: #121212;
-  --popover-foreground: #F5F0E8;
-  --primary: #C9A84C;
-  --primary-foreground: #0A0A0A;
-  --secondary: #1C1C1E;
-  --secondary-foreground: #F5F0E8;
-  --muted: #1A1A1A;
-  --muted-foreground: #A1A1A6;
-  --accent: #C9A84C;
-  --accent-foreground: #0A0A0A;
+  --background: #FAF8F5;
+  --foreground: #1C1A17;
+  --card: #FFFFFF;
+  --card-foreground: #1C1A17;
+  --popover: #FFFFFF;
+  --popover-foreground: #1C1A17;
+  --primary: #B8963B;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F3EFE9;
+  --secondary-foreground: #1C1A17;
+  --muted: #F7F4EE;
+  --muted-foreground: #7C766F;
+  --accent: #B8963B;
+  --accent-foreground: #FFFFFF;
   --destructive: #E5484D;
-  --border: rgba(201, 168, 76, 0.15);
-  --input: #121212;
-  --ring: #C9A84C;
-  --sidebar: #121212;
-  --sidebar-foreground: #F5F0E8;
-  --sidebar-primary: #C9A84C;
-  --sidebar-primary-foreground: #0A0A0A;
-  --sidebar-accent: #1C1C1E;
-  --sidebar-accent-foreground: #F5F0E8;
-  --sidebar-border: rgba(201, 168, 76, 0.15);
-  --sidebar-ring: #C9A84C;
+  --border: rgba(184, 150, 59, 0.18);
+  --input: #FFFFFF;
+  --ring: #B8963B;
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #1C1A17;
+  --sidebar-primary: #B8963B;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F3EFE9;
+  --sidebar-accent-foreground: #1C1A17;
+  --sidebar-border: rgba(184, 150, 59, 0.18);
+  --sidebar-ring: #B8963B;
 }
 
 @layer base {

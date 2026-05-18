@@ -13,7 +13,6 @@ const STATIC_PAGES = [
   { path: "/gallery", priority: 0.9 },
   { path: "/fleet", priority: 0.9 },
   { path: "/routes", priority: 0.9 },
-  { path: "/blog", priority: 0.9 },
   { path: "/services", priority: 0.9 },
   { path: "/services/airport-transfers", priority: 0.9 },
   { path: "/services/border-crossings", priority: 0.9 },
@@ -106,29 +105,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   }));
 
-  // 5. Generate Dynamic Blog Posts Pages
-  let blogItems: MetadataRoute.Sitemap = [];
-  try {
-    const posts = await db.blogPost.findMany({
-      where: { published: true },
-      select: { slug: true, updatedAt: true },
-    });
-    blogItems = posts.map((post) => ({
-      url: `${DOMAIN}/blog/${post.slug}`,
-      lastModified: post.updatedAt || now,
-      changeFrequency: "weekly" as const,
-      priority: 0.7,
-      alternates: {
-        languages: {
-          en: `${DOMAIN}/blog/${post.slug}`,
-          ar: `${DOMAIN}/ar/blog/${post.slug}`,
-          ur: `${DOMAIN}/ur/blog/${post.slug}`,
-        },
-      },
-    }));
-  } catch (error) {
-    console.error("Error fetching blog posts for sitemap:", error);
-  }
-
-  return [...staticItems, ...locationItems, ...routeItems, ...fleetItems, ...blogItems];
+  return [...staticItems, ...locationItems, ...routeItems, ...fleetItems];
 }

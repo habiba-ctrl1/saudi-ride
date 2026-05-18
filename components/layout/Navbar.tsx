@@ -68,7 +68,6 @@ export function Navbar() {
     { href: "/fleet", label: t.fleet },
     { href: "/routes", label: t.routes },
     { href: "/locations", label: t.locations },
-    { href: "/blog", label: t.blog },
     { href: "/contact", label: t.contact },
   ];
 

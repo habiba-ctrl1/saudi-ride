@@ -132,14 +132,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" style={{ colorScheme: "dark" }}>
+    <html lang="en" className="light" style={{ colorScheme: "light" }}>
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={cn(cormorant.variable, dmSans.variable, "font-sans antialiased bg-[#0A0A0A] text-[#F5F0E8]")}>
+      <body className={cn(cormorant.variable, dmSans.variable, "font-sans antialiased bg-background text-foreground")}>
         <Providers>
           <Navbar />
           <main className="min-h-screen">
