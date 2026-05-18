@@ -66,7 +66,7 @@ const translations = {
     teamTitle: "Our Elite Leadership",
     teamSubtitle: "Chaperoning your premium mobility experience",
     team: [
-      { name: "Muhammad Ismail", role: "Founder & Chief Operations", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" },
+      { name: "Sheikh Khalid bin Fahd", role: "Founder & Chief Operations", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" },
       { name: "Faisal Al-Otaibi", role: "Director of Fleet Logistics", image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80" },
       { name: "Dr. Amira Mansour", role: "Head of VIP Concierge Desk", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" }
     ],
@@ -134,7 +134,7 @@ const translations = {
     teamTitle: "فريق القيادة المتميز",
     teamSubtitle: "نعمل بشغف لضمان أفضل تجربة حجز وتنقل",
     team: [
-      { name: "محمد إسماعيل", role: "المؤسس ومدير العمليات", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" },
+      { name: "الشيخ خالد بن فهد", role: "المؤسس ومدير العمليات", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" },
       { name: "فيصل العتيبي", role: "مدير الخدمات اللوجستية والأسطول", image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80" },
       { name: "د. أميرة منصور", role: "رئيسة مكتب الاستقبال والـ VIP", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" }
     ],
@@ -202,7 +202,7 @@ const translations = {
     teamTitle: "ہمارا ایلیٹ لیڈرشپ",
     teamSubtitle: "آپ کے شاندار سفری تجربے کو ممکن بنانے والی ٹیم",
     team: [
-      { name: "محمد اسماعیل", role: "بانی اور چیف آپریشنز", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" },
+      { name: "شیخ خالد بن فہد", role: "بانی اور چیف آپریشنز", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" },
       { name: "فیصل العتیبی", role: "ڈائریکٹر فلیٹ لاجسٹکس", image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80" },
       { name: "ڈاکٹر امیرہ منصور", role: "سربراہ وی آئی پی کنسیرج ڈیسک", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" }
     ],
@@ -294,7 +294,7 @@ export default function AboutPage() {
             className="relative h-[320px] rounded-3xl overflow-hidden border border-[#C9A84C]/20"
           >
             <Image
-              src="https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=800&q=80"
+              src="https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=800&q=80"
               alt="Riyadh Luxe Taxi Heritage fleet"
               fill
               className="object-cover"

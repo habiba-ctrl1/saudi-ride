@@ -42,13 +42,13 @@ export async function generateMetadata({
 // ─── Gallery images per vehicle (Unsplash) ──────────────────────────────────
 const GALLERY_IMAGES: Record<string, string[]> = {
   "toyota-camry": [
-    "https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1603386329225-868f9b1ee6c9?auto=format&fit=crop&w=800&q=80",
     "https://images.unsplash.com/photo-1543796076-c95c6ff5c0e4?auto=format&fit=crop&w=800&q=80",
   ],
   "gmc-yukon-xl": [
-    "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80",
     "https://images.unsplash.com/photo-1601929862074-04b7b88f0c82?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80",
     "https://images.unsplash.com/photo-1567416661576-659de24d4344?auto=format&fit=crop&w=800&q=80",
   ],
   "hyundai-staria": [
@@ -62,8 +62,8 @@ const GALLERY_IMAGES: Record<string, string[]> = {
     "https://images.unsplash.com/photo-1603386329225-868f9b1ee6c9?auto=format&fit=crop&w=800&q=80",
   ],
   default: [
-    "https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1601929862074-04b7b88f0c82?auto=format&fit=crop&w=800&q=80",
     "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80",
   ],
 };

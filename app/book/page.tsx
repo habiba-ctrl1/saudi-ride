@@ -59,8 +59,8 @@ const defaultSuggestions = [
 ];
 
 const vehicleList = [
-  { key: 'SEDAN' as VehicleKey, name: 'Premium Sedan', desc: 'Toyota Camry or equivalent', cap: 3, luggage: 2, badge: "Best Value", image: "https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=600&q=80" },
-  { key: 'SUV' as VehicleKey, name: 'VIP SUV', desc: 'GMC Yukon Denali XL', cap: 6, luggage: 5, badge: "Most Popular", image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=600&q=80" },
+  { key: 'SEDAN' as VehicleKey, name: 'Premium Sedan', desc: 'Toyota Camry or equivalent', cap: 3, luggage: 2, badge: "Best Value", image: "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=600&q=80" },
+  { key: 'SUV' as VehicleKey, name: 'VIP SUV', desc: 'GMC Yukon Denali XL', cap: 6, luggage: 5, badge: "Most Popular", image: "https://images.unsplash.com/photo-1601929862074-04b7b88f0c82?auto=format&fit=crop&w=600&q=80" },
   { key: 'VAN' as VehicleKey, name: 'Luxury Cabin Van', desc: 'Hyundai Staria or equivalent', cap: 7, luggage: 7, badge: "Family Pick", image: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=600&q=80" },
   { key: 'LUXURY' as VehicleKey, name: 'Ultra Elite', desc: 'Mercedes S-Class or equivalent', cap: 3, luggage: 3, badge: "VIP Choice", image: "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=600&q=80" },
   { key: 'BUS' as VehicleKey, name: 'Coaster/Bus', desc: 'VIP Pilgrim Bus', cap: 18, luggage: 15, badge: "Pilgrims Hub", image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=600&q=80" },

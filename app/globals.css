@@ -42,56 +42,126 @@
 }
 
 /* Custom Light Theme CSS Class Overrides for Hardcoded Dark Classes */
-.bg-\[\#0A0A0A\],
-.bg-black {
+.bg-\[\#0A0A0A\]:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-black:not(.premium-dark-section *):not(.premium-dark-section) {
   background-color: var(--background) !important;
 }
-.bg-\[\#121212\],
-.bg-\[\#111111\],
-.bg-zinc-900,
-.bg-neutral-900 {
+.bg-\[\#121212\]:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-\[\#111111\]:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-zinc-900:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-neutral-900:not(.premium-dark-section *):not(.premium-dark-section) {
   background-color: var(--card) !important;
 }
-.bg-\[\#0A0A0A\]\/95 {
+.bg-\[\#0A0A0A\]\/95:not(.premium-dark-section *):not(.premium-dark-section) {
   background-color: rgba(250, 248, 245, 0.95) !important;
 }
-.bg-\[\#0A0A0A\]\/98 {
+.bg-\[\#0A0A0A\]\/98:not(.premium-dark-section *):not(.premium-dark-section) {
   background-color: rgba(250, 248, 245, 0.98) !important;
 }
-.text-\[\#F5F0E8\],
-.text-white {
+.text-\[\#F5F0E8\]:not(.premium-dark-section *):not(.premium-dark-section),
+.text-white:not(.premium-dark-section *):not(.premium-dark-section) {
   color: var(--foreground) !important;
 }
-.text-\[\#A1A1A6\],
-.text-zinc-400,
-.text-neutral-400 {
+.text-\[\#A1A1A6\]:not(.premium-dark-section *):not(.premium-dark-section),
+.text-zinc-400:not(.premium-dark-section *):not(.premium-dark-section),
+.text-neutral-400:not(.premium-dark-section *):not(.premium-dark-section) {
   color: var(--muted-foreground) !important;
 }
-.text-\[\#7C8088\],
-.text-zinc-500,
-.text-neutral-500 {
+.text-\[\#7C8088\]:not(.premium-dark-section *):not(.premium-dark-section),
+.text-zinc-500:not(.premium-dark-section *):not(.premium-dark-section),
+.text-neutral-500:not(.premium-dark-section *):not(.premium-dark-section) {
   color: #7C766F !important;
 }
-.border-\[\#C9A84C\]\/10,
-.border-\[\#C9A84C\]\/15,
-.border-\[\#C9A84C\]\/20,
-.border-\[\#C9A84C\]\/25,
-.border-\[\#C9A84C\]\/30 {
+.border-\[\#C9A84C\]\/10:not(.premium-dark-section *):not(.premium-dark-section),
+.border-\[\#C9A84C\]\/15:not(.premium-dark-section *):not(.premium-dark-section),
+.border-\[\#C9A84C\]\/20:not(.premium-dark-section *):not(.premium-dark-section),
+.border-\[\#C9A84C\]\/25:not(.premium-dark-section *):not(.premium-dark-section),
+.border-\[\#C9A84C\]\/30:not(.premium-dark-section *):not(.premium-dark-section) {
   border-color: var(--border) !important;
 }
-.text-\[\#C9A84C\],
-.text-yellow-500 {
+.text-\[\#C9A84C\]:not(.premium-dark-section *):not(.premium-dark-section),
+.text-yellow-500:not(.premium-dark-section *):not(.premium-dark-section) {
   color: var(--primary) !important;
 }
-.bg-\[\#C9A84C\],
-.bg-yellow-500 {
+.bg-\[\#C9A84C\]:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-yellow-500:not(.premium-dark-section *):not(.premium-dark-section) {
   background-color: var(--primary) !important;
 }
-.border-\[\#C9A84C\] {
+.border-\[\#C9A84C\]:not(.premium-dark-section *):not(.premium-dark-section) {
   border-color: var(--primary) !important;
 }
-.hover\:bg-\[\#B8963B\]:hover {
+.hover\:bg-\[\#B8963B\]:hover:not(.premium-dark-section *):not(.premium-dark-section) {
   background-color: #A3822E !important;
+}
+
+/* Premium Dark Section Styles */
+.premium-dark-section,
+.premium-dark-section * {
+  color: #FAF8F5 !important;
+}
+.premium-dark-section .text-white,
+.premium-dark-section .text-\[\#F5F0E8\],
+.premium-dark-section h1,
+.premium-dark-section h2,
+.premium-dark-section h3,
+.premium-dark-section h4,
+.premium-dark-section p {
+  color: #FAF8F5 !important;
+}
+.premium-dark-section .text-\[\#A1A1A6\],
+.premium-dark-section .text-zinc-400,
+.premium-dark-section .text-neutral-400 {
+  color: #A1A1A6 !important;
+}
+.premium-dark-section .text-\[\#7C8088\],
+.premium-dark-section .text-zinc-500,
+.premium-dark-section .text-neutral-500 {
+  color: #7C8088 !important;
+}
+.premium-dark-section .text-\[\#C9A84C\],
+.premium-dark-section .text-yellow-500 {
+  color: #C9A84C !important;
+}
+.premium-dark-section svg {
+  stroke: currentColor;
+}
+.premium-dark-section svg.text-\[\#C9A84C\] {
+  color: #C9A84C !important;
+}
+.premium-dark-section a.bg-\[\#C9A84C\],
+.premium-dark-section button.bg-\[\#C9A84C\],
+.premium-dark-section .bg-\[\#C9A84C\] {
+  background-color: #C9A84C !important;
+  color: #0A0A0A !important;
+}
+.premium-dark-section a.bg-\[\#C9A84C\] *,
+.premium-dark-section button.bg-\[\#C9A84C\] * {
+  color: #0A0A0A !important;
+}
+
+/* High Contrast Premium Light Inputs & Forms styling */
+input[type="text"],
+input[type="datetime-local"],
+select,
+textarea {
+  background-color: #FFFFFF !important;
+  color: var(--foreground) !important;
+  border: 1px solid rgba(201, 168, 76, 0.35) !important;
+}
+input[type="text"]:focus,
+input[type="datetime-local"]:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.2) !important;
+}
+.premium-dark-section input[type="text"],
+.premium-dark-section input[type="datetime-local"],
+.premium-dark-section select,
+.premium-dark-section textarea {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  color: #FAF8F5 !important;
+  border: 1px solid rgba(201, 168, 76, 0.25) !important;
 }
 
 * {
