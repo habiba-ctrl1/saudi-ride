@@ -23,7 +23,7 @@ export async function generateMetadata({
   const vehicle = FLEET_VEHICLES.find((v) => v.slug === slug);
   if (!vehicle) return { title: "Vehicle Not Found" };
 
-  const title = `${vehicle.name} Taxi Saudi Arabia | ${vehicle.subtitle} Transfer | Riyadh Luxe`;
+  const title = `${vehicle.name} Taxi Saudi Arabia | ${vehicle.subtitle} Transfer | Riyadh Taxi`;
   const description = `Book a ${vehicle.name} in Saudi Arabia from SAR ${vehicle.startingPrice}. ${vehicle.description} Available 24/7 for airport transfers, Umrah, and intercity routes.`;
 
   return {
@@ -120,11 +120,11 @@ export default async function VehicleDetailPage({
     "description": vehicle.description,
     "brand": {
       "@type": "Brand",
-      "name": "Riyadh Luxe Taxi"
+      "name": "Riyadh Taxi"
     },
     "offers": {
       "@type": "Offer",
-      "url": `https://riyadhluxetaxi.com/fleet/${vehicle.slug}`,
+      "url": `https://riyadhtaxi.com/fleet/${vehicle.slug}`,
       "priceCurrency": "SAR",
       "price": vehicle.startingPrice,
       "priceValidUntil": "2027-12-31",

@@ -135,7 +135,7 @@ export default function BookPage() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       try {
-        const saved = sessionStorage.getItem("rlt_booking_draft");
+        const saved = sessionStorage.getItem("rt_booking_draft");
         if (saved) {
           const parsed = JSON.parse(saved);
           if (parsed.pickup) setPickup(parsed.pickup);
@@ -161,7 +161,7 @@ export default function BookPage() {
         pickup, dropoff, dateTime, tripType, passengers, selectedVehicle,
         custName, custPhone, custEmail
       };
-      sessionStorage.setItem("rlt_booking_draft", JSON.stringify(draft));
+      sessionStorage.setItem("rt_booking_draft", JSON.stringify(draft));
     }
   }, [pickup, dropoff, dateTime, tripType, passengers, selectedVehicle, custName, custPhone, custEmail]);
 
@@ -363,7 +363,7 @@ export default function BookPage() {
 
       // Simulate dispatch alerts
       setNotificationLogs([
-        "⏱️ Booking recorded in Riyadh Luxe Dispatch central database.",
+        "⏱️ Booking recorded in Riyadh Taxi Dispatch central database.",
         `🔐 Security Ref assigned: ${data.bookingRef}`,
         "📲 Twilio SMS notification queued successfully for "+phoneCode+" "+custPhone+".",
         custEmail ? `📧 Resend luxury invoice dispatch confirmation queued for ${custEmail}.` : "📧 Optional email dispatch notice skipped (no email provided)."
@@ -372,7 +372,7 @@ export default function BookPage() {
       // Complete to step 6
       setStep(6);
       // Clear draft
-      sessionStorage.removeItem("rlt_booking_draft");
+      sessionStorage.removeItem("rt_booking_draft");
 
     } catch (err) {
       alert(err instanceof Error ? err.message : "Dispatch request failed");
@@ -679,7 +679,7 @@ export default function BookPage() {
                     <span className="text-[0.65rem] uppercase tracking-wider text-[#C9A84C] font-bold">
                       {isRtl ? "معاينة إحداثيات المسار" : "Transfer Coordinates Preview"}
                     </span>
-                    <h3 className="font-heading text-lg font-bold">Riyadh Luxe Dispatch GPS</h3>
+                    <h3 className="font-heading text-lg font-bold">Riyadh Taxi Dispatch GPS</h3>
                   </div>
 
                   {/* Route Visualizer SVG */}
@@ -996,7 +996,7 @@ export default function BookPage() {
                 <ShieldCheck className="h-6 w-6 text-[#C9A84C] shrink-0 mt-0.5" />
                 <div>
                   <h4 className="text-xs font-bold text-[#F5F0E8]">
-                    {isRtl ? "هل ترغب في كسب ١٥٠ نقطة ولاء فاخرة؟" : "Unlock 150 VIP Luxe Points Today"}
+                    {isRtl ? "هل ترغب في كسب ١٥٠ نقطة ولاء فاخرة؟" : "Unlock 150 VIP Points Today"}
                   </h4>
                   <p className="text-[0.6rem] text-[#A1A1A6] leading-relaxed mt-1">
                     {isRtl
@@ -1087,7 +1087,7 @@ export default function BookPage() {
                         type="email"
                         value={custEmail}
                         onChange={(e) => setCustEmail(e.target.value)}
-                        placeholder="e.g. client@luxe.sa"
+                        placeholder="e.g. client@riyadhtaxi.sa"
                         className="w-full rounded-xl bg-black/40 border border-[#C9A84C]/10 pl-9 pr-4 py-3.5 text-xs text-[#F5F0E8] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
                       />
                     </div>
@@ -1328,7 +1328,7 @@ export default function BookPage() {
                       className="h-4.5 w-4.5 accent-[#C9A84C] rounded border-[#C9A84C]/20 mt-0.5"
                     />
                     <p className="text-[0.6rem] leading-relaxed text-[#7C8088]">
-                      I agree to the <span className="underline hover:text-[#C9A84C] cursor-pointer">Terms of Carriage</span>, including Saudi General Transport Authority laws and the Riyadh Luxe fixed rate guaranteed pricing policy.
+                      I agree to the <span className="underline hover:text-[#C9A84C] cursor-pointer">Terms of Carriage</span>, including Saudi General Transport Authority laws and the Riyadh Taxi fixed rate guaranteed pricing policy.
                     </p>
                   </div>
 

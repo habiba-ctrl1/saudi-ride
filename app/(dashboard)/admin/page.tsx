@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+﻿import { Metadata } from "next";
 import { 
   CreditCard, 
   Car, 
@@ -11,7 +11,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 
 export const metadata: Metadata = {
-  title: "Admin Dashboard | Riyadh Luxe Taxi",
+  title: "Admin Dashboard | Riyadh Taxi",
 };
 
 export default async function AdminDashboardPage() {

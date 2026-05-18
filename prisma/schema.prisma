@@ -1,4 +1,4 @@
-generator client {
+﻿generator client {
   provider = "prisma-client-js"
 }
 
@@ -141,7 +141,7 @@ model BlogPost {
   content     String   @db.Text
   coverImage  String?
   category    String
-  author      String   @default("Riyadh Luxe Team")
+  author      String   @default("Riyadh Taxi Team")
   published   Boolean  @default(false)
   publishedAt DateTime?
   createdAt   DateTime @default(now())

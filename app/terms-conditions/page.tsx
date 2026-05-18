@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { Calendar, Scale } from "lucide-react";
@@ -50,7 +50,7 @@ export default function TermsConditionsPage() {
               <span>1. Agreement & Operational Rules</span>
             </h2>
             <p>
-              By accessing the Riyadh Luxe Taxi reservation portal or placing booking requests with our private dispatch desk, you agree to comply with and be bound by these Terms and Conditions. These terms operate under the regulatory guidelines established by the Saudi Transport General Authority (TGA).
+              By accessing the Riyadh Taxi reservation portal or placing booking requests with our private dispatch desk, you agree to comply with and be bound by these Terms and Conditions. These terms operate under the regulatory guidelines established by the Saudi Transport General Authority (TGA).
             </p>
           </section>
 
@@ -60,7 +60,7 @@ export default function TermsConditionsPage() {
               <span>2. Placing Reservations & Travel Fares</span>
             </h2>
             <p>
-              Reservations placed through our website or direct API channels represent booking requests. Riyadh Luxe Taxi reserves the right to accept or re-allocate drivers based on active fleet capacity.
+              Reservations placed through our website or direct API channels represent booking requests. Riyadh Taxi reserves the right to accept or re-allocate drivers based on active fleet capacity.
             </p>
             <ul className="list-disc pl-5 space-y-2 border-l border-[#C9A84C]/15 ml-2.5">
               <li><strong>Flat Rates:</strong> All quoted pricing is strictly fixed and includes VAT, toll gates, fuel, and municipal fees.</li>
@@ -89,7 +89,7 @@ export default function TermsConditionsPage() {
               <span>4. Passenger Conduct & Fleet Rules</span>
             </h2>
             <p>
-              Riyadh Luxe Taxi promotes a strictly safe, professional environment. To safeguard passengers and our pristine fleet, smoking, vaping, or consumption of illegal substances is strictly prohibited inside all vehicles. Any passenger causing direct structural or aesthetic damage to a vehicle will be held liable for complete detailing and maintenance costs.
+              Riyadh Taxi promotes a strictly safe, professional environment. To safeguard passengers and our pristine fleet, smoking, vaping, or consumption of illegal substances is strictly prohibited inside all vehicles. Any passenger causing direct structural or aesthetic damage to a vehicle will be held liable for complete detailing and maintenance costs.
             </p>
           </section>
 

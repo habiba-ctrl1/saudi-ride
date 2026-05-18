@@ -1,10 +1,10 @@
-import { Metadata } from "next";
+﻿import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Plane, Clock, UserCheck, CheckCircle2, ShieldCheck, Search, PlaneLanding } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Premium Airport Transfers in Saudi Arabia | Riyadh Luxe Taxi",
+  title: "Premium Airport Transfers in Saudi Arabia | Riyadh Taxi",
   description: "Reliable, fixed-price airport transfers from Jeddah (JED), Riyadh (RUH), and Madinah (MED). Meet & greet, flight tracking, and luxury vehicles.",
 };
 

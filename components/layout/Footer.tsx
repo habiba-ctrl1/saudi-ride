@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useLanguage } from "@/lib/context/LanguageContext";
@@ -11,7 +11,7 @@ const translations = {
     services: "Services",
     popularRoutes: "Popular Routes",
     company: "Company",
-    copyright: "© 2026 Riyadh Luxe Taxi. All rights reserved. Created with absolute elegance.",
+    copyright: "© 2026 Riyadh Taxi. All rights reserved. Created with absolute elegance.",
     motLicensed: "Ministry of Transport Licensed",
     zatcaCompliant: "ZATCA VAT Compliant",
     tgaCertified: "TGA Certified",
@@ -177,7 +177,7 @@ export function Footer() {
               </span>
               <div className="flex flex-col">
                 <span className="font-heading text-lg font-bold tracking-[0.18em] text-[#F5F0E8]">
-                  RIYADH LUXE
+                  Riyadh Taxi
                 </span>
                 <span className="text-[0.55rem] uppercase tracking-[0.4em] text-[#C9A84C] -mt-1">
                   Chauffeur Service
@@ -305,7 +305,7 @@ export function Footer() {
               </svg>
             </a>
             <a
-              href="https://facebook.com/riyadh.luxe.taxi"
+              href="https://facebook.com/riyadh.taxi"
               target="_blank"
               rel="noopener noreferrer"
               className="flex h-8 w-8 items-center justify-center rounded-full border border-[#C9A84C]/20 bg-black/30 text-[#A1A1A6] hover:text-[#C9A84C] hover:border-[#C9A84C] hover:shadow-[0_0_10px_rgba(201,168,76,0.2)] transition-all"
@@ -316,7 +316,7 @@ export function Footer() {
               </svg>
             </a>
             <a
-              href="https://instagram.com/riyadh.luxe.taxi"
+              href="https://instagram.com/riyadh.taxi"
               target="_blank"
               rel="noopener noreferrer"
               className="flex h-8 w-8 items-center justify-center rounded-full border border-[#C9A84C]/20 bg-black/30 text-[#A1A1A6] hover:text-[#C9A84C] hover:border-[#C9A84C] hover:shadow-[0_0_10px_rgba(201,168,76,0.2)] transition-all"
@@ -327,7 +327,7 @@ export function Footer() {
               </svg>
             </a>
             <a
-              href="https://youtube.com/riyadh.luxe.taxi"
+              href="https://youtube.com/riyadh.taxi"
               target="_blank"
               rel="noopener noreferrer"
               className="flex h-8 w-8 items-center justify-center rounded-full border border-[#C9A84C]/20 bg-black/30 text-[#A1A1A6] hover:text-[#C9A84C] hover:border-[#C9A84C] hover:shadow-[0_0_10px_rgba(201,168,76,0.2)] transition-all"

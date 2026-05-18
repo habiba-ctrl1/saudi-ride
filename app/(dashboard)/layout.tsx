@@ -38,7 +38,7 @@ export default async function DashboardLayout({
       <aside className="w-64 border-r border-[#C9A84C]/10 bg-[#111] flex flex-col hidden md:flex">
         <div className="h-16 flex items-center px-6 border-b border-[#C9A84C]/10 shrink-0">
           <Link href="/admin" className="font-heading text-xl font-bold tracking-widest uppercase">
-            Riyadh Luxe<span className="text-[#C9A84C]"> Admin</span>
+            Riyadh Taxi<span className="text-[#C9A84C]"> Admin</span>
           </Link>
         </div>
 
@@ -80,7 +80,7 @@ export default async function DashboardLayout({
         {/* Mobile Header */}
         <header className="h-16 border-b border-[#C9A84C]/10 bg-[#111] flex items-center justify-between px-4 md:hidden shrink-0">
           <Link href="/admin" className="font-heading text-lg font-bold tracking-widest uppercase">
-            RLT<span className="text-[#C9A84C]"> Admin</span>
+            RT<span className="text-[#C9A84C]"> Admin</span>
           </Link>
           {/* Mobile menu toggle would go here */}
         </header>

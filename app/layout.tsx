@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
@@ -23,10 +23,10 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://riyadhluxetaxi.com"),
-  title: "Riyadh Luxe Taxi | VIP Chauffeur & Premium Taxi Saudi Arabia",
+  metadataBase: new URL("https://riyadhtaxi.com"),
+  title: "Riyadh Taxi | VIP Chauffeur & Premium Taxi Saudi Arabia",
   description:
-    "Experience absolute luxury with Riyadh Luxe Taxi. Premium airport transfers, executive corporate travel, and bespoke VIP Umrah packages across Makkah, Madinah, Jeddah, and Riyadh.",
+    "Experience absolute luxury with Riyadh Taxi. Premium airport transfers, executive corporate travel, and bespoke VIP Umrah packages across Makkah, Madinah, Jeddah, and Riyadh.",
   keywords: [
     "Saudi luxury taxi service",
     "VIP chauffeur Riyadh",
@@ -37,17 +37,17 @@ export const metadata: Metadata = {
     "Saudi Arabia executive private car",
   ],
   openGraph: {
-    title: "Riyadh Luxe Taxi | VIP Chauffeur & Premium Taxi Saudi Arabia",
+    title: "Riyadh Taxi | VIP Chauffeur & Premium Taxi Saudi Arabia",
     description:
       "Elite private transfers and bespoke luxury chauffeur service across the Kingdom of Saudi Arabia. Book Rolls Royce & premium fleet instantly.",
     type: "website",
     locale: "en_SA",
-    url: "https://riyadhluxetaxi.com",
-    siteName: "Riyadh Luxe Taxi",
+    url: "https://riyadhtaxi.com",
+    siteName: "Riyadh Taxi",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Riyadh Luxe Taxi | VIP Chauffeur & Premium Taxi Saudi Arabia",
+    title: "Riyadh Taxi | VIP Chauffeur & Premium Taxi Saudi Arabia",
     description:
       "Book ultra-premium taxis and executive chauffeurs for airport transfers, VIP Umrah, and city travel across Saudi Arabia.",
   },
@@ -56,10 +56,10 @@ export const metadata: Metadata = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "TaxiService",
-  "name": "Riyadh Luxe Taxi",
-  "image": "https://riyadhluxetaxi.com/images/luxury-fleet.jpg",
-  "@id": "https://riyadhluxetaxi.com/#taxiservice",
-  "url": "https://riyadhluxetaxi.com",
+  "name": "Riyadh Taxi",
+  "image": "https://riyadhtaxi.com/images/luxury-fleet.jpg",
+  "@id": "https://riyadhtaxi.com/#taxiservice",
+  "url": "https://riyadhtaxi.com",
   "telephone": "+966500123456",
   "priceRange": "$$$",
   "address": {
@@ -90,9 +90,9 @@ const jsonLd = {
     "closes": "23:59",
   },
   "sameAs": [
-    "https://facebook.com/riyadh.luxe.taxi",
-    "https://instagram.com/riyadh.luxe.taxi",
-    "https://youtube.com/riyadh.luxe.taxi",
+    "https://facebook.com/riyadh.taxi",
+    "https://instagram.com/riyadh.taxi",
+    "https://youtube.com/riyadh.taxi",
   ],
   "areaServed": [
     {

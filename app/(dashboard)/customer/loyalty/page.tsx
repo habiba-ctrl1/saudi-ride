@@ -18,7 +18,7 @@ export default async function CustomerLoyaltyPage() {
   return (
     <div className="max-w-4xl space-y-8">
       <div>
-        <h1 className="font-heading text-3xl font-bold text-[#F5F0E8]">Luxe Rewards</h1>
+        <h1 className="font-heading text-3xl font-bold text-[#F5F0E8]">VIP Rewards</h1>
         <p className="text-[#A1A1A6] mt-1 text-sm">Earn points on every trip and unlock exclusive benefits.</p>
       </div>
 
@@ -80,7 +80,7 @@ export default async function CustomerLoyaltyPage() {
           <p className="text-sm text-[#A1A1A6] mb-4">Share this link to give friends SAR 50 off their first premium ride.</p>
           <div className="flex items-center gap-2">
             <div className="flex-1 bg-[#0A0A0A] border border-[#333] rounded-xl px-4 py-3 text-sm text-[#C9A84C] font-mono truncate select-all">
-              https://riyadhluxe.com/invite/{(session.user as { id?: string }).id?.substring(0, 8)}
+              https://riyadhtaxi.com/invite/{(session.user as { id?: string }).id?.substring(0, 8)}
             </div>
             <button className="bg-[#C9A84C]/10 text-[#C9A84C] hover:bg-[#C9A84C]/20 p-3 rounded-xl transition-colors">
               <Copy className="h-5 w-5" />

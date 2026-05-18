@@ -1,8 +1,8 @@
-import { MetadataRoute } from "next";
+﻿import { MetadataRoute } from "next";
 import { db } from "@/lib/db";
 import { FLEET_VEHICLES } from "@/lib/fleet-data";
 
-const DOMAIN = "https://riyadhluxetaxi.com";
+const DOMAIN = "https://riyadhtaxi.com";
 
 // Base static pages with their priorities
 const STATIC_PAGES = [

@@ -18,12 +18,17 @@ export async function middleware(request: NextRequest) {
 
   // Check protected routes with NextAuth using the stripped pathname
   const isAdminRoute = strippedPath.startsWith('/admin') && strippedPath !== '/admin/login';
-  const isCustomerRoute = strippedPath.startsWith('/customer');
+  const isCustomerRoute = strippedPath.startsWith('/customer') || strippedPath.startsWith('/dashboard');
+  const isAdminApiRoute = strippedPath.startsWith('/api/admin');
 
-  if (isAdminRoute || isCustomerRoute) {
+  if (isAdminRoute || isCustomerRoute || isAdminApiRoute) {
     const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
     
     if (!token) {
+      if (strippedPath.startsWith('/api/')) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      }
+      
       const loginUrl = isAdminRoute 
         ? '/admin/login' 
         : (locale ? `/${locale}/login` : '/login');
@@ -32,7 +37,10 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(url);
     }
     
-    if (isAdminRoute && token.role !== 'ADMIN') {
+    if ((isAdminRoute || isAdminApiRoute) && token.role !== 'ADMIN') {
+      if (strippedPath.startsWith('/api/')) {
+        return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+      }
       return NextResponse.redirect(new URL(locale ? `/${locale}` : '/', request.url));
     }
     
@@ -76,5 +84,8 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  matcher: [
+    "/((?!api|_next/static|_next/image|favicon.ico).*)",
+    "/api/admin/:path*"
+  ],
 };

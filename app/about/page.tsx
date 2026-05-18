@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useLanguage } from "@/lib/context/LanguageContext";
 import { motion } from "framer-motion";
@@ -10,7 +10,7 @@ const translations = {
   en: {
     badge: "Who We Are",
     title: "Your passage to VIP mobility",
-    description: "Riyadh Luxe Taxi stands at the intersection of Saudi hospitality and world-class luxury transportation. We provide pre-booked, flat-rate chauffeur services engineered for executive summits, spiritual pilgrimages, and family travels across the Kingdom.",
+    description: "Riyadh Taxi stands at the intersection of Saudi hospitality and world-class luxury transportation. We provide pre-booked, flat-rate chauffeur services engineered for executive summits, spiritual pilgrimages, and family travels across the Kingdom.",
     
     // Stats
     statsTitle: "Our Journey in Numbers",
@@ -24,12 +24,12 @@ const translations = {
     // Story
     storyTitle: "Our Heritage",
     storySubtitle: "Established in 2014",
-    storyText1: "Founded in the heart of Riyadh in 2014, Riyadh Luxe Taxi began with a singular vision: to redefine VIP transport across the Kingdom of Saudi Arabia. What started with a modest fleet of five executive sedans has grown into Saudi Arabia's premier luxury transport network, serving C-suite executives, global dignitaries, and hundreds of spiritual pilgrims daily.",
+    storyText1: "Founded in the heart of Riyadh in 2014, Riyadh Taxi began with a singular vision: to redefine VIP transport across the Kingdom of Saudi Arabia. What started with a modest fleet of five executive sedans has grown into Saudi Arabia's premier luxury transport network, serving C-suite executives, global dignitaries, and hundreds of spiritual pilgrims daily.",
     storyText2: "Over the past decade, we have established ourselves as the premier choice for reliable, safe, and prestigious travel. By blending traditional Saudi hospitality with state-of-the-art fleet management technology, we ensure that every journey with us feels like a sanctuary of comfort and premium luxury.",
 
     // Pillars (Mission & Values)
     pillarsTitle: "Mission & Core Values",
-    pillarsSubtitle: "The foundations of Riyadh Luxe",
+    pillarsSubtitle: "The foundations of Riyadh Taxi",
     pillars: [
       {
         title: "Absolute Reliability",
@@ -73,7 +73,7 @@ const translations = {
 
     // Video Section
     videoTitle: "Experience the Sanctuary on Wheels",
-    videoText: "Take a virtual tour inside our ultra-luxury fleet and discover the meticulous details that make Riyadh Luxe Taxi the gold standard of travel."
+    videoText: "Take a virtual tour inside our ultra-luxury fleet and discover the meticulous details that make Riyadh Taxi the gold standard of travel."
   },
   ar: {
     badge: "من نحن",
@@ -295,7 +295,7 @@ export default function AboutPage() {
           >
             <Image
               src="https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=800&q=80"
-              alt="Riyadh Luxe Taxi Heritage fleet"
+              alt="Riyadh Taxi Heritage fleet"
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -331,7 +331,7 @@ export default function AboutPage() {
           {isPlaying ? (
             <iframe
               src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1"
-              title="Riyadh Luxe Taxi Video"
+              title="Riyadh Taxi Video"
               className="w-full h-full border-0"
               allow="autoplay; encrypted-media"
               allowFullScreen

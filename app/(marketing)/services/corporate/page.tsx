@@ -1,9 +1,9 @@
-import { Metadata } from "next";
+﻿import { Metadata } from "next";
 import Image from "next/image";
 import { Building2, ReceiptText, ShieldCheck, UserCheck, Check } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Corporate Taxi Accounts & B2B Transport | Riyadh Luxe Taxi",
+  title: "Corporate Taxi Accounts & B2B Transport | Riyadh Taxi",
   description: "Executive B2B transport solutions in Saudi Arabia. Monthly invoicing, ZATCA compliant receipts, priority dispatch, and dedicated account managers.",
 };
 

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -71,7 +71,7 @@ const GUIDES = [
     icon: Plane,
     title: "Jeddah Airport Arrivals — Full Walk-Through",
     titleAr: "دليل وصول مطار جدة الشامل",
-    summary: "Terminal layout, immigration queues, baggage claim zones, VIP arrival halls, and how to find your Riyadh Luxe chauffeur.",
+    summary: "Terminal layout, immigration queues, baggage claim zones, VIP arrival halls, and how to find your Riyadh Taxi chauffeur.",
     date: "April 21, 2026",
     readTime: "6 min",
     tags: ["Jeddah", "Airport", "Arrival"],
@@ -80,7 +80,7 @@ const GUIDES = [
       "North Terminal (Domestic): Smaller, faster processing — used for KSA internal flights.",
       "Hajj Terminal: Seasonal — used exclusively during Hajj season for pilgrims. Completely separate facility.",
       "VIP arrivals hall (Level 1): Available for business/first class passengers — ask your airline at check-in.",
-      "Finding your chauffeur: Your Riyadh Luxe driver will be standing in the Arrivals Meet Zone with your name on a digital sign.",
+      "Finding your chauffeur: Your Riyadh Taxi driver will be standing in the Arrivals Meet Zone with your name on a digital sign.",
       "WhatsApp your driver directly from the booking confirmation SMS — no waiting, no confusion.",
     ],
   },
@@ -138,7 +138,7 @@ const GUIDES = [
       "Diplomatic Quarter (DQ): Embassies, international schools, and secure residential compounds. Strict access controls.",
       "Al Faisaliah Tower: Iconic landmark — conference facilities, restaurants, and executive suites.",
       "Traffic: Riyadh rush hours are 7–9am and 4–8pm. Allow 45-min buffers for cross-city transfers during peak.",
-      "Chauffeur tip: Pre-book your Riyadh Luxe driver for the full meeting day — hourly charter saves time and avoids Uber surge pricing.",
+      "Chauffeur tip: Pre-book your Riyadh Taxi driver for the full meeting day — hourly charter saves time and avoids Uber surge pricing.",
     ],
   },
   {

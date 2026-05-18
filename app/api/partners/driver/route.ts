@@ -1,9 +1,9 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
 const resendApiKey = process.env.RESEND_API_KEY;
 const resend = resendApiKey ? new Resend(resendApiKey) : null;
-const adminEmail = process.env.ADMIN_EMAIL || "info@riyadhluxetaxi.com";
+const adminEmail = process.env.ADMIN_EMAIL || "info@riyadhtaxi.com";
 
 export async function POST(request: Request) {
   try {
@@ -20,12 +20,12 @@ export async function POST(request: Request) {
 
     if (resend) {
       const { data, error } = await resend.emails.send({
-        from: "Riyadh Luxe Driver Network <onboarding@resend.dev>",
+        from: "Riyadh Taxi Driver Network <onboarding@resend.dev>",
         to: [adminEmail],
         subject: `🚕 New Driver Applicant: ${name} (${experience} yrs)`,
         html: `
           <div style="font-family: sans-serif; padding: 20px; color: #111; max-width: 600px; border: 1px solid #C9A84C; border-radius: 12px;">
-            <h2 style="color: #C9A84C; border-bottom: 1px solid #eee; padding-bottom: 10px;">Riyadh Luxe Chauffeur Operations</h2>
+            <h2 style="color: #C9A84C; border-bottom: 1px solid #eee; padding-bottom: 10px;">Riyadh Taxi Chauffeur Operations</h2>
             <p>A new chauffeur applicant has submitted an operations request on the network portal.</p>
             <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
               <tr>
@@ -53,7 +53,7 @@ export async function POST(request: Request) {
               <strong>Action required:</strong> Please perform background checks, verify credentials against the public registry, and schedule a physical vehicle inspection.
             </p>
             <p style="font-size: 11px; color: #888; margin-top: 25px; border-top: 1px solid #eee; padding-top: 10px;">
-              This notification was generated automatically by the Riyadh Luxe Taxi portal.
+              This notification was generated automatically by the Riyadh Taxi portal.
             </p>
           </div>
         `,

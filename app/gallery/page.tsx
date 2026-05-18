@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -262,7 +262,7 @@ export default function GalleryPage() {
           </h2>
           <p className="text-sm md:text-base text-[#A1A1A6] max-w-2xl mx-auto mb-8">
             Whether it&apos;s a VIP airport transfer, a corporate delegation, or a spiritual Umrah journey, 
-            Riyadh Luxe guarantees an unparalleled travel experience.
+            Riyadh Taxi guarantees an unparalleled travel experience.
           </p>
           
           <div className="flex flex-wrap justify-center gap-4">

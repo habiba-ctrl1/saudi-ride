@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -246,7 +246,7 @@ export default function LocationsPage() {
                 <div className="relative h-48 overflow-hidden">
                   <Image
                     src={loc.image}
-                    alt={`${loc.name} — Riyadh Luxe Taxi transfers`}
+                    alt={`${loc.name} — Riyadh Taxi transfers`}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, 33vw"

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -9,7 +9,7 @@ export function WhatsAppButton() {
   
   // Format phone number for deep link: remove spaces, symbols, keep only digits and +
   const formattedNumber = whatsappNumber.replace(/[^0-9]/g, "");
-  const encodedText = encodeURIComponent("Hello, I would like to book a VIP transfer with Riyadh Luxe Taxi.");
+  const encodedText = encodeURIComponent("Hello, I would like to book a VIP transfer with Riyadh Taxi.");
   const whatsappUrl = `https://wa.me/${formattedNumber}?text=${encodedText}`;
 
   return (

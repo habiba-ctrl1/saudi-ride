@@ -1,4 +1,4 @@
-export type Locale = "en" | "ar";
+﻿export type Locale = "en" | "ar";
 
 type SiteCopy = {
   brand: string;
@@ -52,7 +52,7 @@ type SiteCopy = {
 
 export const siteContent: Record<Locale, SiteCopy> = {
   en: {
-    brand: "RIYADH LUXE TAXI",
+    brand: "Riyadh Taxi",
     navBookNow: "Book Now",
     navLanguage: "AR",
     heroBadge: "Premium mobility in Saudi Arabia",

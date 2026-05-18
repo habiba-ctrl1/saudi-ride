@@ -1,10 +1,10 @@
-import { Metadata } from "next";
+﻿import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Map, Clock, Compass, ChevronRight, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Tourism Transport & Charters | Riyadh Luxe Taxi",
+  title: "Tourism Transport & Charters | Riyadh Taxi",
   description: "Explore Saudi Arabia's heritage and natural beauty. Private charters and guided transport to AlUla, NEOM, Abha, Taif, and more. Hourly and daily rates available.",
 };
 

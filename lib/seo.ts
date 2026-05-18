@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+﻿import { Metadata } from "next";
 
 interface SEOProps {
   title: string;
@@ -12,22 +12,22 @@ export function generateMetadata({
   title,
   description,
   path,
-  image = "https://riyadhluxetaxi.com/images/og-image.jpg",
+  image = "https://riyadhtaxi.com/images/og-image.jpg",
   noIndex = false,
 }: SEOProps): Metadata {
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
-  const url = `https://riyadhluxetaxi.com${cleanPath}`;
+  const url = `https://riyadhtaxi.com${cleanPath}`;
 
   return {
-    title: `${title} | Riyadh Luxe Taxi`,
+    title: `${title} | Riyadh Taxi`,
     description,
-    metadataBase: new URL("https://riyadhluxetaxi.com"),
+    metadataBase: new URL("https://riyadhtaxi.com"),
     alternates: {
       canonical: url,
       languages: {
-        "en": `https://riyadhluxetaxi.com${cleanPath}`,
-        "ar": `https://riyadhluxetaxi.com/ar${cleanPath}`,
-        "ur": `https://riyadhluxetaxi.com/ur${cleanPath}`,
+        "en": `https://riyadhtaxi.com${cleanPath}`,
+        "ar": `https://riyadhtaxi.com/ar${cleanPath}`,
+        "ur": `https://riyadhtaxi.com/ur${cleanPath}`,
       },
     },
     robots: {
@@ -40,10 +40,10 @@ export function generateMetadata({
       },
     },
     openGraph: {
-      title: `${title} | Riyadh Luxe Taxi`,
+      title: `${title} | Riyadh Taxi`,
       description,
       url,
-      siteName: "Riyadh Luxe Taxi",
+      siteName: "Riyadh Taxi",
       images: [
         {
           url: image,
@@ -57,7 +57,7 @@ export function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | Riyadh Luxe Taxi`,
+      title: `${title} | Riyadh Taxi`,
       description,
       images: [image],
     },

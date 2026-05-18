@@ -85,7 +85,7 @@ function LoginForm() {
     <div className="w-full max-w-md">
       <div className="text-center mb-8">
         <Link href="/" className="inline-block font-heading text-2xl font-bold tracking-widest uppercase mb-6">
-          Riyadh <span className="text-[#C9A84C]">Luxe</span>
+          Riyadh <span className="text-[#C9A84C]">Taxi</span>
         </Link>
         <h1 className="font-heading text-3xl font-bold text-[#F5F0E8] mb-2">Welcome Back</h1>
         <p className="text-sm text-[#A1A1A6]">Sign in to manage your luxury transport bookings.</p>

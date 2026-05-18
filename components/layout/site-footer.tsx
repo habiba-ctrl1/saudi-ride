@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { contactConfig } from "@/lib/config/contact";
 
 export function SiteFooter() {
@@ -6,7 +6,7 @@ export function SiteFooter() {
     <footer className="border-t border-[#e8e4dc] bg-white">
       <div className="section-container grid gap-8 py-10 md:grid-cols-4">
         <div>
-          <p className="text-sm font-semibold tracking-[0.18em]">RIYADH LUXE TAXI</p>
+          <p className="text-sm font-semibold tracking-[0.18em]">Riyadh Taxi</p>
           <p className="mt-2 text-sm text-[#5c626c]">Premium chauffeur service for airports, Umrah journeys, and intercity travel.</p>
         </div>
         <div>

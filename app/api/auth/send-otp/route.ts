@@ -20,8 +20,8 @@ export async function POST(request: Request) {
     // Generate a 6-digit OTP
     const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
     
-    // OTP expires in 5 minutes
-    const otpExpires = new Date(Date.now() + 5 * 60 * 1000);
+    // OTP expires in 10 minutes
+    const otpExpires = new Date(Date.now() + 10 * 60 * 1000);
 
     // Upsert user based on phone number (if they don't exist, create a generic CUSTOMER profile)
     await prisma.user.upsert({
@@ -41,7 +41,7 @@ export async function POST(request: Request) {
     // Send OTP via Twilio if configured
     if (client && twilioPhoneNumber) {
       await client.messages.create({
-        body: `Your Riyadh Luxe Taxi login code is: ${otpCode}. It expires in 5 minutes.`,
+        body: `Your Riyadh Taxi login code is: ${otpCode}. It expires in 10 minutes.`,
         from: twilioPhoneNumber,
         to: phone,
       });
@@ -51,7 +51,7 @@ export async function POST(request: Request) {
       console.log(`[LOCAL DEV] Simulated sending OTP ${otpCode} to ${phone}`);
     }
 
-    return NextResponse.json({ success: true, message: "OTP sent successfully" });
+    return NextResponse.json({ success: true, message: "OTP sent. Valid for 10 minutes." });
   } catch (error) {
     console.error("OTP send error:", error);
     return NextResponse.json({ error: "Failed to send OTP" }, { status: 500 });

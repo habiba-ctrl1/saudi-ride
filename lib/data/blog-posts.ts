@@ -1,4 +1,4 @@
-export const BLOG_POSTS_DATA = [
+﻿export const BLOG_POSTS_DATA = [
   {
     title: "Jeddah Airport to Makkah: Complete Taxi Guide 2025",
     slug: "jeddah-airport-to-makkah-complete-taxi-guide-2025",
@@ -23,7 +23,7 @@ When you step out of the arrivals terminal, you have several options:
 
 1. **Official Airport Taxis (Green Cabs):** Available 24/7, metered, but can be expensive during surge periods.
 2. **Ride-Hailing Apps:** Uber, Careem, and Bolt operate in Saudi Arabia. They require mobile internet access and a pickup from designated zones.
-3. **Pre-booked Premium Chauffeurs (Recommended):** Services like Riyadh Luxe Taxi offer fixed-rate pricing, meet-and-greet inside the terminal, and luxury vehicles (Sedans, SUVs, Vans).
+3. **Pre-booked Premium Chauffeurs (Recommended):** Services like Riyadh Taxi offer fixed-rate pricing, meet-and-greet inside the terminal, and luxury vehicles (Sedans, SUVs, Vans).
 
 ### Why Pre-Book Your Taxi?
 
@@ -188,7 +188,7 @@ In recent years, Saudi Arabia has aggressively pushed towards a cashless society
 - Hotels and premium restaurants
 - Shopping malls and large supermarkets (e.g., Bin Dawood, Panda)
 - Pharmacies
-- Ride-hailing apps and premium taxi services (like Riyadh Luxe Taxi)
+- Ride-hailing apps and premium taxi services (like Riyadh Taxi)
 - Most shops around the Haram in Makkah and Madinah
 
 *Note:* Apple Pay and Google Pay are extremely popular and accepted at 99% of contactless terminals in the country.

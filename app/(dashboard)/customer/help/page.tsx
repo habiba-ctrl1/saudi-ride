@@ -119,7 +119,7 @@ export default function CustomerHelpPage() {
                   <Mail className="h-6 w-6 text-[#C9A84C]" />
                 </div>
                 <div>
-                  <p className="font-bold text-[#F5F0E8] text-sm">vip@riyadhluxe.com</p>
+                  <p className="font-bold text-[#F5F0E8] text-sm">vip@riyadhtaxi.com</p>
                   <p className="text-xs text-[#A1A1A6]">For general inquiries</p>
                 </div>
               </div>

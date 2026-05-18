@@ -102,7 +102,7 @@ const homeTranslations = {
     },
     whyUs: {
       badge: "Prestige Standards",
-      title: "Why VIP travelers choose Riyadh Luxe",
+      title: "Why VIP travelers choose Riyadh Taxi",
       desc: "We merge contemporary Western hospitality precision with timeless Arabian generosity to elevate every single highway kilometer.",
       points: [
         { title: "Ministry Licensed", desc: "100% compliant with MOT and TGA regulatory structures." },
@@ -499,15 +499,15 @@ const customerReviews = [
   { name: "Dr. Farhan Malik", countryFlag: "🇬🇧", stars: 5, text: "Flawless service from Jeddah to Makkah. Chauffeur was waiting in the arrivals hall with a gold tablet. Extremely smooth ride.", vehicle: "GMC Yukon Denali" },
   { name: "Amna Al-Faisal", countryFlag: "🇸🇦", stars: 5, text: "سيارات فاخرة للغاية وخدمة متميزة تليق بكبار الشخصيات. سائق محترف ولديه دراية ممتازة بمواقع مكة والمدينة.", vehicle: "Toyota Camry Executive" },
   { name: "Muhammad Siddique", countryFlag: "🇵🇰", stars: 5, text: "Wonderful pilgrimage booking. The driver was prayer-time aware and stopped for us at Meeqat with absolute respect and patience.", vehicle: "Hyundai Staria Premium" },
-  { name: "Hassan Qabbani", countryFlag: "🇦🇪", stars: 5, text: "Highly recommend Riyadh Luxe. Complete luxury, premium Wi-Fi cabin, and fixed rates with zero hidden surge billing.", vehicle: "GMC Yukon Denali" },
+  { name: "Hassan Qabbani", countryFlag: "🇦🇪", stars: 5, text: "Highly recommend Riyadh Taxi. Complete luxury, premium Wi-Fi cabin, and fixed rates with zero hidden surge billing.", vehicle: "GMC Yukon Denali" },
   { name: "Evelyn Sterling", countryFlag: "🇺🇸", stars: 5, text: "Exceptional airport meet & greet. Flight was delayed by 2 hours, but the chauffeur tracked it and was right there. Pure class.", vehicle: "GMC Yukon Denali" },
   { name: "Ahmad Bin-Hamid", countryFlag: "🇶🇦", stars: 5, text: "سفر مريح بين الرياض والدمام. مقاعد في آي بي فاخرة وخدمة إنترنت ممتازة طوال الطريق.", vehicle: "Toyota Camry Executive" }
 ];
 
 const blogList = [
-  { categoryEn: "Airport Help", categoryAr: "مساعدة المطار", categoryUr: "ہوائی اڈے کی مدد", titleEn: "SIM Card buying guide at Jeddah Airport", titleAr: "دليل شراء بطاقات الاتصال SIM في مطار جدة", titleUr: "جدہ ایئرپورٹ پر سم کارڈ خریدنے کا گائیڈ", excerptEn: "Exactly where to purchase local 5G eSIMs/SIMs from stc, Mobily, or Zain upon landing at Terminal 1 or North Terminal.", excerptAr: "أين تشتري شرائح الاتصال المحلية eSIM/SIM من شركات stc، وموبايلي، وزين فور وصولك لصالة المطار.", excerptUr: "ٹرمینل 1 پر لینڈنگ کے بعد stc، Mobily، یا Zain سے مقامی 5G eSIMs/SIMs خریدنے کی درست جگہوں کی معلومات۔", author: "Riyadh Luxe Editorial", date: "May 12, 2026", timeEn: "5 min read", timeAr: "قراءة ٥ دقائق", timeUr: "5 منٹ مطالعہ" },
-  { categoryEn: "Umrah", categoryAr: "العمرة والزيارة", categoryUr: "عمرہ اور زیارت", titleEn: "Complete Meeqat locations guide for Umrah", titleAr: "دليل مواقيت الإحرام الكامل للمعتمرين", titleUr: "عمرہ کے لیے میقات کے مقامات کی مکمل گائیڈ", excerptEn: "Step-by-step guidance on Meeqat points (including Dhul Hulaifah & Yalamlam) for international pilgrims arriving by air or road.", excerptAr: "شرح تفصيلي خطوة بخطوة لمواقيت الإحرام (بما في ذلك ذو الحليفة ويلملم) للحجاج والمعتمرين القادمين جواً أو براً.", excerptUr: "فضائی یا زمینی راستے سے آنے والے بین الاقوامی زائرین کے لیے میقات کے مقامات پر تفصیلی رہنمائی۔", author: "Riyadh Luxe Editorial", date: "May 08, 2026", timeEn: "7 min read", timeAr: "قراءة ٧ دقائق", timeUr: "7 منٹ مطالعہ" },
-  { categoryEn: "Travel Finance", categoryAr: "المالية والسفر", categoryUr: "ٹریول فنانس", titleEn: "Saudi Riyal cash & card tips for pilgrims", titleAr: "نصائح الكاش والبطاقات للمعتمرين في السعودية", titleUr: "زائرین کے لیے سعودی ریال کیش اور کارڈ کی تجاویز", excerptEn: "Everything about card acceptance, local mada payment network, currency exchange outlets, and ATM fee limits in KSA.", excerptAr: "كل ما تحتاج لمعرفته حول قبول بطاقات الائتمان، شبكة مدى المحلية، منافذ الصرافة ورسوم السحب من أجهزة الصراف الآلي.", excerptUr: "کارڈز کی قبولیت، مقامی mada پیمنٹ نیٹ ورک، کرنسی ایکسچینج اور اے ٹی ایم فیس کی حدود کے بارے میں سب کچھ۔", author: "Riyadh Luxe Editorial", date: "April 29, 2026", timeEn: "4 min read", timeAr: "قراءة ٤ دقائق", timeUr: "4 منٹ مطالعہ" }
+  { categoryEn: "Airport Help", categoryAr: "مساعدة المطار", categoryUr: "ہوائی اڈے کی مدد", titleEn: "SIM Card buying guide at Jeddah Airport", titleAr: "دليل شراء بطاقات الاتصال SIM في مطار جدة", titleUr: "جدہ ایئرپورٹ پر سم کارڈ خریدنے کا گائیڈ", excerptEn: "Exactly where to purchase local 5G eSIMs/SIMs from stc, Mobily, or Zain upon landing at Terminal 1 or North Terminal.", excerptAr: "أين تشتري شرائح الاتصال المحلية eSIM/SIM من شركات stc، وموبايلي، وزين فور وصولك لصالة المطار.", excerptUr: "ٹرمینل 1 پر لینڈنگ کے بعد stc، Mobily، یا Zain سے مقامی 5G eSIMs/SIMs خریدنے کی درست جگہوں کی معلومات۔", author: "Riyadh Taxi Editorial", date: "May 12, 2026", timeEn: "5 min read", timeAr: "قراءة ٥ دقائق", timeUr: "5 منٹ مطالعہ" },
+  { categoryEn: "Umrah", categoryAr: "العمرة والزيارة", categoryUr: "عمرہ اور زیارت", titleEn: "Complete Meeqat locations guide for Umrah", titleAr: "دليل مواقيت الإحرام الكامل للمعتمرين", titleUr: "عمرہ کے لیے میقات کے مقامات کی مکمل گائیڈ", excerptEn: "Step-by-step guidance on Meeqat points (including Dhul Hulaifah & Yalamlam) for international pilgrims arriving by air or road.", excerptAr: "شرح تفصيلي خطوة بخطوة لمواقيت الإحرام (بما في ذلك ذو الحليفة ويلملم) للحجاج والمعتمرين القادمين جواً أو براً.", excerptUr: "فضائی یا زمینی راستے سے آنے والے بین الاقوامی زائرین کے لیے میقات کے مقامات پر تفصیلی رہنمائی۔", author: "Riyadh Taxi Editorial", date: "May 08, 2026", timeEn: "7 min read", timeAr: "قراءة ٧ دقائق", timeUr: "7 منٹ مطالعہ" },
+  { categoryEn: "Travel Finance", categoryAr: "المالية والسفر", categoryUr: "ٹریول فنانس", titleEn: "Saudi Riyal cash & card tips for pilgrims", titleAr: "نصائح الكاش والبطاقات للمعتمرين في السعودية", titleUr: "زائرین کے لیے سعودی ریال کیش اور کارڈ کی تجاویز", excerptEn: "Everything about card acceptance, local mada payment network, currency exchange outlets, and ATM fee limits in KSA.", excerptAr: "كل ما تحتاج لمعرفته حول قبول بطاقات الائتمان، شبكة مدى المحلية، منافذ الصرافة ورسوم السحب من أجهزة الصراف الآلي.", excerptUr: "کارڈز کی قبولیت، مقامی mada پیمنٹ نیٹ ورک، کرنسی ایکسچینج اور اے ٹی ایم فیس کی حدود کے بارے میں سب کچھ۔", author: "Riyadh Taxi Editorial", date: "April 29, 2026", timeEn: "4 min read", timeAr: "قراءة ٤ دقائق", timeUr: "4 منٹ مطالعہ" }
 ];
 
 const fadeUp = {
@@ -607,7 +607,7 @@ export function HomePage() {
               ) : (
                 <>
                   Premium Chauffeur &<br />
-                  <span className="block text-[#C9A84C] font-heading mt-3 tracking-wide">Luxe Taxi Services</span>
+                  <span className="block text-[#C9A84C] font-heading mt-3 tracking-wide">Taxi Services</span>
                 </>
               )}
             </h1>

@@ -1,11 +1,11 @@
-import { Metadata } from "next";
+﻿import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Landmark, Languages, ShieldCheck, HeartHandshake, CheckCircle2, MessageCircle } from "lucide-react";
 import { contactConfig } from "@/lib/config/contact";
 
 export const metadata: Metadata = {
-  title: "Premium Umrah Taxi & VIP Transport | Riyadh Luxe Taxi",
+  title: "Premium Umrah Taxi & VIP Transport | Riyadh Taxi",
   description: "Spiritual, comfortable, and reliable Umrah transportation. We offer VIP transfers from Jeddah to Makkah, Madinah Ziyarat tours, and multi-lingual chauffeurs.",
 };
 

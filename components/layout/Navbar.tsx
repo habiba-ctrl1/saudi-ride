@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -89,7 +89,7 @@ export function Navbar() {
             </span>
             <div className="flex flex-col">
               <span className="font-heading text-lg font-bold tracking-[0.18em] text-[#F5F0E8] group-hover:text-[#C9A84C] transition-colors">
-                RIYADH LUXE
+                Riyadh Taxi
               </span>
               <span className="text-[0.55rem] uppercase tracking-[0.4em] text-[#C9A84C] -mt-1 font-sans">
                 Chauffeur Service
@@ -148,7 +148,7 @@ export function Navbar() {
               <Link href="/" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
                 <span className="text-sm font-semibold text-[#C9A84C] font-heading">🌙</span>
                 <span className="font-heading text-base font-bold tracking-widest text-[#F5F0E8]">
-                  RIYADH LUXE
+                  Riyadh Taxi
                 </span>
               </Link>
               <button

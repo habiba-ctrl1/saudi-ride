@@ -1,4 +1,4 @@
-import { MetadataRoute } from "next";
+﻿import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -13,6 +13,6 @@ export default function robots(): MetadataRoute.Robots {
         "/static/",
       ],
     },
-    sitemap: "https://riyadhluxetaxi.com/sitemap.xml",
+    sitemap: "https://riyadhtaxi.com/sitemap.xml",
   };
 }

@@ -67,7 +67,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
     "description": route.description,
     "provider": {
       "@type": "LocalBusiness",
-      "name": "Riyadh Luxe Taxi"
+      "name": "Riyadh Taxi"
     },
     "itinerary": {
       "@type": "ItemList",

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -128,7 +128,7 @@ export default function FleetPage() {
                 <div className="relative h-52 w-full overflow-hidden">
                   <Image
                     src={vehicle.image}
-                    alt={`${vehicle.name} — Riyadh Luxe Taxi Saudi Arabia`}
+                    alt={`${vehicle.name} — Riyadh Taxi Saudi Arabia`}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

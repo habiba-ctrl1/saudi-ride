@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useLanguage } from "@/lib/context/LanguageContext";
 import { motion } from "framer-motion";
@@ -38,7 +38,7 @@ const translations = {
     luxuryCol: "VIP Sedan (S-Class)",
 
     // Trust Cards
-    trustTitle: "The Riyadh Luxe Price Guarantee",
+    trustTitle: "The Riyadh Taxi Price Guarantee",
     trustSubtitle: "Uncompromising premium standard commitments",
     trust: [
       { title: "Surge-Free Guarantee", desc: "No surge pricing during conventions, flight delays, sandstorms, or peak holiday travel.", icon: ShieldCheck },

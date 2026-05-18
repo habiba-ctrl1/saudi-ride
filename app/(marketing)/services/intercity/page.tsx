@@ -1,10 +1,10 @@
-import { Metadata } from "next";
+﻿import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Map, Car, ShieldCheck, Clock, Navigation, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "City to City Intercity Taxi Services | Riyadh Luxe Taxi",
+  title: "City to City Intercity Taxi Services | Riyadh Taxi",
   description: "Private executive transfers connecting all major cities in Saudi Arabia. Riyadh to Dammam, Jeddah to Makkah, and more. Fixed rates and luxury vehicles.",
 };
 

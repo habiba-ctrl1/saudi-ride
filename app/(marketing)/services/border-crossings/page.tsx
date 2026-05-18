@@ -1,10 +1,10 @@
-import { Metadata } from "next";
+﻿import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Globe, FileText, Clock, Car, CheckCircle2, AlertTriangle } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "GCC Border Crossing Taxi Service | Riyadh Luxe Taxi",
+  title: "GCC Border Crossing Taxi Service | Riyadh Taxi",
   description: "Seamless VIP cross-border transfers from Saudi Arabia to Bahrain, UAE, Qatar, Kuwait, and Jordan. We handle the driving and border logistics.",
 };
 
