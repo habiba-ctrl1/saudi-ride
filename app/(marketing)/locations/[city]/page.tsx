@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 export const revalidate = 86400; // revalidate every 24 hours
 
 // No notFound import
