@@ -58,7 +58,7 @@ export default function HeritageToursPage() {
             <span className="text-[#C9A84C]">Tours</span>
           </h1>
           <p className="max-w-2xl mx-auto text-sm md:text-base text-[#A1A1A6] leading-relaxed mb-10">
-            Journey through time with our private transport services to Saudi Arabia's incredible UNESCO World Heritage sites and historical landmarks.
+            Journey through time with our private transport services to Saudi Arabia&apos;s incredible UNESCO World Heritage sites and historical landmarks.
           </p>
           <div className="flex justify-center gap-4">
             <Link
