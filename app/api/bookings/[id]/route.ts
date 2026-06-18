@@ -5,14 +5,14 @@ import { sendDriverAssignment } from "@/lib/notifications";
 
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ ref: string }> }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { ref } = await params;
+    const { id } = await params;
     const { searchParams } = new URL(request.url);
     const phone = searchParams.get("phone");
 
-    if (!ref || !phone) {
+    if (!id || !phone) {
       return NextResponse.json(
         { error: "Booking reference and phone number are required" },
         { status: 400 }
@@ -21,7 +21,7 @@ export async function GET(
 
     // Query booking by ref
     const booking = await db.booking.findUnique({
-      where: { bookingRef: ref },
+      where: { bookingRef: id },
       include: { vehicle: true }
     });
 
@@ -169,16 +169,16 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: Promise<{ ref: string }> }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { ref } = await params;
+    const { id } = await params;
     const body = await request.json();
     const { action, driverName, driverPhone } = body;
 
     // Retrieve booking
     const booking = await db.booking.findUnique({
-      where: { bookingRef: ref }
+      where: { bookingRef: id }
     });
 
     if (!booking) {
@@ -197,7 +197,7 @@ export async function PUT(
       }
 
       const updated = await db.booking.update({
-        where: { bookingRef: ref },
+        where: { bookingRef: id },
         data: { status: "CANCELLED" }
       });
 
@@ -210,7 +210,7 @@ export async function PUT(
       }
 
       const updated = await db.booking.update({
-        where: { bookingRef: ref },
+        where: { bookingRef: id },
         data: {
           status: "DRIVER_ASSIGNED",
           driverName,
@@ -236,7 +236,7 @@ export async function PUT(
       }
 
       const updated = await db.booking.update({
-        where: { bookingRef: ref },
+        where: { bookingRef: id },
         data: { status }
       });
 
@@ -253,16 +253,16 @@ export async function PUT(
 
 export async function PATCH(
   request: Request,
-  { params }: { params: Promise<{ ref: string }> }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { ref } = await params;
+    const { id } = await params;
     const body = await request.json();
     const { status, driverName, driverPhone } = body;
 
     // Retrieve booking
     const booking = await db.booking.findUnique({
-      where: { bookingRef: ref }
+      where: { bookingRef: id }
     });
 
     if (!booking) {
@@ -281,7 +281,7 @@ export async function PATCH(
     }
 
     const updated = await db.booking.update({
-      where: { bookingRef: ref },
+      where: { bookingRef: id },
       data: updateData,
       include: { vehicle: true }
     });

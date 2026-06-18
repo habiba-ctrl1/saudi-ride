@@ -23,7 +23,7 @@ export async function generateMetadata({
   const vehicle = FLEET_VEHICLES.find((v) => v.slug === slug);
   if (!vehicle) return { title: "Vehicle Not Found" };
 
-  const title = `${vehicle.name} Taxi Saudi Arabia | ${vehicle.subtitle} Transfer | Riyadh Taxi`;
+  const title = `${vehicle.name} Taxi Saudi Arabia | ${vehicle.subtitle} Transfer | Taxi Saudi Arabia`;
   const description = `Book a ${vehicle.name} in Saudi Arabia from SAR ${vehicle.startingPrice}. ${vehicle.description} Available 24/7 for airport transfers, Umrah, and intercity routes.`;
 
   return {
@@ -88,7 +88,7 @@ const EXTENDED_SPECS: Record<string, { wifi: boolean; ac: string; drive: string;
 
 // ─── Sample customer reviews ─────────────────────────────────────────────────
 const REVIEWS = [
-  { name: "Abdullah Al-Dosari", city: "Riyadh → Jeddah", rating: 5, text: "Absolutely impeccable service. The vehicle was spotless and our chauffeur was professional and punctual. Will use again." },
+  { name: "Abdullah Al-Dosari", city: "Riyadh → Jeddah", rating: 5, text: "Absolutely impeccable service. The vehicle was spotless and our driver was professional and punctual. Will use again." },
   { name: "Sarah M.", city: "JED Airport → Makkah", rating: 5, text: "Best airport transfer I've had in Saudi Arabia. Gold standard service from booking to drop-off." },
   { name: "Faisal Al-Shammari", city: "Riyadh → Dammam", rating: 5, text: "Booked for a corporate delegation. The vehicle class and professionalism exceeded our expectations." },
   { name: "Amira K.", city: "Madinah → Jeddah Airport", rating: 4, text: "Great experience overall. Clean vehicle, courteous driver. Arrived well on time for our flight." },
@@ -120,11 +120,11 @@ export default async function VehicleDetailPage({
     "description": vehicle.description,
     "brand": {
       "@type": "Brand",
-      "name": "Riyadh Taxi"
+      "name": "Taxi Saudi Arabia"
     },
     "offers": {
       "@type": "Offer",
-      "url": `https://riyadhtaxi.com/fleet/${vehicle.slug}`,
+      "url": `https://taxisaudiarabia.com/fleet/${vehicle.slug}`,
       "priceCurrency": "SAR",
       "price": vehicle.startingPrice,
       "priceValidUntil": "2027-12-31",
@@ -152,6 +152,8 @@ export default async function VehicleDetailPage({
           alt={`${vehicle.name} luxury transfer Saudi Arabia`}
           fill
           priority
+          placeholder="blur"
+          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
           className="object-cover"
           sizes="100vw"
         />
@@ -216,7 +218,7 @@ export default async function VehicleDetailPage({
               <div>
                 <h3 className="text-xs font-bold uppercase tracking-wider text-[#A1A1A6] mb-4">Included Amenities</h3>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
-                  {[...vehicle.features, "24/7 Dispatch Availability", "Licensed & Insured Chauffeur", `Model Year ${specs.year}`, `${specs.drive} Drivetrain`].map((f) => (
+                  {[...vehicle.features, "24/7 Dispatch Availability", "Licensed & Insured Driver", `Model Year ${specs.year}`, `${specs.drive} Drivetrain`].map((f) => (
                     <li key={f} className="flex items-center gap-2.5 text-xs text-[#A1A1A6]">
                       <CheckCircle className="h-4 w-4 text-[#C9A84C] shrink-0" />
                       <span>{f}</span>
@@ -236,6 +238,8 @@ export default async function VehicleDetailPage({
                       src={src}
                       alt={`${vehicle.name} angle ${i + 1}`}
                       fill
+                      placeholder="blur"
+                      blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
                       className="object-cover transition-transform duration-700 hover:scale-105"
                       sizes="(max-width: 768px) 100vw, 33vw"
                     />
@@ -250,7 +254,7 @@ export default async function VehicleDetailPage({
               <p className="text-sm text-[#A1A1A6] leading-relaxed">{vehicle.description}</p>
               <p className="text-sm text-[#A1A1A6] leading-relaxed">
                 All vehicles in our fleet are professionally maintained to the highest standards, 
-                regularly inspected, and operated exclusively by certified Saudi Transport Authority licensed chauffeurs.
+                regularly inspected, and operated exclusively by certified Saudi Transport Authority licensed drivers.
                 Whether you are heading to Makkah for Umrah, catching a flight from Jeddah, or attending a high-level 
                 business meeting in Riyadh — the {vehicle.name} delivers an experience befitting your status.
               </p>
@@ -302,7 +306,7 @@ export default async function VehicleDetailPage({
                 </div>
 
                 <div className="space-y-2.5 border-y border-[#C9A84C]/8 py-4 text-[0.65rem] text-[#A1A1A6]">
-                  {["Free cancellation 24h before", "No hidden fees", "Professional licensed chauffeur", "Guaranteed on-time pickup"].map((p) => (
+                  {["Free cancellation 24h before", "No hidden fees", "Professional licensed driver", "Guaranteed on-time pickup"].map((p) => (
                     <div key={p} className="flex items-center gap-2">
                       <CheckCircle className="h-3.5 w-3.5 text-[#C9A84C] shrink-0" />
                       <span>{p}</span>
@@ -361,6 +365,8 @@ export default async function VehicleDetailPage({
                     src={v.image}
                     alt={v.name}
                     fill
+                    placeholder="blur"
+                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />

@@ -1,19 +1,41 @@
 import { db } from "@/lib/db";
 import RoutesClient from "./RoutesClient";
+import { ROUTES_DATA } from "@/lib/data/routes";
 
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Premium Chauffeur Routes | Fixed Prices Across Saudi Arabia & GCC",
-  description: "Browse 50+ premium chauffeur routes across Saudi Arabia and the GCC. Fixed-rate luxury transfers between Makkah, Madinah, Riyadh, Jeddah, and more.",
+  title: "Taxi Routes in Saudi Arabia | Fixed Prices — Taxi Saudi Arabia",
+  description: "Browse 50+ taxi routes across Saudi Arabia and the GCC. Fixed-price rides between Makkah, Madinah, Riyadh, Jeddah, Dammam, and more. Book online or on WhatsApp.",
 };
 
 export default async function RoutesPage() {
-  const routes = await db.route.findMany({
-    orderBy: {
-      popular: 'desc',
-    },
-  });
+  let routes = [];
+  try {
+    routes = await db.route.findMany({
+      orderBy: {
+        popular: 'desc',
+      },
+    });
+
+    if (!routes || routes.length === 0) {
+      console.warn("⚠️ Routes table is empty. Using seed fallback.");
+      routes = ROUTES_DATA.map((r, index) => ({
+        id: `fallback-route-${index}`,
+        ...r,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }));
+    }
+  } catch (error) {
+    console.error("❌ Routes database fetch failed. Using fallback data.", error);
+    routes = ROUTES_DATA.map((r, index) => ({
+      id: `fallback-route-${index}`,
+      ...r,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }));
+  }
 
   return (
     <main>

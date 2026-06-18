@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/context/LanguageContext";
 import { contactConfig } from "@/lib/config/contact";
 import PriceCalculator from "@/components/booking/PriceCalculator";
+import { trustStats } from "@/lib/config/stats";
 import {
   Calendar,
   Car,
@@ -19,143 +20,144 @@ import {
   Sparkles,
   Globe,
   Star,
-  MessageCircle
+  MessageCircle,
+  ChevronRight
 } from "lucide-react";
 
 
 const homeTranslations = {
   en: {
     hero: {
-      badge: "Elite Transportation Service",
-      title: "Premium Taxi & Chauffeur Services",
-      subtitle: "VIP Chauffeur Service across Saudi Arabia — Airports, Umrah & Intercity transfers. Travel in maximum comfort.",
-      btnBook: "Book Luxury Ride",
-      btnFleet: "View Prestige Fleet",
-      badges: ["24/7 Premium Support", "100% Ministry Licensed", "Fixed Competitive Prices"]
+      badge: "Saudi Arabia's #1 Taxi & Car Service",
+      title: "Taxi & Car Service Across Saudi Arabia",
+      subtitle: "Book airport taxis, intercity rides, and Umrah transfers anywhere in Saudi Arabia — fixed prices, no hidden fees, available 24/7.",
+      btnBook: "Book a Taxi Now",
+      btnFleet: "Get Free Price Quote",
+      badges: ["24/7 Available", "Licensed Drivers", "Fixed Prices", "All Saudi Cities"]
     },
     stats: [
-      { label: "VIP Trips Completed", value: "50,000+" },
-      { label: "Ministry Licensed Drivers", value: "100%" },
-      { label: "Years Luxury Experience", value: "10+" },
-      { label: "Dedicated Chauffeurs", value: "24/7" },
-      { label: "Passenger Rating", value: "4.9★" },
-      { label: "Nations Served", value: "40+" }
+      { label: "Completed Trips", value: "5,000+", num: 5000 },
+      { label: "Customer Satisfaction", value: "98%", num: 98 },
+      { label: "Available Support", value: "24/7", num: null },
+      { label: "Saudi Cities Covered", value: "50+", num: 50 }
     ],
     widget: {
       oneWay: "One Way",
       roundTrip: "Round Trip",
-      hourly: "Hourly Service",
-      pickupLabel: "Pickup Hub",
-      dropoffLabel: "Drop-off Destination",
-      hoursLabel: "Duration Needed",
+      hourly: "Hourly Hire",
+      pickupLabel: "Pickup Location",
+      dropoffLabel: "Drop-off Location",
+      hoursLabel: "Hours Needed",
       dateLabel: "Pickup Date",
       returnDateLabel: "Return Date",
       timeLabel: "Pickup Time",
       passengersLabel: "Passengers",
-      vehicleLabel: "Chauffeur Class",
-      btnCalculate: "Calculate Price Range",
-      whatsappLabel: "Or book via VIP WhatsApp support desk →",
+      vehicleLabel: "Choose Your Car",
+      btnCalculate: "Calculate My Price",
+      whatsappLabel: "Or book instantly on WhatsApp →",
       popDestinations: "Popular Locations",
       hrs: "hours"
     },
     services: {
-      badge: "Executive Offerings",
-      title: "Tailored for royal comfort",
+      badge: "Our Services",
+      title: "Taxi & Transfer Services in Saudi Arabia",
       cards: [
         {
-          title: "Airport Transfers",
-          desc: "Seamless, flight-tracked meet & greet at Jeddah (JED), Riyadh (RUH), and Madinah (MED) airports.",
+          title: "Airport Taxi Service",
+          desc: "Airport pickup and drop-off at Jeddah (JED), Riyadh (RUH), and Madinah (MED). We track your flight — your driver waits 60 minutes free if your flight is delayed.",
           price: "From SAR 199",
           icon: Globe
         },
         {
-          title: "Umrah & Ziyarat",
-          desc: "Dedicated holy transfers. Driver in Ihram status available upon request with complete Meeqat knowledge.",
+          title: "Umrah Taxi & Transfer",
+          desc: "Dedicated taxi service for Umrah pilgrims. Makkah and Madinah transfers with Meeqat stops, prayer-time awareness, and English, Arabic, and Urdu-speaking drivers.",
           price: "From SAR 249",
           icon: Sparkles
         },
         {
-          title: "Intercity Corridors",
-          desc: "State-of-the-art highway cruising between Riyadh, Jeddah, Makkah, Dammam, and Medina.",
+          title: "Intercity Taxi — Saudi Arabia",
+          desc: "Long-distance taxi rides between Riyadh, Jeddah, Makkah, Dammam, and Madinah. Clean comfortable cars, fixed prices, and no surprise charges.",
           price: "From SAR 599",
           icon: Compass
         },
         {
-          title: "Corporate & Executive",
-          desc: "Prestige business travel with premium Wi-Fi cabins for board members, diplomats, and VIP delegations.",
+          title: "Corporate & Business Car Service",
+          desc: "Reliable car service for business meetings, corporate events, and executive travel. Wi-Fi equipped vehicles available for professionals on the go.",
           price: "From SAR 799",
           icon: Award
         },
         {
-          title: "GCC Border Crossings",
-          desc: "Smooth road luxury connecting major gateways into Bahrain, Qatar, UAE, and Kuwait.",
+          title: "GCC Cross-Border Taxi",
+          desc: "Cross-border car service from Saudi Arabia to Bahrain, Qatar, UAE, and Kuwait. Experienced drivers, smooth border crossings, fixed fares.",
           price: "From SAR 1,499",
           icon: ShieldCheck
         },
         {
-          title: "Kingdom Tourism Packages",
-          desc: "Bespoke guided exploration itineraries to heritage zones like historic AlUla, Taif heights, and NEOM.",
+          title: "Saudi Arabia Day Tours",
+          desc: "Full-day car hire with a local driver for sightseeing. Explore AlUla, Taif, Diriyah, and NEOM with a knowledgeable local guide-driver.",
           price: "From SAR 999",
           icon: Car
         }
       ]
     },
     whyUs: {
-      badge: "Prestige Standards",
-      title: "Why VIP travelers choose Riyadh Taxi",
-      desc: "We merge contemporary Western hospitality precision with timeless Arabian generosity to elevate every single highway kilometer.",
+      badge: "Why Choose Us",
+      title: "Why Thousands Choose Our Taxi Service in Saudi Arabia",
+      desc: "We provide safe, reliable, and affordable taxi and car service across Saudi Arabia — for airport transfers, Umrah trips, business travel, and sightseeing.",
       points: [
-        { title: "Ministry Licensed", desc: "100% compliant with MOT and TGA regulatory structures." },
-        { title: "Fixed Luxury Pricing", desc: "No surge multipliers. The quote you reserve is exactly the fare you pay." },
-        { title: "Prayer-Time Synchronized", desc: "Itinerary planning adjusts naturally around Salah prayer moments." },
-        { title: "Smart Flight Tracking", desc: "We monitor delays live. Your chauffeur waits 60 mins complimentary." },
-        { title: "Trilingual Chauffeurs", desc: "Elite drivers fluent in English, Arabic, and Urdu at your service." },
-        { title: "Free Cancellations", desc: "Cancel up to 24 hours prior with complete fee reversal." },
-        { title: "VIP Meet & Greet", desc: "Baggage assistance and personalized terminal signage on arrival." },
-        { title: "ZATCA E-Invoicing", desc: "Fully automated tax receipts for flawless corporate accounting." }
+        { title: "Government Licensed", desc: "Fully licensed by Saudi Ministry of Transport (MOT) and the General Authority for Transport (TGA)." },
+        { title: "Fixed Price — No Surprises", desc: "The price you see is the price you pay. No surge pricing, no hidden fees, ever." },
+        { title: "Prayer-Time Friendly", desc: "Our drivers always plan stops for prayer times. We never make you miss your Salah." },
+        { title: "Live Flight Tracking", desc: "We track your flight in real time. Your driver waits 60 minutes for free if your flight is delayed." },
+        { title: "English, Arabic & Urdu Drivers", desc: "Our drivers speak English, Arabic, and Urdu — so you can communicate easily and comfortably." },
+        { title: "Free Cancellation", desc: "Cancel your booking up to 24 hours before your trip for a full refund — no questions asked." },
+        { title: "Airport Meet & Greet", desc: "Your driver meets you inside the terminal with a name sign and helps carry your bags to the car." },
+        { title: "Company E-Invoice", desc: "Automated VAT-compliant e-invoices via ZATCA for all corporate and business bookings." }
       ]
     },
     routes: {
-      badge: "Sought-After Corridors",
-      title: "Popular Luxury Corridors",
-      btnBook: "Book Route"
+      badge: "Popular Routes",
+      title: "Most Booked Taxi Routes in Saudi Arabia",
+      btnBook: "Book This Route"
     },
     fleet: {
-      badge: "The Royal Garage",
-      title: "Our Elite Vehicle Showcase",
-      desc: "Meticulously detailed and sanitised passenger cabins outfitted with premium amenities.",
-      btnBook: "Reserve Class",
-      btnMore: "Explore Full Fleet Catalogue",
-      camrySpec: "Perfect for corporate transfers and agile intercity runs.",
-      yukonSpec: "The ultimate luxury standard. Vast cabin space with unparalleled executive presence.",
-      stariaSpec: "First-class VIP seating designed for holy pilgrimages and family convenience."
+      badge: "Our Cars",
+      title: "Choose Your Car",
+      desc: "Clean, comfortable, air-conditioned, and well-maintained cars for every trip in Saudi Arabia.",
+      btnBook: "Book This Car",
+      btnMore: "See All Cars",
+      "mercedes-sSpec": "Top luxury sedan — perfect for executives, VIPs, and important business arrivals.",
+      escaladeSpec: "Large SUV with spacious cabin — great for groups and families with lots of luggage.",
+      "mercedes-vSpec": "Spacious minivan — ideal for Umrah groups, large families, and corporate teams.",
+      "bmw-7Spec": "Premium executive car — stylish and comfortable for business trips and long-distance rides.",
+      yukonSpec: "Full-size American SUV with big boot space — perfect for large groups and airport transfers."
     },
-    clientele: "Trusted by Pilgrims & Executives from 40+ Nations",
+    clientele: "Trusted by Pilgrims & Travelers from 40+ Countries",
     umrah: {
-      title: "The Sacred Journey Deserves Sacred Service",
-      desc: "For pilgrims undertaking the holy rites, we offer spiritual sensitivity alongside physical convenience.",
-      point1: "Prayer-synchronized travel options",
-      point2: "Complete Meeqat stopover compliance",
-      point3: "Direct VIP drop-off boundaries near the holy Mosques",
-      point4: "Spiritual sensitivity and pilgrim hospitality trained drivers",
-      btnWhatsApp: "Book Umrah Chauffeur on WhatsApp"
+      title: "Umrah Taxi Service — Makkah & Madinah Transfers",
+      desc: "We provide dedicated taxi and transfer service for Umrah pilgrims. Our drivers understand the holy journey and make every trip smooth, comfortable, and spiritually respectful.",
+      point1: "Trips planned around prayer times and Salah stops",
+      point2: "Meeqat stop for Ihram — no extra charge, no rush",
+      point3: "Drop-off at the closest permitted point to Masjid Al-Haram and Masjid An-Nabawi",
+      point4: "Drivers trained to respect pilgrims and support the full Umrah journey",
+      btnWhatsApp: "Book Umrah Taxi on WhatsApp"
     },
     testimonials: {
-      badge: "Global Praise",
-      title: "What VIP pilgrims say about us",
-      verified: "Google Review • Verified Trip"
+      badge: "Customer Reviews",
+      title: "What Our Customers Say About Our Taxi Service",
+      verified: "Google Review — Verified Trip"
     },
     blog: {
-      badge: "Travel Insights",
-      title: "Concierge Knowledge Base",
-      btnRead: "Read Full Article →"
+      badge: "Travel Tips & Guides",
+      title: "Helpful Travel Guides for Saudi Arabia",
+      btnRead: "Read Full Guide →"
     },
     cta: {
-      title: "Ready for Your VIP Ride?",
-      desc: "Experience travel at the absolute highest standard in Saudi Arabia. Book in under 2 minutes.",
-      btnBook: "Book Online",
-      btnWhatsApp: "Reserve via WhatsApp",
-      trust: "Instant Confirmation • Guaranteed Fixed Rates • 24/7 Dedicated Concierge Desk"
+      title: "Book Your Taxi in Saudi Arabia Today",
+      desc: "Fast, safe, and reliable taxi service anywhere in Saudi Arabia. Book in under 2 minutes online or on WhatsApp.",
+      btnBook: "Book Taxi Online",
+      btnWhatsApp: "Book on WhatsApp",
+      trust: "Instant Confirmation • Fixed Prices Guaranteed • 24/7 Customer Support"
     }
   },
   ar: {
@@ -168,12 +170,10 @@ const homeTranslations = {
       badges: ["دعم VIP على مدار ٢٤ ساعة", "مرخص بالكامل من وزارة النقل", "أسعار ثابتة بدون زيادة مفاجئة"]
     },
     stats: [
-      { label: "رحلة فاخرة مكتملة", value: "+٥٠,٠٠٠" },
-      { label: "سائقين مرخصين من الوزارة", value: "١٠٠٪" },
-      { label: "سنوات من التميز والخبرة", value: "+١٠" },
-      { label: "سائقين خاصين متوفرين", value: "٢٤/٧" },
-      { label: "تقييم الركاب الفاخر", value: "٤.٩★" },
-      { label: "جنسية تم خدمتها", value: "+٤٠" }
+      { label: "رحلة مكتملة", value: "+٥,٠٠٠", num: 5000 },
+      { label: "رضا العملاء", value: "٩٨٪", num: 98 },
+      { label: "دعم متواصل", value: "٢٤/٧", num: null },
+      { label: "مدينة سعودية", value: "+٥٠", num: 50 }
     ],
     widget: {
       oneWay: "اتجاه واحد",
@@ -303,12 +303,10 @@ const homeTranslations = {
       badges: ["24/7 پریمیم سپورٹ", "وزارت سے 100٪ لائسنس یافتہ", "مقررہ مسابقتی قیمتیں"]
     },
     stats: [
-      { label: "VIP دورے مکمل", value: "50,000+" },
-      { label: "وزارت سے لائسنس یافتہ", value: "100%" },
-      { label: "سال کا لگژری تجربہ", value: "10+" },
-      { label: "وقف ڈرائیورز", value: "24/7" },
-      { label: "مسافروں کی درجہ بندی", value: "4.9★" },
-      { label: "ممالک کی خدمت کی", value: "40+" }
+      { label: "مکمل سفر", value: "5,000+", num: 5000 },
+      { label: "صارفین کی رضامندی", value: "98%", num: 98 },
+      { label: "سپورٹ", value: "24/7", num: null },
+      { label: "سعودی شہر", value: "50+", num: 50 }
     ],
     widget: {
       oneWay: "ایک طرف",
@@ -443,28 +441,44 @@ const topRoutesList = [
 
 const vehicleList = [
   {
-    id: "camry",
-    name: "Toyota Camry Executive",
-    type: "Business Sedan",
+    id: "mercedes-s",
+    name: "Mercedes-Benz S-Class",
+    type: "Ultra Luxury Sedan",
     capacity: "3 Passengers",
-    luggage: "2 Suitcases",
-    image: "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=600&q=80"
+    luggage: "3 Suitcases",
+    image: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: "escalade",
+    name: "Cadillac Escalade",
+    type: "VIP Full-Size SUV",
+    capacity: "6 Passengers",
+    luggage: "5 Suitcases",
+    image: "https://images.unsplash.com/photo-1601929862074-04b7b88f0c82?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: "mercedes-v",
+    name: "Mercedes-Benz V-Class",
+    type: "Executive MPV",
+    capacity: "7 Passengers",
+    luggage: "7 Suitcases",
+    image: "https://images.unsplash.com/photo-1617829400467-f62eae4c0dba?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: "bmw-7",
+    name: "BMW 7 Series",
+    type: "Executive Sedan",
+    capacity: "3 Passengers",
+    luggage: "3 Suitcases",
+    image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: "yukon",
     name: "GMC Yukon Denali XL",
-    type: "VIP SUV",
+    type: "Premium SUV",
     capacity: "6 Passengers",
     luggage: "5 Suitcases",
-    image: "https://images.unsplash.com/photo-1601929862074-04b7b88f0c82?auto=format&fit=crop&w=600&q=80"
-  },
-  {
-    id: "staria",
-    name: "Hyundai Staria Premium",
-    type: "VIP Cabin Van",
-    capacity: "7 Passengers",
-    luggage: "7 Suitcases",
-    image: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=600&q=80"
+    image: "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=800&q=80"
   }
 ];
 
@@ -496,24 +510,116 @@ const internationalNations = [
 ];
 
 const customerReviews = [
-  { name: "Dr. Farhan Malik", countryFlag: "🇬🇧", stars: 5, text: "Flawless service from Jeddah to Makkah. Chauffeur was waiting in the arrivals hall with a gold tablet. Extremely smooth ride.", vehicle: "GMC Yukon Denali" },
-  { name: "Amna Al-Faisal", countryFlag: "🇸🇦", stars: 5, text: "سيارات فاخرة للغاية وخدمة متميزة تليق بكبار الشخصيات. سائق محترف ولديه دراية ممتازة بمواقع مكة والمدينة.", vehicle: "Toyota Camry Executive" },
-  { name: "Muhammad Siddique", countryFlag: "🇵🇰", stars: 5, text: "Wonderful pilgrimage booking. The driver was prayer-time aware and stopped for us at Meeqat with absolute respect and patience.", vehicle: "Hyundai Staria Premium" },
-  { name: "Hassan Qabbani", countryFlag: "🇦🇪", stars: 5, text: "Highly recommend Riyadh Taxi. Complete luxury, premium Wi-Fi cabin, and fixed rates with zero hidden surge billing.", vehicle: "GMC Yukon Denali" },
-  { name: "Evelyn Sterling", countryFlag: "🇺🇸", stars: 5, text: "Exceptional airport meet & greet. Flight was delayed by 2 hours, but the chauffeur tracked it and was right there. Pure class.", vehicle: "GMC Yukon Denali" },
-  { name: "Ahmad Bin-Hamid", countryFlag: "🇶🇦", stars: 5, text: "سفر مريح بين الرياض والدمام. مقاعد في آي بي فاخرة وخدمة إنترنت ممتازة طوال الطريق.", vehicle: "Toyota Camry Executive" }
+  { name: "Dr. Farhan Malik", countryFlag: "🇬🇧", stars: 5, text: "Excellent taxi service from Jeddah to Makkah. The driver was waiting in the arrivals hall with a name sign. Smooth, comfortable ride with no issues at all.", vehicle: "GMC Yukon Denali" },
+  { name: "Amna Al-Faisal", countryFlag: "🇸🇦", stars: 5, text: "سيارات فاخرة للغاية وخدمة متميزة. سائق محترف ولديه دراية ممتازة بمواقع مكة والمدينة. أفضل خدمة نقل في المملكة.", vehicle: "Toyota Camry Executive" },
+  { name: "Muhammad Siddique", countryFlag: "🇵🇰", stars: 5, text: "Wonderful Umrah transfer booking. The driver was prayer-time aware and stopped for us at Meeqat with complete respect and patience. Highly recommended.", vehicle: "Hyundai Staria Premium" },
+  { name: "Hassan Qabbani", countryFlag: "🇦🇪", stars: 5, text: "Highly recommend Taxi Saudi Arabia for anyone in Saudi Arabia. Clean car, Wi-Fi included, fixed price — zero hidden charges or surge fees.", vehicle: "GMC Yukon Denali" },
+  { name: "Evelyn Sterling", countryFlag: "🇺🇸", stars: 5, text: "Amazing airport taxi service. My flight was delayed 2 hours but the driver tracked it and was right there when I landed. Very professional and reliable.", vehicle: "GMC Yukon Denali" },
+  { name: "Ahmad Bin-Hamid", countryFlag: "🇶🇦", stars: 5, text: "سفر مريح جداً بين الرياض والدمام. سيارة نظيفة وواسعة وخدمة إنترنت ممتازة طوال الطريق. سأحجز مجدداً بالتأكيد.", vehicle: "Toyota Camry Executive" }
 ];
 
 const blogList = [
-  { categoryEn: "Airport Help", categoryAr: "مساعدة المطار", categoryUr: "ہوائی اڈے کی مدد", titleEn: "SIM Card buying guide at Jeddah Airport", titleAr: "دليل شراء بطاقات الاتصال SIM في مطار جدة", titleUr: "جدہ ایئرپورٹ پر سم کارڈ خریدنے کا گائیڈ", excerptEn: "Exactly where to purchase local 5G eSIMs/SIMs from stc, Mobily, or Zain upon landing at Terminal 1 or North Terminal.", excerptAr: "أين تشتري شرائح الاتصال المحلية eSIM/SIM من شركات stc، وموبايلي، وزين فور وصولك لصالة المطار.", excerptUr: "ٹرمینل 1 پر لینڈنگ کے بعد stc، Mobily، یا Zain سے مقامی 5G eSIMs/SIMs خریدنے کی درست جگہوں کی معلومات۔", author: "Riyadh Taxi Editorial", date: "May 12, 2026", timeEn: "5 min read", timeAr: "قراءة ٥ دقائق", timeUr: "5 منٹ مطالعہ" },
-  { categoryEn: "Umrah", categoryAr: "العمرة والزيارة", categoryUr: "عمرہ اور زیارت", titleEn: "Complete Meeqat locations guide for Umrah", titleAr: "دليل مواقيت الإحرام الكامل للمعتمرين", titleUr: "عمرہ کے لیے میقات کے مقامات کی مکمل گائیڈ", excerptEn: "Step-by-step guidance on Meeqat points (including Dhul Hulaifah & Yalamlam) for international pilgrims arriving by air or road.", excerptAr: "شرح تفصيلي خطوة بخطوة لمواقيت الإحرام (بما في ذلك ذو الحليفة ويلملم) للحجاج والمعتمرين القادمين جواً أو براً.", excerptUr: "فضائی یا زمینی راستے سے آنے والے بین الاقوامی زائرین کے لیے میقات کے مقامات پر تفصیلی رہنمائی۔", author: "Riyadh Taxi Editorial", date: "May 08, 2026", timeEn: "7 min read", timeAr: "قراءة ٧ دقائق", timeUr: "7 منٹ مطالعہ" },
-  { categoryEn: "Travel Finance", categoryAr: "المالية والسفر", categoryUr: "ٹریول فنانس", titleEn: "Saudi Riyal cash & card tips for pilgrims", titleAr: "نصائح الكاش والبطاقات للمعتمرين في السعودية", titleUr: "زائرین کے لیے سعودی ریال کیش اور کارڈ کی تجاویز", excerptEn: "Everything about card acceptance, local mada payment network, currency exchange outlets, and ATM fee limits in KSA.", excerptAr: "كل ما تحتاج لمعرفته حول قبول بطاقات الائتمان، شبكة مدى المحلية، منافذ الصرافة ورسوم السحب من أجهزة الصراف الآلي.", excerptUr: "کارڈز کی قبولیت، مقامی mada پیمنٹ نیٹ ورک، کرنسی ایکسچینج اور اے ٹی ایم فیس کی حدود کے بارے میں سب کچھ۔", author: "Riyadh Taxi Editorial", date: "April 29, 2026", timeEn: "4 min read", timeAr: "قراءة ٤ دقائق", timeUr: "4 منٹ مطالعہ" }
+  { id: "jeddah-sim-guide", categoryEn: "Airport Help", categoryAr: "مساعدة المطار", categoryUr: "ہوائی اڈے کی مدد", titleEn: "SIM Card buying guide at Jeddah Airport", titleAr: "دليل شراء بطاقات الاتصال SIM في مطار جدة", titleUr: "جدہ ایئرپورٹ پر سم کارڈ خریدنے کا گائیڈ", excerptEn: "Exactly where to purchase local 5G eSIMs/SIMs from stc, Mobily, or Zain upon landing at Terminal 1 or North Terminal.", excerptAr: "أين تشتري شرائح الاتصال المحلية eSIM/SIM من شركات stc، وموبايلي، وزين فور وصولك لصالة المطار.", excerptUr: "ٹرمینل 1 پر لینڈنگ کے بعد stc، Mobily، یا Zain سے مقامی 5G eSIMs/SIMs خریدنے کی درست جگہوں کی معلومات۔", author: "Taxi Saudi Arabia Editorial", date: "May 12, 2026", timeEn: "5 min read", timeAr: "قراءة ٥ دقائق", timeUr: "5 منٹ مطالعہ" },
+  { id: "meeqat-guide", categoryEn: "Umrah", categoryAr: "العمرة والزيارة", categoryUr: "عمرہ اور زیارت", titleEn: "Complete Meeqat locations guide for Umrah", titleAr: "دليل مواقيت الإحرام الكامل للمعتمرين", titleUr: "عمرہ کے لیے میقات کے مقامات کی مکمل گائیڈ", excerptEn: "Step-by-step guidance on Meeqat points (including Dhul Hulaifah & Yalamlam) for international pilgrims arriving by air or road.", excerptAr: "شرح تفصيلي خطوة بخطوة لمواقيت الإحرام (بما في ذلك ذو الحليفة ويلملم) للحجاج والمعتمرين القادمين جواً أو براً.", excerptUr: "فضائی یا زمینی راستے سے آنے والے بین الاقوامی زائرین کے لیے میقات کے مقامات پر تفصیلی رہنمائی۔", author: "Taxi Saudi Arabia Editorial", date: "May 08, 2026", timeEn: "7 min read", timeAr: "قراءة ٧ دقائق", timeUr: "7 منٹ مطالعہ" },
+  { id: "riyal-cash-guide", categoryEn: "Travel Finance", categoryAr: "المالية والسفر", categoryUr: "ٹریول فنانس", titleEn: "Saudi Riyal cash & card tips for pilgrims", titleAr: "نصائح الكاش والبطاقات للمعتمرين في السعودية", titleUr: "زائرین کے لیے سعودی ریال کیش اور کارڈ کی تجاویز", excerptEn: "Everything about card acceptance, local mada payment network, currency exchange outlets, and ATM fee limits in KSA.", excerptAr: "كل ما تحتاج لمعرفته حول قبول بطاقات الائتمان، شبكة مدى المحلية، منافذ الصرافة ورسوم السحب من أجهزة الصراف الآلي.", excerptUr: "کارڈز کی قبولیت، مقامی mada پیمنٹ نیٹ ورک، کرنسی ایکسچینج اور اے ٹی ایم فیس کی حدود کے بارے میں سب کچھ۔", author: "Taxi Saudi Arabia Editorial", date: "April 29, 2026", timeEn: "4 min read", timeAr: "قراءة ٤ دقائق", timeUr: "4 منٹ مطالعہ" }
 ];
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   show: { opacity: 1, y: 0 }
 };
+
+type VehicleItem = {
+  id: string;
+  name: string;
+  type: string;
+  capacity: string;
+  luggage: string;
+  image: string;
+};
+
+function FleetCard({ veh, index, onBook, btnLabel }: {
+  veh: VehicleItem;
+  index: number;
+  onBook: () => void;
+  btnLabel: string;
+}) {
+  return (
+    <motion.article
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.15 }}
+      variants={fadeUp}
+      transition={{ duration: 0.5, delay: index * 0.08 }}
+      whileHover={{ y: -6 }}
+      className="group relative overflow-hidden rounded-2xl border border-[#C9A84C]/15 bg-[#121212] shadow-lg hover:shadow-2xl hover:border-[#C8A45D]/40 transition-all duration-400"
+    >
+      {/* Image with zoom */}
+      <div className="relative h-56 w-full overflow-hidden">
+        <Image
+          src={veh.image}
+          alt={veh.name}
+          fill
+          sizes="(max-width: 768px) 100vw, 33vw"
+          className="object-cover brightness-85 transition-transform duration-700 group-hover:scale-108"
+          loading="lazy"
+        />
+        {/* Gold accent overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+        <span
+          className="absolute left-3 top-3 rounded-full px-3 py-1 text-[0.58rem] uppercase tracking-wider font-bold"
+          style={{
+            backgroundColor: "rgba(0,0,0,0.7)",
+            border: "1px solid rgba(200,164,93,0.4)",
+            color: "#C8A45D",
+            backdropFilter: "blur(8px)",
+          }}
+        >
+          {veh.type}
+        </span>
+      </div>
+
+      {/* Content */}
+      <div className="p-5 space-y-3">
+        {/* Gold accent line */}
+        <div className="h-[2px] w-10 rounded-full bg-gradient-to-r from-[#C8A45D] to-[#F4E4BC] group-hover:w-16 transition-all duration-400" />
+
+        <h3 className="font-heading text-lg font-bold text-[#F5F0E8] group-hover:text-[#C8A45D] transition-colors leading-snug">
+          {veh.name}
+        </h3>
+
+        <div
+          className="flex items-center gap-3 text-[0.62rem] font-bold uppercase tracking-wider py-2 border-y"
+          style={{ borderColor: "rgba(200,164,93,0.12)", color: "#9CA3AF" }}
+        >
+          <span>{veh.capacity}</span>
+          <span className="h-1 w-1 rounded-full" style={{ backgroundColor: "#C8A45D" }} />
+          <span>{veh.luggage}</span>
+        </div>
+
+        <button
+          onClick={onBook}
+          className="w-full rounded-full py-2.5 text-[0.72rem] font-bold uppercase tracking-wider transition-all duration-300"
+          style={{
+            border: "1.5px solid rgba(200,164,93,0.4)",
+            color: "#C8A45D",
+            backgroundColor: "transparent",
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#C8A45D";
+            (e.currentTarget as HTMLButtonElement).style.color = "#0F172A";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLButtonElement).style.backgroundColor = "transparent";
+            (e.currentTarget as HTMLButtonElement).style.color = "#C8A45D";
+          }}
+        >
+          {btnLabel}
+        </button>
+      </div>
+    </motion.article>
+  );
+}
 
 export function HomePage() {
   const { language } = useLanguage();
@@ -523,13 +629,14 @@ export function HomePage() {
   const isRtl = language === "ar";
 
   // Trust Stats Counter state
-  const [tripsCounter, setTripsCounter] = useState(0);
+  const [tripsCounter, setTripsCounter] = useState(trustStats.tripsCount);
 
   useEffect(() => {
+    // Smooth count-up animation on client-side mount
     let start = 0;
-    const end = 50000;
-    const duration = 2000;
-    const increment = Math.ceil(end / (duration / 50));
+    const end = trustStats.tripsCount;
+    const duration = 1500;
+    const increment = Math.ceil(end / (duration / 30));
     
     const timer = setInterval(() => {
       start += increment;
@@ -539,7 +646,7 @@ export function HomePage() {
       } else {
         setTripsCounter(start);
       }
-    }, 50);
+    }, 30);
 
     return () => clearInterval(timer);
   }, []);
@@ -561,103 +668,127 @@ export function HomePage() {
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] overflow-hidden pt-20">
       
-      {/* SECTION 1 — HERO */}
-      <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden border-b border-[#C9A84C]/15 py-24 premium-dark-section">
-        {/* Unsplash Dark Luxury car overlay */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=2000&auto=format&fit=crop"
-            alt="Makkah Holy Gateway Luxury SUV"
-            fill
-            className="object-cover brightness-35 grayscale-[20%]"
-            priority
-          />
-          {/* Elegant gold/black radial gradient overlays */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/90 to-[#0A0A0A]" />
-          <div className="absolute -inset-x-0 -bottom-1 h-32 bg-gradient-to-t from-[#0A0A0A] to-transparent pointer-events-none" />
-        </div>
+      {/* SECTION 1 — HERO (light, two-column: car image + green panel) */}
+      <section className="relative pt-8 md:pt-10 pb-16" style={{ backgroundColor: "#FAFAF7" }}>
+        <div className="section-container">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
 
-        <div className="section-container relative z-10 w-full text-center">
-          <motion.div
-            initial="hidden"
-            animate="show"
-            variants={fadeUp}
-            transition={{ duration: 0.6 }}
-            className="max-w-4xl mx-auto space-y-8"
-          >
-            {/* Custom glowing gold crescent emblem */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/25 bg-black/45 px-4.5 py-1.5 backdrop-blur-md">
-              <span className="h-2 w-2 rounded-full bg-[#C9A84C] animate-pulse" />
-              <span className="text-[0.65rem] uppercase tracking-[0.25em] text-[#C9A84C] font-bold">
-                {t.hero.badge}
-              </span>
-            </div>
+            {/* LEFT — Car image card */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="premium-dark-section relative rounded-3xl overflow-hidden min-h-[320px] md:min-h-[460px] shadow-[0_18px_50px_rgba(0,0,0,0.12)]"
+            >
+              <Image
+                src="https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=1800&auto=format&fit=crop"
+                alt="Taxi Saudi Arabia car with professional driver"
+                fill
+                className="object-cover"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/45" />
 
-            <h1 className="font-heading text-5xl font-bold leading-[1.1] md:text-7.5xl text-[#F5F0E8]">
-              {language === "ar" ? (
-                <>
-                  خدمات نقل فاخرة تليق بـ
-                  <span className="block text-[#C9A84C] font-heading mt-2">كبار الشخصيات</span>
-                </>
-              ) : language === "ur" ? (
-                <>
-                  سعودی عرب کی سب سے بہترین
-                  <span className="block text-[#C9A84C] font-heading mt-2">وی آئی پی ٹیکسی سروس</span>
-                </>
-              ) : (
-                <>
-                  Premium Chauffeur &<br />
-                  <span className="block text-[#C9A84C] font-heading mt-3 tracking-wide">Taxi Services</span>
-                </>
-              )}
-            </h1>
+              {/* Top overlay heading */}
+              <div className="absolute top-0 inset-x-0 p-6 text-center">
+                <p className="font-heading text-lg md:text-2xl font-extrabold text-white uppercase tracking-tight leading-tight drop-shadow-md">
+                  {language === "ar" ? "سافر براحة مع تاكسي السعودية" : "Travel in Comfort with Taxi Saudi Arabia"}
+                </p>
+                <p className="mt-2 text-xs md:text-sm font-bold text-[#C8A45D] uppercase tracking-widest">
+                  Toyota Camry 2026
+                </p>
+              </div>
 
-            <p className="max-w-2xl mx-auto text-sm md:text-base leading-relaxed text-[#A1A1A6]">
-              {t.hero.subtitle}
-            </p>
+              {/* Bottom car badge */}
+              <div className="absolute bottom-5 left-5">
+                <span className="inline-block rounded-full bg-[#16A34A] px-4 py-1.5 text-xs font-bold text-white shadow-md">
+                  {language === "ar" ? "تويوتا كامري" : "Toyota Camry"}
+                </span>
+              </div>
+            </motion.div>
 
-            {/* CTAs */}
-            <div className="flex flex-wrap items-center justify-center gap-5 pt-3">
-              <a
-                href="#booking-console"
-                className="rounded-full bg-[#C9A84C] px-9 py-4 text-xs font-bold uppercase tracking-wider text-[#0A0A0A] shadow-[0_4px_25px_rgba(201,168,76,0.35)] transition-all duration-300 hover:bg-[#B8963B] hover:scale-102 hover:shadow-[0_6px_35px_rgba(201,168,76,0.55)]"
+            {/* RIGHT — Green panel */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.12 }}
+              className="premium-dark-section rounded-3xl p-8 md:p-12 flex flex-col justify-center shadow-[0_18px_50px_rgba(22,163,74,0.18)]"
+              style={{ backgroundColor: "#16A34A" }}
+            >
+              <h1
+                className="font-heading font-extrabold text-white leading-tight"
+                style={{ fontSize: "clamp(1.9rem, 3.6vw, 3.1rem)", letterSpacing: "-0.02em" }}
               >
-                {t.hero.btnBook}
-              </a>
-              <a
-                href="#fleet-showcase"
-                className="rounded-full border border-[#C9A84C]/45 px-9 py-4 text-xs font-bold uppercase tracking-wider text-[#C9A84C] transition-all duration-300 hover:bg-[#C9A84C]/10 hover:border-[#C9A84C]"
-              >
-                {t.hero.btnFleet}
-              </a>
-            </div>
+                {language === "ar"
+                  ? "احصل على أفضل خدمة تاكسي في المملكة العربية السعودية"
+                  : "Get the Best Online Taxi Service in Saudi Arabia"}
+              </h1>
 
-            {/* Floating Trust badges */}
-            <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10 pt-10 text-[0.65rem] uppercase tracking-[0.2em] font-semibold text-[#A1A1A6]">
-              {t.hero.badges.map((badge, idx) => (
-                <div key={idx} className="flex items-center gap-2">
-                  <CheckCircle className="h-4.5 w-4.5 text-[#C9A84C] shrink-0" />
-                  <span>{badge}</span>
-                </div>
-              ))}
-            </div>
-          </motion.div>
+              <p className="mt-5 max-w-xl text-sm md:text-base leading-relaxed text-white/90">
+                {t.hero.subtitle}
+              </p>
+
+              {/* CTAs */}
+              <div className="mt-8 flex flex-wrap gap-4">
+                <a
+                  href="#booking-console"
+                  className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-bold transition-all duration-300 hover:scale-105"
+                  style={{ backgroundColor: "#FACC15", color: "#1C1C1C", boxShadow: "0 8px 24px rgba(250,204,21,0.4)" }}
+                >
+                  {t.hero.btnBook}
+                  <ChevronRight className="h-4 w-4" />
+                </a>
+                <a
+                  href={contactConfig.whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-bold transition-all duration-300 hover:scale-105"
+                  style={{ color: "#16A34A" }}
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  {language === "ar" ? "تواصل عبر واتساب" : "WhatsApp Us"}
+                </a>
+              </div>
+
+              {/* Trust badges */}
+              <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
+                {t.hero.badges.map((badge, idx) => (
+                  <span key={idx} className="flex items-center gap-2 text-xs font-semibold text-white/90">
+                    <span className="h-1.5 w-1.5 rounded-full bg-white" />
+                    {badge}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+
+          </div>
         </div>
       </section>
 
-      {/* SECTION 2 — TRUST STATS BAR */}
-      <section className="bg-black py-10 border-b border-[#C9A84C]/15 relative z-10">
-        <div className="section-container">
-          <div className="grid grid-cols-2 gap-y-8 md:grid-cols-6 md:gap-x-4 text-center">
+      {/* SECTION 2 — PREMIUM STATS BAR */}
+      <section className="relative z-10 border-b" style={{ backgroundColor: "#0F172A", borderColor: "rgba(200,164,93,0.15)" }}>
+        <div className="section-container py-14">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
             {t.stats.map((stat, idx) => (
-              <div key={idx} className="space-y-1">
-                <p className="font-heading text-2.5xl md:text-3.5xl font-bold text-[#C9A84C]">
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="space-y-2"
+              >
+                <p
+                  className="font-heading font-extrabold"
+                  style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "#C8A45D", letterSpacing: "-0.02em" }}
+                >
                   {idx === 0 ? `${tripsCounter.toLocaleString()}+` : stat.value}
                 </p>
-                <p className="text-[0.6rem] uppercase tracking-wider text-[#7C8088] font-medium px-2">
+                <div className="w-8 h-[2px] mx-auto rounded-full" style={{ backgroundColor: "rgba(200,164,93,0.4)" }} />
+                <p className="text-[0.65rem] uppercase tracking-[0.2em] font-semibold" style={{ color: "rgba(255,255,255,0.45)" }}>
                   {stat.label}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -665,134 +796,184 @@ export function HomePage() {
 
       {/* SECTION 3 — BOOKING WIDGET */}
       <section id="booking-console" className="section-container py-24 relative z-10">
-        <div className="text-center space-y-4 mb-14">
-          <div className="inline-flex items-center gap-1.5 text-[#C9A84C] text-[0.65rem] uppercase tracking-widest font-bold">
-            <Calendar className="h-4.5 w-4.5" />
-            <span>Secure Dispatch System</span>
-          </div>
-          <h2 className="font-heading text-3xl font-bold text-[#F5F0E8] md:text-4.5xl">
-            {language === "ar" ? "احجز سائقك الخاص الفاخر بلحظات" : language === "ur" ? "اپنی لگژری سواری فوری بک کریں" : "Reserve Your VIP Chauffeur"}
+        <div className="text-center space-y-4 mb-12">
+          <span
+            className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[0.65rem] uppercase tracking-widest font-bold"
+            style={{ backgroundColor: "rgba(200,164,93,0.1)", border: "1px solid rgba(200,164,93,0.25)", color: "#B8963B" }}
+          >
+            <Calendar className="h-3.5 w-3.5" />
+            <span>Instant Price Calculator</span>
+          </span>
+          <h2
+            className="font-heading font-bold"
+            style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", letterSpacing: "-0.02em", color: "#0F172A" }}
+          >
+            {language === "ar"
+              ? "احجز تاكسيك الآن — احسب السعر فوراً"
+              : "Get an Instant Taxi Price Quote"}
           </h2>
-          <p className="max-w-2xl mx-auto text-xs text-[#A1A1A6]">
-            Calculate accurate point-to-point fares based on true highway mileage with 100% fixed-quote pricing transparency.
+          <p className="max-w-xl mx-auto text-sm" style={{ color: "#6B7280" }}>
+            {language === "ar"
+              ? "احسب سعر رحلتك بدقة لأي مسار في المملكة — بدون رسوم مخفية أو زيادة مفاجئة"
+              : "Get an exact price for your taxi ride anywhere in Saudi Arabia — fixed fare, no hidden charges, no surge pricing."}
           </p>
         </div>
-
-        {/* Console Container */}
         <PriceCalculator />
       </section>
 
       {/* SECTION 4 — SERVICES */}
-      <section className="section-container py-24 border-t border-[#C9A84C]/10 relative z-10">
-        <div className="text-center space-y-4 mb-16">
-          <span className="text-xs uppercase tracking-[0.2em] text-[#C9A84C] font-semibold">
-            {t.services.badge}
-          </span>
-          <h2 className="font-heading text-3xl font-bold leading-tight md:text-4.5xl text-[#F5F0E8]">
-            {t.services.title}
-          </h2>
-        </div>
+      <section className="py-24 border-t border-[#C9A84C]/10 relative z-10" style={{ backgroundColor: "#F8FAFC" }}>
+        <div className="section-container">
+          <div className="text-center space-y-3 mb-14">
+            <span className="text-[0.65rem] uppercase tracking-[0.25em] text-[#C9A84C] font-bold">
+              {t.services.badge}
+            </span>
+            <h2
+              className="font-heading font-bold"
+              style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", letterSpacing: "-0.02em", color: "#0F172A" }}
+            >
+              {t.services.title}
+            </h2>
+          </div>
 
-        <div className="grid gap-8 md:grid-cols-3">
-          {t.services.cards.map((service, index) => {
-            const Icon = service.icon;
-            return (
-              <motion.article
-                key={service.title}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, amount: 0.2 }}
-                variants={fadeUp}
-                transition={{ duration: 0.5, delay: index * 0.08 }}
-                className="group relative flex flex-col justify-between rounded-3xl border border-[#C9A84C]/15 bg-[#121212] p-8 shadow-2xl hover:border-[#C9A84C]/45 transition-all duration-300"
-                whileHover={{ y: -6 }}
-              >
-                {/* Glow Backdrop Vector */}
-                <div className="absolute -left-10 -top-10 h-32 w-32 rounded-full bg-[#C9A84C]/5 blur-3xl pointer-events-none" />
+          <div className="grid gap-6 md:grid-cols-3">
+            {t.services.cards.map((service, index) => {
+              const Icon = service.icon;
+              return (
+                <motion.article
+                  key={service.title}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true, amount: 0.15 }}
+                  variants={fadeUp}
+                  transition={{ duration: 0.45, delay: index * 0.07 }}
+                  whileHover={{ y: -6, boxShadow: "0 20px 56px rgba(200,164,93,0.13)" }}
+                  className="group relative flex flex-col justify-between rounded-2xl p-7 bg-[#121212] transition-all duration-350"
+                  style={{
+                    border: "1.5px solid rgba(200,164,93,0.15)",
+                    boxShadow: "0 4px 24px rgba(0,0,0,0.04)",
+                  }}
+                >
+                  {/* Gold accent line — grows on hover */}
+                  <span
+                    className="block h-[3px] rounded-full mb-6 transition-all duration-400"
+                    style={{
+                      width: "40px",
+                      background: "linear-gradient(90deg, #C8A45D, #F4E4BC)",
+                    }}
+                  />
 
-                <div>
-                  <div className="flex items-center justify-between border-b border-[#C9A84C]/10 pb-5">
-                    <div className="rounded-2xl bg-[#C9A84C]/10 p-3 text-[#C9A84C] group-hover:scale-105 transition-transform">
-                      <Icon className="h-6 w-6" />
+                  <div className="flex-1">
+                    <div className="flex items-start justify-between mb-5">
+                      <div
+                        className="rounded-xl p-3 transition-transform duration-300 group-hover:scale-110"
+                        style={{ backgroundColor: "rgba(200,164,93,0.1)" }}
+                      >
+                        <Icon className="h-6 w-6 text-[#C9A84C]" />
+                      </div>
+                      <span
+                        className="text-[0.62rem] uppercase tracking-widest font-bold px-2.5 py-1 rounded-full"
+                        style={{ color: "#C8A45D", backgroundColor: "rgba(200,164,93,0.08)", border: "1px solid rgba(200,164,93,0.2)" }}
+                      >
+                        {service.price}
+                      </span>
                     </div>
-                    <span className="text-[0.65rem] uppercase tracking-widest text-[#C9A84C] font-bold">
-                      {service.price}
-                    </span>
+
+                    <h3
+                      className="font-heading font-bold text-[#F5F0E8] group-hover:text-[#C8A45D] transition-colors duration-300 mb-3"
+                      style={{ fontSize: "1.2rem", letterSpacing: "-0.01em" }}
+                    >
+                      {service.title}
+                    </h3>
+
+                    <p className="text-sm leading-relaxed text-[#A1A1A6]">
+                      {service.desc}
+                    </p>
                   </div>
 
-                  <h3 className="mt-6 font-heading text-xl font-bold text-[#F5F0E8] group-hover:text-[#C9A84C] transition-colors duration-300">
-                    {service.title}
-                  </h3>
-
-                  <p className="mt-4 text-xs leading-relaxed text-[#A1A1A6]">
-                    {service.desc}
-                  </p>
-                </div>
-
-                <div className="mt-8 pt-5 border-t border-[#C9A84C]/10">
-                  <a
-                    href="#booking-console"
-                    className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#C9A84C]"
+                  <div
+                    className="mt-6 pt-5 flex items-center justify-between"
+                    style={{ borderTop: "1px solid rgba(200,164,93,0.1)" }}
                   >
-                    <span>Reserve Service</span>
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </a>
-                </div>
-              </motion.article>
-            );
-          })}
+                    <a
+                      href="#booking-console"
+                      className="inline-flex items-center gap-1.5 text-[0.72rem] font-bold uppercase tracking-wider text-[#C9A84C] hover:gap-3 transition-all"
+                    >
+                      <span>Book Now</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </a>
+                  </div>
+                </motion.article>
+              );
+            })}
+          </div>
         </div>
       </section>
 
       {/* SECTION 5 — WHY CHOOSE US */}
       <section className="section-container py-24 border-t border-[#C9A84C]/10 relative z-10">
-        <div className="grid gap-16 lg:grid-cols-[0.8fr_1.2fr] items-center">
-          
-          {/* Left Column Description */}
-          <div className="space-y-6">
-            <span className="text-xs uppercase tracking-[0.25em] text-[#C9A84C] font-semibold">
+        <div className="grid gap-14 lg:grid-cols-[0.85fr_1.15fr] items-start">
+
+          {/* Left: title + description */}
+          <div className="space-y-5 lg:sticky lg:top-28">
+            <span className="text-[0.65rem] uppercase tracking-[0.25em] font-bold" style={{ color: "#C8A45D" }}>
               {t.whyUs.badge}
             </span>
-            <h2 className="font-heading text-3xl font-bold leading-tight md:text-4.5xl text-[#F5F0E8]">
+            <h2
+              className="font-heading font-bold"
+              style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", letterSpacing: "-0.02em", color: "#0F172A" }}
+            >
               {t.whyUs.title}
             </h2>
             <p className="text-sm leading-relaxed text-[#A1A1A6]">
               {t.whyUs.desc}
             </p>
-
-            <div className="pt-4">
-              <a
-                href={contactConfig.whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/35 px-6 py-3.5 text-xs font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10"
-              >
-                <PhoneCall className="h-4 w-4" />
-                <span>Contact 24/7 Dispatch Office</span>
-              </a>
-            </div>
+            <a
+              href={contactConfig.whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-xs font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
+              style={{ border: "1.5px solid rgba(200,164,93,0.35)" }}
+            >
+              <PhoneCall className="h-4 w-4" />
+              <span>Call or WhatsApp 24/7</span>
+            </a>
           </div>
 
-          {/* Right Column Grid */}
-          <div className="grid gap-6 sm:grid-cols-2">
+          {/* Right: feature grid */}
+          <div className="grid gap-4 sm:grid-cols-2">
             {t.whyUs.points.map((pt, idx) => (
-              <div
+              <motion.div
                 key={idx}
-                className="rounded-2xl border border-[#C9A84C]/10 bg-[#121212]/50 p-6 space-y-3 hover:border-[#C9A84C]/25 transition-all"
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.06 }}
+                className="rounded-xl p-5 space-y-2.5 transition-all duration-300 hover:shadow-md group"
+                style={{
+                  border: "1.5px solid rgba(200,164,93,0.12)",
+                  backgroundColor: "#FFFFFF",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(200,164,93,0.35)")}
+                onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(200,164,93,0.12)")}
               >
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="h-4.5 w-4.5 text-[#C9A84C] shrink-0" />
-                  <h4 className="font-heading text-base font-bold text-[#F5F0E8]">
+                <div className="flex items-center gap-2.5">
+                  <span
+                    className="flex h-6 w-6 items-center justify-center rounded-full shrink-0"
+                    style={{ backgroundColor: "rgba(200,164,93,0.12)" }}
+                  >
+                    <CheckCircle className="h-3.5 w-3.5" style={{ color: "#C8A45D" }} />
+                  </span>
+                  <h4 className="font-heading font-bold text-[0.9rem]" style={{ color: "#0F172A" }}>
                     {pt.title}
                   </h4>
                 </div>
-                <p className="text-[0.7rem] leading-relaxed text-[#A1A1A6]">
+                <p className="text-[0.72rem] leading-relaxed text-[#A1A1A6] pl-8">
                   {pt.desc}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
-
         </div>
       </section>
 
@@ -803,7 +984,7 @@ export function HomePage() {
             <span className="text-xs uppercase tracking-[0.2em] text-[#C9A84C] font-semibold">
               {t.routes.badge}
             </span>
-            <h2 className="font-heading text-3xl font-bold text-[#F5F0E8] md:text-4.5xl">
+            <h2 className="font-heading text-3xl font-bold md:text-4.5xl" style={{ color: "#0F172A" }}>
               {t.routes.title}
             </h2>
           </div>
@@ -811,7 +992,7 @@ export function HomePage() {
             href="/routes"
             className="text-xs uppercase font-bold tracking-widest text-[#C9A84C] hover:underline"
           >
-            View all Saudi routes →
+            View All Taxi Routes in Saudi Arabia →
           </Link>
         </div>
 
@@ -824,7 +1005,7 @@ export function HomePage() {
             >
               <div>
                 <h3 className="font-heading text-base font-bold text-[#F5F0E8] group-hover:text-[#C9A84C] transition-colors leading-tight">
-                  {route[`name${language === 'ar' ? 'Ar' : language === 'ur' ? 'Ur' : 'En'}` as const]}
+                  {route[`name${language === 'ar' ? 'Ar' : 'En'}` as const]}
                 </h3>
 
                 <div className="mt-4 flex items-center justify-between text-[0.65rem] text-[#7C8088] font-bold">
@@ -836,7 +1017,7 @@ export function HomePage() {
               <div className="mt-6 pt-5 border-t border-[#C9A84C]/10 flex items-center justify-between">
                 <div>
                   <p className="text-[0.55rem] uppercase tracking-wider text-[#7C8088]">
-                    {language === "ar" ? "من" : language === "ur" ? "سے" : "From"}
+                    {language === "ar" ? "من" : "From"}
                   </p>
                   <p className="font-heading text-lg font-bold text-[#F5F0E8]">
                     SAR {route.price}
@@ -858,72 +1039,36 @@ export function HomePage() {
       {/* SECTION 7 — FLEET PREVIEW */}
       <section id="fleet-showcase" className="section-container py-24 border-t border-[#C9A84C]/10 relative z-10">
         <div className="text-center space-y-4 mb-16">
-          <span className="text-xs uppercase tracking-[0.25em] text-[#C9A84C] font-semibold">
+          <span className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-[#C9A84C] font-bold">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#C8A45D]" />
             {t.fleet.badge}
           </span>
-          <h2 className="font-heading text-3xl font-bold leading-tight md:text-4.5xl text-[#F5F0E8]">
+          <h2 className="font-heading font-bold leading-tight"
+            style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", letterSpacing: "-0.02em", color: "#0F172A" }}
+          >
             {t.fleet.title}
           </h2>
-          <p className="max-w-2xl mx-auto text-xs text-[#A1A1A6]">
+          <p className="max-w-xl mx-auto text-sm text-[#A1A1A6]">
             {t.fleet.desc}
           </p>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-3">
-          {vehicleList.map((veh, index) => (
-            <motion.article
-              key={veh.id}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.2 }}
-              variants={fadeUp}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative overflow-hidden rounded-3xl border border-[#C9A84C]/15 bg-[#121212] shadow-2xl hover:border-[#C9A84C]/35 transition-all duration-300"
-            >
-              {/* Image Box */}
-              <div className="relative h-60 w-full overflow-hidden">
-                <Image
-                  src={veh.image}
-                  alt={veh.name}
-                  fill
-                  className="object-cover brightness-90 transition-transform duration-700 group-hover:scale-105"
-                />
-                <span className="absolute left-4 top-4 rounded-full bg-black/75 px-3 py-1 text-[0.6rem] uppercase tracking-wider font-bold text-[#C9A84C] border border-[#C9A84C]/25">
-                  {veh.type}
-                </span>
-              </div>
-
-              {/* Spec Details */}
-              <div className="p-6 space-y-4">
-                <h3 className="font-heading text-xl font-bold text-[#F5F0E8] group-hover:text-[#C9A84C] transition-colors">
-                  {veh.name}
-                </h3>
-                
-                <p className="text-[0.7rem] text-[#A1A1A6]">
-                  {veh.id === "camry" ? t.fleet.camrySpec : veh.id === "yukon" ? t.fleet.yukonSpec : t.fleet.stariaSpec}
-                </p>
-
-                <div className="flex items-center gap-4 text-[0.65rem] text-[#7C8088] font-bold border-y border-[#C9A84C]/10 py-3">
-                  <span>{veh.capacity}</span>
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#C9A84C]" />
-                  <span>{veh.luggage}</span>
-                </div>
-
-                <button
-                  onClick={handleSelectVehicle}
-                  className="w-full rounded-full bg-[#C9A84C]/10 group-hover:bg-[#C9A84C] py-3 text-xs font-bold uppercase tracking-wider text-[#C9A84C] group-hover:text-[#0A0A0A] transition-all"
-                >
-                  {t.fleet.btnBook}
-                </button>
-              </div>
-            </motion.article>
+        {/* 3-col grid for first 3, then 2-col for last 2 */}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {vehicleList.slice(0, 3).map((veh, index) => (
+            <FleetCard key={veh.id} veh={veh} index={index} onBook={handleSelectVehicle} btnLabel={t.fleet.btnBook} />
+          ))}
+        </div>
+        <div className="grid gap-6 sm:grid-cols-2 mt-6">
+          {vehicleList.slice(3).map((veh, index) => (
+            <FleetCard key={veh.id} veh={veh} index={index + 3} onBook={handleSelectVehicle} btnLabel={t.fleet.btnBook} />
           ))}
         </div>
 
         <div className="text-center mt-12">
           <Link
             href="/fleet"
-            className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/35 px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10"
+            className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/35 px-8 py-3.5 text-sm font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all hover:border-[#C8A45D]"
           >
             <span>{t.fleet.btnMore}</span>
             <ArrowRight className="h-4 w-4" />
@@ -932,7 +1077,7 @@ export function HomePage() {
       </section>
 
       {/* SECTION 8 — INTERNATIONAL CLIENTELE */}
-      <section className="bg-black/80 py-16 border-y border-[#C9A84C]/15 relative z-10 overflow-hidden">
+      <section className="py-16 border-y border-[#C9A84C]/15 relative z-10 overflow-hidden premium-dark-section" style={{ backgroundColor: "#0F172A" }}>
         <div className="section-container text-center mb-10">
           <h2 className="font-heading text-xl md:text-2xl font-bold text-[#F5F0E8] tracking-wide">
             {t.clientele}
@@ -984,7 +1129,7 @@ export function HomePage() {
           <div className="space-y-6">
             <span className="text-xs uppercase tracking-[0.25em] text-[#C9A84C] font-semibold flex items-center gap-1.5">
               <Sparkles className="h-4.5 w-4.5 text-[#C9A84C]" />
-              <span>Dedicated Holy Service</span>
+              <span>Umrah & Hajj Taxi Service</span>
             </span>
             <h2 className="font-heading text-3.5xl font-bold leading-tight md:text-5xl text-[#F5F0E8]">
               {t.umrah.title}
@@ -1004,7 +1149,7 @@ export function HomePage() {
 
             <div className="pt-4">
               <a
-                href={`https://wa.me/${contactConfig.whatsappLink.split("=")[1]}?text=Salam,%20I%20would%20like%20to%20book%20a%20spiritually-compliant%20VIP%20Umrah%20transfer.`}
+                href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam,%20I%20would%20like%20to%20book%20a%20spiritually-compliant%20VIP%20Umrah%20transfer.`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 rounded-full bg-[#C9A84C] px-8 py-4 text-xs font-bold uppercase tracking-wider text-[#0A0A0A] shadow-[0_4px_20px_rgba(201,168,76,0.3)] transition-all hover:bg-[#B8963B] hover:scale-102"
@@ -1018,7 +1163,7 @@ export function HomePage() {
           {/* Highlight Routes side card */}
           <div className="rounded-3xl border border-[#C9A84C]/20 bg-black/40 backdrop-blur-md p-8 space-y-6">
             <h3 className="font-heading text-xl font-bold text-[#F5F0E8] border-b border-[#C9A84C]/10 pb-4">
-              Pilgrim Corridors
+              Popular Umrah Taxi Routes
             </h3>
 
             <div className="space-y-4">
@@ -1030,7 +1175,7 @@ export function HomePage() {
                 <div key={idx} className="flex items-center justify-between text-xs">
                   <div>
                     <p className="font-semibold text-[#F5F0E8]">
-                      {route[`r${language === 'ar' ? 'Ar' : language === 'ur' ? 'Ur' : 'En'}` as const]}
+                      {route[`r${language === 'ar' ? 'Ar' : 'En'}` as const]}
                     </p>
                     <p className="text-[0.6rem] text-[#7C8088] font-medium mt-1">
                       {route.time}
@@ -1049,51 +1194,84 @@ export function HomePage() {
       </section>
 
       {/* SECTION 10 — TESTIMONIALS */}
-      <section className="section-container py-24 relative z-10">
-        <div className="text-center space-y-4 mb-16">
-          <span className="text-xs uppercase tracking-[0.2em] text-[#C9A84C] font-semibold">
-            {t.testimonials.badge}
-          </span>
-          <h2 className="font-heading text-3xl font-bold leading-tight md:text-4.5xl text-[#F5F0E8]">
-            {t.testimonials.title}
-          </h2>
-        </div>
-
-        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
-          {customerReviews.map((review, index) => (
-            <div
-              key={index}
-              className="rounded-3xl border border-[#C9A84C]/15 bg-[#121212] p-8 space-y-5 hover:border-[#C9A84C]/35 transition-all duration-300"
+      <section className="py-24 border-t border-[#C9A84C]/10 relative z-10" style={{ backgroundColor: "#F8FAFC" }}>
+        <div className="section-container">
+          <div className="text-center space-y-3 mb-14">
+            <span className="text-[0.65rem] uppercase tracking-[0.25em] font-bold" style={{ color: "#C8A45D" }}>
+              {t.testimonials.badge}
+            </span>
+            <h2
+              className="font-heading font-bold"
+              style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", letterSpacing: "-0.02em", color: "#0F172A" }}
             >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2.5">
-                  <span className="text-xl">{review.countryFlag}</span>
-                  <div>
-                    <h4 className="font-heading text-sm font-bold text-[#F5F0E8]">
-                      {review.name}
-                    </h4>
-                    <span className="text-[0.55rem] text-[#7C8088] font-medium">
-                      {t.testimonials.verified}
-                    </span>
-                  </div>
-                </div>
+              {t.testimonials.title}
+            </h2>
+          </div>
+
+          <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
+            {customerReviews.map((review, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.07 }}
+                className="rounded-2xl p-6 space-y-4 flex flex-col transition-all duration-300"
+                style={{
+                  backgroundColor: "#FFFFFF",
+                  border: "1.5px solid rgba(200,164,93,0.12)",
+                  boxShadow: "0 2px 16px rgba(0,0,0,0.04)",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(200,164,93,0.35)";
+                  (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)";
+                  (e.currentTarget as HTMLDivElement).style.boxShadow = "0 16px 40px rgba(200,164,93,0.1)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(200,164,93,0.12)";
+                  (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
+                  (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 16px rgba(0,0,0,0.04)";
+                }}
+              >
+                {/* Stars */}
                 <div className="flex gap-0.5">
                   {[...Array(review.stars)].map((_, i) => (
-                    <Star key={i} className="h-3.5 w-3.5 fill-[#C9A84C] text-[#C9A84C]" />
+                    <Star key={i} className="h-4 w-4" style={{ color: "#C8A45D", fill: "#C8A45D" }} />
                   ))}
                 </div>
-              </div>
 
-              <p className="text-[0.7rem] leading-relaxed text-[#A1A1A6] italic">
-                &ldquo;{review.text}&rdquo;
-              </p>
+                {/* Quote */}
+                <p className="text-sm leading-relaxed flex-1" style={{ color: "#374151", fontStyle: "italic" }}>
+                  &ldquo;{review.text}&rdquo;
+                </p>
 
-              <div className="flex items-center gap-2 text-[0.6rem] text-[#C9A84C] font-bold uppercase tracking-wider border-t border-[#C9A84C]/10 pt-4">
-                <Car className="h-3.5 w-3.5" />
-                <span>Reserved: {review.vehicle}</span>
-              </div>
-            </div>
-          ))}
+                {/* Reviewer */}
+                <div
+                  className="flex items-center justify-between pt-4"
+                  style={{ borderTop: "1px solid rgba(200,164,93,0.12)" }}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <span className="text-xl">{review.countryFlag}</span>
+                    <div>
+                      <p className="font-heading font-bold text-[0.85rem]" style={{ color: "#0F172A" }}>
+                        {review.name}
+                      </p>
+                      <p className="text-[0.58rem] font-medium" style={{ color: "#9CA3AF" }}>
+                        {t.testimonials.verified}
+                      </p>
+                    </div>
+                  </div>
+                  <span
+                    className="text-[0.58rem] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full flex items-center gap-1"
+                    style={{ color: "#C8A45D", backgroundColor: "rgba(200,164,93,0.08)", border: "1px solid rgba(200,164,93,0.2)" }}
+                  >
+                    <Car className="h-3 w-3" />
+                    {review.vehicle.split(" ")[0]}
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -1104,7 +1282,7 @@ export function HomePage() {
             <span className="text-xs uppercase tracking-[0.2em] text-[#C9A84C] font-semibold">
               {t.blog.badge}
             </span>
-            <h2 className="font-heading text-3xl font-bold text-[#F5F0E8] md:text-4.5xl">
+            <h2 className="font-heading text-3xl font-bold md:text-4.5xl" style={{ color: "#0F172A" }}>
               {t.blog.title}
             </h2>
           </div>
@@ -1112,7 +1290,7 @@ export function HomePage() {
             href="/guides"
             className="text-xs uppercase font-bold tracking-widest text-[#C9A84C] hover:underline"
           >
-            See all articles →
+            See All Travel Guides →
           </Link>
         </div>
 
@@ -1124,23 +1302,23 @@ export function HomePage() {
             >
               <div>
                 <div className="flex items-center justify-between text-[0.6rem] text-[#7C8088] font-bold uppercase tracking-wider mb-5">
-                  <span className="text-[#C9A84C]">{blog[`category${language === 'ar' ? 'Ar' : language === 'ur' ? 'Ur' : 'En'}` as const]}</span>
-                  <span>{blog[`time${language === 'ar' ? 'Ar' : language === 'ur' ? 'Ur' : 'En'}` as const]}</span>
+                  <span className="text-[#C9A84C]">{blog[`category${language === 'ar' ? 'Ar' : 'En'}` as const]}</span>
+                  <span>{blog[`time${language === 'ar' ? 'Ar' : 'En'}` as const]}</span>
                 </div>
 
                 <h3 className="font-heading text-lg font-bold text-[#F5F0E8] group-hover:text-[#C9A84C] transition-colors leading-snug">
-                  {blog[`title${language === 'ar' ? 'Ar' : language === 'ur' ? 'Ur' : 'En'}` as const]}
+                  {blog[`title${language === 'ar' ? 'Ar' : 'En'}` as const]}
                 </h3>
 
                 <p className="mt-4 text-[0.7rem] leading-relaxed text-[#A1A1A6]">
-                  {blog[`excerpt${language === 'ar' ? 'Ar' : language === 'ur' ? 'Ur' : 'En'}` as const]}
+                  {blog[`excerpt${language === 'ar' ? 'Ar' : 'En'}` as const]}
                 </p>
               </div>
 
               <div className="mt-8 pt-5 border-t border-[#C9A84C]/10 flex items-center justify-between text-[0.6rem] text-[#7C8088] font-bold">
                 <span>By {blog.author}</span>
                 <Link
-                  href="/guides"
+                  href={`/guides?id=${blog.id}`}
                   className="text-[#C9A84C] uppercase tracking-wider flex items-center gap-1 hover:underline"
                 >
                   <span>{t.blog.btnRead}</span>
@@ -1157,7 +1335,7 @@ export function HomePage() {
           {/* Subtle gold overlay lines */}
           <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-[#C9A84C]/5 blur-3xl pointer-events-none" />
 
-          <h3 className="font-heading text-4xl font-bold text-[#F5F0E8] md:text-5.5xl leading-tight">
+          <h3 className="font-heading text-4xl font-bold md:text-5.5xl leading-tight" style={{ color: "#0F172A" }}>
             {t.cta.title}
           </h3>
           

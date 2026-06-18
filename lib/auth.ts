@@ -26,8 +26,14 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
+
+        const adminEmail = process.env.ADMIN_EMAIL;
+        const adminPassword = process.env.ADMIN_PASSWORD;
+
+        if (!adminEmail || !adminPassword) return null;
+        if (credentials.email !== adminEmail || credentials.password !== adminPassword) return null;
+
         const user = await prisma.user.findUnique({ where: { email: credentials.email } });
-        // NOTE: In production, verify hashed password. For now, assuming basic match.
         if (!user || user.role !== "ADMIN") return null;
         
         return {

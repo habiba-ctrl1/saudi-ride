@@ -180,10 +180,10 @@ export async function POST(request: Request) {
       finalPrice = tripTotal - discountAmount;
     }
 
-    // Generate unique human-readable bookingRef matching the RT brand (e.g. RT-2026-001234 style)
+    // Generate unique human-readable bookingRef matching the brand (e.g. TSA-2026-001234 style)
     const randomSuffix = Math.floor(100000 + Math.random() * 900000);
     const currentYear = new Date(finalDateTime).getFullYear() || 2026;
-    const bookingRef = `RT-${currentYear}-${randomSuffix}`;
+    const bookingRef = `TSA-${currentYear}-${randomSuffix}`;
 
     // Retrieve active session to link user
     let sessionUserEmail = "";

@@ -35,7 +35,7 @@ export default async function CustomerDashboardLayout({
       <aside className="w-64 border-r border-[#C9A84C]/10 bg-[#111] flex flex-col hidden md:flex">
         <div className="h-16 flex items-center px-6 border-b border-[#C9A84C]/10 shrink-0">
           <Link href="/" className="font-heading text-xl font-bold tracking-widest uppercase">
-            Riyadh Taxi<span className="text-[#C9A84C]"> VIP</span>
+            Taxi Saudi Arabia<span className="text-[#C9A84C]"> VIP</span>
           </Link>
         </div>
 

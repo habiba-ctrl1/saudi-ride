@@ -1,79 +1,80 @@
-﻿"use client";
+"use client";
 
 import { useLanguage } from "@/lib/context/LanguageContext";
 import { motion } from "framer-motion";
 import { ShieldCheck, Sparkles, CheckCircle2, History, Award, Play } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import { trustStats } from "@/lib/config/stats";
 
 const translations = {
   en: {
-    badge: "Who We Are",
-    title: "Your passage to VIP mobility",
-    description: "Riyadh Taxi stands at the intersection of Saudi hospitality and world-class luxury transportation. We provide pre-booked, flat-rate chauffeur services engineered for executive summits, spiritual pilgrimages, and family travels across the Kingdom.",
-    
+    badge: "About Taxi Saudi Arabia",
+    title: "Saudi Arabia's Trusted Taxi & Car Service",
+    description: "Taxi Saudi Arabia is a licensed taxi and car service operating across Saudi Arabia. We provide pre-booked, fixed-price rides for airport transfers, Umrah pilgrims, business travelers, and families — anywhere in the Kingdom.",
+
     // Stats
-    statsTitle: "Our Journey in Numbers",
+    statsTitle: "Our Numbers",
     stats: [
       { label: "Ministry Licensed", value: "100%" },
-      { label: "VIP Trips Completed", value: "50k+" },
-      { label: "Years of Excellence", value: "12+ Years" },
-      { label: "Global Clients", value: "40+ Countries" }
+      { label: "Trips Completed", value: "50k+" },
+      { label: "Years in Service", value: "12+ Years" },
+      { label: "Countries Served", value: "40+" }
     ],
 
     // Story
-    storyTitle: "Our Heritage",
-    storySubtitle: "Established in 2014",
-    storyText1: "Founded in the heart of Riyadh in 2014, Riyadh Taxi began with a singular vision: to redefine VIP transport across the Kingdom of Saudi Arabia. What started with a modest fleet of five executive sedans has grown into Saudi Arabia's premier luxury transport network, serving C-suite executives, global dignitaries, and hundreds of spiritual pilgrims daily.",
-    storyText2: "Over the past decade, we have established ourselves as the premier choice for reliable, safe, and prestigious travel. By blending traditional Saudi hospitality with state-of-the-art fleet management technology, we ensure that every journey with us feels like a sanctuary of comfort and premium luxury.",
+    storyTitle: "Our Story",
+    storySubtitle: "Started in 2014 in Riyadh",
+    storyText1: "Taxi Saudi Arabia was founded in 2014 in Riyadh with one goal: to give people in Saudi Arabia a taxi service they can actually trust. What started with five cars has grown into a fleet covering Riyadh, Jeddah, Makkah, Madinah, Dammam, and beyond — serving thousands of pilgrims, business travelers, and families every year.",
+    storyText2: "Over the past 12 years, we have built a reputation for being on time, transparent with pricing, and respectful of our customers. We combine real Saudi hospitality with modern booking technology to make every trip simple, safe, and comfortable.",
 
     // Pillars (Mission & Values)
-    pillarsTitle: "Mission & Core Values",
-    pillarsSubtitle: "The foundations of Riyadh Taxi",
+    pillarsTitle: "What We Stand For",
+    pillarsSubtitle: "The values behind every ride",
     pillars: [
       {
-        title: "Absolute Reliability",
-        description: "Zero delay commitment. Flight-tracking and prayer-aware planners assure chauffeurs await your arrival.",
+        title: "Always On Time",
+        description: "We track your flight live and plan your trip around prayer times — your driver is always ready when you need them.",
         icon: ShieldCheck
       },
       {
-        title: "Curated Chauffeur Circle",
-        description: "Highly trained local experts, certified by public authority standards, speaking multiple languages.",
+        title: "Professional, Vetted Drivers",
+        description: "All our drivers are background-checked, government-certified, and speak English, Arabic, and Urdu.",
         icon: Sparkles
       },
       {
-        title: "ZATCA & MOT Certified",
-        description: "Completely licensed under the Ministry of Transport and ZATCA electronic invoicing protocols.",
+        title: "Government Licensed",
+        description: "Fully licensed by the Saudi Ministry of Transport (MOT) and compliant with ZATCA electronic invoicing rules.",
         icon: CheckCircle2
       },
       {
-        title: "Elite Fleet Maintenance",
-        description: "Only modern, spotless vehicles with premium interior configurations and individual temperature settings.",
+        title: "Clean & Well-Maintained Cars",
+        description: "Every vehicle is cleaned before each trip, regularly inspected, and fully air-conditioned for your comfort.",
         icon: History
       }
     ],
 
     // Certifications
-    certTitle: "Government & Regulatory Compliance",
-    certSubtitle: "Fully Licensed & Accredited",
+    certTitle: "Licenses & Compliance",
+    certSubtitle: "Fully Licensed by Saudi Government",
     certs: [
-      { name: "Ministry of Transport", desc: "Official Operator License #1024-MOT", icon: Award },
-      { name: "Public Transport Authority (TGA)", desc: "Compliant with Executive Limo Codes", icon: ShieldCheck },
-      { name: "ZATCA E-Invoicing", desc: "Zakat, Tax & Customs Certified", icon: CheckCircle2 }
+      { name: "Ministry of Transport (MOT)", desc: "Official Operator License #1024-MOT", icon: Award },
+      { name: "General Authority for Transport (TGA)", desc: "Compliant with Saudi transport regulations", icon: ShieldCheck },
+      { name: "ZATCA E-Invoicing", desc: "VAT-registered and ZATCA-certified for businesses", icon: CheckCircle2 }
     ],
 
     // Team
-    teamTitle: "Our Elite Leadership",
-    teamSubtitle: "Chaperoning your premium mobility experience",
+    teamTitle: "Our Team",
+    teamSubtitle: "The people who make your trip smooth",
     team: [
-      { name: "Sheikh Khalid bin Fahd", role: "Founder & Chief Operations", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" },
-      { name: "Faisal Al-Otaibi", role: "Director of Fleet Logistics", image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80" },
-      { name: "Dr. Amira Mansour", role: "Head of VIP Concierge Desk", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" }
+      { name: "Sheikh Khalid bin Fahd", role: "Founder & Operations Director", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" },
+      { name: "Faisal Al-Otaibi", role: "Fleet & Logistics Manager", image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80" },
+      { name: "Dr. Amira Mansour", role: "Head of Customer Support", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" }
     ],
 
     // Video Section
-    videoTitle: "Experience the Sanctuary on Wheels",
-    videoText: "Take a virtual tour inside our ultra-luxury fleet and discover the meticulous details that make Riyadh Taxi the gold standard of travel."
+    videoTitle: "See What Rides With Us Look Like",
+    videoText: "Take a quick look inside our cars and see why thousands of travelers across Saudi Arabia choose Taxi Saudi Arabia for every trip."
   },
   ar: {
     badge: "من نحن",
@@ -223,6 +224,13 @@ export default function AboutPage() {
   const t = translations[language];
   const [isPlaying, setIsPlaying] = useState(false);
 
+  const statsList = [
+    { label: t.stats[0].label, value: trustStats.licensedDrivers },
+    { label: t.stats[1].label, value: trustStats.vipTripsCompleted },
+    { label: t.stats[2].label, value: `${trustStats.experienceYears} ${language === 'ar' ? 'عاماً' : 'Years'}` },
+    { label: t.stats[3].label, value: `${language === 'ar' ? '+' : ''}${trustStats.countriesServed.replace('+', '')} ${language === 'ar' ? 'دولة' : 'Countries'}` }
+  ];
+
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pt-28 pb-16">
       
@@ -251,7 +259,7 @@ export default function AboutPage() {
       <section className="section-container mt-14">
         <h2 className="text-xs uppercase tracking-widest text-[#C9A84C] font-bold mb-6 text-center md:text-left">{t.statsTitle}</h2>
         <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-4">
-          {t.stats.map((item, idx) => (
+          {statsList.map((item, idx) => (
             <motion.div
               key={item.label}
               initial="hidden"
@@ -295,7 +303,7 @@ export default function AboutPage() {
           >
             <Image
               src="https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=800&q=80"
-              alt="Riyadh Taxi Heritage fleet"
+              alt="Taxi Saudi Arabia Heritage fleet"
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -331,7 +339,7 @@ export default function AboutPage() {
           {isPlaying ? (
             <iframe
               src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1"
-              title="Riyadh Taxi Video"
+              title="Taxi Saudi Arabia Video"
               className="w-full h-full border-0"
               allow="autoplay; encrypted-media"
               allowFullScreen

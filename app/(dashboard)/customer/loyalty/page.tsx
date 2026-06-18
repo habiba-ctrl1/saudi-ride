@@ -80,7 +80,7 @@ export default async function CustomerLoyaltyPage() {
           <p className="text-sm text-[#A1A1A6] mb-4">Share this link to give friends SAR 50 off their first premium ride.</p>
           <div className="flex items-center gap-2">
             <div className="flex-1 bg-[#0A0A0A] border border-[#333] rounded-xl px-4 py-3 text-sm text-[#C9A84C] font-mono truncate select-all">
-              https://riyadhtaxi.com/invite/{(session.user as { id?: string }).id?.substring(0, 8)}
+              https://taxisaudiarabia.com/invite/{(session.user as { id?: string }).id?.substring(0, 8)}
             </div>
             <button className="bg-[#C9A84C]/10 text-[#C9A84C] hover:bg-[#C9A84C]/20 p-3 rounded-xl transition-colors">
               <Copy className="h-5 w-5" />

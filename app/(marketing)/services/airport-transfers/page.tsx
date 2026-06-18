@@ -1,11 +1,14 @@
 ﻿import { Metadata } from "next";
 import Image from "next/image";
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { serviceSchema, faqSchema } from "@/lib/schema";
 import Link from "next/link";
 import { Plane, Clock, UserCheck, CheckCircle2, ShieldCheck, Search, PlaneLanding } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Premium Airport Transfers in Saudi Arabia | Riyadh Taxi",
-  description: "Reliable, fixed-price airport transfers from Jeddah (JED), Riyadh (RUH), and Madinah (MED). Meet & greet, flight tracking, and luxury vehicles.",
+  title: "Airport Taxi Service in Saudi Arabia | Jeddah, Riyadh & Madinah — Taxi Saudi Arabia",
+  description: "Book an airport taxi in Saudi Arabia. Fixed-price airport pickups and drop-offs at Jeddah (JED), Riyadh (RUH), and Madinah (MED). Flight tracking, meet & greet, available 24/7.",
 };
 
 const AIRPORT_ROUTES = [
@@ -19,11 +22,11 @@ const AIRPORT_ROUTES = [
 const FAQS = [
   {
     q: "What if my flight is delayed?",
-    a: "We actively track your flight using real-time radar. Your chauffeur will automatically adjust their arrival time to match your actual landing. We offer 90 minutes of free waiting time for international arrivals."
+    a: "We actively track your flight using real-time data. Your driver will automatically adjust their arrival time to match your actual landing. We offer 90 minutes of free waiting time for international arrivals."
   },
   {
     q: "How will I find my driver?",
-    a: "Your chauffeur will be waiting in the arrivals hall holding a personalized tablet with your name on it. They will assist you with your luggage directly to the VIP parking area."
+    a: "Your driver will be waiting in the arrivals hall holding a name sign with your name on it. They will help you with your luggage and guide you directly to the car."
   },
   {
     q: "Are the prices fixed?",
@@ -34,6 +37,26 @@ const FAQS = [
 export default function AirportTransfersPage() {
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pb-24">
+      <JsonLd
+        data={[
+          serviceSchema({
+            name: "Airport Taxi Service",
+            description:
+              "Fixed-price airport taxi service in Saudi Arabia with flight tracking and meet & greet at Jeddah (JED), Riyadh (RUH), and Madinah (MED) airports.",
+            path: "/services/airport-transfers",
+            serviceType: "Airport Transfer",
+            areaServed: ["Jeddah", "Riyadh", "Madinah", "Dammam"],
+          }),
+          faqSchema(FAQS.map((f) => ({ question: f.q, answer: f.a }))),
+        ]}
+      />
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Services", href: "/services" },
+          { name: "Airport Transfers", href: "/services/airport-transfers" },
+        ]}
+      />
       {/* ─── HERO ─────────────────────────────────────────────────── */}
       <section className="relative pt-32 pb-20 overflow-hidden border-b border-[#C9A84C]/10">
         <div className="absolute inset-0 z-0">
@@ -164,7 +187,7 @@ export default function AirportTransfersPage() {
             href="/book"
             className="inline-flex items-center gap-2 rounded-full bg-[#C9A84C] px-8 py-4 text-xs font-bold uppercase text-[#0A0A0A] hover:bg-[#B8963B] transition-all shadow-[0_4px_20px_rgba(201,168,76,0.3)]"
           >
-            Reserve Your Chauffeur
+            Book Airport Taxi Now
           </Link>
         </div>
       </section>

@@ -9,9 +9,9 @@ import { trackEvent } from "@/lib/analytics";
 
 const translations = {
   en: {
-    badge: "Transparent Rates",
-    title: "Executive Luxury. Fixed Pricing.",
-    description: "Premium pre-booked intercity transfers, airport VIP shuttles, and hourly charters across Saudi Arabia. Zero surge. Zero hidden fees.",
+    badge: "Transparent Pricing",
+    title: "Taxi Prices in Saudi Arabia — Fixed Fares",
+    description: "Pre-booked taxi rides across Saudi Arabia with fixed prices. Airport transfers, intercity rides, Umrah transfers, and hourly car hire. No surge pricing, no hidden fees.",
     
     // Dynamic Calculator
     calcTitle: "Dynamic Fare Estimator",
@@ -21,7 +21,7 @@ const translations = {
     labelDistance: "Estimated Route Distance",
     labelDuration: "Approximate Transit Duration",
     estPriceTitle: "All-Inclusive Fixed Fare",
-    estNotice: "Rates include professional chauffeur, fuel, toll gates, airport parking fees, and VAT. No additional charge.",
+    estNotice: "Rates include your driver, fuel, toll fees, airport parking, and VAT. The price shown is the final price — no extra charges.",
     bookBtn: "Proceed to Booking",
 
     // Matrices
@@ -38,7 +38,7 @@ const translations = {
     luxuryCol: "VIP Sedan (S-Class)",
 
     // Trust Cards
-    trustTitle: "The Riyadh Taxi Price Guarantee",
+    trustTitle: "The Taxi Saudi Arabia Price Guarantee",
     trustSubtitle: "Uncompromising premium standard commitments",
     trust: [
       { title: "Surge-Free Guarantee", desc: "No surge pricing during conventions, flight delays, sandstorms, or peak holiday travel.", icon: ShieldCheck },
@@ -51,7 +51,7 @@ const translations = {
     faqs: [
       { q: "Do you charge extra for airport parking or waiting time?", a: "No. All airport transfers include up to 90 minutes of complimentary waiting time and include all airport terminal parking fees." },
       { q: "How are multi-city or multi-day journeys priced?", a: "Multi-day travel packages are custom-quoted by our VIP desk. Standard long distance intercity transfers follow our flat rates." },
-      { q: "Are tips or gratuities required for chauffeurs?", a: "Tips are entirely at your discretion. Chauffeurs are fully compensated under our premium employee circle protocols." }
+      { q: "Are tips required for drivers?", a: "Tips are completely optional. Our drivers are fairly paid — you are never expected to tip, but it is always appreciated if you choose to." }
     ]
   },
   ar: {
@@ -282,7 +282,7 @@ export default function PricingPage() {
               >
                 {CITIES.map((c) => (
                   <option key={c.key} value={c.key} className="bg-[#121212]">
-                    {language === "ar" ? c.labelAr : language === "ur" ? c.labelUr : c.labelEn}
+                    {language === "ar" ? c.labelAr : c.labelEn}
                   </option>
                 ))}
               </select>
@@ -298,7 +298,7 @@ export default function PricingPage() {
               >
                 {CITIES.map((c) => (
                   <option key={c.key} value={c.key} className="bg-[#121212]">
-                    {language === "ar" ? c.labelAr : language === "ur" ? c.labelUr : c.labelEn}
+                    {language === "ar" ? c.labelAr : c.labelEn}
                   </option>
                 ))}
               </select>

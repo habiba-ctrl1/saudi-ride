@@ -23,7 +23,7 @@ When you step out of the arrivals terminal, you have several options:
 
 1. **Official Airport Taxis (Green Cabs):** Available 24/7, metered, but can be expensive during surge periods.
 2. **Ride-Hailing Apps:** Uber, Careem, and Bolt operate in Saudi Arabia. They require mobile internet access and a pickup from designated zones.
-3. **Pre-booked Premium Chauffeurs (Recommended):** Services like Riyadh Taxi offer fixed-rate pricing, meet-and-greet inside the terminal, and luxury vehicles (Sedans, SUVs, Vans).
+3. **Pre-booked Premium Chauffeurs (Recommended):** Services like Taxi Saudi Arabia offer fixed-rate pricing, meet-and-greet inside the terminal, and luxury vehicles (Sedans, SUVs, Vans).
 
 ### Why Pre-Book Your Taxi?
 
@@ -188,7 +188,7 @@ In recent years, Saudi Arabia has aggressively pushed towards a cashless society
 - Hotels and premium restaurants
 - Shopping malls and large supermarkets (e.g., Bin Dawood, Panda)
 - Pharmacies
-- Ride-hailing apps and premium taxi services (like Riyadh Taxi)
+- Ride-hailing apps and premium taxi services (like Taxi Saudi Arabia)
 - Most shops around the Haram in Makkah and Madinah
 
 *Note:* Apple Pay and Google Pay are extremely popular and accepted at 99% of contactless terminals in the country.
@@ -382,6 +382,216 @@ Performing Umrah is a profoundly personal and spiritual experience. However, the
 - **Verdict:** Only recommended if you plan to perform your rituals strictly at night.
 
 **Transport Tip:** Regardless of when you travel, the journey from Jeddah Airport to Makkah requires reliable air conditioning. Ensure you book a premium taxi with dual-zone climate control to stay refreshed before you begin your rituals.
+`
+  },
+  {
+    title: "Madinah to Makkah Taxi: Price, Distance & Travel Time (2026 Guide)",
+    slug: "madinah-to-makkah-taxi-price-distance-time",
+    excerpt: "How far is Madinah from Makkah, how long does a taxi take, and what should you pay? A simple, up-to-date guide for Umrah pilgrims and families.",
+    coverImage: "https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&w=1200&q=80",
+    category: "Routes",
+    author: "Tariq Al-Faisal",
+    published: true,
+    publishedAt: new Date("2026-06-12"),
+    content: `
+## Madinah to Makkah by Taxi: What to Expect
+
+Travelling between the two Holy Cities is one of the most common trips for Umrah pilgrims. A private taxi is the most comfortable and flexible way to do it, especially if you are with family, elderly travellers, or a lot of luggage.
+
+### Distance and Travel Time
+
+The distance from Madinah to Makkah is about **440 kilometres** by the main highway. A taxi usually takes **4.5 to 5 hours**, including one short rest stop. With a private car you can leave at any time you want — there is no fixed schedule like the train or bus.
+
+### How Much Does the Taxi Cost?
+
+Prices depend on the type of car you choose:
+
+- **Sedan (Camry / similar):** Best for 1–3 people with light luggage.
+- **SUV (GMC / similar):** Comfortable for families and extra bags.
+- **Van (Hiace / similar):** Best for groups of 6–10 people.
+
+We offer a **fixed price** for this route — you agree the fare before you travel, with no meter and no surprises. For an exact quote, just send us a message; see our full list of [cars and prices](/fleet) or [book online](/book).
+
+### Stops Along the Way
+
+The highway has clean rest areas with prayer rooms, food, and toilets. Most pilgrims stop once near the halfway point. If you wish, your driver can also stop at a Miqat (such as Dhul Hulayfah / Abyar Ali near Madinah) so you can enter the state of Ihram before continuing to Makkah.
+
+### Tips for a Smooth Journey
+
+- **Travel early or at night** to avoid the afternoon heat.
+- **Carry water and snacks**, even though rest stops are available.
+- **Keep your documents ready** for the security checkpoint before Makkah.
+- **Book a bigger car** if you have elderly travellers — the extra space makes the long ride much easier.
+
+A private taxi turns a long highway trip into a calm, comfortable journey. Explore more [popular routes](/routes) across Saudi Arabia, or message us for a fixed-price quote today.
+`
+  },
+  {
+    title: "Jeddah to Madinah Taxi: Full Guide, Fares & Travel Tips",
+    slug: "jeddah-to-madinah-taxi-guide-fares",
+    excerpt: "Going from Jeddah Airport or city to Madinah by taxi? Here is the distance, travel time, car options, and what you should pay in 2026.",
+    coverImage: "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1200&q=80",
+    category: "Routes",
+    author: "Sarah Ahmed",
+    published: true,
+    publishedAt: new Date("2026-06-10"),
+    content: `
+## Jeddah to Madinah: The Easy Way to Travel
+
+Many pilgrims land at Jeddah Airport (JED) but want to start their journey in Madinah. A private taxi takes you door to door — from the airport or your Jeddah hotel straight to your hotel in Madinah.
+
+### Distance and Travel Time
+
+The distance from Jeddah to Madinah is around **420 kilometres**. The drive takes about **4 to 4.5 hours** on a smooth, modern highway. A private car lets you leave the moment you land, with no waiting for a bus or train.
+
+### Car Options and Pricing
+
+You can choose the car that fits your group:
+
+- **Sedan** — ideal for couples and small families.
+- **SUV** — more room for luggage and comfort.
+- **Van** — perfect for large families and Umrah groups.
+
+All trips are offered at a **fixed price** agreed in advance. You can see every option on our [cars page](/fleet) or get a quote in seconds by [booking online](/book).
+
+### Why Choose a Private Taxi Over the Bus
+
+- **Door-to-door service** — no dragging luggage between stations.
+- **Your own schedule** — leave at any hour, day or night.
+- **Comfort for families** — air conditioning, space, and a calm ride.
+- **Meet and greet at the airport** — your driver waits for you with a sign.
+
+### Helpful Tips
+
+- If you are starting Umrah from Madinah, you do **not** need to wear Ihram on this leg — you will enter Ihram later when travelling from Madinah to Makkah.
+- Ask for a **child seat** in advance if you are travelling with young children.
+- Save your driver's number on WhatsApp so you can reach them easily on arrival.
+
+Ready to travel? Check our other [intercity routes](/routes) or message us for a fixed Jeddah to Madinah fare.
+`
+  },
+  {
+    title: "How Much Does a Taxi Cost in Saudi Arabia? Full Price Guide (2026)",
+    slug: "taxi-cost-saudi-arabia-price-guide",
+    excerpt: "A clear guide to taxi prices in Saudi Arabia — airport pickups, city rides, and long routes between Jeddah, Makkah, Madinah, and Riyadh.",
+    coverImage: "https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=1200&q=80",
+    category: "Tips",
+    author: "Tariq Al-Faisal",
+    published: true,
+    publishedAt: new Date("2026-06-08"),
+    content: `
+## Understanding Taxi Prices in Saudi Arabia
+
+One of the first questions every visitor asks is: *how much does a taxi cost in Saudi Arabia?* The honest answer is that it depends on the trip — but with a few simple rules you can always know what is fair.
+
+### What Affects the Price
+
+- **Distance** — longer trips like Jeddah to Madinah cost more than a short city ride.
+- **Car type** — a sedan is cheaper than an SUV or a large van.
+- **Time and season** — Ramadan and Hajj are busy, so booking early is smart.
+- **Extras** — airport meet-and-greet, child seats, or extra stops.
+
+### Two Ways to Pay
+
+1. **Metered taxis** — the price goes up as you drive. Good for short trips, but the final cost is unknown until you arrive.
+2. **Fixed-price private taxi (recommended)** — you agree the full fare before you travel. No meter, no surprises, no haggling. This is the easiest option for visitors and for long routes.
+
+### Typical Trips
+
+- **Airport pickup to your hotel** — a short, fixed-price transfer with a driver waiting for you.
+- **City rides** — quick trips within Jeddah, Makkah, Madinah, or Riyadh.
+- **Long routes** — comfortable intercity travel; see all our [popular routes](/routes) for fixed fares.
+
+We publish clear options for every car on our [cars and prices page](/fleet), so you always know what you are paying for before you ride.
+
+### How to Get the Best Value
+
+- **Book in advance** to lock a fixed price and avoid busy-time surges.
+- **Match the car to your group** — don't pay for a van if a sedan is enough.
+- **Ask for the total fare upfront**, including any airport or luggage fees.
+- **Use WhatsApp** to confirm your driver and pickup details.
+
+With a fixed-price private taxi, you travel with total peace of mind. [Book your ride](/book) or message us for a quote on any trip in the Kingdom.
+`
+  },
+  {
+    title: "Makkah Ziyarat by Taxi: Top Holy Sites to Visit (Half-Day Tour)",
+    slug: "makkah-ziyarat-taxi-holy-sites-tour",
+    excerpt: "Visit the most important historical and holy places in Makkah with a private taxi. Here are the top Ziyarat sites and how to plan your visit.",
+    coverImage: "https://images.unsplash.com/photo-1591604466107-ec97de577aff?auto=format&fit=crop&w=1200&q=80",
+    category: "Umrah",
+    author: "Sarah Ahmed",
+    published: true,
+    publishedAt: new Date("2026-06-05"),
+    content: `
+## Makkah Ziyarat: Visit the Holy Sites in Comfort
+
+After completing Umrah, many pilgrims like to visit the historical and holy places around Makkah. This is called **Ziyarat**. A private taxi is the best way to do it — you visit at your own pace, with air conditioning and a knowledgeable local driver.
+
+### Top Sites to Visit in Makkah
+
+1. **Jabal al-Nour (Cave of Hira)** — the mountain where the Prophet ﷺ received the first revelation.
+2. **Jabal Thawr** — the cave where the Prophet ﷺ and Abu Bakr (RA) took shelter during the Hijrah.
+3. **Mina, Muzdalifah, and Arafat** — the key sites of the Hajj pilgrimage, peaceful to visit outside the Hajj season.
+4. **Jabal al-Rahmah (Mount of Mercy)** — on the plain of Arafat.
+5. **Masjid al-Jin and Masjid Aisha (Taneem)** — Masjid Aisha is also a popular Miqat for entering Ihram for a new Umrah.
+
+For full details on each place, see our [Makkah Ziyarat guide](/services).
+
+### How Long Does the Tour Take
+
+A typical Makkah Ziyarat tour takes **3 to 4 hours**. You can visit all the main sites in a half-day, with stops for photos and prayer. If you want a relaxed pace, a full-day tour also lets you combine Makkah with nearby spots.
+
+### Tips for Your Ziyarat
+
+- **Go in the morning** to avoid the strongest heat.
+- **Dress modestly** and carry water.
+- **Choose a bigger car** (SUV or van) if you are travelling as a family or group — see our [cars page](/fleet).
+- **Agree a fixed price** for the whole tour so there is no confusion.
+
+A private Ziyarat taxi turns a tiring day into a calm, meaningful experience. [Book your Makkah Ziyarat tour](/book) or message us to plan your route.
+`
+  },
+  {
+    title: "Riyadh Airport (RUH) Taxi Guide: To the City Center & Hotels",
+    slug: "riyadh-airport-ruh-taxi-guide",
+    excerpt: "Landing at King Khalid International Airport in Riyadh? Here is how to get a taxi to the city, travel time, and what to expect in 2026.",
+    coverImage: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80",
+    category: "City Guides",
+    author: "Tariq Al-Faisal",
+    published: true,
+    publishedAt: new Date("2026-06-02"),
+    content: `
+## Getting from Riyadh Airport to the City
+
+King Khalid International Airport (RUH) is the main gateway to the Saudi capital. Whether you are visiting for business, tourism, or a connection, getting a taxi into the city is simple — and even easier when you book ahead.
+
+### Distance and Travel Time
+
+The airport is about **35 kilometres** north of central Riyadh. The drive to the city center, business districts like Olaya and KAFD, or the main hotels usually takes **30 to 45 minutes**, depending on traffic.
+
+### Your Taxi Options
+
+- **Pre-booked private taxi (recommended):** A driver meets you inside the terminal with a sign and helps with your luggage. The price is fixed before you arrive.
+- **Ride-hailing apps:** Uber and Careem work in Riyadh but need mobile data and a pickup from a set zone.
+- **Airport taxi rank:** Available outside arrivals, but prices and waiting times can vary at busy hours.
+
+See all our [car options](/fleet) and reserve in advance with a [quick online booking](/book).
+
+### Why Pre-Book Your Riyadh Transfer
+
+- **No waiting** in taxi lines after a long flight.
+- **Fixed price** agreed upfront — easy for business expense claims.
+- **Professional drivers** who know the city's fast road network.
+- **Comfort** for late-night or early-morning arrivals.
+
+### Helpful Tips
+
+- Riyadh has wide, fast highways — keep your seatbelt on and your hotel address ready.
+- For business trips, ask for a **sedan or executive car**; for families, choose an **SUV or van**.
+- Need to travel further? We also cover long [routes](/routes) from Riyadh to other cities.
+
+Make your arrival in the capital smooth and stress-free. [Book your Riyadh airport taxi](/book) or message us for a fixed fare.
 `
   }
 ];

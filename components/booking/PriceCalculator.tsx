@@ -9,10 +9,13 @@ import {
   ShieldCheck,
   HelpCircle,
   MessageCircle,
-  AlertCircle
+  AlertCircle,
+  Car,
+  Users,
+  Repeat2,
 } from "lucide-react";
 
-type VehicleKey = 'SEDAN' | 'SUV' | 'VAN' | 'LUXURY' | 'BUS';
+type VehicleKey = "SEDAN" | "SUV" | "VAN" | "LUXURY" | "BUS";
 
 type PricingResponse = {
   price: number;
@@ -43,201 +46,190 @@ const defaultSuggestions = [
   "AlUla Luxury Heritage Resort",
   "NEOM Gateway Hub",
   "Doha Gateway (Qatar)",
-  "Dubai Luxury Marina Gateway (UAE)"
+  "Dubai Luxury Marina Gateway (UAE)",
 ];
 
 const vehicleTypes = [
-  { key: 'SEDAN' as VehicleKey, name: 'Premium Sedan', desc: 'Camry or equivalent', icon: '🚗' },
-  { key: 'SUV' as VehicleKey, name: 'VIP SUV', desc: 'Yukon Denali XL or equivalent', icon: '🚙' },
-  { key: 'VAN' as VehicleKey, name: 'Luxury Cabin Van', desc: 'Hyundai Staria or equivalent', icon: '🚐' },
-  { key: 'LUXURY' as VehicleKey, name: 'Ultra Elite', desc: 'Mercedes S-Class or equivalent', icon: '💎' },
-  { key: 'BUS' as VehicleKey, name: 'Coaster/Bus', desc: 'VIP Pilgrim Bus', icon: '🚌' },
+  { key: "SEDAN" as VehicleKey, name: "Sedan",   icon: "🚗", desc: "Toyota Camry" },
+  { key: "SUV"   as VehicleKey, name: "VIP SUV", icon: "🚙", desc: "GMC Yukon" },
+  { key: "VAN"   as VehicleKey, name: "Van",      icon: "🚐", desc: "Staria" },
+  { key: "LUXURY"as VehicleKey, name: "Elite",    icon: "💎", desc: "S-Class" },
+  { key: "BUS"   as VehicleKey, name: "Bus",      icon: "🚌", desc: "Coaster" },
 ];
+
+/* ─── Minimal shared input wrapper ────────────────────────────────────────── */
+function InputRow({ icon, children }: { icon: React.ReactNode; children: React.ReactNode }) {
+  return (
+    <div
+      className="flex items-center gap-3 rounded-xl px-4 py-3.5 transition-all duration-200 focus-within:shadow-[0_0_0_2px_rgba(200,164,93,0.25)]"
+      style={{
+        border: "1.5px solid rgba(200,164,93,0.25)",
+        backgroundColor: "#FFFFFF",
+      }}
+    >
+      <span className="shrink-0 text-[#C8A45D]">{icon}</span>
+      {children}
+    </div>
+  );
+}
 
 export default function PriceCalculator() {
   const { language } = useLanguage();
   const isRtl = language === "ar";
 
-  // Form State
-  const [pickup, setPickup] = useState("");
-  const [dropoff, setDropoff] = useState("");
-  const [vehicleType, setVehicleType] = useState<VehicleKey>('SUV');
-  const [dateTime, setDateTime] = useState("");
+  const [pickup, setPickup]       = useState("");
+  const [dropoff, setDropoff]     = useState("");
+  const [vehicleType, setVehicleType] = useState<VehicleKey>("SUV");
+  const [dateTime, setDateTime]   = useState("");
   const [isRoundTrip, setIsRoundTrip] = useState(false);
 
-  // Address Autocomplete UI
-  const [pickupSuggestions, setPickupSuggestions] = useState<string[]>([]);
+  const [pickupSuggestions,  setPickupSuggestions]  = useState<string[]>([]);
   const [dropoffSuggestions, setDropoffSuggestions] = useState<string[]>([]);
-  const [showPickupList, setShowPickupList] = useState(false);
+  const [showPickupList,  setShowPickupList]  = useState(false);
   const [showDropoffList, setShowDropoffList] = useState(false);
 
-  // Calculation Results state
   const [pricingData, setPricingData] = useState<PricingResponse | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
+  const [loading, setLoading]         = useState(false);
+  const [errorMsg, setErrorMsg]       = useState("");
 
   const debounceTimer = useRef<NodeJS.Timeout | null>(null);
 
-  // Default DateTime initializer (2 hours from now)
   useEffect(() => {
     const now = new Date();
     now.setHours(now.getHours() + 2);
-    const tzoffset = now.getTimezoneOffset() * 60000;
-    const localISOTime = new Date(now.getTime() - tzoffset).toISOString().slice(0, 16);
-    setDateTime(localISOTime);
+    const offset = now.getTimezoneOffset() * 60000;
+    setDateTime(new Date(now.getTime() - offset).toISOString().slice(0, 16));
   }, []);
 
-  // Filter suggestion list as user types
   const handlePickupChange = (val: string) => {
     setPickup(val);
-    if (val.trim() === "") {
-      setPickupSuggestions([]);
-    } else {
-      const filtered = defaultSuggestions.filter(s =>
-        s.toLowerCase().includes(val.toLowerCase())
-      );
-      setPickupSuggestions(filtered);
-    }
+    setPickupSuggestions(
+      val.trim()
+        ? defaultSuggestions.filter((s) => s.toLowerCase().includes(val.toLowerCase()))
+        : []
+    );
   };
 
   const handleDropoffChange = (val: string) => {
     setDropoff(val);
-    if (val.trim() === "") {
-      setDropoffSuggestions([]);
-    } else {
-      const filtered = defaultSuggestions.filter(s =>
-        s.toLowerCase().includes(val.toLowerCase())
-      );
-      setDropoffSuggestions(filtered);
-    }
+    setDropoffSuggestions(
+      val.trim()
+        ? defaultSuggestions.filter((s) => s.toLowerCase().includes(val.toLowerCase()))
+        : []
+    );
   };
+
+  const calculateFares = useCallback(
+    async (customPickup?: string, customDropoff?: string) => {
+      const finalPickup  = customPickup  ?? pickup;
+      const finalDropoff = customDropoff ?? dropoff;
+      if (finalPickup.trim().length < 3 || finalDropoff.trim().length < 3 || !dateTime) return;
+
+      try {
+        setLoading(true);
+        setErrorMsg("");
+        const res = await fetch("/api/pricing", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ pickup: finalPickup, dropoff: finalDropoff, vehicleType, dateTime, isRoundTrip }),
+        });
+        if (!res.ok) {
+          const errData = await res.json() as { error?: string };
+          throw new Error(errData.error ?? "Pricing failed");
+        }
+        setPricingData(await res.json() as PricingResponse);
+      } catch (err) {
+        setErrorMsg(err instanceof Error ? err.message : "Pricing estimation failed. Please review inputs.");
+        setPricingData(null);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [pickup, dropoff, vehicleType, dateTime, isRoundTrip]
+  );
 
   const setupGoogleAutocomplete = useCallback(() => {
     try {
-      const pickupInput = document.getElementById("autocomplete-pickup") as HTMLInputElement;
-      const dropoffInput = document.getElementById("autocomplete-dropoff") as HTMLInputElement;
       const gWindow = window as unknown as { google?: typeof google };
+      const bind = (inputId: string, setter: (v: string) => void, other: string) => {
+        const el = document.getElementById(inputId) as HTMLInputElement | null;
+        if (el && gWindow.google?.maps?.places) {
+          const ac = new gWindow.google.maps.places.Autocomplete(el, {
+            types: ["geocode", "establishment"],
+            componentRestrictions: { country: ["SA", "AE", "QA", "BH", "OM", "KW"] },
+          });
+          ac.addListener("place_changed", () => {
+            const place = ac.getPlace();
+            if (place.formatted_address) {
+              setter(place.formatted_address);
+              void calculateFares(
+                inputId.includes("pickup") ? place.formatted_address : undefined,
+                inputId.includes("dropoff") ? place.formatted_address : undefined
+              );
+            }
+          });
+        }
+      };
+      bind("autocomplete-pickup",  setPickup,  dropoff);
+      bind("autocomplete-dropoff", setDropoff, pickup);
+    } catch { /* ignore */ }
+  }, [calculateFares, dropoff, pickup]);
 
-      if (pickupInput && gWindow.google?.maps?.places) {
-        const pickupAutocomplete = new gWindow.google.maps.places.Autocomplete(pickupInput, {
-          types: ["geocode", "establishment"],
-          componentRestrictions: { country: ["SA", "AE", "QA", "BH", "OM", "KW"] }
-        });
-        pickupAutocomplete.addListener("place_changed", () => {
-          const place = pickupAutocomplete.getPlace();
-          if (place.formatted_address) {
-            setPickup(place.formatted_address);
-          }
-        });
-      }
-
-      if (dropoffInput && gWindow.google?.maps?.places) {
-        const dropoffAutocomplete = new gWindow.google.maps.places.Autocomplete(dropoffInput, {
-          types: ["geocode", "establishment"],
-          componentRestrictions: { country: ["SA", "AE", "QA", "BH", "OM", "KW"] }
-        });
-        dropoffAutocomplete.addListener("place_changed", () => {
-          const place = dropoffAutocomplete.getPlace();
-          if (place.formatted_address) {
-            setDropoff(place.formatted_address);
-          }
-        });
-      }
-    } catch (err) {
-      console.warn("Places autocomplete binding failed:", err);
-    }
-  }, []);
-
-  // Google Places Autocomplete Loader setup if API Key is available
   useEffect(() => {
-    const mapsKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY;
-    if (mapsKey && mapsKey !== "" && typeof window !== "undefined") {
+    const key = process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY;
+    if (key && typeof window !== "undefined") {
       const gWindow = window as unknown as { google?: typeof google };
-      // Lazy load standard google maps autocomplete if scripts have been fetched
-      if (gWindow.google && gWindow.google.maps && gWindow.google.maps.places) {
-        setupGoogleAutocomplete();
-      }
+      if (gWindow.google?.maps?.places) setupGoogleAutocomplete();
     }
   }, [setupGoogleAutocomplete]);
 
-  const calculateFares = useCallback(async () => {
-    try {
-      setLoading(true);
-      setErrorMsg("");
-
-      const response = await fetch("/api/pricing", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          pickup,
-          dropoff,
-          vehicleType,
-          dateTime,
-          isRoundTrip
-        })
-      });
-
-      if (!response.ok) {
-        const errData = await response.json();
-        throw new Error(errData.error || "Failed to calculate luxury pricing");
-      }
-
-      const pricing = await response.json() as PricingResponse;
-      setPricingData(pricing);
-    } catch (err) {
-      const errMsg = err instanceof Error ? err.message : "Pricing estimation failed. Please review inputs.";
-      setErrorMsg(errMsg);
-      setPricingData(null);
-    } finally {
-      setLoading(false);
-    }
-  }, [pickup, dropoff, vehicleType, dateTime, isRoundTrip]);
-
-  // Debounced Pricing Calculator logic (500ms after inputs change)
   useEffect(() => {
-    if (debounceTimer.current) {
-      clearTimeout(debounceTimer.current);
+    if (debounceTimer.current) clearTimeout(debounceTimer.current);
+    if (pickup.trim().length >= 3 && dropoff.trim().length >= 3 && dateTime) {
+      debounceTimer.current = setTimeout(() => void calculateFares(), 500);
     }
-
-    if (pickup.trim().length > 3 && dropoff.trim().length > 3 && dateTime !== "") {
-      debounceTimer.current = setTimeout(() => {
-        void calculateFares();
-      }, 500);
-    }
-
-    return () => {
-      if (debounceTimer.current) {
-        clearTimeout(debounceTimer.current);
-      }
-    };
+    return () => { if (debounceTimer.current) clearTimeout(debounceTimer.current); };
   }, [pickup, dropoff, vehicleType, dateTime, isRoundTrip, calculateFares]);
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] w-full text-[#F5F0E8] text-left">
-      
-      {/* Left Input Panel */}
-      <div className="rounded-3xl border border-[#C9A84C]/15 bg-[#121212] p-6 md:p-8 space-y-6 shadow-2xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 h-40 w-40 rounded-full bg-[#C9A84C]/5 blur-3xl pointer-events-none" />
-        
+    <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] w-full text-left">
+
+      {/* ── Left: Input Panel ─────────────────────────────────────────── */}
+      <div
+        className="rounded-2xl p-6 md:p-8 space-y-5 relative overflow-hidden"
+        style={{
+          backgroundColor: "#FFFFFF",
+          border: "1.5px solid rgba(200,164,93,0.2)",
+          boxShadow: "0 8px 40px rgba(200,164,93,0.08)",
+        }}
+      >
+        {/* Subtle gold corner glow */}
+        <div
+          className="absolute top-0 right-0 h-32 w-32 rounded-full pointer-events-none"
+          style={{ background: "radial-gradient(circle, rgba(200,164,93,0.08) 0%, transparent 70%)" }}
+        />
+
         <div>
-          <h3 className="font-heading text-xl font-bold text-[#F5F0E8]">
-            {isRtl ? "محاكي التسعير الفوري" : "Instant Price Simulator"}
+          <h3
+            className="font-heading font-bold"
+            style={{ color: "#0F172A", fontSize: "1.2rem", letterSpacing: "-0.01em" }}
+          >
+            {isRtl ? "محاكي التسعير الفوري" : "Instant Price Calculator"}
           </h3>
-          <p className="text-[0.7rem] text-[#A1A1A6] mt-1">
-            Configure your journey parameters below to simulate fully tax-inclusive luxury quotes.
+          <p className="text-[0.72rem] mt-1" style={{ color: "#6B7280" }}>
+            {isRtl
+              ? "أدخل بيانات رحلتك لمعرفة السعر الدقيق"
+              : "Enter your journey details for a guaranteed fixed quote"}
           </p>
         </div>
 
-        {/* Inputs */}
-        <div className="space-y-4">
-          
-          {/* Pickup Input */}
+        {/* Pickup */}
+        <div className="space-y-1.5">
+          <label className="block text-[0.65rem] uppercase tracking-widest font-bold" style={{ color: "#C8A45D" }}>
+            {isRtl ? "نقطة الالتقاء" : "Pickup Location"}
+          </label>
           <div className="relative">
-            <label className="block text-[0.65rem] uppercase tracking-wider text-[#A1A1A6] font-bold mb-2">
-              {isRtl ? "نقطة الالتقاء" : "Pickup Point"}
-            </label>
-            <div className="flex items-center gap-3 rounded-2xl border border-[#C9A84C]/15 bg-black/40 px-4 py-3.5 focus-within:border-[#C9A84C] transition-all">
-              <MapPin className="h-4.5 w-4.5 text-[#C9A84C]" />
+            <InputRow icon={<MapPin className="h-4 w-4" />}>
               <input
                 id="autocomplete-pickup"
                 type="text"
@@ -245,22 +237,24 @@ export default function PriceCalculator() {
                 onChange={(e) => handlePickupChange(e.target.value)}
                 onFocus={() => setShowPickupList(true)}
                 onBlur={() => setTimeout(() => setShowPickupList(false), 200)}
-                placeholder={isRtl ? "اكتب عنوان الالتقاء أو المطار..." : "Jeddah Airport, Riyadh hotel..."}
-                className="w-full bg-transparent text-xs text-[#F5F0E8] outline-none"
+                placeholder={isRtl ? "مطار جدة، فندق الرياض..." : "Jeddah Airport, Riyadh hotel..."}
+                className="w-full text-sm outline-none bg-transparent"
+                style={{ color: "#111827" }}
               />
-            </div>
-
-            {/* Manual suggestions list */}
+            </InputRow>
             {showPickupList && pickupSuggestions.length > 0 && (
-              <div className="absolute z-30 left-0 right-0 mt-2 max-h-52 overflow-y-auto rounded-2xl border border-[#C9A84C]/25 bg-[#121212] p-1.5 shadow-2xl">
+              <div
+                className="absolute z-30 left-0 right-0 mt-1.5 max-h-52 overflow-y-auto rounded-xl p-1.5 shadow-xl"
+                style={{ backgroundColor: "#FFFFFF", border: "1.5px solid rgba(200,164,93,0.25)" }}
+              >
                 {pickupSuggestions.map((s, idx) => (
                   <div
                     key={idx}
-                    className="px-4 py-2 rounded-xl hover:bg-[#C9A84C]/10 text-xs text-[#F5F0E8] cursor-pointer"
-                    onClick={() => {
-                      setPickup(s);
-                      setPickupSuggestions([]);
-                    }}
+                    className="px-4 py-2.5 rounded-lg text-sm cursor-pointer transition-colors"
+                    style={{ color: "#374151" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(200,164,93,0.08)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
+                    onClick={() => { setPickup(s); setPickupSuggestions([]); void calculateFares(s, undefined); }}
                   >
                     {s}
                   </div>
@@ -268,14 +262,15 @@ export default function PriceCalculator() {
               </div>
             )}
           </div>
+        </div>
 
-          {/* Drop-off Input */}
+        {/* Dropoff */}
+        <div className="space-y-1.5">
+          <label className="block text-[0.65rem] uppercase tracking-widest font-bold" style={{ color: "#C8A45D" }}>
+            {isRtl ? "وجهة التوصيل" : "Drop-off Destination"}
+          </label>
           <div className="relative">
-            <label className="block text-[0.65rem] uppercase tracking-wider text-[#A1A1A6] font-bold mb-2">
-              {isRtl ? "وجهة التوصيل" : "Drop-off Destination"}
-            </label>
-            <div className="flex items-center gap-3 rounded-2xl border border-[#C9A84C]/15 bg-black/40 px-4 py-3.5 focus-within:border-[#C9A84C] transition-all">
-              <MapPin className="h-4.5 w-4.5 text-[#C9A84C]" />
+            <InputRow icon={<MapPin className="h-4 w-4" />}>
               <input
                 id="autocomplete-dropoff"
                 type="text"
@@ -283,22 +278,24 @@ export default function PriceCalculator() {
                 onChange={(e) => handleDropoffChange(e.target.value)}
                 onFocus={() => setShowDropoffList(true)}
                 onBlur={() => setTimeout(() => setShowDropoffList(false), 200)}
-                placeholder={isRtl ? "اكتب وجهة التوصيل..." : "Makkah Haram, Madinah hotel..."}
-                className="w-full bg-transparent text-xs text-[#F5F0E8] outline-none"
+                placeholder={isRtl ? "الحرم المكي، فندق مكة..." : "Makkah Haram, Madinah hotel..."}
+                className="w-full text-sm outline-none bg-transparent"
+                style={{ color: "#111827" }}
               />
-            </div>
-
-            {/* Manual suggestions list */}
+            </InputRow>
             {showDropoffList && dropoffSuggestions.length > 0 && (
-              <div className="absolute z-30 left-0 right-0 mt-2 max-h-52 overflow-y-auto rounded-2xl border border-[#C9A84C]/25 bg-[#121212] p-1.5 shadow-2xl">
+              <div
+                className="absolute z-30 left-0 right-0 mt-1.5 max-h-52 overflow-y-auto rounded-xl p-1.5 shadow-xl"
+                style={{ backgroundColor: "#FFFFFF", border: "1.5px solid rgba(200,164,93,0.25)" }}
+              >
                 {dropoffSuggestions.map((s, idx) => (
                   <div
                     key={idx}
-                    className="px-4 py-2 rounded-xl hover:bg-[#C9A84C]/10 text-xs text-[#F5F0E8] cursor-pointer"
-                    onClick={() => {
-                      setDropoff(s);
-                      setDropoffSuggestions([]);
-                    }}
+                    className="px-4 py-2.5 rounded-lg text-sm cursor-pointer transition-colors"
+                    style={{ color: "#374151" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(200,164,93,0.08)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
+                    onClick={() => { setDropoff(s); setDropoffSuggestions([]); void calculateFares(undefined, s); }}
                   >
                     {s}
                   </div>
@@ -306,191 +303,259 @@ export default function PriceCalculator() {
               </div>
             )}
           </div>
-
-          {/* Date & Time */}
-          <div>
-            <label className="block text-[0.65rem] uppercase tracking-wider text-[#A1A1A6] font-bold mb-2">
-              {isRtl ? "تاريخ ووقت الرحلة" : "Journey Date & Time"}
-            </label>
-            <div className="flex items-center gap-3 rounded-2xl border border-[#C9A84C]/15 bg-black/40 px-4 py-3.5">
-              <Calendar className="h-4.5 w-4.5 text-[#C9A84C]" />
-              <input
-                type="datetime-local"
-                value={dateTime}
-                onChange={(e) => setDateTime(e.target.value)}
-                className="w-full bg-transparent text-xs text-[#F5F0E8] outline-none"
-              />
-            </div>
-          </div>
-
-          {/* Vehicle Class Grid */}
-          <div>
-            <label className="block text-[0.65rem] uppercase tracking-wider text-[#A1A1A6] font-bold mb-2">
-              {isRtl ? "فئة السيارة المطلوبة" : "Select Chauffeur Class"}
-            </label>
-            <div className="grid gap-3 grid-cols-2 md:grid-cols-5">
-              {vehicleTypes.map((v) => (
-                <div
-                  key={v.key}
-                  className={`rounded-2xl border p-4 text-center cursor-pointer transition-all ${
-                    vehicleType === v.key
-                      ? "border-[#C9A84C] bg-[#C9A84C]/10 text-[#C9A84C]"
-                      : "border-[#C9A84C]/15 bg-black/20 text-[#A1A1A6] hover:border-[#C9A84C]/35"
-                  }`}
-                  onClick={() => setVehicleType(v.key)}
-                >
-                  <span className="text-xl block mb-2">{v.icon}</span>
-                  <p className="text-[0.6rem] font-bold uppercase tracking-wider">{v.name.split(" ")[1] || v.name}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Round Trip Toggle */}
-          <div className="flex items-center justify-between rounded-2xl border border-[#C9A84C]/10 bg-black/20 p-4">
-            <div>
-              <p className="text-xs font-bold text-[#F5F0E8]">
-                {isRtl ? "تأكيد رحلة الذهاب والعودة" : "Book as Round-Trip"}
-              </p>
-              <p className="text-[0.55rem] text-[#A1A1A6] mt-0.5">
-                {isRtl ? "احصل على خصم ١٠٪ على رحلة العودة بالكامل" : "Apply 10% premium discount on total route fare."}
-              </p>
-            </div>
-            
-            <button
-              type="button"
-              onClick={() => setIsRoundTrip(!isRoundTrip)}
-              className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
-                isRoundTrip ? "bg-[#C9A84C]" : "bg-neutral-800"
-              }`}
-            >
-              <span
-                className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-black shadow-lg ring-0 transition duration-200 ease-in-out ${
-                  isRoundTrip ? "translate-x-5" : "translate-x-0"
-                }`}
-              />
-            </button>
-          </div>
-
         </div>
+
+        {/* Date & Time */}
+        <div className="space-y-1.5">
+          <label className="block text-[0.65rem] uppercase tracking-widest font-bold" style={{ color: "#C8A45D" }}>
+            {isRtl ? "تاريخ ووقت الرحلة" : "Date & Time"}
+          </label>
+          <InputRow icon={<Calendar className="h-4 w-4" />}>
+            <input
+              type="datetime-local"
+              value={dateTime}
+              suppressHydrationWarning
+              onChange={(e) => setDateTime(e.target.value)}
+              className="w-full text-sm outline-none bg-transparent"
+              style={{ color: "#111827" }}
+            />
+          </InputRow>
+        </div>
+
+        {/* Vehicle Type */}
+        <div className="space-y-2">
+          <label className="block text-[0.65rem] uppercase tracking-widest font-bold" style={{ color: "#C8A45D" }}>
+            {isRtl ? "فئة السيارة" : "Vehicle Class"}
+          </label>
+          <div className="grid grid-cols-5 gap-2">
+            {vehicleTypes.map((v) => {
+              const active = vehicleType === v.key;
+              return (
+                <button
+                  key={v.key}
+                  onClick={() => setVehicleType(v.key)}
+                  className="rounded-xl py-3 flex flex-col items-center gap-1 text-center transition-all duration-200"
+                  style={{
+                    border: active ? "1.5px solid #C8A45D" : "1.5px solid rgba(200,164,93,0.15)",
+                    backgroundColor: active ? "rgba(200,164,93,0.1)" : "#FAFAFA",
+                    color: active ? "#B8963B" : "#9CA3AF",
+                  }}
+                >
+                  <span className="text-lg">{v.icon}</span>
+                  <span className="text-[0.55rem] font-bold uppercase tracking-wide leading-none">{v.name}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Round trip toggle */}
+        <div
+          className="flex items-center justify-between rounded-xl p-4"
+          style={{ backgroundColor: "#F8FAFC", border: "1.5px solid rgba(200,164,93,0.12)" }}
+        >
+          <div className="flex items-center gap-2.5">
+            <Repeat2 className="h-4 w-4" style={{ color: "#C8A45D" }} />
+            <div>
+              <p className="text-sm font-semibold" style={{ color: "#111827" }}>
+                {isRtl ? "رحلة ذهاب وعودة" : "Round Trip"}
+              </p>
+              <p className="text-[0.62rem]" style={{ color: "#9CA3AF" }}>
+                {isRtl ? "خصم 10% على إجمالي الرحلة" : "Save 10% on total fare"}
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => setIsRoundTrip(!isRoundTrip)}
+            className="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200"
+            style={{ backgroundColor: isRoundTrip ? "#C8A45D" : "#E5E7EB" }}
+          >
+            <span
+              className="pointer-events-none inline-block h-5 w-5 transform rounded-full shadow ring-0 transition duration-200"
+              style={{
+                backgroundColor: "#FFFFFF",
+                transform: isRoundTrip ? "translateX(20px)" : "translateX(0)",
+              }}
+            />
+          </button>
+        </div>
+
+        {/* Calculate button */}
+        {pickup.trim().length >= 3 && dropoff.trim().length >= 3 && (
+          <button
+            type="button"
+            onClick={() => void calculateFares()}
+            disabled={loading}
+            className="flex items-center justify-center gap-2 w-full rounded-xl py-3.5 text-sm font-bold uppercase tracking-wider transition-all duration-300 disabled:opacity-50"
+            style={{
+              backgroundColor: "#C8A45D",
+              color: "#0F172A",
+              boxShadow: "0 4px 20px rgba(200,164,93,0.3)",
+            }}
+          >
+            {loading ? (
+              <span className="h-4 w-4 rounded-full border-2 border-[#0F172A]/25 border-t-[#0F172A] animate-spin inline-block" />
+            ) : (
+              <span>{isRtl ? "احسب الأجرة الآن" : "Calculate Price"}</span>
+            )}
+          </button>
+        )}
       </div>
 
-      {/* Right Output Panel */}
-      <div className="rounded-3xl border border-[#C9A84C]/15 bg-[#121212] p-6 md:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden">
-        <div className="absolute bottom-0 left-0 h-40 w-40 rounded-full bg-[#C9A84C]/5 blur-3xl pointer-events-none" />
+      {/* ── Right: Results Panel ──────────────────────────────────────── */}
+      <div
+        className="rounded-2xl p-6 md:p-8 flex flex-col justify-between relative overflow-hidden"
+        style={{
+          backgroundColor: "#FFFFFF",
+          border: "1.5px solid rgba(200,164,93,0.2)",
+          boxShadow: "0 8px 40px rgba(200,164,93,0.08)",
+        }}
+      >
+        <div
+          className="absolute bottom-0 left-0 h-32 w-32 rounded-full pointer-events-none"
+          style={{ background: "radial-gradient(circle, rgba(200,164,93,0.07) 0%, transparent 70%)" }}
+        />
 
         {loading ? (
-          <div className="flex flex-col items-center justify-center h-64 space-y-4">
-            <div className="h-8 w-8 rounded-full border-2 border-[#C9A84C]/20 border-t-[#C9A84C] animate-spin" />
-            <p className="text-xs text-[#A1A1A6] uppercase tracking-widest font-semibold">
-              Simulating Luxury Quote...
+          <div className="flex flex-col items-center justify-center h-64 gap-4">
+            <div
+              className="h-10 w-10 rounded-full border-[3px] animate-spin"
+              style={{ borderColor: "rgba(200,164,93,0.2)", borderTopColor: "#C8A45D" }}
+            />
+            <p className="text-xs uppercase tracking-widest font-semibold" style={{ color: "#9CA3AF" }}>
+              Calculating your quote…
             </p>
           </div>
+
         ) : errorMsg ? (
-          <div className="flex flex-col items-center justify-center h-64 text-center space-y-3">
-            <AlertCircle className="h-8 w-8 text-red-500" />
-            <p className="text-xs text-[#A1A1A6]">{errorMsg}</p>
+          <div className="flex flex-col items-center justify-center h-64 text-center gap-3">
+            <AlertCircle className="h-9 w-9" style={{ color: "#DC2626" }} />
+            <p className="text-sm" style={{ color: "#6B7280" }}>{errorMsg}</p>
           </div>
+
         ) : pricingData ? (
-          <div className="space-y-6">
-            
-            {/* Main Price display */}
-            <div className="border-b border-[#C9A84C]/10 pb-5">
-              <span className="text-[0.65rem] uppercase tracking-widest text-[#C9A84C] font-bold">
-                {isRtl ? "مجموع الأجرة الفاخرة المضمونة" : "Guaranteed VIP Quote"}
+          <div className="space-y-5">
+            {/* Price headline */}
+            <div className="pb-5" style={{ borderBottom: "1px solid rgba(200,164,93,0.15)" }}>
+              <span className="text-[0.62rem] uppercase tracking-widest font-bold" style={{ color: "#C8A45D" }}>
+                {isRtl ? "الأجرة المضمونة" : "Guaranteed Fixed Quote"}
               </span>
-              <h4 className="font-heading text-4xl font-bold text-[#F5F0E8] mt-2">
+              <h4
+                className="font-heading font-extrabold mt-1"
+                style={{ fontSize: "clamp(2rem, 5vw, 2.75rem)", color: "#0F172A", letterSpacing: "-0.02em" }}
+              >
                 SAR {pricingData.price.toLocaleString()}
               </h4>
-              <p className="text-[0.6rem] text-[#7C8088] font-bold uppercase tracking-wider mt-1.5">
-                Distance: <span className="text-[#F5F0E8]">{pricingData.distance} km</span> | Est. Duration: <span className="text-[#F5F0E8]">{pricingData.duration} mins</span>
-              </p>
+              <div className="flex gap-4 mt-1.5 text-[0.65rem] font-semibold" style={{ color: "#9CA3AF" }}>
+                <span className="flex items-center gap-1">
+                  <Car className="h-3 w-3" style={{ color: "#C8A45D" }} />
+                  {pricingData.distance} km
+                </span>
+                <span className="flex items-center gap-1">
+                  <Users className="h-3 w-3" style={{ color: "#C8A45D" }} />
+                  {pricingData.duration} min
+                </span>
+              </div>
             </div>
 
             {/* Breakdown */}
-            <div className="space-y-3 text-xs">
-              <p className="text-[0.65rem] uppercase tracking-wider text-[#A1A1A6] font-bold mb-1">
-                Quote Breakdown
+            <div className="space-y-2.5 text-sm">
+              <p className="text-[0.62rem] uppercase tracking-widest font-bold mb-2" style={{ color: "#9CA3AF" }}>
+                Price Breakdown
               </p>
-              
-              <div className="flex justify-between text-[0.7rem]">
-                <span className="text-[#7C8088]">Base Route Fare</span>
-                <span className="font-bold">SAR {pricingData.breakdown.baseFare}</span>
+              <div className="flex justify-between">
+                <span style={{ color: "#6B7280" }}>Base Fare</span>
+                <span className="font-semibold" style={{ color: "#111827" }}>SAR {pricingData.breakdown.baseFare}</span>
               </div>
-
               {pricingData.breakdown.nightSurcharge > 0 && (
-                <div className="flex justify-between text-[0.7rem] text-[#C9A84C]">
-                  <span>Night Surcharge (+15% VIP)</span>
-                  <span className="font-bold">+ SAR {pricingData.breakdown.nightSurcharge}</span>
+                <div className="flex justify-between">
+                  <span style={{ color: "#C8A45D" }}>Night Surcharge (+15%)</span>
+                  <span className="font-semibold" style={{ color: "#C8A45D" }}>+ SAR {pricingData.breakdown.nightSurcharge}</span>
                 </div>
               )}
-
               {pricingData.breakdown.ramadanSurcharge > 0 && (
-                <div className="flex justify-between text-[0.7rem] text-[#C9A84C]">
-                  <span>High-Season Ramadan (+20%)</span>
-                  <span className="font-bold">+ SAR {pricingData.breakdown.ramadanSurcharge}</span>
+                <div className="flex justify-between">
+                  <span style={{ color: "#C8A45D" }}>Peak Season (+20%)</span>
+                  <span className="font-semibold" style={{ color: "#C8A45D" }}>+ SAR {pricingData.breakdown.ramadanSurcharge}</span>
                 </div>
               )}
-
               {pricingData.breakdown.discount > 0 && (
-                <div className="flex justify-between text-[0.7rem] text-green-500">
-                  <span>Round Trip Discount (-10%)</span>
-                  <span className="font-bold">- SAR {pricingData.breakdown.discount}</span>
+                <div className="flex justify-between">
+                  <span style={{ color: "#16A34A" }}>Round Trip Discount</span>
+                  <span className="font-semibold" style={{ color: "#16A34A" }}>− SAR {pricingData.breakdown.discount}</span>
                 </div>
               )}
-
-              <div className="border-t border-[#C9A84C]/10 pt-3 flex justify-between font-heading font-bold text-sm">
-                <span>Total Fare (VAT Incl.)</span>
-                <span>SAR {pricingData.price}</span>
+              <div
+                className="flex justify-between pt-3 font-bold text-base"
+                style={{ borderTop: "1px solid rgba(200,164,93,0.15)", color: "#0F172A" }}
+              >
+                <span>Total (VAT Incl.)</span>
+                <span style={{ color: "#C8A45D" }}>SAR {pricingData.price}</span>
               </div>
             </div>
 
-            {/* Price Guarantee Badge */}
-            <div className="rounded-2xl border border-[#C9A84C]/25 bg-[#C9A84C]/5 p-4 flex items-start gap-3">
-              <ShieldCheck className="h-5 w-5 text-[#C9A84C] shrink-0 mt-0.5" />
+            {/* Price lock badge */}
+            <div
+              className="rounded-xl p-4 flex items-start gap-3"
+              style={{ backgroundColor: "rgba(200,164,93,0.06)", border: "1px solid rgba(200,164,93,0.2)" }}
+            >
+              <ShieldCheck className="h-5 w-5 shrink-0 mt-0.5" style={{ color: "#C8A45D" }} />
               <div>
-                <p className="text-[0.65rem] font-bold uppercase tracking-wider text-[#C9A84C]">
+                <p className="text-[0.65rem] font-bold uppercase tracking-wider" style={{ color: "#C8A45D" }}>
                   Price Lock Guarantee
                 </p>
-                <p className="text-[0.55rem] text-[#A1A1A6] mt-0.5 leading-relaxed">
-                  No hidden fees, tolls, or luggage surcharges. The simulated fare represents the final guaranteed quote.
+                <p className="text-[0.6rem] mt-0.5 leading-relaxed" style={{ color: "#9CA3AF" }}>
+                  No hidden fees, tolls, or luggage surcharges. This is your final price.
                 </p>
               </div>
             </div>
 
-            {/* CTA action buttons */}
-            <div className="space-y-3 pt-2">
-              <a
-                href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam,%20I%20would%20like%20to%20book%20a%20VIP%20transfer%20from%20${encodeURIComponent(pickup)}%20to%20${encodeURIComponent(dropoff)}%20on%20${dateTime}.%20Vehicle:%20${vehicleType}.%20Guaranteed%20fare:%20SAR%20${pricingData.price}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 w-full rounded-full bg-[#C9A84C] py-4 text-xs font-bold uppercase tracking-wider text-[#0A0A0A] hover:bg-[#B8963B] transition-all hover:scale-102 shadow-[0_4px_20px_rgba(201,168,76,0.3)]"
-              >
-                <MessageCircle className="h-4.5 w-4.5 fill-[#0A0A0A]" />
-                <span>Book This Journey Now</span>
-              </a>
-            </div>
-
+            {/* Book CTA */}
+            <a
+              href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam%2C%20I%20want%20to%20book%20a%20ride%20from%20${encodeURIComponent(pickup)}%20to%20${encodeURIComponent(dropoff)}%20on%20${dateTime}.%20Vehicle%3A%20${vehicleType}.%20Quote%3A%20SAR%20${pricingData.price}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 w-full rounded-xl py-4 text-sm font-bold uppercase tracking-wider transition-all hover:scale-[1.02]"
+              style={{
+                backgroundColor: "#C8A45D",
+                color: "#0F172A",
+                boxShadow: "0 6px 24px rgba(200,164,93,0.35)",
+              }}
+            >
+              <MessageCircle className="h-4 w-4" />
+              <span>Book This Journey</span>
+            </a>
           </div>
+
         ) : (
-          <div className="flex flex-col items-center justify-center h-64 text-center space-y-4">
-            <HelpCircle className="h-10 w-10 text-[#C9A84C]/45 animate-pulse" />
+          <div className="flex flex-col items-center justify-center h-64 text-center gap-4">
+            <div
+              className="h-14 w-14 rounded-full flex items-center justify-center"
+              style={{ backgroundColor: "rgba(200,164,93,0.08)", border: "1.5px solid rgba(200,164,93,0.2)" }}
+            >
+              <HelpCircle className="h-7 w-7" style={{ color: "#C8A45D" }} />
+            </div>
             <div>
-              <p className="text-xs font-bold text-[#F5F0E8]">
-                Awaiting Journey Input
+              <p className="text-sm font-semibold" style={{ color: "#111827" }}>
+                {isRtl ? "أدخل بيانات رحلتك" : "Enter Journey Details"}
               </p>
-              <p className="text-[0.55rem] text-[#A1A1A6] mt-1 max-w-[200px] mx-auto leading-relaxed">
-                Provide pickup, drop-off, and dateTime above to simulate your instant luxury quote.
+              <p className="text-[0.68rem] mt-1 max-w-[180px] mx-auto leading-relaxed" style={{ color: "#9CA3AF" }}>
+                {isRtl
+                  ? "أدخل نقطة الالتقاء والوجهة لعرض السعر"
+                  : "Add pickup & destination to see your instant guaranteed quote"}
               </p>
             </div>
           </div>
         )}
 
-        <div className="border-t border-[#C9A84C]/10 pt-4 mt-6 text-center text-[0.55rem] uppercase tracking-wider text-[#7C8088]">
-          Ministry of Transport Certified Dispatch Service
+        <div
+          className="text-center text-[0.58rem] uppercase tracking-widest font-medium mt-5 pt-4"
+          style={{ borderTop: "1px solid rgba(200,164,93,0.1)", color: "#D1D5DB" }}
+        >
+          Ministry of Transport Certified · Prices include 15% VAT
         </div>
       </div>
-
     </div>
   );
 }

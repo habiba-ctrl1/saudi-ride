@@ -3,7 +3,7 @@ import { Resend } from "resend";
 
 const resendApiKey = process.env.RESEND_API_KEY;
 const resend = resendApiKey ? new Resend(resendApiKey) : null;
-const adminEmail = process.env.ADMIN_EMAIL || "info@riyadhtaxi.com";
+const adminEmail = process.env.ADMIN_EMAIL || "info@taxisaudiarabia.com";
 
 export async function POST(request: Request) {
   try {
@@ -22,12 +22,12 @@ export async function POST(request: Request) {
 
     if (resend) {
       const { data, error } = await resend.emails.send({
-        from: "Riyadh Taxi Concierge <onboarding@resend.dev>",
+        from: "Taxi Saudi Arabia Concierge <onboarding@resend.dev>",
         to: [adminEmail],
         subject: `🔔 New Contact: ${name} (${finalService})`,
         html: `
           <div style="font-family: sans-serif; padding: 20px; color: #111; max-width: 600px; border: 1px solid #C9A84C; border-radius: 12px;">
-            <h2 style="color: #C9A84C; border-bottom: 1px solid #eee; padding-bottom: 10px;">Riyadh Taxi Chauffeur Desk</h2>
+            <h2 style="color: #C9A84C; border-bottom: 1px solid #eee; padding-bottom: 10px;">Taxi Saudi Arabia Chauffeur Desk</h2>
             <p>You have received a new contact inquiry through the public website.</p>
             <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
               <tr>
@@ -51,7 +51,7 @@ export async function POST(request: Request) {
               <p style="margin: 0; font-style: italic;">"${message}"</p>
             </div>
             <p style="font-size: 11px; color: #888; margin-top: 25px; border-top: 1px solid #eee; padding-top: 10px;">
-              This notification was generated automatically by the Riyadh Taxi portal.
+              This notification was generated automatically by the Taxi Saudi Arabia portal.
             </p>
           </div>
         `,

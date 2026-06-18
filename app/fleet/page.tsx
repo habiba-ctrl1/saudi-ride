@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -7,9 +7,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { contactConfig } from "@/lib/config/contact";
 import { FLEET_VEHICLES } from "@/lib/fleet-data";
+import { trustStats } from "@/lib/config/stats";
 
 const CATEGORIES = [
-  { key: "all", label: "All Fleet" },
+  { key: "all", label: "All Cars" },
   { key: "sedan", label: "Sedans" },
   { key: "suv", label: "SUVs" },
   { key: "van", label: "Vans" },
@@ -41,15 +42,14 @@ export default function FleetPage() {
         <div className="section-container relative z-10 max-w-5xl">
           <motion.div initial="hidden" animate="show" variants={fadeUp} transition={{ duration: 0.6 }}>
             <span className="inline-block rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#C9A84C]">
-              Our Premium Fleet
+              Our Cars
             </span>
             <h1 className="mt-6 font-heading text-4xl font-bold leading-tight md:text-6xl text-[#F5F0E8]">
-              14 World-Class Vehicles<br />
-              <span className="text-[#C9A84C]">Across Every Class</span>
+              Cars for Hire in Saudi Arabia<br />
+              <span className="text-[#C9A84C]">Sedans, SUVs, Vans & Buses</span>
             </h1>
             <p className="mt-6 max-w-2xl text-sm md:text-base leading-relaxed text-[#A1A1A6]">
-              From executive airport sedans to full luxury coaches — every vehicle is immaculately
-              maintained, chauffeur-driven, and available 24/7 across Saudi Arabia, GCC, and international transfers.
+              Choose from sedans, SUVs, minivans, and buses — all clean, comfortable, and available 24/7 with a professional driver across Saudi Arabia, the GCC, and beyond. Fixed prices, no hidden fees.
             </p>
           </motion.div>
 
@@ -61,10 +61,10 @@ export default function FleetPage() {
             className="mt-10 flex flex-wrap gap-6"
           >
             {[
-              { value: "14", label: "Vehicle Classes" },
-              { value: "100%", label: "Licensed & Insured" },
-              { value: "24/7", label: "Availability" },
-              { value: "4.9★", label: "Fleet Rating" },
+              { value: trustStats.vehicleClasses, label: "Vehicle Classes" },
+              { value: trustStats.licensedDrivers, label: "Licensed & Insured" },
+              { value: trustStats.activeChauffeurs, label: "Available 24/7" },
+              { value: trustStats.passengerRating, label: "Customer Rating" },
             ].map((s) => (
               <div key={s.label} className="flex flex-col">
                 <span className="font-heading text-2xl font-bold text-[#C9A84C]">{s.value}</span>
@@ -78,12 +78,16 @@ export default function FleetPage() {
       {/* ─── FILTER BAR ───────────────────────────────────────────── */}
       <section className="sticky top-[72px] z-30 bg-[#0A0A0A]/95 backdrop-blur-md border-b border-[#C9A84C]/10 py-4">
         <div className="section-container max-w-5xl">
-          <div className="flex items-center gap-2 overflow-x-auto">
+          <div className="flex items-center gap-2 overflow-x-auto" role="tablist">
             {CATEGORIES.map((cat) => (
               <button
                 key={cat.key}
+                role="tab"
+                tabIndex={0}
+                aria-selected={activeCategory === cat.key}
+                onKeyDown={(e) => e.key === "Enter" && setActiveCategory(cat.key)}
                 onClick={() => setActiveCategory(cat.key)}
-                className={`shrink-0 rounded-full px-5 py-2 text-xs font-bold uppercase tracking-wider transition-all ${
+                className={`shrink-0 rounded-full px-5 py-2 text-xs font-bold uppercase tracking-wider transition-all focus:outline-none focus:ring-2 focus:ring-[#C9A84C] ${
                   activeCategory === cat.key
                     ? "bg-[#C9A84C] text-[#0A0A0A] shadow-[0_4px_14px_rgba(201,168,76,0.3)]"
                     : "border border-[#C9A84C]/20 text-[#A1A1A6] hover:border-[#C9A84C]/50 hover:text-[#F5F0E8]"
@@ -128,8 +132,10 @@ export default function FleetPage() {
                 <div className="relative h-52 w-full overflow-hidden">
                   <Image
                     src={vehicle.image}
-                    alt={`${vehicle.name} — Riyadh Taxi Saudi Arabia`}
+                    alt={`${vehicle.name} — Taxi Saudi Arabia Saudi Arabia`}
                     fill
+                    placeholder="blur"
+                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
@@ -211,7 +217,7 @@ export default function FleetPage() {
                       className="flex items-center justify-center gap-1.5 rounded-full border border-[#C9A84C]/30 bg-black/25 py-3 text-[0.65rem] font-bold uppercase tracking-wider text-[#C9A84C] transition-all hover:bg-[#C9A84C]/10"
                     >
                       <MessageCircle className="h-3.5 w-3.5 fill-current" />
-                      <span>WA Quote</span>
+                      <span>WhatsApp Quote</span>
                     </a>
                   </div>
 
@@ -233,23 +239,22 @@ export default function FleetPage() {
       <section className="section-container max-w-3xl text-center pb-24">
         <div className="rounded-3xl border border-[#C9A84C]/20 bg-[#111111] p-10 space-y-5 shadow-2xl relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-[#C9A84C]/4 to-transparent pointer-events-none rounded-3xl" />
-          <span className="text-[0.65rem] uppercase tracking-[0.2em] text-[#C9A84C] font-bold">Custom Fleet Request</span>
+          <span className="text-[0.65rem] uppercase tracking-[0.2em] text-[#C9A84C] font-bold">Group & Corporate Bookings</span>
           <h2 className="font-heading text-2xl font-bold text-[#F5F0E8]">
-            Need a specific vehicle class<br />or long-term lease?
+            Need a specific car type<br />or a long-term booking?
           </h2>
           <p className="text-sm text-[#A1A1A6] leading-relaxed max-w-xl mx-auto">
-            Contact our dispatch team for corporate accounts, pilgrimage operators,
-            wedding planners, and exclusive long-term fleet agreements.
+            We handle corporate accounts, Umrah group transport, wedding car hire, and long-term vehicle arrangements across Saudi Arabia. Contact us to get a custom quote.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
             <a
-              href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam, I am looking for a custom fleet arrangement.`}
+              href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam, I would like a price quote for a car.`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 rounded-full bg-[#C9A84C] px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-[#0A0A0A] transition-all hover:bg-[#B8963B] shadow-[0_4px_20px_rgba(201,168,76,0.3)]"
             >
               <MessageCircle className="h-4 w-4 fill-current" />
-              WhatsApp Fleet Manager
+              Get a Price on WhatsApp
             </a>
             <Link
               href="/contact"

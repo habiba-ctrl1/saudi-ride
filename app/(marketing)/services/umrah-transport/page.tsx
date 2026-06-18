@@ -3,10 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { Landmark, Languages, ShieldCheck, HeartHandshake, CheckCircle2, MessageCircle } from "lucide-react";
 import { contactConfig } from "@/lib/config/contact";
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { serviceSchema, faqSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Premium Umrah Taxi & VIP Transport | Riyadh Taxi",
-  description: "Spiritual, comfortable, and reliable Umrah transportation. We offer VIP transfers from Jeddah to Makkah, Madinah Ziyarat tours, and multi-lingual chauffeurs.",
+  title: "Umrah Taxi Service | Jeddah to Makkah & Madinah Transfers — Taxi Saudi Arabia",
+  description: "Book an Umrah taxi service in Saudi Arabia. Airport to Makkah transfers, Makkah to Madinah rides, Ziyarat tours, and Meeqat stops. English, Arabic & Urdu-speaking drivers. Fixed prices, 24/7.",
 };
 
 const PACKAGES = [
@@ -50,7 +53,7 @@ const FAQS = [
   },
   {
     q: "What languages do your drivers speak?",
-    a: "We understand pilgrims come from all over the world. We offer chauffeurs who speak fluent Arabic, English, Urdu, and Hindi. You can request a specific language during booking."
+    a: "We understand pilgrims come from all over the world. Our drivers speak fluent Arabic, English, Urdu, and Hindi. You can request a specific language during booking."
   },
   {
     q: "Can you take us to the Miqat if we forgot to enter Ihram?",
@@ -61,6 +64,26 @@ const FAQS = [
 export default function UmrahTransportPage() {
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pb-24">
+      <JsonLd
+        data={[
+          serviceSchema({
+            name: "Umrah Taxi Service",
+            description:
+              "Dedicated Umrah taxi service in Saudi Arabia — Jeddah Airport to Makkah transfers, Makkah to Madinah rides, Ziyarat tours, and Meeqat stops with multilingual drivers.",
+            path: "/services/umrah-transport",
+            serviceType: "Umrah Transport",
+            areaServed: ["Makkah", "Madinah", "Jeddah"],
+          }),
+          faqSchema(FAQS.map((f) => ({ question: f.q, answer: f.a }))),
+        ]}
+      />
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Services", href: "/services" },
+          { name: "Umrah Taxi", href: "/services/umrah-transport" },
+        ]}
+      />
       {/* ─── HERO ─────────────────────────────────────────────────── */}
       <section className="relative pt-32 pb-20 overflow-hidden border-b border-[#C9A84C]/10">
         <div className="absolute inset-0 z-0">
@@ -112,7 +135,7 @@ export default function UmrahTransportPage() {
                   <Languages className="h-6 w-6 text-[#C9A84C]" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-[#F5F0E8] mb-1">Multi-Lingual Chauffeurs</h4>
+                  <h4 className="font-bold text-[#F5F0E8] mb-1">English, Arabic & Urdu Drivers</h4>
                   <p className="text-sm text-[#A1A1A6]">Our team includes drivers fluent in Arabic, English, and Urdu to ensure perfect communication with you and your family.</p>
                 </div>
               </div>

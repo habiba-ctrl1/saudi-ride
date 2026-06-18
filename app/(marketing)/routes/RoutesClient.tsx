@@ -11,17 +11,27 @@ const fadeUp = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0 } };
 
 export default function RoutesClient({ initialRoutes }: { initialRoutes: Route[] }) {
   const [departureCity, setDepartureCity] = useState("All");
+  const [destinationCity, setDestinationCity] = useState("All");
   const [priceRange, setPriceRange] = useState("All");
 
   const departureCities = useMemo(() => {
     const cities = Array.from(new Set(initialRoutes.map((r) => r.fromCity.split(' ')[0])));
-    return ["All", ...cities].sort();
+    return ["All", ...cities.sort()];
+  }, [initialRoutes]);
+
+  const destinationCities = useMemo(() => {
+    const cities = Array.from(new Set(initialRoutes.map((r) => r.toCity.split(' ')[0])));
+    return ["All", ...cities.sort()];
   }, [initialRoutes]);
 
   const filteredRoutes = useMemo(() => {
     return initialRoutes.filter((route) => {
-      // Departure City Filter
+      // Departure City Filter (From)
       if (departureCity !== "All" && !route.fromCity.startsWith(departureCity)) {
+        return false;
+      }
+      // Destination City Filter (To)
+      if (destinationCity !== "All" && !route.toCity.startsWith(destinationCity)) {
         return false;
       }
       // Price Range Filter
@@ -32,7 +42,7 @@ export default function RoutesClient({ initialRoutes }: { initialRoutes: Route[]
       }
       return true;
     });
-  }, [initialRoutes, departureCity, priceRange]);
+  }, [initialRoutes, departureCity, destinationCity, priceRange]);
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8]">
@@ -47,12 +57,12 @@ export default function RoutesClient({ initialRoutes }: { initialRoutes: Route[]
               <MapPin className="h-3 w-3" /> Kingdom-Wide Coverage
             </span>
             <h1 className="mt-6 font-heading text-4xl font-bold leading-tight md:text-6xl">
-              50+ Premium Routes<br />
-              <span className="text-[#C9A84C]">Across Saudi Arabia & GCC</span>
+              50+ Taxi Routes in<br />
+              <span className="text-[#C9A84C]">Saudi Arabia & GCC</span>
             </h1>
             <p className="mt-6 max-w-2xl text-sm md:text-base leading-relaxed text-[#A1A1A6]">
-              Pre-negotiated, guaranteed flat-rate fares across all major cities and GCC borders. 
-              Select your departure and book your executive transfer with a licensed luxury chauffeur.
+              Fixed-price taxi rides across all major cities in Saudi Arabia and the GCC.
+              Choose your route, see the exact price, and book with a licensed driver in minutes.
             </p>
           </motion.div>
         </div>
@@ -71,12 +81,26 @@ export default function RoutesClient({ initialRoutes }: { initialRoutes: Route[]
               {/* Departure City */}
               <div className="flex items-center gap-2 shrink-0">
                 <span className="text-[0.65rem] text-[#7C8088] uppercase font-bold tracking-wider">From:</span>
-                <select 
+                <select
                   value={departureCity}
                   onChange={(e) => setDepartureCity(e.target.value)}
                   className="bg-[#111] border border-[#C9A84C]/20 rounded-full px-4 py-1.5 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C] transition-colors"
                 >
                   {departureCities.map(city => (
+                    <option key={city} value={city}>{city}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Destination City */}
+              <div className="flex items-center gap-2 shrink-0">
+                <span className="text-[0.65rem] text-[#7C8088] uppercase font-bold tracking-wider">To:</span>
+                <select
+                  value={destinationCity}
+                  onChange={(e) => setDestinationCity(e.target.value)}
+                  className="bg-[#111] border border-[#C9A84C]/20 rounded-full px-4 py-1.5 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C] transition-colors"
+                >
+                  {destinationCities.map(city => (
                     <option key={city} value={city}>{city}</option>
                   ))}
                 </select>
@@ -105,7 +129,7 @@ export default function RoutesClient({ initialRoutes }: { initialRoutes: Route[]
       <section className="section-container max-w-6xl py-12 pb-24">
         <AnimatePresence mode="wait">
           <motion.div
-            key={`${departureCity}-${priceRange}`}
+            key={`${departureCity}-${destinationCity}-${priceRange}`}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}

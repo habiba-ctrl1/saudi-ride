@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useLanguage } from "@/lib/context/LanguageContext";
 import { motion, AnimatePresence } from "framer-motion";
@@ -23,13 +23,13 @@ import { contactConfig } from "@/lib/config/contact";
 
 const translations = {
   en: {
-    badge: "Chauffeur Tracking Console",
-    title: "Check your chauffeur status",
-    description: "Enter your secure booking reference and registered WhatsApp phone number to access live chauffeur allocation, dispatch coordinates, and vehicle details.",
-    placeholderId: "Booking ID (e.g. RT-8924-SA)",
+    badge: "Driver Tracking Console",
+    title: "Check your Driver status",
+    description: "Enter your secure booking reference and registered WhatsApp phone number to access live Driver allocation, dispatch coordinates, and vehicle details.",
+    placeholderId: "Booking ID (e.g. TSA-8924)",
     placeholderPhone: "WhatsApp Number (e.g. +966500123456)",
-    btnLabel: "Track Chauffeur Status",
-    note: "Your transfer coordinates are encrypted. Chauffeur dispatch details are updated in real-time.",
+    btnLabel: "Track Driver Status",
+    note: "Your transfer coordinates are encrypted. Driver dispatch details are updated in real-time.",
     backBtn: "Back to Tracker",
     notFound: "Booking not found. Please verify the booking reference and phone number.",
     cancelSuccess: "Your booking has been successfully cancelled. A refund/confirmation SMS has been sent.",
@@ -37,32 +37,32 @@ const translations = {
     cancelling: "Cancelling booking..."
   },
   ar: {
-    badge: "منصة تتبع السائقين",
-    title: "تتبع حالة السائق والرحلة",
-    description: "أدخل رقم الحجز الآمن ورقم الواتساب المسجل للوصول إلى تفاصيل تخصيص السائق الفورية، وإحداثيات الموقع، وبيانات المركبة.",
-    placeholderId: "رقم الحجز (مثال: RT-8924-SA)",
-    placeholderPhone: "رقم الواتساب (مثال: +966500123456)",
-    btnLabel: "تتبع حالة السائق الآن",
-    note: "بيانات رحلتك مشفرة بالكامل. يتم تحديث تفاصيل السائق وموقعه المباشر لحظة بلحظة.",
-    backBtn: "العودة إلى التتبع",
-    notFound: "لم يتم العثور على الحجز. يرجى التحقق من رقم الحجز ورقم الهاتف.",
-    cancelSuccess: "تم إلغاء حجزك بنجاح. تم إرسال رسالة تأكيد نصية قصيرة.",
-    cancelWindowError: "يمكن إلغاء الحجز فقط قبل موعد الرحلة بـ 24 ساعة على الأقل.",
-    cancelling: "جاري إلغاء الحجز..."
+    badge: "Ù…Ù†ØµØ© ØªØªØ¨Ø¹ Ø§Ù„Ø³Ø§Ø¦Ù‚ÙŠÙ†",
+    title: "ØªØªØ¨Ø¹ Ø­Ø§Ù„Ø© Ø§Ù„Ø³Ø§Ø¦Ù‚ ÙˆØ§Ù„Ø±Ø­Ù„Ø©",
+    description: "Ø£Ø¯Ø®Ù„ Ø±Ù‚Ù… Ø§Ù„Ø­Ø¬Ø² Ø§Ù„Ø¢Ù…Ù† ÙˆØ±Ù‚Ù… Ø§Ù„ÙˆØ§ØªØ³Ø§Ø¨ Ø§Ù„Ù…Ø³Ø¬Ù„ Ù„Ù„ÙˆØµÙˆÙ„ Ø¥Ù„Ù‰ ØªÙØ§ØµÙŠÙ„ ØªØ®ØµÙŠØµ Ø§Ù„Ø³Ø§Ø¦Ù‚ Ø§Ù„ÙÙˆØ±ÙŠØ©ØŒ ÙˆØ¥Ø­Ø¯Ø§Ø«ÙŠØ§Øª Ø§Ù„Ù…ÙˆÙ‚Ø¹ØŒ ÙˆØ¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ù…Ø±ÙƒØ¨Ø©.",
+    placeholderId: "Ø±Ù‚Ù… Ø§Ù„Ø­Ø¬Ø² (Ù…Ø«Ø§Ù„: TSA-8924)",
+    placeholderPhone: "Ø±Ù‚Ù… Ø§Ù„ÙˆØ§ØªØ³Ø§Ø¨ (Ù…Ø«Ø§Ù„: +966500123456)",
+    btnLabel: "ØªØªØ¨Ø¹ Ø­Ø§Ù„Ø© Ø§Ù„Ø³Ø§Ø¦Ù‚ Ø§Ù„Ø¢Ù†",
+    note: "Ø¨ÙŠØ§Ù†Ø§Øª Ø±Ø­Ù„ØªÙƒ Ù…Ø´ÙØ±Ø© Ø¨Ø§Ù„ÙƒØ§Ù…Ù„. ÙŠØªÙ… ØªØ­Ø¯ÙŠØ« ØªÙØ§ØµÙŠÙ„ Ø§Ù„Ø³Ø§Ø¦Ù‚ ÙˆÙ…ÙˆÙ‚Ø¹Ù‡ Ø§Ù„Ù…Ø¨Ø§Ø´Ø± Ù„Ø­Ø¸Ø© Ø¨Ù„Ø­Ø¸Ø©.",
+    backBtn: "Ø§Ù„Ø¹ÙˆØ¯Ø© Ø¥Ù„Ù‰ Ø§Ù„ØªØªØ¨Ø¹",
+    notFound: "Ù„Ù… ÙŠØªÙ… Ø§Ù„Ø¹Ø«ÙˆØ± Ø¹Ù„Ù‰ Ø§Ù„Ø­Ø¬Ø². ÙŠØ±Ø¬Ù‰ Ø§Ù„ØªØ­Ù‚Ù‚ Ù…Ù† Ø±Ù‚Ù… Ø§Ù„Ø­Ø¬Ø² ÙˆØ±Ù‚Ù… Ø§Ù„Ù‡Ø§ØªÙ.",
+    cancelSuccess: "ØªÙ… Ø¥Ù„ØºØ§Ø¡ Ø­Ø¬Ø²Ùƒ Ø¨Ù†Ø¬Ø§Ø­. ØªÙ… Ø¥Ø±Ø³Ø§Ù„ Ø±Ø³Ø§Ù„Ø© ØªØ£ÙƒÙŠØ¯ Ù†ØµÙŠØ© Ù‚ØµÙŠØ±Ø©.",
+    cancelWindowError: "ÙŠÙ…ÙƒÙ† Ø¥Ù„ØºØ§Ø¡ Ø§Ù„Ø­Ø¬Ø² ÙÙ‚Ø· Ù‚Ø¨Ù„ Ù…ÙˆØ¹Ø¯ Ø§Ù„Ø±Ø­Ù„Ø© Ø¨Ù€ 24 Ø³Ø§Ø¹Ø© Ø¹Ù„Ù‰ Ø§Ù„Ø£Ù‚Ù„.",
+    cancelling: "Ø¬Ø§Ø±ÙŠ Ø¥Ù„ØºØ§Ø¡ Ø§Ù„Ø­Ø¬Ø²..."
   },
   ur: {
-    badge: "ڈرائیور ٹریکنگ کنسول",
-    title: "اپنے ڈرائیور کا اسٹیٹس اسٹیٹس",
-    description: "اپنا محفوظ بکنگ حوالہ اور رجسٹرڈ واٹس ایپ نمبر درج کریں تاکہ لائیو ڈرائیور کے الاٹمنٹ، مقام کے نقاط اور گاڑی کی تفصیلات معلوم کی جا سکیں۔",
-    placeholderId: "بکنگ آئی ڈی (مثال: RT-8924-SA)",
-    placeholderPhone: "واٹس ایپ نمبر (مثال: +966500123456)",
-    btnLabel: "ڈرائیور کا اسٹیٹس ٹریک کریں",
-    note: "آپ کے سفر کی تفصیلات مکمل طور پر محفوظ ہیں۔ ڈرائیور کی لوکیشن اور اسٹیٹس کو ہر منٹ اپ ڈیٹ کیا جاتا ہے۔",
-    backBtn: "ٹریکر پر واپس جائیں",
-    notFound: "بکنگ نہیں ملی۔ براہ کرم بکنگ کا حوالہ اور فون نمبر چیک کریں۔",
-    cancelSuccess: "آپ کی بکنگ کامیابی کے ساتھ منسوخ کر دی گئی ہے۔ تصدیق کا پیغام بھیج دیا گیا ہے۔",
-    cancelWindowError: "بکنگ صرف پک اپ سے 24 گھنٹے پہلے ہی منسوخ کی جا سکتی ہے۔",
-    cancelling: "بکنگ منسوخ کی جا رہی ہے..."
+    badge: "ÚˆØ±Ø§Ø¦ÛŒÙˆØ± Ù¹Ø±ÛŒÚ©Ù†Ú¯ Ú©Ù†Ø³ÙˆÙ„",
+    title: "Ø§Ù¾Ù†Û’ ÚˆØ±Ø§Ø¦ÛŒÙˆØ± Ú©Ø§ Ø§Ø³Ù¹ÛŒÙ¹Ø³ Ø§Ø³Ù¹ÛŒÙ¹Ø³",
+    description: "Ø§Ù¾Ù†Ø§ Ù…Ø­ÙÙˆØ¸ Ø¨Ú©Ù†Ú¯ Ø­ÙˆØ§Ù„Û Ø§ÙˆØ± Ø±Ø¬Ø³Ù¹Ø±Úˆ ÙˆØ§Ù¹Ø³ Ø§ÛŒÙ¾ Ù†Ù…Ø¨Ø± Ø¯Ø±Ø¬ Ú©Ø±ÛŒÚº ØªØ§Ú©Û Ù„Ø§Ø¦ÛŒÙˆ ÚˆØ±Ø§Ø¦ÛŒÙˆØ± Ú©Û’ Ø§Ù„Ø§Ù¹Ù…Ù†Ù¹ØŒ Ù…Ù‚Ø§Ù… Ú©Û’ Ù†Ù‚Ø§Ø· Ø§ÙˆØ± Ú¯Ø§Ú‘ÛŒ Ú©ÛŒ ØªÙØµÛŒÙ„Ø§Øª Ù…Ø¹Ù„ÙˆÙ… Ú©ÛŒ Ø¬Ø§ Ø³Ú©ÛŒÚºÛ”",
+    placeholderId: "Ø¨Ú©Ù†Ú¯ Ø¢Ø¦ÛŒ ÚˆÛŒ (Ù…Ø«Ø§Ù„: TSA-8924)",
+    placeholderPhone: "ÙˆØ§Ù¹Ø³ Ø§ÛŒÙ¾ Ù†Ù…Ø¨Ø± (Ù…Ø«Ø§Ù„: +966500123456)",
+    btnLabel: "ÚˆØ±Ø§Ø¦ÛŒÙˆØ± Ú©Ø§ Ø§Ø³Ù¹ÛŒÙ¹Ø³ Ù¹Ø±ÛŒÚ© Ú©Ø±ÛŒÚº",
+    note: "Ø¢Ù¾ Ú©Û’ Ø³ÙØ± Ú©ÛŒ ØªÙØµÛŒÙ„Ø§Øª Ù…Ú©Ù…Ù„ Ø·ÙˆØ± Ù¾Ø± Ù…Ø­ÙÙˆØ¸ ÛÛŒÚºÛ” ÚˆØ±Ø§Ø¦ÛŒÙˆØ± Ú©ÛŒ Ù„ÙˆÚ©ÛŒØ´Ù† Ø§ÙˆØ± Ø§Ø³Ù¹ÛŒÙ¹Ø³ Ú©Ùˆ ÛØ± Ù…Ù†Ù¹ Ø§Ù¾ ÚˆÛŒÙ¹ Ú©ÛŒØ§ Ø¬Ø§ØªØ§ ÛÛ’Û”",
+    backBtn: "Ù¹Ø±ÛŒÚ©Ø± Ù¾Ø± ÙˆØ§Ù¾Ø³ Ø¬Ø§Ø¦ÛŒÚº",
+    notFound: "Ø¨Ú©Ù†Ú¯ Ù†ÛÛŒÚº Ù…Ù„ÛŒÛ” Ø¨Ø±Ø§Û Ú©Ø±Ù… Ø¨Ú©Ù†Ú¯ Ú©Ø§ Ø­ÙˆØ§Ù„Û Ø§ÙˆØ± ÙÙˆÙ† Ù†Ù…Ø¨Ø± Ú†ÛŒÚ© Ú©Ø±ÛŒÚºÛ”",
+    cancelSuccess: "Ø¢Ù¾ Ú©ÛŒ Ø¨Ú©Ù†Ú¯ Ú©Ø§Ù…ÛŒØ§Ø¨ÛŒ Ú©Û’ Ø³Ø§ØªÚ¾ Ù…Ù†Ø³ÙˆØ® Ú©Ø± Ø¯ÛŒ Ú¯Ø¦ÛŒ ÛÛ’Û” ØªØµØ¯ÛŒÙ‚ Ú©Ø§ Ù¾ÛŒØºØ§Ù… Ø¨Ú¾ÛŒØ¬ Ø¯ÛŒØ§ Ú¯ÛŒØ§ ÛÛ’Û”",
+    cancelWindowError: "Ø¨Ú©Ù†Ú¯ ØµØ±Ù Ù¾Ú© Ø§Ù¾ Ø³Û’ 24 Ú¯Ú¾Ù†Ù¹Û’ Ù¾ÛÙ„Û’ ÛÛŒ Ù…Ù†Ø³ÙˆØ® Ú©ÛŒ Ø¬Ø§ Ø³Ú©ØªÛŒ ÛÛ’Û”",
+    cancelling: "Ø¨Ú©Ù†Ú¯ Ù…Ù†Ø³ÙˆØ® Ú©ÛŒ Ø¬Ø§ Ø±ÛÛŒ ÛÛ’..."
   }
 };
 
@@ -180,7 +180,7 @@ export default function TrackBookingPage() {
       return;
     }
 
-    if (!confirm(isRtl ? "هل أنت متأكد من رغبتك في إلغاء هذا الحجز؟" : "Are you sure you want to cancel this booking?")) {
+    if (!confirm(isRtl ? "Ù‡Ù„ Ø£Ù†Øª Ù…ØªØ£ÙƒØ¯ Ù…Ù† Ø±ØºØ¨ØªÙƒ ÙÙŠ Ø¥Ù„ØºØ§Ø¡ Ù‡Ø°Ø§ Ø§Ù„Ø­Ø¬Ø²ØŸ" : "Are you sure you want to cancel this booking?")) {
       return;
     }
 
@@ -225,11 +225,11 @@ export default function TrackBookingPage() {
   const statusIndex = booking ? getStatusStepIndex(booking.status) : 0;
 
   const timelineSteps = [
-    { labelEn: "Booking Received", labelAr: "تم استلام الطلب", descEn: "Chauffeur pending allocation", descAr: "في انتظار تعيين السائق" },
-    { labelEn: "Confirmed", labelAr: "مؤكد", descEn: "VIP transfer guaranteed", descAr: "تم تأمين السائق والسيارة" },
-    { labelEn: "Driver Assigned", labelAr: "تم تعيين السائق", descEn: "Driver details locked", descAr: "سائقك الخاص جاهز للتحرك" },
-    { labelEn: "En Route", labelAr: "في الطريق", descEn: "Journey actively in progress", descAr: "الرحلة نشطة حالياً" },
-    { labelEn: "Completed", labelAr: "مكتمل", descEn: "Chauffeur safely checked out", descAr: "تم الوصول لوجهتكم بسلام" }
+    { labelEn: "Booking Received", labelAr: "ØªÙ… Ø§Ø³ØªÙ„Ø§Ù… Ø§Ù„Ø·Ù„Ø¨", descEn: "Driver pending allocation", descAr: "ÙÙŠ Ø§Ù†ØªØ¸Ø§Ø± ØªØ¹ÙŠÙŠÙ† Ø§Ù„Ø³Ø§Ø¦Ù‚" },
+    { labelEn: "Confirmed", labelAr: "Ù…Ø¤ÙƒØ¯", descEn: "VIP transfer guaranteed", descAr: "ØªÙ… ØªØ£Ù…ÙŠÙ† Ø§Ù„Ø³Ø§Ø¦Ù‚ ÙˆØ§Ù„Ø³ÙŠØ§Ø±Ø©" },
+    { labelEn: "Driver Assigned", labelAr: "ØªÙ… ØªØ¹ÙŠÙŠÙ† Ø§Ù„Ø³Ø§Ø¦Ù‚", descEn: "Driver details locked", descAr: "Ø³Ø§Ø¦Ù‚Ùƒ Ø§Ù„Ø®Ø§Øµ Ø¬Ø§Ù‡Ø² Ù„Ù„ØªØ­Ø±Ùƒ" },
+    { labelEn: "En Route", labelAr: "ÙÙŠ Ø§Ù„Ø·Ø±ÙŠÙ‚", descEn: "Journey actively in progress", descAr: "Ø§Ù„Ø±Ø­Ù„Ø© Ù†Ø´Ø·Ø© Ø­Ø§Ù„ÙŠØ§Ù‹" },
+    { labelEn: "Completed", labelAr: "Ù…ÙƒØªÙ…Ù„", descEn: "Driver safely checked out", descAr: "ØªÙ… Ø§Ù„ÙˆØµÙˆÙ„ Ù„ÙˆØ¬Ù‡ØªÙƒÙ… Ø¨Ø³Ù„Ø§Ù…" }
   ];
 
   return (
@@ -277,7 +277,7 @@ export default function TrackBookingPage() {
                   <div className="space-y-4">
                     <div>
                       <label className="block text-[0.65rem] uppercase tracking-wider text-[#A1A1A6] mb-2 font-bold">
-                        {isRtl ? "رقم الحجز الآمن" : "Secure Booking Reference"}
+                        {isRtl ? "Ø±Ù‚Ù… Ø§Ù„Ø­Ø¬Ø² Ø§Ù„Ø¢Ù…Ù†" : "Secure Booking Reference"}
                       </label>
                       <input
                         type="text"
@@ -291,7 +291,7 @@ export default function TrackBookingPage() {
 
                     <div>
                       <label className="block text-[0.65rem] uppercase tracking-wider text-[#A1A1A6] mb-2 font-bold">
-                        {isRtl ? "رقم الواتساب المسجل" : "Registered WhatsApp Number"}
+                        {isRtl ? "Ø±Ù‚Ù… Ø§Ù„ÙˆØ§ØªØ³Ø§Ø¨ Ø§Ù„Ù…Ø³Ø¬Ù„" : "Registered WhatsApp Number"}
                       </label>
                       <input
                         type="text"
@@ -348,7 +348,7 @@ export default function TrackBookingPage() {
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <span className="text-[0.65rem] uppercase tracking-wider text-[#A1A1A6]">
-                      {isRtl ? "رمز تتبع الحجز" : "Booking Reference"}
+                      {isRtl ? "Ø±Ù…Ø² ØªØªØ¨Ø¹ Ø§Ù„Ø­Ø¬Ø²" : "Booking Reference"}
                     </span>
                     <span className="rounded bg-[#C9A84C]/10 px-2 py-0.5 text-xs font-bold text-[#C9A84C]">
                       {booking.bookingRef}
@@ -363,7 +363,7 @@ export default function TrackBookingPage() {
                   {booking.status === "CANCELLED" ? (
                     <span className="inline-flex items-center gap-1.5 rounded-full bg-red-950/40 border border-red-900/35 px-4.5 py-1.5 text-xs font-bold text-red-400">
                       <XCircle className="h-4 w-4" />
-                      {isRtl ? "تم إلغاء الحجز" : "Cancelled"}
+                      {isRtl ? "ØªÙ… Ø¥Ù„ØºØ§Ø¡ Ø§Ù„Ø­Ø¬Ø²" : "Cancelled"}
                     </span>
                   ) : (
                     <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/25 px-4.5 py-1.5 text-xs font-bold text-[#C9A84C] uppercase animate-pulse">
@@ -384,7 +384,7 @@ export default function TrackBookingPage() {
                   {booking.status !== "CANCELLED" && (
                     <div className="rounded-3xl border border-[#C9A84C]/10 bg-[#121212] p-6 md:p-8">
                       <h3 className="font-heading text-lg font-bold mb-8 text-[#C9A84C] border-b border-[#C9A84C]/10 pb-4">
-                        {isRtl ? "خط سير الخدمة المباشر" : "Live Dispatch Timeline"}
+                        {isRtl ? "Ø®Ø· Ø³ÙŠØ± Ø§Ù„Ø®Ø¯Ù…Ø© Ø§Ù„Ù…Ø¨Ø§Ø´Ø±" : "Live Dispatch Timeline"}
                       </h3>
 
                       <div className="relative pl-6 border-l border-[#C9A84C]/10 space-y-8 text-left">
@@ -410,7 +410,7 @@ export default function TrackBookingPage() {
                                   {isRtl ? step.labelAr : step.labelEn}
                                   {isCurrent && (
                                     <span className="ml-2 rounded-full bg-[#C9A84C]/10 px-2.5 py-0.5 text-[0.55rem] font-bold text-[#C9A84C]">
-                                      {isRtl ? "مباشر" : "Active"}
+                                      {isRtl ? "Ù…Ø¨Ø§Ø´Ø±" : "Active"}
                                     </span>
                                   )}
                                 </h4>
@@ -430,7 +430,7 @@ export default function TrackBookingPage() {
                     <div className="p-4 border-b border-[#C9A84C]/10 flex items-center justify-between">
                       <span className="text-[0.65rem] uppercase tracking-wider text-[#A1A1A6] font-bold flex items-center gap-1.5">
                         <span className="h-2 w-2 rounded-full bg-green-500 animate-ping" />
-                        {isRtl ? "إحداثيات المسار المباشر (مفعل)" : "Chauffeur Live Route (GPS Active)"}
+                        {isRtl ? "Ø¥Ø­Ø¯Ø§Ø«ÙŠØ§Øª Ø§Ù„Ù…Ø³Ø§Ø± Ø§Ù„Ù…Ø¨Ø§Ø´Ø± (Ù…ÙØ¹Ù„)" : "Driver Live Route (GPS Active)"}
                       </span>
                       <span className="text-[0.55rem] text-[#C9A84C] font-bold">
                         {booking.distance ? `${booking.distance} km` : "Dynamic estimation"}
@@ -481,7 +481,7 @@ export default function TrackBookingPage() {
                             transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
                           >
                             <circle cx="200" cy="65" r="14" fill="#C9A84C" className="shadow-[0_0_15px_rgba(201,168,76,0.8)]" />
-                            <text x="195" y="69" fill="#0A0A0A" fontSize="10" fontWeight="bold">🚗</text>
+                            <text x="195" y="69" fill="#0A0A0A" fontSize="10" fontWeight="bold">ðŸš—</text>
                           </motion.g>
                         )}
                       </svg>
@@ -502,17 +502,17 @@ export default function TrackBookingPage() {
 
                 </div>
 
-                {/* RIGHT: Booking Summary & Chauffeur card */}
+                {/* RIGHT: Booking Summary & Driver card */}
                 <div className="space-y-8">
                   
-                  {/* Chauffeur card once allocated */}
+                  {/* Driver card once allocated */}
                   {booking.status === "DRIVER_ASSIGNED" || booking.status === "IN_PROGRESS" || booking.status === "COMPLETED" ? (
                     <div className="rounded-3xl border border-[#C9A84C]/15 bg-[#121212] p-6 shadow-xl relative overflow-hidden">
                       {/* background gold crescent branding symbol */}
-                      <div className="absolute right-0 top-0 text-[8rem] text-[#C9A84C]/5 font-serif select-none pointer-events-none">🌙</div>
+                      <div className="absolute right-0 top-0 text-[8rem] text-[#C9A84C]/5 font-serif select-none pointer-events-none">ðŸŒ™</div>
 
                       <h3 className="font-heading text-sm uppercase tracking-wider text-[#C9A84C] mb-6 font-bold">
-                        {isRtl ? "تفاصيل سائقك الخاص" : "VIP Chauffeur Assigned"}
+                        {isRtl ? "ØªÙØ§ØµÙŠÙ„ Ø³Ø§Ø¦Ù‚Ùƒ Ø§Ù„Ø®Ø§Øµ" : "VIP Driver Assigned"}
                       </h3>
 
                       <div className="flex items-center gap-4 mb-6">
@@ -530,10 +530,10 @@ export default function TrackBookingPage() {
                             {booking.driverName || "Captain Farhan Al-Harbi"}
                           </h4>
                           <p className="text-[0.6rem] text-[#C9A84C] font-semibold tracking-widest uppercase">
-                            5.0 ⭐ VIP CHAUFFEUR
+                            5.0 â­ VIP Driver
                           </p>
                           <p className="text-[0.65rem] text-[#7C8088] mt-1 font-bold">
-                            Plate: {isRtl ? "ر ي ض ٧ ٨ ٦" : "RUH-786-SA"}
+                            Plate: {isRtl ? "Ø± ÙŠ Ø¶ Ù§ Ù¨ Ù¦" : "RUH-786-SA"}
                           </p>
                         </div>
                       </div>
@@ -545,7 +545,7 @@ export default function TrackBookingPage() {
                           className="flex items-center justify-center gap-2 rounded-full bg-[#1A1A1A] border border-[#C9A84C]/20 hover:border-[#C9A84C]/60 py-3 text-xs font-bold text-[#F5F0E8] transition-all"
                         >
                           <Phone className="h-4 w-4 text-[#C9A84C]" />
-                          <span>{isRtl ? "اتصال" : "Call Chauffeur"}</span>
+                          <span>{isRtl ? "Ø§ØªØµØ§Ù„" : "Call Driver"}</span>
                         </a>
 
                         <a
@@ -555,23 +555,23 @@ export default function TrackBookingPage() {
                           className="flex items-center justify-center gap-2 rounded-full bg-[#C9A84C] hover:bg-[#B8963B] py-3 text-xs font-bold text-[#0A0A0A] transition-all"
                         >
                           <MessageCircle className="h-4 w-4 fill-current" />
-                          <span>{isRtl ? "واتساب" : "WhatsApp"}</span>
+                          <span>{isRtl ? "ÙˆØ§ØªØ³Ø§Ø¨" : "WhatsApp"}</span>
                         </a>
                       </div>
                     </div>
                   ) : (
-                    /* Default Chauffeur allocation card */
+                    /* Default Driver allocation card */
                     booking.status !== "CANCELLED" && (
                       <div className="rounded-3xl border border-[#C9A84C]/10 bg-[#121212] p-6 text-center space-y-4">
                         <User className="h-10 w-10 text-[#C9A84C]/40 mx-auto animate-pulse" />
                         <div>
                           <h4 className="font-heading text-sm font-bold text-[#F5F0E8]">
-                            {isRtl ? "سائقك الخاص قيد التخصيص" : "Chauffeur Allocation In Progress"}
+                            {isRtl ? "Ø³Ø§Ø¦Ù‚Ùƒ Ø§Ù„Ø®Ø§Øµ Ù‚ÙŠØ¯ Ø§Ù„ØªØ®ØµÙŠØµ" : "Driver Allocation In Progress"}
                           </h4>
                           <p className="text-[0.6rem] text-[#7C8088] max-w-[200px] mx-auto mt-1 leading-relaxed">
                             {isRtl
-                              ? "سيتم إرسال إشعار SMS ورابط مباشر بمجرد انطلاق السائق إليك."
-                              : "Chauffeur details and live plate verification coordinates will sync 1 hour before dispatch."}
+                              ? "Ø³ÙŠØªÙ… Ø¥Ø±Ø³Ø§Ù„ Ø¥Ø´Ø¹Ø§Ø± SMS ÙˆØ±Ø§Ø¨Ø· Ù…Ø¨Ø§Ø´Ø± Ø¨Ù…Ø¬Ø±Ø¯ Ø§Ù†Ø·Ù„Ø§Ù‚ Ø§Ù„Ø³Ø§Ø¦Ù‚ Ø¥Ù„ÙŠÙƒ."
+                              : "Driver details and live plate verification coordinates will sync 1 hour before dispatch."}
                           </p>
                         </div>
                       </div>
@@ -581,7 +581,7 @@ export default function TrackBookingPage() {
                   {/* Booking Coordinates details */}
                   <div className="rounded-3xl border border-[#C9A84C]/10 bg-[#121212] p-6 space-y-6">
                     <h3 className="font-heading text-sm uppercase tracking-wider text-[#A1A1A6] font-bold border-b border-[#C9A84C]/10 pb-3">
-                      {isRtl ? "ملخص إحداثيات النقل" : "Transfer Coordinates"}
+                      {isRtl ? "Ù…Ù„Ø®Øµ Ø¥Ø­Ø¯Ø§Ø«ÙŠØ§Øª Ø§Ù„Ù†Ù‚Ù„" : "Transfer Coordinates"}
                     </h3>
 
                     <div className="space-y-4 text-xs">
@@ -589,7 +589,7 @@ export default function TrackBookingPage() {
                       <div className="flex items-start gap-3">
                         <MapPin className="h-4 w-4 text-[#C9A84C] shrink-0 mt-0.5" />
                         <div>
-                          <p className="text-[0.6rem] text-[#7C8088] font-bold uppercase">{isRtl ? "نقطة الركوب" : "Pickup point"}</p>
+                          <p className="text-[0.6rem] text-[#7C8088] font-bold uppercase">{isRtl ? "Ù†Ù‚Ø·Ø© Ø§Ù„Ø±ÙƒÙˆØ¨" : "Pickup point"}</p>
                           <p className="text-[#F5F0E8]">{booking.pickupLocation}</p>
                         </div>
                       </div>
@@ -597,7 +597,7 @@ export default function TrackBookingPage() {
                       <div className="flex items-start gap-3">
                         <MapPin className="h-4 w-4 text-[#C9A84C] shrink-0 mt-0.5" />
                         <div>
-                          <p className="text-[0.6rem] text-[#7C8088] font-bold uppercase">{isRtl ? "الوجهة" : "Destination"}</p>
+                          <p className="text-[0.6rem] text-[#7C8088] font-bold uppercase">{isRtl ? "Ø§Ù„ÙˆØ¬Ù‡Ø©" : "Destination"}</p>
                           <p className="text-[#F5F0E8]">{booking.dropoffLocation}</p>
                         </div>
                       </div>
@@ -606,7 +606,7 @@ export default function TrackBookingPage() {
                         <div className="flex items-start gap-2.5">
                           <Calendar className="h-4 w-4 text-[#C9A84C] shrink-0" />
                           <div>
-                            <p className="text-[0.55rem] text-[#7C8088] font-bold uppercase">{isRtl ? "التاريخ" : "Date"}</p>
+                            <p className="text-[0.55rem] text-[#7C8088] font-bold uppercase">{isRtl ? "Ø§Ù„ØªØ§Ø±ÙŠØ®" : "Date"}</p>
                             <p className="text-[0.65rem] text-[#F5F0E8] font-semibold">
                               {new Date(booking.pickupDateTime).toLocaleDateString()}
                             </p>
@@ -616,7 +616,7 @@ export default function TrackBookingPage() {
                         <div className="flex items-start gap-2.5">
                           <Clock className="h-4 w-4 text-[#C9A84C] shrink-0" />
                           <div>
-                            <p className="text-[0.55rem] text-[#7C8088] font-bold uppercase">{isRtl ? "الوقت" : "Time"}</p>
+                            <p className="text-[0.55rem] text-[#7C8088] font-bold uppercase">{isRtl ? "Ø§Ù„ÙˆÙ‚Øª" : "Time"}</p>
                             <p className="text-[0.65rem] text-[#F5F0E8] font-semibold">
                               {new Date(booking.pickupDateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                             </p>
@@ -626,7 +626,7 @@ export default function TrackBookingPage() {
 
                       <div className="flex items-center justify-between border-t border-[#C9A84C]/10 pt-4">
                         <div>
-                          <p className="text-[0.6rem] text-[#7C8088] font-bold uppercase">{isRtl ? "المركبة المحجوزة" : "Reserved Class"}</p>
+                          <p className="text-[0.6rem] text-[#7C8088] font-bold uppercase">{isRtl ? "Ø§Ù„Ù…Ø±ÙƒØ¨Ø© Ø§Ù„Ù…Ø­Ø¬ÙˆØ²Ø©" : "Reserved Class"}</p>
                           <p className="text-[0.7rem] font-bold text-[#F5F0E8]">{booking.vehicle.name}</p>
                         </div>
                         <span className="rounded bg-[#C9A84C]/10 px-2 py-0.5 text-[0.55rem] font-bold text-[#C9A84C]">
@@ -636,13 +636,13 @@ export default function TrackBookingPage() {
 
                       {booking.flightNumber && (
                         <div className="flex items-center justify-between bg-black/35 rounded-xl p-3 border border-[#C9A84C]/10">
-                          <span className="text-[0.6rem] text-[#7C8088] font-bold uppercase">{isRtl ? "رقم الرحلة" : "Flight details"}</span>
+                          <span className="text-[0.6rem] text-[#7C8088] font-bold uppercase">{isRtl ? "Ø±Ù‚Ù… Ø§Ù„Ø±Ø­Ù„Ø©" : "Flight details"}</span>
                           <span className="text-xs font-bold text-[#C9A84C]">{booking.flightNumber}</span>
                         </div>
                       )}
 
                       <div className="flex items-center justify-between border-t border-[#C9A84C]/10 pt-4 text-sm font-bold">
-                        <span className="text-[#A1A1A6]">{isRtl ? "الأجرة الكلية" : "Total Fare"}</span>
+                        <span className="text-[#A1A1A6]">{isRtl ? "Ø§Ù„Ø£Ø¬Ø±Ø© Ø§Ù„ÙƒÙ„ÙŠØ©" : "Total Fare"}</span>
                         <span className="text-[#C9A84C] font-heading text-lg">
                           SAR {booking.totalPrice}
                         </span>
@@ -658,11 +658,11 @@ export default function TrackBookingPage() {
                         <Info className="h-4.5 w-4.5 text-red-400 shrink-0 mt-0.5" />
                         <div>
                           <h4 className="text-xs font-bold text-[#F5F0E8]">
-                            {isRtl ? "إلغاء أو تعديل الحجز" : "Cancel or Modify Transfer"}
+                            {isRtl ? "Ø¥Ù„ØºØ§Ø¡ Ø£Ùˆ ØªØ¹Ø¯ÙŠÙ„ Ø§Ù„Ø­Ø¬Ø²" : "Cancel or Modify Transfer"}
                           </h4>
                           <p className="text-[0.6rem] text-[#A1A1A6] leading-relaxed mt-1">
                             {isRtl
-                              ? "يمكنك إلغاء هذا الحجز مجاناً قبل ٢٤ ساعة من موعد الرحلة. للتعديل، يرجى التواصل مع الدعم."
+                              ? "ÙŠÙ…ÙƒÙ†Ùƒ Ø¥Ù„ØºØ§Ø¡ Ù‡Ø°Ø§ Ø§Ù„Ø­Ø¬Ø² Ù…Ø¬Ø§Ù†Ø§Ù‹ Ù‚Ø¨Ù„ Ù¢Ù¤ Ø³Ø§Ø¹Ø© Ù…Ù† Ù…ÙˆØ¹Ø¯ Ø§Ù„Ø±Ø­Ù„Ø©. Ù„Ù„ØªØ¹Ø¯ÙŠÙ„ØŒ ÙŠØ±Ø¬Ù‰ Ø§Ù„ØªÙˆØ§ØµÙ„ Ù…Ø¹ Ø§Ù„Ø¯Ø¹Ù…."
                               : "Free cancellation and dynamic rescheduling are guaranteed up to 24 hours before pickup."}
                           </p>
                         </div>
@@ -680,7 +680,7 @@ export default function TrackBookingPage() {
                             className="flex items-center justify-center gap-1 w-full rounded-full border border-red-900/30 bg-red-950/10 hover:bg-red-950/30 text-[0.65rem] font-bold text-red-400 py-3 transition-all"
                           >
                             {cancelLoading ? "..." : <XCircle className="h-3.5 w-3.5" />}
-                            <span>{isRtl ? "إلغاء الرحلة" : "Cancel Transfer"}</span>
+                            <span>{isRtl ? "Ø¥Ù„ØºØ§Ø¡ Ø§Ù„Ø±Ø­Ù„Ø©" : "Cancel Transfer"}</span>
                           </button>
 
                           <a
@@ -690,7 +690,7 @@ export default function TrackBookingPage() {
                             className="flex items-center justify-center gap-1 w-full rounded-full border border-[#C9A84C]/25 bg-black/40 hover:bg-[#C9A84C]/10 text-[0.65rem] font-bold text-[#C9A84C] py-3 transition-all text-center"
                           >
                             <MessageCircle className="h-3.5 w-3.5" />
-                            <span>{isRtl ? "طلب تعديل" : "Request Modify"}</span>
+                            <span>{isRtl ? "Ø·Ù„Ø¨ ØªØ¹Ø¯ÙŠÙ„" : "Request Modify"}</span>
                           </a>
                         </div>
                       )}

@@ -12,22 +12,21 @@ export function generateMetadata({
   title,
   description,
   path,
-  image = "https://riyadhtaxi.com/images/og-image.jpg",
+  image = "https://taxisaudiarabia.com/images/og-image.jpg",
   noIndex = false,
 }: SEOProps): Metadata {
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
-  const url = `https://riyadhtaxi.com${cleanPath}`;
+  const url = `https://taxisaudiarabia.com${cleanPath}`;
 
   return {
-    title: `${title} | Riyadh Taxi`,
+    title: `${title} | Taxi Saudi Arabia`,
     description,
-    metadataBase: new URL("https://riyadhtaxi.com"),
+    metadataBase: new URL("https://taxisaudiarabia.com"),
     alternates: {
       canonical: url,
       languages: {
-        "en": `https://riyadhtaxi.com${cleanPath}`,
-        "ar": `https://riyadhtaxi.com/ar${cleanPath}`,
-        "ur": `https://riyadhtaxi.com/ur${cleanPath}`,
+        "en": `https://taxisaudiarabia.com${cleanPath}`,
+        "ar": `https://taxisaudiarabia.com/ar${cleanPath}`,
       },
     },
     robots: {
@@ -40,10 +39,10 @@ export function generateMetadata({
       },
     },
     openGraph: {
-      title: `${title} | Riyadh Taxi`,
+      title: `${title} | Taxi Saudi Arabia`,
       description,
       url,
-      siteName: "Riyadh Taxi",
+      siteName: "Taxi Saudi Arabia",
       images: [
         {
           url: image,
@@ -57,7 +56,7 @@ export function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | Riyadh Taxi`,
+      title: `${title} | Taxi Saudi Arabia`,
       description,
       images: [image],
     },

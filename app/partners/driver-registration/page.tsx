@@ -9,7 +9,7 @@ import { toast } from "sonner";
 const translations = {
   en: {
     badge: "Chauffeur Network",
-    title: "Drive with Riyadh Taxi",
+    title: "Drive with Taxi Saudi Arabia",
     description: "Join Saudi Arabia's premier network of luxury executive chauffeurs. Secure premium steady bookings, benefit from flexible dispatch hours, and enjoy high earnings.",
     
     // Requirements

@@ -44,7 +44,7 @@ export async function POST(request: Request) {
     // Generate a secure simulated JWT session token (Base64 URL encoded payload)
     const payload = {
       sub: user.id,
-      name: user.name || "Riyadh Taxi Customer",
+      name: user.name || "Taxi Saudi Arabia Customer",
       phone: user.phone,
       role: user.role,
       exp: Math.floor(Date.now() / 1000) + (30 * 24 * 60 * 60) // 30 days
@@ -60,7 +60,7 @@ export async function POST(request: Request) {
       token,
       user: {
         id: user.id,
-        name: user.name || "Riyadh Taxi Customer",
+        name: user.name || "Taxi Saudi Arabia Customer",
         phone: user.phone,
         role: user.role
       }

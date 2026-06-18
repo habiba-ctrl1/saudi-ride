@@ -8,6 +8,7 @@ import { MapPin, Clock, ArrowRight, CheckCircle2, ShieldCheck, Car, HelpCircle, 
 import Link from "next/link";
 import { contactConfig } from "@/lib/config/contact";
 import Image from "next/image";
+import { breadcrumbSchema, SITE } from "@/lib/schema";
 
 interface PageProps {
   params: Promise<{
@@ -22,14 +23,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!route) return { title: "Route Not Found" };
 
   return {
-    title: `${route.fromCity} to ${route.toCity} Taxi | Fixed Rate SAR ${route.basePrice} | Book Now`,
-    description: `Premium chauffeur transfer from ${route.fromCity} to ${route.toCity}. Distance: ${route.distance}km, Duration: ~${Math.round(route.duration / 60)}hrs. Fixed prices starting at SAR ${route.basePrice}. No hidden fees.`,
+    title: `Taxi from ${route.fromCity} to ${route.toCity} | Fixed Price SAR ${route.basePrice} — Taxi Saudi Arabia`,
+    description: `Book a taxi from ${route.fromCity} to ${route.toCity}. ${route.distance}km ride, approx ${Math.round(route.duration / 60)} hours. Fixed price from SAR ${route.basePrice}. No hidden fees, licensed drivers, available 24/7.`,
     alternates: {
-      canonical: `/routes/${slug}`,
+      canonical: `https://taxisaudiarabia.com/routes/${slug}`,
     },
     openGraph: {
-      title: `${route.fromCity} to ${route.toCity} Premium Transfer`,
-      description: route.description || `Book a luxury ride from ${route.fromCity} to ${route.toCity}.`,
+      title: `Taxi from ${route.fromCity} to ${route.toCity} — SAR ${route.basePrice} Fixed Price`,
+      description: route.description || `Book a taxi from ${route.fromCity} to ${route.toCity} at a fixed price. No surge, no hidden fees.`,
       type: "website",
     },
   };
@@ -65,10 +66,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
     "@type": "TouristTrip",
     "name": `${route.fromCity} to ${route.toCity} Transfer`,
     "description": route.description,
-    "provider": {
-      "@type": "LocalBusiness",
-      "name": "Riyadh Taxi"
-    },
+    "provider": { "@id": SITE.businessId },
     "itinerary": {
       "@type": "ItemList",
       "itemListElement": [
@@ -104,12 +102,52 @@ export default async function RouteDetailsPage({ params }: PageProps) {
     ? `https://maps.googleapis.com/maps/api/staticmap?size=800x400&path=color:0xC9A84C|weight:4|${encodeURIComponent(route.fromCity)}|${encodeURIComponent(route.toCity)}&markers=color:black|label:A|${encodeURIComponent(route.fromCity)}&markers=color:black|label:B|${encodeURIComponent(route.toCity)}&key=${mapsApiKey}`
     : `https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1200&q=80`; // Fallback beautiful map abstract
 
+  // FAQ Schema Markup
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can I modify my pickup time?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, you can modify your pickup time up to 12 hours before the scheduled transfer without any penalty. Just contact our support team."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are there stops allowed during the trip?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Brief rest stops for prayer or refreshments are absolutely fine and included in long-distance trips. For extensive detours, please request a custom quote."
+        }
+      }
+    ]
+  };
+
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pb-24">
       {/* Inject Schema Markup */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([
+              { name: "Home", href: "/" },
+              { name: "Routes", href: "/routes" },
+              { name: `${route.fromCity} to ${route.toCity}`, href: `/routes/${slug}` },
+            ])
+          ),
+        }}
       />
 
       {/* ─── HERO & MAP ───────────────────────────────────────────── */}
@@ -210,14 +248,14 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                 <CheckCircle2 className="h-5 w-5 text-[#C9A84C] shrink-0 mt-0.5" />
                 <div>
                   <h4 className="font-bold text-sm">Meet & Greet Service</h4>
-                  <p className="text-xs text-[#A1A1A6] mt-1">Your chauffeur will wait for you at the exact pickup location holding a personalized name board.</p>
+                  <p className="text-xs text-[#A1A1A6] mt-1">Your driver will wait at the pickup location holding a name sign with your name on it.</p>
                 </div>
               </li>
               <li className="flex gap-4">
                 <ShieldCheck className="h-5 w-5 text-[#C9A84C] shrink-0 mt-0.5" />
                 <div>
                   <h4 className="font-bold text-sm">Professional & Licensed</h4>
-                  <p className="text-xs text-[#A1A1A6] mt-1">All chauffeurs are fully licensed, bilingual (English/Arabic), and trained for premium executive transport.</p>
+                  <p className="text-xs text-[#A1A1A6] mt-1">All drivers are fully licensed by the Saudi Ministry of Transport, speak English and Arabic, and are trained for professional service.</p>
                 </div>
               </li>
             </ul>

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { useLanguage } from "@/lib/context/LanguageContext";
@@ -6,16 +6,16 @@ import { ShieldCheck, Receipt, BadgeCheck, PhoneCall } from "lucide-react";
 
 const translations = {
   en: {
-    tagline: "Premium chauffeur and VIP transportation services in the Kingdom of Saudi Arabia. Experience elite travel with unmatched elegance.",
+    tagline: "Trusted taxi and car service in Saudi Arabia. Airport transfers, Umrah trips, intercity rides, and business travel — fixed prices, licensed drivers, available 24/7.",
     destinations: "Destinations",
     services: "Services",
     popularRoutes: "Popular Routes",
     company: "Company",
-    copyright: "© 2026 Riyadh Taxi. All rights reserved. Created with absolute elegance.",
+    copyright: "© 2026 Taxi Saudi Arabia. All rights reserved. Created with absolute elegance.",
     motLicensed: "Ministry of Transport Licensed",
     zatcaCompliant: "ZATCA VAT Compliant",
     tgaCertified: "TGA Certified",
-    support247: "24/7 VIP Support",
+    support247: "24/7 Customer Support",
   },
   ar: {
     tagline: "خدمات النقل الفاخرة وسائقين VIP في المملكة العربية السعودية. جرب السفر الفاخر بأناقة لا مثيل لها.",
@@ -61,28 +61,31 @@ export function Footer() {
         { label: "Taif", href: "/locations/taif" },
       ],
       services: [
-        { label: "Airport Transfers", href: "/services#airport" },
-        { label: "Umrah Transport", href: "/services#umrah" },
-        { label: "Intercity Rides", href: "/services#intercity" },
-        { label: "Corporate Chauffeur", href: "/services#corporate" },
-        { label: "Border Crossings", href: "/services#border" },
+        { label: "Airport Transfers", href: "/services/airport-transfers" },
+        { label: "Umrah Transport", href: "/services/umrah-transport" },
+        { label: "Makkah Ziyarat", href: "/services/makkah-ziyarat" },
+        { label: "Madinah Ziyarat", href: "/services/madinah-ziyarat" },
+        { label: "Intercity Rides", href: "/services/intercity" },
+        { label: "Corporate Car Service", href: "/services/corporate" },
+        { label: "Border Crossings", href: "/services/border-crossings" },
       ],
       routes: [
         { label: "Jeddah Airport → Makkah", href: "/routes/jeddah-to-makkah" },
-        { label: "Makkah → Madinah Hotels", href: "/routes/makkah-to-madinah" },
-        { label: "Riyadh VIP → Dubai", href: "/routes/riyadh-to-dubai" },
-        { label: "Dammam → Doha Cross-Border", href: "/routes/dammam-to-doha" },
-        { label: "Riyadh Executive → Makkah", href: "/routes/riyadh-to-makkah" },
+        { label: "Makkah → Madinah", href: "/routes/makkah-to-madinah" },
+        { label: "Riyadh → Dubai", href: "/routes/riyadh-to-dubai" },
+        { label: "Dammam → Doha", href: "/routes/dammam-to-doha" },
+        { label: "Riyadh → Makkah", href: "/routes/riyadh-to-makkah" },
         { label: "Madinah → Jeddah Airport", href: "/routes/madinah-to-jeddah" },
-        { label: "Riyadh → Dammam Business", href: "/routes/riyadh-to-dammam" },
+        { label: "Riyadh → Dammam", href: "/routes/riyadh-to-dammam" },
       ],
       company: [
         { label: "About Us", href: "/about" },
+        { label: "Blog", href: "/blog" },
         { label: "Luxury Gallery", href: "/gallery" },
-        { label: "Driver Registration", href: "/driver-registration" },
+        { label: "Driver Registration", href: "/partners/driver-registration" },
         { label: "Track Booking", href: "/track-booking" },
-        { label: "Privacy Policy", href: "/privacy" },
-        { label: "Terms of Service", href: "/terms" },
+        { label: "Privacy Policy", href: "/privacy-policy" },
+        { label: "Terms of Service", href: "/terms-conditions" },
       ],
     },
     ar: {
@@ -97,28 +100,31 @@ export function Footer() {
         { label: "الطائف", href: "/locations/taif" },
       ],
       services: [
-        { label: "توصيل المطار", href: "/services#airport" },
-        { label: "توصيل العمرة", href: "/services#umrah" },
-        { label: "سفر بين المدن", href: "/services#intercity" },
-        { label: "سائق خاص للشركات", href: "/services#corporate" },
-        { label: "خدمات نقل الحدود", href: "/services#border" },
+        { label: "توصيل المطار", href: "/services/airport-transfers" },
+        { label: "توصيل العمرة", href: "/services/umrah-transport" },
+        { label: "زيارات مكة", href: "/services/makkah-ziyarat" },
+        { label: "زيارات المدينة", href: "/services/madinah-ziyarat" },
+        { label: "سفر بين المدن", href: "/services/intercity" },
+        { label: "سائق خاص للشركات", href: "/services/corporate" },
+        { label: "خدمات نقل الحدود", href: "/services/border-crossings" },
       ],
       routes: [
         { label: "مطار جدة ← مكة المكرمة", href: "/routes/jeddah-to-makkah" },
-        { label: "مكة المكرمة ← فنادق المدينة", href: "/routes/makkah-to-madinah" },
-        { label: "الرياض ← دبي VIP", href: "/routes/riyadh-to-dubai" },
-        { label: "الدمام ← الدوحة الدولية", href: "/routes/dammam-to-doha" },
+        { label: "مكة المكرمة ← المدينة المنورة", href: "/routes/makkah-to-madinah" },
+        { label: "الرياض ← دبي", href: "/routes/riyadh-to-dubai" },
+        { label: "الدمام ← الدوحة", href: "/routes/dammam-to-doha" },
         { label: "الرياض ← مكة المكرمة", href: "/routes/riyadh-to-makkah" },
-        { label: "المدينة ← مطار جدة", href: "/routes/madinah-to-jeddah" },
-        { label: "الرياض ← الدمام للأعمال", href: "/routes/riyadh-to-dammam" },
+        { label: "المدينة المنورة ← مطار جدة", href: "/routes/madinah-to-jeddah" },
+        { label: "الرياض ← الدمام", href: "/routes/riyadh-to-dammam" },
       ],
       company: [
         { label: "من نحن", href: "/about" },
+        { label: "المدونة", href: "/blog" },
         { label: "معرض الصور الفاخرة", href: "/gallery" },
-        { label: "تسجيل السائقين", href: "/driver-registration" },
+        { label: "تسجيل السائقين", href: "/partners/driver-registration" },
         { label: "تتبع الحجز", href: "/track-booking" },
-        { label: "سياسة الخصوصية", href: "/privacy" },
-        { label: "شروط الخدمة", href: "/terms" },
+        { label: "سياسة الخصوصية", href: "/privacy-policy" },
+        { label: "شروط الخدمة", href: "/terms-conditions" },
       ],
     },
     ur: {
@@ -133,28 +139,31 @@ export function Footer() {
         { label: "طائف", href: "/locations/taif" },
       ],
       services: [
-        { label: "ایئرپورٹ ٹرانسفر", href: "/services#airport" },
-        { label: "عمرہ ٹرانسپورٹ", href: "/services#umrah" },
-        { label: "انٹرسٹی سفر", href: "/services#intercity" },
-        { label: "کارپوریٹ ڈرائیور", href: "/services#corporate" },
-        { label: "بارڈر کراسنگز", href: "/services#border" },
+        { label: "ایئرپورٹ ٹرانسفر", href: "/services/airport-transfers" },
+        { label: "عمرہ ٹرانسپورٹ", href: "/services/umrah-transport" },
+        { label: "مکہ زیارات", href: "/services/makkah-ziyarat" },
+        { label: "مدینہ زیارات", href: "/services/madinah-ziyarat" },
+        { label: "انٹرسٹی سفر", href: "/services/intercity" },
+        { label: "کارپوریٹ ڈرائیور", href: "/services/corporate" },
+        { label: "بارڈر کراسنگز", href: "/services/border-crossings" },
       ],
       routes: [
         { label: "جدہ ایئرپورٹ ← مکہ مکرمہ", href: "/routes/jeddah-to-makkah" },
-        { label: "مکہ مکرمہ ← مدینہ ہوٹل", href: "/routes/makkah-to-madinah" },
-        { label: "ریاض وی آئی پی ← دبئی", href: "/routes/riyadh-to-dubai" },
-        { label: "دمام ← دوحہ کراس بارڈر", href: "/routes/dammam-to-doha" },
-        { label: "ریاض ایگزیکٹو ← مکہ مکرمہ", href: "/routes/riyadh-to-makkah" },
+        { label: "مکہ مکرمہ ← مدینہ منورہ", href: "/routes/makkah-to-madinah" },
+        { label: "ریاض ← دبئی", href: "/routes/riyadh-to-dubai" },
+        { label: "دمام ← دوحہ", href: "/routes/dammam-to-doha" },
+        { label: "ریاض ← مکہ مکرمہ", href: "/routes/riyadh-to-makkah" },
         { label: "مدینہ منورہ ← جدہ ایئرپورٹ", href: "/routes/madinah-to-jeddah" },
-        { label: "ریاض ← دمام بزنس", href: "/routes/riyadh-to-dammam" },
+        { label: "ریاض ← دمام", href: "/routes/riyadh-to-dammam" },
       ],
       company: [
         { label: "ہمارے بارے میں", href: "/about" },
+        { label: "بلاگ", href: "/blog" },
         { label: "لگزری گیلری", href: "/gallery" },
-        { label: "ڈرائیور رجسٹریشن", href: "/driver-registration" },
+        { label: "ڈرائیور رجسٹریشن", href: "/partners/driver-registration" },
         { label: "بکنگ ٹریک کریں", href: "/track-booking" },
-        { label: "رازداری کی پالیسی", href: "/privacy" },
-        { label: "شرائط و ضوابط", href: "/terms" },
+        { label: "رازداری کی پالیسی", href: "/privacy-policy" },
+        { label: "شرائط و ضوابط", href: "/terms-conditions" },
       ],
     },
   };
@@ -162,29 +171,36 @@ export function Footer() {
   const activeContent = content[language];
 
   return (
-    <footer className="relative border-t border-[#C9A84C]/15 bg-[#0A0A0A] text-[#F5F0E8] pt-20 pb-10 overflow-hidden font-sans">
-      {/* Background soft gold aura */}
-      <div className="absolute bottom-0 right-1/4 h-80 w-80 rounded-full bg-[#C9A84C]/5 blur-[120px] pointer-events-none" />
+    <footer
+      className="relative pt-20 pb-10 overflow-hidden font-sans premium-dark-section"
+      style={{ backgroundColor: "#0F172A", borderTop: "1px solid rgba(200,164,93,0.15)", color: "#F5F0E8" }}
+    >
+      {/* Decorative navy glow */}
+      <div className="absolute bottom-0 right-1/4 h-96 w-96 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(200,164,93,0.06) 0%, transparent 70%)" }} />
+      <div className="absolute top-0 left-1/4 h-64 w-64 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(30,41,59,0.8) 0%, transparent 70%)" }} />
 
       <div className="section-container">
         {/* Top brand grid */}
         <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr_0.8fr_1fr_1fr] pb-16 border-b border-[#C9A84C]/10 text-sm">
           {/* Brand Tagline */}
-          <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-2 group">
-              <span className="relative flex h-8 w-8 items-center justify-center rounded-full border border-[#C9A84C] bg-[#0A0A0A] shadow-[0_0_10px_rgba(201,168,76,0.3)]">
-                <span className="text-sm font-semibold text-[#C9A84C] font-heading">🌙</span>
+          <div className="space-y-5">
+            <Link href="/" className="flex items-center gap-3 group">
+              <span
+                className="relative flex h-10 w-10 items-center justify-center rounded-full"
+                style={{ border: "1.5px solid rgba(200,164,93,0.5)", backgroundColor: "rgba(15,23,42,0.8)" }}
+              >
+                <span className="text-base">🌙</span>
               </span>
-              <div className="flex flex-col">
-                <span className="font-heading text-lg font-bold tracking-[0.18em] text-[#F5F0E8]">
-                  Riyadh Taxi
+              <div className="flex flex-col leading-none">
+                <span className="font-heading text-lg font-bold tracking-tight" style={{ color: "#F5F0E8", letterSpacing: "-0.01em" }}>
+                  Taxi Saudi Arabia
                 </span>
-                <span className="text-[0.55rem] uppercase tracking-[0.4em] text-[#C9A84C] -mt-1">
-                  Chauffeur Service
+                <span className="text-[0.52rem] uppercase tracking-[0.38em] font-semibold -mt-0.5" style={{ color: "#C8A45D" }}>
+                  Taxi & Car Service
                 </span>
               </div>
             </Link>
-            <p className="text-xs leading-relaxed text-[#A1A1A6] max-w-sm">
+            <p className="text-sm leading-relaxed max-w-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
               {t.tagline}
             </p>
           </div>
@@ -255,40 +271,30 @@ export function Footer() {
         </div>
 
         {/* Trust Badges Row */}
-        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-4 py-12 border-b border-[#C9A84C]/10 text-xs">
-          <div className="flex items-center gap-3 bg-black/40 rounded-xl p-4 border border-[#C9A84C]/5">
-            <BadgeCheck className="h-5 w-5 text-[#C9A84C] shrink-0" />
-            <div>
-              <p className="font-semibold text-[#F5F0E8]">{t.motLicensed}</p>
-              <p className="text-[0.65rem] text-[#A1A1A6]">KSA MOT Compliant</p>
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 py-12 border-b text-xs" style={{ borderColor: "rgba(200,164,93,0.1)" }}>
+          {[
+            { icon: BadgeCheck, label: t.motLicensed, sub: "KSA MOT Compliant" },
+            { icon: Receipt, label: t.zatcaCompliant, sub: "Electronic Invoicing Ready" },
+            { icon: ShieldCheck, label: t.tgaCertified, sub: "Transport General Authority" },
+            { icon: PhoneCall, label: t.support247, sub: "Private Concierge Desk" },
+          ].map(({ icon: Icon, label, sub }) => (
+            <div
+              key={sub}
+              className="flex items-center gap-3 rounded-xl p-4"
+              style={{ backgroundColor: "rgba(30,41,59,0.6)", border: "1px solid rgba(200,164,93,0.08)" }}
+            >
+              <Icon className="h-5 w-5 shrink-0" style={{ color: "#C8A45D" }} />
+              <div>
+                <p className="font-semibold" style={{ color: "#F5F0E8" }}>{label}</p>
+                <p className="text-[0.62rem] mt-0.5" style={{ color: "rgba(255,255,255,0.38)" }}>{sub}</p>
+              </div>
             </div>
-          </div>
-          <div className="flex items-center gap-3 bg-black/40 rounded-xl p-4 border border-[#C9A84C]/5">
-            <Receipt className="h-5 w-5 text-[#C9A84C] shrink-0" />
-            <div>
-              <p className="font-semibold text-[#F5F0E8]">{t.zatcaCompliant}</p>
-              <p className="text-[0.65rem] text-[#A1A1A6]">Electronic Invoicing Ready</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3 bg-black/40 rounded-xl p-4 border border-[#C9A84C]/5">
-            <ShieldCheck className="h-5 w-5 text-[#C9A84C] shrink-0" />
-            <div>
-              <p className="font-semibold text-[#F5F0E8]">{t.tgaCertified}</p>
-              <p className="text-[0.65rem] text-[#A1A1A6]">Transport General Authority</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3 bg-black/40 rounded-xl p-4 border border-[#C9A84C]/5">
-            <PhoneCall className="h-5 w-5 text-[#C9A84C] shrink-0" />
-            <div>
-              <p className="font-semibold text-[#F5F0E8]">{t.support247}</p>
-              <p className="text-[0.65rem] text-[#A1A1A6]">Private Concierge Desk</p>
-            </div>
-          </div>
+          ))}
         </div>
 
         {/* Bottom copyright & socials */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-10 text-xs">
-          <p className="text-[#A1A1A6] text-center md:text-left leading-relaxed">
+          <p className="text-center md:text-left leading-relaxed" style={{ color: "rgba(255,255,255,0.35)" }}>
             {t.copyright}
           </p>
           
@@ -305,7 +311,7 @@ export function Footer() {
               </svg>
             </a>
             <a
-              href="https://facebook.com/riyadh.taxi"
+              href="https://facebook.com/taxisaudiarabia"
               target="_blank"
               rel="noopener noreferrer"
               className="flex h-8 w-8 items-center justify-center rounded-full border border-[#C9A84C]/20 bg-black/30 text-[#A1A1A6] hover:text-[#C9A84C] hover:border-[#C9A84C] hover:shadow-[0_0_10px_rgba(201,168,76,0.2)] transition-all"
@@ -316,7 +322,7 @@ export function Footer() {
               </svg>
             </a>
             <a
-              href="https://instagram.com/riyadh.taxi"
+              href="https://instagram.com/taxisaudiarabia"
               target="_blank"
               rel="noopener noreferrer"
               className="flex h-8 w-8 items-center justify-center rounded-full border border-[#C9A84C]/20 bg-black/30 text-[#A1A1A6] hover:text-[#C9A84C] hover:border-[#C9A84C] hover:shadow-[0_0_10px_rgba(201,168,76,0.2)] transition-all"
@@ -327,7 +333,7 @@ export function Footer() {
               </svg>
             </a>
             <a
-              href="https://youtube.com/riyadh.taxi"
+              href="https://youtube.com/@taxisaudiarabia"
               target="_blank"
               rel="noopener noreferrer"
               className="flex h-8 w-8 items-center justify-center rounded-full border border-[#C9A84C]/20 bg-black/30 text-[#A1A1A6] hover:text-[#C9A84C] hover:border-[#C9A84C] hover:shadow-[0_0_10px_rgba(201,168,76,0.2)] transition-all"

@@ -17,13 +17,13 @@ const SERVICES = [
     badge: "24/7 Service",
     color: "from-blue-500/10 to-transparent",
     borderColor: "border-blue-500/20",
-    description: "Meet & greet at arrivals, live flight tracking, professional chauffeurs with name signs, and luggage assistance. Serving JED, RUH, DMM and all KSA airports.",
+    description: "Airport taxi service with live flight tracking, meet & greet at arrivals, driver with name sign, and luggage help. Serving Jeddah (JED), Riyadh (RUH), Madinah (MED) and all KSA airports.",
     features: [
-      "Live flight tracking — wait free if delayed",
-      "Name board at arrivals terminal",
-      "Full luggage assistance",
-      "Multilingual chauffeur (EN / AR / UR)",
-      "Available all 24 hours, 365 days",
+      "Live flight tracking — driver waits free if delayed",
+      "Driver meets you in arrivals with your name sign",
+      "Full luggage assistance to the car",
+      "Drivers speak English, Arabic & Urdu",
+      "Available 24 hours, 365 days a year",
     ],
     startingPrice: 80,
     route: "/book?service=airport",
@@ -99,7 +99,7 @@ const SERVICES = [
       "Bridal entourage convoy arrangements",
       "Photography-ready presentation",
       "Royal red carpet deployment",
-      "Multilingual MC chauffeur available",
+      "English, Arabic & Urdu driver available",
     ],
     startingPrice: 400,
     route: "/book?service=wedding",
@@ -293,12 +293,12 @@ export default function ServicesPage() {
         <div className="mt-16 rounded-3xl border border-[#C9A84C]/15 bg-[#111111] p-8 md:p-12">
           <div className="grid gap-8 md:grid-cols-2 items-center">
             <div className="space-y-4">
-              <span className="text-[0.65rem] uppercase tracking-[0.2em] text-[#C9A84C] font-bold">Why Riyadh Taxi?</span>
+              <span className="text-[0.65rem] uppercase tracking-[0.2em] text-[#C9A84C] font-bold">Why Taxi Saudi Arabia?</span>
               <h2 className="font-heading text-2xl md:text-3xl font-bold">
-                Saudi Arabia&apos;s Most Trusted<br />Chauffeur Brand
+                Saudi Arabia&apos;s Most Trusted<br />Taxi & Car Service
               </h2>
               <p className="text-sm text-[#A1A1A6] leading-relaxed">
-                Every chauffeur is Saudi GTA certified, background-checked, and trained in elite hospitality standards.
+                Every driver is TGA-certified, background-checked, and trained in respectful customer service.
                 Every vehicle is GPS-tracked, fully insured, and inspected monthly.
               </p>
             </div>

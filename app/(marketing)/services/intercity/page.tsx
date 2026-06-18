@@ -1,11 +1,14 @@
 ﻿import { Metadata } from "next";
 import Image from "next/image";
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { serviceSchema, faqSchema } from "@/lib/schema";
 import Link from "next/link";
 import { Map, Car, ShieldCheck, Clock, Navigation, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "City to City Intercity Taxi Services | Riyadh Taxi",
-  description: "Private executive transfers connecting all major cities in Saudi Arabia. Riyadh to Dammam, Jeddah to Makkah, and more. Fixed rates and luxury vehicles.",
+  title: "Intercity Taxi Saudi Arabia | Riyadh to Jeddah, Makkah, Dammam & More — Taxi Saudi Arabia",
+  description: "Book an intercity taxi in Saudi Arabia. Long-distance rides between Riyadh, Jeddah, Makkah, Madinah, Dammam, and Taif. Fixed prices, clean cars, licensed drivers. Book online or on WhatsApp.",
 };
 
 const POPULAR_COMBINATIONS = [
@@ -18,7 +21,7 @@ const POPULAR_COMBINATIONS = [
 const FAQS = [
   {
     q: "Do you make rest stops on long journeys?",
-    a: "Absolutely. For trips exceeding 2 hours (like Riyadh to Dammam), your chauffeur is happy to stop at major service stations along the highway for food, restroom breaks, or prayer."
+    a: "Absolutely. For trips exceeding 2 hours (like Riyadh to Dammam), your driver is happy to stop at major service stations along the highway for food, restroom breaks, or prayer."
   },
   {
     q: "Can I bring excess luggage?",
@@ -33,6 +36,26 @@ const FAQS = [
 export default function IntercityServicePage() {
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pb-24">
+      <JsonLd
+        data={[
+          serviceSchema({
+            name: "Intercity Taxi Service",
+            description:
+              "Long-distance intercity taxi service in Saudi Arabia between Riyadh, Jeddah, Makkah, Madinah, Dammam, and Taif at fixed prices.",
+            path: "/services/intercity",
+            serviceType: "Intercity Transfer",
+            areaServed: ["Riyadh", "Jeddah", "Makkah", "Madinah", "Dammam", "Taif"],
+          }),
+          faqSchema(FAQS.map((f) => ({ question: f.q, answer: f.a }))),
+        ]}
+      />
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Services", href: "/services" },
+          { name: "Intercity", href: "/services/intercity" },
+        ]}
+      />
       {/* ─── HERO ─────────────────────────────────────────────────── */}
       <section className="relative pt-32 pb-20 overflow-hidden border-b border-[#C9A84C]/10">
         <div className="absolute inset-0 z-0">
@@ -71,7 +94,7 @@ export default function IntercityServicePage() {
       <section className="section-container max-w-7xl py-20 border-b border-[#C9A84C]/10">
         <div className="text-center mb-16">
           <h2 className="font-heading text-3xl font-bold mb-4">Why Choose Private Over Public Transport?</h2>
-          <p className="text-[#A1A1A6]">Comparing our Chauffeur service vs Flights and Trains.</p>
+          <p className="text-[#A1A1A6]">Comparing our Driver service vs Flights and Trains.</p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">

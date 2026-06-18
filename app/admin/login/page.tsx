@@ -3,21 +3,22 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { ShieldCheck, Loader2 } from "lucide-react";
+import { ShieldCheck, Loader2, Eye, EyeOff } from "lucide-react";
 
 export default function AdminLoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
+  const [email, setEmail]       = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [showPw, setShowPw]     = useState(false);
+  const [error, setError]       = useState("");
+  const [loading, setLoading]   = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setLoading(true);
 
-    const result = await signIn("credentials", {
+    const result = await signIn("admin-login", {
       email,
       password,
       redirect: false,
@@ -26,7 +27,7 @@ export default function AdminLoginPage() {
     setLoading(false);
 
     if (result?.error) {
-      setError("Invalid credentials. Please try again.");
+      setError("Invalid email or password. Please try again.");
     } else {
       router.push("/admin");
       router.refresh();
@@ -34,58 +35,85 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+      <div className="w-full max-w-sm">
+
+        {/* Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center p-4 rounded-2xl bg-[#C9A84C]/10 border border-[#C9A84C]/20 mb-6">
-            <ShieldCheck className="h-8 w-8 text-[#C9A84C]" />
+          <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-[#0D1B2A] mb-4">
+            <ShieldCheck className="h-7 w-7 text-[#C9A84C]" />
           </div>
-          <h1 className="font-heading text-3xl font-bold text-[#F5F0E8] mb-2">Admin Access</h1>
-          <p className="text-sm text-[#A1A1A6]">Sign in to the Riyadh Taxi management dashboard.</p>
+          <h1 className="text-2xl font-bold text-gray-900">Admin Login</h1>
+          <p className="text-sm text-gray-500 mt-1">Taxi Saudi Arabia management portal</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-[#111] border border-[#C9A84C]/20 rounded-2xl p-8 space-y-6">
+        {/* Card */}
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white border border-gray-200 rounded-2xl p-7 shadow-sm space-y-5"
+        >
           {error && (
-            <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-3 text-sm text-red-400 text-center">
+            <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-600 text-center">
               {error}
             </div>
           )}
 
-          <div className="space-y-2">
-            <label className="text-xs font-bold text-[#A1A1A6] uppercase tracking-wider">Email Address</label>
+          {/* Email */}
+          <div className="space-y-1.5">
+            <label className="block text-xs font-semibold text-gray-600 uppercase tracking-wide">
+              Email Address
+            </label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-[#0A0A0A] border border-[#C9A84C]/20 rounded-xl px-4 py-3 text-sm text-[#F5F0E8] focus:border-[#C9A84C] outline-none transition-colors"
-              placeholder="admin@riyadhtaxi.com"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-[#C9A84C] focus:ring-1 focus:ring-[#C9A84C] transition"
+              placeholder="admin@taxisaudiarabia.com"
               required
+              autoComplete="email"
             />
           </div>
 
-          <div className="space-y-2">
-            <label className="text-xs font-bold text-[#A1A1A6] uppercase tracking-wider">Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-[#0A0A0A] border border-[#C9A84C]/20 rounded-xl px-4 py-3 text-sm text-[#F5F0E8] focus:border-[#C9A84C] outline-none transition-colors"
-              placeholder="••••••••"
-              required
-            />
+          {/* Password */}
+          <div className="space-y-1.5">
+            <label className="block text-xs font-semibold text-gray-600 uppercase tracking-wide">
+              Password
+            </label>
+            <div className="relative">
+              <input
+                type={showPw ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 pr-10 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-[#C9A84C] focus:ring-1 focus:ring-[#C9A84C] transition"
+                placeholder="••••••••"
+                required
+                autoComplete="current-password"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPw(!showPw)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                {showPw ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              </button>
+            </div>
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#C9A84C] text-[#0A0A0A] font-bold uppercase tracking-wider text-xs py-4 rounded-xl hover:bg-[#B8963B] transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+            className="w-full bg-[#0D1B2A] text-white font-semibold text-sm py-2.5 rounded-lg hover:bg-[#1a2f47] transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
           >
-            {loading ? <><Loader2 className="h-4 w-4 animate-spin" /> Authenticating...</> : "Sign In"}
+            {loading ? (
+              <><Loader2 className="h-4 w-4 animate-spin" /> Signing in…</>
+            ) : (
+              "Sign In"
+            )}
           </button>
         </form>
 
-        <p className="text-center text-xs text-[#7C8088] mt-6">
-          Protected area. Unauthorized access is monitored.
+        <p className="text-center text-xs text-gray-400 mt-5">
+          Protected area — unauthorized access is monitored.
         </p>
       </div>
     </div>

@@ -88,7 +88,6 @@ export default async function CustomerProfilePage() {
                 >
                   <option value="EN">English</option>
                   <option value="AR">Arabic (العربية)</option>
-                  <option value="UR">Urdu (اردو)</option>
                 </select>
               </div>
               <div className="space-y-2">

@@ -5,6 +5,6 @@
   secondaryPhoneLink: "tel:+966112345678",
   whatsappNumber: "966500123456",
   whatsappLink: "https://wa.me/966500123456",
-  email: "bookings@riyadhtaxi.sa",
-  emailLink: "mailto:bookings@riyadhtaxi.sa"
+  email: "bookings@taxisaudiarabia.com",
+  emailLink: "mailto:bookings@taxisaudiarabia.com"
 };

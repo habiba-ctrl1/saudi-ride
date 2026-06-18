@@ -1,8 +1,9 @@
-﻿import { MetadataRoute } from "next";
+import { MetadataRoute } from "next";
 import { db } from "@/lib/db";
 import { FLEET_VEHICLES } from "@/lib/fleet-data";
+import { BLOG_POSTS_DATA } from "@/lib/data/blog-posts";
 
-const DOMAIN = "https://riyadhtaxi.com";
+const DOMAIN = "https://taxisaudiarabia.com";
 
 // Base static pages with their priorities
 const STATIC_PAGES = [
@@ -20,6 +21,17 @@ const STATIC_PAGES = [
   { path: "/services/intercity", priority: 0.9 },
   { path: "/services/tourism", priority: 0.9 },
   { path: "/services/umrah-transport", priority: 0.9 },
+  { path: "/services/group-transport", priority: 0.9 },
+  { path: "/services/hajj-transport", priority: 0.9 },
+  { path: "/services/vip-luxury", priority: 0.9 },
+  { path: "/services/madinah-ziyarat", priority: 0.9 },
+  { path: "/services/makkah-ziyarat", priority: 0.9 },
+  { path: "/services/business-executive", priority: 0.9 },
+  { path: "/services/heritage-tours", priority: 0.9 },
+  { path: "/pricing", priority: 0.9 },
+  { path: "/guides", priority: 0.8 },
+  { path: "/blog", priority: 0.8 },
+  { path: "/book", priority: 1.0 },
 ];
 
 const LOCATIONS = [
@@ -36,6 +48,46 @@ const LOCATIONS = [
   "abha",
 ];
 
+const SUB_AREAS = [
+  { city: "riyadh", subarea: "kafd" },
+  { city: "riyadh", subarea: "olaya" },
+  { city: "riyadh", subarea: "diplomatic-quarter" },
+  { city: "riyadh", subarea: "al-malaz" },
+  { city: "riyadh", subarea: "al-murabba" },
+  { city: "riyadh", subarea: "diriyah" },
+  { city: "jeddah", subarea: "al-balad" },
+  { city: "jeddah", subarea: "corniche" },
+  { city: "jeddah", subarea: "al-hamra" },
+  { city: "jeddah", subarea: "obhur" },
+  { city: "jeddah", subarea: "al-safaa" },
+  { city: "jeddah", subarea: "al-rawdah" },
+  { city: "makkah", subarea: "aziziyah" },
+  { city: "makkah", subarea: "ajyad" },
+  { city: "makkah", subarea: "al-awali-makkah" },
+  { city: "makkah", subarea: "al-shubaikah" },
+  { city: "makkah", subarea: "al-mansour" },
+  { city: "makkah", subarea: "mina" },
+  { city: "madinah", subarea: "al-markazia" },
+  { city: "madinah", subarea: "qaba" },
+  { city: "madinah", subarea: "uhud" },
+  { city: "madinah", subarea: "al-awali-madinah" },
+  { city: "dammam", subarea: "al-khobar" },
+  { city: "dammam", subarea: "dhahran" },
+  { city: "dammam", subarea: "half-moon-bay" },
+  { city: "dammam", subarea: "qatif" },
+];
+
+const AIRPORTS = [
+  "king-abdulaziz-jeddah",
+  "prince-mohammad-madinah",
+  "king-khalid-riyadh",
+  "king-fahd-dammam",
+  "taif-regional",
+  "tabuk-regional",
+  "alula",
+  "abha-regional",
+];
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
@@ -49,7 +101,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       languages: {
         en: `${DOMAIN}${page.path}`,
         ar: `${DOMAIN}/ar${page.path}`,
-        ur: `${DOMAIN}/ur${page.path}`,
       },
     },
   }));
@@ -64,7 +115,34 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       languages: {
         en: `${DOMAIN}/locations/${loc}`,
         ar: `${DOMAIN}/ar/locations/${loc}`,
-        ur: `${DOMAIN}/ur/locations/${loc}`,
+      },
+    },
+  }));
+
+  // 2.5 Generate Airports Pages
+  const airportItems = AIRPORTS.map((airport) => ({
+    url: `${DOMAIN}/airports/${airport}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+    alternates: {
+      languages: {
+        en: `${DOMAIN}/airports/${airport}`,
+        ar: `${DOMAIN}/ar/airports/${airport}`,
+      },
+    },
+  }));
+
+  // 2.6 Generate Location Sub-Areas Pages
+  const subAreaItems = SUB_AREAS.map((loc) => ({
+    url: `${DOMAIN}/locations/${loc.city}/${loc.subarea}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.7,
+    alternates: {
+      languages: {
+        en: `${DOMAIN}/locations/${loc.city}/${loc.subarea}`,
+        ar: `${DOMAIN}/ar/locations/${loc.city}/${loc.subarea}`,
       },
     },
   }));
@@ -82,7 +160,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         languages: {
           en: `${DOMAIN}/routes/${route.slug}`,
           ar: `${DOMAIN}/ar/routes/${route.slug}`,
-          ur: `${DOMAIN}/ur/routes/${route.slug}`,
         },
       },
     }));
@@ -100,10 +177,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       languages: {
         en: `${DOMAIN}/fleet/${vehicle.slug}`,
         ar: `${DOMAIN}/ar/fleet/${vehicle.slug}`,
-        ur: `${DOMAIN}/ur/fleet/${vehicle.slug}`,
       },
     },
   }));
 
-  return [...staticItems, ...locationItems, ...routeItems, ...fleetItems];
+  // 5. Generate Blog Posts
+  const blogItems = BLOG_POSTS_DATA.filter(post => post.published).map((post) => ({
+    url: `${DOMAIN}/blog/${post.slug}`,
+    lastModified: post.publishedAt,
+    changeFrequency: "weekly" as const,
+    priority: 0.7,
+    alternates: {
+      languages: {
+        en: `${DOMAIN}/blog/${post.slug}`,
+        ar: `${DOMAIN}/ar/blog/${post.slug}`,
+      },
+    },
+  }));
+
+  return [...staticItems, ...locationItems, ...subAreaItems, ...airportItems, ...routeItems, ...fleetItems, ...blogItems];
 }

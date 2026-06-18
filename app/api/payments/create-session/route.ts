@@ -54,7 +54,7 @@ export async function POST(request: Request) {
       body: JSON.stringify({
         amount: amountInHalalas,
         currency: "SAR",
-        description: `Riyadh Taxi Booking Ref: ${booking.bookingRef}`,
+        description: `Taxi Saudi Arabia Booking Ref: ${booking.bookingRef}`,
         success_url: `${siteUrl}/booking/confirmation/${booking.bookingRef}`,
         back_url: `${siteUrl}/track-booking?ref=${booking.bookingRef}`,
         callback_url: `${siteUrl}/api/webhooks/moyasar`,

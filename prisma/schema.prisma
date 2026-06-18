@@ -1,4 +1,4 @@
-﻿generator client {
+generator client {
   provider = "prisma-client-js"
 }
 
@@ -7,6 +7,92 @@ datasource db {
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
+
+// ─── Enums ────────────────────────────────────────────────────────────────────
+
+enum Role {
+  CUSTOMER
+  DRIVER
+  ADMIN
+}
+
+enum Language {
+  EN
+  AR
+  UR
+}
+
+enum VehicleType {
+  SEDAN
+  SUV
+  VAN
+  LUXURY
+  BUS
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  DRIVER_ASSIGNED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  REFUNDED
+}
+
+enum PaymentStatus {
+  UNPAID
+  PAID
+  REFUNDED
+  PARTIALLY_REFUNDED
+}
+
+enum DriverStatus {
+  AVAILABLE
+  ON_TRIP
+  OFFLINE
+  SUSPENDED
+}
+
+enum ServiceType {
+  AIRPORT_TRANSFER
+  UMRAH
+  INTERCITY
+  CORPORATE
+  GCC_BORDER
+  TOURISM
+}
+
+enum PaymentMethodType {
+  CARD
+  MADA
+  APPLE_PAY
+  CASH
+  CORPORATE_ACCOUNT
+}
+
+enum PaymentGateway {
+  MOYASAR
+  HYPERPAY
+  STRIPE
+  MANUAL
+}
+
+enum PaymentTransactionStatus {
+  PENDING
+  AUTHORIZED
+  CAPTURED
+  FAILED
+  REFUNDED
+  PARTIALLY_REFUNDED
+}
+
+enum DiscountType {
+  PERCENTAGE
+  FIXED
+}
+
+// ─── Models ───────────────────────────────────────────────────────────────────
 
 model User {
   id            String    @id @default(cuid())
@@ -23,98 +109,157 @@ model User {
   sessions      Session[]
   bookings      Booking[]
   reviews       Review[]
+  driver        Driver?
   otpCode       String?
   otpExpires    DateTime?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }
 
-enum Role {
-  CUSTOMER
-  DRIVER
-  ADMIN
-}
-
-enum Language {
-  EN
-  AR
-  UR
+model Driver {
+  id            String       @id @default(cuid())
+  userId        String       @unique
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  licenseNumber String       @unique
+  licenseExpiry DateTime
+  motLicense    String?
+  tgaCertified  Boolean      @default(false)
+  ihramStatus   Boolean      @default(false)
+  languages     String[]     @default(["en"])
+  rating        Float        @default(5.0)
+  totalTrips    Int          @default(0)
+  status        DriverStatus @default(OFFLINE)
+  currentLat    Float?
+  currentLng    Float?
+  vehicleId     String?
+  bookings      Booking[]    @relation("AssignedDriver")
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
 }
 
 model Vehicle {
-  id           String    @id @default(cuid())
-  name         String
-  nameAr       String
-  nameUr       String
-  type         VehicleType
-  capacity     Int
-  luggage      Int
-  pricePerKm   Float
-  basePrice    Float
-  image        String
-  features     String[]
-  available    Boolean   @default(true)
-  bookings     Booking[]
-  createdAt     DateTime  @default(now())
-}
-
-enum VehicleType {
-  SEDAN
-  SUV
-  VAN
-  LUXURY
-  BUS
+  id            String      @id @default(cuid())
+  name          String
+  nameAr        String
+  nameUr        String
+  type          VehicleType
+  capacity      Int
+  luggage       Int
+  pricePerKm    Float
+  basePrice     Float
+  image         String
+  features      String[]
+  available     Boolean     @default(true)
+  // Extended fleet fields
+  plateNumber   String?     @unique
+  make          String?
+  model         String?
+  year          Int?
+  color         String?
+  hasWifi       Boolean     @default(false)
+  hasChildSeat  Boolean     @default(false)
+  hasWheelchair Boolean     @default(false)
+  bookings      Booking[]
+  createdAt     DateTime    @default(now())
 }
 
 model Booking {
-  id              String        @id @default(cuid())
-  bookingRef      String        @unique @default(cuid())
-  userId          String?
-  user            User?         @relation(fields: [userId], references: [id])
-  vehicleId       String
-  vehicle         Vehicle       @relation(fields: [vehicleId], references: [id])
-  status          BookingStatus @default(PENDING)
-  pickupLocation  String
-  dropoffLocation String
-  pickupLat       Float?
-  pickupLng       Float?
-  dropoffLat      Float?
-  dropoffLng      Float?
-  pickupDateTime  DateTime
-  returnDateTime  DateTime?
-  isRoundTrip     Boolean       @default(false)
-  passengers      Int
-  distance        Float?
-  duration        Int?
-  totalPrice      Float
-  currency        String        @default("SAR")
-  paymentStatus   PaymentStatus @default(UNPAID)
-  paymentMethod   String?
-  customerName    String
-  customerPhone   String
-  customerEmail   String?
-  notes           String?
-  driverName      String?
-  driverPhone     String?
-  flightNumber    String?
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
+  id                   String        @id @default(cuid())
+  bookingRef           String        @unique @default(cuid())
+  userId               String?
+  user                 User?         @relation(fields: [userId], references: [id])
+  vehicleId            String
+  vehicle              Vehicle       @relation(fields: [vehicleId], references: [id])
+  driverId             String?
+  driver               Driver?       @relation("AssignedDriver", fields: [driverId], references: [id])
+  serviceType          ServiceType?
+  status               BookingStatus @default(PENDING)
+  pickupLocation       String
+  dropoffLocation      String
+  pickupLat            Float?
+  pickupLng            Float?
+  dropoffLat           Float?
+  dropoffLng           Float?
+  pickupDateTime       DateTime
+  returnDateTime       DateTime?
+  isRoundTrip          Boolean       @default(false)
+  passengers           Int
+  distance             Float?
+  duration             Int?
+  baseFare             Float?
+  discountAmount       Float?
+  vatAmount            Float?
+  totalPrice           Float
+  currency             String        @default("SAR")
+  paymentStatus        PaymentStatus @default(UNPAID)
+  paymentMethod        String?
+  customerName         String
+  customerPhone        String
+  customerEmail        String?
+  notes                String?
+  driverName           String?
+  driverPhone          String?
+  flightNumber         String?
+  cancellationReason   String?
+  cancelledAt          DateTime?
+  completedAt          DateTime?
+  payment              Payment?
+  review               Review?
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
 }
 
-enum BookingStatus {
-  PENDING
-  CONFIRMED
-  DRIVER_ASSIGNED
-  IN_PROGRESS
-  COMPLETED
-  CANCELLED
+model Payment {
+  id                   String                   @id @default(cuid())
+  bookingId            String                   @unique
+  booking              Booking                  @relation(fields: [bookingId], references: [id])
+  customerId           String?
+  amount               Float
+  currency             String                   @default("SAR")
+  paymentMethod        PaymentMethodType        @default(CARD)
+  gateway              PaymentGateway           @default(MOYASAR)
+  gatewayTransactionId String?
+  gatewayResponse      Json?
+  status               PaymentTransactionStatus @default(PENDING)
+  refundAmount         Float?
+  refundReason         String?
+  zatcaInvoiceId       String?
+  zatcaQrCode          String?
+  invoiceUrl           String?
+  paidAt               DateTime?
+  createdAt            DateTime                 @default(now())
 }
 
-enum PaymentStatus {
-  UNPAID
-  PAID
-  REFUNDED
-  PARTIALLY_REFUNDED
+model PromoCode {
+  id                 String       @id @default(cuid())
+  code               String       @unique
+  discountType       DiscountType
+  discountValue      Float
+  minOrderValue      Float        @default(0)
+  maxUses            Int?
+  usedCount          Int          @default(0)
+  perUserLimit       Int          @default(1)
+  validFrom          DateTime?
+  validUntil         DateTime?
+  applicableServices String[]     @default([])
+  isActive           Boolean      @default(true)
+  createdAt          DateTime     @default(now())
+}
+
+model FareRule {
+  id                   String      @id @default(cuid())
+  vehicleType          VehicleType
+  serviceType          ServiceType
+  basePriceSar         Float
+  pricePerKm           Float
+  minimumFare          Float
+  roundTripDiscountPct Float       @default(10)
+  isActive             Boolean     @default(true)
+  validFrom            DateTime?
+  validUntil           DateTime?
+  createdAt            DateTime    @default(now())
+
+  @@unique([vehicleType, serviceType])
 }
 
 model Route {
@@ -132,30 +277,32 @@ model Route {
   slug          String  @unique
 }
 
-model BlogPost {
-  id          String   @id @default(cuid())
-  title       String
-  titleAr     String?
-  slug        String   @unique
-  excerpt     String
-  content     String   @db.Text
-  coverImage  String?
-  category    String
-  author      String   @default("Riyadh Taxi Team")
-  published   Boolean  @default(false)
-  publishedAt DateTime?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
 model Review {
   id        String   @id @default(cuid())
   userId    String
   user      User     @relation(fields: [userId], references: [id])
+  bookingId String?  @unique
+  booking   Booking? @relation(fields: [bookingId], references: [id])
   rating    Int
   comment   String
   approved  Boolean  @default(false)
   createdAt DateTime @default(now())
+}
+
+model BlogPost {
+  id          String    @id @default(cuid())
+  title       String
+  titleAr     String?
+  slug        String    @unique
+  excerpt     String
+  content     String    @db.Text
+  coverImage  String?
+  category    String
+  author      String    @default("Taxi Saudi Arabia Team")
+  published   Boolean   @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 
 model Account {

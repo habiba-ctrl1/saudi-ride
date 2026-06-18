@@ -11,9 +11,6 @@ export async function middleware(request: NextRequest) {
   if (pathname.startsWith('/ar/') || pathname === '/ar') {
     locale = "ar";
     strippedPath = pathname.substring(3) || "/";
-  } else if (pathname.startsWith('/ur/') || pathname === '/ur') {
-    locale = "ur";
-    strippedPath = pathname.substring(3) || "/";
   }
 
   // Check protected routes with NextAuth using the stripped pathname

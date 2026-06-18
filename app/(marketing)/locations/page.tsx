@@ -246,7 +246,7 @@ export default function LocationsPage() {
                 <div className="relative h-48 overflow-hidden">
                   <Image
                     src={loc.image}
-                    alt={`${loc.name} — Riyadh Taxi transfers`}
+                    alt={`${loc.name} — Taxi Saudi Arabia transfers`}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, 33vw"

@@ -1,11 +1,14 @@
 ﻿import { Metadata } from "next";
 import Image from "next/image";
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { serviceSchema, faqSchema } from "@/lib/schema";
 import Link from "next/link";
 import { Map, Clock, Compass, ChevronRight, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Tourism Transport & Charters | Riyadh Taxi",
-  description: "Explore Saudi Arabia's heritage and natural beauty. Private charters and guided transport to AlUla, NEOM, Abha, Taif, and more. Hourly and daily rates available.",
+  title: "Day Trip Car Hire in Saudi Arabia | AlUla, Taif, NEOM & More — Taxi Saudi Arabia",
+  description: "Hire a car with a driver for a day trip in Saudi Arabia. Explore AlUla, NEOM, Abha, Taif, and Diriyah with a local driver. Hourly and full-day rates available. Book online or on WhatsApp.",
 };
 
 const DESTINATIONS = [
@@ -25,6 +28,23 @@ const CHARTER_RATES = [
 export default function TourismChartersPage() {
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pb-24">
+      <JsonLd
+        data={serviceSchema({
+          name: "Tourism & Day Trip Car Hire",
+          description:
+            "Day trip car hire with a driver in Saudi Arabia to AlUla, NEOM, Abha, Taif, and Diriyah with hourly and full-day rates and a driver who waits at every stop.",
+          path: "/services/tourism",
+          serviceType: "Tourism Transport",
+          areaServed: ["AlUla", "NEOM", "Abha", "Taif"],
+        })}
+      />
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Services", href: "/services" },
+          { name: "Tourism & Day Trips", href: "/services/tourism" },
+        ]}
+      />
       {/* ─── HERO ─────────────────────────────────────────────────── */}
       <section className="relative pt-32 pb-20 overflow-hidden border-b border-[#C9A84C]/10">
         <div className="absolute inset-0 z-0">
@@ -46,7 +66,7 @@ export default function TourismChartersPage() {
             <span className="text-[#C9A84C]">Private Charters</span>
           </h1>
           <p className="max-w-2xl mx-auto text-sm md:text-base text-[#A1A1A6] leading-relaxed mb-10">
-            From the ancient ruins of AlUla to the cool mountains of Abha. Hire a private chauffeur by the hour or by the day to explore the Kingdom at your own pace.
+            From the ancient ruins of AlUla to the cool mountains of Abha. Hire a private driver by the hour or by the day to explore the Kingdom at your own pace.
           </p>
           <div className="flex justify-center gap-4">
             <Link
@@ -94,7 +114,7 @@ export default function TourismChartersPage() {
             <Clock className="h-10 w-10 text-[#C9A84C] mb-6" />
             <h3 className="font-heading text-2xl font-bold mb-4 text-[#F5F0E8]">Hourly Charters</h3>
             <p className="text-[#A1A1A6] text-sm leading-relaxed mb-6">
-              Perfect for city tours in Riyadh or Jeddah. Your chauffeur stays with you, waiting at every stop. Ideal for shopping trips, restaurant hopping, or visiting multiple museums in a single afternoon.
+              Perfect for city tours in Riyadh or Jeddah. Your driver stays with you, waiting at every stop. Ideal for shopping trips, restaurant hopping, or visiting multiple museums in a single afternoon.
             </p>
             <ul className="space-y-2 mb-8">
               <li className="flex gap-2 text-sm text-[#F5F0E8]"><CheckCircle2 className="h-4 w-4 text-[#C9A84C] shrink-0 mt-0.5" /> Minimum 4 hours</li>
@@ -105,7 +125,7 @@ export default function TourismChartersPage() {
             <Map className="h-10 w-10 text-[#C9A84C] mb-6" />
             <h3 className="font-heading text-2xl font-bold mb-4 text-[#F5F0E8]">Multi-Day Packages</h3>
             <p className="text-[#A1A1A6] text-sm leading-relaxed mb-6">
-              Essential for trips to AlUla, NEOM, or the Asir region. The chauffeur and vehicle are exclusively yours for consecutive days, giving you total freedom to explore remote areas.
+              Essential for trips to AlUla, NEOM, or the Asir region. The driver and vehicle are exclusively yours for consecutive days, giving you total freedom to explore remote areas.
             </p>
             <ul className="space-y-2 mb-8">
               <li className="flex gap-2 text-sm text-[#F5F0E8]"><CheckCircle2 className="h-4 w-4 text-[#C9A84C] shrink-0 mt-0.5" /> 10 to 12 hours of service per day</li>
@@ -156,6 +176,29 @@ export default function TourismChartersPage() {
             </Link>
         </div>
       </section>
+      {(() => {
+        const faqs = [
+          { question: "Do you offer hourly and full-day car hire?", answer: "Yes. You can hire a car with a driver by the hour or for a full day, with your driver waiting at every stop." },
+          { question: "Which destinations are popular for day trips?", answer: "AlUla, NEOM and Tabuk, Abha in Asir, Taif, and Diriyah are among the most requested day-trip destinations." },
+          { question: "Can the driver wait while I explore?", answer: "Yes. With charter bookings your driver stays with you throughout, so you never wait for a ride between stops." },
+        ];
+        return (
+          <>
+            <JsonLd data={faqSchema(faqs)} />
+            <section className="section-container max-w-4xl py-20 border-t border-[#C9A84C]/10">
+              <h2 className="font-heading text-3xl font-bold mb-12 text-center">Frequently Asked Questions</h2>
+              <div className="space-y-4">
+                {faqs.map((f, i) => (
+                  <div key={i} className="bg-[#111] border border-[#C9A84C]/15 rounded-2xl p-6">
+                    <h3 className="font-bold text-[#F5F0E8] mb-2">{f.question}</h3>
+                    <p className="text-sm text-[#A1A1A6] leading-relaxed">{f.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          </>
+        );
+      })()}
     </main>
   );
 }

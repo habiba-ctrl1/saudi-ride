@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
-export type Language = "en" | "ar" | "ur";
+export type Language = "en" | "ar";
 
 type LanguageContextType = {
   language: Language;
@@ -23,12 +23,10 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     if (pathname) {
       if (pathname.startsWith("/ar/") || pathname === "/ar") {
         setLanguageState("ar");
-      } else if (pathname.startsWith("/ur/") || pathname === "/ur") {
-        setLanguageState("ur");
       } else {
         // Fall back to saved / cookie language
         const savedLang = localStorage.getItem("language") as Language;
-        if (savedLang && ["en", "ar", "ur"].includes(savedLang)) {
+        if (savedLang && ["en", "ar"].includes(savedLang)) {
           setLanguageState(savedLang);
         } else {
           // Check cookies
@@ -36,7 +34,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
           const langCookie = cookies.find((c) => c.trim().startsWith("language="));
           if (langCookie) {
             const val = langCookie.split("=")[1] as Language;
-            if (["en", "ar", "ur"].includes(val)) {
+            if (["en", "ar"].includes(val)) {
               setLanguageState(val);
             }
           }
@@ -57,16 +55,12 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       let cleanPath = pathname;
       if (pathname.startsWith("/ar/") || pathname === "/ar") {
         cleanPath = pathname.substring(3) || "/";
-      } else if (pathname.startsWith("/ur/") || pathname === "/ur") {
-        cleanPath = pathname.substring(3) || "/";
       }
 
       // 2. Build the new path with the selected locale
       let newPath = cleanPath;
       if (lang === "ar") {
         newPath = `/ar${cleanPath === "/" ? "" : cleanPath}`;
-      } else if (lang === "ur") {
-        newPath = `/ur${cleanPath === "/" ? "" : cleanPath}`;
       }
 
       // 3. Perform push

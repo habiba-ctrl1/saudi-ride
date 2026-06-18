@@ -41,7 +41,7 @@ export async function POST(request: Request) {
     // Send OTP via Twilio if configured
     if (client && twilioPhoneNumber) {
       await client.messages.create({
-        body: `Your Riyadh Taxi login code is: ${otpCode}. It expires in 10 minutes.`,
+        body: `Your Taxi Saudi Arabia login code is: ${otpCode}. It expires in 10 minutes.`,
         from: twilioPhoneNumber,
         to: phone,
       });

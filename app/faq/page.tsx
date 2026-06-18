@@ -34,7 +34,7 @@ const translations: Record<string, {
   en: {
     badge: "Information Desk",
     title: "Frequently Asked Questions",
-    description: "Everything you need to know about reserving private VIP chauffeur services for spiritual, business, or family travel in Saudi Arabia.",
+    description: "Everything you need to know about booking a taxi in Saudi Arabia — airport transfers, Umrah trips, intercity rides, prices, and driver details.",
     searchPlaceholder: "Search questions or keywords...",
     allCategories: "All Categories",
     noResults: "No questions match your search query. Try typing another keyword or speak directly with our booking desk.",
@@ -87,7 +87,7 @@ const translations: Record<string, {
         faqs: [
           {
             question: "How do you coordinate airport arrivals?",
-            answer: "We track all flights in real-time. Your assigned chauffeur will wait at the designated arrivals terminal with a personalized digital or physical name board precisely as your flight lands."
+            answer: "We track all flights in real-time. Your driver will wait at the arrivals terminal with a name sign when your flight lands. If delayed, your driver continues to wait — the first 90 minutes of waiting are free."
           },
           {
             question: "What happens if my flight is delayed?",
@@ -114,7 +114,7 @@ const translations: Record<string, {
           },
           {
             question: "Are drivers trained in pilgrim route protocols?",
-            answer: "Our professional chauffeurs are highly experienced local experts who are intimately familiar with pilgrim logistics, Haram access points, and prayer schedules."
+            answer: "Our drivers are experienced local professionals who know all Haram access points, Meeqat locations, and prayer time schedules. They are trained to support pilgrims throughout the full Umrah journey."
           }
         ]
       },

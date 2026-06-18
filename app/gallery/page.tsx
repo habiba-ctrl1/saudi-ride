@@ -30,7 +30,7 @@ const GALLERY_ITEMS = [
     type: "image",
     src: "https://images.unsplash.com/photo-1603386329225-868f9b1ee6c9?auto=format&fit=crop&w=1200&q=80",
     title: "VIP Airport Meet & Greet",
-    description: "Professional chauffeurs waiting at Jeddah Terminal 1 arrivals with customized name boards and luggage assistance.",
+    description: "Professional drivers waiting at Jeddah Terminal 1 arrivals with customized name boards and luggage assistance.",
   },
   {
     id: "g3",
@@ -110,7 +110,7 @@ const GALLERY_ITEMS = [
     type: "image",
     src: "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80",
     title: "Business Delegation Support",
-    description: "Discreet and professional chauffeur service for visiting dignitaries and C-suite executives.",
+    description: "Discreet and professional driver service for visiting dignitaries and C-suite executives.",
   },
 ];
 
@@ -262,7 +262,7 @@ export default function GalleryPage() {
           </h2>
           <p className="text-sm md:text-base text-[#A1A1A6] max-w-2xl mx-auto mb-8">
             Whether it&apos;s a VIP airport transfer, a corporate delegation, or a spiritual Umrah journey, 
-            Riyadh Taxi guarantees an unparalleled travel experience.
+            Taxi Saudi Arabia guarantees an unparalleled travel experience.
           </p>
           
           <div className="flex flex-wrap justify-center gap-4">

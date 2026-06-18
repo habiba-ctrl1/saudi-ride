@@ -1,131 +1,247 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useLanguage } from "@/lib/context/LanguageContext";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
-import { Menu, X, Phone } from "lucide-react";
+import {
+  Menu, X, ChevronDown, ChevronRight, Car, Landmark, Plane, Route as RouteIcon,
+  MapPin, Handshake, UserPlus, MessageCircle, ArrowRight,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { contactConfig } from "@/lib/config/contact";
 
-const translations = {
-  en: {
-    services: "Services",
-    fleet: "Fleet",
-    routes: "Routes",
-    locations: "Locations",
-    blog: "Blog",
-    contact: "Contact",
-    bookNow: "Book Now",
-    callUs: "Call 24/7",
-    whatsappBook: "Book on WhatsApp",
+// ── Brand colors ──
+const GREEN = "#16A34A";
+const YELLOW = "#FACC15";
+
+const whatsappLink = `https://wa.me/${contactConfig.whatsappNumber}`;
+
+// ── Transportation Services mega-menu ──
+const TRANSPORT_MENU: {
+  label: string;
+  icon: typeof Car;
+  href?: string;
+  children?: { label: string; href: string }[];
+}[] = [
+  {
+    label: "Taxi Services",
+    icon: Car,
+    children: [
+      { label: "Makkah Taxi Service", href: "/locations/makkah" },
+      { label: "Madinah Taxi Service", href: "/locations/madinah" },
+      { label: "Jeddah Taxi Service", href: "/locations/jeddah" },
+      { label: "Riyadh Taxi Service", href: "/locations/riyadh" },
+    ],
   },
-  ar: {
-    services: "الخدمات",
-    fleet: "الأسطول",
-    routes: "المسارات",
-    locations: "المواقع",
-    blog: "المدونة",
-    contact: "اتصل بنا",
-    bookNow: "احجز الآن",
-    callUs: "اتصل بنا 24/7",
-    whatsappBook: "احجز عبر واتساب",
+  {
+    label: "Ziyarat Taxi",
+    icon: Landmark,
+    children: [
+      { label: "Makkah Ziyarat", href: "/services/makkah-ziyarat" },
+      { label: "Madinah Ziyarat", href: "/services/madinah-ziyarat" },
+    ],
   },
-  ur: {
-    services: "خدمات",
-    fleet: "گاڑیاں",
-    routes: "روٹس",
-    locations: "مقامات",
-    blog: "بلاگ",
-    contact: "رابطہ کریں",
-    bookNow: "ابھی بک کریں",
-    callUs: "کال کریں 24/7",
-    whatsappBook: "واٹس ایپ بکنگ",
-  },
-};
+  { label: "Umrah Taxi Services", icon: Landmark, href: "/services/umrah-transport" },
+  { label: "Airport Transfers", icon: Plane, href: "/services/airport-transfers" },
+  { label: "Intercity Taxi", icon: MapPin, href: "/services/intercity" },
+];
+
+const ROUTES_MENU = [
+  { label: "Jeddah Airport → Makkah", href: "/routes/jeddah-airport-to-makkah" },
+  { label: "Makkah → Madinah", href: "/routes/makkah-to-madinah" },
+  { label: "Jeddah → Madinah", href: "/routes/jeddah-to-madinah" },
+  { label: "Madinah → Jeddah Airport", href: "/routes/madinah-to-jeddah" },
+  { label: "Riyadh → Dammam", href: "/routes/riyadh-to-dammam" },
+];
+
+const PARTNERS_MENU = [
+  { label: "Partner With Us", href: "/partners", icon: Handshake, desc: "Grow your business with us" },
+  { label: "Driver Registration", href: "/partners/driver-registration", icon: UserPlus, desc: "Join our driver network" },
+];
 
 export function Navbar() {
-  const { language } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const pathname = usePathname();
 
-  const t = translations[language];
+  const isHomepage = pathname === "/" || pathname === "/ar";
+  const bookHref = isHomepage ? "#booking-console" : "/book";
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 80) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setIsScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const navLinks = [
-    { href: "/services", label: t.services },
-    { href: "/fleet", label: t.fleet },
-    { href: "/routes", label: t.routes },
-    { href: "/locations", label: t.locations },
-    { href: "/contact", label: t.contact },
-  ];
+  const navLinkCls =
+    "relative flex items-center gap-1 text-[0.82rem] font-semibold text-white/95 hover:text-[#FACC15] transition-colors duration-200";
 
   return (
     <>
       <header
-        className={cn(
-          "fixed top-0 inset-x-0 z-40 transition-all duration-500",
-          isScrolled
-            ? "bg-[#0A0A0A]/95 border-b border-[#C9A84C]/15 py-4 shadow-2xl backdrop-blur-md"
-            : "bg-transparent py-6"
-        )}
+        style={{
+          backgroundColor: GREEN,
+          boxShadow: isScrolled ? "0 4px 20px rgba(0,0,0,0.18)" : "0 1px 0 rgba(255,255,255,0.08)",
+        }}
+        className={cn("fixed top-0 inset-x-0 z-50 transition-all duration-300", isScrolled ? "py-2.5" : "py-3.5")}
       >
-        <div className="section-container flex items-center justify-between">
-          {/* Logo with gold crescent */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <span className="relative flex h-8 w-8 items-center justify-center rounded-full border border-[#C9A84C] bg-[#0A0A0A] shadow-[0_0_10px_rgba(201,168,76,0.3)] transition-transform duration-500 group-hover:rotate-12">
-              <span className="text-sm font-semibold text-[#C9A84C] font-heading">🌙</span>
+        <div className="section-container flex items-center justify-between gap-4">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-3 flex-shrink-0 group">
+            <span className="flex items-center justify-center rounded-2xl bg-white p-1.5 shadow-md ring-1 ring-black/5 transition-transform duration-300 group-hover:scale-105">
+              <Image
+                src="/logo-transparent.png"
+                alt="Taxi Saudi Arabia Logo"
+                width={220}
+                height={72}
+                className="h-14 w-auto object-contain"
+                priority
+              />
             </span>
-            <div className="flex flex-col">
-              <span className="font-heading text-lg font-bold tracking-[0.18em] text-[#F5F0E8] group-hover:text-[#C9A84C] transition-colors">
-                Riyadh Taxi
+            <div className="hidden sm:flex flex-col leading-tight">
+              <span className="font-heading text-[1.15rem] font-extrabold text-white tracking-tight whitespace-nowrap">
+                Taxi Saudi Arabia
               </span>
-              <span className="text-[0.55rem] uppercase tracking-[0.4em] text-[#C9A84C] -mt-1 font-sans">
-                Chauffeur Service
+              <span className="text-[0.6rem] uppercase tracking-[0.3em] font-semibold text-[#FDE68A] whitespace-nowrap">
+                Taxi &amp; Car Service
               </span>
             </div>
           </Link>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-xs font-semibold uppercase tracking-widest text-[#F5F0E8] transition-colors duration-300 hover:text-[#C9A84C]"
-              >
-                {link.label}
-              </Link>
-            ))}
+          {/* Desktop Nav */}
+          <nav className="hidden xl:flex items-center gap-5 2xl:gap-6">
+            <Link href="/" className={navLinkCls}>Home</Link>
+
+            {/* Transportation Services (mega dropdown) */}
+            <div className="relative group">
+              <button className={cn(navLinkCls, "py-4")}>
+                Transportation Services
+                <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180" />
+              </button>
+              <div className="invisible opacity-0 translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 absolute left-0 top-full pt-1">
+                <ul className="w-64 rounded-2xl bg-white shadow-2xl border border-black/5 p-2">
+                  {TRANSPORT_MENU.map((item) => (
+                    <li key={item.label} className="relative group/sub">
+                      {item.children ? (
+                        <>
+                          <button className="w-full flex items-center justify-between gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-[#0F172A] hover:bg-[#F0FDF4] hover:text-[#16A34A] transition-colors">
+                            <span className="flex items-center gap-3">
+                              <item.icon className="h-4 w-4 text-[#16A34A]" />
+                              {item.label}
+                            </span>
+                            <ChevronRight className="h-4 w-4 text-[#16A34A]" />
+                          </button>
+                          {/* nested flyout */}
+                          <div className="invisible opacity-0 group-hover/sub:visible group-hover/sub:opacity-100 transition-all duration-150 absolute left-full top-0 pl-2">
+                            <ul className="w-60 rounded-2xl bg-white shadow-2xl border border-black/5 p-2">
+                              {item.children.map((c) => (
+                                <li key={c.href}>
+                                  <Link href={c.href} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-[#0F172A] hover:bg-[#F0FDF4] hover:text-[#16A34A] transition-colors">
+                                    <Landmark className="h-4 w-4 text-[#16A34A]" />
+                                    {c.label}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </>
+                      ) : (
+                        <Link href={item.href!} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-[#0F172A] hover:bg-[#F0FDF4] hover:text-[#16A34A] transition-colors">
+                          <item.icon className="h-4 w-4 text-[#16A34A]" />
+                          {item.label}
+                        </Link>
+                      )}
+                    </li>
+                  ))}
+                  <li className="mt-1 border-t border-black/5 pt-1">
+                    <Link href="/services" className="flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold text-[#16A34A] hover:bg-[#F0FDF4]">
+                      View All Services <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Taxi Routes dropdown */}
+            <div className="relative group">
+              <button className={cn(navLinkCls, "py-4")}>
+                Taxi Routes
+                <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180" />
+              </button>
+              <div className="invisible opacity-0 translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 absolute left-0 top-full pt-1">
+                <ul className="w-64 rounded-2xl bg-white shadow-2xl border border-black/5 p-2">
+                  {ROUTES_MENU.map((r) => (
+                    <li key={r.href}>
+                      <Link href={r.href} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-[#0F172A] hover:bg-[#F0FDF4] hover:text-[#16A34A] transition-colors">
+                        <RouteIcon className="h-4 w-4 text-[#16A34A]" />
+                        {r.label}
+                      </Link>
+                    </li>
+                  ))}
+                  <li className="mt-1 border-t border-black/5 pt-1">
+                    <Link href="/routes" className="flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold text-[#16A34A] hover:bg-[#F0FDF4]">
+                      View All Routes <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Partners dropdown */}
+            <div className="relative group">
+              <button className={cn(navLinkCls, "py-4")}>
+                Partners
+                <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180" />
+              </button>
+              <div className="invisible opacity-0 translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 absolute left-0 top-full pt-1">
+                <ul className="w-64 rounded-2xl bg-white shadow-2xl border border-black/5 p-2">
+                  {PARTNERS_MENU.map((p) => (
+                    <li key={p.href}>
+                      <Link href={p.href} className="flex items-start gap-3 rounded-xl px-3 py-2.5 hover:bg-[#F0FDF4] transition-colors group/p">
+                        <p.icon className="h-4 w-4 text-[#16A34A] mt-0.5" />
+                        <span>
+                          <span className="block text-sm font-semibold text-[#0F172A] group-hover/p:text-[#16A34A]">{p.label}</span>
+                          <span className="block text-[0.7rem] text-gray-500">{p.desc}</span>
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <Link href="/blog" className={navLinkCls}>Blog</Link>
+            <Link href="/about" className={navLinkCls}>About Us</Link>
+            <Link href="/contact" className={navLinkCls}>Contact Us</Link>
           </nav>
 
-          {/* Right side actions */}
-          <div className="hidden lg:flex items-center gap-5">
+          {/* Right: actions */}
+          <div className="hidden xl:flex items-center gap-2.5 flex-shrink-0">
             <LanguageSwitcher />
-            
             <Link
-              href="#booking"
-              className="relative inline-flex items-center justify-center overflow-hidden rounded-full border border-[#C9A84C] bg-transparent px-6 py-2.5 text-xs font-bold uppercase tracking-widest text-[#C9A84C] shadow-[0_0_15px_rgba(201,168,76,0.1)] transition-all duration-300 hover:bg-[#C9A84C] hover:text-[#0A0A0A] hover:shadow-[0_0_25px_rgba(201,168,76,0.4)]"
+              href={bookHref}
+              style={{ backgroundColor: YELLOW, color: "#0F172A" }}
+              className="inline-flex items-center gap-1.5 rounded-full px-4 py-2.5 text-[0.74rem] font-bold whitespace-nowrap transition-transform hover:scale-105"
             >
-              {t.bookNow}
+              Book Now <ArrowRight className="h-4 w-4 flex-shrink-0" />
             </Link>
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2.5 text-[0.74rem] font-bold text-[#16A34A] whitespace-nowrap transition-transform hover:scale-105"
+            >
+              <MessageCircle className="h-4 w-4 flex-shrink-0" /> WhatsApp
+            </a>
           </div>
 
-          {/* Mobile hamburger button */}
+          {/* Mobile hamburger */}
           <button
-            onClick={() => setIsMobileMenuOpen(true)}
-            className="flex lg:hidden items-center justify-center p-2 rounded-full border border-[#C9A84C]/35 bg-black/20 text-[#F5F0E8] hover:text-[#C9A84C] hover:border-[#C9A84C] transition-all"
+            onClick={() => setIsMobileOpen(true)}
+            className="flex xl:hidden items-center justify-center h-10 w-10 rounded-full bg-white/15 text-white hover:bg-white/25 transition-colors"
             aria-label="Open menu"
           >
             <Menu className="h-5 w-5" />
@@ -133,86 +249,75 @@ export function Navbar() {
         </div>
       </header>
 
-      {/* Mobile full-screen menu overlay */}
+      {/* Mobile drawer */}
       <AnimatePresence>
-        {isMobileMenuOpen && (
+        {isMobileOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-50 flex flex-col bg-[#0A0A0A]/98 backdrop-blur-lg"
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[60] xl:hidden overflow-y-auto"
+            style={{ backgroundColor: "#FFFFFF" }}
           >
-            {/* Header in overlay */}
-            <div className="flex items-center justify-between px-6 py-6 border-b border-[#C9A84C]/10">
-              <Link href="/" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
-                <span className="text-sm font-semibold text-[#C9A84C] font-heading">🌙</span>
-                <span className="font-heading text-base font-bold tracking-widest text-[#F5F0E8]">
-                  Riyadh Taxi
-                </span>
-              </Link>
-              <button
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2 rounded-full border border-[#C9A84C]/30 text-[#F5F0E8] hover:text-[#C9A84C] hover:border-[#C9A84C]"
-                aria-label="Close menu"
-              >
+            <div className="flex items-center justify-between px-5 py-4" style={{ backgroundColor: GREEN }}>
+              <span className="font-heading text-lg font-extrabold text-white">Taxi Saudi Arabia</span>
+              <button onClick={() => setIsMobileOpen(false)} className="h-10 w-10 rounded-full bg-white/15 text-white flex items-center justify-center" aria-label="Close menu">
                 <X className="h-5 w-5" />
               </button>
             </div>
 
-            {/* Menu Links */}
-            <div className="flex-1 flex flex-col justify-center px-8 space-y-6">
-              {navLinks.map((link, idx) => (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.05 }}
-                  key={link.href}
-                >
-                  <Link
-                    href={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block text-2xl font-bold uppercase tracking-widest text-[#F5F0E8] hover:text-[#C9A84C] transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </motion.div>
-              ))}
+            <div className="px-5 py-6 space-y-6" onClick={() => setIsMobileOpen(false)}>
+              <Link href="/" className="block text-base font-bold text-[#0F172A]">Home</Link>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: navLinks.length * 0.05 }}
-                className="pt-6 flex items-center justify-between border-t border-[#C9A84C]/10"
-              >
-                <span className="text-xs uppercase tracking-widest text-muted-foreground">Select Language</span>
-                <LanguageSwitcher />
-              </motion.div>
-            </div>
+              <div>
+                <p className="text-[0.7rem] uppercase tracking-wider font-bold text-[#16A34A] mb-2">Transportation Services</p>
+                <div className="space-y-1.5 pl-1">
+                  {TRANSPORT_MENU.flatMap((item) =>
+                    item.children
+                      ? item.children.map((c) => (
+                          <Link key={c.href} href={c.href} className="block text-sm text-[#334155] py-1">{c.label}</Link>
+                        ))
+                      : [<Link key={item.href} href={item.href!} className="block text-sm text-[#334155] py-1">{item.label}</Link>]
+                  )}
+                  <Link href="/services" className="block text-sm font-semibold text-[#16A34A] py-1">View All Services →</Link>
+                </div>
+              </div>
 
-            {/* Overlay Contact Footer */}
-            <div className="p-8 border-t border-[#C9A84C]/10 space-y-4 bg-black/40">
-              {/* Phone connection */}
-              <a
-                href="tel:+966500123456"
-                className="flex items-center justify-center gap-3 w-full rounded-full border border-[#C9A84C]/40 py-3.5 text-sm font-semibold tracking-wider text-[#F5F0E8] hover:border-[#C9A84C] transition-all"
-              >
-                <Phone className="h-4 w-4 text-[#C9A84C]" />
-                <span>+966 50 012 3456</span>
-              </a>
+              <div>
+                <p className="text-[0.7rem] uppercase tracking-wider font-bold text-[#16A34A] mb-2">Taxi Routes</p>
+                <div className="space-y-1.5 pl-1">
+                  {ROUTES_MENU.map((r) => (
+                    <Link key={r.href} href={r.href} className="block text-sm text-[#334155] py-1">{r.label}</Link>
+                  ))}
+                  <Link href="/routes" className="block text-sm font-semibold text-[#16A34A] py-1">View All Routes →</Link>
+                </div>
+              </div>
 
-              {/* WhatsApp VIP booking button */}
-              <a
-                href={`https://wa.me/966500123456?text=${encodeURIComponent("Hello, I would like to book a VIP transfer")}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-3 w-full rounded-full bg-[#25D366] py-3.5 text-sm font-bold tracking-wider text-white shadow-lg shadow-[#25d366]/20"
-              >
-                <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
-                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.262 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.97C16.528 2.008 14.056.979 11.44.979c-5.437 0-9.863 4.374-9.869 9.803-.002 1.718.455 3.393 1.324 4.882l-.99 3.619 3.71-.973c1.45.79 3.09 1.205 4.673 1.205l.004-.002zm11.238-7.798c-.3-.15-1.772-.875-2.046-.975-.276-.1-.476-.15-.677.15-.202.3-.777.975-.952 1.175-.177.2-.352.225-.652.075-.3-.15-1.265-.467-2.41-1.485-.89-.794-1.49-1.775-1.665-2.075-.175-.3-.019-.463.13-.612.135-.133.3-.35.45-.525.15-.175.2-.3.3-.5.1-.2.05-.375-.025-.525-.075-.15-.676-1.63-.927-2.235-.245-.589-.49-.509-.677-.509-.175-.001-.375-.001-.575-.001-.2 0-.525.075-.8.375-.276.3-1.052 1.025-1.052 2.5s1.077 2.9 1.227 3.1c.15.2 2.12 3.235 5.136 4.536.717.31 1.277.495 1.711.633.721.23 1.377.198 1.896.121.578-.088 1.773-.725 2.022-1.425.249-.7 2.49-3.5 2.49-3.5-.175-.075-.35-.15-.65-.3zm0 0" />
-                </svg>
-                <span>{t.whatsappBook}</span>
-              </a>
+              <div>
+                <p className="text-[0.7rem] uppercase tracking-wider font-bold text-[#16A34A] mb-2">Partners</p>
+                <div className="space-y-1.5 pl-1">
+                  {PARTNERS_MENU.map((p) => (
+                    <Link key={p.href} href={p.href} className="block text-sm text-[#334155] py-1">{p.label}</Link>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <Link href="/blog" className="block text-base font-bold text-[#0F172A]">Blog</Link>
+                <Link href="/about" className="block text-base font-bold text-[#0F172A]">About Us</Link>
+                <Link href="/contact" className="block text-base font-bold text-[#0F172A]">Contact Us</Link>
+              </div>
+
+              <div className="flex flex-col gap-3 pt-2">
+                <Link href={bookHref} style={{ backgroundColor: YELLOW }} className="flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold text-[#0F172A]">
+                  Book Your Ride Now <ArrowRight className="h-4 w-4" />
+                </Link>
+                <a href={whatsappLink} target="_blank" rel="noopener noreferrer" style={{ backgroundColor: GREEN }} className="flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold text-white">
+                  <MessageCircle className="h-4 w-4" /> WhatsApp Us
+                </a>
+                <div className="pt-2"><LanguageSwitcher /></div>
+              </div>
             </div>
           </motion.div>
         )}

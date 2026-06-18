@@ -1,11 +1,14 @@
 ﻿import { Metadata } from "next";
 import Image from "next/image";
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { serviceSchema, faqSchema } from "@/lib/schema";
 import Link from "next/link";
 import { Globe, FileText, Clock, Car, CheckCircle2, AlertTriangle } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "GCC Border Crossing Taxi Service | Riyadh Taxi",
-  description: "Seamless VIP cross-border transfers from Saudi Arabia to Bahrain, UAE, Qatar, Kuwait, and Jordan. We handle the driving and border logistics.",
+  title: "GCC Cross-Border Taxi Service | Saudi Arabia to Bahrain, UAE, Qatar & Kuwait — Taxi Saudi Arabia",
+  description: "Book a cross-border taxi from Saudi Arabia to Bahrain, UAE, Qatar, Kuwait, or Jordan. Fixed prices, experienced drivers, smooth border crossings. Available 24/7.",
 };
 
 const BORDERS = [
@@ -59,6 +62,23 @@ const BORDERS = [
 export default function BorderCrossingsPage() {
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pb-24">
+      <JsonLd
+        data={serviceSchema({
+          name: "GCC Cross-Border Taxi Service",
+          description:
+            "Cross-border taxi service from Saudi Arabia to Bahrain, UAE, Qatar, and Kuwait with experienced drivers familiar with GCC border procedures.",
+          path: "/services/border-crossings",
+          serviceType: "Cross-Border Transfer",
+          areaServed: ["Saudi Arabia", "Bahrain", "United Arab Emirates", "Qatar", "Kuwait"],
+        })}
+      />
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Services", href: "/services" },
+          { name: "Border Crossings", href: "/services/border-crossings" },
+        ]}
+      />
       {/* ─── HERO ─────────────────────────────────────────────────── */}
       <section className="relative pt-32 pb-20 overflow-hidden border-b border-[#C9A84C]/10">
         <div className="absolute inset-0 z-0">
@@ -80,7 +100,7 @@ export default function BorderCrossingsPage() {
             <span className="text-[#C9A84C]">Border Crossings</span>
           </h1>
           <p className="max-w-2xl mx-auto text-sm md:text-base text-[#A1A1A6] leading-relaxed mb-10">
-            Skip the flights. Travel directly from your doorstep in Saudi Arabia to Bahrain, UAE, Qatar, Kuwait, or Jordan in a private VIP vehicle. Our experienced chauffeurs handle the border logistics.
+            Skip the flights. Travel directly from your doorstep in Saudi Arabia to Bahrain, UAE, Qatar, Kuwait, or Jordan by car. Our experienced drivers handle all border logistics for you.
           </p>
           <div className="flex justify-center gap-4">
             <Link
@@ -181,6 +201,29 @@ export default function BorderCrossingsPage() {
           ))}
         </div>
       </section>
+      {(() => {
+        const faqs = [
+          { question: "Do I need a visa for cross-border trips from Saudi Arabia?", answer: "Yes. You need a valid visa or entry permit for the destination country (Bahrain, UAE, Qatar, or Kuwait). Our drivers handle the vehicle border paperwork, but personal travel documents are your responsibility." },
+          { question: "How long does the King Fahd Causeway crossing to Bahrain take?", answer: "The drive from Dammam or Khobar to Bahrain takes about 1 to 1.5 hours, plus border processing which can range from 30 minutes to 2 hours depending on traffic." },
+          { question: "Can the same taxi wait and bring me back?", answer: "Yes. We offer round-trip and multi-day cross-border bookings where your driver waits or returns on a scheduled date." },
+        ];
+        return (
+          <>
+            <JsonLd data={faqSchema(faqs)} />
+            <section className="section-container max-w-4xl py-20 border-t border-[#C9A84C]/10">
+              <h2 className="font-heading text-3xl font-bold mb-12 text-center">Frequently Asked Questions</h2>
+              <div className="space-y-4">
+                {faqs.map((f, i) => (
+                  <div key={i} className="bg-[#111] border border-[#C9A84C]/15 rounded-2xl p-6">
+                    <h3 className="font-bold text-[#F5F0E8] mb-2">{f.question}</h3>
+                    <p className="text-sm text-[#A1A1A6] leading-relaxed">{f.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          </>
+        );
+      })()}
     </main>
   );
 }

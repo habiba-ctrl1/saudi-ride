@@ -13,6 +13,6 @@ export default function robots(): MetadataRoute.Robots {
         "/static/",
       ],
     },
-    sitemap: "https://riyadhtaxi.com/sitemap.xml",
+    sitemap: "https://taxisaudiarabia.com/sitemap.xml",
   };
 }

@@ -27,8 +27,8 @@ export async function POST(request: Request) {
     let bookingRef = paymentData.metadata?.bookingRef || paymentData.metadata?.booking_ref;
 
     if (!bookingRef && paymentData.description) {
-      // Fallback: parse ref from description e.g. "Riyadh Taxi Booking Ref: RT-2026-0001"
-      const match = paymentData.description.match(/(RT-\d{4}-\d+|LXT-\d{4}-\d+|RT-[A-Za-z0-9-]+)/);
+      // Fallback: parse ref from description e.g. "Taxi Saudi Arabia — TSA-2026-001234"
+      const match = paymentData.description.match(/(TSA-\d{4}-\d+|RT-\d{4}-\d+|LXT-\d{4}-\d+|TSA-[A-Za-z0-9-]+)/);
       if (match) {
         bookingRef = match[0];
       }

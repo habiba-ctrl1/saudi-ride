@@ -1,9 +1,12 @@
 ﻿import { Metadata } from "next";
 import Image from "next/image";
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { serviceSchema, faqSchema } from "@/lib/schema";
 import { Building2, ReceiptText, ShieldCheck, UserCheck, Check } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Corporate Taxi Accounts & B2B Transport | Riyadh Taxi",
+  title: "Corporate Taxi Accounts & B2B Transport | Taxi Saudi Arabia",
   description: "Executive B2B transport solutions in Saudi Arabia. Monthly invoicing, ZATCA compliant receipts, priority dispatch, and dedicated account managers.",
 };
 
@@ -17,6 +20,23 @@ const FEATURES = [
 export default function CorporateAccountsPage() {
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pb-24">
+      <JsonLd
+        data={serviceSchema({
+          name: "Corporate Taxi Accounts & B2B Transport",
+          description:
+            "Corporate taxi accounts and B2B transport solutions in Saudi Arabia with monthly ZATCA-compliant invoicing, dedicated account managers, and priority dispatch.",
+          path: "/services/corporate",
+          serviceType: "Corporate Transport",
+          areaServed: ["Saudi Arabia"],
+        })}
+      />
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Services", href: "/services" },
+          { name: "Corporate Accounts", href: "/services/corporate" },
+        ]}
+      />
       {/* ─── HERO ─────────────────────────────────────────────────── */}
       <section className="relative pt-32 pb-20 overflow-hidden border-b border-[#C9A84C]/10">
         <div className="absolute inset-0 z-0">
@@ -170,6 +190,29 @@ export default function CorporateAccountsPage() {
           </form>
         </div>
       </section>
+      {(() => {
+        const faqs = [
+          { question: "How does monthly corporate billing work?", answer: "Your company is invoiced once at month-end with a consolidated, ZATCA-compliant statement covering all rides, instead of paying per trip." },
+          { question: "Can multiple employees book under one account?", answer: "Yes. Corporate accounts support multiple authorized bookers and travelers under a single billing profile with a dedicated account manager." },
+          { question: "Do corporate accounts get priority during peak times?", answer: "Yes. Corporate bookings receive priority vehicle allocation during rush hours and major events." },
+        ];
+        return (
+          <>
+            <JsonLd data={faqSchema(faqs)} />
+            <section className="section-container max-w-4xl py-20 border-t border-[#C9A84C]/10">
+              <h2 className="font-heading text-3xl font-bold mb-12 text-center">Frequently Asked Questions</h2>
+              <div className="space-y-4">
+                {faqs.map((f, i) => (
+                  <div key={i} className="bg-[#111] border border-[#C9A84C]/15 rounded-2xl p-6">
+                    <h3 className="font-bold text-[#F5F0E8] mb-2">{f.question}</h3>
+                    <p className="text-sm text-[#A1A1A6] leading-relaxed">{f.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          </>
+        );
+      })()}
     </main>
   );
 }

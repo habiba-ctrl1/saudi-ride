@@ -50,7 +50,7 @@ export default function PrivacyPolicyPage() {
               <span>1. Overview & Scope</span>
             </h2>
             <p>
-              At Riyadh Taxi, we respect and safeguard the privacy of our distinguished corporate clients, executive passengers, and pilgrims. This Privacy Policy details how we collect, process, and protect your personal information when you use our online reservation consoles, mobile portals, and private chauffeur dispatch channels across the Kingdom of Saudi Arabia.
+              At Taxi Saudi Arabia, we respect and safeguard the privacy of our distinguished corporate clients, executive passengers, and pilgrims. This Privacy Policy details how we collect, process, and protect your personal information when you use our online reservation consoles, mobile portals, and private chauffeur dispatch channels across the Kingdom of Saudi Arabia.
             </p>
           </section>
 
@@ -102,7 +102,7 @@ export default function PrivacyPolicyPage() {
               <span>5. Passenger Rights</span>
             </h2>
             <p>
-              Under Saudi Arabian privacy legislation, you maintain full right to access your stored profiles, request data corrections, demand erasure, or opt-out of notifications at any point. To execute your privacy rights, please reach out to our concierge legal desk at <a href="mailto:legal@riyadhtaxi.com" className="text-[#C9A84C] font-semibold underline">legal@riyadhtaxi.com</a>.
+              Under Saudi Arabian privacy legislation, you maintain full right to access your stored profiles, request data corrections, demand erasure, or opt-out of notifications at any point. To execute your privacy rights, please reach out to our concierge legal desk at <a href="mailto:legal@taxisaudiarabia.com" className="text-[#C9A84C] font-semibold underline">legal@taxisaudiarabia.com</a>.
             </p>
           </section>
 

@@ -61,7 +61,7 @@ const translations = {
       { value: "umrah", label: "Umrah Pilgrimage Transport" },
       { value: "intercity", label: "Intercity Fixed Journey" },
       { value: "corporate", label: "Corporate Executive Travel" },
-      { value: "hourly", label: "Hourly Chauffeur Charter" }
+      { value: "hourly", label: "Hourly Car Hire with Driver" }
     ]
   },
   ar: {
@@ -344,7 +344,7 @@ export default function ContactPage() {
             >
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115949.20815152864!2d46.60222045147572!3d24.713551690013098!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03890d489301%3A0x8e79f1851173875c!2sAl%20Olaya%2C%20Riyadh%20Saudi%20Arabia!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
-                className="w-full h-full border-0 grayscale invert opacity-80"
+                className="w-full h-full border-0 grayscale opacity-90"
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
