@@ -1,16 +1,10 @@
-import { PrismaClient, VehicleType } from "@prisma/client";
+import { VehicleType } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 
-const prismaClientSingleton = () => {
-  return new PrismaClient();
-};
-
-declare global {
-  var prismaGlobal: undefined | ReturnType<typeof prismaClientSingleton>;
-}
-
-export const db = globalThis.prismaGlobal ?? prismaClientSingleton();
-
-if (process.env.NODE_ENV !== "production") globalThis.prismaGlobal = db;
+// Single shared Prisma instance — `db` is just an alias for `prisma`
+// so we never open two separate connection pools (important on
+// Supabase free-tier where connections are limited).
+export const db = prisma;
 
 export async function ensureVehiclesSeeded() {
   try {

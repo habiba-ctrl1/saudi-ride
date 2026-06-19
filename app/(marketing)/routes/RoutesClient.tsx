@@ -140,7 +140,7 @@ export default function RoutesClient({ initialRoutes }: { initialRoutes: Route[]
               <div className="col-span-full py-12 text-center text-[#A1A1A6]">
                 <p>No routes found matching your filters.</p>
                 <button 
-                  onClick={() => { setDepartureCity("All"); setPriceRange("All"); }}
+                  onClick={() => { setDepartureCity("All"); setDestinationCity("All"); setPriceRange("All"); }}
                   className="mt-4 text-[#C9A84C] hover:underline text-sm"
                 >
                   Clear Filters

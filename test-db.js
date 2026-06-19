@@ -1,17 +1,14 @@
-const { Client } = require('pg');
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
 
-const client = new Client({
-  connectionString: 'postgresql://postgres.fddfdtcqpohoylqjqlpi:Saudi%23Taxi2026@aws-1-us-east-1.pooler.supabase.com:6543/postgres',
-  ssl: {
-    rejectUnauthorized: false
+async function main() {
+  try {
+    const locations = await prisma.route.findMany({ take: 1 });
+    console.log("DB Connection Success:", locations.length >= 0);
+  } catch (e) {
+    console.error("DB Connection Failed:", e);
+  } finally {
+    await prisma.$disconnect();
   }
-});
-
-client.connect()
-  .then(() => {
-    console.log('Connected successfully with pg!');
-    return client.end();
-  })
-  .catch(err => {
-    console.error('Connection error with pg:', err);
-  });
+}
+main();

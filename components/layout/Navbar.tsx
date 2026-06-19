@@ -88,21 +88,19 @@ export function Navbar() {
         }}
         className={cn("fixed top-0 inset-x-0 z-50 transition-all duration-300", isScrolled ? "py-2.5" : "py-3.5")}
       >
-        <div className="section-container flex items-center justify-between gap-4">
+        <div className="section-container flex items-center gap-8">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 flex-shrink-0 group">
-            <span className="flex items-center justify-center rounded-2xl bg-white p-1.5 shadow-md ring-1 ring-black/5 transition-transform duration-300 group-hover:scale-105">
-              <Image
-                src="/logo-transparent.png"
-                alt="Taxi Saudi Arabia Logo"
-                width={220}
-                height={72}
-                className="h-14 w-auto object-contain"
-                priority
-              />
-            </span>
+            <Image
+              src="/logo-final.png"
+              alt="Taxi Saudi Arabia Logo"
+              width={611}
+              height={526}
+              className="h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              priority
+            />
             <div className="hidden sm:flex flex-col leading-tight">
-              <span className="font-heading text-[1.15rem] font-extrabold text-white tracking-tight whitespace-nowrap">
+              <span className="font-heading text-[1.2rem] font-extrabold text-white tracking-tight whitespace-nowrap">
                 Taxi Saudi Arabia
               </span>
               <span className="text-[0.6rem] uppercase tracking-[0.3em] font-semibold text-[#FDE68A] whitespace-nowrap">
@@ -112,7 +110,7 @@ export function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden xl:flex items-center gap-5 2xl:gap-6">
+          <nav className="hidden xl:flex items-center gap-6 2xl:gap-8">
             <Link href="/" className={navLinkCls}>Home</Link>
 
             {/* Transportation Services (mega dropdown) */}
@@ -219,7 +217,7 @@ export function Navbar() {
           </nav>
 
           {/* Right: actions */}
-          <div className="hidden xl:flex items-center gap-2.5 flex-shrink-0">
+          <div className="hidden xl:flex items-center gap-2.5 flex-shrink-0 ml-auto">
             <LanguageSwitcher />
             <Link
               href={bookHref}
@@ -241,7 +239,7 @@ export function Navbar() {
           {/* Mobile hamburger */}
           <button
             onClick={() => setIsMobileOpen(true)}
-            className="flex xl:hidden items-center justify-center h-10 w-10 rounded-full bg-white/15 text-white hover:bg-white/25 transition-colors"
+            className="flex xl:hidden items-center justify-center h-10 w-10 rounded-full bg-white/15 text-white hover:bg-white/25 transition-colors ml-auto"
             aria-label="Open menu"
           >
             <Menu className="h-5 w-5" />
