@@ -148,6 +148,14 @@ export default function BookPage() {
           if (parsed.custPhone) setCustPhone(parsed.custPhone);
           if (parsed.custEmail) setCustEmail(parsed.custEmail);
         }
+
+        // Prefill from incoming CTA links (e.g. /book?pickup=...&dropoff=...).
+        // Query params take priority over a saved draft so a clicked route wins.
+        const params = new URLSearchParams(window.location.search);
+        const qpPickup = params.get("pickup");
+        const qpDropoff = params.get("dropoff");
+        if (qpPickup) setPickup(qpPickup);
+        if (qpDropoff) setDropoff(qpDropoff);
       } catch (e) {
         console.warn("Session restore skipped:", e);
       }

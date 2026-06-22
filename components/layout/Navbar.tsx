@@ -88,7 +88,7 @@ export function Navbar() {
         }}
         className={cn("fixed top-0 inset-x-0 z-50 transition-all duration-300", isScrolled ? "py-2.5" : "py-3.5")}
       >
-        <div className="section-container flex items-center gap-8">
+        <div className="mx-auto flex w-full max-w-[1700px] items-center gap-4 px-4 sm:px-6 2xl:gap-6">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 flex-shrink-0 group">
             <Image
@@ -110,7 +110,7 @@ export function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden xl:flex items-center gap-6 2xl:gap-8">
+          <nav className="hidden xl:flex items-center gap-5 2xl:gap-7">
             <Link href="/" className={navLinkCls}>Home</Link>
 
             {/* Transportation Services (mega dropdown) */}

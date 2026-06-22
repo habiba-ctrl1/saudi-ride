@@ -6,7 +6,7 @@ import { trustStats } from "@/lib/config/stats";
 export const SITE = {
   name: "Taxi Saudi Arabia",
   url: "https://taxisaudiarabia.com",
-  logo: "https://taxisaudiarabia.com/icon.svg",
+  logo: "https://taxisaudiarabia.com/icon.png",
   // Stable @id of the primary business entity (defined in app/layout.tsx TaxiService node).
   businessId: "https://taxisaudiarabia.com/#taxiservice",
   sameAs: [

@@ -12,11 +12,17 @@ export function generateMetadata({
   title,
   description,
   path,
-  image = "https://taxisaudiarabia.com/images/og-image.jpg",
+  image,
   noIndex = false,
 }: SEOProps): Metadata {
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
   const url = `https://taxisaudiarabia.com${cleanPath}`;
+
+  // When no page-specific image is passed we omit the images field so Next.js
+  // falls back to the site-wide branded card from app/opengraph-image.tsx.
+  const ogImages = image
+    ? [{ url: image, width: 1200, height: 630, alt: title }]
+    : undefined;
 
   return {
     title: `${title} | Taxi Saudi Arabia`,
@@ -43,14 +49,7 @@ export function generateMetadata({
       description,
       url,
       siteName: "Taxi Saudi Arabia",
-      images: [
-        {
-          url: image,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
+      ...(ogImages ? { images: ogImages } : {}),
       locale: "en_SA",
       type: "website",
     },
@@ -58,7 +57,7 @@ export function generateMetadata({
       card: "summary_large_image",
       title: `${title} | Taxi Saudi Arabia`,
       description,
-      images: [image],
+      ...(image ? { images: [image] } : {}),
     },
   };
 }

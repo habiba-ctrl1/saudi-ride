@@ -446,7 +446,7 @@ const vehicleList = [
     type: "Ultra Luxury Sedan",
     capacity: "3 Passengers",
     luggage: "3 Suitcases",
-    image: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80"
+    image: "/fleet/mercedes-s-class.webp"
   },
   {
     id: "escalade",
@@ -454,7 +454,7 @@ const vehicleList = [
     type: "VIP Full-Size SUV",
     capacity: "6 Passengers",
     luggage: "5 Suitcases",
-    image: "https://images.unsplash.com/photo-1601929862074-04b7b88f0c82?auto=format&fit=crop&w=800&q=80"
+    image: "/fleet/cadillac-escalade.webp"
   },
   {
     id: "mercedes-v",
@@ -462,7 +462,7 @@ const vehicleList = [
     type: "Executive MPV",
     capacity: "7 Passengers",
     luggage: "7 Suitcases",
-    image: "https://images.unsplash.com/photo-1617829400467-f62eae4c0dba?auto=format&fit=crop&w=800&q=80"
+    image: "/fleet/mercedes-vito.webp"
   },
   {
     id: "bmw-7",
@@ -470,7 +470,7 @@ const vehicleList = [
     type: "Executive Sedan",
     capacity: "3 Passengers",
     luggage: "3 Suitcases",
-    image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=800&q=80"
+    image: "/fleet/bmw-7-series.webp"
   },
   {
     id: "yukon",
@@ -478,7 +478,7 @@ const vehicleList = [
     type: "Premium SUV",
     capacity: "6 Passengers",
     luggage: "5 Suitcases",
-    image: "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=800&q=80"
+    image: "/fleet/gmc-yukon-xl.webp"
   }
 ];
 
@@ -665,6 +665,21 @@ export function HomePage() {
     }
   };
 
+  // Hero car slideshow — image changes every 2 seconds
+  const heroCars = [
+    { image: "/fleet/cadillac-escalade.webp", name: "Cadillac Escalade", nameAr: "كاديلاك إسكاليد" },
+    { image: "/fleet/mercedes-s-class.webp", name: "Mercedes S-Class", nameAr: "مرسيدس الفئة S" },
+    { image: "/fleet/gmc-yukon-xl.webp", name: "GMC Yukon XL", nameAr: "جي إم سي يوكن" },
+    { image: "/fleet/bmw-7-series.webp", name: "BMW 7 Series", nameAr: "بي إم دبليو الفئة 7" },
+    { image: "/fleet/hyundai-staria.webp", name: "Hyundai Staria", nameAr: "هيونداي ستاريا" },
+  ];
+  const [heroCar, setHeroCar] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setHeroCar((i) => (i + 1) % heroCars.length), 5000);
+    return () => clearInterval(id);
+  }, [heroCars.length]);
+  const currentCar = heroCars[heroCar];
+
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] overflow-hidden pt-20">
       
@@ -681,10 +696,13 @@ export function HomePage() {
               className="premium-dark-section relative rounded-3xl overflow-hidden min-h-[320px] md:min-h-[460px] shadow-[0_18px_50px_rgba(0,0,0,0.12)]"
             >
               <Image
-                src="https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=1800&auto=format&fit=crop"
-                alt="Taxi Saudi Arabia car with professional driver"
+                key={currentCar.image}
+                src={currentCar.image}
+                alt={`${currentCar.name} — Taxi Saudi Arabia`}
                 fill
-                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                quality={90}
+                className="object-cover animate-fade-in"
                 priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/45" />
@@ -694,16 +712,26 @@ export function HomePage() {
                 <p className="font-heading text-lg md:text-2xl font-extrabold text-white uppercase tracking-tight leading-tight drop-shadow-md">
                   {language === "ar" ? "سافر براحة مع تاكسي السعودية" : "Travel in Comfort with Taxi Saudi Arabia"}
                 </p>
-                <p className="mt-2 text-xs md:text-sm font-bold text-[#C8A45D] uppercase tracking-widest">
-                  Toyota Camry 2026
+                <p key={currentCar.name} className="mt-2 text-xs md:text-sm font-bold text-[#C8A45D] uppercase tracking-widest animate-fade-in">
+                  {language === "ar" ? currentCar.nameAr : currentCar.name}
                 </p>
               </div>
 
               {/* Bottom car badge */}
               <div className="absolute bottom-5 left-5">
-                <span className="inline-block rounded-full bg-[#16A34A] px-4 py-1.5 text-xs font-bold text-white shadow-md">
-                  {language === "ar" ? "تويوتا كامري" : "Toyota Camry"}
+                <span key={currentCar.name} className="inline-block rounded-full bg-[#16A34A] px-4 py-1.5 text-xs font-bold text-white shadow-md animate-fade-in">
+                  {language === "ar" ? currentCar.nameAr : currentCar.name}
                 </span>
+              </div>
+
+              {/* Slideshow dots */}
+              <div className="absolute bottom-5 right-5 flex gap-1.5">
+                {heroCars.map((_, i) => (
+                  <span
+                    key={i}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${i === heroCar ? "w-5 bg-[#FACC15]" : "w-1.5 bg-white/50"}`}
+                  />
+                ))}
               </div>
             </motion.div>
 
@@ -1116,8 +1144,8 @@ export function HomePage() {
         {/* Background holy image with dark overlay */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1542856391-010fb87dcfed?q=80&w=2000&auto=format&fit=crop"
-            alt="Makkah Holy Kaaba Pilgrims"
+            src="/umrah-section.webp"
+            alt="Grand mosque at sunset — Umrah & Ziyarat transport in Saudi Arabia"
             fill
             className="object-cover brightness-20 blur-xs"
           />
