@@ -2,6 +2,8 @@ import { MetadataRoute } from "next";
 import { db } from "@/lib/db";
 import { FLEET_VEHICLES } from "@/lib/fleet-data";
 import { BLOG_POSTS_DATA } from "@/lib/data/blog-posts";
+import { DRIVER_JOB_CITIES, JOB_VARIANTS } from "@/lib/data/driver-jobs";
+import { GUIDES } from "@/lib/data/guides";
 
 const DOMAIN = "https://taxisaudiarabia.com";
 
@@ -32,6 +34,9 @@ const STATIC_PAGES = [
   { path: "/guides", priority: 0.8 },
   { path: "/blog", priority: 0.8 },
   { path: "/book", priority: 1.0 },
+  { path: "/driver-jobs", priority: 0.8 },
+  { path: "/chauffeur-jobs", priority: 0.8 },
+  { path: "/taxi-driver-jobs", priority: 0.8 },
 ];
 
 const LOCATIONS = [
@@ -61,6 +66,12 @@ const SUB_AREAS = [
   { city: "jeddah", subarea: "obhur" },
   { city: "jeddah", subarea: "al-safaa" },
   { city: "jeddah", subarea: "al-rawdah" },
+  { city: "jeddah", subarea: "al-shati" },
+  { city: "jeddah", subarea: "al-salamah" },
+  { city: "jeddah", subarea: "al-aziziyah-jeddah" },
+  { city: "jeddah", subarea: "al-faisaliyah" },
+  { city: "jeddah", subarea: "al-andalus" },
+  { city: "jeddah", subarea: "city-tour" },
   { city: "makkah", subarea: "aziziyah" },
   { city: "makkah", subarea: "ajyad" },
   { city: "makkah", subarea: "al-awali-makkah" },
@@ -71,6 +82,8 @@ const SUB_AREAS = [
   { city: "madinah", subarea: "qaba" },
   { city: "madinah", subarea: "uhud" },
   { city: "madinah", subarea: "al-awali-madinah" },
+  { city: "madinah", subarea: "al-aqiq-madinah" },
+  { city: "madinah", subarea: "sultanah" },
   { city: "dammam", subarea: "al-khobar" },
   { city: "dammam", subarea: "dhahran" },
   { city: "dammam", subarea: "half-moon-bay" },
@@ -195,5 +208,35 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   }));
 
-  return [...staticItems, ...locationItems, ...subAreaItems, ...airportItems, ...routeItems, ...fleetItems, ...blogItems];
+  // 6. Generate Driver Jobs (per-city recruitment) Pages — 3 keyword variants
+  const driverJobItems = Object.values(JOB_VARIANTS).flatMap((v) =>
+    DRIVER_JOB_CITIES.map((c) => ({
+      url: `${DOMAIN}${v.urlBase}/${c.slug}`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+      alternates: {
+        languages: {
+          en: `${DOMAIN}${v.urlBase}/${c.slug}`,
+          ar: `${DOMAIN}/ar${v.urlBase}/${c.slug}`,
+        },
+      },
+    })),
+  );
+
+  // 7. Generate Guide (knowledge base) Pages
+  const guideItems = GUIDES.map((guide) => ({
+    url: `${DOMAIN}/guides/${guide.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+    alternates: {
+      languages: {
+        en: `${DOMAIN}/guides/${guide.slug}`,
+        ar: `${DOMAIN}/ar/guides/${guide.slug}`,
+      },
+    },
+  }));
+
+  return [...staticItems, ...locationItems, ...subAreaItems, ...airportItems, ...routeItems, ...fleetItems, ...blogItems, ...driverJobItems, ...guideItems];
 }

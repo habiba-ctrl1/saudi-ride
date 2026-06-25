@@ -58,6 +58,14 @@ const FAQS = [
   {
     q: "Can you take us to the Miqat if we forgot to enter Ihram?",
     a: "Yes. If you land in Jeddah and need to assume Ihram, we can arrange a dedicated trip to the nearest Miqat (Al-Juhfah) before heading to Makkah."
+  },
+  {
+    q: "Is Jeddah a Miqat for Umrah?",
+    a: "No. Jeddah lies inside the Miqat boundary, so you must enter Ihram before crossing the Miqat — usually announced on your flight before landing. If you arrive without it, we can stop at Al-Juhfah on the way to Makkah."
+  },
+  {
+    q: "How far is Jeddah Airport from Makkah for Umrah?",
+    a: "King Abdulaziz International Airport (JED) is about 80 km from Makkah — roughly a 1-hour direct transfer, with an optional Miqat stop for Ihram."
   }
 ];
 
@@ -172,6 +180,41 @@ export default function UmrahTransportPage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ─── UMRAH FROM JEDDAH (journey + internal linking) ───────── */}
+      <section className="section-container max-w-5xl py-20 border-b border-[#C9A84C]/10">
+        <div className="mb-12">
+          <span className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#C9A84C]">The Gateway</span>
+          <h2 className="font-heading text-3xl font-bold mt-2 mb-4">Your Umrah Journey from Jeddah, Step by Step</h2>
+          <p className="text-[#A1A1A6] leading-relaxed max-w-2xl">
+            Most pilgrims begin Umrah by landing at King Abdulaziz International Airport (JED) in Jeddah — the Kingdom&apos;s main gateway. Here is the full transport chain we handle for you, from arrival to your return flight.
+          </p>
+        </div>
+        <ol className="space-y-4">
+          {[
+            { n: 1, title: "Arrive at Jeddah Airport (JED)", desc: "Meet & greet at arrivals with a name sign, 24/7 — even on late-night flights. We track your flight for delays.", href: "/airports/king-abdulaziz-jeddah", cta: "Jeddah Airport taxi" },
+            { n: 2, title: "Enter Ihram at the Miqat", desc: "Enter Ihram on the plane, or ask the driver to stop at the Miqat (Al-Juhfah) if you land without it.", href: "/guides/miqat-jeddah-makkah", cta: "Miqat & Ihram guide" },
+            { n: 3, title: "Transfer to Makkah (~80 km, ~1 hr)", desc: "Direct, fixed-price ride from the airport to your Makkah hotel, as close to the Haram as vehicles are permitted.", href: "/routes/jeddah-airport-to-makkah", cta: "JED → Makkah route" },
+            { n: 4, title: "Makkah Ziyarat", desc: "Visit Jabal Al-Nour, Mina, Arafat and other sites with a knowledgeable driver and flexible waiting time.", href: "/services/makkah-ziyarat", cta: "Makkah Ziyarat tour" },
+            { n: 5, title: "Travel to Madinah (~420 km)", desc: "Comfortable long-distance transfer via the Haramain highway, with prayer and rest stops on request.", href: "/routes/jeddah-to-madinah", cta: "Jeddah → Madinah route" },
+            { n: 6, title: "Madinah Ziyarat & return", desc: "Visit Masjid an-Nabawi, Quba, and Uhud, then a smooth transfer back to the airport for your flight home.", href: "/services/madinah-ziyarat", cta: "Madinah Ziyarat tour" },
+          ].map((step) => (
+            <li key={step.n} className="flex items-start gap-4 p-6 rounded-2xl bg-[#111] border border-[#C9A84C]/10">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 text-sm font-bold text-[#C9A84C]">{step.n}</span>
+              <div>
+                <h3 className="font-bold text-[#F5F0E8] mb-1">{step.title}</h3>
+                <p className="text-sm text-[#A1A1A6] leading-relaxed mb-2">{step.desc}</p>
+                <Link href={step.href} className="text-xs font-bold uppercase tracking-wider text-[#C9A84C] hover:underline">{step.cta} &rarr;</Link>
+              </div>
+            </li>
+          ))}
+        </ol>
+        <div className="mt-8">
+          <Link href="/guides/jeddah-airport-to-makkah-guide" className="text-sm font-bold text-[#C9A84C] hover:underline">
+            Read the full Jeddah Airport to Makkah transfer guide &rarr;
+          </Link>
         </div>
       </section>
 

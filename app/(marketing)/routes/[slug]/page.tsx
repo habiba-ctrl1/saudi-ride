@@ -8,13 +8,242 @@ import { MapPin, Clock, ArrowRight, CheckCircle2, ShieldCheck, Car, HelpCircle, 
 import Link from "next/link";
 import { contactConfig } from "@/lib/config/contact";
 import Image from "next/image";
-import { breadcrumbSchema, SITE } from "@/lib/schema";
+import { breadcrumbSchema, faqSchema, SITE } from "@/lib/schema";
+import { TLDRSummary } from "@/components/seo/TLDRSummary";
 
 interface PageProps {
   params: Promise<{
     slug: string;
   }>;
 }
+
+// Generic fallback FAQs for routes without bespoke content.
+const DEFAULT_FAQS = [
+  {
+    question: "Can I modify my pickup time?",
+    answer: "Yes, you can modify your pickup time up to 12 hours before the scheduled transfer without any penalty. Just contact our support team.",
+  },
+  {
+    question: "Are there stops allowed during the trip?",
+    answer: "Brief rest stops for prayer or refreshments are absolutely fine and included in long-distance trips. For extensive detours, please request a custom quote.",
+  },
+];
+
+// Route-specific, entity-rich content for the highest-value Jeddah corridors.
+// Keyed by slug → above-the-fold answer + featured-snippet facts + bespoke FAQs.
+const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; value: string }[]; faqs: { question: string; answer: string }[] }> = {
+  "jeddah-airport-to-makkah": {
+    tldr: "A taxi from Jeddah Airport (JED) to Makkah is about 80 km and takes roughly 1 hour. The fare is fixed from SAR 180, available 24/7, and the driver can stop at the Miqat so you enter Ihram before reaching Makkah.",
+    tldrFacts: [
+      { label: "Distance", value: "~80 km" },
+      { label: "Time", value: "~1 hour" },
+      { label: "From", value: "SAR 180" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Jeddah airport from Makkah?", answer: "King Abdulaziz International Airport (JED) is about 80 km from Makkah — roughly a 1-hour drive on the Makkah Expressway, traffic permitting." },
+      { question: "How much is a taxi from Jeddah airport to Makkah?", answer: "The fare is fixed from SAR 180 for a sedan, with SUVs and vans available for families and extra luggage. You confirm the exact price before booking — no surge, tolls included." },
+      { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Just tell us in advance and the driver will stop at the Miqat on the way so you can change into Ihram and make your intention before entering the Haram boundary." },
+      { question: "Is the Jeddah airport to Makkah taxi available at night?", answer: "Yes, we operate 24/7. We track your flight number, so the driver is waiting at arrivals with a name sign even for late-night or delayed flights." },
+      { question: "Which is better — taxi or the Haramain train?", answer: "A private taxi is door-to-door from the airport to your Makkah hotel with luggage help and a Miqat stop. The Haramain high-speed train is fast but requires transfers to and from the stations. For pilgrims with luggage, the direct taxi is usually more convenient." },
+    ],
+  },
+  "jeddah-to-makkah": {
+    tldr: "A taxi from Jeddah city to Makkah is about 85 km and takes around 1 hour 10 minutes. The fare is fixed from SAR 150, available 24/7, with door-to-door pickup from any Jeddah hotel or address.",
+    tldrFacts: [
+      { label: "Distance", value: "~85 km" },
+      { label: "Time", value: "~1 hr 10 min" },
+      { label: "From", value: "SAR 150" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Jeddah from Makkah?", answer: "Jeddah city centre is about 85 km from Makkah — roughly a 1 hour 10 minute drive on the Makkah Expressway." },
+      { question: "How much is a taxi from Jeddah to Makkah?", answer: "The fare is fixed from SAR 150 for a sedan. SUVs and vans are available for families and extra luggage. The price is confirmed before booking, with tolls included and no surge." },
+      { question: "Can you pick me up from my Jeddah hotel?", answer: "Yes. We offer door-to-door pickup from any hotel, residence, or address in Jeddah and drop you directly at your Makkah hotel or close to Masjid al-Haram." },
+      { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes — let us know when booking and the driver will stop at the Miqat so you can enter Ihram before reaching Makkah." },
+    ],
+  },
+  "jeddah-airport-to-jeddah-city": {
+    tldr: "A taxi from Jeddah Airport (JED) to the city centre, Corniche, or Al-Balad takes about 20–35 minutes depending on your area. The fare is fixed from SAR 80, with meet & greet at arrivals and 24/7 availability.",
+    tldrFacts: [
+      { label: "Distance", value: "~20 km" },
+      { label: "Time", value: "~20–35 min" },
+      { label: "From", value: "SAR 80" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Jeddah airport from the city centre?", answer: "King Abdulaziz International Airport (JED) is about 20 km from central Jeddah — roughly a 20–35 minute drive depending on whether you are heading to the Corniche, Al-Balad, or a business district." },
+      { question: "How much is a taxi from Jeddah airport to the city?", answer: "The fare is fixed from SAR 80 for a sedan, confirmed before you book, with no surge and tolls included. Larger vehicles are available for families and extra luggage." },
+      { question: "Do you drop off at any Jeddah hotel?", answer: "Yes. We provide door-to-door drop-off at any hotel or address in Jeddah, including the Corniche, Al-Balad, Al-Hamra, and Obhur, with meet & greet at arrivals." },
+      { question: "Is the airport taxi available for late-night arrivals?", answer: "Yes, we operate 24/7 and track your flight, so your driver is waiting at arrivals with a name sign even for late-night or early-morning landings." },
+    ],
+  },
+  "jeddah-to-haramain-station": {
+    tldr: "A taxi from Jeddah to the Haramain High-Speed Railway station is about 15 km and takes roughly 25 minutes. The fare is fixed from SAR 70, door-to-door with luggage help, so you can catch the train onward to Makkah or Madinah.",
+    tldrFacts: [
+      { label: "Distance", value: "~15 km" },
+      { label: "Time", value: "~25 min" },
+      { label: "From", value: "SAR 70" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "Where is the Haramain station in Jeddah?", answer: "The Haramain High-Speed Railway serves Jeddah, with a station at King Abdulaziz International Airport (JED). A taxi from central Jeddah takes about 25 minutes door-to-door." },
+      { question: "How much is a taxi to the Haramain station in Jeddah?", answer: "The fare is fixed from SAR 70 for a sedan, confirmed before booking, with help for your luggage so you make your train comfortably." },
+      { question: "Can you get me to the station in time for my train?", answer: "Yes. We recommend booking with a buffer before departure; we track timing and provide door-to-door pickup so you reach the Haramain station with time to spare." },
+      { question: "Should I take the train or a direct taxi to Makkah?", answer: "The Haramain train is fast between stations, but a direct taxi from Jeddah to Makkah is door-to-door with a Miqat stop and no transfers. For pilgrims with luggage, the direct taxi is often more convenient." },
+    ],
+  },
+  "jeddah-airport-to-madinah": {
+    tldr: "A taxi from Jeddah Airport (JED) to Madinah is about 410 km and takes roughly 4 to 5 hours via the Haramain highway. The fare is fixed from SAR 380, with comfortable vehicles for families and luggage, available 24/7 with rest stops on request.",
+    tldrFacts: [
+      { label: "Distance", value: "~410 km" },
+      { label: "Time", value: "~4–5 hours" },
+      { label: "From", value: "SAR 380" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How long does Jeddah airport to Madinah take by taxi?", answer: "The direct drive is about 410 km and takes roughly 4 to 5 hours via the Haramain highway, depending on traffic and rest stops." },
+      { question: "How much is a taxi from Jeddah airport to Madinah?", answer: "The fare is fixed from SAR 380. We recommend an SUV or van for families and luggage on this long-distance route — the price is confirmed before booking, tolls included." },
+      { question: "Are rest stops included on the way to Madinah?", answer: "Yes. Brief stops for prayer, food, or refreshments are included on this long-distance transfer — just let your driver know." },
+      { question: "Is the trip comfortable for families with luggage?", answer: "Yes. We provide spacious SUVs (e.g. GMC Yukon) and vans (e.g. Hyundai Staria) with ample luggage space, ideal for families travelling from JED to Madinah." },
+    ],
+  },
+  "jeddah-to-madinah": {
+    tldr: "A taxi from Jeddah to Madinah is about 420 km and takes roughly 4 to 5 hours via the Haramain highway. The fare is fixed from SAR 350, door-to-door, with rest stops on request and 24/7 availability.",
+    tldrFacts: [
+      { label: "Distance", value: "~420 km" },
+      { label: "Time", value: "~4–5 hours" },
+      { label: "From", value: "SAR 350" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Jeddah from Madinah?", answer: "Jeddah is about 420 km from Madinah — roughly a 4 to 5 hour drive on the Haramain highway." },
+      { question: "How much is a taxi from Jeddah to Madinah?", answer: "The fare is fixed from SAR 350 for a sedan, with SUVs and vans available for families. The price is confirmed before booking, with tolls included and no surge." },
+      { question: "Can you collect me from my Jeddah hotel?", answer: "Yes, we provide door-to-door pickup from any Jeddah hotel or address and drop you at your Madinah hotel near Masjid an-Nabawi." },
+      { question: "Are prayer and rest stops included?", answer: "Yes. Short stops for prayer and refreshments are included on this long-distance route — just tell your driver." },
+    ],
+  },
+  "makkah-to-jeddah-airport": {
+    tldr: "A taxi from Makkah to Jeddah Airport (JED) is about 80 km and takes roughly 1 hour. The fare is fixed from SAR 180, with pickup from your Makkah hotel and 24/7 availability — pre-book and allow buffer time before your flight.",
+    tldrFacts: [
+      { label: "Distance", value: "~80 km" },
+      { label: "Time", value: "~1 hour" },
+      { label: "From", value: "SAR 180" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How much is a taxi from Makkah to Jeddah airport?", answer: "The fare is fixed from SAR 180 for a sedan, confirmed before booking, with larger SUVs and vans available for families and luggage. Tolls are included and there is no surge." },
+      { question: "How long does Makkah to Jeddah airport take?", answer: "It is about 80 km and roughly a 1-hour drive. For departures we recommend leaving with extra buffer time, especially during Umrah, Hajj, and Ramadan seasons." },
+      { question: "Can you pick up from my Makkah hotel near the Haram?", answer: "Yes. We collect you from your hotel as close to Masjid al-Haram as vehicles are permitted; during prayer-time road closures we use the nearest allowed checkpoint." },
+      { question: "Is the airport transfer available late at night?", answer: "Yes, we operate 24/7. Pre-book your departure transfer so a driver is ready at your hotel at the agreed time, even for early-morning flights." },
+    ],
+  },
+  "makkah-to-madinah": {
+    tldr: "A taxi from Makkah to Madinah is about 430 km and takes roughly 4 to 5 hours via the Haramain highway. The fare is fixed from SAR 350, with prayer and rest stops included and comfortable vehicles for families and luggage.",
+    tldrFacts: [
+      { label: "Distance", value: "~430 km" },
+      { label: "Time", value: "~4–5 hours" },
+      { label: "From", value: "SAR 350" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Makkah from Madinah?", answer: "Makkah to Madinah is about 430 km — roughly a 4 to 5 hour drive on the Haramain highway, depending on traffic and rest stops." },
+      { question: "How much is a taxi from Makkah to Madinah?", answer: "The fare is fixed from SAR 350 for a sedan. For families and luggage we recommend an SUV or van; the price is confirmed before booking with tolls included." },
+      { question: "Are prayer and rest stops included on the way to Madinah?", answer: "Yes. Stops for prayer, food, and refreshments are included on this long-distance transfer — just let your driver know your preferences." },
+      { question: "Should I take the taxi or the Haramain train to Madinah?", answer: "The Haramain high-speed train is fast between stations, but a private taxi is door-to-door from your Makkah hotel to your Madinah hotel with no transfers — more convenient for pilgrims with luggage and elderly travellers." },
+    ],
+  },
+  "makkah-to-jeddah": {
+    tldr: "A taxi from Makkah to Jeddah city is about 85 km and takes around 1 hour 10 minutes. The fare is fixed from SAR 150, door-to-door from your Makkah hotel to any address in Jeddah, available 24/7.",
+    tldrFacts: [
+      { label: "Distance", value: "~85 km" },
+      { label: "Time", value: "~1 hr 10 min" },
+      { label: "From", value: "SAR 150" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Makkah from Jeddah?", answer: "Makkah to Jeddah city is about 85 km — roughly a 1 hour 10 minute drive on the Makkah Expressway." },
+      { question: "How much is a taxi from Makkah to Jeddah?", answer: "The fare is fixed from SAR 150 for a sedan, confirmed before booking, with no surge and tolls included." },
+      { question: "Can you drop me at any address in Jeddah?", answer: "Yes. We provide door-to-door drop-off anywhere in Jeddah — hotels, the Corniche, Al-Balad, Obhur, or a residence." },
+      { question: "Is the Makkah to Jeddah taxi available 24/7?", answer: "Yes, we operate around the clock with fixed pricing and pickup from your Makkah hotel." },
+    ],
+  },
+  "makkah-to-taif": {
+    tldr: "A taxi from Makkah to Taif is about 90 km and takes roughly 1 hour 10 minutes via the scenic Al Hada mountain road. The fare is fixed from SAR 180, with experienced drivers for the winding ascent.",
+    tldrFacts: [
+      { label: "Distance", value: "~90 km" },
+      { label: "Time", value: "~1 hr 10 min" },
+      { label: "From", value: "SAR 180" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Makkah from Taif?", answer: "Makkah to Taif is about 90 km — roughly a 1 hour 10 minute drive, often via the scenic Al Hada mountain road." },
+      { question: "How much is a taxi from Makkah to Taif?", answer: "The fare is fixed from SAR 180 for a sedan, confirmed before booking, with SUVs available for families. Tolls are included." },
+      { question: "Is the Al Hada mountain road safe by taxi?", answer: "Yes. Our drivers are experienced on the steep, winding Al Hada route. You can also request the longer, gentler Al Sail road if preferred." },
+      { question: "Can I do a Taif day trip from Makkah?", answer: "Yes. We offer round-trip and hourly hire so you can visit Taif's rose farms, Al Hada, and cable car with waiting time included." },
+    ],
+  },
+  "madinah-airport-to-city": {
+    tldr: "A taxi from Madinah Airport (MED) to the central hotels near Masjid an-Nabawi is about 20 km and takes roughly 25 minutes. The fare is fixed from SAR 80, with meet & greet at arrivals and 24/7 availability.",
+    tldrFacts: [
+      { label: "Distance", value: "~20 km" },
+      { label: "Time", value: "~25 min" },
+      { label: "From", value: "SAR 80" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Madinah airport from the city centre?", answer: "Prince Mohammad Bin Abdulaziz Airport (MED) is about 20 km from the Central Area (Markazia) hotels — roughly a 25-minute drive." },
+      { question: "How much is a taxi from Madinah airport to my hotel?", answer: "The fare is fixed from SAR 80 for a sedan, confirmed before booking, with meet & greet at arrivals and larger vehicles for families." },
+      { question: "Will the driver meet me at arrivals?", answer: "Yes. We track your flight and your driver waits in the arrivals hall with a name sign, then helps with your luggage to the car." },
+      { question: "Is the airport transfer available for late-night flights?", answer: "Yes, we operate 24/7, so your driver is ready even for late-night or early-morning arrivals at MED." },
+    ],
+  },
+  "madinah-to-makkah": {
+    tldr: "A taxi from Madinah to Makkah is about 430 km and takes roughly 4 to 5 hours via the Haramain highway. The fare is fixed from SAR 350, door-to-door with prayer and rest stops, ideal for completing your Umrah journey.",
+    tldrFacts: [
+      { label: "Distance", value: "~430 km" },
+      { label: "Time", value: "~4–5 hours" },
+      { label: "From", value: "SAR 350" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Madinah from Makkah?", answer: "Madinah to Makkah is about 430 km — roughly a 4 to 5 hour drive on the Haramain highway, depending on traffic and rest stops." },
+      { question: "How much is a taxi from Madinah to Makkah?", answer: "The fare is fixed from SAR 350 for a sedan. For families and luggage we recommend an SUV or van; the price is confirmed before booking with tolls included." },
+      { question: "Do I need to enter Ihram travelling from Madinah to Makkah?", answer: "Yes, if you intend Umrah you enter Ihram at the Miqat of Dhul Hulaifah (Abyar Ali) near Madinah. Your driver can stop there so you assume Ihram before continuing to Makkah." },
+      { question: "Are prayer and rest stops included?", answer: "Yes. With a private taxi your driver includes stops for prayer, food, and rest on the long-distance journey between the two Holy Cities." },
+    ],
+  },
+  "madinah-airport-to-makkah": {
+    tldr: "A taxi from Madinah Airport (MED) to Makkah is about 450 km and takes roughly 4.5 to 5 hours. The fare is fixed from SAR 400, with a Miqat stop at Dhul Hulaifah for Ihram and rest stops on request.",
+    tldrFacts: [
+      { label: "Distance", value: "~450 km" },
+      { label: "Time", value: "~4.5–5 hours" },
+      { label: "From", value: "SAR 400" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How long is Madinah airport to Makkah by taxi?", answer: "It is about 450 km and roughly a 4.5 to 5 hour direct drive from Prince Mohammad Bin Abdulaziz Airport (MED) to Makkah." },
+      { question: "How much is the Madinah airport to Makkah taxi?", answer: "The fare is fixed from SAR 400 for a sedan, with SUVs and vans for families and luggage. The price is confirmed before booking, tolls included." },
+      { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Coming from Madinah, the Miqat is Dhul Hulaifah (Abyar Ali). Your driver can stop there so you enter Ihram before continuing to Makkah." },
+      { question: "Is this a good option after a late flight into Madinah?", answer: "Yes. We operate 24/7 and track your flight, so a direct comfortable transfer to Makkah is available even after a late arrival at MED." },
+    ],
+  },
+  "madinah-to-jeddah-airport": {
+    tldr: "A taxi from Madinah to Jeddah Airport (JED) is about 410 km and takes roughly 4 to 5 hours via the Haramain highway. The fare is fixed from SAR 380, door-to-door from your Madinah hotel, with rest stops on request.",
+    tldrFacts: [
+      { label: "Distance", value: "~410 km" },
+      { label: "Time", value: "~4–5 hours" },
+      { label: "From", value: "SAR 380" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Madinah from Jeddah airport?", answer: "Madinah to King Abdulaziz International Airport (JED) is about 410 km — roughly a 4 to 5 hour drive on the Haramain highway." },
+      { question: "How much is a taxi from Madinah to Jeddah airport?", answer: "The fare is fixed from SAR 380 for a sedan, confirmed before booking, with SUVs and vans for families and luggage. Tolls are included." },
+      { question: "Can you collect me from my Madinah hotel for the airport?", answer: "Yes, we provide door-to-door pickup from your Madinah hotel after Ziyarah and take you directly to Jeddah Airport for your flight." },
+      { question: "Should I leave extra time for this departure?", answer: "Yes. For a long-distance airport transfer we recommend departing with comfortable buffer time before check-in, especially during Hajj and Ramadan seasons." },
+    ],
+  },
+};
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
@@ -43,6 +272,11 @@ export default async function RouteDetailsPage({ params }: PageProps) {
   if (!route) {
     notFound();
   }
+
+  // Route-specific content (TLDR + bespoke FAQs) for priority corridors;
+  // falls back to generic FAQs for all other routes.
+  const content = ROUTE_CONTENT[slug];
+  const faqs = content?.faqs ?? DEFAULT_FAQS;
 
   // Calculate prices based on basePrice
   const prices = {
@@ -102,30 +336,6 @@ export default async function RouteDetailsPage({ params }: PageProps) {
     ? `https://maps.googleapis.com/maps/api/staticmap?size=800x400&path=color:0xC9A84C|weight:4|${encodeURIComponent(route.fromCity)}|${encodeURIComponent(route.toCity)}&markers=color:black|label:A|${encodeURIComponent(route.fromCity)}&markers=color:black|label:B|${encodeURIComponent(route.toCity)}&key=${mapsApiKey}`
     : `https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1200&q=80`; // Fallback beautiful map abstract
 
-  // FAQ Schema Markup
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Can I modify my pickup time?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, you can modify your pickup time up to 12 hours before the scheduled transfer without any penalty. Just contact our support team."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Are there stops allowed during the trip?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Brief rest stops for prayer or refreshments are absolutely fine and included in long-distance trips. For extensive detours, please request a custom quote."
-        }
-      }
-    ]
-  };
-
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pb-24">
       {/* Inject Schema Markup */}
@@ -135,7 +345,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(faqs)) }}
       />
       <script
         type="application/ld+json"
@@ -201,7 +411,12 @@ export default async function RouteDetailsPage({ params }: PageProps) {
       <div className="section-container max-w-5xl mt-12 grid grid-cols-1 lg:grid-cols-3 gap-12">
         {/* ─── LEFT COLUMN (Details) ──────────────────────────────── */}
         <div className="lg:col-span-2 space-y-12">
-          
+
+          {/* Quick Answer (above-the-fold AI/snippet signal) */}
+          {content?.tldr && (
+            <TLDRSummary answer={content.tldr} facts={content.tldrFacts} />
+          )}
+
           {/* Vehicles & Pricing */}
           <section>
             <h2 className="font-heading text-2xl font-bold mb-6 flex items-center gap-3">
@@ -268,14 +483,12 @@ export default async function RouteDetailsPage({ params }: PageProps) {
               Frequently Asked Questions
             </h2>
             <div className="space-y-4">
-              <div className="border border-[#C9A84C]/15 rounded-2xl p-5 bg-[#111]">
-                <h4 className="font-bold text-sm mb-2">Can I modify my pickup time?</h4>
-                <p className="text-xs text-[#A1A1A6] leading-relaxed">Yes, you can modify your pickup time up to 12 hours before the scheduled transfer without any penalty. Just contact our support team.</p>
-              </div>
-              <div className="border border-[#C9A84C]/15 rounded-2xl p-5 bg-[#111]">
-                <h4 className="font-bold text-sm mb-2">Are there stops allowed during the trip?</h4>
-                <p className="text-xs text-[#A1A1A6] leading-relaxed">Brief rest stops for prayer or refreshments are absolutely fine and included in long-distance trips. For extensive detours, please request a custom quote.</p>
-              </div>
+              {faqs.map((faq, idx) => (
+                <div key={idx} className="border border-[#C9A84C]/15 rounded-2xl p-5 bg-[#111]">
+                  <h4 className="font-bold text-sm mb-2">{faq.question}</h4>
+                  <p className="text-xs text-[#A1A1A6] leading-relaxed">{faq.answer}</p>
+                </div>
+              ))}
             </div>
           </section>
 

@@ -140,3 +140,99 @@ export function articleSchema({ headline, description, path, image, datePublishe
     },
   };
 }
+
+interface JobPostingInput {
+  title: string;
+  description: string;
+  path: string;
+  /** City the job is based in, e.g. "Riyadh". */
+  city: string;
+  region?: string;
+  /** Monthly salary range in SAR, e.g. [4000, 9000]. */
+  salary?: [number, number];
+  /** ISO date the listing was posted. Defaults to today. */
+  datePosted?: string;
+  employmentType?: "FULL_TIME" | "PART_TIME" | "CONTRACTOR";
+}
+
+/** JobPosting — eligible for the Google Jobs rich result (driver/chauffeur recruitment pages). */
+export function jobPostingSchema({ title, description, path, city, region, salary, datePosted, employmentType = "FULL_TIME" }: JobPostingInput) {
+  const today = new Date().toISOString().slice(0, 10);
+  return {
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    title,
+    description,
+    url: abs(path),
+    datePosted: datePosted ?? today,
+    // Keep the listing "fresh" for ~90 days so it stays eligible for the rich result.
+    validThrough: new Date(Date.now() + 90 * 86400000).toISOString().slice(0, 10),
+    employmentType,
+    hiringOrganization: {
+      "@type": "Organization",
+      name: SITE.name,
+      sameAs: SITE.url,
+      logo: SITE.logo,
+    },
+    jobLocation: {
+      "@type": "Place",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: city,
+        ...(region ? { addressRegion: region } : {}),
+        addressCountry: "SA",
+      },
+    },
+    ...(salary
+      ? {
+          baseSalary: {
+            "@type": "MonetaryAmount",
+            currency: "SAR",
+            value: {
+              "@type": "QuantitativeValue",
+              minValue: salary[0],
+              maxValue: salary[1],
+              unitText: "MONTH",
+            },
+          },
+        }
+      : {}),
+  };
+}
+
+interface PersonInput {
+  name: string;
+  path: string;
+  jobTitle?: string;
+  description?: string;
+  image?: string;
+}
+
+/** Person — author / expert entity for E-E-A-T (blog & guide authors). */
+export function personSchema({ name, path, jobTitle, description, image }: PersonInput) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name,
+    url: abs(path),
+    ...(jobTitle ? { jobTitle } : {}),
+    ...(description ? { description } : {}),
+    ...(image ? { image } : {}),
+    worksFor: { "@id": SITE.businessId },
+  };
+}
+
+/** ItemList — helps Google understand list/hub pages (route lists, city hubs). */
+export function itemListSchema(items: Crumb[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    numberOfItems: items.length,
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      url: abs(item.href),
+    })),
+  };
+}

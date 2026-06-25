@@ -1,5 +1,165 @@
 ﻿export const BLOG_POSTS_DATA = [
   {
+    title: "Jeddah Taxi Fares 2026: How Much Does a Taxi Cost?",
+    slug: "jeddah-taxi-fares-cost-guide",
+    excerpt: "A clear breakdown of Jeddah taxi prices in 2026 — airport transfers, Makkah and Madinah trips, city rides, and what affects the fare. Fixed-price examples by vehicle.",
+    coverImage: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&w=1200&q=80",
+    category: "Pricing",
+    author: "Tariq Al-Faisal",
+    published: true,
+    publishedAt: new Date(new Date().setDate(new Date().getDate() - 0)),
+    content: `
+## How Much Is a Taxi in Jeddah?
+
+Taxi fares in Jeddah depend on the route, the vehicle, and how you book. With Taxi Saudi Arabia, the price is **fixed and confirmed before you travel** — no meter surprises and no surge pricing. Below are typical 2026 starting fares so you can budget your trip.
+
+> **Quick answer:** A taxi from Jeddah Airport (JED) to Makkah starts from **SAR 180**, Jeddah to Madinah from **SAR 350**, and a Jeddah airport-to-city ride from **SAR 80** — all fixed-price, 24/7.
+
+### Popular Jeddah Fares (from, sedan)
+
+- **Jeddah Airport (JED) → Makkah:** from SAR 180 — ~80 km, ~1 hour
+- **Jeddah City → Makkah:** from SAR 150 — ~85 km, ~1 hr 10 min
+- **Jeddah Airport (JED) → Madinah:** from SAR 380 — ~410 km, ~4–5 hours
+- **Jeddah → Madinah:** from SAR 350 — ~420 km, ~4–5 hours
+- **Jeddah Airport (JED) → City / Corniche / Al-Balad:** from SAR 80 — ~20–35 min
+- **Jeddah → Taif:** from SAR 300 — mountain route
+
+### How Vehicle Type Changes the Price
+
+The fares above are for an executive sedan (up to 3 passengers). Larger vehicles cost more because of space and comfort:
+
+- **Executive Sedan** (3 pax, 2 bags): base fare
+- **Family SUV** (6 pax, 5 bags): about 1.5× the sedan fare
+- **Group Van** (7 pax, 7 bags): about 1.35× the sedan fare
+- **Luxury / VIP** (3 pax): about 2.5× the sedan fare
+
+### What Affects a Jeddah Taxi Fare?
+
+- **Distance and route:** intercity trips (Makkah, Madinah, Taif) are priced per route, not per minute.
+- **Vehicle class:** sedan vs SUV vs van vs luxury, as above.
+- **Extras:** a Miqat stop for Ihram, extra waiting time, or multiple stops may adjust the quote.
+- **What does NOT change it:** time of day or "surge." Our prices are fixed 24/7, including late-night airport pickups.
+
+### Taxi vs Uber/Careem vs the Meter in Jeddah
+
+- **Metered street taxis** can be cheaper for very short hops but vary with traffic and have no fixed total.
+- **Ride-hailing apps** (Uber, Careem, Bolt) use surge pricing — fares jump during peak prayer times, Ramadan, and Hajj.
+- **Pre-booked fixed-price transfers** give you a guaranteed total, meet & greet, luggage help, and a Miqat stop on request — best for pilgrims and families with luggage.
+
+### Do You Tip Taxi Drivers in Saudi Arabia?
+
+Tipping is not required and the fare is complete as quoted. Many travellers round up or give a small tip (SAR 10–20) for help with heavy luggage or extra stops, but it is entirely optional.
+
+### Get an Exact Jeddah Fare
+
+Every quote is confirmed before you book, so you always know the total in advance. Share your pickup, drop-off, and vehicle preference and we will give you a fixed price — tolls and taxes included.
+`
+  },
+  {
+    title: "Makkah Taxi Fares 2026: Costs to Jeddah, Madinah & Taif",
+    slug: "makkah-taxi-fares-cost-guide",
+    excerpt: "A clear 2026 breakdown of Makkah taxi prices — return transfers to Jeddah Airport, Makkah to Madinah, Taif day trips, and Ziyarat tours. Fixed-price examples by vehicle.",
+    coverImage: "https://images.unsplash.com/photo-1591604466107-ec97de577aff?auto=format&fit=crop&w=1200&q=80",
+    category: "Pricing",
+    author: "Tariq Al-Faisal",
+    published: true,
+    publishedAt: new Date(new Date().setDate(new Date().getDate() - 0)),
+    content: `
+## How Much Is a Taxi in Makkah?
+
+Taxi fares from Makkah depend on the route and vehicle. With Taxi Saudi Arabia the price is **fixed and confirmed before you travel** — no meter and no surge, including departures to Jeddah Airport at any hour. Here are typical 2026 starting fares.
+
+> **Quick answer:** A taxi from Makkah to Jeddah Airport (JED) starts from **SAR 180**, Makkah to Madinah from **SAR 350**, and Makkah to Taif from **SAR 180** — all fixed-price, 24/7.
+
+### Popular Makkah Fares (from, sedan)
+
+- **Makkah → Jeddah Airport (JED):** from SAR 180 — ~80 km, ~1 hour
+- **Makkah → Jeddah City:** from SAR 150 — ~85 km, ~1 hr 10 min
+- **Makkah → Madinah:** from SAR 350 — ~430 km, ~4–5 hours
+- **Makkah → Madinah Airport:** from SAR 400 — ~450 km
+- **Makkah → Taif:** from SAR 180 — ~90 km, Al Hada road
+- **Makkah Ziyarat (half-day tour):** from SAR 250 — Cave of Hira, Mina, Arafat
+
+### How Vehicle Type Changes the Price
+
+The fares above are for an executive sedan. Larger vehicles cost more for space and comfort:
+
+- **Executive Sedan** (3 pax, 2 bags): base fare
+- **Family SUV** (6 pax, 5 bags): about 1.5× the sedan fare
+- **Group Van** (7 pax, 7 bags): about 1.35× the sedan fare
+- **Luxury / VIP** (3 pax): about 2.5× the sedan fare
+
+### What Affects a Makkah Taxi Fare?
+
+- **Route and distance:** intercity trips (Jeddah, Madinah, Taif) are priced per route, not per minute.
+- **Vehicle class:** sedan, SUV, van, or luxury, as above.
+- **Extras:** Ziyarat waiting time, extra stops, or a Taif day-trip round trip adjust the quote.
+- **What does NOT change it:** time of day or surge — fares are fixed 24/7, including early-morning airport departures.
+
+### Tips for Booking from Makkah
+
+- **Departures to Jeddah Airport:** pre-book and leave with buffer time, especially in Ramadan and Hajj seasons when traffic and road closures around the Haram are heavier.
+- **Hotel pickup:** during prayer times, roads near Masjid al-Haram close to vehicles — your driver collects you from the nearest permitted point.
+- **Family travel:** for Makkah to Madinah with luggage and elderly pilgrims, an SUV or van is the most comfortable choice.
+
+### Get an Exact Makkah Fare
+
+Share your pickup hotel, destination, and vehicle preference and we will confirm a fixed price before you book — tolls and taxes included.
+`
+  },
+  {
+    title: "Madinah Taxi Fares 2026: Airport, Makkah & Ziyarat Costs",
+    slug: "madinah-taxi-fares-cost-guide",
+    excerpt: "A clear 2026 breakdown of Madinah taxi prices — airport transfers from MED, Madinah to Makkah, Ziyarat tours, and return trips to Jeddah Airport. Fixed-price examples by vehicle.",
+    coverImage: "https://images.unsplash.com/photo-1564769662533-4f00a87b4056?auto=format&fit=crop&w=1200&q=80",
+    category: "Pricing",
+    author: "Tariq Al-Faisal",
+    published: true,
+    publishedAt: new Date(new Date().setDate(new Date().getDate() - 0)),
+    content: `
+## How Much Is a Taxi in Madinah?
+
+Taxi fares in Madinah depend on the route and vehicle. With Taxi Saudi Arabia the price is **fixed and confirmed before you travel** — no meter and no surge, including airport arrivals at any hour. Here are typical 2026 starting fares.
+
+> **Quick answer:** A taxi from Madinah Airport (MED) to the city starts from **SAR 80**, Madinah to Makkah from **SAR 350**, and a half-day Ziyarat tour from **SAR 250** — all fixed-price, 24/7.
+
+### Popular Madinah Fares (from, sedan)
+
+- **Madinah Airport (MED) → City / Markazia hotels:** from SAR 80 — ~20 km, ~25 min
+- **Madinah → Makkah:** from SAR 350 — ~430 km, ~4–5 hours
+- **Madinah Airport (MED) → Makkah:** from SAR 400 — ~450 km
+- **Madinah → Jeddah Airport (JED):** from SAR 380 — ~410 km
+- **Madinah → Jeddah City:** from SAR 350 — ~420 km
+- **Madinah Ziyarat (half-day tour):** from SAR 250 — Quba, Uhud, Qiblatain
+
+### How Vehicle Type Changes the Price
+
+The fares above are for an executive sedan. Larger vehicles cost more for space and comfort:
+
+- **Executive Sedan** (3 pax, 2 bags): base fare
+- **Family SUV** (6 pax, 5 bags): about 1.5× the sedan fare
+- **Group Van** (7 pax, 7 bags): about 1.35× the sedan fare
+- **Luxury / VIP** (3 pax): about 2.5× the sedan fare
+
+### What Affects a Madinah Taxi Fare?
+
+- **Route and distance:** intercity trips (Makkah, Jeddah) are priced per route, not per minute.
+- **Vehicle class:** sedan, SUV, van, or luxury, as above.
+- **Extras:** Ziyarat waiting time, a Miqat stop at Dhul Hulaifah (Abyar Ali) for Madinah-to-Makkah Umrah trips, or extra stops.
+- **What does NOT change it:** time of day or surge — fares are fixed 24/7, including late-night airport arrivals.
+
+### Tips for Booking in Madinah
+
+- **Airport arrivals:** pre-book your MED transfer so a driver meets you at arrivals with a name sign — helpful after a long flight.
+- **Madinah to Makkah for Umrah:** ask your driver to stop at Dhul Hulaifah (Abyar Ali), the Miqat, so you enter Ihram before the journey.
+- **Ziyarat:** a half-day car covering Quba, Uhud, and Qiblatain is better value than separate taxis and includes waiting time.
+
+### Get an Exact Madinah Fare
+
+Share your pickup, destination, and vehicle preference and we will confirm a fixed price before you book — tolls and taxes included.
+`
+  },
+  {
     title: "Jeddah Airport to Makkah: Complete Taxi Guide 2025",
     slug: "jeddah-airport-to-makkah-complete-taxi-guide-2025",
     excerpt: "Everything you need to know about getting from King Abdulaziz International Airport (JED) to your hotel in Makkah for Umrah.",

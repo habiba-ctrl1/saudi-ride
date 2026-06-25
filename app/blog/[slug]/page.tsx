@@ -10,6 +10,55 @@ import { articleSchema, breadcrumbSchema } from "@/lib/schema";
 
 export const revalidate = 86400;
 
+// Contextual internal links derived from each post's title + content.
+// Keeps every blog post linked into the topical cluster (routes / services /
+// locations / airports) without hand-editing markdown bodies.
+type InternalLink = { name: string; href: string };
+function internalLinksFor(post: { title: string; content: string; slug: string }): InternalLink[] {
+  const t = (post.title + " " + post.content).toLowerCase();
+  const out: InternalLink[] = [];
+  const add = (name: string, href: string) => {
+    if (href !== `/blog/${post.slug}` && !out.some((l) => l.href === href)) out.push({ name, href });
+  };
+  const any = (...keys: string[]) => keys.some((k) => t.includes(k));
+  const all = (...keys: string[]) => keys.every((k) => t.includes(k));
+
+  // Routes (most specific first)
+  if (any("jeddah airport to makkah") || all("jeddah", "makkah", "airport")) add("Jeddah Airport → Makkah taxi", "/routes/jeddah-airport-to-makkah");
+  if (all("jeddah", "madinah")) add("Jeddah → Madinah taxi", "/routes/jeddah-to-madinah");
+  if (any("makkah to madinah", "madinah to makkah")) add("Makkah ↔ Madinah taxi", "/routes/madinah-to-makkah");
+  if (all("makkah", "taif")) add("Makkah → Taif taxi", "/routes/makkah-to-taif");
+
+  // Airports
+  if (any("jeddah airport", "king abdulaziz")) add("Jeddah Airport (JED) taxi", "/airports/king-abdulaziz-jeddah");
+  if (any("madinah airport", "prince mohammad")) add("Madinah Airport (MED) taxi", "/airports/prince-mohammad-madinah");
+  if (any("riyadh airport", "king khalid", "(ruh)")) add("Riyadh Airport (RUH) taxi", "/airports/king-khalid-riyadh");
+
+  // Services
+  if (any("umrah")) add("Umrah taxi service", "/services/umrah-transport");
+  if (all("makkah", "ziyarat")) add("Makkah Ziyarat tour", "/services/makkah-ziyarat");
+  if (all("madinah", "ziyarat")) add("Madinah Ziyarat tour", "/services/madinah-ziyarat");
+  if (any("hajj")) add("Hajj transport service", "/services/hajj-transport");
+  if (any("corporate", "business etiquette", "executive")) add("Corporate travel service", "/services/corporate");
+
+  // Locations
+  if (any("makkah", "mecca")) add("Taxi in Makkah", "/locations/makkah");
+  if (any("madinah", "medina")) add("Taxi in Madinah", "/locations/madinah");
+  if (any("jeddah")) add("Taxi in Jeddah", "/locations/jeddah");
+  if (any("riyadh")) add("Taxi in Riyadh", "/locations/riyadh");
+  if (any("alula", "al-ula", "hegra")) add("Taxi in AlUla", "/locations/alula");
+  if (any("neom", "the line")) add("Taxi in NEOM", "/locations/neom");
+
+  // Fares / pricing
+  if (any("fare", "cost", "price", "how much")) add("Fares & pricing", "/pricing");
+
+  // Evergreen
+  add("See our cars & fleet", "/fleet");
+  add("All taxi routes", "/routes");
+
+  return out.slice(0, 6);
+}
+
 export function generateStaticParams() {
   return BLOG_POSTS_DATA.filter(post => post.published).map((post) => ({
     slug: post.slug,
@@ -121,7 +170,26 @@ export default async function BlogPostPage({ params }: PageProps) {
           
           <div className="prose prose-invert prose-p:leading-relaxed prose-p:text-[#A1A1A6] prose-headings:font-heading prose-headings:text-[#F5F0E8] prose-a:text-[#C9A84C] prose-strong:text-[#F5F0E8] prose-ul:text-[#A1A1A6] prose-ol:text-[#A1A1A6] prose-li:marker:text-[#C9A84C] max-w-none">
             <ReactMarkdown>{post.content}</ReactMarkdown>
-            
+
+            {/* Contextual internal links (topical cluster) */}
+            {internalLinksFor(post).length > 0 && (
+              <div className="mt-14 not-prose">
+                <h2 className="font-heading text-xl font-bold mb-5 text-[#F5F0E8]">Related on Taxi Saudi Arabia</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {internalLinksFor(post).map((l) => (
+                    <Link
+                      key={l.href}
+                      href={l.href}
+                      className="group flex items-center justify-between gap-3 rounded-xl border border-[#C9A84C]/15 bg-[#111] px-4 py-3 hover:border-[#C9A84C]/40 transition-colors"
+                    >
+                      <span className="text-sm font-medium text-[#F5F0E8] group-hover:text-[#C9A84C]">{l.name}</span>
+                      <ChevronRight className="h-4 w-4 text-[#C9A84C]" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* CTA inside article */}
             <div className="mt-16 p-8 rounded-3xl bg-[#111111] border border-[#C9A84C]/20 text-center not-prose">
               <h3 className="font-heading text-2xl font-bold mb-3 text-[#F5F0E8]">Book a Comfortable Ride</h3>

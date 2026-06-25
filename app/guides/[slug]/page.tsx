@@ -1,10 +1,11 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { GUIDES } from "@/lib/data/guides";
-import { ChevronRight, Calendar, Clock, BookOpen } from "lucide-react";
+import { ChevronRight, Calendar, Clock, BookOpen, HelpCircle } from "lucide-react";
 import Link from "next/link";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { articleSchema, breadcrumbSchema } from "@/lib/schema";
+import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
+import { TLDRSummary } from "@/components/seo/TLDRSummary";
 
 export const revalidate = 86400;
 
@@ -63,6 +64,7 @@ export default async function GuideSinglePage({ params }: PageProps) {
             { name: "Guides", href: "/guides" },
             { name: guide.title, href: `/guides/${slug}` },
           ]),
+          ...(guide.faqs && guide.faqs.length > 0 ? [faqSchema(guide.faqs)] : []),
         ]}
       />
       {/* ─── HERO ───────────────────────────────────────────────────────── */}
@@ -108,6 +110,10 @@ export default async function GuideSinglePage({ params }: PageProps) {
 
       {/* ─── CONTENT ────────────────────────────────────────────────────── */}
       <section className="section-container max-w-3xl py-16">
+        {/* Quick Answer (above-the-fold AI/snippet signal) */}
+        {guide.tldr && (
+          <TLDRSummary answer={guide.tldr} facts={guide.tldrFacts} className="mb-12" />
+        )}
         <div className="prose prose-invert prose-p:leading-relaxed prose-p:text-[#A1A1A6] prose-li:text-[#A1A1A6] prose-headings:font-heading prose-headings:text-[#F5F0E8] prose-a:text-[#C9A84C] max-w-none">
           <p className="text-sm font-bold uppercase tracking-widest text-[#C9A84C] mb-8">Key Insights</p>
           
@@ -122,6 +128,24 @@ export default async function GuideSinglePage({ params }: PageProps) {
             ))}
           </ul>
         </div>
+
+        {/* FAQs (FAQPage schema injected above) */}
+        {guide.faqs && guide.faqs.length > 0 && (
+          <div className="mt-16">
+            <h2 className="font-heading text-2xl font-bold mb-6 flex items-center gap-3 text-[#F5F0E8]">
+              <HelpCircle className="text-[#C9A84C]" />
+              Frequently Asked Questions
+            </h2>
+            <div className="space-y-4">
+              {guide.faqs.map((faq, i) => (
+                <div key={i} className="border border-[#C9A84C]/15 rounded-2xl p-6 bg-[#111111]">
+                  <h3 className="font-bold text-base mb-2 text-[#F5F0E8]">{faq.question}</h3>
+                  <p className="text-sm text-[#A1A1A6] leading-relaxed">{faq.answer}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* CTA */}
         <div className="mt-16 p-8 rounded-3xl bg-gradient-to-br from-[#111111] to-[#1A1A1A] border border-[#C9A84C]/20 text-center">

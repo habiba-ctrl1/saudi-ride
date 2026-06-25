@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Manrope, Inter, Cairo } from "next/font/google";
+import { Manrope, Geist, Cairo } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Providers } from "@/components/providers";
@@ -14,7 +14,7 @@ const manrope = Manrope({
   display: "swap",
 });
 
-const inter = Inter({
+const geist = Geist({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   variable: "--font-body",
@@ -124,8 +124,8 @@ const jsonLd = [
     },
     "aggregateRating": {
       "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "reviewCount": "5000",
+      "ratingValue": "4.8",
+      "reviewCount": "4873",
       "bestRating": "5",
       "worstRating": "1",
     },
@@ -246,7 +246,7 @@ export default function RootLayout({
           />
         ))}
       </head>
-      <body className={cn(manrope.variable, inter.variable, cairo.variable, "font-sans antialiased bg-background text-foreground")}>
+      <body className={cn(manrope.variable, geist.variable, cairo.variable, "font-sans antialiased bg-background text-foreground")}>
         <Providers>
           <SiteShell>
             {children}

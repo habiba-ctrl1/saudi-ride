@@ -130,6 +130,32 @@ export const ROUTES_DATA = [
     descriptionAr: "نقل عبر الطريق الساحلي من جدة إلى ينبع.",
     slug: "jeddah-to-yanbu",
   },
+  {
+    fromCity: "Jeddah Airport",
+    toCity: "Jeddah City",
+    fromCityAr: "مطار جدة",
+    toCityAr: "مدينة جدة",
+    distance: 20,
+    duration: 30,
+    basePrice: 80,
+    popular: true,
+    description: "Fixed-price transfer from King Abdulaziz International Airport (JED) to your Jeddah hotel, the Corniche, Al-Balad, or the city centre — meet & greet included, 24/7.",
+    descriptionAr: "نقل بسعر ثابت من مطار الملك عبدالعزيز الدولي إلى فندقك في جدة أو الكورنيش أو البلد أو وسط المدينة.",
+    slug: "jeddah-airport-to-jeddah-city",
+  },
+  {
+    fromCity: "Jeddah",
+    toCity: "Haramain Station",
+    fromCityAr: "جدة",
+    toCityAr: "محطة قطار الحرمين",
+    distance: 15,
+    duration: 25,
+    basePrice: 70,
+    popular: false,
+    description: "Fixed-price taxi from anywhere in Jeddah to the Haramain High-Speed Railway station for onward travel to Makkah or Madinah — door-to-door with luggage help.",
+    descriptionAr: "تاكسي بسعر ثابت من أي مكان في جدة إلى محطة قطار الحرمين السريع للسفر إلى مكة أو المدينة.",
+    slug: "jeddah-to-haramain-station",
+  },
 
   // --- FROM RIYADH (10 routes) ---
   {
