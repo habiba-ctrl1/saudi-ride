@@ -25,23 +25,35 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) return null;
+        // Normalise: trim stray spaces/newlines (common when pasting env
+        // vars into Vercel) and compare email case-insensitively.
+        const inputEmail = credentials?.email?.trim().toLowerCase();
+        const inputPass = credentials?.password?.trim();
+        if (!inputEmail || !inputPass) return null;
 
-        const adminEmail = process.env.ADMIN_EMAIL;
-        const adminPassword = process.env.ADMIN_PASSWORD;
+        const adminEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase();
+        const adminPassword = process.env.ADMIN_PASSWORD?.trim();
 
-        if (!adminEmail || !adminPassword) return null;
-        if (credentials.email !== adminEmail || credentials.password !== adminPassword) return null;
+        // Distinct server-side logs so the REAL reason shows in Vercel logs
+        // instead of the generic "Invalid email or password" on the client.
+        if (!adminEmail || !adminPassword) {
+          console.error("[admin-login] ADMIN_EMAIL / ADMIN_PASSWORD env vars are not set in this environment");
+          return null;
+        }
+        if (inputEmail !== adminEmail || inputPass !== adminPassword) {
+          console.warn(`[admin-login] credential mismatch for "${inputEmail}"`);
+          return null;
+        }
 
-        const user = await prisma.user.findUnique({ where: { email: credentials.email } });
-        if (!user || user.role !== "ADMIN") return null;
-        
+        // Env is the source of truth. Try to attach the real DB id, but
+        // don't fail login if the row is missing — env match is enough.
+        const user = await prisma.user.findUnique({ where: { email: adminEmail } });
         return {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          role: user.role,
-          loyaltyPoints: user.loyaltyPoints,
+          id: user?.id ?? "admin",
+          name: user?.name ?? "Admin",
+          email: adminEmail,
+          role: "ADMIN",
+          loyaltyPoints: user?.loyaltyPoints ?? 0,
         };
       }
     }),
