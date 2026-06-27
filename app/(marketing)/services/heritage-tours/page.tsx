@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema } from "@/lib/schema";
 import { Map, ShieldCheck, Camera, MapPin } from "lucide-react";
 import Link from "next/link";
@@ -105,6 +106,7 @@ export default function HeritageToursPage() {
           </>
         );
       })()}
+      <ServiceRelatedLinks currentPath="/services/heritage-tours" />
     </main>
   );
 }

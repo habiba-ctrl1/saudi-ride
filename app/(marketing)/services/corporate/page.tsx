@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema } from "@/lib/schema";
 import { Building2, ReceiptText, ShieldCheck, UserCheck, Check } from "lucide-react";
 
@@ -213,6 +214,7 @@ export default function CorporateAccountsPage() {
           </>
         );
       })()}
+      <ServiceRelatedLinks currentPath="/services/corporate" />
     </main>
   );
 }

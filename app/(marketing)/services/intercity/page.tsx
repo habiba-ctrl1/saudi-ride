@@ -2,13 +2,14 @@
 import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema } from "@/lib/schema";
 import Link from "next/link";
 import { Map, Car, ShieldCheck, Clock, Navigation, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Intercity Taxi Saudi Arabia | Riyadh to Jeddah, Makkah, Dammam & More — Taxi Saudi Arabia",
-  description: "Book an intercity taxi in Saudi Arabia. Long-distance rides between Riyadh, Jeddah, Makkah, Madinah, Dammam, and Taif. Fixed prices, clean cars, licensed drivers. Book online or on WhatsApp.",
+  title: "Intercity Taxi Saudi Arabia | Long-Distance City Transfers",
+  description: "Book an intercity taxi in Saudi Arabia for long-distance rides between Riyadh, Jeddah, Makkah, Madinah & Dammam. Fixed prices, clean cars, 24/7 drivers.",
 };
 
 const POPULAR_COMBINATIONS = [

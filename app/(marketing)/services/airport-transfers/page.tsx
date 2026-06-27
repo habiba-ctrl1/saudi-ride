@@ -2,13 +2,14 @@
 import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema } from "@/lib/schema";
 import Link from "next/link";
 import { Plane, Clock, UserCheck, CheckCircle2, ShieldCheck, Search, PlaneLanding } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Airport Taxi Service in Saudi Arabia | Jeddah, Riyadh & Madinah — Taxi Saudi Arabia",
-  description: "Book an airport taxi in Saudi Arabia. Fixed-price airport pickups and drop-offs at Jeddah (JED), Riyadh (RUH), and Madinah (MED). Flight tracking, meet & greet, available 24/7.",
+  title: "Airport Taxi Saudi Arabia | Jeddah, Riyadh & Madinah Pickups",
+  description: "Fixed-price airport taxi in Saudi Arabia with pickups at Jeddah (JED), Riyadh (RUH) & Madinah (MED). Flight tracking, meet & greet, 24/7 licensed drivers.",
 };
 
 const AIRPORT_ROUTES = [
@@ -191,6 +192,7 @@ export default function AirportTransfersPage() {
           </Link>
         </div>
       </section>
+      <ServiceRelatedLinks currentPath="/services/airport-transfers" />
     </main>
   );
 }

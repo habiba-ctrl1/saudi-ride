@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema } from "@/lib/schema";
 import { Briefcase, ShieldCheck, Clock, Wifi } from "lucide-react";
 import Link from "next/link";
@@ -105,6 +106,7 @@ export default function BusinessExecutivePage() {
           </>
         );
       })()}
+      <ServiceRelatedLinks currentPath="/services/business-executive" />
     </main>
   );
 }

@@ -2,13 +2,14 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema } from "@/lib/schema";
 import { Star, ShieldCheck, Clock, Crown } from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "VIP & Luxury Chauffeur Service | Taxi Saudi Arabia",
-  description: "Experience absolute elegance with our VIP luxury chauffeur services in Saudi Arabia. Premium fleet including Mercedes S-Class, BMW 7-Series, and Cadillac Escalade.",
+  description: "VIP luxury chauffeur service in Saudi Arabia with a premium fleet — Mercedes S-Class, BMW 7-Series & Cadillac Escalade. Discreet, professional drivers, 24/7.",
 };
 
 const FEATURES = [
@@ -105,6 +106,7 @@ export default function VIPLuxuryPage() {
           </>
         );
       })()}
+      <ServiceRelatedLinks currentPath="/services/vip-luxury" />
     </main>
   );
 }

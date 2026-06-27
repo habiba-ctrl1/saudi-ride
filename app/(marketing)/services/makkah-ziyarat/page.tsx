@@ -5,12 +5,13 @@ import { Landmark, MapPin, Clock, ShieldCheck, CheckCircle2, MessageCircle } fro
 import { contactConfig } from "@/lib/config/contact";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Makkah Ziyarat Taxi Tours | Jabal Al-Noor, Mina & Historical Sites — Taxi Saudi Arabia",
+  title: "Makkah Ziyarat Taxi Tours | Jabal Al-Noor, Mina & Arafat",
   description:
-    "Book a Makkah Ziyarat taxi tour. Visit Jabal Al-Noor (Cave of Hira), Jabal Thawr, Mina, Arafat, Muzdalifah, and Jannat Al-Mualla with knowledgeable drivers. Flexible half-day and full-day tours.",
+    "Book a Makkah Ziyarat taxi tour — visit Jabal Al-Noor, Jabal Thawr, Mina, Arafat & Muzdalifah with knowledgeable drivers. Flexible half-day & full-day tours.",
 };
 
 const SITES = [
@@ -159,6 +160,7 @@ export default function MakkahZiyaratPage() {
           </a>
         </div>
       </section>
+      <ServiceRelatedLinks currentPath="/services/makkah-ziyarat" />
     </main>
   );
 }

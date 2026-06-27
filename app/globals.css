@@ -365,6 +365,26 @@ textarea:focus {
   }
 }
 
+/* ─── Parallax Sections ──────────────────────────────────────────────────── */
+.parallax-bg {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;   /* image stays fixed, content scrolls over */
+}
+/* Mobile/tablet: background-attachment:fixed is janky/unsupported (esp. iOS) —
+   fall back to a normal scrolling cover background. */
+@media (max-width: 820px) {
+  .parallax-bg {
+    background-attachment: scroll;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .parallax-bg {
+    background-attachment: scroll;
+  }
+}
+
 /* ─── Glass Morphism Utility ─────────────────────────────────────────────── */
 .glass-card {
   background: rgba(255, 255, 255, 0.85);

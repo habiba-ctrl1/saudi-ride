@@ -2,12 +2,13 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema } from "@/lib/schema";
 import { Heart, Compass, ShieldCheck, Clock, Check } from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Hajj Transport Services | Taxi Saudi Arabia",
+  title: "Hajj Transport Services | Jeddah, Makkah & Madinah Transfers",
   description: "Dedicated Hajj transport services in Saudi Arabia. Reliable transfers during the peak pilgrimage season between Jeddah, Makkah, and Madinah.",
 };
 
@@ -105,6 +106,7 @@ export default function HajjTransportPage() {
           </>
         );
       })()}
+      <ServiceRelatedLinks currentPath="/services/hajj-transport" />
     </main>
   );
 }

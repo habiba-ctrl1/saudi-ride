@@ -57,6 +57,20 @@ const ROUTES_MENU = [
   { label: "Riyadh → Dammam", href: "/routes/riyadh-to-dammam" },
 ];
 
+const LOCATIONS_MENU = [
+  { label: "Makkah", href: "/locations/makkah" },
+  { label: "Madinah", href: "/locations/madinah" },
+  { label: "Jeddah", href: "/locations/jeddah" },
+  { label: "Riyadh", href: "/locations/riyadh" },
+  { label: "Dammam", href: "/locations/dammam" },
+  { label: "Al Khobar", href: "/locations/alkhobar" },
+  { label: "Taif", href: "/locations/taif" },
+  { label: "Yanbu", href: "/locations/yanbu" },
+  { label: "AlUla", href: "/locations/alula" },
+  { label: "NEOM", href: "/locations/neom" },
+  { label: "Abha", href: "/locations/abha" },
+];
+
 const PARTNERS_MENU = [
   { label: "Partner With Us", href: "/partners", icon: Handshake, desc: "Grow your business with us" },
   { label: "Driver Registration", href: "/partners/driver-registration", icon: UserPlus, desc: "Join our driver network" },
@@ -110,7 +124,7 @@ export function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden xl:flex items-center gap-5 2xl:gap-7">
+          <nav className="hidden xl:flex items-center gap-4 2xl:gap-6">
             <Link href="/" className={navLinkCls}>Home</Link>
 
             {/* Transportation Services (mega dropdown) */}
@@ -185,6 +199,33 @@ export function Navbar() {
                     </Link>
                   </li>
                 </ul>
+              </div>
+            </div>
+
+            {/* Locations dropdown */}
+            <div className="relative group">
+              <button className={cn(navLinkCls, "py-4")}>
+                Locations
+                <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180" />
+              </button>
+              <div className="invisible opacity-0 translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 absolute left-0 top-full pt-1">
+                <div className="w-[26rem] rounded-2xl bg-white shadow-2xl border border-black/5 p-2">
+                  <ul className="grid grid-cols-2 gap-0.5">
+                    {LOCATIONS_MENU.map((l) => (
+                      <li key={l.href}>
+                        <Link href={l.href} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-[#0F172A] hover:bg-[#F0FDF4] hover:text-[#16A34A] transition-colors">
+                          <MapPin className="h-4 w-4 text-[#16A34A]" />
+                          {l.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-1 border-t border-black/5 pt-1">
+                    <Link href="/locations" className="flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold text-[#16A34A] hover:bg-[#F0FDF4]">
+                      View All Locations <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -290,6 +331,16 @@ export function Navbar() {
                   ))}
                   <Link href="/routes" className="block text-sm font-semibold text-[#16A34A] py-1">View All Routes →</Link>
                 </div>
+              </div>
+
+              <div>
+                <p className="text-[0.7rem] uppercase tracking-wider font-bold text-[#16A34A] mb-2">Locations</p>
+                <div className="grid grid-cols-2 gap-x-4 gap-y-0.5 pl-1">
+                  {LOCATIONS_MENU.map((l) => (
+                    <Link key={l.href} href={l.href} className="block text-sm text-[#334155] py-1">{l.label}</Link>
+                  ))}
+                </div>
+                <Link href="/locations" className="block text-sm font-semibold text-[#16A34A] py-1 pl-1 mt-1">View All Locations →</Link>
               </div>
 
               <div>

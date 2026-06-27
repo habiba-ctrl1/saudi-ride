@@ -16,6 +16,9 @@ export async function PATCH(
     }
 
     const {
+      name,
+      phone,
+      email,
       licenseNumber,
       licenseExpiry,
       motLicense,
@@ -25,6 +28,9 @@ export async function PATCH(
       vehicleId,
       status,
     } = body as {
+      name?: string;
+      phone?: string;
+      email?: string;
       licenseNumber?: string;
       licenseExpiry?: string;
       motLicense?: string;
@@ -34,6 +40,18 @@ export async function PATCH(
       vehicleId?: string;
       status?: string;
     };
+
+    // Update the linked user's contact fields if provided.
+    if (name !== undefined || phone !== undefined || email !== undefined) {
+      await prisma.user.update({
+        where: { id: driver.userId },
+        data: {
+          ...(name !== undefined ? { name } : {}),
+          ...(phone !== undefined ? { phone: phone || null } : {}),
+          ...(email !== undefined ? { email: email || null } : {}),
+        },
+      });
+    }
 
     const updated = await prisma.driver.update({
       where: { id },
@@ -47,6 +65,7 @@ export async function PATCH(
         ...(vehicleId !== undefined ? { vehicleId } : {}),
         ...(status !== undefined ? { status: status.toUpperCase() as "AVAILABLE" | "ON_TRIP" | "OFFLINE" | "SUSPENDED" } : {}),
       },
+      include: { user: { select: { name: true, email: true, phone: true } } },
     });
 
     return NextResponse.json({ success: true, driver: updated });

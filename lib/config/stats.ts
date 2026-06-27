@@ -7,6 +7,6 @@ export const trustStats = {
   experienceYears: "10+",
   activeChauffeurs: "24/7",
   passengerRating: "4.9★",
-  countriesServed: "+40",
+  citiesCovered: "+50",
   vehicleClasses: "14",
 };

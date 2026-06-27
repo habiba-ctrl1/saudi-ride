@@ -2,12 +2,13 @@
 import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema } from "@/lib/schema";
 import Link from "next/link";
 import { Globe, FileText, Clock, Car, CheckCircle2, AlertTriangle } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "GCC Cross-Border Taxi Service | Saudi Arabia to Bahrain, UAE, Qatar & Kuwait — Taxi Saudi Arabia",
+  title: "GCC Cross-Border Taxi | Saudi to Bahrain, UAE, Qatar & Kuwait",
   description: "Book a cross-border taxi from Saudi Arabia to Bahrain, UAE, Qatar, Kuwait, or Jordan. Fixed prices, experienced drivers, smooth border crossings. Available 24/7.",
 };
 
@@ -224,6 +225,7 @@ export default function BorderCrossingsPage() {
           </>
         );
       })()}
+      <ServiceRelatedLinks currentPath="/services/border-crossings" />
     </main>
   );
 }

@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/context/LanguageContext";
 import { contactConfig } from "@/lib/config/contact";
 import PriceCalculator from "@/components/booking/PriceCalculator";
+import { ParallaxSection } from "./ParallaxSection";
 import { trustStats } from "@/lib/config/stats";
 import {
   Calendar,
@@ -28,12 +29,12 @@ import {
 const homeTranslations = {
   en: {
     hero: {
-      badge: "Saudi Arabia's #1 Taxi & Car Service",
-      title: "Taxi & Car Service Across Saudi Arabia",
-      subtitle: "Book airport taxis, intercity rides, and Umrah transfers anywhere in Saudi Arabia — fixed prices, no hidden fees, available 24/7.",
-      btnBook: "Book a Taxi Now",
-      btnFleet: "Get Free Price Quote",
-      badges: ["24/7 Available", "Licensed Drivers", "Fixed Prices", "All Saudi Cities"]
+      badge: "Saudi Arabia's #1 Rated Taxi Service",
+      title: "Book a Taxi in Saudi Arabia — Airport Transfers, Umrah & Intercity",
+      subtitle: "Looking for a reliable taxi service in Saudi Arabia? Book airport transfers, Umrah transport, and private intercity rides at fixed prices — no hidden fees, licensed drivers, and a 24/7 taxi service you can trust.",
+      btnBook: "Book Taxi Now",
+      btnFleet: "Get a Free Price Quote",
+      badges: ["24/7 Taxi Service", "Licensed Drivers", "Fixed Price Taxi", "All Saudi Cities"]
     },
     stats: [
       { label: "Completed Trips", value: "5,000+", num: 5000 },
@@ -60,86 +61,86 @@ const homeTranslations = {
     },
     services: {
       badge: "Our Services",
-      title: "Taxi & Transfer Services in Saudi Arabia",
+      title: "Airport Transfers, Umrah Taxi & Private Rides Across Saudi Arabia",
       cards: [
         {
-          title: "Airport Taxi Service",
-          desc: "Airport pickup and drop-off at Jeddah (JED), Riyadh (RUH), and Madinah (MED). We track your flight — your driver waits 60 minutes free if your flight is delayed.",
+          title: "Airport Transfer Saudi Arabia",
+          desc: "Book an airport transfer at Jeddah (JED), Riyadh (RUH), Madinah (MED), and Dammam (DMM). We track your flight in real time — your professional chauffeur waits 60 minutes free if your flight is delayed. Meet-and-greet included.",
           price: "From SAR 199",
           icon: Globe
         },
         {
-          title: "Umrah Taxi & Transfer",
-          desc: "Dedicated taxi service for Umrah pilgrims. Makkah and Madinah transfers with Meeqat stops, prayer-time awareness, and English, Arabic, and Urdu-speaking drivers.",
+          title: "Umrah Taxi & Umrah Transport",
+          desc: "Dedicated Umrah taxi and Umrah transport for pilgrims. Umrah airport transfer from Jeddah to Makkah, Makkah Ziyarat taxi, and Madinah Ziyarat taxi with Meeqat stops, prayer-time awareness, and multilingual drivers.",
           price: "From SAR 249",
           icon: Sparkles
         },
         {
-          title: "Intercity Taxi — Saudi Arabia",
-          desc: "Long-distance taxi rides between Riyadh, Jeddah, Makkah, Dammam, and Madinah. Clean comfortable cars, fixed prices, and no surprise charges.",
+          title: "Private Taxi & VIP Taxi Saudi Arabia",
+          desc: "Book a private taxi or VIP taxi between Riyadh, Jeddah, Makkah, Madinah, Taif, and Dammam. Choose a luxury SUV taxi like the GMC Yukon or a family taxi like the Hyundai Staria — all at fixed prices.",
           price: "From SAR 599",
           icon: Compass
         },
         {
           title: "Corporate & Business Car Service",
-          desc: "Reliable car service for business meetings, corporate events, and executive travel. Wi-Fi equipped vehicles available for professionals on the go.",
+          desc: "Professional chauffeurs for business meetings, corporate events, and executive travel. Wi-Fi equipped vehicles, ZATCA-compliant invoicing, and dedicated account management for companies.",
           price: "From SAR 799",
           icon: Award
         },
         {
           title: "GCC Cross-Border Taxi",
-          desc: "Cross-border car service from Saudi Arabia to Bahrain, Qatar, UAE, and Kuwait. Experienced drivers, smooth border crossings, fixed fares.",
+          desc: "Cross-border car service from Saudi Arabia to Bahrain, Qatar, UAE, and Kuwait. Licensed drivers with border-crossing experience, fixed fares, and door-to-door service.",
           price: "From SAR 1,499",
           icon: ShieldCheck
         },
         {
-          title: "Saudi Arabia Day Tours",
-          desc: "Full-day car hire with a local driver for sightseeing. Explore AlUla, Taif, Diriyah, and NEOM with a knowledgeable local guide-driver.",
-          price: "From SAR 999",
+          title: "Taif Taxi, Dammam Taxi & Day Tours",
+          desc: "Book a Taif taxi for mountain getaways or a Dammam taxi for Eastern Province trips. Full-day car hire with a local driver for AlUla, Diriyah, NEOM, and other Saudi destinations.",
+          price: "From SAR 349",
           icon: Car
         }
       ]
     },
     whyUs: {
       badge: "Why Choose Us",
-      title: "Why Thousands Choose Our Taxi Service in Saudi Arabia",
-      desc: "We provide safe, reliable, and affordable taxi and car service across Saudi Arabia — for airport transfers, Umrah trips, business travel, and sightseeing.",
+      title: "Why Thousands Book Their Taxi Service in Saudi Arabia With Us",
+      desc: "We provide safe, reliable, and affordable taxi service across Saudi Arabia — from airport transfers and Umrah transport to private intercity rides and corporate travel. Here's what makes us different.",
       points: [
-        { title: "Government Licensed", desc: "Fully licensed by Saudi Ministry of Transport (MOT) and the General Authority for Transport (TGA)." },
-        { title: "Fixed Price — No Surprises", desc: "The price you see is the price you pay. No surge pricing, no hidden fees, ever." },
-        { title: "Prayer-Time Friendly", desc: "Our drivers always plan stops for prayer times. We never make you miss your Salah." },
-        { title: "Live Flight Tracking", desc: "We track your flight in real time. Your driver waits 60 minutes for free if your flight is delayed." },
-        { title: "English, Arabic & Urdu Drivers", desc: "Our drivers speak English, Arabic, and Urdu — so you can communicate easily and comfortably." },
-        { title: "Free Cancellation", desc: "Cancel your booking up to 24 hours before your trip for a full refund — no questions asked." },
-        { title: "Airport Meet & Greet", desc: "Your driver meets you inside the terminal with a name sign and helps carry your bags to the car." },
-        { title: "Company E-Invoice", desc: "Automated VAT-compliant e-invoices via ZATCA for all corporate and business bookings." }
+        { title: "Government Licensed Drivers", desc: "Every driver is fully licensed by Saudi Ministry of Transport (MOT) and the General Authority for Transport (TGA). Licensed drivers you can trust." },
+        { title: "Fixed Price Taxi — No Surprises", desc: "The taxi price you see is the taxi fare you pay. No surge pricing, no hidden fees, no meter tricks. Every taxi fare in Saudi Arabia is fixed at booking." },
+        { title: "WhatsApp Booking Available 24/7", desc: "Book your taxi via WhatsApp booking anytime — day or night. Our 24/7 taxi service team confirms within minutes." },
+        { title: "Live Flight Tracking", desc: "We track your flight in real time for every Saudi airport transfer. Your professional chauffeur waits 60 minutes free if your flight is delayed." },
+        { title: "English, Arabic & Urdu Drivers", desc: "Our professional chauffeurs speak English, Arabic, and Urdu — ensuring clear communication for international pilgrims and business travelers." },
+        { title: "Free Cancellation — 24 Hours", desc: "Cancel your booking up to 24 hours before your trip for a full refund — no questions asked. Flexibility you can count on." },
+        { title: "Airport Meet & Greet Service", desc: "For every airport transfer in Saudi Arabia, your driver meets you inside the arrivals terminal with a name sign and helps carry your luggage to the car." },
+        { title: "ZATCA-Compliant E-Invoice", desc: "Automated VAT-compliant e-invoices via ZATCA for all corporate and business bookings. Trusted by hotels, embassies, and enterprises." }
       ]
     },
     routes: {
       badge: "Popular Routes",
-      title: "Most Booked Taxi Routes in Saudi Arabia",
+      title: "Most Booked Taxi Routes in Saudi Arabia — Fixed Prices",
       btnBook: "Book This Route"
     },
     fleet: {
-      badge: "Our Cars",
-      title: "Choose Your Car",
-      desc: "Clean, comfortable, air-conditioned, and well-maintained cars for every trip in Saudi Arabia.",
-      btnBook: "Book This Car",
-      btnMore: "See All Cars",
+      badge: "Our Fleet",
+      title: "Choose Your Taxi — Sedan, SUV & Family Van",
+      desc: "Clean, comfortable, and well-maintained vehicles for every trip. From the GMC Yukon for VIP groups to the Hyundai Staria for families and the Toyota Hiace for Umrah groups — all driven by professional chauffeurs.",
+      btnBook: "Book This Vehicle",
+      btnMore: "See All Vehicles",
       "mercedes-sSpec": "Top luxury sedan — perfect for executives, VIPs, and important business arrivals.",
       escaladeSpec: "Large SUV with spacious cabin — great for groups and families with lots of luggage.",
       "mercedes-vSpec": "Spacious minivan — ideal for Umrah groups, large families, and corporate teams.",
       "bmw-7Spec": "Premium executive car — stylish and comfortable for business trips and long-distance rides.",
-      yukonSpec: "Full-size American SUV with big boot space — perfect for large groups and airport transfers."
+      yukonSpec: "Full-size luxury SUV taxi with big boot space — the GMC Yukon is perfect for family taxi trips and airport transfers."
     },
     clientele: "Trusted by Pilgrims & Travelers from 40+ Countries",
     umrah: {
-      title: "Umrah Taxi Service — Makkah & Madinah Transfers",
-      desc: "We provide dedicated taxi and transfer service for Umrah pilgrims. Our drivers understand the holy journey and make every trip smooth, comfortable, and spiritually respectful.",
+      title: "Umrah Taxi Service — Makkah & Madinah Transfers for Pilgrims",
+      desc: "We provide dedicated Umrah transport and Umrah taxi service for pilgrims. Our Umrah airport transfer covers Jeddah Airport to Makkah, Makkah Ziyarat taxi tours, and Madinah Ziyarat taxi tours. Our licensed drivers understand the holy journey and make every trip smooth, comfortable, and spiritually respectful.",
       point1: "Trips planned around prayer times and Salah stops",
       point2: "Meeqat stop for Ihram — no extra charge, no rush",
       point3: "Drop-off at the closest permitted point to Masjid Al-Haram and Masjid An-Nabawi",
-      point4: "Drivers trained to respect pilgrims and support the full Umrah journey",
+      point4: "Professional chauffeurs trained to respect pilgrims and support the full Umrah journey",
       btnWhatsApp: "Book Umrah Taxi on WhatsApp"
     },
     testimonials: {
@@ -154,10 +155,36 @@ const homeTranslations = {
     },
     cta: {
       title: "Book Your Taxi in Saudi Arabia Today",
-      desc: "Fast, safe, and reliable taxi service anywhere in Saudi Arabia. Book in under 2 minutes online or on WhatsApp.",
+      desc: "Need a taxi in Saudi Arabia? Book an airport transfer, Umrah taxi, or private intercity ride in under 2 minutes. Fixed taxi prices, licensed drivers, and WhatsApp booking available around the clock.",
       btnBook: "Book Taxi Online",
       btnWhatsApp: "Book on WhatsApp",
-      trust: "Instant Confirmation • Fixed Prices Guaranteed • 24/7 Customer Support"
+      trust: "Instant Confirmation • Fixed Taxi Prices Guaranteed • 24/7 Customer Support"
+    },
+    faq: {
+      badge: "Frequently Asked Questions",
+      title: "Everything You Need to Know",
+      items: [
+        {
+          q: "How do I book a taxi in Saudi Arabia?",
+          a: "You can book a taxi in Saudi Arabia online via our booking console or directly through WhatsApp booking. Simply provide your pickup location, destination, date, and time. Our 24/7 taxi service team will confirm your ride instantly with a fixed price."
+        },
+        {
+          q: "How much is a Jeddah Airport to Makkah taxi?",
+          a: "The taxi fare for a Jeddah Airport to Makkah taxi starts from SAR 249 in a standard sedan, and SAR 349 for a family taxi like the Hyundai Staria. We offer a fixed price taxi guarantee, meaning no hidden charges."
+        },
+        {
+          q: "Do you offer Umrah transport from Madinah?",
+          a: "Yes, our Umrah transport covers the Makkah to Madinah taxi route, Madinah to Makkah taxi route, and Madinah Ziyarat taxi services. All Umrah taxi rides include stops at Meeqat and are driven by professional chauffeurs."
+        },
+        {
+          q: "Are the taxi drivers licensed and professional?",
+          a: "Absolutely. All our professional chauffeurs are fully licensed drivers approved by the Saudi Transport General Authority (TGA). They speak English, Arabic, and Urdu, ensuring a smooth Saudi airport transfer and intercity experience."
+        },
+        {
+          q: "Do you have vehicles for large families or groups?",
+          a: "Yes, we offer luxury SUV taxis like the GMC Yukon and spacious vans like the Toyota Hiace and Hyundai Staria. These are perfect for group Umrah airport transfers and family taxi trips across Saudi Arabia."
+        }
+      ]
     }
   },
   ar: {
@@ -431,12 +458,14 @@ const homeTranslations = {
 const topRoutesList = [
   { from: "jeddah-airport", to: "makkah-haram", nameEn: "Jeddah Airport ➔ Makkah", nameAr: "مطار جدة ➔ مكة المكرمة", nameUr: "جدہ ایئرپورٹ ➔ مکہ مکرمہ", dist: "85 km", dur: "1h 15m", price: "249" },
   { from: "makkah-haram", to: "madinah-mosque", nameEn: "Makkah ➔ Madinah", nameAr: "مكة المكرمة ➔ المدينة المنورة", nameUr: "مکہ مکرمہ ➔ مدینہ منورہ", dist: "450 km", dur: "4h 30m", price: "799" },
-  { from: "madinah-mosque", to: "jeddah-airport", nameEn: "Madinah ➔ Jeddah Airport", nameAr: "المدينة المنورة ➔ مطار جدة", nameUr: "مدینہ منورہ ➔ جدہ ایئرپورٹ", dist: "410 km", dur: "4h 10m", price: "749" },
+  { from: "madinah-mosque", to: "makkah-haram", nameEn: "Madinah ➔ Makkah", nameAr: "المدينة المنورة ➔ مكة المكرمة", nameUr: "مدینہ منورہ ➔ مکہ مکرمہ", dist: "450 km", dur: "4h 30m", price: "799" },
+  { from: "makkah-haram", to: "jeddah-airport", nameEn: "Makkah ➔ Jeddah Airport", nameAr: "مكة المكرمة ➔ مطار جدة", nameUr: "مکہ مکرمہ ➔ جدہ ایئرپورٹ", dist: "85 km", dur: "1h 15m", price: "249" },
+  { from: "jeddah-airport", to: "madinah-mosque", nameEn: "Jeddah ➔ Madinah", nameAr: "مطار جدة ➔ المدينة المنورة", nameUr: "جدہ ایئرپورٹ ➔ مدینہ منورہ", dist: "420 km", dur: "4h 15m", price: "749" },
+  { from: "madinah-airport", to: "madinah-mosque", nameEn: "Madinah Airport ➔ Hotels", nameAr: "مطار المدينة ➔ الفنادق", nameUr: "مدینہ ایئرپورٹ ➔ ہوٹلز", dist: "15 km", dur: "20m", price: "149" },
+  { from: "riyadh-airport", to: "riyadh-downtown", nameEn: "Riyadh Airport ➔ City", nameAr: "مطار الرياض ➔ وسط المدينة", nameUr: "ریاض ایئرپورٹ ➔ شہر", dist: "35 km", dur: "35m", price: "179" },
+  { from: "jeddah-airport", to: "taif", nameEn: "Jeddah ➔ Taif", nameAr: "جدة ➔ مرتفعات الطائف", nameUr: "جدہ ➔ طائف", dist: "140 km", dur: "1h 45m", price: "349" },
   { from: "riyadh-downtown", to: "dammam", nameEn: "Riyadh ➔ Dammam", nameAr: "الرياض ➔ الدمام", nameUr: "ریاض ➔ دمام", dist: "400 km", dur: "4h 00m", price: "699" },
-  { from: "riyadh-downtown", to: "dubai", nameEn: "Riyadh ➔ Dubai (GCC)", nameAr: "الرياض ➔ دبي (الخليج)", nameUr: "ریاض ➔ دبئی", dist: "1,000 km", dur: "9h 30m", price: "1,999" },
-  { from: "dammam", to: "doha", nameEn: "Dammam ➔ Doha (GCC)", nameAr: "الدمام ➔ الدوحة", nameUr: "دمام ➔ دوحہ", dist: "380 km", dur: "3h 45m", price: "899" },
-  { from: "jeddah-airport", to: "taif", nameEn: "Jeddah ➔ Taif Heights", nameAr: "جدة ➔ مرتفعات الطائف", nameUr: "جدہ ➔ طائف", dist: "140 km", dur: "1h 45m", price: "349" },
-  { from: "jeddah-airport", to: "madinah-mosque", nameEn: "Jeddah Airport ➔ Madinah", nameAr: "مطار جدة ➔ المدينة المنورة", nameUr: "جدہ ایئرپورٹ ➔ مدینہ منورہ", dist: "420 km", dur: "4h 15m", price: "749" }
+  { from: "dammam-airport", to: "dammam", nameEn: "Dammam Airport ➔ City", nameAr: "مطار الدمام ➔ وسط المدينة", nameUr: "دمام ایئرپورٹ ➔ شہر", dist: "55 km", dur: "40m", price: "199" },
 ];
 
 const vehicleList = [
@@ -552,7 +581,7 @@ function FleetCard({ veh, index, onBook, btnLabel }: {
       variants={fadeUp}
       transition={{ duration: 0.5, delay: index * 0.08 }}
       whileHover={{ y: -6 }}
-      className="group relative overflow-hidden rounded-2xl border border-[#C9A84C]/15 bg-[#121212] shadow-lg hover:shadow-2xl hover:border-[#C8A45D]/40 transition-all duration-400"
+      className="group relative overflow-hidden rounded-2xl border border-[#16A34A]/12 bg-white shadow-sm hover:shadow-xl hover:border-[#16A34A]/35 transition-all duration-400"
     >
       {/* Image with zoom */}
       <div className="relative h-56 w-full overflow-hidden">
@@ -569,9 +598,9 @@ function FleetCard({ veh, index, onBook, btnLabel }: {
         <span
           className="absolute left-3 top-3 rounded-full px-3 py-1 text-[0.58rem] uppercase tracking-wider font-bold"
           style={{
-            backgroundColor: "rgba(0,0,0,0.7)",
-            border: "1px solid rgba(200,164,93,0.4)",
-            color: "#C8A45D",
+            backgroundColor: "rgba(255,255,255,0.85)",
+            border: "1px solid rgba(22,163,74,0.3)",
+            color: "#16A34A",
             backdropFilter: "blur(8px)",
           }}
         >
@@ -582,18 +611,18 @@ function FleetCard({ veh, index, onBook, btnLabel }: {
       {/* Content */}
       <div className="p-5 space-y-3">
         {/* Gold accent line */}
-        <div className="h-[2px] w-10 rounded-full bg-gradient-to-r from-[#C8A45D] to-[#F4E4BC] group-hover:w-16 transition-all duration-400" />
+        <div className="h-[2px] w-10 rounded-full bg-gradient-to-r from-[#16A34A] to-[#4ADE80] group-hover:w-16 transition-all duration-400" />
 
-        <h3 className="font-heading text-lg font-bold text-[#F5F0E8] group-hover:text-[#C8A45D] transition-colors leading-snug">
+        <h3 className="font-heading text-lg font-bold text-[#1C1C1C] group-hover:text-[#16A34A] transition-colors leading-snug">
           {veh.name}
         </h3>
 
         <div
           className="flex items-center gap-3 text-[0.62rem] font-bold uppercase tracking-wider py-2 border-y"
-          style={{ borderColor: "rgba(200,164,93,0.12)", color: "#9CA3AF" }}
+          style={{ borderColor: "rgba(22,163,74,0.12)", color: "#6B7280" }}
         >
           <span>{veh.capacity}</span>
-          <span className="h-1 w-1 rounded-full" style={{ backgroundColor: "#C8A45D" }} />
+          <span className="h-1 w-1 rounded-full" style={{ backgroundColor: "#16A34A" }} />
           <span>{veh.luggage}</span>
         </div>
 
@@ -601,17 +630,17 @@ function FleetCard({ veh, index, onBook, btnLabel }: {
           onClick={onBook}
           className="w-full rounded-full py-2.5 text-[0.72rem] font-bold uppercase tracking-wider transition-all duration-300"
           style={{
-            border: "1.5px solid rgba(200,164,93,0.4)",
-            color: "#C8A45D",
+            border: "1.5px solid rgba(22,163,74,0.3)",
+            color: "#16A34A",
             backgroundColor: "transparent",
           }}
           onMouseEnter={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#C8A45D";
-            (e.currentTarget as HTMLButtonElement).style.color = "#0F172A";
+            (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#16A34A";
+            (e.currentTarget as HTMLButtonElement).style.color = "#FFFFFF";
           }}
           onMouseLeave={(e) => {
             (e.currentTarget as HTMLButtonElement).style.backgroundColor = "transparent";
-            (e.currentTarget as HTMLButtonElement).style.color = "#C8A45D";
+            (e.currentTarget as HTMLButtonElement).style.color = "#16A34A";
           }}
         >
           {btnLabel}
@@ -681,7 +710,7 @@ export function HomePage() {
   const currentCar = heroCars[heroCar];
 
   return (
-    <main className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] overflow-hidden pt-20">
+    <main className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] overflow-hidden pt-20">
       
       {/* SECTION 1 — HERO (light, two-column: car image + green panel) */}
       <section className="relative pt-8 md:pt-10 pb-16" style={{ backgroundColor: "#FAFAF7" }}>
@@ -793,8 +822,17 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* PARALLAX — Riyadh Skyline (after Hero) */}
+      <ParallaxSection
+        image="/locations/riyadh-hero.webp"
+        title="Ride Across Riyadh With Confidence"
+        text="Professional taxi service available day and night with experienced drivers and comfortable vehicles."
+        buttonLabel="Book Your Taxi"
+        buttonHref="#booking-console"
+      />
+
       {/* SECTION 2 — PREMIUM STATS BAR */}
-      <section className="relative z-10 border-b" style={{ backgroundColor: "#0F172A", borderColor: "rgba(200,164,93,0.15)" }}>
+      <section className="relative z-10 border-y" style={{ backgroundColor: "#F0FDF4", borderColor: "rgba(22,163,74,0.12)" }}>
         <div className="section-container py-14">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
             {t.stats.map((stat, idx) => (
@@ -808,12 +846,12 @@ export function HomePage() {
               >
                 <p
                   className="font-heading font-extrabold"
-                  style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "#C8A45D", letterSpacing: "-0.02em" }}
+                  style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "#16A34A", letterSpacing: "-0.02em" }}
                 >
                   {idx === 0 ? `${tripsCounter.toLocaleString()}+` : stat.value}
                 </p>
-                <div className="w-8 h-[2px] mx-auto rounded-full" style={{ backgroundColor: "rgba(200,164,93,0.4)" }} />
-                <p className="text-[0.65rem] uppercase tracking-[0.2em] font-semibold" style={{ color: "rgba(255,255,255,0.45)" }}>
+                <div className="w-8 h-[2px] mx-auto rounded-full" style={{ backgroundColor: "rgba(22,163,74,0.3)" }} />
+                <p className="text-[0.65rem] uppercase tracking-[0.2em] font-semibold" style={{ color: "#6B7280" }}>
                   {stat.label}
                 </p>
               </motion.div>
@@ -876,9 +914,9 @@ export function HomePage() {
                   variants={fadeUp}
                   transition={{ duration: 0.45, delay: index * 0.07 }}
                   whileHover={{ y: -6, boxShadow: "0 20px 56px rgba(200,164,93,0.13)" }}
-                  className="group relative flex flex-col justify-between rounded-2xl p-7 bg-[#121212] transition-all duration-350"
+                  className="group relative flex flex-col justify-between rounded-2xl p-7 bg-white transition-all duration-350"
                   style={{
-                    border: "1.5px solid rgba(200,164,93,0.15)",
+                    border: "1.5px solid rgba(22,163,74,0.12)",
                     boxShadow: "0 4px 24px rgba(0,0,0,0.04)",
                   }}
                 >
@@ -908,7 +946,7 @@ export function HomePage() {
                     </div>
 
                     <h3
-                      className="font-heading font-bold text-[#F5F0E8] group-hover:text-[#C8A45D] transition-colors duration-300 mb-3"
+                      className="font-heading font-bold text-[#1C1C1C] group-hover:text-[#16A34A] transition-colors duration-300 mb-3"
                       style={{ fontSize: "1.2rem", letterSpacing: "-0.01em" }}
                     >
                       {service.title}
@@ -937,6 +975,15 @@ export function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* PARALLAX — Saudi Landmarks (after Services) */}
+      <ParallaxSection
+        image="/locations/alula-hero.webp"
+        title="Travel Anywhere in Saudi Arabia"
+        text="Airport transfers, city rides, intercity journeys and chauffeur services tailored for every traveler."
+        buttonLabel="Explore Destinations"
+        buttonHref="/locations"
+      />
 
       {/* SECTION 5 — WHY CHOOSE US */}
       <section className="section-container py-24 border-t border-[#C9A84C]/10 relative z-10">
@@ -1029,10 +1076,10 @@ export function HomePage() {
           {topRoutesList.map((route, index) => (
             <div
               key={index}
-              className="group rounded-3xl border border-[#C9A84C]/15 bg-[#121212] p-6 flex flex-col justify-between hover:border-[#C9A84C]/35 transition-all duration-300"
+              className="group rounded-3xl border border-[#16A34A]/12 bg-white p-6 flex flex-col justify-between hover:border-[#16A34A]/35 transition-all duration-300 shadow-sm hover:shadow-lg"
             >
               <div>
-                <h3 className="font-heading text-base font-bold text-[#F5F0E8] group-hover:text-[#C9A84C] transition-colors leading-tight">
+                <h3 className="font-heading text-base font-bold text-[#1C1C1C] group-hover:text-[#16A34A] transition-colors leading-tight">
                   {route[`name${language === 'ar' ? 'Ar' : 'En'}` as const]}
                 </h3>
 
@@ -1047,14 +1094,14 @@ export function HomePage() {
                   <p className="text-[0.55rem] uppercase tracking-wider text-[#7C8088]">
                     {language === "ar" ? "من" : "From"}
                   </p>
-                  <p className="font-heading text-lg font-bold text-[#F5F0E8]">
+                  <p className="font-heading text-lg font-bold text-[#1C1C1C]">
                     SAR {route.price}
                   </p>
                 </div>
 
                 <button
                   onClick={handleSelectRoute}
-                  className="rounded-full bg-[#C9A84C]/10 group-hover:bg-[#C9A84C] p-2 text-[#C9A84C] group-hover:text-[#0A0A0A] transition-all"
+                  className="rounded-full bg-[#16A34A]/10 group-hover:bg-[#16A34A] p-2 text-[#16A34A] group-hover:text-white transition-all"
                 >
                   <ArrowRight className="h-4 w-4" />
                 </button>
@@ -1105,9 +1152,9 @@ export function HomePage() {
       </section>
 
       {/* SECTION 8 — INTERNATIONAL CLIENTELE */}
-      <section className="py-16 border-y border-[#C9A84C]/15 relative z-10 overflow-hidden premium-dark-section" style={{ backgroundColor: "#0F172A" }}>
+      <section className="py-16 border-y relative z-10 overflow-hidden" style={{ backgroundColor: "#F0FDF4", borderColor: "rgba(22,163,74,0.12)" }}>
         <div className="section-container text-center mb-10">
-          <h2 className="font-heading text-xl md:text-2xl font-bold text-[#F5F0E8] tracking-wide">
+          <h2 className="font-heading text-xl md:text-2xl font-bold text-[#1C1C1C] tracking-wide">
             {t.clientele}
           </h2>
         </div>
@@ -1119,7 +1166,7 @@ export function HomePage() {
             {internationalNations.map((nation, index) => (
               <div
                 key={`n1-${index}`}
-                className="flex items-center gap-3 rounded-full border border-[#C9A84C]/10 bg-[#121212] px-6 py-2.5 text-xs font-semibold text-[#F5F0E8]"
+                className="flex items-center gap-3 rounded-full border border-[#16A34A]/15 bg-white px-6 py-2.5 text-xs font-semibold text-[#1C1C1C] shadow-sm"
               >
                 <span className="text-lg">{nation.flag}</span>
                 <span>{nation.name}</span>
@@ -1129,7 +1176,7 @@ export function HomePage() {
             {internationalNations.map((nation, index) => (
               <div
                 key={`n2-${index}`}
-                className="flex items-center gap-3 rounded-full border border-[#C9A84C]/10 bg-[#121212] px-6 py-2.5 text-xs font-semibold text-[#F5F0E8]"
+                className="flex items-center gap-3 rounded-full border border-[#16A34A]/15 bg-white px-6 py-2.5 text-xs font-semibold text-[#1C1C1C] shadow-sm"
               >
                 <span className="text-lg">{nation.flag}</span>
                 <span>{nation.name}</span>
@@ -1140,16 +1187,16 @@ export function HomePage() {
       </section>
 
       {/* SECTION 9 — UMRAH SPECIAL SECTION */}
-      <section className="relative py-32 border-b border-[#C9A84C]/15 overflow-hidden premium-dark-section">
-        {/* Background holy image with dark overlay */}
+      <section className="relative py-32 border-b border-[#16A34A]/15 overflow-hidden" style={{ backgroundColor: "#FAFAF7" }}>
+        {/* Background holy image with light overlay */}
         <div className="absolute inset-0 z-0">
           <Image
             src="/umrah-section.webp"
             alt="Grand mosque at sunset — Umrah & Ziyarat transport in Saudi Arabia"
             fill
-            className="object-cover brightness-20 blur-xs"
+            className="object-cover opacity-15 blur-xs"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/85 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#FAFAF7]/95 via-[#FAFAF7]/85 to-transparent" />
         </div>
 
         <div className="section-container relative z-10 grid gap-16 md:grid-cols-2 items-center">
@@ -1159,14 +1206,14 @@ export function HomePage() {
               <Sparkles className="h-4.5 w-4.5 text-[#C9A84C]" />
               <span>Umrah & Hajj Taxi Service</span>
             </span>
-            <h2 className="font-heading text-3.5xl font-bold leading-tight md:text-5xl text-[#F5F0E8]">
+            <h2 className="font-heading text-3.5xl font-bold leading-tight md:text-5xl text-[#1C1C1C]">
               {t.umrah.title}
             </h2>
             <p className="text-sm leading-relaxed text-[#A1A1A6]">
               {t.umrah.desc}
             </p>
 
-            <ul className="grid gap-3.5 text-xs text-[#F5F0E8] font-semibold">
+            <ul className="grid gap-3.5 text-xs text-[#1C1C1C] font-semibold">
               {[t.umrah.point1, t.umrah.point2, t.umrah.point3, t.umrah.point4].map((point, idx) => (
                 <li key={idx} className="flex items-center gap-3">
                   <CheckCircle className="h-5 w-5 text-[#C9A84C] shrink-0" />
@@ -1180,17 +1227,17 @@ export function HomePage() {
                 href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam,%20I%20would%20like%20to%20book%20a%20spiritually-compliant%20VIP%20Umrah%20transfer.`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 rounded-full bg-[#C9A84C] px-8 py-4 text-xs font-bold uppercase tracking-wider text-[#0A0A0A] shadow-[0_4px_20px_rgba(201,168,76,0.3)] transition-all hover:bg-[#B8963B] hover:scale-102"
+                className="inline-flex items-center gap-3 rounded-full bg-[#16A34A] px-8 py-4 text-xs font-bold uppercase tracking-wider text-white shadow-[0_4px_20px_rgba(22,163,74,0.3)] transition-all hover:bg-[#15803D] hover:scale-102"
               >
-                <MessageCircle className="h-5 w-5 fill-[#0A0A0A]" />
+                <MessageCircle className="h-5 w-5 fill-white" />
                 <span>{t.umrah.btnWhatsApp}</span>
               </a>
             </div>
           </div>
 
           {/* Highlight Routes side card */}
-          <div className="rounded-3xl border border-[#C9A84C]/20 bg-black/40 backdrop-blur-md p-8 space-y-6">
-            <h3 className="font-heading text-xl font-bold text-[#F5F0E8] border-b border-[#C9A84C]/10 pb-4">
+          <div className="rounded-3xl border border-[#16A34A]/20 bg-white/80 backdrop-blur-md p-8 space-y-6 shadow-lg">
+            <h3 className="font-heading text-xl font-bold text-[#1C1C1C] border-b border-[#16A34A]/10 pb-4">
               Popular Umrah Taxi Routes
             </h3>
 
@@ -1202,7 +1249,7 @@ export function HomePage() {
               ].map((route, idx) => (
                 <div key={idx} className="flex items-center justify-between text-xs">
                   <div>
-                    <p className="font-semibold text-[#F5F0E8]">
+                    <p className="font-semibold text-[#1C1C1C]">
                       {route[`r${language === 'ar' ? 'Ar' : 'En'}` as const]}
                     </p>
                     <p className="text-[0.6rem] text-[#7C8088] font-medium mt-1">
@@ -1211,7 +1258,7 @@ export function HomePage() {
                   </div>
                   <div className="text-right">
                     <p className="text-[0.55rem] text-[#7C8088] uppercase">From</p>
-                    <p className="font-bold text-[#C9A84C] mt-0.5">SAR {route.price}</p>
+                    <p className="font-bold text-[#16A34A] mt-0.5">SAR {route.price}</p>
                   </div>
                 </div>
               ))}
@@ -1220,6 +1267,15 @@ export function HomePage() {
 
         </div>
       </section>
+
+      {/* PARALLAX — Premium Taxi Fleet (before Testimonials) */}
+      <ParallaxSection
+        image="/fleet/cadillac-escalade.webp"
+        title="Comfortable Vehicles For Every Journey"
+        text="Clean, spacious and well-maintained cars driven by professional chauffeurs to ensure a smooth ride."
+        buttonLabel="Reserve Your Ride"
+        buttonHref="/book"
+      />
 
       {/* SECTION 10 — TESTIMONIALS */}
       <section className="py-24 border-t border-[#C9A84C]/10 relative z-10" style={{ backgroundColor: "#F8FAFC" }}>
@@ -1326,7 +1382,7 @@ export function HomePage() {
           {blogList.map((blog, idx) => (
             <article
               key={idx}
-              className="group relative flex flex-col justify-between rounded-3xl border border-[#C9A84C]/15 bg-[#121212] p-8 shadow-2xl hover:border-[#C9A84C]/35 transition-all duration-300"
+              className="group relative flex flex-col justify-between rounded-3xl border border-[#16A34A]/12 bg-white p-8 shadow-sm hover:shadow-lg hover:border-[#16A34A]/35 transition-all duration-300"
             >
               <div>
                 <div className="flex items-center justify-between text-[0.6rem] text-[#7C8088] font-bold uppercase tracking-wider mb-5">
@@ -1334,7 +1390,7 @@ export function HomePage() {
                   <span>{blog[`time${language === 'ar' ? 'Ar' : 'En'}` as const]}</span>
                 </div>
 
-                <h3 className="font-heading text-lg font-bold text-[#F5F0E8] group-hover:text-[#C9A84C] transition-colors leading-snug">
+                <h3 className="font-heading text-lg font-bold text-[#1C1C1C] group-hover:text-[#16A34A] transition-colors leading-snug">
                   {blog[`title${language === 'ar' ? 'Ar' : 'En'}` as const]}
                 </h3>
 
@@ -1357,13 +1413,66 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* SECTION 11.5 — FAQs */}
+      <section className="section-container py-24 border-t border-[#C9A84C]/10 relative z-10 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center space-y-3 mb-12">
+            <span className="text-[0.65rem] uppercase tracking-[0.25em] font-bold text-[#C8A45D]">
+              {t.faq?.badge || "Frequently Asked Questions"}
+            </span>
+            <h2
+              className="font-heading font-bold"
+              style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", letterSpacing: "-0.02em", color: "#0F172A" }}
+            >
+              {t.faq?.title || "Everything You Need to Know"}
+            </h2>
+          </div>
+
+          <div className="space-y-4">
+            {t.faq?.items?.map((item: { q: string; a: string }, idx: number) => (
+              <details
+                key={idx}
+                className="group rounded-2xl border border-[#16A34A]/15 bg-[#FAFAF7] p-5 transition-all duration-300 hover:border-[#16A34A]/35"
+              >
+                <summary className="cursor-pointer font-heading text-sm md:text-base font-semibold text-[#1C1C1C] group-open:text-[#16A34A] list-none flex items-center justify-between focus:outline-none select-none">
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="h-4 w-4 text-[#16A34A] shrink-0" />
+                    <span>{item.q}</span>
+                  </div>
+                  <span className="text-xs transition-transform duration-300 group-open:rotate-180 text-[#16A34A]">▼</span>
+                </summary>
+                <p className="mt-4 text-sm leading-relaxed text-[#6B7280] border-t border-[#16A34A]/10 pt-4 font-sans">
+                  {item.a}
+                  {/* Internal Links for SEO */}
+                  {idx === 0 && (
+                    <span className="block mt-2 font-semibold">
+                      Learn more on our <Link href="/services" className="text-[#16A34A] hover:underline">Services page</Link>.
+                    </span>
+                  )}
+                  {idx === 2 && (
+                    <span className="block mt-2 font-semibold">
+                      View our <Link href="/services/umrah-transport" className="text-[#16A34A] hover:underline">Umrah Transport details</Link>.
+                    </span>
+                  )}
+                  {idx === 4 && (
+                    <span className="block mt-2 font-semibold">
+                      Check out our <Link href="/fleet" className="text-[#16A34A] hover:underline">Fleet</Link>.
+                    </span>
+                  )}
+                </p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* SECTION 12 — FINAL CTA */}
       <section className="section-container pb-28 pt-10 relative z-10">
-        <div className="relative overflow-hidden rounded-3xl border border-[#C9A84C]/25 bg-[#121212] p-10 md:p-14 text-center">
+        <div className="relative overflow-hidden rounded-3xl border border-[#16A34A]/15 bg-white p-10 md:p-14 text-center shadow-lg">
           {/* Subtle gold overlay lines */}
           <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-[#C9A84C]/5 blur-3xl pointer-events-none" />
 
-          <h3 className="font-heading text-4xl font-bold md:text-5.5xl leading-tight" style={{ color: "#0F172A" }}>
+          <h3 className="font-heading text-4xl font-bold md:text-5.5xl leading-tight" style={{ color: "#1C1C1C" }}>
             {t.cta.title}
           </h3>
           
@@ -1373,7 +1482,7 @@ export function HomePage() {
           
           <div className="mt-10 flex flex-wrap justify-center gap-4 text-xs font-semibold uppercase tracking-wider">
             <a
-              className="rounded-full bg-[#C9A84C] px-8 py-4 text-[#0A0A0A] hover:bg-[#B8963B] transition-all duration-300 hover:scale-102 font-bold shadow-[0_4px_20px_rgba(201,168,76,0.3)]"
+              className="rounded-full bg-[#16A34A] px-8 py-4 text-white hover:bg-[#15803D] transition-all duration-300 hover:scale-102 font-bold shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
               href="#booking-console"
             >
               {t.cta.btnBook}

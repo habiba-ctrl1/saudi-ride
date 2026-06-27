@@ -2,13 +2,14 @@
 import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema } from "@/lib/schema";
 import Link from "next/link";
 import { Map, Clock, Compass, ChevronRight, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Day Trip Car Hire in Saudi Arabia | AlUla, Taif, NEOM & More — Taxi Saudi Arabia",
-  description: "Hire a car with a driver for a day trip in Saudi Arabia. Explore AlUla, NEOM, Abha, Taif, and Diriyah with a local driver. Hourly and full-day rates available. Book online or on WhatsApp.",
+  title: "Day Trip Car Hire Saudi Arabia | AlUla, Taif, NEOM & Abha",
+  description: "Hire a car with driver for day trips in Saudi Arabia — explore AlUla, NEOM, Abha, Taif & Diriyah. Hourly and full-day rates. Book online or on WhatsApp.",
 };
 
 const DESTINATIONS = [
@@ -199,6 +200,7 @@ export default function TourismChartersPage() {
           </>
         );
       })()}
+      <ServiceRelatedLinks currentPath="/services/tourism" />
     </main>
   );
 }

@@ -47,12 +47,17 @@ export async function GET(request: Request) {
   }
 }
 
-// POST /api/admin/drivers — create a driver profile for an existing user
+// POST /api/admin/drivers — add a driver.
+// Friendly mode: pass name + phone and we create the User automatically.
+// Advanced mode: pass an existing userId to promote that user to DRIVER.
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const {
       userId,
+      name,
+      phone,
+      email,
       licenseNumber,
       licenseExpiry,
       motLicense,
@@ -62,6 +67,9 @@ export async function POST(request: Request) {
       vehicleId,
     } = body as {
       userId?: string;
+      name?: string;
+      phone?: string;
+      email?: string;
       licenseNumber?: string;
       licenseExpiry?: string;
       motLicense?: string;
@@ -71,28 +79,51 @@ export async function POST(request: Request) {
       vehicleId?: string;
     };
 
-    if (!userId || !licenseNumber || !licenseExpiry) {
+    if (!licenseNumber || !licenseExpiry) {
       return NextResponse.json(
-        { error: "userId, licenseNumber, and licenseExpiry are required" },
+        { error: "License number and license expiry are required." },
+        { status: 400 }
+      );
+    }
+    if (!userId && !name) {
+      return NextResponse.json(
+        { error: "Driver name is required." },
         { status: 400 }
       );
     }
 
-    const user = await prisma.user.findUnique({ where: { id: userId } });
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    // Guard against duplicate license / phone before we write anything.
+    const dupLicense = await prisma.driver.findUnique({ where: { licenseNumber } });
+    if (dupLicense) {
+      return NextResponse.json({ error: "A driver with this license number already exists." }, { status: 409 });
+    }
+    if (phone) {
+      const dupPhone = await prisma.user.findUnique({ where: { phone } });
+      if (dupPhone && dupPhone.id !== userId) {
+        return NextResponse.json({ error: "This phone number is already registered." }, { status: 409 });
+      }
     }
 
-    const existing = await prisma.driver.findUnique({ where: { userId } });
-    if (existing) {
-      return NextResponse.json({ error: "Driver profile already exists for this user" }, { status: 409 });
+    // Resolve the user: either an existing one, or create a fresh DRIVER user.
+    let resolvedUserId = userId;
+    if (resolvedUserId) {
+      const user = await prisma.user.findUnique({ where: { id: resolvedUserId } });
+      if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 });
+      const existing = await prisma.driver.findUnique({ where: { userId: resolvedUserId } });
+      if (existing) {
+        return NextResponse.json({ error: "Driver profile already exists for this user" }, { status: 409 });
+      }
+    } else {
+      const newUser = await prisma.user.create({
+        data: { name, phone: phone ?? null, email: email ?? null, role: "DRIVER" },
+      });
+      resolvedUserId = newUser.id;
     }
 
-    // Promote user role to DRIVER
     const [driver] = await prisma.$transaction([
       prisma.driver.create({
         data: {
-          userId,
+          userId: resolvedUserId,
           licenseNumber,
           licenseExpiry: new Date(licenseExpiry),
           motLicense: motLicense ?? null,
@@ -102,7 +133,7 @@ export async function POST(request: Request) {
           vehicleId: vehicleId ?? null,
         },
       }),
-      prisma.user.update({ where: { id: userId }, data: { role: "DRIVER" } }),
+      prisma.user.update({ where: { id: resolvedUserId }, data: { role: "DRIVER" } }),
     ]);
 
     return NextResponse.json({ success: true, driver }, { status: 201 });

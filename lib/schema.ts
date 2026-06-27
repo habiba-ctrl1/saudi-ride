@@ -236,3 +236,33 @@ export function itemListSchema(items: Crumb[]) {
     })),
   };
 }
+
+interface StepInput {
+  name: string;
+  text: string;
+  url?: string;
+}
+
+interface HowToInput {
+  name: string;
+  description: string;
+  steps: StepInput[];
+  totalTime?: string; // ISO 8601 duration format, e.g., "PT2M" for 2 minutes
+}
+
+/** HowTo — eligible for How-To rich results, great for booking processes. */
+export function howToSchema({ name, description, steps, totalTime = "PT2M" }: HowToInput) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name,
+    description,
+    totalTime,
+    step: steps.map((step) => ({
+      "@type": "HowToStep",
+      name: step.name,
+      text: step.text,
+      ...(step.url ? { url: abs(step.url) } : {}),
+    })),
+  };
+}

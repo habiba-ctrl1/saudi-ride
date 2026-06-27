@@ -5,11 +5,12 @@ import { Landmark, Languages, ShieldCheck, HeartHandshake, CheckCircle2, Message
 import { contactConfig } from "@/lib/config/contact";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Umrah Taxi Service | Jeddah to Makkah & Madinah Transfers — Taxi Saudi Arabia",
-  description: "Book an Umrah taxi service in Saudi Arabia. Airport to Makkah transfers, Makkah to Madinah rides, Ziyarat tours, and Meeqat stops. English, Arabic & Urdu-speaking drivers. Fixed prices, 24/7.",
+  title: "Umrah Taxi Service | Jeddah to Makkah & Madinah Transfers",
+  description: "Umrah taxi service in Saudi Arabia — airport to Makkah, Makkah to Madinah, Ziyarat tours & Meeqat stops. English, Arabic & Urdu drivers. Fixed prices, 24/7.",
 };
 
 const PACKAGES = [
@@ -308,6 +309,7 @@ export default function UmrahTransportPage() {
           </a>
         </div>
       </section>
+      <ServiceRelatedLinks currentPath="/services/umrah-transport" />
     </main>
   );
 }
