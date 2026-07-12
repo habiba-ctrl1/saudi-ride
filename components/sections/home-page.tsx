@@ -317,6 +317,17 @@ const homeTranslations = {
       btnBook: "احجز رحلتك أونلاين",
       btnWhatsApp: "احجز مباشرة عبر الواتساب",
       trust: "تأكيد فوري • أسعار ثابتة ومضمونة • خدمة عملاء مخصصة على مدار الساعة"
+    },
+    faq: {
+      badge: "الأسئلة الشائعة",
+      title: "كل ما تحتاج معرفته",
+      items: [
+        { q: "كيف أحجز تاكسي في السعودية؟", a: "يمكنك الحجز عبر منصة الحجز في موقعنا أو مباشرة عبر واتساب. حدد موقع الانطلاق والوجهة والتاريخ والوقت، وسيؤكد فريقنا رحلتك فوراً بسعر ثابت على مدار الساعة." },
+        { q: "كم تكلفة تاكسي من مطار جدة إلى مكة؟", a: "تبدأ أجرة تاكسي مطار جدة إلى مكة من 180 ريالاً في السيارة العادية، مع خيارات عائلية أكبر. السعر ثابت بدون رسوم خفية." },
+        { q: "هل تقدمون نقل العمرة من المدينة؟", a: "نعم، نغطي مسار مكة إلى المدينة والمدينة إلى مكة وجولات الزيارة، مع التوقف عند الميقات وسائقين محترفين." },
+        { q: "هل السائقون مرخصون ومحترفون؟", a: "بالتأكيد. جميع سائقينا مرخصون ومعتمدون من الهيئة العامة للنقل ويتحدثون العربية والإنجليزية والأردية." },
+        { q: "هل لديكم مركبات للعائلات الكبيرة؟", a: "نعم، نوفر سيارات SUV فاخرة مثل GMC Yukon وحافلات صغيرة مثل Toyota Hiace وHyundai Staria المثالية للمجموعات والعائلات." }
+      ]
     }
   },
   ar_fallback: {},
@@ -450,6 +461,17 @@ const homeTranslations = {
       btnBook: "آن لائن بک کریں",
       btnWhatsApp: "واٹس ایپ کے ذریعے بک کریں",
       trust: "فوری تصدیق • طے شدہ فکسڈ ریٹس • 24/7 کسٹمر سپورٹ ڈیسک"
+    },
+    faq: {
+      badge: "اکثر پوچھے گئے سوالات",
+      title: "ہر وہ چیز جو آپ کو جاننی چاہیے",
+      items: [
+        { q: "سعودی عرب میں ٹیکسی کیسے بک کریں؟", a: "آپ ہماری ویب سائٹ کے بکنگ کنسول یا براہ راست واٹس ایپ کے ذریعے بک کر سکتے ہیں۔ پک اپ مقام، منزل، تاریخ اور وقت بتائیں — ہماری 24/7 ٹیم فکسڈ قیمت کے ساتھ فوری تصدیق کرے گی۔" },
+        { q: "جدہ ایئرپورٹ سے مکہ ٹیکسی کا کرایہ کتنا ہے؟", a: "جدہ ایئرپورٹ سے مکہ ٹیکسی کا کرایہ عام سیڈان میں 180 ریال سے شروع ہوتا ہے، فیملی گاڑیوں کے آپشن کے ساتھ۔ قیمت فکسڈ ہے، کوئی پوشیدہ چارجز نہیں۔" },
+        { q: "کیا آپ مدینہ سے عمرہ ٹرانسپورٹ فراہم کرتے ہیں؟", a: "جی ہاں، ہم مکہ سے مدینہ، مدینہ سے مکہ اور زیارت ٹورز کا احاطہ کرتے ہیں، میقات پر رکنے اور پیشہ ور ڈرائیوروں کے ساتھ۔" },
+        { q: "کیا ڈرائیور لائسنس یافتہ اور پیشہ ور ہیں؟", a: "بالکل۔ ہمارے تمام ڈرائیور ٹرانسپورٹ جنرل اتھارٹی (TGA) سے منظور شدہ ہیں اور عربی، انگریزی اور اردو بولتے ہیں۔" },
+        { q: "کیا بڑے خاندانوں کے لیے گاڑیاں ہیں؟", a: "جی ہاں، ہم GMC Yukon جیسی لگژری SUV اور Toyota Hiace و Hyundai Staria جیسی کشادہ وینز فراہم کرتے ہیں جو گروپس اور خاندانوں کے لیے بہترین ہیں۔" }
+      ]
     }
   }
 };
@@ -972,6 +994,86 @@ export function HomePage() {
                 </motion.article>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION — ABOUT (integrated from About Us page) */}
+      <section id="about" className="py-24 border-t border-[#C9A84C]/10 relative z-10" style={{ backgroundColor: "#FFFFFF" }}>
+        <div className="section-container">
+          <div className="grid gap-14 lg:grid-cols-2 items-center">
+            {/* Image */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="relative h-[340px] rounded-3xl overflow-hidden border border-[#16A34A]/15 shadow-[0_18px_50px_rgba(0,0,0,0.10)] order-last lg:order-first"
+            >
+              <Image
+                src="/locations/riyadh-hero.webp"
+                alt="Taxi Saudi Arabia — licensed taxi and car service across the Kingdom"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" />
+            </motion.div>
+
+            {/* Copy */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="space-y-6"
+            >
+              <span className="text-[0.65rem] uppercase tracking-[0.25em] text-[#C9A84C] font-bold">
+                {language === "ar" ? "من نحن" : "About Taxi Saudi Arabia"}
+              </span>
+              <h2 className="font-heading font-bold" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", letterSpacing: "-0.02em", color: "#0F172A" }}>
+                {language === "ar" ? "خدمة تاكسي سعودية موثوقة منذ 2014" : "Saudi Arabia's Trusted Taxi Service Since 2014"}
+              </h2>
+              <p className="text-sm leading-relaxed" style={{ color: "#6B7280" }}>
+                {language === "ar"
+                  ? "تأسس تاكسي السعودية عام 2014 في الرياض، ونما من 5 سيارات إلى أسطول يغطي الرياض وجدة ومكة والمدينة والدمام وغيرها — يخدم آلاف الحجاج والمسافرين والعائلات كل عام بأسعار ثابتة وسائقين مرخصين."
+                  : "Founded in 2014 in Riyadh, Taxi Saudi Arabia grew from five cars to a fleet covering Riyadh, Jeddah, Makkah, Madinah, Dammam and beyond — serving thousands of pilgrims, business travellers, and families every year with fixed prices and licensed drivers."}
+              </p>
+
+              <div className="grid sm:grid-cols-2 gap-4">
+                {[
+                  { icon: CheckCircle, en: "Government licensed (MOT) & ZATCA-compliant", ar: "مرخص من وزارة النقل ومتوافق مع هيئة الزكاة" },
+                  { icon: ShieldCheck, en: "Vetted, multilingual professional drivers", ar: "سائقون محترفون موثوقون ومتعددو اللغات" },
+                  { icon: Sparkles, en: "Clean, air-conditioned, maintained cars", ar: "سيارات نظيفة ومكيفة وبصيانة دورية" },
+                  { icon: Award, en: "12+ years · 50k+ trips · fixed prices 24/7", ar: "أكثر من 12 عاماً و50 ألف رحلة بأسعار ثابتة" },
+                ].map((p) => {
+                  const Icon = p.icon;
+                  return (
+                    <div key={p.en} className="flex items-start gap-3 rounded-2xl border border-[#16A34A]/12 bg-[#F0FDF4] p-4">
+                      <Icon className="h-5 w-5 text-[#16A34A] shrink-0 mt-0.5" />
+                      <span className="text-xs font-medium leading-relaxed text-[#334155]">{language === "ar" ? p.ar : p.en}</span>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="flex flex-wrap gap-4 pt-2">
+                <Link
+                  href="/about"
+                  className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-xs font-bold uppercase tracking-wider text-white transition-transform hover:scale-105"
+                  style={{ backgroundColor: "#16A34A" }}
+                >
+                  {language === "ar" ? "اعرف المزيد عنا" : "Learn More About Us"}
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+                <a
+                  href="#booking-console"
+                  className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/30 px-6 py-3 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#F0FDF4] transition-colors"
+                >
+                  {language === "ar" ? "احجز الآن" : "Book a Ride"}
+                </a>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>

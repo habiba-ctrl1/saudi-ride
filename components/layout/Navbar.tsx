@@ -124,7 +124,7 @@ export function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden xl:flex items-center gap-4 2xl:gap-6">
+          <nav className="hidden xl:flex items-center gap-5 2xl:gap-7">
             <Link href="/" className={navLinkCls}>Home</Link>
 
             {/* Transportation Services (mega dropdown) */}
@@ -253,7 +253,6 @@ export function Navbar() {
             </div>
 
             <Link href="/blog" className={navLinkCls}>Blog</Link>
-            <Link href="/about" className={navLinkCls}>About Us</Link>
             <Link href="/contact" className={navLinkCls}>Contact Us</Link>
           </nav>
 
@@ -354,7 +353,6 @@ export function Navbar() {
 
               <div className="space-y-1.5">
                 <Link href="/blog" className="block text-base font-bold text-[#0F172A]">Blog</Link>
-                <Link href="/about" className="block text-base font-bold text-[#0F172A]">About Us</Link>
                 <Link href="/contact" className="block text-base font-bold text-[#0F172A]">Contact Us</Link>
               </div>
 
