@@ -8,6 +8,7 @@ import { Users, ShieldCheck, Bus, MapPin, Check } from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "https://taxisaudiarabia.com/services/group-transport" },
   title: "Group Transport & Umrah Bus Hire | Taxi Saudi Arabia",
   description: "Spacious group transport in Saudi Arabia. Rent 7-seater Vans, Coaster buses, and luxury coaches for large families and Umrah groups.",
 };

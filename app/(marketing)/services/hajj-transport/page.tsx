@@ -8,6 +8,7 @@ import { Heart, Compass, ShieldCheck, Clock, Check } from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "https://taxisaudiarabia.com/services/hajj-transport" },
   title: "Hajj Transport Services | Jeddah, Makkah & Madinah Transfers",
   description: "Dedicated Hajj transport services in Saudi Arabia. Reliable transfers during the peak pilgrimage season between Jeddah, Makkah, and Madinah.",
 };

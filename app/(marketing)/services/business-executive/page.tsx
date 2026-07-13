@@ -8,6 +8,7 @@ import { Briefcase, ShieldCheck, Clock, Wifi } from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "https://taxisaudiarabia.com/services/business-executive" },
   title: "Business & Executive Transport | Taxi Saudi Arabia",
   description: "Executive transport services for business travelers in Riyadh, Jeddah, and Dammam. Professional chauffeurs and comfortable sedans for your corporate meetings.",
 };

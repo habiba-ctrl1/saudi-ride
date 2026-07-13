@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://taxisaudiarabia.com"),
   title: "Taxi Service Saudi Arabia — Book Airport Transfer & Umrah Taxi | Fixed Prices 24/7",
   description:
-    "Book a taxi in Saudi Arabia — airport transfers, Umrah transport, and intercity rides at fixed prices. Licensed drivers, GMC Yukon, Hyundai Staria & Toyota Hiace fleet. Jeddah Airport to Makkah, Makkah to Madinah, Riyadh & Dammam. WhatsApp booking available 24/7.",
+    "Book a taxi in Saudi Arabia — airport transfers, Umrah transport & intercity rides at fixed prices. Licensed drivers, WhatsApp booking 24/7.",
   keywords: [
     "taxi service Saudi Arabia",
     "airport transfer Saudi Arabia",
@@ -134,43 +134,9 @@ const jsonLd = [
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "GCC Cross-Border Taxi", "description": "Cross-border car service from Saudi Arabia to Bahrain, Qatar, UAE, and Kuwait with professional chauffeurs." } },
       ],
     },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "reviewCount": "4873",
-      "bestRating": "5",
-      "worstRating": "1",
-    },
-    "review": [
-      {
-        "@type": "Review",
-        "author": { "@type": "Person", "name": "Dr. Farhan Malik" },
-        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-        "datePublished": "2026-05-18",
-        "reviewBody": "Excellent taxi service from Jeddah to Makkah. The driver was waiting in the arrivals hall with a name sign. Smooth, comfortable ride with no issues at all.",
-      },
-      {
-        "@type": "Review",
-        "author": { "@type": "Person", "name": "Muhammad Siddique" },
-        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-        "datePublished": "2026-05-02",
-        "reviewBody": "Wonderful Umrah transfer booking. The driver was prayer-time aware and stopped for us at Meeqat with complete respect and patience. Highly recommended.",
-      },
-      {
-        "@type": "Review",
-        "author": { "@type": "Person", "name": "Hassan Qabbani" },
-        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-        "datePublished": "2026-04-21",
-        "reviewBody": "Highly recommend Taxi Saudi Arabia for anyone in Saudi Arabia. Clean car, Wi-Fi included, fixed price — zero hidden charges or surge fees.",
-      },
-      {
-        "@type": "Review",
-        "author": { "@type": "Person", "name": "Evelyn Sterling" },
-        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-        "datePublished": "2026-04-09",
-        "reviewBody": "Amazing airport taxi service. My flight was delayed 2 hours but the driver tracked it and was right there when I landed. Very professional and reliable.",
-      },
-    ],
+    // NOTE: aggregateRating + review schema removed on purpose — fabricated
+    // review markup risks a Google structured-data penalty. Re-add ONLY with
+    // real reviews (e.g. from Google Business Profile) later.
     "areaServed": [
       { "@type": "City", "name": "Riyadh", "sameAs": "https://www.wikidata.org/wiki/Q3692" },
       { "@type": "City", "name": "Jeddah", "sameAs": "https://www.wikidata.org/wiki/Q79278" },

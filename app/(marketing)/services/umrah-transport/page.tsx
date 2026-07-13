@@ -9,6 +9,7 @@ import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "https://taxisaudiarabia.com/services/umrah-transport" },
   title: "Umrah Taxi Service | Jeddah to Makkah & Madinah Transfers",
   description: "Umrah taxi service in Saudi Arabia — airport to Makkah, Makkah to Madinah, Ziyarat tours & Meeqat stops. English, Arabic & Urdu drivers. Fixed prices, 24/7.",
 };

@@ -8,6 +8,7 @@ import { Map, ShieldCheck, Camera, MapPin } from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "https://taxisaudiarabia.com/services/heritage-tours" },
   title: "Saudi Heritage Tours & Transport | Taxi Saudi Arabia",
   description: "Private chauffeur tours to Saudi Arabia's top heritage sites including AlUla, Diriyah, and more. Experience the Kingdom's history in comfort.",
 };

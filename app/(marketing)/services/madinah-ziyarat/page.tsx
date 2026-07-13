@@ -8,6 +8,7 @@ import { Compass, ShieldCheck, MapPin, Map } from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "https://taxisaudiarabia.com/services/madinah-ziyarat" },
   title: "Madinah Ziyarat Packages & Taxi Tours | Taxi Saudi Arabia",
   description: "Guided Ziyarat tours in Madinah. Visit Quba Mosque, Mount Uhud, and historical Islamic sites with our knowledgeable local drivers.",
 };

@@ -29,6 +29,7 @@ export async function generateMetadata({
   return {
     title,
     description,
+    alternates: { canonical: `https://taxisaudiarabia.com/fleet/${slug}` },
     keywords: `${vehicle.name} taxi Saudi Arabia, ${vehicle.subtitle} hire Riyadh, ${vehicle.name} Jeddah airport, luxury transfer KSA`,
     openGraph: {
       title,

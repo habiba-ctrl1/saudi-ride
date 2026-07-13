@@ -8,6 +8,7 @@ import Link from "next/link";
 import { Map, Car, ShieldCheck, Clock, Navigation, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "https://taxisaudiarabia.com/services/intercity" },
   title: "Intercity Taxi Saudi Arabia | Long-Distance City Transfers",
   description: "Book an intercity taxi in Saudi Arabia for long-distance rides between Riyadh, Jeddah, Makkah, Madinah & Dammam. Fixed prices, clean cars, 24/7 drivers.",
 };

@@ -8,6 +8,7 @@ import Link from "next/link";
 import { Map, Clock, Compass, ChevronRight, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "https://taxisaudiarabia.com/services/tourism" },
   title: "Day Trip Car Hire Saudi Arabia | AlUla, Taif, NEOM & Abha",
   description: "Hire a car with driver for day trips in Saudi Arabia — explore AlUla, NEOM, Abha, Taif & Diriyah. Hourly and full-day rates. Book online or on WhatsApp.",
 };

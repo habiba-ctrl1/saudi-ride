@@ -7,6 +7,7 @@ import { serviceSchema, faqSchema } from "@/lib/schema";
 import { Building2, ReceiptText, ShieldCheck, UserCheck, Check } from "lucide-react";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "https://taxisaudiarabia.com/services/corporate" },
   title: "Corporate Taxi Accounts & B2B Transport | Taxi Saudi Arabia",
   description: "Executive B2B transport solutions in Saudi Arabia. Monthly invoicing, ZATCA compliant receipts, priority dispatch, and dedicated account managers.",
 };

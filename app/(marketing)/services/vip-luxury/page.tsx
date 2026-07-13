@@ -8,6 +8,7 @@ import { Star, ShieldCheck, Clock, Crown } from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "https://taxisaudiarabia.com/services/vip-luxury" },
   title: "VIP & Luxury Chauffeur Service | Taxi Saudi Arabia",
   description: "VIP luxury chauffeur service in Saudi Arabia with a premium fleet — Mercedes S-Class, BMW 7-Series & Cadillac Escalade. Discreet, professional drivers, 24/7.",
 };

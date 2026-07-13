@@ -8,6 +8,7 @@ import Link from "next/link";
 import { Plane, Clock, UserCheck, CheckCircle2, ShieldCheck, Search, PlaneLanding } from "lucide-react";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "https://taxisaudiarabia.com/services/airport-transfers" },
   title: "Airport Taxi Saudi Arabia | Jeddah, Riyadh & Madinah Pickups",
   description: "Fixed-price airport taxi in Saudi Arabia with pickups at Jeddah (JED), Riyadh (RUH) & Madinah (MED). Flight tracking, meet & greet, 24/7 licensed drivers.",
 };

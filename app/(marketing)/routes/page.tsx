@@ -7,6 +7,7 @@ export const revalidate = 86400; // static + refresh daily (was force-dynamic = 
 export const metadata = {
   title: "Taxi Routes in Saudi Arabia | Fixed Prices — Taxi Saudi Arabia",
   description: "Browse 50+ taxi routes across Saudi Arabia and the GCC. Fixed-price rides between Makkah, Madinah, Riyadh, Jeddah, Dammam, and more. Book online or on WhatsApp.",
+  alternates: { canonical: "https://taxisaudiarabia.com/routes" },
 };
 
 export default async function RoutesPage() {

@@ -8,6 +8,7 @@ import Link from "next/link";
 import { Globe, FileText, Clock, Car, CheckCircle2, AlertTriangle } from "lucide-react";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "https://taxisaudiarabia.com/services/border-crossings" },
   title: "GCC Cross-Border Taxi | Saudi to Bahrain, UAE, Qatar & Kuwait",
   description: "Book a cross-border taxi from Saudi Arabia to Bahrain, UAE, Qatar, Kuwait, or Jordan. Fixed prices, experienced drivers, smooth border crossings. Available 24/7.",
 };
