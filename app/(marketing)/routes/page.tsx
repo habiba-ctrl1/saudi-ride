@@ -2,7 +2,7 @@ import { db } from "@/lib/db";
 import RoutesClient from "./RoutesClient";
 import { ROUTES_DATA } from "@/lib/data/routes";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 86400; // static + refresh daily (was force-dynamic = slow on every request)
 
 export const metadata = {
   title: "Taxi Routes in Saudi Arabia | Fixed Prices — Taxi Saudi Arabia",

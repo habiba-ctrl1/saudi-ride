@@ -1,8 +1,8 @@
-export const dynamic = "force-dynamic";
-export const revalidate = 86400; // revalidate every 24 hours
+export const revalidate = 86400; // static + refresh daily (was force-dynamic = ~16s server render on every request)
 
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
+import { ROUTES_DATA } from "@/lib/data/routes";
 import { Metadata } from "next";
 import { MapPin, Clock, ArrowRight, CheckCircle2, ShieldCheck, Car, HelpCircle, AlertTriangle, ChevronRight } from "lucide-react";
 import Link from "next/link";
@@ -15,6 +15,12 @@ interface PageProps {
   params: Promise<{
     slug: string;
   }>;
+}
+
+// Pre-render every route page at build time so they load instantly and get
+// indexed reliably (previously each one server-rendered on every request).
+export function generateStaticParams() {
+  return ROUTES_DATA.map((r) => ({ slug: r.slug }));
 }
 
 // Generic fallback FAQs for routes without bespoke content.
