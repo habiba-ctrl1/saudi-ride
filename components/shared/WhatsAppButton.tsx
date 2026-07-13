@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export function WhatsAppButton() {
   const [isHovered, setIsHovered] = useState(false);
-  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+966500123456";
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+966539388072";
   
   // Format phone number for deep link: remove spaces, symbols, keep only digits and +
   const formattedNumber = whatsappNumber.replace(/[^0-9]/g, "");

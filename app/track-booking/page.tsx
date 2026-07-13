@@ -27,7 +27,7 @@ const translations = {
     title: "Check your Driver status",
     description: "Enter your secure booking reference and registered WhatsApp phone number to access live Driver allocation, dispatch coordinates, and vehicle details.",
     placeholderId: "Booking ID (e.g. TSA-8924)",
-    placeholderPhone: "WhatsApp Number (e.g. +966500123456)",
+    placeholderPhone: "WhatsApp Number (e.g. +966539388072)",
     btnLabel: "Track Driver Status",
     note: "Your transfer coordinates are encrypted. Driver dispatch details are updated in real-time.",
     backBtn: "Back to Tracker",
@@ -41,7 +41,7 @@ const translations = {
     title: "ØªØªØ¨Ø¹ Ø­Ø§Ù„Ø© Ø§Ù„Ø³Ø§Ø¦Ù‚ ÙˆØ§Ù„Ø±Ø­Ù„Ø©",
     description: "Ø£Ø¯Ø®Ù„ Ø±Ù‚Ù… Ø§Ù„Ø­Ø¬Ø² Ø§Ù„Ø¢Ù…Ù† ÙˆØ±Ù‚Ù… Ø§Ù„ÙˆØ§ØªØ³Ø§Ø¨ Ø§Ù„Ù…Ø³Ø¬Ù„ Ù„Ù„ÙˆØµÙˆÙ„ Ø¥Ù„Ù‰ ØªÙØ§ØµÙŠÙ„ ØªØ®ØµÙŠØµ Ø§Ù„Ø³Ø§Ø¦Ù‚ Ø§Ù„ÙÙˆØ±ÙŠØ©ØŒ ÙˆØ¥Ø­Ø¯Ø§Ø«ÙŠØ§Øª Ø§Ù„Ù…ÙˆÙ‚Ø¹ØŒ ÙˆØ¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ù…Ø±ÙƒØ¨Ø©.",
     placeholderId: "Ø±Ù‚Ù… Ø§Ù„Ø­Ø¬Ø² (Ù…Ø«Ø§Ù„: TSA-8924)",
-    placeholderPhone: "Ø±Ù‚Ù… Ø§Ù„ÙˆØ§ØªØ³Ø§Ø¨ (Ù…Ø«Ø§Ù„: +966500123456)",
+    placeholderPhone: "Ø±Ù‚Ù… Ø§Ù„ÙˆØ§ØªØ³Ø§Ø¨ (Ù…Ø«Ø§Ù„: +966539388072)",
     btnLabel: "ØªØªØ¨Ø¹ Ø­Ø§Ù„Ø© Ø§Ù„Ø³Ø§Ø¦Ù‚ Ø§Ù„Ø¢Ù†",
     note: "Ø¨ÙŠØ§Ù†Ø§Øª Ø±Ø­Ù„ØªÙƒ Ù…Ø´ÙØ±Ø© Ø¨Ø§Ù„ÙƒØ§Ù…Ù„. ÙŠØªÙ… ØªØ­Ø¯ÙŠØ« ØªÙØ§ØµÙŠÙ„ Ø§Ù„Ø³Ø§Ø¦Ù‚ ÙˆÙ…ÙˆÙ‚Ø¹Ù‡ Ø§Ù„Ù…Ø¨Ø§Ø´Ø± Ù„Ø­Ø¸Ø© Ø¨Ù„Ø­Ø¸Ø©.",
     backBtn: "Ø§Ù„Ø¹ÙˆØ¯Ø© Ø¥Ù„Ù‰ Ø§Ù„ØªØªØ¨Ø¹",
@@ -55,7 +55,7 @@ const translations = {
     title: "Ø§Ù¾Ù†Û’ ÚˆØ±Ø§Ø¦ÛŒÙˆØ± Ú©Ø§ Ø§Ø³Ù¹ÛŒÙ¹Ø³ Ø§Ø³Ù¹ÛŒÙ¹Ø³",
     description: "Ø§Ù¾Ù†Ø§ Ù…Ø­ÙÙˆØ¸ Ø¨Ú©Ù†Ú¯ Ø­ÙˆØ§Ù„Û Ø§ÙˆØ± Ø±Ø¬Ø³Ù¹Ø±Úˆ ÙˆØ§Ù¹Ø³ Ø§ÛŒÙ¾ Ù†Ù…Ø¨Ø± Ø¯Ø±Ø¬ Ú©Ø±ÛŒÚº ØªØ§Ú©Û Ù„Ø§Ø¦ÛŒÙˆ ÚˆØ±Ø§Ø¦ÛŒÙˆØ± Ú©Û’ Ø§Ù„Ø§Ù¹Ù…Ù†Ù¹ØŒ Ù…Ù‚Ø§Ù… Ú©Û’ Ù†Ù‚Ø§Ø· Ø§ÙˆØ± Ú¯Ø§Ú‘ÛŒ Ú©ÛŒ ØªÙØµÛŒÙ„Ø§Øª Ù…Ø¹Ù„ÙˆÙ… Ú©ÛŒ Ø¬Ø§ Ø³Ú©ÛŒÚºÛ”",
     placeholderId: "Ø¨Ú©Ù†Ú¯ Ø¢Ø¦ÛŒ ÚˆÛŒ (Ù…Ø«Ø§Ù„: TSA-8924)",
-    placeholderPhone: "ÙˆØ§Ù¹Ø³ Ø§ÛŒÙ¾ Ù†Ù…Ø¨Ø± (Ù…Ø«Ø§Ù„: +966500123456)",
+    placeholderPhone: "ÙˆØ§Ù¹Ø³ Ø§ÛŒÙ¾ Ù†Ù…Ø¨Ø± (Ù…Ø«Ø§Ù„: +966539388072)",
     btnLabel: "ÚˆØ±Ø§Ø¦ÛŒÙˆØ± Ú©Ø§ Ø§Ø³Ù¹ÛŒÙ¹Ø³ Ù¹Ø±ÛŒÚ© Ú©Ø±ÛŒÚº",
     note: "Ø¢Ù¾ Ú©Û’ Ø³ÙØ± Ú©ÛŒ ØªÙØµÛŒÙ„Ø§Øª Ù…Ú©Ù…Ù„ Ø·ÙˆØ± Ù¾Ø± Ù…Ø­ÙÙˆØ¸ ÛÛŒÚºÛ” ÚˆØ±Ø§Ø¦ÛŒÙˆØ± Ú©ÛŒ Ù„ÙˆÚ©ÛŒØ´Ù† Ø§ÙˆØ± Ø§Ø³Ù¹ÛŒÙ¹Ø³ Ú©Ùˆ ÛØ± Ù…Ù†Ù¹ Ø§Ù¾ ÚˆÛŒÙ¹ Ú©ÛŒØ§ Ø¬Ø§ØªØ§ ÛÛ’Û”",
     backBtn: "Ù¹Ø±ÛŒÚ©Ø± Ù¾Ø± ÙˆØ§Ù¾Ø³ Ø¬Ø§Ø¦ÛŒÚº",
@@ -541,7 +541,7 @@ export default function TrackBookingPage() {
                       {/* Contact Actions */}
                       <div className="grid gap-3 grid-cols-2">
                         <a
-                          href={`tel:${booking.driverPhone || "+966500123456"}`}
+                          href={`tel:${booking.driverPhone || "+966539388072"}`}
                           className="flex items-center justify-center gap-2 rounded-full bg-[#1A1A1A] border border-[#C9A84C]/20 hover:border-[#C9A84C]/60 py-3 text-xs font-bold text-[#F5F0E8] transition-all"
                         >
                           <Phone className="h-4 w-4 text-[#C9A84C]" />
@@ -549,7 +549,7 @@ export default function TrackBookingPage() {
                         </a>
 
                         <a
-                          href={`https://wa.me/${booking.driverPhone?.replace(/\+/g, "") || "966500123456"}?text=Salam,%20Captain.`}
+                          href={`https://wa.me/${booking.driverPhone?.replace(/\+/g, "") || "966539388072"}?text=Salam,%20Captain.`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center justify-center gap-2 rounded-full bg-[#C9A84C] hover:bg-[#B8963B] py-3 text-xs font-bold text-[#0A0A0A] transition-all"

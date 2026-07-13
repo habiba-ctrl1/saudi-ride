@@ -555,7 +555,7 @@ export default function FaqPage() {
             onClick={() => {
               trackEvent("whatsapp_click", {
                 sourceLocation: "faq_cta",
-                phoneUsed: contactConfig.whatsappNumber || "+966500123456",
+                phoneUsed: contactConfig.whatsappNumber || "+966539388072",
                 locale: language
               });
             }}

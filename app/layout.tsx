@@ -100,7 +100,7 @@ const jsonLd = [
     "image": "https://taxisaudiarabia.com/fleet/mercedes-s-class.webp",
     "@id": "https://taxisaudiarabia.com/#taxiservice",
     "url": "https://taxisaudiarabia.com",
-    "telephone": "+966500123456",
+    "telephone": "+966539388072",
     "priceRange": "$$",
     "currenciesAccepted": "SAR",
     "paymentAccepted": "Cash, Credit Card, Bank Transfer",

@@ -68,7 +68,7 @@ export default function GlobalError({ error, reset }: ErrorProps) {
             Need urgent assistance booking or managing a dispatch? Reach out to our 24/7 VIP Concierge Desk immediately:
           </p>
           <a
-            href="https://wa.me/966500123456"
+            href="https://wa.me/966539388072"
             target="_blank"
             rel="noopener noreferrer"
             className="mt-3.5 inline-flex items-center gap-2 text-xs font-bold text-[#C9A84C] hover:underline"

@@ -36,7 +36,7 @@ const twilioClient = twilioSid && twilioToken ? twilio(twilioSid, twilioToken) :
 // Configs
 const adminEmail = process.env.ADMIN_EMAIL || "admin@taxisaudiarabia.com";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://saudi-ride.vercel.app";
-const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+966500123456";
+const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+966539388072";
 
 /**
  * Normalizes booking reference to "RT-" format to guarantee brand compliance
