@@ -569,6 +569,13 @@ const customerReviews = [
   { name: "Ahmad Bin-Hamid", countryFlag: "🇶🇦", stars: 5, text: "سفر مريح جداً بين الرياض والدمام. سيارة نظيفة وواسعة وخدمة إنترنت ممتازة طوال الطريق. سأحجز مجدداً بالتأكيد.", vehicle: "Toyota Camry Executive" }
 ];
 
+// Homepage blog cards -> real guide detail pages (pehle /guides?id= duplicate URLs ban rahe the)
+const GUIDE_SLUG_LINKS: Record<string, string> = {
+  "jeddah-sim-guide": "/guides/jeddah-airport-sim-card",
+  "meeqat-guide": "/guides/meeqat-locations",
+  "riyal-cash-guide": "/guides/saudi-riyal-pilgrim-guide",
+};
+
 const blogList = [
   { id: "jeddah-sim-guide", categoryEn: "Airport Help", categoryAr: "مساعدة المطار", categoryUr: "ہوائی اڈے کی مدد", titleEn: "SIM Card buying guide at Jeddah Airport", titleAr: "دليل شراء بطاقات الاتصال SIM في مطار جدة", titleUr: "جدہ ایئرپورٹ پر سم کارڈ خریدنے کا گائیڈ", excerptEn: "Exactly where to purchase local 5G eSIMs/SIMs from stc, Mobily, or Zain upon landing at Terminal 1 or North Terminal.", excerptAr: "أين تشتري شرائح الاتصال المحلية eSIM/SIM من شركات stc، وموبايلي، وزين فور وصولك لصالة المطار.", excerptUr: "ٹرمینل 1 پر لینڈنگ کے بعد stc، Mobily، یا Zain سے مقامی 5G eSIMs/SIMs خریدنے کی درست جگہوں کی معلومات۔", author: "Taxi Saudi Arabia Editorial", date: "May 12, 2026", timeEn: "5 min read", timeAr: "قراءة ٥ دقائق", timeUr: "5 منٹ مطالعہ" },
   { id: "meeqat-guide", categoryEn: "Umrah", categoryAr: "العمرة والزيارة", categoryUr: "عمرہ اور زیارت", titleEn: "Complete Meeqat locations guide for Umrah", titleAr: "دليل مواقيت الإحرام الكامل للمعتمرين", titleUr: "عمرہ کے لیے میقات کے مقامات کی مکمل گائیڈ", excerptEn: "Step-by-step guidance on Meeqat points (including Dhul Hulaifah & Yalamlam) for international pilgrims arriving by air or road.", excerptAr: "شرح تفصيلي خطوة بخطوة لمواقيت الإحرام (بما في ذلك ذو الحليفة ويلملم) للحجاج والمعتمرين القادمين جواً أو براً.", excerptUr: "فضائی یا زمینی راستے سے آنے والے بین الاقوامی زائرین کے لیے میقات کے مقامات پر تفصیلی رہنمائی۔", author: "Taxi Saudi Arabia Editorial", date: "May 08, 2026", timeEn: "7 min read", timeAr: "قراءة ٧ دقائق", timeUr: "7 منٹ مطالعہ" },
@@ -1504,7 +1511,7 @@ export function HomePage() {
               <div className="mt-8 pt-5 border-t border-[#C9A84C]/10 flex items-center justify-between text-[0.6rem] text-[#7C8088] font-bold">
                 <span>By {blog.author}</span>
                 <Link
-                  href={`/guides?id=${blog.id}`}
+                  href={GUIDE_SLUG_LINKS[blog.id] ?? "/guides"}
                   className="text-[#C9A84C] uppercase tracking-wider flex items-center gap-1 hover:underline"
                 >
                   <span>{t.blog.btnRead}</span>

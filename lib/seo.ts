@@ -30,10 +30,8 @@ export function generateMetadata({
     metadataBase: new URL("https://taxisaudiarabia.com"),
     alternates: {
       canonical: url,
-      languages: {
-        "en": `https://taxisaudiarabia.com${cleanPath}`,
-        "ar": `https://taxisaudiarabia.com/ar${cleanPath}`,
-      },
+      // NOTE: /ar hreflang hataya — Arabic pages abhi exist nahi kartin (404 hreflang
+      // Google ke liye bura signal hai). /ar launch par wapas add karna.
     },
     robots: {
       index: !noIndex,

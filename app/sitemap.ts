@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { db } from "@/lib/db";
+import { ROUTES_DATA } from "@/lib/data/routes";
 import { FLEET_VEHICLES } from "@/lib/fleet-data";
 import { BLOG_POSTS_DATA } from "@/lib/data/blog-posts";
 import { DRIVER_JOB_CITIES, JOB_VARIANTS } from "@/lib/data/driver-jobs";
@@ -7,36 +7,40 @@ import { GUIDES } from "@/lib/data/guides";
 
 const DOMAIN = "https://taxisaudiarabia.com";
 
-// Base static pages with their priorities
+// NOTE (SEO):
+// - /book, /track-booking, /partners/driver-registration are noindex → sitemap mein nahi.
+// - Routes ab ROUTES_DATA (static) se — DB down ho to bhi 56 routes sitemap mein rahen.
+// - /ar hreflang alternates hataye — Arabic pages abhi exist nahi kartin (sab 404 thin).
+//   Jab /ar launch ho, alternates wapas add karna.
+
 const STATIC_PAGES = [
   { path: "", priority: 1.0 },
-  { path: "/about", priority: 0.9 },
-  { path: "/contact", priority: 0.9 },
-  { path: "/faq", priority: 0.9 },
-  { path: "/gallery", priority: 0.9 },
+  { path: "/about", priority: 0.6 },
+  { path: "/contact", priority: 0.6 },
+  { path: "/faq", priority: 0.7 },
+  { path: "/gallery", priority: 0.5 },
   { path: "/fleet", priority: 0.9 },
   { path: "/routes", priority: 0.9 },
   { path: "/services", priority: 0.9 },
   { path: "/services/airport-transfers", priority: 0.9 },
-  { path: "/services/border-crossings", priority: 0.9 },
-  { path: "/services/corporate", priority: 0.9 },
+  { path: "/services/border-crossings", priority: 0.8 },
+  { path: "/services/corporate", priority: 0.8 },
   { path: "/services/intercity", priority: 0.9 },
-  { path: "/services/tourism", priority: 0.9 },
+  { path: "/services/tourism", priority: 0.8 },
   { path: "/services/umrah-transport", priority: 0.9 },
-  { path: "/services/group-transport", priority: 0.9 },
+  { path: "/services/group-transport", priority: 0.8 },
   { path: "/services/hajj-transport", priority: 0.9 },
-  { path: "/services/vip-luxury", priority: 0.9 },
+  { path: "/services/vip-luxury", priority: 0.8 },
   { path: "/services/madinah-ziyarat", priority: 0.9 },
   { path: "/services/makkah-ziyarat", priority: 0.9 },
-  { path: "/services/business-executive", priority: 0.9 },
-  { path: "/services/heritage-tours", priority: 0.9 },
-  { path: "/pricing", priority: 0.9 },
+  { path: "/services/business-executive", priority: 0.8 },
+  { path: "/services/heritage-tours", priority: 0.8 },
+  { path: "/pricing", priority: 0.7 },
   { path: "/guides", priority: 0.8 },
   { path: "/blog", priority: 0.8 },
-  { path: "/book", priority: 1.0 },
-  { path: "/driver-jobs", priority: 0.8 },
-  { path: "/chauffeur-jobs", priority: 0.8 },
-  { path: "/taxi-driver-jobs", priority: 0.8 },
+  { path: "/driver-jobs", priority: 0.7 },
+  { path: "/chauffeur-jobs", priority: 0.7 },
+  { path: "/taxi-driver-jobs", priority: 0.7 },
 ];
 
 const LOCATIONS = [
@@ -101,142 +105,83 @@ const AIRPORTS = [
   "abha-regional",
 ];
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
-  // 1. Generate Static Pages
   const staticItems = STATIC_PAGES.map((page) => ({
     url: `${DOMAIN}${page.path}`,
     lastModified: now,
     changeFrequency: "weekly" as const,
     priority: page.priority,
-    alternates: {
-      languages: {
-        en: `${DOMAIN}${page.path}`,
-        ar: `${DOMAIN}/ar${page.path}`,
-      },
-    },
   }));
 
-  // 2. Generate Locations Pages
   const locationItems = LOCATIONS.map((loc) => ({
     url: `${DOMAIN}/locations/${loc}`,
     lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.8,
-    alternates: {
-      languages: {
-        en: `${DOMAIN}/locations/${loc}`,
-        ar: `${DOMAIN}/ar/locations/${loc}`,
-      },
-    },
   }));
 
-  // 2.5 Generate Airports Pages
   const airportItems = AIRPORTS.map((airport) => ({
     url: `${DOMAIN}/airports/${airport}`,
     lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.8,
-    alternates: {
-      languages: {
-        en: `${DOMAIN}/airports/${airport}`,
-        ar: `${DOMAIN}/ar/airports/${airport}`,
-      },
-    },
   }));
 
-  // 2.6 Generate Location Sub-Areas Pages
   const subAreaItems = SUB_AREAS.map((loc) => ({
     url: `${DOMAIN}/locations/${loc.city}/${loc.subarea}`,
     lastModified: now,
     changeFrequency: "weekly" as const,
-    priority: 0.7,
-    alternates: {
-      languages: {
-        en: `${DOMAIN}/locations/${loc.city}/${loc.subarea}`,
-        ar: `${DOMAIN}/ar/locations/${loc.city}/${loc.subarea}`,
-      },
-    },
+    priority: 0.6,
   }));
 
-  // 3. Generate Dynamic Routes Pages
-  let routeItems: MetadataRoute.Sitemap = [];
-  try {
-    const routes = await db.route.findMany({ select: { slug: true } });
-    routeItems = routes.map((route) => ({
-      url: `${DOMAIN}/routes/${route.slug}`,
-      lastModified: now,
-      changeFrequency: "weekly" as const,
-      priority: 0.8,
-      alternates: {
-        languages: {
-          en: `${DOMAIN}/routes/${route.slug}`,
-          ar: `${DOMAIN}/ar/routes/${route.slug}`,
-        },
-      },
-    }));
-  } catch (error) {
-    console.error("Error fetching routes for sitemap:", error);
-  }
+  const routeItems = ROUTES_DATA.map((route) => ({
+    url: `${DOMAIN}/routes/${route.slug}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
 
-  // 4. Generate Fleet Vehicles Pages
   const fleetItems = FLEET_VEHICLES.map((vehicle) => ({
     url: `${DOMAIN}/fleet/${vehicle.slug}`,
     lastModified: now,
     changeFrequency: "weekly" as const,
-    priority: 0.8,
-    alternates: {
-      languages: {
-        en: `${DOMAIN}/fleet/${vehicle.slug}`,
-        ar: `${DOMAIN}/ar/fleet/${vehicle.slug}`,
-      },
-    },
+    priority: 0.7,
   }));
 
-  // 5. Generate Blog Posts
-  const blogItems = BLOG_POSTS_DATA.filter(post => post.published).map((post) => ({
+  const blogItems = BLOG_POSTS_DATA.filter((post) => post.published).map((post) => ({
     url: `${DOMAIN}/blog/${post.slug}`,
     lastModified: post.publishedAt,
     changeFrequency: "weekly" as const,
     priority: 0.7,
-    alternates: {
-      languages: {
-        en: `${DOMAIN}/blog/${post.slug}`,
-        ar: `${DOMAIN}/ar/blog/${post.slug}`,
-      },
-    },
   }));
 
-  // 6. Generate Driver Jobs (per-city recruitment) Pages — 3 keyword variants
   const driverJobItems = Object.values(JOB_VARIANTS).flatMap((v) =>
     DRIVER_JOB_CITIES.map((c) => ({
       url: `${DOMAIN}${v.urlBase}/${c.slug}`,
       lastModified: now,
       changeFrequency: "weekly" as const,
-      priority: 0.7,
-      alternates: {
-        languages: {
-          en: `${DOMAIN}${v.urlBase}/${c.slug}`,
-          ar: `${DOMAIN}/ar${v.urlBase}/${c.slug}`,
-        },
-      },
+      priority: 0.6,
     })),
   );
 
-  // 7. Generate Guide (knowledge base) Pages
   const guideItems = GUIDES.map((guide) => ({
     url: `${DOMAIN}/guides/${guide.slug}`,
     lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.7,
-    alternates: {
-      languages: {
-        en: `${DOMAIN}/guides/${guide.slug}`,
-        ar: `${DOMAIN}/ar/guides/${guide.slug}`,
-      },
-    },
   }));
 
-  return [...staticItems, ...locationItems, ...subAreaItems, ...airportItems, ...routeItems, ...fleetItems, ...blogItems, ...driverJobItems, ...guideItems];
+  return [
+    ...staticItems,
+    ...locationItems,
+    ...subAreaItems,
+    ...airportItems,
+    ...routeItems,
+    ...fleetItems,
+    ...blogItems,
+    ...driverJobItems,
+    ...guideItems,
+  ];
 }

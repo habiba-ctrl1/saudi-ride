@@ -83,11 +83,7 @@ export const metadata: Metadata = {
     description:
       "Book a taxi in Saudi Arabia for airport transfers and Umrah transport. Fixed price taxi with licensed drivers. Jeddah Airport to Makkah from SAR 249. WhatsApp booking 24/7.",
   },
-  alternates: {
-    languages: {
-      "ar-SA": "https://taxisaudiarabia.com/ar",
-    },
-  },
+  // NOTE: ar-SA hreflang hataya — /ar page exist nahi karta (404). Arabic launch par wapas.
 };
 
 const jsonLd = [
