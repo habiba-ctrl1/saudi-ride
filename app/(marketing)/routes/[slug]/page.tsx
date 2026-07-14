@@ -1145,9 +1145,10 @@ export default async function RouteDetailsPage({ params }: PageProps) {
               
               <a
                 href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
-                  `Salam! I want to book a taxi from ${route.fromCity} to ${route.toCity}.\n\n` +
+                  `Salam! I want to book a taxi with Taxi Saudi Arabia.\n\n` +
+                    `• From: \n` +
+                    `• To: \n` +
                     `• Date & time: \n` +
-                    `• Pickup point: \n` +
                     `• Passengers & luggage: \n` +
                     `• Vehicle (Sedan / SUV / Van): `,
                 )}`}
