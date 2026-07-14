@@ -51,8 +51,17 @@ export function DriverJobBody({ data, variantKey }: { data: DriverJobCity; varia
     },
   ];
 
+  // Pre-filled mini application — driver apni details pehle message mein hi bhej deta hai
   const whatsappApply = `${contactConfig.whatsappLink}?text=${encodeURIComponent(
-    `Hi, I want to apply as a ${v.role.toLowerCase()} in ${data.name}. Please share the details.`,
+    `Assalamu Alaikum! I want to apply as a ${v.role.toLowerCase()} in ${data.name}. My details:\n\n` +
+      `1. Full Name: \n` +
+      `2. Nationality & Iqama status: \n` +
+      `3. Saudi driving license type (private/public): \n` +
+      `4. Own car? (model + year) or need company car: \n` +
+      `5. Driving experience (years / Uber / Careem?): \n` +
+      `6. Languages (Arabic/English/Urdu): \n` +
+      `7. Availability (full-time / part-time): \n` +
+      `8. Current city/area: `,
   )}`;
 
   const requirements = [...DRIVER_REQUIREMENTS, ...v.extraRequirements];
