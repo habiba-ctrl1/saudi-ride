@@ -62,7 +62,7 @@ export default function IntercityServicePage() {
       <section className="relative pt-32 pb-20 overflow-hidden border-b border-[#C9A84C]/10">
         <div className="absolute inset-0 z-0">
           <Image 
-            src="https://images.unsplash.com/photo-1621501103258-3e135c8c98bb?auto=format&fit=crop&w=1920&q=80" 
+            src="/services/intercity-hero.webp" 
             alt="Saudi Arabia Highway" 
             fill 
             className="object-cover opacity-30" 

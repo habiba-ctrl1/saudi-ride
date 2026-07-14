@@ -43,7 +43,7 @@ export default function BusinessExecutivePage() {
       <section className="relative pt-32 pb-20 overflow-hidden border-b border-[#C9A84C]/10">
         <div className="absolute inset-0 z-0">
           <Image 
-            src="https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=1920&q=80" 
+            src="/services/business-executive-hero.webp" 
             alt="Business Executive Transport Saudi Arabia" 
             fill 
             className="object-cover opacity-30" 

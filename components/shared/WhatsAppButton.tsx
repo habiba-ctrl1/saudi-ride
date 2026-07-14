@@ -9,7 +9,15 @@ export function WhatsAppButton() {
   
   // Format phone number for deep link: remove spaces, symbols, keep only digits and +
   const formattedNumber = whatsappNumber.replace(/[^0-9]/g, "");
-  const encodedText = encodeURIComponent("Hello, I would like to book a VIP transfer with Taxi Saudi Arabia.");
+  // Structured prefill — customer apni booking details pehle message mein hi bhej de
+  const encodedText = encodeURIComponent(
+    "Salam! I want to book a taxi with Taxi Saudi Arabia.\n\n" +
+      "• From: \n" +
+      "• To: \n" +
+      "• Date & time: \n" +
+      "• Passengers & luggage: \n" +
+      "• Vehicle (Sedan / SUV / Van): ",
+  );
   const whatsappUrl = `https://wa.me/${formattedNumber}?text=${encodedText}`;
 
   return (

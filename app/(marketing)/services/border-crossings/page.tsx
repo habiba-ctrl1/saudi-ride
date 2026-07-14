@@ -85,7 +85,7 @@ export default function BorderCrossingsPage() {
       <section className="relative pt-32 pb-20 overflow-hidden border-b border-[#C9A84C]/10">
         <div className="absolute inset-0 z-0">
           <Image 
-            src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1920&q=80" 
+            src="/services/border-crossings-hero.webp" 
             alt="GCC Border Crossing Saudi Arabia" 
             fill 
             className="object-cover opacity-30" 

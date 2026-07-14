@@ -51,7 +51,7 @@ export default function TourismChartersPage() {
       <section className="relative pt-32 pb-20 overflow-hidden border-b border-[#C9A84C]/10">
         <div className="absolute inset-0 z-0">
           <Image 
-            src="https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=1920&q=80" 
+            src="/services/tourism-hero.webp" 
             alt="Saudi Tourism Transport" 
             fill 
             className="object-cover opacity-40" 

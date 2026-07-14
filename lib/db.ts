@@ -21,7 +21,7 @@ export async function ensureVehiclesSeeded() {
         luggage: 2,
         pricePerKm: 3.5,
         basePrice: 50.0,
-        image: "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=600&q=80",
+        image: "/fleet/toyota-camry.webp",
         features: ["Leather Seats", "Free Wifi", "Mineral Water", "AC"],
       },
       {
@@ -33,7 +33,7 @@ export async function ensureVehiclesSeeded() {
         luggage: 5,
         pricePerKm: 5.0,
         basePrice: 50.0,
-        image: "https://images.unsplash.com/photo-1601929862074-04b7b88f0c82?auto=format&fit=crop&w=600&q=80",
+        image: "/fleet/gmc-yukon-xl.webp",
         features: ["VIP Tinted Windows", "Climate Control", "Child Seat Ready", "Prayer Mats Available"],
       },
       {
@@ -45,7 +45,7 @@ export async function ensureVehiclesSeeded() {
         luggage: 7,
         pricePerKm: 4.5,
         basePrice: 50.0,
-        image: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=600&q=80",
+        image: "/fleet/hyundai-staria.webp",
         features: ["Captain Chairs", "Extra Legroom", "Perfect for Families", "USB Ports"],
       },
       {
@@ -57,7 +57,7 @@ export async function ensureVehiclesSeeded() {
         luggage: 3,
         pricePerKm: 8.0,
         basePrice: 50.0,
-        image: "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=600&q=80",
+        image: "/fleet/mercedes-s-class.webp",
         features: ["Panoramic Sunroof", "VIP Chauffeur service", "Premium Sound", "KSA Refreshments"],
       },
       {
@@ -69,7 +69,7 @@ export async function ensureVehiclesSeeded() {
         luggage: 15,
         pricePerKm: 7.0,
         basePrice: 50.0,
-        image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=600&q=80",
+        image: "/fleet/toyota-coaster.webp",
         features: ["Large Group Transport", "Pilgrim Luggage Space", "Meeqat Stop Option", "English/Arabic Driver"],
       },
     ];

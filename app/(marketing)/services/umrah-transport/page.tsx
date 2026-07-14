@@ -98,7 +98,7 @@ export default function UmrahTransportPage() {
       <section className="relative pt-32 pb-20 overflow-hidden border-b border-[#C9A84C]/10">
         <div className="absolute inset-0 z-0">
           <Image 
-            src="https://images.unsplash.com/photo-1591604466107-ec97de577aff?auto=format&fit=crop&w=1920&q=80" 
+            src="/services/umrah-transport-hero.webp" 
             alt="Makkah Umrah Pilgrimage" 
             fill 
             className="object-cover opacity-30" 

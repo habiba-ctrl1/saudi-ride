@@ -1144,7 +1144,13 @@ export default async function RouteDetailsPage({ params }: PageProps) {
               </Link>
               
               <a
-                href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam, I want to book the route from ${route.fromCity} to ${route.toCity}.`}
+                href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                  `Salam! I want to book a taxi from ${route.fromCity} to ${route.toCity}.\n\n` +
+                    `• Date & time: \n` +
+                    `• Pickup point: \n` +
+                    `• Passengers & luggage: \n` +
+                    `• Vehicle (Sedan / SUV / Van): `,
+                )}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex w-full items-center justify-center gap-2 rounded-full border border-[#C9A84C]/30 py-3.5 text-xs font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
