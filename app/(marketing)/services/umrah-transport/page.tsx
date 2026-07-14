@@ -173,7 +173,7 @@ export default function UmrahTransportPage() {
           </div>
           
           <div className="relative h-[500px] rounded-3xl overflow-hidden border border-[#C9A84C]/20">
-            <Image src="/services/umrah-transport-hero.webp" alt="Madinah Ziyarat Transport" fill className="object-cover" />
+            <Image src="/services/madinah-ziyarat-hero.webp" alt="Madinah Ziyarat Transport" fill className="object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] to-transparent" />
             <div className="absolute bottom-8 left-8 right-8">
               <div className="bg-[#111]/90 backdrop-blur-md p-6 rounded-2xl border border-[#C9A84C]/30">

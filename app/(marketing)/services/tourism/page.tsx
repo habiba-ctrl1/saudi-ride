@@ -14,10 +14,10 @@ export const metadata: Metadata = {
 };
 
 const DESTINATIONS = [
-  { name: "AlUla & Khaybar", tag: "Heritage", desc: "Transport to Hegra, Elephant Rock, and ancient oasis towns.", img: "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=800&q=80" },
-  { name: "NEOM & Tabuk", tag: "Future City", desc: "Executive transfers across the developing giga-project zones.", img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80" },
-  { name: "Abha (Asir)", tag: "Mountains", desc: "Navigate the high-altitude winding roads of Soudah Peak.", img: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80" },
-  { name: "Taif", tag: "Nature", desc: "Day trips from Jeddah/Makkah to the city of roses.", img: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80" }
+  { name: "AlUla & Khaybar", tag: "Heritage", desc: "Transport to Hegra, Elephant Rock, and ancient oasis towns.", img: "/locations/alula-hero.webp" },
+  { name: "NEOM & Tabuk", tag: "Future City", desc: "Executive transfers across the developing giga-project zones.", img: "/locations/neom-hero.webp" },
+  { name: "Abha (Asir)", tag: "Mountains", desc: "Navigate the high-altitude winding roads of Soudah Peak.", img: "/locations/abha-hero.webp" },
+  { name: "Taif", tag: "Nature", desc: "Day trips from Jeddah/Makkah to the city of roses.", img: "/locations/taif-hero.webp" }
 ];
 
 const CHARTER_RATES = [
