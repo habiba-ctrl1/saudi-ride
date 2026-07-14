@@ -10,6 +10,7 @@ import { contactConfig } from "@/lib/config/contact";
 import Image from "next/image";
 import { breadcrumbSchema, faqSchema, SITE } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
+import { RouteRelatedLinks } from "@/components/seo/RouteRelatedLinks";
 
 interface PageProps {
   params: Promise<{
@@ -1097,6 +1098,8 @@ export default async function RouteDetailsPage({ params }: PageProps) {
               ))}
             </div>
           </section>
+
+          <RouteRelatedLinks slug={slug} fromCity={route.fromCity} toCity={route.toCity} />
 
         </div>
 
