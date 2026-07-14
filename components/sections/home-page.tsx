@@ -1087,7 +1087,7 @@ export function HomePage() {
 
       {/* PARALLAX — Saudi Landmarks (after Services) */}
       <ParallaxSection
-        image="/locations/alula-hero.webp"
+        image="/locations/taif-hero.webp"
         title="Travel Anywhere in Saudi Arabia"
         text="Airport transfers, city rides, intercity journeys and chauffeur services tailored for every traveler."
         buttonLabel="Explore Destinations"

@@ -21,7 +21,7 @@ interface ParallaxSectionProps {
 export function ParallaxSection({ image, title, text, buttonLabel, buttonHref }: ParallaxSectionProps) {
   return (
     <section
-      className="parallax-bg relative flex items-center justify-center"
+      className="parallax-bg premium-dark-section relative flex items-center justify-center"
       style={{
         backgroundImage: `linear-gradient(rgba(10,10,10,0.55), rgba(10,10,10,0.45)), url(${image})`,
         minHeight: "clamp(500px, 70vh, 700px)",
