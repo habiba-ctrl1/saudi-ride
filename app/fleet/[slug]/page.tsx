@@ -132,11 +132,10 @@ export default async function VehicleDetailPage({
       "availability": "https://schema.org/InStock",
       "itemCondition": "https://schema.org/NewCondition"
     },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": vehicle.rating,
-      "reviewCount": vehicle.reviews
-    }
+    // NOTE: aggregateRating schema hataya — vehicle.rating/reviews fabricated
+    // numbers hain (schema.org violation risk for Google rich results).
+    // On-page star display abhi bhi hai — tier-review mein decide karna
+    // real reviews aayen ya ye hataya jaye.
   };
 
   return (

@@ -1,8 +1,6 @@
 // Centralized Schema.org / JSON-LD builders for Taxi Saudi Arabia.
 // One source of truth keeps entity data (name, URL, ratings) consistent across all pages.
 
-import { trustStats } from "@/lib/config/stats";
-
 export const SITE = {
   name: "Taxi Saudi Arabia",
   url: "https://taxisaudiarabia.com",
@@ -82,13 +80,9 @@ export function serviceSchema({ name, description, path, serviceType, areaServed
     url: abs(path),
     provider: { "@id": SITE.businessId },
     areaServed: (areaServed ?? ["Saudi Arabia"]).map((a) => ({ "@type": "Place", name: a })),
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.9",
-      reviewCount: String(trustStats.tripsCount),
-      bestRating: "5",
-      worstRating: "1",
-    },
+    // NOTE: aggregateRating hataya — trip count (5000) ko review count bata kar
+    // fake 4.9★ dikhana schema.org violation + Google penalty risk hai. Sirf
+    // REAL reviews (Google Business Profile se) milne par wapas add karna.
   };
 }
 
