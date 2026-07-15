@@ -302,7 +302,7 @@ export default function AboutPage() {
             className="relative h-[320px] rounded-3xl overflow-hidden border border-[#C9A84C]/20"
           >
             <Image
-              src="https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=800&q=80"
+              src="/about/about-hero.webp"
               alt="Taxi Saudi Arabia Heritage fleet"
               fill
               className="object-cover"
@@ -347,7 +347,7 @@ export default function AboutPage() {
           ) : (
             <>
               <Image
-                src="https://images.unsplash.com/photo-1603386329225-868f9b1ee6c9?auto=format&fit=crop&w=1200&q=80"
+                src="/gallery/fleet-lineup.webp"
                 alt="Luxury VIP Fleet Video Cover"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
