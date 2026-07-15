@@ -2,9 +2,8 @@
 
 import { useLanguage } from "@/lib/context/LanguageContext";
 import { motion } from "framer-motion";
-import { ShieldCheck, Sparkles, CheckCircle2, History, Award, Play } from "lucide-react";
+import { ShieldCheck, Sparkles, CheckCircle2, History, Award } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
 import { trustStats } from "@/lib/config/stats";
 
 const translations = {
@@ -67,9 +66,8 @@ const translations = {
     teamTitle: "Our Team",
     teamSubtitle: "The people who make your trip smooth",
     team: [
-      { name: "Sheikh Khalid bin Fahd", role: "Founder & Operations Director", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" },
-      { name: "Faisal Al-Otaibi", role: "Fleet & Logistics Manager", image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80" },
-      { name: "Dr. Amira Mansour", role: "Head of Customer Support", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" }
+      { name: "Habiba", role: "Founder & CEO" },
+      { name: "Ismail", role: "Co-Founder & Operations" },
     ],
 
     // Video Section
@@ -135,9 +133,8 @@ const translations = {
     teamTitle: "فريق القيادة المتميز",
     teamSubtitle: "نعمل بشغف لضمان أفضل تجربة حجز وتنقل",
     team: [
-      { name: "الشيخ خالد بن فهد", role: "المؤسس ومدير العمليات", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" },
-      { name: "فيصل العتيبي", role: "مدير الخدمات اللوجستية والأسطول", image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80" },
-      { name: "د. أميرة منصور", role: "رئيسة مكتب الاستقبال والـ VIP", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" }
+      { name: "حبيبة", role: "المؤسسة والرئيسة التنفيذية" },
+      { name: "إسماعيل", role: "الشريك المؤسس ومدير العمليات" },
     ],
 
     // Video Section
@@ -203,9 +200,8 @@ const translations = {
     teamTitle: "ہمارا ایلیٹ لیڈرشپ",
     teamSubtitle: "آپ کے شاندار سفری تجربے کو ممکن بنانے والی ٹیم",
     team: [
-      { name: "شیخ خالد بن فہد", role: "بانی اور چیف آپریشنز", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" },
-      { name: "فیصل العتیبی", role: "ڈائریکٹر فلیٹ لاجسٹکس", image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80" },
-      { name: "ڈاکٹر امیرہ منصور", role: "سربراہ وی آئی پی کنسیرج ڈیسک", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" }
+      { name: "حبیبہ", role: "بانی اور چیف ایگزیکٹو" },
+      { name: "اسماعیل", role: "شریک بانی اور آپریشنز" },
     ],
 
     // Video Section
@@ -222,7 +218,6 @@ const fadeUp = {
 export default function AboutPage() {
   const { language } = useLanguage();
   const t = translations[language];
-  const [isPlaying, setIsPlaying] = useState(false);
 
   const statsList = [
     { label: t.stats[0].label, value: trustStats.licensedDrivers },
@@ -311,57 +306,6 @@ export default function AboutPage() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
           </motion.div>
         </div>
-      </section>
-
-      {/* Video Section */}
-      <section className="section-container mt-24">
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          variants={fadeUp}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto mb-10 space-y-4"
-        >
-          <h2 className="font-heading text-3xl font-bold text-[#F5F0E8]">{t.videoTitle}</h2>
-          <p className="text-sm text-[#A1A1A6]">{t.videoText}</p>
-        </motion.div>
-
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          variants={fadeUp}
-          transition={{ duration: 0.6 }}
-          className="relative aspect-video max-w-4xl mx-auto rounded-3xl overflow-hidden border border-[#C9A84C]/25 bg-black/60 shadow-2xl group cursor-pointer"
-          onClick={() => setIsPlaying(!isPlaying)}
-        >
-          {isPlaying ? (
-            <iframe
-              src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1"
-              title="Taxi Saudi Arabia Video"
-              className="w-full h-full border-0"
-              allow="autoplay; encrypted-media"
-              allowFullScreen
-            />
-          ) : (
-            <>
-              <Image
-                src="/gallery/fleet-lineup.webp"
-                alt="Luxury VIP Fleet Video Cover"
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                sizes="(max-width: 1200px) 100vw, 1200px"
-              />
-              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="flex h-20 w-20 items-center justify-center rounded-full bg-[#C9A84C] text-[#0A0A0A] shadow-[0_0_30px_rgba(201,168,76,0.5)] transition-transform duration-300 group-hover:scale-110">
-                  <Play className="h-8 w-8 fill-current ml-1" />
-                </span>
-              </div>
-            </>
-          )}
-        </motion.div>
       </section>
 
       {/* Core Pillars Section (Mission & Values) */}
@@ -454,14 +398,11 @@ export default function AboutPage() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="group overflow-hidden rounded-3xl border border-[#C9A84C]/10 bg-[#111111] hover:border-[#C9A84C]/30 transition-all"
             >
-              <div className="relative h-[280px] w-full overflow-hidden">
-                <Image
-                  src={member.image}
-                  alt={member.name}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
+              {/* Initials avatar — real photos pending, koi stock/fake photo attach nahi karna */}
+              <div className="relative h-[280px] w-full overflow-hidden flex items-center justify-center bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A]">
+                <span className="font-heading text-6xl font-bold text-[#C9A84C]/40">
+                  {member.name.charAt(0)}
+                </span>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
               </div>
               <div className="p-6">

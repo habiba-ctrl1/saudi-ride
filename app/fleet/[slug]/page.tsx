@@ -43,29 +43,29 @@ export async function generateMetadata({
 // ─── Gallery images per vehicle (Unsplash) ──────────────────────────────────
 const GALLERY_IMAGES: Record<string, string[]> = {
   "toyota-camry": [
-    "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=800&q=80",
+    "/fleet/toyota-camry.webp",
     "https://images.unsplash.com/photo-1603386329225-868f9b1ee6c9?auto=format&fit=crop&w=800&q=80",
     "https://images.unsplash.com/photo-1543796076-c95c6ff5c0e4?auto=format&fit=crop&w=800&q=80",
   ],
   "gmc-yukon-xl": [
-    "https://images.unsplash.com/photo-1601929862074-04b7b88f0c82?auto=format&fit=crop&w=800&q=80",
+    "/fleet/gmc-yukon-xl.webp",
     "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80",
     "https://images.unsplash.com/photo-1567416661576-659de24d4344?auto=format&fit=crop&w=800&q=80",
   ],
   "hyundai-staria": [
-    "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80",
+    "/fleet/hyundai-staria.webp",
     "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80",
     "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=800&q=80",
   ],
   "mercedes-s-class": [
-    "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=800&q=80",
+    "/fleet/mercedes-s-class.webp",
     "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=800&q=80",
     "https://images.unsplash.com/photo-1603386329225-868f9b1ee6c9?auto=format&fit=crop&w=800&q=80",
   ],
   default: [
-    "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1601929862074-04b7b88f0c82?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80",
+    "/fleet/toyota-camry.webp",
+    "/fleet/gmc-yukon-xl.webp",
+    "/fleet/hyundai-staria.webp",
   ],
 };
 

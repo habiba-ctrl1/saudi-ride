@@ -895,10 +895,10 @@ export default async function RouteDetailsPage({ params }: PageProps) {
   };
 
   const vehicles = [
-    { name: "Executive Sedan", key: "SEDAN", pax: 3, luggage: 2, img: "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=400&q=80" },
-    { name: "Family SUV", key: "SUV", pax: 6, luggage: 5, img: "https://images.unsplash.com/photo-1601929862074-04b7b88f0c82?auto=format&fit=crop&w=400&q=80" },
-    { name: "Luxury VIP", key: "LUXURY", pax: 3, luggage: 3, img: "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=400&q=80" },
-    { name: "Group Van", key: "VAN", pax: 7, luggage: 7, img: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=400&q=80" },
+    { name: "Executive Sedan", key: "SEDAN", pax: 3, luggage: 2, img: "/fleet/toyota-camry.webp" },
+    { name: "Family SUV", key: "SUV", pax: 6, luggage: 5, img: "/fleet/gmc-yukon-xl.webp" },
+    { name: "Luxury VIP", key: "LUXURY", pax: 3, luggage: 3, img: "/fleet/mercedes-s-class.webp" },
+    { name: "Group Van", key: "VAN", pax: 7, luggage: 7, img: "/fleet/hyundai-staria.webp" },
   ];
 
   // Schema Markup
