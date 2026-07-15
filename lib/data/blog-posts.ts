@@ -716,7 +716,7 @@ A private Ziyarat taxi turns a tiring day into a calm, meaningful experience. [B
     title: "Riyadh Airport (RUH) Taxi Guide: To the City Center & Hotels",
     slug: "riyadh-airport-ruh-taxi-guide",
     excerpt: "Landing at King Khalid International Airport in Riyadh? Here is how to get a taxi to the city, travel time, and what to expect in 2026.",
-    coverImage: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80",
+    coverImage: "/blog/riyadh-airport-ruh-taxi-guide.webp",
     category: "City Guides",
     author: "Tariq Al-Faisal",
     published: true,
