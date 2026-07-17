@@ -941,7 +941,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
   const mapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const mapUrl = mapsApiKey 
     ? `https://maps.googleapis.com/maps/api/staticmap?size=800x400&path=color:0xC9A84C|weight:4|${encodeURIComponent(route.fromCity)}|${encodeURIComponent(route.toCity)}&markers=color:black|label:A|${encodeURIComponent(route.fromCity)}&markers=color:black|label:B|${encodeURIComponent(route.toCity)}&key=${mapsApiKey}`
-    : `https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1200&q=80`; // Fallback beautiful map abstract
+    : `/routes/map-abstract.webp`; // Fallback beautiful map abstract
 
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pb-24">

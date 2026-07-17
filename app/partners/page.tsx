@@ -274,7 +274,7 @@ export default function PartnersPage() {
             
             <div className="h-[220px] rounded-3xl overflow-hidden border border-[#C9A84C]/15 relative">
               <Image
-                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80"
+                src="/services/corporate-hero.webp"
                 alt="Corporate office premium partnership"
                 width={800}
                 height={600}

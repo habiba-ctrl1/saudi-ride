@@ -44,23 +44,23 @@ export async function generateMetadata({
 const GALLERY_IMAGES: Record<string, string[]> = {
   "toyota-camry": [
     "/fleet/toyota-camry.webp",
-    "https://images.unsplash.com/photo-1603386329225-868f9b1ee6c9?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1543796076-c95c6ff5c0e4?auto=format&fit=crop&w=800&q=80",
+    "/fleet/gallery/toyota-camry-interior.webp",
+    "/fleet/gallery/toyota-camry-side.webp",
   ],
   "gmc-yukon-xl": [
     "/fleet/gmc-yukon-xl.webp",
-    "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1567416661576-659de24d4344?auto=format&fit=crop&w=800&q=80",
+    "/fleet/gallery/gmc-yukon-interior.webp",
+    "/fleet/gallery/gmc-yukon-side.webp",
   ],
   "hyundai-staria": [
     "/fleet/hyundai-staria.webp",
-    "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=800&q=80",
+    "/fleet/gallery/staria-interior.webp",
+    "/fleet/gallery/staria-side.webp",
   ],
   "mercedes-s-class": [
     "/fleet/mercedes-s-class.webp",
-    "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1603386329225-868f9b1ee6c9?auto=format&fit=crop&w=800&q=80",
+    "/fleet/gallery/s-class-interior.webp",
+    "/fleet/gallery/s-class-side.webp",
   ],
   default: [
     "/fleet/toyota-camry.webp",

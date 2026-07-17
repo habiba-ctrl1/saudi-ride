@@ -115,7 +115,7 @@ const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameAr: stri
     name: "King Fahd International Airport",
     code: "DMM",
     nameAr: "مطار الملك فهد الدولي",
-    image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=1200&q=80",
+    image: "/airports/dammam-hero.webp",
     tagline: "The Eastern Gateway",
     description: "Pre-book your taxi from King Fahd International Airport (DMM) to Dammam, Al Khobar, Dhahran, or Jubail. Cross-border transfers to Bahrain also available upon request.",
     terminals: [
@@ -131,7 +131,7 @@ const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameAr: stri
     name: "Taif Regional Airport",
     code: "TIF",
     nameAr: "مطار الطائف الإقليمي",
-    image: "https://images.unsplash.com/photo-1591604466107-ec97de577aff?auto=format&fit=crop&w=1200&q=80",
+    image: "/airports/taif-airport-hero.webp",
     tagline: "The Summer Capital Airport",
     description: "Taxi transfers from Taif Regional Airport to Taif city, Makkah, and Jeddah. Ideal for locals and tourists enjoying the pleasant mountain climate of Taif.",
     terminals: [
@@ -147,7 +147,7 @@ const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameAr: stri
     name: "Tabuk Regional Airport",
     code: "TUU",
     nameAr: "مطار تبوك الإقليمي",
-    image: "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1200&q=80",
+    image: "/airports/tabuk-airport.webp",
     tagline: "Gateway to the North",
     description: "Book a taxi from Tabuk Regional Airport for seamless transfers to NEOM, Amaala, and surrounding northern destinations. Comfortable SUVs available.",
     terminals: [
@@ -163,7 +163,7 @@ const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameAr: stri
     name: "AlUla International Airport",
     code: "ULH",
     nameAr: "مطار العلا الدولي",
-    image: "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1200&q=80",
+    image: "/airports/alula-airport.webp",
     tagline: "Arrival at the Ancient Oasis",
     description: "Exclusive airport transfers from AlUla Airport (ULH) to your desert resort or Hegra. Luxury vehicles tailored for a premium tourist experience.",
     terminals: [
@@ -179,7 +179,7 @@ const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameAr: stri
     name: "Abha International Airport",
     code: "AHB",
     nameAr: "مطار أبها الدولي",
-    image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=1200&q=80",
+    image: "/airports/abha-airport.webp",
     tagline: "The Aseer Mountains Hub",
     description: "Taxi transfers from Abha Airport to the city center, Soudah Peak, and surrounding Aseer region. Comfortable rides through the mountain roads.",
     terminals: [
