@@ -1,4 +1,4 @@
-import { getSupabaseServerClient } from "./server";
+import { getSupabaseAnonClient, getSupabaseServerClient } from "./server";
 import type { DriverVehicleType } from "./drivers";
 
 export type QuotationStatus = "new" | "quoted" | "confirmed" | "assigned" | "completed" | "cancelled";
@@ -47,6 +47,49 @@ export type QuotationFilters = {
   page?: number;
   limit?: number;
 };
+
+export type NewQuotationInput = {
+  customer_name: string;
+  customer_phone: string;
+  customer_email?: string | null;
+  pickup_location: string;
+  drop_location: string;
+  trip_type?: TripType;
+  trip_date: string;            // YYYY-MM-DD
+  trip_time?: string | null;    // HH:MM
+  return_date?: string | null;
+  passengers_count?: number | null;
+  luggage_notes?: string | null;
+  vehicle_type_requested?: DriverVehicleType | null;
+  source?: LeadSource;
+};
+
+/** Public quotation request — security-definer RPC (0009). Anon key cannot
+ *  SELECT rows back, so the RPC inserts (forced status='new', source='website')
+ *  and returns only the id + TSA-YYYY-NNNN quote_reference. */
+export async function createQuotation(input: NewQuotationInput) {
+  const supabase = getSupabaseAnonClient();
+  if (!supabase) return { row: null, error: "Supabase not configured" };
+
+  const { data, error } = await supabase
+    .rpc("request_quotation", {
+      p_customer_name: input.customer_name,
+      p_customer_phone: input.customer_phone,
+      p_customer_email: input.customer_email ?? null,
+      p_pickup: input.pickup_location,
+      p_drop: input.drop_location,
+      p_trip_type: input.trip_type ?? "one_way",
+      p_trip_date: input.trip_date,
+      p_trip_time: input.trip_time ?? null,
+      p_return_date: input.return_date ?? null,
+      p_passengers: input.passengers_count ?? null,
+      p_luggage_notes: input.luggage_notes ?? null,
+      p_vehicle_type: input.vehicle_type_requested ?? null,
+    })
+    .single();
+
+  return { row: data as Pick<QuotationRow, "id" | "quote_reference"> | null, error: error?.message ?? null };
+}
 
 export async function listQuotations(filters: QuotationFilters = {}) {
   const supabase = getSupabaseServerClient();

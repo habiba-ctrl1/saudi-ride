@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
+import { sendEmail } from "@/lib/notifications";
+import { adminContactEmail, clientContactAutoReply } from "@/lib/email/templates";
 
-const resendApiKey = process.env.RESEND_API_KEY;
-const resend = resendApiKey ? new Resend(resendApiKey) : null;
-const adminEmail = process.env.ADMIN_EMAIL || "info@taxisaudiarabia.com";
+const adminEmail = process.env.ADMIN_EMAIL || "infotaxisaudiarabia@gmail.com";
 
 export async function POST(request: Request) {
   try {
@@ -17,66 +16,36 @@ export async function POST(request: Request) {
       );
     }
 
-    const finalService = service || serviceType || "General Inquiry";
-    console.log("📥 New Contact Request Received:", { name, email, phone, message, service: finalService });
+    const data = {
+      name: String(name),
+      email: String(email),
+      phone: String(phone),
+      service: String(service || serviceType || "General Inquiry"),
+      message: String(message),
+    };
 
-    if (resend) {
-      const { data, error } = await resend.emails.send({
-        from: "Taxi Saudi Arabia Concierge <onboarding@resend.dev>",
-        to: [adminEmail],
-        subject: `🔔 New Contact: ${name} (${finalService})`,
-        html: `
-          <div style="font-family: sans-serif; padding: 20px; color: #111; max-width: 600px; border: 1px solid #C9A84C; border-radius: 12px;">
-            <h2 style="color: #C9A84C; border-bottom: 1px solid #eee; padding-bottom: 10px;">Taxi Saudi Arabia Chauffeur Desk</h2>
-            <p>You have received a new contact inquiry through the public website.</p>
-            <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
-              <tr>
-                <td style="padding: 6px 0; font-weight: bold; width: 120px;">Name:</td>
-                <td>${name}</td>
-              </tr>
-              <tr>
-                <td style="padding: 6px 0; font-weight: bold;">Email:</td>
-                <td><a href="mailto:${email}">${email}</a></td>
-              </tr>
-              <tr>
-                <td style="padding: 6px 0; font-weight: bold;">Phone:</td>
-                <td><a href="tel:${phone}">${phone}</a></td>
-              </tr>
-              <tr>
-                <td style="padding: 6px 0; font-weight: bold;">Service Type:</td>
-                <td><span style="background: #fdf6e2; border: 1px solid #C9A84C; color: #C9A84C; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; text-transform: uppercase;">${finalService}</span></td>
-              </tr>
-            </table>
-            <div style="margin-top: 20px; padding: 12px; background: #fafafa; border-left: 4px solid #C9A84C; border-radius: 4px;">
-              <p style="margin: 0; font-style: italic;">"${message}"</p>
-            </div>
-            <p style="font-size: 11px; color: #888; margin-top: 25px; border-top: 1px solid #eee; padding-top: 10px;">
-              This notification was generated automatically by the Taxi Saudi Arabia portal.
-            </p>
-          </div>
-        `,
-      });
+    const adminMail = adminContactEmail(data);
+    const replyMail = clientContactAutoReply(data);
 
-      if (error) {
-        console.error("❌ Resend Email dispatch failed:", error);
-        return NextResponse.json({ error: error.message }, { status: 500 });
-      }
+    const [adminResult] = await Promise.allSettled([
+      sendEmail(adminEmail, adminMail.subject, adminMail.html),
+      sendEmail(data.email, replyMail.subject, replyMail.html),
+    ]);
 
-      return NextResponse.json({
-        success: true,
-        message: "Message sent. We reply within 15 minutes.",
-        messageId: data?.id
-      }, { status: 200 });
-    } else {
-      console.warn("⚠️ Resend is unconfigured. Simulating success response.");
-      return NextResponse.json({
-        success: true,
-        message: "Message sent. We reply within 15 minutes.",
-        simulated: true
-      }, { status: 200 });
+    if (adminResult.status === "rejected" || adminResult.value === null) {
+      console.error("Contact admin email failed");
+      return NextResponse.json(
+        { error: "Could not send your message right now. Please contact us on WhatsApp." },
+        { status: 500 }
+      );
     }
+
+    return NextResponse.json(
+      { success: true, message: "Message sent. We reply within 15 minutes." },
+      { status: 200 }
+    );
   } catch (error: unknown) {
-    console.error("❌ API Contact handler exception:", error);
+    console.error("API Contact handler exception:", error);
     const errorMessage = error instanceof Error ? error.message : "Internal server error";
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }

@@ -53,7 +53,7 @@ const ROUTES_MENU = [
   { label: "Jeddah Airport → Makkah", href: "/routes/jeddah-airport-to-makkah" },
   { label: "Makkah → Madinah", href: "/routes/makkah-to-madinah" },
   { label: "Jeddah → Madinah", href: "/routes/jeddah-to-madinah" },
-  { label: "Madinah → Jeddah Airport", href: "/routes/madinah-to-jeddah" },
+  { label: "Madinah → Jeddah Airport", href: "/routes/madinah-to-jeddah-airport" },
   { label: "Riyadh → Dammam", href: "/routes/riyadh-to-dammam" },
 ];
 
@@ -133,7 +133,7 @@ export function Navbar() {
                 Transportation Services
                 <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180" />
               </button>
-              <div className="invisible opacity-0 translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 absolute left-0 top-full pt-1">
+              <div className="invisible opacity-0 translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:visible group-focus-within:opacity-100 group-focus-within:translate-y-0 transition-all duration-200 absolute left-0 top-full pt-1">
                 <ul className="w-64 rounded-2xl bg-white shadow-2xl border border-black/5 p-2">
                   {TRANSPORT_MENU.map((item) => (
                     <li key={item.label} className="relative group/sub">
@@ -147,7 +147,7 @@ export function Navbar() {
                             <ChevronRight className="h-4 w-4 text-[#16A34A]" />
                           </button>
                           {/* nested flyout */}
-                          <div className="invisible opacity-0 group-hover/sub:visible group-hover/sub:opacity-100 transition-all duration-150 absolute left-full top-0 pl-2">
+                          <div className="invisible opacity-0 group-hover/sub:visible group-hover/sub:opacity-100 group-focus-within/sub:visible group-focus-within/sub:opacity-100 transition-all duration-150 absolute left-full top-0 pl-2">
                             <ul className="w-60 rounded-2xl bg-white shadow-2xl border border-black/5 p-2">
                               {item.children.map((c) => (
                                 <li key={c.href}>
@@ -183,7 +183,7 @@ export function Navbar() {
                 Taxi Routes
                 <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180" />
               </button>
-              <div className="invisible opacity-0 translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 absolute left-0 top-full pt-1">
+              <div className="invisible opacity-0 translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:visible group-focus-within:opacity-100 group-focus-within:translate-y-0 transition-all duration-200 absolute left-0 top-full pt-1">
                 <ul className="w-64 rounded-2xl bg-white shadow-2xl border border-black/5 p-2">
                   {ROUTES_MENU.map((r) => (
                     <li key={r.href}>
@@ -208,7 +208,7 @@ export function Navbar() {
                 Locations
                 <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180" />
               </button>
-              <div className="invisible opacity-0 translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 absolute left-0 top-full pt-1">
+              <div className="invisible opacity-0 translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:visible group-focus-within:opacity-100 group-focus-within:translate-y-0 transition-all duration-200 absolute left-0 top-full pt-1">
                 <div className="w-[26rem] rounded-2xl bg-white shadow-2xl border border-black/5 p-2">
                   <ul className="grid grid-cols-2 gap-0.5">
                     {LOCATIONS_MENU.map((l) => (
@@ -235,7 +235,7 @@ export function Navbar() {
                 Partners
                 <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180" />
               </button>
-              <div className="invisible opacity-0 translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 absolute left-0 top-full pt-1">
+              <div className="invisible opacity-0 translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:visible group-focus-within:opacity-100 group-focus-within:translate-y-0 transition-all duration-200 absolute left-0 top-full pt-1">
                 <ul className="w-64 rounded-2xl bg-white shadow-2xl border border-black/5 p-2">
                   {PARTNERS_MENU.map((p) => (
                     <li key={p.href}>

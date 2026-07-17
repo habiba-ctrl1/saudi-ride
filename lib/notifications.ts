@@ -24,7 +24,9 @@ interface NotificationBooking {
   } | null;
 }
 const resendApiKey = process.env.RESEND_API_KEY;
-const resendFrom = process.env.RESEND_FROM_EMAIL || "bookings@taxisaudiarabia.com";
+// Until the domain is verified in Resend, only onboarding@resend.dev can send.
+// After verifying, set RESEND_FROM_EMAIL=bookings@taxisaudiarabia.com in .env.local.
+const resendFrom = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
 const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
 // Initialize Twilio
@@ -34,7 +36,7 @@ const twilioPhone = process.env.TWILIO_PHONE;
 const twilioClient = twilioSid && twilioToken ? twilio(twilioSid, twilioToken) : null;
 
 // Configs
-const adminEmail = process.env.ADMIN_EMAIL || "admin@taxisaudiarabia.com";
+const adminEmail = process.env.ADMIN_EMAIL || "infotaxisaudiarabia@gmail.com";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://saudi-ride.vercel.app";
 const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+966539388072";
 

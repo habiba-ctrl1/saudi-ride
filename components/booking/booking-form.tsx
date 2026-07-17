@@ -4,22 +4,28 @@ import { useMemo, useState } from "react";
 import type { Locale } from "@/lib/data/content";
 import { bookingFormSchema, type BookingFormValues } from "@/lib/validators/booking";
 
-type BookingStep = 0 | 1 | 2 | 3;
+type BookingStep = 0 | 1 | 2 | 3 | 4;
 
 type BookingFormCopy = {
   heading: string;
   stepLabel: string;
-  stepTitles: [string, string, string, string];
+  stepTitles: [string, string, string, string, string];
   labels: {
     pickup: string;
     dropoff: string;
     date: string;
     time: string;
     passengers: string;
+    name: string;
+    phone: string;
+    email: string;
   };
   placeholders: {
     pickup: string;
     dropoff: string;
+    name: string;
+    phone: string;
+    email: string;
   };
   buttons: {
     back: string;
@@ -46,11 +52,14 @@ export function BookingForm({ copy, locale }: BookingFormProps) {
     dropoff: "",
     travelDate: "",
     travelTime: "",
-    passengers: 1
+    passengers: 1,
+    customerName: "",
+    customerPhone: "",
+    customerEmail: ""
   });
 
-  const isLastStep = step === 3;
-  const progress = useMemo(() => ((step + 1) / 4) * 100, [step]);
+  const isLastStep = step === 4;
+  const progress = useMemo(() => ((step + 1) / 5) * 100, [step]);
 
   const validateCurrentStep = () => {
     const result =
@@ -60,7 +69,9 @@ export function BookingForm({ copy, locale }: BookingFormProps) {
           ? bookingFormSchema.pick({ dropoff: true }).safeParse(form)
           : step === 2
             ? bookingFormSchema.pick({ travelDate: true, travelTime: true }).safeParse(form)
-            : bookingFormSchema.pick({ passengers: true }).safeParse(form);
+            : step === 3
+              ? bookingFormSchema.pick({ passengers: true }).safeParse(form)
+              : bookingFormSchema.pick({ customerName: true, customerPhone: true }).safeParse(form);
     if (result.success) {
       setErrors((prev) => ({ ...prev, ...Object.fromEntries(Object.keys(result.data).map((key) => [key, ""])) }));
       return true;
@@ -77,7 +88,7 @@ export function BookingForm({ copy, locale }: BookingFormProps) {
 
   const handleNext = () => {
     if (!validateCurrentStep()) return;
-    setStep((prev) => Math.min(prev + 1, 3) as BookingStep);
+    setStep((prev) => Math.min(prev + 1, 4) as BookingStep);
   };
 
   const handleBack = () => setStep((prev) => Math.max(prev - 1, 0) as BookingStep);
@@ -99,7 +110,7 @@ export function BookingForm({ copy, locale }: BookingFormProps) {
       setIsSubmitting(true);
       setFeedback("");
 
-      const response = await fetch("/api/bookings", {
+      const response = await fetch("/api/quotations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, locale })
@@ -110,14 +121,18 @@ export function BookingForm({ copy, locale }: BookingFormProps) {
         return;
       }
 
-      setFeedback(copy.success);
+      const data = (await response.json()) as { quoteReference?: string };
+      setFeedback(copy.success.replace("{ref}", data.quoteReference ?? ""));
       setStep(0);
       setForm({
         pickup: "",
         dropoff: "",
         travelDate: "",
         travelTime: "",
-        passengers: 1
+        passengers: 1,
+        customerName: "",
+        customerPhone: "",
+        customerEmail: ""
       });
       setErrors({});
     } catch {
@@ -136,7 +151,7 @@ export function BookingForm({ copy, locale }: BookingFormProps) {
         <div className="mb-2 flex items-center justify-between text-xs font-medium uppercase tracking-[0.16em] text-[#7c8088]">
           <span>{copy.heading}</span>
           <span>
-            {copy.stepLabel} {step + 1} / 4
+            {copy.stepLabel} {step + 1} / 5
           </span>
         </div>
         <div className="h-1.5 overflow-hidden rounded-full bg-[#ece7dd]">
@@ -231,6 +246,56 @@ export function BookingForm({ copy, locale }: BookingFormProps) {
             className="w-full rounded-xl border border-[#d8dde3] px-4 py-3 text-sm outline-none transition focus:border-[#c7a66b]"
           />
           {errors.passengers && <p className="mt-2 text-xs text-red-600">{errors.passengers}</p>}
+        </div>
+      )}
+
+      {step === 4 && (
+        <div className="grid gap-4">
+          <div>
+            <label htmlFor="customerName" className="mb-2 block text-sm text-[#49505a]">
+              {copy.labels.name}
+            </label>
+            <input
+              id="customerName"
+              type="text"
+              autoComplete="name"
+              placeholder={copy.placeholders.name}
+              value={form.customerName}
+              onChange={(event) => setForm((prev) => ({ ...prev, customerName: event.target.value }))}
+              className="w-full rounded-xl border border-[#d8dde3] px-4 py-3 text-sm outline-none transition focus:border-[#c7a66b]"
+            />
+            {errors.customerName && <p className="mt-2 text-xs text-red-600">{errors.customerName}</p>}
+          </div>
+          <div>
+            <label htmlFor="customerPhone" className="mb-2 block text-sm text-[#49505a]">
+              {copy.labels.phone}
+            </label>
+            <input
+              id="customerPhone"
+              type="tel"
+              autoComplete="tel"
+              placeholder={copy.placeholders.phone}
+              value={form.customerPhone}
+              onChange={(event) => setForm((prev) => ({ ...prev, customerPhone: event.target.value }))}
+              className="w-full rounded-xl border border-[#d8dde3] px-4 py-3 text-sm outline-none transition focus:border-[#c7a66b]"
+            />
+            {errors.customerPhone && <p className="mt-2 text-xs text-red-600">{errors.customerPhone}</p>}
+          </div>
+          <div>
+            <label htmlFor="customerEmail" className="mb-2 block text-sm text-[#49505a]">
+              {copy.labels.email}
+            </label>
+            <input
+              id="customerEmail"
+              type="email"
+              autoComplete="email"
+              placeholder={copy.placeholders.email}
+              value={form.customerEmail ?? ""}
+              onChange={(event) => setForm((prev) => ({ ...prev, customerEmail: event.target.value }))}
+              className="w-full rounded-xl border border-[#d8dde3] px-4 py-3 text-sm outline-none transition focus:border-[#c7a66b]"
+            />
+            {errors.customerEmail && <p className="mt-2 text-xs text-red-600">{errors.customerEmail}</p>}
+          </div>
         </div>
       )}
 

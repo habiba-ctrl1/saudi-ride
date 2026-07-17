@@ -73,7 +73,7 @@ const FAQS = [
 
 export default function UmrahTransportPage() {
   return (
-    <main className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pb-24">
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
       <JsonLd
         data={[
           serviceSchema({
@@ -103,24 +103,24 @@ export default function UmrahTransportPage() {
             fill 
             className="object-cover opacity-30" 
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/80 to-[#0A0A0A]/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/80 to-[#FAFAF7]/40" />
         </div>
 
         <div className="section-container relative z-10 max-w-5xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 backdrop-blur-md px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-6">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 backdrop-blur-md px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#B8963B] mb-6">
             <Landmark className="h-3 w-3" /> Spiritual Journeys
           </span>
           <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
             Premium Transport for <br />
-            <span className="text-[#C9A84C]">Your Sacred Journey</span>
+            <span className="text-[#16A34A]">Your Sacred Journey</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#A1A1A6] leading-relaxed mb-10">
+          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-10">
             Serving the Guests of Allah with dignity, comfort, and unmatched reliability. From Jeddah Airport arrivals to complete Ziyarat tours in Madinah.
           </p>
           <div className="flex justify-center gap-4">
             <Link
               href="/book"
-              className="inline-flex items-center gap-2 rounded-full bg-[#C9A84C] px-8 py-3.5 text-xs font-bold uppercase text-[#0A0A0A] hover:bg-[#B8963B] transition-all"
+              className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
             >
               Book Umrah Transfer
             </Link>
@@ -134,7 +134,7 @@ export default function UmrahTransportPage() {
           <div className="space-y-8">
             <div>
               <h2 className="font-heading text-3xl font-bold mb-4">Dedicated to Pilgrims</h2>
-              <p className="text-[#A1A1A6] leading-relaxed">
+              <p className="text-[#6B7280] leading-relaxed">
                 We understand that Umrah is a profoundly physical and spiritual undertaking. Our drivers are trained specifically in the logistics of Makkah and Madinah to ensure you face zero transport stress.
               </p>
             </div>
@@ -145,8 +145,8 @@ export default function UmrahTransportPage() {
                   <Languages className="h-6 w-6 text-[#C9A84C]" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-[#F5F0E8] mb-1">English, Arabic & Urdu Drivers</h4>
-                  <p className="text-sm text-[#A1A1A6]">Our team includes drivers fluent in Arabic, English, and Urdu to ensure perfect communication with you and your family.</p>
+                  <h4 className="font-bold text-[#1C1C1C] mb-1">English, Arabic & Urdu Drivers</h4>
+                  <p className="text-sm text-[#6B7280]">Our team includes drivers fluent in Arabic, English, and Urdu to ensure perfect communication with you and your family.</p>
                 </div>
               </div>
               
@@ -155,8 +155,8 @@ export default function UmrahTransportPage() {
                   <ShieldCheck className="h-6 w-6 text-[#C9A84C]" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-[#F5F0E8] mb-1">Haram Drop-Off Expertise</h4>
-                  <p className="text-sm text-[#A1A1A6]">Navigating road closures during Salah (prayer) times requires deep local knowledge. We guarantee the closest possible legal drop-off to your hotel.</p>
+                  <h4 className="font-bold text-[#1C1C1C] mb-1">Haram Drop-Off Expertise</h4>
+                  <p className="text-sm text-[#6B7280]">Navigating road closures during Salah (prayer) times requires deep local knowledge. We guarantee the closest possible legal drop-off to your hotel.</p>
                 </div>
               </div>
 
@@ -165,20 +165,20 @@ export default function UmrahTransportPage() {
                   <HeartHandshake className="h-6 w-6 text-[#C9A84C]" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-[#F5F0E8] mb-1">Elderly & Family Friendly</h4>
-                  <p className="text-sm text-[#A1A1A6]">Spacious SUVs and Vans available with ample room for wheelchairs, large luggage, and large families.</p>
+                  <h4 className="font-bold text-[#1C1C1C] mb-1">Elderly & Family Friendly</h4>
+                  <p className="text-sm text-[#6B7280]">Spacious SUVs and Vans available with ample room for wheelchairs, large luggage, and large families.</p>
                 </div>
               </div>
             </div>
           </div>
           
-          <div className="relative h-[500px] rounded-3xl overflow-hidden border border-[#C9A84C]/20">
+          <div className="relative h-[500px] rounded-3xl overflow-hidden border border-[#16A34A]/15">
             <Image src="/services/madinah-ziyarat-hero.webp" alt="Madinah Ziyarat Transport" fill className="object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] to-transparent" />
             <div className="absolute bottom-8 left-8 right-8">
-              <div className="bg-[#111]/90 backdrop-blur-md p-6 rounded-2xl border border-[#C9A84C]/30">
+              <div className="bg-white/90 backdrop-blur-md p-6 rounded-2xl border border-[#C9A84C]/30">
                 <p className="text-xs text-[#C9A84C] font-bold uppercase tracking-wider mb-2">Ziyarat Guidance</p>
-                <p className="text-sm text-[#F5F0E8]">Our drivers can guide you to all historical sites including Jabal Uhud, Quba Mosque, and Jabal Al-Nour with dedicated waiting time.</p>
+                <p className="text-sm text-[#1C1C1C]">Our drivers can guide you to all historical sites including Jabal Uhud, Quba Mosque, and Jabal Al-Nour with dedicated waiting time.</p>
               </div>
             </div>
           </div>
@@ -188,9 +188,9 @@ export default function UmrahTransportPage() {
       {/* ─── UMRAH FROM JEDDAH (journey + internal linking) ───────── */}
       <section className="section-container max-w-5xl py-20 border-b border-[#C9A84C]/10">
         <div className="mb-12">
-          <span className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#C9A84C]">The Gateway</span>
+          <span className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#B8963B]">The Gateway</span>
           <h2 className="font-heading text-3xl font-bold mt-2 mb-4">Your Umrah Journey from Jeddah, Step by Step</h2>
-          <p className="text-[#A1A1A6] leading-relaxed max-w-2xl">
+          <p className="text-[#6B7280] leading-relaxed max-w-2xl">
             Most pilgrims begin Umrah by landing at King Abdulaziz International Airport (JED) in Jeddah — the Kingdom&apos;s main gateway. Here is the full transport chain we handle for you, from arrival to your return flight.
           </p>
         </div>
@@ -203,18 +203,18 @@ export default function UmrahTransportPage() {
             { n: 5, title: "Travel to Madinah (~420 km)", desc: "Comfortable long-distance transfer via the Haramain highway, with prayer and rest stops on request.", href: "/routes/jeddah-to-madinah", cta: "Jeddah → Madinah route" },
             { n: 6, title: "Madinah Ziyarat & return", desc: "Visit Masjid an-Nabawi, Quba, and Uhud, then a smooth transfer back to the airport for your flight home.", href: "/services/madinah-ziyarat", cta: "Madinah Ziyarat tour" },
           ].map((step) => (
-            <li key={step.n} className="flex items-start gap-4 p-6 rounded-2xl bg-[#111] border border-[#C9A84C]/10">
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 text-sm font-bold text-[#C9A84C]">{step.n}</span>
+            <li key={step.n} className="flex items-start gap-4 p-6 rounded-2xl bg-white border border-[#C9A84C]/10">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 text-sm font-bold text-[#16A34A]">{step.n}</span>
               <div>
-                <h3 className="font-bold text-[#F5F0E8] mb-1">{step.title}</h3>
-                <p className="text-sm text-[#A1A1A6] leading-relaxed mb-2">{step.desc}</p>
-                <Link href={step.href} className="text-xs font-bold uppercase tracking-wider text-[#C9A84C] hover:underline">{step.cta} &rarr;</Link>
+                <h3 className="font-bold text-[#1C1C1C] mb-1">{step.title}</h3>
+                <p className="text-sm text-[#6B7280] leading-relaxed mb-2">{step.desc}</p>
+                <Link href={step.href} className="text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:underline">{step.cta} &rarr;</Link>
               </div>
             </li>
           ))}
         </ol>
         <div className="mt-8">
-          <Link href="/guides/jeddah-airport-to-makkah-guide" className="text-sm font-bold text-[#C9A84C] hover:underline">
+          <Link href="/guides/jeddah-airport-to-makkah-guide" className="text-sm font-bold text-[#16A34A] hover:underline">
             Read the full Jeddah Airport to Makkah transfer guide &rarr;
           </Link>
         </div>
@@ -224,19 +224,19 @@ export default function UmrahTransportPage() {
       <section className="section-container max-w-7xl py-20">
         <div className="text-center mb-16">
           <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">Umrah Transport Packages</h2>
-          <p className="text-[#A1A1A6]">Choose the transport tier that fits your pilgrimage needs.</p>
+          <p className="text-[#6B7280]">Choose the transport tier that fits your pilgrimage needs.</p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
           {PACKAGES.map((pkg, i) => (
-            <div key={i} className="bg-[#111] border border-[#C9A84C]/15 rounded-3xl p-8 flex flex-col hover:border-[#C9A84C]/40 transition-colors">
-              <h3 className="font-heading text-xl font-bold mb-2 text-[#F5F0E8]">{pkg.title}</h3>
-              <p className="text-sm text-[#A1A1A6] mb-6 min-h-[40px]">{pkg.desc}</p>
-              <div className="text-2xl font-bold text-[#C9A84C] mb-8">{pkg.price}</div>
+            <div key={i} className="bg-white border border-[#16A34A]/12 rounded-3xl p-8 flex flex-col hover:border-[#16A34A]/35 transition-colors">
+              <h3 className="font-heading text-xl font-bold mb-2 text-[#1C1C1C]">{pkg.title}</h3>
+              <p className="text-sm text-[#6B7280] mb-6 min-h-[40px]">{pkg.desc}</p>
+              <div className="text-2xl font-bold text-[#16A34A] mb-8">{pkg.price}</div>
               
               <ul className="space-y-4 mb-8 flex-1">
                 {pkg.features.map((feat, idx) => (
-                  <li key={idx} className="flex items-start gap-3 text-sm text-[#A1A1A6]">
+                  <li key={idx} className="flex items-start gap-3 text-sm text-[#6B7280]">
                     <CheckCircle2 className="h-4 w-4 text-[#C9A84C] shrink-0 mt-0.5" />
                     {feat}
                   </li>
@@ -245,7 +245,7 @@ export default function UmrahTransportPage() {
 
               <Link
                 href="/book"
-                className="w-full text-center rounded-full border border-[#C9A84C]/30 py-3 text-xs font-bold uppercase text-[#C9A84C] hover:bg-[#C9A84C] hover:text-[#0A0A0A] transition-all"
+                className="w-full text-center rounded-full border border-[#C9A84C]/30 py-3 text-xs font-bold uppercase text-[#C9A84C] hover:bg-[#16A34A] hover:text-white transition-all"
               >
                 Select Package
               </Link>
@@ -255,20 +255,20 @@ export default function UmrahTransportPage() {
       </section>
 
       {/* ─── TESTIMONIALS ─────────────────────────────────────────── */}
-      <section className="bg-[#111] py-20 border-y border-[#C9A84C]/10">
+      <section className="bg-white py-20 border-y border-[#C9A84C]/10">
         <div className="section-container max-w-5xl">
           <h2 className="font-heading text-3xl font-bold mb-12 text-center">Words from Pilgrims</h2>
           <div className="grid md:grid-cols-2 gap-8">
             {TESTIMONIALS.map((test, i) => (
-              <div key={i} className="bg-[#0A0A0A] p-8 rounded-3xl border border-[#C9A84C]/10">
-                <p className="text-[#A1A1A6] italic leading-relaxed mb-6">&quot;{test.quote}&quot;</p>
+              <div key={i} className="bg-[#FAFAF7] p-8 rounded-3xl border border-[#C9A84C]/10">
+                <p className="text-[#6B7280] italic leading-relaxed mb-6">&quot;{test.quote}&quot;</p>
                 <div className="flex items-center gap-3">
                   <div className="h-10 w-10 rounded-full bg-[#C9A84C]/20 flex items-center justify-center text-[#C9A84C] font-bold">
                     {test.author.charAt(0)}
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-[#F5F0E8]">{test.author}</p>
-                    <p className="text-xs text-[#7C8088]">{test.location}</p>
+                    <p className="text-sm font-bold text-[#1C1C1C]">{test.author}</p>
+                    <p className="text-xs text-[#6B7280]">{test.location}</p>
                   </div>
                 </div>
               </div>
@@ -282,12 +282,12 @@ export default function UmrahTransportPage() {
         <h2 className="font-heading text-3xl font-bold mb-12 text-center">Umrah Transport FAQ</h2>
         <div className="space-y-6">
           {FAQS.map((faq, i) => (
-            <div key={i} className="bg-[#111] border border-[#C9A84C]/15 rounded-2xl p-6">
-              <h4 className="font-bold text-[#F5F0E8] mb-3 flex items-start gap-3">
+            <div key={i} className="bg-white border border-[#16A34A]/12 rounded-2xl p-6">
+              <h4 className="font-bold text-[#1C1C1C] mb-3 flex items-start gap-3">
                 <CheckCircle2 className="h-5 w-5 text-[#C9A84C] shrink-0 mt-0.5" />
                 {faq.q}
               </h4>
-              <p className="text-sm text-[#A1A1A6] leading-relaxed pl-8">{faq.a}</p>
+              <p className="text-sm text-[#6B7280] leading-relaxed pl-8">{faq.a}</p>
             </div>
           ))}
         </div>
@@ -295,9 +295,9 @@ export default function UmrahTransportPage() {
 
       {/* ─── CTA ──────────────────────────────────────────────────── */}
       <section className="section-container max-w-5xl pb-20">
-        <div className="bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] border border-[#C9A84C]/30 rounded-3xl p-12 text-center">
-          <h2 className="font-heading text-2xl font-bold mb-4 text-[#F5F0E8]">Have custom itinerary requirements?</h2>
-          <p className="text-[#A1A1A6] mb-8 max-w-lg mx-auto">
+        <div className="bg-gradient-to-br from-[#1A1A1A] to-[#FAFAF7] border border-[#C9A84C]/30 rounded-3xl p-12 text-center">
+          <h2 className="font-heading text-2xl font-bold mb-4 text-[#1C1C1C]">Have custom itinerary requirements?</h2>
+          <p className="text-[#6B7280] mb-8 max-w-lg mx-auto">
             Our team is available 24/7 on WhatsApp to help you plan complex family itineraries across Makkah and Madinah.
           </p>
           <a
@@ -311,6 +311,6 @@ export default function UmrahTransportPage() {
         </div>
       </section>
       <ServiceRelatedLinks currentPath="/services/umrah-transport" />
-    </main>
+    </div>
   );
 }

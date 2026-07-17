@@ -39,6 +39,17 @@ const translations = {
     labelLicense: "Saudi Driving License Number",
     labelVehicle: "Vehicle Year, Brand & Model",
     labelExp: "Chauffeur Experience Duration",
+    labelCity: "Home City",
+    labelIqama: "Iqama / National ID Number",
+    labelVehicleType: "Vehicle Category",
+    labelTerms: "I confirm my documents are valid and I accept the partner terms & conditions.",
+    vehicleTypeOptions: [
+      { value: "sedan", label: "Sedan (Camry / Sonata)" },
+      { value: "suv", label: "SUV (GMC / Tahoe)" },
+      { value: "van", label: "Van (Staria / Hiace)" },
+      { value: "bus", label: "Bus / Coaster" },
+      { value: "limousine", label: "Luxury Limousine" }
+    ],
     btnSubmit: "Submit Driver Application",
     btnSubmitting: "Registering Driver Applicant...",
     successMsg: "Your Chauffeur application has been safely received! Our fleet coordinators will contact you via WhatsApp shortly.",
@@ -82,6 +93,17 @@ const translations = {
     labelLicense: "رقم رخصة القيادة السعودية",
     labelVehicle: "سنة الصنع، نوع السيارة وموديلها",
     labelExp: "سنة الخبرة في مجال القيادة",
+    labelCity: "مدينة الإقامة",
+    labelIqama: "رقم الإقامة / الهوية الوطنية",
+    labelVehicleType: "فئة السيارة",
+    labelTerms: "أؤكد أن مستنداتي سارية المفعول وأوافق على شروط وأحكام الشراكة.",
+    vehicleTypeOptions: [
+      { value: "sedan", label: "سيدان (كامري / سوناتا)" },
+      { value: "suv", label: "دفع رباعي (جي إم سي / تاهو)" },
+      { value: "van", label: "فان (ستاريا / هايس)" },
+      { value: "bus", label: "حافلة / كوستر" },
+      { value: "limousine", label: "ليموزين فاخرة" }
+    ],
     btnSubmit: "تقديم طلب الانضمام",
     btnSubmitting: "جاري تقديم الطلب...",
     successMsg: "تم استلام طلب الانضمام الخاص بك بنجاح! سيتواصل معك مسؤولو الأسطول قريباً عبر الواتساب.",
@@ -125,6 +147,17 @@ const translations = {
     labelLicense: "سعودی لائسنس نمبر",
     labelVehicle: "گاڑی کا سال، برانڈ اور ماڈل",
     labelExp: "ڈرائیونگ کا تجربہ",
+    labelCity: "شہر",
+    labelIqama: "اقامہ / شناختی کارڈ نمبر",
+    labelVehicleType: "گاڑی کی قسم",
+    labelTerms: "میں تصدیق کرتا ہوں کہ میرے کاغذات درست ہیں اور میں پارٹنر شرائط و ضوابط قبول کرتا ہوں۔",
+    vehicleTypeOptions: [
+      { value: "sedan", label: "سیڈان (کیمری / سوناٹا)" },
+      { value: "suv", label: "ایس یو وی (جی ایم سی / ٹاہو)" },
+      { value: "van", label: "وین (ستاریا / ہائیس)" },
+      { value: "bus", label: "بس / کوسٹر" },
+      { value: "limousine", label: "لگژری لیموزین" }
+    ],
     btnSubmit: "درخواست جمع کریں",
     btnSubmitting: "درخواست جمع کی جا رہی ہے...",
     successMsg: "آپ کی درخواست کامیابی سے موصول ہو گئی ہے! ہماری فلیٹ ٹیم جلد رابطہ کرے گی۔",
@@ -152,7 +185,11 @@ export default function DriverRegistrationPage() {
     phone: "",
     licenseNumber: "",
     vehicleDetails: "",
-    experience: "3-5"
+    experience: "3-5",
+    city: "",
+    iqamaNumber: "",
+    vehicleType: "sedan",
+    termsAccepted: false
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -175,7 +212,11 @@ export default function DriverRegistrationPage() {
           phone: "",
           licenseNumber: "",
           vehicleDetails: "",
-          experience: "3-5"
+          experience: "3-5",
+          city: "",
+          iqamaNumber: "",
+          vehicleType: "sedan",
+          termsAccepted: false
         });
       } else {
         toast.error(data.error || t.errorMsg);
@@ -310,6 +351,49 @@ export default function DriverRegistrationPage() {
               </div>
 
               <div className="grid gap-6 sm:grid-cols-2">
+                {/* Home City */}
+                <div className="space-y-2">
+                  <label className="text-xs uppercase tracking-wider text-[#A1A1A6] font-semibold">{t.labelCity}</label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.city}
+                    onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                    placeholder="e.g. Riyadh"
+                    className="w-full rounded-xl border border-[#C9A84C]/15 bg-black/40 px-4 py-3.5 text-xs text-[#F5F0E8] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                  />
+                </div>
+
+                {/* Iqama Number */}
+                <div className="space-y-2">
+                  <label className="text-xs uppercase tracking-wider text-[#A1A1A6] font-semibold">{t.labelIqama}</label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.iqamaNumber}
+                    onChange={(e) => setFormData({ ...formData, iqamaNumber: e.target.value })}
+                    className="w-full rounded-xl border border-[#C9A84C]/15 bg-black/40 px-4 py-3.5 text-xs text-[#F5F0E8] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                  />
+                </div>
+              </div>
+
+              {/* Vehicle Category */}
+              <div className="space-y-2">
+                <label className="text-xs uppercase tracking-wider text-[#A1A1A6] font-semibold">{t.labelVehicleType}</label>
+                <select
+                  value={formData.vehicleType}
+                  onChange={(e) => setFormData({ ...formData, vehicleType: e.target.value })}
+                  className="w-full rounded-xl border border-[#C9A84C]/15 bg-black/40 px-4 py-3.5 text-xs text-[#F5F0E8] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                >
+                  {t.vehicleTypeOptions.map((opt) => (
+                    <option key={opt.value} value={opt.value} className="bg-[#121212]">
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="grid gap-6 sm:grid-cols-2">
                 {/* Vehicle Specs */}
                 <div className="space-y-2">
                   <label className="text-xs uppercase tracking-wider text-[#A1A1A6] font-semibold">{t.labelVehicle}</label>
@@ -339,6 +423,18 @@ export default function DriverRegistrationPage() {
                   </select>
                 </div>
               </div>
+
+              {/* Terms */}
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  required
+                  checked={formData.termsAccepted}
+                  onChange={(e) => setFormData({ ...formData, termsAccepted: e.target.checked })}
+                  className="mt-0.5 h-4 w-4 shrink-0 accent-[#C9A84C]"
+                />
+                <span className="text-[11px] leading-relaxed text-[#A1A1A6]">{t.labelTerms}</span>
+              </label>
 
               {/* Submit */}
               <button

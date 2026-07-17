@@ -44,7 +44,7 @@ export function getDriverJobCity(slug: string) {
 // Requirements + benefits are the same network-wide, so they live here once.
 export const DRIVER_REQUIREMENTS = [
   "Valid Saudi driving license (clean record, no active violations)",
-  "Vehicle model year 2020 or newer in spotless condition (or join with our fleet)",
+  "Your own vehicle — model year 2020 or newer in spotless condition (required to apply)",
   "Conversational Arabic & English (extra languages a plus for pilgrim trips)",
   "Smartphone for dispatch, navigation and customer contact",
   "Professional appearance and strong customer-service attitude",

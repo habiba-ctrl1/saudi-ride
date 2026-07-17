@@ -39,7 +39,7 @@ export function DriverJobBody({ data, variantKey }: { data: DriverJobCity; varia
     },
     {
       question: `What do I need to start as a ${v.role.toLowerCase()} in ${data.name}?`,
-      answer: `A valid Saudi driving license with a clean record, a 2020-or-newer vehicle in good condition (or join with our fleet), a smartphone, and conversational Arabic or English.${v.extraRequirements.length ? ` For this role you also need: ${v.extraRequirements[0].toLowerCase()}.` : ""}`,
+      answer: `A valid Saudi driving license with a clean record, your own 2020-or-newer vehicle in good condition (drivers must have their own car to apply), a smartphone, and conversational Arabic or English.${v.extraRequirements.length ? ` For this role you also need: ${v.extraRequirements[0].toLowerCase()}.` : ""}`,
     },
     {
       question: `Is demand for ${v.keyword} in ${data.name} good?`,
@@ -57,7 +57,7 @@ export function DriverJobBody({ data, variantKey }: { data: DriverJobCity; varia
       `1. Full Name: \n` +
       `2. Nationality & Iqama status: \n` +
       `3. Saudi driving license type (private/public): \n` +
-      `4. Own car? (model + year) or need company car: \n` +
+      `4. Your own car — model + year (required to apply): \n` +
       `5. Driving experience (years / Uber / Careem?): \n` +
       `6. Languages (Arabic/English/Urdu): \n` +
       `7. Availability (full-time / part-time): \n` +
@@ -110,7 +110,7 @@ export function DriverJobBody({ data, variantKey }: { data: DriverJobCity; varia
         </p>
 
         <TLDRSummary
-          answer={`${v.role}s in ${data.name} earn around ${salaryText}/month with Taxi Saudi Arabia. Demand is ${data.demand.toLowerCase()}. You need a valid Saudi license and a 2020+ vehicle (or join with our fleet) — apply online or on WhatsApp.`}
+          answer={`${v.role}s in ${data.name} earn around ${salaryText}/month with Taxi Saudi Arabia. Demand is ${data.demand.toLowerCase()}. You need a valid Saudi license and your own 2020+ vehicle — apply online or on WhatsApp.`}
           facts={[
             { label: "Earnings", value: `${salaryText}/mo` },
             { label: "Demand", value: data.demand },

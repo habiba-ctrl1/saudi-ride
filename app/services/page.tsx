@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import {
   Plane, Star, Users, Clock, MapPin, Sparkles,
-  ShieldCheck, Building2, Heart, Camera, Car, MessageCircle, ChevronRight
+  ShieldCheck, Building2, Heart, Camera, Car, MessageCircle, ChevronRight, Truck
 } from "lucide-react";
 import Link from "next/link";
 import { contactConfig } from "@/lib/config/contact";
@@ -143,6 +143,25 @@ const SERVICES = [
     route: "/book?service=group",
   },
   {
+    icon: Truck,
+    slug: "car-recovery",
+    title: "Car Recovery & Towing",
+    titleAr: "سطحة وسحب سيارات",
+    badge: "24/7 Rescue",
+    color: "from-red-500/10 to-transparent",
+    borderColor: "border-red-500/20",
+    description: "Broken down or in an accident? Flatbed tow truck (satha سطحة) service in Riyadh, Jeddah, Dammam, Makkah & Madinah. Battery jump start, tire help, and intercity car transport at fixed prices.",
+    features: [
+      "Hydraulic flatbed — zero damage towing",
+      "20–45 minute dispatch inside cities",
+      "Fixed price on WhatsApp before dispatch",
+      "Highway & intercity recovery covered",
+      "Heavy vehicle & winch trucks available",
+    ],
+    startingPrice: 150,
+    route: "/services/car-recovery",
+  },
+  {
     icon: Clock,
     slug: "hourly-charter",
     title: "Hourly Charter Service",
@@ -167,7 +186,7 @@ const fadeUp = { hidden: { opacity: 0, y: 28 }, show: { opacity: 1, y: 0 } };
 
 export default function ServicesPage() {
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8]">
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C]">
 
       {/* ─── HERO ─────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden pt-32 pb-20">
@@ -176,14 +195,14 @@ export default function ServicesPage() {
 
         <div className="section-container relative z-10 max-w-5xl">
           <motion.div initial="hidden" animate="show" variants={fadeUp} transition={{ duration: 0.6 }}>
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#C9A84C]">
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#B8963B]">
               <Car className="h-3 w-3" /> Premium Services
             </span>
             <h1 className="mt-6 font-heading text-4xl font-bold leading-tight md:text-6xl">
-              8 Elite Transfer Services<br />
-              <span className="text-[#C9A84C]">Tailored to Every Need</span>
+              9 Elite Transfer Services<br />
+              <span className="text-[#16A34A]">Tailored to Every Need</span>
             </h1>
-            <p className="mt-6 max-w-2xl text-sm md:text-base leading-relaxed text-[#A1A1A6]">
+            <p className="mt-6 max-w-2xl text-sm md:text-base leading-relaxed text-[#6B7280]">
               From Umrah pilgrimage transfers to royal wedding convoys — we have a premium service
               crafted for every occasion across Saudi Arabia and the GCC region.
             </p>
@@ -198,14 +217,14 @@ export default function ServicesPage() {
             className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-5 max-w-2xl"
           >
             {[
-              { value: "8", label: "Service Types" },
+              { value: "9", label: "Service Types" },
               { value: "14", label: "Fleet Vehicles" },
               { value: "50K+", label: "Trips Completed" },
               { value: "4.9★", label: "Average Rating" },
             ].map((s) => (
-              <div key={s.label} className="rounded-2xl border border-[#C9A84C]/10 bg-[#111111] p-4 text-center">
-                <p className="font-heading text-xl font-bold text-[#C9A84C]">{s.value}</p>
-                <p className="text-[0.6rem] text-[#7C8088] font-bold uppercase tracking-wider mt-1">{s.label}</p>
+              <div key={s.label} className="rounded-2xl border border-[#C9A84C]/10 bg-white p-4 text-center">
+                <p className="font-heading text-xl font-bold text-[#16A34A]">{s.value}</p>
+                <p className="text-[0.6rem] text-[#6B7280] font-bold uppercase tracking-wider mt-1">{s.label}</p>
               </div>
             ))}
           </motion.div>
@@ -225,7 +244,7 @@ export default function ServicesPage() {
                 viewport={{ once: true, amount: 0.1 }}
                 variants={fadeUp}
                 transition={{ duration: 0.45, delay: (index % 4) * 0.08 }}
-                className={`group relative overflow-hidden rounded-3xl border bg-[#111111] p-7 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(201,168,76,0.08)] ${service.borderColor} hover:border-[#C9A84C]/40`}
+                className={`group relative overflow-hidden rounded-3xl border bg-white p-7 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(22,163,74,0.08)] ${service.borderColor} hover:border-[#16A34A]/35`}
               >
                 {/* Background gradient */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-60 pointer-events-none rounded-3xl`} />
@@ -234,30 +253,30 @@ export default function ServicesPage() {
                   {/* Header row */}
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#C9A84C]/10 border border-[#C9A84C]/20">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#C9A84C]/10 border border-[#16A34A]/15">
                         <Icon className="h-5 w-5 text-[#C9A84C]" />
                       </div>
                       <div>
-                        <span className="text-[0.55rem] font-bold uppercase tracking-wider text-[#C9A84C]">{service.badge}</span>
-                        <h2 className="font-heading text-lg font-bold text-[#F5F0E8] group-hover:text-[#C9A84C] transition-colors leading-tight">
+                        <span className="text-[0.55rem] font-bold uppercase tracking-wider text-[#B8963B]">{service.badge}</span>
+                        <h2 className="font-heading text-lg font-bold text-[#1C1C1C] group-hover:text-[#16A34A] transition-colors leading-tight">
                           {service.title}
                         </h2>
-                        <p className="text-[0.6rem] text-[#7C8088]">{service.titleAr}</p>
+                        <p className="text-[0.6rem] text-[#6B7280]">{service.titleAr}</p>
                       </div>
                     </div>
                     <div className="text-right shrink-0">
-                      <p className="text-[0.55rem] text-[#7C8088] uppercase font-bold">From</p>
-                      <p className="font-heading text-lg font-bold text-[#C9A84C]">SAR {service.startingPrice}</p>
+                      <p className="text-[0.55rem] text-[#6B7280] uppercase font-bold">From</p>
+                      <p className="font-heading text-lg font-bold text-[#16A34A]">SAR {service.startingPrice}</p>
                     </div>
                   </div>
 
                   {/* Description */}
-                  <p className="text-xs text-[#A1A1A6] leading-relaxed">{service.description}</p>
+                  <p className="text-xs text-[#6B7280] leading-relaxed">{service.description}</p>
 
                   {/* Features */}
                   <ul className="space-y-2">
                     {service.features.map((f) => (
-                      <li key={f} className="flex items-center gap-2 text-[0.65rem] text-[#A1A1A6]">
+                      <li key={f} className="flex items-center gap-2 text-[0.65rem] text-[#6B7280]">
                         <ShieldCheck className="h-3.5 w-3.5 text-[#C9A84C] shrink-0" />
                         <span>{f}</span>
                       </li>
@@ -268,7 +287,7 @@ export default function ServicesPage() {
                   <div className="grid grid-cols-2 gap-3 pt-2">
                     <Link
                       href={service.route}
-                      className="flex items-center justify-center gap-1.5 rounded-full bg-[#C9A84C] py-3 text-[0.65rem] font-bold uppercase tracking-wider text-[#0A0A0A] hover:bg-[#B8963B] transition-all shadow-[0_4px_14px_rgba(201,168,76,0.2)]"
+                      className="flex items-center justify-center gap-1.5 rounded-full bg-[#16A34A] py-3 text-[0.65rem] font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all shadow-[0_4px_14px_rgba(22,163,74,0.2)]"
                     >
                       Book Now
                       <ChevronRight className="h-3.5 w-3.5" />
@@ -277,7 +296,7 @@ export default function ServicesPage() {
                       href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam, I need your ${service.title} service.`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-1.5 rounded-full border border-[#C9A84C]/30 py-3 text-[0.65rem] font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
+                      className="flex items-center justify-center gap-1.5 rounded-full border border-[#C9A84C]/30 py-3 text-[0.65rem] font-bold uppercase tracking-wider text-[#B8963B] hover:bg-[#C9A84C]/10 transition-all"
                     >
                       <MessageCircle className="h-3.5 w-3.5 fill-current" />
                       Inquire
@@ -290,14 +309,14 @@ export default function ServicesPage() {
         </div>
 
         {/* Trust Section */}
-        <div className="mt-16 rounded-3xl border border-[#C9A84C]/15 bg-[#111111] p-8 md:p-12">
+        <div className="mt-16 rounded-3xl border border-[#16A34A]/12 bg-white p-8 md:p-12">
           <div className="grid gap-8 md:grid-cols-2 items-center">
             <div className="space-y-4">
-              <span className="text-[0.65rem] uppercase tracking-[0.2em] text-[#C9A84C] font-bold">Why Taxi Saudi Arabia?</span>
+              <span className="text-[0.65rem] uppercase tracking-[0.2em] text-[#B8963B] font-bold">Why Taxi Saudi Arabia?</span>
               <h2 className="font-heading text-2xl md:text-3xl font-bold">
                 Saudi Arabia&apos;s Most Trusted<br />Taxi & Car Service
               </h2>
-              <p className="text-sm text-[#A1A1A6] leading-relaxed">
+              <p className="text-sm text-[#6B7280] leading-relaxed">
                 Every driver is TGA-certified, background-checked, and trained in respectful customer service.
                 Every vehicle is GPS-tracked, fully insured, and inspected monthly.
               </p>
@@ -311,10 +330,10 @@ export default function ServicesPage() {
               ].map((item) => {
                 const ItemIcon = item.icon;
                 return (
-                  <div key={item.label} className="rounded-2xl border border-[#C9A84C]/10 bg-black/30 p-4 space-y-2">
+                  <div key={item.label} className="rounded-2xl border border-[#C9A84C]/10 bg-[#F0FDF4] p-4 space-y-2">
                     <ItemIcon className="h-5 w-5 text-[#C9A84C]" />
-                    <p className="text-xs font-bold text-[#F5F0E8]">{item.label}</p>
-                    <p className="text-[0.6rem] text-[#7C8088]">{item.sub}</p>
+                    <p className="text-xs font-bold text-[#1C1C1C]">{item.label}</p>
+                    <p className="text-[0.6rem] text-[#6B7280]">{item.sub}</p>
                   </div>
                 );
               })}

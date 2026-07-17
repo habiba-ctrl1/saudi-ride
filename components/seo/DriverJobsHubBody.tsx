@@ -41,7 +41,7 @@ export function DriverJobsHubBody({ variantKey }: { variantKey: JobVariant }) {
         </p>
 
         <TLDRSummary
-          answer={`Taxi Saudi Arabia is hiring for ${v.keyword} in ${DRIVER_JOB_CITIES.length}+ cities. Earnings depend on city, hours and trip type. You need a valid Saudi license and a 2020+ vehicle (or join with our fleet). Apply online or on WhatsApp.`}
+          answer={`Taxi Saudi Arabia is hiring for ${v.keyword} in ${DRIVER_JOB_CITIES.length}+ cities. Earnings depend on city, hours and trip type. You need a valid Saudi license and your own 2020+ vehicle. Apply online or on WhatsApp.`}
           facts={[
             { label: "Cities", value: `${DRIVER_JOB_CITIES.length}+` },
             { label: "Hours", value: "Flexible" },

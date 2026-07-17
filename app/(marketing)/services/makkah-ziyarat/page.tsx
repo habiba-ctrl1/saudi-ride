@@ -40,7 +40,7 @@ const FAQS = [
 
 export default function MakkahZiyaratPage() {
   return (
-    <main className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pb-24">
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
       <JsonLd
         data={[
           serviceSchema({
@@ -71,21 +71,21 @@ export default function MakkahZiyaratPage() {
             fill
             className="object-cover opacity-30"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/80 to-[#0A0A0A]/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/80 to-[#FAFAF7]/40" />
         </div>
         <div className="section-container relative z-10 max-w-5xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 backdrop-blur-md px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-6">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 backdrop-blur-md px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#B8963B] mb-6">
             <Landmark className="h-3 w-3" /> Historical Sites of Makkah
           </span>
           <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-            Makkah Ziyarat <span className="text-[#C9A84C]">Taxi Tours</span>
+            Makkah Ziyarat <span className="text-[#16A34A]">Taxi Tours</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#A1A1A6] leading-relaxed mb-10">
+          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-10">
             Visit the blessed historical sites of Makkah — Jabal Al-Noor, Jabal Thawr, Mina, Arafat, and Muzdalifah — with a comfortable vehicle and a driver who knows every route.
           </p>
           <Link
             href="/book"
-            className="inline-flex items-center gap-2 rounded-full bg-[#C9A84C] px-8 py-3.5 text-xs font-bold uppercase text-[#0A0A0A] hover:bg-[#B8963B] transition-all"
+            className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
           >
             Book Ziyarat Tour
           </Link>
@@ -96,16 +96,16 @@ export default function MakkahZiyaratPage() {
       <section className="section-container max-w-6xl py-20 border-b border-[#C9A84C]/10">
         <div className="text-center mb-12">
           <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">Sites Covered in Makkah Ziyarat</h2>
-          <p className="text-[#A1A1A6]">Distances are approximate from Al-Masjid Al-Haram.</p>
+          <p className="text-[#6B7280]">Distances are approximate from Al-Masjid Al-Haram.</p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {SITES.map((site, i) => (
-            <div key={i} className="bg-[#111] border border-[#C9A84C]/15 rounded-3xl p-6 hover:border-[#C9A84C]/40 transition-colors">
+            <div key={i} className="bg-white border border-[#16A34A]/12 rounded-3xl p-6 hover:border-[#16A34A]/35 transition-colors">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="font-heading text-lg font-bold text-[#F5F0E8]">{site.name}</h3>
-                <span className="text-[0.6rem] uppercase tracking-wider text-[#C9A84C] bg-[#C9A84C]/10 px-2 py-1 rounded-md shrink-0">{site.dist}</span>
+                <h3 className="font-heading text-lg font-bold text-[#1C1C1C]">{site.name}</h3>
+                <span className="text-[0.6rem] uppercase tracking-wider text-[#B8963B] bg-[#C9A84C]/10 px-2 py-1 rounded-md shrink-0">{site.dist}</span>
               </div>
-              <p className="text-sm text-[#A1A1A6] leading-relaxed">{site.desc}</p>
+              <p className="text-sm text-[#6B7280] leading-relaxed">{site.desc}</p>
             </div>
           ))}
         </div>
@@ -115,13 +115,13 @@ export default function MakkahZiyaratPage() {
       <section className="section-container max-w-6xl py-20">
         <div className="grid md:grid-cols-2 gap-6">
           {FEATURES.map((f, i) => (
-            <div key={i} className="flex gap-4 bg-[#111] border border-[#C9A84C]/15 rounded-2xl p-6">
+            <div key={i} className="flex gap-4 bg-white border border-[#16A34A]/12 rounded-2xl p-6">
               <div className="bg-[#C9A84C]/10 p-3 rounded-xl h-fit">
                 <f.icon className="h-6 w-6 text-[#C9A84C]" />
               </div>
               <div>
-                <h3 className="font-bold text-[#F5F0E8] mb-1">{f.title}</h3>
-                <p className="text-sm text-[#A1A1A6] leading-relaxed">{f.desc}</p>
+                <h3 className="font-bold text-[#1C1C1C] mb-1">{f.title}</h3>
+                <p className="text-sm text-[#6B7280] leading-relaxed">{f.desc}</p>
               </div>
             </div>
           ))}
@@ -133,12 +133,12 @@ export default function MakkahZiyaratPage() {
         <h2 className="font-heading text-3xl font-bold mb-12 text-center">Makkah Ziyarat FAQ</h2>
         <div className="space-y-4">
           {FAQS.map((f, i) => (
-            <div key={i} className="bg-[#111] border border-[#C9A84C]/15 rounded-2xl p-6">
-              <h3 className="font-bold text-[#F5F0E8] mb-2 flex items-start gap-3">
+            <div key={i} className="bg-white border border-[#16A34A]/12 rounded-2xl p-6">
+              <h3 className="font-bold text-[#1C1C1C] mb-2 flex items-start gap-3">
                 <CheckCircle2 className="h-5 w-5 text-[#C9A84C] shrink-0 mt-0.5" />
                 {f.question}
               </h3>
-              <p className="text-sm text-[#A1A1A6] leading-relaxed pl-8">{f.answer}</p>
+              <p className="text-sm text-[#6B7280] leading-relaxed pl-8">{f.answer}</p>
             </div>
           ))}
         </div>
@@ -146,9 +146,9 @@ export default function MakkahZiyaratPage() {
 
       {/* ─── CTA ──────────────────────────────────────────────────── */}
       <section className="section-container max-w-5xl pb-4">
-        <div className="bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] border border-[#C9A84C]/30 rounded-3xl p-12 text-center">
-          <h2 className="font-heading text-2xl font-bold mb-4 text-[#F5F0E8]">Plan your Makkah Ziyarat</h2>
-          <p className="text-[#A1A1A6] mb-8 max-w-lg mx-auto">
+        <div className="bg-gradient-to-br from-[#1A1A1A] to-[#FAFAF7] border border-[#C9A84C]/30 rounded-3xl p-12 text-center">
+          <h2 className="font-heading text-2xl font-bold mb-4 text-[#1C1C1C]">Plan your Makkah Ziyarat</h2>
+          <p className="text-[#6B7280] mb-8 max-w-lg mx-auto">
             Message us on WhatsApp to arrange a half-day or full-day Ziyarat tour around your prayer times.
           </p>
           <a
@@ -162,6 +162,6 @@ export default function MakkahZiyaratPage() {
         </div>
       </section>
       <ServiceRelatedLinks currentPath="/services/makkah-ziyarat" />
-    </main>
+    </div>
   );
 }

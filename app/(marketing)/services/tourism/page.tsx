@@ -29,7 +29,7 @@ const CHARTER_RATES = [
 
 export default function TourismChartersPage() {
   return (
-    <main className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pb-24">
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
       <JsonLd
         data={serviceSchema({
           name: "Tourism & Day Trip Car Hire",
@@ -56,24 +56,24 @@ export default function TourismChartersPage() {
             fill 
             className="object-cover opacity-40" 
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/80 to-[#0A0A0A]/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/80 to-[#FAFAF7]/40" />
         </div>
 
         <div className="section-container relative z-10 max-w-5xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 backdrop-blur-md px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-6">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 backdrop-blur-md px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#B8963B] mb-6">
             <Compass className="h-3 w-3" /> Explore Saudi Arabia
           </span>
           <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
             Tourism Transport & <br />
-            <span className="text-[#C9A84C]">Private Charters</span>
+            <span className="text-[#16A34A]">Private Charters</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#A1A1A6] leading-relaxed mb-10">
+          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-10">
             From the ancient ruins of AlUla to the cool mountains of Abha. Hire a private driver by the hour or by the day to explore the Kingdom at your own pace.
           </p>
           <div className="flex justify-center gap-4">
             <Link
               href="/book?type=charter"
-              className="inline-flex items-center gap-2 rounded-full bg-[#C9A84C] px-8 py-3.5 text-xs font-bold uppercase text-[#0A0A0A] hover:bg-[#B8963B] transition-all"
+              className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
             >
               Book a Charter
             </Link>
@@ -85,23 +85,23 @@ export default function TourismChartersPage() {
       <section className="section-container max-w-7xl py-20 border-b border-[#C9A84C]/10">
         <div className="text-center mb-16">
           <h2 className="font-heading text-3xl font-bold mb-4">Top Tourism Destinations</h2>
-          <p className="text-[#A1A1A6]">We provide specialized logistics for remote and mountainous heritage sites.</p>
+          <p className="text-[#6B7280]">We provide specialized logistics for remote and mountainous heritage sites.</p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {DESTINATIONS.map((dest, i) => (
-            <div key={i} className="group rounded-3xl overflow-hidden border border-[#C9A84C]/15 bg-[#111] hover:border-[#C9A84C]/40 transition-all duration-300">
+            <div key={i} className="group rounded-3xl overflow-hidden border border-[#16A34A]/12 bg-white hover:border-[#16A34A]/35 transition-all duration-300">
               <div className="relative h-64 w-full">
                 <Image src={dest.img} alt={dest.name} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#111] via-black/40 to-transparent" />
                 <div className="absolute top-4 left-4">
-                  <span className="rounded-full bg-[#0A0A0A]/80 backdrop-blur-md px-3 py-1 text-[0.55rem] font-bold uppercase tracking-wider text-[#C9A84C] border border-[#C9A84C]/20">
+                  <span className="rounded-full bg-[#FAFAF7]/80 backdrop-blur-md px-3 py-1 text-[0.55rem] font-bold uppercase tracking-wider text-[#B8963B] border border-[#16A34A]/15">
                     {dest.tag}
                   </span>
                 </div>
                 <div className="absolute bottom-6 left-6 right-6">
-                  <h3 className="font-heading text-xl font-bold text-[#F5F0E8] mb-2">{dest.name}</h3>
-                  <p className="text-xs text-[#A1A1A6] line-clamp-2">{dest.desc}</p>
+                  <h3 className="font-heading text-xl font-bold text-white mb-2">{dest.name}</h3>
+                  <p className="text-xs text-white/85 line-clamp-2">{dest.desc}</p>
                 </div>
               </div>
             </div>
@@ -112,26 +112,26 @@ export default function TourismChartersPage() {
       {/* ─── CHARTER VS DAY TRIP ──────────────────────────────────── */}
       <section className="section-container max-w-5xl py-20">
         <div className="grid md:grid-cols-2 gap-12">
-          <div className="bg-[#111] p-10 rounded-3xl border border-[#C9A84C]/20">
+          <div className="bg-white p-10 rounded-3xl border border-[#16A34A]/15">
             <Clock className="h-10 w-10 text-[#C9A84C] mb-6" />
-            <h3 className="font-heading text-2xl font-bold mb-4 text-[#F5F0E8]">Hourly Charters</h3>
-            <p className="text-[#A1A1A6] text-sm leading-relaxed mb-6">
+            <h3 className="font-heading text-2xl font-bold mb-4 text-[#1C1C1C]">Hourly Charters</h3>
+            <p className="text-[#6B7280] text-sm leading-relaxed mb-6">
               Perfect for city tours in Riyadh or Jeddah. Your driver stays with you, waiting at every stop. Ideal for shopping trips, restaurant hopping, or visiting multiple museums in a single afternoon.
             </p>
             <ul className="space-y-2 mb-8">
-              <li className="flex gap-2 text-sm text-[#F5F0E8]"><CheckCircle2 className="h-4 w-4 text-[#C9A84C] shrink-0 mt-0.5" /> Minimum 4 hours</li>
-              <li className="flex gap-2 text-sm text-[#F5F0E8]"><CheckCircle2 className="h-4 w-4 text-[#C9A84C] shrink-0 mt-0.5" /> Mileage limits apply per hour</li>
+              <li className="flex gap-2 text-sm text-[#1C1C1C]"><CheckCircle2 className="h-4 w-4 text-[#C9A84C] shrink-0 mt-0.5" /> Minimum 4 hours</li>
+              <li className="flex gap-2 text-sm text-[#1C1C1C]"><CheckCircle2 className="h-4 w-4 text-[#C9A84C] shrink-0 mt-0.5" /> Mileage limits apply per hour</li>
             </ul>
           </div>
-          <div className="bg-[#111] p-10 rounded-3xl border border-[#C9A84C]/20">
+          <div className="bg-white p-10 rounded-3xl border border-[#16A34A]/15">
             <Map className="h-10 w-10 text-[#C9A84C] mb-6" />
-            <h3 className="font-heading text-2xl font-bold mb-4 text-[#F5F0E8]">Multi-Day Packages</h3>
-            <p className="text-[#A1A1A6] text-sm leading-relaxed mb-6">
+            <h3 className="font-heading text-2xl font-bold mb-4 text-[#1C1C1C]">Multi-Day Packages</h3>
+            <p className="text-[#6B7280] text-sm leading-relaxed mb-6">
               Essential for trips to AlUla, NEOM, or the Asir region. The driver and vehicle are exclusively yours for consecutive days, giving you total freedom to explore remote areas.
             </p>
             <ul className="space-y-2 mb-8">
-              <li className="flex gap-2 text-sm text-[#F5F0E8]"><CheckCircle2 className="h-4 w-4 text-[#C9A84C] shrink-0 mt-0.5" /> 10 to 12 hours of service per day</li>
-              <li className="flex gap-2 text-sm text-[#F5F0E8]"><CheckCircle2 className="h-4 w-4 text-[#C9A84C] shrink-0 mt-0.5" /> Driver accommodation handled by us</li>
+              <li className="flex gap-2 text-sm text-[#1C1C1C]"><CheckCircle2 className="h-4 w-4 text-[#C9A84C] shrink-0 mt-0.5" /> 10 to 12 hours of service per day</li>
+              <li className="flex gap-2 text-sm text-[#1C1C1C]"><CheckCircle2 className="h-4 w-4 text-[#C9A84C] shrink-0 mt-0.5" /> Driver accommodation handled by us</li>
             </ul>
           </div>
         </div>
@@ -141,14 +141,14 @@ export default function TourismChartersPage() {
       <section className="section-container max-w-5xl py-20 border-t border-[#C9A84C]/10">
         <div className="text-center mb-16">
           <h2 className="font-heading text-3xl font-bold mb-4">Charter Pricing Estimates</h2>
-          <p className="text-[#A1A1A6]">Base rates for inside-city charters. Intercity charters may incur surcharges.</p>
+          <p className="text-[#6B7280]">Base rates for inside-city charters. Intercity charters may incur surcharges.</p>
         </div>
 
-        <div className="bg-[#111] rounded-3xl border border-[#C9A84C]/15 overflow-hidden">
+        <div className="bg-white rounded-3xl border border-[#16A34A]/12 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-[#1A1A1A] border-b border-[#C9A84C]/10 text-[0.65rem] uppercase tracking-widest text-[#7C8088]">
+                <tr className="bg-[#F0FDF4] border-b border-[#C9A84C]/10 text-[0.65rem] uppercase tracking-widest text-[#6B7280]">
                   <th className="p-6 font-bold">Vehicle Class</th>
                   <th className="p-6 font-bold">Example Models</th>
                   <th className="p-6 font-bold text-center">Hourly Rate</th>
@@ -157,11 +157,11 @@ export default function TourismChartersPage() {
               </thead>
               <tbody className="divide-y divide-[#C9A84C]/5">
                 {CHARTER_RATES.map((rate, i) => (
-                  <tr key={i} className="hover:bg-[#1A1A1A]/50 transition-colors">
-                    <td className="p-6 font-bold text-sm text-[#F5F0E8]">{rate.class}</td>
-                    <td className="p-6 text-sm text-[#A1A1A6]">{rate.ex}</td>
-                    <td className="p-6 font-bold text-[#C9A84C] text-center">{rate.hourly}</td>
-                    <td className="p-6 font-bold text-[#C9A84C] text-center">{rate.daily}</td>
+                  <tr key={i} className="hover:bg-[#F0FDF4]/60 transition-colors">
+                    <td className="p-6 font-bold text-sm text-[#1C1C1C]">{rate.class}</td>
+                    <td className="p-6 text-sm text-[#6B7280]">{rate.ex}</td>
+                    <td className="p-6 font-bold text-[#16A34A] text-center">{rate.hourly}</td>
+                    <td className="p-6 font-bold text-[#16A34A] text-center">{rate.daily}</td>
                   </tr>
                 ))}
               </tbody>
@@ -191,9 +191,9 @@ export default function TourismChartersPage() {
               <h2 className="font-heading text-3xl font-bold mb-12 text-center">Frequently Asked Questions</h2>
               <div className="space-y-4">
                 {faqs.map((f, i) => (
-                  <div key={i} className="bg-[#111] border border-[#C9A84C]/15 rounded-2xl p-6">
-                    <h3 className="font-bold text-[#F5F0E8] mb-2">{f.question}</h3>
-                    <p className="text-sm text-[#A1A1A6] leading-relaxed">{f.answer}</p>
+                  <div key={i} className="bg-white border border-[#16A34A]/12 rounded-2xl p-6">
+                    <h3 className="font-bold text-[#1C1C1C] mb-2">{f.question}</h3>
+                    <p className="text-sm text-[#6B7280] leading-relaxed">{f.answer}</p>
                   </div>
                 ))}
               </div>
@@ -202,6 +202,6 @@ export default function TourismChartersPage() {
         );
       })()}
       <ServiceRelatedLinks currentPath="/services/tourism" />
-    </main>
+    </div>
   );
 }

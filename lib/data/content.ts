@@ -27,17 +27,23 @@ type SiteCopy = {
   bookingForm: {
     heading: string;
     stepLabel: string;
-    stepTitles: [string, string, string, string];
+    stepTitles: [string, string, string, string, string];
     labels: {
       pickup: string;
       dropoff: string;
       date: string;
       time: string;
       passengers: string;
+      name: string;
+      phone: string;
+      email: string;
     };
     placeholders: {
       pickup: string;
       dropoff: string;
+      name: string;
+      phone: string;
+      email: string;
     };
     buttons: {
       back: string;
@@ -109,25 +115,31 @@ export const siteContent: Record<Locale, SiteCopy> = {
     bookingForm: {
       heading: "Instant Booking",
       stepLabel: "Step",
-      stepTitles: ["Pick-up", "Drop-off", "Date & Time", "Passengers"],
+      stepTitles: ["Pick-up", "Drop-off", "Date & Time", "Passengers", "Your Details"],
       labels: {
         pickup: "Pick-up Location",
         dropoff: "Drop-off Location",
         date: "Date",
         time: "Time",
-        passengers: "Passenger Count"
+        passengers: "Passenger Count",
+        name: "Your Name",
+        phone: "Phone / WhatsApp Number",
+        email: "Email (optional — to receive your quote)"
       },
       placeholders: {
         pickup: "e.g. King Khalid International Airport",
-        dropoff: "e.g. Makkah Clock Royal Tower"
+        dropoff: "e.g. Makkah Clock Royal Tower",
+        name: "e.g. Ahmed Khan",
+        phone: "e.g. +966 5X XXX XXXX",
+        email: "e.g. ahmed@email.com"
       },
       buttons: {
         back: "Back",
         next: "Next",
-        submit: "Confirm Booking",
+        submit: "Get My Quote",
         submitting: "Submitting..."
       },
-      success: "Booking request sent successfully. Our team will contact you shortly.",
+      success: "Request received! Your quote reference is {ref}. Our team will contact you shortly on WhatsApp.",
       error: "Unable to submit booking right now. Please try again."
     }
   },
@@ -189,25 +201,31 @@ export const siteContent: Record<Locale, SiteCopy> = {
     bookingForm: {
       heading: "حجز فوري",
       stepLabel: "الخطوة",
-      stepTitles: ["موقع الانطلاق", "الوجهة", "التاريخ والوقت", "عدد الركاب"],
+      stepTitles: ["موقع الانطلاق", "الوجهة", "التاريخ والوقت", "عدد الركاب", "بياناتك"],
       labels: {
         pickup: "موقع الانطلاق",
         dropoff: "موقع الوصول",
         date: "التاريخ",
         time: "الوقت",
-        passengers: "عدد الركاب"
+        passengers: "عدد الركاب",
+        name: "الاسم",
+        phone: "رقم الجوال / واتساب",
+        email: "البريد الإلكتروني (اختياري — لاستلام عرض السعر)"
       },
       placeholders: {
         pickup: "مثال: مطار الملك خالد الدولي",
-        dropoff: "مثال: برج الساعة - مكة"
+        dropoff: "مثال: برج الساعة - مكة",
+        name: "مثال: أحمد خان",
+        phone: "مثال: +966 5X XXX XXXX",
+        email: "مثال: ahmed@email.com"
       },
       buttons: {
         back: "السابق",
         next: "التالي",
-        submit: "تأكيد الحجز",
+        submit: "احصل على عرض السعر",
         submitting: "جارٍ الإرسال..."
       },
-      success: "تم إرسال طلب الحجز بنجاح. سيتواصل فريقنا معك قريباً.",
+      success: "تم استلام طلبك! رقم عرض السعر الخاص بك هو {ref}. سيتواصل فريقنا معك قريباً عبر واتساب.",
       error: "تعذر إرسال الحجز حالياً. يرجى المحاولة مرة أخرى."
     }
   }

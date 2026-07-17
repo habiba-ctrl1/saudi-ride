@@ -102,7 +102,7 @@ export default function PrivacyPolicyPage() {
               <span>5. Passenger Rights</span>
             </h2>
             <p>
-              Under Saudi Arabian privacy legislation, you maintain full right to access your stored profiles, request data corrections, demand erasure, or opt-out of notifications at any point. To execute your privacy rights, please reach out to our concierge legal desk at <a href="mailto:legal@taxisaudiarabia.com" className="text-[#C9A84C] font-semibold underline">legal@taxisaudiarabia.com</a>.
+              Under Saudi Arabian privacy legislation, you maintain full right to access your stored profiles, request data corrections, demand erasure, or opt-out of notifications at any point. To execute your privacy rights, please reach out to our concierge legal desk at <a href="mailto:infotaxisaudiarabia@gmail.com" className="text-[#C9A84C] font-semibold underline">infotaxisaudiarabia@gmail.com</a>.
             </p>
           </section>
 

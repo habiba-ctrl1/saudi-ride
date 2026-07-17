@@ -753,5 +753,257 @@ See all our [car options](/fleet) and reserve in advance with a [quick online bo
 
 Make your arrival in the capital smooth and stress-free. [Book your Riyadh airport taxi](/book) or message us for a fixed fare.
 `
+  },
+  {
+    title: "What Is a Satha (سطحة)? Flatbed Tow Trucks in Saudi Arabia Explained",
+    slug: "what-is-a-satha-flatbed-tow-truck",
+    excerpt: "Satha (سطحة) is the word every driver in Saudi Arabia needs to know. What a flatbed tow truck is, when you need one, what it costs, and how to call one fast in Riyadh, Jeddah, or Dammam.",
+    coverImage: "/blog/what-is-a-satha-flatbed-tow-truck.webp",
+    category: "Car Recovery",
+    author: "Tariq Al-Faisal",
+    published: true,
+    publishedAt: new Date(new Date().setDate(new Date().getDate() - 0)),
+    content: `
+## What Does "Satha" Mean?
+
+If you drive in Saudi Arabia, sooner or later you will hear the word **satha (سطحة)**. It simply means a **flatbed tow truck** — a truck with a flat, hydraulic bed that tilts down so a car can be winched fully on top of it. When your car breaks down, has an accident, or needs to be moved anywhere in the Kingdom, the satha is what comes to rescue it.
+
+> **Quick answer:** A satha (سطحة) is a flatbed recovery truck. Your car rides fully on the truck bed with no wheels touching the road — the safest way to tow any vehicle, especially automatic, AWD, and luxury cars. A within-city satha in Saudi Arabia typically costs **SAR 150–350**.
+
+### How a Satha Works
+
+1. The driver tilts and lowers the hydraulic bed to ground level.
+2. Your car is pulled up by an electric **winch (ونش)** — even if the engine is dead or a wheel is damaged.
+3. The bed levels out, the car is strapped down at four points, and off it goes.
+
+The whole loading process usually takes **10–15 minutes**.
+
+### When Do You Need a Satha?
+
+- **Breakdown:** engine failure, overheating, transmission problems — very common in Saudi summer heat.
+- **Accident:** the car cannot be driven safely, or the police ask for it to be removed.
+- **Dead battery or flat tire** with no spare — sometimes a jump start or tire change on the spot is enough, but if not, the satha takes you to the workshop.
+- **Buying or selling a car:** moving a non-registered or non-running car between cities.
+- **Luxury and low cars:** sports cars and lowered vehicles should *only* travel by flatbed.
+
+### Satha vs Normal Tow Truck
+
+A traditional hook-and-chain truck lifts two wheels and drags the other two on the road. That is fine for some old cars, but for modern automatics and AWD vehicles it can **damage the transmission and drivetrain**. A flatbed carries the whole car — zero drag, zero risk. Read our full comparison of [flatbed vs hook towing](/blog/flatbed-vs-hook-towing-automatic-cars).
+
+### How Much Does a Satha Cost in Saudi Arabia?
+
+- **Within the city (up to ~10 km):** SAR 150–250
+- **Longer city moves (10–30 km):** SAR 200–350
+- **Intercity (e.g. Riyadh → Dammam):** roughly SAR 900–1,400
+
+Full price breakdown here: [car towing costs in Saudi Arabia](/blog/car-towing-cost-saudi-arabia-2026).
+
+### How to Call a Satha Fast
+
+The fastest way is WhatsApp: share your **live location**, your **car model**, and **what happened**. A good recovery service replies with a fixed price and ETA within minutes. Our [24/7 car recovery service](/services/car-recovery) covers [Riyadh](/services/car-recovery/riyadh), [Jeddah](/services/car-recovery/jeddah), [Dammam](/services/car-recovery/dammam), [Makkah](/services/car-recovery/makkah), and [Madinah](/services/car-recovery/madinah) — with dispatch in 20–45 minutes inside the city.
+`
+  },
+  {
+    title: "How Much Does Car Towing Cost in Saudi Arabia? 2026 Satha Price Guide",
+    slug: "car-towing-cost-saudi-arabia-2026",
+    excerpt: "Real 2026 towing prices in Saudi Arabia — within-city satha rates in Riyadh, Jeddah and Dammam, intercity car transport costs, battery and tire callout fees, and how to avoid being overcharged.",
+    coverImage: "/blog/car-towing-cost-saudi-arabia-2026.webp",
+    category: "Car Recovery",
+    author: "Tariq Al-Faisal",
+    published: true,
+    publishedAt: new Date(new Date().setDate(new Date().getDate() - 1)),
+    content: `
+## Towing Prices in Saudi Arabia (2026)
+
+Nobody plans for a breakdown, so most people have no idea what a fair towing price looks like — and that is exactly when overcharging happens. Here are the real 2026 market rates for a **flatbed tow truck (satha سطحة)** across Saudi Arabia.
+
+> **Quick answer:** A within-city flatbed tow starts from **SAR 150**. Cross-city moves run **SAR 200–350**, battery jump starts **SAR 100–150**, and intercity car transport like Riyadh–Dammam costs roughly **SAR 900–1,400**.
+
+### Within-City Towing Rates
+
+- **Short tow (up to ~10 km):** SAR 150–250
+- **Cross-city tow (10–30 km):** SAR 200–350
+- **Night/remote area pickup:** usually the same with a good company — beware of "night surcharges" invented on arrival
+
+Rates are similar in [Riyadh](/services/car-recovery/riyadh), [Jeddah](/services/car-recovery/jeddah), and [Dammam](/services/car-recovery/dammam). In [Makkah](/services/car-recovery/makkah) and [Madinah](/services/car-recovery/madinah) prices start slightly higher (from ~SAR 180) because of central-area access restrictions.
+
+### Roadside Services (No Towing Needed)
+
+- **Battery jump start:** SAR 100–150
+- **Flat tire change (your spare):** SAR 100–150
+- **Fuel delivery:** SAR 100–150 plus the fuel
+
+### Intercity Car Transport Costs
+
+- **Riyadh ⇄ Dammam (~410 km):** SAR 900–1,400
+- **Jeddah ⇄ Makkah (~80 km):** SAR 300–450
+- **Jeddah ⇄ Madinah (~420 km):** SAR 900–1,400
+- **Jeddah ⇄ Riyadh (~950 km):** SAR 1,600–2,400
+
+Moving a car permanently? See our full [guide to transporting a car between Saudi cities](/blog/car-transport-between-saudi-cities).
+
+### What Changes the Price?
+
+1. **Distance** — the biggest factor, priced per km beyond the base.
+2. **Vehicle type** — SUVs and vans cost a little more; buses and trucks need heavy recovery units, quoted separately.
+3. **Situation** — a car in a sand ditch or underground parking needs winching work before loading.
+4. **Location** — highway recoveries far from the city include the truck's travel distance.
+
+### How to Avoid Being Overcharged
+
+- **Agree the price on WhatsApp before the truck moves.** A fixed written quote protects you.
+- Never accept "we'll decide when we arrive."
+- Share your exact live location — a wrong location estimate becomes an excuse for a higher price later.
+- Confirm the price includes loading, straps, and offloading (with us, it always does).
+
+Our [car recovery service](/services/car-recovery) sends you a **fixed price on WhatsApp before dispatch** — the price you agree is the price you pay, 24/7 across the Kingdom.
+`
+  },
+  {
+    title: "Car Breakdown on a Saudi Highway? 7 Steps to Stay Safe and Get Recovered Fast",
+    slug: "car-breakdown-saudi-highway-guide",
+    excerpt: "Broken down on the Riyadh–Dammam or Jeddah–Makkah highway? The 7 steps that keep you safe — where to stop, who to call, what a recovery truck needs from you, and mistakes to avoid.",
+    coverImage: "/blog/car-breakdown-saudi-highway-guide.webp",
+    category: "Car Recovery",
+    author: "Tariq Al-Faisal",
+    published: true,
+    publishedAt: new Date(new Date().setDate(new Date().getDate() - 2)),
+    content: `
+## Breakdown on the Highway — Don't Panic
+
+Saudi highways are long, fast, and in summer, brutally hot. A breakdown on the Riyadh–Dammam (Route 40) or Jeddah–Makkah highway is stressful, but the right steps keep you safe and get a **recovery truck (satha)** to you quickly.
+
+> **Quick answer:** Pull fully onto the hard shoulder, hazards on, triangle 50–100 m behind the car, everyone out and away from traffic, then WhatsApp your **live location + car model + problem** to a recovery service. For emergencies call **911**; for roadside security call **996**.
+
+### The 7 Steps
+
+**1. Get off the road — completely.** Coast onto the hard shoulder as far right as possible. Never stop in a live lane, even "just for a minute."
+
+**2. Hazards on, triangle out.** Switch on hazard lights immediately. Place your warning triangle 50–100 metres behind the car so highway-speed traffic has time to react.
+
+**3. Get everyone out — away from traffic.** Exit from the passenger side and stand **behind the barrier**, well away from the car. Keep water with you — in summer heat this is a safety issue, not a comfort issue.
+
+**4. Know your location.** Open Google Maps or WhatsApp live location. Note the nearest **kilometre marker** or exit number — dispatch is twice as fast when the driver knows exactly where you are.
+
+**5. Call the right numbers.** For accidents or danger, call **911**. For highway security patrol, **996**. For the car itself, contact a [24/7 car recovery service](/services/car-recovery) — share live location, car make/model, and what happened.
+
+**6. Agree the price before dispatch.** A professional service gives you a fixed price and ETA on WhatsApp within minutes. Avoid random tow trucks that stop and "negotiate" on the roadside — this is where overcharging happens.
+
+**7. Decide the destination.** Nearest workshop? Your dealer in the city? Home? Tell the recovery company once — the price is calculated to that exact drop-off.
+
+### Common Mistakes to Avoid
+
+- **Standing behind or beside the car** while waiting — always behind the barrier.
+- **Trying to flag down passing cars** on a 120 km/h highway.
+- **Accepting an unmarked truck without a price** — get the fixed quote first.
+- **Leaving the car unlocked** if you accept a lift — take documents and valuables.
+
+### Summer Breakdowns: A Saudi Reality
+
+Most highway breakdowns here are **heat-related**: cooling systems, batteries, and tires. Before any long trip, check coolant, battery age (2–3 years max in this climate), and tire pressure. See typical [towing prices](/blog/car-towing-cost-saudi-arabia-2026) so you know what a fair recovery quote looks like before you ever need one.
+
+We cover all major corridors — Riyadh–Dammam, Jeddah–Makkah, Makkah–Madinah — from both ends, with recovery units in [Riyadh](/services/car-recovery/riyadh), [Jeddah](/services/car-recovery/jeddah), [Dammam](/services/car-recovery/dammam), [Makkah](/services/car-recovery/makkah), and [Madinah](/services/car-recovery/madinah).
+`
+  },
+  {
+    title: "Flatbed vs Hook Towing: Which Is Safe for Your Automatic Car?",
+    slug: "flatbed-vs-hook-towing-automatic-cars",
+    excerpt: "Towing an automatic, AWD, or luxury car the wrong way can destroy the transmission. Why flatbed (satha) is the only safe choice for modern cars — and when hook towing is acceptable.",
+    coverImage: "/blog/flatbed-vs-hook-towing-automatic-cars.webp",
+    category: "Car Recovery",
+    author: "Tariq Al-Faisal",
+    published: true,
+    publishedAt: new Date(new Date().setDate(new Date().getDate() - 3)),
+    content: `
+## The Towing Mistake That Kills Transmissions
+
+Every workshop in Saudi Arabia has seen it: a car arrives with a small original problem — and a **destroyed automatic transmission** caused by the tow itself. The difference is the type of truck that did the job.
+
+> **Quick answer:** For automatic, AWD/4x4, hybrid, electric, and luxury cars, always insist on a **flatbed (satha سطحة)** — the car rides fully on the truck bed. Hook/wheel-lift towing that leaves driven wheels rolling on the road can cause severe transmission damage.
+
+### Why Rolling Wheels Damage an Automatic
+
+In most automatic cars, the transmission is only lubricated when the **engine is running**. Tow the car with its driven wheels on the road and the gears spin at highway speed with **no oil circulation** — metal on metal, kilometre after kilometre. Repairs run into thousands of riyals.
+
+AWD and 4x4 vehicles are worse: *all four* wheels are connected to the drivetrain, so there is no safe end to lift. Hybrids and EVs can even generate uncontrolled current when their wheels are forced to spin.
+
+### Flatbed (Satha) — How It Protects Your Car
+
+- All four wheels **off the road** — nothing in the drivetrain moves.
+- The car is **winched on**, so it loads even with a dead engine, seized brakes, or a missing wheel.
+- Strapped at four points — no swinging, no bumper stress, no scraped underbody.
+- Ground clearance doesn't matter once loaded — essential for sports and lowered cars.
+
+### When Is Hook / Wheel-Lift Towing OK?
+
+- Old **rear-wheel-drive manual** cars towed short distances with the driven wheels lifted.
+- Moving a car a few hundred metres out of a dangerous spot before proper loading.
+- Some accident scenes where a winch pull is needed *before* flatbed loading — the pull, then the flatbed.
+
+For everything else — which is almost every car on Saudi roads today — flatbed is the answer.
+
+### What About My Warranty and Insurance?
+
+Most manufacturer warranties and comprehensive insurance policies expect **manufacturer-approved towing**, which for automatics means flatbed. If a hook tow damages the transmission, that repair fight is yours. One more reason the extra SAR 30–50 a flatbed might cost is the cheapest insurance you'll ever buy.
+
+### The Bottom Line
+
+When you call for recovery, say clearly: **"I need a flatbed — satha."** Our [car recovery service](/services/car-recovery) runs hydraulic flatbeds as standard in [Riyadh](/services/car-recovery/riyadh), [Jeddah](/services/car-recovery/jeddah), [Dammam](/services/car-recovery/dammam), Makkah, and Madinah — see [what a satha is and how it works](/blog/what-is-a-satha-flatbed-tow-truck) and current [towing prices](/blog/car-towing-cost-saudi-arabia-2026).
+`
+  },
+  {
+    title: "Transporting a Car Between Riyadh, Jeddah & Dammam: 2026 Complete Guide",
+    slug: "car-transport-between-saudi-cities",
+    excerpt: "Moving a car between Saudi cities? 2026 costs for Riyadh–Jeddah–Dammam car transport, how flatbed intercity transport works, timelines, paperwork, and how to book it in 5 minutes.",
+    coverImage: "/blog/car-transport-between-saudi-cities.webp",
+    category: "Car Recovery",
+    author: "Tariq Al-Faisal",
+    published: true,
+    publishedAt: new Date(new Date().setDate(new Date().getDate() - 4)),
+    content: `
+## Need a Car Moved to Another City?
+
+New job in Riyadh, bought a car from a seller in Dammam, or sending the family car to Jeddah? You don't have to drive it yourself. **Intercity car transport by flatbed (satha)** moves the car door-to-door while you fly, work, or travel separately.
+
+> **Quick answer:** Riyadh ⇄ Dammam car transport costs roughly **SAR 900–1,400** and takes ~5–6 hours. Jeddah ⇄ Riyadh runs **SAR 1,600–2,400** (~10–12 hours). Book on WhatsApp with a fixed price; the car is delivered the same or next day.
+
+### 2026 Intercity Transport Rates
+
+- **Riyadh ⇄ Dammam (~410 km):** SAR 900–1,400 · same day
+- **Jeddah ⇄ Makkah (~80 km):** SAR 300–450 · 2–3 hours
+- **Jeddah ⇄ Madinah (~420 km):** SAR 900–1,400 · same day
+- **Riyadh ⇄ Jeddah (~950 km):** SAR 1,600–2,400 · same/next day
+- **Makkah ⇄ Madinah (~430 km):** SAR 900–1,400 · same day
+
+Exact quotes depend on pickup/drop-off points and vehicle size — SUVs cost slightly more, and non-running cars need a winch load (usually no extra charge with us).
+
+### Who Uses Intercity Car Transport?
+
+- **Car buyers and sellers** — the biggest group. You bought a car on Haraj from another city; we collect it from the seller and deliver it to your door.
+- **Relocating families and workers** moving between Riyadh, Jeddah, and the Eastern Province.
+- **Pilgrims and tourists** whose car broke down far from home — the car goes home on a flatbed while they fly.
+- **Dealerships and rental fleets** repositioning vehicles.
+- **Imported cars** collected from Jeddah Islamic Port or Dammam port and delivered anywhere in the Kingdom.
+
+### How It Works (5 Minutes to Book)
+
+1. **WhatsApp us** both locations, the car model, and whether it runs.
+2. Get a **fixed price and pickup window** in writing.
+3. At pickup, the driver photographs the car from all sides — your condition record.
+4. Track by phone during the trip.
+5. At delivery, check the car against the photos and hand over payment as agreed.
+
+### What to Prepare
+
+- **Istimara (registration)** copy or the sale documents if just purchased.
+- Keys — or arrange key handover with a guard/relative; you don't need to be there yourself.
+- Remove valuables; leave about a quarter tank of fuel.
+
+### Driving It Yourself vs Flatbed
+
+Driving a just-bought used car 900 km home, uninspected, is a gamble — and adds a year of wear, fuel, and a hotel night. A flatbed costs about the same as the trip would and the car arrives with **zero added kilometres**. If you need to travel too, book yourself an [intercity taxi](/services/intercity) on the same route and we move the car in parallel.
+
+Ready to move a car? Our [car recovery and transport service](/services/car-recovery) covers [Riyadh](/services/car-recovery/riyadh), [Jeddah](/services/car-recovery/jeddah), [Dammam](/services/car-recovery/dammam), [Makkah](/services/car-recovery/makkah), and [Madinah](/services/car-recovery/madinah) — fixed prices, photo-documented handover, 24/7.
+`
   }
 ];

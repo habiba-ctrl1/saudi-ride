@@ -22,7 +22,7 @@ const FEATURES = [
 
 export default function VIPLuxuryPage() {
   return (
-    <main className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pb-24">
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
       <JsonLd
         data={serviceSchema({
           name: "VIP & Luxury Chauffeur Service",
@@ -48,24 +48,24 @@ export default function VIPLuxuryPage() {
             fill 
             className="object-cover opacity-30" 
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/80 to-[#0A0A0A]/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/80 to-[#FAFAF7]/40" />
         </div>
 
         <div className="section-container relative z-10 max-w-5xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 backdrop-blur-md px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-6">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 backdrop-blur-md px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#B8963B] mb-6">
             <Crown className="h-3 w-3" /> Absolute Elegance
           </span>
           <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
             VIP & Luxury <br />
-            <span className="text-[#C9A84C]">Chauffeur Service</span>
+            <span className="text-[#16A34A]">Chauffeur Service</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#A1A1A6] leading-relaxed mb-10">
+          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-10">
             For those who demand the very best. Our VIP transport service offers unparalleled comfort, privacy, and prestige across the Kingdom.
           </p>
           <div className="flex justify-center gap-4">
             <Link
               href="/book?service=vip-luxury"
-              className="inline-flex items-center gap-2 rounded-full bg-[#C9A84C] px-8 py-3.5 text-xs font-bold uppercase text-[#0A0A0A] hover:bg-[#B8963B] transition-all"
+              className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
             >
               Reserve Luxury Transport
             </Link>
@@ -76,10 +76,10 @@ export default function VIPLuxuryPage() {
       <section className="section-container max-w-7xl py-20 border-b border-[#C9A84C]/10">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {FEATURES.map((feat, i) => (
-            <div key={i} className="bg-[#111] border border-[#C9A84C]/15 rounded-3xl p-8 hover:border-[#C9A84C]/40 transition-colors">
+            <div key={i} className="bg-white border border-[#16A34A]/12 rounded-3xl p-8 hover:border-[#16A34A]/35 transition-colors">
               <feat.icon className="h-8 w-8 text-[#C9A84C] mb-6" />
               <h3 className="font-heading text-lg font-bold mb-3">{feat.title}</h3>
-              <p className="text-sm text-[#A1A1A6] leading-relaxed">{feat.desc}</p>
+              <p className="text-sm text-[#6B7280] leading-relaxed">{feat.desc}</p>
             </div>
           ))}
         </div>
@@ -97,9 +97,9 @@ export default function VIPLuxuryPage() {
               <h2 className="font-heading text-3xl font-bold mb-12 text-center">Frequently Asked Questions</h2>
               <div className="space-y-4">
                 {faqs.map((f, i) => (
-                  <div key={i} className="bg-[#111] border border-[#C9A84C]/15 rounded-2xl p-6">
-                    <h3 className="font-bold text-[#F5F0E8] mb-2">{f.question}</h3>
-                    <p className="text-sm text-[#A1A1A6] leading-relaxed">{f.answer}</p>
+                  <div key={i} className="bg-white border border-[#16A34A]/12 rounded-2xl p-6">
+                    <h3 className="font-bold text-[#1C1C1C] mb-2">{f.question}</h3>
+                    <p className="text-sm text-[#6B7280] leading-relaxed">{f.answer}</p>
                   </div>
                 ))}
               </div>
@@ -108,6 +108,6 @@ export default function VIPLuxuryPage() {
         );
       })()}
       <ServiceRelatedLinks currentPath="/services/vip-luxury" />
-    </main>
+    </div>
   );
 }

@@ -41,6 +41,14 @@ function internalLinksFor(post: { title: string; content: string; slug: string }
   if (any("hajj")) add("Hajj transport service", "/services/hajj-transport");
   if (any("corporate", "business etiquette", "executive")) add("Corporate travel service", "/services/corporate");
 
+  // Car recovery / towing cluster
+  if (any("satha", "towing", "tow truck", "recovery", "سطحة")) {
+    add("24/7 car recovery & satha service", "/services/car-recovery");
+    if (any("riyadh")) add("Car recovery in Riyadh", "/services/car-recovery/riyadh");
+    if (any("jeddah")) add("Car recovery in Jeddah", "/services/car-recovery/jeddah");
+    if (any("dammam")) add("Car recovery in Dammam", "/services/car-recovery/dammam");
+  }
+
   // Locations
   if (any("makkah", "mecca")) add("Taxi in Makkah", "/locations/makkah");
   if (any("madinah", "medina")) add("Taxi in Madinah", "/locations/madinah");

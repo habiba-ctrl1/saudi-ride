@@ -8,6 +8,7 @@ import { ArrowRight, Car, Route as RouteIcon, MapPin } from "lucide-react";
 const SERVICES: { href: string; label: string }[] = [
   { href: "/services/airport-transfers", label: "Airport transfer taxi service" },
   { href: "/services/intercity", label: "Intercity taxi between cities" },
+  { href: "/services/car-recovery", label: "Car recovery & tow truck (satha)" },
   { href: "/services/umrah-transport", label: "Umrah transport service" },
   { href: "/services/makkah-ziyarat", label: "Makkah Ziyarat tours by car" },
   { href: "/services/madinah-ziyarat", label: "Madinah Ziyarat tours by car" },
@@ -44,8 +45,8 @@ function LinkColumn({
   links: { href: string; label: string }[];
 }) {
   return (
-    <div className="bg-[#111] border border-[#C9A84C]/15 rounded-3xl p-7">
-      <h3 className="font-heading text-lg font-bold text-[#F5F0E8] mb-5 flex items-center gap-2.5">
+    <div className="bg-white border border-[#16A34A]/12 rounded-3xl p-7">
+      <h3 className="font-heading text-lg font-bold text-[#1C1C1C] mb-5 flex items-center gap-2.5">
         <Icon className="h-5 w-5 text-[#C9A84C]" />
         {title}
       </h3>
@@ -54,9 +55,9 @@ function LinkColumn({
           <li key={l.href}>
             <Link
               href={l.href}
-              className="group inline-flex items-start gap-2 text-sm text-[#A1A1A6] hover:text-[#C9A84C] transition-colors"
+              className="group inline-flex items-start gap-2 text-sm text-[#6B7280] hover:text-[#16A34A] transition-colors"
             >
-              <ArrowRight className="h-3.5 w-3.5 mt-0.5 shrink-0 text-[#C9A84C]/60 group-hover:text-[#C9A84C] transition-colors" />
+              <ArrowRight className="h-3.5 w-3.5 mt-0.5 shrink-0 text-[#C9A84C]/60 group-hover:text-[#16A34A] transition-colors" />
               {l.label}
             </Link>
           </li>
@@ -72,10 +73,10 @@ export function ServiceRelatedLinks({ currentPath }: { currentPath?: string }) {
   return (
     <section className="section-container max-w-7xl py-20 border-t border-[#C9A84C]/10">
       <div className="text-center mb-14">
-        <h2 className="font-heading text-3xl font-bold mb-3 text-[#F5F0E8]">Explore More Taxi Services</h2>
-        <p className="text-[#A1A1A6] text-sm max-w-2xl mx-auto">
+        <h2 className="font-heading text-3xl font-bold mb-3 text-[#1C1C1C]">Explore More Taxi Services</h2>
+        <p className="text-[#6B7280] text-sm max-w-2xl mx-auto">
           Discover related services, popular routes, and city taxi pages across Saudi Arabia — or{" "}
-          <Link href="/book" className="text-[#C9A84C] hover:underline">book your transfer now</Link>.
+          <Link href="/book" className="text-[#16A34A] hover:underline">book your transfer now</Link>.
         </p>
       </div>
 
@@ -88,7 +89,7 @@ export function ServiceRelatedLinks({ currentPath }: { currentPath?: string }) {
       <div className="mt-10 text-center">
         <Link
           href="/contact"
-          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#A1A1A6] hover:text-[#C9A84C] transition-colors"
+          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#6B7280] hover:text-[#16A34A] transition-colors"
         >
           Need help planning? Contact our team <ArrowRight className="h-4 w-4" />
         </Link>

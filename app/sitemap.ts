@@ -4,6 +4,7 @@ import { FLEET_VEHICLES } from "@/lib/fleet-data";
 import { BLOG_POSTS_DATA } from "@/lib/data/blog-posts";
 import { DRIVER_JOB_CITIES, JOB_VARIANTS } from "@/lib/data/driver-jobs";
 import { GUIDES } from "@/lib/data/guides";
+import { RECOVERY_CITIES } from "@/lib/data/recovery";
 
 const DOMAIN = "https://taxisaudiarabia.com";
 
@@ -35,6 +36,7 @@ const STATIC_PAGES = [
   { path: "/services/makkah-ziyarat", priority: 0.9 },
   { path: "/services/business-executive", priority: 0.8 },
   { path: "/services/heritage-tours", priority: 0.8 },
+  { path: "/services/car-recovery", priority: 0.9 },
   { path: "/pricing", priority: 0.7 },
   { path: "/guides", priority: 0.8 },
   { path: "/blog", priority: 0.8 },
@@ -166,6 +168,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   );
 
+  const recoveryItems = RECOVERY_CITIES.map((c) => ({
+    url: `${DOMAIN}/services/car-recovery/${c.slug}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
+
   const guideItems = GUIDES.map((guide) => ({
     url: `${DOMAIN}/guides/${guide.slug}`,
     lastModified: now,
@@ -183,5 +192,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...blogItems,
     ...driverJobItems,
     ...guideItems,
+    ...recoveryItems,
   ];
 }

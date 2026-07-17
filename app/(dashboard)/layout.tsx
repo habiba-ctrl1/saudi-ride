@@ -7,6 +7,8 @@ import {
   BarChart3,
   LogOut,
   Tag,
+  FileText,
+  UserCheck,
 } from "lucide-react";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
@@ -14,6 +16,8 @@ import { redirect } from "next/navigation";
 
 const NAV_ITEMS = [
   { name: "Overview",   href: "/admin",           icon: LayoutDashboard },
+  { name: "Quotations", href: "/admin/quotations", icon: FileText },
+  { name: "Driver Apps",href: "/admin/driver-applications", icon: UserCheck },
   { name: "Bookings",   href: "/admin/bookings",  icon: CalendarDays },
   { name: "Drivers",    href: "/admin/drivers",   icon: Users },
   { name: "Fleet",      href: "/admin/vehicles",  icon: Car },

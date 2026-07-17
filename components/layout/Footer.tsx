@@ -18,24 +18,24 @@ const translations = {
     support247: "24/7 Customer Support",
   },
   ar: {
-    tagline: "خدمات النقل الفاخرة وسائقين VIP في المملكة العربية السعودية. جرب السفر الفاخر بأناقة لا مثيل لها.",
+    tagline: "خدمة تاكسي وسيارات موثوقة في المملكة العربية السعودية. توصيل المطارات، رحلات العمرة، التنقل بين المدن وسفر الأعمال — أسعار ثابتة وسائقون مرخصون على مدار الساعة.",
     destinations: "الوجهات والشحنات",
     services: "خدماتنا",
     popularRoutes: "أشهر المسارات",
     company: "الشركة",
-    copyright: "© 2026 الرياض لوكس تاكسي. جميع الحقوق محفوظة. صُنع بأناقة مطلقة.",
+    copyright: "© 2026 تاكسي السعودية. جميع الحقوق محفوظة. صُنع بأناقة مطلقة.",
     motLicensed: "مرخص من وزارة النقل",
     zatcaCompliant: "خاضع لهيئة الزكاة والضريبة",
     tgaCertified: "معتمد من الهيئة العامة للنقل",
     support247: "دعم VIP على مدار الساعة",
   },
   ur: {
-    tagline: "مملکت سعودی عرب میں پریمیم ڈرائیور اور وی آئی پی ٹرانسپورٹیشن سروسز۔ بے مثال خوبصورتی کے ساتھ ایلیٹ سفر کا تجربہ کریں۔",
+    tagline: "سعودی عرب میں قابل اعتماد ٹیکسی اور کار سروس۔ ایئرپورٹ ٹرانسفر، عمرہ سفر، بین شہر سواری اور بزنس ٹریول — فکسڈ قیمتیں، لائسنس یافتہ ڈرائیورز، 24/7 دستیاب۔",
     destinations: "منزلیں",
     services: "خدمات",
     popularRoutes: "مشہور روٹس",
     company: "کمپنی",
-    copyright: "© 2026 ریاض لوکس ٹیکسی۔ جملہ حقوق محفوظ ہیں۔ بہترین نفاست کے ساتھ تیار کردہ۔",
+    copyright: "© 2026 ٹیکسی سعودی عرب۔ جملہ حقوق محفوظ ہیں۔ بہترین نفاست کے ساتھ تیار کردہ۔",
     motLicensed: "وزارت ٹرانسپورٹ سے لائسنس یافتہ",
     zatcaCompliant: "زکوٰۃ و ٹیکس کمپلائنٹ",
     tgaCertified: "ٹی جی اے تصدیق شدہ",
@@ -68,18 +68,23 @@ export function Footer() {
         { label: "Intercity Rides", href: "/services/intercity" },
         { label: "Corporate Car Service", href: "/services/corporate" },
         { label: "Border Crossings", href: "/services/border-crossings" },
+        { label: "Car Recovery (Satha)", href: "/services/car-recovery" },
       ],
       routes: [
-        { label: "Jeddah Airport → Makkah", href: "/routes/jeddah-to-makkah" },
+        { label: "Jeddah Airport → Makkah", href: "/routes/jeddah-airport-to-makkah" },
         { label: "Makkah → Madinah", href: "/routes/makkah-to-madinah" },
         { label: "Riyadh → Dubai", href: "/routes/riyadh-to-dubai" },
         { label: "Dammam → Doha", href: "/routes/dammam-to-doha" },
         { label: "Riyadh → Makkah", href: "/routes/riyadh-to-makkah" },
-        { label: "Madinah → Jeddah Airport", href: "/routes/madinah-to-jeddah" },
+        { label: "Madinah → Jeddah Airport", href: "/routes/madinah-to-jeddah-airport" },
         { label: "Riyadh → Dammam", href: "/routes/riyadh-to-dammam" },
       ],
       company: [
         { label: "About Us", href: "/about" },
+        { label: "Our Fleet", href: "/fleet" },
+        { label: "Pricing", href: "/pricing" },
+        { label: "FAQ", href: "/faq" },
+        { label: "Contact Us", href: "/contact" },
         { label: "Blog", href: "/blog" },
         { label: "Luxury Gallery", href: "/gallery" },
         { label: "Driver Jobs", href: "/driver-jobs" },
@@ -108,18 +113,23 @@ export function Footer() {
         { label: "سفر بين المدن", href: "/services/intercity" },
         { label: "سائق خاص للشركات", href: "/services/corporate" },
         { label: "خدمات نقل الحدود", href: "/services/border-crossings" },
+        { label: "سطحة وسحب سيارات", href: "/services/car-recovery" },
       ],
       routes: [
-        { label: "مطار جدة ← مكة المكرمة", href: "/routes/jeddah-to-makkah" },
+        { label: "مطار جدة ← مكة المكرمة", href: "/routes/jeddah-airport-to-makkah" },
         { label: "مكة المكرمة ← المدينة المنورة", href: "/routes/makkah-to-madinah" },
         { label: "الرياض ← دبي", href: "/routes/riyadh-to-dubai" },
         { label: "الدمام ← الدوحة", href: "/routes/dammam-to-doha" },
         { label: "الرياض ← مكة المكرمة", href: "/routes/riyadh-to-makkah" },
-        { label: "المدينة المنورة ← مطار جدة", href: "/routes/madinah-to-jeddah" },
+        { label: "المدينة المنورة ← مطار جدة", href: "/routes/madinah-to-jeddah-airport" },
         { label: "الرياض ← الدمام", href: "/routes/riyadh-to-dammam" },
       ],
       company: [
         { label: "من نحن", href: "/about" },
+        { label: "أسطول سياراتنا", href: "/fleet" },
+        { label: "الأسعار", href: "/pricing" },
+        { label: "الأسئلة الشائعة", href: "/faq" },
+        { label: "اتصل بنا", href: "/contact" },
         { label: "المدونة", href: "/blog" },
         { label: "معرض الصور الفاخرة", href: "/gallery" },
         { label: "وظائف السائقين", href: "/driver-jobs" },
@@ -148,18 +158,23 @@ export function Footer() {
         { label: "انٹرسٹی سفر", href: "/services/intercity" },
         { label: "کارپوریٹ ڈرائیور", href: "/services/corporate" },
         { label: "بارڈر کراسنگز", href: "/services/border-crossings" },
+        { label: "کار ریکوری (سطحہ)", href: "/services/car-recovery" },
       ],
       routes: [
-        { label: "جدہ ایئرپورٹ ← مکہ مکرمہ", href: "/routes/jeddah-to-makkah" },
+        { label: "جدہ ایئرپورٹ ← مکہ مکرمہ", href: "/routes/jeddah-airport-to-makkah" },
         { label: "مکہ مکرمہ ← مدینہ منورہ", href: "/routes/makkah-to-madinah" },
         { label: "ریاض ← دبئی", href: "/routes/riyadh-to-dubai" },
         { label: "دمام ← دوحہ", href: "/routes/dammam-to-doha" },
         { label: "ریاض ← مکہ مکرمہ", href: "/routes/riyadh-to-makkah" },
-        { label: "مدینہ منورہ ← جدہ ایئرپورٹ", href: "/routes/madinah-to-jeddah" },
+        { label: "مدینہ منورہ ← جدہ ایئرپورٹ", href: "/routes/madinah-to-jeddah-airport" },
         { label: "ریاض ← دمام", href: "/routes/riyadh-to-dammam" },
       ],
       company: [
         { label: "ہمارے بارے میں", href: "/about" },
+        { label: "ہمارا فلیٹ", href: "/fleet" },
+        { label: "قیمتیں", href: "/pricing" },
+        { label: "عمومی سوالات", href: "/faq" },
+        { label: "رابطہ کریں", href: "/contact" },
         { label: "بلاگ", href: "/blog" },
         { label: "لگزری گیلری", href: "/gallery" },
         { label: "ڈرائیور جابز", href: "/driver-jobs" },
@@ -289,7 +304,7 @@ export function Footer() {
               <Icon className="h-5 w-5 shrink-0" style={{ color: "#C8A45D" }} />
               <div>
                 <p className="font-semibold" style={{ color: "#F5F0E8" }}>{label}</p>
-                <p className="text-[0.62rem] mt-0.5" style={{ color: "rgba(255,255,255,0.38)" }}>{sub}</p>
+                <p className="text-[0.62rem] mt-0.5" style={{ color: "rgba(255,255,255,0.55)" }}>{sub}</p>
               </div>
             </div>
           ))}
@@ -297,7 +312,7 @@ export function Footer() {
 
         {/* Bottom copyright & socials */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-10 text-xs">
-          <p className="text-center md:text-left leading-relaxed" style={{ color: "rgba(255,255,255,0.35)" }}>
+          <p className="text-center md:text-left leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
             {t.copyright}
           </p>
           

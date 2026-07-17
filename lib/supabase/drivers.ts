@@ -1,4 +1,4 @@
-import { getSupabaseServerClient } from "./server";
+import { getSupabaseAnonClient, getSupabaseServerClient } from "./server";
 
 export type DriverStatus = "pending" | "approved" | "rejected" | "suspended" | "blacklisted";
 export type DriverVehicleType = "sedan" | "suv" | "van" | "bus" | "limousine";
@@ -54,6 +54,41 @@ export type DriverFilters = {
   page?: number;
   limit?: number;
 };
+
+export type DriverRegistrationInput = {
+  full_name: string;
+  phone: string;
+  whatsapp_number?: string | null;
+  city: string;
+  vehicle_type: DriverVehicleType;
+  vehicle_model?: string | null;
+  license_number: string;
+  iqama_number: string;
+  years_experience?: number | null;
+};
+
+/** Public driver application — security-definer RPC (0009). Inserts with
+ *  forced status='pending' + terms_accepted=true and returns only the id. */
+export async function registerDriver(input: DriverRegistrationInput) {
+  const supabase = getSupabaseAnonClient();
+  if (!supabase) return { row: null, error: "Supabase not configured" };
+
+  const { data, error } = await supabase
+    .rpc("register_driver_application", {
+      p_full_name: input.full_name,
+      p_phone: input.phone,
+      p_whatsapp: input.whatsapp_number ?? null,
+      p_city: input.city,
+      p_vehicle_type: input.vehicle_type,
+      p_vehicle_model: input.vehicle_model ?? null,
+      p_license_number: input.license_number,
+      p_iqama_number: input.iqama_number,
+      p_years_experience: input.years_experience ?? null,
+    })
+    .single();
+
+  return { row: data as Pick<DriverRow, "id"> | null, error: error?.message ?? null };
+}
 
 export async function listDrivers(filters: DriverFilters = {}) {
   const supabase = getSupabaseServerClient();

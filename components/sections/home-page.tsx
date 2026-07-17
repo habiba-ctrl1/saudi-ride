@@ -134,6 +134,22 @@ const homeTranslations = {
       yukonSpec: "Full-size luxury SUV taxi with big boot space — the GMC Yukon is perfect for family taxi trips and airport transfers."
     },
     clientele: "Trusted by Pilgrims & Travelers from 40+ Countries",
+    misc: {
+      instantCalc: "Instant Price Calculator",
+      bookNow: "Book Now",
+      callWhatsApp: "Call or WhatsApp 24/7",
+      viewAllRoutes: "View All Taxi Routes in Saudi Arabia →",
+      seeAllGuides: "See All Travel Guides →",
+      umrahBadge: "Umrah & Hajj Taxi Service",
+      popularUmrahRoutes: "Popular Umrah Taxi Routes",
+      from: "From",
+      by: "By",
+      parallax: [
+        { title: "Ride Across Riyadh With Confidence", text: "Professional taxi service available day and night with experienced drivers and comfortable vehicles.", btn: "Book Your Taxi" },
+        { title: "Travel Anywhere in Saudi Arabia", text: "Airport transfers, city rides, intercity journeys and chauffeur services tailored for every traveler.", btn: "Explore Destinations" },
+        { title: "Comfortable Vehicles For Every Journey", text: "Clean, spacious and well-maintained cars driven by professional chauffeurs to ensure a smooth ride.", btn: "Reserve Your Ride" }
+      ]
+    },
     umrah: {
       title: "Umrah Taxi Service — Makkah & Madinah Transfers for Pilgrims",
       desc: "We provide dedicated Umrah transport and Umrah taxi service for pilgrims. Our Umrah airport transfer covers Jeddah Airport to Makkah, Makkah Ziyarat taxi tours, and Madinah Ziyarat taxi tours. Our licensed drivers understand the holy journey and make every trip smooth, comfortable, and spiritually respectful.",
@@ -292,6 +308,22 @@ const homeTranslations = {
       stariaSpec: "مقاعد VIP من الدرجة الأولى مصممة خصيصاً للمجموعات والعائلات في رحلات العمرة."
     },
     clientele: "موثوقون لدى ضيوف الرحمن والزوار من أكثر من ٤٠ دولة",
+    misc: {
+      instantCalc: "حاسبة الأسعار الفورية",
+      bookNow: "احجز الآن",
+      callWhatsApp: "اتصل أو واتساب ٢٤/٧",
+      viewAllRoutes: "عرض جميع مسارات التاكسي في السعودية ←",
+      seeAllGuides: "جميع أدلة السفر ←",
+      umrahBadge: "خدمة تاكسي العمرة والحج",
+      popularUmrahRoutes: "مسارات تاكسي العمرة الشائعة",
+      from: "من",
+      by: "بقلم",
+      parallax: [
+        { title: "تنقل في الرياض بكل ثقة", text: "خدمة تاكسي احترافية متاحة ليلاً ونهاراً مع سائقين ذوي خبرة وسيارات مريحة.", btn: "احجز تاكسيك الآن" },
+        { title: "سافر إلى أي مكان في السعودية", text: "توصيل المطارات، رحلات داخل المدن وبينها، وخدمات سائق خاص لكل مسافر.", btn: "استكشف الوجهات" },
+        { title: "سيارات مريحة لكل رحلة", text: "سيارات نظيفة وواسعة وبصيانة ممتازة يقودها سائقون محترفون لرحلة سلسة.", btn: "احجز رحلتك" }
+      ]
+    },
     umrah: {
       title: "الرحلة المقدسة تستحق خدمة مقدسة تليق بها",
       desc: "للمعتمرين والزوار، نقدم خدمة مخصصة تجمع الراحة الجسدية مع الطمأنينة الروحية طوال الطريق لمكة والمدينة.",
@@ -436,6 +468,22 @@ const homeTranslations = {
       stariaSpec: "خاندان اور مقدس عمرہ کے زائرین کے لیے فرسٹ کلاس لگژری سیٹنگ۔"
     },
     clientele: "40+ ممالک کے زائرین اور کاروباری شخصیات کا قابل اعتماد انتخاب",
+    misc: {
+      instantCalc: "فوری قیمت کیلکولیٹر",
+      bookNow: "ابھی بک کریں",
+      callWhatsApp: "کال یا واٹس ایپ 24/7",
+      viewAllRoutes: "سعودی عرب کے تمام ٹیکسی روٹس دیکھیں ←",
+      seeAllGuides: "تمام ٹریول گائیڈز دیکھیں ←",
+      umrahBadge: "عمرہ اور حج ٹیکسی سروس",
+      popularUmrahRoutes: "مقبول عمرہ ٹیکسی روٹس",
+      from: "از",
+      by: "تحریر",
+      parallax: [
+        { title: "ریاض میں اعتماد کے ساتھ سفر کریں", text: "تجربہ کار ڈرائیورز اور آرام دہ گاڑیوں کے ساتھ دن رات دستیاب پیشہ ور ٹیکسی سروس۔", btn: "اپنی ٹیکسی بک کریں" },
+        { title: "سعودی عرب میں کہیں بھی سفر کریں", text: "ایئرپورٹ ٹرانسفر، شہری اور بین شہر سفر، اور ہر مسافر کے لیے شوفر سروسز۔", btn: "مقامات دریافت کریں" },
+        { title: "ہر سفر کے لیے آرام دہ گاڑیاں", text: "صاف ستھری، کشادہ اور بہترین حالت میں گاڑیاں، پیشہ ور ڈرائیورز کے ساتھ۔", btn: "اپنی سواری بک کریں" }
+      ]
+    },
     umrah: {
       title: "مقدس سفر کے لیے مقدس اور شاندار خدمت کا انتخاب کریں",
       desc: "عمرہ کے زائرین کے لیے ہم جسمانی آرام کے ساتھ ساتھ روحانی احترام اور سکون فراہم کرتے ہیں۔",
@@ -587,6 +635,15 @@ const fadeUp = {
   show: { opacity: 1, y: 0 }
 };
 
+// Hero car slideshow — image changes every 5 seconds
+const heroCars = [
+  { image: "/fleet/cadillac-escalade.webp", name: "Cadillac Escalade", nameAr: "كاديلاك إسكاليد" },
+  { image: "/fleet/mercedes-s-class.webp", name: "Mercedes S-Class", nameAr: "مرسيدس الفئة S" },
+  { image: "/fleet/gmc-yukon-xl.webp", name: "GMC Yukon XL", nameAr: "جي إم سي يوكن" },
+  { image: "/fleet/bmw-7-series.webp", name: "BMW 7 Series", nameAr: "بي إم دبليو الفئة 7" },
+  { image: "/fleet/hyundai-staria.webp", name: "Hyundai Staria", nameAr: "هيونداي ستاريا" },
+];
+
 type VehicleItem = {
   id: string;
   name: string;
@@ -709,37 +766,22 @@ export function HomePage() {
     return () => clearInterval(timer);
   }, []);
 
-  const handleSelectRoute = () => {
+  const scrollToBooking = () => {
     const element = document.getElementById("booking-console");
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
-  const handleSelectVehicle = () => {
-    const element = document.getElementById("booking-console");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  // Hero car slideshow — image changes every 2 seconds
-  const heroCars = [
-    { image: "/fleet/cadillac-escalade.webp", name: "Cadillac Escalade", nameAr: "كاديلاك إسكاليد" },
-    { image: "/fleet/mercedes-s-class.webp", name: "Mercedes S-Class", nameAr: "مرسيدس الفئة S" },
-    { image: "/fleet/gmc-yukon-xl.webp", name: "GMC Yukon XL", nameAr: "جي إم سي يوكن" },
-    { image: "/fleet/bmw-7-series.webp", name: "BMW 7 Series", nameAr: "بي إم دبليو الفئة 7" },
-    { image: "/fleet/hyundai-staria.webp", name: "Hyundai Staria", nameAr: "هيونداي ستاريا" },
-  ];
   const [heroCar, setHeroCar] = useState(0);
   useEffect(() => {
     const id = setInterval(() => setHeroCar((i) => (i + 1) % heroCars.length), 5000);
     return () => clearInterval(id);
-  }, [heroCars.length]);
+  }, []);
   const currentCar = heroCars[heroCar];
 
   return (
-    <main className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] overflow-hidden pt-20">
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] overflow-hidden pt-20">
       
       {/* SECTION 1 — HERO (light, two-column: car image + green panel) */}
       <section className="relative pt-8 md:pt-10 pb-16" style={{ backgroundColor: "#FAFAF7" }}>
@@ -783,7 +825,7 @@ export function HomePage() {
               </div>
 
               {/* Slideshow dots */}
-              <div className="absolute bottom-5 right-5 flex gap-1.5">
+              <div className="absolute bottom-5 right-5 flex gap-1.5" aria-hidden="true">
                 {heroCars.map((_, i) => (
                   <span
                     key={i}
@@ -854,9 +896,9 @@ export function HomePage() {
       {/* PARALLAX — Riyadh Skyline (after Hero) */}
       <ParallaxSection
         image="/locations/riyadh-hero.webp"
-        title="Ride Across Riyadh With Confidence"
-        text="Professional taxi service available day and night with experienced drivers and comfortable vehicles."
-        buttonLabel="Book Your Taxi"
+        title={t.misc.parallax[0].title}
+        text={t.misc.parallax[0].text}
+        buttonLabel={t.misc.parallax[0].btn}
         buttonHref="#booking-console"
       />
 
@@ -897,7 +939,7 @@ export function HomePage() {
             style={{ backgroundColor: "rgba(200,164,93,0.1)", border: "1px solid rgba(200,164,93,0.25)", color: "#B8963B" }}
           >
             <Calendar className="h-3.5 w-3.5" />
-            <span>Instant Price Calculator</span>
+            <span>{t.misc.instantCalc}</span>
           </span>
           <h2
             className="font-heading font-bold"
@@ -981,7 +1023,7 @@ export function HomePage() {
                       {service.title}
                     </h3>
 
-                    <p className="text-sm leading-relaxed text-[#A1A1A6]">
+                    <p className="text-sm leading-relaxed text-[#6B7280]">
                       {service.desc}
                     </p>
                   </div>
@@ -994,7 +1036,7 @@ export function HomePage() {
                       href="#booking-console"
                       className="inline-flex items-center gap-1.5 text-[0.72rem] font-bold uppercase tracking-wider text-[#C9A84C] hover:gap-3 transition-all"
                     >
-                      <span>Book Now</span>
+                      <span>{t.misc.bookNow}</span>
                       <ArrowRight className="h-3.5 w-3.5" />
                     </a>
                   </div>
@@ -1088,9 +1130,9 @@ export function HomePage() {
       {/* PARALLAX — Saudi Landmarks (after Services) */}
       <ParallaxSection
         image="/locations/taif-hero.webp"
-        title="Travel Anywhere in Saudi Arabia"
-        text="Airport transfers, city rides, intercity journeys and chauffeur services tailored for every traveler."
-        buttonLabel="Explore Destinations"
+        title={t.misc.parallax[1].title}
+        text={t.misc.parallax[1].text}
+        buttonLabel={t.misc.parallax[1].btn}
         buttonHref="/locations"
       />
 
@@ -1109,7 +1151,7 @@ export function HomePage() {
             >
               {t.whyUs.title}
             </h2>
-            <p className="text-sm leading-relaxed text-[#A1A1A6]">
+            <p className="text-sm leading-relaxed text-[#6B7280]">
               {t.whyUs.desc}
             </p>
             <a
@@ -1120,7 +1162,7 @@ export function HomePage() {
               style={{ border: "1.5px solid rgba(200,164,93,0.35)" }}
             >
               <PhoneCall className="h-4 w-4" />
-              <span>Call or WhatsApp 24/7</span>
+              <span>{t.misc.callWhatsApp}</span>
             </a>
           </div>
 
@@ -1152,7 +1194,7 @@ export function HomePage() {
                     {pt.title}
                   </h4>
                 </div>
-                <p className="text-[0.72rem] leading-relaxed text-[#A1A1A6] pl-8">
+                <p className="text-[0.72rem] leading-relaxed text-[#6B7280] pl-8">
                   {pt.desc}
                 </p>
               </motion.div>
@@ -1176,7 +1218,7 @@ export function HomePage() {
             href="/routes"
             className="text-xs uppercase font-bold tracking-widest text-[#C9A84C] hover:underline"
           >
-            View All Taxi Routes in Saudi Arabia →
+            {t.misc.viewAllRoutes}
           </Link>
         </div>
 
@@ -1192,7 +1234,7 @@ export function HomePage() {
                   {route[`name${language === 'ar' ? 'Ar' : 'En'}` as const]}
                 </h3>
 
-                <div className="mt-4 flex items-center justify-between text-[0.65rem] text-[#7C8088] font-bold">
+                <div className="mt-4 flex items-center justify-between text-[0.65rem] text-[#6B7280] font-bold">
                   <span>{route.dist}</span>
                   <span>{route.dur}</span>
                 </div>
@@ -1200,8 +1242,8 @@ export function HomePage() {
 
               <div className="mt-6 pt-5 border-t border-[#C9A84C]/10 flex items-center justify-between">
                 <div>
-                  <p className="text-[0.55rem] uppercase tracking-wider text-[#7C8088]">
-                    {language === "ar" ? "من" : "From"}
+                  <p className="text-[0.55rem] uppercase tracking-wider text-[#6B7280]">
+                    {t.misc.from}
                   </p>
                   <p className="font-heading text-lg font-bold text-[#1C1C1C]">
                     SAR {route.price}
@@ -1209,7 +1251,8 @@ export function HomePage() {
                 </div>
 
                 <button
-                  onClick={handleSelectRoute}
+                  onClick={scrollToBooking}
+                  aria-label={`${t.routes.btnBook}: ${route[`name${language === 'ar' ? 'Ar' : 'En'}` as const]}`}
                   className="rounded-full bg-[#16A34A]/10 group-hover:bg-[#16A34A] p-2 text-[#16A34A] group-hover:text-white transition-all"
                 >
                   <ArrowRight className="h-4 w-4" />
@@ -1232,7 +1275,7 @@ export function HomePage() {
           >
             {t.fleet.title}
           </h2>
-          <p className="max-w-xl mx-auto text-sm text-[#A1A1A6]">
+          <p className="max-w-xl mx-auto text-sm text-[#6B7280]">
             {t.fleet.desc}
           </p>
         </div>
@@ -1240,12 +1283,12 @@ export function HomePage() {
         {/* 3-col grid for first 3, then 2-col for last 2 */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {vehicleList.slice(0, 3).map((veh, index) => (
-            <FleetCard key={veh.id} veh={veh} index={index} onBook={handleSelectVehicle} btnLabel={t.fleet.btnBook} />
+            <FleetCard key={veh.id} veh={veh} index={index} onBook={scrollToBooking} btnLabel={t.fleet.btnBook} />
           ))}
         </div>
         <div className="grid gap-6 sm:grid-cols-2 mt-6">
           {vehicleList.slice(3).map((veh, index) => (
-            <FleetCard key={veh.id} veh={veh} index={index + 3} onBook={handleSelectVehicle} btnLabel={t.fleet.btnBook} />
+            <FleetCard key={veh.id} veh={veh} index={index + 3} onBook={scrollToBooking} btnLabel={t.fleet.btnBook} />
           ))}
         </div>
 
@@ -1269,7 +1312,7 @@ export function HomePage() {
         </div>
 
         {/* Double-width seamless marquee container */}
-        <div className="relative flex w-full overflow-x-hidden pointer-events-none">
+        <div className="relative flex w-full overflow-x-hidden pointer-events-none" aria-hidden="true">
           <div className={`${isRtl ? 'animate-marquee-rtl' : 'animate-marquee'} flex gap-8 whitespace-nowrap`}>
             {/* First stack */}
             {internationalNations.map((nation, index) => (
@@ -1313,12 +1356,12 @@ export function HomePage() {
           <div className="space-y-6">
             <span className="text-xs uppercase tracking-[0.25em] text-[#C9A84C] font-semibold flex items-center gap-1.5">
               <Sparkles className="h-4.5 w-4.5 text-[#C9A84C]" />
-              <span>Umrah & Hajj Taxi Service</span>
+              <span>{t.misc.umrahBadge}</span>
             </span>
             <h2 className="font-heading text-3.5xl font-bold leading-tight md:text-5xl text-[#1C1C1C]">
               {t.umrah.title}
             </h2>
-            <p className="text-sm leading-relaxed text-[#A1A1A6]">
+            <p className="text-sm leading-relaxed text-[#6B7280]">
               {t.umrah.desc}
             </p>
 
@@ -1347,7 +1390,7 @@ export function HomePage() {
           {/* Highlight Routes side card */}
           <div className="rounded-3xl border border-[#16A34A]/20 bg-white/80 backdrop-blur-md p-8 space-y-6 shadow-lg">
             <h3 className="font-heading text-xl font-bold text-[#1C1C1C] border-b border-[#16A34A]/10 pb-4">
-              Popular Umrah Taxi Routes
+              {t.misc.popularUmrahRoutes}
             </h3>
 
             <div className="space-y-4">
@@ -1361,12 +1404,12 @@ export function HomePage() {
                     <p className="font-semibold text-[#1C1C1C]">
                       {route[`r${language === 'ar' ? 'Ar' : 'En'}` as const]}
                     </p>
-                    <p className="text-[0.6rem] text-[#7C8088] font-medium mt-1">
+                    <p className="text-[0.6rem] text-[#6B7280] font-medium mt-1">
                       {route.time}
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="text-[0.55rem] text-[#7C8088] uppercase">From</p>
+                    <p className="text-[0.55rem] text-[#6B7280] uppercase">{t.misc.from}</p>
                     <p className="font-bold text-[#16A34A] mt-0.5">SAR {route.price}</p>
                   </div>
                 </div>
@@ -1380,9 +1423,9 @@ export function HomePage() {
       {/* PARALLAX — Premium Taxi Fleet (before Testimonials) */}
       <ParallaxSection
         image="/fleet/cadillac-escalade.webp"
-        title="Comfortable Vehicles For Every Journey"
-        text="Clean, spacious and well-maintained cars driven by professional chauffeurs to ensure a smooth ride."
-        buttonLabel="Reserve Your Ride"
+        title={t.misc.parallax[2].title}
+        text={t.misc.parallax[2].text}
+        buttonLabel={t.misc.parallax[2].btn}
         buttonHref="/book"
       />
 
@@ -1483,7 +1526,7 @@ export function HomePage() {
             href="/guides"
             className="text-xs uppercase font-bold tracking-widest text-[#C9A84C] hover:underline"
           >
-            See All Travel Guides →
+            {t.misc.seeAllGuides}
           </Link>
         </div>
 
@@ -1494,7 +1537,7 @@ export function HomePage() {
               className="group relative flex flex-col justify-between rounded-3xl border border-[#16A34A]/12 bg-white p-8 shadow-sm hover:shadow-lg hover:border-[#16A34A]/35 transition-all duration-300"
             >
               <div>
-                <div className="flex items-center justify-between text-[0.6rem] text-[#7C8088] font-bold uppercase tracking-wider mb-5">
+                <div className="flex items-center justify-between text-[0.6rem] text-[#6B7280] font-bold uppercase tracking-wider mb-5">
                   <span className="text-[#C9A84C]">{blog[`category${language === 'ar' ? 'Ar' : 'En'}` as const]}</span>
                   <span>{blog[`time${language === 'ar' ? 'Ar' : 'En'}` as const]}</span>
                 </div>
@@ -1503,13 +1546,13 @@ export function HomePage() {
                   {blog[`title${language === 'ar' ? 'Ar' : 'En'}` as const]}
                 </h3>
 
-                <p className="mt-4 text-[0.7rem] leading-relaxed text-[#A1A1A6]">
+                <p className="mt-4 text-[0.7rem] leading-relaxed text-[#6B7280]">
                   {blog[`excerpt${language === 'ar' ? 'Ar' : 'En'}` as const]}
                 </p>
               </div>
 
-              <div className="mt-8 pt-5 border-t border-[#C9A84C]/10 flex items-center justify-between text-[0.6rem] text-[#7C8088] font-bold">
-                <span>By {blog.author}</span>
+              <div className="mt-8 pt-5 border-t border-[#C9A84C]/10 flex items-center justify-between text-[0.6rem] text-[#6B7280] font-bold">
+                <span>{t.misc.by} {blog.author}</span>
                 <Link
                   href={GUIDE_SLUG_LINKS[blog.id] ?? "/guides"}
                   className="text-[#C9A84C] uppercase tracking-wider flex items-center gap-1 hover:underline"
@@ -1585,7 +1628,7 @@ export function HomePage() {
             {t.cta.title}
           </h3>
           
-          <p className="mt-4 max-w-xl mx-auto text-xs md:text-sm leading-relaxed text-[#A1A1A6]">
+          <p className="mt-4 max-w-xl mx-auto text-xs md:text-sm leading-relaxed text-[#6B7280]">
             {t.cta.desc}
           </p>
           
@@ -1607,13 +1650,13 @@ export function HomePage() {
             </a>
           </div>
 
-          <div className="mt-10 border-t border-[#C9A84C]/10 pt-8 text-[0.55rem] md:text-[0.6rem] uppercase tracking-[0.2em] font-bold text-[#7C8088] flex items-center justify-center gap-2">
+          <div className="mt-10 border-t border-[#C9A84C]/10 pt-8 text-[0.55rem] md:text-[0.6rem] uppercase tracking-[0.2em] font-bold text-[#6B7280] flex items-center justify-center gap-2">
             <ShieldCheck className="h-4.5 w-4.5 text-[#C9A84C] shrink-0" />
             <span>{t.cta.trust}</span>
           </div>
         </div>
       </section>
 
-    </main>
+    </div>
   );
 }
