@@ -76,9 +76,9 @@ export default async function RecoveryCityPage({ params }: { params: Promise<{ c
             alt={`Flatbed tow truck (satha) service in ${city.name}`}
             fill
             priority
-            className="object-cover opacity-30"
+            className="object-cover opacity-65"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/80 to-[#FAFAF7]/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/75 to-[#FAFAF7]/25" />
         </div>
         <div className="section-container relative z-10 max-w-5xl text-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 backdrop-blur-md px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#B8963B] mb-6">

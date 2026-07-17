@@ -768,7 +768,7 @@ Make your arrival in the capital smooth and stress-free. [Book your Riyadh airpo
 
 If you drive in Saudi Arabia, sooner or later you will hear the word **satha (سطحة)**. It simply means a **flatbed tow truck** — a truck with a flat, hydraulic bed that tilts down so a car can be winched fully on top of it. When your car breaks down, has an accident, or needs to be moved anywhere in the Kingdom, the satha is what comes to rescue it.
 
-> **Quick answer:** A satha (سطحة) is a flatbed recovery truck. Your car rides fully on the truck bed with no wheels touching the road — the safest way to tow any vehicle, especially automatic, AWD, and luxury cars. A within-city satha in Saudi Arabia typically costs **SAR 150–350**.
+> **Quick answer:** A satha (سطحة) is a flatbed recovery truck. Your car rides fully on the truck bed with no wheels touching the road — the safest way to tow any vehicle, especially automatic, AWD, and luxury cars. A within-city satha in Saudi Arabia typically costs **SAR 200–450**.
 
 ### How a Satha Works
 
@@ -792,9 +792,9 @@ A traditional hook-and-chain truck lifts two wheels and drags the other two on t
 
 ### How Much Does a Satha Cost in Saudi Arabia?
 
-- **Within the city (up to ~10 km):** SAR 150–250
-- **Longer city moves (10–30 km):** SAR 200–350
-- **Intercity (e.g. Riyadh → Dammam):** roughly SAR 900–1,400
+- **Within the city (up to ~10 km):** SAR 200–300
+- **Longer city moves (10–30 km):** SAR 250–450
+- **Intercity (e.g. Riyadh → Dammam):** roughly SAR 1,100–1,600
 
 Full price breakdown here: [car towing costs in Saudi Arabia](/blog/car-towing-cost-saudi-arabia-2026).
 
@@ -817,28 +817,28 @@ The fastest way is WhatsApp: share your **live location**, your **car model**, a
 
 Nobody plans for a breakdown, so most people have no idea what a fair towing price looks like — and that is exactly when overcharging happens. Here are the real 2026 market rates for a **flatbed tow truck (satha سطحة)** across Saudi Arabia.
 
-> **Quick answer:** A within-city flatbed tow starts from **SAR 150**. Cross-city moves run **SAR 200–350**, battery jump starts **SAR 100–150**, and intercity car transport like Riyadh–Dammam costs roughly **SAR 900–1,400**.
+> **Quick answer:** A within-city flatbed tow starts from **SAR 200**. Cross-city moves run **SAR 250–450**, battery jump starts **SAR 120–200**, and intercity car transport like Riyadh–Dammam costs roughly **SAR 1,100–1,600**.
 
 ### Within-City Towing Rates
 
-- **Short tow (up to ~10 km):** SAR 150–250
-- **Cross-city tow (10–30 km):** SAR 200–350
+- **Short tow (up to ~10 km):** SAR 200–300
+- **Cross-city tow (10–30 km):** SAR 250–450
 - **Night/remote area pickup:** usually the same with a good company — beware of "night surcharges" invented on arrival
 
-Rates are similar in [Riyadh](/services/car-recovery/riyadh), [Jeddah](/services/car-recovery/jeddah), and [Dammam](/services/car-recovery/dammam). In [Makkah](/services/car-recovery/makkah) and [Madinah](/services/car-recovery/madinah) prices start slightly higher (from ~SAR 180) because of central-area access restrictions.
+Rates are similar in [Riyadh](/services/car-recovery/riyadh), [Jeddah](/services/car-recovery/jeddah), and [Dammam](/services/car-recovery/dammam). In [Makkah](/services/car-recovery/makkah) and [Madinah](/services/car-recovery/madinah) prices start slightly higher (from ~SAR 250) because of central-area access restrictions.
 
 ### Roadside Services (No Towing Needed)
 
-- **Battery jump start:** SAR 100–150
-- **Flat tire change (your spare):** SAR 100–150
-- **Fuel delivery:** SAR 100–150 plus the fuel
+- **Battery jump start:** SAR 120–200
+- **Flat tire change (your spare):** SAR 120–200
+- **Fuel delivery:** SAR 120–200 plus the fuel
 
 ### Intercity Car Transport Costs
 
-- **Riyadh ⇄ Dammam (~410 km):** SAR 900–1,400
-- **Jeddah ⇄ Makkah (~80 km):** SAR 300–450
-- **Jeddah ⇄ Madinah (~420 km):** SAR 900–1,400
-- **Jeddah ⇄ Riyadh (~950 km):** SAR 1,600–2,400
+- **Riyadh ⇄ Dammam (~410 km):** SAR 1,100–1,600
+- **Jeddah ⇄ Makkah (~80 km):** SAR 350–500
+- **Jeddah ⇄ Madinah (~420 km):** SAR 1,100–1,600
+- **Jeddah ⇄ Riyadh (~950 km):** SAR 1,800–2,600
 
 Moving a car permanently? See our full [guide to transporting a car between Saudi cities](/blog/car-transport-between-saudi-cities).
 
@@ -965,15 +965,15 @@ When you call for recovery, say clearly: **"I need a flatbed — satha."** Our [
 
 New job in Riyadh, bought a car from a seller in Dammam, or sending the family car to Jeddah? You don't have to drive it yourself. **Intercity car transport by flatbed (satha)** moves the car door-to-door while you fly, work, or travel separately.
 
-> **Quick answer:** Riyadh ⇄ Dammam car transport costs roughly **SAR 900–1,400** and takes ~5–6 hours. Jeddah ⇄ Riyadh runs **SAR 1,600–2,400** (~10–12 hours). Book on WhatsApp with a fixed price; the car is delivered the same or next day.
+> **Quick answer:** Riyadh ⇄ Dammam car transport costs roughly **SAR 1,100–1,600** and takes ~5–6 hours. Jeddah ⇄ Riyadh runs **SAR 1,800–2,600** (~10–12 hours). Book on WhatsApp with a fixed price; the car is delivered the same or next day.
 
 ### 2026 Intercity Transport Rates
 
-- **Riyadh ⇄ Dammam (~410 km):** SAR 900–1,400 · same day
-- **Jeddah ⇄ Makkah (~80 km):** SAR 300–450 · 2–3 hours
-- **Jeddah ⇄ Madinah (~420 km):** SAR 900–1,400 · same day
-- **Riyadh ⇄ Jeddah (~950 km):** SAR 1,600–2,400 · same/next day
-- **Makkah ⇄ Madinah (~430 km):** SAR 900–1,400 · same day
+- **Riyadh ⇄ Dammam (~410 km):** SAR 1,100–1,600 · same day
+- **Jeddah ⇄ Makkah (~80 km):** SAR 350–500 · 2–3 hours
+- **Jeddah ⇄ Madinah (~420 km):** SAR 1,100–1,600 · same day
+- **Riyadh ⇄ Jeddah (~950 km):** SAR 1,800–2,600 · same/next day
+- **Makkah ⇄ Madinah (~430 km):** SAR 1,100–1,600 · same day
 
 Exact quotes depend on pickup/drop-off points and vehicle size — SUVs cost slightly more, and non-running cars need a winch load (usually no extra charge with us).
 

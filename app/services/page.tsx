@@ -158,7 +158,7 @@ const SERVICES = [
       "Highway & intercity recovery covered",
       "Heavy vehicle & winch trucks available",
     ],
-    startingPrice: 150,
+    startingPrice: 200,
     route: "/services/car-recovery",
   },
   {

@@ -53,13 +53,13 @@ export const RECOVERY_SERVICES = [
 
 // Indicative pricing — final quote always confirmed on WhatsApp before dispatch.
 export const RECOVERY_PRICING = [
-  { service: "Within-city flatbed tow (up to 10 km)", price: "SAR 150 – 250" },
-  { service: "Within-city flatbed tow (10 – 30 km)", price: "SAR 200 – 350" },
-  { service: "Battery jump start", price: "SAR 100 – 150" },
-  { service: "Flat tire change (your spare)", price: "SAR 100 – 150" },
-  { service: "Riyadh ⇄ Dammam car transport (~410 km)", price: "SAR 900 – 1,400" },
-  { service: "Jeddah ⇄ Riyadh car transport (~950 km)", price: "SAR 1,600 – 2,400" },
-  { service: "Jeddah ⇄ Makkah tow (~80 km)", price: "SAR 300 – 450" },
+  { service: "Within-city flatbed tow (up to 10 km)", price: "SAR 200 – 300" },
+  { service: "Within-city flatbed tow (10 – 30 km)", price: "SAR 250 – 450" },
+  { service: "Battery jump start", price: "SAR 120 – 200" },
+  { service: "Flat tire change (your spare)", price: "SAR 120 – 200" },
+  { service: "Riyadh ⇄ Dammam car transport (~410 km)", price: "SAR 1,100 – 1,600" },
+  { service: "Jeddah ⇄ Riyadh car transport (~950 km)", price: "SAR 1,800 – 2,600" },
+  { service: "Jeddah ⇄ Makkah tow (~80 km)", price: "SAR 350 – 500" },
   { service: "Heavy vehicle / bus recovery", price: "Quoted on WhatsApp" },
 ];
 
@@ -72,7 +72,7 @@ export const RECOVERY_GLOBAL_FAQS = [
   {
     question: "How much does car towing cost in Saudi Arabia?",
     answer:
-      "A within-city flatbed tow typically starts from SAR 150. Longer distances are priced per kilometre, and intercity transport (for example Riyadh to Dammam) ranges from roughly SAR 900–1,400. You always get a fixed price on WhatsApp before the truck moves — no surprises on arrival.",
+      "A within-city flatbed tow typically starts from SAR 200. Longer distances are priced per kilometre, and intercity transport (for example Riyadh to Dammam) ranges from roughly SAR 1,100–1,600. You always get a fixed price on WhatsApp before the truck moves — no surprises on arrival.",
   },
   {
     question: "What is the difference between a satha (سطحة) and a normal tow truck?",
@@ -111,14 +111,14 @@ export const RECOVERY_CITIES: RecoveryCity[] = [
     intro:
       "From Olaya and KAFD to Al-Malaz, Diriyah, and the industrial areas of the south, our recovery network covers every district of Riyadh. The capital's long distances and summer heat make breakdowns common on the Ring Roads — a flatbed (satha) typically reaches you within 20–40 minutes, day or night. We also handle daily car transport between Riyadh and Dammam, Qassim, and Jeddah.",
     image: "/locations/riyadh-hero.webp",
-    startingPrice: 150,
+    startingPrice: 200,
     areas: ["Olaya", "KAFD", "Al-Malaz", "Al-Nasim", "Diriyah", "Exit 5–18 districts", "Second Industrial City", "Al-Kharj Road"],
     highways: ["Eastern Ring Road", "Northern Ring Road", "King Fahd Road", "Riyadh–Dammam Highway (Route 40)", "Riyadh–Qassim Highway (Route 65)", "Al-Kharj Road"],
     faqs: [
       {
         question: "How much is a satha in Riyadh?",
         answer:
-          "A flatbed tow within Riyadh starts from around SAR 150 for short distances (up to ~10 km) and SAR 200–350 for longer cross-city moves like Olaya to the Second Industrial City. Send your location and destination on WhatsApp for a fixed price.",
+          "A flatbed tow within Riyadh starts from around SAR 200 for short distances (up to ~10 km) and SAR 250–450 for longer cross-city moves like Olaya to the Second Industrial City. Send your location and destination on WhatsApp for a fixed price.",
       },
       {
         question: "My car broke down on the Riyadh–Dammam highway. Can you recover it?",
@@ -136,14 +136,14 @@ export const RECOVERY_CITIES: RecoveryCity[] = [
     intro:
       "Jeddah's humidity is brutal on batteries and cooling systems. Our flatbeds cover the whole city — Al-Balad, Corniche, Obhur, Al-Safaa, and the airport area — plus the busy Jeddah–Makkah highway where pilgrims' rental cars often break down. We also move cars arriving at Jeddah Islamic Port to anywhere in the Kingdom.",
     image: "/locations/jeddah-hero.webp",
-    startingPrice: 150,
+    startingPrice: 200,
     areas: ["Al-Balad", "Corniche", "Al-Hamra", "Obhur", "Al-Safaa", "Al-Rawdah", "Airport district", "Jeddah Islamic Port"],
     highways: ["Jeddah–Makkah Highway (Route 40)", "Madinah Road", "King Abdulaziz Road", "Haramain Corniche Road", "Jeddah–Madinah Highway"],
     faqs: [
       {
         question: "Can you tow my car from Jeddah to Makkah?",
         answer:
-          "Yes — the Jeddah–Makkah tow (~80 km) is one of our most common jobs, especially for Umrah visitors whose rental or private car broke down. It typically costs SAR 300–450 on a flatbed.",
+          "Yes — the Jeddah–Makkah tow (~80 km) is one of our most common jobs, especially for Umrah visitors whose rental or private car broke down. It typically costs SAR 350–500 on a flatbed.",
       },
       {
         question: "Do you pick up cars from Jeddah Islamic Port?",
@@ -161,7 +161,7 @@ export const RECOVERY_CITIES: RecoveryCity[] = [
     intro:
       "Our home ground. The recovery network is strongest in the Eastern Province — Dammam, Al-Khobar, Dhahran, Qatif, and the industrial corridors toward Jubail. Flatbeds, winch trucks, and heavy loaders are available around the clock, including recovery from Aramco and industrial-area checkpoints, King Fahd Causeway approach, and the Dammam–Riyadh highway.",
     image: "/locations/dammam-hero.webp",
-    startingPrice: 150,
+    startingPrice: 200,
     areas: ["Dammam Corniche", "Al-Khobar", "Dhahran", "Qatif", "Half Moon Bay", "Dammam Industrial City", "Jubail Road", "King Fahd Causeway approach"],
     highways: ["Dammam–Riyadh Highway (Route 40)", "Dhahran–Jubail Highway", "King Fahd Causeway Expressway", "Abu Hadriyah Highway (Route 95)"],
     faqs: [
@@ -186,7 +186,7 @@ export const RECOVERY_CITIES: RecoveryCity[] = [
     intro:
       "Breakdowns in Makkah are stressful — Haram-area road closures, one-way systems, and Hajj/Umrah season traffic. Our drivers know the permitted routes around Aziziyah, Ajyad, and the central area, and recover cars to workshops in Makkah or back to Jeddah. During Hajj season we position extra flatbeds on the Makkah entrances and the Jeddah and Taif highways.",
     image: "/locations/makkah-hero.webp",
-    startingPrice: 180,
+    startingPrice: 250,
     areas: ["Aziziyah", "Ajyad", "Al-Awali", "Al-Shubaikah", "Mina Road", "Makkah entrances (Jeddah / Taif / Madinah gates)"],
     highways: ["Jeddah–Makkah Highway (Route 40)", "Makkah–Madinah Highway (Route 15)", "Makkah–Taif Highway", "Third Ring Road"],
     faqs: [
@@ -211,7 +211,7 @@ export const RECOVERY_CITIES: RecoveryCity[] = [
     intro:
       "From the central Markazia area around Masjid an-Nabawi to Quba, Uhud, and the airport road, our flatbeds cover all of Madinah. The long Madinah–Makkah (Hijrah) and Madinah–Jeddah highways are common breakdown spots for pilgrims driving between the Holy Cities — we recover from both directions and can deliver your car onward so your Ziyarah schedule isn't ruined.",
     image: "/locations/madinah-hero.webp",
-    startingPrice: 180,
+    startingPrice: 250,
     areas: ["Markazia (central area)", "Quba", "Uhud", "Sultanah", "Al-Aqiq", "Airport Road", "Knowledge Economic City"],
     highways: ["Madinah–Makkah Hijrah Highway (Route 15)", "Madinah–Jeddah Highway", "Madinah–Tabuk Highway", "King Abdullah Ring Road"],
     faqs: [
