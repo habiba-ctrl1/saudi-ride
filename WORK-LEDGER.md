@@ -49,8 +49,11 @@ Fixed in: lib/data/routes.ts (8 slugs), home-page.tsx (route cards + AR/UR FAQ 1
 2. `hourly-charter`, `wedding-events`, `car-recovery` hub cards ke detail pages nahi hain (link nahi kiye).
 3. Baaki ~40 routes ke basePrice abhi purane (sirf Tier-1 corridor update hua) — Tier-2 pass mein market-check karo.
 
+### Locations pages — LIGHT THEME COMPLETE (2026-07-16)
+- Hub + [city] + [subarea] templates converted (light-theme codemod), vehicle-recommendation dark box → white card, 0 checker violations
+
 ## 📋 BACKLOG (dark→light theme + audit; violation counts from checker)
-**Tier 1 (pehle):** locations/[city] (21) + [subarea] (27) — Makkah/Madinah/Jeddah template · routes/[slug] (21) + RoutesClient (22)
+**Tier 1 (pehle):** routes/[slug] (21) + RoutesClient (22)
 **Tier 2:** airports/[slug] (17) · fleet hub (18) + fleet/[slug] (28) · locations hub (11) · pricing (29)
 **Tier 3:** blog/[slug] (14) + blog hub (6) · guides (17) + guides/[slug] (13) · gallery (13)
 **Tier 4 (conversion-critical pehle):** book (96 — sabse bara, conversion page!) · track-booking (41) · contact (23) · partners (21) + driver-registration (27) · about (17) · faq (15) · login (14) · privacy (10) · terms (10) · not-found (9) · error (7)

@@ -499,7 +499,7 @@ export default async function CityLocationPage({ params }: PageProps) {
   });
 
   return (
-    <main className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pb-24">
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
       <JsonLd
         data={serviceSchema({
           name: `Taxi Service in ${cityData.name}`,
@@ -530,26 +530,26 @@ export default async function CityLocationPage({ params }: PageProps) {
             blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/80 to-[#0A0A0A]/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/80 to-[#FAFAF7]/40" />
         </div>
 
         <div className="section-container relative z-10 max-w-5xl">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/20 backdrop-blur-sm px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-6">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/20 backdrop-blur-sm px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#B8963B] mb-6">
             <MapPin className="h-3 w-3" /> Location Guide
           </span>
           <h1 className="font-heading text-4xl md:text-6xl font-bold leading-tight">
             Taxi Service in <br />
-            <span className="text-[#C9A84C]">{cityData.name}</span>
+            <span className="text-[#16A34A]">{cityData.name}</span>
           </h1>
           <p className="text-[#C9A84C] text-sm tracking-widest uppercase font-bold mt-2 mb-6">{cityData.nameAr} - {cityData.tagline}</p>
-          <p className="max-w-2xl text-sm md:text-base text-[#A1A1A6] leading-relaxed">
+          <p className="max-w-2xl text-sm md:text-base text-[#6B7280] leading-relaxed">
             {cityData.description}
           </p>
 
           <div className="mt-8 flex gap-4">
             <Link
               href={`/book?pickup=${encodeURIComponent(cityData.name)}`}
-              className="flex items-center gap-2 rounded-full bg-[#C9A84C] px-8 py-3.5 text-xs font-bold uppercase text-[#0A0A0A] hover:bg-[#B8963B] transition-all"
+              className="flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
             >
               <Car className="h-4 w-4" />
               Book a Taxi Now
@@ -573,7 +573,7 @@ export default async function CityLocationPage({ params }: PageProps) {
             {cityRoutes.length > 0 ? (
               <div className="grid gap-4">
                 {cityRoutes.map((route) => (
-                  <Link href={`/routes/${route.slug}`} key={route.id} className="group flex flex-col md:flex-row md:items-center justify-between p-5 rounded-2xl bg-[#111] border border-[#C9A84C]/15 hover:border-[#C9A84C]/40 transition-colors">
+                  <Link href={`/routes/${route.slug}`} key={route.id} className="group flex flex-col md:flex-row md:items-center justify-between p-5 rounded-2xl bg-white border border-[#16A34A]/12 hover:border-[#16A34A]/35 transition-colors">
                     <div className="flex items-center gap-4 mb-4 md:mb-0">
                       <div className="font-bold">{route.fromCity}</div>
                       <ArrowRight className="h-4 w-4 text-[#C9A84C]" />
@@ -581,10 +581,10 @@ export default async function CityLocationPage({ params }: PageProps) {
                     </div>
                     <div className="flex items-center justify-between md:gap-6">
                       <div className="text-right">
-                        <p className="text-[0.6rem] text-[#7C8088] uppercase font-bold">Starting from</p>
+                        <p className="text-[0.6rem] text-[#6B7280] uppercase font-bold">Starting from</p>
                         <p className="text-[#C9A84C] font-bold">SAR {route.basePrice}</p>
                       </div>
-                      <div className="bg-[#C9A84C]/10 text-[#C9A84C] rounded-full p-2 group-hover:bg-[#C9A84C] group-hover:text-[#0A0A0A] transition-colors">
+                      <div className="bg-[#C9A84C]/10 text-[#C9A84C] rounded-full p-2 group-hover:bg-[#16A34A] group-hover:text-white transition-colors">
                         <ArrowRight className="h-4 w-4" />
                       </div>
                     </div>
@@ -592,7 +592,7 @@ export default async function CityLocationPage({ params }: PageProps) {
                 ))}
               </div>
             ) : (
-              <p className="text-[#A1A1A6]">Currently mapping custom routes for this city. Please contact us for a quote.</p>
+              <p className="text-[#6B7280]">Currently mapping custom routes for this city. Please contact us for a quote.</p>
             )}
             <div className="mt-6">
               <Link href="/routes" className="text-[#C9A84C] text-sm font-bold hover:underline">View all 50+ Kingdom-wide routes &rarr;</Link>
@@ -601,13 +601,13 @@ export default async function CityLocationPage({ params }: PageProps) {
 
           {/* Local Tips */}
           {cityData.tips.length > 0 && (
-            <section className="bg-[#111] border border-[#C9A84C]/15 rounded-3xl p-8">
-              <h2 className="font-heading text-2xl font-bold mb-6 text-[#F5F0E8]">Local Travel Tips</h2>
+            <section className="bg-white border border-[#16A34A]/12 rounded-3xl p-8">
+              <h2 className="font-heading text-2xl font-bold mb-6 text-[#1C1C1C]">Local Travel Tips</h2>
               <ul className="space-y-4">
                 {cityData.tips.map((tip, idx) => (
                   <li key={idx} className="flex gap-4">
                     <CheckCircle2 className="h-5 w-5 text-[#C9A84C] shrink-0 mt-0.5" />
-                    <p className="text-sm text-[#A1A1A6]">{tip}</p>
+                    <p className="text-sm text-[#6B7280]">{tip}</p>
                   </li>
                 ))}
               </ul>
@@ -623,9 +623,9 @@ export default async function CityLocationPage({ params }: PageProps) {
               </h2>
               <div className="space-y-4">
                 {cityData.faqs.map((faq, idx) => (
-                  <div key={idx} className="border border-[#C9A84C]/15 rounded-2xl p-6 bg-[#111]">
-                    <h3 className="font-bold text-base mb-2 text-[#F5F0E8]">{faq.question}</h3>
-                    <p className="text-sm text-[#A1A1A6] leading-relaxed">{faq.answer}</p>
+                  <div key={idx} className="border border-[#16A34A]/12 rounded-2xl p-6 bg-white">
+                    <h3 className="font-bold text-base mb-2 text-[#1C1C1C]">{faq.question}</h3>
+                    <p className="text-sm text-[#6B7280] leading-relaxed">{faq.answer}</p>
                   </div>
                 ))}
               </div>
@@ -642,20 +642,20 @@ export default async function CityLocationPage({ params }: PageProps) {
                 </h2>
                 <div className="flex items-center gap-1 text-[#C9A84C]">
                   {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-[#C9A84C]" />)}
-                  <span className="text-sm font-bold text-[#F5F0E8] ml-2">4.9/5</span>
+                  <span className="text-sm font-bold text-[#1C1C1C] ml-2">4.9/5</span>
                 </div>
               </div>
               <div className="grid sm:grid-cols-2 gap-4">
                 {cityData.testimonials.map((t, idx) => (
-                  <div key={idx} className="border border-[#C9A84C]/15 rounded-2xl p-6 bg-[#111] relative">
+                  <div key={idx} className="border border-[#16A34A]/12 rounded-2xl p-6 bg-white relative">
                     <Quote className="h-6 w-6 text-[#C9A84C]/30 mb-3" />
-                    <p className="text-sm text-[#A1A1A6] leading-relaxed italic mb-4">&quot;{t.quote}&quot;</p>
+                    <p className="text-sm text-[#6B7280] leading-relaxed italic mb-4">&quot;{t.quote}&quot;</p>
                     <div className="flex items-center justify-between border-t border-[#C9A84C]/10 pt-3">
                       <div>
-                        <p className="text-sm font-bold text-[#F5F0E8]">{t.author}</p>
-                        <p className="text-[0.7rem] text-[#7C8088]">{t.location}</p>
+                        <p className="text-sm font-bold text-[#1C1C1C]">{t.author}</p>
+                        <p className="text-[0.7rem] text-[#6B7280]">{t.location}</p>
                       </div>
-                      <span className="text-[0.6rem] uppercase tracking-wider text-[#C9A84C] bg-[#C9A84C]/10 px-2 py-1 rounded-md">{t.trip}</span>
+                      <span className="text-[0.6rem] uppercase tracking-wider text-[#B8963B] bg-[#C9A84C]/10 px-2 py-1 rounded-md">{t.trip}</span>
                     </div>
                   </div>
                 ))}
@@ -670,15 +670,15 @@ export default async function CityLocationPage({ params }: PageProps) {
           
           {/* Attractions */}
           {cityData.attractions.length > 0 && (
-            <div className="bg-[#111] border border-[#C9A84C]/15 rounded-3xl p-6">
+            <div className="bg-white border border-[#16A34A]/12 rounded-3xl p-6">
               <h3 className="font-heading text-xl font-bold mb-6 flex items-center gap-2">
                 <Building2 className="text-[#C9A84C] h-5 w-5" /> Key Destinations
               </h3>
               <div className="space-y-4">
                 {cityData.attractions.map((attr, idx) => (
                   <div key={idx} className="flex justify-between items-center border-b border-[#C9A84C]/10 pb-4 last:border-0 last:pb-0">
-                    <span className="text-sm font-bold text-[#F5F0E8]">{attr.name}</span>
-                    <span className="text-[0.65rem] uppercase tracking-wider text-[#C9A84C] bg-[#C9A84C]/10 px-2 py-1 rounded-md">{attr.dist}</span>
+                    <span className="text-sm font-bold text-[#1C1C1C]">{attr.name}</span>
+                    <span className="text-[0.65rem] uppercase tracking-wider text-[#B8963B] bg-[#C9A84C]/10 px-2 py-1 rounded-md">{attr.dist}</span>
                   </div>
                 ))}
               </div>
@@ -686,19 +686,19 @@ export default async function CityLocationPage({ params }: PageProps) {
           )}
 
           {/* Vehicle Recommendation */}
-          <div className="bg-gradient-to-br from-[#1A1A1A] to-[#111] border border-[#C9A84C]/30 rounded-3xl p-6 relative overflow-hidden">
+          <div className="bg-white border border-[#16A34A]/15 shadow-lg rounded-3xl p-6 relative overflow-hidden">
             <div className="absolute -right-4 -top-4 opacity-10 text-[#C9A84C]">
               <Car className="h-32 w-32" />
             </div>
             <div className="relative z-10">
               <span className="text-[0.6rem] uppercase tracking-widest text-[#C9A84C] font-bold">Recommended</span>
               <h3 className="font-heading text-xl font-bold mt-1 mb-2">SUV Class</h3>
-              <p className="text-xs text-[#A1A1A6] mb-6 leading-relaxed">
+              <p className="text-xs text-[#6B7280] mb-6 leading-relaxed">
                 For optimal comfort and ample luggage space in {cityData.name}, our premium SUV fleet (GMC Yukon, Chevy Tahoe) is highly recommended.
               </p>
               <Link
                 href={`/book?pickup=${encodeURIComponent(cityData.name)}`}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#C9A84C] py-3 text-xs font-bold uppercase text-[#0A0A0A] hover:bg-[#B8963B] transition-all"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#16A34A] py-3 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
               >
                 Reserve Vehicle
               </Link>
@@ -707,6 +707,6 @@ export default async function CityLocationPage({ params }: PageProps) {
 
         </div>
       </div>
-    </main>
+    </div>
   );
 }

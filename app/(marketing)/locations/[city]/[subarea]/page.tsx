@@ -427,7 +427,7 @@ export default async function SubAreaPage({ params }: PageProps) {
   const capitalizedCity = city.charAt(0).toUpperCase() + city.slice(1);
 
   return (
-    <main className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pb-24">
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
       <JsonLd
         data={serviceSchema({
           name: `Taxi Service in ${area.name}, ${capitalizedCity}`,
@@ -449,26 +449,26 @@ export default async function SubAreaPage({ params }: PageProps) {
         ]}
       />
       {/* ─── HERO ───────────────────────────────────────────────────────── */}
-      <section className="relative pt-32 pb-20 overflow-hidden border-b border-[#C9A84C]/10 bg-[#111111]">
+      <section className="relative pt-32 pb-20 overflow-hidden border-b border-[#C9A84C]/10 bg-white">
         <div className="absolute inset-0 bg-gradient-to-b from-[#C9A84C]/6 to-transparent pointer-events-none" />
 
         <div className="section-container relative z-10 max-w-4xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-6">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#B8963B] mb-6">
             <MapPin className="h-3 w-3" /> Local Service Area
           </span>
           <h1 className="font-heading text-4xl font-bold leading-tight md:text-5xl lg:text-6xl mb-6">
             Taxi Service in <br />
-            <span className="text-[#C9A84C]">{area.name}</span>
+            <span className="text-[#16A34A]">{area.name}</span>
           </h1>
           <p className="text-[#C9A84C] font-bold tracking-widest text-lg mb-6">{area.nameAr}</p>
-          <p className="max-w-2xl mx-auto text-sm md:text-base leading-relaxed text-[#A1A1A6]">
+          <p className="max-w-2xl mx-auto text-sm md:text-base leading-relaxed text-[#6B7280]">
             {area.description} Whether you need an immediate local ride, an airport transfer, or a private chauffeur for the day, Taxi Saudi Arabia offers premium vehicles and professional drivers directly in {area.name}, {capitalizedCity}.
           </p>
           
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <Link
               href={`/book?pickup=${encodeURIComponent(area.name + ', ' + capitalizedCity)}`}
-              className="inline-flex items-center gap-2 rounded-full bg-[#C9A84C] px-8 py-4 text-xs font-bold uppercase tracking-wider text-[#0A0A0A] hover:bg-[#B8963B] transition-all shadow-[0_4px_14px_rgba(201,168,76,0.2)]"
+              className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-4 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all shadow-[0_4px_14px_rgba(22,163,74,0.2)]"
             >
               Book a Ride Now
               <ArrowRight className="h-4 w-4" />
@@ -489,41 +489,41 @@ export default async function SubAreaPage({ params }: PageProps) {
         <section className="section-container max-w-5xl pt-16">
           <div className="grid md:grid-cols-2 gap-8">
             {(area.airportMin || area.makkahMin) && (
-              <div className="bg-[#111] border border-[#C9A84C]/15 rounded-3xl p-8">
+              <div className="bg-white border border-[#16A34A]/12 rounded-3xl p-8">
                 <h2 className="font-heading text-xl font-bold mb-6 flex items-center gap-2">
                   <Clock className="text-[#C9A84C] h-5 w-5" /> Travel Times from {area.name}
                 </h2>
                 <ul className="space-y-4 text-sm">
                   {area.airportMin && (
                     <li className="flex justify-between border-b border-[#C9A84C]/10 pb-3">
-                      <span className="text-[#A1A1A6] flex items-center gap-2"><PlaneLanding className="h-4 w-4 text-[#C9A84C]" /> {area.airportLabel ?? "King Abdulaziz Airport (JED)"}</span>
-                      <span className="font-bold text-[#F5F0E8]">{area.airportMin}</span>
+                      <span className="text-[#6B7280] flex items-center gap-2"><PlaneLanding className="h-4 w-4 text-[#C9A84C]" /> {area.airportLabel ?? "King Abdulaziz Airport (JED)"}</span>
+                      <span className="font-bold text-[#1C1C1C]">{area.airportMin}</span>
                     </li>
                   )}
                   {area.makkahMin && area.makkahMin !== "—" && (
                     <li className="flex justify-between border-b border-[#C9A84C]/10 pb-3">
-                      <span className="text-[#A1A1A6] flex items-center gap-2"><MapPin className="h-4 w-4 text-[#C9A84C]" /> {area.nearLabel ?? "Makkah (Masjid al-Haram)"}</span>
-                      <span className="font-bold text-[#F5F0E8]">{area.makkahMin}</span>
+                      <span className="text-[#6B7280] flex items-center gap-2"><MapPin className="h-4 w-4 text-[#C9A84C]" /> {area.nearLabel ?? "Makkah (Masjid al-Haram)"}</span>
+                      <span className="font-bold text-[#1C1C1C]">{area.makkahMin}</span>
                     </li>
                   )}
                   {area.popularFor && (
                     <li className="flex justify-between pt-1">
-                      <span className="text-[#A1A1A6]">Popular for</span>
-                      <span className="font-bold text-[#F5F0E8] text-right max-w-[60%]">{area.popularFor}</span>
+                      <span className="text-[#6B7280]">Popular for</span>
+                      <span className="font-bold text-[#1C1C1C] text-right max-w-[60%]">{area.popularFor}</span>
                     </li>
                   )}
                 </ul>
               </div>
             )}
             {area.landmarks && area.landmarks.length > 0 && (
-              <div className="bg-[#111] border border-[#C9A84C]/15 rounded-3xl p-8">
+              <div className="bg-white border border-[#16A34A]/12 rounded-3xl p-8">
                 <h2 className="font-heading text-xl font-bold mb-6 flex items-center gap-2">
                   <Building2 className="text-[#C9A84C] h-5 w-5" /> Nearby Landmarks
                 </h2>
                 <ul className="space-y-3">
                   {area.landmarks.map((lm, i) => (
-                    <li key={i} className="flex items-center gap-3 text-sm text-[#A1A1A6]">
-                      <span className="h-1.5 w-1.5 rounded-full bg-[#C9A84C]" /> {lm}
+                    <li key={i} className="flex items-center gap-3 text-sm text-[#6B7280]">
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#16A34A]" /> {lm}
                     </li>
                   ))}
                 </ul>
@@ -536,26 +536,26 @@ export default async function SubAreaPage({ params }: PageProps) {
       {/* ─── LOCAL BENEFITS ─────────────────────────────────────────────── */}
       <section className="section-container max-w-5xl py-20">
         <div className="grid md:grid-cols-3 gap-8">
-          <div className="bg-[#111] border border-[#C9A84C]/15 rounded-3xl p-8 text-center hover:border-[#C9A84C]/40 transition-colors">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#C9A84C]/10 border border-[#C9A84C]/20 mx-auto mb-6">
+          <div className="bg-white border border-[#16A34A]/12 rounded-3xl p-8 text-center hover:border-[#16A34A]/35 transition-colors">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#C9A84C]/10 border border-[#16A34A]/15 mx-auto mb-6">
               <Car className="h-5 w-5 text-[#C9A84C]" />
             </div>
             <h3 className="font-heading text-lg font-bold mb-3">Fast Dispatch</h3>
-            <p className="text-xs text-[#A1A1A6] leading-relaxed">Our vehicles are stationed near {area.name} ensuring rapid pickup times for local and intercity trips.</p>
+            <p className="text-xs text-[#6B7280] leading-relaxed">Our vehicles are stationed near {area.name} ensuring rapid pickup times for local and intercity trips.</p>
           </div>
-          <div className="bg-[#111] border border-[#C9A84C]/15 rounded-3xl p-8 text-center hover:border-[#C9A84C]/40 transition-colors">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#C9A84C]/10 border border-[#C9A84C]/20 mx-auto mb-6">
+          <div className="bg-white border border-[#16A34A]/12 rounded-3xl p-8 text-center hover:border-[#16A34A]/35 transition-colors">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#C9A84C]/10 border border-[#16A34A]/15 mx-auto mb-6">
               <ShieldCheck className="h-5 w-5 text-[#C9A84C]" />
             </div>
             <h3 className="font-heading text-lg font-bold mb-3">Fixed Fares</h3>
-            <p className="text-xs text-[#A1A1A6] leading-relaxed">No surge pricing or hidden meters. Get a guaranteed upfront price for your ride from {area.name}.</p>
+            <p className="text-xs text-[#6B7280] leading-relaxed">No surge pricing or hidden meters. Get a guaranteed upfront price for your ride from {area.name}.</p>
           </div>
-          <div className="bg-[#111] border border-[#C9A84C]/15 rounded-3xl p-8 text-center hover:border-[#C9A84C]/40 transition-colors">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#C9A84C]/10 border border-[#C9A84C]/20 mx-auto mb-6">
+          <div className="bg-white border border-[#16A34A]/12 rounded-3xl p-8 text-center hover:border-[#16A34A]/35 transition-colors">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#C9A84C]/10 border border-[#16A34A]/15 mx-auto mb-6">
               <Star className="h-5 w-5 text-[#C9A84C]" />
             </div>
             <h3 className="font-heading text-lg font-bold mb-3">Premium Fleet</h3>
-            <p className="text-xs text-[#A1A1A6] leading-relaxed">Choose from Executive Sedans, Luxury SUVs, and VIP Vans. All vehicles are impeccably maintained.</p>
+            <p className="text-xs text-[#6B7280] leading-relaxed">Choose from Executive Sedans, Luxury SUVs, and VIP Vans. All vehicles are impeccably maintained.</p>
           </div>
         </div>
       </section>
@@ -569,9 +569,9 @@ export default async function SubAreaPage({ params }: PageProps) {
           </h2>
           <div className="space-y-4">
             {area.faqs.map((faq, i) => (
-              <div key={i} className="border border-[#C9A84C]/15 rounded-2xl p-6 bg-[#111]">
-                <h3 className="font-bold text-base mb-2 text-[#F5F0E8]">{faq.question}</h3>
-                <p className="text-sm text-[#A1A1A6] leading-relaxed">{faq.answer}</p>
+              <div key={i} className="border border-[#16A34A]/12 rounded-2xl p-6 bg-white">
+                <h3 className="font-bold text-base mb-2 text-[#1C1C1C]">{faq.question}</h3>
+                <p className="text-sm text-[#6B7280] leading-relaxed">{faq.answer}</p>
               </div>
             ))}
           </div>
@@ -581,11 +581,11 @@ export default async function SubAreaPage({ params }: PageProps) {
       {/* ─── RELATED LINKS (ontology internal linking, city cluster) ───── */}
       {RELATED_LINKS[city] && (
         <section className="section-container max-w-5xl pb-8">
-          <h2 className="font-heading text-xl font-bold mb-5 text-[#F5F0E8]">Popular from {area.name}</h2>
+          <h2 className="font-heading text-xl font-bold mb-5 text-[#1C1C1C]">Popular from {area.name}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {RELATED_LINKS[city].map((l) => (
-              <Link key={l.href} href={l.href} className="group flex items-center justify-between gap-3 rounded-xl border border-[#C9A84C]/15 bg-[#111] px-4 py-3 hover:border-[#C9A84C]/40 transition-colors">
-                <span className="text-sm font-medium text-[#F5F0E8] group-hover:text-[#C9A84C]">{l.name}</span>
+              <Link key={l.href} href={l.href} className="group flex items-center justify-between gap-3 rounded-xl border border-[#16A34A]/12 bg-white px-4 py-3 hover:border-[#16A34A]/35 transition-colors">
+                <span className="text-sm font-medium text-[#1C1C1C] group-hover:text-[#16A34A]">{l.name}</span>
                 <ArrowRight className="h-4 w-4 text-[#C9A84C]" />
               </Link>
             ))}
@@ -594,23 +594,23 @@ export default async function SubAreaPage({ params }: PageProps) {
       )}
 
       {/* ─── NEIGHBORHOOD INFO ────────────────────────────────────────── */}
-      <section className="border-t border-[#C9A84C]/10 bg-[#111] py-20">
+      <section className="border-t border-[#C9A84C]/10 bg-white py-20">
         <div className="section-container max-w-4xl text-center">
           <h2 className="font-heading text-2xl font-bold mb-6 flex items-center justify-center gap-3">
             <MapPin className="text-[#C9A84C]" />
             About {area.name}
           </h2>
-          <p className="text-sm text-[#A1A1A6] leading-relaxed mb-8">
+          <p className="text-sm text-[#6B7280] leading-relaxed mb-8">
             As a key district in {capitalizedCity}, {area.name} is a frequent starting point for many of our clients. Whether you are traveling for business, Umrah, or leisure, Taxi Saudi Arabia provides the most reliable connection from {area.name} to airports, train stations, and intercity destinations across the Kingdom of Saudi Arabia.
           </p>
           <Link
             href={`/locations/${city}`}
-            className="text-xs font-bold uppercase tracking-wider text-[#C9A84C] hover:text-[#F5F0E8] transition-colors"
+            className="text-xs font-bold uppercase tracking-wider text-[#B8963B] hover:text-[#1C1C1C] transition-colors"
           >
             View all {capitalizedCity} locations →
           </Link>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
