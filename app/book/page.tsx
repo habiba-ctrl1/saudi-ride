@@ -429,7 +429,7 @@ export default function BookPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pt-32 pb-24 relative overflow-hidden">
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pt-32 pb-24 relative overflow-hidden">
       
       {/* Background radial luxury glows */}
       <div className="absolute top-0 left-0 right-0 h-[500px] bg-gradient-to-b from-[#C9A84C]/5 to-transparent pointer-events-none" />
@@ -439,7 +439,7 @@ export default function BookPage() {
         
         {/* PROGRESS STEP INDICATOR (1-6) */}
         <div className="relative">
-          <div className="flex items-center justify-between text-[0.55rem] font-bold uppercase tracking-wider text-[#7C8088]">
+          <div className="flex items-center justify-between text-[0.55rem] font-bold uppercase tracking-wider text-[#6B7280]">
             <span className={step >= 1 ? "text-[#C9A84C]" : ""}>{isRtl ? "Ù¡. Ø§Ù„ØªÙØ§ØµÙŠÙ„" : "1. Journey"}</span>
             <span className={step >= 2 ? "text-[#C9A84C]" : ""}>{isRtl ? "Ù¢. Ø§Ù„Ø³ÙŠØ§Ø±Ø©" : "2. Vehicle"}</span>
             <span className={step >= 3 ? "text-[#C9A84C]" : ""}>{isRtl ? "Ù£. Ø§Ù„Ø¥Ø¶Ø§ÙØ§Øª" : "3. Extras"}</span>
@@ -448,7 +448,7 @@ export default function BookPage() {
             <span className={step >= 6 ? "text-[#C9A84C]" : ""}>{isRtl ? "Ù¦. ØªØ£ÙƒÙŠØ¯" : "6. Done"}</span>
           </div>
 
-          <div className="mt-3 h-1 w-full bg-black/45 rounded-full overflow-hidden border border-[#C9A84C]/10">
+          <div className="mt-3 h-1 w-full bg-[#E5E7EB] rounded-full overflow-hidden border border-[#C9A84C]/10">
             <motion.div
               className="h-full bg-gradient-to-r from-[#C9A84C] to-[#B8963B]"
               initial={{ width: "16.6%" }}
@@ -472,34 +472,34 @@ export default function BookPage() {
             >
               <div className="space-y-1">
                 <h2 className="font-heading text-2xl font-bold">{isRtl ? "ØªÙØ§ØµÙŠÙ„ Ø±Ø­Ù„ØªÙƒ Ø§Ù„ÙØ§Ø®Ø±Ø©" : "Enter Journey Coordinates"}</h2>
-                <p className="text-xs text-[#A1A1A6]">{isRtl ? "Ø­Ø¯Ø¯ ÙˆØ¬Ù‡ØªÙƒ ÙˆØªØ§Ø±ÙŠØ® Ø§Ù„Ø±Ø­Ù„Ø© ÙˆØ®ÙŠØ§Ø±Ø§Øª Ù…Ø³Ø§Ø±Ùƒ Ù„ØªØ¹Ø¯ÙŠÙ„ Ø§Ù„Ø£Ø³Ø¹Ø§Ø± Ø§Ù„ØªÙ„Ù‚Ø§Ø¦ÙŠ." : "Specify transfer points, schedule details, and vehicle sizing."}</p>
+                <p className="text-xs text-[#6B7280]">{isRtl ? "Ø­Ø¯Ø¯ ÙˆØ¬Ù‡ØªÙƒ ÙˆØªØ§Ø±ÙŠØ® Ø§Ù„Ø±Ø­Ù„Ø© ÙˆØ®ÙŠØ§Ø±Ø§Øª Ù…Ø³Ø§Ø±Ùƒ Ù„ØªØ¹Ø¯ÙŠÙ„ Ø§Ù„Ø£Ø³Ø¹Ø§Ø± Ø§Ù„ØªÙ„Ù‚Ø§Ø¦ÙŠ." : "Specify transfer points, schedule details, and vehicle sizing."}</p>
               </div>
 
               <div className="grid gap-6 md:grid-cols-[1.1fr_0.9fr]">
                 
                 {/* Inputs block */}
-                <div className="space-y-4 rounded-3xl border border-[#C9A84C]/15 bg-[#121212] p-6 shadow-2xl">
+                <div className="space-y-4 rounded-3xl border border-[#16A34A]/12 bg-[#121212] p-6 shadow-2xl">
                   
                   {/* Trip type selector */}
-                  <div className="grid grid-cols-3 gap-2 p-1 bg-black/40 rounded-full border border-[#C9A84C]/10">
+                  <div className="grid grid-cols-3 gap-2 p-1 bg-[#F0FDF4] rounded-full border border-[#C9A84C]/10">
                     <button
                       type="button"
                       onClick={() => { setTripType("oneway"); }}
-                      className={`rounded-full py-2 text-[0.65rem] font-bold uppercase transition-all ${tripType === "oneway" ? "bg-[#C9A84C] text-[#0A0A0A]" : "text-[#A1A1A6] hover:text-[#F5F0E8]"}`}
+                      className={`rounded-full py-2 text-[0.65rem] font-bold uppercase transition-all ${tripType === "oneway" ? "bg-[#16A34A] text-white" : "text-[#6B7280] hover:text-[#1C1C1C]"}`}
                     >
                       {isRtl ? "Ø§ØªØ¬Ø§Ù‡ ÙˆØ§Ø­Ø¯" : "One-Way"}
                     </button>
                     <button
                       type="button"
                       onClick={() => { setTripType("roundtrip"); }}
-                      className={`rounded-full py-2 text-[0.65rem] font-bold uppercase transition-all ${tripType === "roundtrip" ? "bg-[#C9A84C] text-[#0A0A0A]" : "text-[#A1A1A6] hover:text-[#F5F0E8]"}`}
+                      className={`rounded-full py-2 text-[0.65rem] font-bold uppercase transition-all ${tripType === "roundtrip" ? "bg-[#16A34A] text-white" : "text-[#6B7280] hover:text-[#1C1C1C]"}`}
                     >
                       {isRtl ? "Ø°Ù‡Ø§Ø¨ ÙˆØ¹ÙˆØ¯Ø©" : "Round-Trip"}
                     </button>
                     <button
                       type="button"
                       onClick={() => { setTripType("hourly"); }}
-                      className={`rounded-full py-2 text-[0.65rem] font-bold uppercase transition-all ${tripType === "hourly" ? "bg-[#C9A84C] text-[#0A0A0A]" : "text-[#A1A1A6] hover:text-[#F5F0E8]"}`}
+                      className={`rounded-full py-2 text-[0.65rem] font-bold uppercase transition-all ${tripType === "hourly" ? "bg-[#16A34A] text-white" : "text-[#6B7280] hover:text-[#1C1C1C]"}`}
                     >
                       {isRtl ? "Ø­Ø¬Ø² Ø¨Ø§Ù„Ø³Ø§Ø¹Ø§Øª" : "Hourly Charter"}
                     </button>
@@ -507,7 +507,7 @@ export default function BookPage() {
 
                   {/* Pickup */}
                   <div className="relative">
-                    <label className="block text-[0.6rem] uppercase tracking-wider text-[#A1A1A6] mb-1 font-bold">
+                    <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-1 font-bold">
                       {isRtl ? "Ù…ÙˆÙ‚Ø¹ Ø§Ù„Ø±ÙƒÙˆØ¨" : "Pick-up Location"}
                     </label>
                     <div className="relative">
@@ -521,18 +521,18 @@ export default function BookPage() {
                         onFocus={() => setShowPickupList(true)}
                         onBlur={() => setTimeout(() => setShowPickupList(false), 250)}
                         placeholder={isRtl ? "Ø§Ø¨Ø­Ø« Ø¹Ù† Ù…Ø·Ø§Ø±ØŒ Ù…Ø¹Ù„Ù… Ø£Ùˆ ÙÙ†Ø¯Ù‚..." : "Search Airport, hotel, landmark..."}
-                        className="w-full rounded-xl bg-black/40 border border-[#C9A84C]/10 pl-9 pr-4 py-3 text-xs text-[#F5F0E8] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
+                        className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 pl-9 pr-4 py-3 text-xs text-[#1C1C1C] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
                       />
                     </div>
 
                     {showPickupList && pickupSuggestions.length > 0 && (
-                      <div className="absolute z-20 left-0 right-0 mt-1 max-h-48 overflow-y-auto rounded-xl border border-[#C9A84C]/20 bg-[#121212] p-2 shadow-2xl">
+                      <div className="absolute z-20 left-0 right-0 mt-1 max-h-48 overflow-y-auto rounded-xl border border-[#16A34A]/15 bg-[#121212] p-2 shadow-2xl">
                         {pickupSuggestions.map((s, i) => (
                           <button
                             key={i}
                             type="button"
                             onMouseDown={() => { setPickup(s); setPickupSuggestions([]); }}
-                            className="w-full text-left px-3 py-2 text-[0.65rem] text-[#A1A1A6] hover:text-[#C9A84C] hover:bg-white/2 rounded transition-colors"
+                            className="w-full text-left px-3 py-2 text-[0.65rem] text-[#6B7280] hover:text-[#16A34A] hover:bg-[#F0FDF4] rounded transition-colors"
                           >
                             {s}
                           </button>
@@ -544,7 +544,7 @@ export default function BookPage() {
                   {/* Drop-off */}
                   {tripType !== "hourly" && (
                     <div className="relative">
-                      <label className="block text-[0.6rem] uppercase tracking-wider text-[#A1A1A6] mb-1 font-bold">
+                      <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-1 font-bold">
                         {isRtl ? "Ø§Ù„ÙˆØ¬Ù‡Ø©" : "Drop-off Destination"}
                       </label>
                       <div className="relative">
@@ -558,18 +558,18 @@ export default function BookPage() {
                           onFocus={() => setShowDropoffList(true)}
                           onBlur={() => setTimeout(() => setShowDropoffList(false), 250)}
                           placeholder={isRtl ? "Ø§Ø¨Ø­Ø« Ø¹Ù† ÙˆØ¬Ù‡Ø© Ø§Ù„Ø­Ø¬Ø²..." : "Search drop-off landmark..."}
-                          className="w-full rounded-xl bg-black/40 border border-[#C9A84C]/10 pl-9 pr-4 py-3 text-xs text-[#F5F0E8] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
+                          className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 pl-9 pr-4 py-3 text-xs text-[#1C1C1C] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
                         />
                       </div>
 
                       {showDropoffList && dropoffSuggestions.length > 0 && (
-                        <div className="absolute z-20 left-0 right-0 mt-1 max-h-48 overflow-y-auto rounded-xl border border-[#C9A84C]/20 bg-[#121212] p-2 shadow-2xl">
+                        <div className="absolute z-20 left-0 right-0 mt-1 max-h-48 overflow-y-auto rounded-xl border border-[#16A34A]/15 bg-[#121212] p-2 shadow-2xl">
                           {dropoffSuggestions.map((s, i) => (
                             <button
                               key={i}
                               type="button"
                               onMouseDown={() => { setDropoff(s); setDropoffSuggestions([]); }}
-                              className="w-full text-left px-3 py-2 text-[0.65rem] text-[#A1A1A6] hover:text-[#C9A84C] hover:bg-white/2 rounded transition-colors"
+                              className="w-full text-left px-3 py-2 text-[0.65rem] text-[#6B7280] hover:text-[#16A34A] hover:bg-[#F0FDF4] rounded transition-colors"
                             >
                               {s}
                             </button>
@@ -582,7 +582,7 @@ export default function BookPage() {
                   {/* Hourly Charter Sizing */}
                   {tripType === "hourly" && (
                     <div>
-                      <label className="block text-[0.6rem] uppercase tracking-wider text-[#A1A1A6] mb-2 font-bold">
+                      <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-2 font-bold">
                         {isRtl ? "Ù…Ø¯Ø© Ø§Ù„Ø®Ø¯Ù…Ø© Ø§Ù„Ù…Ø·Ù„ÙˆØ¨Ø©" : "Charter Sizing (Hours)"}
                       </label>
                       <select
@@ -591,7 +591,7 @@ export default function BookPage() {
                           setHours(Number(e.target.value));
                           setDropoff(`Riyadh Hourly Charter (${e.target.value} Hours)`);
                         }}
-                        className="w-full rounded-xl bg-black/40 border border-[#C9A84C]/10 px-3 py-3 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
+                        className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 px-3 py-3 text-xs text-[#1C1C1C] outline-none focus:border-[#C9A84C]"
                       >
                         <option value="4">4 Hours Charter (Half Day)</option>
                         <option value="8">8 Hours Charter (Full Day)</option>
@@ -604,7 +604,7 @@ export default function BookPage() {
                   {/* Date Picker */}
                   <div className="grid gap-4 grid-cols-2">
                     <div>
-                      <label className="block text-[0.6rem] uppercase tracking-wider text-[#A1A1A6] mb-1 font-bold">
+                      <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-1 font-bold">
                         {isRtl ? "Ø§Ù„ØªØ§Ø±ÙŠØ® ÙˆØ§Ù„ÙˆÙ‚Øª" : "Pick-up DateTime"}
                       </label>
                       <div className="relative">
@@ -615,19 +615,19 @@ export default function BookPage() {
                           value={dateTime}
                           suppressHydrationWarning
                           onChange={(e) => setDateTime(e.target.value)}
-                          className="w-full rounded-xl bg-black/40 border border-[#C9A84C]/10 pl-9 pr-3 py-3 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
+                          className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 pl-9 pr-3 py-3 text-xs text-[#1C1C1C] outline-none focus:border-[#C9A84C]"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-[0.6rem] uppercase tracking-wider text-[#A1A1A6] mb-1 font-bold">
+                      <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-1 font-bold">
                         {isRtl ? "Ø¹Ø¯Ø¯ Ø§Ù„Ù…Ø³Ø§ÙØ±ÙŠÙ†" : "Passengers"}
                       </label>
                       <select
                         value={passengers}
                         onChange={(e) => setPassengers(Number(e.target.value))}
-                        className="w-full rounded-xl bg-black/40 border border-[#C9A84C]/10 px-3 py-3 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
+                        className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 px-3 py-3 text-xs text-[#1C1C1C] outline-none focus:border-[#C9A84C]"
                       >
                         {[...Array(18)].map((_, i) => (
                           <option key={i + 1} value={i + 1}>
@@ -649,7 +649,7 @@ export default function BookPage() {
                         transition={{ duration: 0.3 }}
                         className="overflow-hidden space-y-1"
                       >
-                        <label className="block text-[0.6rem] uppercase tracking-wider text-[#A1A1A6] mb-1 font-bold">
+                        <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-1 font-bold">
                           {isRtl ? "ØªØ§Ø±ÙŠØ® ÙˆÙˆÙ‚Øª Ø§Ù„Ø¹ÙˆØ¯Ø©" : "Return DateTime"}
                         </label>
                         <div className="relative">
@@ -660,7 +660,7 @@ export default function BookPage() {
                             value={returnDateTime}
                             suppressHydrationWarning
                             onChange={(e) => setReturnDateTime(e.target.value)}
-                            className="w-full rounded-xl bg-black/40 border border-[#C9A84C]/10 pl-9 pr-3 py-3 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
+                            className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 pl-9 pr-3 py-3 text-xs text-[#1C1C1C] outline-none focus:border-[#C9A84C]"
                           />
                         </div>
                       </motion.div>
@@ -670,7 +670,7 @@ export default function BookPage() {
                   {/* Optional flight details & notes */}
                   <div className="grid gap-4 grid-cols-2">
                     <div>
-                      <label className="block text-[0.6rem] uppercase tracking-wider text-[#A1A1A6] mb-1 font-bold">
+                      <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-1 font-bold">
                         {isRtl ? "Ø±Ù‚Ù… Ø§Ù„Ø±Ø­Ù„Ø© (Ø§Ø®ØªÙŠØ§Ø±ÙŠ)" : "Flight Number (Opt)"}
                       </label>
                       <input
@@ -678,12 +678,12 @@ export default function BookPage() {
                         placeholder="e.g. SV-120"
                         value={flightNumber}
                         onChange={(e) => setFlightNumber(e.target.value)}
-                        className="w-full rounded-xl bg-black/40 border border-[#C9A84C]/10 px-3 py-3 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
+                        className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 px-3 py-3 text-xs text-[#1C1C1C] outline-none focus:border-[#C9A84C]"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-[0.6rem] uppercase tracking-wider text-[#A1A1A6] mb-1 font-bold">
+                      <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-1 font-bold">
                         {isRtl ? "Ù…Ù„Ø§Ø­Ø¸Ø§Øª Ø¥Ø¶Ø§ÙÙŠØ©" : "Special Notes"}
                       </label>
                       <input
@@ -691,7 +691,7 @@ export default function BookPage() {
                         placeholder="e.g. Need extra luggage room"
                         value={specialNotes}
                         onChange={(e) => setSpecialNotes(e.target.value)}
-                        className="w-full rounded-xl bg-black/40 border border-[#C9A84C]/10 px-3 py-3 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
+                        className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 px-3 py-3 text-xs text-[#1C1C1C] outline-none focus:border-[#C9A84C]"
                       />
                     </div>
                   </div>
@@ -699,18 +699,18 @@ export default function BookPage() {
                 </div>
 
                 {/* Vector Glowing Grid Fallback Map Preview */}
-                <div className="rounded-3xl border border-[#C9A84C]/15 bg-[#121212] overflow-hidden flex flex-col justify-between p-6 h-full relative">
+                <div className="rounded-3xl border border-[#16A34A]/12 bg-[#121212] overflow-hidden flex flex-col justify-between p-6 h-full relative">
                   <div className="absolute inset-0 bg-[linear-gradient(to_right,#C9A84C_1px,transparent_1px),linear-gradient(to_bottom,#C9A84C_1px,transparent_1px)] bg-[size:25px_25px] opacity-5 pointer-events-none" />
 
                   <div className="space-y-1">
-                    <span className="text-[0.65rem] uppercase tracking-wider text-[#C9A84C] font-bold">
+                    <span className="text-[0.65rem] uppercase tracking-wider text-[#B8963B] font-bold">
                       {isRtl ? "Ù…Ø¹Ø§ÙŠÙ†Ø© Ø¥Ø­Ø¯Ø§Ø«ÙŠØ§Øª Ø§Ù„Ù…Ø³Ø§Ø±" : "Transfer Coordinates Preview"}
                     </span>
                     <h3 className="font-heading text-lg font-bold">Taxi Saudi Arabia Dispatch GPS</h3>
                   </div>
 
                   {/* Route Visualizer SVG */}
-                  <div className="h-44 w-full flex items-center justify-center my-4 bg-black/60 rounded-2xl border border-[#C9A84C]/10 overflow-hidden relative">
+                  <div className="h-44 w-full flex items-center justify-center my-4 bg-[#F0FDF4] rounded-2xl border border-[#C9A84C]/10 overflow-hidden relative">
                     <svg className="w-full h-full max-w-[280px]" viewBox="0 0 300 150">
                       <path d="M 40 100 C 100 40, 200 40, 260 100" fill="none" stroke="#C9A84C" strokeWidth="2" strokeDasharray="5 5" opacity="0.4" />
                       <motion.path
@@ -726,14 +726,14 @@ export default function BookPage() {
                       <circle cx="260" cy="100" r="6" fill="#C9A84C" />
                     </svg>
 
-                    <div className="absolute bottom-3 left-3 text-[0.55rem] text-[#7C8088] font-bold uppercase">
+                    <div className="absolute bottom-3 left-3 text-[0.55rem] text-[#6B7280] font-bold uppercase">
                       Saudi Route Sync
                     </div>
                   </div>
 
                   <button
                     onClick={handleNextStep}
-                    className="flex items-center justify-center gap-2 w-full rounded-full bg-[#C9A84C] py-4 text-xs font-bold uppercase tracking-wider text-[#0A0A0A] shadow-[0_4px_20px_rgba(201,168,76,0.3)] transition-all hover:bg-[#B8963B]"
+                    className="flex items-center justify-center gap-2 w-full rounded-full bg-[#16A34A] py-4 text-xs font-bold uppercase tracking-wider text-white shadow-[0_4px_20px_rgba(22,163,74,0.3)] transition-all hover:bg-[#15803D]"
                   >
                     <span>{isRtl ? "Ø¹Ø±Ø¶ Ø§Ù„Ø³ÙŠØ§Ø±Ø§Øª Ø§Ù„Ù…ØªØ§Ø­Ø©" : "View Available Fleet"}</span>
                     <ArrowRight className="h-4 w-4" />
@@ -757,12 +757,12 @@ export default function BookPage() {
               <div className="flex items-center justify-between border-b border-[#C9A84C]/10 pb-4">
                 <div>
                   <h2 className="font-heading text-2xl font-bold">{isRtl ? "Ø§Ø®ØªØ± Ø³ÙŠØ§Ø±ØªÙƒ Ø§Ù„ÙØ§Ø®Ø±Ø©" : "Select Reserved Class"}</h2>
-                  <p className="text-xs text-[#A1A1A6]">{isRtl ? "Ù…Ù‚Ø§Ø±Ù†Ø© Ø§Ù„Ø£Ø³Ø¹Ø§Ø± Ø§Ù„Ø«Ø§Ø¨ØªØ© Ø§Ù„Ø´Ø§Ù…Ù„Ø© Ù„Ù„Ø¶Ø±ÙŠØ¨Ø© Ù„Ø¬Ù…ÙŠØ¹ ÙØ¦Ø§Øª Ø£Ø³Ø·ÙˆÙ„Ù†Ø§." : "Compare KSA VAT-inclusive flat rates for your journey coordinates."}</p>
+                  <p className="text-xs text-[#6B7280]">{isRtl ? "Ù…Ù‚Ø§Ø±Ù†Ø© Ø§Ù„Ø£Ø³Ø¹Ø§Ø± Ø§Ù„Ø«Ø§Ø¨ØªØ© Ø§Ù„Ø´Ø§Ù…Ù„Ø© Ù„Ù„Ø¶Ø±ÙŠØ¨Ø© Ù„Ø¬Ù…ÙŠØ¹ ÙØ¦Ø§Øª Ø£Ø³Ø·ÙˆÙ„Ù†Ø§." : "Compare KSA VAT-inclusive flat rates for your journey coordinates."}</p>
                 </div>
 
                 <button
                   onClick={() => setStep(1)}
-                  className="inline-flex items-center gap-1.5 text-xs text-[#C9A84C] hover:underline"
+                  className="inline-flex items-center gap-1.5 text-xs text-[#16A34A] hover:underline"
                 >
                   <ChevronLeft className="h-4 w-4" />
                   <span>{isRtl ? "ØªØ¹Ø¯ÙŠÙ„ Ø§Ù„Ù…Ø³Ø§Ø±" : "Adjust Journey"}</span>
@@ -772,7 +772,7 @@ export default function BookPage() {
               {loadingPrices ? (
                 <div className="flex flex-col items-center justify-center py-20 bg-[#121212] border border-[#C9A84C]/10 rounded-3xl">
                   <span className="h-8 w-8 animate-spin rounded-full border-4 border-[#C9A84C] border-t-transparent mb-4" />
-                  <p className="text-xs text-[#7C8088]">Calculating dynamic rates...</p>
+                  <p className="text-xs text-[#6B7280]">Calculating dynamic rates...</p>
                 </div>
               ) : (
                 <div className="grid gap-6">
@@ -791,7 +791,7 @@ export default function BookPage() {
                           isSoldOut
                             ? "border-red-950/20 bg-[#121212]/40 opacity-50 cursor-not-allowed"
                             : selectedVehicle === veh.key
-                            ? "border-[#C9A84C] bg-[#1A1813] shadow-[0_8px_30px_rgba(201,168,76,0.1)] scale-101"
+                            ? "border-[#16A34A] bg-[#16A34A]/10 shadow-[0_8px_30px_rgba(22,163,74,0.1)] scale-101"
                             : "border-[#C9A84C]/10 bg-[#121212] hover:border-[#C9A84C]/35 cursor-pointer"
                         }`}
                       >
@@ -808,7 +808,7 @@ export default function BookPage() {
 
                           {/* Top tags */}
                           <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
-                            <span className="rounded-full bg-black/80 px-3 py-1 text-[0.55rem] font-bold uppercase tracking-wider text-[#C9A84C] border border-[#C9A84C]/25">
+                            <span className="rounded-full bg-black/80 px-3 py-1 text-[0.55rem] font-bold uppercase tracking-wider text-[#B8963B] border border-[#C9A84C]/25">
                               {veh.badge}
                             </span>
                             {isSoldOut && (
@@ -823,31 +823,31 @@ export default function BookPage() {
                         <div className="p-6 flex flex-col justify-between text-left space-y-4">
                           <div className="space-y-2">
                             <div className="flex items-center justify-between">
-                              <h3 className="font-heading text-lg font-bold text-[#F5F0E8] group-hover:text-[#C9A84C] transition-colors">
+                              <h3 className="font-heading text-lg font-bold text-[#1C1C1C] group-hover:text-[#16A34A] transition-colors">
                                 {veh.name}
                               </h3>
                               
                               <div className="text-right">
-                                <p className="text-[0.55rem] text-[#7C8088] uppercase tracking-wider font-bold">Guaranteed Price</p>
-                                <p className="font-heading text-xl font-bold text-[#C9A84C]">
+                                <p className="text-[0.55rem] text-[#6B7280] uppercase tracking-wider font-bold">Guaranteed Price</p>
+                                <p className="font-heading text-xl font-bold text-[#16A34A]">
                                   SAR {routePrice}
                                 </p>
                               </div>
                             </div>
 
-                            <p className="text-xs text-[#A1A1A6]">{veh.desc}</p>
+                            <p className="text-xs text-[#6B7280]">{veh.desc}</p>
                           </div>
 
                           <div className="flex items-center justify-between border-t border-[#C9A84C]/10 pt-4">
-                            <div className="flex items-center gap-4 text-[0.65rem] text-[#7C8088] font-bold">
+                            <div className="flex items-center gap-4 text-[0.65rem] text-[#6B7280] font-bold">
                               <span>ðŸ‘¥ Max {veh.cap} Pax</span>
-                              <span className="h-1.5 w-1.5 rounded-full bg-[#C9A84C]" />
+                              <span className="h-1.5 w-1.5 rounded-full bg-[#16A34A]" />
                               <span>ðŸ§³ {veh.luggage} Bags</span>
                             </div>
 
                             {!isSoldOut && (
-                              <div className={`h-5 w-5 rounded-full border-2 flex items-center justify-center ${selectedVehicle === veh.key ? "border-[#C9A84C] bg-[#C9A84C]" : "border-[#7C8088]/20"}`}>
-                                {selectedVehicle === veh.key && <Check className="h-3.5 w-3.5 text-[#0A0A0A] stroke-[3]" />}
+                              <div className={`h-5 w-5 rounded-full border-2 flex items-center justify-center ${selectedVehicle === veh.key ? "border-[#C9A84C] bg-[#16A34A]" : "border-[#7C8088]/20"}`}>
+                                {selectedVehicle === veh.key && <Check className="h-3.5 w-3.5 text-white stroke-[3]" />}
                               </div>
                             )}
                           </div>
@@ -863,7 +863,7 @@ export default function BookPage() {
                 <button
                   onClick={handleNextStep}
                   disabled={loadingPrices}
-                  className="flex items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-8 py-4 text-xs font-bold uppercase tracking-wider text-[#0A0A0A] transition-all hover:bg-[#B8963B] shadow-[0_4px_20px_rgba(201,168,76,0.3)]"
+                  className="flex items-center justify-center gap-2 rounded-full bg-[#16A34A] px-8 py-4 text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-[#15803D] shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
                 >
                   <span>{isRtl ? "Ø§Ù„Ù…ØªØ§Ø¨Ø¹Ø© Ù„Ù„Ø¥Ø¶Ø§ÙØ§Øª" : "Continue to Extras"}</span>
                   <ChevronRight className="h-4.5 w-4.5" />
@@ -885,12 +885,12 @@ export default function BookPage() {
               <div className="flex items-center justify-between border-b border-[#C9A84C]/10 pb-4">
                 <div>
                   <h2 className="font-heading text-2xl font-bold">{isRtl ? "Ø§Ù„Ø¥Ø¶Ø§ÙØ§Øª ÙˆØ§Ù„Ø®Ø¯Ù…Ø§Øª Ø§Ù„Ø®Ø§ØµØ©" : "Tailor Your VIP Experience"}</h2>
-                  <p className="text-xs text-[#A1A1A6]">{isRtl ? "Ø®ÙŠØ§Ø±Ø§Øª Ø¯Ø±Ø¨Ø§Ù† Ù…Ø®ØµØµØ© Ù„ØªØ£Ù…ÙŠÙ† Ø£Ù‚ØµÙ‰ Ø³Ø¨Ù„ Ø§Ù„Ø±Ø§Ø­Ø© ÙˆØ§Ù„ØªØ±Ø­ÙŠØ¨ Ø¨Ø¶ÙŠÙˆÙÙƒÙ…." : "Premium amenities to enhance pilgrim comfort or executive hospitality."}</p>
+                  <p className="text-xs text-[#6B7280]">{isRtl ? "Ø®ÙŠØ§Ø±Ø§Øª Ø¯Ø±Ø¨Ø§Ù† Ù…Ø®ØµØµØ© Ù„ØªØ£Ù…ÙŠÙ† Ø£Ù‚ØµÙ‰ Ø³Ø¨Ù„ Ø§Ù„Ø±Ø§Ø­Ø© ÙˆØ§Ù„ØªØ±Ø­ÙŠØ¨ Ø¨Ø¶ÙŠÙˆÙÙƒÙ…." : "Premium amenities to enhance pilgrim comfort or executive hospitality."}</p>
                 </div>
 
                 <button
                   onClick={() => setStep(2)}
-                  className="inline-flex items-center gap-1.5 text-xs text-[#C9A84C] hover:underline"
+                  className="inline-flex items-center gap-1.5 text-xs text-[#16A34A] hover:underline"
                 >
                   <ChevronLeft className="h-4 w-4" />
                   <span>{isRtl ? "ØªØºÙŠÙŠØ± Ø§Ù„Ø³ÙŠØ§Ø±Ø©" : "Change Vehicle"}</span>
@@ -903,59 +903,59 @@ export default function BookPage() {
                 {/* Child Seat */}
                 <div
                   onClick={() => setAddons(a => ({ ...a, childSeat: !a.childSeat }))}
-                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.childSeat ? "border-[#C9A84C] bg-[#1A1813]" : "border-[#C9A84C]/10 bg-[#121212] hover:border-[#C9A84C]/30"}`}
+                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.childSeat ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-[#121212] hover:border-[#C9A84C]/30"}`}
                 >
                   <div className="space-y-1.5 max-w-[200px]">
-                    <h4 className="text-sm font-bold text-[#F5F0E8]">{isRtl ? "ÙƒØ±Ø³ÙŠ Ø£Ø·ÙØ§Ù„ Ø¢Ù…Ù†" : "Child Safety Seat"}</h4>
-                    <p className="text-[0.6rem] text-[#A1A1A6] leading-relaxed">Required for babies and toddlers under 4 years old in KSA.</p>
+                    <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "ÙƒØ±Ø³ÙŠ Ø£Ø·ÙØ§Ù„ Ø¢Ù…Ù†" : "Child Safety Seat"}</h4>
+                    <p className="text-[0.6rem] text-[#6B7280] leading-relaxed">Required for babies and toddlers under 4 years old in KSA.</p>
                   </div>
-                  <span className="text-xs font-bold text-[#C9A84C]">+SAR 30</span>
+                  <span className="text-xs font-bold text-[#16A34A]">+SAR 30</span>
                 </div>
 
                 {/* Meet and Greet */}
                 <div
                   onClick={() => setAddons(a => ({ ...a, meetAndGreet: !a.meetAndGreet }))}
-                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.meetAndGreet ? "border-[#C9A84C] bg-[#1A1813]" : "border-[#C9A84C]/10 bg-[#121212] hover:border-[#C9A84C]/30"}`}
+                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.meetAndGreet ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-[#121212] hover:border-[#C9A84C]/30"}`}
                 >
                   <div className="space-y-1.5 max-w-[200px]">
-                    <h4 className="text-sm font-bold text-[#F5F0E8]">{isRtl ? "Ø§Ù„Ø§Ø³ØªÙ‚Ø¨Ø§Ù„ ÙˆØ§Ù„ØªØ±Ø­ÙŠØ¨ Ø¨Ø§Ù„Ù…Ø·Ø§Ø±" : "Airport Meet & Greet"}</h4>
-                    <p className="text-[0.6rem] text-[#A1A1A6] leading-relaxed">driver greets you at arrivals holding a luxury VIP sign.</p>
+                    <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "Ø§Ù„Ø§Ø³ØªÙ‚Ø¨Ø§Ù„ ÙˆØ§Ù„ØªØ±Ø­ÙŠØ¨ Ø¨Ø§Ù„Ù…Ø·Ø§Ø±" : "Airport Meet & Greet"}</h4>
+                    <p className="text-[0.6rem] text-[#6B7280] leading-relaxed">driver greets you at arrivals holding a luxury VIP sign.</p>
                   </div>
-                  <span className="text-xs font-bold text-[#C9A84C]">+SAR 20</span>
+                  <span className="text-xs font-bold text-[#16A34A]">+SAR 20</span>
                 </div>
 
                 {/* Extra Waiting */}
                 <div
                   onClick={() => setAddons(a => ({ ...a, extraWaiting: !a.extraWaiting }))}
-                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.extraWaiting ? "border-[#C9A84C] bg-[#1A1813]" : "border-[#C9A84C]/10 bg-[#121212] hover:border-[#C9A84C]/30"}`}
+                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.extraWaiting ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-[#121212] hover:border-[#C9A84C]/30"}`}
                 >
                   <div className="space-y-1.5 max-w-[200px]">
-                    <h4 className="text-sm font-bold text-[#F5F0E8]">{isRtl ? "ÙˆÙ‚Øª Ø§Ù†ØªØ¸Ø§Ø± Ø¥Ø¶Ø§ÙÙŠ (Ù£Ù  Ø¯Ù‚ÙŠÙ‚Ø©)" : "Extra Waiting Time"}</h4>
-                    <p className="text-[0.6rem] text-[#A1A1A6] leading-relaxed">Extend driver standby window at your coordinates.</p>
+                    <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "ÙˆÙ‚Øª Ø§Ù†ØªØ¸Ø§Ø± Ø¥Ø¶Ø§ÙÙŠ (Ù£Ù  Ø¯Ù‚ÙŠÙ‚Ø©)" : "Extra Waiting Time"}</h4>
+                    <p className="text-[0.6rem] text-[#6B7280] leading-relaxed">Extend driver standby window at your coordinates.</p>
                   </div>
-                  <span className="text-xs font-bold text-[#C9A84C]">+SAR 40</span>
+                  <span className="text-xs font-bold text-[#16A34A]">+SAR 40</span>
                 </div>
 
                 {/* Chilled Water Bottles */}
                 <div
                   onClick={() => setAddons(a => ({ ...a, waterBottles: !a.waterBottles }))}
-                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.waterBottles ? "border-[#C9A84C] bg-[#1A1813]" : "border-[#C9A84C]/10 bg-[#121212] hover:border-[#C9A84C]/30"}`}
+                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.waterBottles ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-[#121212] hover:border-[#C9A84C]/30"}`}
                 >
                   <div className="space-y-1.5 max-w-[200px]">
-                    <h4 className="text-sm font-bold text-[#F5F0E8]">{isRtl ? "Ù…ÙŠØ§Ù‡ Ø¨Ø§Ø±Ø¯Ø© ÙØ§Ø®Ø±Ø©" : "Premium Chilled Water"}</h4>
-                    <p className="text-[0.6rem] text-[#A1A1A6] leading-relaxed">Bottled premium chilled water stocked in vehicle.</p>
+                    <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "Ù…ÙŠØ§Ù‡ Ø¨Ø§Ø±Ø¯Ø© ÙØ§Ø®Ø±Ø©" : "Premium Chilled Water"}</h4>
+                    <p className="text-[0.6rem] text-[#6B7280] leading-relaxed">Bottled premium chilled water stocked in vehicle.</p>
                   </div>
-                  <span className="text-xs font-bold text-[#C9A84C]">+SAR 10</span>
+                  <span className="text-xs font-bold text-[#16A34A]">+SAR 10</span>
                 </div>
 
                 {/* Prayer Mat Stop */}
                 <div
                   onClick={() => setAddons(a => ({ ...a, prayerMat: !a.prayerMat }))}
-                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.prayerMat ? "border-[#C9A84C] bg-[#1A1813]" : "border-[#C9A84C]/10 bg-[#121212] hover:border-[#C9A84C]/30"}`}
+                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.prayerMat ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-[#121212] hover:border-[#C9A84C]/30"}`}
                 >
                   <div className="space-y-1.5 max-w-[200px]">
-                    <h4 className="text-sm font-bold text-[#F5F0E8]">{isRtl ? "Ø³Ø¬Ø§Ø¯Ø© ØµÙ„Ø§Ø© Ù…Ø¹Ù‚Ù…Ø©" : "Sterilized Prayer Mat"}</h4>
-                    <p className="text-[0.6rem] text-[#A1A1A6] leading-relaxed">Sterilized pilgrim prayer mat loaded in back cabin.</p>
+                    <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "Ø³Ø¬Ø§Ø¯Ø© ØµÙ„Ø§Ø© Ù…Ø¹Ù‚Ù…Ø©" : "Sterilized Prayer Mat"}</h4>
+                    <p className="text-[0.6rem] text-[#6B7280] leading-relaxed">Sterilized pilgrim prayer mat loaded in back cabin.</p>
                   </div>
                   <span className="text-xs font-bold text-green-400">Complimentary</span>
                 </div>
@@ -963,11 +963,11 @@ export default function BookPage() {
                 {/* Wheelchair accessible filter */}
                 <div
                   onClick={() => setAddons(a => ({ ...a, wheelchairFilter: !a.wheelchairFilter }))}
-                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.wheelchairFilter ? "border-[#C9A84C] bg-[#1A1813]" : "border-[#C9A84C]/10 bg-[#121212] hover:border-[#C9A84C]/30"}`}
+                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.wheelchairFilter ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-[#121212] hover:border-[#C9A84C]/30"}`}
                 >
                   <div className="space-y-1.5 max-w-[200px]">
-                    <h4 className="text-sm font-bold text-[#F5F0E8]">{isRtl ? "Ù…Ø±ÙƒØ¨Ø© Ù…Ù‡ÙŠØ¦Ø© Ù„Ù„ÙƒØ±Ø§Ø³ÙŠ" : "Wheelchair Facility"}</h4>
-                    <p className="text-[0.6rem] text-[#A1A1A6] leading-relaxed">Lock a vehicle that supports folding wheelchair loading.</p>
+                    <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "Ù…Ø±ÙƒØ¨Ø© Ù…Ù‡ÙŠØ¦Ø© Ù„Ù„ÙƒØ±Ø§Ø³ÙŠ" : "Wheelchair Facility"}</h4>
+                    <p className="text-[0.6rem] text-[#6B7280] leading-relaxed">Lock a vehicle that supports folding wheelchair loading.</p>
                   </div>
                   <span className="text-xs font-bold text-green-400">Filter Applied</span>
                 </div>
@@ -978,7 +978,7 @@ export default function BookPage() {
               <div className="flex justify-between pt-4 border-t border-[#C9A84C]/10">
                 <button
                   onClick={() => setStep(2)}
-                  className="flex items-center justify-center gap-1.5 rounded-full border border-[#C9A84C]/25 bg-black/45 px-6 py-4 text-xs font-bold text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
+                  className="flex items-center justify-center gap-1.5 rounded-full border border-[#C9A84C]/25 bg-white px-6 py-4 text-xs font-bold text-[#16A34A] hover:bg-[#C9A84C]/10 transition-all"
                 >
                   <ChevronLeft className="h-4.5 w-4.5" />
                   <span>Back</span>
@@ -986,7 +986,7 @@ export default function BookPage() {
 
                 <button
                   onClick={handleNextStep}
-                  className="flex items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-8 py-4 text-xs font-bold uppercase tracking-wider text-[#0A0A0A] transition-all hover:bg-[#B8963B] shadow-[0_4px_20px_rgba(201,168,76,0.3)]"
+                  className="flex items-center justify-center gap-2 rounded-full bg-[#16A34A] px-8 py-4 text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-[#15803D] shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
                 >
                   <span>{isRtl ? "Ø§Ù„Ù…ØªØ§Ø¨Ø¹Ø© Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ø§ØªØµØ§Ù„" : "Continue to Contact"}</span>
                   <ChevronRight className="h-4.5 w-4.5" />
@@ -1008,12 +1008,12 @@ export default function BookPage() {
               <div className="flex items-center justify-between border-b border-[#C9A84C]/10 pb-4">
                 <div>
                   <h2 className="font-heading text-2xl font-bold">{isRtl ? "Ù…Ø¹Ù„ÙˆÙ…Ø§Øª Ø§Ù„Ø§ØªØµØ§Ù„ ÙˆØ§Ù„Ù…Ø³Ø§ÙØ±" : "VIP Passenger Registry"}</h2>
-                  <p className="text-xs text-[#A1A1A6]">{isRtl ? "Ø£Ø¯Ø®Ù„ ØªÙØ§ØµÙŠÙ„ Ø§Ù„Ø§ØªØµØ§Ù„ Ù„Ø¥Ø±Ø³Ø§Ù„ Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ø³Ø§Ø¦Ù‚ ÙˆØ±Ù‚Ù… Ø§Ù„Ù„ÙˆØ­Ø© ÙÙˆØ±Ø§." : "Specify target contacts to receive dispatch verification alerts."}</p>
+                  <p className="text-xs text-[#6B7280]">{isRtl ? "Ø£Ø¯Ø®Ù„ ØªÙØ§ØµÙŠÙ„ Ø§Ù„Ø§ØªØµØ§Ù„ Ù„Ø¥Ø±Ø³Ø§Ù„ Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ø³Ø§Ø¦Ù‚ ÙˆØ±Ù‚Ù… Ø§Ù„Ù„ÙˆØ­Ø© ÙÙˆØ±Ø§." : "Specify target contacts to receive dispatch verification alerts."}</p>
                 </div>
 
                 <button
                   onClick={() => setStep(3)}
-                  className="inline-flex items-center gap-1.5 text-xs text-[#C9A84C] hover:underline"
+                  className="inline-flex items-center gap-1.5 text-xs text-[#16A34A] hover:underline"
                 >
                   <ChevronLeft className="h-4 w-4" />
                   <span>{isRtl ? "ØªØ¹Ø¯ÙŠÙ„ Ø§Ù„Ø¥Ø¶Ø§ÙØ§Øª" : "Edit Amenities"}</span>
@@ -1024,10 +1024,10 @@ export default function BookPage() {
               <div className="rounded-2xl border border-amber-900/30 bg-amber-950/5 p-5 flex items-start gap-4">
                 <ShieldCheck className="h-6 w-6 text-[#C9A84C] shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-xs font-bold text-[#F5F0E8]">
+                  <h4 className="text-xs font-bold text-[#1C1C1C]">
                     {isRtl ? "Ù‡Ù„ ØªØ±ØºØ¨ ÙÙŠ ÙƒØ³Ø¨ Ù¡Ù¥Ù  Ù†Ù‚Ø·Ø© ÙˆÙ„Ø§Ø¡ ÙØ§Ø®Ø±Ø©ØŸ" : "Unlock 150 VIP Points Today"}
                   </h4>
-                  <p className="text-[0.6rem] text-[#A1A1A6] leading-relaxed mt-1">
+                  <p className="text-[0.6rem] text-[#6B7280] leading-relaxed mt-1">
                     {isRtl
                       ? "Ù‚Ù… Ø¨ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ Ø£Ùˆ Ø¥Ù†Ø´Ø§Ø¡ Ø­Ø³Ø§Ø¨ Ø§Ù„Ø¢Ù† Ù„Ø­ÙØ¸ ØªÙØ§ØµÙŠÙ„ Ù‡Ø°Ø§ Ø§Ù„Ø­Ø¬Ø²ØŒ ÙˆØ§Ù„Ø§Ø³ØªÙØ§Ø¯Ø© Ù…Ù† Ø®ØµÙˆÙ…Ø§Øª Ø±Ø­Ù„ØªÙƒ Ø§Ù„Ù‚Ø§Ø¯Ù…Ø©."
                       : "Sign in or create an account to lock this dispatch into your client dashboard and trigger loyalty program rewards."}
@@ -1035,7 +1035,7 @@ export default function BookPage() {
                   <div className="mt-3 flex gap-2">
                     <Link
                       href="/admin/login"
-                      className="rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/35 px-4.5 py-1 text-[0.55rem] font-bold text-[#C9A84C] hover:bg-[#C9A84C] hover:text-[#0A0A0A] transition-all"
+                      className="rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/35 px-4.5 py-1 text-[0.55rem] font-bold text-[#16A34A] hover:bg-[#16A34A] hover:text-white transition-all"
                     >
                       Sign In / Register
                     </Link>
@@ -1044,11 +1044,11 @@ export default function BookPage() {
               </div>
 
               {/* Form panel inputs */}
-              <div className="rounded-3xl border border-[#C9A84C]/15 bg-[#121212] p-6 space-y-4">
+              <div className="rounded-3xl border border-[#16A34A]/12 bg-[#121212] p-6 space-y-4">
                 
                 {/* Full name */}
                 <div>
-                  <label className="block text-[0.6rem] uppercase tracking-wider text-[#A1A1A6] mb-1.5 font-bold">
+                  <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-1.5 font-bold">
                     {isRtl ? "Ø§Ù„Ø§Ø³Ù… Ø§Ù„ÙƒØ§Ù…Ù„ Ù„Ù„Ù…Ø³Ø§ÙØ±" : "Passenger Full Name"}
                   </label>
                   <div className="relative">
@@ -1059,7 +1059,7 @@ export default function BookPage() {
                       value={custName}
                       onChange={(e) => setCustName(e.target.value)}
                       placeholder="e.g. Muhammad Al-Ghamdi"
-                      className="w-full rounded-xl bg-black/40 border border-[#C9A84C]/10 pl-9 pr-4 py-3.5 text-xs text-[#F5F0E8] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
+                      className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 pl-9 pr-4 py-3.5 text-xs text-[#1C1C1C] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
                     />
                   </div>
                 </div>
@@ -1067,13 +1067,13 @@ export default function BookPage() {
                 {/* Contact phone with code */}
                 <div className="grid gap-4 grid-cols-[0.3fr_0.7fr]">
                   <div>
-                    <label className="block text-[0.6rem] uppercase tracking-wider text-[#A1A1A6] mb-1.5 font-bold">
+                    <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-1.5 font-bold">
                       Code
                     </label>
                     <select
                       value={phoneCode}
                       onChange={(e) => setPhoneCode(e.target.value)}
-                      className="w-full rounded-xl bg-black/40 border border-[#C9A84C]/10 px-2 py-3.5 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
+                      className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 px-2 py-3.5 text-xs text-[#1C1C1C] outline-none focus:border-[#C9A84C]"
                     >
                       <option value="+966">KSA (+966)</option>
                       <option value="+971">UAE (+971)</option>
@@ -1087,7 +1087,7 @@ export default function BookPage() {
                   </div>
 
                   <div>
-                    <label className="block text-[0.6rem] uppercase tracking-wider text-[#A1A1A6] mb-1.5 font-bold">
+                    <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-1.5 font-bold">
                       {isRtl ? "Ø±Ù‚Ù… Ø§Ù„Ù‡Ø§ØªÙ ÙˆØ§Ù„ÙˆØ§ØªØ³Ø§Ø¨" : "WhatsApp Phone Number"}
                     </label>
                     <div className="relative">
@@ -1098,7 +1098,7 @@ export default function BookPage() {
                         value={custPhone}
                         onChange={(e) => setCustPhone(e.target.value)}
                         placeholder="e.g. 500123456"
-                        className="w-full rounded-xl bg-black/40 border border-[#C9A84C]/10 pl-9 pr-4 py-3.5 text-xs text-[#F5F0E8] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
+                        className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 pl-9 pr-4 py-3.5 text-xs text-[#1C1C1C] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
                       />
                     </div>
                   </div>
@@ -1107,7 +1107,7 @@ export default function BookPage() {
                 {/* Email and nationality */}
                 <div className="grid gap-4 grid-cols-2">
                   <div>
-                    <label className="block text-[0.6rem] uppercase tracking-wider text-[#A1A1A6] mb-1.5 font-bold">
+                    <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-1.5 font-bold">
                       {isRtl ? "Ø§Ù„Ø¨Ø±ÙŠØ¯ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ (Ø§Ø®ØªÙŠØ§Ø±ÙŠ)" : "Email Address (Optional)"}
                     </label>
                     <div className="relative">
@@ -1117,13 +1117,13 @@ export default function BookPage() {
                         value={custEmail}
                         onChange={(e) => setCustEmail(e.target.value)}
                         placeholder="e.g. client@taxisaudiarabia.com"
-                        className="w-full rounded-xl bg-black/40 border border-[#C9A84C]/10 pl-9 pr-4 py-3.5 text-xs text-[#F5F0E8] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
+                        className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 pl-9 pr-4 py-3.5 text-xs text-[#1C1C1C] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-[0.6rem] uppercase tracking-wider text-[#A1A1A6] mb-1.5 font-bold">
+                    <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-1.5 font-bold">
                       {isRtl ? "Ø§Ù„Ø¬Ù†Ø³ÙŠØ© / Ø§Ù„Ø¨Ù„Ø¯" : "Nationality / Country"}
                     </label>
                     <div className="relative">
@@ -1133,7 +1133,7 @@ export default function BookPage() {
                         value={nationality}
                         onChange={(e) => setNationality(e.target.value)}
                         placeholder="e.g. Saudi Arabia"
-                        className="w-full rounded-xl bg-black/40 border border-[#C9A84C]/10 pl-9 pr-4 py-3.5 text-xs text-[#F5F0E8] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
+                        className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 pl-9 pr-4 py-3.5 text-xs text-[#1C1C1C] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
                       />
                     </div>
                   </div>
@@ -1141,7 +1141,7 @@ export default function BookPage() {
 
                 {/* Language Select */}
                 <div>
-                  <label className="block text-[0.6rem] uppercase tracking-wider text-[#A1A1A6] mb-1.5 font-bold">
+                  <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-1.5 font-bold">
                     {isRtl ? "Ù„ØºØ© Ø§Ù„Ø³Ø§Ø¦Ù‚ Ø§Ù„Ù…ÙØ¶Ù„Ø©" : "Preferred Communication Language"}
                   </label>
                   <div className="relative">
@@ -1149,7 +1149,7 @@ export default function BookPage() {
                     <select
                       value={preferredLang}
                       onChange={(e) => setPreferredLang(e.target.value as "en" | "ar" | "ur")}
-                      className="w-full rounded-xl bg-black/40 border border-[#C9A84C]/10 pl-9 pr-3 py-3.5 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
+                      className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 pl-9 pr-3 py-3.5 text-xs text-[#1C1C1C] outline-none focus:border-[#C9A84C]"
                     >
                       <option value="en">English (driver Standard)</option>
                       <option value="ar">Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© (Ø³Ø§Ø¦Ù‚ ÙŠØªØ­Ø¯Ø« Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©)</option>
@@ -1164,7 +1164,7 @@ export default function BookPage() {
               <div className="flex justify-between pt-4 border-t border-[#C9A84C]/10">
                 <button
                   onClick={() => setStep(3)}
-                  className="flex items-center justify-center gap-1.5 rounded-full border border-[#C9A84C]/25 bg-black/45 px-6 py-4 text-xs font-bold text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
+                  className="flex items-center justify-center gap-1.5 rounded-full border border-[#C9A84C]/25 bg-white px-6 py-4 text-xs font-bold text-[#16A34A] hover:bg-[#C9A84C]/10 transition-all"
                 >
                   <ChevronLeft className="h-4.5 w-4.5" />
                   <span>Back</span>
@@ -1172,7 +1172,7 @@ export default function BookPage() {
 
                 <button
                   onClick={handleNextStep}
-                  className="flex items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-8 py-4 text-xs font-bold uppercase tracking-wider text-[#0A0A0A] transition-all hover:bg-[#B8963B] shadow-[0_4px_20px_rgba(201,168,76,0.3)]"
+                  className="flex items-center justify-center gap-2 rounded-full bg-[#16A34A] px-8 py-4 text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-[#15803D] shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
                 >
                   <span>{isRtl ? "Ù…Ø±Ø§Ø¬Ø¹Ø© ÙˆØ­Ø³Ø§Ø¨ Ø§Ù„ÙØ§ØªÙˆØ±Ø©" : "Review Summary & Pay"}</span>
                   <ChevronRight className="h-4.5 w-4.5" />
@@ -1194,12 +1194,12 @@ export default function BookPage() {
               <div className="flex items-center justify-between border-b border-[#C9A84C]/10 pb-4">
                 <div>
                   <h2 className="font-heading text-2xl font-bold">{isRtl ? "Ø§Ù„ÙØ§ØªÙˆØ±Ø© Ø§Ù„ØªÙØµÙŠÙ„ÙŠØ© ÙˆØ¨ÙˆØ§Ø¨Ø© Ø§Ù„Ø¯ÙØ¹" : "Secure Premium Review & Checkout"}</h2>
-                  <p className="text-xs text-[#A1A1A6]">{isRtl ? "Ù…Ø±Ø§Ø¬Ø¹Ø© Ø¬Ù…ÙŠØ¹ Ø¥Ø­Ø¯Ø§Ø«ÙŠØ§Øª Ø±Ø­Ù„ØªÙƒ ÙˆØªÙØ§ØµÙŠÙ„ Ø§Ù„ÙØ§ØªÙˆØ±Ø© Ø§Ù„Ø¶Ø±ÙŠØ¨ÙŠØ©." : "Verify dispatch summaries and secure KSA banking portal checkout."}</p>
+                  <p className="text-xs text-[#6B7280]">{isRtl ? "Ù…Ø±Ø§Ø¬Ø¹Ø© Ø¬Ù…ÙŠØ¹ Ø¥Ø­Ø¯Ø§Ø«ÙŠØ§Øª Ø±Ø­Ù„ØªÙƒ ÙˆØªÙØ§ØµÙŠÙ„ Ø§Ù„ÙØ§ØªÙˆØ±Ø© Ø§Ù„Ø¶Ø±ÙŠØ¨ÙŠØ©." : "Verify dispatch summaries and secure KSA banking portal checkout."}</p>
                 </div>
 
                 <button
                   onClick={() => setStep(4)}
-                  className="inline-flex items-center gap-1.5 text-xs text-[#C9A84C] hover:underline"
+                  className="inline-flex items-center gap-1.5 text-xs text-[#16A34A] hover:underline"
                 >
                   <ChevronLeft className="h-4 w-4" />
                   <span>{isRtl ? "ØªØ¹Ø¯ÙŠÙ„ Ù…Ø¹Ù„ÙˆÙ…Ø§ØªÙŠ" : "Edit Customer Info"}</span>
@@ -1212,8 +1212,8 @@ export default function BookPage() {
                 <div className="space-y-6">
                   
                   {/* Moyasar Gateway Simulator selection */}
-                  <div className="rounded-3xl border border-[#C9A84C]/15 bg-[#121212] p-6 space-y-4">
-                    <h3 className="font-heading text-sm uppercase tracking-wider text-[#C9A84C] font-bold">
+                  <div className="rounded-3xl border border-[#16A34A]/12 bg-[#121212] p-6 space-y-4">
+                    <h3 className="font-heading text-sm uppercase tracking-wider text-[#B8963B] font-bold">
                       {isRtl ? "Ø·Ø±ÙŠÙ‚Ø© Ø§Ù„Ø¯ÙØ¹ Ø§Ù„Ø¢Ù…Ù†Ø©" : "VIP Secure Payment Method"}
                     </h3>
 
@@ -1221,7 +1221,7 @@ export default function BookPage() {
                       <button
                         type="button"
                         onClick={() => setPayMethod("card")}
-                        className={`rounded-xl border p-3 flex flex-col items-center gap-2 transition-all ${payMethod === "card" ? "border-[#C9A84C] bg-[#1A1813]" : "border-[#C9A84C]/10 bg-black/20"}`}
+                        className={`rounded-xl border p-3 flex flex-col items-center gap-2 transition-all ${payMethod === "card" ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/25 bg-white"}`}
                       >
                         <CreditCard className="h-5 w-5 text-[#C9A84C]" />
                         <span className="text-[0.55rem] font-bold uppercase">Credit Card</span>
@@ -1229,7 +1229,7 @@ export default function BookPage() {
                       <button
                         type="button"
                         onClick={() => setPayMethod("applepay")}
-                        className={`rounded-xl border p-3 flex flex-col items-center gap-2 transition-all ${payMethod === "applepay" ? "border-[#C9A84C] bg-[#1A1813]" : "border-[#C9A84C]/10 bg-black/20"}`}
+                        className={`rounded-xl border p-3 flex flex-col items-center gap-2 transition-all ${payMethod === "applepay" ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/25 bg-white"}`}
                       >
                         <span className="text-base">ðŸ</span>
                         <span className="text-[0.55rem] font-bold uppercase">Apple Pay</span>
@@ -1237,7 +1237,7 @@ export default function BookPage() {
                       <button
                         type="button"
                         onClick={() => setPayMethod("arrival")}
-                        className={`rounded-xl border p-3 flex flex-col items-center gap-2 transition-all ${payMethod === "arrival" ? "border-[#C9A84C] bg-[#1A1813]" : "border-[#C9A84C]/10 bg-black/20"}`}
+                        className={`rounded-xl border p-3 flex flex-col items-center gap-2 transition-all ${payMethod === "arrival" ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/25 bg-white"}`}
                       >
                         <span className="text-base">ðŸ’¬</span>
                         <span className="text-[0.55rem] font-bold uppercase">{isRtl ? "ÙˆØ§ØªØ³Ø§Ø¨" : "Arrival / WA"}</span>
@@ -1246,16 +1246,16 @@ export default function BookPage() {
 
                     {/* Deposit Switcher toggle */}
                     {payMethod !== "arrival" && (
-                      <div className="flex items-center justify-between bg-black/35 border border-[#C9A84C]/10 rounded-2xl p-4 mt-2">
+                      <div className="flex items-center justify-between bg-[#F0FDF4] border border-[#C9A84C]/10 rounded-2xl p-4 mt-2">
                         <div>
-                          <h4 className="text-xs font-bold text-[#F5F0E8]">Pay 20% Deposit Now</h4>
-                          <p className="text-[0.55rem] text-[#7C8088] mt-0.5">Pay SAR {depositDue} today, rest at pickup (SAR {remainingDue})</p>
+                          <h4 className="text-xs font-bold text-[#1C1C1C]">Pay 20% Deposit Now</h4>
+                          <p className="text-[0.55rem] text-[#6B7280] mt-0.5">Pay SAR {depositDue} today, rest at pickup (SAR {remainingDue})</p>
                         </div>
                         <input
                           type="checkbox"
                           checked={payDeposit}
                           onChange={(e) => setPayDeposit(e.target.checked)}
-                          className="h-4.5 w-4.5 accent-[#C9A84C] rounded border-[#C9A84C]/20"
+                          className="h-4.5 w-4.5 accent-[#C9A84C] rounded border-[#16A34A]/15"
                         />
                       </div>
                     )}
@@ -1268,50 +1268,50 @@ export default function BookPage() {
                         className="space-y-3 pt-2"
                       >
                         <div>
-                          <label className="block text-[0.55rem] uppercase tracking-wider text-[#A1A1A6] mb-1 font-bold">Cardholder Name</label>
+                          <label className="block text-[0.55rem] uppercase tracking-wider text-[#6B7280] mb-1 font-bold">Cardholder Name</label>
                           <input
                             type="text"
                             required
                             value={cardName}
                             onChange={(e) => setCardName(e.target.value)}
                             placeholder="e.g. MUHAMMAD AL GHAMDI"
-                            className="w-full rounded-xl bg-black/40 border border-[#C9A84C]/10 px-3 py-3 text-xs text-[#F5F0E8] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
+                            className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 px-3 py-3 text-xs text-[#1C1C1C] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-[0.55rem] uppercase tracking-wider text-[#A1A1A6] mb-1 font-bold">Card Number</label>
+                          <label className="block text-[0.55rem] uppercase tracking-wider text-[#6B7280] mb-1 font-bold">Card Number</label>
                           <input
                             type="text"
                             maxLength={19}
                             value={cardNumber}
                             onChange={(e) => setCardNumber(e.target.value.replace(/\s?/g, '').replace(/(\d{4})/g, '$1 ').trim())}
                             placeholder="4000 1234 5678 9010 (Mada / Visa / MC)"
-                            className="w-full rounded-xl bg-black/40 border border-[#C9A84C]/10 px-3 py-3 text-xs text-[#F5F0E8] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
+                            className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 px-3 py-3 text-xs text-[#1C1C1C] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
                           />
                         </div>
 
                         <div className="grid gap-3 grid-cols-3">
                           <div className="col-span-2">
-                            <label className="block text-[0.55rem] uppercase tracking-wider text-[#A1A1A6] mb-1 font-bold">Expiry Date</label>
+                            <label className="block text-[0.55rem] uppercase tracking-wider text-[#6B7280] mb-1 font-bold">Expiry Date</label>
                             <input
                               type="text"
                               maxLength={5}
                               value={cardExpiry}
                               onChange={(e) => setCardExpiry(e.target.value)}
                               placeholder="MM/YY"
-                              className="w-full rounded-xl bg-black/40 border border-[#C9A84C]/10 px-3 py-3 text-xs text-[#F5F0E8] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
+                              className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 px-3 py-3 text-xs text-[#1C1C1C] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
                             />
                           </div>
                           <div>
-                            <label className="block text-[0.55rem] uppercase tracking-wider text-[#A1A1A6] mb-1 font-bold">CVV</label>
+                            <label className="block text-[0.55rem] uppercase tracking-wider text-[#6B7280] mb-1 font-bold">CVV</label>
                             <input
                               type="password"
                               maxLength={3}
                               value={cardCvv}
                               onChange={(e) => setCardCvv(e.target.value.replace(/\D/g, ""))}
                               placeholder="***"
-                              className="w-full rounded-xl bg-black/40 border border-[#C9A84C]/10 px-3 py-3 text-xs text-[#F5F0E8] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
+                              className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 px-3 py-3 text-xs text-[#1C1C1C] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
                             />
                           </div>
                         </div>
@@ -1320,7 +1320,7 @@ export default function BookPage() {
 
                     {/* Apple Pay trigger message */}
                     {payMethod === "applepay" && (
-                      <div className="rounded-2xl border border-dashed border-[#C9A84C]/25 bg-black/35 p-6 text-center text-xs text-[#7C8088] space-y-2">
+                      <div className="rounded-2xl border border-dashed border-[#C9A84C]/25 bg-[#F0FDF4] p-6 text-center text-xs text-[#6B7280] space-y-2">
                         <p>Simulating quick Apple Pay auth via biometric/wallet overlay...</p>
                         <div className="inline-block rounded-full bg-white text-black font-bold font-heading px-6 py-2">
                           ï£¿ Pay
@@ -1337,12 +1337,12 @@ export default function BookPage() {
                       placeholder="PROMO CODE (e.g. WELCOME10)"
                       value={promoCode}
                       onChange={(e) => setPromoCode(e.target.value)}
-                      className="flex-1 rounded-xl bg-black/40 border border-[#C9A84C]/10 px-3 py-2.5 text-xs text-[#F5F0E8] placeholder-[#7C8088] outline-none"
+                      className="flex-1 rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 px-3 py-2.5 text-xs text-[#1C1C1C] placeholder-[#7C8088] outline-none"
                     />
                     <button
                       type="button"
                       onClick={handleApplyPromo}
-                      className="rounded-xl border border-[#C9A84C]/25 hover:bg-[#C9A84C] hover:text-[#0A0A0A] transition-all text-xs font-bold text-[#C9A84C] px-5"
+                      className="rounded-xl border border-[#C9A84C]/25 hover:bg-[#16A34A] hover:text-white transition-all text-xs font-bold text-[#16A34A] px-5"
                     >
                       Apply
                     </button>
@@ -1354,46 +1354,46 @@ export default function BookPage() {
                       type="checkbox"
                       checked={termsAgreed}
                       onChange={(e) => setTermsAgreed(e.target.checked)}
-                      className="h-4.5 w-4.5 accent-[#C9A84C] rounded border-[#C9A84C]/20 mt-0.5"
+                      className="h-4.5 w-4.5 accent-[#C9A84C] rounded border-[#16A34A]/15 mt-0.5"
                     />
-                    <p className="text-[0.6rem] leading-relaxed text-[#7C8088]">
-                      I agree to the <span className="underline hover:text-[#C9A84C] cursor-pointer">Terms of Carriage</span>, including Saudi General Transport Authority laws and the Taxi Saudi Arabia fixed rate guaranteed pricing policy.
+                    <p className="text-[0.6rem] leading-relaxed text-[#6B7280]">
+                      I agree to the <span className="underline hover:text-[#16A34A] cursor-pointer">Terms of Carriage</span>, including Saudi General Transport Authority laws and the Taxi Saudi Arabia fixed rate guaranteed pricing policy.
                     </p>
                   </div>
 
                 </div>
 
                 {/* RIGHT: Invoice Summary breakdown */}
-                <div className="rounded-3xl border border-[#C9A84C]/15 bg-[#121212] p-6 space-y-6 flex flex-col justify-between shadow-2xl">
+                <div className="rounded-3xl border border-[#16A34A]/12 bg-[#121212] p-6 space-y-6 flex flex-col justify-between shadow-2xl">
                   
                   <div className="space-y-6">
-                    <h3 className="font-heading text-sm uppercase tracking-wider text-[#C9A84C] font-bold border-b border-[#C9A84C]/10 pb-3 flex items-center gap-1.5">
+                    <h3 className="font-heading text-sm uppercase tracking-wider text-[#B8963B] font-bold border-b border-[#C9A84C]/10 pb-3 flex items-center gap-1.5">
                       <FileText className="h-4 w-4" /> {isRtl ? "ÙØ§ØªÙˆØ±Ø© Ø§Ù„Ù†Ù‚Ù„ Ø§Ù„ÙØ§Ø®Ø±Ø©" : "VIP Travel Invoice"}
                     </h3>
 
                     {/* Summary coordinates list */}
                     <div className="space-y-3.5 text-xs">
                       <div>
-                        <p className="text-[0.55rem] text-[#7C8088] font-bold uppercase">{isRtl ? "Ù…Ø³Ø§Ø± Ø§Ù„Ø±Ø­Ù„Ø©" : "Route details"}</p>
-                        <p className="text-[#F5F0E8] truncate max-w-[280px]">{pickup} âž” {dropoff}</p>
+                        <p className="text-[0.55rem] text-[#6B7280] font-bold uppercase">{isRtl ? "Ù…Ø³Ø§Ø± Ø§Ù„Ø±Ø­Ù„Ø©" : "Route details"}</p>
+                        <p className="text-[#1C1C1C] truncate max-w-[280px]">{pickup} âž” {dropoff}</p>
                       </div>
 
                       <div className="grid grid-cols-2 gap-2">
                         <div>
-                          <p className="text-[0.55rem] text-[#7C8088] font-bold uppercase">{isRtl ? "Ø§Ù„ØªØ§Ø±ÙŠØ® ÙˆØ§Ù„ÙˆÙ‚Øª" : "Departure"}</p>
-                          <p className="text-[0.65rem] text-[#F5F0E8] font-semibold">{new Date(dateTime).toLocaleString()}</p>
+                          <p className="text-[0.55rem] text-[#6B7280] font-bold uppercase">{isRtl ? "Ø§Ù„ØªØ§Ø±ÙŠØ® ÙˆØ§Ù„ÙˆÙ‚Øª" : "Departure"}</p>
+                          <p className="text-[0.65rem] text-[#1C1C1C] font-semibold">{new Date(dateTime).toLocaleString()}</p>
                         </div>
                         <div>
-                          <p className="text-[0.55rem] text-[#7C8088] font-bold uppercase">{isRtl ? "Ø§Ù„Ø³ÙŠØ§Ø±Ø© ÙˆØ§Ù„Ø±ÙƒØ§Ø¨" : "Vehicle sizing"}</p>
-                          <p className="text-[0.65rem] text-[#F5F0E8] font-semibold">{selectedVehicle} â€¢ {passengers} Pax</p>
+                          <p className="text-[0.55rem] text-[#6B7280] font-bold uppercase">{isRtl ? "Ø§Ù„Ø³ÙŠØ§Ø±Ø© ÙˆØ§Ù„Ø±ÙƒØ§Ø¨" : "Vehicle sizing"}</p>
+                          <p className="text-[0.65rem] text-[#1C1C1C] font-semibold">{selectedVehicle} â€¢ {passengers} Pax</p>
                         </div>
                       </div>
 
                       {/* VAT Surcharges breakdown table */}
-                      <div className="border-t border-[#C9A84C]/10 pt-4 space-y-2.5 text-[0.65rem] text-[#A1A1A6]">
+                      <div className="border-t border-[#C9A84C]/10 pt-4 space-y-2.5 text-[0.65rem] text-[#6B7280]">
                         <div className="flex justify-between">
                           <span>{isRtl ? "Ø£Ø¬Ø±Ø© Ø§Ù„Ø±Ø­Ù„Ø© Ø§Ù„Ø£Ø³Ø§Ø³ÙŠØ©" : "Reserved Base Fare"}</span>
-                          <span className="text-[#F5F0E8]">SAR {basePrice}</span>
+                          <span className="text-[#1C1C1C]">SAR {basePrice}</span>
                         </div>
 
                         {addonTotal > 0 && (
@@ -1410,7 +1410,7 @@ export default function BookPage() {
                           </div>
                         )}
 
-                        <div className="flex justify-between text-[0.55rem] text-[#7C8088] uppercase font-bold pt-1">
+                        <div className="flex justify-between text-[0.55rem] text-[#6B7280] uppercase font-bold pt-1">
                           <span>{isRtl ? "Ø¶Ø±ÙŠØ¨Ø© Ø§Ù„Ù‚ÙŠÙ…Ø© Ø§Ù„Ù…Ø¶Ø§ÙØ© Ù¡Ù¥Ùª (Ù…Ø´Ù…ÙˆÙ„Ø©)" : "KSA VAT 15% (Included)"}</span>
                           <span>SAR {vatAmount}</span>
                         </div>
@@ -1423,13 +1423,13 @@ export default function BookPage() {
                   <div className="space-y-4 pt-6 border-t border-[#C9A84C]/10">
                     <div className="flex items-end justify-between">
                       <div>
-                        <p className="text-[0.55rem] text-[#7C8088] font-bold uppercase">{payDeposit ? "Due Today" : "Total VAT-Inclusive Price"}</p>
-                        <p className="font-heading text-2xl font-bold text-[#C9A84C]">
+                        <p className="text-[0.55rem] text-[#6B7280] font-bold uppercase">{payDeposit ? "Due Today" : "Total VAT-Inclusive Price"}</p>
+                        <p className="font-heading text-2xl font-bold text-[#16A34A]">
                           SAR {payDeposit ? depositDue : finalTotalPrice}
                         </p>
                       </div>
                       {payDeposit && (
-                        <span className="text-[0.55rem] text-[#7C8088] font-bold uppercase pb-1 text-right">
+                        <span className="text-[0.55rem] text-[#6B7280] font-bold uppercase pb-1 text-right">
                           Rest due at pickup: SAR {remainingDue}
                         </span>
                       )}
@@ -1438,7 +1438,7 @@ export default function BookPage() {
                     <button
                       onClick={handleFinalizeBooking}
                       disabled={!termsAgreed || creatingBooking}
-                      className="flex items-center justify-center gap-2 w-full rounded-full bg-[#C9A84C] py-4 text-xs font-bold uppercase tracking-wider text-[#0A0A0A] shadow-[0_4px_20px_rgba(201,168,76,0.3)] transition-all hover:bg-[#B8963B] disabled:opacity-50"
+                      className="flex items-center justify-center gap-2 w-full rounded-full bg-[#16A34A] py-4 text-xs font-bold uppercase tracking-wider text-white shadow-[0_4px_20px_rgba(22,163,74,0.3)] transition-all hover:bg-[#15803D] disabled:opacity-50"
                     >
                       {creatingBooking ? (
                         <span className="h-4.5 w-4.5 animate-spin rounded-full border-2 border-[#0A0A0A] border-t-transparent" />
@@ -1461,12 +1461,12 @@ export default function BookPage() {
               key="step6"
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="max-w-xl mx-auto text-center space-y-8 rounded-3xl border border-[#C9A84C]/20 bg-[#121212] p-8 md:p-10 shadow-2xl relative overflow-hidden"
+              className="max-w-xl mx-auto text-center space-y-8 rounded-3xl border border-[#16A34A]/15 bg-[#121212] p-8 md:p-10 shadow-2xl relative overflow-hidden"
             >
               <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-[#C9A84C]/5 blur-3xl pointer-events-none" />
 
               {/* Animated golden success checkmark */}
-              <div className="h-16 w-16 rounded-full bg-[#C9A84C]/10 border-2 border-[#C9A84C] flex items-center justify-center mx-auto shadow-[0_0_20px_rgba(201,168,76,0.25)]">
+              <div className="h-16 w-16 rounded-full bg-[#C9A84C]/10 border-2 border-[#C9A84C] flex items-center justify-center mx-auto shadow-[0_0_20px_rgba(22,163,74,0.25)]">
                 <motion.span
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
@@ -1481,32 +1481,32 @@ export default function BookPage() {
                 <span className="text-[0.6rem] uppercase tracking-[0.25em] text-[#C9A84C] font-bold">
                   {isRtl ? "ØªÙ… ØªØ£ÙƒÙŠØ¯ Ø­Ø¬Ø² Ø§Ù„Ø³Ø§Ø¦Ù‚" : "VIP Booking Certified"}
                 </span>
-                <h2 className="font-heading text-2xl font-bold text-[#F5F0E8]">
+                <h2 className="font-heading text-2xl font-bold text-[#1C1C1C]">
                   {isRtl ? "Ø±Ø­Ù„Ø© Ù…Ø¨Ø§Ø±ÙƒØ© Ø¨Ø¶ÙŠØ§ÙØ© ÙØ§Ø®Ø±Ø©" : "Welcome Aboard, Guest"}
                 </h2>
-                <p className="text-xs text-[#A1A1A6] max-w-sm mx-auto leading-relaxed">
+                <p className="text-xs text-[#6B7280] max-w-sm mx-auto leading-relaxed">
                   Your driver is registered in our centralized administrative system. Check details or verify GPS updates below.
                 </p>
               </div>
 
               {/* Booking Reference card */}
-              <div className="bg-black/45 rounded-2xl border border-[#C9A84C]/10 p-5 space-y-3.5">
+              <div className="bg-white rounded-2xl border border-[#16A34A]/15 shadow-sm p-5 space-y-3.5">
                 <div className="flex justify-between items-center text-xs">
-                  <span className="text-[#7C8088] font-bold">BOOKING REFERENCE</span>
-                  <span className="font-bold text-[#C9A84C] font-mono tracking-widest">{bookingRef}</span>
+                  <span className="text-[#6B7280] font-bold">BOOKING REFERENCE</span>
+                  <span className="font-bold text-[#16A34A] font-mono tracking-widest">{bookingRef}</span>
                 </div>
                 <div className="flex justify-between items-center text-xs border-t border-[#C9A84C]/10 pt-3">
-                  <span className="text-[#7C8088] font-bold">SCHEDULED TRIP</span>
-                  <span className="text-[#F5F0E8] font-semibold truncate max-w-[200px]">{pickup}</span>
+                  <span className="text-[#6B7280] font-bold">SCHEDULED TRIP</span>
+                  <span className="text-[#1C1C1C] font-semibold truncate max-w-[200px]">{pickup}</span>
                 </div>
                 <div className="flex justify-between items-center text-xs border-t border-[#C9A84C]/10 pt-3">
-                  <span className="text-[#7C8088] font-bold">TOTAL PRICE (SAR)</span>
+                  <span className="text-[#6B7280] font-bold">TOTAL PRICE (SAR)</span>
                   <span className="text-[#C9A84C] font-bold">SAR {finalTotalPrice}</span>
                 </div>
               </div>
 
               {/* Developer / Dispatch alerts simulator log */}
-              <div className="rounded-xl bg-black/75 p-4 text-[0.6rem] text-left space-y-2 font-mono text-[#A1A1A6] border border-[#C9A84C]/10">
+              <div className="rounded-xl bg-black/75 p-4 text-[0.6rem] text-left space-y-2 font-mono text-white/70 border border-[#C9A84C]/10">
                 <p className="text-[#C9A84C] font-bold border-b border-[#C9A84C]/10 pb-1.5 uppercase tracking-wider text-[0.55rem]">
                   Dispatch Simulation Console Output:
                 </p>
@@ -1519,7 +1519,7 @@ export default function BookPage() {
               <div className="grid gap-3 grid-cols-2">
                 <Link
                   href={`/track-booking?ref=${encodeURIComponent(bookingRef)}&phone=${encodeURIComponent(custPhone)}`}
-                  className="flex items-center justify-center gap-2 rounded-full border border-[#C9A84C]/25 bg-black/45 hover:bg-[#C9A84C]/10 py-3.5 text-xs font-bold text-[#C9A84C] transition-all"
+                  className="flex items-center justify-center gap-2 rounded-full border border-[#C9A84C]/25 bg-white hover:bg-[#C9A84C]/10 py-3.5 text-xs font-bold text-[#16A34A] transition-all"
                 >
                   <MapPin className="h-4 w-4" />
                   <span>Track GPS Live</span>
@@ -1529,16 +1529,16 @@ export default function BookPage() {
                   href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam,%20I%20have%20successfully%20booked%20my%20driver%20ref%20${bookingRef}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 rounded-full bg-[#C9A84C] hover:bg-[#B8963B] py-3.5 text-xs font-bold text-[#0A0A0A] transition-all"
+                  className="flex items-center justify-center gap-2 rounded-full bg-[#16A34A] hover:bg-[#15803D] py-3.5 text-xs font-bold text-white transition-all"
                 >
                   <MessageCircle className="h-4 w-4 fill-current" />
                   <span>Share on WhatsApp</span>
                 </a>
               </div>
 
-              <div className="pt-2 border-t border-[#C9A84C]/10 flex items-center justify-between text-[0.6rem] text-[#7C8088] font-bold">
+              <div className="pt-2 border-t border-[#C9A84C]/10 flex items-center justify-between text-[0.6rem] text-[#6B7280] font-bold">
                 <span>driver contacts you 1 hour before pick-up</span>
-                <Link href="/" className="underline hover:text-[#C9A84C]">Back to Home</Link>
+                <Link href="/" className="underline hover:text-[#16A34A]">Back to Home</Link>
               </div>
 
             </motion.div>
@@ -1547,6 +1547,6 @@ export default function BookPage() {
         </AnimatePresence>
 
       </div>
-    </main>
+    </div>
   );
 }

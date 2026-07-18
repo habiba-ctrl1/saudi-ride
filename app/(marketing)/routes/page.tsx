@@ -39,8 +39,8 @@ export default async function RoutesPage() {
   }
 
   return (
-    <main>
+    <div>
       <RoutesClient initialRoutes={routes} />
-    </main>
+    </div>
   );
 }

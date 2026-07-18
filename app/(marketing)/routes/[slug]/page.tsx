@@ -944,7 +944,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
     : `/routes/map-abstract.webp`; // Fallback beautiful map abstract
 
   return (
-    <main className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pb-24">
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
       {/* Inject Schema Markup */}
       <script
         type="application/ld+json"
@@ -971,32 +971,32 @@ export default async function RouteDetailsPage({ params }: PageProps) {
       <section className="relative pt-24 pb-12 overflow-hidden border-b border-[#C9A84C]/10">
         <div className="absolute inset-0 z-0 opacity-30">
           <Image src={mapUrl} alt={`Map route from ${route.fromCity} to ${route.toCity}`} fill className="object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/80 to-[#0A0A0A]/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/80 to-[#FAFAF7]/40" />
         </div>
 
         <div className="section-container relative z-10 max-w-5xl">
           {/* Breadcrumbs */}
-          <div className="flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-wider text-[#7C8088] mb-8">
-            <Link href="/" className="hover:text-[#C9A84C] transition-colors">Home</Link>
+          <div className="flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-wider text-[#6B7280] mb-8">
+            <Link href="/" className="hover:text-[#16A34A] transition-colors">Home</Link>
             <ChevronRight className="h-3 w-3" />
-            <Link href="/routes" className="hover:text-[#C9A84C] transition-colors">Routes</Link>
+            <Link href="/routes" className="hover:text-[#16A34A] transition-colors">Routes</Link>
             <ChevronRight className="h-3 w-3" />
-            <span className="text-[#C9A84C]">{route.fromCity} to {route.toCity}</span>
+            <span className="text-[#16A34A]">{route.fromCity} to {route.toCity}</span>
           </div>
 
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
             <div className="max-w-2xl">
               <h1 className="font-heading text-4xl md:text-5xl font-bold leading-tight">
-                {route.fromCity} <span className="text-[#C9A84C]">to</span> {route.toCity}
+                {route.fromCity} <span className="text-[#16A34A]">to</span> {route.toCity}
               </h1>
-              <p className="mt-4 text-sm md:text-base text-[#A1A1A6] leading-relaxed">
+              <p className="mt-4 text-sm md:text-base text-[#6B7280] leading-relaxed">
                 {route.description}
               </p>
             </div>
             
-            <div className="shrink-0 bg-[#111111]/80 backdrop-blur-md border border-[#C9A84C]/20 rounded-2xl p-6 flex items-center gap-6">
+            <div className="shrink-0 bg-white/80 backdrop-blur-md border border-[#16A34A]/15 rounded-2xl p-6 flex items-center gap-6">
               <div>
-                <p className="text-[0.6rem] text-[#7C8088] uppercase font-bold tracking-wider mb-1">Distance</p>
+                <p className="text-[0.6rem] text-[#6B7280] uppercase font-bold tracking-wider mb-1">Distance</p>
                 <div className="flex items-center gap-1.5 font-bold text-lg">
                   <MapPin className="h-4 w-4 text-[#C9A84C]" />
                   {route.distance} km
@@ -1004,7 +1004,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
               </div>
               <div className="w-px h-10 bg-[#C9A84C]/20" />
               <div>
-                <p className="text-[0.6rem] text-[#7C8088] uppercase font-bold tracking-wider mb-1">Est. Time</p>
+                <p className="text-[0.6rem] text-[#6B7280] uppercase font-bold tracking-wider mb-1">Est. Time</p>
                 <div className="flex items-center gap-1.5 font-bold text-lg">
                   <Clock className="h-4 w-4 text-[#C9A84C]" />
                   ~{Math.round(route.duration / 60)}h {route.duration % 60 > 0 ? `${route.duration % 60}m` : ''}
@@ -1032,17 +1032,17 @@ export default async function RouteDetailsPage({ params }: PageProps) {
             </h2>
             <div className="grid sm:grid-cols-2 gap-4">
               {vehicles.map((v) => (
-                <div key={v.key} className="border border-[#C9A84C]/15 rounded-2xl bg-[#111] overflow-hidden group hover:border-[#C9A84C]/40 transition-colors">
+                <div key={v.key} className="border border-[#16A34A]/12 rounded-2xl bg-white overflow-hidden group hover:border-[#16A34A]/35 transition-colors">
                   <div className="h-32 relative">
                     <Image src={v.img} alt={v.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#111] to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent" />
                   </div>
                   <div className="p-5 relative -mt-6">
                     <div className="flex justify-between items-end mb-2">
                       <h3 className="font-bold text-lg">{v.name}</h3>
-                      <p className="font-heading text-xl font-bold text-[#C9A84C]">SAR {prices[v.key as keyof typeof prices]}</p>
+                      <p className="font-heading text-xl font-bold text-[#16A34A]">SAR {prices[v.key as keyof typeof prices]}</p>
                     </div>
-                    <div className="flex gap-4 text-[0.65rem] text-[#A1A1A6] font-bold uppercase tracking-wider">
+                    <div className="flex gap-4 text-[0.65rem] text-[#6B7280] font-bold uppercase tracking-wider">
                       <span>{v.pax} Passengers</span>
                       <span>{v.luggage} Luggage</span>
                     </div>
@@ -1053,7 +1053,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
           </section>
 
           {/* Route Tips */}
-          <section className="bg-[#111] border border-[#C9A84C]/15 rounded-3xl p-8">
+          <section className="bg-white border border-[#16A34A]/12 rounded-3xl p-8">
             <h2 className="font-heading text-2xl font-bold mb-6 flex items-center gap-3">
               <AlertTriangle className="text-[#C9A84C]" />
               Route Tips & Information
@@ -1063,21 +1063,21 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                 <CheckCircle2 className="h-5 w-5 text-[#C9A84C] shrink-0 mt-0.5" />
                 <div>
                   <h4 className="font-bold text-sm">All-Inclusive Fixed Price</h4>
-                  <p className="text-xs text-[#A1A1A6] mt-1">The price you see is the price you pay. No hidden fees, no surge pricing, tolls and taxes included.</p>
+                  <p className="text-xs text-[#6B7280] mt-1">The price you see is the price you pay. No hidden fees, no surge pricing, tolls and taxes included.</p>
                 </div>
               </li>
               <li className="flex gap-4">
                 <CheckCircle2 className="h-5 w-5 text-[#C9A84C] shrink-0 mt-0.5" />
                 <div>
                   <h4 className="font-bold text-sm">Meet & Greet Service</h4>
-                  <p className="text-xs text-[#A1A1A6] mt-1">Your driver will wait at the pickup location holding a name sign with your name on it.</p>
+                  <p className="text-xs text-[#6B7280] mt-1">Your driver will wait at the pickup location holding a name sign with your name on it.</p>
                 </div>
               </li>
               <li className="flex gap-4">
                 <ShieldCheck className="h-5 w-5 text-[#C9A84C] shrink-0 mt-0.5" />
                 <div>
                   <h4 className="font-bold text-sm">Professional & Licensed</h4>
-                  <p className="text-xs text-[#A1A1A6] mt-1">All drivers are fully licensed by the Saudi Ministry of Transport, speak English and Arabic, and are trained for professional service.</p>
+                  <p className="text-xs text-[#6B7280] mt-1">All drivers are fully licensed by the Saudi Ministry of Transport, speak English and Arabic, and are trained for professional service.</p>
                 </div>
               </li>
             </ul>
@@ -1091,9 +1091,9 @@ export default async function RouteDetailsPage({ params }: PageProps) {
             </h2>
             <div className="space-y-4">
               {faqs.map((faq, idx) => (
-                <div key={idx} className="border border-[#C9A84C]/15 rounded-2xl p-5 bg-[#111]">
+                <div key={idx} className="border border-[#16A34A]/12 rounded-2xl p-5 bg-white">
                   <h4 className="font-bold text-sm mb-2">{faq.question}</h4>
-                  <p className="text-xs text-[#A1A1A6] leading-relaxed">{faq.answer}</p>
+                  <p className="text-xs text-[#6B7280] leading-relaxed">{faq.answer}</p>
                 </div>
               ))}
             </div>
@@ -1105,17 +1105,17 @@ export default async function RouteDetailsPage({ params }: PageProps) {
 
         {/* ─── RIGHT COLUMN (Booking Widget) ──────────────────────── */}
         <div className="lg:col-span-1">
-          <div className="sticky top-[100px] bg-[#111] border border-[#C9A84C]/30 rounded-3xl p-6 shadow-[0_8px_30px_rgba(201,168,76,0.1)]">
+          <div className="sticky top-[100px] bg-white border border-[#C9A84C]/30 rounded-3xl p-6 shadow-[0_8px_30px_rgba(22,163,74,0.1)]">
             <h3 className="font-heading text-xl font-bold mb-4">Book This Route</h3>
             
             <div className="space-y-4 mb-8">
-              <div className="bg-[#0A0A0A] p-4 rounded-xl border border-[#C9A84C]/10 relative">
+              <div className="bg-[#FAFAF7] p-4 rounded-xl border border-[#C9A84C]/10 relative">
                 <div className="absolute left-6 top-6 bottom-6 w-px bg-[#C9A84C]/30" />
                 
                 <div className="flex items-center gap-3 mb-6 relative z-10">
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#C9A84C] outline outline-4 outline-[#111]" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#16A34A] outline outline-4 outline-[#111]" />
                   <div>
-                    <p className="text-[0.6rem] text-[#7C8088] font-bold uppercase tracking-wider">Pickup</p>
+                    <p className="text-[0.6rem] text-[#6B7280] font-bold uppercase tracking-wider">Pickup</p>
                     <p className="font-bold text-sm truncate">{route.fromCity}</p>
                   </div>
                 </div>
@@ -1123,22 +1123,22 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                 <div className="flex items-center gap-3 relative z-10">
                   <div className="w-2.5 h-2.5 rounded-full bg-white outline outline-4 outline-[#111]" />
                   <div>
-                    <p className="text-[0.6rem] text-[#7C8088] font-bold uppercase tracking-wider">Dropoff</p>
+                    <p className="text-[0.6rem] text-[#6B7280] font-bold uppercase tracking-wider">Dropoff</p>
                     <p className="font-bold text-sm truncate">{route.toCity}</p>
                   </div>
                 </div>
               </div>
               
               <div className="flex justify-between items-center px-2">
-                <span className="text-sm font-bold text-[#A1A1A6]">Starting from</span>
-                <span className="font-heading text-2xl font-bold text-[#C9A84C]">SAR {route.basePrice}</span>
+                <span className="text-sm font-bold text-[#6B7280]">Starting from</span>
+                <span className="font-heading text-2xl font-bold text-[#16A34A]">SAR {route.basePrice}</span>
               </div>
             </div>
 
             <div className="space-y-3">
               <Link
                 href={`/book?pickup=${encodeURIComponent(route.fromCity)}&dropoff=${encodeURIComponent(route.toCity)}`}
-                className="flex w-full items-center justify-center gap-2 rounded-full bg-[#C9A84C] py-3.5 text-xs font-bold uppercase tracking-wider text-[#0A0A0A] hover:bg-[#B8963B] transition-all"
+                className="flex w-full items-center justify-center gap-2 rounded-full bg-[#16A34A] py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all"
               >
                 Proceed to Booking <ArrowRight className="h-4 w-4" />
               </Link>
@@ -1154,16 +1154,16 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex w-full items-center justify-center gap-2 rounded-full border border-[#C9A84C]/30 py-3.5 text-xs font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
+                className="flex w-full items-center justify-center gap-2 rounded-full border border-[#C9A84C]/30 py-3.5 text-xs font-bold uppercase tracking-wider text-[#B8963B] hover:bg-[#C9A84C]/10 transition-all"
               >
                 Book via WhatsApp
               </a>
             </div>
             
-            <p className="text-center text-[0.6rem] text-[#7C8088] mt-4">Free cancellation up to 24h before pickup</p>
+            <p className="text-center text-[0.6rem] text-[#6B7280] mt-4">Free cancellation up to 24h before pickup</p>
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

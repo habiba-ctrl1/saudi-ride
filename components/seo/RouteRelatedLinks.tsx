@@ -77,11 +77,11 @@ export function RouteRelatedLinks({ slug, fromCity, toCity }: Props) {
             <Link
               key={r.slug}
               href={`/routes/${r.slug}`}
-              className="group flex items-center justify-between rounded-2xl border border-[#C9A84C]/15 bg-[#111] px-5 py-4 hover:border-[#C9A84C]/40 transition-all"
+              className="group flex items-center justify-between rounded-2xl border border-[#16A34A]/12 bg-white px-5 py-4 hover:border-[#16A34A]/35 transition-all"
             >
               <span className="text-sm font-semibold">
                 Taxi {r.fromCity} to {r.toCity}
-                <span className="block text-[0.65rem] text-[#7C8088] font-normal mt-0.5">
+                <span className="block text-[0.65rem] text-[#6B7280] font-normal mt-0.5">
                   {r.distance} km · from SAR {r.basePrice}
                 </span>
               </span>

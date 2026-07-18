@@ -16,7 +16,7 @@ export function Breadcrumbs({ items, className = "" }: { items: Crumb[]; classNa
         aria-label="Breadcrumb"
         className={`section-container max-w-7xl pt-24 pb-2 ${className}`}
       >
-        <ol className="flex flex-wrap items-center gap-1.5 text-xs text-[#7C8088]">
+        <ol className="flex flex-wrap items-center gap-1.5 text-xs text-[#6B7280]">
           {items.map((item, i) => {
             const isLast = i === items.length - 1;
             return (
@@ -30,7 +30,7 @@ export function Breadcrumbs({ items, className = "" }: { items: Crumb[]; classNa
                     <Link href={item.href} className="hover:text-[#C9A84C] transition-colors">
                       {item.name}
                     </Link>
-                    <ChevronRight className="h-3 w-3 text-[#7C8088]/60" />
+                    <ChevronRight className="h-3 w-3 text-[#6B7280]/60" />
                   </>
                 )}
               </li>

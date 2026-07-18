@@ -52,8 +52,16 @@ Fixed in: lib/data/routes.ts (8 slugs), home-page.tsx (route cards + AR/UR FAQ 1
 ### Locations pages — LIGHT THEME COMPLETE (2026-07-16)
 - Hub + [city] + [subarea] templates converted (light-theme codemod), vehicle-recommendation dark box → white card, 0 checker violations
 
+### Routes pages — LIGHT THEME COMPLETE (2026-07-16)
+- [slug] + RoutesClient + hub converted; vehicle-card overlay white gradient; RouteRelatedLinks + Breadcrumbs + ui/table components fixed
+- **DB prices bhi update** (scripts/update_route_prices.js — Supabase REST API se, kyunke pooler local se unreachable): 8 Tier-1 slugs market estimates par
+
+### /book + /track-booking — LIGHT THEME COMPLETE (2026-07-16)
+- Booking console + tracking: inputs bg-[#FAFAF7], payment tiles white, booking-ref card white, map light
+- Intentional dark rakha: vehicle-image badge, dispatch console box
+- ⚠️ NOTE: book page ke AR strings **mojibake/corrupted hain (pehle se, HEAD mein bhi)** — re-translation chahiye
+
 ## 📋 BACKLOG (dark→light theme + audit; violation counts from checker)
-**Tier 1 (pehle):** routes/[slug] (21) + RoutesClient (22)
 **Tier 2:** airports/[slug] (17) · fleet hub (18) + fleet/[slug] (28) · locations hub (11) · pricing (29)
 **Tier 3:** blog/[slug] (14) + blog hub (6) · guides (17) + guides/[slug] (13) · gallery (13)
 **Tier 4 (conversion-critical pehle):** book (96 — sabse bara, conversion page!) · track-booking (41) · contact (23) · partners (21) + driver-registration (27) · about (17) · faq (15) · login (14) · privacy (10) · terms (10) · not-found (9) · error (7)

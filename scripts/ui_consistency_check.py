@@ -19,8 +19,9 @@ SCAN_DIRS = [ROOT / "app", ROOT / "components"]
 
 # Files where dark styling is intentional (footer, dark hero cards etc.)
 ALLOWED_FILES = {
-    "components/layout/Footer.tsx",          # dark footer — intentional design
-    "components/shared/WhatsAppButton.tsx",  # dark tooltip pill — intentional
+    "components/layout/Footer.tsx",           # dark footer — intentional design
+    "components/shared/WhatsAppButton.tsx",   # dark tooltip pill — intentional
+    "components/shared/LanguageSwitcher.tsx", # green navbar par white text — sahi hai
 }
 
 # Banned patterns → what to use instead
