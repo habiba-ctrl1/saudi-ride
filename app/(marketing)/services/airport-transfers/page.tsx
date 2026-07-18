@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
-import { serviceSchema, faqSchema } from "@/lib/schema";
+import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import Link from "next/link";
 import { Plane, Clock, UserCheck, CheckCircle2, ShieldCheck, Search, PlaneLanding } from "lucide-react";
 
@@ -14,8 +14,8 @@ export const metadata: Metadata = {
 };
 
 const AIRPORT_ROUTES = [
-  { airport: "Jeddah (JED)", dest: "Makkah", time: "1 hr", price: 180 },
-  { airport: "Jeddah (JED)", dest: "Madinah", time: "4.5 hrs", price: 650 },
+  { airport: "Jeddah (JED)", dest: "Makkah", time: "1 hr", price: 249 },
+  { airport: "Jeddah (JED)", dest: "Madinah", time: "4.5 hrs", price: 549 },
   { airport: "Jeddah (JED)", dest: "Jeddah City", time: "30 mins", price: 90 },
   { airport: "Riyadh (RUH)", dest: "City Center", time: "40 mins", price: 120 },
   { airport: "Madinah (MED)", dest: "Haram Area", time: "25 mins", price: 80 },
@@ -24,7 +24,7 @@ const AIRPORT_ROUTES = [
 const FAQS = [
   {
     q: "What if my flight is delayed?",
-    a: "We actively track your flight using real-time data. Your driver will automatically adjust their arrival time to match your actual landing. We offer 90 minutes of free waiting time for international arrivals."
+    a: "We actively track your flight using real-time data. Your driver will automatically adjust their arrival time to match your actual landing. We offer 60 minutes of free waiting time for arrivals."
   },
   {
     q: "How will I find my driver?",
@@ -50,6 +50,7 @@ export default function AirportTransfersPage() {
             areaServed: ["Jeddah", "Riyadh", "Madinah", "Dammam"],
           }),
           faqSchema(FAQS.map((f) => ({ question: f.q, answer: f.a }))),
+          speakableSchema({ path: "/services/airport-transfers" }),
         ]}
       />
       <Breadcrumbs
@@ -79,7 +80,7 @@ export default function AirportTransfersPage() {
             Seamless Airport <br />
             <span className="text-[#16A34A]">Transfers Across KSA</span>
           </h1>
-          <p className="max-w-2xl text-sm md:text-base text-[#6B7280] leading-relaxed mb-10">
+          <p id="speakable-summary" className="max-w-2xl text-sm md:text-base text-[#6B7280] leading-relaxed mb-10">
             Arrive relaxed. We serve King Abdulaziz (JED), King Khalid (RUH), and Prince Mohammad Bin Abdulaziz (MED) airports with flight tracking, meet & greet, and zero waiting fees.
           </p>
 
@@ -111,7 +112,7 @@ export default function AirportTransfersPage() {
           {[
             { icon: PlaneLanding, title: "Real-Time Tracking", desc: "We monitor your flight and adjust pickup time for early or delayed arrivals." },
             { icon: UserCheck, title: "Meet & Greet", desc: "Driver awaits in the arrivals hall with a personalized iPad name sign." },
-            { icon: Clock, title: "90 Mins Free Wait", desc: "Complimentary waiting time for international flights to clear customs." },
+            { icon: Clock, title: "60 Mins Free Wait", desc: "Complimentary waiting time for flights to clear customs and baggage." },
             { icon: ShieldCheck, title: "Fixed Pricing", desc: "No hidden surge fees or toll charges. The quoted price is final." }
           ].map((feat, i) => (
             <div key={i} className="bg-white border border-[#16A34A]/12 rounded-3xl p-8 hover:border-[#16A34A]/35 transition-colors">

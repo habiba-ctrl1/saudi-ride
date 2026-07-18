@@ -104,6 +104,24 @@ export function faqSchema(faqs: FaqItem[]) {
   };
 }
 
+/**
+ * Speakable — voice assistants / AI answer engines ke liye page ke
+ * answer-first hisse mark karta hai. cssSelector wale elements page par
+ * exist karne chahiye (h1 + #speakable-summary convention).
+ */
+export function speakableSchema({ path, cssSelectors = ["h1", "#speakable-summary"] }: { path: string; cssSelectors?: string[] }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${SITE.url}${path}#webpage`,
+    url: `${SITE.url}${path}`,
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: cssSelectors,
+    },
+  };
+}
+
 interface ArticleSchemaInput {
   headline: string;
   description: string;

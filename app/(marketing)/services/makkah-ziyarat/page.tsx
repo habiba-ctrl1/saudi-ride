@@ -146,7 +146,7 @@ export default function MakkahZiyaratPage() {
 
       {/* ─── CTA ──────────────────────────────────────────────────── */}
       <section className="section-container max-w-5xl pb-4">
-        <div className="bg-gradient-to-br from-[#1A1A1A] to-[#FAFAF7] border border-[#C9A84C]/30 rounded-3xl p-12 text-center">
+        <div className="bg-white border border-[#16A34A]/15 shadow-lg rounded-3xl p-12 text-center">
           <h2 className="font-heading text-2xl font-bold mb-4 text-[#1C1C1C]">Plan your Makkah Ziyarat</h2>
           <p className="text-[#6B7280] mb-8 max-w-lg mx-auto">
             Message us on WhatsApp to arrange a half-day or full-day Ziyarat tour around your prayer times.

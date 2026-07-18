@@ -15,8 +15,8 @@ const SERVICES = [
     title: "Airport Transfers",
     titleAr: "نقل المطارات",
     badge: "24/7 Service",
-    color: "from-blue-500/10 to-transparent",
-    borderColor: "border-blue-500/20",
+    color: "from-[#16A34A]/8 to-transparent",
+    borderColor: "border-[#16A34A]/15",
     description: "Airport taxi service with live flight tracking, meet & greet at arrivals, driver with name sign, and luggage help. Serving Jeddah (JED), Riyadh (RUH), Madinah (MED) and all KSA airports.",
     features: [
       "Live flight tracking — driver waits free if delayed",
@@ -34,8 +34,8 @@ const SERVICES = [
     title: "Umrah & Pilgrimage",
     titleAr: "نقل العمرة والحج",
     badge: "Most Requested",
-    color: "from-emerald-500/10 to-transparent",
-    borderColor: "border-emerald-500/20",
+    color: "from-[#16A34A]/8 to-transparent",
+    borderColor: "border-[#16A34A]/15",
     description: "Dedicated pilgrimage transfers between Jeddah Airport, Makkah, and Madinah. Prayer-time aware scheduling, zamzam water, and respectful service for your spiritual journey.",
     features: [
       "Jeddah ↔ Makkah ↔ Madinah corridors",
@@ -53,8 +53,8 @@ const SERVICES = [
     title: "Corporate & VIP Executive",
     titleAr: "الخدمات التنفيذية والشركات",
     badge: "Business Class",
-    color: "from-amber-500/10 to-transparent",
-    borderColor: "border-amber-500/20",
+    color: "from-[#16A34A]/8 to-transparent",
+    borderColor: "border-[#16A34A]/15",
     description: "Luxury fleet for business delegations, C-suite executives, Saudi board meetings, and diplomatic arrivals. Discretion and professionalism guaranteed.",
     features: [
       "Signed NDAs available on request",
@@ -72,8 +72,8 @@ const SERVICES = [
     title: "VIP Luxury Charter",
     titleAr: "تأجير VIP الفاخر",
     badge: "Ultra Premium",
-    color: "from-purple-500/10 to-transparent",
-    borderColor: "border-purple-500/20",
+    color: "from-[#16A34A]/8 to-transparent",
+    borderColor: "border-[#16A34A]/15",
     description: "Mercedes S-Class, BMW 7 Series, and Cadillac Escalade available for full-day, half-day, or hourly exclusive charter. Perfect for dignitaries, celebrities, and ultra-HNW clients.",
     features: [
       "S-Class, BMW 7 Series, Escalade fleet",
@@ -91,8 +91,8 @@ const SERVICES = [
     title: "Weddings & Special Events",
     titleAr: "الأفراح والمناسبات الخاصة",
     badge: "Special Occasions",
-    color: "from-rose-500/10 to-transparent",
-    borderColor: "border-rose-500/20",
+    color: "from-[#16A34A]/8 to-transparent",
+    borderColor: "border-[#16A34A]/15",
     description: "Impeccably decorated fleet for Saudi weddings, engagement ceremonies, graduation celebrations, and luxury events. Full convoy arrangements available.",
     features: [
       "White ribbon & floral decoration",
@@ -110,8 +110,8 @@ const SERVICES = [
     title: "Tourism & Private Tours",
     titleAr: "السياحة والجولات الخاصة",
     badge: "Explore KSA",
-    color: "from-cyan-500/10 to-transparent",
-    borderColor: "border-cyan-500/20",
+    color: "from-[#16A34A]/8 to-transparent",
+    borderColor: "border-[#16A34A]/15",
     description: "Full-day guided private touring of AlUla, Diriyah, NEOM, and Saudi heritage sites. Expert bilingual guides and luxury vehicles for inbound tourists.",
     features: [
       "AlUla, Diriyah, NEOM packages",
@@ -129,8 +129,8 @@ const SERVICES = [
     title: "Group & Pilgrimage Bus",
     titleAr: "نقل المجموعات والحافلات",
     badge: "Up to 25 Pax",
-    color: "from-orange-500/10 to-transparent",
-    borderColor: "border-orange-500/20",
+    color: "from-[#16A34A]/8 to-transparent",
+    borderColor: "border-[#16A34A]/15",
     description: "Coaster, Sprinter, and luxury bus for pilgrimage groups, corporate tours, school trips, and large family groups. Scalable fleet for any group size.",
     features: [
       "Toyota Coaster & Mercedes Sprinter",
@@ -167,8 +167,8 @@ const SERVICES = [
     title: "Hourly Charter Service",
     titleAr: "الإيجار بالساعة",
     badge: "4 – 24 Hours",
-    color: "from-indigo-500/10 to-transparent",
-    borderColor: "border-indigo-500/20",
+    color: "from-[#16A34A]/8 to-transparent",
+    borderColor: "border-[#16A34A]/15",
     description: "Book your driver for 4, 8, 12, or 24 hours for complete flexibility. Ideal for business road shows, city exploration, or multi-stop transfers.",
     features: [
       "4, 8, 12 or 24-hour packages",
@@ -183,6 +183,16 @@ const SERVICES = [
 ];
 
 const fadeUp = { hidden: { opacity: 0, y: 28 }, show: { opacity: 1, y: 0 } };
+
+// Card titles link to these detail pages (authority distribution from the hub).
+const DETAIL_PAGES: Record<string, string> = {
+  "airport-transfers": "/services/airport-transfers",
+  "umrah-transport": "/services/umrah-transport",
+  "business-executive": "/services/business-executive",
+  "vip-luxury": "/services/vip-luxury",
+  "tourism-tours": "/services/tourism",
+  "group-transport": "/services/group-transport",
+};
 
 export default function ServicesPage() {
   return (
@@ -219,7 +229,7 @@ export default function ServicesPage() {
             {[
               { value: "9", label: "Service Types" },
               { value: "14", label: "Fleet Vehicles" },
-              { value: "50K+", label: "Trips Completed" },
+              { value: "5,000+", label: "Trips Completed" },
               { value: "4.9★", label: "Average Rating" },
             ].map((s) => (
               <div key={s.label} className="rounded-2xl border border-[#C9A84C]/10 bg-white p-4 text-center">
@@ -259,7 +269,13 @@ export default function ServicesPage() {
                       <div>
                         <span className="text-[0.55rem] font-bold uppercase tracking-wider text-[#B8963B]">{service.badge}</span>
                         <h2 className="font-heading text-lg font-bold text-[#1C1C1C] group-hover:text-[#16A34A] transition-colors leading-tight">
-                          {service.title}
+                          {DETAIL_PAGES[service.slug] ? (
+                            <Link href={DETAIL_PAGES[service.slug]} className="hover:underline">
+                              {service.title}
+                            </Link>
+                          ) : (
+                            service.title
+                          )}
                         </h2>
                         <p className="text-[0.6rem] text-[#6B7280]">{service.titleAr}</p>
                       </div>
@@ -323,10 +339,10 @@ export default function ServicesPage() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               {[
-                { icon: ShieldCheck, label: "GTA Licensed", sub: "Saudi Transport Authority" },
+                { icon: ShieldCheck, label: "TGA Licensed", sub: "Transport General Authority" },
                 { icon: MapPin, label: "GPS Tracked", sub: "Every trip monitored" },
-                { icon: Clock, label: "Always On-Time", sub: "98.7% punctuality rate" },
-                { icon: Star, label: "4.9/5 Rating", sub: "Based on 4,200+ reviews" },
+                { icon: Clock, label: "Always On-Time", sub: "On-time pickup promise" },
+                { icon: Star, label: "4.9★ Rating", sub: "Rated by verified customers" },
               ].map((item) => {
                 const ItemIcon = item.icon;
                 return (

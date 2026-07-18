@@ -203,7 +203,7 @@ const jsonLd = [
         "name": "What is the taxi fare from Makkah to Madinah?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The Makkah to Madinah taxi fare starts from SAR 799 in a sedan. The fixed price taxi includes a Meeqat stop, bottled water, and Wi-Fi. The journey covers 450 km and takes approximately 4 hours 30 minutes via the Haramain Highway."
+          "text": "The Makkah to Madinah taxi fare starts from SAR 499 in a sedan (estimated — final price confirmed in your quotation). The fixed price taxi includes a Meeqat stop and bottled water. The journey covers 450 km and takes approximately 4 hours 30 minutes via the Haramain Highway."
         }
       },
       {

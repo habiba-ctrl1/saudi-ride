@@ -355,7 +355,7 @@ const homeTranslations = {
       title: "كل ما تحتاج معرفته",
       items: [
         { q: "كيف أحجز تاكسي في السعودية؟", a: "يمكنك الحجز عبر منصة الحجز في موقعنا أو مباشرة عبر واتساب. حدد موقع الانطلاق والوجهة والتاريخ والوقت، وسيؤكد فريقنا رحلتك فوراً بسعر ثابت على مدار الساعة." },
-        { q: "كم تكلفة تاكسي من مطار جدة إلى مكة؟", a: "تبدأ أجرة تاكسي مطار جدة إلى مكة من 180 ريالاً في السيارة العادية، مع خيارات عائلية أكبر. السعر ثابت بدون رسوم خفية." },
+        { q: "كم تكلفة تاكسي من مطار جدة إلى مكة؟", a: "تبدأ أجرة تاكسي مطار جدة إلى مكة من 249 ريالاً في السيارة العادية، مع خيارات عائلية أكبر. السعر ثابت بدون رسوم خفية." },
         { q: "هل تقدمون نقل العمرة من المدينة؟", a: "نعم، نغطي مسار مكة إلى المدينة والمدينة إلى مكة وجولات الزيارة، مع التوقف عند الميقات وسائقين محترفين." },
         { q: "هل السائقون مرخصون ومحترفون؟", a: "بالتأكيد. جميع سائقينا مرخصون ومعتمدون من الهيئة العامة للنقل ويتحدثون العربية والإنجليزية والأردية." },
         { q: "هل لديكم مركبات للعائلات الكبيرة؟", a: "نعم، نوفر سيارات SUV فاخرة مثل GMC Yukon وحافلات صغيرة مثل Toyota Hiace وHyundai Staria المثالية للمجموعات والعائلات." }
@@ -515,7 +515,7 @@ const homeTranslations = {
       title: "ہر وہ چیز جو آپ کو جاننی چاہیے",
       items: [
         { q: "سعودی عرب میں ٹیکسی کیسے بک کریں؟", a: "آپ ہماری ویب سائٹ کے بکنگ کنسول یا براہ راست واٹس ایپ کے ذریعے بک کر سکتے ہیں۔ پک اپ مقام، منزل، تاریخ اور وقت بتائیں — ہماری 24/7 ٹیم فکسڈ قیمت کے ساتھ فوری تصدیق کرے گی۔" },
-        { q: "جدہ ایئرپورٹ سے مکہ ٹیکسی کا کرایہ کتنا ہے؟", a: "جدہ ایئرپورٹ سے مکہ ٹیکسی کا کرایہ عام سیڈان میں 180 ریال سے شروع ہوتا ہے، فیملی گاڑیوں کے آپشن کے ساتھ۔ قیمت فکسڈ ہے، کوئی پوشیدہ چارجز نہیں۔" },
+        { q: "جدہ ایئرپورٹ سے مکہ ٹیکسی کا کرایہ کتنا ہے؟", a: "جدہ ایئرپورٹ سے مکہ ٹیکسی کا کرایہ عام سیڈان میں 249 ریال سے شروع ہوتا ہے، فیملی گاڑیوں کے آپشن کے ساتھ۔ قیمت فکسڈ ہے، کوئی پوشیدہ چارجز نہیں۔" },
         { q: "کیا آپ مدینہ سے عمرہ ٹرانسپورٹ فراہم کرتے ہیں؟", a: "جی ہاں، ہم مکہ سے مدینہ، مدینہ سے مکہ اور زیارت ٹورز کا احاطہ کرتے ہیں، میقات پر رکنے اور پیشہ ور ڈرائیوروں کے ساتھ۔" },
         { q: "کیا ڈرائیور لائسنس یافتہ اور پیشہ ور ہیں؟", a: "بالکل۔ ہمارے تمام ڈرائیور ٹرانسپورٹ جنرل اتھارٹی (TGA) سے منظور شدہ ہیں اور عربی، انگریزی اور اردو بولتے ہیں۔" },
         { q: "کیا بڑے خاندانوں کے لیے گاڑیاں ہیں؟", a: "جی ہاں، ہم GMC Yukon جیسی لگژری SUV اور Toyota Hiace و Hyundai Staria جیسی کشادہ وینز فراہم کرتے ہیں جو گروپس اور خاندانوں کے لیے بہترین ہیں۔" }
@@ -527,10 +527,10 @@ const homeTranslations = {
 
 const topRoutesList = [
   { from: "jeddah-airport", to: "makkah-haram", nameEn: "Jeddah Airport ➔ Makkah", nameAr: "مطار جدة ➔ مكة المكرمة", nameUr: "جدہ ایئرپورٹ ➔ مکہ مکرمہ", dist: "85 km", dur: "1h 15m", price: "249" },
-  { from: "makkah-haram", to: "madinah-mosque", nameEn: "Makkah ➔ Madinah", nameAr: "مكة المكرمة ➔ المدينة المنورة", nameUr: "مکہ مکرمہ ➔ مدینہ منورہ", dist: "450 km", dur: "4h 30m", price: "799" },
-  { from: "madinah-mosque", to: "makkah-haram", nameEn: "Madinah ➔ Makkah", nameAr: "المدينة المنورة ➔ مكة المكرمة", nameUr: "مدینہ منورہ ➔ مکہ مکرمہ", dist: "450 km", dur: "4h 30m", price: "799" },
+  { from: "makkah-haram", to: "madinah-mosque", nameEn: "Makkah ➔ Madinah", nameAr: "مكة المكرمة ➔ المدينة المنورة", nameUr: "مکہ مکرمہ ➔ مدینہ منورہ", dist: "450 km", dur: "4h 30m", price: "499" },
+  { from: "madinah-mosque", to: "makkah-haram", nameEn: "Madinah ➔ Makkah", nameAr: "المدينة المنورة ➔ مكة المكرمة", nameUr: "مدینہ منورہ ➔ مکہ مکرمہ", dist: "450 km", dur: "4h 30m", price: "499" },
   { from: "makkah-haram", to: "jeddah-airport", nameEn: "Makkah ➔ Jeddah Airport", nameAr: "مكة المكرمة ➔ مطار جدة", nameUr: "مکہ مکرمہ ➔ جدہ ایئرپورٹ", dist: "85 km", dur: "1h 15m", price: "249" },
-  { from: "jeddah-airport", to: "madinah-mosque", nameEn: "Jeddah ➔ Madinah", nameAr: "مطار جدة ➔ المدينة المنورة", nameUr: "جدہ ایئرپورٹ ➔ مدینہ منورہ", dist: "420 km", dur: "4h 15m", price: "749" },
+  { from: "jeddah-airport", to: "madinah-mosque", nameEn: "Jeddah ➔ Madinah", nameAr: "مطار جدة ➔ المدينة المنورة", nameUr: "جدہ ایئرپورٹ ➔ مدینہ منورہ", dist: "420 km", dur: "4h 15m", price: "549" },
   { from: "madinah-airport", to: "madinah-mosque", nameEn: "Madinah Airport ➔ Hotels", nameAr: "مطار المدينة ➔ الفنادق", nameUr: "مدینہ ایئرپورٹ ➔ ہوٹلز", dist: "15 km", dur: "20m", price: "149" },
   { from: "riyadh-airport", to: "riyadh-downtown", nameEn: "Riyadh Airport ➔ City", nameAr: "مطار الرياض ➔ وسط المدينة", nameUr: "ریاض ایئرپورٹ ➔ شہر", dist: "35 km", dur: "35m", price: "179" },
   { from: "jeddah-airport", to: "taif", nameEn: "Jeddah ➔ Taif", nameAr: "جدة ➔ مرتفعات الطائف", nameUr: "جدہ ➔ طائف", dist: "140 km", dur: "1h 45m", price: "349" },
@@ -1396,8 +1396,8 @@ export function HomePage() {
             <div className="space-y-4">
               {[
                 { rEn: "Jeddah Airport ➔ Makkah Haram", rAr: "مطار جدة ➔ الحرم المكي الشريف", rUr: "جدہ ایئرپورٹ ➔ مکہ مکرمہ", time: "1h 15m", price: "249" },
-                { rEn: "Makkah Haram ➔ Madinah Nabawi", rAr: "الحرم المكي ➔ المسجد النبوي بالمدينة", rUr: "مکہ مکرمہ ➔ مدینہ منورہ", time: "4h 30m", price: "799" },
-                { rEn: "Madinah Nabawi ➔ Jeddah Airport", rAr: "المسجد النبوي ➔ مطار جدة الدولي", rUr: "مدینہ منورہ ➔ جدہ ایئرپورٹ", time: "4h 10m", price: "749" }
+                { rEn: "Makkah Haram ➔ Madinah Nabawi", rAr: "الحرم المكي ➔ المسجد النبوي بالمدينة", rUr: "مکہ مکرمہ ➔ مدینہ منورہ", time: "4h 30m", price: "499" },
+                { rEn: "Madinah Nabawi ➔ Jeddah Airport", rAr: "المسجد النبوي ➔ مطار جدة الدولي", rUr: "مدینہ منورہ ➔ جدہ ایئرپورٹ", time: "4h 10m", price: "549" }
               ].map((route, idx) => (
                 <div key={idx} className="flex items-center justify-between text-xs">
                   <div>

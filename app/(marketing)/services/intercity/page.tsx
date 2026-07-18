@@ -14,9 +14,9 @@ export const metadata: Metadata = {
 };
 
 const POPULAR_COMBINATIONS = [
-  { from: "Riyadh", to: "Dammam", dist: "410 km", time: "4.5 hrs", price: 1200, img: "/locations/dammam-hero.webp" },
-  { from: "Jeddah", to: "Madinah", dist: "420 km", time: "4.5 hrs", price: 650, img: "/locations/madinah-hero.webp" },
-  { from: "Makkah", to: "Taif", dist: "90 km", time: "1.5 hrs", price: 350, img: "/locations/taif-hero.webp" },
+  { from: "Riyadh", to: "Dammam", dist: "410 km", time: "4.5 hrs", price: 699, img: "/locations/dammam-hero.webp" },
+  { from: "Jeddah", to: "Madinah", dist: "420 km", time: "4.5 hrs", price: 549, img: "/locations/madinah-hero.webp" },
+  { from: "Makkah", to: "Taif", dist: "90 km", time: "1.5 hrs", price: 349, img: "/locations/taif-hero.webp" },
   { from: "Riyadh", to: "Al-Qassim", dist: "350 km", time: "3.5 hrs", price: 900, img: "/locations/riyadh-hero.webp" },
 ];
 

@@ -76,13 +76,12 @@ export default function CorporateAccountsPage() {
       {/* ─── LOGOS ────────────────────────────────────────────────── */}
       <section className="border-b border-[#C9A84C]/10 py-10 bg-white">
         <div className="section-container max-w-5xl">
-          <p className="text-center text-[0.65rem] uppercase tracking-widest font-bold text-[#6B7280] mb-6">Trusted by leading organizations across the Kingdom</p>
+          <p className="text-center text-[0.65rem] uppercase tracking-widest font-bold text-[#6B7280] mb-6">Serving organizations across the Kingdom</p>
           <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-40 grayscale">
-             {/* Placeholders for logos */}
-             <div className="font-heading text-xl font-bold">AL-RAJHI CORP</div>
-             <div className="font-heading text-xl font-bold">SABIC PARTNERS</div>
-             <div className="font-heading text-xl font-bold">KAFD MANAGEMENT</div>
-             <div className="font-heading text-xl font-bold">KINGDOM HOTELS</div>
+             <div className="font-heading text-xl font-bold">HOTELS</div>
+             <div className="font-heading text-xl font-bold">TRAVEL AGENCIES</div>
+             <div className="font-heading text-xl font-bold">CORPORATES</div>
+             <div className="font-heading text-xl font-bold">EVENT ORGANIZERS</div>
           </div>
         </div>
       </section>
@@ -142,7 +141,7 @@ export default function CorporateAccountsPage() {
 
       {/* ─── APPLICATION FORM ─────────────────────────────────────── */}
       <section id="apply" className="section-container max-w-3xl py-20">
-        <div className="bg-gradient-to-br from-[#1A1A1A] to-[#111] border border-[#C9A84C]/30 rounded-3xl p-8 md:p-12">
+        <div className="bg-white border border-[#16A34A]/15 shadow-lg rounded-3xl p-8 md:p-12">
           <div className="text-center mb-10">
             <h2 className="font-heading text-3xl font-bold mb-3 text-[#1C1C1C]">Request a Corporate Account</h2>
             <p className="text-sm text-[#6B7280]">Fill out the details below and our B2B team will contact you within 24 hours.</p>

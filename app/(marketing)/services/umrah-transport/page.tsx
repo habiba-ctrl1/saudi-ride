@@ -6,7 +6,7 @@ import { contactConfig } from "@/lib/config/contact";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
-import { serviceSchema, faqSchema } from "@/lib/schema";
+import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   alternates: { canonical: "https://taxisaudiarabia.com/services/umrah-transport" },
@@ -18,7 +18,7 @@ const PACKAGES = [
   {
     title: "Airport to Makkah (One-Way)",
     desc: "Direct VIP transfer from Jeddah Airport to your Makkah hotel.",
-    price: "From SAR 180",
+    price: "From SAR 249",
     features: ["Meet & Greet at Arrivals", "Luggage Assistance", "Zamzam Water Provided", "Direct Haram Drop-off"]
   },
   {
@@ -85,6 +85,7 @@ export default function UmrahTransportPage() {
             areaServed: ["Makkah", "Madinah", "Jeddah"],
           }),
           faqSchema(FAQS.map((f) => ({ question: f.q, answer: f.a }))),
+          speakableSchema({ path: "/services/umrah-transport" }),
         ]}
       />
       <Breadcrumbs
@@ -114,7 +115,7 @@ export default function UmrahTransportPage() {
             Premium Transport for <br />
             <span className="text-[#16A34A]">Your Sacred Journey</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-10">
+          <p id="speakable-summary" className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-10">
             Serving the Guests of Allah with dignity, comfort, and unmatched reliability. From Jeddah Airport arrivals to complete Ziyarat tours in Madinah.
           </p>
           <div className="flex justify-center gap-4">
@@ -295,7 +296,7 @@ export default function UmrahTransportPage() {
 
       {/* ─── CTA ──────────────────────────────────────────────────── */}
       <section className="section-container max-w-5xl pb-20">
-        <div className="bg-gradient-to-br from-[#1A1A1A] to-[#FAFAF7] border border-[#C9A84C]/30 rounded-3xl p-12 text-center">
+        <div className="bg-white border border-[#16A34A]/15 shadow-lg rounded-3xl p-12 text-center">
           <h2 className="font-heading text-2xl font-bold mb-4 text-[#1C1C1C]">Have custom itinerary requirements?</h2>
           <p className="text-[#6B7280] mb-8 max-w-lg mx-auto">
             Our team is available 24/7 on WhatsApp to help you plan complex family itineraries across Makkah and Madinah.
