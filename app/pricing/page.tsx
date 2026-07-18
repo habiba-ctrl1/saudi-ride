@@ -237,7 +237,7 @@ export default function PricingPage() {
   }, [fromCity, toCity, distance, calculatedPrice, vehicleClass]);
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pt-28 pb-16">
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pt-28 pb-16">
       
       {/* Entrance Hero text */}
       <section className="section-container">
@@ -248,13 +248,13 @@ export default function PricingPage() {
           transition={{ duration: 0.6 }}
           className="max-w-3xl text-center md:text-left"
         >
-          <span className="text-xs uppercase tracking-[0.2em] text-[#C9A84C] font-semibold">
+          <span className="text-xs uppercase tracking-[0.2em] text-[#B8963B] font-semibold">
             {t.badge}
           </span>
-          <h1 className="mt-4 font-heading text-4xl font-bold leading-tight md:text-5.5xl text-[#F5F0E8]">
+          <h1 className="mt-4 font-heading text-4xl font-bold leading-tight md:text-5.5xl text-[#1C1C1C]">
             {t.title}
           </h1>
-          <p className="mt-6 text-sm md:text-base leading-relaxed text-[#A1A1A6]">
+          <p className="mt-6 text-sm md:text-base leading-relaxed text-[#6B7280]">
             {t.description}
           </p>
         </motion.div>
@@ -262,11 +262,11 @@ export default function PricingPage() {
 
       {/* Dynamic pricing estimator widget */}
       <section className="section-container mt-14">
-        <div className="rounded-3xl border border-[#C9A84C]/20 bg-[#121212] p-8 md:p-10 shadow-2xl relative overflow-hidden">
+        <div className="rounded-3xl border border-[#16A34A]/15 bg-white p-8 md:p-10 shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 h-48 w-48 rounded-full bg-[#C9A84C]/5 blur-3xl pointer-events-none" />
           
           <div className="mb-8">
-            <h2 className="font-heading text-2xl font-bold text-[#F5F0E8]">{t.calcTitle}</h2>
+            <h2 className="font-heading text-2xl font-bold text-[#1C1C1C]">{t.calcTitle}</h2>
             <p className="text-xs text-[#C9A84C] font-semibold mt-1.5">{t.calcSubtitle}</p>
           </div>
 
@@ -274,14 +274,14 @@ export default function PricingPage() {
             
             {/* From */}
             <div className="space-y-2">
-              <label className="text-xs uppercase tracking-wider text-[#A1A1A6] font-semibold">{t.labelFrom}</label>
+              <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelFrom}</label>
               <select
                 value={fromCity}
                 onChange={(e) => setFromCity(e.target.value)}
-                className="w-full rounded-xl border border-[#C9A84C]/15 bg-black/40 px-4 py-3.5 text-xs text-[#F5F0E8] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3.5 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
               >
                 {CITIES.map((c) => (
-                  <option key={c.key} value={c.key} className="bg-[#121212]">
+                  <option key={c.key} value={c.key} className="bg-white">
                     {language === "ar" ? c.labelAr : c.labelEn}
                   </option>
                 ))}
@@ -290,14 +290,14 @@ export default function PricingPage() {
 
             {/* To */}
             <div className="space-y-2">
-              <label className="text-xs uppercase tracking-wider text-[#A1A1A6] font-semibold">{t.labelTo}</label>
+              <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelTo}</label>
               <select
                 value={toCity}
                 onChange={(e) => setToCity(e.target.value)}
-                className="w-full rounded-xl border border-[#C9A84C]/15 bg-black/40 px-4 py-3.5 text-xs text-[#F5F0E8] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3.5 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
               >
                 {CITIES.map((c) => (
-                  <option key={c.key} value={c.key} className="bg-[#121212]">
+                  <option key={c.key} value={c.key} className="bg-white">
                     {language === "ar" ? c.labelAr : c.labelEn}
                   </option>
                 ))}
@@ -306,7 +306,7 @@ export default function PricingPage() {
 
             {/* Vehicle Class */}
             <div className="space-y-2">
-              <label className="text-xs uppercase tracking-wider text-[#A1A1A6] font-semibold">Select Vehicle Class</label>
+              <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">Select Vehicle Class</label>
               <select
                 value={vehicleClass}
                 onChange={(e) => {
@@ -318,12 +318,12 @@ export default function PricingPage() {
                     sourceContext: "pricing_calculator"
                   });
                 }}
-                className="w-full rounded-xl border border-[#C9A84C]/15 bg-black/40 px-4 py-3.5 text-xs text-[#F5F0E8] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3.5 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
               >
-                <option value="sedan" className="bg-[#121212]">Executive Sedan (Camry)</option>
-                <option value="suv" className="bg-[#121212]">Premium SUV (Yukon XL)</option>
-                <option value="luxury" className="bg-[#121212]">Luxury VIP Sedan (S-Class)</option>
-                <option value="van" className="bg-[#121212]">VIP Family Van (Staria)</option>
+                <option value="sedan" className="bg-white">Executive Sedan (Camry)</option>
+                <option value="suv" className="bg-white">Premium SUV (Yukon XL)</option>
+                <option value="luxury" className="bg-white">Luxury VIP Sedan (S-Class)</option>
+                <option value="van" className="bg-white">VIP Family Van (Staria)</option>
               </select>
             </div>
 
@@ -332,11 +332,11 @@ export default function PricingPage() {
           {/* Calculator Output Display */}
           <div className="mt-8 border-t border-[#C9A84C]/10 pt-8 grid gap-6 md:grid-cols-[1fr_auto] items-center">
             <div className="space-y-4">
-              <div className="flex flex-wrap gap-6 text-xs text-[#A1A1A6] font-medium">
-                <div>{t.labelDistance}: <span className="text-[#F5F0E8] font-bold">{distance} KM</span></div>
-                <div>{t.labelDuration}: <span className="text-[#F5F0E8] font-bold">{Math.floor(duration / 60)}h {duration % 60}m</span></div>
+              <div className="flex flex-wrap gap-6 text-xs text-[#6B7280] font-medium">
+                <div>{t.labelDistance}: <span className="text-[#1C1C1C] font-bold">{distance} KM</span></div>
+                <div>{t.labelDuration}: <span className="text-[#1C1C1C] font-bold">{Math.floor(duration / 60)}h {duration % 60}m</span></div>
               </div>
-              <p className="text-[10px] text-[#7C8088] leading-relaxed max-w-xl">{t.estNotice}</p>
+              <p className="text-[10px] text-[#6B7280] leading-relaxed max-w-xl">{t.estNotice}</p>
             </div>
 
             <div className="text-center md:text-right space-y-4 shrink-0">
@@ -354,7 +354,7 @@ export default function PricingPage() {
                     locale: language
                   });
                 }}
-                className="inline-flex items-center gap-2 rounded-xl bg-[#C9A84C] px-6 py-3 text-xs font-bold uppercase tracking-wider text-[#0A0A0A] hover:bg-[#B8963B] transition-colors shadow-lg"
+                className="inline-flex items-center gap-2 rounded-xl bg-[#16A34A] px-6 py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-colors shadow-lg"
               >
                 <span>{t.bookBtn}</span>
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -368,14 +368,14 @@ export default function PricingPage() {
       {/* Service category pricing comparisons Matrix */}
       <section className="section-container mt-24">
         <div className="max-w-3xl mb-12">
-          <span className="text-xs uppercase tracking-[0.2em] text-[#C9A84C] font-semibold">{t.matrixSubtitle}</span>
-          <h2 className="mt-2 font-heading text-3xl font-bold text-[#F5F0E8]">{t.matrixTitle}</h2>
+          <span className="text-xs uppercase tracking-[0.2em] text-[#B8963B] font-semibold">{t.matrixSubtitle}</span>
+          <h2 className="mt-2 font-heading text-3xl font-bold text-[#1C1C1C]">{t.matrixTitle}</h2>
         </div>
 
-        <div className="overflow-x-auto rounded-2xl border border-[#C9A84C]/15 bg-[#111111]">
+        <div className="overflow-x-auto rounded-2xl border border-[#16A34A]/12 bg-white">
           <table className="w-full text-left border-collapse min-w-[700px] text-xs">
             <thead>
-              <tr className="border-b border-[#C9A84C]/25 bg-black/40 text-[#C9A84C] font-bold">
+              <tr className="border-b border-[#C9A84C]/25 bg-[#F0FDF4] text-[#C9A84C] font-bold">
                 {t.cols.map((col, idx) => (
                   <th key={idx} className="p-5">{col}</th>
                 ))}
@@ -384,10 +384,10 @@ export default function PricingPage() {
             <tbody className="divide-y divide-[#C9A84C]/8 font-medium">
               {MATRIX_DATA.map((row, index) => (
                 <tr key={index} className="hover:bg-white/2 transition-colors">
-                  <td className="p-5 font-bold text-[#F5F0E8]">{row.class}</td>
-                  <td className="p-5 text-[#A1A1A6]">{row.airport}</td>
-                  <td className="p-5 text-[#A1A1A6]">{row.km}</td>
-                  <td className="p-5 text-[#A1A1A6]">{row.hourly}</td>
+                  <td className="p-5 font-bold text-[#1C1C1C]">{row.class}</td>
+                  <td className="p-5 text-[#6B7280]">{row.airport}</td>
+                  <td className="p-5 text-[#6B7280]">{row.km}</td>
+                  <td className="p-5 text-[#6B7280]">{row.hourly}</td>
                   <td className="p-5 text-[#C9A84C] font-semibold">{row.umrah}</td>
                 </tr>
               ))}
@@ -399,24 +399,24 @@ export default function PricingPage() {
       {/* Fixed intercity route tables */}
       <section className="section-container mt-24">
         <div className="max-w-3xl mb-12">
-          <span className="text-xs uppercase tracking-[0.2em] text-[#C9A84C] font-semibold">{t.fixedSubtitle}</span>
-          <h2 className="mt-2 font-heading text-3xl font-bold text-[#F5F0E8]">{t.fixedTitle}</h2>
+          <span className="text-xs uppercase tracking-[0.2em] text-[#B8963B] font-semibold">{t.fixedSubtitle}</span>
+          <h2 className="mt-2 font-heading text-3xl font-bold text-[#1C1C1C]">{t.fixedTitle}</h2>
         </div>
 
-        <div className="overflow-x-auto rounded-2xl border border-[#C9A84C]/15 bg-[#111111]">
+        <div className="overflow-x-auto rounded-2xl border border-[#16A34A]/12 bg-white">
           <table className="w-full text-left border-collapse min-w-[700px] text-xs">
             <thead>
-              <tr className="border-b border-[#C9A84C]/25 bg-black/40 text-[#C9A84C] font-bold">
+              <tr className="border-b border-[#C9A84C]/25 bg-[#F0FDF4] text-[#C9A84C] font-bold">
                 <th className="p-5">{t.routeCol}</th>
                 <th className="p-5">{t.sedanCol}</th>
                 <th className="p-5">{t.suvCol}</th>
                 <th className="p-5">{t.luxuryCol}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#C9A84C]/8 font-medium text-[#A1A1A6]">
+            <tbody className="divide-y divide-[#C9A84C]/8 font-medium text-[#6B7280]">
               {FIXED_ROUTES.map((route, index) => (
                 <tr key={index} className="hover:bg-white/2 transition-colors">
-                  <td className="p-5 font-bold text-[#F5F0E8]">{route.route}</td>
+                  <td className="p-5 font-bold text-[#1C1C1C]">{route.route}</td>
                   <td className="p-5">{route.sedan}</td>
                   <td className="p-5">{route.suv}</td>
                   <td className="p-5 text-[#C9A84C] font-bold">{route.luxury}</td>
@@ -430,8 +430,8 @@ export default function PricingPage() {
       {/* Price Guarantee Trust badges */}
       <section className="section-container mt-24">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <span className="text-xs uppercase tracking-[0.2em] text-[#C9A84C] font-semibold">{t.trustSubtitle}</span>
-          <h2 className="mt-2 font-heading text-3xl md:text-4xl font-bold text-[#F5F0E8]">{t.trustTitle}</h2>
+          <span className="text-xs uppercase tracking-[0.2em] text-[#B8963B] font-semibold">{t.trustSubtitle}</span>
+          <h2 className="mt-2 font-heading text-3xl md:text-4xl font-bold text-[#1C1C1C]">{t.trustTitle}</h2>
         </div>
 
         <div className="grid gap-8 md:grid-cols-3">
@@ -445,13 +445,13 @@ export default function PricingPage() {
                 viewport={{ once: true }}
                 variants={fadeUp}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="rounded-3xl border border-[#C9A84C]/10 bg-[#111111] p-8 text-center space-y-4 hover:border-[#C9A84C]/30 transition-all duration-300"
+                className="rounded-3xl border border-[#C9A84C]/10 bg-white p-8 text-center space-y-4 hover:border-[#C9A84C]/30 transition-all duration-300"
               >
                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#C9A84C]/10 border border-[#C9A84C]/30 text-[#C9A84C] mx-auto">
                   <Icon className="h-5 w-5" />
                 </div>
-                <h3 className="font-heading text-lg font-bold text-[#F5F0E8]">{card.title}</h3>
-                <p className="text-xs text-[#A1A1A6] leading-relaxed">{card.desc}</p>
+                <h3 className="font-heading text-lg font-bold text-[#1C1C1C]">{card.title}</h3>
+                <p className="text-xs text-[#6B7280] leading-relaxed">{card.desc}</p>
               </motion.div>
             );
           })}
@@ -461,23 +461,23 @@ export default function PricingPage() {
       {/* Pricing specific FAQs */}
       <section className="section-container mt-24 mb-12">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <h2 className="font-heading text-3xl font-bold text-[#F5F0E8]">{t.faqTitle}</h2>
+          <h2 className="font-heading text-3xl font-bold text-[#1C1C1C]">{t.faqTitle}</h2>
         </div>
 
         <div className="max-w-4xl mx-auto space-y-4">
           {t.faqs.map((faq, idx) => (
             <details
               key={idx}
-              className="group rounded-2xl border border-[#C9A84C]/15 bg-[#121212] p-5 transition-all hover:border-[#C9A84C]/30"
+              className="group rounded-2xl border border-[#16A34A]/12 bg-white p-5 transition-all hover:border-[#C9A84C]/30"
             >
-              <summary className="cursor-pointer font-heading text-sm md:text-base font-semibold text-[#F5F0E8] group-open:text-[#C9A84C] list-none flex items-center justify-between focus:outline-none select-none">
+              <summary className="cursor-pointer font-heading text-sm md:text-base font-semibold text-[#1C1C1C] group-open:text-[#C9A84C] list-none flex items-center justify-between focus:outline-none select-none">
                 <div className="flex items-center gap-3">
                   <HelpCircle className="h-4.5 w-4.5 text-[#C9A84C] shrink-0" />
                   <span>{faq.q}</span>
                 </div>
                 <span className="text-xs text-[#C9A84C] transition-transform duration-300 group-open:rotate-180">▼</span>
               </summary>
-              <p className="mt-4 text-xs md:text-sm leading-relaxed text-[#A1A1A6] border-t border-[#C9A84C]/8 pt-4 font-sans">
+              <p className="mt-4 text-xs md:text-sm leading-relaxed text-[#6B7280] border-t border-[#C9A84C]/8 pt-4 font-sans">
                 {faq.a}
               </p>
             </details>

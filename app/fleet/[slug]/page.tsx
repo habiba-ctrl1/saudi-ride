@@ -139,7 +139,7 @@ export default async function VehicleDetailPage({
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8]">
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
@@ -157,13 +157,13 @@ export default async function VehicleDetailPage({
           className="object-cover"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/25 to-[#0A0A0A]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/25 to-[#FAFAF7]" />
 
         {/* Back Nav */}
         <div className="absolute top-28 left-0 right-0 section-container">
           <Link
             href="/fleet"
-            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/45 px-4 py-2 text-xs font-bold text-[#F5F0E8] backdrop-blur-md hover:border-[#C9A84C]/50 hover:text-[#C9A84C] transition-all"
+            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white px-4 py-2 text-xs font-bold text-[#1C1C1C] backdrop-blur-md hover:border-[#C9A84C]/50 hover:text-[#16A34A] transition-all"
           >
             <ChevronLeft className="h-3.5 w-3.5" />
             Back to Fleet
@@ -172,18 +172,18 @@ export default async function VehicleDetailPage({
 
         {/* Hero Title Overlay */}
         <div className="absolute bottom-10 left-0 right-0 section-container">
-          <span className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#C9A84C]">{vehicle.subtitle}</span>
-          <h1 className="mt-2 font-heading text-3xl font-bold md:text-5xl text-[#F5F0E8]">{vehicle.name}</h1>
+          <span className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#B8963B]">{vehicle.subtitle}</span>
+          <h1 className="mt-2 font-heading text-3xl font-bold md:text-5xl text-[#1C1C1C]">{vehicle.name}</h1>
           <div className="mt-3 flex items-center gap-3 flex-wrap">
             <div className="flex items-center gap-1">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className={`h-3.5 w-3.5 ${i < Math.floor(vehicle.rating) ? "fill-[#C9A84C] text-[#C9A84C]" : "text-[#7C8088]"}`} />
+                <Star key={i} className={`h-3.5 w-3.5 ${i < Math.floor(vehicle.rating) ? "fill-[#C9A84C] text-[#C9A84C]" : "text-[#6B7280]"}`} />
               ))}
               <span className="ml-1.5 text-xs text-[#C9A84C] font-bold">{vehicle.rating}</span>
-              <span className="text-xs text-[#7C8088]">({vehicle.reviews} verified reviews)</span>
+              <span className="text-xs text-[#6B7280]">({vehicle.reviews} verified reviews)</span>
             </div>
             <span className="h-1.5 w-1.5 rounded-full bg-[#C9A84C]/50" />
-            <span className="rounded-full bg-[#C9A84C] px-3 py-0.5 text-[0.6rem] font-bold text-[#0A0A0A] uppercase tracking-wider">{vehicle.badge}</span>
+            <span className="rounded-full bg-[#16A34A] px-3 py-0.5 text-[0.6rem] font-bold text-white uppercase tracking-wider">{vehicle.badge}</span>
           </div>
         </div>
       </section>
@@ -196,8 +196,8 @@ export default async function VehicleDetailPage({
           <div className="space-y-12">
 
             {/* Specs Panel */}
-            <div className="rounded-3xl border border-[#C9A84C]/15 bg-[#111111] p-7 space-y-6">
-              <h2 className="font-heading text-xl font-bold text-[#F5F0E8]">Vehicle Specifications</h2>
+            <div className="rounded-3xl border border-[#16A34A]/12 bg-white p-7 space-y-6">
+              <h2 className="font-heading text-xl font-bold text-[#1C1C1C]">Vehicle Specifications</h2>
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {[
@@ -206,20 +206,20 @@ export default async function VehicleDetailPage({
                   { icon: <Wind className="h-5 w-5 text-[#C9A84C]" />, label: "Climate", value: specs.ac },
                   { icon: <Wifi className="h-5 w-5 text-[#C9A84C]" />, label: "WiFi", value: specs.wifi ? "Onboard" : "Not Avail." },
                 ].map((spec) => (
-                  <div key={spec.label} className="rounded-2xl bg-black/35 border border-[#C9A84C]/8 p-4 space-y-2 text-center">
+                  <div key={spec.label} className="rounded-2xl bg-[#F0FDF4] border border-[#C9A84C]/8 p-4 space-y-2 text-center">
                     <div className="flex justify-center">{spec.icon}</div>
-                    <p className="text-[0.55rem] text-[#7C8088] uppercase font-bold tracking-wider">{spec.label}</p>
-                    <p className="text-xs font-bold text-[#F5F0E8]">{spec.value}</p>
+                    <p className="text-[0.55rem] text-[#6B7280] uppercase font-bold tracking-wider">{spec.label}</p>
+                    <p className="text-xs font-bold text-[#1C1C1C]">{spec.value}</p>
                   </div>
                 ))}
               </div>
 
               {/* Features checklist */}
               <div>
-                <h3 className="text-xs font-bold uppercase tracking-wider text-[#A1A1A6] mb-4">Included Amenities</h3>
+                <h3 className="text-xs font-bold uppercase tracking-wider text-[#6B7280] mb-4">Included Amenities</h3>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
                   {[...vehicle.features, "24/7 Dispatch Availability", "Licensed & Insured Driver", `Model Year ${specs.year}`, `${specs.drive} Drivetrain`].map((f) => (
-                    <li key={f} className="flex items-center gap-2.5 text-xs text-[#A1A1A6]">
+                    <li key={f} className="flex items-center gap-2.5 text-xs text-[#6B7280]">
                       <CheckCircle className="h-4 w-4 text-[#C9A84C] shrink-0" />
                       <span>{f}</span>
                     </li>
@@ -230,7 +230,7 @@ export default async function VehicleDetailPage({
 
             {/* Photo Gallery */}
             <div>
-              <h2 className="font-heading text-xl font-bold text-[#F5F0E8] mb-5">Photo Gallery</h2>
+              <h2 className="font-heading text-xl font-bold text-[#1C1C1C] mb-5">Photo Gallery</h2>
               <div className="grid grid-cols-3 gap-3">
                 {gallery.map((src, i) => (
                   <div key={i} className={`relative overflow-hidden rounded-2xl border border-[#C9A84C]/10 ${i === 0 ? "col-span-3 h-60" : "h-36"}`}>
@@ -249,10 +249,10 @@ export default async function VehicleDetailPage({
             </div>
 
             {/* Description */}
-            <div className="rounded-3xl border border-[#C9A84C]/10 bg-[#111111] p-7 space-y-4">
-              <h2 className="font-heading text-xl font-bold text-[#F5F0E8]">About This Vehicle</h2>
-              <p className="text-sm text-[#A1A1A6] leading-relaxed">{vehicle.description}</p>
-              <p className="text-sm text-[#A1A1A6] leading-relaxed">
+            <div className="rounded-3xl border border-[#C9A84C]/10 bg-white p-7 space-y-4">
+              <h2 className="font-heading text-xl font-bold text-[#1C1C1C]">About This Vehicle</h2>
+              <p className="text-sm text-[#6B7280] leading-relaxed">{vehicle.description}</p>
+              <p className="text-sm text-[#6B7280] leading-relaxed">
                 All vehicles in our fleet are professionally maintained to the highest standards, 
                 regularly inspected, and operated exclusively by certified Saudi Transport Authority licensed drivers.
                 Whether you are heading to Makkah for Umrah, catching a flight from Jeddah, or attending a high-level 
@@ -262,17 +262,17 @@ export default async function VehicleDetailPage({
 
             {/* Reviews */}
             <div>
-              <h2 className="font-heading text-xl font-bold text-[#F5F0E8] mb-5">
+              <h2 className="font-heading text-xl font-bold text-[#1C1C1C] mb-5">
                 Customer Reviews
-                <span className="ml-3 text-sm font-normal text-[#7C8088]">({vehicle.reviews} total)</span>
+                <span className="ml-3 text-sm font-normal text-[#6B7280]">({vehicle.reviews} total)</span>
               </h2>
               <div className="grid gap-4 md:grid-cols-2">
                 {REVIEWS.map((review) => (
-                  <div key={review.name} className="rounded-2xl border border-[#C9A84C]/10 bg-[#111111] p-5 space-y-3">
+                  <div key={review.name} className="rounded-2xl border border-[#C9A84C]/10 bg-white p-5 space-y-3">
                     <div className="flex items-start justify-between">
                       <div>
-                        <p className="text-xs font-bold text-[#F5F0E8]">{review.name}</p>
-                        <p className="text-[0.6rem] text-[#7C8088] mt-0.5">{review.city}</p>
+                        <p className="text-xs font-bold text-[#1C1C1C]">{review.name}</p>
+                        <p className="text-[0.6rem] text-[#6B7280] mt-0.5">{review.city}</p>
                       </div>
                       <div className="flex items-center gap-0.5">
                         {[...Array(review.rating)].map((_, i) => (
@@ -280,7 +280,7 @@ export default async function VehicleDetailPage({
                         ))}
                       </div>
                     </div>
-                    <p className="text-[0.7rem] text-[#A1A1A6] leading-relaxed">{review.text}</p>
+                    <p className="text-[0.7rem] text-[#6B7280] leading-relaxed">{review.text}</p>
                   </div>
                 ))}
               </div>
@@ -292,20 +292,20 @@ export default async function VehicleDetailPage({
             <div className="sticky top-28 space-y-4">
 
               {/* Price + Book Card */}
-              <div className="rounded-3xl border border-[#C9A84C]/20 bg-[#111111] p-6 shadow-2xl space-y-5">
+              <div className="rounded-3xl border border-[#16A34A]/15 bg-white p-6 shadow-2xl space-y-5">
                 <div className="flex items-end justify-between">
                   <div>
-                    <p className="text-[0.6rem] text-[#7C8088] uppercase font-bold tracking-wider">Starting From</p>
-                    <p className="font-heading text-3xl font-bold text-[#C9A84C]">SAR {vehicle.startingPrice}</p>
-                    <p className="text-[0.6rem] text-[#7C8088]">per transfer · VAT inclusive</p>
+                    <p className="text-[0.6rem] text-[#6B7280] uppercase font-bold tracking-wider">Starting From</p>
+                    <p className="font-heading text-3xl font-bold text-[#16A34A]">SAR {vehicle.startingPrice}</p>
+                    <p className="text-[0.6rem] text-[#6B7280]">per transfer · VAT inclusive</p>
                   </div>
                   <div className="flex items-center gap-1 bg-[#C9A84C]/10 border border-[#C9A84C]/25 rounded-full px-3 py-1.5">
                     <Shield className="h-3.5 w-3.5 text-[#C9A84C]" />
-                    <span className="text-[0.6rem] font-bold text-[#C9A84C]">Fixed Price</span>
+                    <span className="text-[0.6rem] font-bold text-[#16A34A]">Fixed Price</span>
                   </div>
                 </div>
 
-                <div className="space-y-2.5 border-y border-[#C9A84C]/8 py-4 text-[0.65rem] text-[#A1A1A6]">
+                <div className="space-y-2.5 border-y border-[#C9A84C]/8 py-4 text-[0.65rem] text-[#6B7280]">
                   {["Free cancellation 24h before", "No hidden fees", "Professional licensed driver", "Guaranteed on-time pickup"].map((p) => (
                     <div key={p} className="flex items-center gap-2">
                       <CheckCircle className="h-3.5 w-3.5 text-[#C9A84C] shrink-0" />
@@ -316,7 +316,7 @@ export default async function VehicleDetailPage({
 
                 <Link
                   href={`/book?vehicle=${vehicle.slug}`}
-                  className="flex items-center justify-center gap-2 w-full rounded-full bg-[#C9A84C] py-4 text-xs font-bold uppercase tracking-wider text-[#0A0A0A] transition-all hover:bg-[#B8963B] shadow-[0_4px_20px_rgba(201,168,76,0.3)]"
+                  className="flex items-center justify-center gap-2 w-full rounded-full bg-[#16A34A] py-4 text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-[#15803D] shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
                 >
                   Book This Vehicle
                 </Link>
@@ -325,7 +325,7 @@ export default async function VehicleDetailPage({
                   href={waLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 w-full rounded-full border border-[#C9A84C]/30 py-3.5 text-xs font-bold uppercase tracking-wider text-[#C9A84C] transition-all hover:bg-[#C9A84C]/10"
+                  className="flex items-center justify-center gap-2 w-full rounded-full border border-[#C9A84C]/30 py-3.5 text-xs font-bold uppercase tracking-wider text-[#B8963B] transition-all hover:bg-[#C9A84C]/10"
                 >
                   <MessageCircle className="h-4 w-4 fill-current" />
                   WhatsApp Quote
@@ -333,10 +333,10 @@ export default async function VehicleDetailPage({
               </div>
 
               {/* Trust badges */}
-              <div className="rounded-2xl border border-[#C9A84C]/10 bg-[#111111] p-5 space-y-3">
-                <p className="text-[0.6rem] font-bold uppercase tracking-wider text-[#7C8088]">Why Book With Us</p>
+              <div className="rounded-2xl border border-[#C9A84C]/10 bg-white p-5 space-y-3">
+                <p className="text-[0.6rem] font-bold uppercase tracking-wider text-[#6B7280]">Why Book With Us</p>
                 {["Saudi General Transport Authority Licensed", "24/7 English & Arabic Support", "GPS Tracked Every Journey", "Insurance Covered All Routes"].map((b) => (
-                  <div key={b} className="flex items-center gap-2 text-[0.65rem] text-[#A1A1A6]">
+                  <div key={b} className="flex items-center gap-2 text-[0.65rem] text-[#6B7280]">
                     <span className="text-[#C9A84C] font-bold">✓</span>
                     <span>{b}</span>
                   </div>
@@ -350,7 +350,7 @@ export default async function VehicleDetailPage({
       {/* ─── SIMILAR VEHICLES ─────────────────────────────────────── */}
       {similar.length > 0 && (
         <section className="section-container max-w-6xl pb-24">
-          <h2 className="font-heading text-2xl font-bold text-[#F5F0E8] mb-8">
+          <h2 className="font-heading text-2xl font-bold text-[#1C1C1C] mb-8">
             Similar Vehicles
           </h2>
           <div className="grid gap-6 md:grid-cols-3">
@@ -358,7 +358,7 @@ export default async function VehicleDetailPage({
               <Link
                 key={v.slug}
                 href={`/fleet/${v.slug}`}
-                className="group relative overflow-hidden rounded-3xl border border-[#C9A84C]/12 bg-[#111111] hover:border-[#C9A84C]/40 transition-all duration-300"
+                className="group relative overflow-hidden rounded-3xl border border-[#C9A84C]/12 bg-white hover:border-[#16A34A]/35 transition-all duration-300"
               >
                 <div className="relative h-40 w-full overflow-hidden">
                   <Image
@@ -374,10 +374,10 @@ export default async function VehicleDetailPage({
                 </div>
                 <div className="p-5 space-y-1">
                   <p className="text-[0.6rem] text-[#C9A84C] uppercase font-bold tracking-wider">{v.subtitle}</p>
-                  <h3 className="font-heading text-base font-bold text-[#F5F0E8] group-hover:text-[#C9A84C] transition-colors">{v.name}</h3>
+                  <h3 className="font-heading text-base font-bold text-[#1C1C1C] group-hover:text-[#16A34A] transition-colors">{v.name}</h3>
                   <div className="flex items-center justify-between pt-1">
-                    <span className="text-xs text-[#A1A1A6]">👥 {v.passengers} Pax · 🧳 {v.luggage} Bags</span>
-                    <span className="text-xs font-bold text-[#C9A84C]">SAR {v.startingPrice}+</span>
+                    <span className="text-xs text-[#6B7280]">👥 {v.passengers} Pax · 🧳 {v.luggage} Bags</span>
+                    <span className="text-xs font-bold text-[#16A34A]">SAR {v.startingPrice}+</span>
                   </div>
                 </div>
               </Link>

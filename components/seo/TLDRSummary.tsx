@@ -36,7 +36,7 @@ export function TLDRSummary({
         <dl className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
           {facts.map((f) => (
             <div key={f.label} className="rounded-xl bg-white/70 px-3 py-2 border border-black/5">
-              <dt className="text-[11px] uppercase tracking-wide text-[#7C8088]">{f.label}</dt>
+              <dt className="text-[11px] uppercase tracking-wide text-[#6B7280]">{f.label}</dt>
               <dd className="text-sm font-semibold text-[#006C35]">{f.value}</dd>
             </div>
           ))}

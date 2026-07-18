@@ -240,7 +240,7 @@ export default async function AirportLandingPage({ params }: PageProps) {
   });
 
   return (
-    <main className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pb-24">
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
       <JsonLd
         data={serviceSchema({
           name: `Airport Taxi Service at ${airportData.name} (${airportData.code})`,
@@ -269,26 +269,26 @@ export default async function AirportLandingPage({ params }: PageProps) {
             fill
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/80 to-[#0A0A0A]/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/80 to-[#FAFAF7]/40" />
         </div>
 
         <div className="section-container relative z-10 max-w-5xl">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/20 backdrop-blur-sm px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mb-6">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/20 backdrop-blur-sm px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#B8963B] mb-6">
             <PlaneLanding className="h-3 w-3" /> Airport Transfer
           </span>
           <h1 className="font-heading text-4xl md:text-5xl font-bold leading-tight mb-2">
             Taxi Service from <br />
-            <span className="text-[#C9A84C]">{airportData.name}</span>
+            <span className="text-[#16A34A]">{airportData.name}</span>
           </h1>
           <p className="text-[#C9A84C] text-lg tracking-widest font-bold mb-6">{airportData.code} - {airportData.nameAr}</p>
-          <p className="max-w-2xl text-sm md:text-base text-[#A1A1A6] leading-relaxed">
+          <p className="max-w-2xl text-sm md:text-base text-[#6B7280] leading-relaxed">
             {airportData.description}
           </p>
 
           <div className="mt-8 flex gap-4">
             <Link
               href={`/book?pickup=${encodeURIComponent(airportData.name)}`}
-              className="flex items-center gap-2 rounded-full bg-[#C9A84C] px-8 py-3.5 text-xs font-bold uppercase text-[#0A0A0A] hover:bg-[#B8963B] transition-all"
+              className="flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
             >
               <Car className="h-4 w-4" />
               Book Airport Pickup
@@ -312,7 +312,7 @@ export default async function AirportLandingPage({ params }: PageProps) {
             {airportRoutes.length > 0 ? (
               <div className="grid gap-4">
                 {airportRoutes.map((route) => (
-                  <Link href={`/routes/${route.slug}`} key={route.id} className="group flex flex-col md:flex-row md:items-center justify-between p-5 rounded-2xl bg-[#111] border border-[#C9A84C]/15 hover:border-[#C9A84C]/40 transition-colors">
+                  <Link href={`/routes/${route.slug}`} key={route.id} className="group flex flex-col md:flex-row md:items-center justify-between p-5 rounded-2xl bg-white border border-[#16A34A]/12 hover:border-[#16A34A]/35 transition-colors">
                     <div className="flex items-center gap-4 mb-4 md:mb-0">
                       <div className="font-bold">{route.fromCity}</div>
                       <ArrowRight className="h-4 w-4 text-[#C9A84C]" />
@@ -320,10 +320,10 @@ export default async function AirportLandingPage({ params }: PageProps) {
                     </div>
                     <div className="flex items-center justify-between md:gap-6">
                       <div className="text-right">
-                        <p className="text-[0.6rem] text-[#7C8088] uppercase font-bold">Starting from</p>
+                        <p className="text-[0.6rem] text-[#6B7280] uppercase font-bold">Starting from</p>
                         <p className="text-[#C9A84C] font-bold">SAR {route.basePrice}</p>
                       </div>
-                      <div className="bg-[#C9A84C]/10 text-[#C9A84C] rounded-full p-2 group-hover:bg-[#C9A84C] group-hover:text-[#0A0A0A] transition-colors">
+                      <div className="bg-[#C9A84C]/10 text-[#C9A84C] rounded-full p-2 group-hover:bg-[#16A34A] group-hover:text-white transition-colors">
                         <ArrowRight className="h-4 w-4" />
                       </div>
                     </div>
@@ -331,7 +331,7 @@ export default async function AirportLandingPage({ params }: PageProps) {
                 ))}
               </div>
             ) : (
-              <p className="text-[#A1A1A6]">Currently mapping custom routes for this airport. Please contact us for a quote.</p>
+              <p className="text-[#6B7280]">Currently mapping custom routes for this airport. Please contact us for a quote.</p>
             )}
             <div className="mt-6">
               <Link href="/routes" className="text-[#C9A84C] text-sm font-bold hover:underline">View all Kingdom-wide routes &rarr;</Link>
@@ -340,13 +340,13 @@ export default async function AirportLandingPage({ params }: PageProps) {
 
           {/* Local Tips */}
           {airportData.tips.length > 0 && (
-            <section className="bg-[#111] border border-[#C9A84C]/15 rounded-3xl p-8">
-              <h2 className="font-heading text-2xl font-bold mb-6 text-[#F5F0E8]">Arrival & Transfer Tips</h2>
+            <section className="bg-white border border-[#16A34A]/12 rounded-3xl p-8">
+              <h2 className="font-heading text-2xl font-bold mb-6 text-[#1C1C1C]">Arrival & Transfer Tips</h2>
               <ul className="space-y-4">
                 {airportData.tips.map((tip, idx) => (
                   <li key={idx} className="flex gap-4">
                     <CheckCircle2 className="h-5 w-5 text-[#C9A84C] shrink-0 mt-0.5" />
-                    <p className="text-sm text-[#A1A1A6]">{tip}</p>
+                    <p className="text-sm text-[#6B7280]">{tip}</p>
                   </li>
                 ))}
               </ul>
@@ -362,9 +362,9 @@ export default async function AirportLandingPage({ params }: PageProps) {
               </h2>
               <div className="space-y-4">
                 {airportData.faqs.map((faq, idx) => (
-                  <div key={idx} className="border border-[#C9A84C]/15 rounded-2xl p-6 bg-[#111]">
-                    <h3 className="font-bold text-base mb-2 text-[#F5F0E8]">{faq.question}</h3>
-                    <p className="text-sm text-[#A1A1A6] leading-relaxed">{faq.answer}</p>
+                  <div key={idx} className="border border-[#16A34A]/12 rounded-2xl p-6 bg-white">
+                    <h3 className="font-bold text-base mb-2 text-[#1C1C1C]">{faq.question}</h3>
+                    <p className="text-sm text-[#6B7280] leading-relaxed">{faq.answer}</p>
                   </div>
                 ))}
               </div>
@@ -378,15 +378,15 @@ export default async function AirportLandingPage({ params }: PageProps) {
           
           {/* Terminals */}
           {airportData.terminals.length > 0 && (
-            <div className="bg-[#111] border border-[#C9A84C]/15 rounded-3xl p-6">
+            <div className="bg-white border border-[#16A34A]/12 rounded-3xl p-6">
               <h3 className="font-heading text-xl font-bold mb-6 flex items-center gap-2">
                 <Building2 className="text-[#C9A84C] h-5 w-5" /> Terminals
               </h3>
               <div className="space-y-4">
                 {airportData.terminals.map((term, idx) => (
                   <div key={idx} className="border-b border-[#C9A84C]/10 pb-4 last:border-0 last:pb-0">
-                    <div className="text-sm font-bold text-[#F5F0E8] mb-1">{term.name}</div>
-                    <p className="text-[0.7rem] text-[#A1A1A6]">{term.desc}</p>
+                    <div className="text-sm font-bold text-[#1C1C1C] mb-1">{term.name}</div>
+                    <p className="text-[0.7rem] text-[#6B7280]">{term.desc}</p>
                   </div>
                 ))}
               </div>
@@ -394,14 +394,14 @@ export default async function AirportLandingPage({ params }: PageProps) {
           )}
 
           {/* FAQ Schema Placeholder (Blueprint requirement) */}
-          <div className="bg-gradient-to-br from-[#1A1A1A] to-[#111] border border-[#C9A84C]/30 rounded-3xl p-6 relative overflow-hidden">
+          <div className="bg-white border border-[#16A34A]/15 shadow-lg rounded-3xl p-6 relative overflow-hidden">
             <div className="absolute -right-4 -top-4 opacity-10 text-[#C9A84C]">
               <PlaneLanding className="h-32 w-32" />
             </div>
             <div className="relative z-10">
               <span className="text-[0.6rem] uppercase tracking-widest text-[#C9A84C] font-bold">Included</span>
               <h3 className="font-heading text-xl font-bold mt-1 mb-2">Meet & Greet</h3>
-              <p className="text-xs text-[#A1A1A6] mb-6 leading-relaxed">
+              <p className="text-xs text-[#6B7280] mb-6 leading-relaxed">
                 Your driver will be waiting in the arrivals hall with a name sign. We track your flight for delays. 60 minutes of free waiting time included.
               </p>
             </div>
@@ -409,6 +409,6 @@ export default async function AirportLandingPage({ params }: PageProps) {
 
         </div>
       </div>
-    </main>
+    </div>
   );
 }

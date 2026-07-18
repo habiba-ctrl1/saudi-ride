@@ -227,7 +227,7 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pt-28 pb-16">
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pt-28 pb-16">
       
       {/* Entrance Hero text */}
       <section className="section-container">
@@ -238,13 +238,13 @@ export default function AboutPage() {
           transition={{ duration: 0.6 }}
           className="max-w-3xl"
         >
-          <span className="text-xs uppercase tracking-[0.2em] text-[#C9A84C] font-semibold">
+          <span className="text-xs uppercase tracking-[0.2em] text-[#B8963B] font-semibold">
             {t.badge}
           </span>
-          <h1 className="mt-4 font-heading text-4xl font-bold leading-tight md:text-5.5xl text-[#F5F0E8]">
+          <h1 className="mt-4 font-heading text-4xl font-bold leading-tight md:text-5.5xl text-[#1C1C1C]">
             {t.title}
           </h1>
-          <p className="mt-6 text-sm md:text-base leading-relaxed text-[#A1A1A6]">
+          <p className="mt-6 text-sm md:text-base leading-relaxed text-[#6B7280]">
             {t.description}
           </p>
         </motion.div>
@@ -262,10 +262,10 @@ export default function AboutPage() {
               viewport={{ once: true }}
               variants={fadeUp}
               transition={{ duration: 0.45, delay: idx * 0.05 }}
-              className="rounded-2xl border border-[#C9A84C]/15 bg-[#121212]/50 p-6 text-center hover:border-[#C9A84C]/40 transition-colors"
+              className="rounded-2xl border border-[#16A34A]/12 bg-white/50 p-6 text-center hover:border-[#16A34A]/35 transition-colors"
             >
-              <p className="font-heading text-3xl font-bold text-[#C9A84C]">{item.value}</p>
-              <p className="mt-2 text-xs uppercase tracking-widest text-[#A1A1A6] font-medium">{item.label}</p>
+              <p className="font-heading text-3xl font-bold text-[#16A34A]">{item.value}</p>
+              <p className="mt-2 text-xs uppercase tracking-widest text-[#6B7280] font-medium">{item.label}</p>
             </motion.div>
           ))}
         </div>
@@ -282,10 +282,10 @@ export default function AboutPage() {
             transition={{ duration: 0.6 }}
             className="space-y-6"
           >
-            <span className="text-xs uppercase tracking-[0.2em] text-[#C9A84C] font-semibold">{t.storySubtitle}</span>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-[#F5F0E8]">{t.storyTitle}</h2>
-            <p className="text-sm text-[#A1A1A6] leading-relaxed">{t.storyText1}</p>
-            <p className="text-sm text-[#A1A1A6] leading-relaxed">{t.storyText2}</p>
+            <span className="text-xs uppercase tracking-[0.2em] text-[#B8963B] font-semibold">{t.storySubtitle}</span>
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-[#1C1C1C]">{t.storyTitle}</h2>
+            <p className="text-sm text-[#6B7280] leading-relaxed">{t.storyText1}</p>
+            <p className="text-sm text-[#6B7280] leading-relaxed">{t.storyText2}</p>
           </motion.div>
 
           <motion.div
@@ -294,7 +294,7 @@ export default function AboutPage() {
             viewport={{ once: true }}
             variants={fadeUp}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="relative h-[320px] rounded-3xl overflow-hidden border border-[#C9A84C]/20"
+            className="relative h-[320px] rounded-3xl overflow-hidden border border-[#16A34A]/15"
           >
             <Image
               src="/about/about-hero.webp"
@@ -311,8 +311,8 @@ export default function AboutPage() {
       {/* Core Pillars Section (Mission & Values) */}
       <section className="section-container mt-24">
         <div className="max-w-3xl mb-12">
-          <span className="text-xs uppercase tracking-[0.2em] text-[#C9A84C] font-semibold">{t.pillarsSubtitle}</span>
-          <h2 className="mt-2 font-heading text-3xl md:text-4xl font-bold text-[#F5F0E8]">{t.pillarsTitle}</h2>
+          <span className="text-xs uppercase tracking-[0.2em] text-[#B8963B] font-semibold">{t.pillarsSubtitle}</span>
+          <h2 className="mt-2 font-heading text-3xl md:text-4xl font-bold text-[#1C1C1C]">{t.pillarsTitle}</h2>
         </div>
 
         <div className="grid gap-8 md:grid-cols-2">
@@ -326,17 +326,17 @@ export default function AboutPage() {
                 viewport={{ once: true, amount: 0.2 }}
                 variants={fadeUp}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative group rounded-3xl border border-[#C9A84C]/15 bg-[#121212] p-8 shadow-2xl hover:border-[#C9A84C]/45 transition-all duration-300"
+                className="relative group rounded-3xl border border-[#16A34A]/12 bg-white p-8 shadow-2xl hover:border-[#C9A84C]/45 transition-all duration-300"
               >
                 <div className="flex gap-5">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#C9A84C]/30 bg-black/40 text-[#C9A84C] shrink-0">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#C9A84C]/30 bg-[#F0FDF4] text-[#C9A84C] shrink-0">
                     <Icon className="h-5 w-5" />
                   </div>
                   <div className="space-y-2">
-                    <h3 className="font-heading text-xl font-bold text-[#F5F0E8] group-hover:text-[#C9A84C] transition-colors">
+                    <h3 className="font-heading text-xl font-bold text-[#1C1C1C] group-hover:text-[#16A34A] transition-colors">
                       {pillar.title}
                     </h3>
-                    <p className="text-xs leading-relaxed text-[#A1A1A6]">
+                    <p className="text-xs leading-relaxed text-[#6B7280]">
                       {pillar.description}
                     </p>
                   </div>
@@ -350,8 +350,8 @@ export default function AboutPage() {
       {/* Government & Compliance Certifications */}
       <section className="section-container mt-24">
         <div className="max-w-3xl mb-12 text-center md:text-left">
-          <span className="text-xs uppercase tracking-[0.2em] text-[#C9A84C] font-semibold">{t.certSubtitle}</span>
-          <h2 className="mt-2 font-heading text-3xl md:text-4xl font-bold text-[#F5F0E8]">{t.certTitle}</h2>
+          <span className="text-xs uppercase tracking-[0.2em] text-[#B8963B] font-semibold">{t.certSubtitle}</span>
+          <h2 className="mt-2 font-heading text-3xl md:text-4xl font-bold text-[#1C1C1C]">{t.certTitle}</h2>
         </div>
 
         <div className="grid gap-6 md:grid-cols-3">
@@ -365,15 +365,15 @@ export default function AboutPage() {
                 viewport={{ once: true }}
                 variants={fadeUp}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="rounded-2xl border border-[#C9A84C]/10 bg-[#111111] p-6 flex flex-col justify-between hover:border-[#C9A84C]/30 transition-all"
+                className="rounded-2xl border border-[#C9A84C]/10 bg-white p-6 flex flex-col justify-between hover:border-[#C9A84C]/30 transition-all"
               >
                 <div className="flex items-center gap-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#C9A84C]/10 border border-[#C9A84C]/30 text-[#C9A84C]">
                     <Icon className="h-4.5 w-4.5" />
                   </div>
-                  <h3 className="font-heading text-lg font-bold text-[#F5F0E8]">{cert.name}</h3>
+                  <h3 className="font-heading text-lg font-bold text-[#1C1C1C]">{cert.name}</h3>
                 </div>
-                <p className="mt-4 text-xs text-[#A1A1A6] font-medium border-t border-[#C9A84C]/10 pt-4">{cert.desc}</p>
+                <p className="mt-4 text-xs text-[#6B7280] font-medium border-t border-[#C9A84C]/10 pt-4">{cert.desc}</p>
               </motion.div>
             );
           })}
@@ -383,8 +383,8 @@ export default function AboutPage() {
       {/* Elite Leadership Team Section */}
       <section className="section-container mt-24 mb-12">
         <div className="max-w-3xl mb-12 text-center md:text-left">
-          <span className="text-xs uppercase tracking-[0.2em] text-[#C9A84C] font-semibold">{t.teamSubtitle}</span>
-          <h2 className="mt-2 font-heading text-3xl md:text-4xl font-bold text-[#F5F0E8]">{t.teamTitle}</h2>
+          <span className="text-xs uppercase tracking-[0.2em] text-[#B8963B] font-semibold">{t.teamSubtitle}</span>
+          <h2 className="mt-2 font-heading text-3xl md:text-4xl font-bold text-[#1C1C1C]">{t.teamTitle}</h2>
         </div>
 
         <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
@@ -396,17 +396,17 @@ export default function AboutPage() {
               viewport={{ once: true }}
               variants={fadeUp}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group overflow-hidden rounded-3xl border border-[#C9A84C]/10 bg-[#111111] hover:border-[#C9A84C]/30 transition-all"
+              className="group overflow-hidden rounded-3xl border border-[#C9A84C]/10 bg-white hover:border-[#C9A84C]/30 transition-all"
             >
               {/* Initials avatar — real photos pending, koi stock/fake photo attach nahi karna */}
-              <div className="relative h-[280px] w-full overflow-hidden flex items-center justify-center bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A]">
-                <span className="font-heading text-6xl font-bold text-[#C9A84C]/40">
+              <div className="relative h-[280px] w-full overflow-hidden flex items-center justify-center bg-gradient-to-br from-[#F0FDF4] to-[#FAFAF7]">
+                <span className="font-heading text-6xl font-bold text-[#16A34A]/40">
                   {member.name.charAt(0)}
                 </span>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
               </div>
               <div className="p-6">
-                <h3 className="font-heading text-lg font-bold text-[#F5F0E8]">{member.name}</h3>
+                <h3 className="font-heading text-lg font-bold text-[#1C1C1C]">{member.name}</h3>
                 <p className="text-xs text-[#C9A84C] uppercase tracking-wider font-semibold mt-1">{member.role}</p>
               </div>
             </motion.div>

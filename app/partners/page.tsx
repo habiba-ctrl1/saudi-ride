@@ -188,7 +188,7 @@ export default function PartnersPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pt-28 pb-16">
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pt-28 pb-16">
       
       {/* Entrance Hero text */}
       <section className="section-container">
@@ -199,13 +199,13 @@ export default function PartnersPage() {
           transition={{ duration: 0.6 }}
           className="max-w-3xl"
         >
-          <span className="text-xs uppercase tracking-[0.2em] text-[#C9A84C] font-semibold">
+          <span className="text-xs uppercase tracking-[0.2em] text-[#B8963B] font-semibold">
             {t.badge}
           </span>
-          <h1 className="mt-4 font-heading text-4xl font-bold leading-tight md:text-5.5xl text-[#F5F0E8]">
+          <h1 className="mt-4 font-heading text-4xl font-bold leading-tight md:text-5.5xl text-[#1C1C1C]">
             {t.title}
           </h1>
-          <p className="mt-6 text-sm md:text-base leading-relaxed text-[#A1A1A6]">
+          <p className="mt-6 text-sm md:text-base leading-relaxed text-[#6B7280]">
             {t.description}
           </p>
         </motion.div>
@@ -214,8 +214,8 @@ export default function PartnersPage() {
       {/* Sector benefits grid */}
       <section className="section-container mt-16">
         <div className="max-w-3xl mb-12">
-          <span className="text-xs uppercase tracking-[0.2em] text-[#C9A84C] font-semibold">{t.partnerSubtitle}</span>
-          <h2 className="mt-2 font-heading text-3xl font-bold text-[#F5F0E8]">{t.partnerTitle}</h2>
+          <span className="text-xs uppercase tracking-[0.2em] text-[#B8963B] font-semibold">{t.partnerSubtitle}</span>
+          <h2 className="mt-2 font-heading text-3xl font-bold text-[#1C1C1C]">{t.partnerTitle}</h2>
         </div>
 
         <div className="grid gap-8 md:grid-cols-3">
@@ -229,13 +229,13 @@ export default function PartnersPage() {
                 viewport={{ once: true }}
                 variants={fadeUp}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="rounded-3xl border border-[#C9A84C]/10 bg-[#111111] p-8 space-y-5 hover:border-[#C9A84C]/35 transition-all duration-300"
+                className="rounded-3xl border border-[#C9A84C]/10 bg-white p-8 space-y-5 hover:border-[#C9A84C]/35 transition-all duration-300"
               >
                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#C9A84C]/10 border border-[#C9A84C]/30 text-[#C9A84C]">
                   <Icon className="h-5 w-5" />
                 </div>
-                <h3 className="font-heading text-xl font-bold text-[#F5F0E8]">{p.title}</h3>
-                <p className="text-xs text-[#A1A1A6] leading-relaxed">{p.desc}</p>
+                <h3 className="font-heading text-xl font-bold text-[#1C1C1C]">{p.title}</h3>
+                <p className="text-xs text-[#6B7280] leading-relaxed">{p.desc}</p>
               </motion.div>
             );
           })}
@@ -248,8 +248,8 @@ export default function PartnersPage() {
           
           {/* Left: Premium branding placeholders & logos */}
           <div className="lg:col-span-5 space-y-8">
-            <div className="rounded-3xl border border-[#C9A84C]/10 bg-[#111111] p-8 space-y-6">
-              <h3 className="font-heading text-lg font-bold text-[#C9A84C]">{t.logosTitle}</h3>
+            <div className="rounded-3xl border border-[#C9A84C]/10 bg-white p-8 space-y-6">
+              <h3 className="font-heading text-lg font-bold text-[#16A34A]">{t.logosTitle}</h3>
               <div className="grid grid-cols-2 gap-4">
                 
                 {/* Custom premium shape placeholders representing luxury brands */}
@@ -263,7 +263,7 @@ export default function PartnersPage() {
                 ].map((name) => (
                   <div
                     key={name}
-                    className="h-16 rounded-xl border border-white/5 bg-black/40 flex items-center justify-center text-[10px] uppercase tracking-widest text-[#7C8088] font-bold"
+                    className="h-16 rounded-xl border border-[#16A34A]/15 bg-[#FAFAF7] flex items-center justify-center text-[10px] uppercase tracking-widest text-[#6B7280] font-bold"
                   >
                     {name}
                   </div>
@@ -272,7 +272,7 @@ export default function PartnersPage() {
               </div>
             </div>
             
-            <div className="h-[220px] rounded-3xl overflow-hidden border border-[#C9A84C]/15 relative">
+            <div className="h-[220px] rounded-3xl overflow-hidden border border-[#16A34A]/12 relative">
               <Image
                 src="/services/corporate-hero.webp"
                 alt="Corporate office premium partnership"
@@ -280,7 +280,7 @@ export default function PartnersPage() {
                 height={600}
                 className="w-full h-full object-cover grayscale opacity-60"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] to-transparent" />
             </div>
           </div>
 
@@ -290,12 +290,12 @@ export default function PartnersPage() {
             whileInView="show"
             viewport={{ once: true }}
             variants={fadeUp}
-            className="lg:col-span-7 rounded-3xl border border-[#C9A84C]/20 bg-[#121212] p-8 md:p-10 shadow-2xl relative"
+            className="lg:col-span-7 rounded-3xl border border-[#16A34A]/15 bg-white p-8 md:p-10 shadow-2xl relative"
           >
             <div className="absolute top-0 right-0 h-40 w-40 rounded-full bg-[#C9A84C]/5 blur-3xl pointer-events-none" />
 
             <div className="mb-8">
-              <h2 className="font-heading text-2xl font-bold text-[#F5F0E8]">{t.formTitle}</h2>
+              <h2 className="font-heading text-2xl font-bold text-[#1C1C1C]">{t.formTitle}</h2>
               <p className="text-xs text-[#C9A84C] font-semibold mt-1.5">{t.formSubtitle}</p>
             </div>
 
@@ -304,25 +304,25 @@ export default function PartnersPage() {
               <div className="grid gap-6 sm:grid-cols-2">
                 {/* Company Name */}
                 <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-wider text-[#A1A1A6] font-semibold">{t.labelCompany}</label>
+                  <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelCompany}</label>
                   <input
                     type="text"
                     required
                     value={formData.companyName}
                     onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                    className="w-full rounded-xl border border-[#C9A84C]/15 bg-black/40 px-4 py-3 text-xs text-[#F5F0E8] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                    className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
                   />
                 </div>
 
                 {/* Contact Person */}
                 <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-wider text-[#A1A1A6] font-semibold">{t.labelContact}</label>
+                  <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelContact}</label>
                   <input
                     type="text"
                     required
                     value={formData.contactPerson}
                     onChange={(e) => setFormData({ ...formData, contactPerson: e.target.value })}
-                    className="w-full rounded-xl border border-[#C9A84C]/15 bg-black/40 px-4 py-3 text-xs text-[#F5F0E8] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                    className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
                   />
                 </div>
               </div>
@@ -330,39 +330,39 @@ export default function PartnersPage() {
               <div className="grid gap-6 sm:grid-cols-2">
                 {/* Work Email */}
                 <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-wider text-[#A1A1A6] font-semibold">{t.labelEmail}</label>
+                  <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelEmail}</label>
                   <input
                     type="email"
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full rounded-xl border border-[#C9A84C]/15 bg-black/40 px-4 py-3 text-xs text-[#F5F0E8] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                    className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
                   />
                 </div>
 
                 {/* Direct Number */}
                 <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-wider text-[#A1A1A6] font-semibold">{t.labelPhone}</label>
+                  <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelPhone}</label>
                   <input
                     type="tel"
                     required
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full rounded-xl border border-[#C9A84C]/15 bg-black/40 px-4 py-3 text-xs text-[#F5F0E8] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                    className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
                   />
                 </div>
               </div>
 
               {/* Partnership Category */}
               <div className="space-y-2">
-                <label className="text-xs uppercase tracking-wider text-[#A1A1A6] font-semibold">{t.labelType}</label>
+                <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelType}</label>
                 <select
                   value={formData.partnerType}
                   onChange={(e) => setFormData({ ...formData, partnerType: e.target.value })}
-                  className="w-full rounded-xl border border-[#C9A84C]/15 bg-black/40 px-4 py-3 text-xs text-[#F5F0E8] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                  className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
                 >
                   {t.partnerTypes.map((opt) => (
-                    <option key={opt.value} value={opt.value} className="bg-[#121212]">
+                    <option key={opt.value} value={opt.value} className="bg-white">
                       {opt.label}
                     </option>
                   ))}
@@ -371,14 +371,14 @@ export default function PartnersPage() {
 
               {/* Requirements text */}
               <div className="space-y-2">
-                <label className="text-xs uppercase tracking-wider text-[#A1A1A6] font-semibold">{t.labelDetails}</label>
+                <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelDetails}</label>
                 <textarea
                   required
                   rows={4}
                   value={formData.details}
                   onChange={(e) => setFormData({ ...formData, details: e.target.value })}
                   placeholder={t.placeholderDetails}
-                  className="w-full rounded-xl border border-[#C9A84C]/15 bg-black/40 px-4 py-3 text-xs text-[#F5F0E8] focus:border-[#C9A84C] focus:outline-none transition-colors resize-none placeholder:text-[#555]"
+                  className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors resize-none placeholder:text-[#555]"
                 />
               </div>
 
@@ -386,7 +386,7 @@ export default function PartnersPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full rounded-xl bg-[#C9A84C] py-4 text-xs font-bold uppercase tracking-wider text-[#0A0A0A] hover:bg-[#B8963B] disabled:bg-[#C9A84C]/50 transition-colors flex items-center justify-center gap-2 shadow-[0_4px_15px_rgba(201,168,76,0.2)]"
+                className="w-full rounded-xl bg-[#16A34A] py-4 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] disabled:bg-[#C9A84C]/50 transition-colors flex items-center justify-center gap-2 shadow-[0_4px_15px_rgba(22,163,74,0.2)]"
               >
                 {isSubmitting ? (
                   <>

@@ -228,7 +228,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pt-28 pb-16">
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pt-28 pb-16">
       <section className="section-container">
         
         {/* Entrance Hero text */}
@@ -239,13 +239,13 @@ export default function ContactPage() {
           transition={{ duration: 0.6 }}
           className="max-w-3xl"
         >
-          <span className="text-xs uppercase tracking-[0.2em] text-[#C9A84C] font-semibold">
+          <span className="text-xs uppercase tracking-[0.2em] text-[#B8963B] font-semibold">
             {t.badge}
           </span>
-          <h1 className="mt-4 font-heading text-4xl font-bold leading-tight md:text-5.5xl text-[#F5F0E8]">
+          <h1 className="mt-4 font-heading text-4xl font-bold leading-tight md:text-5.5xl text-[#1C1C1C]">
             {t.title}
           </h1>
-          <p className="mt-6 text-sm md:text-base leading-relaxed text-[#A1A1A6]">
+          <p className="mt-6 text-sm md:text-base leading-relaxed text-[#6B7280]">
             {t.description}
           </p>
         </motion.div>
@@ -265,13 +265,13 @@ export default function ContactPage() {
                 viewport={{ once: true, amount: 0.2 }}
                 variants={fadeUp}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative flex flex-col justify-between rounded-3xl border border-[#C9A84C]/15 bg-[#121212] p-8 shadow-2xl hover:border-[#C9A84C]/45 transition-all duration-300"
+                className="group relative flex flex-col justify-between rounded-3xl border border-[#16A34A]/12 bg-white p-8 shadow-2xl hover:border-[#C9A84C]/45 transition-all duration-300"
                 whileHover={{ y: -6 }}
               >
                 <div className="absolute -left-10 -top-10 h-32 w-32 rounded-full bg-[#C9A84C]/5 blur-2xl pointer-events-none" />
 
                 <div className="space-y-6">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#C9A84C]/35 bg-black/40 text-[#C9A84C] shrink-0">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#C9A84C]/35 bg-[#F0FDF4] text-[#C9A84C] shrink-0">
                     <Icon className="h-5 w-5" />
                   </div>
 
@@ -279,13 +279,13 @@ export default function ContactPage() {
                     <span className="text-[0.6rem] uppercase tracking-[0.18em] text-[#C9A84C] font-bold">
                       {card.badge}
                     </span>
-                    <h2 className="font-heading text-xl font-bold text-[#F5F0E8] group-hover:text-[#C9A84C] transition-colors">
+                    <h2 className="font-heading text-xl font-bold text-[#1C1C1C] group-hover:text-[#16A34A] transition-colors">
                       {card.title}
                     </h2>
                   </div>
                 </div>
 
-                <div className="mt-8 border-t border-[#C9A84C]/10 pt-5 text-sm font-semibold tracking-wide text-[#F5F0E8]">
+                <div className="mt-8 border-t border-[#C9A84C]/10 pt-5 text-sm font-semibold tracking-wide text-[#1C1C1C]">
                   {card.value}
                 </div>
               </motion.a>
@@ -305,15 +305,15 @@ export default function ContactPage() {
               whileInView="show"
               viewport={{ once: true }}
               variants={fadeUp}
-              className="rounded-3xl border border-[#C9A84C]/10 bg-[#111111] p-8 space-y-5"
+              className="rounded-3xl border border-[#C9A84C]/10 bg-white p-8 space-y-5"
             >
-              <h3 className="font-heading text-xl font-bold text-[#F5F0E8] flex items-center gap-3">
+              <h3 className="font-heading text-xl font-bold text-[#1C1C1C] flex items-center gap-3">
                 <Clock className="h-5 w-5 text-[#C9A84C]" />
                 <span>{t.officeHoursTitle}</span>
               </h3>
-              <p className="text-xs text-[#A1A1A6] leading-relaxed">{t.officeHoursDesc}</p>
+              <p className="text-xs text-[#6B7280] leading-relaxed">{t.officeHoursDesc}</p>
               
-              <div className="space-y-2 text-xs border-t border-[#C9A84C]/10 pt-4 font-semibold text-[#F5F0E8]">
+              <div className="space-y-2 text-xs border-t border-[#C9A84C]/10 pt-4 font-semibold text-[#1C1C1C]">
                 <p className="text-[#C9A84C]">{t.officeHoursDays}</p>
                 <p>{t.officeHoursFriday}</p>
               </div>
@@ -325,13 +325,13 @@ export default function ContactPage() {
               whileInView="show"
               viewport={{ once: true }}
               variants={fadeUp}
-              className="rounded-3xl border border-[#C9A84C]/10 bg-[#111111] p-8 space-y-4"
+              className="rounded-3xl border border-[#C9A84C]/10 bg-white p-8 space-y-4"
             >
-              <h3 className="font-heading text-xl font-bold text-[#F5F0E8] flex items-center gap-3">
+              <h3 className="font-heading text-xl font-bold text-[#1C1C1C] flex items-center gap-3">
                 <MapPin className="h-5 w-5 text-[#C9A84C]" />
                 <span>{t.locationTitle}</span>
               </h3>
-              <p className="text-xs text-[#A1A1A6] leading-relaxed font-semibold">{t.locationDesc}</p>
+              <p className="text-xs text-[#6B7280] leading-relaxed font-semibold">{t.locationDesc}</p>
             </motion.div>
 
             {/* Styled Custom-Darkened Saudi Map */}
@@ -340,7 +340,7 @@ export default function ContactPage() {
               whileInView="show"
               viewport={{ once: true }}
               variants={fadeUp}
-              className="h-[260px] rounded-3xl overflow-hidden border border-[#C9A84C]/15 relative"
+              className="h-[260px] rounded-3xl overflow-hidden border border-[#16A34A]/12 relative"
             >
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115949.20815152864!2d46.60222045147572!3d24.713551690013098!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03890d489301%3A0x8e79f1851173875c!2sAl%20Olaya%2C%20Riyadh%20Saudi%20Arabia!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
@@ -359,12 +359,12 @@ export default function ContactPage() {
             whileInView="show"
             viewport={{ once: true }}
             variants={fadeUp}
-            className="lg:col-span-7 rounded-3xl border border-[#C9A84C]/20 bg-[#121212] p-8 md:p-10 shadow-2xl relative"
+            className="lg:col-span-7 rounded-3xl border border-[#16A34A]/15 bg-white p-8 md:p-10 shadow-2xl relative"
           >
             <div className="absolute top-0 right-0 h-40 w-40 rounded-full bg-[#C9A84C]/5 blur-3xl pointer-events-none" />
 
             <div className="mb-8">
-              <h2 className="font-heading text-2xl font-bold text-[#F5F0E8]">{t.formTitle}</h2>
+              <h2 className="font-heading text-2xl font-bold text-[#1C1C1C]">{t.formTitle}</h2>
               <p className="text-xs text-[#C9A84C] font-semibold mt-1.5">{t.formSubtitle}</p>
             </div>
 
@@ -374,25 +374,25 @@ export default function ContactPage() {
                 
                 {/* Name */}
                 <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-wider text-[#A1A1A6] font-semibold">{t.labelName}</label>
+                  <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelName}</label>
                   <input
                     type="text"
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full rounded-xl border border-[#C9A84C]/15 bg-black/40 px-4 py-3 text-xs text-[#F5F0E8] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                    className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
                   />
                 </div>
 
                 {/* Email */}
                 <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-wider text-[#A1A1A6] font-semibold">{t.labelEmail}</label>
+                  <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelEmail}</label>
                   <input
                     type="email"
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full rounded-xl border border-[#C9A84C]/15 bg-black/40 px-4 py-3 text-xs text-[#F5F0E8] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                    className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
                   />
                 </div>
 
@@ -402,26 +402,26 @@ export default function ContactPage() {
                 
                 {/* Phone */}
                 <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-wider text-[#A1A1A6] font-semibold">{t.labelPhone}</label>
+                  <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelPhone}</label>
                   <input
                     type="tel"
                     required
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full rounded-xl border border-[#C9A84C]/15 bg-black/40 px-4 py-3 text-xs text-[#F5F0E8] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                    className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
                   />
                 </div>
 
                 {/* Service Category */}
                 <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-wider text-[#A1A1A6] font-semibold">{t.labelService}</label>
+                  <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelService}</label>
                   <select
                     value={formData.serviceType}
                     onChange={(e) => setFormData({ ...formData, serviceType: e.target.value })}
-                    className="w-full rounded-xl border border-[#C9A84C]/15 bg-black/40 px-4 py-3 text-xs text-[#F5F0E8] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                    className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
                   >
                     {t.services.map((opt) => (
-                      <option key={opt.value} value={opt.value} className="bg-[#121212] text-[#F5F0E8]">
+                      <option key={opt.value} value={opt.value} className="bg-white text-[#1C1C1C]">
                         {opt.label}
                       </option>
                     ))}
@@ -432,14 +432,14 @@ export default function ContactPage() {
 
               {/* Message */}
               <div className="space-y-2">
-                <label className="text-xs uppercase tracking-wider text-[#A1A1A6] font-semibold">{t.labelMessage}</label>
+                <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelMessage}</label>
                 <textarea
                   required
                   rows={5}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder={t.placeholderMessage}
-                  className="w-full rounded-xl border border-[#C9A84C]/15 bg-black/40 px-4 py-3 text-xs text-[#F5F0E8] focus:border-[#C9A84C] focus:outline-none transition-colors resize-none placeholder:text-[#555]"
+                  className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors resize-none placeholder:text-[#555]"
                 />
               </div>
 
@@ -447,7 +447,7 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full rounded-xl bg-[#C9A84C] py-4 text-xs font-bold uppercase tracking-wider text-[#0A0A0A] hover:bg-[#B8963B] disabled:bg-[#C9A84C]/50 transition-colors flex items-center justify-center gap-2 shadow-[0_4px_15px_rgba(201,168,76,0.2)]"
+                className="w-full rounded-xl bg-[#16A34A] py-4 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] disabled:bg-[#C9A84C]/50 transition-colors flex items-center justify-center gap-2 shadow-[0_4px_15px_rgba(22,163,74,0.2)]"
               >
                 {isSubmitting ? (
                   <>

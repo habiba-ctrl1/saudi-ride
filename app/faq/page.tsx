@@ -401,7 +401,7 @@ export default function FaqPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pt-28 pb-16">
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pt-28 pb-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
@@ -417,13 +417,13 @@ export default function FaqPage() {
           transition={{ duration: 0.6 }}
           className="max-w-3xl text-center md:text-left md:mx-0"
         >
-          <span className="text-xs uppercase tracking-[0.2em] text-[#C9A84C] font-semibold">
+          <span className="text-xs uppercase tracking-[0.2em] text-[#B8963B] font-semibold">
             {t.badge}
           </span>
-          <h1 className="mt-4 font-heading text-4xl font-bold leading-tight md:text-5.5xl text-[#F5F0E8]">
+          <h1 className="mt-4 font-heading text-4xl font-bold leading-tight md:text-5.5xl text-[#1C1C1C]">
             {t.title}
           </h1>
-          <p className="mt-6 text-sm md:text-base leading-relaxed text-[#A1A1A6]">
+          <p className="mt-6 text-sm md:text-base leading-relaxed text-[#6B7280]">
             {t.description}
           </p>
         </motion.div>
@@ -439,18 +439,18 @@ export default function FaqPage() {
                 placeholder={t.searchPlaceholder}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full rounded-2xl border border-[#C9A84C]/20 bg-[#111111] py-3.5 pl-11 pr-4 text-xs text-[#F5F0E8] focus:border-[#C9A84C] focus:outline-none transition-all placeholder:text-[#7C8088]"
+                className="w-full rounded-2xl border border-[#16A34A]/15 bg-white py-3.5 pl-11 pr-4 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-all placeholder:text-[#6B7280]"
               />
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-[#C9A84C]" />
             </div>
 
-            <div className="hidden md:flex flex-col gap-2 rounded-3xl border border-[#C9A84C]/10 bg-[#111111] p-4">
+            <div className="hidden md:flex flex-col gap-2 rounded-3xl border border-[#C9A84C]/10 bg-white p-4">
               <button
                 onClick={() => setSelectedCategory("all")}
                 className={`w-full rounded-xl px-4 py-2.5 text-left text-xs font-bold uppercase tracking-wider transition-all ${
                   selectedCategory === "all"
-                    ? "bg-[#C9A84C] text-[#0A0A0A]"
-                    : "text-[#A1A1A6] hover:bg-white/5 hover:text-[#F5F0E8]"
+                    ? "bg-[#16A34A] text-white"
+                    : "text-[#6B7280] hover:bg-white/5 hover:text-[#1C1C1C]"
                 }`}
               >
                 {t.allCategories}
@@ -463,8 +463,8 @@ export default function FaqPage() {
                     onClick={() => setSelectedCategory(cat.key)}
                     className={`w-full rounded-xl px-4 py-2.5 text-left text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2.5 ${
                       selectedCategory === cat.key
-                        ? "bg-[#C9A84C] text-[#0A0A0A]"
-                        : "text-[#A1A1A6] hover:bg-white/5 hover:text-[#F5F0E8]"
+                        ? "bg-[#16A34A] text-white"
+                        : "text-[#6B7280] hover:bg-white/5 hover:text-[#1C1C1C]"
                     }`}
                   >
                     <CatIcon className="h-4 w-4 shrink-0" />
@@ -491,7 +491,7 @@ export default function FaqPage() {
                     const CatIcon = group.icon;
                     return (
                       <div key={group.key} className="space-y-4">
-                        <h2 className="font-heading text-lg font-bold text-[#C9A84C] flex items-center gap-2 border-b border-[#C9A84C]/10 pb-2">
+                        <h2 className="font-heading text-lg font-bold text-[#16A34A] flex items-center gap-2 border-b border-[#C9A84C]/10 pb-2">
                           <CatIcon className="h-5 w-5" />
                           <span>{group.label}</span>
                         </h2>
@@ -500,9 +500,9 @@ export default function FaqPage() {
                           {group.faqs.map((faq) => (
                             <details
                               key={faq.question}
-                              className="group rounded-2xl border border-[#C9A84C]/15 bg-[#121212] p-5 transition-all duration-300 hover:border-[#C9A84C]/35"
+                              className="group rounded-2xl border border-[#16A34A]/12 bg-white p-5 transition-all duration-300 hover:border-[#C9A84C]/35"
                             >
-                              <summary className="cursor-pointer font-heading text-sm md:text-base font-semibold text-[#F5F0E8] group-open:text-[#C9A84C] list-none flex items-center justify-between focus:outline-none select-none">
+                              <summary className="cursor-pointer font-heading text-sm md:text-base font-semibold text-[#1C1C1C] group-open:text-[#C9A84C] list-none flex items-center justify-between focus:outline-none select-none">
                                 <div className="flex items-center gap-3">
                                   <HelpCircle className="h-4 w-4 text-[#C9A84C] shrink-0" />
                                   <span>{faq.question}</span>
@@ -510,7 +510,7 @@ export default function FaqPage() {
                                 <span className="text-xs transition-transform duration-300 group-open:rotate-180 text-[#C9A84C]">▼</span>
                               </summary>
                               
-                              <p className="mt-4 text-xs md:text-sm leading-relaxed text-[#A1A1A6] border-t border-[#C9A84C]/8 pt-4 font-sans">
+                              <p className="mt-4 text-xs md:text-sm leading-relaxed text-[#6B7280] border-t border-[#C9A84C]/8 pt-4 font-sans">
                                 {faq.answer}
                               </p>
                             </details>
@@ -524,9 +524,9 @@ export default function FaqPage() {
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="rounded-3xl border border-[#C9A84C]/10 bg-[#111111] p-8 text-center"
+                  className="rounded-3xl border border-[#C9A84C]/10 bg-white p-8 text-center"
                 >
-                  <p className="text-sm text-[#A1A1A6] leading-relaxed">{t.noResults}</p>
+                  <p className="text-sm text-[#6B7280] leading-relaxed">{t.noResults}</p>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -546,8 +546,8 @@ export default function FaqPage() {
           <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 text-[#C9A84C] mx-auto">
             <MessageSquare className="h-6 w-6" />
           </div>
-          <h3 className="font-heading text-2xl md:text-3xl font-bold text-[#F5F0E8]">{t.ctaTitle}</h3>
-          <p className="text-sm text-[#A1A1A6] max-w-2xl mx-auto leading-relaxed">{t.ctaDesc}</p>
+          <h3 className="font-heading text-2xl md:text-3xl font-bold text-[#1C1C1C]">{t.ctaTitle}</h3>
+          <p className="text-sm text-[#6B7280] max-w-2xl mx-auto leading-relaxed">{t.ctaDesc}</p>
           <a
             href={contactConfig.whatsappLink}
             target="_blank"
@@ -559,7 +559,7 @@ export default function FaqPage() {
                 locale: language
               });
             }}
-            className="inline-flex items-center gap-2 rounded-full bg-[#C9A84C] px-8 py-4 text-xs font-bold uppercase tracking-wider text-[#0A0A0A] hover:bg-[#B8963B] transition-all shadow-[0_4px_20px_rgba(201,168,76,0.35)]"
+            className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-4 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all shadow-[0_4px_20px_rgba(22,163,74,0.35)]"
           >
             <MessageSquare className="h-4 w-4 fill-current" />
             <span>{t.ctaBtn}</span>

@@ -113,7 +113,7 @@ export default async function BlogPostPage({ params }: PageProps) {
     .slice(0, 2);
 
   return (
-    <main className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] pb-24">
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
       <JsonLd
         data={[
           articleSchema({
@@ -142,25 +142,25 @@ export default async function BlogPostPage({ params }: PageProps) {
             priority
             className="object-cover opacity-55"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/85 to-[#0A0A0A]/35" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/85 to-[#FAFAF7]/35" />
         </div>
 
         <div className="section-container relative z-10 max-w-4xl">
-          <Link href="/blog" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#A1A1A6] hover:text-[#C9A84C] transition-colors mb-8">
+          <Link href="/blog" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#6B7280] hover:text-[#16A34A] transition-colors mb-8">
             <ArrowLeft className="h-4 w-4" /> Back to Blog
           </Link>
           
           <div className="mb-6">
-            <span className="rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#C9A84C]">
+            <span className="rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#B8963B]">
               {post.category}
             </span>
           </div>
 
-          <h1 className="font-heading text-3xl md:text-5xl font-bold leading-tight mb-8 text-[#F5F0E8]">
+          <h1 className="font-heading text-3xl md:text-5xl font-bold leading-tight mb-8 text-[#1C1C1C]">
             {post.title}
           </h1>
 
-          <div className="flex items-center gap-6 pt-6 border-t border-[#C9A84C]/10 text-xs text-[#7C8088] font-medium uppercase tracking-wider">
+          <div className="flex items-center gap-6 pt-6 border-t border-[#C9A84C]/10 text-xs text-[#6B7280] font-medium uppercase tracking-wider">
             <div className="flex items-center gap-2">
               <User className="h-4 w-4 text-[#C9A84C]" />
               <span>{post.author}</span>
@@ -177,21 +177,21 @@ export default async function BlogPostPage({ params }: PageProps) {
       <section className="section-container max-w-4xl py-16">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12">
           
-          <div className="prose prose-invert prose-p:leading-relaxed prose-p:text-[#A1A1A6] prose-headings:font-heading prose-headings:text-[#F5F0E8] prose-a:text-[#C9A84C] prose-strong:text-[#F5F0E8] prose-ul:text-[#A1A1A6] prose-ol:text-[#A1A1A6] prose-li:marker:text-[#C9A84C] max-w-none">
+          <div className="prose prose-invert prose-p:leading-relaxed prose-p:text-[#6B7280] prose-headings:font-heading prose-headings:text-[#1C1C1C] prose-a:text-[#C9A84C] prose-strong:text-[#1C1C1C] prose-ul:text-[#6B7280] prose-ol:text-[#6B7280] prose-li:marker:text-[#C9A84C] max-w-none">
             <ReactMarkdown>{post.content}</ReactMarkdown>
 
             {/* Contextual internal links (topical cluster) */}
             {internalLinksFor(post).length > 0 && (
               <div className="mt-14 not-prose">
-                <h2 className="font-heading text-xl font-bold mb-5 text-[#F5F0E8]">Related on Taxi Saudi Arabia</h2>
+                <h2 className="font-heading text-xl font-bold mb-5 text-[#1C1C1C]">Related on Taxi Saudi Arabia</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {internalLinksFor(post).map((l) => (
                     <Link
                       key={l.href}
                       href={l.href}
-                      className="group flex items-center justify-between gap-3 rounded-xl border border-[#C9A84C]/15 bg-[#111] px-4 py-3 hover:border-[#C9A84C]/40 transition-colors"
+                      className="group flex items-center justify-between gap-3 rounded-xl border border-[#16A34A]/12 bg-white px-4 py-3 hover:border-[#16A34A]/35 transition-colors"
                     >
-                      <span className="text-sm font-medium text-[#F5F0E8] group-hover:text-[#C9A84C]">{l.name}</span>
+                      <span className="text-sm font-medium text-[#1C1C1C] group-hover:text-[#16A34A]">{l.name}</span>
                       <ChevronRight className="h-4 w-4 text-[#C9A84C]" />
                     </Link>
                   ))}
@@ -200,14 +200,14 @@ export default async function BlogPostPage({ params }: PageProps) {
             )}
 
             {/* CTA inside article */}
-            <div className="mt-16 p-8 rounded-3xl bg-[#111111] border border-[#C9A84C]/20 text-center not-prose">
-              <h3 className="font-heading text-2xl font-bold mb-3 text-[#F5F0E8]">Book a Comfortable Ride</h3>
-              <p className="text-[#A1A1A6] text-sm mb-8 max-w-md mx-auto">
+            <div className="mt-16 p-8 rounded-3xl bg-white border border-[#16A34A]/15 text-center not-prose">
+              <h3 className="font-heading text-2xl font-bold mb-3 text-[#1C1C1C]">Book a Comfortable Ride</h3>
+              <p className="text-[#6B7280] text-sm mb-8 max-w-md mx-auto">
                 Going to a meeting or on Umrah? Our clean, air-conditioned cars with a professional driver get you there safely and on time, at a fixed price.
               </p>
               <Link
                 href="/book"
-                className="inline-flex items-center gap-2 rounded-full bg-[#C9A84C] px-8 py-3.5 text-xs font-bold uppercase text-[#0A0A0A] hover:bg-[#B8963B] transition-all"
+                className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
               >
                 Book Your Ride
                 <ChevronRight className="h-4 w-4" />
@@ -217,8 +217,8 @@ export default async function BlogPostPage({ params }: PageProps) {
 
           {/* SIDEBAR */}
           <aside className="space-y-8">
-            <div className="bg-[#111111] border border-[#C9A84C]/15 rounded-3xl p-6">
-              <h3 className="font-heading text-lg font-bold mb-6 text-[#F5F0E8]">Recent Posts</h3>
+            <div className="bg-white border border-[#16A34A]/12 rounded-3xl p-6">
+              <h3 className="font-heading text-lg font-bold mb-6 text-[#1C1C1C]">Recent Posts</h3>
               <div className="space-y-6">
                 {relatedPosts.map((related) => (
                   <Link key={related.slug} href={`/blog/${related.slug}`} className="group block">
@@ -230,7 +230,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
-                    <h4 className="text-sm font-bold text-[#F5F0E8] group-hover:text-[#C9A84C] transition-colors line-clamp-2 leading-snug">
+                    <h4 className="text-sm font-bold text-[#1C1C1C] group-hover:text-[#16A34A] transition-colors line-clamp-2 leading-snug">
                       {related.title}
                     </h4>
                   </Link>
@@ -241,6 +241,6 @@ export default async function BlogPostPage({ params }: PageProps) {
 
         </div>
       </section>
-    </main>
+    </div>
   );
 }

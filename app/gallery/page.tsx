@@ -152,7 +152,7 @@ export default function GalleryPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8]">
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C]">
 
       {/* ─── HERO ─────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden pt-32 pb-20">
@@ -161,14 +161,14 @@ export default function GalleryPage() {
 
         <div className="section-container relative z-10 max-w-5xl text-center">
           <motion.div initial="hidden" animate="show" variants={fadeUp} transition={{ duration: 0.6 }}>
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#C9A84C] mx-auto">
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#B8963B] mx-auto">
               <Camera className="h-3 w-3" /> Visual Showcase
             </span>
             <h1 className="mt-6 font-heading text-4xl font-bold leading-tight md:text-6xl mx-auto max-w-4xl">
               Experience the Standard of<br />
-              <span className="text-[#C9A84C]">Absolute Luxury</span>
+              <span className="text-[#16A34A]">Absolute Luxury</span>
             </h1>
-            <p className="mt-6 max-w-2xl mx-auto text-sm md:text-base leading-relaxed text-[#A1A1A6]">
+            <p className="mt-6 max-w-2xl mx-auto text-sm md:text-base leading-relaxed text-[#6B7280]">
               A closer look at our impeccably maintained executive fleets, VIP arrival experiences,
               and picturesque Saudi destinations. Where absolute comfort meets world-class service.
             </p>
@@ -177,7 +177,7 @@ export default function GalleryPage() {
       </section>
 
       {/* ─── FILTER BAR ───────────────────────────────────────────── */}
-      <section className="sticky top-[72px] z-30 bg-[#0A0A0A]/95 backdrop-blur-md border-y border-[#C9A84C]/10 py-4 mb-10">
+      <section className="sticky top-[72px] z-30 bg-[#FAFAF7]/95 backdrop-blur-md border-y border-[#C9A84C]/10 py-4 mb-10">
         <div className="section-container max-w-5xl">
           <div className="flex items-center justify-center gap-2 overflow-x-auto">
             {GALLERY_CATEGORIES.map((cat) => (
@@ -186,8 +186,8 @@ export default function GalleryPage() {
                 onClick={() => setActiveCategory(cat.key)}
                 className={`shrink-0 rounded-full px-5 py-2 text-xs font-bold uppercase tracking-wider transition-all ${
                   activeCategory === cat.key
-                    ? "bg-[#C9A84C] text-[#0A0A0A] shadow-[0_4px_14px_rgba(201,168,76,0.3)]"
-                    : "border border-[#C9A84C]/20 text-[#A1A1A6] hover:border-[#C9A84C]/50 hover:text-[#F5F0E8]"
+                    ? "bg-[#16A34A] text-white shadow-[0_4px_14px_rgba(22,163,74,0.3)]"
+                    : "border border-[#16A34A]/15 text-[#6B7280] hover:border-[#C9A84C]/50 hover:text-[#1C1C1C]"
                 }`}
               >
                 {cat.label}
@@ -216,7 +216,7 @@ export default function GalleryPage() {
                 viewport={{ once: true, amount: 0.1 }}
                 variants={fadeUp}
                 transition={{ duration: 0.4, delay: (index % 6) * 0.05 }}
-                className="group relative break-inside-avoid overflow-hidden rounded-3xl bg-[#111111] cursor-pointer"
+                className="group relative break-inside-avoid overflow-hidden rounded-3xl bg-white cursor-pointer"
                 onClick={() => openLightbox(index)}
               >
                 <div className="relative w-full aspect-[4/3] md:aspect-auto md:h-auto overflow-hidden">
@@ -228,19 +228,19 @@ export default function GalleryPage() {
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-90" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/40 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-90" />
                   
                   {/* Category Badge */}
                   <div className="absolute top-4 left-4 z-10">
-                    <span className="rounded-full bg-black/60 border border-[#C9A84C]/30 px-3 py-1 text-[0.55rem] font-bold uppercase tracking-wider text-[#C9A84C] backdrop-blur-md">
+                    <span className="rounded-full bg-black/60 border border-[#C9A84C]/30 px-3 py-1 text-[0.55rem] font-bold uppercase tracking-wider text-[#B8963B] backdrop-blur-md">
                       {GALLERY_CATEGORIES.find(c => c.key === item.category)?.label}
                     </span>
                   </div>
 
                   {/* Content Overlay */}
                   <div className="absolute bottom-0 left-0 right-0 p-6 z-10 transform translate-y-4 transition-transform duration-300 group-hover:translate-y-0">
-                    <h3 className="font-heading text-lg font-bold text-[#F5F0E8] mb-2">{item.title}</h3>
-                    <p className="text-xs text-[#A1A1A6] line-clamp-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <h3 className="font-heading text-lg font-bold text-[#1C1C1C] mb-2">{item.title}</h3>
+                    <p className="text-xs text-[#6B7280] line-clamp-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                       {item.description}
                     </p>
                   </div>
@@ -253,14 +253,14 @@ export default function GalleryPage() {
 
       {/* ─── CTA SECTION ────────────────────────────────────────── */}
       <section className="section-container max-w-4xl pb-32">
-        <div className="rounded-3xl border border-[#C9A84C]/20 bg-gradient-to-br from-[#111111] to-[#0A0A0A] p-10 md:p-14 text-center relative overflow-hidden shadow-[0_0_50px_rgba(201,168,76,0.05)]">
+        <div className="rounded-3xl border border-[#16A34A]/15 bg-white p-10 md:p-14 text-center relative overflow-hidden shadow-[0_0_50px_rgba(22,163,74,0.05)]">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#C9A84C15,transparent_50%)] pointer-events-none" />
           
           <Sparkles className="h-8 w-8 text-[#C9A84C] mx-auto mb-6" />
           <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">
             Experience the Luxury Yourself
           </h2>
-          <p className="text-sm md:text-base text-[#A1A1A6] max-w-2xl mx-auto mb-8">
+          <p className="text-sm md:text-base text-[#6B7280] max-w-2xl mx-auto mb-8">
             Whether it&apos;s a VIP airport transfer, a corporate delegation, or a spiritual Umrah journey, 
             Taxi Saudi Arabia guarantees an unparalleled travel experience.
           </p>
@@ -268,7 +268,7 @@ export default function GalleryPage() {
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/book"
-              className="flex items-center gap-2 rounded-full bg-[#C9A84C] px-8 py-4 text-xs font-bold uppercase tracking-wider text-[#0A0A0A] hover:bg-[#B8963B] transition-all shadow-[0_4px_20px_rgba(201,168,76,0.3)]"
+              className="flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-4 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
             >
               <Car className="h-4 w-4" />
               Book Your Transfer
@@ -277,7 +277,7 @@ export default function GalleryPage() {
               href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam, I would like to inquire about your luxury fleet services.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full border border-[#C9A84C]/30 px-8 py-4 text-xs font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
+              className="flex items-center gap-2 rounded-full border border-[#C9A84C]/30 px-8 py-4 text-xs font-bold uppercase tracking-wider text-[#B8963B] hover:bg-[#C9A84C]/10 transition-all"
             >
               <MessageCircle className="h-4 w-4 fill-current" />
               Inquire via WhatsApp
@@ -294,26 +294,26 @@ export default function GalleryPage() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-[#0A0A0A]/95 backdrop-blur-xl p-4 md:p-8"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-[#FAFAF7]/95 backdrop-blur-xl p-4 md:p-8"
             onClick={closeLightbox}
           >
             <button
               onClick={closeLightbox}
-              className="absolute top-6 right-6 z-50 rounded-full bg-black/50 p-3 text-white hover:bg-[#C9A84C] hover:text-black transition-colors"
+              className="absolute top-6 right-6 z-50 rounded-full bg-black/50 p-3 text-white hover:bg-[#16A34A] hover:text-black transition-colors"
             >
               <X className="h-6 w-6" />
             </button>
 
             <button
               onClick={prevImage}
-              className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-50 rounded-full bg-black/50 p-4 text-white hover:bg-[#C9A84C] hover:text-black transition-colors"
+              className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-50 rounded-full bg-black/50 p-4 text-white hover:bg-[#16A34A] hover:text-black transition-colors"
             >
               <ChevronRight className="h-6 w-6 rotate-180" />
             </button>
 
             <button
               onClick={nextImage}
-              className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-50 rounded-full bg-black/50 p-4 text-white hover:bg-[#C9A84C] hover:text-black transition-colors"
+              className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-50 rounded-full bg-black/50 p-4 text-white hover:bg-[#16A34A] hover:text-black transition-colors"
             >
               <ChevronRight className="h-6 w-6" />
             </button>
@@ -323,7 +323,7 @@ export default function GalleryPage() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="relative w-full max-w-6xl max-h-[85vh] flex flex-col md:flex-row bg-[#111111] rounded-2xl overflow-hidden border border-[#C9A84C]/20 shadow-2xl"
+              className="relative w-full max-w-6xl max-h-[85vh] flex flex-col md:flex-row bg-white rounded-2xl overflow-hidden border border-[#16A34A]/15 shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="relative flex-1 bg-black min-h-[40vh] md:min-h-0">
@@ -337,21 +337,21 @@ export default function GalleryPage() {
                 />
               </div>
               <div className="w-full md:w-[350px] shrink-0 p-8 flex flex-col justify-center border-t md:border-t-0 md:border-l border-[#C9A84C]/10">
-                <span className="inline-block rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 px-3 py-1 text-[0.55rem] font-bold uppercase tracking-wider text-[#C9A84C] mb-4 w-fit">
+                <span className="inline-block rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 px-3 py-1 text-[0.55rem] font-bold uppercase tracking-wider text-[#B8963B] mb-4 w-fit">
                   {GALLERY_CATEGORIES.find(c => c.key === GALLERY_ITEMS[lightboxIndex].category)?.label}
                 </span>
-                <h3 className="font-heading text-2xl font-bold text-[#F5F0E8] mb-4">
+                <h3 className="font-heading text-2xl font-bold text-[#1C1C1C] mb-4">
                   {GALLERY_ITEMS[lightboxIndex].title}
                 </h3>
-                <p className="text-sm text-[#A1A1A6] leading-relaxed mb-8">
+                <p className="text-sm text-[#6B7280] leading-relaxed mb-8">
                   {GALLERY_ITEMS[lightboxIndex].description}
                 </p>
                 <div className="mt-auto">
-                  <p className="text-[0.6rem] text-[#7C8088] uppercase tracking-wider mb-2">Interested in this experience?</p>
+                  <p className="text-[0.6rem] text-[#6B7280] uppercase tracking-wider mb-2">Interested in this experience?</p>
                   <Link
                     href="/book"
                     onClick={closeLightbox}
-                    className="flex items-center justify-center gap-2 w-full rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 py-3 text-xs font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C] hover:text-black transition-all"
+                    className="flex items-center justify-center gap-2 w-full rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 py-3 text-xs font-bold uppercase tracking-wider text-[#B8963B] hover:bg-[#16A34A] hover:text-black transition-all"
                   >
                     Book Now
                   </Link>

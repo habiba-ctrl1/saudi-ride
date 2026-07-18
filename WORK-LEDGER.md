@@ -61,6 +61,13 @@ Fixed in: lib/data/routes.ts (8 slugs), home-page.tsx (route cards + AR/UR FAQ 1
 - Intentional dark rakha: vehicle-image badge, dispatch console box
 - ⚠️ NOTE: book page ke AR strings **mojibake/corrupted hain (pehle se, HEAD mein bhi)** — re-translation chahiye
 
+### 🎉 POORI PUBLIC SITE LIGHT THEME COMPLETE (2026-07-16)
+Batch mein convert hue: pricing, fleet hub + [slug], airports/[slug], contact, partners,
+driver-registration, about, guides hub + [slug], faq, blog hub + [slug], gallery,
+privacy-policy, terms-conditions, not-found, error + DriverJobsHubBody/RelatedLinks/TLDRSummary.
+guides hub ke rainbow category colors → green/gold. Checker: **PASS — 0 violations site-wide.**
+(Dark intentionally bacha: Footer, WhatsApp tooltip, admin/dashboard, image overlays, lightbox, console box.)
+
 ## 📋 BACKLOG (dark→light theme + audit; violation counts from checker)
 **Tier 2:** airports/[slug] (17) · fleet hub (18) + fleet/[slug] (28) · locations hub (11) · pricing (29)
 **Tier 3:** blog/[slug] (14) + blog hub (6) · guides (17) + guides/[slug] (13) · gallery (13)

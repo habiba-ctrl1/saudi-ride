@@ -24,7 +24,7 @@ export function DriverJobsHubBody({ variantKey }: { variantKey: JobVariant }) {
   const schema = [breadcrumbSchema(crumbs), itemListSchema(cityLinks)];
 
   return (
-    <main className="min-h-screen bg-[#FAFAF7]">
+    <div className="min-h-screen bg-[#FAFAF7]">
       <JsonLd data={schema} />
       <Breadcrumbs items={crumbs} />
 
@@ -72,7 +72,7 @@ export function DriverJobsHubBody({ variantKey }: { variantKey: JobVariant }) {
                   <span className="block font-semibold text-[#1C1C1C] group-hover:text-[#006C35]">
                     {c.name}
                   </span>
-                  <span className="flex items-center gap-1 text-xs text-[#7C8088]">
+                  <span className="flex items-center gap-1 text-xs text-[#6B7280]">
                     <TrendingUp className="h-3 w-3" /> {c.demand} demand · SAR{" "}
                     {salary[0].toLocaleString()}–{salary[1].toLocaleString()}/mo
                   </span>
@@ -83,6 +83,6 @@ export function DriverJobsHubBody({ variantKey }: { variantKey: JobVariant }) {
           })}
         </div>
       </section>
-    </main>
+    </div>
   );
 }

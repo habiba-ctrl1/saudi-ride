@@ -18,12 +18,12 @@ const CATEGORIES = [
 ];
 
 const CATEGORY_COLORS: Record<string, string> = {
-  arrival: "text-blue-400 bg-blue-400/10 border-blue-400/20",
-  umrah: "text-emerald-400 bg-emerald-400/10 border-emerald-400/20",
-  money: "text-amber-400 bg-amber-400/10 border-amber-400/20",
-  culture: "text-purple-400 bg-purple-400/10 border-purple-400/20",
-  business: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20",
-  tourism: "text-rose-400 bg-rose-400/10 border-rose-400/20",
+  arrival: "text-[#16A34A] bg-[#16A34A]/10 border-[#16A34A]/20",
+  umrah: "text-[#16A34A] bg-[#16A34A]/10 border-[#16A34A]/20",
+  money: "text-[#B8963B] bg-[#C9A84C]/10 border-[#C9A84C]/25",
+  culture: "text-[#B8963B] bg-[#C9A84C]/10 border-[#C9A84C]/25",
+  business: "text-[#16A34A] bg-[#16A34A]/10 border-[#16A34A]/20",
+  tourism: "text-[#B8963B] bg-[#C9A84C]/10 border-[#C9A84C]/25",
 };
 
 const fadeUp = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0 } };
@@ -31,7 +31,7 @@ const fadeUp = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0 } };
 export default function GuidesPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8] flex items-center justify-center">
+      <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] flex items-center justify-center">
         <div className="text-[#C9A84C] font-heading text-lg font-bold animate-pulse">Loading Taxi Saudi Arabia Concierge Guides...</div>
       </div>
     }>
@@ -49,7 +49,7 @@ function GuidesContent() {
   const filtered = GUIDES.filter((g) => active === "all" || g.category === active);
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-[#F5F0E8]">
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C]">
 
       {/* ─── HERO ───────────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden pt-32 pb-20">
@@ -57,14 +57,14 @@ function GuidesContent() {
 
         <div className="section-container relative z-10 max-w-5xl">
           <motion.div initial="hidden" animate="show" variants={fadeUp} transition={{ duration: 0.6 }}>
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#C9A84C]">
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#B8963B]">
               <BookOpen className="h-3 w-3" /> Knowledge Base
             </span>
             <h1 className="mt-6 font-heading text-4xl font-bold leading-tight md:text-6xl">
               Saudi Arabia Travel Guides<br />
-              <span className="text-[#C9A84C]">For Pilgrims & Visitors</span>
+              <span className="text-[#16A34A]">For Pilgrims & Visitors</span>
             </h1>
-            <p className="mt-6 max-w-2xl text-sm md:text-base leading-relaxed text-[#A1A1A6]">
+            <p className="mt-6 max-w-2xl text-sm md:text-base leading-relaxed text-[#6B7280]">
               Practical, locally researched insights from our concierge team — covering airports, Umrah, 
               customs, money, and everything in between for a seamless Saudi experience.
             </p>
@@ -73,7 +73,7 @@ function GuidesContent() {
       </section>
 
       {/* ─── FILTER BAR ─────────────────────────────────────────────────── */}
-      <section className="sticky top-[72px] z-30 bg-[#0A0A0A]/95 backdrop-blur-md border-b border-[#C9A84C]/10 py-4">
+      <section className="sticky top-[72px] z-30 bg-[#FAFAF7]/95 backdrop-blur-md border-b border-[#C9A84C]/10 py-4">
         <div className="section-container max-w-5xl">
           <div className="flex items-center gap-2 overflow-x-auto">
             {CATEGORIES.map((cat) => (
@@ -82,8 +82,8 @@ function GuidesContent() {
                 onClick={() => setActive(cat.key)}
                 className={`shrink-0 rounded-full px-5 py-2 text-xs font-bold uppercase tracking-wider transition-all ${
                   active === cat.key
-                    ? "bg-[#C9A84C] text-[#0A0A0A] shadow-[0_4px_14px_rgba(201,168,76,0.3)]"
-                    : "border border-[#C9A84C]/20 text-[#A1A1A6] hover:border-[#C9A84C]/50 hover:text-[#F5F0E8]"
+                    ? "bg-[#16A34A] text-white shadow-[0_4px_14px_rgba(22,163,74,0.3)]"
+                    : "border border-[#16A34A]/15 text-[#6B7280] hover:border-[#C9A84C]/50 hover:text-[#1C1C1C]"
                 }`}
               >
                 {cat.label}
@@ -106,7 +106,7 @@ function GuidesContent() {
           >
             {filtered.map((guide, index) => {
               const Icon = guide.icon;
-              const colorClass = CATEGORY_COLORS[guide.category] ?? "text-[#C9A84C] bg-[#C9A84C]/10 border-[#C9A84C]/20";
+              const colorClass = CATEGORY_COLORS[guide.category] ?? "text-[#C9A84C] bg-[#C9A84C]/10 border-[#16A34A]/15";
 
               return (
                 <motion.article
@@ -116,7 +116,7 @@ function GuidesContent() {
                   viewport={{ once: true, amount: 0.05 }}
                   variants={fadeUp}
                   transition={{ duration: 0.4, delay: index * 0.05 }}
-                  className="rounded-3xl border border-[#C9A84C]/12 bg-[#111111] hover:border-[#C9A84C]/30 transition-all duration-300"
+                  className="rounded-3xl border border-[#C9A84C]/12 bg-white hover:border-[#C9A84C]/30 transition-all duration-300"
                 >
                   <Link
                     href={`/guides/${guide.slug}`}
@@ -133,20 +133,20 @@ function GuidesContent() {
                             {CATEGORIES.find((c) => c.key === guide.category)?.label}
                           </span>
                           {guide.tags.slice(0, 2).map((tag) => (
-                            <span key={tag} className="rounded-full border border-[#C9A84C]/10 bg-black/20 px-2.5 py-0.5 text-[0.55rem] text-[#7C8088] font-medium">
+                            <span key={tag} className="rounded-full border border-[#C9A84C]/10 bg-white px-2.5 py-0.5 text-[0.55rem] text-[#6B7280] font-medium">
                               {tag}
                             </span>
                           ))}
                         </div>
 
-                        <h2 className="font-heading text-lg md:text-xl font-bold text-[#F5F0E8] leading-snug">
+                        <h2 className="font-heading text-lg md:text-xl font-bold text-[#1C1C1C] leading-snug">
                           {guide.title}
                         </h2>
-                        <p className="text-[0.6rem] text-[#7C8088]">{guide.titleAr}</p>
+                        <p className="text-[0.6rem] text-[#6B7280]">{guide.titleAr}</p>
 
-                        <p className="text-xs text-[#A1A1A6] leading-relaxed">{guide.summary}</p>
+                        <p className="text-xs text-[#6B7280] leading-relaxed">{guide.summary}</p>
 
-                        <div className="flex items-center gap-4 text-[0.6rem] text-[#7C8088] font-medium">
+                        <div className="flex items-center gap-4 text-[0.6rem] text-[#6B7280] font-medium">
                           <div className="flex items-center gap-1">
                             <Calendar className="h-3 w-3" />
                             <span>{guide.date}</span>
