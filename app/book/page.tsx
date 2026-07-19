@@ -14,7 +14,6 @@ import {
   Mail,
   Globe,
   Languages,
-  CreditCard,
   Check,
   ChevronLeft,
   ArrowRight,
@@ -110,12 +109,8 @@ export default function BookPage() {
   const [preferredLang, setPreferredLang] = useState<"en" | "ar" | "ur">("en");
 
   // Step 5 Payment
-  const [payMethod, setPayMethod] = useState<"card" | "applepay" | "arrival">("card");
-  const [payDeposit, setPayDeposit] = useState(false);
-  const [cardNumber, setCardNumber] = useState("");
-  const [cardName, setCardName] = useState("");
-  const [cardExpiry, setCardExpiry] = useState("");
-  const [cardCvv, setCardCvv] = useState("");
+  // Payment gateway abhi live nahi — booking sirf request hai, final quotation
+  // WhatsApp/email par jati hai aur payment driver ko cash/card se hoti hai.
   const [promoCode, setPromoCode] = useState("");
   const [promoDiscount, setPromoDiscount] = useState(0); // in ratio e.g. 0.10
   const [termsAgreed, setTermsAgreed] = useState(false);
@@ -318,8 +313,6 @@ export default function BookPage() {
   const vatAmount = Math.round(subtotalAfterPromo * 0.15);
   const finalTotalPrice = subtotalAfterPromo; // Pricing is already VAT inclusive or inclusive, let's treat it as total price
 
-  const depositDue = Math.round(finalTotalPrice * 0.20);
-  const remainingDue = finalTotalPrice - depositDue;
 
   // Promo code verification
   const handleApplyPromo = () => {
@@ -338,11 +331,6 @@ export default function BookPage() {
 
   // Submit Booking to database (POST /api/bookings)
   const handleFinalizeBooking = async () => {
-    if (payMethod === "card" && (cardNumber.length < 16 || cardCvv.length < 3)) {
-      alert("Please check your payment card details.");
-      return;
-    }
-
     try {
       setCreatingBooking(true);
       setNotificationLogs([]);
@@ -364,7 +352,7 @@ export default function BookPage() {
           customerEmail: custEmail || null,
           notes: specialNotes || null,
           flightNumber: flightNumber || null,
-          paymentMethod: payMethod,
+          paymentMethod: "arrival",
           totalPrice: finalTotalPrice
         })
       });
@@ -478,7 +466,7 @@ export default function BookPage() {
               <div className="grid gap-6 md:grid-cols-[1.1fr_0.9fr]">
                 
                 {/* Inputs block */}
-                <div className="space-y-4 rounded-3xl border border-[#16A34A]/12 bg-[#121212] p-6 shadow-2xl">
+                <div className="space-y-4 rounded-3xl border border-[#16A34A]/12 bg-white p-6 shadow-2xl">
                   
                   {/* Trip type selector */}
                   <div className="grid grid-cols-3 gap-2 p-1 bg-[#F0FDF4] rounded-full border border-[#C9A84C]/10">
@@ -526,7 +514,7 @@ export default function BookPage() {
                     </div>
 
                     {showPickupList && pickupSuggestions.length > 0 && (
-                      <div className="absolute z-20 left-0 right-0 mt-1 max-h-48 overflow-y-auto rounded-xl border border-[#16A34A]/15 bg-[#121212] p-2 shadow-2xl">
+                      <div className="absolute z-20 left-0 right-0 mt-1 max-h-48 overflow-y-auto rounded-xl border border-[#16A34A]/15 bg-white p-2 shadow-2xl">
                         {pickupSuggestions.map((s, i) => (
                           <button
                             key={i}
@@ -563,7 +551,7 @@ export default function BookPage() {
                       </div>
 
                       {showDropoffList && dropoffSuggestions.length > 0 && (
-                        <div className="absolute z-20 left-0 right-0 mt-1 max-h-48 overflow-y-auto rounded-xl border border-[#16A34A]/15 bg-[#121212] p-2 shadow-2xl">
+                        <div className="absolute z-20 left-0 right-0 mt-1 max-h-48 overflow-y-auto rounded-xl border border-[#16A34A]/15 bg-white p-2 shadow-2xl">
                           {dropoffSuggestions.map((s, i) => (
                             <button
                               key={i}
@@ -699,7 +687,7 @@ export default function BookPage() {
                 </div>
 
                 {/* Vector Glowing Grid Fallback Map Preview */}
-                <div className="rounded-3xl border border-[#16A34A]/12 bg-[#121212] overflow-hidden flex flex-col justify-between p-6 h-full relative">
+                <div className="rounded-3xl border border-[#16A34A]/12 bg-white overflow-hidden flex flex-col justify-between p-6 h-full relative">
                   <div className="absolute inset-0 bg-[linear-gradient(to_right,#C9A84C_1px,transparent_1px),linear-gradient(to_bottom,#C9A84C_1px,transparent_1px)] bg-[size:25px_25px] opacity-5 pointer-events-none" />
 
                   <div className="space-y-1">
@@ -770,7 +758,7 @@ export default function BookPage() {
               </div>
 
               {loadingPrices ? (
-                <div className="flex flex-col items-center justify-center py-20 bg-[#121212] border border-[#C9A84C]/10 rounded-3xl">
+                <div className="flex flex-col items-center justify-center py-20 bg-white border border-[#C9A84C]/10 rounded-3xl">
                   <span className="h-8 w-8 animate-spin rounded-full border-4 border-[#C9A84C] border-t-transparent mb-4" />
                   <p className="text-xs text-[#6B7280]">Calculating dynamic rates...</p>
                 </div>
@@ -789,10 +777,10 @@ export default function BookPage() {
                         onClick={() => { if (!isSoldOut) setSelectedVehicle(veh.key); }}
                         className={`group relative overflow-hidden rounded-3xl border transition-all duration-300 grid md:grid-cols-[0.8fr_1.2fr] ${
                           isSoldOut
-                            ? "border-red-950/20 bg-[#121212]/40 opacity-50 cursor-not-allowed"
+                            ? "border-red-950/20 bg-white/40 opacity-50 cursor-not-allowed"
                             : selectedVehicle === veh.key
                             ? "border-[#16A34A] bg-[#16A34A]/10 shadow-[0_8px_30px_rgba(22,163,74,0.1)] scale-101"
-                            : "border-[#C9A84C]/10 bg-[#121212] hover:border-[#C9A84C]/35 cursor-pointer"
+                            : "border-[#C9A84C]/10 bg-white hover:border-[#C9A84C]/35 cursor-pointer"
                         }`}
                       >
                         {/* Vehicle Image */}
@@ -903,7 +891,7 @@ export default function BookPage() {
                 {/* Child Seat */}
                 <div
                   onClick={() => setAddons(a => ({ ...a, childSeat: !a.childSeat }))}
-                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.childSeat ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-[#121212] hover:border-[#C9A84C]/30"}`}
+                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.childSeat ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-white hover:border-[#C9A84C]/30"}`}
                 >
                   <div className="space-y-1.5 max-w-[200px]">
                     <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "ÙƒØ±Ø³ÙŠ Ø£Ø·ÙØ§Ù„ Ø¢Ù…Ù†" : "Child Safety Seat"}</h4>
@@ -915,7 +903,7 @@ export default function BookPage() {
                 {/* Meet and Greet */}
                 <div
                   onClick={() => setAddons(a => ({ ...a, meetAndGreet: !a.meetAndGreet }))}
-                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.meetAndGreet ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-[#121212] hover:border-[#C9A84C]/30"}`}
+                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.meetAndGreet ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-white hover:border-[#C9A84C]/30"}`}
                 >
                   <div className="space-y-1.5 max-w-[200px]">
                     <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "Ø§Ù„Ø§Ø³ØªÙ‚Ø¨Ø§Ù„ ÙˆØ§Ù„ØªØ±Ø­ÙŠØ¨ Ø¨Ø§Ù„Ù…Ø·Ø§Ø±" : "Airport Meet & Greet"}</h4>
@@ -927,7 +915,7 @@ export default function BookPage() {
                 {/* Extra Waiting */}
                 <div
                   onClick={() => setAddons(a => ({ ...a, extraWaiting: !a.extraWaiting }))}
-                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.extraWaiting ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-[#121212] hover:border-[#C9A84C]/30"}`}
+                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.extraWaiting ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-white hover:border-[#C9A84C]/30"}`}
                 >
                   <div className="space-y-1.5 max-w-[200px]">
                     <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "ÙˆÙ‚Øª Ø§Ù†ØªØ¸Ø§Ø± Ø¥Ø¶Ø§ÙÙŠ (Ù£Ù  Ø¯Ù‚ÙŠÙ‚Ø©)" : "Extra Waiting Time"}</h4>
@@ -939,7 +927,7 @@ export default function BookPage() {
                 {/* Chilled Water Bottles */}
                 <div
                   onClick={() => setAddons(a => ({ ...a, waterBottles: !a.waterBottles }))}
-                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.waterBottles ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-[#121212] hover:border-[#C9A84C]/30"}`}
+                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.waterBottles ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-white hover:border-[#C9A84C]/30"}`}
                 >
                   <div className="space-y-1.5 max-w-[200px]">
                     <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "Ù…ÙŠØ§Ù‡ Ø¨Ø§Ø±Ø¯Ø© ÙØ§Ø®Ø±Ø©" : "Premium Chilled Water"}</h4>
@@ -951,7 +939,7 @@ export default function BookPage() {
                 {/* Prayer Mat Stop */}
                 <div
                   onClick={() => setAddons(a => ({ ...a, prayerMat: !a.prayerMat }))}
-                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.prayerMat ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-[#121212] hover:border-[#C9A84C]/30"}`}
+                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.prayerMat ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-white hover:border-[#C9A84C]/30"}`}
                 >
                   <div className="space-y-1.5 max-w-[200px]">
                     <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "Ø³Ø¬Ø§Ø¯Ø© ØµÙ„Ø§Ø© Ù…Ø¹Ù‚Ù…Ø©" : "Sterilized Prayer Mat"}</h4>
@@ -963,7 +951,7 @@ export default function BookPage() {
                 {/* Wheelchair accessible filter */}
                 <div
                   onClick={() => setAddons(a => ({ ...a, wheelchairFilter: !a.wheelchairFilter }))}
-                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.wheelchairFilter ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-[#121212] hover:border-[#C9A84C]/30"}`}
+                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.wheelchairFilter ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-white hover:border-[#C9A84C]/30"}`}
                 >
                   <div className="space-y-1.5 max-w-[200px]">
                     <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "Ù…Ø±ÙƒØ¨Ø© Ù…Ù‡ÙŠØ¦Ø© Ù„Ù„ÙƒØ±Ø§Ø³ÙŠ" : "Wheelchair Facility"}</h4>
@@ -1044,7 +1032,7 @@ export default function BookPage() {
               </div>
 
               {/* Form panel inputs */}
-              <div className="rounded-3xl border border-[#16A34A]/12 bg-[#121212] p-6 space-y-4">
+              <div className="rounded-3xl border border-[#16A34A]/12 bg-white p-6 space-y-4">
                 
                 {/* Full name */}
                 <div>
@@ -1193,8 +1181,8 @@ export default function BookPage() {
             >
               <div className="flex items-center justify-between border-b border-[#C9A84C]/10 pb-4">
                 <div>
-                  <h2 className="font-heading text-2xl font-bold">{isRtl ? "Ø§Ù„ÙØ§ØªÙˆØ±Ø© Ø§Ù„ØªÙØµÙŠÙ„ÙŠØ© ÙˆØ¨ÙˆØ§Ø¨Ø© Ø§Ù„Ø¯ÙØ¹" : "Secure Premium Review & Checkout"}</h2>
-                  <p className="text-xs text-[#6B7280]">{isRtl ? "Ù…Ø±Ø§Ø¬Ø¹Ø© Ø¬Ù…ÙŠØ¹ Ø¥Ø­Ø¯Ø§Ø«ÙŠØ§Øª Ø±Ø­Ù„ØªÙƒ ÙˆØªÙØ§ØµÙŠÙ„ Ø§Ù„ÙØ§ØªÙˆØ±Ø© Ø§Ù„Ø¶Ø±ÙŠØ¨ÙŠØ©." : "Verify dispatch summaries and secure KSA banking portal checkout."}</p>
+                  <h2 className="font-heading text-2xl font-bold">{isRtl ? "مراجعة الطلب وتأكيد الحجز" : "Review & Send Booking Request"}</h2>
+                  <p className="text-xs text-[#6B7280]">{isRtl ? "راجع تفاصيل رحلتك وأرسل الطلب — السعر النهائي يصلك عبر واتساب أو البريد الإلكتروني." : "Check your trip details and send the request — your final quotation arrives on WhatsApp or email."}</p>
                 </div>
 
                 <button
@@ -1211,127 +1199,24 @@ export default function BookPage() {
                 {/* LEFT: Payment inputs */}
                 <div className="space-y-6">
                   
-                  {/* Moyasar Gateway Simulator selection */}
-                  <div className="rounded-3xl border border-[#16A34A]/12 bg-[#121212] p-6 space-y-4">
+                  {/* No online payment — quotation-based booking request */}
+                  <div className="rounded-3xl border border-[#16A34A]/12 bg-white p-6 space-y-3">
                     <h3 className="font-heading text-sm uppercase tracking-wider text-[#B8963B] font-bold">
-                      {isRtl ? "Ø·Ø±ÙŠÙ‚Ø© Ø§Ù„Ø¯ÙØ¹ Ø§Ù„Ø¢Ù…Ù†Ø©" : "VIP Secure Payment Method"}
+                      {isRtl ? "لا حاجة للدفع الآن" : "No Payment Required Now"}
                     </h3>
-
-                    <div className="grid gap-3 grid-cols-3">
-                      <button
-                        type="button"
-                        onClick={() => setPayMethod("card")}
-                        className={`rounded-xl border p-3 flex flex-col items-center gap-2 transition-all ${payMethod === "card" ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/25 bg-white"}`}
-                      >
-                        <CreditCard className="h-5 w-5 text-[#C9A84C]" />
-                        <span className="text-[0.55rem] font-bold uppercase">Credit Card</span>
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setPayMethod("applepay")}
-                        className={`rounded-xl border p-3 flex flex-col items-center gap-2 transition-all ${payMethod === "applepay" ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/25 bg-white"}`}
-                      >
-                        <span className="text-base">ðŸ</span>
-                        <span className="text-[0.55rem] font-bold uppercase">Apple Pay</span>
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setPayMethod("arrival")}
-                        className={`rounded-xl border p-3 flex flex-col items-center gap-2 transition-all ${payMethod === "arrival" ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/25 bg-white"}`}
-                      >
-                        <span className="text-base">ðŸ’¬</span>
-                        <span className="text-[0.55rem] font-bold uppercase">{isRtl ? "ÙˆØ§ØªØ³Ø§Ø¨" : "Arrival / WA"}</span>
-                      </button>
+                    <p className="text-xs text-[#6B7280] leading-relaxed">
+                      {isRtl
+                        ? "هذا طلب حجز فقط — لا يوجد دفع إلكتروني. سنؤكد لك عرض السعر النهائي عبر واتساب أو البريد الإلكتروني حسب تفاصيل رحلتك، والدفع يكون نقداً أو بالبطاقة للسائق."
+                        : "This is a booking request — no online payment is taken. Your final quotation is confirmed on WhatsApp or email based on your trip details, and you pay the driver by cash or card."}
+                    </p>
+                    <div className="flex items-center gap-2 rounded-2xl bg-[#F0FDF4] border border-[#16A34A]/15 p-3 text-[0.65rem] text-[#1C1C1C] font-semibold">
+                      <ShieldCheck className="h-4 w-4 text-[#16A34A] shrink-0" />
+                      <span>{isRtl ? "تأكيد سريع عبر واتساب خلال دقائق" : "Quick confirmation on WhatsApp within minutes"}</span>
                     </div>
-
-                    {/* Deposit Switcher toggle */}
-                    {payMethod !== "arrival" && (
-                      <div className="flex items-center justify-between bg-[#F0FDF4] border border-[#C9A84C]/10 rounded-2xl p-4 mt-2">
-                        <div>
-                          <h4 className="text-xs font-bold text-[#1C1C1C]">Pay 20% Deposit Now</h4>
-                          <p className="text-[0.55rem] text-[#6B7280] mt-0.5">Pay SAR {depositDue} today, rest at pickup (SAR {remainingDue})</p>
-                        </div>
-                        <input
-                          type="checkbox"
-                          checked={payDeposit}
-                          onChange={(e) => setPayDeposit(e.target.checked)}
-                          className="h-4.5 w-4.5 accent-[#C9A84C] rounded border-[#16A34A]/15"
-                        />
-                      </div>
-                    )}
-
-                    {/* Card details simulation input */}
-                    {payMethod === "card" && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        className="space-y-3 pt-2"
-                      >
-                        <div>
-                          <label className="block text-[0.55rem] uppercase tracking-wider text-[#6B7280] mb-1 font-bold">Cardholder Name</label>
-                          <input
-                            type="text"
-                            required
-                            value={cardName}
-                            onChange={(e) => setCardName(e.target.value)}
-                            placeholder="e.g. MUHAMMAD AL GHAMDI"
-                            className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 px-3 py-3 text-xs text-[#1C1C1C] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="block text-[0.55rem] uppercase tracking-wider text-[#6B7280] mb-1 font-bold">Card Number</label>
-                          <input
-                            type="text"
-                            maxLength={19}
-                            value={cardNumber}
-                            onChange={(e) => setCardNumber(e.target.value.replace(/\s?/g, '').replace(/(\d{4})/g, '$1 ').trim())}
-                            placeholder="4000 1234 5678 9010 (Mada / Visa / MC)"
-                            className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 px-3 py-3 text-xs text-[#1C1C1C] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
-                          />
-                        </div>
-
-                        <div className="grid gap-3 grid-cols-3">
-                          <div className="col-span-2">
-                            <label className="block text-[0.55rem] uppercase tracking-wider text-[#6B7280] mb-1 font-bold">Expiry Date</label>
-                            <input
-                              type="text"
-                              maxLength={5}
-                              value={cardExpiry}
-                              onChange={(e) => setCardExpiry(e.target.value)}
-                              placeholder="MM/YY"
-                              className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 px-3 py-3 text-xs text-[#1C1C1C] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
-                            />
-                          </div>
-                          <div>
-                            <label className="block text-[0.55rem] uppercase tracking-wider text-[#6B7280] mb-1 font-bold">CVV</label>
-                            <input
-                              type="password"
-                              maxLength={3}
-                              value={cardCvv}
-                              onChange={(e) => setCardCvv(e.target.value.replace(/\D/g, ""))}
-                              placeholder="***"
-                              className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 px-3 py-3 text-xs text-[#1C1C1C] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
-                            />
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-
-                    {/* Apple Pay trigger message */}
-                    {payMethod === "applepay" && (
-                      <div className="rounded-2xl border border-dashed border-[#C9A84C]/25 bg-[#F0FDF4] p-6 text-center text-xs text-[#6B7280] space-y-2">
-                        <p>Simulating quick Apple Pay auth via biometric/wallet overlay...</p>
-                        <div className="inline-block rounded-full bg-white text-black font-bold font-heading px-6 py-2">
-                          ï£¿ Pay
-                        </div>
-                      </div>
-                    )}
-
                   </div>
 
                   {/* Promo Code section */}
-                  <div className="rounded-3xl border border-[#C9A84C]/10 bg-[#121212] p-6 flex gap-2">
+                  <div className="rounded-3xl border border-[#C9A84C]/10 bg-white p-6 flex gap-2">
                     <input
                       type="text"
                       placeholder="PROMO CODE (e.g. WELCOME10)"
@@ -1357,18 +1242,18 @@ export default function BookPage() {
                       className="h-4.5 w-4.5 accent-[#C9A84C] rounded border-[#16A34A]/15 mt-0.5"
                     />
                     <p className="text-[0.6rem] leading-relaxed text-[#6B7280]">
-                      I agree to the <span className="underline hover:text-[#16A34A] cursor-pointer">Terms of Carriage</span>, including Saudi General Transport Authority laws and the Taxi Saudi Arabia fixed rate guaranteed pricing policy.
+                      I agree to the <span className="underline hover:text-[#16A34A] cursor-pointer">Terms of Carriage</span>, including Saudi Transport General Authority (TGA) regulations. Fares shown are estimates — the final quotation is confirmed on WhatsApp or email.
                     </p>
                   </div>
 
                 </div>
 
                 {/* RIGHT: Invoice Summary breakdown */}
-                <div className="rounded-3xl border border-[#16A34A]/12 bg-[#121212] p-6 space-y-6 flex flex-col justify-between shadow-2xl">
+                <div className="rounded-3xl border border-[#16A34A]/12 bg-white p-6 space-y-6 flex flex-col justify-between shadow-2xl">
                   
                   <div className="space-y-6">
                     <h3 className="font-heading text-sm uppercase tracking-wider text-[#B8963B] font-bold border-b border-[#C9A84C]/10 pb-3 flex items-center gap-1.5">
-                      <FileText className="h-4 w-4" /> {isRtl ? "ÙØ§ØªÙˆØ±Ø© Ø§Ù„Ù†Ù‚Ù„ Ø§Ù„ÙØ§Ø®Ø±Ø©" : "VIP Travel Invoice"}
+                      <FileText className="h-4 w-4" /> {isRtl ? "ملخص الحجز (تقديري)" : "Booking Summary (Estimated)"}
                     </h3>
 
                     {/* Summary coordinates list */}
@@ -1423,16 +1308,14 @@ export default function BookPage() {
                   <div className="space-y-4 pt-6 border-t border-[#C9A84C]/10">
                     <div className="flex items-end justify-between">
                       <div>
-                        <p className="text-[0.55rem] text-[#6B7280] font-bold uppercase">{payDeposit ? "Due Today" : "Total VAT-Inclusive Price"}</p>
+                        <p className="text-[0.55rem] text-[#6B7280] font-bold uppercase">{isRtl ? "السعر التقديري (شامل الضريبة)" : "Estimated Total (VAT incl.)"}</p>
                         <p className="font-heading text-2xl font-bold text-[#16A34A]">
-                          SAR {payDeposit ? depositDue : finalTotalPrice}
+                          SAR {finalTotalPrice}
+                        </p>
+                        <p className="text-[0.55rem] text-[#6B7280] mt-1">
+                          {isRtl ? "* سعر تقديري — العرض النهائي يصلك عبر واتساب أو البريد الإلكتروني" : "* Estimated fare — final quotation via WhatsApp or email"}
                         </p>
                       </div>
-                      {payDeposit && (
-                        <span className="text-[0.55rem] text-[#6B7280] font-bold uppercase pb-1 text-right">
-                          Rest due at pickup: SAR {remainingDue}
-                        </span>
-                      )}
                     </div>
 
                     <button
@@ -1445,7 +1328,7 @@ export default function BookPage() {
                       ) : (
                         <ShieldCheck className="h-4.5 w-4.5" />
                       )}
-                      <span>{isRtl ? "ØªØ£ÙƒÙŠØ¯ ÙˆØ¥ØªÙ…Ø§Ù… Ø§Ù„Ø­Ø¬Ø²" : "Lock VIP Dispatch Now"}</span>
+                      <span>{isRtl ? "أرسل طلب الحجز" : "Send Booking Request"}</span>
                     </button>
                   </div>
 
@@ -1461,7 +1344,7 @@ export default function BookPage() {
               key="step6"
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="max-w-xl mx-auto text-center space-y-8 rounded-3xl border border-[#16A34A]/15 bg-[#121212] p-8 md:p-10 shadow-2xl relative overflow-hidden"
+              className="max-w-xl mx-auto text-center space-y-8 rounded-3xl border border-[#16A34A]/15 bg-white p-8 md:p-10 shadow-2xl relative overflow-hidden"
             >
               <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-[#C9A84C]/5 blur-3xl pointer-events-none" />
 

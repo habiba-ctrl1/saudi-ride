@@ -32,7 +32,7 @@ const FAQS = [
   },
   {
     q: "Are the prices fixed?",
-    a: "Yes. The price you are quoted is the final price. There are no hidden fees, toll charges, or surge pricing."
+    a: "Prices shown on the website are estimates. Your final fare is confirmed in your quotation on WhatsApp or email before the trip — and that confirmed price is final, with no hidden fees, toll charges, or surge pricing."
   }
 ];
 
@@ -128,7 +128,7 @@ export default function AirportTransfersPage() {
       <section className="section-container max-w-5xl py-20">
         <div className="text-center mb-12">
           <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">Popular Airport Routes</h2>
-          <p className="text-[#6B7280]">Fixed rates for standard Sedans. SUV and Luxury class available upon booking.</p>
+          <p className="text-[#6B7280]">Estimated fares for standard sedans — SUV and luxury classes available. Final quotation confirmed on WhatsApp or email.</p>
         </div>
 
         <div className="bg-white rounded-3xl border border-[#16A34A]/12 overflow-hidden">

@@ -490,7 +490,7 @@ export default function PriceCalculator() {
                 className="flex justify-between pt-3 font-bold text-base"
                 style={{ borderTop: "1px solid rgba(200,164,93,0.15)", color: "#0F172A" }}
               >
-                <span>Total (VAT Incl.)</span>
+                <span>Estimated Total (VAT Incl.)</span>
                 <span style={{ color: "#C8A45D" }}>SAR {pricingData.price}</span>
               </div>
             </div>
@@ -503,10 +503,10 @@ export default function PriceCalculator() {
               <ShieldCheck className="h-5 w-5 shrink-0 mt-0.5" style={{ color: "#C8A45D" }} />
               <div>
                 <p className="text-[0.65rem] font-bold uppercase tracking-wider" style={{ color: "#C8A45D" }}>
-                  Price Lock Guarantee
+                  Estimated Fare
                 </p>
-                <p className="text-[0.6rem] mt-0.5 leading-relaxed" style={{ color: "#9CA3AF" }}>
-                  No hidden fees, tolls, or luggage surcharges. This is your final price.
+                <p className="text-[0.6rem] mt-0.5 leading-relaxed" style={{ color: "#6B7280" }}>
+                  No hidden fees, tolls, or luggage surcharges. Your final quotation is confirmed on WhatsApp or email according to your trip details.
                 </p>
               </div>
             </div>
@@ -542,8 +542,8 @@ export default function PriceCalculator() {
               </p>
               <p className="text-[0.68rem] mt-1 max-w-[180px] mx-auto leading-relaxed" style={{ color: "#9CA3AF" }}>
                 {isRtl
-                  ? "أدخل نقطة الالتقاء والوجهة لعرض السعر"
-                  : "Add pickup & destination to see your instant guaranteed quote"}
+                  ? "أدخل نقطة الالتقاء والوجهة لعرض السعر التقديري"
+                  : "Add pickup & destination to see your instant estimated fare"}
               </p>
             </div>
           </div>

@@ -5,6 +5,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema } from "@/lib/schema";
 import { Building2, ReceiptText, ShieldCheck, UserCheck, Check } from "lucide-react";
+import { CorporateAccountForm } from "@/components/booking/CorporateAccountForm";
 
 export const metadata: Metadata = {
   alternates: { canonical: "https://taxisaudiarabia.com/services/corporate" },
@@ -147,48 +148,7 @@ export default function CorporateAccountsPage() {
             <p className="text-sm text-[#6B7280]">Fill out the details below and our B2B team will contact you within 24 hours.</p>
           </div>
 
-          <form className="space-y-6">
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-[#6B7280] uppercase tracking-wider">Company Name *</label>
-                <input type="text" className="w-full bg-[#FAFAF7] border border-[#16A34A]/15 rounded-xl px-4 py-3 text-sm focus:border-[#C9A84C] outline-none transition-colors" required />
-              </div>
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-[#6B7280] uppercase tracking-wider">Contact Person *</label>
-                <input type="text" className="w-full bg-[#FAFAF7] border border-[#16A34A]/15 rounded-xl px-4 py-3 text-sm focus:border-[#C9A84C] outline-none transition-colors" required />
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-[#6B7280] uppercase tracking-wider">Corporate Email *</label>
-                <input type="email" className="w-full bg-[#FAFAF7] border border-[#16A34A]/15 rounded-xl px-4 py-3 text-sm focus:border-[#C9A84C] outline-none transition-colors" required />
-              </div>
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-[#6B7280] uppercase tracking-wider">Phone Number *</label>
-                <input type="tel" className="w-full bg-[#FAFAF7] border border-[#16A34A]/15 rounded-xl px-4 py-3 text-sm focus:border-[#C9A84C] outline-none transition-colors" required />
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-[#6B7280] uppercase tracking-wider">Estimated Monthly Trips</label>
-              <select className="w-full bg-[#FAFAF7] border border-[#16A34A]/15 rounded-xl px-4 py-3 text-sm focus:border-[#C9A84C] outline-none transition-colors appearance-none">
-                <option value="1-10">1 - 10 Trips</option>
-                <option value="11-50">11 - 50 Trips</option>
-                <option value="50+">50+ Trips</option>
-              </select>
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-[#6B7280] uppercase tracking-wider">Additional Requirements</label>
-              <textarea rows={4} className="w-full bg-[#FAFAF7] border border-[#16A34A]/15 rounded-xl px-4 py-3 text-sm focus:border-[#C9A84C] outline-none transition-colors" placeholder="Tell us about your specific transport needs..."></textarea>
-            </div>
-
-            <button type="button" className="w-full bg-[#16A34A] text-white font-bold uppercase tracking-wider text-xs py-4 rounded-xl hover:bg-[#15803D] transition-colors mt-4">
-              Submit Application
-            </button>
-            <p className="text-center text-[0.65rem] text-[#6B7280] mt-4">By submitting, you agree to our B2B terms of service.</p>
-          </form>
+          <CorporateAccountForm />
         </div>
       </section>
       {(() => {

@@ -219,7 +219,7 @@ const jsonLd = [
         "name": "Are your taxi prices fixed in Saudi Arabia?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, all our taxi prices in Saudi Arabia are fixed. The taxi fare you see at booking is the exact price you pay. We never apply surge pricing or hidden fees. You can check the taxi price for any route using our online calculator."
+          "text": "Yes — the fare in your confirmed quotation is fixed, with no surge pricing or hidden fees. Prices shown on the website are estimates; your exact fare is confirmed on WhatsApp or email before your trip. You can check the estimated taxi price for any route using our online calculator."
         }
       },
       {

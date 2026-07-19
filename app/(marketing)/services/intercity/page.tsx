@@ -134,7 +134,7 @@ export default function IntercityServicePage() {
       <section className="section-container max-w-7xl py-20">
         <div className="text-center mb-16">
           <h2 className="font-heading text-3xl font-bold mb-4">Popular Intercity Routes</h2>
-          <p className="text-[#6B7280]">Our most frequently booked long-distance journeys.</p>
+          <p className="text-[#6B7280]">Our most frequently booked long-distance journeys. Estimated fares — your final quotation is confirmed on WhatsApp or email.</p>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">

@@ -44,6 +44,16 @@ Canonical sedan "From" estimates (market data: umrahcabs4u, vipumrahtaxi, umraht
 Fixed in: lib/data/routes.ts (8 slugs), home-page.tsx (route cards + AR/UR FAQ 180→249, 799→499, 749→549), layout.tsx FAQ schema (799→499 + "estimated" wording), umrah-transport (180→249), airport-transfers (180→249, 650→549), intercity (1200→699, 650→549, 350→349).
 **Rule aage ke liye:** naye prices routes.ts basePrice se lo; "From SAR X" (estimate) likho.
 
+### Payment removal + forms audit + estimate disclaimers (2026-07-19)
+- /book: fake payment simulator (card/ApplePay/deposit) REMOVED — ab quotation-based
+  request flow ("No Payment Required Now" card; paymentMethod hamesha "arrival")
+- Forms backend status: book→db.booking ✅ · quote forms→/api/quotations RPC ✅ ·
+  driver-reg→register_driver_application RPC ✅ · contact/partners→/api/contact (email-only,
+  Resend chahiye) ⚠️ · corporate form DEAD tha → CorporateAccountForm.tsx bana ke
+  /api/contact se wire kiya ✅
+- "Estimated fare — final quotation via WhatsApp/email" wording: book summary,
+  PriceCalculator, routes/[slug], airport/intercity tables, root FAQ schema
+
 ## 🔶 KNOWN ISSUES
 1. Homepage About blurb "50k+ trips" vs trustStats 5,000+ — harmonize karna hai.
 2. `hourly-charter`, `wedding-events`, `car-recovery` hub cards ke detail pages nahi hain (link nahi kiye).

@@ -1028,8 +1028,9 @@ export default async function RouteDetailsPage({ params }: PageProps) {
           <section>
             <h2 className="font-heading text-2xl font-bold mb-6 flex items-center gap-3">
               <Car className="text-[#C9A84C]" />
-              Vehicle Options & Fixed Pricing
+              Vehicle Options & Estimated Pricing
             </h2>
+            <p className="text-[0.7rem] text-[#6B7280] mb-6">* Estimated fares — your final quotation is confirmed on WhatsApp or email.</p>
             <div className="grid sm:grid-cols-2 gap-4">
               {vehicles.map((v) => (
                 <div key={v.key} className="border border-[#16A34A]/12 rounded-2xl bg-white overflow-hidden group hover:border-[#16A34A]/35 transition-colors">
