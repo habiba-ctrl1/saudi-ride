@@ -191,11 +191,11 @@ export function Footer() {
   return (
     <footer
       className="relative pt-20 pb-10 overflow-hidden font-sans premium-dark-section"
-      style={{ backgroundColor: "#0F172A", borderTop: "1px solid rgba(200,164,93,0.15)", color: "#F5F0E8" }}
+      style={{ backgroundColor: "#0B3B21", borderTop: "1px solid rgba(200,164,93,0.15)", color: "#F5F0E8" }}
     >
-      {/* Decorative navy glow */}
+      {/* Decorative brand-green glow */}
       <div className="absolute bottom-0 right-1/4 h-96 w-96 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(200,164,93,0.06) 0%, transparent 70%)" }} />
-      <div className="absolute top-0 left-1/4 h-64 w-64 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(30,41,59,0.8) 0%, transparent 70%)" }} />
+      <div className="absolute top-0 left-1/4 h-64 w-64 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(22,163,74,0.18) 0%, transparent 70%)" }} />
 
       <div className="section-container">
         {/* Top brand grid */}
@@ -205,7 +205,7 @@ export function Footer() {
             <Link href="/" className="flex items-center gap-3 group">
               <span
                 className="relative flex h-10 w-10 items-center justify-center rounded-full"
-                style={{ border: "1.5px solid rgba(200,164,93,0.5)", backgroundColor: "rgba(15,23,42,0.8)" }}
+                style={{ border: "1.5px solid rgba(200,164,93,0.5)", backgroundColor: "rgba(6,38,21,0.8)" }}
               >
                 <span className="text-base">🌙</span>
               </span>
@@ -299,7 +299,7 @@ export function Footer() {
             <div
               key={sub}
               className="flex items-center gap-3 rounded-xl p-4"
-              style={{ backgroundColor: "rgba(30,41,59,0.6)", border: "1px solid rgba(200,164,93,0.08)" }}
+              style={{ backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(200,164,93,0.12)" }}
             >
               <Icon className="h-5 w-5 shrink-0" style={{ color: "#C8A45D" }} />
               <div>
