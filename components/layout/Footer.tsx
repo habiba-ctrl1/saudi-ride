@@ -12,9 +12,9 @@ const translations = {
     popularRoutes: "Popular Routes",
     company: "Company",
     copyright: "© 2026 Taxi Saudi Arabia. All rights reserved. Created with absolute elegance.",
-    motLicensed: "Ministry of Transport Licensed",
+    motLicensed: "Licensed Drivers",
     zatcaCompliant: "ZATCA VAT Compliant",
-    tgaCertified: "TGA Certified",
+    tgaCertified: "Fixed-Price Fares",
     support247: "24/7 Customer Support",
   },
   ar: {
@@ -24,9 +24,9 @@ const translations = {
     popularRoutes: "أشهر المسارات",
     company: "الشركة",
     copyright: "© 2026 تاكسي السعودية. جميع الحقوق محفوظة. صُنع بأناقة مطلقة.",
-    motLicensed: "مرخص من وزارة النقل",
+    motLicensed: "سائقون مرخصون",
     zatcaCompliant: "خاضع لهيئة الزكاة والضريبة",
-    tgaCertified: "معتمد من الهيئة العامة للنقل",
+    tgaCertified: "أسعار ثابتة",
     support247: "دعم VIP على مدار الساعة",
   },
   ur: {
@@ -36,9 +36,9 @@ const translations = {
     popularRoutes: "مشہور روٹس",
     company: "کمپنی",
     copyright: "© 2026 ٹیکسی سعودی عرب۔ جملہ حقوق محفوظ ہیں۔ بہترین نفاست کے ساتھ تیار کردہ۔",
-    motLicensed: "وزارت ٹرانسپورٹ سے لائسنس یافتہ",
+    motLicensed: "لائسنس یافتہ ڈرائیورز",
     zatcaCompliant: "زکوٰۃ و ٹیکس کمپلائنٹ",
-    tgaCertified: "ٹی جی اے تصدیق شدہ",
+    tgaCertified: "فکسڈ قیمتیں",
     support247: "24/7 وی آئی پی سپورٹ",
   },
 };
@@ -68,6 +68,8 @@ export function Footer() {
         { label: "Intercity Rides", href: "/services/intercity" },
         { label: "Corporate Car Service", href: "/services/corporate" },
         { label: "Border Crossings", href: "/services/border-crossings" },
+        { label: "Hajj Transport", href: "/services/hajj-transport" },
+        { label: "Heritage Tours", href: "/services/heritage-tours" },
         { label: "Car Recovery (Satha)", href: "/services/car-recovery" },
       ],
       routes: [
@@ -113,6 +115,8 @@ export function Footer() {
         { label: "سفر بين المدن", href: "/services/intercity" },
         { label: "سائق خاص للشركات", href: "/services/corporate" },
         { label: "خدمات نقل الحدود", href: "/services/border-crossings" },
+        { label: "نقل الحج", href: "/services/hajj-transport" },
+        { label: "جولات التراث", href: "/services/heritage-tours" },
         { label: "سطحة وسحب سيارات", href: "/services/car-recovery" },
       ],
       routes: [
@@ -158,6 +162,8 @@ export function Footer() {
         { label: "انٹرسٹی سفر", href: "/services/intercity" },
         { label: "کارپوریٹ ڈرائیور", href: "/services/corporate" },
         { label: "بارڈر کراسنگز", href: "/services/border-crossings" },
+        { label: "حج ٹرانسپورٹ", href: "/services/hajj-transport" },
+        { label: "ہیریٹیج ٹورز", href: "/services/heritage-tours" },
         { label: "کار ریکوری (سطحہ)", href: "/services/car-recovery" },
       ],
       routes: [
@@ -291,9 +297,9 @@ export function Footer() {
         {/* Trust Badges Row */}
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 py-12 border-b text-xs" style={{ borderColor: "rgba(200,164,93,0.1)" }}>
           {[
-            { icon: BadgeCheck, label: t.motLicensed, sub: "KSA MOT Compliant" },
+            { icon: BadgeCheck, label: t.motLicensed, sub: "Valid Saudi License" },
             { icon: Receipt, label: t.zatcaCompliant, sub: "Electronic Invoicing Ready" },
-            { icon: ShieldCheck, label: t.tgaCertified, sub: "Transport General Authority" },
+            { icon: ShieldCheck, label: t.tgaCertified, sub: "No Meter, No Surge" },
             { icon: PhoneCall, label: t.support247, sub: "Private Concierge Desk" },
           ].map(({ icon: Icon, label, sub }) => (
             <div

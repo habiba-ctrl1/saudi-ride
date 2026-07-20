@@ -82,6 +82,32 @@ export function DriverJobsHubBody({ variantKey }: { variantKey: JobVariant }) {
             );
           })}
         </div>
+
+        {/* Other recruitment tiers (cross-link the 3 hub variants) */}
+        <div className="mt-10 flex flex-wrap gap-3">
+          {(Object.keys(JOB_VARIANTS) as JobVariant[])
+            .filter((key) => key !== variantKey)
+            .map((key) => (
+              <Link
+                key={key}
+                href={JOB_VARIANTS[key].urlBase}
+                className="text-xs font-semibold text-[#006C35] hover:underline"
+              >
+                See {JOB_VARIANTS[key].label} →
+              </Link>
+            ))}
+        </div>
+
+        {/* Ride with us — customer-facing money pages (job seekers are also potential riders) */}
+        <div className="mt-12 rounded-2xl border border-[#C9A84C]/20 bg-white p-6">
+          <h2 className="text-sm font-bold uppercase tracking-wider text-[#B8963B] mb-4">Need a Ride Instead?</h2>
+          <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+            <Link href="/fleet" className="text-[#1C1C1C] hover:text-[#006C35] font-medium">Our Luxury Fleet</Link>
+            <Link href="/services/corporate" className="text-[#1C1C1C] hover:text-[#006C35] font-medium">Corporate Car Service</Link>
+            <Link href="/routes" className="text-[#1C1C1C] hover:text-[#006C35] font-medium">Popular Routes</Link>
+            <Link href="/services/umrah-transport" className="text-[#1C1C1C] hover:text-[#006C35] font-medium">Umrah Transport</Link>
+          </div>
+        </div>
       </section>
     </div>
   );

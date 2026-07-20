@@ -17,6 +17,19 @@ import {
   type JobVariant,
 } from "@/lib/data/driver-jobs";
 
+// Driver-job city slug -> matching /locations/[city] page slug (only where one exists).
+const CITY_TO_LOCATION: Record<string, string> = {
+  riyadh: "riyadh",
+  jeddah: "jeddah",
+  makkah: "makkah",
+  madinah: "madinah",
+  dammam: "dammam",
+  khobar: "alkhobar",
+  taif: "taif",
+  abha: "abha",
+  yanbu: "yanbu",
+};
+
 // Shared renderer for all three keyword-variant recruitment pages
 // (driver-jobs / chauffeur-jobs / taxi-driver-jobs). Each variant passes its
 // key; content angle, salary skew and copy differ so pages aren't duplicates.
@@ -214,6 +227,22 @@ export function DriverJobBody({ data, variantKey }: { data: DriverJobCity; varia
                 <p className="mt-3 text-sm text-[#444] leading-relaxed">{f.answer}</p>
               </details>
             ))}
+          </div>
+        </div>
+        {/* Ride with us — job-seeker traffic is also potential customer traffic */}
+        <div className="mt-10 rounded-2xl border border-[#C9A84C]/20 bg-white p-6">
+          <h2 className="text-sm font-bold uppercase tracking-wider text-[#B8963B] mb-4">
+            Need a Ride in {data.name} Instead?
+          </h2>
+          <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+            {CITY_TO_LOCATION[data.slug] && (
+              <Link href={`/locations/${CITY_TO_LOCATION[data.slug]}`} className="text-[#1C1C1C] hover:text-[#006C35] font-medium">
+                Taxi in {data.name}
+              </Link>
+            )}
+            <Link href="/services/corporate" className="text-[#1C1C1C] hover:text-[#006C35] font-medium">Corporate Car Service</Link>
+            <Link href="/fleet" className="text-[#1C1C1C] hover:text-[#006C35] font-medium">Our Luxury Fleet</Link>
+            <Link href="/routes" className="text-[#1C1C1C] hover:text-[#006C35] font-medium">Popular Routes</Link>
           </div>
         </div>
       </section>

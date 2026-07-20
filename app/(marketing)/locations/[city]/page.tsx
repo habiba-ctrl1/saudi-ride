@@ -19,13 +19,25 @@ export function generateStaticParams() {
 // No notFound import
 import { db } from "@/lib/db";
 import { Metadata } from "next";
-import { MapPin, ArrowRight, Car, Building2, CheckCircle2, HelpCircle, Star, Quote } from "lucide-react";
+import { MapPin, ArrowRight, Car, Building2, CheckCircle2, HelpCircle, Star, Quote, PlaneLanding } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { serviceSchema, faqSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
+import { SUB_AREAS } from "@/lib/data/subareas";
+
+// City -> matching airport page slug (only where a dedicated /airports/[slug] page exists).
+const CITY_AIRPORT: Record<string, { slug: string; name: string }> = {
+  jeddah: { slug: "king-abdulaziz-jeddah", name: "King Abdulaziz International Airport (JED)" },
+  madinah: { slug: "prince-mohammad-madinah", name: "Prince Mohammad Bin Abdulaziz Airport (MED)" },
+  riyadh: { slug: "king-khalid-riyadh", name: "King Khalid International Airport (RUH)" },
+  dammam: { slug: "king-fahd-dammam", name: "King Fahd International Airport (DMM)" },
+  taif: { slug: "taif-regional", name: "Taif Regional Airport (TIF)" },
+  alula: { slug: "alula", name: "AlUla International Airport (ULH)" },
+  abha: { slug: "abha-regional", name: "Abha International Airport (AHB)" },
+};
 
 // Static content for cities to complement dynamic route data
 const CITY_DETAILS: Record<string, { name: string, nameAr: string, image: string, tagline: string, description: string, attractions: { name: string, dist: string }[], tips: string[], tldr?: string, tldrFacts?: { label: string, value: string }[], faqs?: { question: string, answer: string }[], testimonials?: { quote: string, author: string, location: string, trip: string }[] }> = {
@@ -487,6 +499,9 @@ export default async function CityLocationPage({ params }: PageProps) {
     tips: []
   };
 
+  const citySubAreas = Object.values(SUB_AREAS).filter((a) => a.city === cityKey);
+  const cityAirport = CITY_AIRPORT[cityKey];
+
   // Fetch routes connected to this city
   const cityRoutes = await db.route.findMany({
     where: {
@@ -598,6 +613,36 @@ export default async function CityLocationPage({ params }: PageProps) {
               <Link href="/routes" className="text-[#C9A84C] text-sm font-bold hover:underline">View all 50+ Kingdom-wide routes &rarr;</Link>
             </div>
           </section>
+
+          {/* Areas within this city + nearest airport (internal linking to sub-area pages) */}
+          {(citySubAreas.length > 0 || cityAirport) && (
+            <section>
+              <h2 className="font-heading text-3xl font-bold mb-8">Areas We Serve in {cityData.name}</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {cityAirport && (
+                  <Link
+                    href={`/airports/${cityAirport.slug}`}
+                    className="group flex items-center justify-between gap-3 rounded-xl border border-[#16A34A]/12 bg-white px-4 py-3 hover:border-[#16A34A]/35 transition-colors"
+                  >
+                    <span className="flex items-center gap-2 text-sm font-medium text-[#1C1C1C] group-hover:text-[#16A34A]">
+                      <PlaneLanding className="h-4 w-4 text-[#C9A84C]" /> {cityAirport.name}
+                    </span>
+                    <ArrowRight className="h-4 w-4 text-[#C9A84C]" />
+                  </Link>
+                )}
+                {citySubAreas.map((area) => (
+                  <Link
+                    key={area.subarea}
+                    href={`/locations/${cityKey}/${area.subarea}`}
+                    className="group flex items-center justify-between gap-3 rounded-xl border border-[#16A34A]/12 bg-white px-4 py-3 hover:border-[#16A34A]/35 transition-colors"
+                  >
+                    <span className="text-sm font-medium text-[#1C1C1C] group-hover:text-[#16A34A]">Taxi in {area.name}</span>
+                    <ArrowRight className="h-4 w-4 text-[#C9A84C]" />
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Local Tips */}
           {cityData.tips.length > 0 && (

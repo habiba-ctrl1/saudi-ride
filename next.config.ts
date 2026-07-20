@@ -9,12 +9,24 @@ const nextConfig: NextConfig = {
       "meeqat-guide": "/guides/meeqat-locations",
       "riyal-cash-guide": "/guides/saudi-riyal-pilgrim-guide",
     };
-    return Object.entries(guideIdMap).map(([id, destination]) => ({
+    const guideRedirects = Object.entries(guideIdMap).map(([id, destination]) => ({
       source: "/guides",
       has: [{ type: "query" as const, key: "id", value: id }],
       destination,
       permanent: true,
     }));
+
+    // Dammam sub-area "al-khobar" duplicated the standalone /locations/alkhobar
+    // city page (same city, competing content) — consolidate into one URL.
+    const dedupeRedirects = [
+      {
+        source: "/locations/dammam/al-khobar",
+        destination: "/locations/alkhobar",
+        permanent: true,
+      },
+    ];
+
+    return [...guideRedirects, ...dedupeRedirects];
   },
   images: {
     remotePatterns: [
