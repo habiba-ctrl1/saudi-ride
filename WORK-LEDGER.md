@@ -3,6 +3,16 @@
 > Verify: `python scripts/ui_consistency_check.py --summary` (0 violations = us page ka UI theme done)
 > Priority order: `../SITE-URLS-PRIORITY.md` (Tier 1 → 2 → 3 → 4)
 
+## 🚧 IN PROGRESS (2026-07-20) — Money Pages AIO/GEO + Backend CRM plan (6 chunks)
+Full plan agreed with user: Tier-1 money pages best-in-class AIO/GEO/SEO/UI-UX, quotations backend fixed, off-page assets prepared, 5 strategic blogs. Order: 1) backend CRM 2) service pages schema 3) location/route pages schema 4) UI/UX conversion pass 5) OFFPAGE-ASSETS.md 6) 5 blogs.
+
+**Chunk 1 DONE — Quotations admin CRM** (migration `0010_quotation_details_edit.sql` applied to live DB, verified via scratch script — edit applies, audit_logs `details_edit` row written, lock on completed/cancelled blocks customer/trip edits, admin_notes stays editable post-lock):
+- New RPC `admin_update_quotation_details` (service-role only) — edits customer/trip fields, writes its own audit_logs row (existing `trg_quotations_audit` trigger only covers status changes, NOT detail edits — don't assume it covers everything).
+- `lib/supabase/quotations.ts`: `updateQuotationDetails()`. `app/api/quotations/[id]/route.ts` PATCH now accepts `{ details: {...} }` alongside existing `{ status, quotedPrice, driverId }`.
+- `/admin/quotations` page.tsx now reads `searchParams` (Next 15 async prop) and passes to `listQuotations()` — that function already supported search/dateFrom/dateTo/source/paymentStatus/sort/page/limit, it just wasn't wired to the UI before.
+- `QuotationsClient.tsx`: filter bar (search debounced 400ms, date range, source, payment status, sort — all URL-driven via `router.push` so filters are bookmarkable), status chips now URL-driven too, pagination (25/page), per-card Edit (locked/read-only once completed/cancelled), always-editable admin_notes + follow-up-flag toggle button.
+- ⚠️ **git note:** working tree also has a large set of unrelated uncommitted changes (another session's `/ar` SSR i18n work — `app/ar/`, `lib/config/i18n.ts`, `middleware.ts`, several `layout.tsx`/`page.tsx`). Only Chunk-1 files were staged/committed — do NOT `git add -A` until that other work is confirmed done or explicitly reviewed.
+
 ## ✅ DONE (2026-07)
 
 ### Homepage (`/`) — COMPLETE

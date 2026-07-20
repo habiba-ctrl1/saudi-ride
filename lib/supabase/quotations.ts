@@ -137,6 +137,50 @@ export async function updateQuotationStatus(
   return { row: (data ?? null) as QuotationRow | null, error: error?.message ?? null };
 }
 
+export type QuotationDetailsInput = Partial<{
+  customer_name: string;
+  customer_phone: string;
+  customer_email: string | null;
+  pickup_location: string;
+  drop_location: string;
+  trip_type: TripType;
+  trip_date: string;
+  trip_time: string | null;
+  return_date: string | null;
+  passengers_count: number | null;
+  luggage_notes: string | null;
+  vehicle_type_requested: DriverVehicleType | null;
+  admin_notes: string | null;
+  followup_flagged: boolean;
+}>;
+
+/** Edit customer/trip details through the audit-logged, lock-enforcing RPC
+ *  (0010). Locked once status is completed/cancelled — only admin_notes and
+ *  followup_flagged are still accepted then; the RPC raises otherwise. */
+export async function updateQuotationDetails(id: string, adminId: string, details: QuotationDetailsInput) {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return { row: null, error: "Supabase not configured" };
+  const { data, error } = await supabase.rpc("admin_update_quotation_details", {
+    p_id: id,
+    p_admin: adminId,
+    p_customer_name: details.customer_name ?? null,
+    p_customer_phone: details.customer_phone ?? null,
+    p_customer_email: details.customer_email ?? null,
+    p_pickup: details.pickup_location ?? null,
+    p_drop: details.drop_location ?? null,
+    p_trip_type: details.trip_type ?? null,
+    p_trip_date: details.trip_date ?? null,
+    p_trip_time: details.trip_time ?? null,
+    p_return_date: details.return_date ?? null,
+    p_passengers: details.passengers_count ?? null,
+    p_luggage_notes: details.luggage_notes ?? null,
+    p_vehicle_type: details.vehicle_type_requested ?? null,
+    p_admin_notes: details.admin_notes ?? null,
+    p_followup_flagged: details.followup_flagged ?? null,
+  });
+  return { row: (data ?? null) as QuotationRow | null, error: error?.message ?? null };
+}
+
 export type DashboardSummary = {
   pending_driver_approvals: number;
   new_quotations: number;
