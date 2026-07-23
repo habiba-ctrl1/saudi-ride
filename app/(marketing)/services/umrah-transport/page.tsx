@@ -7,11 +7,29 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
+import { TLDRSummary } from "@/components/seo/TLDRSummary";
+
+const TITLE = "Umrah Taxi Service | Jeddah to Makkah & Madinah Transfers";
+const DESCRIPTION = "Umrah taxi service in Saudi Arabia — airport to Makkah, Makkah to Madinah, Ziyarat tours & Meeqat stops. English, Arabic & Urdu drivers. Fixed prices, 24/7.";
+const OG_IMAGE = "https://taxisaudiarabia.com/services/umrah-transport-hero.webp";
 
 export const metadata: Metadata = {
   alternates: { canonical: "https://taxisaudiarabia.com/services/umrah-transport" },
-  title: "Umrah Taxi Service | Jeddah to Makkah & Madinah Transfers",
-  description: "Umrah taxi service in Saudi Arabia — airport to Makkah, Makkah to Madinah, Ziyarat tours & Meeqat stops. English, Arabic & Urdu drivers. Fixed prices, 24/7.",
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: "https://taxisaudiarabia.com/services/umrah-transport",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Umrah taxi service in Saudi Arabia" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
+  },
 };
 
 const PACKAGES = [
@@ -115,9 +133,20 @@ export default function UmrahTransportPage() {
             Premium Transport for <br />
             <span className="text-[#16A34A]">Your Sacred Journey</span>
           </h1>
-          <p id="speakable-summary" className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-10">
+          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-8">
             Serving the Guests of Allah with dignity, comfort, and unmatched reliability. From Jeddah Airport arrivals to complete Ziyarat tours in Madinah.
           </p>
+          <div className="max-w-2xl mx-auto mb-10 text-left">
+            <TLDRSummary
+              answer="Umrah taxi transfers in Saudi Arabia start from SAR 249 (Jeddah Airport to Makkah, ~1 hour), with multilingual drivers and 24/7 availability for airport pickups, intercity Ziyarat, and Miqat stops."
+              facts={[
+                { label: "Airport → Makkah", value: "From SAR 249" },
+                { label: "Duration", value: "~1 hour" },
+                { label: "Languages", value: "EN / AR / UR" },
+                { label: "Availability", value: "24/7" },
+              ]}
+            />
+          </div>
           <div className="flex justify-center gap-4">
             <Link
               href="/book"

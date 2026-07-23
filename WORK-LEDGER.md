@@ -13,6 +13,13 @@ Full plan agreed with user: Tier-1 money pages best-in-class AIO/GEO/SEO/UI-UX, 
 - `QuotationsClient.tsx`: filter bar (search debounced 400ms, date range, source, payment status, sort — all URL-driven via `router.push` so filters are bookmarkable), status chips now URL-driven too, pagination (25/page), per-card Edit (locked/read-only once completed/cancelled), always-editable admin_notes + follow-up-flag toggle button.
 - ⚠️ **git note:** working tree also has a large set of unrelated uncommitted changes (another session's `/ar` SSR i18n work — `app/ar/`, `lib/config/i18n.ts`, `middleware.ts`, several `layout.tsx`/`page.tsx`). Only Chunk-1 files were staged/committed — do NOT `git add -A` until that other work is confirmed done or explicitly reviewed.
 
+**Chunk 2 DONE — Service pages (all 14) AIO/GEO** (`tsc --noEmit` clean, `ui_consistency_check.py --summary` PASS):
+- All 14 `(marketing)/services/*/page.tsx` now have full `openGraph`+`twitter` metadata (previously missing site-wide) — used each page's existing hero image as the OG image (no new assets needed) since page-specific `-og.webp` files don't exist yet.
+- Added `speakableSchema()` to the 12 pages that didn't have it (only `airport-transfers`/`umrah-transport` had it before).
+- `components/seo/TLDRSummary.tsx` gained an `id` prop (default `"speakable-summary"`) so the component's answer `<p>` matches `speakableSchema()`'s default `cssSelector` — previously the component rendered no id at all, so any page using it with default selectors would've pointed at nothing.
+- Replaced ad-hoc `<p id="speakable-summary">` (2 pages) and added net-new `<TLDRSummary>` answer-first blocks (12 pages) with real facts pulled from each page's own pricing/data — no fabricated numbers.
+- Order done: Tier-1 (umrah-transport, airport-transfers) → Tier-2 (makkah-ziyarat, madinah-ziyarat, intercity, hajj-transport, vip-luxury, corporate) → rest (business-executive, group-transport, heritage-tours, tourism, border-crossings, car-recovery).
+
 ## ✅ DONE (2026-07)
 
 ### Homepage (`/`) — COMPLETE

@@ -3,14 +3,32 @@ import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
-import { serviceSchema, faqSchema } from "@/lib/schema";
+import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
+import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { Heart, Compass, ShieldCheck, Clock, Check } from "lucide-react";
 import Link from "next/link";
 
+const TITLE = "Hajj Transport Services | Jeddah, Makkah & Madinah Transfers";
+const DESCRIPTION = "Dedicated Hajj transport services in Saudi Arabia. Reliable transfers during the peak pilgrimage season between Jeddah, Makkah, and Madinah.";
+const OG_IMAGE = "https://taxisaudiarabia.com/services/hajj-transport-hero.webp";
+
 export const metadata: Metadata = {
   alternates: { canonical: "https://taxisaudiarabia.com/services/hajj-transport" },
-  title: "Hajj Transport Services | Jeddah, Makkah & Madinah Transfers",
-  description: "Dedicated Hajj transport services in Saudi Arabia. Reliable transfers during the peak pilgrimage season between Jeddah, Makkah, and Madinah.",
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: "https://taxisaudiarabia.com/services/hajj-transport",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Hajj transport service in Saudi Arabia" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
+  },
 };
 
 const FEATURES = [
@@ -24,14 +42,17 @@ export default function HajjTransportPage() {
   return (
     <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
       <JsonLd
-        data={serviceSchema({
-          name: "Hajj Transport Service",
-          description:
-            "Dedicated Hajj transport service in Saudi Arabia with permitted vehicles and experienced drivers for transfers between Jeddah, Makkah, Madinah, Mina, and Arafat.",
-          path: "/services/hajj-transport",
-          serviceType: "Hajj Transport",
-          areaServed: ["Makkah", "Madinah", "Mina", "Arafat"],
-        })}
+        data={[
+          serviceSchema({
+            name: "Hajj Transport Service",
+            description:
+              "Dedicated Hajj transport service in Saudi Arabia with permitted vehicles and experienced drivers for transfers between Jeddah, Makkah, Madinah, Mina, and Arafat.",
+            path: "/services/hajj-transport",
+            serviceType: "Hajj Transport",
+            areaServed: ["Makkah", "Madinah", "Mina", "Arafat"],
+          }),
+          speakableSchema({ path: "/services/hajj-transport" }),
+        ]}
       />
       <Breadcrumbs
         items={[
@@ -59,9 +80,19 @@ export default function HajjTransportPage() {
             Hajj Transport <br />
             <span className="text-[#16A34A]">Services</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-10">
+          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-8">
             Secure, reliable, and permitted transport for Hajj pilgrims. Avoid the crowds and travel in comfort between Jeddah Airport, Makkah, and Madinah.
           </p>
+          <div className="max-w-2xl mx-auto mb-10 text-left">
+            <TLDRSummary
+              answer="Hajj transport in Saudi Arabia uses permitted vehicles and experienced drivers for transfers between Jeddah Airport, Makkah, Madinah, Mina, and Arafat, available 24/7 during the pilgrimage season."
+              facts={[
+                { label: "Coverage", value: "Jeddah / Makkah / Madinah" },
+                { label: "Permits", value: "Makkah-cleared vehicles" },
+                { label: "Availability", value: "24/7" },
+              ]}
+            />
+          </div>
           <div className="flex justify-center gap-4">
             <Link
               href="/book?service=hajj-transport"

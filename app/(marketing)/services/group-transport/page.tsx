@@ -3,14 +3,32 @@ import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
-import { serviceSchema, faqSchema } from "@/lib/schema";
+import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
+import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { Users, ShieldCheck, Bus, MapPin, Check } from "lucide-react";
 import Link from "next/link";
 
+const TITLE = "Group Transport & Umrah Bus Hire | Taxi Saudi Arabia";
+const DESCRIPTION = "Spacious group transport in Saudi Arabia. Rent 7-seater Vans, Coaster buses, and luxury coaches for large families and Umrah groups.";
+const OG_IMAGE = "https://taxisaudiarabia.com/services/group-transport-hero.webp";
+
 export const metadata: Metadata = {
   alternates: { canonical: "https://taxisaudiarabia.com/services/group-transport" },
-  title: "Group Transport & Umrah Bus Hire | Taxi Saudi Arabia",
-  description: "Spacious group transport in Saudi Arabia. Rent 7-seater Vans, Coaster buses, and luxury coaches for large families and Umrah groups.",
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: "https://taxisaudiarabia.com/services/group-transport",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Group transport and bus hire in Saudi Arabia" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
+  },
 };
 
 const FEATURES = [
@@ -24,14 +42,17 @@ export default function GroupTransportPage() {
   return (
     <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
       <JsonLd
-        data={serviceSchema({
-          name: "Group Transport & Bus Hire",
-          description:
-            "Group transport and bus hire in Saudi Arabia for Umrah groups, large families, and corporate teams with 7-seater vans, Coaster buses, and luxury coaches.",
-          path: "/services/group-transport",
-          serviceType: "Group Transport",
-          areaServed: ["Makkah", "Madinah", "Jeddah", "Riyadh"],
-        })}
+        data={[
+          serviceSchema({
+            name: "Group Transport & Bus Hire",
+            description:
+              "Group transport and bus hire in Saudi Arabia for Umrah groups, large families, and corporate teams with 7-seater vans, Coaster buses, and luxury coaches.",
+            path: "/services/group-transport",
+            serviceType: "Group Transport",
+            areaServed: ["Makkah", "Madinah", "Jeddah", "Riyadh"],
+          }),
+          speakableSchema({ path: "/services/group-transport" }),
+        ]}
       />
       <Breadcrumbs
         items={[
@@ -59,9 +80,19 @@ export default function GroupTransportPage() {
             Group Transport <br />
             <span className="text-[#16A34A]">& Bus Hire</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-10">
+          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-8">
             Comfortable, spacious, and reliable transport for large families, Umrah groups, and corporate events across Saudi Arabia.
           </p>
+          <div className="max-w-2xl mx-auto mb-10 text-left">
+            <TLDRSummary
+              answer="Group transport in Saudi Arabia ranges from 7-seater vans to 50-seater luxury coaches for Umrah groups, families, and corporate teams, with a dedicated coordinator for large bookings."
+              facts={[
+                { label: "Fleet range", value: "7 to 50 seats" },
+                { label: "Coverage", value: "Makkah / Madinah / Jeddah / Riyadh" },
+                { label: "Large groups", value: "Dedicated coordinator" },
+              ]}
+            />
+          </div>
           <div className="flex justify-center gap-4">
             <Link
               href="/book"

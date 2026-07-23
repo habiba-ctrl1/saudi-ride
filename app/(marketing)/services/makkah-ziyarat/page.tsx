@@ -6,13 +6,30 @@ import { contactConfig } from "@/lib/config/contact";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
-import { serviceSchema, faqSchema } from "@/lib/schema";
+import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
+import { TLDRSummary } from "@/components/seo/TLDRSummary";
+
+const TITLE = "Makkah Ziyarat Taxi Tours | Jabal Al-Noor, Mina & Arafat";
+const DESCRIPTION = "Book a Makkah Ziyarat taxi tour — visit Jabal Al-Noor, Jabal Thawr, Mina, Arafat & Muzdalifah with knowledgeable drivers. Flexible half-day & full-day tours.";
+const OG_IMAGE = "https://taxisaudiarabia.com/services/makkah-ziyarat-hero.webp";
 
 export const metadata: Metadata = {
   alternates: { canonical: "https://taxisaudiarabia.com/services/makkah-ziyarat" },
-  title: "Makkah Ziyarat Taxi Tours | Jabal Al-Noor, Mina & Arafat",
-  description:
-    "Book a Makkah Ziyarat taxi tour — visit Jabal Al-Noor, Jabal Thawr, Mina, Arafat & Muzdalifah with knowledgeable drivers. Flexible half-day & full-day tours.",
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: "https://taxisaudiarabia.com/services/makkah-ziyarat",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Makkah Ziyarat taxi tour" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
+  },
 };
 
 const SITES = [
@@ -52,6 +69,7 @@ export default function MakkahZiyaratPage() {
             areaServed: ["Makkah"],
           }),
           faqSchema(FAQS),
+          speakableSchema({ path: "/services/makkah-ziyarat" }),
         ]}
       />
       <Breadcrumbs
@@ -80,9 +98,19 @@ export default function MakkahZiyaratPage() {
           <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
             Makkah Ziyarat <span className="text-[#16A34A]">Taxi Tours</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-10">
+          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-8">
             Visit the blessed historical sites of Makkah — Jabal Al-Noor, Jabal Thawr, Mina, Arafat, and Muzdalifah — with a comfortable vehicle and a driver who knows every route.
           </p>
+          <div className="max-w-2xl mx-auto mb-10 text-left">
+            <TLDRSummary
+              answer="A Makkah Ziyarat taxi tour covers Jabal Al-Noor, Jabal Thawr, Mina, Arafat, and Muzdalifah in 3-4 hours, with hotel pickup and a knowledgeable local driver."
+              facts={[
+                { label: "Duration", value: "3-4 hours" },
+                { label: "Sites covered", value: "6 locations" },
+                { label: "Pickup", value: "Your Makkah hotel" },
+              ]}
+            />
+          </div>
           <Link
             href="/book"
             className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"

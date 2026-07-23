@@ -3,14 +3,32 @@ import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
-import { serviceSchema, faqSchema } from "@/lib/schema";
+import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
+import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { Building2, ReceiptText, ShieldCheck, UserCheck, Check } from "lucide-react";
 import { CorporateAccountForm } from "@/components/booking/CorporateAccountForm";
 
+const TITLE = "Corporate Taxi Accounts & B2B Transport | Taxi Saudi Arabia";
+const DESCRIPTION = "Executive B2B transport solutions in Saudi Arabia. Monthly invoicing, ZATCA compliant receipts, priority dispatch, and dedicated account managers.";
+const OG_IMAGE = "https://taxisaudiarabia.com/services/corporate-hero.webp";
+
 export const metadata: Metadata = {
   alternates: { canonical: "https://taxisaudiarabia.com/services/corporate" },
-  title: "Corporate Taxi Accounts & B2B Transport | Taxi Saudi Arabia",
-  description: "Executive B2B transport solutions in Saudi Arabia. Monthly invoicing, ZATCA compliant receipts, priority dispatch, and dedicated account managers.",
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: "https://taxisaudiarabia.com/services/corporate",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Corporate B2B transport in Saudi Arabia" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
+  },
 };
 
 const FEATURES = [
@@ -24,14 +42,17 @@ export default function CorporateAccountsPage() {
   return (
     <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
       <JsonLd
-        data={serviceSchema({
-          name: "Corporate Taxi Accounts & B2B Transport",
-          description:
-            "Corporate taxi accounts and B2B transport solutions in Saudi Arabia with monthly ZATCA-compliant invoicing, dedicated account managers, and priority dispatch.",
-          path: "/services/corporate",
-          serviceType: "Corporate Transport",
-          areaServed: ["Saudi Arabia"],
-        })}
+        data={[
+          serviceSchema({
+            name: "Corporate Taxi Accounts & B2B Transport",
+            description:
+              "Corporate taxi accounts and B2B transport solutions in Saudi Arabia with monthly ZATCA-compliant invoicing, dedicated account managers, and priority dispatch.",
+            path: "/services/corporate",
+            serviceType: "Corporate Transport",
+            areaServed: ["Saudi Arabia"],
+          }),
+          speakableSchema({ path: "/services/corporate" }),
+        ]}
       />
       <Breadcrumbs
         items={[
@@ -60,9 +81,19 @@ export default function CorporateAccountsPage() {
             Executive Transport <br />
             <span className="text-[#16A34A]">for Modern Business</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-10">
+          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-8">
             Streamline your company&apos;s travel logistics with our dedicated corporate accounts. Enjoy monthly billing, ZATCA tax compliance, and unmatched VIP service across the Kingdom.
           </p>
+          <div className="max-w-2xl mx-auto mb-10 text-left">
+            <TLDRSummary
+              answer="Corporate taxi accounts in Saudi Arabia include monthly ZATCA-compliant invoicing, a dedicated account manager, priority dispatch, and guaranteed access to our VIP fleet for executives."
+              facts={[
+                { label: "Billing", value: "Monthly, ZATCA e-invoice" },
+                { label: "Support", value: "Dedicated manager" },
+                { label: "Fleet", value: "VIP / Executive" },
+              ]}
+            />
+          </div>
           <div className="flex justify-center gap-4">
             <a
               href="#apply"

@@ -3,14 +3,32 @@ import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
-import { serviceSchema, faqSchema } from "@/lib/schema";
+import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
+import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import Link from "next/link";
 import { Globe, FileText, Clock, Car, CheckCircle2, AlertTriangle } from "lucide-react";
 
+const TITLE = "GCC Cross-Border Taxi | Saudi to Bahrain, UAE, Qatar & Kuwait";
+const DESCRIPTION = "Book a cross-border taxi from Saudi Arabia to Bahrain, UAE, Qatar, Kuwait, or Jordan. Fixed prices, experienced drivers, smooth border crossings. Available 24/7.";
+const OG_IMAGE = "https://taxisaudiarabia.com/services/border-crossings-hero.webp";
+
 export const metadata: Metadata = {
   alternates: { canonical: "https://taxisaudiarabia.com/services/border-crossings" },
-  title: "GCC Cross-Border Taxi | Saudi to Bahrain, UAE, Qatar & Kuwait",
-  description: "Book a cross-border taxi from Saudi Arabia to Bahrain, UAE, Qatar, Kuwait, or Jordan. Fixed prices, experienced drivers, smooth border crossings. Available 24/7.",
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: "https://taxisaudiarabia.com/services/border-crossings",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "GCC cross-border taxi from Saudi Arabia" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
+  },
 };
 
 const BORDERS = [
@@ -65,14 +83,17 @@ export default function BorderCrossingsPage() {
   return (
     <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
       <JsonLd
-        data={serviceSchema({
-          name: "GCC Cross-Border Taxi Service",
-          description:
-            "Cross-border taxi service from Saudi Arabia to Bahrain, UAE, Qatar, and Kuwait with experienced drivers familiar with GCC border procedures.",
-          path: "/services/border-crossings",
-          serviceType: "Cross-Border Transfer",
-          areaServed: ["Saudi Arabia", "Bahrain", "United Arab Emirates", "Qatar", "Kuwait"],
-        })}
+        data={[
+          serviceSchema({
+            name: "GCC Cross-Border Taxi Service",
+            description:
+              "Cross-border taxi service from Saudi Arabia to Bahrain, UAE, Qatar, and Kuwait with experienced drivers familiar with GCC border procedures.",
+            path: "/services/border-crossings",
+            serviceType: "Cross-Border Transfer",
+            areaServed: ["Saudi Arabia", "Bahrain", "United Arab Emirates", "Qatar", "Kuwait"],
+          }),
+          speakableSchema({ path: "/services/border-crossings" }),
+        ]}
       />
       <Breadcrumbs
         items={[
@@ -101,9 +122,19 @@ export default function BorderCrossingsPage() {
             Seamless GCC <br />
             <span className="text-[#16A34A]">Border Crossings</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-10">
+          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-8">
             Skip the flights. Travel directly from your doorstep in Saudi Arabia to Bahrain, UAE, Qatar, Kuwait, or Jordan by car. Our experienced drivers handle all border logistics for you.
           </p>
+          <div className="max-w-2xl mx-auto mb-10 text-left">
+            <TLDRSummary
+              answer="Cross-border taxi service from Saudi Arabia to Bahrain (from SAR 350), UAE (from SAR 1,800), Qatar (from SAR 900), Kuwait (from SAR 850), or Jordan (from SAR 1,500), with drivers experienced in GCC border procedures."
+              facts={[
+                { label: "To Bahrain", value: "From SAR 350" },
+                { label: "To Qatar", value: "From SAR 900" },
+                { label: "To UAE", value: "From SAR 1,800" },
+              ]}
+            />
+          </div>
           <div className="flex justify-center gap-4">
             <Link
               href="/book"

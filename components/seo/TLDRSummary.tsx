@@ -13,11 +13,15 @@ export function TLDRSummary({
   facts,
   label = "Quick Answer",
   className = "",
+  id = "speakable-summary",
 }: {
   answer: string;
   facts?: { label: string; value: string }[];
   label?: string;
   className?: string;
+  /** Matches speakableSchema()'s default cssSelector "#speakable-summary" — keep
+   *  in sync if a page passes custom cssSelectors to speakableSchema. */
+  id?: string;
 }) {
   return (
     <div
@@ -29,7 +33,7 @@ export function TLDRSummary({
           {label}
         </span>
       </div>
-      <p className="text-[15px] sm:text-base leading-relaxed text-[#1C1C1C] font-medium">
+      <p id={id} className="text-[15px] sm:text-base leading-relaxed text-[#1C1C1C] font-medium">
         {answer}
       </p>
       {facts && facts.length > 0 && (

@@ -3,14 +3,32 @@ import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
-import { serviceSchema, faqSchema } from "@/lib/schema";
+import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
+import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import Link from "next/link";
 import { Map, Car, ShieldCheck, Clock, Navigation, CheckCircle2 } from "lucide-react";
 
+const TITLE = "Intercity Taxi Saudi Arabia | Long-Distance City Transfers";
+const DESCRIPTION = "Book an intercity taxi in Saudi Arabia for long-distance rides between Riyadh, Jeddah, Makkah, Madinah & Dammam. Fixed prices, clean cars, 24/7 drivers.";
+const OG_IMAGE = "https://taxisaudiarabia.com/services/intercity-hero.webp";
+
 export const metadata: Metadata = {
   alternates: { canonical: "https://taxisaudiarabia.com/services/intercity" },
-  title: "Intercity Taxi Saudi Arabia | Long-Distance City Transfers",
-  description: "Book an intercity taxi in Saudi Arabia for long-distance rides between Riyadh, Jeddah, Makkah, Madinah & Dammam. Fixed prices, clean cars, 24/7 drivers.",
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: "https://taxisaudiarabia.com/services/intercity",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Intercity taxi service in Saudi Arabia" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
+  },
 };
 
 const POPULAR_COMBINATIONS = [
@@ -49,6 +67,7 @@ export default function IntercityServicePage() {
             areaServed: ["Riyadh", "Jeddah", "Makkah", "Madinah", "Dammam", "Taif"],
           }),
           faqSchema(FAQS.map((f) => ({ question: f.q, answer: f.a }))),
+          speakableSchema({ path: "/services/intercity" }),
         ]}
       />
       <Breadcrumbs
@@ -78,9 +97,19 @@ export default function IntercityServicePage() {
             Intercity Executive <br />
             <span className="text-[#16A34A]">Transfers</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-10">
+          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-8">
             Skip the airport lines and rigid train schedules. Travel door-to-door between any two cities in Saudi Arabia in absolute privacy and comfort.
           </p>
+          <div className="max-w-2xl mx-auto mb-10 text-left">
+            <TLDRSummary
+              answer="Intercity taxi transfers in Saudi Arabia start from SAR 349 (Makkah to Taif) up to SAR 699+ (Riyadh to Dammam), with fixed prices, rest stops on long routes, and 24/7 availability."
+              facts={[
+                { label: "Makkah → Taif", value: "From SAR 349" },
+                { label: "Riyadh → Dammam", value: "From SAR 699" },
+                { label: "Jeddah → Madinah", value: "From SAR 549" },
+              ]}
+            />
+          </div>
           <div className="flex justify-center gap-4">
             <Link
               href="/routes"

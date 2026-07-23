@@ -4,7 +4,8 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
-import { serviceSchema, faqSchema, itemListSchema } from "@/lib/schema";
+import { serviceSchema, faqSchema, itemListSchema, speakableSchema } from "@/lib/schema";
+import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { RecoveryLeadForm } from "@/components/recovery/RecoveryLeadForm";
 import {
   RECOVERY_CITIES,
@@ -23,16 +24,32 @@ import {
   Wrench,
 } from "lucide-react";
 
+const TITLE = "Car Recovery Saudi Arabia | 24/7 Tow Truck & Flatbed Satha (سطحة)";
+const DESCRIPTION = "24/7 car recovery & towing service in Saudi Arabia. Flatbed tow truck (satha سطحة) in Riyadh, Jeddah, Dammam, Makkah & Madinah. Fixed prices on WhatsApp, fast dispatch, intercity car transport.";
+const OG_IMAGE = "https://taxisaudiarabia.com/services/car-recovery-hero.webp";
+
 export const metadata: Metadata = {
   alternates: { canonical: "https://taxisaudiarabia.com/services/car-recovery" },
-  title: "Car Recovery Saudi Arabia | 24/7 Tow Truck & Flatbed Satha (سطحة)",
-  description:
-    "24/7 car recovery & towing service in Saudi Arabia. Flatbed tow truck (satha سطحة) in Riyadh, Jeddah, Dammam, Makkah & Madinah. Fixed prices on WhatsApp, fast dispatch, intercity car transport.",
+  title: TITLE,
+  description: DESCRIPTION,
   keywords: [
     "car recovery Saudi Arabia", "tow truck Saudi Arabia", "satha", "سطحة",
     "flatbed towing", "car towing service", "roadside assistance Saudi Arabia",
     "سطحة الرياض", "سطحة جدة", "سطحة الدمام", "car transport Saudi Arabia", "winch truck",
   ],
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: "https://taxisaudiarabia.com/services/car-recovery",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Car recovery and tow truck (satha) service in Saudi Arabia" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
+  },
 };
 
 const STEPS = [
@@ -78,6 +95,7 @@ export default function CarRecoveryPage() {
               href: `/services/car-recovery/${c.slug}`,
             }))
           ),
+          speakableSchema({ path: "/services/car-recovery" }),
         ]}
       />
       <Breadcrumbs
@@ -119,9 +137,19 @@ export default function CarRecoveryPage() {
             <Link href="/services/car-recovery/madinah" className="text-[#16A34A] hover:underline">Madinah</Link>{" "}
             — with a fixed price on WhatsApp before the truck moves.
           </p>
-          <p className="text-xs text-[#6B7280] mb-10" dir="rtl" lang="ar">
+          <p className="text-xs text-[#6B7280] mb-8" dir="rtl" lang="ar">
             سطحة الرياض · سطحة جدة · سطحة الدمام · سطحة مكة · سطحة المدينة — خدمة سحب السيارات ٢٤ ساعة
           </p>
+          <div className="max-w-2xl mx-auto mb-10 text-left">
+            <TLDRSummary
+              answer="Car recovery (satha) in Saudi Arabia is available 24/7 in Riyadh, Jeddah, Dammam, Makkah, and Madinah — WhatsApp your location for a fixed price before the flatbed truck moves."
+              facts={[
+                { label: "Availability", value: "24/7" },
+                { label: "Cities", value: "5 major cities" },
+                { label: "Pricing", value: "Fixed, via WhatsApp" },
+              ]}
+            />
+          </div>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <a
               href="#request"

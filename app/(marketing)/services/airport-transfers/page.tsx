@@ -4,13 +4,31 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
+import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import Link from "next/link";
 import { Plane, Clock, UserCheck, CheckCircle2, ShieldCheck, Search, PlaneLanding } from "lucide-react";
 
+const TITLE = "Airport Taxi Saudi Arabia | Jeddah, Riyadh & Madinah Pickups";
+const DESCRIPTION = "Fixed-price airport taxi in Saudi Arabia with pickups at Jeddah (JED), Riyadh (RUH) & Madinah (MED). Flight tracking, meet & greet, 24/7 licensed drivers.";
+const OG_IMAGE = "https://taxisaudiarabia.com/services/airport-transfers-hero.webp";
+
 export const metadata: Metadata = {
   alternates: { canonical: "https://taxisaudiarabia.com/services/airport-transfers" },
-  title: "Airport Taxi Saudi Arabia | Jeddah, Riyadh & Madinah Pickups",
-  description: "Fixed-price airport taxi in Saudi Arabia with pickups at Jeddah (JED), Riyadh (RUH) & Madinah (MED). Flight tracking, meet & greet, 24/7 licensed drivers.",
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: "https://taxisaudiarabia.com/services/airport-transfers",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Airport taxi service in Saudi Arabia" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
+  },
 };
 
 const AIRPORT_ROUTES = [
@@ -80,9 +98,20 @@ export default function AirportTransfersPage() {
             Seamless Airport <br />
             <span className="text-[#16A34A]">Transfers Across KSA</span>
           </h1>
-          <p id="speakable-summary" className="max-w-2xl text-sm md:text-base text-[#6B7280] leading-relaxed mb-10">
+          <p className="max-w-2xl text-sm md:text-base text-[#6B7280] leading-relaxed mb-8">
             Arrive relaxed. We serve King Abdulaziz (JED), King Khalid (RUH), and Prince Mohammad Bin Abdulaziz (MED) airports with flight tracking, meet & greet, and zero waiting fees.
           </p>
+          <div className="max-w-2xl mb-10">
+            <TLDRSummary
+              answer="Airport taxi transfers in Saudi Arabia start from SAR 90 (Jeddah city) to SAR 549 (Jeddah to Madinah), with flight tracking, meet & greet, and 60 minutes of free waiting time at Jeddah (JED), Riyadh (RUH), and Madinah (MED)."
+              facts={[
+                { label: "JED → Makkah", value: "From SAR 249" },
+                { label: "RUH → City", value: "From SAR 120" },
+                { label: "Free waiting", value: "60 minutes" },
+                { label: "Availability", value: "24/7" },
+              ]}
+            />
+          </div>
 
           {/* Flight Tracker UI (Frontend Only) */}
           <div className="bg-white/85 backdrop-blur-xl border border-[#16A34A]/15 p-6 rounded-3xl max-w-2xl shadow-2xl">

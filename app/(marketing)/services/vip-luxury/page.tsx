@@ -3,14 +3,32 @@ import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
-import { serviceSchema, faqSchema } from "@/lib/schema";
+import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
+import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { Star, ShieldCheck, Clock, Crown } from "lucide-react";
 import Link from "next/link";
 
+const TITLE = "VIP & Luxury Chauffeur Service | Taxi Saudi Arabia";
+const DESCRIPTION = "VIP luxury chauffeur service in Saudi Arabia with a premium fleet — Mercedes S-Class, BMW 7-Series & Cadillac Escalade. Discreet, professional drivers, 24/7.";
+const OG_IMAGE = "https://taxisaudiarabia.com/services/vip-luxury-hero.webp";
+
 export const metadata: Metadata = {
   alternates: { canonical: "https://taxisaudiarabia.com/services/vip-luxury" },
-  title: "VIP & Luxury Chauffeur Service | Taxi Saudi Arabia",
-  description: "VIP luxury chauffeur service in Saudi Arabia with a premium fleet — Mercedes S-Class, BMW 7-Series & Cadillac Escalade. Discreet, professional drivers, 24/7.",
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: "https://taxisaudiarabia.com/services/vip-luxury",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "VIP luxury chauffeur service in Saudi Arabia" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
+  },
 };
 
 const FEATURES = [
@@ -24,14 +42,17 @@ export default function VIPLuxuryPage() {
   return (
     <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
       <JsonLd
-        data={serviceSchema({
-          name: "VIP & Luxury Chauffeur Service",
-          description:
-            "VIP and luxury chauffeur service in Saudi Arabia with a premium fleet including Mercedes S-Class, BMW 7-Series, and Cadillac Escalade and discreet executive chauffeurs.",
-          path: "/services/vip-luxury",
-          serviceType: "Luxury Chauffeur",
-          areaServed: ["Riyadh", "Jeddah", "Makkah", "Madinah"],
-        })}
+        data={[
+          serviceSchema({
+            name: "VIP & Luxury Chauffeur Service",
+            description:
+              "VIP and luxury chauffeur service in Saudi Arabia with a premium fleet including Mercedes S-Class, BMW 7-Series, and Cadillac Escalade and discreet executive chauffeurs.",
+            path: "/services/vip-luxury",
+            serviceType: "Luxury Chauffeur",
+            areaServed: ["Riyadh", "Jeddah", "Makkah", "Madinah"],
+          }),
+          speakableSchema({ path: "/services/vip-luxury" }),
+        ]}
       />
       <Breadcrumbs
         items={[
@@ -59,9 +80,19 @@ export default function VIPLuxuryPage() {
             VIP & Luxury <br />
             <span className="text-[#16A34A]">Chauffeur Service</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-10">
+          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-8">
             For those who demand the very best. Our VIP transport service offers unparalleled comfort, privacy, and prestige across the Kingdom.
           </p>
+          <div className="max-w-2xl mx-auto mb-10 text-left">
+            <TLDRSummary
+              answer="Our VIP & luxury chauffeur service in Saudi Arabia offers a premium fleet (Mercedes S-Class, BMW 7-Series, Cadillac Escalade) with discreet, bilingual chauffeurs, available for hourly charter or full-day standby."
+              facts={[
+                { label: "Fleet", value: "S-Class / Escalade" },
+                { label: "Booking", value: "Hourly or full-day" },
+                { label: "Coverage", value: "Riyadh / Jeddah / Makkah / Madinah" },
+              ]}
+            />
+          </div>
           <div className="flex justify-center gap-4">
             <Link
               href="/book?service=vip-luxury"

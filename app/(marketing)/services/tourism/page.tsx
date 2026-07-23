@@ -3,14 +3,32 @@ import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
-import { serviceSchema, faqSchema } from "@/lib/schema";
+import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
+import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import Link from "next/link";
 import { Map, Clock, Compass, ChevronRight, CheckCircle2 } from "lucide-react";
 
+const TITLE = "Day Trip Car Hire Saudi Arabia | AlUla, Taif, NEOM & Abha";
+const DESCRIPTION = "Hire a car with driver for day trips in Saudi Arabia — explore AlUla, NEOM, Abha, Taif & Diriyah. Hourly and full-day rates. Book online or on WhatsApp.";
+const OG_IMAGE = "https://taxisaudiarabia.com/services/tourism-hero.webp";
+
 export const metadata: Metadata = {
   alternates: { canonical: "https://taxisaudiarabia.com/services/tourism" },
-  title: "Day Trip Car Hire Saudi Arabia | AlUla, Taif, NEOM & Abha",
-  description: "Hire a car with driver for day trips in Saudi Arabia — explore AlUla, NEOM, Abha, Taif & Diriyah. Hourly and full-day rates. Book online or on WhatsApp.",
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: "https://taxisaudiarabia.com/services/tourism",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Tourism day trip car hire in Saudi Arabia" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
+  },
 };
 
 const DESTINATIONS = [
@@ -31,14 +49,17 @@ export default function TourismChartersPage() {
   return (
     <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
       <JsonLd
-        data={serviceSchema({
-          name: "Tourism & Day Trip Car Hire",
-          description:
-            "Day trip car hire with a driver in Saudi Arabia to AlUla, NEOM, Abha, Taif, and Diriyah with hourly and full-day rates and a driver who waits at every stop.",
-          path: "/services/tourism",
-          serviceType: "Tourism Transport",
-          areaServed: ["AlUla", "NEOM", "Abha", "Taif"],
-        })}
+        data={[
+          serviceSchema({
+            name: "Tourism & Day Trip Car Hire",
+            description:
+              "Day trip car hire with a driver in Saudi Arabia to AlUla, NEOM, Abha, Taif, and Diriyah with hourly and full-day rates and a driver who waits at every stop.",
+            path: "/services/tourism",
+            serviceType: "Tourism Transport",
+            areaServed: ["AlUla", "NEOM", "Abha", "Taif"],
+          }),
+          speakableSchema({ path: "/services/tourism" }),
+        ]}
       />
       <Breadcrumbs
         items={[
@@ -67,9 +88,19 @@ export default function TourismChartersPage() {
             Tourism Transport & <br />
             <span className="text-[#16A34A]">Private Charters</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-10">
+          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-8">
             From the ancient ruins of AlUla to the cool mountains of Abha. Hire a private driver by the hour or by the day to explore the Kingdom at your own pace.
           </p>
+          <div className="max-w-2xl mx-auto mb-10 text-left">
+            <TLDRSummary
+              answer="Day trip car hire with a driver in Saudi Arabia starts from SAR 120/hour (Executive Sedan) or SAR 1,000/day, covering AlUla, NEOM, Abha, Taif, and Diriyah."
+              facts={[
+                { label: "Hourly", value: "From SAR 120" },
+                { label: "Full day", value: "From SAR 1,000" },
+                { label: "Destinations", value: "AlUla / NEOM / Abha / Taif" },
+              ]}
+            />
+          </div>
           <div className="flex justify-center gap-4">
             <Link
               href="/book?type=charter"

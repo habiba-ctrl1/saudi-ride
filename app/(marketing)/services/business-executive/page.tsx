@@ -3,14 +3,32 @@ import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
-import { serviceSchema, faqSchema } from "@/lib/schema";
+import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
+import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { Briefcase, ShieldCheck, Clock, Wifi } from "lucide-react";
 import Link from "next/link";
 
+const TITLE = "Business & Executive Transport | Taxi Saudi Arabia";
+const DESCRIPTION = "Executive transport services for business travelers in Riyadh, Jeddah, and Dammam. Professional chauffeurs and comfortable sedans for your corporate meetings.";
+const OG_IMAGE = "https://taxisaudiarabia.com/services/business-executive-hero.webp";
+
 export const metadata: Metadata = {
   alternates: { canonical: "https://taxisaudiarabia.com/services/business-executive" },
-  title: "Business & Executive Transport | Taxi Saudi Arabia",
-  description: "Executive transport services for business travelers in Riyadh, Jeddah, and Dammam. Professional chauffeurs and comfortable sedans for your corporate meetings.",
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: "https://taxisaudiarabia.com/services/business-executive",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Business executive transport in Saudi Arabia" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
+  },
 };
 
 const FEATURES = [
@@ -24,14 +42,17 @@ export default function BusinessExecutivePage() {
   return (
     <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
       <JsonLd
-        data={serviceSchema({
-          name: "Business & Executive Transport",
-          description:
-            "Executive car service for business travelers in Saudi Arabia with professional chauffeurs, Wi-Fi equipped vehicles, and guaranteed punctuality.",
-          path: "/services/business-executive",
-          serviceType: "Executive Car Service",
-          areaServed: ["Riyadh", "Jeddah", "Dammam"],
-        })}
+        data={[
+          serviceSchema({
+            name: "Business & Executive Transport",
+            description:
+              "Executive car service for business travelers in Saudi Arabia with professional chauffeurs, Wi-Fi equipped vehicles, and guaranteed punctuality.",
+            path: "/services/business-executive",
+            serviceType: "Executive Car Service",
+            areaServed: ["Riyadh", "Jeddah", "Dammam"],
+          }),
+          speakableSchema({ path: "/services/business-executive" }),
+        ]}
       />
       <Breadcrumbs
         items={[
@@ -59,9 +80,19 @@ export default function BusinessExecutivePage() {
             Business Executive <br />
             <span className="text-[#16A34A]">Transport</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-10">
+          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-8">
             Seamless travel logistics for professionals. From airport pickups to full-day standby services for your roadshows and meetings in Riyadh, Jeddah, or Dammam.
           </p>
+          <div className="max-w-2xl mx-auto mb-10 text-left">
+            <TLDRSummary
+              answer="Business executive transport in Saudi Arabia offers professional chauffeurs, Wi-Fi equipped sedans, and guaranteed 15-minute-early arrivals for meetings in Riyadh, Jeddah, and Dammam."
+              facts={[
+                { label: "Coverage", value: "Riyadh / Jeddah / Dammam" },
+                { label: "Punctuality", value: "15 min early" },
+                { label: "Vehicles", value: "Wi-Fi equipped sedans" },
+              ]}
+            />
+          </div>
           <div className="flex justify-center gap-4">
             <Link
               href="/book?service=business-executive"

@@ -3,14 +3,32 @@ import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
-import { serviceSchema, faqSchema } from "@/lib/schema";
+import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
+import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { Compass, ShieldCheck, MapPin, Map } from "lucide-react";
 import Link from "next/link";
 
+const TITLE = "Madinah Ziyarat Packages & Taxi Tours | Taxi Saudi Arabia";
+const DESCRIPTION = "Guided Ziyarat tours in Madinah. Visit Quba Mosque, Mount Uhud, and historical Islamic sites with our knowledgeable local drivers.";
+const OG_IMAGE = "https://taxisaudiarabia.com/services/madinah-ziyarat-hero.webp";
+
 export const metadata: Metadata = {
   alternates: { canonical: "https://taxisaudiarabia.com/services/madinah-ziyarat" },
-  title: "Madinah Ziyarat Packages & Taxi Tours | Taxi Saudi Arabia",
-  description: "Guided Ziyarat tours in Madinah. Visit Quba Mosque, Mount Uhud, and historical Islamic sites with our knowledgeable local drivers.",
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: "https://taxisaudiarabia.com/services/madinah-ziyarat",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Madinah Ziyarat taxi tour" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
+  },
 };
 
 const FEATURES = [
@@ -24,14 +42,17 @@ export default function MadinahZiyaratPage() {
   return (
     <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
       <JsonLd
-        data={serviceSchema({
-          name: "Madinah Ziyarat Taxi Tours",
-          description:
-            "Guided Madinah Ziyarat taxi tours visiting Quba Mosque, Qiblatain Mosque, Mount Uhud, and historical Islamic sites with knowledgeable local drivers.",
-          path: "/services/madinah-ziyarat",
-          serviceType: "Ziyarat Tour",
-          areaServed: ["Madinah"],
-        })}
+        data={[
+          serviceSchema({
+            name: "Madinah Ziyarat Taxi Tours",
+            description:
+              "Guided Madinah Ziyarat taxi tours visiting Quba Mosque, Qiblatain Mosque, Mount Uhud, and historical Islamic sites with knowledgeable local drivers.",
+            path: "/services/madinah-ziyarat",
+            serviceType: "Ziyarat Tour",
+            areaServed: ["Madinah"],
+          }),
+          speakableSchema({ path: "/services/madinah-ziyarat" }),
+        ]}
       />
       <Breadcrumbs
         items={[
@@ -59,9 +80,19 @@ export default function MadinahZiyaratPage() {
             Madinah Ziyarat <br />
             <span className="text-[#16A34A]">Taxi Tours</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-10">
+          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-8">
             Explore the blessed city of Madinah. Visit the historical mosques and battle sites with our comfortable, private guided transport.
           </p>
+          <div className="max-w-2xl mx-auto mb-10 text-left">
+            <TLDRSummary
+              answer="A Madinah Ziyarat taxi tour covers Quba Mosque, Qiblatain Mosque, the Seven Mosques, and Mount Uhud in 3-4 hours, with pickup from your hotel in the Central Area (Markazia)."
+              facts={[
+                { label: "Duration", value: "3-4 hours" },
+                { label: "Sites covered", value: "4+ locations" },
+                { label: "Pickup", value: "Markazia hotels" },
+              ]}
+            />
+          </div>
           <div className="flex justify-center gap-4">
             <Link
               href="/book?service=madinah-ziyarat"

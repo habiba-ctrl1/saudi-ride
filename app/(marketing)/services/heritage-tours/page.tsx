@@ -3,14 +3,32 @@ import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
-import { serviceSchema, faqSchema } from "@/lib/schema";
+import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
+import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { Map, ShieldCheck, Camera, MapPin } from "lucide-react";
 import Link from "next/link";
 
+const TITLE = "Saudi Heritage Tours & Transport | Taxi Saudi Arabia";
+const DESCRIPTION = "Private chauffeur tours to Saudi Arabia's top heritage sites including AlUla, Diriyah, and more. Experience the Kingdom's history in comfort.";
+const OG_IMAGE = "https://taxisaudiarabia.com/services/heritage-tours-hero.webp";
+
 export const metadata: Metadata = {
   alternates: { canonical: "https://taxisaudiarabia.com/services/heritage-tours" },
-  title: "Saudi Heritage Tours & Transport | Taxi Saudi Arabia",
-  description: "Private chauffeur tours to Saudi Arabia's top heritage sites including AlUla, Diriyah, and more. Experience the Kingdom's history in comfort.",
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: "https://taxisaudiarabia.com/services/heritage-tours",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Saudi heritage tour transport" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
+  },
 };
 
 const FEATURES = [
@@ -24,14 +42,17 @@ export default function HeritageToursPage() {
   return (
     <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
       <JsonLd
-        data={serviceSchema({
-          name: "Saudi Heritage Tours & Transport",
-          description:
-            "Private chauffeur heritage tours across Saudi Arabia including AlUla, Hegra, Diriyah, and Al Balad with knowledgeable drivers and flexible itineraries.",
-          path: "/services/heritage-tours",
-          serviceType: "Heritage Tour Transport",
-          areaServed: ["AlUla", "Diriyah", "Jeddah", "Taif"],
-        })}
+        data={[
+          serviceSchema({
+            name: "Saudi Heritage Tours & Transport",
+            description:
+              "Private chauffeur heritage tours across Saudi Arabia including AlUla, Hegra, Diriyah, and Al Balad with knowledgeable drivers and flexible itineraries.",
+            path: "/services/heritage-tours",
+            serviceType: "Heritage Tour Transport",
+            areaServed: ["AlUla", "Diriyah", "Jeddah", "Taif"],
+          }),
+          speakableSchema({ path: "/services/heritage-tours" }),
+        ]}
       />
       <Breadcrumbs
         items={[
@@ -59,9 +80,19 @@ export default function HeritageToursPage() {
             Heritage & Cultural <br />
             <span className="text-[#16A34A]">Tours</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-10">
+          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-8">
             Journey through time with our private transport services to Saudi Arabia&apos;s incredible UNESCO World Heritage sites and historical landmarks.
           </p>
+          <div className="max-w-2xl mx-auto mb-10 text-left">
+            <TLDRSummary
+              answer="Private heritage tour transport in Saudi Arabia covers AlUla, Hegra, Diriyah, and Al Balad with comfortable SUVs, custom itineraries, and scenic photo stops."
+              facts={[
+                { label: "Destinations", value: "AlUla / Diriyah / Al Balad" },
+                { label: "Vehicles", value: "Comfortable SUVs" },
+                { label: "Itinerary", value: "Custom or guided" },
+              ]}
+            />
+          </div>
           <div className="flex justify-center gap-4">
             <Link
               href="/book?service=heritage-tours"
