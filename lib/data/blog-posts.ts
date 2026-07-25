@@ -2,7 +2,7 @@
   {
     title: "Jeddah Taxi Fares 2026: How Much Does a Taxi Cost?",
     slug: "jeddah-taxi-fares-cost-guide",
-    excerpt: "A clear breakdown of Jeddah taxi prices in 2026 — airport transfers, Makkah and Madinah trips, city rides, and what affects the fare. Fixed-price examples by vehicle.",
+    excerpt: "A clear breakdown of Jeddah taxi prices in 2026 — airport transfers, Makkah and Madinah trips, and city rides. Fixed-price examples by vehicle.",
     coverImage: "/blog/jeddah-taxi-fares-cost-guide.webp",
     category: "Pricing",
     author: "Tariq Al-Faisal",
@@ -58,7 +58,7 @@ Every quote is confirmed before you book, so you always know the total in advanc
   {
     title: "Makkah Taxi Fares 2026: Costs to Jeddah, Madinah & Taif",
     slug: "makkah-taxi-fares-cost-guide",
-    excerpt: "A clear 2026 breakdown of Makkah taxi prices — return transfers to Jeddah Airport, Makkah to Madinah, Taif day trips, and Ziyarat tours. Fixed-price examples by vehicle.",
+    excerpt: "A clear 2026 breakdown of Makkah taxi prices — transfers to Jeddah Airport, Makkah to Madinah, Taif day trips, and Ziyarat tours by vehicle.",
     coverImage: "/blog/makkah-taxi-fares-cost-guide.webp",
     category: "Pricing",
     author: "Tariq Al-Faisal",
@@ -110,7 +110,7 @@ Share your pickup hotel, destination, and vehicle preference and we will confirm
   {
     title: "Madinah Taxi Fares 2026: Airport, Makkah & Ziyarat Costs",
     slug: "madinah-taxi-fares-cost-guide",
-    excerpt: "A clear 2026 breakdown of Madinah taxi prices — airport transfers from MED, Madinah to Makkah, Ziyarat tours, and return trips to Jeddah Airport. Fixed-price examples by vehicle.",
+    excerpt: "A clear 2026 breakdown of Madinah taxi prices — airport transfers, Madinah to Makkah, Ziyarat tours, and return trips to Jeddah. By vehicle.",
     coverImage: "/blog/madinah-taxi-fares-cost-guide.webp",
     category: "Pricing",
     author: "Tariq Al-Faisal",
@@ -757,7 +757,7 @@ Make your arrival in the capital smooth and stress-free. [Book your Riyadh airpo
   {
     title: "What Is a Satha (سطحة)? Flatbed Tow Trucks in Saudi Arabia Explained",
     slug: "what-is-a-satha-flatbed-tow-truck",
-    excerpt: "Satha (سطحة) is the word every driver in Saudi Arabia needs to know. What a flatbed tow truck is, when you need one, what it costs, and how to call one fast in Riyadh, Jeddah, or Dammam.",
+    excerpt: "Satha (سطحة) is the word every driver in Saudi Arabia needs to know — what a flatbed tow truck is, what it costs, and how to call one fast.",
     coverImage: "/blog/what-is-a-satha-flatbed-tow-truck.webp",
     category: "Car Recovery",
     author: "Tariq Al-Faisal",
@@ -806,7 +806,7 @@ The fastest way is WhatsApp: share your **live location**, your **car model**, a
   {
     title: "How Much Does Car Towing Cost in Saudi Arabia? 2026 Satha Price Guide",
     slug: "car-towing-cost-saudi-arabia-2026",
-    excerpt: "Real 2026 towing prices in Saudi Arabia — within-city satha rates in Riyadh, Jeddah and Dammam, intercity car transport costs, battery and tire callout fees, and how to avoid being overcharged.",
+    excerpt: "Real 2026 towing prices in Saudi Arabia — within-city satha rates, intercity car transport costs, callout fees, and how to avoid overcharging.",
     coverImage: "/blog/car-towing-cost-saudi-arabia-2026.webp",
     category: "Car Recovery",
     author: "Tariq Al-Faisal",
@@ -862,7 +862,7 @@ Our [car recovery service](/services/car-recovery) sends you a **fixed price on 
   {
     title: "Car Breakdown on a Saudi Highway? 7 Steps to Stay Safe and Get Recovered Fast",
     slug: "car-breakdown-saudi-highway-guide",
-    excerpt: "Broken down on the Riyadh–Dammam or Jeddah–Makkah highway? The 7 steps that keep you safe — where to stop, who to call, what a recovery truck needs from you, and mistakes to avoid.",
+    excerpt: "Broken down on a Saudi highway? The 7 steps that keep you safe — where to stop, who to call, what a recovery truck needs, and mistakes to avoid.",
     coverImage: "/blog/car-breakdown-saudi-highway-guide.webp",
     category: "Car Recovery",
     author: "Tariq Al-Faisal",
@@ -908,7 +908,7 @@ We cover all major corridors — Riyadh–Dammam, Jeddah–Makkah, Makkah–Madi
   {
     title: "Flatbed vs Hook Towing: Which Is Safe for Your Automatic Car?",
     slug: "flatbed-vs-hook-towing-automatic-cars",
-    excerpt: "Towing an automatic, AWD, or luxury car the wrong way can destroy the transmission. Why flatbed (satha) is the only safe choice for modern cars — and when hook towing is acceptable.",
+    excerpt: "Towing an automatic, AWD, or luxury car the wrong way can destroy the transmission — why flatbed (satha) is the only safe choice for modern cars.",
     coverImage: "/blog/flatbed-vs-hook-towing-automatic-cars.webp",
     category: "Car Recovery",
     author: "Tariq Al-Faisal",
@@ -954,7 +954,7 @@ When you call for recovery, say clearly: **"I need a flatbed — satha."** Our [
   {
     title: "Transporting a Car Between Riyadh, Jeddah & Dammam: 2026 Complete Guide",
     slug: "car-transport-between-saudi-cities",
-    excerpt: "Moving a car between Saudi cities? 2026 costs for Riyadh–Jeddah–Dammam car transport, how flatbed intercity transport works, timelines, paperwork, and how to book it in 5 minutes.",
+    excerpt: "Moving a car between Saudi cities? 2026 costs for Riyadh–Jeddah–Dammam transport, how flatbed intercity transport works, and how to book it fast.",
     coverImage: "/blog/car-transport-between-saudi-cities.webp",
     category: "Car Recovery",
     author: "Tariq Al-Faisal",

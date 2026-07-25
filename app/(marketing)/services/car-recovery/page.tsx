@@ -25,7 +25,7 @@ import {
 } from "lucide-react";
 
 const TITLE = "Car Recovery Saudi Arabia | 24/7 Tow Truck & Flatbed Satha (سطحة)";
-const DESCRIPTION = "24/7 car recovery & towing service in Saudi Arabia. Flatbed tow truck (satha سطحة) in Riyadh, Jeddah, Dammam, Makkah & Madinah. Fixed prices on WhatsApp, fast dispatch, intercity car transport.";
+const DESCRIPTION = "24/7 car recovery & flatbed tow truck (satha سطحة) in Riyadh, Jeddah, Dammam, Makkah & Madinah. Fixed prices on WhatsApp, fast dispatch.";
 const OG_IMAGE = "https://taxisaudiarabia.com/services/car-recovery-hero.webp";
 
 export const metadata: Metadata = {

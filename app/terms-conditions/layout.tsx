@@ -4,7 +4,7 @@ import { generateMetadata as seo } from "@/lib/seo";
 export const metadata: Metadata = seo({
   title: "Terms & Conditions",
   description:
-    "Read the terms and conditions for booking taxi, airport transfer, Umrah and intercity services with Taxi Saudi Arabia, including reservations, fares, cancellations and operational rules.",
+    "Terms and conditions for booking taxi, airport transfer, Umrah and intercity services with Taxi Saudi Arabia — reservations, fares, and cancellations.",
   path: "/terms-conditions",
 });
 

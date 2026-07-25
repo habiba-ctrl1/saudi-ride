@@ -23,8 +23,8 @@ export async function generateMetadata({
   const vehicle = FLEET_VEHICLES.find((v) => v.slug === slug);
   if (!vehicle) return { title: "Vehicle Not Found" };
 
-  const title = `${vehicle.name} Taxi Saudi Arabia | ${vehicle.subtitle} Transfer | Taxi Saudi Arabia`;
-  const description = `Book a ${vehicle.name} in Saudi Arabia from SAR ${vehicle.startingPrice}. ${vehicle.description} Available 24/7 for airport transfers, Umrah, and intercity routes.`;
+  const title = `${vehicle.name} Taxi Saudi Arabia | ${vehicle.subtitle} Transfer`;
+  const description = `${vehicle.name} in Saudi Arabia from SAR ${vehicle.startingPrice}. ${vehicle.description}`;
 
   return {
     title,

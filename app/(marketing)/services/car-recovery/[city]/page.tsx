@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   return {
     alternates: { canonical: `https://taxisaudiarabia.com/services/car-recovery/${city.slug}` },
     title: `Car Recovery ${city.name} | 24/7 Tow Truck & Satha ${city.sathaAr}`,
-    description: `24/7 car recovery & flatbed tow truck (${city.sathaAr}) in ${city.name}. Fast dispatch from SAR ${city.startingPrice}, fixed price on WhatsApp. Breakdown, accident & battery service across ${city.name}.`,
+    description: `24/7 car recovery & flatbed tow truck (${city.sathaAr}) in ${city.name}. From SAR ${city.startingPrice}, fixed price on WhatsApp. Breakdown, accident & battery service.`,
     keywords: [
       `car recovery ${city.name}`, `tow truck ${city.name}`, `satha ${city.name}`,
       city.sathaAr, `car towing ${city.name}`, `roadside assistance ${city.name}`,

@@ -465,15 +465,33 @@ interface PageProps {
   }>;
 }
 
+// One genuinely distinguishing sentence per city (a landmark, a real distance,
+// a local route) instead of the old "Book a fixed-price taxi in {city}..."
+// template that was byte-identical across all 11 pages except the city name.
+const CITY_META_DESCRIPTION: Record<string, string> = {
+  makkah: "Fixed-price taxi in Makkah — Haram hotel drop-offs, Ziyarat tours, and transfers to Jeddah Airport (~80 km) or Madinah (~430 km). No surge, 24/7.",
+  madinah: "Fixed-price taxi in Madinah — Masjid an-Nabawi drop-offs, Ziyarat tours, and MED airport transfers (~20 km). Onward trips to Makkah available.",
+  riyadh: "Fixed-price taxi & chauffeur service in Riyadh — RUH airport transfers (~35 km), KAFD/Olaya business travel, and intercity rides to Dammam.",
+  jeddah: "Fixed-price taxi in Jeddah — JED airport pickups, Miqat stops for Ihram, and transfers to Makkah (~80 km) or Madinah (~420 km). 24/7.",
+  dammam: "Fixed-price taxi in Dammam — DMM airport transfers (~35 km), Khobar–Dhahran rides, and cross-border trips to Bahrain via the Causeway.",
+  alula: "Taxi & full-day car hire in AlUla — Hegra (UNESCO), Elephant Rock, Maraya, and ULH airport transfers. Best visited October–March.",
+  taif: "Fixed-price taxi in Taif — day trips from Makkah (~90 km) via Al Hada, rose farm visits, and TIF airport transfers. Cool mountain escape.",
+  alkhobar: "Fixed-price taxi in Al Khobar — Corniche rides, DMM airport transfers (~30 km), and cross-border trips to Bahrain via the Causeway.",
+  yanbu: "Fixed-price taxi in Yanbu — Red Sea diving trips, and intercity rides to Madinah (~240 km) or Jeddah (~330 km). Industrial City covered.",
+  neom: "Executive taxi across NEOM & Tabuk — Tabuk (TUU) and NEOM Bay (NUM) airport transfers, site access trips, and Gulf of Aqaba coast rides.",
+  abha: "Fixed-price taxi in Abha — Soudah Peak & cable car trips, AHB airport transfers (~25 km), and rides across the misty Asir mountains.",
+};
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { city } = await params;
-  const cityData = CITY_DETAILS[city.toLowerCase()];
+  const cityKeyLower = city.toLowerCase();
+  const cityData = CITY_DETAILS[cityKeyLower];
 
   if (!cityData) return { title: "Location Not Found" };
 
   return {
     title: `Taxi in ${cityData.name} | Airport & Intercity — Taxi Saudi Arabia`,
-    description: `Book a fixed-price taxi in ${cityData.name}, Saudi Arabia — airport transfers, Umrah rides, and 24/7 intercity trips with licensed drivers. No surge, instant quote.`,
+    description: CITY_META_DESCRIPTION[cityKeyLower] ?? `Book a fixed-price taxi in ${cityData.name}, Saudi Arabia — airport transfers, Umrah rides, and 24/7 intercity trips with licensed drivers. No surge, instant quote.`,
     alternates: {
       canonical: `https://taxisaudiarabia.com/locations/${city}`,
     },

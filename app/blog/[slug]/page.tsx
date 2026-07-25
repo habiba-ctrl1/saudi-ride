@@ -85,8 +85,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!post || !post.published) return { title: "Post Not Found" };
 
+  // Long editorial titles + " | Taxi Saudi Arabia Blog" (25 chars) pushed many
+  // pages past the ~600px truncation point — short suffix keeps the branding
+  // without eating the title's own SEO-carrying keywords.
+  const title = post.title.length > 55 ? `${post.title} | TaxiKSA` : `${post.title} | Taxi Saudi Arabia Blog`;
+
   return {
-    title: `${post.title} | Taxi Saudi Arabia Blog`,
+    title,
     description: post.excerpt,
     alternates: {
       canonical: `https://taxisaudiarabia.com/blog/${slug}`,
