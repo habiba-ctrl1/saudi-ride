@@ -227,17 +227,23 @@ export default async function AirportLandingPage({ params }: PageProps) {
     notFound();
   }
 
-  // Fetch routes connected to this airport
-  const airportRoutes = await db.route.findMany({
-    where: {
-      OR: [
-        { fromCity: { contains: airportData.code, mode: 'insensitive' } },
-        { toCity: { contains: airportData.code, mode: 'insensitive' } },
-        { slug: { in: airportData.priorityRoutes } }
-      ]
-    },
-    take: 6
-  });
+  // Fetch routes connected to this airport (best-effort — a DB hiccup during
+  // build must not fail the static export for every page in the site).
+  let airportRoutes: Awaited<ReturnType<typeof db.route.findMany>> = [];
+  try {
+    airportRoutes = await db.route.findMany({
+      where: {
+        OR: [
+          { fromCity: { contains: airportData.code, mode: 'insensitive' } },
+          { toCity: { contains: airportData.code, mode: 'insensitive' } },
+          { slug: { in: airportData.priorityRoutes } }
+        ]
+      },
+      take: 6
+    });
+  } catch (error) {
+    console.error(`❌ Airport routes fetch failed for ${airportKey}. Rendering without related routes.`, error);
+  }
 
   return (
     <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">

@@ -518,16 +518,22 @@ export default async function CityLocationPage({ params }: PageProps) {
   const citySubAreas = Object.values(SUB_AREAS).filter((a) => a.city === cityKey);
   const cityAirport = CITY_AIRPORT[cityKey];
 
-  // Fetch routes connected to this city
-  const cityRoutes = await db.route.findMany({
-    where: {
-      OR: [
-        { fromCity: { contains: cityData.name, mode: 'insensitive' } },
-        { toCity: { contains: cityData.name, mode: 'insensitive' } }
-      ]
-    },
-    take: 10
-  });
+  // Fetch routes connected to this city (best-effort — a DB hiccup during
+  // build must not fail the static export for every page in the site).
+  let cityRoutes: Awaited<ReturnType<typeof db.route.findMany>> = [];
+  try {
+    cityRoutes = await db.route.findMany({
+      where: {
+        OR: [
+          { fromCity: { contains: cityData.name, mode: 'insensitive' } },
+          { toCity: { contains: cityData.name, mode: 'insensitive' } }
+        ]
+      },
+      take: 10
+    });
+  } catch (error) {
+    console.error(`❌ City routes fetch failed for ${cityKey}. Rendering without related routes.`, error);
+  }
 
   return (
     <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
