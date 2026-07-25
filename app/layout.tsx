@@ -83,7 +83,6 @@ export const metadata: Metadata = {
     description:
       "Book a taxi in Saudi Arabia for airport transfers and Umrah transport. Fixed price taxi with licensed drivers. Jeddah Airport to Makkah from SAR 249. WhatsApp booking 24/7.",
   },
-  // NOTE: ar-SA hreflang hataya — /ar page exist nahi karta (404). Arabic launch par wapas.
 };
 
 const jsonLd = [
@@ -102,16 +101,15 @@ const jsonLd = [
     "paymentAccepted": "Cash, Credit Card, Bank Transfer",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Olaya District, King Fahd Road",
-      "addressLocality": "Riyadh",
-      "addressRegion": "Riyadh Province",
-      "postalCode": "12211",
+      "streetAddress": "Sanaiya Industrial Area",
+      "addressLocality": "Dammam",
+      "addressRegion": "Eastern Province",
       "addressCountry": "SA",
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": 24.7136,
-      "longitude": 46.6753,
+      "latitude": 26.4207,
+      "longitude": 50.0888,
     },
     "openingHoursSpecification": {
       "@type": "OpeningHoursSpecification",

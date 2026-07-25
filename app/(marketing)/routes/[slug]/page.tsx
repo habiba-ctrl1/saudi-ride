@@ -40,16 +40,16 @@ const DEFAULT_FAQS = [
 // Keyed by slug → above-the-fold answer + featured-snippet facts + bespoke FAQs.
 const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; value: string }[]; faqs: { question: string; answer: string }[] }> = {
   "jeddah-airport-to-makkah": {
-    tldr: "A taxi from Jeddah Airport (JED) to Makkah is about 80 km and takes roughly 1 hour. The fare is fixed from SAR 180, available 24/7, and the driver can stop at the Miqat so you enter Ihram before reaching Makkah.",
+    tldr: "A taxi from Jeddah Airport (JED) to Makkah is about 80 km and takes roughly 1 hour. The fare is fixed from SAR 249, available 24/7, and the driver can stop at the Miqat so you enter Ihram before reaching Makkah.",
     tldrFacts: [
       { label: "Distance", value: "~80 km" },
       { label: "Time", value: "~1 hour" },
-      { label: "From", value: "SAR 180" },
+      { label: "From", value: "SAR 249" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Jeddah airport from Makkah?", answer: "King Abdulaziz International Airport (JED) is about 80 km from Makkah — roughly a 1-hour drive on the Makkah Expressway, traffic permitting." },
-      { question: "How much is a taxi from Jeddah airport to Makkah?", answer: "The fare is fixed from SAR 180 for a sedan, with SUVs and vans available for families and extra luggage. You confirm the exact price before booking — no surge, tolls included." },
+      { question: "How much is a taxi from Jeddah airport to Makkah?", answer: "The fare is fixed from SAR 249 for a sedan, with SUVs and vans available for families and extra luggage. You confirm the exact price before booking — no surge, tolls included." },
       { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Just tell us in advance and the driver will stop at the Miqat on the way so you can change into Ihram and make your intention before entering the Haram boundary." },
       { question: "Is the Jeddah airport to Makkah taxi available at night?", answer: "Yes, we operate 24/7. We track your flight number, so the driver is waiting at arrivals with a name sign even for late-night or delayed flights." },
       { question: "Which is better — taxi or the Haramain train?", answer: "A private taxi is door-to-door from the airport to your Makkah hotel with luggage help and a Miqat stop. The Haramain high-speed train is fast but requires transfers to and from the stations. For pilgrims with luggage, the direct taxi is usually more convenient." },

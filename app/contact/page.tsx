@@ -37,11 +37,11 @@ const translations = {
     ],
     // Hours & Map
     officeHoursTitle: "Concierge Operational Hours",
-    officeHoursDesc: "Our dispatch managers operate round-the-clock. Physical office assistance is available by appointment at our Olaya Headquarters in Riyadh.",
+    officeHoursDesc: "Our dispatch managers operate round-the-clock. Physical office assistance is available by appointment at our Dammam office.",
     officeHoursDays: "Saturday – Thursday: 8:00 AM – 10:00 PM",
     officeHoursFriday: "Friday: 2:00 PM – 9:00 PM (Emergency Dispatch: 24/7)",
-    locationTitle: "HQ Location",
-    locationDesc: "Al-Olaya District, Riyadh 12211, Kingdom of Saudi Arabia",
+    locationTitle: "Office Location",
+    locationDesc: "Sanaiya Industrial Area, Dammam, Eastern Province, Kingdom of Saudi Arabia",
 
     // Form
     formTitle: "Send a Private Message",
@@ -93,11 +93,11 @@ const translations = {
     ],
     // Hours & Map
     officeHoursTitle: "أوقات عمل كونسيرج مكتبنا",
-    officeHoursDesc: "يعمل مديرو الحركة على مدار الساعة. خدمات الدعم والمقابلة الشخصية متاحة في مقرنا بحي العليا بالرياض بموعد مسبق.",
+    officeHoursDesc: "يعمل مديرو الحركة على مدار الساعة. خدمات الدعم والمقابلة الشخصية متاحة في مكتبنا بالدمام بموعد مسبق.",
     officeHoursDays: "السبت – الخميس: 8:00 صباحاً – 10:00 مساءً",
     officeHoursFriday: "الجمعة: 2:00 ظهراً – 9:00 مساءً (الحركة: 24/7)",
-    locationTitle: "المقر الرئيسي",
-    locationDesc: "حي العليا، الرياض 12211، المملكة العربية السعودية",
+    locationTitle: "موقع المكتب",
+    locationDesc: "المنطقة الصناعية الثانية، الدمام، المنطقة الشرقية، المملكة العربية السعودية",
 
     // Form
     formTitle: "أرسل رسالة خاصة",
@@ -149,11 +149,11 @@ const translations = {
     ],
     // Hours & Map
     officeHoursTitle: "کنسیرج کے اوقات کار",
-    officeHoursDesc: "ہمارے ڈسپیچ مینیجرز چوبیس گھنٹے کام کرتے ہیں۔ ہمارے ریاض آفس میں ملاقات کے لیے پیشگی وقت مقرر کرنا ضروری ہے۔",
+    officeHoursDesc: "ہمارے ڈسپیچ مینیجرز چوبیس گھنٹے کام کرتے ہیں۔ ہمارے دمام آفس میں ملاقات کے لیے پیشگی وقت مقرر کرنا ضروری ہے۔",
     officeHoursDays: "ہفتہ – جمعرات: 8:00 صبح – 10:00 رات",
     officeHoursFriday: "جمعہ: 2:00 دوپہر – 9:00 رات (ایمرجنسی ڈسپیچ: 24/7)",
-    locationTitle: "ہیڈ کوارٹر مقام",
-    locationDesc: "العلیہ ڈسٹرکٹ، ریاض 12211، سعودی عرب",
+    locationTitle: "آفس کا مقام",
+    locationDesc: "صنائع صنعتی علاقہ، دمام، مشرقی صوبہ، سعودی عرب",
 
     // Form
     formTitle: "نجی پیغام بھیجیں",
@@ -343,7 +343,7 @@ export default function ContactPage() {
               className="h-[260px] rounded-3xl overflow-hidden border border-[#16A34A]/12 relative"
             >
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115949.20815152864!2d46.60222045147572!3d24.713551690013098!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03890d489301%3A0x8e79f1851173875c!2sAl%20Olaya%2C%20Riyadh%20Saudi%20Arabia!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
+                src="https://www.google.com/maps?q=Sanaiya,+Dammam,+Saudi+Arabia&output=embed"
                 className="w-full h-full border-0 grayscale opacity-90"
                 allowFullScreen
                 loading="lazy"

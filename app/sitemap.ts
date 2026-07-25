@@ -11,8 +11,10 @@ const DOMAIN = "https://taxisaudiarabia.com";
 // NOTE (SEO):
 // - /book, /track-booking, /partners/driver-registration are noindex → sitemap mein nahi.
 // - Routes ab ROUTES_DATA (static) se — DB down ho to bhi 56 routes sitemap mein rahen.
-// - /ar hreflang alternates hataye — Arabic pages abhi exist nahi kartin (sab 404 thin).
-//   Jab /ar launch ho, alternates wapas add karna.
+// - /ar/* real SSR routes only for pages with actual Arabic content (see AR_PAGES below);
+//   every other /ar/* path 301-redirects to English (middleware.ts) so it's not indexed.
+
+const AR_PAGES = ["", "/about", "/contact", "/faq", "/pricing", "/partners"];
 
 const STATIC_PAGES = [
   { path: "", priority: 1.0 },
@@ -90,7 +92,6 @@ const SUB_AREAS = [
   { city: "madinah", subarea: "al-awali-madinah" },
   { city: "madinah", subarea: "al-aqiq-madinah" },
   { city: "madinah", subarea: "sultanah" },
-  { city: "dammam", subarea: "al-khobar" },
   { city: "dammam", subarea: "dhahran" },
   { city: "dammam", subarea: "half-moon-bay" },
   { city: "dammam", subarea: "qatif" },
@@ -115,6 +116,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: now,
     changeFrequency: "weekly" as const,
     priority: page.priority,
+  }));
+
+  const arItems = AR_PAGES.map((path) => ({
+    url: `${DOMAIN}/ar${path}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.5,
   }));
 
   const locationItems = LOCATIONS.map((loc) => ({
@@ -184,6 +192,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...staticItems,
+    ...arItems,
     ...locationItems,
     ...subAreaItems,
     ...airportItems,

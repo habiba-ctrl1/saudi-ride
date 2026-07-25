@@ -6,6 +6,7 @@ export const metadata: Metadata = seo({
   description:
     "Contact Taxi Saudi Arabia for airport transfers, Umrah transport and intercity rides. Reach our 24/7 booking desk by phone, WhatsApp or email for instant fixed-price taxi quotes across Saudi Arabia.",
   path: "/contact",
+  hreflangPaths: { en: "/contact", ar: "/ar/contact" },
 });
 
 export default function ContactLayout({ children }: { children: React.ReactNode }) {

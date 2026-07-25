@@ -6,6 +6,11 @@ interface SEOProps {
   path: string;
   image?: string;
   noIndex?: boolean;
+  /** This page's language — defaults to "en". Set "ar" on pages under /ar. */
+  locale?: "en" | "ar";
+  /** Both language variants' paths, for bidirectional hreflang. Only set on
+   * pages that actually have a translated counterpart. */
+  hreflangPaths?: { en: string; ar: string };
 }
 
 export function generateMetadata({
@@ -14,6 +19,8 @@ export function generateMetadata({
   path,
   image,
   noIndex = false,
+  locale = "en",
+  hreflangPaths,
 }: SEOProps): Metadata {
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
   const url = `https://taxisaudiarabia.com${cleanPath}`;
@@ -30,8 +37,15 @@ export function generateMetadata({
     metadataBase: new URL("https://taxisaudiarabia.com"),
     alternates: {
       canonical: url,
-      // NOTE: /ar hreflang hataya — Arabic pages abhi exist nahi kartin (404 hreflang
-      // Google ke liye bura signal hai). /ar launch par wapas add karna.
+      ...(hreflangPaths
+        ? {
+            languages: {
+              en: `https://taxisaudiarabia.com${hreflangPaths.en}`,
+              ar: `https://taxisaudiarabia.com${hreflangPaths.ar}`,
+              "x-default": `https://taxisaudiarabia.com${hreflangPaths.en}`,
+            },
+          }
+        : {}),
     },
     robots: {
       index: !noIndex,
@@ -48,7 +62,7 @@ export function generateMetadata({
       url,
       siteName: "Taxi Saudi Arabia",
       ...(ogImages ? { images: ogImages } : {}),
-      locale: "en_SA",
+      locale: locale === "ar" ? "ar_SA" : "en_SA",
       type: "website",
     },
     twitter: {

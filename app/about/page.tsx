@@ -15,17 +15,17 @@ const translations = {
     // Stats
     statsTitle: "Our Numbers",
     stats: [
-      { label: "Ministry Licensed", value: "100%" },
-      { label: "Trips Completed", value: "50k+" },
-      { label: "Years in Service", value: "12+ Years" },
-      { label: "Countries Served", value: "40+" }
+      { label: "Licensed Drivers", value: "100%" },
+      { label: "Routes Covered", value: "56+" },
+      { label: "Saudi Cities", value: "11+" },
+      { label: "Languages Spoken", value: "3" }
     ],
 
     // Story
     storyTitle: "Our Story",
-    storySubtitle: "Started in 2014 in Riyadh",
-    storyText1: "Taxi Saudi Arabia was founded in 2014 in Riyadh with one goal: to give people in Saudi Arabia a taxi service they can actually trust. What started with five cars has grown into a fleet covering Riyadh, Jeddah, Makkah, Madinah, Dammam, and beyond — serving thousands of pilgrims, business travelers, and families every year.",
-    storyText2: "Over the past 12 years, we have built a reputation for being on time, transparent with pricing, and respectful of our customers. We combine real Saudi hospitality with modern booking technology to make every trip simple, safe, and comfortable.",
+    storySubtitle: "Built Around One Idea: A Taxi You Can Actually Trust",
+    storyText1: "Taxi Saudi Arabia was built with one goal: to give people in Saudi Arabia a taxi service they can actually trust. Our fleet covers Riyadh, Jeddah, Makkah, Madinah, Dammam, and beyond — serving pilgrims, business travelers, and families with pre-booked, fixed-price rides.",
+    storyText2: "We focus on being on time, transparent with pricing, and respectful of our customers. We combine real Saudi hospitality with modern booking technology to make every trip simple, safe, and comfortable.",
 
     // Pillars (Mission & Values)
     pillarsTitle: "What We Stand For",
@@ -38,12 +38,12 @@ const translations = {
       },
       {
         title: "Professional, Vetted Drivers",
-        description: "All our drivers are background-checked, government-certified, and speak English, Arabic, and Urdu.",
+        description: "All our drivers are background-checked, hold a valid Saudi driving license, and speak English, Arabic, and Urdu.",
         icon: Sparkles
       },
       {
-        title: "Government Licensed",
-        description: "Fully licensed by the Saudi Ministry of Transport (MOT) and compliant with ZATCA electronic invoicing rules.",
+        title: "Licensed Drivers",
+        description: "Every driver holds a valid Saudi driving license, and fares are ZATCA e-invoice compliant.",
         icon: CheckCircle2
       },
       {
@@ -55,10 +55,10 @@ const translations = {
 
     // Certifications
     certTitle: "Licenses & Compliance",
-    certSubtitle: "Fully Licensed by Saudi Government",
+    certSubtitle: "Licensed Drivers, Transparent Pricing",
     certs: [
-      { name: "Ministry of Transport (MOT)", desc: "Official Operator License #1024-MOT", icon: Award },
-      { name: "General Authority for Transport (TGA)", desc: "Compliant with Saudi transport regulations", icon: ShieldCheck },
+      { name: "Licensed Drivers", desc: "Every driver holds a valid Saudi driving license", icon: Award },
+      { name: "Fixed-Price Fares", desc: "Price confirmed before you book — no meter, no surge", icon: ShieldCheck },
       { name: "ZATCA E-Invoicing", desc: "VAT-registered and ZATCA-certified for businesses", icon: CheckCircle2 }
     ],
 
@@ -82,17 +82,17 @@ const translations = {
     // Stats
     statsTitle: "مسيرتنا في أرقام",
     stats: [
-      { label: "ترخيص رسمي", value: "100%" },
-      { label: "رحلات VIP ناجحة", value: "+50 ألف" },
-      { label: "سنوات من الخدمة", value: "12+ سنة" },
-      { label: "عملاؤنا حول العالم", value: "40+ دولة" }
+      { label: "سائقون مرخصون", value: "100%" },
+      { label: "مسار مغطى", value: "+56" },
+      { label: "مدينة سعودية", value: "+11" },
+      { label: "لغات التحدث", value: "3" }
     ],
 
     // Story
-    storyTitle: "مسيرتنا العريقة",
-    storySubtitle: "تأسست عام 2014",
-    storyText1: "تأسس الرياض لوكس تاكسي في قلب مدينة الرياض عام 2014 برؤية فريدة: إعادة صياغة مفهوم النقل الفاخر لكبار الشخصيات في المملكة العربية السعودية. ما بدأ بأسطول متواضع من 5 سيارات سيدان فاخرة نما ليصبح شبكة النقل الأكثر فخامة وتميزاً بالمملكة.",
-    storyText2: "على مدار العقد الماضي، أثبتنا مكانتنا كخيار رئيسي وموثوق وآمن للسفر. من خلال دمج الضيافة السعودية الأصيلة مع تقنيات إدارة الأسطول الحديثة، نضمن أن تكون كل رحلة معنا واحة من الراحة والرفاهية المطلقة.",
+    storyTitle: "قصتنا",
+    storySubtitle: "فكرة واحدة: تاكسي يمكنك أن تثق به فعلاً",
+    storyText1: "تأسست تاكسي السعودية بهدف واحد: تقديم خدمة تاكسي يثق بها الجميع في المملكة العربية السعودية. يغطي أسطولنا الرياض وجدة ومكة والمدينة والدمام وغيرها — نخدم الحجاج ورجال الأعمال والعائلات برحلات محجوزة مسبقاً بأسعار ثابتة.",
+    storyText2: "نركز على الالتزام بالمواعيد والشفافية في الأسعار واحترام عملائنا. نجمع بين الضيافة السعودية الأصيلة وتقنيات الحجز الحديثة لنجعل كل رحلة بسيطة وآمنة ومريحة.",
 
     // Pillars (Mission & Values)
     pillarsTitle: "الرسالة والقيم الأساسية",
@@ -105,12 +105,12 @@ const translations = {
       },
       {
         title: "نخبة من السائقين المحترفين",
-        description: "سائقون محليون مدربون ومعتمدون من الهيئة العامة للنقل ويتحدثون لغات متعددة.",
+        description: "سائقون محليون مدربون يحملون رخصة قيادة سعودية سارية ويتحدثون لغات متعددة.",
         icon: Sparkles
       },
       {
-        title: "ترخيص رسمي وتوافق تام",
-        description: "مرخص بالكامل من وزارة النقل ومتوافق مع الفواتير الإلكترونية لهيئة الزكاة والضريبة.",
+        title: "أسعار شفافة وموثوقة",
+        description: "كل سائق يحمل رخصة قيادة سارية، والفواتير متوافقة مع هيئة الزكاة والضريبة.",
         icon: CheckCircle2
       },
       {
@@ -121,11 +121,11 @@ const translations = {
     ],
 
     // Certifications
-    certTitle: "التراخيص والامتثال الحكومي",
-    certSubtitle: "مرخصون ومعتمدون بالكامل",
+    certTitle: "التراخيص والامتثال",
+    certSubtitle: "سائقون مرخصون وأسعار شفافة",
     certs: [
-      { name: "وزارة النقل", desc: "ترخيص مشغل رسمي رقم 1024-MOT", icon: Award },
-      { name: "الهيئة العامة للنقل (TGA)", desc: "متوافق مع لوائح الليموزين التنفيذي", icon: ShieldCheck },
+      { name: "سائقون مرخصون", desc: "كل سائق يحمل رخصة قيادة سعودية سارية", icon: Award },
+      { name: "أسعار ثابتة", desc: "السعر مؤكد قبل الحجز — بدون عداد أو زيادة", icon: ShieldCheck },
       { name: "هيئة الزكاة والضريبة (ZATCA)", desc: "متوافق مع الفاتورة الإلكترونية", icon: CheckCircle2 }
     ],
 
@@ -149,17 +149,17 @@ const translations = {
     // Stats
     statsTitle: "ہماری کامیابی اعداد و شمار میں",
     stats: [
-      { label: "منظور شدہ لائسنس", value: "100%" },
-      { label: "وی آئی پی دورے مکمل", value: "+50 ہزار" },
-      { label: "سروس سال", value: "12+ سال" },
-      { label: "عالمی مسافر ممالک", value: "40+ ممالک" }
+      { label: "لائسنس یافتہ ڈرائیورز", value: "100%" },
+      { label: "روٹس", value: "+56" },
+      { label: "سعودی شہر", value: "+11" },
+      { label: "زبانیں", value: "3" }
     ],
 
     // Story
-    storyTitle: "ہمارا ورثہ",
-    storySubtitle: "2014 میں قائم کیا گیا",
-    storyText1: "2014 میں ریاض کے قلب میں قائم ہونے والی، ریاض لوکس ٹیکسی کا آغاز ایک منفرد وژن کے ساتھ ہوا: سعودی عرب میں وی آئی پی ٹرانسپورٹ کے معیار کو بدلنا۔ پانچ ایگزیکٹو گاڑیوں سے شروع ہونے والا سفر اب سعودی عرب کی سب سے بڑی لگژری ٹرانسپورٹ سروس بن چکا ہے۔",
-    storyText2: "پچھلی دہائی کے دوران، ہم نے خود کو قابل بھروسہ، محفوظ اور باوقار سفر کے سب سے بہترین انتخاب کے طور پر ثابت کیا ہے۔ روایتی سعودی مہمان نوازی کو جدید ٹیکنالوجی کے ساتھ ملا کر، ہم اس بات کو یقینی بناتے ہیں کہ ہر سفر انتہائی آرام دہ اور پرسکون ہو۔",
+    storyTitle: "ہماری کہانی",
+    storySubtitle: "ایک مقصد: ایک ایسی ٹیکسی جس پر واقعی بھروسہ کیا جا سکے",
+    storyText1: "ٹیکسی سعودی عرب ایک مقصد کے ساتھ بنائی گئی: سعودی عرب میں لوگوں کو ایک قابلِ اعتماد ٹیکسی سروس دینا۔ ہمارا فلیٹ ریاض، جدہ، مکہ، مدینہ، دمام اور دیگر شہروں کا احاطہ کرتا ہے — حاجیوں، کاروباری مسافروں اور خاندانوں کو پیشگی بک شدہ، فکسڈ قیمت رائیڈز فراہم کرتے ہیں۔",
+    storyText2: "ہم وقت کی پابندی، شفاف قیمتوں اور صارفین کے احترام پر توجہ دیتے ہیں۔ ہم اصل سعودی مہمان نوازی کو جدید بکنگ ٹیکنالوجی کے ساتھ ملا کر ہر سفر کو آسان، محفوظ اور آرام دہ بناتے ہیں۔",
 
     // Pillars (Mission & Values)
     pillarsTitle: "مشن اور بنیادی اقدار",
@@ -172,12 +172,12 @@ const translations = {
       },
       {
         title: "منتخب ڈرائیورز کا دائرہ",
-        description: "انتہائی تربیت یافتہ مقامی ماہرین، جو پبلک اتھارٹی کے معیارات سے تصدیق شدہ ہیں اور متعدد زبانیں بولتے ہیں۔",
+        description: "انتہائی تربیت یافتہ مقامی ماہرین، جو درست سعودی ڈرائیونگ لائسنس رکھتے ہیں اور متعدد زبانیں بولتے ہیں۔",
         icon: Sparkles
       },
       {
-        title: "زکوٰۃ و ٹیکس سے منظور شدہ",
-        description: "وزارت ٹرانسپورٹ اور ZATCA کے الیکٹرانک انوائسنگ پروٹوکول کے تحت مکمل طور پر لائسنس یافتہ۔",
+        title: "شفاف اور قابل اعتماد قیمتیں",
+        description: "ہر ڈرائیور درست سعودی لائسنس رکھتا ہے، اور رسیدیں ZATCA کے مطابق ہیں۔",
         icon: CheckCircle2
       },
       {
@@ -188,11 +188,11 @@ const translations = {
     ],
 
     // Certifications
-    certTitle: "سرکاری لائسنس اور قوانین کی تعمیل",
-    certSubtitle: "مکمل طور پر لائسنس یافتہ اور منظور شدہ",
+    certTitle: "لائسنس اور تعمیل",
+    certSubtitle: "لائسنس یافتہ ڈرائیورز، شفاف قیمتیں",
     certs: [
-      { name: "وزارت ٹرانسپورٹ", desc: "آفیشل آپریٹر لائسنس #1024-MOT", icon: Award },
-      { name: "پبلک ٹرانسپورٹ اتھارٹی (TGA)", desc: "ایگزیکٹو لیموزین کوڈز کے مطابق تعمیل", icon: ShieldCheck },
+      { name: "لائسنس یافتہ ڈرائیورز", desc: "ہر ڈرائیور درست سعودی ڈرائیونگ لائسنس رکھتا ہے", icon: Award },
+      { name: "فکسڈ قیمتیں", desc: "بکنگ سے پہلے قیمت طے — کوئی میٹر یا اضافی چارج نہیں", icon: ShieldCheck },
       { name: "ZATCA الیکٹرانک انوائس", desc: "زکوٰۃ، ٹیکس اور کسٹمز سے مصدقہ", icon: CheckCircle2 }
     ],
 
@@ -221,9 +221,9 @@ export default function AboutPage() {
 
   const statsList = [
     { label: t.stats[0].label, value: trustStats.licensedDrivers },
-    { label: t.stats[1].label, value: trustStats.vipTripsCompleted },
-    { label: t.stats[2].label, value: `${trustStats.experienceYears} ${language === 'ar' ? 'عاماً' : 'Years'}` },
-    { label: t.stats[3].label, value: `${language === 'ar' ? '+' : ''}${trustStats.countriesServed.replace('+', '')} ${language === 'ar' ? 'دولة' : 'Countries'}` }
+    { label: t.stats[1].label, value: trustStats.routesCovered },
+    { label: t.stats[2].label, value: trustStats.citiesCovered },
+    { label: t.stats[3].label, value: trustStats.languagesSpoken }
   ];
 
   return (

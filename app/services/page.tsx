@@ -229,8 +229,8 @@ export default function ServicesPage() {
             {[
               { value: "9", label: "Service Types" },
               { value: "14", label: "Fleet Vehicles" },
-              { value: "5,000+", label: "Trips Completed" },
-              { value: "4.9★", label: "Average Rating" },
+              { value: "100%", label: "Fixed-Price Fares" },
+              { value: "24/7", label: "WhatsApp Booking" },
             ].map((s) => (
               <div key={s.label} className="rounded-2xl border border-[#C9A84C]/10 bg-white p-4 text-center">
                 <p className="font-heading text-xl font-bold text-[#16A34A]">{s.value}</p>
@@ -333,16 +333,16 @@ export default function ServicesPage() {
                 Saudi Arabia&apos;s Most Trusted<br />Taxi & Car Service
               </h2>
               <p className="text-sm text-[#6B7280] leading-relaxed">
-                Every driver is TGA-certified, background-checked, and trained in respectful customer service.
+                Every driver holds a valid Saudi driving license, is background-checked, and trained in respectful customer service.
                 Every vehicle is GPS-tracked, fully insured, and inspected monthly.
               </p>
             </div>
             <div className="grid grid-cols-2 gap-4">
               {[
-                { icon: ShieldCheck, label: "TGA Licensed", sub: "Transport General Authority" },
+                { icon: ShieldCheck, label: "Licensed Drivers", sub: "Valid Saudi driving license" },
                 { icon: MapPin, label: "GPS Tracked", sub: "Every trip monitored" },
                 { icon: Clock, label: "Always On-Time", sub: "On-time pickup promise" },
-                { icon: Star, label: "4.9★ Rating", sub: "Rated by verified customers" },
+                { icon: Star, label: "Fixed-Price Fares", sub: "Confirmed before you book" },
               ].map((item) => {
                 const ItemIcon = item.icon;
                 return (

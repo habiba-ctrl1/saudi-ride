@@ -37,10 +37,10 @@ const homeTranslations = {
       badges: ["24/7 Taxi Service", "Licensed Drivers", "Fixed Price Taxi", "All Saudi Cities"]
     },
     stats: [
-      { label: "Completed Trips", value: "5,000+", num: 5000 },
-      { label: "Customer Satisfaction", value: "98%", num: 98 },
+      { label: "Routes Covered", value: "56+", num: 56 },
+      { label: "Fixed-Price Fares", value: "100%", num: 100 },
       { label: "Available Support", value: "24/7", num: null },
-      { label: "Saudi Cities Covered", value: "50+", num: 50 }
+      { label: "Saudi Cities Covered", value: "11+", num: 11 }
     ],
     widget: {
       oneWay: "One Way",
@@ -106,7 +106,7 @@ const homeTranslations = {
       title: "Why Thousands Book Their Taxi Service in Saudi Arabia With Us",
       desc: "We provide safe, reliable, and affordable taxi service across Saudi Arabia — from airport transfers and Umrah transport to private intercity rides and corporate travel. Here's what makes us different.",
       points: [
-        { title: "Government Licensed Drivers", desc: "Every driver is fully licensed by Saudi Ministry of Transport (MOT) and the General Authority for Transport (TGA). Licensed drivers you can trust." },
+        { title: "Licensed Drivers", desc: "Every driver holds a valid Saudi driving license. Licensed drivers you can trust." },
         { title: "Fixed Price Taxi — No Surprises", desc: "The taxi price you see is the taxi fare you pay. No surge pricing, no hidden fees, no meter tricks. Every taxi fare in Saudi Arabia is fixed at booking." },
         { title: "WhatsApp Booking Available 24/7", desc: "Book your taxi via WhatsApp booking anytime — day or night. Our 24/7 taxi service team confirms within minutes." },
         { title: "Live Flight Tracking", desc: "We track your flight in real time for every Saudi airport transfer. Your professional chauffeur waits 60 minutes free if your flight is delayed." },
@@ -133,7 +133,7 @@ const homeTranslations = {
       "bmw-7Spec": "Premium executive car — stylish and comfortable for business trips and long-distance rides.",
       yukonSpec: "Full-size luxury SUV taxi with big boot space — the GMC Yukon is perfect for family taxi trips and airport transfers."
     },
-    clientele: "Trusted by Pilgrims & Travelers from 40+ Countries",
+    clientele: "Trusted by Pilgrims, Business Travelers & Families Across Saudi Arabia",
     misc: {
       instantCalc: "Instant Price Calculator",
       bookNow: "Book Now",
@@ -194,7 +194,7 @@ const homeTranslations = {
         },
         {
           q: "Are the taxi drivers licensed and professional?",
-          a: "Absolutely. All our professional chauffeurs are fully licensed drivers approved by the Saudi Transport General Authority (TGA). They speak English, Arabic, and Urdu, ensuring a smooth Saudi airport transfer and intercity experience."
+          a: "Absolutely. All our professional chauffeurs hold valid Saudi driving licenses. They speak English, Arabic, and Urdu, ensuring a smooth Saudi airport transfer and intercity experience."
         },
         {
           q: "Do you have vehicles for large families or groups?",
@@ -210,13 +210,13 @@ const homeTranslations = {
       subtitle: "سائق خاص VIP في جميع أنحاء المملكة — المطارات، العمرة، والتنقل الفاخر بين المدن بأقصى درجات الراحة.",
       btnBook: "احجز رحلتك الفاخرة",
       btnFleet: "تصفح أسطول التميز",
-      badges: ["دعم VIP على مدار ٢٤ ساعة", "مرخص بالكامل من وزارة النقل", "أسعار ثابتة بدون زيادة مفاجئة"]
+      badges: ["دعم VIP على مدار ٢٤ ساعة", "سائقون مرخصون", "أسعار ثابتة بدون زيادة مفاجئة"]
     },
     stats: [
-      { label: "رحلة مكتملة", value: "+٥,٠٠٠", num: 5000 },
-      { label: "رضا العملاء", value: "٩٨٪", num: 98 },
+      { label: "مسار مغطى", value: "+٥٦", num: 56 },
+      { label: "أسعار ثابتة", value: "١٠٠٪", num: 100 },
       { label: "دعم متواصل", value: "٢٤/٧", num: null },
-      { label: "مدينة سعودية", value: "+٥٠", num: 50 }
+      { label: "مدينة سعودية", value: "+١١", num: 11 }
     ],
     widget: {
       oneWay: "اتجاه واحد",
@@ -282,7 +282,7 @@ const homeTranslations = {
       title: "لماذا يختار كبار الشخصيات خدماتنا؟",
       desc: "نحن ندمج دقة الضيافة المعاصرة الراقية مع الكرم العربي الأصيل لنرتقي بكل كيلومتر تقطعه معنا.",
       points: [
-        { title: "مرخص من وزارة النقل", desc: "متوافقون ١٠٠٪ مع لوائح وزارة النقل وهيئة العامة للنقل السعودية." },
+        { title: "سائقون مرخصون", desc: "كل سائق يحمل رخصة قيادة سعودية سارية." },
         { title: "أسعار ثابتة ومضمونة", desc: "لا توجد أسعار مرتفعة بشكل مفاجئ. السعر المعروض هو السعر الفعلي الذي تدفعه." },
         { title: "متوافق مع أوقات الصلاة", desc: "تخطيط الرحلات والوقفات يراعي أوقات الصلوات ومواقيت الإحرام بشكل طبيعي." },
         { title: "تتبع الرحلات الذكي", desc: "نتابع مواعيد الطيران بدقة. السائق ينتظرك حتى ٦٠ دقيقة مجاناً." },
@@ -307,7 +307,7 @@ const homeTranslations = {
       yukonSpec: "قمة الفخامة والراحة العائلية. مساحة مقصورة واسعة حضور مهيب لكبار الشخصيات.",
       stariaSpec: "مقاعد VIP من الدرجة الأولى مصممة خصيصاً للمجموعات والعائلات في رحلات العمرة."
     },
-    clientele: "موثوقون لدى ضيوف الرحمن والزوار من أكثر من ٤٠ دولة",
+    clientele: "موثوقون لدى ضيوف الرحمن ورجال الأعمال والعائلات في جميع أنحاء المملكة",
     misc: {
       instantCalc: "حاسبة الأسعار الفورية",
       bookNow: "احجز الآن",
@@ -357,7 +357,7 @@ const homeTranslations = {
         { q: "كيف أحجز تاكسي في السعودية؟", a: "يمكنك الحجز عبر منصة الحجز في موقعنا أو مباشرة عبر واتساب. حدد موقع الانطلاق والوجهة والتاريخ والوقت، وسيؤكد فريقنا رحلتك فوراً بسعر ثابت على مدار الساعة." },
         { q: "كم تكلفة تاكسي من مطار جدة إلى مكة؟", a: "تبدأ أجرة تاكسي مطار جدة إلى مكة من 249 ريالاً في السيارة العادية، مع خيارات عائلية أكبر. السعر ثابت بدون رسوم خفية." },
         { q: "هل تقدمون نقل العمرة من المدينة؟", a: "نعم، نغطي مسار مكة إلى المدينة والمدينة إلى مكة وجولات الزيارة، مع التوقف عند الميقات وسائقين محترفين." },
-        { q: "هل السائقون مرخصون ومحترفون؟", a: "بالتأكيد. جميع سائقينا مرخصون ومعتمدون من الهيئة العامة للنقل ويتحدثون العربية والإنجليزية والأردية." },
+        { q: "هل السائقون مرخصون ومحترفون؟", a: "بالتأكيد. جميع سائقينا يحملون رخصة قيادة سعودية سارية ويتحدثون العربية والإنجليزية والأردية." },
         { q: "هل لديكم مركبات للعائلات الكبيرة؟", a: "نعم، نوفر سيارات SUV فاخرة مثل GMC Yukon وحافلات صغيرة مثل Toyota Hiace وHyundai Staria المثالية للمجموعات والعائلات." }
       ]
     }
@@ -370,13 +370,13 @@ const homeTranslations = {
       subtitle: "سعودی عرب بھر میں وی آئی پی ڈرائیور سروس — ہوائی اڈے، عمرہ اور بین شہر سفر بہترین آرام کے ساتھ۔",
       btnBook: "لگژری سواری بک کریں",
       btnFleet: "پریسٹيج بیڑے کو دیکھیں",
-      badges: ["24/7 پریمیم سپورٹ", "وزارت سے 100٪ لائسنس یافتہ", "مقررہ مسابقتی قیمتیں"]
+      badges: ["24/7 پریمیم سپورٹ", "لائسنس یافتہ ڈرائیورز", "مقررہ مسابقتی قیمتیں"]
     },
     stats: [
-      { label: "مکمل سفر", value: "5,000+", num: 5000 },
-      { label: "صارفین کی رضامندی", value: "98%", num: 98 },
+      { label: "روٹس", value: "56+", num: 56 },
+      { label: "فکسڈ قیمتیں", value: "100%", num: 100 },
       { label: "سپورٹ", value: "24/7", num: null },
-      { label: "سعودی شہر", value: "50+", num: 50 }
+      { label: "سعودی شہر", value: "11+", num: 11 }
     ],
     widget: {
       oneWay: "ایک طرف",
@@ -442,7 +442,7 @@ const homeTranslations = {
       title: "وی آئی پی مسافر ریاض لکس کا انتخاب کیوں کرتے ہیں؟",
       desc: "ہم جدید مغربی مہمان نوازی کی درستگی کو لازوال عربی سخاوت کے ساتھ ملا کر آپ کے سفر کو یادگار بناتے ہیں۔",
       points: [
-        { title: "حکومت سے منظور شدہ", desc: "سعودی عرب کی وزارت ٹرانسپورٹ اور TGA سے 100٪ لائسنس یافتہ۔" },
+        { title: "لائسنس یافتہ ڈرائیورز", desc: "ہر ڈرائیور درست سعودی ڈرائیونگ لائسنس رکھتا ہے۔" },
         { title: "مقررہ لگژری قیمتیں", desc: "کسی قسم کے اضافی چارجز یا سرج پرائسنگ کے بغیر طے شدہ قیمتیں۔" },
         { title: "نماز کے اوقات کے مطابق", desc: "نماز اور عمرہ کے اوقات کار کے مطابق سفر کی بہترین منصوبہ بندی۔" },
         { title: "سمارٹ فلائٹ ٹریکنگ", desc: "ہم پرواز کی تاخیر کو مانیٹر کرتے ہیں۔ ڈرائیور ہوائی اڈے پر 60 منٹ تک مفت انتظار کرتا ہے۔" },
@@ -467,7 +467,7 @@ const homeTranslations = {
       yukonSpec: "شاندار اور انتہائی آرام دہ۔ وسیع کیبن اور وی آئی پی مسافروں کے لیے بہترین انتخاب۔",
       stariaSpec: "خاندان اور مقدس عمرہ کے زائرین کے لیے فرسٹ کلاس لگژری سیٹنگ۔"
     },
-    clientele: "40+ ممالک کے زائرین اور کاروباری شخصیات کا قابل اعتماد انتخاب",
+    clientele: "زائرین، کاروباری مسافروں اور خاندانوں کا سعودی عرب بھر میں قابل اعتماد انتخاب",
     misc: {
       instantCalc: "فوری قیمت کیلکولیٹر",
       bookNow: "ابھی بک کریں",
@@ -517,7 +517,7 @@ const homeTranslations = {
         { q: "سعودی عرب میں ٹیکسی کیسے بک کریں؟", a: "آپ ہماری ویب سائٹ کے بکنگ کنسول یا براہ راست واٹس ایپ کے ذریعے بک کر سکتے ہیں۔ پک اپ مقام، منزل، تاریخ اور وقت بتائیں — ہماری 24/7 ٹیم فکسڈ قیمت کے ساتھ فوری تصدیق کرے گی۔" },
         { q: "جدہ ایئرپورٹ سے مکہ ٹیکسی کا کرایہ کتنا ہے؟", a: "جدہ ایئرپورٹ سے مکہ ٹیکسی کا کرایہ عام سیڈان میں 249 ریال سے شروع ہوتا ہے، فیملی گاڑیوں کے آپشن کے ساتھ۔ قیمت فکسڈ ہے، کوئی پوشیدہ چارجز نہیں۔" },
         { q: "کیا آپ مدینہ سے عمرہ ٹرانسپورٹ فراہم کرتے ہیں؟", a: "جی ہاں، ہم مکہ سے مدینہ، مدینہ سے مکہ اور زیارت ٹورز کا احاطہ کرتے ہیں، میقات پر رکنے اور پیشہ ور ڈرائیوروں کے ساتھ۔" },
-        { q: "کیا ڈرائیور لائسنس یافتہ اور پیشہ ور ہیں؟", a: "بالکل۔ ہمارے تمام ڈرائیور ٹرانسپورٹ جنرل اتھارٹی (TGA) سے منظور شدہ ہیں اور عربی، انگریزی اور اردو بولتے ہیں۔" },
+        { q: "کیا ڈرائیور لائسنس یافتہ اور پیشہ ور ہیں؟", a: "بالکل۔ ہمارے تمام ڈرائیورز درست سعودی ڈرائیونگ لائسنس رکھتے ہیں اور عربی، انگریزی اور اردو بولتے ہیں۔" },
         { q: "کیا بڑے خاندانوں کے لیے گاڑیاں ہیں؟", a: "جی ہاں، ہم GMC Yukon جیسی لگژری SUV اور Toyota Hiace و Hyundai Staria جیسی کشادہ وینز فراہم کرتے ہیں جو گروپس اور خاندانوں کے لیے بہترین ہیں۔" }
       ]
     }
@@ -744,12 +744,12 @@ export function HomePage() {
   const isRtl = language === "ar";
 
   // Trust Stats Counter state
-  const [tripsCounter, setTripsCounter] = useState(trustStats.tripsCount);
+  const [tripsCounter, setTripsCounter] = useState(trustStats.routesCount);
 
   useEffect(() => {
     // Smooth count-up animation on client-side mount
     let start = 0;
-    const end = trustStats.tripsCount;
+    const end = trustStats.routesCount;
     const duration = 1500;
     const increment = Math.ceil(end / (duration / 30));
     
@@ -1081,20 +1081,20 @@ export function HomePage() {
                 {language === "ar" ? "من نحن" : "About Taxi Saudi Arabia"}
               </span>
               <h2 className="font-heading font-bold" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", letterSpacing: "-0.02em", color: "#0F172A" }}>
-                {language === "ar" ? "خدمة تاكسي سعودية موثوقة منذ 2014" : "Saudi Arabia's Trusted Taxi Service Since 2014"}
+                {language === "ar" ? "خدمة تاكسي سعودية موثوقة" : "Saudi Arabia's Trusted Taxi Service"}
               </h2>
               <p className="text-sm leading-relaxed" style={{ color: "#6B7280" }}>
                 {language === "ar"
-                  ? "تأسس تاكسي السعودية عام 2014 في الرياض، ونما من 5 سيارات إلى أسطول يغطي الرياض وجدة ومكة والمدينة والدمام وغيرها — يخدم آلاف الحجاج والمسافرين والعائلات كل عام بأسعار ثابتة وسائقين مرخصين."
-                  : "Founded in 2014 in Riyadh, Taxi Saudi Arabia grew from five cars to a fleet covering Riyadh, Jeddah, Makkah, Madinah, Dammam and beyond — serving thousands of pilgrims, business travellers, and families every year with fixed prices and licensed drivers."}
+                  ? "تاكسي السعودية أسطول يغطي الرياض وجدة ومكة والمدينة والدمام وغيرها — يخدم الحجاج والمسافرين والعائلات بأسعار ثابتة وسائقين مرخصين."
+                  : "Taxi Saudi Arabia's fleet covers Riyadh, Jeddah, Makkah, Madinah, Dammam and beyond — serving pilgrims, business travellers, and families with fixed prices and licensed drivers."}
               </p>
 
               <div className="grid sm:grid-cols-2 gap-4">
                 {[
-                  { icon: CheckCircle, en: "Government licensed (MOT) & ZATCA-compliant", ar: "مرخص من وزارة النقل ومتوافق مع هيئة الزكاة" },
+                  { icon: CheckCircle, en: "Licensed drivers & ZATCA-compliant", ar: "سائقون مرخصون ومتوافق مع هيئة الزكاة" },
                   { icon: ShieldCheck, en: "Vetted, multilingual professional drivers", ar: "سائقون محترفون موثوقون ومتعددو اللغات" },
                   { icon: Sparkles, en: "Clean, air-conditioned, maintained cars", ar: "سيارات نظيفة ومكيفة وبصيانة دورية" },
-                  { icon: Award, en: "12+ years · 50k+ trips · fixed prices 24/7", ar: "أكثر من 12 عاماً و50 ألف رحلة بأسعار ثابتة" },
+                  { icon: Award, en: "Licensed drivers · fixed prices 24/7", ar: "سائقون مرخصون · أسعار ثابتة على مدار الساعة" },
                 ].map((p) => {
                   const Icon = p.icon;
                   return (

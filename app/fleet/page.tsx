@@ -62,9 +62,9 @@ export default function FleetPage() {
           >
             {[
               { value: trustStats.vehicleClasses, label: "Vehicle Classes" },
-              { value: trustStats.licensedDrivers, label: "Licensed & Insured" },
+              { value: trustStats.licensedDrivers, label: "Licensed Drivers" },
               { value: trustStats.activeChauffeurs, label: "Available 24/7" },
-              { value: trustStats.passengerRating, label: "Customer Rating" },
+              { value: trustStats.fixedPriceGuarantee, label: "Fixed-Price Fares" },
             ].map((s) => (
               <div key={s.label} className="flex flex-col">
                 <span className="font-heading text-2xl font-bold text-[#16A34A]">{s.value}</span>

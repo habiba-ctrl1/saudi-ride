@@ -6,6 +6,7 @@ export const metadata: Metadata = seo({
   description:
     "Answers to common questions about booking a taxi in Saudi Arabia — fixed fares, airport transfers, Umrah transport, WhatsApp booking, payment, wait times and cities covered.",
   path: "/faq",
+  hreflangPaths: { en: "/faq", ar: "/ar/faq" },
 });
 
 export default function FaqLayout({ children }: { children: React.ReactNode }) {

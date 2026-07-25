@@ -6,6 +6,7 @@ export const metadata: Metadata = seo({
   description:
     "Learn about Taxi Saudi Arabia — a trusted taxi and chauffeur service with licensed drivers, fixed prices, and 24/7 airport, Umrah and intercity transfers across Riyadh, Jeddah, Makkah, Madinah and Dammam.",
   path: "/about",
+  hreflangPaths: { en: "/about", ar: "/ar/about" },
 });
 
 export default function AboutLayout({ children }: { children: React.ReactNode }) {

@@ -4,6 +4,11 @@ import { HomePage } from "@/components/sections/home-page";
 export const metadata: Metadata = {
   alternates: {
     canonical: "https://taxisaudiarabia.com",
+    languages: {
+      en: "https://taxisaudiarabia.com",
+      ar: "https://taxisaudiarabia.com/ar",
+      "x-default": "https://taxisaudiarabia.com",
+    },
   },
 };
 

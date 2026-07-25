@@ -2,59 +2,64 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import { createServerClient } from "@supabase/ssr";
+import { AR_REAL_ROUTES, AR_REWRITE_ROUTES } from "@/lib/config/i18n";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  let locale = "";
-  let strippedPath = pathname;
+  const isArabic = pathname === "/ar" || pathname.startsWith("/ar/");
+  const strippedPath = isArabic ? (pathname === "/ar" ? "/" : pathname.slice(3)) : pathname;
 
-  if (pathname.startsWith('/ar/') || pathname === '/ar') {
-    locale = "ar";
-    strippedPath = pathname.substring(3) || "/";
+  if (isArabic && !AR_REAL_ROUTES.includes(strippedPath) && !AR_REWRITE_ROUTES.includes(strippedPath)) {
+    // No Arabic content for this path — send visitors to the English page
+    // instead of serving an identical duplicate under /ar (was a big
+    // duplicate-content signal across the whole site).
+    return NextResponse.redirect(new URL(strippedPath, request.url), 301);
   }
 
-  // Check protected routes with NextAuth using the stripped pathname
-  const isAdminRoute = strippedPath.startsWith('/admin') && strippedPath !== '/admin/login';
-  const isCustomerRoute = strippedPath.startsWith('/customer') || strippedPath.startsWith('/dashboard');
-  const isAdminApiRoute = strippedPath.startsWith('/api/admin');
+  // None of the /ar-available routes are auth-protected, so the admin/customer
+  // checks below only ever need to apply to plain (non-/ar) paths.
+  const isAdminRoute = !isArabic && pathname.startsWith('/admin') && pathname !== '/admin/login';
+  const isCustomerRoute = !isArabic && (pathname.startsWith('/customer') || pathname.startsWith('/dashboard'));
+  const isAdminApiRoute = !isArabic && pathname.startsWith('/api/admin');
 
   if (isAdminRoute || isCustomerRoute || isAdminApiRoute) {
     const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
-    
+
     if (!token) {
-      if (strippedPath.startsWith('/api/')) {
+      if (pathname.startsWith('/api/')) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
       }
-      
-      const loginUrl = isAdminRoute 
-        ? '/admin/login' 
-        : (locale ? `/${locale}/login` : '/login');
+
+      const loginUrl = isAdminRoute ? '/admin/login' : '/login';
       const url = new URL(loginUrl, request.url);
       url.searchParams.set('callbackUrl', encodeURI(request.url));
       return NextResponse.redirect(url);
     }
-    
+
     if ((isAdminRoute || isAdminApiRoute) && token.role !== 'ADMIN') {
-      if (strippedPath.startsWith('/api/')) {
+      if (pathname.startsWith('/api/')) {
         return NextResponse.json({ error: "Forbidden" }, { status: 403 });
       }
-      return NextResponse.redirect(new URL(locale ? `/${locale}` : '/', request.url));
+      return NextResponse.redirect(new URL('/', request.url));
     }
-    
+
     if (isCustomerRoute && token.role !== 'CUSTOMER' && token.role !== 'ADMIN') {
-      return NextResponse.redirect(new URL(locale ? `/${locale}` : '/', request.url));
+      return NextResponse.redirect(new URL('/', request.url));
     }
   }
 
-  // Generate appropriate response (rewrite for localized routes, next for standard routes)
+  // Only the noindex utility pages still need an internal rewrite; the
+  // indexable pages (AR_REAL_ROUTES) have real files under app/ar/*.
   let response: NextResponse;
-  if (locale) {
+  if (isArabic && AR_REWRITE_ROUTES.includes(strippedPath)) {
     const url = request.nextUrl.clone();
     url.pathname = strippedPath;
     response = NextResponse.rewrite(url);
-    response.cookies.set("language", locale, { maxAge: 60 * 60 * 24 * 365, path: "/" });
   } else {
     response = NextResponse.next();
+  }
+  if (isArabic) {
+    response.cookies.set("language", "ar", { maxAge: 60 * 60 * 24 * 365, path: "/" });
   }
 
   // Sync Supabase Session if client variables exist

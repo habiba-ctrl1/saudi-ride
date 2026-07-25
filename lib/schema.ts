@@ -60,13 +60,22 @@ export function websiteSchema() {
   };
 }
 
+/** A named area with optional real-world coordinates (public geographic
+ *  facts — e.g. city centroids — not fabricated business data). */
+interface AreaServedPlace {
+  name: string;
+  lat?: number;
+  lng?: number;
+}
+
 interface ServiceSchemaInput {
   name: string;
   description: string;
   path: string;
   serviceType?: string;
-  /** City / area names this page targets, e.g. ["Makkah", "Jeddah"]. */
-  areaServed?: string[];
+  /** City / area names this page targets, e.g. ["Makkah", "Jeddah"]. Pass an
+   *  object with lat/lng to attach GeoCoordinates (useful on location pages). */
+  areaServed?: (string | AreaServedPlace)[];
 }
 
 /** Service — describes a specific service offering and ties it to the business provider. */
@@ -79,7 +88,16 @@ export function serviceSchema({ name, description, path, serviceType, areaServed
     serviceType: serviceType ?? name,
     url: abs(path),
     provider: { "@id": SITE.businessId },
-    areaServed: (areaServed ?? ["Saudi Arabia"]).map((a) => ({ "@type": "Place", name: a })),
+    areaServed: (areaServed ?? ["Saudi Arabia"]).map((a) => {
+      if (typeof a === "string") return { "@type": "Place", name: a };
+      return {
+        "@type": "Place",
+        name: a.name,
+        ...(a.lat !== undefined && a.lng !== undefined
+          ? { geo: { "@type": "GeoCoordinates", latitude: a.lat, longitude: a.lng } }
+          : {}),
+      };
+    }),
     // NOTE: aggregateRating hataya — trip count (5000) ko review count bata kar
     // fake 4.9★ dikhana schema.org violation + Google penalty risk hai. Sirf
     // REAL reviews (Google Business Profile se) milne par wapas add karna.

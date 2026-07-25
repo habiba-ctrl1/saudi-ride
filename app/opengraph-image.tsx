@@ -34,7 +34,7 @@ export default function OpengraphImage() {
           Fixed prices · Licensed drivers · 24/7 across the Kingdom
         </div>
         <div style={{ display: "flex", fontSize: 30, color: "#C9A227", marginTop: 40 }}>
-          ★ 4.9 rating · 5,000+ trips · taxisaudiarabia.com
+          Book via WhatsApp · taxisaudiarabia.com
         </div>
       </div>
     ),

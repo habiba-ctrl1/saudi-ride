@@ -6,6 +6,7 @@ export const metadata: Metadata = seo({
   description:
     "Partner with Saudi Arabia's premier transport network. Corporate accounts, travel-agency rates, hotel and Umrah-operator partnerships with priority dispatch and monthly invoicing.",
   path: "/partners",
+  hreflangPaths: { en: "/partners", ar: "/ar/partners" },
 });
 
 export default function PartnersLayout({ children }: { children: React.ReactNode }) {

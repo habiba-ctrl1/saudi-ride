@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { AR_AVAILABLE_ROUTES } from "@/lib/config/i18n";
 
 export type Language = "en" | "ar";
 
@@ -13,15 +14,25 @@ type LanguageContextType = {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
+function isArabicPath(pathname: string | null) {
+  return !!pathname && (pathname === "/ar" || pathname.startsWith("/ar/"));
+}
+
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguageState] = useState<Language>("en");
   const pathname = usePathname();
+  // Lazy initializer runs on the very first render (server AND client), so a
+  // request for /ar/x renders Arabic in the server HTML immediately instead
+  // of flashing English until a post-hydration effect corrects it.
+  const [language, setLanguageState] = useState<Language>(() =>
+    isArabicPath(pathname) ? "ar" : "en"
+  );
   const router = useRouter();
 
-  // Detect language prefix from path
+  // Detect language prefix from path (covers client-side navigations between
+  // pages, where the lazy initializer above doesn't re-run).
   useEffect(() => {
     if (pathname) {
-      if (pathname.startsWith("/ar/") || pathname === "/ar") {
+      if (isArabicPath(pathname)) {
         setLanguageState("ar");
       } else {
         // Fall back to saved / cookie language
@@ -44,29 +55,31 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }, [pathname]);
 
   const setLanguage = (lang: Language) => {
+    // 1. Remove any existing locale prefix
+    let cleanPath = pathname || "/";
+    if (isArabicPath(cleanPath)) {
+      cleanPath = cleanPath.substring(3) || "/";
+    }
+
+    if (lang === "ar" && !AR_AVAILABLE_ROUTES.includes(cleanPath)) {
+      // No Arabic version of the current page — nothing to switch to.
+      return;
+    }
+
     setLanguageState(lang);
     localStorage.setItem("language", lang);
     // Set a cookie valid for 1 year
     document.cookie = `language=${lang};path=/;max-age=${60 * 60 * 24 * 365};SameSite=Lax`;
 
-    // Navigate to the correct localized URL path
-    if (pathname) {
-      // 1. Remove any existing locale prefix
-      let cleanPath = pathname;
-      if (pathname.startsWith("/ar/") || pathname === "/ar") {
-        cleanPath = pathname.substring(3) || "/";
-      }
+    // 2. Build the new path with the selected locale
+    let newPath = cleanPath;
+    if (lang === "ar") {
+      newPath = `/ar${cleanPath === "/" ? "" : cleanPath}`;
+    }
 
-      // 2. Build the new path with the selected locale
-      let newPath = cleanPath;
-      if (lang === "ar") {
-        newPath = `/ar${cleanPath === "/" ? "" : cleanPath}`;
-      }
-
-      // 3. Perform push
-      if (newPath !== pathname) {
-        router.push(newPath);
-      }
+    // 3. Perform push
+    if (newPath !== pathname) {
+      router.push(newPath);
     }
   };
 

@@ -24,9 +24,25 @@ import Link from "next/link";
 import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { serviceSchema, faqSchema } from "@/lib/schema";
+import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { SUB_AREAS } from "@/lib/data/subareas";
+
+// Public city-centroid coordinates (not business location data) — lets
+// location pages attach real GeoCoordinates to their Place/areaServed node.
+const CITY_COORDS: Record<string, { lat: number; lng: number }> = {
+  makkah: { lat: 21.3891, lng: 39.8579 },
+  madinah: { lat: 24.5247, lng: 39.5692 },
+  riyadh: { lat: 24.7136, lng: 46.6753 },
+  jeddah: { lat: 21.4858, lng: 39.1925 },
+  dammam: { lat: 26.4207, lng: 50.0888 },
+  alula: { lat: 26.6084, lng: 37.9153 },
+  taif: { lat: 21.2703, lng: 40.4158 },
+  alkhobar: { lat: 26.2172, lng: 50.1971 },
+  yanbu: { lat: 24.0895, lng: 38.0618 },
+  neom: { lat: 27.9958, lng: 35.6367 },
+  abha: { lat: 18.2164, lng: 42.5053 },
+};
 
 // City -> matching airport page slug (only where a dedicated /airports/[slug] page exists).
 const CITY_AIRPORT: Record<string, { slug: string; name: string }> = {
@@ -516,13 +532,20 @@ export default async function CityLocationPage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
       <JsonLd
-        data={serviceSchema({
-          name: `Taxi Service in ${cityData.name}`,
-          description: cityData.description,
-          path: `/locations/${cityKey}`,
-          serviceType: "Local Taxi & Car Service",
-          areaServed: [cityData.name],
-        })}
+        data={[
+          serviceSchema({
+            name: `Taxi Service in ${cityData.name}`,
+            description: cityData.description,
+            path: `/locations/${cityKey}`,
+            serviceType: "Local Taxi & Car Service",
+            areaServed: [
+              CITY_COORDS[cityKey]
+                ? { name: cityData.name, lat: CITY_COORDS[cityKey].lat, lng: CITY_COORDS[cityKey].lng }
+                : cityData.name,
+            ],
+          }),
+          speakableSchema({ path: `/locations/${cityKey}` }),
+        ]}
       />
       {cityData.faqs && cityData.faqs.length > 0 && (
         <JsonLd data={faqSchema(cityData.faqs)} />

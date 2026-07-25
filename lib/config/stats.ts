@@ -1,13 +1,12 @@
 // Global statistics configuration for Taxi Saudi Arabia to prevent mismatched numbers and ensure absolute brand consistency.
 
 export const trustStats = {
-  vipTripsCompleted: "5,000+",
-  tripsCount: 5000,
+  routesCovered: "56+",
+  routesCount: 56,
   licensedDrivers: "100%",
-  experienceYears: "10+",
+  citiesCovered: "11+",
   activeChauffeurs: "24/7",
-  passengerRating: "4.9★",
-  citiesCovered: "+50",
-  countriesServed: "40+",
+  fixedPriceGuarantee: "100%",
+  languagesSpoken: "3",
   vehicleClasses: "14",
 };

@@ -6,6 +6,7 @@ export const metadata: Metadata = seo({
   description:
     "See fixed taxi fares in Saudi Arabia for 2026 — airport transfers, Umrah routes, and intercity rides by vehicle type. No surge pricing, no hidden fees. Get an instant price for any route.",
   path: "/pricing",
+  hreflangPaths: { en: "/pricing", ar: "/ar/pricing" },
 });
 
 export default function PricingLayout({ children }: { children: React.ReactNode }) {

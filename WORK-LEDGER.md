@@ -3,8 +3,10 @@
 > Verify: `python scripts/ui_consistency_check.py --summary` (0 violations = us page ka UI theme done)
 > Priority order: `../SITE-URLS-PRIORITY.md` (Tier 1 → 2 → 3 → 4)
 
-## 🚧 IN PROGRESS (2026-07-20) — Money Pages AIO/GEO + Backend CRM plan (6 chunks)
-Full plan agreed with user: Tier-1 money pages best-in-class AIO/GEO/SEO/UI-UX, quotations backend fixed, off-page assets prepared, 5 strategic blogs. Order: 1) backend CRM 2) service pages schema 3) location/route pages schema 4) UI/UX conversion pass 5) OFFPAGE-ASSETS.md 6) 5 blogs.
+## 🚧 IN PROGRESS (2026-07-25) — Money Pages ranking plan, revised to 8 chunks after fresh GSC/Ahrefs audit
+Full audit: `SEO-MONEY-PAGES-STRATEGY.md` (2026-07-25, GSC Performance/Coverage 07-23 exports + live Screaming Frog crawl + competitor gap vs `ksa-reference`). Goal unchanged: real customer leads, not driver-jobs traffic. Order below supersedes the old chunk 3-6 description (chunks 1-2 already done, kept as-is below).
+
+**Chunk 0 — Ship what's already built (do first, ~10 min, zero new work):** a finished-but-uncommitted fix from 2026-07-20 for the `/ar` duplicate-content bug (likely #1 cause of the 151 "Discovered — currently not indexed" pages) plus `locations/[city]` GeoCoordinates + speakable schema is still sitting on disk. `tsc --noEmit` clean as of 2026-07-25. Re-verify with `next dev` if stale, then commit + push to `main`. Nothing downstream matters until Google is crawling this version.
 
 **Chunk 1 DONE — Quotations admin CRM** (migration `0010_quotation_details_edit.sql` applied to live DB, verified via scratch script — edit applies, audit_logs `details_edit` row written, lock on completed/cancelled blocks customer/trip edits, admin_notes stays editable post-lock):
 - New RPC `admin_update_quotation_details` (service-role only) — edits customer/trip fields, writes its own audit_logs row (existing `trg_quotations_audit` trigger only covers status changes, NOT detail edits — don't assume it covers everything).
@@ -19,6 +21,27 @@ Full plan agreed with user: Tier-1 money pages best-in-class AIO/GEO/SEO/UI-UX, 
 - `components/seo/TLDRSummary.tsx` gained an `id` prop (default `"speakable-summary"`) so the component's answer `<p>` matches `speakableSchema()`'s default `cssSelector` — previously the component rendered no id at all, so any page using it with default selectors would've pointed at nothing.
 - Replaced ad-hoc `<p id="speakable-summary">` (2 pages) and added net-new `<TLDRSummary>` answer-first blocks (12 pages) with real facts pulled from each page's own pricing/data — no fabricated numbers.
 - Order done: Tier-1 (umrah-transport, airport-transfers) → Tier-2 (makkah-ziyarat, madinah-ziyarat, intercity, hajj-transport, vip-luxury, corporate) → rest (business-executive, group-transport, heritage-tours, tourism, border-crossings, car-recovery).
+
+**Chunk 3 (revised) — Money-page template fixes + trust signals (NOT started):**
+- Title-tag template fix for `fleet/[slug]` + `blog/[slug]` (drop redundant `"Taxi Saudi Arabia"` repetition) — ~77 pages truncating in search results, one template edit each.
+- Trim ~84 meta descriptions >160 chars — prioritize `routes/[slug]`, `/pricing`, `/terms-conditions` over blog/legal.
+- De-duplicate `locations/[city]` meta description template — every city currently shares near-identical copy; add one city-specific sentence (landmark/distance/price anchor) per city.
+- Add `AggregateRating`/testimonial block to `routes/[slug]` (component pattern already exists on `locations`/`umrah-transport`/`fleet` — reuse, don't rebuild).
+- Fix price inconsistency found live: `routes/jeddah-airport-to-makkah` `<title>` still says "From SAR 180" while body TLDR was updated to SAR 249 (uncommitted diff) — audit other route titles for the same drift when the Chunk-0 price commit lands.
+- Strengthen the 3 real striking-distance pages specifically: `/locations/neom` (pos 15.1), `/routes/dammam-to-doha` (pos 27.3), `/routes` hub (pos 50.75) — more internal links pointing in, more content depth. These are the only money pages within realistic reach of page 1-2 right now; everything else needs Chunk 6 (authority) first.
+
+**Chunk 5 (revised) — Content gap closure vs competitor (NOT started):**
+- 5-10 hotel-to-hotel route pages (`/routes/jeddah-to-[hotel]-makkah` pattern, reuse existing `routes/[slug]` template) — competitor (`ksa-reference`) has this pattern, high commercial intent + low competition.
+- Turn `/pricing` into an interactive fare calculator (reuse existing route/vehicle pricing data) — competitor equivalent is a backlink magnet.
+- Publish real, visible customer reviews (10-15 real ones, crawlable text) — `AggregateRating` schema already exists on several templates but has no visible backing content, which weakens the trust signal Google checks for.
+
+**Chunk 6 (revised) — OFFPAGE-ASSETS.md + 5 blogs + local citations (NOT started):**
+- Google Business Profile listing per served city + consistent NAP — cheapest, fastest authority lever available.
+- `OFFPAGE-ASSETS.md`: backlink target list (Umrah/Hajj travel agencies, hotels near the Haram, pilgrim forums/blogs) + what a linkable digital-PR asset could look like (fare calculator from Chunk 5 doubles as this).
+- 5 strategic blogs — target queries already showing impressions in GSC (e.g. miqat/ziyarat/route-fare topics) over generic content.
+
+**Chunk 7 (new, long-term) — Urdu locale (NOT started):**
+- `/ur/` pages for homepage + top routes/services, same pattern as the `/ar/` real-routes fix in Chunk 0. Urdu-speaking pilgrims (Pakistan/India) are a large Umrah source market with zero current coverage and no local-KSA-operator competition in that language.
 
 ## ✅ DONE (2026-07)
 
@@ -107,7 +130,7 @@ guides hub ke rainbow category colors → green/gold. Checker: **PASS — 0 viol
 - [ ] Internal links har 150–250 words (routes/locations body content mein)
 - [ ] Semantic clusters: Umrah corridor (JED→Makkah→Madinah) cross-linking audit
 - [ ] JEDDAH-TOPICAL-AUTHORITY.md (SEO folder) ke gaps implement karna
-- [ ] GSC data (SEO/*.zip) analyze — kaunse queries impressions de rahi hain, unke pages pehle
+- [x] GSC data (SEO/*.zip) analyze — DONE 2026-07-25, see `SEO-MONEY-PAGES-STRATEGY.md` §3 (striking-distance pages) + §4 (on-page gaps)
 
 ## Rules
 - Kaam se pehle: yeh ledger + SITE-URLS-PRIORITY.md parho
