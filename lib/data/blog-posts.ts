@@ -13,16 +13,16 @@
 
 Taxi fares in Jeddah depend on the route, the vehicle, and how you book. With Taxi Saudi Arabia, the price is **fixed and confirmed before you travel** — no meter surprises and no surge pricing. Below are typical 2026 starting fares so you can budget your trip.
 
-> **Quick answer:** A taxi from Jeddah Airport (JED) to Makkah starts from **SAR 180**, Jeddah to Madinah from **SAR 350**, and a Jeddah airport-to-city ride from **SAR 80** — all fixed-price, 24/7.
+> **Quick answer:** A taxi from Jeddah Airport (JED) to Makkah starts from **SAR 249**, Jeddah to Madinah from **SAR 549**, and a Jeddah airport-to-city ride from **SAR 80** — all fixed-price, 24/7.
 
 ### Popular Jeddah Fares (from, sedan)
 
-- **Jeddah Airport (JED) → Makkah:** from SAR 180 — ~80 km, ~1 hour
-- **Jeddah City → Makkah:** from SAR 150 — ~85 km, ~1 hr 10 min
-- **Jeddah Airport (JED) → Madinah:** from SAR 380 — ~410 km, ~4–5 hours
-- **Jeddah → Madinah:** from SAR 350 — ~420 km, ~4–5 hours
+- **Jeddah Airport (JED) → Makkah:** from SAR 249 — ~80 km, ~1 hour
+- **Jeddah City → Makkah:** from SAR 199 — ~85 km, ~1 hr 10 min
+- **Jeddah Airport (JED) → Madinah:** from SAR 549 — ~410 km, ~4–5 hours
+- **Jeddah → Madinah:** from SAR 549 — ~420 km, ~4–5 hours
 - **Jeddah Airport (JED) → City / Corniche / Al-Balad:** from SAR 80 — ~20–35 min
-- **Jeddah → Taif:** from SAR 300 — mountain route
+- **Jeddah → Taif:** from SAR 200 — mountain route
 
 ### How Vehicle Type Changes the Price
 
@@ -69,13 +69,13 @@ Every quote is confirmed before you book, so you always know the total in advanc
 
 Taxi fares from Makkah depend on the route and vehicle. With Taxi Saudi Arabia the price is **fixed and confirmed before you travel** — no meter and no surge, including departures to Jeddah Airport at any hour. Here are typical 2026 starting fares.
 
-> **Quick answer:** A taxi from Makkah to Jeddah Airport (JED) starts from **SAR 180**, Makkah to Madinah from **SAR 350**, and Makkah to Taif from **SAR 180** — all fixed-price, 24/7.
+> **Quick answer:** A taxi from Makkah to Jeddah Airport (JED) starts from **SAR 249**, Makkah to Madinah from **SAR 499**, and Makkah to Taif from **SAR 180** — all fixed-price, 24/7.
 
 ### Popular Makkah Fares (from, sedan)
 
-- **Makkah → Jeddah Airport (JED):** from SAR 180 — ~80 km, ~1 hour
+- **Makkah → Jeddah Airport (JED):** from SAR 249 — ~80 km, ~1 hour
 - **Makkah → Jeddah City:** from SAR 150 — ~85 km, ~1 hr 10 min
-- **Makkah → Madinah:** from SAR 350 — ~430 km, ~4–5 hours
+- **Makkah → Madinah:** from SAR 499 — ~430 km, ~4–5 hours
 - **Makkah → Madinah Airport:** from SAR 400 — ~450 km
 - **Makkah → Taif:** from SAR 180 — ~90 km, Al Hada road
 - **Makkah Ziyarat (half-day tour):** from SAR 250 — Cave of Hira, Mina, Arafat
@@ -121,12 +121,12 @@ Share your pickup hotel, destination, and vehicle preference and we will confirm
 
 Taxi fares in Madinah depend on the route and vehicle. With Taxi Saudi Arabia the price is **fixed and confirmed before you travel** — no meter and no surge, including airport arrivals at any hour. Here are typical 2026 starting fares.
 
-> **Quick answer:** A taxi from Madinah Airport (MED) to the city starts from **SAR 80**, Madinah to Makkah from **SAR 350**, and a half-day Ziyarat tour from **SAR 250** — all fixed-price, 24/7.
+> **Quick answer:** A taxi from Madinah Airport (MED) to the city starts from **SAR 80**, Madinah to Makkah from **SAR 499**, and a half-day Ziyarat tour from **SAR 250** — all fixed-price, 24/7.
 
 ### Popular Madinah Fares (from, sedan)
 
 - **Madinah Airport (MED) → City / Markazia hotels:** from SAR 80 — ~20 km, ~25 min
-- **Madinah → Makkah:** from SAR 350 — ~430 km, ~4–5 hours
+- **Madinah → Makkah:** from SAR 499 — ~430 km, ~4–5 hours
 - **Madinah Airport (MED) → Makkah:** from SAR 400 — ~450 km
 - **Madinah → Jeddah Airport (JED):** from SAR 380 — ~410 km
 - **Madinah → Jeddah City:** from SAR 350 — ~420 km
