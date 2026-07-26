@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { FileText, Loader2, Flag, Pencil, X, ChevronLeft, ChevronRight, Search } from "lucide-react";
+import { FileText, Loader2, Flag, Pencil, X, ChevronLeft, ChevronRight, Search, Eye, Download } from "lucide-react";
 import type { QuotationRow, QuotationStatus, LeadSource, QuotationPaymentStatus, TripType } from "@/lib/supabase/quotations";
 
 type DriverOption = { id: string; name: string; city: string; vehicleType: string };
@@ -15,8 +15,29 @@ const STATUS_COLOR: Record<QuotationStatus, string> = {
   completed: "bg-[#C9A84C]/10 text-[#C9A84C] border-[#C9A84C]/20",
   cancelled: "bg-red-500/10 text-red-500 border-red-500/20",
 };
+const STATUS_LABEL: Record<QuotationStatus, string> = {
+  new: "Pending",
+  quoted: "Quoted",
+  confirmed: "Confirmed",
+  assigned: "Assigned",
+  completed: "Completed",
+  cancelled: "Cancelled",
+};
+const ALL_STATUSES: QuotationStatus[] = ["new", "quoted", "confirmed", "assigned", "completed", "cancelled"];
 
-const STATUS_FILTERS: Array<"all" | QuotationStatus> = ["all", "new", "quoted", "confirmed", "assigned", "completed", "cancelled"];
+const STAGE_FILTERS: Array<{ key: string; label: string }> = [
+  { key: "all", label: "All" },
+  { key: "pending", label: "Pending" },
+  { key: "quoted", label: "Quote Sent" },
+  { key: "in_progress", label: "In Progress" },
+  { key: "completed", label: "Completed" },
+  { key: "cancelled", label: "Cancelled" },
+];
+const DATE_PRESETS: Array<{ key: string; label: string }> = [
+  { key: "today", label: "Today" },
+  { key: "tomorrow", label: "Tomorrow" },
+  { key: "week", label: "This Week" },
+];
 const SOURCE_FILTERS: Array<"all" | LeadSource> = ["all", "website", "whatsapp", "referral", "event_management"];
 const PAYMENT_FILTERS: Array<"all" | QuotationPaymentStatus> = ["all", "unpaid", "partial", "paid"];
 const TRIP_TYPES: TripType[] = ["one_way", "round_trip", "event", "multi_day", "airport_transfer", "hourly"];
@@ -72,6 +93,10 @@ export function QuotationsClient({
   const [priceDraft, setPriceDraft] = useState<Record<string, string>>({});
   const [driverDraft, setDriverDraft] = useState<Record<string, string>>({});
   const [rowError, setRowError] = useState<Record<string, string>>({});
+  const [statusMenuOpenId, setStatusMenuOpenId] = useState<string | null>(null);
+  const [pendingPriceId, setPendingPriceId] = useState<string | null>(null);
+  const [pendingDriverId, setPendingDriverId] = useState<string | null>(null);
+  const [viewingId, setViewingId] = useState<string | null>(null);
   const [searchDraft, setSearchDraft] = useState(searchParams.get("search") ?? "");
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editDraft, setEditDraft] = useState<EditDraft | null>(null);
@@ -85,6 +110,25 @@ export function QuotationsClient({
     if (value) params.set(key, value);
     else params.delete(key);
     if (key !== "page") params.delete("page");
+    router.push(`${pathname}?${params.toString()}`);
+  }
+
+  function setDatePreset(key: string) {
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("page");
+    params.delete("dateFrom");
+    params.delete("dateTo");
+    if (activeDatePreset === key) params.delete("datePreset");
+    else params.set("datePreset", key);
+    router.push(`${pathname}?${params.toString()}`);
+  }
+
+  function setDateRange(key: "dateFrom" | "dateTo", value: string) {
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("page");
+    params.delete("datePreset");
+    if (value) params.set(key, value);
+    else params.delete(key);
     router.push(`${pathname}?${params.toString()}`);
   }
 
@@ -118,6 +162,19 @@ export function QuotationsClient({
     } finally {
       setBusyId(null);
     }
+  }
+
+  function requestStatusChange(q: QuotationRow, status: QuotationStatus) {
+    setStatusMenuOpenId(null);
+    if (status === "quoted" && !(priceDraft[q.id] ?? q.quoted_price)) {
+      setPendingPriceId(q.id);
+      return;
+    }
+    if (status === "assigned" && !(driverDraft[q.id] ?? q.assigned_driver_id)) {
+      setPendingDriverId(q.id);
+      return;
+    }
+    patch(q.id, { status });
   }
 
   async function patchDetails(id: string, details: Record<string, unknown>) {
@@ -169,7 +226,8 @@ export function QuotationsClient({
     }
   }
 
-  const activeStatus = (searchParams.get("status") as QuotationStatus | null) ?? "all";
+  const activeStage = searchParams.get("stage") ?? "all";
+  const activeDatePreset = searchParams.get("datePreset") ?? "";
   const activeSource = (searchParams.get("source") as LeadSource | null) ?? "all";
   const activePayment = (searchParams.get("paymentStatus") as QuotationPaymentStatus | null) ?? "all";
   const activeSort = searchParams.get("sort") === "oldest" ? "oldest" : "newest";
@@ -198,17 +256,32 @@ export function QuotationsClient({
           </div>
           <input
             type="date"
-            defaultValue={searchParams.get("dateFrom") ?? ""}
-            onChange={(e) => setParam("dateFrom", e.target.value || null)}
+            value={searchParams.get("dateFrom") ?? ""}
+            onChange={(e) => setDateRange("dateFrom", e.target.value)}
             className="rounded-lg border border-[#333] bg-black/40 px-2 py-2 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
           />
           <span className="text-xs text-[#666]">to</span>
           <input
             type="date"
-            defaultValue={searchParams.get("dateTo") ?? ""}
-            onChange={(e) => setParam("dateTo", e.target.value || null)}
+            value={searchParams.get("dateTo") ?? ""}
+            onChange={(e) => setDateRange("dateTo", e.target.value)}
             className="rounded-lg border border-[#333] bg-black/40 px-2 py-2 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
           />
+          <div className="flex gap-1.5">
+            {DATE_PRESETS.map((d) => (
+              <button
+                key={d.key}
+                onClick={() => setDatePreset(d.key)}
+                className={`rounded-lg border px-2.5 py-2 text-xs font-medium transition ${
+                  activeDatePreset === d.key
+                    ? "border-[#C9A84C] bg-[#C9A84C]/10 text-[#C9A84C]"
+                    : "border-[#333] text-[#A1A1A6] hover:border-[#C9A84C]/40"
+                }`}
+              >
+                {d.label}
+              </button>
+            ))}
+          </div>
           <select
             value={activeSource}
             onChange={(e) => setParam("source", e.target.value === "all" ? null : e.target.value)}
@@ -237,17 +310,17 @@ export function QuotationsClient({
           </select>
         </div>
         <div className="flex gap-2 flex-wrap">
-          {STATUS_FILTERS.map((f) => (
+          {STAGE_FILTERS.map((f) => (
             <button
-              key={f}
-              onClick={() => setParam("status", f === "all" ? null : f)}
-              className={`rounded-full border px-3 py-1.5 text-xs capitalize transition ${
-                activeStatus === f
+              key={f.key}
+              onClick={() => setParam("stage", f.key === "all" ? null : f.key)}
+              className={`rounded-full border px-3 py-1.5 text-xs font-medium transition ${
+                activeStage === f.key
                   ? "border-[#C9A84C] bg-[#C9A84C]/10 text-[#C9A84C]"
                   : "border-[#333] text-[#A1A1A6] hover:border-[#C9A84C]/40"
               }`}
             >
-              {f}
+              {f.label}
             </button>
           ))}
         </div>
@@ -277,9 +350,30 @@ export function QuotationsClient({
                 <div>
                   <div className="flex items-center gap-2 flex-wrap">
                     <span className="font-mono text-sm font-bold text-[#C9A84C]">{q.quote_reference}</span>
-                    <span className={`rounded-full border px-2.5 py-0.5 text-[10px] font-bold uppercase ${STATUS_COLOR[q.status]}`}>
-                      {q.status}
-                    </span>
+                    <div className="relative">
+                      <button
+                        disabled={locked || busy}
+                        onClick={() => setStatusMenuOpenId(statusMenuOpenId === q.id ? null : q.id)}
+                        className={`rounded-full border px-2.5 py-0.5 text-[10px] font-bold uppercase transition disabled:cursor-default ${STATUS_COLOR[q.status]} ${!locked ? "hover:brightness-125" : ""}`}
+                      >
+                        {STATUS_LABEL[q.status]}
+                      </button>
+                      {statusMenuOpenId === q.id && (
+                        <div className="absolute left-0 top-full z-10 mt-1 w-36 overflow-hidden rounded-lg border border-[#333] bg-[#1a1a1a] shadow-xl">
+                          {ALL_STATUSES.map((s) => (
+                            <button
+                              key={s}
+                              onClick={() => requestStatusChange(q, s)}
+                              className={`block w-full px-3 py-2 text-left text-[10px] font-bold uppercase hover:bg-white/5 ${
+                                s === q.status ? "text-[#C9A84C]" : "text-[#A1A1A6]"
+                              }`}
+                            >
+                              {STATUS_LABEL[s]}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                     <span className="rounded-full border border-[#333] px-2.5 py-0.5 text-[10px] uppercase text-[#A1A1A6]">
                       {q.source.replace("_", " ")}
                     </span>
@@ -305,32 +399,99 @@ export function QuotationsClient({
                     </>
                   )}
                 </div>
-                {!editing && (
-                  <div className="text-right text-xs text-[#A1A1A6]">
-                    <p className="text-sm text-[#F5F0E8]">{q.pickup_location} → {q.drop_location}</p>
-                    <p className="mt-1">{q.trip_date}{q.trip_time ? ` · ${q.trip_time.slice(0, 5)}` : ""} · {q.trip_type.replace("_", " ")}</p>
-                    {q.passengers_count ? <p>{q.passengers_count} passengers</p> : null}
-                    {q.quoted_price !== null && (
+                <div className="flex items-center gap-1.5">
+                  <button
+                    onClick={() => setViewingId(viewingId === q.id ? null : q.id)}
+                    title="View full details"
+                    className={`rounded-lg border p-1.5 transition ${
+                      viewingId === q.id
+                        ? "border-[#C9A84C]/40 text-[#C9A84C]"
+                        : "border-[#333] text-[#A1A1A6] hover:border-[#C9A84C]/40 hover:text-[#C9A84C]"
+                    }`}
+                  >
+                    {viewingId === q.id ? <X className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (editing) {
+                        setEditingId(null);
+                        setEditDraft(null);
+                      } else {
+                        setViewingId(null);
+                        startEdit(q);
+                      }
+                    }}
+                    title={locked ? "Locked (completed/cancelled) — read-only" : "Edit customer & trip details"}
+                    className={`rounded-lg border p-1.5 transition ${
+                      editing
+                        ? "border-[#C9A84C]/40 text-[#C9A84C]"
+                        : "border-[#333] text-[#A1A1A6] hover:border-[#C9A84C]/40 hover:text-[#C9A84C]"
+                    }`}
+                  >
+                    {editing ? <X className="h-3.5 w-3.5" /> : <Pencil className="h-3.5 w-3.5" />}
+                  </button>
+                  {q.quoted_price !== null ? (
+                    <a
+                      href={`/api/quotations/${q.id}/invoice`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Download PDF invoice"
+                      className="rounded-lg border border-[#333] p-1.5 text-[#A1A1A6] transition hover:border-[#C9A84C]/40 hover:text-[#C9A84C]"
+                    >
+                      <Download className="h-3.5 w-3.5" />
+                    </a>
+                  ) : (
+                    <span title="Set a price first to generate an invoice" className="cursor-not-allowed rounded-lg border border-[#222] p-1.5 text-[#444]">
+                      <Download className="h-3.5 w-3.5" />
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              {viewingId === q.id && (
+                <div className="grid gap-3 border-t border-[#222] pt-4 text-xs sm:grid-cols-3">
+                  <div><span className="text-[#666]">Email: </span><span className="text-[#F5F0E8]">{q.customer_email ?? "—"}</span></div>
+                  <div><span className="text-[#666]">Payment: </span><span className="text-[#F5F0E8] capitalize">{q.payment_status}</span></div>
+                  <div><span className="text-[#666]">Return date: </span><span className="text-[#F5F0E8]">{q.return_date ?? "—"}</span></div>
+                  <div><span className="text-[#666]">Assigned driver: </span><span className="text-[#F5F0E8]">{drivers.find((d) => d.id === q.assigned_driver_id)?.name ?? "—"}</span></div>
+                  <div><span className="text-[#666]">Confirmed at: </span><span className="text-[#F5F0E8]">{q.confirmed_at ? new Date(q.confirmed_at).toLocaleString() : "—"}</span></div>
+                  <div><span className="text-[#666]">Created: </span><span className="text-[#F5F0E8]">{new Date(q.created_at).toLocaleString()}</span></div>
+                  {q.price_notes && <div className="sm:col-span-3"><span className="text-[#666]">Price notes: </span><span className="text-[#F5F0E8]">{q.price_notes}</span></div>}
+                  {q.admin_notes && <div className="sm:col-span-3"><span className="text-[#666]">Admin notes: </span><span className="text-[#F5F0E8]">{q.admin_notes}</span></div>}
+                </div>
+              )}
+
+              {!editing && (
+                <div className="grid gap-4 border-t border-[#222] pt-4 sm:grid-cols-3">
+                  <div>
+                    <p className="text-[10px] uppercase tracking-wide text-[#666]">Trip</p>
+                    <p className="mt-1 text-sm text-[#F5F0E8]">{q.pickup_location} → {q.drop_location}</p>
+                    <p className="mt-1 text-xs text-[#A1A1A6]">
+                      {q.trip_date}{q.trip_time ? ` · ${q.trip_time.slice(0, 5)}` : ""} · {q.trip_type.replace("_", " ")}
+                    </p>
+                    {q.passengers_count ? <p className="text-xs text-[#A1A1A6]">{q.passengers_count} passengers</p> : null}
+                  </div>
+                  <div>
+                    <p className="text-[10px] uppercase tracking-wide text-[#666]">Vehicle</p>
+                    {q.vehicle_type_requested ? (
+                      <span className="mt-1 inline-block rounded-full border border-[#333] px-2.5 py-0.5 text-xs uppercase text-[#F5F0E8]">
+                        {q.vehicle_type_requested}
+                      </span>
+                    ) : (
+                      <p className="mt-1 text-xs text-[#666]">Not specified</p>
+                    )}
+                    {q.luggage_notes && <p className="mt-1 text-xs text-[#A1A1A6]">{q.luggage_notes}</p>}
+                  </div>
+                  <div>
+                    <p className="text-[10px] uppercase tracking-wide text-[#666]">Price</p>
+                    {q.quoted_price !== null ? (
                       <p className="mt-1 text-sm font-bold text-[#C9A84C]">{q.quoted_price} {q.currency}</p>
+                    ) : (
+                      <p className="mt-1 text-xs text-[#666]">Not quoted yet</p>
                     )}
                   </div>
-                )}
-                <button
-                  onClick={() => {
-                    if (editing) {
-                      setEditingId(null);
-                      setEditDraft(null);
-                    } else {
-                      startEdit(q);
-                    }
-                  }}
-                  title={locked ? "Locked (completed/cancelled) — read-only" : "Edit customer & trip details"}
-                  className="flex items-center gap-1 rounded-lg border border-[#333] px-2.5 py-1.5 text-xs text-[#A1A1A6] hover:border-[#C9A84C]/40 hover:text-[#C9A84C]"
-                >
-                  {editing ? <X className="h-3.5 w-3.5" /> : <Pencil className="h-3.5 w-3.5" />}
-                  {editing ? "Close" : locked ? "View" : "Edit"}
-                </button>
-              </div>
+                </div>
+              )}
 
               {editing && editDraft && (
                 <div className="grid gap-3 border-t border-[#222] pt-4 sm:grid-cols-2">
@@ -416,78 +577,62 @@ export function QuotationsClient({
                 </div>
               )}
 
-              <div className="flex items-center gap-2 flex-wrap border-t border-[#222] pt-4">
-                {(q.status === "new" || q.status === "quoted") && (
-                  <>
-                    <input
-                      type="number"
-                      min={0}
-                      placeholder="Price (SAR)"
-                      value={priceDraft[q.id] ?? (q.quoted_price !== null ? String(q.quoted_price) : "")}
-                      onChange={(e) => setPriceDraft((prev) => ({ ...prev, [q.id]: e.target.value }))}
-                      className="w-32 rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
-                    />
-                    <button
-                      disabled={busy || !(priceDraft[q.id] ?? q.quoted_price)}
-                      onClick={() => patch(q.id, { status: "quoted", quotedPrice: priceDraft[q.id] ?? String(q.quoted_price ?? "") })}
-                      className="rounded-lg bg-blue-500/15 border border-blue-500/25 px-3 py-2 text-xs font-bold text-blue-400 hover:bg-blue-500/25 disabled:opacity-40"
-                    >
-                      Save Quote
-                    </button>
-                  </>
-                )}
-                {q.status === "quoted" && (
+              {pendingPriceId === q.id && (
+                <div className="flex items-center gap-2 flex-wrap border-t border-[#222] pt-4">
+                  <span className="text-xs text-[#A1A1A6]">Set a price to mark this as Quoted:</span>
+                  <input
+                    type="number"
+                    min={0}
+                    autoFocus
+                    placeholder="Price (SAR)"
+                    value={priceDraft[q.id] ?? ""}
+                    onChange={(e) => setPriceDraft((prev) => ({ ...prev, [q.id]: e.target.value }))}
+                    className="w-32 rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
+                  />
                   <button
-                    disabled={busy}
-                    onClick={() => patch(q.id, { status: "confirmed" })}
-                    className="rounded-lg bg-green-500/15 border border-green-500/25 px-3 py-2 text-xs font-bold text-green-400 hover:bg-green-500/25 disabled:opacity-40"
+                    disabled={busy || !priceDraft[q.id]}
+                    onClick={async () => {
+                      await patch(q.id, { status: "quoted", quotedPrice: priceDraft[q.id] });
+                      setPendingPriceId(null);
+                    }}
+                    className="rounded-lg bg-blue-500/15 border border-blue-500/25 px-3 py-2 text-xs font-bold text-blue-400 hover:bg-blue-500/25 disabled:opacity-40"
                   >
-                    Mark Confirmed
+                    Confirm
                   </button>
-                )}
-                {q.status === "confirmed" && (
-                  <>
-                    <select
-                      value={driverDraft[q.id] ?? ""}
-                      onChange={(e) => setDriverDraft((prev) => ({ ...prev, [q.id]: e.target.value }))}
-                      className="rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
-                    >
-                      <option value="">Select driver…</option>
-                      {drivers.map((d) => (
-                        <option key={d.id} value={d.id} className="bg-[#121212]">
-                          {d.name} — {d.city} ({d.vehicleType})
-                        </option>
-                      ))}
-                    </select>
-                    <button
-                      disabled={busy || !driverDraft[q.id]}
-                      onClick={() => patch(q.id, { status: "assigned", driverId: driverDraft[q.id] })}
-                      className="rounded-lg bg-purple-500/15 border border-purple-500/25 px-3 py-2 text-xs font-bold text-purple-400 hover:bg-purple-500/25 disabled:opacity-40"
-                    >
-                      Assign Driver
-                    </button>
-                  </>
-                )}
-                {q.status === "assigned" && (
+                  <button onClick={() => setPendingPriceId(null)} className="text-xs text-[#666] hover:text-[#A1A1A6]">Cancel</button>
+                  {busy && <Loader2 className="h-4 w-4 animate-spin text-[#C9A84C]" />}
+                </div>
+              )}
+              {pendingDriverId === q.id && (
+                <div className="flex items-center gap-2 flex-wrap border-t border-[#222] pt-4">
+                  <span className="text-xs text-[#A1A1A6]">Assign a driver to mark this as Assigned:</span>
+                  <select
+                    autoFocus
+                    value={driverDraft[q.id] ?? ""}
+                    onChange={(e) => setDriverDraft((prev) => ({ ...prev, [q.id]: e.target.value }))}
+                    className="rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
+                  >
+                    <option value="">Select driver…</option>
+                    {drivers.map((d) => (
+                      <option key={d.id} value={d.id} className="bg-[#121212]">
+                        {d.name} — {d.city} ({d.vehicleType})
+                      </option>
+                    ))}
+                  </select>
                   <button
-                    disabled={busy}
-                    onClick={() => patch(q.id, { status: "completed" })}
-                    className="rounded-lg bg-[#C9A84C]/15 border border-[#C9A84C]/25 px-3 py-2 text-xs font-bold text-[#C9A84C] hover:bg-[#C9A84C]/25 disabled:opacity-40"
+                    disabled={busy || !driverDraft[q.id]}
+                    onClick={async () => {
+                      await patch(q.id, { status: "assigned", driverId: driverDraft[q.id] });
+                      setPendingDriverId(null);
+                    }}
+                    className="rounded-lg bg-purple-500/15 border border-purple-500/25 px-3 py-2 text-xs font-bold text-purple-400 hover:bg-purple-500/25 disabled:opacity-40"
                   >
-                    Mark Completed
+                    Confirm
                   </button>
-                )}
-                {q.status !== "cancelled" && q.status !== "completed" && (
-                  <button
-                    disabled={busy}
-                    onClick={() => patch(q.id, { status: "cancelled" })}
-                    className="ml-auto rounded-lg border border-red-500/20 px-3 py-2 text-xs font-bold text-red-400 hover:bg-red-500/10 disabled:opacity-40"
-                  >
-                    Cancel
-                  </button>
-                )}
-                {busy && <Loader2 className="h-4 w-4 animate-spin text-[#C9A84C]" />}
-              </div>
+                  <button onClick={() => setPendingDriverId(null)} className="text-xs text-[#666] hover:text-[#A1A1A6]">Cancel</button>
+                  {busy && <Loader2 className="h-4 w-4 animate-spin text-[#C9A84C]" />}
+                </div>
+              )}
               {rowError[q.id] && <p className="text-xs text-red-400">{rowError[q.id]}</p>}
             </div>
           );

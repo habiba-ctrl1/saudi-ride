@@ -9,9 +9,25 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
-const STATUSES: QuotationStatus[] = ["new", "quoted", "confirmed", "assigned", "completed", "cancelled"];
 const SOURCES: LeadSource[] = ["website", "whatsapp", "referral", "event_management"];
 const PAYMENT_STATUSES: QuotationPaymentStatus[] = ["unpaid", "partial", "paid"];
+
+// UI-level stage groups over the DB status enum — "in_progress" merges
+// confirmed+assigned so the owner can filter without losing per-row precision.
+const STAGE_STATUS_MAP: Record<string, QuotationStatus[]> = {
+  pending: ["new"],
+  quoted: ["quoted"],
+  in_progress: ["confirmed", "assigned"],
+  completed: ["completed"],
+  cancelled: ["cancelled"],
+};
+
+// Riyadh (UTC+3) date string, since trip dates are booked in local KSA time
+// regardless of where this server process runs.
+function riyadhDateString(offsetDays = 0): string {
+  const now = new Date(Date.now() + 3 * 60 * 60 * 1000 + offsetDays * 24 * 60 * 60 * 1000);
+  return now.toISOString().slice(0, 10);
+}
 
 export default async function AdminQuotationsPage({
   searchParams,
@@ -20,14 +36,25 @@ export default async function AdminQuotationsPage({
 }) {
   const sp = await searchParams;
 
+  let dateFrom = sp.dateFrom || undefined;
+  let dateTo = sp.dateTo || undefined;
+  if (sp.datePreset === "today") {
+    dateFrom = dateTo = riyadhDateString(0);
+  } else if (sp.datePreset === "tomorrow") {
+    dateFrom = dateTo = riyadhDateString(1);
+  } else if (sp.datePreset === "week") {
+    dateFrom = riyadhDateString(0);
+    dateTo = riyadhDateString(6);
+  }
+
   const filters: QuotationFilters = {
-    status: STATUSES.includes(sp.status as QuotationStatus) ? (sp.status as QuotationStatus) : undefined,
+    status: sp.stage && STAGE_STATUS_MAP[sp.stage] ? STAGE_STATUS_MAP[sp.stage] : undefined,
     source: SOURCES.includes(sp.source as LeadSource) ? (sp.source as LeadSource) : undefined,
     paymentStatus: PAYMENT_STATUSES.includes(sp.paymentStatus as QuotationPaymentStatus)
       ? (sp.paymentStatus as QuotationPaymentStatus)
       : undefined,
-    dateFrom: sp.dateFrom || undefined,
-    dateTo: sp.dateTo || undefined,
+    dateFrom,
+    dateTo,
     search: sp.search || undefined,
     sort: sp.sort === "oldest" ? "oldest" : "newest",
     page: sp.page ? Math.max(1, Number(sp.page) || 1) : 1,

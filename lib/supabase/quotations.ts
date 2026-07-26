@@ -36,7 +36,7 @@ export type QuotationRow = {
 };
 
 export type QuotationFilters = {
-  status?: QuotationStatus;
+  status?: QuotationStatus | QuotationStatus[];
   tripType?: TripType;
   dateFrom?: string;        // trip_date >= (YYYY-MM-DD)
   dateTo?: string;          // trip_date <=
@@ -91,6 +91,13 @@ export async function createQuotation(input: NewQuotationInput) {
   return { row: data as Pick<QuotationRow, "id" | "quote_reference"> | null, error: error?.message ?? null };
 }
 
+export async function getQuotationById(id: string) {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return { row: null as QuotationRow | null, error: "Supabase not configured" };
+  const { data, error } = await supabase.from("quotations").select("*").eq("id", id).single();
+  return { row: (data ?? null) as QuotationRow | null, error: error?.message ?? null };
+}
+
 export async function listQuotations(filters: QuotationFilters = {}) {
   const supabase = getSupabaseServerClient();
   if (!supabase) return { rows: [] as QuotationRow[], total: 0, error: "Supabase not configured" };
@@ -100,7 +107,9 @@ export async function listQuotations(filters: QuotationFilters = {}) {
 
   let q = supabase.from("quotations").select("*", { count: "exact" });
 
-  if (filters.status) q = q.eq("status", filters.status);
+  if (filters.status) {
+    q = Array.isArray(filters.status) ? q.in("status", filters.status) : q.eq("status", filters.status);
+  }
   if (filters.tripType) q = q.eq("trip_type", filters.tripType);
   if (filters.paymentStatus) q = q.eq("payment_status", filters.paymentStatus);
   if (filters.source) q = q.eq("source", filters.source);
