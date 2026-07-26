@@ -45,15 +45,19 @@ export function RouteRelatedLinks({ slug, fromCity, toCity }: Props) {
       r.toCity.toLowerCase() === from,
   );
 
-  // Same origin ya destination share karne wali routes
+  // Same origin ya destination share karne wali routes. Substring match (not
+  // exact) so e.g. toCity "Fairmont Makkah Clock Royal Tower" still cross-links
+  // with plain "Makkah" routes both ways — hotel-specific routes otherwise
+  // never surface on (or receive links from) their city's main route page.
+  const sharesCity = (a: string, b: string) => a.includes(b) || b.includes(a);
   const related = ROUTES_DATA.filter(
     (r) =>
       r.slug !== slug &&
       r.slug !== reverse?.slug &&
-      (r.fromCity.toLowerCase() === from ||
-        r.toCity.toLowerCase() === to ||
-        r.fromCity.toLowerCase() === to ||
-        r.toCity.toLowerCase() === from),
+      (sharesCity(r.fromCity.toLowerCase(), from) ||
+        sharesCity(r.toCity.toLowerCase(), to) ||
+        sharesCity(r.fromCity.toLowerCase(), to) ||
+        sharesCity(r.toCity.toLowerCase(), from)),
   ).slice(0, 5);
 
   const routeLinks = [...(reverse ? [reverse] : []), ...related].slice(0, 6);

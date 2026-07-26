@@ -55,6 +55,96 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "Which is better — taxi or the Haramain train?", answer: "A private taxi is door-to-door from the airport to your Makkah hotel with luggage help and a Miqat stop. The Haramain high-speed train is fast but requires transfers to and from the stations. For pilgrims with luggage, the direct taxi is usually more convenient." },
     ],
   },
+  "jeddah-airport-to-fairmont-makkah": {
+    tldr: "A taxi from Jeddah Airport (JED) to the Fairmont Makkah Clock Royal Tower is about 80 km and takes roughly 1 hour. The fare is fixed from SAR 249, available 24/7, with drop-off right at the hotel entrance overlooking Masjid al-Haram.",
+    tldrFacts: [
+      { label: "Distance", value: "~80 km" },
+      { label: "Time", value: "~1 hour" },
+      { label: "From", value: "SAR 249" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is the Fairmont Makkah Clock Royal Tower from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. The hotel sits directly in the Abraj Al Bait complex, overlooking Masjid al-Haram." },
+      { question: "How much is a taxi from Jeddah airport to the Fairmont Makkah?", answer: "The fare is fixed from SAR 249 for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Let us know in advance and the driver will stop at the Miqat so you can enter Ihram before continuing to the hotel." },
+      { question: "Will the driver drop me at the hotel entrance?", answer: "Yes, as close to the Fairmont's entrance as vehicle access allows — during peak prayer times the driver uses the nearest permitted drop-off point, just a short walk from the lobby." },
+    ],
+  },
+  "jeddah-airport-to-swissotel-makkah": {
+    tldr: "A taxi from Jeddah Airport (JED) to Swissotel Al Maqam Makkah is about 80 km and takes roughly 1 hour. The fare is fixed from SAR 249, available 24/7, with drop-off at the hotel, steps from Masjid al-Haram.",
+    tldrFacts: [
+      { label: "Distance", value: "~80 km" },
+      { label: "Time", value: "~1 hour" },
+      { label: "From", value: "SAR 249" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Swissotel Al Maqam Makkah from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. The hotel is in the Abraj Al Bait towers, a short walk from Masjid al-Haram." },
+      { question: "How much is a taxi from Jeddah airport to Swissotel Makkah?", answer: "The fare is fixed from SAR 249 for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Let us know in advance and the driver will stop at the Miqat so you can enter Ihram before continuing to the hotel." },
+      { question: "Is the transfer available for late-night flight arrivals?", answer: "Yes, we operate 24/7. We track your flight number so the driver is waiting with a name sign even for delayed or late-night arrivals." },
+    ],
+  },
+  "jeddah-airport-to-pullman-zamzam-makkah": {
+    tldr: "A taxi from Jeddah Airport (JED) to Pullman Zamzam Makkah is about 80 km and takes roughly 1 hour. The fare is fixed from SAR 249, available 24/7, with drop-off at one of the closest hotels to Masjid al-Haram.",
+    tldrFacts: [
+      { label: "Distance", value: "~80 km" },
+      { label: "Time", value: "~1 hour" },
+      { label: "From", value: "SAR 249" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Pullman Zamzam Makkah from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. It's one of the closest hotels to Masjid al-Haram." },
+      { question: "How much is a taxi from Jeddah airport to Pullman Zamzam Makkah?", answer: "The fare is fixed from SAR 249 for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Let us know in advance and the driver will stop at the Miqat so you can enter Ihram before continuing to the hotel." },
+      { question: "Will the driver help with luggage at the hotel?", answer: "Yes, our drivers assist with luggage from the vehicle to the hotel entrance, especially useful for families and larger groups." },
+    ],
+  },
+  "jeddah-airport-to-conrad-makkah": {
+    tldr: "A taxi from Jeddah Airport (JED) to Conrad Makkah is about 80 km and takes roughly 1 hour. The fare is fixed from SAR 249, available 24/7, with drop-off near King Abdulaziz Gate, a short walk from Masjid al-Haram.",
+    tldrFacts: [
+      { label: "Distance", value: "~80 km" },
+      { label: "Time", value: "~1 hour" },
+      { label: "From", value: "SAR 249" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Conrad Makkah from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. The hotel is a short walk from Masjid al-Haram via King Abdulaziz Gate." },
+      { question: "How much is a taxi from Jeddah airport to Conrad Makkah?", answer: "The fare is fixed from SAR 249 for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Let us know in advance and the driver will stop at the Miqat so you can enter Ihram before continuing to the hotel." },
+      { question: "Is this transfer available 24/7?", answer: "Yes, we operate around the clock with flight tracking, so your driver is waiting even for late-night or delayed arrivals." },
+    ],
+  },
+  "jeddah-airport-to-hilton-suites-makkah": {
+    tldr: "A taxi from Jeddah Airport (JED) to Hilton Suites Makkah is about 80 km and takes roughly 1 hour. The fare is fixed from SAR 249, available 24/7, with drop-off at the hotel in the Jabal Omar development, adjacent to the Haram.",
+    tldrFacts: [
+      { label: "Distance", value: "~80 km" },
+      { label: "Time", value: "~1 hour" },
+      { label: "From", value: "SAR 249" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Hilton Suites Makkah from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. The hotel is in the Jabal Omar development, adjacent to Masjid al-Haram." },
+      { question: "How much is a taxi from Jeddah airport to Hilton Suites Makkah?", answer: "The fare is fixed from SAR 249 for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Let us know in advance and the driver will stop at the Miqat so you can enter Ihram before continuing to the hotel." },
+      { question: "Is the vehicle suitable for families with luggage?", answer: "Yes, SUVs and vans are available with ample luggage space, ideal for families travelling to Hilton Suites Makkah." },
+    ],
+  },
+  "jeddah-airport-to-movenpick-makkah": {
+    tldr: "A taxi from Jeddah Airport (JED) to Movenpick Hajar Tower Makkah is about 80 km and takes roughly 1 hour. The fare is fixed from SAR 249, available 24/7, with drop-off at the hotel overlooking Masjid al-Haram.",
+    tldrFacts: [
+      { label: "Distance", value: "~80 km" },
+      { label: "Time", value: "~1 hour" },
+      { label: "From", value: "SAR 249" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Movenpick Hajar Tower Makkah from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. The hotel overlooks Masjid al-Haram." },
+      { question: "How much is a taxi from Jeddah airport to Movenpick Makkah?", answer: "The fare is fixed from SAR 249 for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Let us know in advance and the driver will stop at the Miqat so you can enter Ihram before continuing to the hotel." },
+      { question: "Is the taxi available for early-morning or late-night flights?", answer: "Yes, we operate 24/7 with flight tracking, so your driver is waiting with a name sign regardless of arrival time." },
+    ],
+  },
   "jeddah-to-makkah": {
     tldr: "A taxi from Jeddah city to Makkah is about 85 km and takes around 1 hour 10 minutes. The fare is fixed from SAR 199, available 24/7, with door-to-door pickup from any Jeddah hotel or address.",
     tldrFacts: [
@@ -852,14 +942,33 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
   },
 };
 
+// Explicit inbound links from the highest-traffic Makkah route page — the
+// generic RouteRelatedLinks same-city matching doesn't reliably surface these
+// (crowded out by other jeddah-airport-* routes), so without this block these
+// 6 pages would have no real inbound internal link and risk staying orphaned.
+const MAKKAH_HOTEL_ROUTES: { slug: string; hotel: string }[] = [
+  { slug: "jeddah-airport-to-fairmont-makkah", hotel: "Fairmont Makkah Clock Royal Tower" },
+  { slug: "jeddah-airport-to-swissotel-makkah", hotel: "Swissotel Al Maqam Makkah" },
+  { slug: "jeddah-airport-to-pullman-zamzam-makkah", hotel: "Pullman Zamzam Makkah" },
+  { slug: "jeddah-airport-to-conrad-makkah", hotel: "Conrad Makkah" },
+  { slug: "jeddah-airport-to-hilton-suites-makkah", hotel: "Hilton Suites Makkah" },
+  { slug: "jeddah-airport-to-movenpick-makkah", hotel: "Movenpick Hajar Tower Makkah" },
+];
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const route = await db.route.findUnique({ where: { slug } });
 
   if (!route) return { title: "Route Not Found" };
 
+  // Hotel-specific destinations (e.g. "Fairmont Makkah Clock Royal Tower")
+  // push the full title well past the ~600px truncation point — drop the
+  // brand suffix when the route name itself is already long.
+  const routeLabel = `Taxi ${route.fromCity} to ${route.toCity} — From SAR ${route.basePrice}`;
+  const title = routeLabel.length > 55 ? routeLabel : `${routeLabel} | Taxi Saudi Arabia`;
+
   return {
-    title: `Taxi ${route.fromCity} to ${route.toCity} — From SAR ${route.basePrice} | Taxi Saudi Arabia`,
+    title,
     description: `Book a fixed-price taxi from ${route.fromCity} to ${route.toCity} — ${route.distance} km, approx ${Math.round(route.duration / 60)}h. From SAR ${route.basePrice}, available 24/7 with licensed drivers. No surge, no hidden fees.`,
     alternates: {
       canonical: `https://taxisaudiarabia.com/routes/${slug}`,
@@ -1099,6 +1208,34 @@ export default async function RouteDetailsPage({ params }: PageProps) {
               ))}
             </div>
           </section>
+
+          {slug === "jeddah-airport-to-makkah" && (
+            <section className="mt-16 border-t border-[#C9A84C]/10 pt-10">
+              <h2 className="font-heading text-2xl font-bold mb-6">
+                Book by Hotel Near Masjid al-Haram
+              </h2>
+              <p className="text-xs text-[#6B7280] mb-6">
+                Already have a hotel booked? Same fixed price, direct drop-off at your hotel entrance.
+              </p>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {MAKKAH_HOTEL_ROUTES.map((h) => (
+                  <Link
+                    key={h.slug}
+                    href={`/routes/${h.slug}`}
+                    className="group flex items-center justify-between rounded-2xl border border-[#16A34A]/12 bg-white px-5 py-4 hover:border-[#16A34A]/35 transition-all"
+                  >
+                    <span className="text-sm font-semibold">
+                      Taxi to {h.hotel}
+                      <span className="block text-[0.65rem] text-[#6B7280] font-normal mt-0.5">
+                        80 km · from SAR 249
+                      </span>
+                    </span>
+                    <ArrowRight className="h-4 w-4 text-[#C9A84C] shrink-0 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
 
           <RouteRelatedLinks slug={slug} fromCity={route.fromCity} toCity={route.toCity} />
 
