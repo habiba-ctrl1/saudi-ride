@@ -957,7 +957,16 @@ const MAKKAH_HOTEL_ROUTES: { slug: string; hotel: string }[] = [
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const route = await db.route.findUnique({ where: { slug } });
+  // A transient DB hiccup here must not fail metadata for this one page,
+  // let alone abort the static build for every page on the site (this is
+  // the same class of bug fixed in airports/[slug] and locations/[city] —
+  // it just hadn't hit routes/[slug] yet).
+  let route: Awaited<ReturnType<typeof db.route.findUnique>> = null;
+  try {
+    route = await db.route.findUnique({ where: { slug } });
+  } catch (error) {
+    console.error(`❌ Route metadata fetch failed for ${slug}.`, error);
+  }
 
   if (!route) return { title: "Route Not Found" };
 
@@ -983,7 +992,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function RouteDetailsPage({ params }: PageProps) {
   const { slug } = await params;
-  const route = await db.route.findUnique({ where: { slug } });
+  let route: Awaited<ReturnType<typeof db.route.findUnique>> = null;
+  try {
+    route = await db.route.findUnique({ where: { slug } });
+  } catch (error) {
+    console.error(`❌ Route page fetch failed for ${slug}. Building as 404 instead of failing the whole site build — next revalidate will retry.`, error);
+  }
 
   if (!route) {
     notFound();

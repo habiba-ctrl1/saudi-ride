@@ -6,6 +6,7 @@ import { ShieldCheck, HelpCircle, ArrowRight, Percent, RefreshCw } from "lucide-
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { trackEvent } from "@/lib/analytics";
+import { ROUTES_DATA } from "@/lib/data/routes";
 
 const translations = {
   en: {
@@ -49,7 +50,7 @@ const translations = {
     // Pricing FAQs
     faqTitle: "Pricing Policies & FAQs",
     faqs: [
-      { q: "Do you charge extra for airport parking or waiting time?", a: "No. All airport transfers include up to 90 minutes of complimentary waiting time and include all airport terminal parking fees." },
+      { q: "Do you charge extra for airport parking or waiting time?", a: "No. All airport transfers include up to 60 minutes of complimentary waiting time and include all airport terminal parking fees." },
       { q: "How are multi-city or multi-day journeys priced?", a: "Multi-day travel packages are custom-quoted by our VIP desk. Standard long distance intercity transfers follow our flat rates." },
       { q: "Are tips required for drivers?", a: "Tips are completely optional. Our drivers are fairly paid — you are never expected to tip, but it is always appreciated if you choose to." }
     ]
@@ -95,7 +96,7 @@ const translations = {
     // Pricing FAQs
     faqTitle: "الأسئلة الشائعة حول الأسعار والتعرفة",
     faqs: [
-      { q: "هل هناك رسوم إضافية على مواقف المطارات أو الانتظار؟", a: "لا. تشمل جميع حجوزات المطارات وقت انتظار مجاني يصل إلى 90 دقيقة وتغطي كافة رسوم مواقف سيارات الصالة." },
+      { q: "هل هناك رسوم إضافية على مواقف المطارات أو الانتظار؟", a: "لا. تشمل جميع حجوزات المطارات وقت انتظار مجاني يصل إلى 60 دقيقة وتغطي كافة رسوم مواقف سيارات الصالة." },
       { q: "كيف يتم حساب أسعار الرحلات لعدة أيام؟", a: "يتم تسعير الرحلات متعددة الأيام بشكل خاص عبر مكتب كونسيرج الخدمة لتوفير أفضل تعرفة اقتصادية فاخرة." }
     ]
   },
@@ -140,7 +141,7 @@ const translations = {
     // Pricing FAQs
     faqTitle: "ریٹس کے متعلق اکثر پوچھے گئے سوالات",
     faqs: [
-      { q: "کیا ایئرپورٹ پارکنگ یا انتظار کا اضافی چارج ہے؟", a: "جی نہیں، ایئرپورٹ بکنگ میں 90 منٹ تک مفت انتظار اور پارکنگ فیس مکمل شامل ہے۔" }
+      { q: "کیا ایئرپورٹ پارکنگ یا انتظار کا اضافی چارج ہے؟", a: "جی نہیں، ایئرپورٹ بکنگ میں 60 منٹ تک مفت انتظار اور پارکنگ فیس مکمل شامل ہے۔" }
     ]
   }
 };
@@ -194,7 +195,7 @@ export default function PricingPage() {
     if (c1 === c2) return 25; // City local driving mock
     const coords1 = cityCoords[c1];
     const coords2 = cityCoords[c2];
-    
+
     // Haversine formula calculation
     const R = 6371; // km
     const dLat = ((coords2.lat - coords1.lat) * Math.PI) / 180;
@@ -209,10 +210,30 @@ export default function PricingPage() {
     return Math.round(R * c);
   };
 
-  const distance = getDistance(fromCity, toCity);
-  const duration = Math.round(distance / 90 * 60); // approx minutes based on 90km/h average
+  // Where an actual fixed-price corridor exists on /routes, use its real
+  // basePrice/distance/duration instead of the haversine estimate below —
+  // otherwise this calculator can quote a different price than the route
+  // page itself for the exact same trip (e.g. was estimating ~SAR 333 for
+  // Jeddah->Makkah sedan while /routes/jeddah-to-makkah says SAR 199 fixed).
+  // Airport- and hotel-specific route variants are excluded on purpose：this
+  // calculator only offers plain city selections.
+  const fixedRoute = fromCity === toCity ? null : ROUTES_DATA.find((r) => {
+    const f = r.fromCity.toLowerCase();
+    const to_ = r.toCity.toLowerCase();
+    if (f.includes("airport") || to_.includes("airport")) return false;
+    return (f === fromCity && to_ === toCity) || (f === toCity && to_ === fromCity);
+  }) ?? null;
+
+  const distance = fixedRoute ? fixedRoute.distance : getDistance(fromCity, toCity);
+  const duration = fixedRoute ? fixedRoute.duration : Math.round(distance / 90 * 60); // approx minutes based on 90km/h average when no fixed route
+
+  const VEHICLE_MULTIPLIER: Record<string, number> = { sedan: 1, suv: 1.5, van: 1.35, luxury: 2.5 };
 
   const getPrice = () => {
+    if (fixedRoute) {
+      return Math.round(fixedRoute.basePrice * (VEHICLE_MULTIPLIER[vehicleClass] ?? 1));
+    }
+
     let perKm = 2.5;
     let base = 150;
     if (vehicleClass === "suv") { perKm = 3.5; base = 250; }
