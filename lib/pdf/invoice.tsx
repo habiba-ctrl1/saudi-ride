@@ -100,10 +100,12 @@ const TERMS: Array<{ en: string; ar: string }> = [
 
 export function InvoiceDocument({ q }: { q: QuotationRow }) {
   const total = q.quoted_price ?? 0;
-  const deposit = Math.round(total * 0.3 * 100) / 100;
-  const balance = Math.round((total - deposit) * 100) / 100;
   const issuedAt = new Date(q.updated_at ?? q.created_at);
-  const validUntil = new Date(issuedAt.getTime() + 7 * 24 * 60 * 60 * 1000);
+  const sevenDaysOut = new Date(issuedAt.getTime() + 7 * 24 * 60 * 60 * 1000);
+  const tripDate = new Date(`${q.trip_date}T00:00:00`);
+  // Never quote validity past the trip itself — a 7-day window issued close to
+  // the trip date would otherwise expire after the ride already happened.
+  const validUntil = tripDate < sevenDaysOut ? tripDate : sevenDaysOut;
   const fmtDate = (d: Date) => d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
 
   return (
@@ -150,30 +152,20 @@ export function InvoiceDocument({ q }: { q: QuotationRow }) {
         <View style={styles.section}>
           <SectionTitle en="Payment" ar="الدفع" />
           <View style={styles.table}>
-            <View style={styles.tableRow}>
+            <View style={[styles.tableRow, styles.tableRowLast]}>
               <Text style={styles.tableLabelEn}>Trip fare (all-inclusive)</Text>
               <Text style={styles.tableLabelAr}>إجمالي أجرة الرحلة (شامل)</Text>
               <Text style={styles.tableValue}>{fmt(total, q.currency)}</Text>
             </View>
-            <View style={styles.tableRow}>
-              <Text style={styles.tableLabelEn}>Deposit due now (30%)</Text>
-              <Text style={styles.tableLabelAr}>الدفعة المقدمة الآن (30%)</Text>
-              <Text style={styles.tableValue}>{fmt(deposit, q.currency)}</Text>
-            </View>
-            <View style={[styles.tableRow, styles.tableRowLast]}>
-              <Text style={styles.tableLabelEn}>Balance due on trip day (70%)</Text>
-              <Text style={styles.tableLabelAr}>المتبقي يوم الرحلة (70%)</Text>
-              <Text style={styles.tableValue}>{fmt(balance, q.currency)}</Text>
-            </View>
           </View>
           <View style={styles.totalRow}>
             <View>
-              <Text style={styles.totalLabelEn}>Total</Text>
-              <Text style={styles.totalLabelAr}>الإجمالي</Text>
+              <Text style={styles.totalLabelEn}>Total — Cash</Text>
+              <Text style={styles.totalLabelAr}>الإجمالي - نقداً</Text>
             </View>
             <Text style={styles.totalValue}>{fmt(total, q.currency)}</Text>
           </View>
-          <Text style={styles.note}>Deposit confirms and locks your booking. Balance is payable to the driver on the day of travel.</Text>
+          <Text style={styles.note}>Payable in cash to the driver. / يُدفع نقداً للسائق.</Text>
         </View>
 
         <View style={styles.section}>
