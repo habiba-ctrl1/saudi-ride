@@ -75,28 +75,30 @@ function SectionTitle({ en, ar }: { en: string; ar: string }) {
   );
 }
 
-const TERMS: Array<{ en: string; ar: string }> = [
-  {
-    en: "This price includes the driver, fuel, and airport parking fees for the pickup terminal/location specified above.",
-    ar: "يشمل هذا السعر السائق والوقود ورسوم مواقف المطار الخاصة بنقطة الانطلاق أو الصالة المحددة أعلاه.",
-  },
-  {
-    en: "Any changes made after confirmation (pickup point, terminal, date, time, route, or vehicle) may result in additional charges, which will be calculated and communicated separately.",
-    ar: "أي تغييرات تُطلب بعد تأكيد الحجز (نقطة الانطلاق، الصالة، التاريخ، الوقت، المسار، أو نوع المركبة) قد تترتب عليها رسوم إضافية تُحتسب وتُبلَّغ بشكل منفصل.",
-  },
-  {
-    en: "This quotation is valid for 7 days from the issue date above.",
-    ar: "هذا العرض صالح لمدة 7 أيام من تاريخ الإصدار أعلاه.",
-  },
-  {
-    en: "Price does not cover extra stops, waiting time beyond 30 minutes, or additional passengers/luggage not listed above.",
-    ar: "لا يشمل السعر التوقفات الإضافية، أو وقت الانتظار الذي يتجاوز 30 دقيقة، أو ركاباً/أمتعة إضافية غير مذكورة أعلاه.",
-  },
-  {
-    en: "Cancellations should be made at least 24 hours before the scheduled trip.",
-    ar: "يُرجى إلغاء الحجز قبل 24 ساعة على الأقل من موعد الرحلة المحدد.",
-  },
-];
+function buildTerms(validUntilStr: string): Array<{ en: string; ar: string }> {
+  return [
+    {
+      en: "This price includes the driver, fuel, and airport parking fees for the pickup terminal/location specified above.",
+      ar: "يشمل هذا السعر السائق والوقود ورسوم مواقف المطار الخاصة بنقطة الانطلاق أو الصالة المحددة أعلاه.",
+    },
+    {
+      en: "Any changes made after confirmation (pickup point, terminal, date, time, route, or vehicle) may result in additional charges, which will be calculated and communicated separately.",
+      ar: "أي تغييرات تُطلب بعد تأكيد الحجز (نقطة الانطلاق، الصالة، التاريخ، الوقت، المسار، أو نوع المركبة) قد تترتب عليها رسوم إضافية تُحتسب وتُبلَّغ بشكل منفصل.",
+    },
+    {
+      en: `This quotation is valid until ${validUntilStr}.`,
+      ar: `هذا العرض صالح حتى ${validUntilStr}.`,
+    },
+    {
+      en: "Price does not cover extra stops, waiting time beyond 30 minutes, or additional passengers/luggage not listed above.",
+      ar: "لا يشمل السعر التوقفات الإضافية، أو وقت الانتظار الذي يتجاوز 30 دقيقة، أو ركاباً/أمتعة إضافية غير مذكورة أعلاه.",
+    },
+    {
+      en: "Cancellations should be made at least 24 hours before the scheduled trip.",
+      ar: "يُرجى إلغاء الحجز قبل 24 ساعة على الأقل من موعد الرحلة المحدد.",
+    },
+  ];
+}
 
 export function InvoiceDocument({ q }: { q: QuotationRow }) {
   const total = q.quoted_price ?? 0;
@@ -107,6 +109,7 @@ export function InvoiceDocument({ q }: { q: QuotationRow }) {
   // the trip date would otherwise expire after the ride already happened.
   const validUntil = tripDate < sevenDaysOut ? tripDate : sevenDaysOut;
   const fmtDate = (d: Date) => d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+  const terms = buildTerms(fmtDate(validUntil));
 
   return (
     <Document title={`Quotation ${q.quote_reference}`}>
@@ -171,12 +174,12 @@ export function InvoiceDocument({ q }: { q: QuotationRow }) {
         <View style={styles.section}>
           <SectionTitle en="Terms & Conditions" ar="الشروط والأحكام" />
           <View style={styles.termsBlock}>
-            {TERMS.map((t, i) => (
+            {terms.map((t, i) => (
               <Text key={`en-${i}`} style={styles.termLineEn}>{i + 1}. {t.en}</Text>
             ))}
           </View>
           <View style={styles.termsBlock}>
-            {TERMS.map((t, i) => (
+            {terms.map((t, i) => (
               <Text key={`ar-${i}`} style={styles.termLineAr}>{t.ar} .{i + 1}</Text>
             ))}
           </View>
