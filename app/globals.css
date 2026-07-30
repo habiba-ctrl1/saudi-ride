@@ -198,6 +198,24 @@
   color: #9CA3AF !important;
 }
 
+.text-\[\#666\]:not(.premium-dark-section *):not(.premium-dark-section) {
+  color: var(--muted-foreground) !important;
+}
+
+/* Dashboard (admin/customer) dark-panel hex classes — force to the light,
+   white/green/gold app theme instead of a dark backend UI. */
+.bg-\[\#111\]:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-\[\#1A1A1A\]:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-\[\#1a1a1a\]:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-\[\#0D1B2A\]:not(.premium-dark-section *):not(.premium-dark-section) {
+  background-color: var(--card) !important;
+}
+
+.border-\[\#333\]:not(.premium-dark-section *):not(.premium-dark-section),
+.border-\[\#222\]:not(.premium-dark-section *):not(.premium-dark-section) {
+  border-color: var(--border) !important;
+}
+
 /* Gold / Primary */
 .text-\[\#C9A84C\]:not(.premium-dark-section *):not(.premium-dark-section),
 .text-yellow-500:not(.premium-dark-section *):not(.premium-dark-section) {
