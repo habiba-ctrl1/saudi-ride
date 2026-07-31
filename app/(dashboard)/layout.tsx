@@ -1,8 +1,6 @@
 import Link from "next/link";
 import {
   LayoutDashboard,
-  CalendarDays,
-  Users,
   Car,
   BarChart3,
   LogOut,
@@ -17,9 +15,7 @@ import { redirect } from "next/navigation";
 const NAV_ITEMS = [
   { name: "Overview",   href: "/admin",           icon: LayoutDashboard },
   { name: "Quotations", href: "/admin/quotations", icon: FileText },
-  { name: "Driver Apps",href: "/admin/driver-applications", icon: UserCheck },
-  { name: "Bookings",   href: "/admin/bookings",  icon: CalendarDays },
-  { name: "Drivers",    href: "/admin/drivers",   icon: Users },
+  { name: "Drivers",    href: "/admin/driver-applications", icon: UserCheck },
   { name: "Fleet",      href: "/admin/vehicles",  icon: Car },
   { name: "Promo Codes",href: "/admin/promo-codes",icon: Tag },
   { name: "Analytics",  href: "/admin/analytics", icon: BarChart3 },

@@ -47,7 +47,7 @@ export function websiteSchema() {
     "@id": `${SITE.url}/#website`,
     name: SITE.name,
     url: SITE.url,
-    inLanguage: ["en", "ar", "ur"],
+    inLanguage: ["en", "ar"],
     publisher: { "@id": SITE.businessId },
     potentialAction: {
       "@type": "SearchAction",

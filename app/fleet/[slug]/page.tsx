@@ -23,8 +23,11 @@ export async function generateMetadata({
   const vehicle = FLEET_VEHICLES.find((v) => v.slug === slug);
   if (!vehicle) return { title: "Vehicle Not Found" };
 
-  const title = `${vehicle.name} Taxi Saudi Arabia | ${vehicle.subtitle} Transfer`;
-  const description = `${vehicle.name} in Saudi Arabia from SAR ${vehicle.startingPrice}. ${vehicle.description}`;
+  // Keep title under ~580px (Google truncation point). Long vehicle names
+  // (e.g. "GMC Yukon XL / Denali") get a shorter brand suffix.
+  const baseName = `${vehicle.name} — ${vehicle.subtitle} Hire`;
+  const title = baseName.length > 45 ? `${baseName} | TaxiKSA` : `${baseName} | Taxi Saudi Arabia`;
+  const description = `Hire a ${vehicle.name} in Saudi Arabia from SAR ${vehicle.startingPrice}. ${vehicle.description} Book on WhatsApp — fixed prices, licensed drivers.`.slice(0, 160);
 
   return {
     title,

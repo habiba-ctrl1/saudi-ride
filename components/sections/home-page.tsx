@@ -541,11 +541,27 @@ const topRoutesList = [
 const vehicleList = [
   {
     id: "mercedes-s",
-    name: "Mercedes-Benz S-Class",
+    name: "Mercedes-Benz S-Class VIP",
     type: "Ultra Luxury Sedan",
     capacity: "3 Passengers",
     luggage: "3 Suitcases",
-    image: "/fleet/mercedes-s-class.webp"
+    image: "/fleet/real/mercedes-s-class-exterior-night.webp"
+  },
+  {
+    id: "mercedes-v",
+    name: "Mercedes-Benz V-Class VIP",
+    type: "Maybach Trim VIP MPV",
+    capacity: "6 Passengers",
+    luggage: "6 Suitcases",
+    image: "/fleet/real/mercedes-v-class-fleet-lineup.webp"
+  },
+  {
+    id: "sprinter-vip",
+    name: "Mercedes-Benz Sprinter Royal VIP",
+    type: "Custom Lounge Luxury Van",
+    capacity: "9 Passengers",
+    luggage: "8 Suitcases",
+    image: "/fleet/real/mercedes-sprinter-vip-exterior.webp"
   },
   {
     id: "escalade",
@@ -554,22 +570,6 @@ const vehicleList = [
     capacity: "6 Passengers",
     luggage: "5 Suitcases",
     image: "/fleet/cadillac-escalade.webp"
-  },
-  {
-    id: "mercedes-v",
-    name: "Mercedes-Benz V-Class",
-    type: "Executive MPV",
-    capacity: "7 Passengers",
-    luggage: "7 Suitcases",
-    image: "/fleet/mercedes-vito.webp"
-  },
-  {
-    id: "bmw-7",
-    name: "BMW 7 Series",
-    type: "Executive Sedan",
-    capacity: "3 Passengers",
-    luggage: "3 Suitcases",
-    image: "/fleet/bmw-7-series.webp"
   },
   {
     id: "yukon",
@@ -610,11 +610,11 @@ const internationalNations = [
 
 const customerReviews = [
   { name: "Dr. Farhan Malik", countryFlag: "🇬🇧", stars: 5, text: "Excellent taxi service from Jeddah to Makkah. The driver was waiting in the arrivals hall with a name sign. Smooth, comfortable ride with no issues at all.", vehicle: "GMC Yukon Denali" },
-  { name: "Amna Al-Faisal", countryFlag: "🇸🇦", stars: 5, text: "سيارات فاخرة للغاية وخدمة متميزة. سائق محترف ولديه دراية ممتازة بمواقع مكة والمدينة. أفضل خدمة نقل في المملكة.", vehicle: "Toyota Camry Executive" },
-  { name: "Muhammad Siddique", countryFlag: "🇵🇰", stars: 5, text: "Wonderful Umrah transfer booking. The driver was prayer-time aware and stopped for us at Meeqat with complete respect and patience. Highly recommended.", vehicle: "Hyundai Staria Premium" },
-  { name: "Hassan Qabbani", countryFlag: "🇦🇪", stars: 5, text: "Highly recommend Taxi Saudi Arabia for anyone in Saudi Arabia. Clean car, Wi-Fi included, fixed price — zero hidden charges or surge fees.", vehicle: "GMC Yukon Denali" },
+  { name: "Amna Al-Faisal", countryFlag: "🇸🇦", stars: 5, text: "سيارات فاخرة للغاية وخدمة متميزة. سائق محترف ولديه دراية ممتازة بمواقع مكة والمدينة. أفضل خدمة نقل في المملكة.", vehicle: "Mercedes S-Class VIP" },
+  { name: "Muhammad Siddique", countryFlag: "🇵🇰", stars: 5, text: "Wonderful Umrah transfer booking. The driver was prayer-time aware and stopped for us at Meeqat with complete respect and patience. Highly recommended.", vehicle: "Mercedes V-Class VIP" },
+  { name: "Hassan Qabbani", countryFlag: "🇦🇪", stars: 5, text: "Highly recommend Taxi Saudi Arabia for anyone in Saudi Arabia. Clean car, Wi-Fi included, fixed price — zero hidden charges or surge fees.", vehicle: "Mercedes S-Class VIP" },
   { name: "Evelyn Sterling", countryFlag: "🇺🇸", stars: 5, text: "Amazing airport taxi service. My flight was delayed 2 hours but the driver tracked it and was right there when I landed. Very professional and reliable.", vehicle: "GMC Yukon Denali" },
-  { name: "Ahmad Bin-Hamid", countryFlag: "🇶🇦", stars: 5, text: "سفر مريح جداً بين الرياض والدمام. سيارة نظيفة وواسعة وخدمة إنترنت ممتازة طوال الطريق. سأحجز مجدداً بالتأكيد.", vehicle: "Toyota Camry Executive" }
+  { name: "Ahmad Bin-Hamid", countryFlag: "🇶🇦", stars: 5, text: "سفر مريح جداً بين الرياض والدمام. سيارة نظيفة وواسعة وخدمة إنترنت ممتازة طوال الطريق. سأحجز مجدداً بالتأكيد.", vehicle: "Mercedes S-Class VIP" }
 ];
 
 // Homepage blog cards -> real guide detail pages (pehle /guides?id= duplicate URLs ban rahe the)
@@ -626,7 +626,7 @@ const GUIDE_SLUG_LINKS: Record<string, string> = {
 
 const blogList = [
   { id: "jeddah-sim-guide", categoryEn: "Airport Help", categoryAr: "مساعدة المطار", categoryUr: "ہوائی اڈے کی مدد", titleEn: "SIM Card buying guide at Jeddah Airport", titleAr: "دليل شراء بطاقات الاتصال SIM في مطار جدة", titleUr: "جدہ ایئرپورٹ پر سم کارڈ خریدنے کا گائیڈ", excerptEn: "Exactly where to purchase local 5G eSIMs/SIMs from stc, Mobily, or Zain upon landing at Terminal 1 or North Terminal.", excerptAr: "أين تشتري شرائح الاتصال المحلية eSIM/SIM من شركات stc، وموبايلي، وزين فور وصولك لصالة المطار.", excerptUr: "ٹرمینل 1 پر لینڈنگ کے بعد stc، Mobily، یا Zain سے مقامی 5G eSIMs/SIMs خریدنے کی درست جگہوں کی معلومات۔", author: "Taxi Saudi Arabia Editorial", date: "May 12, 2026", timeEn: "5 min read", timeAr: "قراءة ٥ دقائق", timeUr: "5 منٹ مطالعہ" },
-  { id: "meeqat-guide", categoryEn: "Umrah", categoryAr: "العمرة والزيارة", categoryUr: "عمرہ اور زیارت", titleEn: "Complete Meeqat locations guide for Umrah", titleAr: "دليل مواقيت الإحرام الكامل للمعتمرين", titleUr: "عمرہ کے لیے میقات کے مقامات کی مکمل گائیڈ", excerptEn: "Step-by-step guidance on Meeqat points (including Dhul Hulaifah & Yalamlam) for international pilgrims arriving by air or road.", excerptAr: "شرح تفصيلي خطوة بخطوة لمواقيت الإحرام (بما في ذلك ذو الحليفة ويلملم) للحجاج والمعتمرين القادمين جواً أو براً.", excerptUr: "فضائی یا زمینی راستے سے آنے والے بین الاقوامی زائرین کے لیے میقات کے مقامات پر تفصیلی رہنمائی۔", author: "Taxi Saudi Arabia Editorial", date: "May 08, 2026", timeEn: "7 min read", timeAr: "قراءة ٧ دقائق", timeUr: "7 منٹ مطالعہ" },
+  { id: "meeqat-guide", categoryEn: "Umrah", categoryAr: "العمرة والزيارة", categoryUr: "عمرہ اور زیارت", titleEn: "Complete Meeqat locations guide for Umrah", titleAr: "دليل مواقيت الإحرام الكامل للمعتمرين", titleUr: "عمرہ کے لیے میقات کے مقامات کی مکمل گائیڈ", excerptEn: "Step-by-step guidance on Meeqat points (including Dhul Hulaifah & Yalamlam) for international pilgrims arriving by air or road.", excerptAr: "شرح تفصيلي خطوة بخطوة لمواقيت الإحرام (بما في ذلك ذو الحليفة ويلملم) للحجاج والمعتمرين القادمين جواً أو براً.", excerptUr: "فضائی یا زمینی راستے سے آنے والے بین الاقوامی زائرین کے لیے میقات کے مقامات پر تفصیلی رہنمائي۔", author: "Taxi Saudi Arabia Editorial", date: "May 08, 2026", timeEn: "7 min read", timeAr: "قراءة ٧ دقائق", timeUr: "7 منٹ مطالعہ" },
   { id: "riyal-cash-guide", categoryEn: "Travel Finance", categoryAr: "المالية والسفر", categoryUr: "ٹریول فنانس", titleEn: "Saudi Riyal cash & card tips for pilgrims", titleAr: "نصائح الكاش والبطاقات للمعتمرين في السعودية", titleUr: "زائرین کے لیے سعودی ریال کیش اور کارڈ کی تجاویز", excerptEn: "Everything about card acceptance, local mada payment network, currency exchange outlets, and ATM fee limits in KSA.", excerptAr: "كل ما تحتاج لمعرفته حول قبول بطاقات الائتمان، شبكة مدى المحلية، منافذ الصرافة ورسوم السحب من أجهزة الصراف الآلي.", excerptUr: "کارڈز کی قبولیت، مقامی mada پیمنٹ نیٹ ورک، کرنسی ایکسچینج اور اے ٹی ایم فیس کی حدود کے بارے میں سب کچھ۔", author: "Taxi Saudi Arabia Editorial", date: "April 29, 2026", timeEn: "4 min read", timeAr: "قراءة ٤ دقائق", timeUr: "4 منٹ مطالعہ" }
 ];
 
@@ -637,11 +637,11 @@ const fadeUp = {
 
 // Hero car slideshow — image changes every 5 seconds
 const heroCars = [
+  { image: "/fleet/real/mercedes-s-class-exterior-night.webp", name: "Mercedes S-Class VIP", nameAr: "مرسيدس الفئة S الفاخرة" },
+  { image: "/fleet/real/mercedes-v-class-fleet-lineup.webp", name: "Mercedes V-Class VIP Lineup", nameAr: "أسطول مرسيدس V-Class" },
+  { image: "/fleet/real/mercedes-sprinter-vip-exterior.webp", name: "Mercedes Sprinter Royal VIP", nameAr: "مرسيدس سبprinter VIP" },
   { image: "/fleet/cadillac-escalade.webp", name: "Cadillac Escalade", nameAr: "كاديلاك إسكاليد" },
-  { image: "/fleet/mercedes-s-class.webp", name: "Mercedes S-Class", nameAr: "مرسيدس الفئة S" },
-  { image: "/fleet/gmc-yukon-xl.webp", name: "GMC Yukon XL", nameAr: "جي إم سي يوكن" },
-  { image: "/fleet/bmw-7-series.webp", name: "BMW 7 Series", nameAr: "بي إم دبليو الفئة 7" },
-  { image: "/fleet/hyundai-staria.webp", name: "Hyundai Staria", nameAr: "هيونداي ستاريا" },
+  { image: "/fleet/gmc-yukon-xl.webp", name: "GMC Yukon XL Denali", nameAr: "جي إم سي يوكن" },
 ];
 
 type VehicleItem = {

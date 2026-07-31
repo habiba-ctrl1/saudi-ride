@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useLanguage } from "@/lib/context/LanguageContext";
 import { motion } from "framer-motion";
@@ -16,9 +16,9 @@ const translations = {
     reqTitle: "Chauffeur Minimum Qualifications",
     reqSubtitle: "High standards to protect luxury travel",
     reqs: [
+      "Must OWN/OPERATE your own vehicle (2020 or newer: Camry, Yukon, Staria, Mercedes, etc. We do NOT supply cars).",
       "Must hold a valid, clean Saudi Arabia Driving License.",
       "Must have a completely clean background record (No active violations).",
-      "Vehicle year model must be 2020 or newer (spotless condition).",
       "Professional attire (traditional Saudi dress or dark formal suit).",
       "Basic multilingual capability (Arabic & English conversational skills)."
     ],
@@ -70,9 +70,9 @@ const translations = {
     reqTitle: "شروط ومتطلبات الانضمام",
     reqSubtitle: "معايير عالية لضمان خدمة VIP تليق بعملائنا",
     reqs: [
+      "امتلاك سيارة خاصة موديل 2020 أو أحدث (كامري، يوكون، استاريا، مرسيدس، الخ). نحن لا نوفر سيارات.",
       "حيازة رخصة قيادة سعودية سارية المفعول وسجل مروري خالٍ من المخالفات.",
       "سجل جنائي نظيف بالكامل وبدون قيود نشطة.",
-      "يجب أن تكون السيارة موديل 2020 أو أحدث وبحالة ممتازة وخالية من العيوب.",
       "الالتزام بالزي الرسمي المهندم (الزي السعودي الرسمي أو بدلة رسمية غامقة).",
       "معرفة أساسية بالتحدث باللغتين العربية والإنجليزية لسهولة التواصل.",
     ],

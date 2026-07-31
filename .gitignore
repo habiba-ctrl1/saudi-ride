@@ -27,3 +27,10 @@ pnpm-debug.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Raw source assets (large binaries — processed WebP versions live in public/fleet/real/)
+/drivers/
+/ahref reports/
+/SEO/
+/client-quotations/
+/OFFPAGE-ASSETS.md
