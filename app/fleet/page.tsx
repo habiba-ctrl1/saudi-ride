@@ -8,6 +8,7 @@ import Image from "next/image";
 import { contactConfig } from "@/lib/config/contact";
 import { FLEET_VEHICLES } from "@/lib/fleet-data";
 import { trustStats } from "@/lib/config/stats";
+import { TLDRSummary } from "@/components/seo/TLDRSummary";
 
 const CATEGORIES = [
   { key: "all", label: "All Cars" },
@@ -72,6 +73,17 @@ export default function FleetPage() {
               </div>
             ))}
           </motion.div>
+
+          <TLDRSummary
+            answer="Taxi Saudi Arabia operates a fleet of sedans (Camry), premium SUVs (Yukon XL), VIP minivans (Mercedes V-Class), luxury vans (Sprinter VIP), and buses (Coaster) with 24/7 licensed chauffeurs across all Saudi cities."
+            facts={[
+              { label: "Vehicles", value: "10+ Models" },
+              { label: "VIP Options", value: "S-Class, V-Class, Sprinter" },
+              { label: "Drivers", value: "Licensed 24/7" },
+              { label: "Fares", value: "Fixed upfront pricing" },
+            ]}
+            className="mt-8"
+          />
         </div>
       </section>
 
