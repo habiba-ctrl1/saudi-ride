@@ -135,7 +135,7 @@ export function RecoveryLeadForm({ city }: { city?: string }) {
         <button
           type="submit"
           disabled={status === "sending"}
-          className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all disabled:opacity-60"
+          className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-[#16A34A] px-6 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all disabled:opacity-60"
         >
           {status === "sending" ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
           Request Recovery
@@ -144,23 +144,29 @@ export function RecoveryLeadForm({ city }: { city?: string }) {
           href={whatsappHref}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#1EBE5B] transition-all"
+          className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#1EBE5B] transition-all shadow-md"
         >
-          <MessageCircle className="h-4 w-4" /> WhatsApp Direct
+          <MessageCircle className="h-4 w-4" /> Share Location on WhatsApp
+        </a>
+        <a
+          href={recoveryContact.phoneLink}
+          className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-red-600 px-6 py-3.5 text-xs font-bold uppercase text-white hover:bg-red-700 transition-all shadow-md"
+        >
+          <Phone className="h-4 w-4" /> Emergency Call 24/7
         </a>
       </div>
-      <div className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-6 pt-1">
+      <div className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-6 pt-1 text-center">
         <a
           href={recoveryContact.phoneLink}
           className="flex items-center justify-center gap-2 text-xs font-bold text-[#6B7280] hover:text-[#16A34A] transition-colors"
         >
-          <Phone className="h-3.5 w-3.5" /> Recovery hotline (24/7): {recoveryContact.phoneDisplay}
+          <Phone className="h-3.5 w-3.5 text-red-600" /> Recovery Hotline (24/7): {recoveryContact.phoneDisplay}
         </a>
         <a
           href={contactConfig.primaryPhoneLink}
-          className="flex items-center justify-center gap-2 text-xs font-bold text-[#6B7280] hover:text-[#16A34A] transition-colors"
+          className="flex items-center justify-center gap-2 text-xs text-[#6B7280] hover:text-[#16A34A] transition-colors"
         >
-          <Phone className="h-3.5 w-3.5" /> Booking office: {contactConfig.primaryPhoneDisplay}
+          Main Dispatch: {contactConfig.primaryPhoneDisplay}
         </a>
       </div>
     </form>

@@ -227,6 +227,131 @@ export const RECOVERY_CITIES: RecoveryCity[] = [
       },
     ],
   },
+  {
+    slug: "taif",
+    name: "Taif",
+    nameAr: "الطائف",
+    sathaAr: "سطحة الطائف",
+    tagline: "Mountain road recovery — Al-Hada & Shafa passes",
+    intro:
+      "The winding Al-Hada mountain road between Makkah and Taif is Saudi Arabia's most breakdown-prone highway. Overheated brakes, failed cooling systems, and fog-related accidents are daily events on the steep passes. Our Taif-based flatbeds cover the mountain routes, the Taif Ring Road, Shafa, and the eastern highway toward Riyadh — with extra units positioned at the hairpin descent during summer and Hajj.",
+    image: "/locations/makkah-hero.webp",
+    startingPrice: 250,
+    areas: ["Downtown Taif", "Al-Hada", "Al-Shafa", "Al-Hawiyah", "Taif Ring Road", "Taif Industrial Area", "Al-Sail Al-Kabeer"],
+    highways: ["Makkah–Taif Mountain Road (Al-Hada)", "Taif–Riyadh Highway", "Taif–Al Baha Road", "Taif Ring Road"],
+    faqs: [
+      {
+        question: "My brakes overheated on the Al-Hada descent from Taif to Makkah. Can you recover me?",
+        answer:
+          "Yes — brake fade on the Al-Hada mountain road is extremely common. Share your live location and pull to the nearest runaway ramp if possible. We dispatch a flatbed from the nearest staging point and tow you to a Taif or Makkah workshop.",
+      },
+      {
+        question: "How much is a satha from Taif to Makkah?",
+        answer:
+          "A flatbed tow from Taif to Makkah (~85 km via the mountain road) typically costs SAR 400–600 depending on your exact location on the descent. WhatsApp us for a fixed quote.",
+      },
+    ],
+  },
+  {
+    slug: "al-khobar",
+    name: "Al Khobar",
+    nameAr: "الخبر",
+    sathaAr: "سطحة الخبر",
+    tagline: "Coastal recovery — Khobar, Corniche & Causeway approach",
+    intro:
+      "Al Khobar sits at the crossroads between Dammam, Dhahran, and the King Fahd Causeway to Bahrain. Our recovery units cover the entire Khobar waterfront, Al-Rashid Mall area, and the busy Causeway approach roads where weekend traffic jams and salt-air corrosion cause frequent breakdowns.",
+    image: "/locations/dammam-hero.webp",
+    startingPrice: 200,
+    areas: ["Al Khobar Corniche", "Al-Rashid Mall area", "Al-Thuqbah", "Half Moon Bay", "Causeway approach", "Dhahran–Khobar Road"],
+    highways: ["King Fahd Causeway Approach", "Dammam–Khobar Highway", "Dhahran–Jubail Highway", "Abu Hadriyah Highway"],
+    faqs: [
+      {
+        question: "Can you recover my car from the King Fahd Causeway?",
+        answer:
+          "We recover vehicles from the Saudi side of the causeway approach roads. Share your location on WhatsApp and we dispatch a flatbed. If you are on the Bahraini side, we can arrange collection at the Saudi customs checkpoint.",
+      },
+      {
+        question: "How fast can a satha reach Half Moon Bay?",
+        answer:
+          "Half Moon Bay is about 25 minutes from our nearest Khobar unit. On weekends we pre-position extra flatbeds in the area because beach-area breakdowns are very common.",
+      },
+    ],
+  },
+  {
+    slug: "tabuk",
+    name: "Tabuk",
+    nameAr: "تبوك",
+    sathaAr: "سطحة تبوك",
+    tagline: "Northern gateway — NEOM, AlUla & Red Sea recovery",
+    intro:
+      "Tabuk is the gateway to NEOM, AlUla, and the northern Red Sea coast. The long distances between cities in the northwest make breakdown recovery critical — our Tabuk flatbeds cover the city, the airport road, and the highways to NEOM, Haql, and the AlUla heritage corridor. Winter snow and ice on the Tabuk–Haql road create unique recovery challenges.",
+    image: "/locations/riyadh-hero.webp",
+    startingPrice: 300,
+    areas: ["Tabuk City Center", "Tabuk Airport", "Prince Fahd bin Sultan District", "Al-Faisaliyyah", "NEOM approach", "Sharma Beach"],
+    highways: ["Tabuk–NEOM Highway", "Tabuk–Madinah Highway", "Tabuk–Haql Road", "Tabuk–AlUla Road"],
+    faqs: [
+      {
+        question: "Can you tow my car from NEOM or Sharma Beach to Tabuk?",
+        answer:
+          "Yes — NEOM and the Sharma coast are about 150 km from Tabuk. Flatbed recovery on this route costs approximately SAR 800–1,200. Share your live location on WhatsApp for an exact fixed quote.",
+      },
+      {
+        question: "Is recovery available on the Tabuk–AlUla heritage road?",
+        answer:
+          "Yes, we cover the entire Tabuk–AlUla corridor. This remote highway has limited services, so we recommend notifying us early if your car shows warning signs on this route.",
+      },
+    ],
+  },
+  {
+    slug: "yanbu",
+    name: "Yanbu",
+    nameAr: "ينبع",
+    sathaAr: "سطحة ينبع",
+    tagline: "Industrial coast recovery — Yanbu City & petrochemical area",
+    intro:
+      "Yanbu's petrochemical industrial corridor and Red Sea coast create unique recovery needs. Our units cover Yanbu City, the Royal Commission industrial area, Yanbu Airport, and the coastal highway toward Jeddah and Madinah. Many expat workers in the industrial zone rely on us for quick weekday recovery.",
+    image: "/locations/jeddah-hero.webp",
+    startingPrice: 250,
+    areas: ["Yanbu City", "Yanbu Industrial City (Royal Commission)", "Yanbu Airport", "Yanbu Corniche", "Al-Suqoor"],
+    highways: ["Yanbu–Madinah Highway", "Yanbu–Jeddah Coastal Road", "Yanbu Industrial Highway"],
+    faqs: [
+      {
+        question: "Do you cover Yanbu Industrial City (Royal Commission area)?",
+        answer:
+          "Yes — we have units that are cleared for the Royal Commission industrial zone gates. Share your location, gate number, and company name for faster access coordination.",
+      },
+      {
+        question: "How much is a satha from Yanbu to Madinah?",
+        answer:
+          "Yanbu to Madinah is approximately 240 km. Flatbed transport on this route typically costs SAR 700–1,000. WhatsApp us for a fixed price.",
+      },
+    ],
+  },
+  {
+    slug: "jubail",
+    name: "Jubail",
+    nameAr: "الجبيل",
+    sathaAr: "سطحة الجبيل",
+    tagline: "Industrial hub recovery — Jubail city & Royal Commission",
+    intro:
+      "Jubail is Saudi Arabia's largest industrial city. The Royal Commission industrial area, petrochemical plants, and the long Dammam–Jubail highway generate steady demand for flatbed recovery. Our network covers Jubail City, the industrial gates, and the Abu Hadriyah highway corridor connecting to Dammam and Qatif.",
+    image: "/locations/dammam-hero.webp",
+    startingPrice: 250,
+    areas: ["Jubail City Center", "Jubail Industrial City (Royal Commission)", "Jubail Airport", "Al-Deffi", "Fanateer Beach"],
+    highways: ["Dammam–Jubail Highway", "Abu Hadriyah Highway (Route 95)", "Jubail–Ras Tanura Road"],
+    faqs: [
+      {
+        question: "Can you access the Jubail Royal Commission industrial area?",
+        answer:
+          "Yes — our flatbeds are registered for industrial area access. Share your gate number and company sponsor name for smoother entry. Recovery inside the industrial city is available 24/7.",
+      },
+      {
+        question: "My car broke down on the Dammam–Jubail highway. How fast can you reach me?",
+        answer:
+          "The Dammam–Jubail highway is one of our busiest recovery corridors. We typically reach you within 25–45 minutes depending on your position. Share your live location and the nearest highway sign for faster dispatch.",
+      },
+    ],
+  },
 ];
 
 export function getRecoveryCity(slug: string) {
