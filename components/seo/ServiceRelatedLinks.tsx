@@ -8,10 +8,14 @@ import { ArrowRight, Car, Route as RouteIcon, MapPin } from "lucide-react";
 const SERVICES: { href: string; label: string }[] = [
   { href: "/services/airport-transfers", label: "Airport transfer taxi service" },
   { href: "/services/intercity", label: "Intercity taxi between cities" },
+  { href: "/services/long-distance", label: "Long distance intercity transfers" },
+  { href: "/services/hotel-transfers", label: "Hotel-to-hotel & airport transfers" },
   { href: "/services/car-recovery", label: "Car recovery & tow truck (satha)" },
   { href: "/services/umrah-transport", label: "Umrah transport service" },
   { href: "/services/makkah-ziyarat", label: "Makkah Ziyarat tours by car" },
   { href: "/services/madinah-ziyarat", label: "Madinah Ziyarat tours by car" },
+  { href: "/services/taif-ziyarat", label: "Taif Ziyarat & mountain day trip" },
+  { href: "/services/badr-ziyarat", label: "Badr battlefield Ziyarat tour" },
   { href: "/services/corporate", label: "Corporate & business travel" },
   { href: "/services/vip-luxury", label: "VIP & luxury car service" },
   { href: "/services/border-crossings", label: "GCC border-crossing taxi" },
@@ -24,6 +28,8 @@ const ROUTES: { href: string; label: string }[] = [
   { href: "/routes/madinah-to-makkah", label: "Madinah to Makkah taxi" },
   { href: "/routes/riyadh-to-dammam", label: "Riyadh to Dammam taxi" },
   { href: "/routes/makkah-to-taif", label: "Makkah to Taif taxi" },
+  { href: "/routes/dammam-to-doha", label: "Dammam to Doha cross-border taxi" },
+  { href: "/routes/riyadh-to-neom", label: "Riyadh to NEOM taxi" },
 ];
 
 const CITIES: { href: string; label: string }[] = [
@@ -68,7 +74,7 @@ function LinkColumn({
 }
 
 export function ServiceRelatedLinks({ currentPath }: { currentPath?: string }) {
-  const services = SERVICES.filter((s) => s.href !== currentPath).slice(0, 6);
+  const services = SERVICES.filter((s) => s.href !== currentPath).slice(0, 8);
 
   return (
     <section className="section-container max-w-7xl py-20 border-t border-[#C9A84C]/10">

@@ -9,7 +9,7 @@ import { Map, ShieldCheck, Camera, MapPin } from "lucide-react";
 import Link from "next/link";
 
 const TITLE = "Saudi Heritage Tours & Transport | Taxi Saudi Arabia";
-const DESCRIPTION = "Private chauffeur tours to Saudi Arabia's top heritage sites including AlUla, Diriyah, and more. Experience the Kingdom's history in comfort.";
+const DESCRIPTION = "Private chauffeur tours to AlUla, Diriyah, Hegra & Saudi heritage sites. Fixed-price day trips with licensed drivers from Riyadh, Jeddah & Tabuk. Book on WhatsApp 24/7.";
 const OG_IMAGE = "https://taxisaudiarabia.com/services/heritage-tours-hero.webp";
 
 export const metadata: Metadata = {

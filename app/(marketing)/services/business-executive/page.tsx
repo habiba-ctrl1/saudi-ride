@@ -9,7 +9,7 @@ import { Briefcase, ShieldCheck, Clock, Wifi } from "lucide-react";
 import Link from "next/link";
 
 const TITLE = "Business & Executive Transport | Taxi Saudi Arabia";
-const DESCRIPTION = "Executive transport services for business travelers in Riyadh, Jeddah, and Dammam. Professional chauffeurs and comfortable sedans for your corporate meetings.";
+const DESCRIPTION = "Executive chauffeur service in Riyadh, Jeddah & Dammam — Mercedes S-Class & GMC Yukon for corporate meetings, KAFD & conferences. Fixed fares, ZATCA receipts, 24/7 dispatch.";
 const OG_IMAGE = "https://taxisaudiarabia.com/services/business-executive-hero.webp";
 
 export const metadata: Metadata = {

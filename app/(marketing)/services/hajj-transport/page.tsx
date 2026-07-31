@@ -9,7 +9,7 @@ import { Heart, Compass, ShieldCheck, Clock, Check } from "lucide-react";
 import Link from "next/link";
 
 const TITLE = "Hajj Transport Services | Jeddah, Makkah & Madinah Transfers";
-const DESCRIPTION = "Dedicated Hajj transport services in Saudi Arabia. Reliable transfers during the peak pilgrimage season between Jeddah, Makkah, and Madinah.";
+const DESCRIPTION = "Book reliable Hajj transport in Saudi Arabia — private transfers between Jeddah Airport, Makkah, Mina, Arafat & Madinah. Fixed fares, AC vehicles, 24/7 peak-season dispatch.";
 const OG_IMAGE = "https://taxisaudiarabia.com/services/hajj-transport-hero.webp";
 
 export const metadata: Metadata = {
