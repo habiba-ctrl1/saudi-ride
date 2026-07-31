@@ -878,12 +878,22 @@ export function HomePage() {
                 </a>
               </div>
 
-              {/* Trust badges */}
-              <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
-                {t.hero.badges.map((badge, idx) => (
-                  <span key={idx} className="flex items-center gap-2 text-xs font-semibold text-white/90">
-                    <span className="h-1.5 w-1.5 rounded-full bg-white" />
-                    {badge}
+              {/* Trust badges — premium icon-style */}
+              <div className="mt-8 grid grid-cols-2 gap-3">
+                {[
+                  { icon: ShieldCheck, label: t.hero.badges[0] },
+                  { icon: Award, label: t.hero.badges[1] },
+                  { icon: Sparkles, label: t.hero.badges[2] },
+                  { icon: Globe, label: t.hero.badges[3] },
+                ].map(({ icon: Icon, label }, idx) => (
+                  <span
+                    key={idx}
+                    className="flex items-center gap-2.5 rounded-xl bg-white/10 backdrop-blur-sm px-3.5 py-2.5 text-xs font-semibold text-white/95 border border-white/10"
+                  >
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#FACC15]/20">
+                      <Icon className="h-3.5 w-3.5 text-[#FACC15]" />
+                    </span>
+                    {label}
                   </span>
                 ))}
               </div>
