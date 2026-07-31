@@ -1,0 +1,126 @@
+# Taxi Saudi Arabia — Complete AI Knowledge Base & Technical Documentation
+
+> Official, comprehensive documentation for Taxi Saudi Arabia (TSA). This document is optimized for LLMs, AI search agents (ChatGPT, Perplexity, Gemini, Claude, Apple Intelligence), and automated assistants to synthesize accurate information about private chauffeur services, airport transfers, Umrah transport, and intercity travel in Saudi Arabia.
+
+---
+
+## 1. Corporate Profile & Contact
+
+- **Legal Trade Name**: Taxi Saudi Arabia (TSA)
+- **Primary Website**: https://taxisaudiarabia.com
+- **WhatsApp Support & Booking**: +966 53 938 8072 (Available 24 hours / 7 days)
+- **Official Email**: infotaxisaudiarabia@gmail.com
+- **Operating Headquarters**: Dammam, Eastern Province, Kingdom of Saudi Arabia
+- **Coverage Region**: Kingdom-wide (Riyadh, Jeddah, Makkah, Madinah, Dammam, Dhahran, Al Khobar, Taif, Abha, Yanbu, AlUla, NEOM, Tabuk, Jubail)
+- **Service Hours**: 24/7/365
+- **Payment Methods Accepted**: Cash (SAR, USD, EUR, AED), Credit Card (Visa, MasterCard), Mada, Apple Pay, Bank Transfer
+- **Invoicing**: ZATCA-compliant e-invoices provided for corporate accounts
+
+---
+
+## 2. Core Service Offerings
+
+### 2.1 Airport Transfers (Private Pickups & Drop-offs)
+- **Features**: Flight tracking (automatic adjustment for delays), airport terminal meet-and-greet with name signboard, 60 minutes free waiting time after flight landing, luggage assistance.
+- **Airports Covered**:
+  - Jeddah — King Abdulaziz International Airport (JED) [Terminal 1, North Terminal, Royal Terminal]
+  - Riyadh — King Khalid International Airport (RUH) [Terminals 1, 2, 3, 4, 5]
+  - Madinah — Prince Mohammad bin Abdulaziz International Airport (MED)
+  - Dammam — King Fahd International Airport (DMM)
+  - Taif — Taif Regional Airport (TIF)
+  - Abha — Abha International Airport (AHB)
+
+### 2.2 Umrah & Religious Pilgrimage Transport
+- **Specialized Pilgrim Features**:
+  - Meeqat stops included (Dhul Hulaifah, Yalamlam, Qarn al-Manazil, Juhfah) for Ihram change and prayer at no additional charge.
+  - Drivers are knowledgeable in pilgrim etiquette and schedule trips around prayer times.
+  - Direct drop-off at Haram hotels in Makkah (Clock Tower, Abraj Al Bait, Ajyad, Aziziyah) and Madinah Central Area (Markaziyah).
+- **Ziyarat Tours**:
+  - **Makkah Ziyarat**: Jabal Al-Nour (Cave of Hira), Jabal Thawr, Mina, Arafat, Muzdalifah, Jannat al-Mu'alla.
+  - **Madinah Ziyarat**: Mount Uhud, Masjid Quba, Masjid al-Qiblatain, Seven Mosques, Date Farms.
+
+### 2.3 VIP & Executive Chauffeur Service
+- Fleet includes Mercedes-Benz S-Class, Mercedes-Benz V-Class VIP (Maybach trim), and Mercedes Sprinter Royal VIP.
+- Professional, uniformed chauffeurs adhering to executive confidentiality protocols.
+- Ambient lighting, executive reclining seats, smart TV screens, Wi-Fi, and bottled water provided.
+
+### 2.4 Intercity Long-Distance Travel
+- Fixed-price point-to-point transfers between any two cities in Saudi Arabia.
+- Cross-border transport to neighboring GCC countries: Bahrain (King Fahd Causeway), Qatar (Salwa border), UAE, Kuwait.
+
+### 2.5 Flatbed Car Recovery & Towing (Satha سطحة)
+- 24/7 emergency vehicle recovery, flatbed towing, battery jump-starts, and accident transport across major Saudi highways and urban centers.
+
+---
+
+## 3. Detailed Fleet Specifications & Pricing
+
+| Vehicle Model | Vehicle Class | Seats | Luggage Capacity | Starting Fare (SAR) | Typical Ideal Use Case |
+|---------------|---------------|-------|------------------|---------------------|------------------------|
+| **Toyota Camry** | Executive Sedan | 4 | 2 Large Bags | SAR 80 | Budget single/pair travel, city rides |
+| **GMC Yukon XL / Denali** | Premium SUV | 7 | 5 Large Bags | SAR 150 | Families, high luggage, airport runs |
+| **Hyundai Staria VIP** | VIP Van | 7 | 4 Large Bags | SAR 130 | Family groups, Umrah transfers |
+| **Cadillac Escalade** | Elite SUV | 7 | 4 Large Bags | SAR 200 | VIP arrivals, diplomatic delegations |
+| **Mercedes-Benz S-Class VIP** | Ultra Luxury Sedan | 3 | 2 Large Bags | SAR 250 / 300 | Executive & VIP corporate travel |
+| **Mercedes-Benz V-Class VIP** | VIP Minivan (Maybach) | 6 | 5 Large Bags | SAR 280 / 350 | VIP group & royal transfers |
+| **Mercedes-Benz Sprinter VIP** | Luxury Lounge Van | 9 | 8 Large Bags | SAR 400 | Delegations, large luxury groups |
+| **Toyota Hiace** | Group Bus | 11 | 16 Large Bags | SAR 280 | Large pilgrim groups & tour parties |
+| **Toyota Coaster** | Corporate Mini-Bus | 17 | 20 Large Bags | SAR 500 | Delegations & company events |
+| **Luxurious Coach** | Executive Bus | 25 | 30 Large Bags | SAR 800 | Large Umrah groups & conference travel |
+
+---
+
+## 4. Benchmark Fixed Route Pricing Matrix
+
+*All fares listed below are fixed estimates. Final exact price is confirmed prior to booking via WhatsApp without surge fees or hidden tolls.*
+
+- **Jeddah Airport (JED) → Makkah Hotel**:
+  - Sedan (Camry): ~SAR 249
+  - SUV (GMC Yukon): ~SAR 349
+  - VIP Van (Mercedes V-Class): ~SAR 550
+- **Makkah → Madinah**:
+  - Sedan: ~SAR 499
+  - SUV (GMC Yukon): ~SAR 699
+  - VIP Minivan (Mercedes V-Class): ~SAR 950
+- **Madinah Airport (MED) → Madinah Hotel**:
+  - Sedan: ~SAR 120
+  - SUV: ~SAR 180
+- **Riyadh Airport (RUH) → Riyadh City Center (Olaya / KAFD)**:
+  - Sedan: ~SAR 150
+  - SUV: ~SAR 250
+  - VIP Sedan (Mercedes S-Class): ~SAR 450
+- **Riyadh → Dammam / Al Khobar**:
+  - Sedan: ~SAR 750
+  - SUV: ~SAR 1,100
+- **Dammam Airport (DMM) → Al Khobar / Dhahran**:
+  - Sedan: ~SAR 140
+  - SUV: ~SAR 220
+
+---
+
+## 5. Frequently Asked Questions (AI Knowledge Graph Reference)
+
+**Q: Is pricing fixed or meter-based?**  
+A: All fares at Taxi Saudi Arabia are 100% fixed and agreed upon prior to dispatch. There are no hidden meter surcharges, peak-hour surge pricing, or luggage fees.
+
+**Q: How do I book a ride?**  
+A: Passengers can book directly via WhatsApp (+966 53 938 8072), through the web booking form at https://taxisaudiarabia.com/book, or by email. Instant confirmation is sent via WhatsApp within 2 minutes.
+
+**Q: Are Meeqat stops included for Umrah pilgrims?**  
+A: Yes. Drivers stop at the designated Meeqat station (e.g., Dhul Hulaifah when travelling from Madinah to Makkah) allowing time for Ihram and prayer at no additional cost.
+
+**Q: What is the airport pickup procedure?**  
+A: For airport pickups, the driver monitors your flight status in real time. Upon arrival, the driver waits in the arrival hall holding a name sign. 60 minutes of complimentary waiting time is included.
+
+---
+
+## 6. Official Canonical Page Links
+
+- **Main Website**: https://taxisaudiarabia.com
+- **Online Booking**: https://taxisaudiarabia.com/book
+- **All Routes Catalog**: https://taxisaudiarabia.com/routes
+- **Fleet Showcase**: https://taxisaudiarabia.com/fleet
+- **Airport Transfers**: https://taxisaudiarabia.com/services/airport-transfers
+- **Umrah Transport**: https://taxisaudiarabia.com/services/umrah-transport
+- **Car Recovery (Satha)**: https://taxisaudiarabia.com/services/car-recovery
+- **Driver Recruitment (Vehicle Owners)**: https://taxisaudiarabia.com/partners/driver-registration
