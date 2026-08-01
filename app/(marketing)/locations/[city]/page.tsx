@@ -85,8 +85,8 @@ const CITY_DETAILS: Record<string, { name: string, nameAr: string, image: string
       "For Ziyarat, a half-day car covers Jabal Al-Nour, Mina, Arafat, and Jabal Thawr with waiting time included."
     ],
     faqs: [
-      { question: "How much is a taxi from Makkah to Jeddah airport?", answer: "A fixed-price taxi from Makkah to King Abdulaziz International Airport (JED) starts from around SAR 180 for a sedan. It is about 80 km and roughly 1 hour — pre-book and allow buffer time before your flight." },
-      { question: "How far is Makkah from Madinah by taxi?", answer: "Makkah to Madinah is about 430 km — roughly a 4 to 5 hour drive via the Haramain highway. The fixed fare starts from around SAR 350, with prayer and rest stops included." },
+      { question: "How much is a taxi from Makkah to Jeddah airport?", answer: "A fixed-price taxi from Makkah to King Abdulaziz International Airport (JED) starts from around SAR 249 for a sedan. It is about 80 km and roughly 1 hour — pre-book and allow buffer time before your flight." },
+      { question: "How far is Makkah from Madinah by taxi?", answer: "Makkah to Madinah is about 430 km — roughly a 4 to 5 hour drive via the Haramain highway. The fixed fare starts from around SAR 499, with prayer and rest stops included." },
       { question: "Can the taxi drop me at my Makkah hotel near the Haram?", answer: "Yes. We drop you as close to your hotel and Masjid al-Haram as vehicles are permitted. During prayer times some roads close, so the driver uses the nearest allowed checkpoint." },
       { question: "Do you provide Makkah Ziyarat tours by car?", answer: "Yes. A half-day Ziyarat car visits Jabal Al-Nour (Cave of Hira), Jabal Thawr, Mina, and Arafat with a knowledgeable driver and flexible waiting time." },
       { question: "Is taxi available in Makkah 24/7?", answer: "Yes, we operate around the clock in Makkah for hotel transfers, airport returns, intercity trips, and Ziyarat — at fixed prices with no surge." }
@@ -126,7 +126,7 @@ const CITY_DETAILS: Record<string, { name: string, nameAr: string, image: string
     ],
     faqs: [
       { question: "How much is a taxi from Madinah airport to the city?", answer: "A fixed-price taxi from Prince Mohammad Bin Abdulaziz Airport (MED) to central Madinah hotels starts from around SAR 80. It is about 20 km and a 25-minute drive, with meet & greet at arrivals." },
-      { question: "How far is Madinah from Makkah by taxi?", answer: "Madinah to Makkah is about 430 km — roughly a 4 to 5 hour drive via the Haramain highway. The fixed fare starts from around SAR 350, with prayer and rest stops included." },
+      { question: "How far is Madinah from Makkah by taxi?", answer: "Madinah to Makkah is about 430 km — roughly a 4 to 5 hour drive via the Haramain highway. The fixed fare starts from around SAR 499, with prayer and rest stops included." },
       { question: "Can the taxi drop me at my hotel near Masjid an-Nabawi?", answer: "Yes. We drop you as close to your Central Area (Markazia) hotel and Masjid an-Nabawi as vehicles are permitted, handling any prayer-time road restrictions." },
       { question: "Do you offer Madinah Ziyarat tours by car?", answer: "Yes. A half-day Ziyarat car visits Quba Mosque, Mount Uhud, Qiblatain Mosque, and other sites with a knowledgeable driver and waiting time included." },
       { question: "Is taxi available in Madinah 24/7?", answer: "Yes, we operate around the clock in Madinah for airport transfers, hotel pickups, Ziyarat, and intercity trips — at fixed prices with no surge." }
@@ -165,7 +165,7 @@ const CITY_DETAILS: Record<string, { name: string, nameAr: string, image: string
       "King Khalid International Airport (RUH) is about 35 km north of the centre — allow 45–60 minutes during peak hours."
     ],
     faqs: [
-      { question: "How much is a taxi from Riyadh airport to the city?", answer: "A fixed-price taxi from King Khalid International Airport (RUH) to central Riyadh districts like Olaya or KAFD starts from around SAR 90. It is about 35 km and a 45-minute drive, with meet & greet at arrivals." },
+      { question: "How much is a taxi from Riyadh airport to the city?", answer: "A fixed-price taxi from King Khalid International Airport (RUH) to central Riyadh districts like Olaya or KAFD starts from around SAR 100. It is about 35 km and a 45-minute drive, with meet & greet at arrivals." },
       { question: "Can I hire a car with driver in Riyadh for a full day?", answer: "Yes. We offer hourly and full-day chauffeur charters across Riyadh — ideal for business meetings, where the driver waits between stops and knows the fastest routes, avoiding ride-hailing surge pricing." },
       { question: "How far is Riyadh from Dammam by taxi?", answer: "Riyadh to Dammam is about 400 km — roughly a 4-hour drive on Highway 40. We offer fixed-price intercity transfers in sedans, SUVs, and vans with rest stops included." },
       { question: "Do you cover all Riyadh business districts?", answer: "Yes — KAFD, Olaya, the Diplomatic Quarter, Granada, and Diriyah are all covered 24/7. Share your exact district when booking so the driver plans the best route." },
@@ -200,7 +200,7 @@ const CITY_DETAILS: Record<string, { name: string, nameAr: string, image: string
       "Traffic near the Corniche is heavy on Thursday and Friday evenings. Plan ahead."
     ],
     faqs: [
-      { question: "How much is a taxi in Jeddah?", answer: "Jeddah city rides and airport pickups are fixed-price with no surge. A Jeddah Airport (JED) to Makkah taxi starts from around SAR 180, and Jeddah to Madinah from around SAR 350. You see the exact fare before you book — tolls and taxes included." },
+      { question: "How much is a taxi in Jeddah?", answer: "Jeddah city rides and airport pickups are fixed-price with no surge. A Jeddah Airport (JED) to Makkah taxi starts from around SAR 249, and Jeddah to Madinah from around SAR 549. You see the exact fare before you book — tolls and taxes included." },
       { question: "Is there a taxi at Jeddah airport 24/7?", answer: "Yes. We operate at King Abdulaziz International Airport (JED) around the clock, including late-night and early-morning flights. We track your flight number, so your driver waits with a name sign even if the flight is delayed." },
       { question: "How far is Jeddah from Makkah by taxi?", answer: "Jeddah is about 80 km from Makkah — roughly a 1-hour drive on the Makkah Expressway. From Jeddah Airport (JED) it is a direct transfer, and the driver can stop at the Miqat for Ihram on request." },
       { question: "Can I book a Jeddah taxi in advance?", answer: "Yes, and for airport and Umrah transfers we recommend it. Pre-booking guarantees a vehicle and a fixed price, with meet & greet at arrivals — especially important during Umrah, Hajj, and Ramadan seasons." },
@@ -240,7 +240,7 @@ const CITY_DETAILS: Record<string, { name: string, nameAr: string, image: string
       "For Aramco and industrial-zone visits, pre-book a corporate sedan or SUV with a professional driver."
     ],
     faqs: [
-      { question: "How much is a taxi from Dammam airport to the city?", answer: "A fixed-price taxi from King Fahd International Airport (DMM) to Dammam or Al Khobar starts from around SAR 90. It is about 35 km and a 40-minute drive, with meet & greet at arrivals." },
+      { question: "How much is a taxi from Dammam airport to the city?", answer: "A fixed-price taxi from King Fahd International Airport (DMM) to Dammam or Al Khobar starts from around SAR 100. It is about 35 km and a 40-minute drive, with meet & greet at arrivals." },
       { question: "Can I take a taxi from Dammam to Bahrain?", answer: "Yes. We run cross-border transfers to Bahrain via the King Fahd Causeway, roughly a 1-hour drive. Share your passport and visa details in advance so we can prepare the border paperwork." },
       { question: "How far is Dammam from Riyadh by taxi?", answer: "Dammam to Riyadh is about 400 km — roughly a 4-hour drive on Highway 40. We offer fixed-price intercity transfers in sedans, SUVs, and vans with rest stops included." },
       { question: "Do you serve the whole Dammam–Khobar–Dhahran area?", answer: "Yes — the three cities form one metropolitan area and we cover all of it 24/7, including Aramco, the corniche, malls, and the industrial zones. Confirm your exact district when booking." },
@@ -310,7 +310,7 @@ const CITY_DETAILS: Record<string, { name: string, nameAr: string, image: string
       "Combine a Makkah Ziyarat trip with a cool day out in Taif using a full-day car hire."
     ],
     faqs: [
-      { question: "How much is a taxi from Makkah to Taif?", answer: "A fixed-price taxi from Makkah to Taif starts from around SAR 200. It is about 90 km — roughly a 1 hour 10 minute drive on the Al Hada mountain road, with an experienced driver for the winding route." },
+      { question: "How much is a taxi from Makkah to Taif?", answer: "A fixed-price taxi from Makkah to Taif starts from around SAR 180. It is about 90 km — roughly a 1 hour 10 minute drive on the Al Hada mountain road, with an experienced driver for the winding route." },
       { question: "How far is Taif from Jeddah by taxi?", answer: "Taif is about 170 km from Jeddah — roughly a 2-hour drive. We offer fixed-price transfers and full-day car hire for sightseeing in the Taif highlands." },
       { question: "Can I do a day trip to Taif from Makkah?", answer: "Yes. A full-day car with a driver lets you visit Al Hada, the cable car, Al Shafa, and the rose farms, then return — a cool, scenic break from the Makkah heat." },
       { question: "Does Taif have an airport?", answer: "Yes, Taif Regional Airport (TIF) is about 25 km from the city. We provide meet & greet transfers from the airport to the city and the mountain resorts." },
@@ -346,7 +346,7 @@ const CITY_DETAILS: Record<string, { name: string, nameAr: string, image: string
     ],
     faqs: [
       { question: "Can I take a taxi from Al Khobar to Bahrain?", answer: "Yes. We run cross-border transfers from Al Khobar to Bahrain via the King Fahd Causeway, roughly a 1-hour drive. Share your passport and visa details in advance so we can prepare the border paperwork." },
-      { question: "How much is a taxi from Al Khobar to Dammam airport?", answer: "A fixed-price taxi from Al Khobar to King Fahd International Airport (DMM) starts from around SAR 90. It is about 30 km and a 35-minute drive, with meet & greet at arrivals." },
+      { question: "How much is a taxi from Al Khobar to Dammam airport?", answer: "A fixed-price taxi from Al Khobar to King Fahd International Airport (DMM) starts from around SAR 100. It is about 30 km and a 35-minute drive, with meet & greet at arrivals." },
       { question: "Do you provide corporate taxi service in Al Khobar?", answer: "Yes. We offer corporate sedans and SUVs with professional drivers for Aramco, Dhahran, and business travel across the Eastern Province, with hourly and full-day options." },
       { question: "Is Al Khobar part of the same area as Dammam?", answer: "Yes — Al Khobar, Dammam, and Dhahran form one connected metro area. We cover all of it 24/7; just confirm your exact district when booking." },
       { question: "Is taxi available in Al Khobar 24/7?", answer: "Yes, we operate around the clock in Al Khobar for airport transfers, corporate travel, Corniche outings, and cross-border trips — at fixed prices with no surge." }
@@ -491,7 +491,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: `Taxi in ${cityData.name} | Airport & Intercity — Taxi Saudi Arabia`,
-    description: CITY_META_DESCRIPTION[cityKeyLower] ?? `Book a fixed-price taxi in ${cityData.name}, Saudi Arabia — airport transfers, Umrah rides, and 24/7 intercity trips with licensed drivers. No surge, instant quote.`,
+    description: CITY_META_DESCRIPTION[cityKeyLower] ?? `Book a fixed-price taxi in ${cityData.name}, Saudi Arabia — airport transfers, Umrah rides, and 24/7 intercity trips with licensed drivers. No surge, fixed fares.`,
     alternates: {
       canonical: `https://taxisaudiarabia.com/locations/${city}`,
     },

@@ -66,7 +66,7 @@ const homeTranslations = {
         {
           title: "Airport Transfer Saudi Arabia",
           desc: "Book an airport transfer at Jeddah (JED), Riyadh (RUH), Madinah (MED), and Dammam (DMM). We track your flight in real time — your professional chauffeur waits 60 minutes free if your flight is delayed. Meet-and-greet included.",
-          price: "From SAR 199",
+          price: "From SAR 80",
           icon: Globe
         },
         {
@@ -90,7 +90,7 @@ const homeTranslations = {
         {
           title: "GCC Cross-Border Taxi",
           desc: "Cross-border car service from Saudi Arabia to Bahrain, Qatar, UAE, and Kuwait. Licensed drivers with border-crossing experience, fixed fares, and door-to-door service.",
-          price: "From SAR 1,499",
+          price: "From SAR 180",
           icon: ShieldCheck
         },
         {
@@ -108,7 +108,7 @@ const homeTranslations = {
       points: [
         { title: "Licensed Drivers", desc: "Every driver holds a valid Saudi driving license. Licensed drivers you can trust." },
         { title: "Fixed Price Taxi — No Surprises", desc: "The taxi price you see is the taxi fare you pay. No surge pricing, no hidden fees, no meter tricks. Every taxi fare in Saudi Arabia is fixed at booking." },
-        { title: "WhatsApp Booking Available 24/7", desc: "Book your taxi via WhatsApp booking anytime — day or night. Our 24/7 taxi service team confirms within minutes." },
+        { title: "WhatsApp Booking Available 24/7", desc: "Book your taxi via WhatsApp booking anytime — day or night. Our team typically confirms with a fixed price within 1–2 hours." },
         { title: "Live Flight Tracking", desc: "We track your flight in real time for every Saudi airport transfer. Your professional chauffeur waits 60 minutes free if your flight is delayed." },
         { title: "English, Arabic & Urdu Drivers", desc: "Our professional chauffeurs speak English, Arabic, and Urdu — ensuring clear communication for international pilgrims and business travelers." },
         { title: "Free Cancellation — 24 Hours", desc: "Cancel your booking up to 24 hours before your trip for a full refund — no questions asked. Flexibility you can count on." },
@@ -174,7 +174,7 @@ const homeTranslations = {
       desc: "Need a taxi in Saudi Arabia? Book an airport transfer, Umrah taxi, or private intercity ride in under 2 minutes. Fixed taxi prices, licensed drivers, and WhatsApp booking available around the clock.",
       btnBook: "Book Taxi Online",
       btnWhatsApp: "Book on WhatsApp",
-      trust: "Instant Confirmation • Fixed Taxi Prices Guaranteed • 24/7 Customer Support"
+      trust: "Fast Quote Response • Fixed Taxi Prices Guaranteed • 24/7 Customer Support"
     },
     faq: {
       badge: "Frequently Asked Questions",
@@ -182,11 +182,11 @@ const homeTranslations = {
       items: [
         {
           q: "How do I book a taxi in Saudi Arabia?",
-          a: "You can book a taxi in Saudi Arabia online via our booking console or directly through WhatsApp booking. Simply provide your pickup location, destination, date, and time. Our 24/7 taxi service team will confirm your ride instantly with a fixed price."
+          a: "You can book a taxi in Saudi Arabia online via our booking console or directly through WhatsApp booking. Simply provide your pickup location, destination, date, and time. Our 24/7 taxi service team will confirm your ride with a fixed price, usually within 1–2 hours."
         },
         {
           q: "How much is a Jeddah Airport to Makkah taxi?",
-          a: "The taxi fare for a Jeddah Airport to Makkah taxi starts from SAR 249 in a standard sedan, and SAR 349 for a family taxi like the Hyundai Staria. We offer a fixed price taxi guarantee, meaning no hidden charges."
+          a: "The taxi fare for a Jeddah Airport to Makkah taxi starts from SAR 249 in a standard sedan, and SAR 374 for a family taxi like the Hyundai Staria. We offer a fixed price taxi guarantee, meaning no hidden charges."
         },
         {
           q: "Do you offer Umrah transport from Madinah?",
@@ -348,13 +348,13 @@ const homeTranslations = {
       desc: "استمتع بأعلى معايير التنقل والأمان في المملكة العربية السعودية. احجز رحلتك الآن في دقيقتين فقط.",
       btnBook: "احجز رحلتك أونلاين",
       btnWhatsApp: "احجز مباشرة عبر الواتساب",
-      trust: "تأكيد فوري • أسعار ثابتة ومضمونة • خدمة عملاء مخصصة على مدار الساعة"
+      trust: "رد سريع على استفسارك • أسعار ثابتة ومضمونة • خدمة عملاء مخصصة على مدار الساعة"
     },
     faq: {
       badge: "الأسئلة الشائعة",
       title: "كل ما تحتاج معرفته",
       items: [
-        { q: "كيف أحجز تاكسي في السعودية؟", a: "يمكنك الحجز عبر منصة الحجز في موقعنا أو مباشرة عبر واتساب. حدد موقع الانطلاق والوجهة والتاريخ والوقت، وسيؤكد فريقنا رحلتك فوراً بسعر ثابت على مدار الساعة." },
+        { q: "كيف أحجز تاكسي في السعودية؟", a: "يمكنك الحجز عبر منصة الحجز في موقعنا أو مباشرة عبر واتساب. حدد موقع الانطلاق والوجهة والتاريخ والوقت، وسيؤكد فريقنا رحلتك بسعر ثابت، عادة خلال ساعة إلى ساعتين." },
         { q: "كم تكلفة تاكسي من مطار جدة إلى مكة؟", a: "تبدأ أجرة تاكسي مطار جدة إلى مكة من 249 ريالاً في السيارة العادية، مع خيارات عائلية أكبر. السعر ثابت بدون رسوم خفية." },
         { q: "هل تقدمون نقل العمرة من المدينة؟", a: "نعم، نغطي مسار مكة إلى المدينة والمدينة إلى مكة وجولات الزيارة، مع التوقف عند الميقات وسائقين محترفين." },
         { q: "هل السائقون مرخصون ومحترفون؟", a: "بالتأكيد. جميع سائقينا يحملون رخصة قيادة سعودية سارية ويتحدثون العربية والإنجليزية والأردية." },
@@ -508,13 +508,13 @@ const homeTranslations = {
       desc: "سعودی عرب میں بہترین اور اعلیٰ ترین معیار پر سفر کا تجربہ کریں۔ صرف 2 منٹ میں بکنگ کریں۔",
       btnBook: "آن لائن بک کریں",
       btnWhatsApp: "واٹس ایپ کے ذریعے بک کریں",
-      trust: "فوری تصدیق • طے شدہ فکسڈ ریٹس • 24/7 کسٹمر سپورٹ ڈیسک"
+      trust: "تیز جواب • طے شدہ فکسڈ ریٹس • 24/7 کسٹمر سپورٹ ڈیسک"
     },
     faq: {
       badge: "اکثر پوچھے گئے سوالات",
       title: "ہر وہ چیز جو آپ کو جاننی چاہیے",
       items: [
-        { q: "سعودی عرب میں ٹیکسی کیسے بک کریں؟", a: "آپ ہماری ویب سائٹ کے بکنگ کنسول یا براہ راست واٹس ایپ کے ذریعے بک کر سکتے ہیں۔ پک اپ مقام، منزل، تاریخ اور وقت بتائیں — ہماری 24/7 ٹیم فکسڈ قیمت کے ساتھ فوری تصدیق کرے گی۔" },
+        { q: "سعودی عرب میں ٹیکسی کیسے بک کریں؟", a: "آپ ہماری ویب سائٹ کے بکنگ کنسول یا براہ راست واٹس ایپ کے ذریعے بک کر سکتے ہیں۔ پک اپ مقام، منزل، تاریخ اور وقت بتائیں — ہماری 24/7 ٹیم عام طور پر 1-2 گھنٹوں میں فکسڈ قیمت کے ساتھ تصدیق کرے گی۔" },
         { q: "جدہ ایئرپورٹ سے مکہ ٹیکسی کا کرایہ کتنا ہے؟", a: "جدہ ایئرپورٹ سے مکہ ٹیکسی کا کرایہ عام سیڈان میں 249 ریال سے شروع ہوتا ہے، فیملی گاڑیوں کے آپشن کے ساتھ۔ قیمت فکسڈ ہے، کوئی پوشیدہ چارجز نہیں۔" },
         { q: "کیا آپ مدینہ سے عمرہ ٹرانسپورٹ فراہم کرتے ہیں؟", a: "جی ہاں، ہم مکہ سے مدینہ، مدینہ سے مکہ اور زیارت ٹورز کا احاطہ کرتے ہیں، میقات پر رکنے اور پیشہ ور ڈرائیوروں کے ساتھ۔" },
         { q: "کیا ڈرائیور لائسنس یافتہ اور پیشہ ور ہیں؟", a: "بالکل۔ ہمارے تمام ڈرائیورز درست سعودی ڈرائیونگ لائسنس رکھتے ہیں اور عربی، انگریزی اور اردو بولتے ہیں۔" },
@@ -531,11 +531,11 @@ const topRoutesList = [
   { from: "madinah-mosque", to: "makkah-haram", nameEn: "Madinah ➔ Makkah", nameAr: "المدينة المنورة ➔ مكة المكرمة", nameUr: "مدینہ منورہ ➔ مکہ مکرمہ", dist: "450 km", dur: "4h 30m", price: "499" },
   { from: "makkah-haram", to: "jeddah-airport", nameEn: "Makkah ➔ Jeddah Airport", nameAr: "مكة المكرمة ➔ مطار جدة", nameUr: "مکہ مکرمہ ➔ جدہ ایئرپورٹ", dist: "85 km", dur: "1h 15m", price: "249" },
   { from: "jeddah-airport", to: "madinah-mosque", nameEn: "Jeddah ➔ Madinah", nameAr: "مطار جدة ➔ المدينة المنورة", nameUr: "جدہ ایئرپورٹ ➔ مدینہ منورہ", dist: "420 km", dur: "4h 15m", price: "549" },
-  { from: "madinah-airport", to: "madinah-mosque", nameEn: "Madinah Airport ➔ Hotels", nameAr: "مطار المدينة ➔ الفنادق", nameUr: "مدینہ ایئرپورٹ ➔ ہوٹلز", dist: "15 km", dur: "20m", price: "149" },
-  { from: "riyadh-airport", to: "riyadh-downtown", nameEn: "Riyadh Airport ➔ City", nameAr: "مطار الرياض ➔ وسط المدينة", nameUr: "ریاض ایئرپورٹ ➔ شہر", dist: "35 km", dur: "35m", price: "179" },
-  { from: "jeddah-airport", to: "taif", nameEn: "Jeddah ➔ Taif", nameAr: "جدة ➔ مرتفعات الطائف", nameUr: "جدہ ➔ طائف", dist: "140 km", dur: "1h 45m", price: "349" },
+  { from: "madinah-airport", to: "madinah-mosque", nameEn: "Madinah Airport ➔ Hotels", nameAr: "مطار المدينة ➔ الفنادق", nameUr: "مدینہ ایئرپورٹ ➔ ہوٹلز", dist: "15 km", dur: "20m", price: "80" },
+  { from: "riyadh-airport", to: "riyadh-downtown", nameEn: "Riyadh Airport ➔ City", nameAr: "مطار الرياض ➔ وسط المدينة", nameUr: "ریاض ایئرپورٹ ➔ شہر", dist: "35 km", dur: "35m", price: "100" },
+  { from: "jeddah-airport", to: "taif", nameEn: "Jeddah ➔ Taif", nameAr: "جدة ➔ مرتفعات الطائف", nameUr: "جدہ ➔ طائف", dist: "140 km", dur: "1h 45m", price: "220" },
   { from: "riyadh-downtown", to: "dammam", nameEn: "Riyadh ➔ Dammam", nameAr: "الرياض ➔ الدمام", nameUr: "ریاض ➔ دمام", dist: "400 km", dur: "4h 00m", price: "699" },
-  { from: "dammam-airport", to: "dammam", nameEn: "Dammam Airport ➔ City", nameAr: "مطار الدمام ➔ وسط المدينة", nameUr: "دمام ایئرپورٹ ➔ شہر", dist: "55 km", dur: "40m", price: "199" },
+  { from: "dammam-airport", to: "dammam", nameEn: "Dammam Airport ➔ City", nameAr: "مطار الدمام ➔ وسط المدينة", nameUr: "دمام ایئرپورٹ ➔ شہر", dist: "35 km", dur: "40m", price: "100" },
 ];
 
 const vehicleList = [

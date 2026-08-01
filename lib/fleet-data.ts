@@ -1,4 +1,4 @@
-// Shared fleet vehicle data — used by both the listing page and dynamic detail pages.
+﻿// Shared fleet vehicle data — used by both the listing page and dynamic detail pages.
 
 export type VehicleCategory = "sedan" | "suv" | "van" | "luxury" | "bus";
 
@@ -11,8 +11,6 @@ export interface FleetVehicle {
   luggage: number;
   startingPrice: number;
   badge: string;
-  rating: number;
-  reviews: number;
   image: string;
   features: string[];
   description: string;
@@ -28,8 +26,6 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
     luggage: 2,
     startingPrice: 80,
     badge: "Best Value",
-    rating: 4.9,
-    reviews: 312,
     image: "/fleet/toyota-camry.webp",
     features: ["Professional Chauffeur", "Climate Controlled", "Efficient Transfer"],
     description: "Our most booked sedan for airport pickups and city rides. Clean, comfortable, and easy on the budget.",
@@ -43,11 +39,9 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
     luggage: 5,
     startingPrice: 150,
     badge: "Most Popular",
-    rating: 4.9,
-    reviews: 278,
     image: "/fleet/gmc-yukon-xl.webp",
     features: ["VIP Executive SUV", "Extra Legroom", "Luxury Interior"],
-    description: "Spacious executive SUV for families and VIP groups — extra legroom, big luggage space, and a smooth ride.",
+    description: "Spacious executive SUV for families and VIP groups â€” extra legroom, big luggage space, and a smooth ride.",
   },
   {
     slug: "hyundai-staria",
@@ -58,8 +52,6 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
     luggage: 4,
     startingPrice: 130,
     badge: "Family Pick",
-    rating: 4.8,
-    reviews: 189,
     image: "/fleet/real/hyundai-staria-exterior.webp",
     features: ["VIP Family Van", "Spacious Interior", "Group Excellence"],
     description: "Modern VIP van for families and groups. Roomy cabin, comfortable seats, and plenty of luggage space.",
@@ -73,8 +65,6 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
     luggage: 4,
     startingPrice: 200,
     badge: "Elite Choice",
-    rating: 4.9,
-    reviews: 145,
     image: "/fleet/cadillac-escalade.webp",
     features: ["Elite Audio", "Extra Comfort", "VIP Chauffeur"],
     description: "American luxury SUV for VIP arrivals. Premium audio, extra comfort, and a professional chauffeur.",
@@ -88,8 +78,6 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
     luggage: 2,
     startingPrice: 250,
     badge: "VIP Choice",
-    rating: 5.0,
-    reviews: 201,
     image: "/fleet/real/mercedes-s-class-exterior-night.webp",
     features: ["VIP Experience", "Leather Interior", "Discreet Service"],
     description: "The benchmark luxury sedan for executives and VIPs. Quiet, refined, and discreet.",
@@ -103,11 +91,9 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
     luggage: 2,
     startingPrice: 230,
     badge: "Executive Class",
-    rating: 4.9,
-    reviews: 167,
     image: "/fleet/bmw-7-series.webp",
     features: ["Performance", "Luxury Comfort", "Prestige"],
-    description: "Executive luxury sedan with a smooth, powerful ride — perfect for business travel.",
+    description: "Executive luxury sedan with a smooth, powerful ride â€” perfect for business travel.",
   },
   {
     slug: "genesis-g80",
@@ -118,11 +104,9 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
     luggage: 2,
     startingPrice: 180,
     badge: "Premium Value",
-    rating: 4.8,
-    reviews: 134,
     image: "/fleet/genesis-g80.webp",
     features: ["Silent Cabin", "VIP Rear Seat", "Modern Luxury"],
-    description: "Refined VIP sedan with a silent cabin and comfortable rear seats — understated luxury.",
+    description: "Refined VIP sedan with a silent cabin and comfortable rear seats â€” understated luxury.",
   },
   {
     slug: "ford-taurus",
@@ -133,8 +117,6 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
     luggage: 2,
     startingPrice: 100,
     badge: "Business Class",
-    rating: 4.7,
-    reviews: 223,
     image: "/fleet/ford-taurus.webp",
     features: ["Executive Sedan", "Smooth Ride", "Modern Tech"],
     description: "Reliable executive sedan with modern tech and a smooth ride for corporate travel.",
@@ -148,8 +130,6 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
     luggage: 5,
     startingPrice: 280,
     badge: "VIP Luxury",
-    rating: 5.0,
-    reviews: 174,
     image: "/fleet/real/mercedes-v-class-fleet-lineup.webp",
     features: ["Maybach Front", "Custom Leather Cabin", "Smart TV & Wifi"],
     description: "Ultra-luxury VIP V-Class with Maybach trim, custom leather recliners, smart TV, and ambient lighting.",
@@ -163,8 +143,6 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
     luggage: 8,
     startingPrice: 400,
     badge: "Royal Luxury",
-    rating: 5.0,
-    reviews: 112,
     image: "/fleet/real/mercedes-sprinter-vip-exterior.webp",
     features: ["First-Class Cabin", "Custom Lounge", "Executive Privacy"],
     description: "Royal luxury Sprinter with custom leather seats, marble tables, entertainment screen, and full privacy.",
@@ -178,11 +156,9 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
     luggage: 10,
     startingPrice: 140,
     badge: "Pilgrim Favorite",
-    rating: 4.7,
-    reviews: 412,
     image: "/fleet/hyundai-starex.webp",
     features: ["Family Hospitality", "Professional Driver", "Airport Specialist"],
-    description: "Family-friendly van with huge luggage space — a favourite for airport transfers and Umrah trips.",
+    description: "Family-friendly van with huge luggage space â€” a favourite for airport transfers and Umrah trips.",
   },
   {
     slug: "toyota-hiace",
@@ -193,11 +169,9 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
     luggage: 16,
     startingPrice: 280,
     badge: "Reliable Workhorse",
-    rating: 4.7,
-    reviews: 267,
     image: "/fleet/toyota-hiace.webp",
     features: ["Group VIP Transport", "Pilgrim Logistics", "Large Capacity"],
-    description: "Trusted group transport for up to 11 with large luggage capacity — ideal for Umrah pilgrim groups.",
+    description: "Trusted group transport for up to 11 with large luggage capacity â€” ideal for Umrah pilgrim groups.",
   },
   {
     slug: "toyota-coaster",
@@ -208,11 +182,9 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
     luggage: 20,
     startingPrice: 500,
     badge: "Fleet Standard",
-    rating: 4.8,
-    reviews: 178,
     image: "/fleet/toyota-coaster.webp",
     features: ["Corporate Bus", "Delegate Transport", "Large Groups"],
-    description: "Corporate bus for up to 17 — perfect for delegations, large groups, and Umrah operators.",
+    description: "Corporate bus for up to 17 â€” perfect for delegations, large groups, and Umrah operators.",
   },
   {
     slug: "luxury-bus",
@@ -223,8 +195,6 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
     luggage: 30,
     startingPrice: 800,
     badge: "Grand Fleet",
-    rating: 4.9,
-    reviews: 89,
     image: "/fleet/luxury-bus.webp",
     features: ["On-board Comfort", "Large Groups", "Executive Seating"],
     description: "Our largest coach for up to 25. On-board comfort and executive seating for big groups.",

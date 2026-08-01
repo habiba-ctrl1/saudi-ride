@@ -4,7 +4,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Users, Briefcase, CheckCircle, Star, MessageCircle, ChevronLeft, Wifi, Wind, Shield } from "lucide-react";
+import { Users, Briefcase, CheckCircle, MessageCircle, ChevronLeft, Wifi, Wind, Shield } from "lucide-react";
 import { FLEET_VEHICLES } from "@/lib/fleet-data";
 import { contactConfig } from "@/lib/config/contact";
 
@@ -33,7 +33,6 @@ export async function generateMetadata({
     title,
     description,
     alternates: { canonical: `https://taxisaudiarabia.com/fleet/${slug}` },
-    keywords: `${vehicle.name} taxi Saudi Arabia, ${vehicle.subtitle} hire Riyadh, ${vehicle.name} Jeddah airport, luxury transfer KSA`,
     openGraph: {
       title,
       description,
@@ -91,13 +90,6 @@ const EXTENDED_SPECS: Record<string, { wifi: boolean; ac: string; drive: string;
 };
 
 // ─── Sample customer reviews ─────────────────────────────────────────────────
-const REVIEWS = [
-  { name: "Abdullah Al-Dosari", city: "Riyadh → Jeddah", rating: 5, text: "Absolutely impeccable service. The vehicle was spotless and our driver was professional and punctual. Will use again." },
-  { name: "Sarah M.", city: "JED Airport → Makkah", rating: 5, text: "Best airport transfer I've had in Saudi Arabia. Gold standard service from booking to drop-off." },
-  { name: "Faisal Al-Shammari", city: "Riyadh → Dammam", rating: 5, text: "Booked for a corporate delegation. The vehicle class and professionalism exceeded our expectations." },
-  { name: "Amira K.", city: "Madinah → Jeddah Airport", rating: 4, text: "Great experience overall. Clean vehicle, courteous driver. Arrived well on time for our flight." },
-];
-
 // ─── Page Component ──────────────────────────────────────────────────────────
 export default async function VehicleDetailPage({
   params,
@@ -135,10 +127,8 @@ export default async function VehicleDetailPage({
       "availability": "https://schema.org/InStock",
       "itemCondition": "https://schema.org/NewCondition"
     },
-    // NOTE: aggregateRating schema hataya — vehicle.rating/reviews fabricated
-    // numbers hain (schema.org violation risk for Google rich results).
-    // On-page star display abhi bhi hai — tier-review mein decide karna
-    // real reviews aayen ya ye hataya jaye.
+    // NOTE: no aggregateRating/review schema or on-page review display —
+    // add only once real customer reviews exist (see WORK-LEDGER).
   };
 
   return (
@@ -178,14 +168,6 @@ export default async function VehicleDetailPage({
           <span className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#B8963B]">{vehicle.subtitle}</span>
           <h1 className="mt-2 font-heading text-3xl font-bold md:text-5xl text-[#1C1C1C]">{vehicle.name}</h1>
           <div className="mt-3 flex items-center gap-3 flex-wrap">
-            <div className="flex items-center gap-1">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className={`h-3.5 w-3.5 ${i < Math.floor(vehicle.rating) ? "fill-[#C9A84C] text-[#C9A84C]" : "text-[#6B7280]"}`} />
-              ))}
-              <span className="ml-1.5 text-xs text-[#C9A84C] font-bold">{vehicle.rating}</span>
-              <span className="text-xs text-[#6B7280]">({vehicle.reviews} verified reviews)</span>
-            </div>
-            <span className="h-1.5 w-1.5 rounded-full bg-[#C9A84C]/50" />
             <span className="rounded-full bg-[#16A34A] px-3 py-0.5 text-[0.6rem] font-bold text-white uppercase tracking-wider">{vehicle.badge}</span>
           </div>
         </div>
@@ -263,31 +245,6 @@ export default async function VehicleDetailPage({
               </p>
             </div>
 
-            {/* Reviews */}
-            <div>
-              <h2 className="font-heading text-xl font-bold text-[#1C1C1C] mb-5">
-                Customer Reviews
-                <span className="ml-3 text-sm font-normal text-[#6B7280]">({vehicle.reviews} total)</span>
-              </h2>
-              <div className="grid gap-4 md:grid-cols-2">
-                {REVIEWS.map((review) => (
-                  <div key={review.name} className="rounded-2xl border border-[#C9A84C]/10 bg-white p-5 space-y-3">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <p className="text-xs font-bold text-[#1C1C1C]">{review.name}</p>
-                        <p className="text-[0.6rem] text-[#6B7280] mt-0.5">{review.city}</p>
-                      </div>
-                      <div className="flex items-center gap-0.5">
-                        {[...Array(review.rating)].map((_, i) => (
-                          <Star key={i} className="h-3 w-3 fill-[#C9A84C] text-[#C9A84C]" />
-                        ))}
-                      </div>
-                    </div>
-                    <p className="text-[0.7rem] text-[#6B7280] leading-relaxed">{review.text}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
 
           {/* RIGHT: Sticky Booking Panel */}

@@ -1211,7 +1211,7 @@ export default function BookPage() {
                     </p>
                     <div className="flex items-center gap-2 rounded-2xl bg-[#F0FDF4] border border-[#16A34A]/15 p-3 text-[0.65rem] text-[#1C1C1C] font-semibold">
                       <ShieldCheck className="h-4 w-4 text-[#16A34A] shrink-0" />
-                      <span>{isRtl ? "تأكيد سريع عبر واتساب خلال دقائق" : "Quick confirmation on WhatsApp within minutes"}</span>
+                      <span>{isRtl ? "تأكيد بسعر ثابت عبر واتساب خلال 1-2 ساعة عادة" : "Fixed-price confirmation on WhatsApp, usually within 1–2 hours"}</span>
                     </div>
                   </div>
 

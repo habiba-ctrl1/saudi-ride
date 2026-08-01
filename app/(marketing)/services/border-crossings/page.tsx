@@ -9,7 +9,7 @@ import Link from "next/link";
 import { Globe, FileText, Clock, Car, CheckCircle2, AlertTriangle } from "lucide-react";
 
 const TITLE = "GCC Cross-Border Taxi | Saudi to Bahrain, UAE, Qatar & Kuwait";
-const DESCRIPTION = "Book a cross-border taxi from Saudi Arabia to Bahrain, UAE, Qatar, Kuwait, or Jordan. Fixed prices, experienced drivers, smooth border crossings. Available 24/7.";
+const DESCRIPTION = "Book a cross-border taxi from Saudi Arabia to Bahrain, UAE, Qatar, or Kuwait. Fixed prices, experienced drivers, smooth border crossings. Available 24/7.";
 const OG_IMAGE = "https://taxisaudiarabia.com/services/border-crossings-hero.webp";
 
 export const metadata: Metadata = {
@@ -38,7 +38,7 @@ const BORDERS = [
     wait: "30 - 60 mins",
     reqs: "Valid Passport, Bahrain Visa (if applicable), Saudi Exit/Re-entry Visa (for expats).",
     vehicle: "Executive Sedan or SUV",
-    price: 350,
+    price: 200,
     from: "Dammam / Khobar"
   },
   {
@@ -47,7 +47,7 @@ const BORDERS = [
     wait: "1 - 2 hrs",
     reqs: "Valid Passport, UAE Visa (check eligibility), Saudi Exit/Re-entry Visa.",
     vehicle: "Luxury SUV (Recommended for long haul)",
-    price: 1800,
+    price: 1200,
     from: "Riyadh"
   },
   {
@@ -56,7 +56,7 @@ const BORDERS = [
     wait: "45 - 90 mins",
     reqs: "Valid Passport, Hayya Card / Qatar Visa.",
     vehicle: "Executive Sedan or SUV",
-    price: 900,
+    price: 500,
     from: "Dammam / Al-Ahsa"
   },
   {
@@ -65,17 +65,8 @@ const BORDERS = [
     wait: "45 - 90 mins",
     reqs: "Valid Passport, Kuwait Visa.",
     vehicle: "Executive Sedan or SUV",
-    price: 850,
+    price: 600,
     from: "Dammam / Jubail"
-  },
-  {
-    name: "Saudi-Jordan",
-    crossing: "Al Hadithah",
-    wait: "1 - 2 hrs",
-    reqs: "Valid Passport, Jordan Visa.",
-    vehicle: "Luxury SUV",
-    price: 1500,
-    from: "Tabuk"
   }
 ];
 
@@ -123,15 +114,15 @@ export default function BorderCrossingsPage() {
             <span className="text-[#16A34A]">Border Crossings</span>
           </h1>
           <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-8">
-            Skip the flights. Travel directly from your doorstep in Saudi Arabia to Bahrain, UAE, Qatar, Kuwait, or Jordan by car. Our experienced drivers handle all border logistics for you.
+            Skip the flights. Travel directly from your doorstep in Saudi Arabia to Bahrain, UAE, Qatar, or Kuwait by car. Our experienced drivers handle all border logistics for you.
           </p>
           <div className="max-w-2xl mx-auto mb-10 text-left">
             <TLDRSummary
-              answer="Cross-border taxi service from Saudi Arabia to Bahrain (from SAR 350), UAE (from SAR 1,800), Qatar (from SAR 900), Kuwait (from SAR 850), or Jordan (from SAR 1,500), with drivers experienced in GCC border procedures."
+              answer="Cross-border taxi service from Saudi Arabia to Bahrain (from SAR 200), UAE (from SAR 1,200), Qatar (from SAR 500), or Kuwait (from SAR 600), with drivers experienced in GCC border procedures."
               facts={[
-                { label: "To Bahrain", value: "From SAR 350" },
-                { label: "To Qatar", value: "From SAR 900" },
-                { label: "To UAE", value: "From SAR 1,800" },
+                { label: "To Bahrain", value: "From SAR 200" },
+                { label: "To Qatar", value: "From SAR 500" },
+                { label: "To UAE", value: "From SAR 1,200" },
               ]}
             />
           </div>

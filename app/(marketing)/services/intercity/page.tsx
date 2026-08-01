@@ -34,8 +34,8 @@ export const metadata: Metadata = {
 const POPULAR_COMBINATIONS = [
   { from: "Riyadh", to: "Dammam", dist: "410 km", time: "4.5 hrs", price: 699, img: "/locations/dammam-hero.webp" },
   { from: "Jeddah", to: "Madinah", dist: "420 km", time: "4.5 hrs", price: 549, img: "/locations/madinah-hero.webp" },
-  { from: "Makkah", to: "Taif", dist: "90 km", time: "1.5 hrs", price: 349, img: "/locations/taif-hero.webp" },
-  { from: "Riyadh", to: "Al-Qassim", dist: "350 km", time: "3.5 hrs", price: 900, img: "/locations/riyadh-hero.webp" },
+  { from: "Makkah", to: "Taif", dist: "90 km", time: "1.5 hrs", price: 180, img: "/locations/taif-hero.webp" },
+  { from: "Riyadh", to: "Al-Qassim", dist: "350 km", time: "3.5 hrs", price: 280, img: "/locations/riyadh-hero.webp" },
 ];
 
 const FAQS = [
@@ -102,9 +102,9 @@ export default function IntercityServicePage() {
           </p>
           <div className="max-w-2xl mx-auto mb-10 text-left">
             <TLDRSummary
-              answer="Intercity taxi transfers in Saudi Arabia start from SAR 349 (Makkah to Taif) up to SAR 699+ (Riyadh to Dammam), with fixed prices, rest stops on long routes, and 24/7 availability."
+              answer="Intercity taxi transfers in Saudi Arabia start from SAR 180 (Makkah to Taif) up to SAR 699+ (Riyadh to Dammam), with fixed prices, rest stops on long routes, and 24/7 availability."
               facts={[
-                { label: "Makkah → Taif", value: "From SAR 349" },
+                { label: "Makkah → Taif", value: "From SAR 180" },
                 { label: "Riyadh → Dammam", value: "From SAR 699" },
                 { label: "Jeddah → Madinah", value: "From SAR 549" },
               ]}

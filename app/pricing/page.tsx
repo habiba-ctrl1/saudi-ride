@@ -154,11 +154,11 @@ const MATRIX_DATA = [
 ];
 
 const FIXED_ROUTES = [
-  { route: "Riyadh Airport ⇄ Olaya (City Center)", sedan: "150 SAR", suv: "250 SAR", luxury: "600 SAR" },
-  { route: "Jeddah Airport ⇄ Makkah Hotels", sedan: "450 SAR", suv: "700 SAR", luxury: "1800 SAR" },
-  { route: "Makkah Hotels ⇄ Madinah Hotels", sedan: "850 SAR", suv: "1300 SAR", luxury: "3200 SAR" },
-  { route: "Riyadh ⇄ Eastern Province (Dammam/Khobar)", sedan: "950 SAR", suv: "1500 SAR", luxury: "3800 SAR" },
-  { route: "Madinah Airport ⇄ Madinah Haram Hotels", sedan: "180 SAR", suv: "280 SAR", luxury: "750 SAR" }
+  { route: "Riyadh Airport ⇄ Olaya (City Center)", sedan: "100 SAR", suv: "150 SAR", luxury: "250 SAR" },
+  { route: "Jeddah Airport ⇄ Makkah Hotels", sedan: "249 SAR", suv: "374 SAR", luxury: "623 SAR" },
+  { route: "Makkah Hotels ⇄ Madinah Hotels", sedan: "499 SAR", suv: "749 SAR", luxury: "1248 SAR" },
+  { route: "Riyadh ⇄ Eastern Province (Dammam/Khobar)", sedan: "699 SAR", suv: "1049 SAR", luxury: "1748 SAR" },
+  { route: "Madinah Airport ⇄ Madinah Haram Hotels", sedan: "80 SAR", suv: "120 SAR", luxury: "200 SAR" }
 ];
 
 const CITIES = [

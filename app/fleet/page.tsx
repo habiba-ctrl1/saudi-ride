@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Users, Briefcase, MessageCircle, ChevronRight, Star } from "lucide-react";
+import { Users, Briefcase, MessageCircle, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { contactConfig } from "@/lib/config/contact";
@@ -173,11 +173,7 @@ export default function FleetPage() {
                       <h2 className="font-heading text-xl font-bold text-[#1C1C1C] group-hover:text-[#16A34A] transition-colors">
                         {vehicle.name}
                       </h2>
-                      <div className="mt-1 flex items-center gap-1.5">
-                        <Star className="h-3 w-3 fill-[#C9A84C] text-[#C9A84C]" />
-                        <span className="text-[0.65rem] text-[#C9A84C] font-bold">{vehicle.rating}</span>
-                        <span className="text-[0.6rem] text-[#6B7280]">({vehicle.reviews} reviews)</span>
-                      </div>
+                      <p className="mt-1 text-[0.65rem] text-[#6B7280] font-semibold uppercase tracking-wide">{vehicle.subtitle}</p>
                     </div>
                     <div className="text-right">
                       <p className="text-[0.55rem] text-[#6B7280] uppercase font-bold tracking-wider">From</p>

@@ -297,7 +297,7 @@ export const GUIDES: Guide[] = [
     icon: Plane,
     title: "Jeddah Airport to Makkah: Complete Transfer Guide (Taxi, Train & Bus)",
     titleAr: "دليل الانتقال من مطار جدة إلى مكة",
-    summary: "Every way to get from King Abdulaziz International Airport (JED) to Makkah — taxi, Haramain high-speed train, and bus — with distance, time, cost, and Ihram/Miqat advice for pilgrims.",
+    summary: "Transfer options from Jeddah Airport (JED) to Makkah — taxi, Haramain train & bus — covering travel times, costs, & Miqat advice for pilgrims.",
     date: "June 25, 2026",
     readTime: "7 min",
     tags: ["Jeddah", "Makkah", "Umrah", "Airport"],

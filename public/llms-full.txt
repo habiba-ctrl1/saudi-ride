@@ -76,22 +76,22 @@
 
 - **Jeddah Airport (JED) → Makkah Hotel**:
   - Sedan (Camry): ~SAR 249
-  - SUV (GMC Yukon): ~SAR 349
+  - SUV (GMC Yukon): ~SAR 374
   - VIP Van (Mercedes V-Class): ~SAR 550
 - **Makkah → Madinah**:
   - Sedan: ~SAR 499
   - SUV (GMC Yukon): ~SAR 699
   - VIP Minivan (Mercedes V-Class): ~SAR 950
 - **Madinah Airport (MED) → Madinah Hotel**:
-  - Sedan: ~SAR 120
-  - SUV: ~SAR 180
+  - Sedan: ~SAR 80
+  - SUV: ~SAR 120
 - **Riyadh Airport (RUH) → Riyadh City Center (Olaya / KAFD)**:
-  - Sedan: ~SAR 150
-  - SUV: ~SAR 250
-  - VIP Sedan (Mercedes S-Class): ~SAR 450
+  - Sedan: ~SAR 100
+  - SUV: ~SAR 150
+  - VIP Sedan (Mercedes S-Class): ~SAR 250
 - **Riyadh → Dammam / Al Khobar**:
-  - Sedan: ~SAR 750
-  - SUV: ~SAR 1,100
+  - Sedan: ~SAR 699
+  - SUV: ~SAR 1,050
 - **Dammam Airport (DMM) → Al Khobar / Dhahran**:
   - Sedan: ~SAR 140
   - SUV: ~SAR 220
@@ -104,7 +104,7 @@
 A: All fares at Taxi Saudi Arabia are 100% fixed and agreed upon prior to dispatch. There are no hidden meter surcharges, peak-hour surge pricing, or luggage fees.
 
 **Q: How do I book a ride?**  
-A: Passengers can book directly via WhatsApp (+966 53 938 8072), through the web booking form at https://taxisaudiarabia.com/book, or by email. Instant confirmation is sent via WhatsApp within 2 minutes.
+A: Passengers can book directly via WhatsApp (+966 53 938 8072), through the web booking form at https://taxisaudiarabia.com/book, or by email. Confirmation with a fixed price is typically sent via WhatsApp within 1-2 hours.
 
 **Q: Are Meeqat stops included for Umrah pilgrims?**  
 A: Yes. Drivers stop at the designated Meeqat station (e.g., Dhul Hulaifah when travelling from Madinah to Makkah) allowing time for Ihram and prayer at no additional cost.

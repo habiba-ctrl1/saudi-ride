@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, Clock, ChevronRight, BookOpen } from "lucide-react";
 import Link from "next/link";
@@ -29,21 +28,6 @@ const CATEGORY_COLORS: Record<string, string> = {
 const fadeUp = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0 } };
 
 export default function GuidesPage() {
-  return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] flex items-center justify-center">
-        <div className="text-[#C9A84C] font-heading text-lg font-bold animate-pulse">Loading Taxi Saudi Arabia Concierge Guides...</div>
-      </div>
-    }>
-      <GuidesContent />
-    </Suspense>
-  );
-}
-
-function GuidesContent() {
-  const searchParams = useSearchParams();
-  const guideSlug = searchParams.get("slug");
-
   const [active, setActive] = useState("all");
 
   const filtered = GUIDES.filter((g) => active === "all" || g.category === active);

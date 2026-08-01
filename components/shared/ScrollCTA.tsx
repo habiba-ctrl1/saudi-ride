@@ -62,7 +62,7 @@ export function ScrollCTA() {
             Need a quick price?
           </p>
           <p className="mt-1 text-xs text-white/60 max-w-md">
-            Get an instant fixed-price quote on WhatsApp — no hidden fees, no waiting.
+            Get a fixed-price quote on WhatsApp, usually within 1–2 hours — no hidden fees.
           </p>
 
           {/* Buttons */}

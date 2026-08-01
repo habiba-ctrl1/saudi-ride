@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { motion } from "framer-motion";
 import {
@@ -192,6 +192,7 @@ const DETAIL_PAGES: Record<string, string> = {
   "vip-luxury": "/services/vip-luxury",
   "tourism-tours": "/services/tourism",
   "group-transport": "/services/group-transport",
+  "car-recovery": "/services/car-recovery",
 };
 
 export default function ServicesPage() {

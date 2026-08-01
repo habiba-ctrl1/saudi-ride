@@ -102,7 +102,7 @@ export const JOB_VARIANTS: Record<JobVariant, JobVariantConfig> = {
     salaryFactor: 1.25,
     extraRequirements: [
       "Formal attire (dark suit or traditional Saudi dress) for VIP clients",
-      "Premium vehicle (or drive our luxury fleet — Genesis, GMC, S-Class)",
+      "Premium own vehicle (executive sedan or SUV, 2020 or newer)",
       "Discreet, concierge-level etiquette and route knowledge",
     ],
     focusTrip: "Corporate / VIP travel",

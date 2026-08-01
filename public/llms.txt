@@ -51,13 +51,13 @@ Fixed-price intercity taxi between all Saudi cities including:
 | Toyota Camry | Executive Sedan | 4 | 80 |
 | GMC Yukon XL / Denali | Premium SUV | 7 | 150 |
 | Hyundai Staria VIP | VIP Van | 7 | 130 |
-| Mercedes S-Class | Luxury Sedan | 3 | 300 |
-| Mercedes V-Class VIP | VIP Minivan | 6 | 250 |
-| Mercedes Sprinter VIP | Luxury Van | 8-12 | 400 |
+| Mercedes S-Class | Luxury Sedan | 3 | 250 |
+| Mercedes V-Class VIP | VIP Minivan | 6 | 280 |
+| Mercedes Sprinter VIP | Luxury Van | 9 | 400 |
 | Cadillac Escalade | Premium SUV | 7 | 200 |
-| BMW 7 Series | Executive Sedan | 3 | 250 |
-| Toyota Hiace | Group Van | 12 | 100 |
-| Toyota Coaster | Mini Bus | 25 | 200 |
+| BMW 7 Series | Executive Sedan | 3 | 230 |
+| Toyota Hiace | Group Van | 11 | 280 |
+| Toyota Coaster | Mini Bus | 17 | 500 |
 
 ## Cities Covered
 
@@ -81,10 +81,10 @@ All fares are fixed and confirmed before booking — no surge pricing, no hidden
 ## FAQ
 
 **How do I book a taxi?**
-Book via WhatsApp (+966 53 938 8072), our website booking form, or email. Provide pickup location, destination, date, time, and number of passengers. You receive a fixed price quote within minutes.
+Book via WhatsApp (+966 53 938 8072), our website booking form, or email. Provide pickup location, destination, date, time, and number of passengers. You receive a fixed price quote, typically within 1-2 hours.
 
 **How much is a Jeddah Airport to Makkah taxi?**
-From SAR 249 in a sedan, SAR 349 in a GMC Yukon or Hyundai Staria. Fixed price, no surge. The journey is about 80 km and takes roughly 1 hour.
+From SAR 249 in a sedan, SAR 374 in a GMC Yukon or Hyundai Staria. Fixed price, no surge. The journey is about 80 km and takes roughly 1 hour.
 
 **Do you provide Umrah transport?**
 Yes. We cover Jeddah Airport to Makkah, Makkah to Madinah, and Ziyarat tours in both holy cities. Drivers stop at Meeqat for Ihram and plan trips around prayer times.

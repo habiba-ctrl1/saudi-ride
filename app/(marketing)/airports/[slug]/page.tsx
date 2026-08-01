@@ -32,9 +32,9 @@ const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameAr: stri
     image: "/airports/jed-hero.webp",
     tagline: "The Main Gateway for Umrah & Hajj",
     description: "Pre-book a fixed-price taxi from King Abdulaziz International Airport (JED) to Makkah (~1 hour), Madinah, or your Jeddah hotel. Meet & greet at arrivals with a name sign, live flight tracking, no surge pricing, and 24/7 service — including late-night and early-morning pilgrim flights. Drivers can stop at the Miqat so you enter Ihram before reaching Makkah.",
-    tldr: "A taxi from Jeddah Airport (JED) to Makkah takes about 1 hour and is fixed-price from SAR 180. Drivers track your flight and meet you at arrivals with a name sign, 24/7 — including late-night flights — and can stop at the Miqat for Ihram on the way to Makkah.",
+    tldr: "A taxi from Jeddah Airport (JED) to Makkah takes about 1 hour and is fixed-price from SAR 249. Drivers track your flight and meet you at arrivals with a name sign, 24/7 — including late-night flights — and can stop at the Miqat for Ihram on the way to Makkah.",
     tldrFacts: [
-      { label: "JED → Makkah", value: "~1 hr · from SAR 180" },
+      { label: "JED → Makkah", value: "~1 hr · from SAR 249" },
       { label: "JED → Madinah", value: "~4–5 hr" },
       { label: "Meet & greet", value: "Included" },
       { label: "Hours", value: "24/7" }
@@ -52,7 +52,7 @@ const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameAr: stri
     ],
     priorityRoutes: ["jeddah-airport-to-makkah", "jeddah-airport-to-madinah", "jeddah-airport-to-taif"],
     faqs: [
-      { question: "How much is a taxi from Jeddah airport to Makkah?", answer: "A fixed-price taxi from King Abdulaziz International Airport (JED) to Makkah starts from around SAR 180 for a sedan, with larger SUVs and vans available. The price is confirmed before you book — no surge, tolls included." },
+      { question: "How much is a taxi from Jeddah airport to Makkah?", answer: "A fixed-price taxi from King Abdulaziz International Airport (JED) to Makkah starts from around SAR 249 for a sedan, with larger SUVs and vans available. The price is confirmed before you book — no surge, tolls included." },
       { question: "Is there a taxi at Jeddah airport at night?", answer: "Yes. We operate 24/7 at JED, including late-night and early-morning arrivals. Because we track your flight, your driver is waiting with a name sign even on 2–4 AM landings." },
       { question: "Where do I meet my driver at Jeddah airport?", answer: "Your driver meets you inside the arrivals hall of your terminal (Terminal 1, North Terminal, or the Hajj Terminal) holding a sign with your name. Confirm your terminal when booking so we meet you at the right exit." },
       { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. On the Jeddah Airport to Makkah route, simply ask and the driver will stop at the Miqat so you can change into Ihram and make your intention before entering the Haram boundary." },

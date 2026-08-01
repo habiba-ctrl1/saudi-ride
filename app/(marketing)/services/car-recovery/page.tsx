@@ -32,11 +32,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://taxisaudiarabia.com/services/car-recovery" },
   title: TITLE,
   description: DESCRIPTION,
-  keywords: [
-    "car recovery Saudi Arabia", "tow truck Saudi Arabia", "satha", "سطحة",
-    "flatbed towing", "car towing service", "roadside assistance Saudi Arabia",
-    "سطحة الرياض", "سطحة جدة", "سطحة الدمام", "car transport Saudi Arabia", "winch truck",
-  ],
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,

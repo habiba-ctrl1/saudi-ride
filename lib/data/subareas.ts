@@ -239,7 +239,7 @@ export const SUB_AREAS: Record<string, {
     tldrFacts: [{ label: "To Haram", value: "~5 min walk" }, { label: "To JED", value: "~1 hr" }, { label: "Pricing", value: "Fixed" }, { label: "Hours", value: "24/7" }],
     faqs: [
       { question: "Is Ajyad close to the Haram?", answer: "Yes, Ajyad is directly adjacent to Masjid al-Haram — about a 5-minute walk. For airport departures we collect you from the nearest vehicle-permitted point." },
-      { question: "How much is a taxi from Ajyad to Jeddah airport?", answer: "Ajyad to King Abdulaziz International Airport (JED) is about 1 hour, fixed-price from SAR 180. Pre-book with buffer time before your flight." },
+      { question: "How much is a taxi from Ajyad to Jeddah airport?", answer: "Ajyad to King Abdulaziz International Airport (JED) is about 1 hour, fixed-price from SAR 249. Pre-book with buffer time before your flight." },
       { question: "Can you pick up from Ajyad hotels during prayer times?", answer: "Yes. When roads near the Haram close for Salah, the driver meets you at the closest permitted checkpoint." },
     ],
   },
@@ -265,7 +265,7 @@ export const SUB_AREAS: Record<string, {
     tldrFacts: [{ label: "To Haram", value: "~5–10 min walk" }, { label: "To JED", value: "~1 hr" }, { label: "Pricing", value: "Fixed" }, { label: "Hours", value: "24/7" }],
     faqs: [
       { question: "Is Al Shubaikah near the Haram?", answer: "Yes, Al Shubaikah is one of the closest districts to Masjid al-Haram — a short 5–10 minute walk. Vehicle pickup is from the nearest permitted point." },
-      { question: "How much is Al Shubaikah to Jeddah airport?", answer: "Al Shubaikah to King Abdulaziz International Airport (JED) is about 1 hour, fixed-price from SAR 180, available 24/7." },
+      { question: "How much is Al Shubaikah to Jeddah airport?", answer: "Al Shubaikah to King Abdulaziz International Airport (JED) is about 1 hour, fixed-price from SAR 249, available 24/7." },
       { question: "Do you serve Al Shubaikah for hotel transfers?", answer: "Yes, we provide fixed-price pickups for pilgrims staying in Al Shubaikah and the surrounding Haram-area hotels." },
     ],
   },

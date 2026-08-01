@@ -33,41 +33,6 @@ export const metadata: Metadata = {
   title: "Taxi Service Saudi Arabia — Book Airport Transfer & Umrah Taxi | Fixed Prices 24/7",
   description:
     "Book a taxi in Saudi Arabia — airport transfers, Umrah transport & intercity rides at fixed prices. Licensed drivers, WhatsApp booking 24/7.",
-  keywords: [
-    "taxi service Saudi Arabia",
-    "airport transfer Saudi Arabia",
-    "private taxi Saudi Arabia",
-    "VIP taxi Saudi Arabia",
-    "Saudi airport transfer",
-    "book taxi Saudi Arabia",
-    "Jeddah airport to Makkah taxi",
-    "Makkah to Madinah taxi",
-    "Madinah to Makkah taxi",
-    "Jeddah to Madinah taxi",
-    "Makkah to Jeddah airport taxi",
-    "Madinah airport taxi",
-    "Riyadh airport taxi",
-    "Taif taxi",
-    "Dammam taxi",
-    "book airport transfer",
-    "taxi fare Saudi Arabia",
-    "taxi price Saudi Arabia",
-    "WhatsApp booking",
-    "24/7 taxi service",
-    "licensed drivers",
-    "fixed price taxi",
-    "professional chauffeurs",
-    "family taxi",
-    "luxury SUV taxi",
-    "GMC Yukon",
-    "Hyundai Staria",
-    "Toyota Hiace",
-    "Umrah taxi",
-    "Umrah transport",
-    "Umrah airport transfer",
-    "Makkah Ziyarat taxi",
-    "Madinah Ziyarat taxi",
-  ],
   openGraph: {
     title: "Taxi Service Saudi Arabia — Book Airport Transfer & Umrah Taxi | Fixed Prices 24/7",
     description:
@@ -185,7 +150,7 @@ const jsonLd = [
         "name": "How much does a Jeddah Airport to Makkah taxi cost?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "A Jeddah Airport to Makkah taxi starts from SAR 249 in a sedan and SAR 349 in a GMC Yukon or Hyundai Staria. The taxi fare is fixed — no hidden charges or surge pricing. The journey takes about 1 hour 15 minutes (85 km)."
+          "text": "A Jeddah Airport to Makkah taxi starts from SAR 249 in a sedan and SAR 374 in a GMC Yukon or Hyundai Staria. The taxi fare is fixed — no hidden charges or surge pricing. The journey takes about 1 hour 15 minutes (85 km)."
         }
       },
       {
@@ -233,7 +198,7 @@ const jsonLd = [
         "name": "Can I book a taxi via WhatsApp in Saudi Arabia?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, WhatsApp booking is available 24/7. Simply message us your pickup location, destination, date, and time. Our team will confirm your booking with a fixed taxi price within minutes. You can also book airport transfers, Umrah taxis, and intercity rides through WhatsApp."
+          "text": "Yes, WhatsApp booking is available 24/7. Simply message us your pickup location, destination, date, and time. Our team will confirm your booking with a fixed taxi price, usually within 1-2 hours. You can also book airport transfers, Umrah taxis, and intercity rides through WhatsApp."
         }
       },
       {

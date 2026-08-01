@@ -4,7 +4,7 @@ import { generateMetadata as seo } from "@/lib/seo";
 export const metadata: Metadata = seo({
   title: "Taxi Fleet for Hire — Sedans, SUVs, Vans & Buses",
   description:
-    "Hire from our Saudi Arabia taxi fleet: Toyota Camry, GMC Yukon XL, Hyundai Staria, Toyota Hiace, Mercedes S-Class and more. Fixed prices for airport transfers, Umrah and intercity rides. Available 24/7.",
+    "Browse our Saudi Arabia taxi fleet: GMC Yukon XL, Hyundai Staria, Toyota Camry, & Mercedes S-Class. Fixed prices for airport, Umrah & intercity transfers 24/7.",
   path: "/fleet",
 });
 

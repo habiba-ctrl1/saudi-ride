@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Briefcase, TrendingUp, ArrowRight, Send } from "lucide-react";
+import { Briefcase, TrendingUp, ArrowRight, Send, MapPin, Car, ShieldCheck } from "lucide-react";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
@@ -35,9 +35,9 @@ export function DriverJobsHubBody({ variantKey }: { variantKey: JobVariant }) {
         <h1 className="text-3xl sm:text-4xl font-bold text-[#1C1C1C] mb-3">
           {v.label} in Saudi Arabia
         </h1>
-        <p className="max-w-2xl text-[#444] leading-relaxed mb-6">
+        <p className="max-w-3xl text-[#444] leading-relaxed mb-6">
           Join Saudi Arabia&apos;s growing network of professional drivers. {v.angle} Pick your city
-          to see local earnings, demand and how to apply.
+          to see local earnings, demand and how to apply. Looking to book a taxi ride instead? Browse our <Link href="/services/airport-transfers" className="text-[#006C35] font-semibold underline hover:text-[#15803D]">Airport Transfers</Link>, <Link href="/services/umrah-transport" className="text-[#006C35] font-semibold underline hover:text-[#15803D]">Umrah Transport</Link>, or check out our <Link href="/fleet" className="text-[#006C35] font-semibold underline hover:text-[#15803D]">Luxury Vehicle Fleet</Link>.
         </p>
 
         <TLDRSummary
@@ -98,14 +98,89 @@ export function DriverJobsHubBody({ variantKey }: { variantKey: JobVariant }) {
             ))}
         </div>
 
-        {/* Ride with us — customer-facing money pages (job seekers are also potential riders) */}
-        <div className="mt-12 rounded-2xl border border-[#C9A84C]/20 bg-white p-6">
-          <h2 className="text-sm font-bold uppercase tracking-wider text-[#B8963B] mb-4">Need a Ride Instead?</h2>
-          <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-            <Link href="/fleet" className="text-[#1C1C1C] hover:text-[#006C35] font-medium">Our Luxury Fleet</Link>
-            <Link href="/services/corporate" className="text-[#1C1C1C] hover:text-[#006C35] font-medium">Corporate Car Service</Link>
-            <Link href="/routes" className="text-[#1C1C1C] hover:text-[#006C35] font-medium">Popular Routes</Link>
-            <Link href="/services/umrah-transport" className="text-[#1C1C1C] hover:text-[#006C35] font-medium">Umrah Transport</Link>
+        {/* ─── AUTHORITY TRANSFER NETWORK: PASSENGER SERVICES & MONEY PAGES ─── */}
+        <div className="mt-12 rounded-3xl border border-[#006C35]/20 bg-gradient-to-br from-white via-[#FAFAF7] to-[#006C35]/5 p-6 sm:p-8 shadow-sm">
+          <div className="flex items-center justify-between flex-wrap gap-4 border-b border-[#C9A84C]/15 pb-4 mb-6">
+            <div>
+              <span className="text-[0.65rem] font-bold uppercase tracking-widest text-[#9a7d33]">
+                Passenger Taxi &amp; Chauffeur Network
+              </span>
+              <h2 className="font-heading text-xl sm:text-2xl font-bold text-[#1C1C1C]">
+                Need a Private Taxi in Saudi Arabia Instead?
+              </h2>
+            </div>
+            <Link
+              href="/book"
+              className="inline-flex items-center gap-2 rounded-full bg-[#006C35] px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-colors"
+            >
+              <Car className="h-3.5 w-3.5" />
+              Book a Taxi Online &rarr;
+            </Link>
+          </div>
+
+          <p className="text-xs sm:text-sm text-[#444] leading-relaxed mb-6">
+            Taxi Saudi Arabia is a premier licensed transport operator providing 24/7 airport transfers, Umrah pilgrimage routes, intercity rides, and GCC cross-border chauffeur services at fixed prices.
+          </p>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {/* Column 1: Core City Guides */}
+            <div className="space-y-2">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-[#1C1C1C] flex items-center gap-1.5">
+                <MapPin className="h-3.5 w-3.5 text-[#006C35]" /> City Guides
+              </h3>
+              <ul className="space-y-1.5 text-xs">
+                <li><Link href="/locations/riyadh" className="text-[#006C35] hover:underline font-semibold">• Taxi in Riyadh</Link></li>
+                <li><Link href="/locations/jeddah" className="text-[#006C35] hover:underline font-semibold">• Taxi in Jeddah</Link></li>
+                <li><Link href="/locations/makkah" className="text-[#006C35] hover:underline font-semibold">• Taxi in Makkah</Link></li>
+                <li><Link href="/locations/madinah" className="text-[#006C35] hover:underline font-semibold">• Taxi in Madinah</Link></li>
+                <li><Link href="/locations/dammam" className="text-[#006C35] hover:underline font-semibold">• Taxi in Dammam</Link></li>
+                <li><Link href="/locations" className="text-[#444] hover:text-[#006C35] font-medium">• All 11 City Locations</Link></li>
+              </ul>
+            </div>
+
+            {/* Column 2: Top Flagship Corridors */}
+            <div className="space-y-2">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-[#1C1C1C] flex items-center gap-1.5">
+                <TrendingUp className="h-3.5 w-3.5 text-[#C9A84C]" /> Top Routes
+              </h3>
+              <ul className="space-y-1.5 text-xs">
+                <li><Link href="/routes/jeddah-airport-to-makkah" className="text-[#444] hover:text-[#006C35] font-medium">• Jeddah Airport → Makkah (SAR 249)</Link></li>
+                <li><Link href="/routes/makkah-to-madinah" className="text-[#444] hover:text-[#006C35] font-medium">• Makkah → Madinah (SAR 499)</Link></li>
+                <li><Link href="/routes/riyadh-to-dammam" className="text-[#444] hover:text-[#006C35] font-medium">• Riyadh → Dammam (SAR 699)</Link></li>
+                <li><Link href="/routes/dammam-to-doha" className="text-[#444] hover:text-[#006C35] font-medium">• Dammam → Doha (Qatar)</Link></li>
+                <li><Link href="/routes/jeddah-to-madinah" className="text-[#444] hover:text-[#006C35] font-medium">• Jeddah → Madinah (SAR 549)</Link></li>
+                <li><Link href="/routes" className="text-[#006C35] hover:underline font-semibold">• All 50+ Routes</Link></li>
+              </ul>
+            </div>
+
+            {/* Column 3: Commercial Services */}
+            <div className="space-y-2">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-[#1C1C1C] flex items-center gap-1.5">
+                <ShieldCheck className="h-3.5 w-3.5 text-[#006C35]" /> Transport Services
+              </h3>
+              <ul className="space-y-1.5 text-xs">
+                <li><Link href="/services/airport-transfers" className="text-[#006C35] hover:underline font-semibold">• Airport Transfers (JED, RUH, MED)</Link></li>
+                <li><Link href="/services/umrah-transport" className="text-[#006C35] hover:underline font-semibold">• Umrah &amp; Pilgrimage Taxi</Link></li>
+                <li><Link href="/services/corporate" className="text-[#444] hover:text-[#006C35] font-medium">• Corporate B2B Chauffeur</Link></li>
+                <li><Link href="/services/intercity" className="text-[#444] hover:text-[#006C35] font-medium">• Intercity Transfers</Link></li>
+                <li><Link href="/services/border-crossings" className="text-[#444] hover:text-[#006C35] font-medium">• GCC Cross-Border Taxi</Link></li>
+                <li><Link href="/services" className="text-[#006C35] hover:underline font-semibold">• All 9 Elite Services</Link></li>
+              </ul>
+            </div>
+
+            {/* Column 4: Fleet & Pricing */}
+            <div className="space-y-2">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-[#1C1C1C] flex items-center gap-1.5">
+                <Briefcase className="h-3.5 w-3.5 text-[#C9A84C]" /> Fleet &amp; Fares
+              </h3>
+              <ul className="space-y-1.5 text-xs">
+                <li><Link href="/fleet" className="text-[#444] hover:text-[#006C35] font-medium">• Luxury Fleet Preview</Link></li>
+                <li><Link href="/pricing" className="text-[#006C35] hover:underline font-semibold">• Fixed Fare Estimator</Link></li>
+                <li><Link href="/faq" className="text-[#444] hover:text-[#006C35] font-medium">• Frequently Asked Questions</Link></li>
+                <li><Link href="/contact" className="text-[#444] hover:text-[#006C35] font-medium">• 24/7 Booking Desk</Link></li>
+                <li><Link href="/book" className="text-[#006C35] hover:underline font-bold">• Instant Booking Portal</Link></li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>

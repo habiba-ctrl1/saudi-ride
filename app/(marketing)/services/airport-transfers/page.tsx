@@ -34,8 +34,8 @@ export const metadata: Metadata = {
 const AIRPORT_ROUTES = [
   { airport: "Jeddah (JED)", dest: "Makkah", time: "1 hr", price: 249 },
   { airport: "Jeddah (JED)", dest: "Madinah", time: "4.5 hrs", price: 549 },
-  { airport: "Jeddah (JED)", dest: "Jeddah City", time: "30 mins", price: 90 },
-  { airport: "Riyadh (RUH)", dest: "City Center", time: "40 mins", price: 120 },
+  { airport: "Jeddah (JED)", dest: "Jeddah City", time: "30 mins", price: 80 },
+  { airport: "Riyadh (RUH)", dest: "City Center", time: "40 mins", price: 100 },
   { airport: "Madinah (MED)", dest: "Haram Area", time: "25 mins", price: 80 },
 ];
 
@@ -103,10 +103,10 @@ export default function AirportTransfersPage() {
           </p>
           <div className="max-w-2xl mb-10">
             <TLDRSummary
-              answer="Airport taxi transfers in Saudi Arabia start from SAR 90 (Jeddah city) to SAR 549 (Jeddah to Madinah), with flight tracking, meet & greet, and 60 minutes of free waiting time at Jeddah (JED), Riyadh (RUH), and Madinah (MED)."
+              answer="Airport taxi transfers in Saudi Arabia start from SAR 80 (Jeddah city) to SAR 549 (Jeddah to Madinah), with flight tracking, meet & greet, and 60 minutes of free waiting time at Jeddah (JED), Riyadh (RUH), and Madinah (MED)."
               facts={[
                 { label: "JED → Makkah", value: "From SAR 249" },
-                { label: "RUH → City", value: "From SAR 120" },
+                { label: "RUH → City", value: "From SAR 100" },
                 { label: "Free waiting", value: "60 minutes" },
                 { label: "Availability", value: "24/7" },
               ]}
