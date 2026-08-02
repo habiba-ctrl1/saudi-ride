@@ -48,6 +48,22 @@ Two genuinely new bugs found this pass (both root-caused before fixing, not patc
 
 **Not done (lower priority, noted in report, not yet actioned):** 207-page OG gap is now down to the harder-to-verify remainder (need a fresh Ahrefs crawl to see the real post-fix count); meta-description/title-too-long growth on the newest content batch (hotel routes, recovery cities, Ziyarat pages) not yet trimmed; 1 redirect chain and 2 4XX-in-sitemap entries not yet identified by exact URL (no fresh crawl-log was cheap to fully parse this session — flagged for next crawl).
 
+**Committed and pushed** (commit `ccf6dbc`, deployed via Vercel auto-deploy).
+
+## ✅ (2026-08-02, same day) — Worked through remaining report recommendations
+
+- **Meta title/description length, newest content batch**: verified programmatically (not by eye) — `taif-ziyarat`, `badr-ziyarat`, `hotel-transfers`, `long-distance` all had both title (74-76 chars) and description (166-181 chars) over Google's practical limits. Trimmed all 4 to 46-54 char titles / 146-156 char descriptions. Also found the shared `routes/[slug]` `generateMetadata` description had **no length cap at all** (unlike its title, which already had a >55-char guard) — added `.slice(0, 160)`, verified against the worst-case hotel-name route (`jeddah-airport-to-movenpick-makkah`, fromCity/toCity produce a 136-char description, safely under cap). Checked the 10 recovery-city pages too — already within limits, no change needed there.
+- **Redirect chain (Ahrefs, 1 new)**: root-caused, not fixed — `/ar/locations/dammam/al-khobar` → (middleware, no `/ar` content for this path) → `/locations/dammam/al-khobar` → (next.config.ts dedupe redirect) → `/locations/alkhobar`. A real 2-hop chain, but on a subarea URL already removed from the sitemap/internal links back on Day 9 — nobody currently links to it, so left alone rather than adding middleware special-casing for a dead URL. If Ahrefs still flags it after a fresh crawl, worth revisiting.
+- **4XX pages in sitemap (Ahrefs, 2)**: checked `app/sitemap.ts` directly for the known stale-URL candidates (old `/guides?id=` params, the duplicate `jeddah-airport-to-pullman-zamzam-makkah` slug, the deprecated `dammam/al-khobar` subarea) — none present. Likely already resolved by the duplicate-slug fix in `e625a44`, or was the same recurring DB-fetch-flake causing a transient build-time 404 (self-healing). Couldn't pin the exact 2 URLs without a fresh crawl — not guessed at further.
+- `tsc --noEmit` clean, `ui_consistency_check.py --summary` PASS.
+
+**Genuinely can't be done from code / needs the user directly:**
+1. **Backlinks / GBP citations** — the one lever every audit since Day 9 has converged on; requires actual outreach/listing creation, not a code change (see `OFFPAGE-ASSETS.md`).
+2. **Fresh Ahrefs crawl** — needed to confirm the real post-fix OG/schema/orphan-page counts; requires the user's Ahrefs account.
+3. **GSC "Validate Fix" click** on the Review-snippets report — one click in Search Console clears a stale cached error; can't be done from the codebase.
+
+Committed and pushed (commit `1400dba`).
+
 ## 🚧 (2026-07-25) — Money Pages ranking plan, revised to 8 chunks after fresh GSC/Ahrefs audit
 Full audit: `SEO-MONEY-PAGES-STRATEGY.md` (2026-07-25, GSC Performance/Coverage 07-23 exports + live Screaming Frog crawl + competitor gap vs `ksa-reference`). Goal unchanged: real customer leads, not driver-jobs traffic. Order below supersedes the old chunk 3-6 description (chunks 1-2 already done, kept as-is below).
 
