@@ -2,7 +2,6 @@ import { MetadataRoute } from "next";
 import { ROUTES_DATA } from "@/lib/data/routes";
 import { FLEET_VEHICLES } from "@/lib/fleet-data";
 import { BLOG_POSTS_DATA } from "@/lib/data/blog-posts";
-import { DRIVER_JOB_CITIES, JOB_VARIANTS } from "@/lib/data/driver-jobs";
 import { GUIDES } from "@/lib/data/guides";
 import { RECOVERY_CITIES } from "@/lib/data/recovery";
 
@@ -42,9 +41,6 @@ const STATIC_PAGES = [
   { path: "/pricing", priority: 0.7 },
   { path: "/guides", priority: 0.8 },
   { path: "/blog", priority: 0.8 },
-  { path: "/driver-jobs", priority: 0.7 },
-  { path: "/chauffeur-jobs", priority: 0.7 },
-  { path: "/taxi-driver-jobs", priority: 0.7 },
 ];
 
 const LOCATIONS = [
@@ -167,15 +163,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  const driverJobItems = Object.values(JOB_VARIANTS).flatMap((v) =>
-    DRIVER_JOB_CITIES.map((c) => ({
-      url: `${DOMAIN}${v.urlBase}/${c.slug}`,
-      lastModified: now,
-      changeFrequency: "weekly" as const,
-      priority: 0.6,
-    })),
-  );
-
   const recoveryItems = RECOVERY_CITIES.map((c) => ({
     url: `${DOMAIN}/services/car-recovery/${c.slug}`,
     lastModified: now,
@@ -199,7 +186,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...routeItems,
     ...fleetItems,
     ...blogItems,
-    ...driverJobItems,
     ...guideItems,
     ...recoveryItems,
   ];

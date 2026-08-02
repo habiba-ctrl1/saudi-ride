@@ -1,4 +1,29 @@
 # WORK LEDGER — TaxiSaudiArabia.com
+
+## 🎯 BUSINESS STRATEGY DECISION (2026-08-02) — VIP-first repositioning, light-touch scope
+User + advisor discussion concluded: site repositions VIP/private-hire messaging first (not a full rebuild — "poori site nhi change krni", keep everything that already brings traffic). Locked decisions:
+1. **Target customer**: VIP-first, general taxi/routes/services stay live as secondary (no removal of existing money pages).
+2. **Driver-jobs pages REMOVED** — business doesn't recruit via these SEO pages (driver network already staffed). This was ~99% of the site's real organic clicks (Google Jobs rich results) — a deliberate, informed trade-off, not an oversight. See entry below for what was done.
+3. **Car-recovery stays live as-is** — separate vertical, not cross-promoted from VIP pages, real revenue stream (family business), don't touch.
+4. **Domain stays `taxisaudiarabia.com`** — no rename (same pattern as Blacklane/Addison Lee keeping "taxi"-adjacent names for a luxury brand). Reposition messaging/content only.
+5. **Scope for "VIP-first"**: WhatsApp/CTA message-template tone shifts + add private-vehicle/VIP search-keyword content to *existing* relevant pages (vip-luxury, corporate, homepage) — no new page architecture, no UI redesign, no IA rebuild. Still pending, not yet started.
+
+## ✅ (2026-08-02) — Removed driver-jobs/chauffeur-jobs/taxi-driver-jobs (54 pages), full redirect map
+Per the strategy decision above. Deleted: `app/(marketing)/{driver-jobs,chauffeur-jobs,taxi-driver-jobs}/{page.tsx,[city]/page.tsx}` (6 files), `components/seo/DriverJobBody.tsx` + `DriverJobsHubBody.tsx`, `lib/data/driver-jobs.ts`, the now-dead `jobPostingSchema()` from `lib/schema.ts`. Removed all sitemap entries (`app/sitemap.ts`). Fixed a stale code-comment example in `RelatedLinks.tsx` that referenced the deleted routes.
+
+**Redirect strategy (not a blanket redirect — reasoned per-city, added to `next.config.ts`)**: reused the exact city-mapping data that already existed in the deleted `DriverJobBody.tsx`'s `CITY_MONEY_LINKS` (built for a different purpose — cross-linking — but it was already the correct "what's the real relevant page for this city" map). 18 cities × 3 URL variants = 54 redirects:
+- Cities with a real `/locations/[city]` page → redirect there (riyadh, jeddah, makkah, madinah, dammam, taif, abha, yanbu, khobar→alkhobar, dhahran→alkhobar, khamis-mushait→abha).
+- Cities with only a `/services/car-recovery/[city]` page (no location page) → redirect there (tabuk, jubail).
+- Cities with neither (buraidah, al-ahsa, hail, najran, al-qassim) → homepage.
+- The 3 hub pages (`/driver-jobs`, `/chauffeur-jobs`, `/taxi-driver-jobs`) → `/services`.
+
+**Deliberately did NOT** just swap the content on the same URLs (city considered this first) — explained why: rankings are query-intent-bound, not URL-bound. Repurposing e.g. `/driver-jobs/tabuk` into recovery content would've self-cannibalized against the already-live, already-optimized `/services/car-recovery/tabuk` — split authority, no benefit. A 301 to the real existing page consolidates signal into one canonical URL per topic instead.
+
+**Verified, not assumed**: ran a live `next dev` server and curled every redirect type (location target, recovery target, homepage target, hub target) — all resolve 200 at the right destination. Also followed the `/ar/driver-jobs/riyadh` → (middleware, no `/ar` content) → `/driver-jobs/riyadh` → (new redirect) → `/locations/riyadh` two-hop chain end to end with `curl -L`, confirmed final 200. `tsc --noEmit` clean (had to `rm -rf .next` first — stale route-type-validator cache referenced the deleted pages and threw false errors). `ui_consistency_check.py --summary` PASS.
+
+**Known, accepted trade-off**: this removes the site's current largest real organic-traffic source (~226 clicks/month via Google Jobs rich results, per GSC). This was a fully-informed business decision (not recruiting drivers, don't want the pages), not an SEO mistake — logged here so no future session "fixes" it back by re-adding job pages without checking this context first.
+
+**Not yet done (next up per the locked strategy)**: WhatsApp/CTA message-template tone shift toward VIP language; add private-vehicle/VIP search-keyword content to existing pages (vip-luxury, corporate, homepage) — needs actual keyword research from GSC/Ahrefs data before writing copy, not guessed.
 > Har session yahan update karo. Duplicate work se bachne ke liye pehle yeh file parho.
 > Verify: `python scripts/ui_consistency_check.py --summary` (0 violations = us page ka UI theme done)
 > Priority order: `../SITE-URLS-PRIORITY.md` (Tier 1 → 2 → 3 → 4)

@@ -7,8 +7,8 @@ import { ArrowRight } from "lucide-react";
 // "Other Cities", "Related Services", etc. Server component.
 //
 //   <RelatedLinks
-//     title="Driver Jobs in Other Cities"
-//     links={[{ name: "Driver Jobs in Jeddah", href: "/driver-jobs/jeddah" }, ...]}
+//     title="Popular Routes"
+//     links={[{ name: "Jeddah Airport to Makkah", href: "/routes/jeddah-airport-to-makkah" }, ...]}
 //   />
 export interface RelatedLink {
   name: string;

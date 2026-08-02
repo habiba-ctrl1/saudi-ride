@@ -32,7 +32,46 @@ const nextConfig: NextConfig = {
       },
     ];
 
-    return [...guideRedirects, ...dedupeRedirects];
+    // Business decision (2026-08-02): we don't recruit drivers — the network
+    // is already staffed — so the driver-jobs/chauffeur-jobs/taxi-driver-jobs
+    // SEO pages are retired. Redirect each city to the closest real, relevant
+    // page (its location page, its car-recovery page, or the homepage) so the
+    // existing crawl trust lands somewhere useful instead of 404ing.
+    const jobCityTarget: Record<string, string> = {
+      riyadh: "/locations/riyadh",
+      jeddah: "/locations/jeddah",
+      makkah: "/locations/makkah",
+      madinah: "/locations/madinah",
+      dammam: "/locations/dammam",
+      khobar: "/locations/alkhobar",
+      taif: "/locations/taif",
+      abha: "/locations/abha",
+      yanbu: "/locations/yanbu",
+      tabuk: "/services/car-recovery/tabuk",
+      jubail: "/services/car-recovery/jubail",
+      dhahran: "/locations/alkhobar",
+      "khamis-mushait": "/locations/abha",
+      buraidah: "/",
+      "al-ahsa": "/",
+      hail: "/",
+      najran: "/",
+      "al-qassim": "/",
+    };
+    const jobUrlBases = ["/driver-jobs", "/chauffeur-jobs", "/taxi-driver-jobs"];
+    const jobCityRedirects = jobUrlBases.flatMap((base) =>
+      Object.entries(jobCityTarget).map(([slug, destination]) => ({
+        source: `${base}/${slug}`,
+        destination,
+        permanent: true,
+      })),
+    );
+    const jobHubRedirects = jobUrlBases.map((base) => ({
+      source: base,
+      destination: "/services",
+      permanent: true,
+    }));
+
+    return [...guideRedirects, ...dedupeRedirects, ...jobCityRedirects, ...jobHubRedirects];
   },
   images: {
     remotePatterns: [
