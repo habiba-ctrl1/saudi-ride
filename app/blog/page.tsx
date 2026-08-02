@@ -4,11 +4,27 @@ import Image from "next/image";
 import { BookOpen, Calendar, ChevronRight, User } from "lucide-react";
 import { BLOG_POSTS_DATA } from "@/lib/data/blog-posts";
 
+const TITLE = "Taxi Saudi Arabia Blog | Travel Tips, News & Guides";
+const DESCRIPTION = "Read the latest news, travel tips, and guides for Umrah pilgrims, business travelers, and tourists in Saudi Arabia.";
+
 export const metadata: Metadata = {
-  title: "Taxi Saudi Arabia Blog | Travel Tips, News & Guides",
-  description: "Read the latest news, travel tips, and guides for Umrah pilgrims, business travelers, and tourists in Saudi Arabia.",
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: {
     canonical: "https://taxisaudiarabia.com/blog",
+  },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "https://taxisaudiarabia.com/blog",
+    siteName: "Taxi Saudi Arabia",
+    images: [{ url: "https://taxisaudiarabia.com/opengraph-image", width: 1200, height: 630, alt: TITLE }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
   },
 };
 

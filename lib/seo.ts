@@ -25,11 +25,12 @@ export function generateMetadata({
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
   const url = `https://taxisaudiarabia.com${cleanPath}`;
 
-  // When no page-specific image is passed we omit the images field so Next.js
-  // falls back to the site-wide branded card from app/opengraph-image.tsx.
+  // Always set an explicit image — Next.js's automatic opengraph-image.tsx
+  // fallback only applies when a segment defines no openGraph object at all,
+  // and doesn't reliably bubble up through nested layouts (e.g. /locations).
   const ogImages = image
     ? [{ url: image, width: 1200, height: 630, alt: title }]
-    : undefined;
+    : [{ url: "https://taxisaudiarabia.com/opengraph-image", width: 1200, height: 630, alt: title }];
 
   return {
     title: `${title} | Taxi Saudi Arabia`,

@@ -4,10 +4,26 @@ import { ROUTES_DATA } from "@/lib/data/routes";
 
 export const revalidate = 86400; // static + refresh daily (was force-dynamic = slow on every request)
 
+const TITLE = "Taxi Routes in Saudi Arabia | Fixed Prices — Taxi Saudi Arabia";
+const DESCRIPTION = "Browse 50+ taxi routes across Saudi Arabia and the GCC. Fixed-price rides between Makkah, Madinah, Riyadh, Jeddah, Dammam, and more. Book online or on WhatsApp.";
+
 export const metadata = {
-  title: "Taxi Routes in Saudi Arabia | Fixed Prices — Taxi Saudi Arabia",
-  description: "Browse 50+ taxi routes across Saudi Arabia and the GCC. Fixed-price rides between Makkah, Madinah, Riyadh, Jeddah, Dammam, and more. Book online or on WhatsApp.",
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: "https://taxisaudiarabia.com/routes" },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "https://taxisaudiarabia.com/routes",
+    siteName: "Taxi Saudi Arabia",
+    images: [{ url: "https://taxisaudiarabia.com/opengraph-image", width: 1200, height: 630, alt: TITLE }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
 };
 
 export default async function RoutesPage() {

@@ -25,10 +25,26 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   const { city: slug } = await params;
   const city = getRecoveryCity(slug);
   if (!city) return {};
+  const title = `Car Recovery ${city.name} | 24/7 Tow Truck & Satha ${city.sathaAr}`;
+  const description = `24/7 car recovery & flatbed tow truck (${city.sathaAr}) in ${city.name}. From SAR ${city.startingPrice}, fixed price on WhatsApp. Breakdown, accident & battery service.`;
+  const url = `https://taxisaudiarabia.com/services/car-recovery/${city.slug}`;
   return {
-    alternates: { canonical: `https://taxisaudiarabia.com/services/car-recovery/${city.slug}` },
-    title: `Car Recovery ${city.name} | 24/7 Tow Truck & Satha ${city.sathaAr}`,
-    description: `24/7 car recovery & flatbed tow truck (${city.sathaAr}) in ${city.name}. From SAR ${city.startingPrice}, fixed price on WhatsApp. Breakdown, accident & battery service.`,
+    alternates: { canonical: url },
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: "Taxi Saudi Arabia",
+      images: [{ url: "https://taxisaudiarabia.com/opengraph-image", width: 1200, height: 630, alt: title }],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
   };
 }
 
