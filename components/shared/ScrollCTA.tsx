@@ -59,7 +59,7 @@ export function ScrollCTA() {
 
           {/* Content */}
           <p className="font-heading text-base md:text-lg font-bold text-white pr-8">
-            Need a quick price?
+            Reserve your private transfer
           </p>
           <p className="mt-1 text-xs text-white/60 max-w-md">
             Get a fixed-price quote on WhatsApp, usually within 1–2 hours — no hidden fees.

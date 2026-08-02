@@ -1,5 +1,23 @@
 # WORK LEDGER — TaxiSaudiArabia.com
 
+## ✅ (2026-08-02) — Deploy verified live + Phase 2/3 of locked strategy (WhatsApp tone + VIP keywords)
+
+**Deploy check**: curled production (`taxisaudiarabia.com`) directly — homepage 200, `/driver-jobs/riyadh` correctly 301s to `/locations/riyadh`, schema `@type` array live, `/routes` hub OG tags show its own URL (not homepage's). All of today's earlier commits confirmed live, not just pushed.
+
+**WhatsApp templates — VIP tone shift** (site-wide, high-visibility touchpoints only, per the locked "light-touch" scope — did not touch every page's individual WhatsApp template):
+- `WhatsAppButton.tsx` (floating button, every page): pre-filled message "I want to book a taxi" → "I'd like to reserve a private chauffeur"; bubble text "Need a Quote?" → "Reserve Your Private Chauffeur"; hover tooltip "Book via WhatsApp 24/7" → "Reserve via WhatsApp 24/7".
+- `ScrollCTA.tsx` (scroll-triggered popup, every page): "Need a quick price?" → "Reserve your private transfer".
+- `home-page.tsx`: PriceCalculator WhatsApp label was still saying "Or book instantly on WhatsApp →" (an "instantly" overclaim the earlier response-time sweep missed — this block wasn't caught then) → "Or reserve directly via our VIP WhatsApp Desk →", matching the AR/UR versions which already said "VIP support desk" (Arabic/Urdu were already ahead of English here). Umrah section "Book Umrah Taxi on WhatsApp" → "Reserve Your Private Umrah Chauffeur on WhatsApp". Main CTA "Book on WhatsApp" → "Reserve on WhatsApp".
+
+**VIP/private-hire keyword targeting** — honest note: there is no real ranking/click data to mine for this intent (Ahrefs' keyword tracker showed zero ranked keywords for all of July; GSC's real clicks were almost entirely job-search queries, now removed). So this is standard keyword research + reusing what's already proven on-site (chauffeur/private driver/executive terms), not data-mined — flagged so nobody mistakes it for a data-driven claim later.
+- `services/vip-luxury`: title "VIP & Luxury Chauffeur Service" → "Private Driver & VIP Chauffeur Service | Riyadh, Jeddah" (55 chars); description and hero intro paragraph now explicitly say "private driver" + city names (Riyadh, Jeddah) instead of only "VIP transport... across the Kingdom".
+- `services/corporate`: title "Corporate Taxi Accounts & B2B Transport" → "Executive Car Service & Corporate Chauffeur | Saudi Arabia" (58 chars); description reworded to lead with "Executive car service & corporate chauffeur" instead of "B2B transport solutions".
+- Deliberately did **not** touch the homepage's own root title/description (`app/layout.tsx`) — it's the site's single highest-traffic, most-established page; swapping its primary "Taxi Service" keyword match for VIP framing is a bigger, more sensitive move than what was asked (light touch, don't risk the one page with real established signal). Flagged here as a decision point for a future session if the user wants to go further.
+
+`tsc --noEmit` clean, `ui_consistency_check.py --summary` PASS.
+
+**Not done yet**: AR/UR translations for the vip-luxury/corporate title changes (only EN metadata touched); a full page-by-page WhatsApp-template pass (only the highest-visibility, site-wide ones were done, per "don't change the whole site").
+
 ## 🎯 BUSINESS STRATEGY DECISION (2026-08-02) — VIP-first repositioning, light-touch scope
 User + advisor discussion concluded: site repositions VIP/private-hire messaging first (not a full rebuild — "poori site nhi change krni", keep everything that already brings traffic). Locked decisions:
 1. **Target customer**: VIP-first, general taxi/routes/services stay live as secondary (no removal of existing money pages).

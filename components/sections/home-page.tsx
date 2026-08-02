@@ -55,7 +55,7 @@ const homeTranslations = {
       passengersLabel: "Passengers",
       vehicleLabel: "Choose Your Car",
       btnCalculate: "Calculate My Price",
-      whatsappLabel: "Or book instantly on WhatsApp →",
+      whatsappLabel: "Or reserve directly via our VIP WhatsApp Desk →",
       popDestinations: "Popular Locations",
       hrs: "hours"
     },
@@ -157,7 +157,7 @@ const homeTranslations = {
       point2: "Meeqat stop for Ihram — no extra charge, no rush",
       point3: "Drop-off at the closest permitted point to Masjid Al-Haram and Masjid An-Nabawi",
       point4: "Professional chauffeurs trained to respect pilgrims and support the full Umrah journey",
-      btnWhatsApp: "Book Umrah Taxi on WhatsApp"
+      btnWhatsApp: "Reserve Your Private Umrah Chauffeur on WhatsApp"
     },
     testimonials: {
       badge: "Customer Reviews",
@@ -173,7 +173,7 @@ const homeTranslations = {
       title: "Book Your Taxi in Saudi Arabia Today",
       desc: "Need a taxi in Saudi Arabia? Book an airport transfer, Umrah taxi, or private intercity ride in under 2 minutes. Fixed taxi prices, licensed drivers, and WhatsApp booking available around the clock.",
       btnBook: "Book Taxi Online",
-      btnWhatsApp: "Book on WhatsApp",
+      btnWhatsApp: "Reserve on WhatsApp",
       trust: "Fast Quote Response • Fixed Taxi Prices Guaranteed • 24/7 Customer Support"
     },
     faq: {

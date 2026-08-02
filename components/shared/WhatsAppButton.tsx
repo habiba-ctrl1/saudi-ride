@@ -22,7 +22,7 @@ export function WhatsAppButton() {
 
   const formattedNumber = whatsappNumber.replace(/[^0-9]/g, "");
   const encodedText = encodeURIComponent(
-    "Salam! I want to book a taxi with Taxi Saudi Arabia.\n\n" +
+    "Salam! I'd like to reserve a private chauffeur with Taxi Saudi Arabia.\n\n" +
       "• From: \n" +
       "• To: \n" +
       "• Date & time: \n" +
@@ -50,7 +50,7 @@ export function WhatsAppButton() {
             </div>
 
             <div className="flex-1 pr-4 text-xs leading-relaxed">
-              <p className="font-semibold text-white">Need a Quote?</p>
+              <p className="font-semibold text-white">Reserve Your Private Chauffeur</p>
               <p className="text-[#A3A3A3]">Chat 24/7 on WhatsApp — fixed price, usually within 1–2 hours</p>
             </div>
 
@@ -84,7 +84,7 @@ export function WhatsAppButton() {
               transition={{ duration: 0.2 }}
               className="mr-3 hidden rounded-lg border border-[#C9A84C]/30 bg-[#121212] px-3.5 py-1.5 text-xs font-semibold tracking-wider text-[#C9A84C] shadow-2xl backdrop-blur-md md:block"
             >
-              Book via WhatsApp 24/7
+              Reserve via WhatsApp 24/7
             </motion.div>
           )}
         </AnimatePresence>

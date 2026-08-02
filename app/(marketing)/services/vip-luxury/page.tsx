@@ -8,8 +8,8 @@ import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { Star, ShieldCheck, Clock, Crown } from "lucide-react";
 import Link from "next/link";
 
-const TITLE = "VIP & Luxury Chauffeur Service | Taxi Saudi Arabia";
-const DESCRIPTION = "VIP luxury chauffeur service in Saudi Arabia with a premium fleet — Mercedes S-Class, BMW 7-Series & Cadillac Escalade. Discreet, professional drivers, 24/7.";
+const TITLE = "Private Driver & VIP Chauffeur Service | Riyadh, Jeddah";
+const DESCRIPTION = "Hire a private driver or VIP chauffeur in Riyadh, Jeddah & across Saudi Arabia — Mercedes S-Class, BMW 7-Series, Cadillac Escalade. Discreet, 24/7.";
 const OG_IMAGE = "https://taxisaudiarabia.com/services/vip-luxury-hero.webp";
 
 export const metadata: Metadata = {
@@ -81,7 +81,7 @@ export default function VIPLuxuryPage() {
             <span className="text-[#16A34A]">Chauffeur Service</span>
           </h1>
           <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-8">
-            For those who demand the very best. Our VIP transport service offers unparalleled comfort, privacy, and prestige across the Kingdom.
+            For those who demand the very best. Hire a private driver or VIP chauffeur in Riyadh, Jeddah, and across the Kingdom — unparalleled comfort, privacy, and prestige.
           </p>
           <div className="max-w-2xl mx-auto mb-10 text-left">
             <TLDRSummary
