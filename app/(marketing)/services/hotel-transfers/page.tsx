@@ -9,8 +9,8 @@ import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 
-const TITLE = "Hotel Transfer Taxi Service Saudi Arabia | Makkah, Madinah & Riyadh";
-const DESCRIPTION = "Book private hotel transfers in Saudi Arabia. Direct pickup & drop-off for Makkah Clock Tower, Madinah Markaziyah, Riyadh KAFD & airport connections with licensed drivers.";
+const TITLE = "Hotel Transfer Taxi | Makkah, Madinah & Riyadh";
+const DESCRIPTION = "Private hotel transfers in Saudi Arabia — direct pickup & drop-off for Makkah Clock Tower, Madinah Markaziyah, Riyadh KAFD & airports with licensed drivers.";
 const OG_IMAGE = "https://taxisaudiarabia.com/services/hotel-transfers-hero.webp";
 
 export const metadata: Metadata = {

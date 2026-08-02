@@ -9,8 +9,8 @@ import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 
-const TITLE = "Taif Ziyarat & Historical Taxi Tour | Rose Farms, Al-Hada & Islamic Heritage";
-const DESCRIPTION = "Book a private Taif Ziyarat & mountain tour from Makkah or Jeddah. Visit Masjid Abdullah Ibn Abbas, Wadi Mitna, Al-Hada cable car, and Taif rose factories with licensed drivers.";
+const TITLE = "Taif Ziyarat Tour | Rose Farms, Al-Hada & Heritage";
+const DESCRIPTION = "Book a private Taif Ziyarat tour from Makkah or Jeddah — Masjid Abdullah Ibn Abbas, Wadi Mitna, Al-Hada cable car, and rose factories with licensed drivers.";
 const OG_IMAGE = "https://taxisaudiarabia.com/services/taif-ziyarat-hero.webp";
 
 export const metadata: Metadata = {

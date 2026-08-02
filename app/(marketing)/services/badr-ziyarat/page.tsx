@@ -9,8 +9,8 @@ import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 
-const TITLE = "Badr Battlefield Ziyarat Taxi Tour | Madinah to Ghazwa Badr";
-const DESCRIPTION = "Book a private Ghazwa Badr Ziyarat taxi tour from Madinah (~150 km). Visit Shuhada Badr Martyrs Cemetery, Masjid Al-Areesh & Jabal Al-Mala'ikah with knowledgeable drivers.";
+const TITLE = "Badr Battlefield Ziyarat Tour | Madinah to Ghazwa Badr";
+const DESCRIPTION = "Private Ghazwa Badr Ziyarat tour from Madinah (~150 km) — Shuhada Badr Cemetery, Masjid Al-Areesh & Jabal Al-Mala'ikah with knowledgeable drivers.";
 const OG_IMAGE = "https://taxisaudiarabia.com/services/badr-ziyarat-hero.webp";
 
 export const metadata: Metadata = {

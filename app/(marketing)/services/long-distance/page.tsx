@@ -9,8 +9,8 @@ import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 
-const TITLE = "Intercity & Long Distance Taxi Service Saudi Arabia | Cross-Country & GCC";
-const DESCRIPTION = "Book private long-distance intercity transfers in Saudi Arabia. Fixed-price rides between Riyadh, Jeddah, Makkah, Madinah, Dammam, and cross-border GCC transfers.";
+const TITLE = "Intercity & Long Distance Taxi | Cross-Country & GCC";
+const DESCRIPTION = "Private long-distance intercity transfers in Saudi Arabia — fixed-price rides between Riyadh, Jeddah, Makkah, Madinah, Dammam & cross-border GCC trips.";
 const OG_IMAGE = "https://taxisaudiarabia.com/services/long-distance-hero.webp";
 
 export const metadata: Metadata = {

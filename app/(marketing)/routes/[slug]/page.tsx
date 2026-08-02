@@ -978,7 +978,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title,
-    description: `Book a fixed-price taxi from ${route.fromCity} to ${route.toCity} — ${route.distance} km, approx ${Math.round(route.duration / 60)}h. From SAR ${route.basePrice}, available 24/7 with licensed drivers. No surge, no hidden fees.`,
+    description: `Fixed-price taxi from ${route.fromCity} to ${route.toCity} — ${route.distance} km, approx ${Math.round(route.duration / 60)}h. From SAR ${route.basePrice}, 24/7, licensed drivers, no surge.`.slice(0, 160),
     alternates: {
       canonical: `https://taxisaudiarabia.com/routes/${slug}`,
     },
