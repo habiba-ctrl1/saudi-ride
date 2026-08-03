@@ -1005,5 +1005,231 @@ Driving a just-bought used car 900 km home, uninspected, is a gamble — and add
 
 Ready to move a car? Our [car recovery and transport service](/services/car-recovery) covers [Riyadh](/services/car-recovery/riyadh), [Jeddah](/services/car-recovery/jeddah), [Dammam](/services/car-recovery/dammam), [Makkah](/services/car-recovery/makkah), and [Madinah](/services/car-recovery/madinah) — fixed prices, photo-documented handover, 24/7.
 `
+  },
+  {
+    title: "How Much Does a Private Driver Cost in Saudi Arabia? (2026 Guide)",
+    slug: "private-driver-cost-saudi-arabia",
+    excerpt: "Hourly, full-day, and point-to-point pricing for a private driver in Saudi Arabia — what changes the cost, and how it compares to ride-hailing apps.",
+    coverImage: "/services/vip-luxury-hero.webp",
+    category: "Pricing",
+    author: "Tariq Al-Faisal",
+    published: true,
+    publishedAt: new Date(new Date().setDate(new Date().getDate() - 2)),
+    content: `
+## How Much Does a Private Driver Cost?
+
+A private driver in Saudi Arabia can be booked three ways — by the hour, for a full day, or for a fixed point-to-point trip — and the price depends on which one fits your plans.
+
+> **Quick answer:** Hourly hire starts from **SAR 70/hour** for an executive sedan and **SAR 250/hour** for a luxury VIP sedan (Mercedes S-Class). Fixed point-to-point transfers (airport, intercity) are priced per route, not per hour — see our [pricing page](/pricing) for exact routes.
+
+### Hourly Rates by Vehicle Class
+
+- **Executive Sedan** (Toyota Camry): from SAR 70/hour
+- **Premium SUV** (GMC Yukon XL): from SAR 120/hour
+- **VIP Family Van** (Hyundai Staria): from SAR 140/hour
+- **Luxury VIP Sedan** (Mercedes S-Class): from SAR 250/hour
+
+Hourly hire is billed for the vehicle and driver together — waiting time between stops (a business meeting, a shopping trip, a Ziyarat visit) is included, not charged separately.
+
+### Which Pricing Model Should You Choose?
+
+- **Point-to-point (fixed price):** best for a single trip — airport to hotel, one city to another. You know the total before you book.
+- **Hourly hire:** best when you need the driver to wait — meetings, multi-stop city tours, or a half-day of sightseeing.
+- **Full-day charter:** best for a packed itinerary — several cities or stops in one day. Ask for a full-day quote and we'll price it against your planned stops.
+
+### What Changes the Price
+
+- **Vehicle class** — sedan, SUV, van, or luxury, as above.
+- **Duration** — hourly rates typically have a minimum booking window (ask when you book).
+- **City** — availability and demand vary slightly by city, though our published rates are fixed nationwide.
+- **What does NOT change it:** time of day, traffic, or "surge." Unlike ride-hailing apps, our prices don't move with demand.
+
+### Private Driver vs. Ride-Hailing Apps
+
+Apps like Uber and Careem are convenient for a single point-to-point ride, but they don't offer hourly "wait and go" hire in the same way, and their prices surge during peak hours, Ramadan, and Hajj season. A private driver booked directly gives you a fixed rate, a dedicated vehicle for the duration, and one driver who knows your schedule — useful for business travel, multi-stop days, or VIP arrivals where reliability matters more than the lowest possible fare.
+
+### Book a Private Driver
+
+Tell us your city, dates, and rough itinerary on WhatsApp and we'll confirm the right vehicle class and a fixed price before you travel. See our [VIP & luxury chauffeur service](/services/vip-luxury) or [corporate accounts](/services/corporate) for regular business travel.
+`
+  },
+  {
+    title: "VIP Airport Meet & Greet in Saudi Arabia: What to Expect",
+    slug: "vip-airport-meet-greet-saudi-arabia",
+    excerpt: "How airport meet & greet works at Jeddah, Riyadh, Madinah and Dammam — flight tracking, where your driver waits, and what's included at no extra cost.",
+    coverImage: "/services/airport-transfers-hero.webp",
+    category: "Airport",
+    author: "Sarah Ahmed",
+    published: true,
+    publishedAt: new Date(new Date().setDate(new Date().getDate() - 3)),
+    content: `
+## What Is Airport Meet & Greet?
+
+Meet & greet means your driver is waiting for you inside the arrivals hall — not in a car park, not outside a terminal door — holding a sign with your name, ready to help with luggage the moment you land.
+
+> **Quick answer:** Meet & greet, live flight tracking, and 60 minutes of free waiting time are included on every airport transfer, at no extra cost, at Jeddah (JED), Riyadh (RUH), Madinah (MED), and Dammam (DMM).
+
+### How It Works, Step by Step
+
+1. **Book ahead** with your flight number, not just a pickup time — this is what lets us track you.
+2. **We track your flight in real time**, so if it lands early or is delayed, your driver adjusts automatically. You don't need to call or message us to update the time.
+3. **Your driver waits inside the arrivals hall** of your terminal, holding a name sign — not at the curb.
+4. **60 minutes of waiting time is included free**, covering immigration and baggage claim, even on a delayed flight.
+5. **Luggage assistance** to the car, then straight to your hotel, Makkah, Madinah, or wherever you're headed.
+
+### Why Flight Tracking Matters
+
+Saudi airports see a lot of late-night and early-morning arrivals, especially for Umrah pilgrims. Flight tracking means a 2 AM landing gets the same meet & greet as a midday one — your driver is told about delays before you even see them on the arrivals board.
+
+### Terminal-Specific Notes
+
+Large airports like Jeddah (JED) and Riyadh (RUH) have multiple terminals — tell us yours when booking (check your boarding pass) so your driver meets you at the correct arrivals exit rather than a general "airport" pickup point.
+
+### What's Different for VIP/Executive Arrivals
+
+For business and VIP arrivals, we can arrange a driver in formal attire, a premium vehicle (Mercedes S-Class, Cadillac Escalade), and — where the airport permits it — closer vehicle positioning for a faster exit. Mention this when booking so we prepare the right vehicle in advance.
+
+### Book Your Airport Pickup
+
+See our full [airport transfer service](/services/airport-transfers) for airport-specific details, or check the [King Abdulaziz International Airport (JED)](/airports/king-abdulaziz-jeddah), [King Khalid International Airport (RUH)](/airports/king-khalid-riyadh), and [Prince Mohammad Bin Abdulaziz Airport (MED)](/airports/prince-mohammad-madinah) guides for terminal-by-terminal detail.
+`
+  },
+  {
+    title: "Private Car vs. Shared Van for Umrah: Which Should You Choose?",
+    slug: "private-car-vs-shared-van-umrah",
+    excerpt: "Comparing a private car and a shared van for Umrah transport — cost, comfort, flexibility around prayer times, and which fits families vs solo pilgrims.",
+    coverImage: "/services/umrah-transport-hero.webp",
+    category: "Umrah",
+    author: "Omar Saeed",
+    published: true,
+    publishedAt: new Date(new Date().setDate(new Date().getDate() - 4)),
+    content: `
+## Private Car or Shared Van — Which Is Right for Your Umrah Trip?
+
+Both get you from the airport to Makkah and Madinah, but they suit different travelers. Here's the real difference.
+
+> **Quick answer:** A private sedan or SUV gives you a fixed schedule and privacy, at a higher per-person cost for a solo traveler. A van or group vehicle (Hyundai Staria, Toyota Hiace) is more cost-efficient for families and groups of 4 or more, at a similar or lower per-person cost, without sharing with strangers.
+
+### Private Car: Best For
+
+- **Solo travelers or couples** who want full control of the schedule — including Meeqat stops, prayer breaks, and rest stops on your own timing.
+- **Families with heavy luggage** who want more space per person even in a smaller group.
+- **Anyone prioritizing privacy** over splitting the cost with others.
+
+### Van or Group Vehicle: Best For
+
+- **Groups of 4–7** traveling together — a Hyundai Staria or Toyota Hiace splits the fare across more people without losing comfort.
+- **Multi-generational family trips** — everyone travels together instead of splitting into two cars.
+- **Umrah groups organized through a travel agency**, where one vehicle for the whole party is simpler to coordinate.
+
+### Important: We Don't Offer Shared Rides With Strangers
+
+To be clear, every vehicle we dispatch — sedan, SUV, or van — is **private to your booking only**. "Shared van" here means a larger vehicle sized for your own group, not a shuttle shared with unrelated passengers. If your group is smaller than the vehicle's capacity, you're still not paying for empty seats to be filled by others.
+
+### Cost Comparison (Fixed Prices, Not Per-Seat)
+
+Using the Jeddah Airport → Makkah corridor as an example:
+
+- **Executive Sedan** (up to 3 pax): from SAR 249 total
+- **VIP Family Van** (up to 7 pax): from SAR 349 total
+
+For a group of 4, the van works out to roughly SAR 87 per person versus SAR 83–166 per person split across two sedans — similar cost, but everyone travels together in one vehicle.
+
+### Both Options Include
+
+- A Meeqat stop for Ihram at no extra charge
+- Flight tracking and meet & greet
+- A driver familiar with pilgrim etiquette and prayer-time planning
+
+### Book Your Umrah Transport
+
+See our [Umrah transport service](/services/umrah-transport) for the full corridor list, or go straight to [Jeddah Airport to Makkah](/routes/jeddah-airport-to-makkah) pricing by vehicle class.
+`
+  },
+  {
+    title: "How to Choose a Private Chauffeur Company in Saudi Arabia",
+    slug: "how-to-choose-private-chauffeur-company-saudi-arabia",
+    excerpt: "A buyer's checklist for hiring a private chauffeur or executive car service in Saudi Arabia — licensing, fixed pricing, fleet condition, and what to ask before booking.",
+    coverImage: "/services/business-executive-hero.webp",
+    category: "Tips",
+    author: "Sarah Ahmed",
+    published: true,
+    publishedAt: new Date(new Date().setDate(new Date().getDate() - 6)),
+    content: `
+## What to Check Before Booking a Private Chauffeur
+
+Not every "VIP transport" listing you find online is run the same way. Here's what actually matters when comparing private chauffeur companies in Saudi Arabia.
+
+> **Quick answer:** Confirm the driver is licensed under the Saudi Transport Authority, the price is fixed and confirmed in writing before travel, and the vehicle photos match what actually arrives. Everything else is a bonus.
+
+### 1. Licensed Drivers, Not Just a Nice Car
+
+A premium vehicle means little if the driver isn't properly licensed and insured for commercial passenger transport. Ask directly: "Is the driver licensed by the Saudi Transport General Authority?" A legitimate operator will answer without hesitation.
+
+### 2. Fixed Price, Confirmed Before You Travel
+
+The price you're quoted should be the price you pay — no meter, no "final price on arrival," no surge for peak times or Ramadan. If a company won't confirm a total in writing (WhatsApp is fine) before your trip, that's a red flag.
+
+### 3. Real Fleet Photos
+
+Ask for a photo of the actual vehicle model you're booking, not a generic stock photo. Vehicle age matters too — a 2020-or-newer requirement (which we apply to our own network) is a reasonable minimum to ask for.
+
+### 4. What Happens If Your Flight Is Delayed
+
+A serious operator tracks your flight and adjusts automatically, with a reasonable amount of free waiting time built in (we include 60 minutes). If waiting time isn't mentioned at all, ask before you book — it can turn into a surprise extra charge.
+
+### 5. Response Time and Communication
+
+Test it before you commit: message the company with a real question and see how they respond. A private chauffeur service is only as good as its ability to actually reach you and confirm details in the days before your trip.
+
+### 6. Umrah and Prayer-Time Awareness
+
+If your trip involves Umrah or Ziyarat, ask specifically whether the driver plans routes around prayer times and can stop at the Meeqat for Ihram — this is a good sign the operator understands pilgrim travel, not just general taxi work.
+
+### What We Offer
+
+Licensed chauffeurs, a 2020-or-newer fleet (Mercedes S-Class, GMC Yukon, Hyundai Staria and more), fixed prices confirmed before travel, and flight tracking with 60 minutes of free waiting time. See our [VIP & luxury chauffeur service](/services/vip-luxury) or [full fleet](/fleet).
+`
+  },
+  {
+    title: "Riyadh to Diriyah: Complete Visitor & Transport Guide",
+    slug: "riyadh-to-diriyah-visitor-transport-guide",
+    excerpt: "How to visit Diriyah from Riyadh — At-Turaif UNESCO site, Bujairi Terrace, distance, travel time, and the best way to get there with a private driver.",
+    coverImage: "/services/heritage-tours-hero.webp",
+    category: "City Guides",
+    author: "Omar Saeed",
+    published: true,
+    publishedAt: new Date(new Date().setDate(new Date().getDate() - 7)),
+    content: `
+## Visiting Diriyah From Riyadh
+
+Diriyah, the birthplace of the first Saudi state, sits just northwest of Riyadh and has become one of the Kingdom's flagship heritage and lifestyle destinations — home to the At-Turaif UNESCO World Heritage Site and the restaurants and cafés of Bujairi Terrace.
+
+> **Quick answer:** Diriyah is about 20–25 km from central Riyadh, roughly a 25–35 minute drive depending on traffic. A private taxi from Riyadh to Diriyah is the most convenient option, since public transport connections are limited and most visitors combine it with other stops in the same trip.
+
+### What's in Diriyah
+
+- **At-Turaif District (UNESCO World Heritage Site):** the restored mud-brick citadel of the original Saudi capital — historical walking tours and museum exhibits.
+- **Bujairi Terrace:** a dining and lifestyle district overlooking At-Turaif, popular in the evening for dinner with a view of the illuminated old town.
+- **Diriyah Gate and ongoing development:** the wider Diriyah project continues to expand with new cultural and hospitality venues.
+
+### Best Time to Visit
+
+Evenings are the most popular time — At-Turaif is illuminated after sunset and the temperature is more comfortable than midday, especially outside the winter months. If you want fewer crowds for photos or a museum visit, a late-morning visit on a weekday works well.
+
+### Getting There From Riyadh
+
+- **From central Riyadh (Olaya, KAFD):** about 25–35 minutes by car.
+- **From King Khalid International Airport (RUH):** about 35–45 minutes, so it can work as a stop on the way into the city if your schedule allows.
+- **Parking and drop-off:** a private driver can drop you directly at the entrance and pick you up at an agreed time, rather than you needing to manage parking yourself.
+
+### Combine It With
+
+A half-day or full-day private car hire lets you pair Diriyah with other Riyadh stops — KAFD, Olaya, or the Boulevard entertainment district — without the cost and hassle of arranging separate rides.
+
+### Book Your Riyadh Transport
+
+See our [taxi service in Riyadh](/locations/riyadh) for airport transfers and city rides, or ask about hourly private car hire to build a custom Diriyah-and-Riyadh itinerary.
+`
   }
 ];

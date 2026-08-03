@@ -1,5 +1,15 @@
 # WORK LEDGER — TaxiSaudiArabia.com
 
+## ✅ (2026-08-03) — Corrected "taxi" over-removal + 5 new blog posts
+User pushback: the last two VIP-tone passes swapped the word "taxi" out entirely in several spots (homepage bottom CTA, WhatsApp button template/bubble, corporate page title) instead of keeping it and adding "private/VIP" alongside it — "taxi" is a real, high-volume search term per GSC query data, the ask was to strengthen already-matching pages, not strip the keyword. Restored "taxi" in all of those (kept the private/VIP additions — additive, not a revert).
+
+Also answered two open questions and acted on the third:
+- **"Pages not indexed" (144, from the 26 Jul Ahrefs/GSC audit)**: told the user exactly what to export — GSC → Indexing → Pages → click "Discovered - currently not indexed" → export the URL table. Only had the aggregate count, not the URL list, so couldn't investigate further without it.
+- **Money pages ranking position 80–90 ("page 8-9")**: confirmed honestly this is a domain-authority/backlinks problem, not a code problem — Ahrefs shows zero ranked keywords for the entire site across all of July. Not fixable from the codebase; `OFFPAGE-ASSETS.md` already has the real plan (GBP listings, real citations).
+- **5 new blog posts** (the one concrete lever available in code): added to `lib/data/blog-posts.ts`, VIP-angle topics not overlapping the existing 23 posts — `private-driver-cost-saudi-arabia` (real hourly rates already published elsewhere, e.g. SAR 70/hr sedan, SAR 250/hr S-Class — not invented), `vip-airport-meet-greet-saudi-arabia`, `private-car-vs-shared-van-umrah`, `how-to-choose-private-chauffeur-company-saudi-arabia`, `riyadh-to-diriyah-visitor-transport-guide`. Each reuses an existing real hero image (no new image assets needed — verified all 5 load 200) and links to real, existing service/route/airport pages (verified each link target exists before writing it in). All 5 confirmed 200 live via `next dev`, all appear on the `/blog` hub (auto-picked-up, no separate wiring needed) and will auto-appear in `sitemap.ts` (already filters `BLOG_POSTS_DATA` by `published`).
+
+`tsc --noEmit` clean, `ui_consistency_check.py --summary` PASS on both changes.
+
 ## ✅ (2026-08-03) — Found the real source of ongoing driver-applicant WhatsApp messages
 User reported still getting driver-inquiry messages despite yesterday's driver-jobs page removal. Root cause: `/partners/driver-registration` (noindex, kept live deliberately for legitimate operational use) was still linked from **both** the site-wide Footer (all 3 languages) and the Navbar's `PARTNERS_MENU` dropdown ("Join our driver network") — visible on literally every page. This, not the removed SEO pages, was the actual leak.
 - Removed the Navbar dropdown entry (`components/layout/Navbar.tsx` — `PARTNERS_MENU`, now just "Partner With Us" → `/partners`, the real B2B/hotels/corporate hub, which stays) and the 3 Footer language entries.
