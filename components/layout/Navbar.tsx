@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
 import {
   Menu, X, ChevronDown, ChevronRight, Car, Landmark, Plane, Route as RouteIcon,
-  MapPin, Handshake, UserPlus, MessageCircle, ArrowRight,
+  MapPin, Handshake, MessageCircle, ArrowRight,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -73,7 +73,6 @@ const LOCATIONS_MENU = [
 
 const PARTNERS_MENU = [
   { label: "Partner With Us", href: "/partners", icon: Handshake, desc: "Grow your business with us" },
-  { label: "Driver Registration", href: "/partners/driver-registration", icon: UserPlus, desc: "Join our driver network" },
 ];
 
 export function Navbar() {

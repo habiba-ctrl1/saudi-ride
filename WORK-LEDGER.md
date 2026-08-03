@@ -1,5 +1,17 @@
 # WORK LEDGER — TaxiSaudiArabia.com
 
+## ✅ (2026-08-03) — Found the real source of ongoing driver-applicant WhatsApp messages
+User reported still getting driver-inquiry messages despite yesterday's driver-jobs page removal. Root cause: `/partners/driver-registration` (noindex, kept live deliberately for legitimate operational use) was still linked from **both** the site-wide Footer (all 3 languages) and the Navbar's `PARTNERS_MENU` dropdown ("Join our driver network") — visible on literally every page. This, not the removed SEO pages, was the actual leak.
+- Removed the Navbar dropdown entry (`components/layout/Navbar.tsx` — `PARTNERS_MENU`, now just "Partner With Us" → `/partners`, the real B2B/hotels/corporate hub, which stays) and the 3 Footer language entries.
+- Left `/partners/driver-registration` page itself live and reachable by direct URL (still noindex) — for any existing driver relationship that needs it — just no longer advertised to the general public.
+- **Known limit, not fixable in code**: anyone who already has the WhatsApp number saved from an old listing/screenshot/job board can still message about driving — code can only stop *new* people from being invited to ask.
+
+Also fixed, same session — homepage hero was still 100% generic/plain "taxi" language in English while Arabic/Urdu translations already said "Private VIP driver" / "luxury trip" (someone translated these well before, English was never brought in line):
+- The actual `<h1>` was hardcoded with a 2-way `language === "ar" ? … : …` ternary — meaning **Urdu silently fell back to the English H1**, and the translation object's own `hero.title`/`hero.badge` fields were dead code, never rendered. Rewired the H1 to use `t.hero.title` — fixes the Urdu bug and the tone gap in one change.
+- EN `hero.badge/title/subtitle/btnBook/badges` and the bottom `cta` block rewritten to match the tone AR/UR already had (dropped the unverifiable "#1 Rated"/"Best" superlatives too, same fabricated-trust-signal pattern already fixed elsewhere in this codebase).
+- **Bug found + fixed**: AR/UR `hero.badges` arrays only had 3 items while the render code (from yesterday's badge redesign) unconditionally reads index 0–3 — 4th badge was rendering blank/undefined in Arabic and Urdu. Added the missing 4th badge to both.
+- Verified live via `next dev` + curl: EN and AR `<h1>` both render the correct, different text; driver-registration link confirmed gone from rendered HTML; `/partners` (200) and `/partners/driver-registration` (200, just unlinked) both still reachable. `tsc --noEmit` clean, `ui_consistency_check.py --summary` PASS.
+
 ## ✅ (2026-08-02) — Deploy verified live + Phase 2/3 of locked strategy (WhatsApp tone + VIP keywords)
 
 **Deploy check**: curled production (`taxisaudiarabia.com`) directly — homepage 200, `/driver-jobs/riyadh` correctly 301s to `/locations/riyadh`, schema `@type` array live, `/routes` hub OG tags show its own URL (not homepage's). All of today's earlier commits confirmed live, not just pushed.

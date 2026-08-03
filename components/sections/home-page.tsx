@@ -29,12 +29,12 @@ import {
 const homeTranslations = {
   en: {
     hero: {
-      badge: "Saudi Arabia's #1 Rated Taxi Service",
-      title: "Book a Taxi in Saudi Arabia — Airport Transfers, Umrah & Intercity",
-      subtitle: "Looking for a reliable taxi service in Saudi Arabia? Book airport transfers, Umrah transport, and private intercity rides at fixed prices — no hidden fees, licensed drivers, and a 24/7 taxi service you can trust.",
-      btnBook: "Book Taxi Now",
+      badge: "Saudi Arabia's Private Chauffeur & Taxi Service",
+      title: "Reserve Your Private Taxi & Chauffeur in Saudi Arabia",
+      subtitle: "Private chauffeur service across Saudi Arabia — airport transfers, Umrah transport, and luxury intercity rides at fixed prices, with licensed drivers, 24/7.",
+      btnBook: "Reserve Your Ride",
       btnFleet: "Get a Free Price Quote",
-      badges: ["24/7 Taxi Service", "Licensed Drivers", "Fixed Price Taxi", "All Saudi Cities"]
+      badges: ["24/7 Private Service", "Licensed Chauffeurs", "Fixed Price Guarantee", "All Saudi Cities"]
     },
     stats: [
       { label: "Routes Covered", value: "56+", num: 56 },
@@ -170,11 +170,11 @@ const homeTranslations = {
       btnRead: "Read Full Guide →"
     },
     cta: {
-      title: "Book Your Taxi in Saudi Arabia Today",
-      desc: "Need a taxi in Saudi Arabia? Book an airport transfer, Umrah taxi, or private intercity ride in under 2 minutes. Fixed taxi prices, licensed drivers, and WhatsApp booking available around the clock.",
-      btnBook: "Book Taxi Online",
+      title: "Ready for Your Private VIP Ride?",
+      desc: "Experience the highest standard of private travel and safety in Saudi Arabia. Reserve your airport transfer, Umrah transport, or private intercity ride in under 2 minutes.",
+      btnBook: "Reserve Online",
       btnWhatsApp: "Reserve on WhatsApp",
-      trust: "Fast Quote Response • Fixed Taxi Prices Guaranteed • 24/7 Customer Support"
+      trust: "Fast Quote Response • Fixed Prices Guaranteed • 24/7 Customer Support"
     },
     faq: {
       badge: "Frequently Asked Questions",
@@ -210,7 +210,7 @@ const homeTranslations = {
       subtitle: "سائق خاص VIP في جميع أنحاء المملكة — المطارات، العمرة، والتنقل الفاخر بين المدن بأقصى درجات الراحة.",
       btnBook: "احجز رحلتك الفاخرة",
       btnFleet: "تصفح أسطول التميز",
-      badges: ["دعم VIP على مدار ٢٤ ساعة", "سائقون مرخصون", "أسعار ثابتة بدون زيادة مفاجئة"]
+      badges: ["دعم VIP على مدار ٢٤ ساعة", "سائقون مرخصون", "أسعار ثابتة بدون زيادة مفاجئة", "جميع المدن السعودية"]
     },
     stats: [
       { label: "مسار مغطى", value: "+٥٦", num: 56 },
@@ -370,7 +370,7 @@ const homeTranslations = {
       subtitle: "سعودی عرب بھر میں وی آئی پی ڈرائیور سروس — ہوائی اڈے، عمرہ اور بین شہر سفر بہترین آرام کے ساتھ۔",
       btnBook: "لگژری سواری بک کریں",
       btnFleet: "پریسٹيج بیڑے کو دیکھیں",
-      badges: ["24/7 پریمیم سپورٹ", "لائسنس یافتہ ڈرائیورز", "مقررہ مسابقتی قیمتیں"]
+      badges: ["24/7 پریمیم سپورٹ", "لائسنس یافتہ ڈرائیورز", "مقررہ مسابقتی قیمتیں", "تمام سعودی شہر"]
     },
     stats: [
       { label: "روٹس", value: "56+", num: 56 },
@@ -847,9 +847,7 @@ export function HomePage() {
                 className="font-heading font-extrabold text-white leading-tight"
                 style={{ fontSize: "clamp(1.9rem, 3.6vw, 3.1rem)", letterSpacing: "-0.02em" }}
               >
-                {language === "ar"
-                  ? "احصل على أفضل خدمة تاكسي في المملكة العربية السعودية"
-                  : "Get the Best Online Taxi Service in Saudi Arabia"}
+                {t.hero.title}
               </h1>
 
               <p className="mt-5 max-w-xl text-sm md:text-base leading-relaxed text-white/90">
