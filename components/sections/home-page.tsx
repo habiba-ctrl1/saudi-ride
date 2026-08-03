@@ -31,10 +31,10 @@ const homeTranslations = {
     hero: {
       badge: "Saudi Arabia's Private Chauffeur & Taxi Service",
       title: "Reserve Your Private Taxi & Chauffeur in Saudi Arabia",
-      subtitle: "Private chauffeur service across Saudi Arabia — airport transfers, Umrah transport, and luxury intercity rides at fixed prices, with licensed drivers, 24/7.",
-      btnBook: "Reserve Your Ride",
+      subtitle: "Private taxi & chauffeur service across Saudi Arabia — airport transfers, Umrah transport, and luxury intercity rides at fixed prices, with licensed drivers, 24/7.",
+      btnBook: "Reserve Your Private Taxi",
       btnFleet: "Get a Free Price Quote",
-      badges: ["24/7 Private Service", "Licensed Chauffeurs", "Fixed Price Guarantee", "All Saudi Cities"]
+      badges: ["24/7 Private Taxi Service", "Licensed Chauffeurs", "Fixed Price Taxi Guarantee", "All Saudi Cities"]
     },
     stats: [
       { label: "Routes Covered", value: "56+", num: 56 },
@@ -170,11 +170,11 @@ const homeTranslations = {
       btnRead: "Read Full Guide →"
     },
     cta: {
-      title: "Ready for Your Private VIP Ride?",
-      desc: "Experience the highest standard of private travel and safety in Saudi Arabia. Reserve your airport transfer, Umrah transport, or private intercity ride in under 2 minutes.",
-      btnBook: "Reserve Online",
+      title: "Book Your Private Taxi in Saudi Arabia Today",
+      desc: "Need a private taxi in Saudi Arabia? Book an airport transfer, Umrah taxi, or private intercity ride in under 2 minutes. Fixed taxi prices, licensed chauffeurs, and WhatsApp booking available around the clock.",
+      btnBook: "Book Taxi Online",
       btnWhatsApp: "Reserve on WhatsApp",
-      trust: "Fast Quote Response • Fixed Prices Guaranteed • 24/7 Customer Support"
+      trust: "Fast Quote Response • Fixed Taxi Prices Guaranteed • 24/7 Customer Support"
     },
     faq: {
       badge: "Frequently Asked Questions",

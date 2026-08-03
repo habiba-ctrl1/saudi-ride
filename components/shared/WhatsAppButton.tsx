@@ -22,7 +22,7 @@ export function WhatsAppButton() {
 
   const formattedNumber = whatsappNumber.replace(/[^0-9]/g, "");
   const encodedText = encodeURIComponent(
-    "Salam! I'd like to reserve a private chauffeur with Taxi Saudi Arabia.\n\n" +
+    "Salam! I'd like to book a private taxi with Taxi Saudi Arabia.\n\n" +
       "• From: \n" +
       "• To: \n" +
       "• Date & time: \n" +
@@ -50,7 +50,7 @@ export function WhatsAppButton() {
             </div>
 
             <div className="flex-1 pr-4 text-xs leading-relaxed">
-              <p className="font-semibold text-white">Reserve Your Private Chauffeur</p>
+              <p className="font-semibold text-white">Reserve Your Private Taxi</p>
               <p className="text-[#A3A3A3]">Chat 24/7 on WhatsApp — fixed price, usually within 1–2 hours</p>
             </div>
 

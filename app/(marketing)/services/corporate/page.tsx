@@ -8,8 +8,8 @@ import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { Building2, ReceiptText, ShieldCheck, UserCheck, Check } from "lucide-react";
 import { CorporateAccountForm } from "@/components/booking/CorporateAccountForm";
 
-const TITLE = "Executive Car Service & Corporate Chauffeur | Saudi Arabia";
-const DESCRIPTION = "Executive car service & corporate chauffeur accounts in Saudi Arabia. Monthly invoicing, ZATCA receipts, priority dispatch, dedicated account managers.";
+const TITLE = "Corporate Taxi & Executive Chauffeur | Saudi Arabia";
+const DESCRIPTION = "Corporate taxi & executive chauffeur accounts in Saudi Arabia. Monthly invoicing, ZATCA receipts, priority dispatch, dedicated account managers.";
 const OG_IMAGE = "https://taxisaudiarabia.com/services/corporate-hero.webp";
 
 export const metadata: Metadata = {
