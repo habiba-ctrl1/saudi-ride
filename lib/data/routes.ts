@@ -882,7 +882,7 @@ export const ROUTES_DATA = [
     toCityAr: "منتجعات الهدا والشفا بالطائف",
     distance: 85,
     duration: 75,
-    basePrice: 350,
+    basePrice: 220,
     popular: true,
     description: "Day trip and hotel transfer from Makkah Haram area to mountain resort hotels and rose distilleries in Al-Hada and Shafa Taif.",
     descriptionAr: "رحلة يومية وتوصيل من فنادق مكة إلى منتجعات ومزارع الورد بمنطقتي الهدا والشفا بالطائف.",

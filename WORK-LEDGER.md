@@ -1,5 +1,23 @@
 # WORK LEDGER — TaxiSaudiArabia.com
 
+## ✅ (2026-08-04) — MAJOR FIND: 7 route pages were 404ing in production, indexed and linked
+Started as a routes-page AIO/GEO/content-gap pass (user asked to strengthen money pages, fill gaps, build internal linking, AIO/GEO/LLM optimization). Found something much bigger while verifying.
+
+**Root cause**: `lib/data/routes.ts` (static file — sitemap, price calculators, homepage cards, RouteRelatedLinks matching) is a *separate* data source from the live Supabase `Route` table, which is what `routes/[slug]/page.tsx` actually queries via Prisma (`db.route.findUnique`). 7 routes existed in the static file but were **never inserted into the live DB** — so the pages 404'd for every real visitor, while still being in the sitemap (submitted to Google), linked from other pages, and used for price-calculator math, the whole time:
+- The 5 newest hotel-corridor routes (`jeddah-airport-to-makkah-clock-tower`, `madinah-airport-to-madinah-markaziyah`, `makkah-clock-tower-to-madinah-markaziyah`, `makkah-hotels-to-taif-resorts`, `riyadh-airport-to-kafd-hotels`) — added 2026-07-31, never seeded to the DB.
+- **Correction to an earlier session's conclusion**: `jeddah-airport-to-jeddah-city` and `jeddah-to-haramain-station` were flagged by the very first audit pass (2026-08-02) as "2 broken-link targets, likely a transient Supabase pooler flake during build, self-heals on next deploy." That was wrong — same root cause as above, not transient. Correcting the record here so a future session doesn't re-diagnose this as a build flake again.
+
+**Fix**: `scripts/insert_missing_routes.js` (new, same Supabase-REST-API-not-Prisma-pooler pattern as `update_route_prices.js`, since direct/pooler DB access is flaky from local) — inserted all 7 missing rows. Verified all 7 return 200 on `next dev` after insert (were 404 before). **Recommend running a slug diff between `ROUTES_DATA` and the live `Route` table any time new routes are added** — this class of bug has no build-time or type-time signal, it only shows up as a runtime 404 that generateStaticParams doesn't catch (static params come from the *static* file, not the DB, so the build itself succeeds even when the DB row is missing).
+
+**Also while in this file**:
+- Fixed a real price inconsistency found while writing content: `makkah-hotels-to-taif-resorts` was priced at SAR 350 for essentially the same ~85km/75min corridor as the existing `makkah-to-taif` route (SAR 180) — nearly 2x for the same trip. Reduced to SAR 220 (modest justified premium for the day-trip/rose-distillery-stop framing the page describes, not an unexplained 2x gap).
+- Wrote bespoke `tldr`/`tldrFacts`/`faqs` content for the 5 hotel-corridor routes (were falling back to generic 2-question `DEFAULT_FAQS` — thin content, exactly the kind of "gap" flagged).
+- Added `speakableSchema()` to `routes/[slug]/page.tsx` — the page already renders answer-first `TLDRSummary` content with the `#speakable-summary` id (matching the site-wide convention), but the formal `Speakable` JSON-LD that tells Google/AI engines which selector is the speakable answer was never added, despite `services/*` pages already having it since Chunk 2. This was a real, site-wide (all 67 routes) AIO/GEO gap — one import + one script tag fixes all of them at once, verified live.
+
+Verified throughout via `next dev` + curl, not assumed. `tsc --noEmit` clean, `ui_consistency_check.py --summary` PASS.
+
+**Not yet done**: internal-linking audit for the 5 newest hotel-corridor routes specifically (they get a guaranteed inbound link from the `/routes` hub since it maps the full `ROUTES_DATA` array, plus whatever `RouteRelatedLinks`'s symmetric substring city-matching picks up — but given the WORK-LEDGER's own note that "existing jeddah-airport-* routes crowd out the slice(0,5)" for the *original* 6 hotel routes, the same crowding risk likely applies here and wasn't specifically re-checked this session).
+
 ## ✅ (2026-08-03) — Corrected "taxi" over-removal + 5 new blog posts
 User pushback: the last two VIP-tone passes swapped the word "taxi" out entirely in several spots (homepage bottom CTA, WhatsApp button template/bubble, corporate page title) instead of keeping it and adding "private/VIP" alongside it — "taxi" is a real, high-volume search term per GSC query data, the ask was to strengthen already-matching pages, not strip the keyword. Restored "taxi" in all of those (kept the private/VIP additions — additive, not a revert).
 

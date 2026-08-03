@@ -8,7 +8,7 @@ import { MapPin, Clock, ArrowRight, CheckCircle2, ShieldCheck, Car, HelpCircle, 
 import Link from "next/link";
 import { contactConfig } from "@/lib/config/contact";
 import Image from "next/image";
-import { breadcrumbSchema, faqSchema, SITE } from "@/lib/schema";
+import { breadcrumbSchema, faqSchema, speakableSchema, SITE } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { RouteRelatedLinks } from "@/components/seo/RouteRelatedLinks";
 
@@ -940,6 +940,81 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "Is the mountain road safe by taxi?", answer: "Yes. Our drivers are experienced on the winding Sarawat mountain roads, and an SUV is a comfortable choice for families." },
     ],
   },
+  "jeddah-airport-to-makkah-clock-tower": {
+    tldr: "A taxi from Jeddah Airport (JED) to the Makkah Clock Tower hotels (Fairmont, Pullman Zamzam, Abraj Al Bait) is about 85 km and takes roughly 65 minutes. The fare is fixed from SAR 249, available 24/7, with door-to-door drop-off and luggage help.",
+    tldrFacts: [
+      { label: "Distance", value: "~85 km" },
+      { label: "Time", value: "~65 min" },
+      { label: "From", value: "SAR 249" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is the Makkah Clock Tower from Jeddah airport?", answer: "About 85 km — roughly a 65-minute drive on the Makkah Expressway from King Abdulaziz International Airport (JED) to the Clock Tower hotel complex (Abraj Al Bait), which includes the Fairmont, Pullman Zamzam, and other Haram-adjacent hotels." },
+      { question: "How much is a taxi from Jeddah airport to the Clock Tower hotels?", answer: "The fare is fixed from SAR 249 for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Let us know in advance and the driver will stop at the Miqat so you can enter Ihram before continuing to your hotel." },
+      { question: "Which hotels are in the Clock Tower complex?", answer: "The Abraj Al Bait complex includes the Fairmont Makkah Clock Royal Tower, Pullman Zamzam Makkah, and several other towers — all directly overlooking Masjid al-Haram. Tell us your specific hotel when booking." },
+    ],
+  },
+  "madinah-airport-to-madinah-markaziyah": {
+    tldr: "A taxi from Madinah Airport (MED) to the Central Markaziyah hotels is about 22 km and takes roughly 25 minutes. The fare is fixed from SAR 120, available 24/7, with drop-off steps from Al-Masjid an-Nabawi.",
+    tldrFacts: [
+      { label: "Distance", value: "~22 km" },
+      { label: "Time", value: "~25 min" },
+      { label: "From", value: "SAR 120" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Central Markaziyah from Madinah airport?", answer: "About 22 km — roughly a 25-minute drive from Prince Mohammad Bin Abdulaziz International Airport (MED) to the Central Markaziyah hotel district, which sits directly around Al-Masjid an-Nabawi." },
+      { question: "How much is a taxi from Madinah airport to Markaziyah hotels?", answer: "The fare is fixed from SAR 120 for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "Is there a taxi at Madinah airport at night?", answer: "Yes. We operate 24/7 at MED, including late-night and early-morning arrivals, and track your flight so your driver is waiting even if it's delayed." },
+      { question: "How close is the drop-off to the Prophet's Mosque?", answer: "Markaziyah hotels are within walking distance of Al-Masjid an-Nabawi — the driver drops you as close to your hotel entrance as vehicle access allows, especially during prayer-time road closures." },
+    ],
+  },
+  "makkah-clock-tower-to-madinah-markaziyah": {
+    tldr: "A taxi from the Makkah Clock Tower hotels to Madinah Central Markaziyah is about 430 km and takes roughly 4 hours 10 minutes via the Haramain Highway. The fare is fixed from SAR 499, with a Meeqat stop included for pilgrims continuing to Umrah.",
+    tldrFacts: [
+      { label: "Distance", value: "~430 km" },
+      { label: "Time", value: "~4h 10m" },
+      { label: "From", value: "SAR 499" },
+      { label: "Meeqat stop", value: "Included" },
+    ],
+    faqs: [
+      { question: "How far is it from Makkah Clock Tower hotels to Madinah?", answer: "About 430 km — roughly a 4 hour 10 minute drive via the Haramain Highway, direct from the Clock Tower hotel complex to the Central Markaziyah hotels around the Prophet's Mosque." },
+      { question: "How much is a taxi from Makkah Clock Tower to Madinah?", answer: "The fare is fixed from SAR 499 for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "Is there a Meeqat stop on this route?", answer: "Yes. Dhul Hulaifah (Abyar Ali) is on the route from Makkah to Madinah, and the driver will stop there so you can enter Ihram if you're continuing on to Umrah." },
+      { question: "Are rest stops included on the drive?", answer: "Yes, brief stops for prayer or refreshments along the highway are included at no extra charge — just let the driver know." },
+    ],
+  },
+  "makkah-hotels-to-taif-resorts": {
+    tldr: "A taxi from Makkah Haram-area hotels to the Al-Hada and Shafa mountain resorts of Taif is about 85 km and takes roughly 75 minutes. The fare is fixed from SAR 220, available 24/7, ideal as a day trip or resort-hotel transfer.",
+    tldrFacts: [
+      { label: "Distance", value: "~85 km" },
+      { label: "Time", value: "~75 min" },
+      { label: "From", value: "SAR 220" },
+      { label: "Route", value: "Al-Hada mountain road" },
+    ],
+    faqs: [
+      { question: "How far are the Taif resorts from Makkah hotels?", answer: "About 85 km — roughly a 75-minute drive on the Al-Hada mountain road, from the Makkah Haram area up to the resort hotels of Al-Hada and Shafa in Taif." },
+      { question: "How much is a taxi from Makkah to Taif resorts?", answer: "The fare is fixed from SAR 220 for a sedan, with SUVs recommended for the mountain road and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "Can we stop at the rose distilleries?", answer: "Yes — this route is popular as a day trip that includes a stop at the Taif rose distilleries and gardens. Mention it when booking so the driver plans the stop into your day." },
+      { question: "Is this a good day trip from Makkah?", answer: "Yes. Taif's cooler mountain climate, the Al-Hada cable car, and the rose season (spring) make it a popular half-day or full-day escape from Makkah — book a return trip or hourly hire if you want the driver to wait." },
+    ],
+  },
+  "riyadh-airport-to-kafd-hotels": {
+    tldr: "A taxi from Riyadh Airport (RUH) to KAFD and Olaya business-district hotels is about 40 km and takes roughly 35 minutes. The fare is fixed from SAR 150, available 24/7, with meet & greet for executive and business arrivals.",
+    tldrFacts: [
+      { label: "Distance", value: "~40 km" },
+      { label: "Time", value: "~35 min" },
+      { label: "From", value: "SAR 150" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is KAFD from Riyadh airport?", answer: "About 40 km — roughly a 35-minute drive from King Khalid International Airport (RUH) to the King Abdullah Financial District (KAFD) and the Olaya business district." },
+      { question: "How much is a taxi from Riyadh airport to KAFD hotels?", answer: "The fare is fixed from SAR 150 for a sedan, with executive SUVs and luxury sedans available for business travelers. Confirmed before booking, no surge, tolls included." },
+      { question: "Do you offer executive vehicles for business travel?", answer: "Yes. A Mercedes S-Class or premium SUV can be booked for corporate and VIP arrivals, with a professional chauffeur and flight tracking included." },
+      { question: "Is meet & greet included for business arrivals?", answer: "Yes — your driver waits inside the arrivals hall with a name sign, tracks your flight for delays, and includes 60 minutes of free waiting time, the same as every other airport transfer." },
+    ],
+  },
 };
 
 // Explicit inbound links from the highest-traffic Makkah route page — the
@@ -1088,6 +1163,10 @@ export default async function RouteDetailsPage({ params }: PageProps) {
             ])
           ),
         }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema({ path: `/routes/${slug}` })) }}
       />
 
       {/* ─── HERO & MAP ───────────────────────────────────────────── */}
