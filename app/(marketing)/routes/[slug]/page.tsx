@@ -1028,6 +1028,7 @@ const MAKKAH_HOTEL_ROUTES: { slug: string; hotel: string }[] = [
   { slug: "jeddah-airport-to-conrad-makkah", hotel: "Conrad Makkah" },
   { slug: "jeddah-airport-to-hilton-suites-makkah", hotel: "Hilton Suites Makkah" },
   { slug: "jeddah-airport-to-movenpick-makkah", hotel: "Movenpick Hajar Tower Makkah" },
+  { slug: "jeddah-airport-to-makkah-clock-tower", hotel: "Makkah Clock Tower Hotels (Abraj Al Bait)" },
 ];
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

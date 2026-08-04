@@ -1,5 +1,12 @@
 # WORK LEDGER — TaxiSaudiArabia.com
 
+## 🚧 HANDOFF (2026-08-04) — internal-linking gap, next agent should pick this up
+Ran `scripts/check_route_link_density.ts` (new, reuses real `RouteRelatedLinks.tsx` matching logic) to find which route pages get zero real inbound links from that component (crowded out by more common same-city routes in `.slice(0,5)`). Confirmed **~15 routes at 0 inbound links**, not just the newly-fixed ones — a real, site-wide gap, not scoped to any one batch.
+
+Fixed 1 of them the cheap, proven way: added `jeddah-airport-to-makkah-clock-tower` to the existing `MAKKAH_HOTEL_ROUTES` explicit-link block in `routes/[slug]/page.tsx` (same pattern already used for the original 6 hotel routes — reuse this pattern, don't reinvent).
+
+**Still at 0 inbound, needs the same treatment** (run the script again for the current list — it may have changed): `madinah-airport-to-madinah-markaziyah` (fits `/locations/madinah` or `/airports/prince-mohammad-madinah`), `makkah-clock-tower-to-madinah-markaziyah` (fits alongside the `makkah-to-madinah`/`madinah-to-makkah` flagship pages), `makkah-hotels-to-taif-resorts` (fits `/services/taif-ziyarat`, already exists), `riyadh-airport-to-kafd-hotels` (fits `/services/corporate` or `/services/business-executive`), `jeddah-airport-to-jeddah-city` + `jeddah-to-haramain-station` (fit `/locations/jeddah` or `/airports/king-abdulaziz-jeddah`), plus `jeddah-airport-to-conrad-makkah`/`hilton-suites`/`movenpick` (surprising — these are already IN `MAKKAH_HOTEL_ROUTES`, so they must be losing out to `.slice(0,5)` truncation on other pages that link elsewhere; re-verify before assuming they need a new fix). Bigger-picture option instead of more explicit blocks: the root cause is `RouteRelatedLinks.tsx`'s `.slice(0, 5)` picking array order, not link-need — a smarter pass could weight the sort toward under-linked routes instead. Not attempted this session (higher risk to shared code touching 67 pages, wanted verification time this session didn't have).
+
 ## ✅ (2026-08-04) — MAJOR FIND: 7 route pages were 404ing in production, indexed and linked
 Started as a routes-page AIO/GEO/content-gap pass (user asked to strengthen money pages, fill gaps, build internal linking, AIO/GEO/LLM optimization). Found something much bigger while verifying.
 
