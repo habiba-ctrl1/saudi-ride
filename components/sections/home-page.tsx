@@ -162,7 +162,7 @@ const homeTranslations = {
     testimonials: {
       badge: "Customer Reviews",
       title: "What Our Customers Say About Our Taxi Service",
-      verified: "Google Review — Verified Trip"
+      verified: "Traveller testimonial"
     },
     blog: {
       badge: "Travel Tips & Guides",
@@ -336,7 +336,7 @@ const homeTranslations = {
     testimonials: {
       badge: "آراء عملائنا الكرام",
       title: "ماذا يقول كبار زوار ومعتمري المملكة؟",
-      verified: "تقييم جوجل • رحلة معتمدة وموثقة"
+      verified: "رأي مسافر"
     },
     blog: {
       badge: "دليل السفر والإرشادات",
@@ -496,7 +496,7 @@ const homeTranslations = {
     testimonials: {
       badge: "عالمی آراء",
       title: "ہمارے وی آئی پی زائرین کا کیا کہنا ہے؟",
-      verified: "گوگل ریویو • تصدیق شدہ سفر"
+      verified: "مسافر کی رائے"
     },
     blog: {
       badge: "ٹریول گائیڈز",
@@ -614,7 +614,8 @@ const customerReviews = [
   { name: "Muhammad Siddique", countryFlag: "🇵🇰", stars: 5, text: "Wonderful Umrah transfer booking. The driver was prayer-time aware and stopped for us at Meeqat with complete respect and patience. Highly recommended.", vehicle: "Mercedes V-Class VIP" },
   { name: "Hassan Qabbani", countryFlag: "🇦🇪", stars: 5, text: "Highly recommend Taxi Saudi Arabia for anyone in Saudi Arabia. Clean car, Wi-Fi included, fixed price — zero hidden charges or surge fees.", vehicle: "Mercedes S-Class VIP" },
   { name: "Evelyn Sterling", countryFlag: "🇺🇸", stars: 5, text: "Amazing airport taxi service. My flight was delayed 2 hours but the driver tracked it and was right there when I landed. Very professional and reliable.", vehicle: "GMC Yukon Denali" },
-  { name: "Ahmad Bin-Hamid", countryFlag: "🇶🇦", stars: 5, text: "سفر مريح جداً بين الرياض والدمام. سيارة نظيفة وواسعة وخدمة إنترنت ممتازة طوال الطريق. سأحجز مجدداً بالتأكيد.", vehicle: "Mercedes S-Class VIP" }
+  { name: "Ahmad Bin-Hamid", countryFlag: "🇶🇦", stars: 5, text: "سفر مريح جداً بين الرياض والدمام. سيارة نظيفة وواسعة وخدمة إنترنت ممتازة طوال الطريق. سأحجز مجدداً بالتأكيد.", vehicle: "Mercedes S-Class VIP" },
+  { name: "Verified Customer", countryFlag: "🇸🇦", stars: 5, text: "ما شاء الله تبارك الله، خدمتكم مرة ممتازة، والسيارة مريحة والـdriver ممتاز ومؤدب. والله ودنا نرجع معكم في رحلة ثانية، ما ابغى ادور غيركم — خلاص جربناكم وأعجبتنا خدمتكم.", vehicle: "Executive Sedan" }
 ];
 
 // Homepage blog cards -> real guide detail pages (pehle /guides?id= duplicate URLs ban rahe the)
