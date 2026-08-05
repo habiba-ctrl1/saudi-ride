@@ -1031,6 +1031,33 @@ const MAKKAH_HOTEL_ROUTES: { slug: string; hotel: string }[] = [
   { slug: "jeddah-airport-to-makkah-clock-tower", hotel: "Makkah Clock Tower Hotels (Abraj Al Bait)" },
 ];
 
+// Explicit inbound links for routes that RouteRelatedLinks' same-city
+// substring matching (slice(0,5)) reliably crowds out — same orphan-page
+// risk as MAKKAH_HOTEL_ROUTES above, confirmed via
+// scripts/check_route_link_density.ts. Placed on each corridor's highest-
+// traffic flagship page so they inherit real link equity, not just the
+// baseline /routes hub listing every route already gets.
+const MORE_JEDDAH_MAKKAH_ROUTES: { slug: string; label: string; distance: number; price: number }[] = [
+  { slug: "jeddah-airport-to-jeddah-city", label: "Jeddah Airport to Jeddah City", distance: 20, price: 80 },
+  { slug: "jeddah-to-haramain-station", label: "Jeddah to Haramain Station", distance: 15, price: 70 },
+  { slug: "makkah-to-jeddah", label: "Makkah to Jeddah", distance: 85, price: 150 },
+  { slug: "makkah-to-kaec", label: "Makkah to KAEC", distance: 180, price: 250 },
+  { slug: "makkah-to-yanbu", label: "Makkah to Yanbu", distance: 400, price: 350 },
+];
+
+const MORE_MADINAH_ROUTES: { slug: string; label: string; distance: number; price: number }[] = [
+  { slug: "madinah-airport-to-madinah-markaziyah", label: "Madinah Airport to Markaziyah Hotels", distance: 22, price: 120 },
+  { slug: "makkah-clock-tower-to-madinah-markaziyah", label: "Makkah Clock Tower to Madinah Markaziyah Hotels", distance: 430, price: 499 },
+  { slug: "madinah-to-yanbu", label: "Madinah to Yanbu", distance: 220, price: 200 },
+];
+
+const MORE_RIYADH_ROUTES: { slug: string; label: string; distance: number; price: number }[] = [
+  { slug: "riyadh-airport-to-kafd-hotels", label: "Riyadh Airport to KAFD & Olaya Hotels", distance: 40, price: 150 },
+  { slug: "riyadh-to-alahsa", label: "Riyadh to Al Ahsa", distance: 330, price: 280 },
+  { slug: "riyadh-to-hail", label: "Riyadh to Hail", distance: 600, price: 450 },
+  { slug: "riyadh-to-abudhabi", label: "Riyadh to Abu Dhabi, UAE", distance: 850, price: 1100 },
+];
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   // A transient DB hiccup here must not fail metadata for this one page,
@@ -1322,6 +1349,81 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                       Taxi to {h.hotel}
                       <span className="block text-[0.65rem] text-[#6B7280] font-normal mt-0.5">
                         80 km · from SAR 249
+                      </span>
+                    </span>
+                    <ArrowRight className="h-4 w-4 text-[#C9A84C] shrink-0 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {slug === "jeddah-airport-to-makkah" && (
+            <section className="mt-16 border-t border-[#C9A84C]/10 pt-10">
+              <h2 className="font-heading text-2xl font-bold mb-6">
+                More Jeddah &amp; Makkah Routes
+              </h2>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {MORE_JEDDAH_MAKKAH_ROUTES.map((r) => (
+                  <Link
+                    key={r.slug}
+                    href={`/routes/${r.slug}`}
+                    className="group flex items-center justify-between rounded-2xl border border-[#16A34A]/12 bg-white px-5 py-4 hover:border-[#16A34A]/35 transition-all"
+                  >
+                    <span className="text-sm font-semibold">
+                      {r.label}
+                      <span className="block text-[0.65rem] text-[#6B7280] font-normal mt-0.5">
+                        {r.distance} km · from SAR {r.price}
+                      </span>
+                    </span>
+                    <ArrowRight className="h-4 w-4 text-[#C9A84C] shrink-0 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {(slug === "madinah-to-makkah" || slug === "makkah-to-madinah") && (
+            <section className="mt-16 border-t border-[#C9A84C]/10 pt-10">
+              <h2 className="font-heading text-2xl font-bold mb-6">
+                More Madinah Routes
+              </h2>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {MORE_MADINAH_ROUTES.map((r) => (
+                  <Link
+                    key={r.slug}
+                    href={`/routes/${r.slug}`}
+                    className="group flex items-center justify-between rounded-2xl border border-[#16A34A]/12 bg-white px-5 py-4 hover:border-[#16A34A]/35 transition-all"
+                  >
+                    <span className="text-sm font-semibold">
+                      {r.label}
+                      <span className="block text-[0.65rem] text-[#6B7280] font-normal mt-0.5">
+                        {r.distance} km · from SAR {r.price}
+                      </span>
+                    </span>
+                    <ArrowRight className="h-4 w-4 text-[#C9A84C] shrink-0 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {slug === "riyadh-airport-to-city" && (
+            <section className="mt-16 border-t border-[#C9A84C]/10 pt-10">
+              <h2 className="font-heading text-2xl font-bold mb-6">
+                More Riyadh Routes
+              </h2>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {MORE_RIYADH_ROUTES.map((r) => (
+                  <Link
+                    key={r.slug}
+                    href={`/routes/${r.slug}`}
+                    className="group flex items-center justify-between rounded-2xl border border-[#16A34A]/12 bg-white px-5 py-4 hover:border-[#16A34A]/35 transition-all"
+                  >
+                    <span className="text-sm font-semibold">
+                      {r.label}
+                      <span className="block text-[0.65rem] text-[#6B7280] font-normal mt-0.5">
+                        {r.distance} km · from SAR {r.price}
                       </span>
                     </span>
                     <ArrowRight className="h-4 w-4 text-[#C9A84C] shrink-0 group-hover:translate-x-1 transition-transform" />
