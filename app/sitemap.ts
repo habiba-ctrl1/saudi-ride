@@ -4,6 +4,9 @@ import { FLEET_VEHICLES } from "@/lib/fleet-data";
 import { BLOG_POSTS_DATA } from "@/lib/data/blog-posts";
 import { GUIDES } from "@/lib/data/guides";
 import { RECOVERY_CITIES } from "@/lib/data/recovery";
+import { SUB_AREAS as SUB_AREAS_DATA } from "@/lib/data/subareas";
+import { CITY_DETAILS } from "@/lib/data/locations";
+import { AIRPORT_DETAILS } from "@/lib/data/airports";
 
 const DOMAIN = "https://taxisaudiarabia.com";
 
@@ -12,6 +15,9 @@ const DOMAIN = "https://taxisaudiarabia.com";
 // - Routes ab ROUTES_DATA (static) se — DB down ho to bhi 56 routes sitemap mein rahen.
 // - /ar/* real SSR routes only for pages with actual Arabic content (see AR_PAGES below);
 //   every other /ar/* path 301-redirects to English (middleware.ts) so it's not indexed.
+// - LOCATIONS/AIRPORTS/SUB_AREAS below are derived from the same data the pages render from
+//   (CITY_DETAILS/AIRPORT_DETAILS/SUB_AREAS) — add a new city/airport/subarea once and the
+//   sitemap picks it up automatically, no separate list to remember to update.
 
 const AR_PAGES = ["", "/about", "/contact", "/faq", "/pricing", "/partners"];
 
@@ -43,66 +49,11 @@ const STATIC_PAGES = [
   { path: "/blog", priority: 0.8 },
 ];
 
-const LOCATIONS = [
-  "makkah",
-  "madinah",
-  "riyadh",
-  "jeddah",
-  "dammam",
-  "alkhobar",
-  "yanbu",
-  "alula",
-  "neom",
-  "taif",
-  "abha",
-];
+const LOCATIONS = Object.keys(CITY_DETAILS);
 
-const SUB_AREAS = [
-  { city: "riyadh", subarea: "kafd" },
-  { city: "riyadh", subarea: "olaya" },
-  { city: "riyadh", subarea: "diplomatic-quarter" },
-  { city: "riyadh", subarea: "al-malaz" },
-  { city: "riyadh", subarea: "al-murabba" },
-  { city: "riyadh", subarea: "diriyah" },
-  { city: "jeddah", subarea: "al-balad" },
-  { city: "jeddah", subarea: "corniche" },
-  { city: "jeddah", subarea: "al-hamra" },
-  { city: "jeddah", subarea: "obhur" },
-  { city: "jeddah", subarea: "al-safaa" },
-  { city: "jeddah", subarea: "al-rawdah" },
-  { city: "jeddah", subarea: "al-shati" },
-  { city: "jeddah", subarea: "al-salamah" },
-  { city: "jeddah", subarea: "al-aziziyah-jeddah" },
-  { city: "jeddah", subarea: "al-faisaliyah" },
-  { city: "jeddah", subarea: "al-andalus" },
-  { city: "jeddah", subarea: "city-tour" },
-  { city: "makkah", subarea: "aziziyah" },
-  { city: "makkah", subarea: "ajyad" },
-  { city: "makkah", subarea: "al-awali-makkah" },
-  { city: "makkah", subarea: "al-shubaikah" },
-  { city: "makkah", subarea: "al-mansour" },
-  { city: "makkah", subarea: "mina" },
-  { city: "madinah", subarea: "al-markazia" },
-  { city: "madinah", subarea: "qaba" },
-  { city: "madinah", subarea: "uhud" },
-  { city: "madinah", subarea: "al-awali-madinah" },
-  { city: "madinah", subarea: "al-aqiq-madinah" },
-  { city: "madinah", subarea: "sultanah" },
-  { city: "dammam", subarea: "dhahran" },
-  { city: "dammam", subarea: "half-moon-bay" },
-  { city: "dammam", subarea: "qatif" },
-];
+const SUB_AREAS = Object.values(SUB_AREAS_DATA).map((s) => ({ city: s.city, subarea: s.subarea }));
 
-const AIRPORTS = [
-  "king-abdulaziz-jeddah",
-  "prince-mohammad-madinah",
-  "king-khalid-riyadh",
-  "king-fahd-dammam",
-  "taif-regional",
-  "tabuk-regional",
-  "alula",
-  "abha-regional",
-];
+const AIRPORTS = Object.keys(AIRPORT_DETAILS);
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

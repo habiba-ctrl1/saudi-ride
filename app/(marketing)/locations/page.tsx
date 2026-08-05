@@ -129,6 +129,19 @@ const LOCATIONS = [
     slug: "neom"
   },
   {
+    id: "tabuk",
+    name: "Tabuk",
+    nameAr: "تبوك",
+    category: "tourism",
+    image: "/locations/tabuk-hero.webp",
+    tagline: "Gateway to NEOM, the Red Sea & the Jordan Border",
+    airports: ["Tabuk Regional Airport (TUU)"],
+    popularRoutes: ["Tabuk → NEOM", "Tabuk → Red Sea Airport", "Tabuk → Aqaba, Jordan"],
+    startingPrice: 180,
+    note: "Executive and cross-border transfers to NEOM, the Red Sea coast, Wadi Disah, and the Jordan border.",
+    slug: "tabuk"
+  },
+  {
     id: "taif",
     name: "Taif",
     nameAr: "الطائف",

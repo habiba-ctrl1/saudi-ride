@@ -13,7 +13,7 @@ const translations = {
     company: "Company",
     copyright: "© 2026 Taxi Saudi Arabia. All rights reserved. Created with absolute elegance.",
     motLicensed: "Licensed Drivers",
-    zatcaCompliant: "ZATCA VAT Compliant",
+    zatcaCompliant: "ZATCA-Ready Invoicing",
     tgaCertified: "Fixed-Price Fares",
     support247: "24/7 Customer Support",
   },
@@ -59,6 +59,7 @@ export function Footer() {
         { label: "AlUla", href: "/locations/alula" },
         { label: "NEOM", href: "/locations/neom" },
         { label: "Taif", href: "/locations/taif" },
+        { label: "Tabuk", href: "/locations/tabuk" },
       ],
       services: [
         { label: "Airport Transfers", href: "/services/airport-transfers" },
@@ -104,6 +105,7 @@ export function Footer() {
         { label: "العلا", href: "/locations/alula" },
         { label: "نيوم", href: "/locations/neom" },
         { label: "الطائف", href: "/locations/taif" },
+        { label: "تبوك", href: "/locations/tabuk" },
       ],
       services: [
         { label: "توصيل المطار", href: "/services/airport-transfers" },
@@ -149,6 +151,7 @@ export function Footer() {
         { label: "العلا", href: "/locations/alula" },
         { label: "نیوم", href: "/locations/neom" },
         { label: "طائف", href: "/locations/taif" },
+        { label: "تبوک", href: "/locations/tabuk" },
       ],
       services: [
         { label: "ایئرپورٹ ٹرانسفر", href: "/services/airport-transfers" },

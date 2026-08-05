@@ -69,6 +69,7 @@ const LOCATIONS_MENU = [
   { label: "AlUla", href: "/locations/alula" },
   { label: "NEOM", href: "/locations/neom" },
   { label: "Abha", href: "/locations/abha" },
+  { label: "Tabuk", href: "/locations/tabuk" },
 ];
 
 const PARTNERS_MENU = [
