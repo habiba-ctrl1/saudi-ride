@@ -5,7 +5,7 @@ import { ROUTES_DATA } from "@/lib/data/routes";
 export const revalidate = 86400; // static + refresh daily (was force-dynamic = slow on every request)
 
 const TITLE = "Taxi Routes in Saudi Arabia | Fixed Prices — Taxi Saudi Arabia";
-const DESCRIPTION = "Browse 50+ taxi routes across Saudi Arabia and the GCC. Fixed-price rides between Makkah, Madinah, Riyadh, Jeddah, Dammam, and more. Book online or on WhatsApp.";
+const DESCRIPTION = `Browse ${ROUTES_DATA.length}+ taxi routes across Saudi Arabia and the GCC. Fixed-price rides between Makkah, Madinah, Riyadh, Jeddah, Dammam, and more. Book online or on WhatsApp.`;
 
 export const metadata = {
   title: TITLE,
@@ -40,6 +40,7 @@ export default async function RoutesPage() {
       routes = ROUTES_DATA.map((r, index) => ({
         id: `fallback-route-${index}`,
         ...r,
+        priceOnRequest: r.priceOnRequest ?? false,
         createdAt: new Date(),
         updatedAt: new Date(),
       }));
@@ -49,6 +50,7 @@ export default async function RoutesPage() {
     routes = ROUTES_DATA.map((r, index) => ({
       id: `fallback-route-${index}`,
       ...r,
+      priceOnRequest: r.priceOnRequest ?? false,
       createdAt: new Date(),
       updatedAt: new Date(),
     }));

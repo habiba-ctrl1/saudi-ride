@@ -9,6 +9,7 @@ import { contactConfig } from "@/lib/config/contact";
 import PriceCalculator from "@/components/booking/PriceCalculator";
 import { ParallaxSection } from "./ParallaxSection";
 import { trustStats } from "@/lib/config/stats";
+import { ROUTES_DATA } from "@/lib/data/routes";
 import {
   Calendar,
   Car,
@@ -37,7 +38,7 @@ const homeTranslations = {
       badges: ["24/7 Private Taxi Service", "Licensed Chauffeurs", "Fixed Price Taxi Guarantee", "All Saudi Cities"]
     },
     stats: [
-      { label: "Routes Covered", value: "56+", num: 56 },
+      { label: "Routes Covered", value: trustStats.routesCovered, num: trustStats.routesCount },
       { label: "Fixed-Price Fares", value: "100%", num: 100 },
       { label: "Available Support", value: "24/7", num: null },
       { label: "Saudi Cities Covered", value: "11+", num: 11 }
@@ -373,7 +374,7 @@ const homeTranslations = {
       badges: ["24/7 پریمیم سپورٹ", "لائسنس یافتہ ڈرائیورز", "مقررہ مسابقتی قیمتیں", "تمام سعودی شہر"]
     },
     stats: [
-      { label: "روٹس", value: "56+", num: 56 },
+      { label: "روٹس", value: trustStats.routesCovered, num: trustStats.routesCount },
       { label: "فکسڈ قیمتیں", value: "100%", num: 100 },
       { label: "سپورٹ", value: "24/7", num: null },
       { label: "سعودی شہر", value: "11+", num: 11 }
@@ -525,18 +526,40 @@ const homeTranslations = {
 };
 
 
-const topRoutesList = [
-  { from: "jeddah-airport", to: "makkah-haram", nameEn: "Jeddah Airport ➔ Makkah", nameAr: "مطار جدة ➔ مكة المكرمة", nameUr: "جدہ ایئرپورٹ ➔ مکہ مکرمہ", dist: "85 km", dur: "1h 15m", price: "249" },
-  { from: "makkah-haram", to: "madinah-mosque", nameEn: "Makkah ➔ Madinah", nameAr: "مكة المكرمة ➔ المدينة المنورة", nameUr: "مکہ مکرمہ ➔ مدینہ منورہ", dist: "450 km", dur: "4h 30m", price: "499" },
-  { from: "madinah-mosque", to: "makkah-haram", nameEn: "Madinah ➔ Makkah", nameAr: "المدينة المنورة ➔ مكة المكرمة", nameUr: "مدینہ منورہ ➔ مکہ مکرمہ", dist: "450 km", dur: "4h 30m", price: "499" },
-  { from: "makkah-haram", to: "jeddah-airport", nameEn: "Makkah ➔ Jeddah Airport", nameAr: "مكة المكرمة ➔ مطار جدة", nameUr: "مکہ مکرمہ ➔ جدہ ایئرپورٹ", dist: "85 km", dur: "1h 15m", price: "249" },
-  { from: "jeddah-airport", to: "madinah-mosque", nameEn: "Jeddah ➔ Madinah", nameAr: "مطار جدة ➔ المدينة المنورة", nameUr: "جدہ ایئرپورٹ ➔ مدینہ منورہ", dist: "420 km", dur: "4h 15m", price: "549" },
-  { from: "madinah-airport", to: "madinah-mosque", nameEn: "Madinah Airport ➔ Hotels", nameAr: "مطار المدينة ➔ الفنادق", nameUr: "مدینہ ایئرپورٹ ➔ ہوٹلز", dist: "15 km", dur: "20m", price: "80" },
-  { from: "riyadh-airport", to: "riyadh-downtown", nameEn: "Riyadh Airport ➔ City", nameAr: "مطار الرياض ➔ وسط المدينة", nameUr: "ریاض ایئرپورٹ ➔ شہر", dist: "35 km", dur: "35m", price: "100" },
-  { from: "jeddah-airport", to: "taif", nameEn: "Jeddah ➔ Taif", nameAr: "جدة ➔ مرتفعات الطائف", nameUr: "جدہ ➔ طائف", dist: "140 km", dur: "1h 45m", price: "220" },
-  { from: "riyadh-downtown", to: "dammam", nameEn: "Riyadh ➔ Dammam", nameAr: "الرياض ➔ الدمام", nameUr: "ریاض ➔ دمام", dist: "400 km", dur: "4h 00m", price: "699" },
-  { from: "dammam-airport", to: "dammam", nameEn: "Dammam Airport ➔ City", nameAr: "مطار الدمام ➔ وسط المدينة", nameUr: "دمام ایئرپورٹ ➔ شہر", dist: "35 km", dur: "40m", price: "100" },
+// Featured routes shown on the homepage — facts (distance/duration/price) are
+// pulled live from ROUTES_DATA by slug so this list can never drift out of
+// sync with /routes or any other page that reads the same source.
+const FEATURED_ROUTE_SLUGS = [
+  "jeddah-airport-to-makkah",
+  "makkah-to-madinah",
+  "madinah-to-makkah",
+  "makkah-to-jeddah-airport",
+  "madinah-airport-to-makkah",
+  "madinah-airport-to-city",
+  "riyadh-airport-to-city",
+  "jeddah-airport-to-taif",
+  "riyadh-to-dammam",
+  "dammam-to-manama",
 ];
+
+function formatRouteDuration(minutes: number) {
+  const h = Math.floor(minutes / 60);
+  const m = minutes % 60;
+  if (h === 0) return `${m}m`;
+  return m > 0 ? `${h}h ${m}m` : `${h}h`;
+}
+
+const topRoutesList = FEATURED_ROUTE_SLUGS.map((slug) => {
+  const route = ROUTES_DATA.find((r) => r.slug === slug)!;
+  return {
+    from: slug,
+    nameEn: `${route.fromCity} ➔ ${route.toCity}`,
+    nameAr: `${route.fromCityAr} ➔ ${route.toCityAr}`,
+    dist: `${route.distance} km`,
+    dur: formatRouteDuration(route.duration),
+    price: String(route.basePrice),
+  };
+});
 
 const vehicleList = [
   {

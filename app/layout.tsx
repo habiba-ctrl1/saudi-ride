@@ -151,7 +151,7 @@ const jsonLd = [
         "name": "How much does a Jeddah Airport to Makkah taxi cost?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "A Jeddah Airport to Makkah taxi starts from SAR 249 in a sedan and SAR 374 in a GMC Yukon or Hyundai Staria. The taxi fare is fixed — no hidden charges or surge pricing. The journey takes about 1 hour 15 minutes (85 km)."
+          "text": "A Jeddah Airport to Makkah taxi starts from SAR 249 in a sedan and SAR 374 in a GMC Yukon or Hyundai Staria. The taxi fare is fixed — no hidden charges or surge pricing. The journey takes about 1 hour (80 km)."
         }
       },
       {
@@ -167,7 +167,7 @@ const jsonLd = [
         "name": "What is the taxi fare from Makkah to Madinah?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The Makkah to Madinah taxi fare starts from SAR 499 in a sedan (estimated — final price confirmed in your quotation). The fixed price taxi includes a Meeqat stop and bottled water. The journey covers 450 km and takes approximately 4 hours 30 minutes via the Haramain Highway."
+          "text": "The Makkah to Madinah taxi fare starts from SAR 499 in a sedan (estimated — final price confirmed in your quotation). The fixed price taxi includes a Meeqat stop and bottled water. The journey covers 430 km and takes approximately 4 hours via the Haramain Highway."
         }
       },
       {

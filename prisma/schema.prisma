@@ -275,6 +275,7 @@ model Route {
   description   String?
   descriptionAr String?
   slug          String  @unique
+  priceOnRequest Boolean @default(false)
 }
 
 model Review {

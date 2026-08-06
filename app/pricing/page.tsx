@@ -363,7 +363,11 @@ export default function PricingPage() {
             <div className="text-center md:text-right space-y-4 shrink-0">
               <div>
                 <span className="text-[0.6rem] uppercase tracking-widest text-[#C9A84C] font-bold block mb-1">{t.estPriceTitle}</span>
-                <span className="font-heading text-4xl font-extrabold text-[#C9A84C]">{calculatedPrice} <span className="text-lg">SAR</span></span>
+                {fixedRoute?.priceOnRequest ? (
+                  <span className="font-heading text-xl font-extrabold text-[#C9A84C]">Confirmed on WhatsApp</span>
+                ) : (
+                  <span className="font-heading text-4xl font-extrabold text-[#C9A84C]">{calculatedPrice} <span className="text-lg">SAR</span></span>
+                )}
               </div>
               <Link
                 href={`/book?from=${fromCity}&to=${toCity}&class=${vehicleClass}`}

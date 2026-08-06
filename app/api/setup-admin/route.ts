@@ -1,10 +1,16 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
 // One-time admin setup route.
 // Visit GET /api/setup-admin to create the admin user from env credentials.
 // This route auto-disables once an admin already exists.
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const secret = process.env.NEXTAUTH_SECRET;
+  const provided = request.headers.get("x-setup-secret") ?? request.nextUrl.searchParams.get("secret");
+  if (!secret || provided !== secret) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const email = process.env.ADMIN_EMAIL;
   const name = "Admin";
 

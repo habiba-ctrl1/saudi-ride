@@ -1,8 +1,14 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { ROUTES_DATA } from '@/lib/data/routes';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const secret = process.env.NEXTAUTH_SECRET;
+  const provided = request.headers.get('x-setup-secret') ?? request.nextUrl.searchParams.get('secret');
+  if (!secret || provided !== secret) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     // Optional: Delete existing routes to avoid duplicates if re-running
     // await db.route.deleteMany();

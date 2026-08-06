@@ -38,6 +38,7 @@ export const ROUTES_DATA = [
     description: "Long distance premium transfer from Jeddah to the Prophet's City via the Haramain highway.",
     descriptionAr: "نقل مميز لمسافات طويلة من جدة إلى مدينة الرسول عبر طريق الحرمين.",
     slug: "jeddah-to-madinah",
+    priceOnRequest: true,
   },
   {
     fromCity: "Jeddah Airport",
@@ -51,6 +52,7 @@ export const ROUTES_DATA = [
     description: "Direct transfer from Jeddah Airport to Madinah hotels.",
     descriptionAr: "نقل مباشر من مطار جدة إلى فنادق المدينة المنورة.",
     slug: "jeddah-airport-to-madinah",
+    priceOnRequest: true,
   },
   {
     fromCity: "Jeddah",
@@ -399,6 +401,7 @@ export const ROUTES_DATA = [
     description: "Return transfer from Madinah after Ziyarah to Jeddah Airport.",
     descriptionAr: "نقل العودة من المدينة المنورة بعد الزيارة إلى مطار جدة.",
     slug: "madinah-to-jeddah-airport",
+    priceOnRequest: true,
   },
   {
     fromCity: "Madinah",
@@ -412,6 +415,7 @@ export const ROUTES_DATA = [
     description: "Premium transfer from Madinah to Jeddah city.",
     descriptionAr: "نقل ممتاز من المدينة المنورة إلى مدينة جدة.",
     slug: "madinah-to-jeddah",
+    priceOnRequest: true,
   },
   {
     fromCity: "Madinah",

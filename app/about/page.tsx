@@ -16,7 +16,7 @@ const translations = {
     statsTitle: "Our Numbers",
     stats: [
       { label: "Licensed Drivers", value: "100%" },
-      { label: "Routes Covered", value: "56+" },
+      { label: "Routes Covered", value: trustStats.routesCovered },
       { label: "Saudi Cities", value: "11+" },
       { label: "Languages Spoken", value: "3" }
     ],
@@ -150,7 +150,7 @@ const translations = {
     statsTitle: "ہماری کامیابی اعداد و شمار میں",
     stats: [
       { label: "لائسنس یافتہ ڈرائیورز", value: "100%" },
-      { label: "روٹس", value: "+56" },
+      { label: "روٹس", value: trustStats.routesCovered },
       { label: "سعودی شہر", value: "+11" },
       { label: "زبانیں", value: "3" }
     ],

@@ -191,31 +191,31 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "jeddah-airport-to-madinah": {
-    tldr: "A taxi from Jeddah Airport (JED) to Madinah is about 410 km and takes roughly 4 to 5 hours via the Haramain highway. The fare is fixed from SAR 549, with comfortable vehicles for families and luggage, available 24/7 with rest stops on request.",
+    tldr: "A taxi from Jeddah Airport (JED) to Madinah is about 410 km and takes roughly 4 to 5 hours via the Haramain highway. The fare is confirmed on WhatsApp before booking, with comfortable vehicles for families and luggage, available 24/7 with rest stops on request.",
     tldrFacts: [
       { label: "Distance", value: "~410 km" },
       { label: "Time", value: "~4–5 hours" },
-      { label: "From", value: "SAR 549" },
+      { label: "Price", value: "Confirmed on WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How long does Jeddah airport to Madinah take by taxi?", answer: "The direct drive is about 410 km and takes roughly 4 to 5 hours via the Haramain highway, depending on traffic and rest stops." },
-      { question: "How much is a taxi from Jeddah airport to Madinah?", answer: "The fare is fixed from SAR 549. We recommend an SUV or van for families and luggage on this long-distance route — the price is confirmed before booking, tolls included." },
+      { question: "How much is a taxi from Jeddah airport to Madinah?", answer: "The exact fare is confirmed on WhatsApp before booking, based on your vehicle choice — sedan, SUV, or van for families and luggage on this long-distance route. Tolls included, no surge." },
       { question: "Are rest stops included on the way to Madinah?", answer: "Yes. Brief stops for prayer, food, or refreshments are included on this long-distance transfer — just let your driver know." },
       { question: "Is the trip comfortable for families with luggage?", answer: "Yes. We provide spacious SUVs (e.g. GMC Yukon) and vans (e.g. Hyundai Staria) with ample luggage space, ideal for families travelling from JED to Madinah." },
     ],
   },
   "jeddah-to-madinah": {
-    tldr: "A taxi from Jeddah to Madinah is about 420 km and takes roughly 4 to 5 hours via the Haramain highway. The fare is fixed from SAR 549, door-to-door, with rest stops on request and 24/7 availability.",
+    tldr: "A taxi from Jeddah to Madinah is about 420 km and takes roughly 4 to 5 hours via the Haramain highway. The fare is confirmed on WhatsApp before booking, door-to-door, with rest stops on request and 24/7 availability.",
     tldrFacts: [
       { label: "Distance", value: "~420 km" },
       { label: "Time", value: "~4–5 hours" },
-      { label: "From", value: "SAR 549" },
+      { label: "Price", value: "Confirmed on WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Jeddah from Madinah?", answer: "Jeddah is about 420 km from Madinah — roughly a 4 to 5 hour drive on the Haramain highway." },
-      { question: "How much is a taxi from Jeddah to Madinah?", answer: "The fare is fixed from SAR 549 for a sedan, with SUVs and vans available for families. The price is confirmed before booking, with tolls included and no surge." },
+      { question: "How much is a taxi from Jeddah to Madinah?", answer: "The exact fare is confirmed on WhatsApp before booking, based on your vehicle choice — sedan, SUV, or van for families. Tolls included, no surge." },
       { question: "Can you collect me from my Jeddah hotel?", answer: "Yes, we provide door-to-door pickup from any Jeddah hotel or address and drop you at your Madinah hotel near Masjid an-Nabawi." },
       { question: "Are prayer and rest stops included?", answer: "Yes. Short stops for prayer and refreshments are included on this long-distance route — just tell your driver." },
     ],
@@ -326,16 +326,16 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "madinah-to-jeddah-airport": {
-    tldr: "A taxi from Madinah to Jeddah Airport (JED) is about 410 km and takes roughly 4 to 5 hours via the Haramain highway. The fare is fixed from SAR 380, door-to-door from your Madinah hotel, with rest stops on request.",
+    tldr: "A taxi from Madinah to Jeddah Airport (JED) is about 410 km and takes roughly 4 to 5 hours via the Haramain highway. The fare is confirmed on WhatsApp before booking, door-to-door from your Madinah hotel, with rest stops on request.",
     tldrFacts: [
       { label: "Distance", value: "~410 km" },
       { label: "Time", value: "~4–5 hours" },
-      { label: "From", value: "SAR 380" },
+      { label: "Price", value: "Confirmed on WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Madinah from Jeddah airport?", answer: "Madinah to King Abdulaziz International Airport (JED) is about 410 km — roughly a 4 to 5 hour drive on the Haramain highway." },
-      { question: "How much is a taxi from Madinah to Jeddah airport?", answer: "The fare is fixed from SAR 380 for a sedan, confirmed before booking, with SUVs and vans for families and luggage. Tolls are included." },
+      { question: "How much is a taxi from Madinah to Jeddah airport?", answer: "The exact fare is confirmed on WhatsApp before booking, based on your vehicle choice — sedan, SUV, or van for families and luggage. Tolls included." },
       { question: "Can you collect me from my Madinah hotel for the airport?", answer: "Yes, we provide door-to-door pickup from your Madinah hotel after Ziyarah and take you directly to Jeddah Airport for your flight." },
       { question: "Should I leave extra time for this departure?", answer: "Yes. For a long-distance airport transfer we recommend departing with comfortable buffer time before check-in, especially during Hajj and Ramadan seasons." },
     ],
@@ -571,16 +571,16 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
 
   // ─── Madinah corridors ───
   "madinah-to-jeddah": {
-    tldr: "A taxi from Madinah to Jeddah is about 420 km and takes roughly 4 hours via the Haramain highway. The fare is fixed from SAR 350, door-to-door from your Madinah hotel, with rest stops on request.",
+    tldr: "A taxi from Madinah to Jeddah is about 420 km and takes roughly 4 hours via the Haramain highway. The fare is confirmed on WhatsApp before booking, door-to-door from your Madinah hotel, with rest stops on request.",
     tldrFacts: [
       { label: "Distance", value: "~420 km" },
       { label: "Time", value: "~4 hours" },
-      { label: "From", value: "SAR 350" },
+      { label: "Price", value: "Confirmed on WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Madinah from Jeddah?", answer: "Madinah to Jeddah is about 420 km — roughly a 4-hour drive on the Haramain highway." },
-      { question: "How much is a taxi from Madinah to Jeddah?", answer: "The fare is fixed from SAR 350 for a sedan, confirmed before booking, with SUVs and vans for families and luggage." },
+      { question: "How much is a taxi from Madinah to Jeddah?", answer: "The exact fare is confirmed on WhatsApp before booking, based on your vehicle choice — sedan, SUV, or van for families and luggage." },
       { question: "Do you pick up from my Madinah hotel?", answer: "Yes. We provide door-to-door pickup from your hotel near Masjid an-Nabawi and take you directly to your Jeddah address, 24/7." },
     ],
   },
@@ -1076,17 +1076,22 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // Hotel-specific destinations (e.g. "Fairmont Makkah Clock Royal Tower")
   // push the full title well past the ~600px truncation point — drop the
   // brand suffix when the route name itself is already long.
-  const routeLabel = `Taxi ${route.fromCity} to ${route.toCity} — From SAR ${route.basePrice}`;
+  const routeLabel = route.priceOnRequest
+    ? `Taxi ${route.fromCity} to ${route.toCity} — Price on Request`
+    : `Taxi ${route.fromCity} to ${route.toCity} — From SAR ${route.basePrice}`;
   const title = routeLabel.length > 55 ? routeLabel : `${routeLabel} | Taxi Saudi Arabia`;
+  const priceBlurb = route.priceOnRequest ? "confirmed on WhatsApp" : `From SAR ${route.basePrice}`;
 
   return {
     title,
-    description: `Fixed-price taxi from ${route.fromCity} to ${route.toCity} — ${route.distance} km, approx ${Math.round(route.duration / 60)}h. From SAR ${route.basePrice}, 24/7, licensed drivers, no surge.`.slice(0, 160),
+    description: `Fixed-price taxi from ${route.fromCity} to ${route.toCity} — ${route.distance} km, approx ${Math.round(route.duration / 60)}h. ${priceBlurb}, 24/7, licensed drivers, no surge.`.slice(0, 160),
     alternates: {
       canonical: `https://taxisaudiarabia.com/routes/${slug}`,
     },
     openGraph: {
-      title: `Taxi from ${route.fromCity} to ${route.toCity} — SAR ${route.basePrice} Fixed Price`,
+      title: route.priceOnRequest
+        ? `Taxi from ${route.fromCity} to ${route.toCity} — Price on Request`
+        : `Taxi from ${route.fromCity} to ${route.toCity} — SAR ${route.basePrice} Fixed Price`,
       description: route.description || `Book a taxi from ${route.fromCity} to ${route.toCity} at a fixed price. No surge, no hidden fees.`,
       type: "website",
     },
@@ -1155,16 +1160,18 @@ export default async function RouteDetailsPage({ params }: PageProps) {
         }
       ]
     },
-    "offers": {
-      "@type": "Offer",
-      "price": route.basePrice,
-      "priceCurrency": "SAR",
-      "availability": "https://schema.org/InStock"
-    }
+    ...(route.priceOnRequest ? {} : {
+      "offers": {
+        "@type": "Offer",
+        "price": route.basePrice,
+        "priceCurrency": "SAR",
+        "availability": "https://schema.org/InStock"
+      }
+    }),
   };
 
   // Google Static Maps integration (Placeholder logic using standard maps URL if no key)
-  const mapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+  const mapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY;
   const mapUrl = mapsApiKey 
     ? `https://maps.googleapis.com/maps/api/staticmap?size=800x400&path=color:0xC9A84C|weight:4|${encodeURIComponent(route.fromCity)}|${encodeURIComponent(route.toCity)}&markers=color:black|label:A|${encodeURIComponent(route.fromCity)}&markers=color:black|label:B|${encodeURIComponent(route.toCity)}&key=${mapsApiKey}`
     : `/routes/map-abstract.webp`; // Fallback beautiful map abstract
@@ -1271,7 +1278,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                   <div className="p-5 relative -mt-6">
                     <div className="flex justify-between items-end mb-2">
                       <h3 className="font-bold text-lg">{v.name}</h3>
-                      <p className="font-heading text-xl font-bold text-[#16A34A]">SAR {prices[v.key as keyof typeof prices]}</p>
+                      <p className="font-heading text-xl font-bold text-[#16A34A]">{route.priceOnRequest ? "On Request" : `SAR ${prices[v.key as keyof typeof prices]}`}</p>
                     </div>
                     <div className="flex gap-4 text-[0.65rem] text-[#6B7280] font-bold uppercase tracking-wider">
                       <span>{v.pax} Passengers</span>
@@ -1464,8 +1471,14 @@ export default async function RouteDetailsPage({ params }: PageProps) {
               </div>
               
               <div className="flex justify-between items-center px-2">
-                <span className="text-sm font-bold text-[#6B7280]">Starting from</span>
-                <span className="font-heading text-2xl font-bold text-[#16A34A]">SAR {route.basePrice}</span>
+                {route.priceOnRequest ? (
+                  <span className="text-sm font-bold text-[#16A34A]">Price confirmed on WhatsApp</span>
+                ) : (
+                  <>
+                    <span className="text-sm font-bold text-[#6B7280]">Starting from</span>
+                    <span className="font-heading text-2xl font-bold text-[#16A34A]">SAR {route.basePrice}</span>
+                  </>
+                )}
               </div>
             </div>
 

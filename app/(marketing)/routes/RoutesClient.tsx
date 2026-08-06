@@ -15,23 +15,23 @@ export default function RoutesClient({ initialRoutes }: { initialRoutes: Route[]
   const [priceRange, setPriceRange] = useState("All");
 
   const departureCities = useMemo(() => {
-    const cities = Array.from(new Set(initialRoutes.map((r) => r.fromCity.split(' ')[0])));
+    const cities = Array.from(new Set(initialRoutes.map((r) => r.fromCity)));
     return ["All", ...cities.sort()];
   }, [initialRoutes]);
 
   const destinationCities = useMemo(() => {
-    const cities = Array.from(new Set(initialRoutes.map((r) => r.toCity.split(' ')[0])));
+    const cities = Array.from(new Set(initialRoutes.map((r) => r.toCity)));
     return ["All", ...cities.sort()];
   }, [initialRoutes]);
 
   const filteredRoutes = useMemo(() => {
     return initialRoutes.filter((route) => {
       // Departure City Filter (From)
-      if (departureCity !== "All" && !route.fromCity.startsWith(departureCity)) {
+      if (departureCity !== "All" && route.fromCity !== departureCity) {
         return false;
       }
       // Destination City Filter (To)
-      if (destinationCity !== "All" && !route.toCity.startsWith(destinationCity)) {
+      if (destinationCity !== "All" && route.toCity !== destinationCity) {
         return false;
       }
       // Price Range Filter
@@ -57,7 +57,7 @@ export default function RoutesClient({ initialRoutes }: { initialRoutes: Route[]
               <MapPin className="h-3 w-3" /> Kingdom-Wide Coverage
             </span>
             <h1 className="mt-6 font-heading text-4xl font-bold leading-tight md:text-6xl">
-              50+ Taxi Routes in<br />
+              {initialRoutes.length}+ Taxi Routes in<br />
               <span className="text-[#16A34A]">Saudi Arabia & GCC</span>
             </h1>
             <p className="mt-6 max-w-2xl text-sm md:text-base leading-relaxed text-[#6B7280]">
@@ -200,8 +200,14 @@ export default function RoutesClient({ initialRoutes }: { initialRoutes: Route[]
                   {/* Price & CTA */}
                   <div className="mt-8 pt-6 border-t border-[#C9A84C]/10 flex items-end justify-between">
                     <div>
-                      <p className="text-[0.6rem] text-[#6B7280] uppercase font-bold tracking-wider">From</p>
-                      <p className="font-heading text-2xl font-bold text-[#16A34A]">SAR {route.basePrice}</p>
+                      {route.priceOnRequest ? (
+                        <p className="font-heading text-sm font-bold text-[#16A34A]">Confirm price on WhatsApp</p>
+                      ) : (
+                        <>
+                          <p className="text-[0.6rem] text-[#6B7280] uppercase font-bold tracking-wider">From</p>
+                          <p className="font-heading text-2xl font-bold text-[#16A34A]">SAR {route.basePrice}</p>
+                        </>
+                      )}
                     </div>
                     <Link
                       href={`/routes/${route.slug}`}

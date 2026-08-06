@@ -1,8 +1,12 @@
 // Global statistics configuration for Taxi Saudi Arabia to prevent mismatched numbers and ensure absolute brand consistency.
 
+import { ROUTES_DATA } from "@/lib/data/routes";
+
+const routesCount = ROUTES_DATA.length;
+
 export const trustStats = {
-  routesCovered: "56+",
-  routesCount: 56,
+  routesCovered: `${routesCount}+`,
+  routesCount,
   licensedDrivers: "100%",
   citiesCovered: "11+",
   activeChauffeurs: "24/7",

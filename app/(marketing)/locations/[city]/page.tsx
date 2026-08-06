@@ -16,6 +16,7 @@ import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { SUB_AREAS } from "@/lib/data/subareas";
 import { CITY_DETAILS } from "@/lib/data/locations";
+import { trustStats } from "@/lib/config/stats";
 
 // Public city-centroid coordinates (not business location data) — lets
 // location pages attach real GeoCoordinates to their Place/areaServed node.
@@ -232,8 +233,14 @@ export default async function CityLocationPage({ params }: PageProps) {
                     </div>
                     <div className="flex items-center justify-between md:gap-6">
                       <div className="text-right">
-                        <p className="text-[0.6rem] text-[#6B7280] uppercase font-bold">Starting from</p>
-                        <p className="text-[#C9A84C] font-bold">SAR {route.basePrice}</p>
+                        {route.priceOnRequest ? (
+                          <p className="text-[#C9A84C] font-bold text-sm">Confirm on WhatsApp</p>
+                        ) : (
+                          <>
+                            <p className="text-[0.6rem] text-[#6B7280] uppercase font-bold">Starting from</p>
+                            <p className="text-[#C9A84C] font-bold">SAR {route.basePrice}</p>
+                          </>
+                        )}
                       </div>
                       <div className="bg-[#C9A84C]/10 text-[#C9A84C] rounded-full p-2 group-hover:bg-[#16A34A] group-hover:text-white transition-colors">
                         <ArrowRight className="h-4 w-4" />
@@ -246,7 +253,7 @@ export default async function CityLocationPage({ params }: PageProps) {
               <p className="text-[#6B7280]">Currently mapping custom routes for this city. Please contact us for a quote.</p>
             )}
             <div className="mt-6">
-              <Link href="/routes" className="text-[#C9A84C] text-sm font-bold hover:underline">View all 50+ Kingdom-wide routes &rarr;</Link>
+              <Link href="/routes" className="text-[#C9A84C] text-sm font-bold hover:underline">View all {trustStats.routesCovered} Kingdom-wide routes &rarr;</Link>
             </div>
           </section>
 
