@@ -3,18 +3,8 @@ import { db, ensureVehiclesSeeded } from "@/lib/db";
 import { BookingStatus, PaymentStatus, VehicleType, Prisma } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { PRICING_CONFIG, matchFixedRoute } from "@/lib/pricing";
-
-const fixedRouteDetails: Record<string, { distance: number; duration: number }> = {
-  'jeddah-airport-makkah': { distance: 85, duration: 75 },
-  'makkah-madinah': { distance: 450, duration: 270 },
-  'madinah-jeddah-airport': { distance: 410, duration: 250 },
-  'riyadh-dammam': { distance: 400, duration: 240 },
-  'riyadh-jeddah': { distance: 950, duration: 570 },
-  'riyadh-dubai': { distance: 1000, duration: 600 },
-  'dammam-doha': { distance: 380, duration: 230 },
-  'jeddah-taif': { distance: 140, duration: 105 },
-};
+import { quote } from "@/lib/pricing";
+import { notifyNewBooking } from "@/lib/notifications";
 
 function getHaversineDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
   const R = 6371; // Radius of the earth in km
@@ -122,62 +112,25 @@ export async function POST(request: Request) {
     let duration = null;
 
     if (finalPrice === undefined || finalPrice === null) {
-      const fixedRouteKey = matchFixedRoute(finalPickup, finalDropoff);
-      const vType = vehicle.type as VehicleType;
-      
-      let basePriceVal = 0;
-
-      if (fixedRouteKey && fixedRouteKey in PRICING_CONFIG.fixedRoutes) {
-        const key = fixedRouteKey as keyof typeof PRICING_CONFIG.fixedRoutes;
-        basePriceVal = PRICING_CONFIG.fixedRoutes[key][vType];
-        distance = fixedRouteDetails[key]?.distance || 120;
-        duration = fixedRouteDetails[key]?.duration || 90;
+      // Resolve distance (haversine from coords, else a rough text fallback),
+      // then let the pricing engine compute the fare — one source of truth.
+      if (pickupLat && pickupLng && dropoffLat && dropoffLng) {
+        distance = getHaversineDistance(Number(pickupLat), Number(pickupLng), Number(dropoffLat), Number(dropoffLng));
+        duration = Math.round(distance * 0.9);
       } else {
-        if (pickupLat && pickupLng && dropoffLat && dropoffLng) {
-          distance = getHaversineDistance(
-            Number(pickupLat),
-            Number(pickupLng),
-            Number(dropoffLat),
-            Number(dropoffLng)
-          );
-          duration = Math.round(distance * 0.9);
-        } else {
-          const charSum = finalPickup.length + finalDropoff.length;
-          distance = Math.max(30, Math.min(650, charSum * 4.5));
-          duration = Math.round(distance * 0.9);
-        }
-
-        const costPerKm = vehicle.pricePerKm || PRICING_CONFIG.perKm[vType] || 3.5;
-        const baseFare = vehicle.basePrice || PRICING_CONFIG.baseFare || 50;
-        const rawPrice = baseFare + distance * costPerKm;
-        const minFare = PRICING_CONFIG.minimumFare[vType] || 80;
-        
-        basePriceVal = Math.max(minFare, Math.round(rawPrice));
+        const charSum = finalPickup.length + finalDropoff.length;
+        distance = Math.max(30, Math.min(650, charSum * 4.5));
+        duration = Math.round(distance * 0.9);
       }
 
-      // Parse DateTime for surcharges
-      const bookingDate = new Date(finalDateTime);
-      const hour = bookingDate.getHours();
-      
-      // Night surcharge (11 PM to 5 AM)
-      const isNight = hour >= 23 || hour < 5;
-      const nightSurchargeAmount = isNight ? Math.round(basePriceVal * PRICING_CONFIG.nightSurcharge) : 0;
-
-      // Ramadan Surcharge
-      const month = bookingDate.getMonth();
-      const day = bookingDate.getDate();
-      let isRamadan = false;
-      if (month === 1 && day >= 18) isRamadan = true;
-      if (month === 2 && day <= 19) isRamadan = true;
-      const ramadanSurchargeAmount = isRamadan ? Math.round(basePriceVal * PRICING_CONFIG.ramadanSurcharge) : 0;
-
-      let tripTotal = basePriceVal + nightSurchargeAmount + ramadanSurchargeAmount;
-      if (isRoundTrip) {
-        tripTotal = tripTotal * 2;
-      }
-
-      const discountAmount = isRoundTrip ? Math.round(tripTotal * PRICING_CONFIG.roundTripDiscount) : 0;
-      finalPrice = tripTotal - discountAmount;
+      const q = quote({
+        vehicleSlug: vehicle.type,
+        distanceKmOverride: distance,
+        durationMinutesOverride: duration,
+        datetime: finalDateTime,
+        options: { roundTrip: Boolean(isRoundTrip) },
+      });
+      finalPrice = q.total;
     }
 
     // Generate unique human-readable bookingRef matching the brand (e.g. TSA-2026-001234 style)
@@ -234,12 +187,31 @@ export async function POST(request: Request) {
       }
     });
 
+    // Fire real notifications. The booking is already saved above; any channel
+    // that fails is logged to notification_failures, never silently dropped.
+    // We report the true per-channel result — never a fake "sent".
+    const notified = await notifyNewBooking({
+      bookingRef: booking.bookingRef,
+      customerName: booking.customerName,
+      customerPhone: booking.customerPhone,
+      customerEmail: booking.customerEmail ?? "",
+      pickupLocation: booking.pickupLocation,
+      dropoffLocation: booking.dropoffLocation,
+      pickupDateTime: booking.pickupDateTime,
+      totalPrice: booking.totalPrice,
+      passengers: booking.passengers,
+      vehicle: vehicle
+        ? { name: vehicle.name, capacity: vehicle.capacity, luggage: vehicle.luggage }
+        : null,
+    });
+
     return NextResponse.json({
       bookingRef: booking.bookingRef,
       totalPrice: booking.totalPrice,
       currency: "SAR",
       status: "PENDING",
-      message: "Booking received. SMS confirmation sent.",
+      message: "Booking request received. Our team will confirm your fixed price shortly.",
+      notified,
       success: true,
       bookingId: booking.id
     }, { status: 201 });

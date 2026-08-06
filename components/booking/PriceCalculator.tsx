@@ -3,6 +3,9 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useLanguage } from "@/lib/context/LanguageContext";
 import { contactConfig } from "@/lib/config/contact";
+import { trackEvent } from "@/lib/analytics";
+import { getUtm } from "@/lib/utm";
+import { credentials, hasCredential } from "@/lib/config/credentials";
 import {
   MapPin,
   Calendar,
@@ -137,7 +140,15 @@ export default function PriceCalculator() {
           const errData = await res.json() as { error?: string };
           throw new Error(errData.error ?? "Pricing failed");
         }
-        setPricingData(await res.json() as PricingResponse);
+        const parsed = (await res.json()) as PricingResponse;
+        setPricingData(parsed);
+        trackEvent("quote_generated", {
+          fromCity: finalPickup,
+          toCity: finalDropoff,
+          vehicleClass: vehicleType,
+          estimatedPriceSar: parsed.price,
+          locale: language,
+        });
       } catch (err) {
         setErrorMsg(err instanceof Error ? err.message : "Pricing estimation failed. Please review inputs.");
         setPricingData(null);
@@ -516,6 +527,44 @@ export default function PriceCalculator() {
               href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam%2C%20I%20want%20to%20book%20a%20ride%20from%20${encodeURIComponent(pickup)}%20to%20${encodeURIComponent(dropoff)}%20on%20${dateTime}.%20Vehicle%3A%20${vehicleType}.%20Quote%3A%20SAR%20${pricingData.price}`}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => {
+                // Capture the lead BEFORE the WhatsApp hand-off (non-blocking,
+                // keepalive so it survives the navigation) — never lose the visitor.
+                try {
+                  fetch("/api/leads", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    keepalive: true,
+                    body: JSON.stringify({
+                      origin: pickup,
+                      destination: dropoff,
+                      tripDate: dateTime,
+                      vehicleType,
+                      quotedPrice: pricingData.price,
+                      currency: "SAR",
+                      locale: language,
+                      source: "price_calculator",
+                      pageUrl: typeof window !== "undefined" ? window.location.href : undefined,
+                      utm: getUtm(),
+                    }),
+                  }).catch(() => {});
+                } catch {
+                  /* never block the WhatsApp open */
+                }
+                trackEvent("lead_captured", {
+                  source: "price_calculator",
+                  fromCity: pickup,
+                  toCity: dropoff,
+                  vehicleClass: vehicleType,
+                  estimatedPriceSar: pricingData.price,
+                  locale: language,
+                });
+                trackEvent("whatsapp_click", {
+                  sourceLocation: "price_calculator",
+                  phoneUsed: contactConfig.whatsappNumber,
+                  locale: language,
+                });
+              }}
               className="flex items-center justify-center gap-2 w-full rounded-xl py-4 text-sm font-bold uppercase tracking-wider transition-all hover:scale-[1.02]"
               style={{
                 backgroundColor: "#C8A45D",
@@ -553,7 +602,10 @@ export default function PriceCalculator() {
           className="text-center text-[0.58rem] uppercase tracking-widest font-medium mt-5 pt-4"
           style={{ borderTop: "1px solid rgba(200,164,93,0.1)", color: "#D1D5DB" }}
         >
-          Ministry of Transport Certified · Prices include 15% VAT
+          {hasCredential(credentials.motLicenseNumber)
+            ? `Ministry of Transport Licence ${credentials.motLicenseNumber} · `
+            : ""}
+          Prices include 15% VAT
         </div>
       </div>
     </div>

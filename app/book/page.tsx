@@ -365,12 +365,17 @@ export default function BookPage() {
       const data = await res.json();
       setBookingRef(data.bookingRef);
 
-      // Simulate dispatch alerts
+      // Honest status — reflect what actually happened server-side (no fake
+      // "queued" claims). data.notified comes from /api/bookings.
+      const n = data.notified || {};
       setNotificationLogs([
-        "â±ï¸ Booking recorded in Taxi Saudi Arabia Dispatch central database.",
-        `ðŸ” Security Ref assigned: ${data.bookingRef}`,
-        "ðŸ“² Twilio SMS notification queued successfully for "+phoneCode+" "+custPhone+".",
-        custEmail ? `ðŸ“§ Resend luxury invoice dispatch confirmation queued for ${custEmail}.` : "ðŸ“§ Optional email dispatch notice skipped (no email provided)."
+        `Booking request recorded. Reference: ${data.bookingRef}`,
+        n.customerEmail
+          ? `Confirmation email sent to ${custEmail}.`
+          : custEmail
+            ? `We'll email ${custEmail} once your fixed price is confirmed.`
+            : "No email provided — we'll contact you by phone or WhatsApp.",
+        "Our team will confirm your fixed price on WhatsApp shortly.",
       ]);
 
       // Complete to step 6

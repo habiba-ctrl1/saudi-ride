@@ -51,7 +51,7 @@ Every new page must be linked from ≥2 places at creation (not added later) —
 5. `/resorts/[slug]` template + 5 Red Sea/AMAALA luxury resort entries, cross-linked with NEOM/Red Sea/AlUla pages.
 6. Deepen `/services/corporate` and `/services/business-executive` with per-city sections (Riyadh, Jeddah, Dammam, NEOM).
 7. Extend real `/ar` SSR coverage to the new cross-border + NEOM/AlUla/Tabuk pages.
-8. Driver-jobs pages for Tabuk and NEOM (this content type gets ~99% of the site's current real organic clicks — replicate deliberately on the new priority cities).
+8. ~~Driver-jobs pages for Tabuk and NEOM~~ — **REJECTED, do not build.** `WORK-LEDGER.md` (2026-08-02) records that all driver-jobs/chauffeur-jobs/taxi-driver-jobs pages (54 pages, ~226 clicks/mo) were deliberately deleted — a fully-informed business decision (not recruiting drivers via SEO, don't want applicant WhatsApp spam), not an oversight. The "99% of clicks" note in this repo's memory predates that deletion. Do not re-add this page type.
 
 **LOW — longer horizon**
 9. Blog cluster: "NEOM to Tabuk travel", "Red Sea Resorts guide", "Private transfer vs Uber NEOM", "Tabuk travel guide" — each linking into the new money pages above.

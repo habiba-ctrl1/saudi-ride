@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 export function WhatsAppButton() {
   const [isHovered, setIsHovered] = useState(false);
@@ -96,6 +97,13 @@ export function WhatsAppButton() {
           rel="noopener noreferrer"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
+          onClick={() =>
+            trackEvent("whatsapp_click", {
+              sourceLocation: "floating_button",
+              phoneUsed: formattedNumber,
+              locale: "en",
+            })
+          }
           className="relative flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_8px_30px_rgb(37,211,102,0.4)] transition-all duration-300 hover:scale-110 hover:shadow-[0_12px_40px_rgb(37,211,102,0.6)]"
           aria-label="Book via WhatsApp"
         >

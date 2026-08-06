@@ -1,5 +1,6 @@
 import { Resend } from "resend";
 import twilio from "twilio";
+import { prisma } from "@/lib/prisma";
 
 // Initialize Resend
 interface NotificationBooking {
@@ -123,7 +124,7 @@ export async function sendBookingConfirmation(booking: NotificationBooking) {
       <div style="background: #ffffff; border: 1px solid #eee; border-radius: 12px; padding: 20px; text-align: center; margin-bottom: 25px;">
         <p style="margin: 0 0 5px 0; color: #888; font-size: 12px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">Booking Reference</p>
         <h1 style="margin: 0; color: #C9A84C; font-size: 32px; font-family: monospace; font-weight: 800; letter-spacing: 1px;">${ref}</h1>
-        <p style="margin: 10px 0 0 0; color: #2ecc71; font-weight: bold; font-size: 14px;">✔ CONFIRMED & SECURED</p>
+        <p style="margin: 10px 0 0 0; color: #2ecc71; font-weight: bold; font-size: 14px;">✔ REQUEST RECEIVED — we'll confirm your fixed price on WhatsApp shortly</p>
       </div>
 
       <h3 style="color: #111; border-bottom: 2px solid #C9A84C; padding-bottom: 6px; margin-top: 0;">Trip Summary</h3>
@@ -151,7 +152,7 @@ export async function sendBookingConfirmation(booking: NotificationBooking) {
       </table>
 
       <div style="background: #FFF9E6; border: 1px solid #C9A84C; border-radius: 12px; padding: 15px; text-align: center; margin-bottom: 25px;">
-        <span style="font-size: 13px; font-weight: bold; color: #A8862A; text-transform: uppercase;">Amount Paid</span>
+        <span style="font-size: 13px; font-weight: bold; color: #A8862A; text-transform: uppercase;">Estimated Fare (pay driver on arrival)</span>
         <h2 style="margin: 5px 0 0 0; color: #111; font-size: 24px;">SAR ${booking.totalPrice} <span style="font-size: 14px; font-weight: normal; color: #666;">(VAT Included)</span></h2>
       </div>
 
@@ -167,12 +168,11 @@ export async function sendBookingConfirmation(booking: NotificationBooking) {
     </div>
   `;
 
-  // Trigger Email to Customer
-  await sendEmail(booking.customerEmail, subject, html);
-
-  // Trigger SMS to Customer
-  const smsBody = `Confirmed! Your Taxi Saudi Arabia transfer on ${new Date(booking.pickupDateTime).toLocaleDateString()} at ${new Date(booking.pickupDateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}. Driver details coming soon.`;
-  await sendSMS(booking.customerPhone, smsBody);
+  // Trigger Email + SMS to Customer; return results so callers can log failures.
+  const emailId = await sendEmail(booking.customerEmail, subject, html);
+  const smsBody = `Request received! Your Taxi Saudi Arabia transfer on ${new Date(booking.pickupDateTime).toLocaleDateString()} at ${new Date(booking.pickupDateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}. We'll confirm your fixed price on WhatsApp shortly.`;
+  const smsId = await sendSMS(booking.customerPhone, smsBody);
+  return { email: emailId, sms: smsId };
 }
 
 /**
@@ -294,7 +294,7 @@ export async function sendAdminNotification(booking: NotificationBooking) {
   const html = `
     <div style="font-family: sans-serif; padding: 25px; color: #111; max-width: 600px; border: 2px solid #C9A84C; border-radius: 16px; background-color: #fafafa;">
       <h2 style="color: #C9A84C; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 0;">🔔 New Reservation Received</h2>
-      <p>A new chauffeur booking has been placed and payment has been processed.</p>
+      <p>A new booking request has been received. Payment is collected from the customer on arrival — this is an enquiry to confirm and dispatch.</p>
 
       <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
         <tr>
@@ -323,7 +323,7 @@ export async function sendAdminNotification(booking: NotificationBooking) {
         </tr>
         <tr>
           <td style="padding: 8px 0; font-weight: bold; color: #666;">Fare Total:</td>
-          <td style="padding: 8px 0; color: #111; font-weight: bold;">SAR ${booking.totalPrice} (Paid)</td>
+          <td style="padding: 8px 0; color: #111; font-weight: bold;">SAR ${booking.totalPrice} (unpaid — cash on arrival)</td>
         </tr>
       </table>
 
@@ -333,8 +333,9 @@ export async function sendAdminNotification(booking: NotificationBooking) {
     </div>
   `;
 
-  // Trigger Email to Admin
-  await sendEmail(adminEmail, subject, html);
+  // Trigger Email to Admin; return the result so callers can log failures.
+  const emailId = await sendEmail(adminEmail, subject, html);
+  return { email: emailId };
 }
 
 /**
@@ -360,4 +361,128 @@ export async function sendOneHourBeforeSMS(booking: NotificationBooking) {
 export async function sendBookingCompletedSMS(booking: NotificationBooking) {
   const body = `Thank you for riding with Taxi Saudi Arabia! Rate your experience: ${siteUrl}/reviews/new`;
   await sendSMS(booking.customerPhone, body);
+}
+
+/**
+ * Admin WhatsApp alert. Uses CallMeBot (simplest zero-infra option) when
+ * CALLMEBOT_PHONE + CALLMEBOT_APIKEY are set; falls back to Twilio WhatsApp when
+ * TWILIO_WHATSAPP_FROM is set; otherwise logs a simulation. Returns an id or null.
+ *
+ * CallMeBot one-time setup (owner does once, no code): on WhatsApp, send the
+ * message "I allow callmebot to send me messages" to +34 644 51 95 23. It replies
+ * with your personal apikey. Put it + your number in .env.local:
+ *   CALLMEBOT_PHONE=+9665XXXXXXXX
+ *   CALLMEBOT_APIKEY=123456
+ */
+export async function sendAdminWhatsApp(text: string): Promise<string | null> {
+  const cmbPhone = process.env.CALLMEBOT_PHONE;
+  const cmbKey = process.env.CALLMEBOT_APIKEY;
+  try {
+    if (cmbPhone && cmbKey) {
+      const url = `https://api.callmebot.com/whatsapp.php?phone=${encodeURIComponent(cmbPhone)}&text=${encodeURIComponent(text)}&apikey=${encodeURIComponent(cmbKey)}`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`CallMeBot HTTP ${res.status}`);
+      console.log(`📲 [CallMeBot] admin WhatsApp alert sent to ${cmbPhone}`);
+      return `callmebot_${Date.now()}`;
+    }
+    const waFrom = process.env.TWILIO_WHATSAPP_FROM; // e.g. whatsapp:+14155238886
+    if (twilioClient && waFrom && cmbPhone) {
+      const msg = await twilioClient.messages.create({ from: waFrom, to: `whatsapp:${cmbPhone}`, body: text });
+      return msg.sid;
+    }
+    console.log(`📲 [WHATSAPP SIMULATION → admin] ${text}`);
+    return null;
+  } catch (err) {
+    console.error("❌ [WhatsApp] admin alert failed:", err);
+    return null;
+  }
+}
+
+/** Best-effort durable record of a failed send. Never throws. */
+export async function recordNotificationFailure(input: {
+  channel: string;
+  target?: string | null;
+  bookingRef?: string | null;
+  subject?: string | null;
+  error: string;
+}) {
+  try {
+    await prisma.notificationFailure.create({
+      data: {
+        channel: input.channel,
+        target: input.target ?? null,
+        bookingRef: input.bookingRef ?? null,
+        subject: input.subject ?? null,
+        error: input.error.slice(0, 1000),
+      },
+    });
+  } catch (err) {
+    // Absolute last resort — logging must never break the request.
+    console.error("❌ Could not record notification failure:", err, input);
+  }
+}
+
+/**
+ * Orchestrates every notification for a NEW booking. The booking is ALREADY
+ * saved before this runs; any channel that fails is written to
+ * notification_failures instead of being silently lost. Returns a per-channel
+ * status so the API can report honestly (never a fake "sent").
+ */
+export async function notifyNewBooking(booking: NotificationBooking): Promise<{
+  customerEmail: boolean;
+  customerSms: boolean;
+  adminEmail: boolean;
+  adminWhatsApp: boolean;
+}> {
+  const ref = normalizeRef(booking.bookingRef);
+
+  // Customer email + SMS
+  let custEmailOk = false;
+  let custSmsOk = false;
+  if (booking.customerEmail) {
+    try {
+      const r = await sendBookingConfirmation(booking);
+      custEmailOk = !!r.email;
+      custSmsOk = !!r.sms;
+      if (!r.email)
+        await recordNotificationFailure({ channel: "customer_email", target: booking.customerEmail, bookingRef: ref, subject: "booking confirmation", error: "sendEmail returned null" });
+      if (!r.sms)
+        await recordNotificationFailure({ channel: "customer_sms", target: booking.customerPhone, bookingRef: ref, error: "sendSMS returned null (Twilio not configured?)" });
+    } catch (err) {
+      await recordNotificationFailure({ channel: "customer_email", target: booking.customerEmail, bookingRef: ref, error: String(err) });
+    }
+  } else {
+    // No email — still SMS the customer.
+    try {
+      await sendBookingCreatedSMS(booking);
+      custSmsOk = true;
+    } catch (err) {
+      await recordNotificationFailure({ channel: "customer_sms", target: booking.customerPhone, bookingRef: ref, error: String(err) });
+    }
+  }
+
+  // Admin email
+  let adminEmailOk = false;
+  try {
+    const r = await sendAdminNotification(booking);
+    adminEmailOk = !!r.email;
+    if (!r.email)
+      await recordNotificationFailure({ channel: "admin_email", bookingRef: ref, subject: "new booking", error: "sendEmail returned null" });
+  } catch (err) {
+    await recordNotificationFailure({ channel: "admin_email", bookingRef: ref, error: String(err) });
+  }
+
+  // Admin WhatsApp
+  let adminWaOk = false;
+  const waText = `New booking ${ref}\n${booking.customerName} ${booking.customerPhone}\n${booking.pickupLocation} -> ${booking.dropoffLocation}\n${new Date(booking.pickupDateTime).toLocaleString()}\nSAR ${booking.totalPrice} (unpaid)`;
+  try {
+    const id = await sendAdminWhatsApp(waText);
+    adminWaOk = !!id;
+    if (!id)
+      await recordNotificationFailure({ channel: "admin_whatsapp", bookingRef: ref, error: "WhatsApp not configured or send failed" });
+  } catch (err) {
+    await recordNotificationFailure({ channel: "admin_whatsapp", bookingRef: ref, error: String(err) });
+  }
+
+  return { customerEmail: custEmailOk, customerSms: custSmsOk, adminEmail: adminEmailOk, adminWhatsApp: adminWaOk };
 }

@@ -330,3 +330,48 @@ model Session {
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
+// ─── Phase 1A additions ─────────────────────────────────────────────────────
+
+// Lead = a captured quote from the homepage widget / CTAs BEFORE the WhatsApp
+// hand-off, so a visitor is never lost just because they didn't finish the chat.
+model Lead {
+  id            String   @id @default(cuid())
+  origin        String
+  destination   String
+  tripDate      String?  @map("trip_date")
+  vehicleType   String?  @map("vehicle_type")
+  quotedPrice   Float?   @map("quoted_price")
+  currency      String   @default("SAR")
+  locale        String?
+  pageUrl       String?  @map("page_url")
+  utmSource     String?  @map("utm_source")
+  utmMedium     String?  @map("utm_medium")
+  utmCampaign   String?  @map("utm_campaign")
+  utmTerm       String?  @map("utm_term")
+  utmContent    String?  @map("utm_content")
+  source        String   @default("price_calculator")
+  customerName  String?  @map("customer_name")
+  customerPhone String?  @map("customer_phone")
+  customerEmail String?  @map("customer_email")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  @@index([createdAt])
+  @@map("leads")
+}
+
+// NotificationFailure = durable record of any email/SMS/WhatsApp that failed to
+// send. The booking/lead ALWAYS saves; a failed notification lands here instead
+// of being silently lost.
+model NotificationFailure {
+  id         String   @id @default(cuid())
+  channel    String
+  target     String?
+  bookingRef String?  @map("booking_ref")
+  subject    String?
+  error      String
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@index([createdAt])
+  @@map("notification_failures")
+}

@@ -5,12 +5,14 @@ import { ThemeProvider } from "next-themes";
 import { LanguageProvider } from "@/lib/context/LanguageContext";
 import { ReactNode } from "react";
 import { Toaster } from "sonner";
+import { HtmlLangSync } from "@/components/i18n/HtmlLangSync";
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
     <SessionProvider>
       <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark" enableSystem={false}>
         <LanguageProvider>
+          <HtmlLangSync />
           {children}
           <Toaster theme="dark" position="top-right" closeButton richColors />
         </LanguageProvider>
