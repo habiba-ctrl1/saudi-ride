@@ -44,6 +44,7 @@ const CITY_AIRPORT: Record<string, { slug: string; name: string }> = {
   alula: { slug: "alula", name: "AlUla International Airport (ULH)" },
   abha: { slug: "abha-regional", name: "Abha International Airport (AHB)" },
   tabuk: { slug: "tabuk-regional", name: "Tabuk Regional Airport (TUU)" },
+  neom: { slug: "red-sea", name: "Red Sea International Airport (RSI)" },
 };
 
 interface PageProps {

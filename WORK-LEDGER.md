@@ -1,5 +1,17 @@
 # WORK LEDGER — TaxiSaudiArabia.com
 
+## ✅ (2026-08-06) — First page of luxury/corporate expansion: `/airports/red-sea`
+
+User approved starting the NEOM/Red Sea/AMAALA expansion from `SEO-PROGRAMMATIC-ARCHITECTURE-2026.md` (see [[luxury-corporate-expansion-plan]] memory), with an explicit "don't waste credits" constraint. Before building anything, did a cheap targeted check (not a full scan) of what the brief asks for vs. what's already live — most of it turned out to already exist: `neom` and `tabuk` location pages already cover Sindalah/Red Sea coast/Duba/Haql/Wadi Disah as sub-content, and `corporate`/`vip-luxury`/`business-executive`/`hotel-transfers` service pages already exist. The one clean, real gap: **Red Sea International Airport had no page at all**, even though 2 live routes already pointed to it from Phase 1 (2026-08-05).
+
+Built `/airports/red-sea` following the exact existing `AIRPORT_DETAILS` pattern (`lib/data/airports.ts`) — full tldr/tldrFacts/terminals/tips/faqs matching the site's most complete entries (JED/MED), not a thin stub. `generateStaticParams` and `sitemap.ts` both derive from `Object.keys(AIRPORT_DETAILS)`, so no separate wiring was needed there. Also added `neom: { slug: "red-sea", ... }` to `CITY_AIRPORT` in `locations/[city]/page.tsx` so the NEOM location page links to it under "Areas We Serve" — avoids shipping a fresh orphan page right after fixing 12 old ones last session. No real photo exists yet for Red Sea/AMAALA, so reused `/locations/neom-hero.webp` as a placeholder (same giga-project region) — flagged here for a real photo swap later, same as the existing Yanbu-hero placeholder note.
+
+**Found and fixed a second live-DB drift bug while verifying** (same class as the 2026-08-04 "7 routes 404 in production" incident): the 2 routes this new page depends on (`red-sea-airport-to-amaala`, `red-sea-airport-to-neom`) existed in `ROUTES_DATA` since Phase 1 but were **never inserted into the live Supabase `Route` table** — confirmed via direct REST query before assuming, not after. Wrote `scripts/insert_red_sea_routes.js` (same REST-API-not-pooler pattern as `insert_missing_routes.js`) and ran it — both slugs now insert clean (idempotent, `merge-duplicates`). Re-verified via `next dev` + curl: both routes now 200 (were 404), and the new airport page's "Popular Routes" section now actually shows them instead of falling back to the empty state.
+
+Verified: `tsc --noEmit` clean, `ui_consistency_check.py --summary` PASS, live `next dev` render check on `/airports/red-sea`, `/locations/neom`, both new route pages, and `/sitemap.xml`.
+
+**Not done / next up**: the rest of the luxury-expansion brief (AMAALA/resort-specific content, dedicated corporate sub-pages like Embassy/Government Transportation, cross-border pages beyond what already exists) — stopping here per the "one page at a time, approve before next" instruction. Commit made locally, not pushed (user is batching pushes to save credits — see [[user-preferences]]).
+
 ## ✅ (2026-08-05) — Closed the internal-linking-gap HANDOFF from 2026-08-04
 
 Re-ran `scripts/check_route_link_density.ts` per its own recommendation (list may have changed). It did — found 15 routes at 0 simulated inbound links, not the original 7. Before fixing, checked each one for a *real* inbound link the script doesn't model (it only simulates `RouteRelatedLinks.tsx`, not manual blocks or other pages):

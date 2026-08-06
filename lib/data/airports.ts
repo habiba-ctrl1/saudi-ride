@@ -151,6 +151,38 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     ],
     priorityRoutes: ["alula-airport-to-resorts", "alula-to-medina"]
   },
+  "red-sea": {
+    name: "Red Sea International Airport",
+    code: "RSI",
+    nameAr: "مطار البحر الأحمر الدولي",
+    image: "/locations/neom-hero.webp",
+    tagline: "Gateway to AMAALA & the Red Sea Resorts",
+    description: "Book a private VIP airport transfer from Red Sea International Airport (RSI) to AMAALA, Sindalah, or your luxury Red Sea resort. A boutique gateway serving the Red Sea Global destinations, with executive vehicles suited to a premium, remote-resort arrival — fixed prices, no surge, professional English-speaking chauffeurs.",
+    tldr: "A private transfer from Red Sea International Airport (RSI) to AMAALA is about 35 km (~30 min) from SAR 180, and to NEOM about 300 km (~3.5 hr) from SAR 450. Both are fixed-price VIP transfers with an executive vehicle and English-speaking chauffeur — pre-booking is strongly recommended as on-demand taxis are extremely limited this far from any city.",
+    tldrFacts: [
+      { label: "RSI → AMAALA", value: "~30 min · from SAR 180" },
+      { label: "RSI → NEOM", value: "~3.5 hr · from SAR 450" },
+      { label: "Vehicle", value: "Executive SUV/Sedan" },
+      { label: "Booking", value: "Pre-book required" }
+    ],
+    terminals: [
+      { name: "Main Terminal", desc: "Boutique terminal built for Red Sea Global's resort guests, serving domestic flights plus select international routes to the Red Sea coast." }
+    ],
+    tips: [
+      "This is a remote-resort airport — there are no on-demand taxis waiting outside, so pre-book your transfer before you fly.",
+      "Our executive fleet (Mercedes S-Class, GMC Yukon, Cadillac Escalade) matches the standard expected by AMAALA and Red Sea Global resort guests.",
+      "Share your resort name (e.g. AMAALA, Sindalah, St. Regis Red Sea Resort, Six Senses Southern Dunes, Shebara) when booking so your driver knows the exact drop-off point.",
+      "Flight tracking and meet & greet are included, with free waiting time if your flight is delayed."
+    ],
+    priorityRoutes: ["red-sea-airport-to-amaala", "red-sea-airport-to-neom"],
+    faqs: [
+      { question: "How do I get from Red Sea International Airport to AMAALA?", answer: "A private VIP transfer from Red Sea International Airport (RSI) to AMAALA is about 35 km, roughly a 30-minute drive, fixed-price from SAR 180 in an executive vehicle." },
+      { question: "Is there a taxi rank at Red Sea International Airport?", answer: "No — this is a boutique airport built for the Red Sea Global resorts, with no walk-up taxi rank. Pre-booking your transfer in advance is strongly recommended." },
+      { question: "Can I get a transfer from Red Sea International Airport to NEOM?", answer: "Yes. It's approximately 300 km, about a 3.5-hour drive, fixed-price from SAR 450 in an executive vehicle — ideal for investors, contractors, and visitors connecting between the two giga-projects." },
+      { question: "What kind of vehicles are available at RSI?", answer: "Executive sedans and SUVs (Mercedes S-Class, GMC Yukon, Cadillac Escalade) suited to the premium standard of AMAALA and the Red Sea resorts, all with professional, English-speaking chauffeurs." },
+      { question: "Which resorts do you serve from Red Sea International Airport?", answer: "We provide transfers to AMAALA, Sindalah Island, and the Red Sea Global resorts including St. Regis Red Sea Resort, Six Senses Southern Dunes, Desert Rock Resort, and Shebara — tell us your resort name when booking." }
+    ]
+  },
   "abha-regional": {
     name: "Abha International Airport",
     code: "AHB",
