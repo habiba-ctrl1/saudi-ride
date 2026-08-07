@@ -1,6 +1,6 @@
 // Static content for city location pages — single source of truth for
 // app/(marketing)/locations/[city]/page.tsx AND app/sitemap.ts (LOCATIONS).
-export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image: string, tagline: string, description: string, attractions: { name: string, dist: string }[], tips: string[], tldr?: string, tldrFacts?: { label: string, value: string }[], faqs?: { question: string, answer: string }[], testimonials?: { quote: string, author: string, location: string, trip: string }[] }> = {
+export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image: string, tagline: string, description: string, attractions: { name: string, dist: string }[], tips: string[], tldr?: string, tldrFacts?: { label: string, value: string }[], faqs?: { question: string, answer: string }[], testimonials?: { quote: string, author: string, location: string, trip: string }[], relatedLinks?: { href: string, label: string }[] }> = {
   makkah: {
     name: "Makkah",
     nameAr: "مكة المكرمة",
@@ -335,35 +335,46 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     name: "NEOM",
     nameAr: "نيوم",
     image: "/locations/neom-hero.webp",
-    tagline: "Saudi Arabia's Giga-Project",
-    description: "Book a taxi or executive car in NEOM and the wider Tabuk region for business visits, construction-site transfers, and trips to the Red Sea and Gulf of Aqaba coast. NEOM is a vast development zone, so our drivers serve Tabuk City, NEOM Bay, Magna, and the project gates, with airport transfers from Tabuk Airport (TUU) and NEOM Bay Airport (NUM). Whether you are a contractor, investor, or visitor, we provide reliable executive vehicles with professional drivers at fixed prices and no surge.",
-    tldr: "Taxi Saudi Arabia provides taxi and executive-car service across NEOM and the Tabuk region — Tabuk Airport (TUU) and NEOM Bay Airport (NUM) transfers, site and gate access trips, and journeys to the Red Sea coast and Gulf of Aqaba. Reliable transport for contractors, investors, and visitors.",
+    tagline: "Saudi Arabia's Giga-Project & Future Region",
+    description: "Book a private taxi or executive chauffeur in NEOM and the surrounding Tabuk region. We provide reliable private transport for corporate visits, contractor site travel, and airport transfers connecting Tabuk Regional Airport (TUU), NEOM Bay Airport (NUM), and Red Sea International Airport (RSI) to key destination zones including The Line, Oxagon, Trojena, Sindalah Island, and Sharma. Whether traveling for business or tourism, our professional drivers offer executive sedans and spacious SUVs at fixed, transparent fares with no surge pricing.",
+    tldr: "Taxi Saudi Arabia provides private taxi and executive chauffeur services across NEOM and the Tabuk region — serving Tabuk Airport (TUU), NEOM Bay Airport (NUM), and Red Sea International (RSI) transfers to The Line, Oxagon, Trojena, Sindalah, and Sharma.",
     tldrFacts: [
-      { label: "Main airport", value: "Tabuk (TUU)" },
-      { label: "Also", value: "NEOM Bay (NUM)" },
-      { label: "Coast", value: "Gulf of Aqaba" },
+      { label: "Main airports", value: "Tabuk (TUU) & RSI" },
+      { label: "Key destinations", value: "The Line, Oxagon, Trojena" },
+      { label: "Coast & islands", value: "Sindalah & Gulf of Aqaba" },
       { label: "Pricing", value: "Fixed, no surge" }
     ],
     attractions: [
-      { name: "NEOM Bay", dist: "Coastal" },
-      { name: "Tabuk City", dist: "Regional Hub" },
-      { name: "Gulf of Aqaba (Magna)", dist: "Coastal" },
-      { name: "Sindalah Island", dist: "Coastal" },
-      { name: "Tabuk Airport (TUU)", dist: "Regional" },
-      { name: "NEOM Bay Airport (NUM)", dist: "Project Zone" }
+      { name: "The Line", dist: "Project Zone" },
+      { name: "Oxagon", dist: "Industrial Zone" },
+      { name: "Trojena", dist: "Mountain Zone" },
+      { name: "Sindalah Island", dist: "Luxury Island" },
+      { name: "NEOM Bay & Sharma", dist: "Coastal Hub" },
+      { name: "Tabuk Airport (TUU)", dist: "Regional Hub (~120 km)" }
     ],
     tips: [
-      "NEOM is a large development zone — share your exact site or gate access details when booking.",
-      "Tabuk Airport (TUU) is the main air gateway for the NEOM region; NEOM Bay Airport (NUM) serves the project directly.",
-      "Distances within the project are large — an executive SUV is the most comfortable option.",
-      "Site access may require permits — confirm your clearance before your transfer."
+      "NEOM covers a vast area — provide your specific destination or gate access point when requesting a transfer.",
+      "Tabuk Airport (TUU) is the primary regional air gateway (~120 km), while NEOM Bay (NUM) and Red Sea International (RSI) also serve the region.",
+      "Given the long highway distances across the region, executive SUVs (e.g. GMC Yukon XL) provide optimal comfort.",
+      "Corporate VAT invoicing is available for business accounts upon request.",
+      "Confirm any required site entry clearance with your host before travel."
     ],
     faqs: [
-      { question: "How do I get to NEOM?", answer: "The main air gateway is Tabuk Airport (TUU), with NEOM Bay Airport (NUM) serving the project directly. We provide transfers from both airports to the project zones, Tabuk City, and the coast." },
-      { question: "Can I book an executive car for a NEOM business visit?", answer: "Yes. We offer executive sedans and SUVs with professional drivers for site visits, investor trips, and inter-zone transfers across NEOM and the Tabuk region, with hourly and full-day options." },
-      { question: "Do I need a permit to access NEOM sites?", answer: "Some NEOM construction sites and gates require access permits or clearance. Confirm your clearance before booking so the driver can take you to the correct gate." },
-      { question: "Does the taxi cover the Tabuk region and Red Sea coast?", answer: "Yes — we cover Tabuk City, NEOM Bay, Magna, and the Gulf of Aqaba coast. Share your exact destination when booking, as distances in the region are large." },
-      { question: "Is transport available in NEOM 24/7?", answer: "Yes, we provide round-the-clock executive transport across NEOM and Tabuk for business visits, airport transfers, and coastal trips — at fixed prices confirmed in advance." }
+      { question: "How can I book a private taxi or executive car in NEOM?", answer: "You can book directly online via our booking page or request a customized quote on WhatsApp for executive chauffeured vehicles, airport pickups, or multi-day business transportation." },
+      { question: "Do you provide airport transfers from Tabuk Airport to NEOM?", answer: "Yes, we operate private airport transfers from Tabuk Regional Airport (TUU) directly to NEOM project sites and coastal hubs (~120 km). Fixed-price quotes are provided prior to booking." },
+      { question: "Can I book a private car for business travel in NEOM?", answer: "Yes. We offer executive sedans and spacious SUVs with professional drivers for contractor site visits, corporate delegations, and regional business travel across NEOM and Tabuk." },
+      { question: "Which NEOM destinations do your private transfers cover?", answer: "Our private transport services cover the entire NEOM corridor, including connections toward The Line, Oxagon, Trojena, Sindalah Island, Sharma, and Tabuk City." },
+      { question: "Is private transport available in NEOM 24/7?", answer: "Yes, we provide round-the-clock private transfer and executive car services across NEOM and the Tabuk region at pre-confirmed fixed fares." }
+    ],
+    relatedLinks: [
+      { href: "/routes/tabuk-airport-to-neom", label: "Tabuk Airport to NEOM transfer" },
+      { href: "/routes/red-sea-airport-to-neom", label: "Red Sea Airport to NEOM transfer" },
+      { href: "/routes/riyadh-to-neom", label: "Riyadh to NEOM long-distance taxi" },
+      { href: "/routes/jeddah-to-neom", label: "Jeddah to NEOM long-distance taxi" },
+      { href: "/airports/tabuk-regional", label: "Tabuk Regional Airport (TUU)" },
+      { href: "/airports/red-sea", label: "Red Sea International Airport (RSI)" },
+      { href: "/fleet/gmc-yukon-xl", label: "GMC Yukon XL — Family & Group SUV" },
+      { href: "/fleet/mercedes-s-class", label: "Mercedes S-Class — VIP Executive Sedan" }
     ]
   },
   abha: {

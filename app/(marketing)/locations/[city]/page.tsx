@@ -7,7 +7,7 @@ export function generateStaticParams() {
 // No notFound import
 import { db } from "@/lib/db";
 import { Metadata } from "next";
-import { MapPin, ArrowRight, Car, Building2, CheckCircle2, HelpCircle, Star, Quote, PlaneLanding } from "lucide-react";
+import { MapPin, ArrowRight, Car, Building2, CheckCircle2, HelpCircle, Star, Quote, PlaneLanding, ExternalLink, MessageSquare } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
@@ -17,6 +17,7 @@ import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { SUB_AREAS } from "@/lib/data/subareas";
 import { CITY_DETAILS } from "@/lib/data/locations";
 import { trustStats } from "@/lib/config/stats";
+import { contactConfig } from "@/lib/config/contact";
 
 // Public city-centroid coordinates (not business location data) — lets
 // location pages attach real GeoCoordinates to their Place/areaServed node.
@@ -46,6 +47,11 @@ const CITY_AIRPORT: Record<string, { slug: string; name: string }> = {
   abha: { slug: "abha-regional", name: "Abha International Airport (AHB)" },
   tabuk: { slug: "tabuk-regional", name: "Tabuk Regional Airport (TUU)" },
   neom: { slug: "red-sea", name: "Red Sea International Airport (RSI)" },
+};
+
+// Additional airport links per city (e.g. NEOM serves both RSI and TUU).
+const CITY_AIRPORTS_EXTRA: Record<string, { slug: string; name: string }[]> = {
+  neom: [{ slug: "tabuk-regional", name: "Tabuk Regional Airport (TUU)" }],
 };
 
 interface PageProps {
@@ -273,6 +279,18 @@ export default async function CityLocationPage({ params }: PageProps) {
                     <ArrowRight className="h-4 w-4 text-[#C9A84C]" />
                   </Link>
                 )}
+                {CITY_AIRPORTS_EXTRA[cityKey]?.map((ap) => (
+                  <Link
+                    key={ap.slug}
+                    href={`/airports/${ap.slug}`}
+                    className="group flex items-center justify-between gap-3 rounded-xl border border-[#16A34A]/12 bg-white px-4 py-3 hover:border-[#16A34A]/35 transition-colors"
+                  >
+                    <span className="flex items-center gap-2 text-sm font-medium text-[#1C1C1C] group-hover:text-[#16A34A]">
+                      <PlaneLanding className="h-4 w-4 text-[#C9A84C]" /> {ap.name}
+                    </span>
+                    <ArrowRight className="h-4 w-4 text-[#C9A84C]" />
+                  </Link>
+                ))}
                 {citySubAreas.map((area) => (
                   <Link
                     key={area.subarea}
@@ -346,6 +364,49 @@ export default async function CityLocationPage({ params }: PageProps) {
                   </div>
                 ))}
               </div>
+            </section>
+          )}
+
+          {/* Related Links — internal cross-links to verified route + fleet pages (if present in cityData) */}
+          {cityData.relatedLinks && cityData.relatedLinks.length > 0 && (
+            <section className="bg-white border border-[#16A34A]/12 rounded-3xl p-8">
+              <h2 className="font-heading text-2xl font-bold mb-6 flex items-center gap-3">
+                <ExternalLink className="text-[#C9A84C] h-5 w-5" />
+                Related Routes & Vehicles
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {cityData.relatedLinks.map((link, idx) => (
+                  <Link
+                    key={idx}
+                    href={link.href}
+                    className="group flex items-center gap-2 text-sm text-[#6B7280] hover:text-[#16A34A] transition-colors p-2 rounded-lg hover:bg-[#F0FDF4]"
+                  >
+                    <ArrowRight className="h-3.5 w-3.5 shrink-0 text-[#C9A84C]/60 group-hover:text-[#16A34A] transition-colors" />
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* NEOM Executive WhatsApp Inquiry CTA */}
+          {cityKey === "neom" && (
+            <section className="bg-[#F0FDF4] border border-[#16A34A]/20 rounded-3xl p-8 text-center">
+              <h2 className="font-heading text-2xl font-bold text-[#1C1C1C] mb-3">
+                Need Executive Chauffeur or Custom Transport in NEOM?
+              </h2>
+              <p className="text-sm text-[#6B7280] max-w-xl mx-auto mb-6 leading-relaxed">
+                Contact our dispatch desk directly on WhatsApp for custom site visit quotes, executive SUV charters, corporate invoicing, and airport transfers.
+              </p>
+              <a
+                href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent("Salam, I need a private transfer / executive chauffeur quote for NEOM.")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2.5 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
+              >
+                <MessageSquare className="h-4 w-4" />
+                Request Quote on WhatsApp
+              </a>
             </section>
           )}
 
