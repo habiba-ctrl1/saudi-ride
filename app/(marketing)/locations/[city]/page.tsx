@@ -188,7 +188,13 @@ export default async function CityLocationPage({ params }: PageProps) {
             blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/80 to-[#FAFAF7]/40" />
+          <div
+            className={`absolute inset-0 bg-gradient-to-t ${
+              cityKey === "neom"
+                ? "from-[#FAFAF7] via-[#FAFAF7]/50 to-[#FAFAF7]/15"
+                : "from-[#FAFAF7] via-[#FAFAF7]/80 to-[#FAFAF7]/40"
+            }`}
+          />
         </div>
 
         <div className="section-container relative z-10 max-w-5xl">
