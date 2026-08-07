@@ -1,12 +1,12 @@
 import { Metadata } from "next";
-import { MapPin, ArrowRight, Car, Building2, CheckCircle2, PlaneLanding, HelpCircle } from "lucide-react";
+import { MapPin, ArrowRight, Car, Building2, CheckCircle2, PlaneLanding, HelpCircle, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { serviceSchema, faqSchema } from "@/lib/schema";
+import { faqSchema, airportTaxiServiceSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { AIRPORT_DETAILS } from "@/lib/data/airports";
 
@@ -71,12 +71,11 @@ export default async function AirportLandingPage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
       <JsonLd
-        data={serviceSchema({
-          name: `Airport Taxi Service at ${airportData.name} (${airportData.code})`,
-          description: airportData.description,
+        data={airportTaxiServiceSchema({
+          airportName: airportData.name,
+          iataCode: airportData.code,
           path: `/airports/${airportKey}`,
-          serviceType: "Airport Transfer",
-          areaServed: [airportData.name],
+          description: airportData.description,
         })}
       />
       {airportData.faqs && airportData.faqs.length > 0 && (
@@ -137,7 +136,7 @@ export default async function AirportLandingPage({ params }: PageProps) {
 
           {/* Available Routes */}
           <section>
-            <h2 className="font-heading text-3xl font-bold mb-8">Popular Routes from {airportData.code}</h2>
+            <h2 className="font-heading text-3xl font-bold mb-8">Taxi Routes from {airportData.name} ({airportData.code})</h2>
             {airportRoutes.length > 0 ? (
               <div className="grid gap-4">
                 {airportRoutes.map((route) => (
@@ -170,7 +169,7 @@ export default async function AirportLandingPage({ params }: PageProps) {
           {/* Local Tips */}
           {airportData.tips.length > 0 && (
             <section className="bg-white border border-[#16A34A]/12 rounded-3xl p-8">
-              <h2 className="font-heading text-2xl font-bold mb-6 text-[#1C1C1C]">Arrival & Transfer Tips</h2>
+              <h2 className="font-heading text-2xl font-bold mb-6 text-[#1C1C1C]">Transfer Tips for {airportData.code} Airport</h2>
               <ul className="space-y-4">
                 {airportData.tips.map((tip, idx) => (
                   <li key={idx} className="flex gap-4">
@@ -195,6 +194,28 @@ export default async function AirportLandingPage({ params }: PageProps) {
                     <h3 className="font-bold text-base mb-2 text-[#1C1C1C]">{faq.question}</h3>
                     <p className="text-sm text-[#6B7280] leading-relaxed">{faq.answer}</p>
                   </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Related Links — internal cross-links to verified route + fleet pages */}
+          {airportData.relatedLinks && airportData.relatedLinks.length > 0 && (
+            <section className="bg-white border border-[#16A34A]/12 rounded-3xl p-8">
+              <h2 className="font-heading text-2xl font-bold mb-6 flex items-center gap-3">
+                <ExternalLink className="text-[#C9A84C] h-5 w-5" />
+                Related Routes & Vehicles
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {airportData.relatedLinks.map((link, idx) => (
+                  <Link
+                    key={idx}
+                    href={link.href}
+                    className="group flex items-center gap-2 text-sm text-[#6B7280] hover:text-[#16A34A] transition-colors p-2 rounded-lg hover:bg-[#F0FDF4]"
+                  >
+                    <ArrowRight className="h-3.5 w-3.5 shrink-0 text-[#C9A84C]/60 group-hover:text-[#16A34A] transition-colors" />
+                    {link.label}
+                  </Link>
                 ))}
               </div>
             </section>

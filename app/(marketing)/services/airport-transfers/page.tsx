@@ -1,12 +1,13 @@
-﻿import { Metadata } from "next";
+import { Metadata } from "next";
 import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
-import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
+import { serviceSchema, faqSchema, speakableSchema, airportTaxiServiceSchema } from "@/lib/schema";
+import { AIRPORT_DETAILS } from "@/lib/data/airports";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import Link from "next/link";
-import { Plane, Clock, UserCheck, CheckCircle2, ShieldCheck, Search, PlaneLanding } from "lucide-react";
+import { Plane, Clock, UserCheck, CheckCircle2, ShieldCheck, Search, PlaneLanding, MapPin } from "lucide-react";
 
 const TITLE = "Airport Taxi Saudi Arabia | Jeddah, Riyadh & Madinah Pickups";
 const DESCRIPTION = "Fixed-price airport taxi in Saudi Arabia with pickups at Jeddah (JED), Riyadh (RUH) & Madinah (MED). Flight tracking, meet & greet, 24/7 licensed drivers.";
@@ -32,11 +33,11 @@ export const metadata: Metadata = {
 };
 
 const AIRPORT_ROUTES = [
-  { airport: "Jeddah (JED)", dest: "Makkah", time: "1 hr", price: 249 },
-  { airport: "Jeddah (JED)", dest: "Madinah", time: "4.5 hrs", price: 549 },
-  { airport: "Jeddah (JED)", dest: "Jeddah City", time: "30 mins", price: 80 },
-  { airport: "Riyadh (RUH)", dest: "City Center", time: "40 mins", price: 100 },
-  { airport: "Madinah (MED)", dest: "Haram Area", time: "25 mins", price: 80 },
+  { airport: "Jeddah (JED)", dest: "Makkah", time: "1 hr", price: 249, routeSlug: "jeddah-airport-to-makkah" },
+  { airport: "Jeddah (JED)", dest: "Madinah", time: "4.5 hrs", price: 549, routeSlug: "jeddah-airport-to-madinah" },
+  { airport: "Jeddah (JED)", dest: "Jeddah City", time: "30 mins", price: 80, routeSlug: "jeddah-airport-to-jeddah-city" },
+  { airport: "Riyadh (RUH)", dest: "City Center", time: "40 mins", price: 100, routeSlug: "riyadh-airport-to-city" },
+  { airport: "Madinah (MED)", dest: "Haram Area", time: "25 mins", price: 80, routeSlug: "madinah-airport-to-city" },
 ];
 
 const FAQS = [
@@ -137,12 +138,13 @@ export default function AirportTransfersPage() {
 
       {/* ─── FEATURES ─────────────────────────────────────────────── */}
       <section className="section-container max-w-7xl py-20 border-b border-[#C9A84C]/10">
+        <h2 className="font-heading text-3xl md:text-4xl font-bold mb-10 text-center">Why Book an Airport Taxi in Saudi Arabia</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {[
-            { icon: PlaneLanding, title: "Real-Time Tracking", desc: "We monitor your flight and adjust pickup time for early or delayed arrivals." },
-            { icon: UserCheck, title: "Meet & Greet", desc: "Driver awaits in the arrivals hall with a personalized iPad name sign." },
-            { icon: Clock, title: "60 Mins Free Wait", desc: "Complimentary waiting time for flights to clear customs and baggage." },
-            { icon: ShieldCheck, title: "Fixed Pricing", desc: "No hidden surge fees or toll charges. The quoted price is final." }
+            { icon: PlaneLanding, title: "Real-Time Flight Tracking", desc: "We monitor your flight and adjust pickup time for early or delayed arrivals." },
+            { icon: UserCheck, title: "Meet & Greet at Arrivals", desc: "Driver awaits in the arrivals hall with a personalized name sign and helps with luggage." },
+            { icon: Clock, title: "60 Minutes Free Waiting", desc: "Complimentary waiting time after landing for customs and baggage collection." },
+            { icon: ShieldCheck, title: "Fixed-Price Confirmed Fares", desc: "No hidden surge fees or toll charges. Your quoted price is confirmed before the trip." }
           ].map((feat, i) => (
             <div key={i} className="bg-white border border-[#16A34A]/12 rounded-3xl p-8 hover:border-[#16A34A]/35 transition-colors">
               <feat.icon className="h-8 w-8 text-[#C9A84C] mb-6" />
@@ -153,11 +155,36 @@ export default function AirportTransfersPage() {
         </div>
       </section>
 
+      {/* ─── AIRPORT HUB LINKS ──────────────────────────────────── */}
+      <section className="section-container max-w-7xl py-20 border-b border-[#C9A84C]/10">
+        <div className="text-center mb-12">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">Airports We Serve Across Saudi Arabia</h2>
+          <p className="text-[#6B7280] max-w-2xl mx-auto">Pre-book your airport taxi at any of our covered airports. Each page has terminal info, transfer tips, and instant booking.</p>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {Object.entries(AIRPORT_DETAILS).map(([slug, airport]) => (
+            <Link
+              key={slug}
+              href={`/airports/${slug}`}
+              className="group flex items-center gap-4 bg-white border border-[#16A34A]/12 rounded-2xl p-5 hover:border-[#16A34A]/35 transition-colors"
+            >
+              <div className="bg-[#C9A84C]/10 rounded-full p-3 group-hover:bg-[#16A34A]/10 transition-colors">
+                <MapPin className="h-5 w-5 text-[#C9A84C] group-hover:text-[#16A34A] transition-colors" />
+              </div>
+              <div>
+                <div className="font-bold text-sm text-[#1C1C1C]">{airport.name}</div>
+                <div className="text-xs text-[#6B7280]">{airport.code} · {airport.tagline}</div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
       {/* ─── PRICING TABLE ────────────────────────────────────────── */}
       <section className="section-container max-w-5xl py-20">
         <div className="text-center mb-12">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">Popular Airport Routes</h2>
-          <p className="text-[#6B7280]">Estimated fares for standard sedans — SUV and luxury classes available. Final quotation confirmed on WhatsApp or email.</p>
+          <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">Airport Transfer Prices in Saudi Arabia</h2>
+          <p className="text-[#6B7280]">Starting fares for sedan transfers — SUV and luxury classes also available. Final price is confirmed before your trip.</p>
         </div>
 
         <div className="bg-white rounded-3xl border border-[#16A34A]/12 overflow-hidden">
@@ -179,7 +206,10 @@ export default function AirportTransfersPage() {
                     <td className="p-6 text-sm text-[#6B7280]">{route.dest}</td>
                     <td className="p-6 text-sm text-[#6B7280]">{route.time}</td>
                     <td className="p-6 font-bold text-[#16A34A] text-right">{route.price}</td>
-                    <td className="p-6 text-center">
+                    <td className="p-6 text-center flex items-center justify-center gap-4">
+                      <Link href={`/routes/${route.routeSlug}`} className="text-xs font-bold uppercase tracking-wider text-[#6B7280] hover:text-[#16A34A] transition-colors">
+                        Details
+                      </Link>
                       <Link href={`/book?pickup=${encodeURIComponent(route.airport)}&dropoff=${encodeURIComponent(route.dest)}`} className="text-xs font-bold uppercase tracking-wider text-[#B8963B] hover:text-[#1C1C1C] transition-colors">
                         Book
                       </Link>
@@ -194,7 +224,7 @@ export default function AirportTransfersPage() {
 
       {/* ─── FAQ ──────────────────────────────────────────────────── */}
       <section className="section-container max-w-4xl py-20 border-t border-[#C9A84C]/10">
-        <h2 className="font-heading text-3xl font-bold mb-12 text-center">Frequently Asked Questions</h2>
+        <h2 className="font-heading text-3xl font-bold mb-12 text-center">Airport Taxi FAQ — Saudi Arabia</h2>
         <div className="space-y-6">
           {FAQS.map((faq, i) => (
             <div key={i} className="bg-white border border-[#16A34A]/12 rounded-2xl p-6">

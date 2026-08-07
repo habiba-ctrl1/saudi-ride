@@ -104,6 +104,77 @@ export function serviceSchema({ name, description, path, serviceType, areaServed
   };
 }
 
+// Wikidata entity URIs for Saudi airports — used for sameAs disambiguation.
+// These are public Wikidata Q-IDs, not operational claims.
+const AIRPORT_WIKIDATA: Record<string, string> = {
+  JED: "https://www.wikidata.org/wiki/Q178122",  // King Abdulaziz International Airport
+  RUH: "https://www.wikidata.org/wiki/Q286735",  // King Khalid International Airport
+  MED: "https://www.wikidata.org/wiki/Q1552805", // Prince Mohammad Bin Abdulaziz Airport
+  DMM: "https://www.wikidata.org/wiki/Q607300",  // King Fahd International Airport
+  TIF: "https://www.wikidata.org/wiki/Q3553174", // Taif Regional Airport
+  TUU: "https://www.wikidata.org/wiki/Q3553072", // Tabuk Regional Airport
+  ULH: "https://www.wikidata.org/wiki/Q69487086", // AlUla International Airport
+  AHB: "https://www.wikidata.org/wiki/Q2822273", // Abha International Airport
+};
+
+interface AirportTaxiSchemaInput {
+  /** Airport name, e.g. "King Abdulaziz International Airport" */
+  airportName: string;
+  /** IATA code, e.g. "JED" */
+  iataCode: string;
+  /** URL path for this page, e.g. "/airports/king-abdulaziz-jeddah" */
+  path: string;
+  /** Page description */
+  description: string;
+}
+
+/**
+ * TaxiService + Airport entity schema — enriched structured data for airport
+ * transfer pages. Links the taxi service provider to a specific Airport entity
+ * with Wikidata sameAs for entity disambiguation.
+ *
+ * Only references service features already described on the live pages:
+ * - Flight tracking
+ * - Meet & greet at arrivals
+ * - 60-minute complimentary waiting after landing
+ * - Fixed pricing (no surge)
+ * - 24/7 availability
+ */
+export function airportTaxiServiceSchema({ airportName, iataCode, path, description }: AirportTaxiSchemaInput) {
+  const wikidataUrl = AIRPORT_WIKIDATA[iataCode];
+  return {
+    "@context": "https://schema.org",
+    "@type": "TaxiService",
+    name: `Airport Taxi Service at ${airportName} (${iataCode})`,
+    description,
+    url: abs(path),
+    provider: { "@id": SITE.businessId },
+    serviceType: "Airport Transfer",
+    areaServed: {
+      "@type": "Airport",
+      name: airportName,
+      iataCode,
+      ...(wikidataUrl ? { sameAs: wikidataUrl } : {}),
+    },
+    availableChannel: {
+      "@type": "ServiceChannel",
+      serviceUrl: `${SITE.url}/book`,
+      availableLanguage: ["en", "ar"],
+    },
+    hoursAvailable: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      opens: "00:00",
+      closes: "23:59",
+    },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "SAR",
+      availability: "https://schema.org/InStock",
+    },
+  };
+}
+
 interface FaqItem {
   question: string;
   answer: string;
