@@ -1427,25 +1427,46 @@ export function HomePage() {
 
             <div className="space-y-4">
               {[
-                { rEn: "Jeddah Airport ➔ Makkah Haram", rAr: "مطار جدة ➔ الحرم المكي الشريف", rUr: "جدہ ایئرپورٹ ➔ مکہ مکرمہ", time: "1h 15m", price: "249" },
+                { rEn: "Jeddah Airport ➔ Makkah Haram", rAr: "مطار جدة ➔ الحرم المكي الشريف", rUr: "جدہ ایئرپورٹ ➔ مکہ مکرمہ", time: "1h 15m", price: "249", slug: "jeddah-airport-to-makkah" },
                 { rEn: "Makkah Haram ➔ Madinah Nabawi", rAr: "الحرم المكي ➔ المسجد النبوي بالمدينة", rUr: "مکہ مکرمہ ➔ مدینہ منورہ", time: "4h 30m", price: "499" },
                 { rEn: "Madinah Nabawi ➔ Jeddah Airport", rAr: "المسجد النبوي ➔ مطار جدة الدولي", rUr: "مدینہ منورہ ➔ جدہ ایئرپورٹ", time: "4h 10m", price: "549" }
-              ].map((route, idx) => (
-                <div key={idx} className="flex items-center justify-between text-xs">
-                  <div>
-                    <p className="font-semibold text-[#1C1C1C]">
-                      {route[`r${language === 'ar' ? 'Ar' : 'En'}` as const]}
-                    </p>
-                    <p className="text-[0.6rem] text-[#6B7280] font-medium mt-1">
-                      {route.time}
-                    </p>
+              ].map((route, idx) => {
+                const inner = (
+                  <>
+                    <div>
+                      <p className={`font-semibold text-[#1C1C1C]${'slug' in route ? ' group-hover:text-[#16A34A]' : ''}`}>
+                        {route[`r${language === 'ar' ? 'Ar' : 'En'}` as const]}
+                      </p>
+                      <p className="text-[0.6rem] text-[#6B7280] font-medium mt-1">
+                        {route.time}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-[0.55rem] text-[#6B7280] uppercase">{t.misc.from}</p>
+                      <p className="font-bold text-[#16A34A] mt-0.5">SAR {route.price}</p>
+                    </div>
+                  </>
+                );
+
+                // Only the money page gets a crawlable internal link
+                if ('slug' in route) {
+                  return (
+                    <Link
+                      key={idx}
+                      href={`/routes/${(route as { slug: string }).slug}`}
+                      className="flex items-center justify-between text-xs group"
+                    >
+                      {inner}
+                    </Link>
+                  );
+                }
+
+                return (
+                  <div key={idx} className="flex items-center justify-between text-xs">
+                    {inner}
                   </div>
-                  <div className="text-right">
-                    <p className="text-[0.55rem] text-[#6B7280] uppercase">{t.misc.from}</p>
-                    <p className="font-bold text-[#16A34A] mt-0.5">SAR {route.price}</p>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 

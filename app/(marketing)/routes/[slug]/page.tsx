@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { ROUTES_DATA } from "@/lib/data/routes";
 import { Metadata } from "next";
-import { MapPin, Clock, ArrowRight, CheckCircle2, ShieldCheck, Car, HelpCircle, AlertTriangle, ChevronRight } from "lucide-react";
+import { MapPin, Clock, ArrowRight, CheckCircle2, ShieldCheck, Car, HelpCircle, AlertTriangle, ChevronRight, Phone, MessageSquare } from "lucide-react";
 import Link from "next/link";
 import { contactConfig } from "@/lib/config/contact";
 import Image from "next/image";
@@ -1079,7 +1079,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const routeLabel = route.priceOnRequest
     ? `Taxi ${route.fromCity} to ${route.toCity} — Price on Request`
     : `Taxi ${route.fromCity} to ${route.toCity} — From SAR ${route.basePrice}`;
-  const title = routeLabel.length > 55 ? routeLabel : `${routeLabel} | Taxi Saudi Arabia`;
+  const title = slug === "jeddah-airport-to-makkah"
+    ? "Taxi Jeddah Airport to Makkah — From SAR 249"
+    : (routeLabel.length > 55 ? routeLabel : `${routeLabel} | Taxi Saudi Arabia`);
   const priceBlurb = route.priceOnRequest ? "confirmed on WhatsApp" : `From SAR ${route.basePrice}`;
 
   return {
@@ -1223,12 +1225,35 @@ export default async function RouteDetailsPage({ params }: PageProps) {
 
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
             <div className="max-w-2xl">
+              {slug === "jeddah-airport-to-makkah" && (
+                <div className="mb-3">
+                  <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/15 backdrop-blur-sm px-3.5 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#B8963B]">
+                    <ShieldCheck className="h-3.5 w-3.5 text-[#C9A84C]" />
+                    Pilgrim-Friendly JED ➔ Makkah Transfer (Miqat Stop Available)
+                  </span>
+                </div>
+              )}
               <h1 className="font-heading text-4xl md:text-5xl font-bold leading-tight">
-                {route.fromCity} <span className="text-[#16A34A]">to</span> {route.toCity}
+                {slug === "jeddah-airport-to-makkah" ? (
+                  <>Taxi from Jeddah Airport <span className="text-[#16A34A]">to</span> Makkah</>
+                ) : (
+                  <>{route.fromCity} <span className="text-[#16A34A]">to</span> {route.toCity}</>
+                )}
               </h1>
               <p className="mt-4 text-sm md:text-base text-[#6B7280] leading-relaxed">
                 {route.description}
               </p>
+              {slug === "jeddah-airport-to-makkah" && (
+                <div className="mt-5 flex flex-wrap items-center gap-3">
+                  <a
+                    href={contactConfig.primaryPhoneLink}
+                    className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/30 bg-[#16A34A]/10 px-4 py-2 text-xs font-bold text-[#16A34A] hover:bg-[#16A34A] hover:text-white transition-all"
+                  >
+                    <Phone className="h-3.5 w-3.5" />
+                    <span>Call Now: {contactConfig.primaryPhoneDisplay}</span>
+                  </a>
+                </div>
+              )}
             </div>
             
             <div className="shrink-0 bg-white/80 backdrop-blur-md border border-[#16A34A]/15 rounded-2xl p-6 flex items-center gap-6">
@@ -1259,6 +1284,21 @@ export default async function RouteDetailsPage({ params }: PageProps) {
           {/* Quick Answer (above-the-fold AI/snippet signal) */}
           {content?.tldr && (
             <TLDRSummary answer={content.tldr} facts={content.tldrFacts} />
+          )}
+
+          {/* Contextual Internal Links for JED -> Makkah */}
+          {slug === "jeddah-airport-to-makkah" && (
+            <div className="rounded-2xl border border-[#16A34A]/20 bg-[#F0FDF4] p-4 text-xs text-[#334155] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <span className="font-medium">Planning your flight arrival or pilgrimage logistics?</span>
+              <div className="flex flex-wrap items-center gap-4 font-bold shrink-0">
+                <Link href="/airports/king-abdulaziz-jeddah" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
+                  Jeddah Airport Transfer Guide &rarr;
+                </Link>
+                <Link href="/services/umrah-transport" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
+                  Umrah Transport Services &rarr;
+                </Link>
+              </div>
+            </div>
           )}
 
           {/* Vehicles & Pricing */}
@@ -1511,6 +1551,38 @@ export default async function RouteDetailsPage({ params }: PageProps) {
           </div>
         </div>
       </div>
+
+      {/* ─── MOBILE STICKY BOOKING BAR (JED -> Makkah) ─────────────── */}
+      {slug === "jeddah-airport-to-makkah" && (
+        <div className="fixed bottom-0 inset-x-0 z-50 lg:hidden bg-white/95 backdrop-blur-md border-t border-[#16A34A]/20 p-3 px-4 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+          <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
+            <div>
+              <p className="text-[0.65rem] font-bold text-[#1C1C1C] uppercase tracking-wider">JED ➔ Makkah</p>
+              <p className="text-xs font-extrabold text-[#16A34A]">From SAR 249</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <a
+                href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                  `Salam! I want to book a taxi from Jeddah Airport to Makkah.`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 rounded-full border border-[#C9A84C]/40 bg-[#C9A84C]/10 px-3.5 py-2 text-xs font-bold text-[#B8963B] hover:bg-[#C9A84C]/20 transition-all"
+              >
+                <MessageSquare className="h-3.5 w-3.5" />
+                <span>WhatsApp</span>
+              </a>
+              <Link
+                href={`/book?pickup=${encodeURIComponent(route.fromCity)}&dropoff=${encodeURIComponent(route.toCity)}`}
+                className="inline-flex items-center gap-1 rounded-full bg-[#16A34A] px-4 py-2 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all shadow-sm"
+              >
+                <span>Book Now</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
