@@ -445,6 +445,11 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { question: "Is Tabuk a good base for visiting the Red Sea and AlUla?", answer: "Yes — Tabuk is the closest major airport hub to the Red Sea coast (Duba, Haql) and within reach of AlUla, making it a common stop for premium tourism and NEOM-related travel." },
       { question: "How much is a taxi from Tabuk Airport to the city?", answer: "A fixed-price taxi from Tabuk Regional Airport (TUU) to the city centre is about 7 km, with meet & greet at arrivals and no surge pricing." },
       { question: "Is executive transport available in Tabuk 24/7?", answer: "Yes, we provide round-the-clock taxi and executive car service in Tabuk for airport transfers, NEOM business trips, and cross-border journeys — at fixed prices confirmed before you book." }
+    ],
+    relatedLinks: [
+      { href: "/locations/neom", label: "NEOM transportation guide" },
+      { href: "/routes/tabuk-airport-to-neom", label: "Tabuk Airport to NEOM transfer" },
+      { href: "/routes/tabuk-to-aqaba", label: "Tabuk to Aqaba border transfer" }
     ]
   }
 };

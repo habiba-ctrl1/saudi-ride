@@ -1468,6 +1468,33 @@ export function HomePage() {
                 );
               })}
             </div>
+
+            {/* Featured Destination — NEOM Authority Link */}
+            <div className="mt-6 pt-5 border-t border-[#16A34A]/10">
+              <Link
+                href="/locations/neom"
+                className="group flex flex-col justify-between rounded-2xl border border-[#C9A84C]/25 bg-gradient-to-br from-[#0F281E] via-[#16422F] to-[#0A1C14] p-4 text-white hover:border-[#C9A84C]/50 transition-all shadow-md"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#C9A84C]/20 border border-[#C9A84C]/40 px-2.5 py-0.5 text-[0.55rem] font-bold uppercase tracking-wider text-[#FACC15]">
+                      Featured Destination
+                    </span>
+                    <span className="text-[0.55rem] text-white/80 font-bold uppercase tracking-wider">Tabuk Region</span>
+                  </div>
+                  <h4 className="font-heading text-sm font-bold text-white group-hover:text-[#FACC15] transition-colors">
+                    NEOM Executive Transportation
+                  </h4>
+                  <p className="text-[0.65rem] text-white/85 leading-relaxed mt-1">
+                    Private chauffeur and airport transfers for NEOM, The Line, Oxagon, Trojena, Sindalah and Sharma.
+                  </p>
+                </div>
+                <div className="mt-3 flex items-center justify-end text-[0.65rem] font-bold text-[#FACC15] group-hover:underline">
+                  <span>Explore NEOM Services</span>
+                  <ArrowRight className="h-3 w-3 ml-1 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </Link>
+            </div>
           </div>
 
         </div>
