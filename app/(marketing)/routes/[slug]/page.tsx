@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { ROUTES_DATA } from "@/lib/data/routes";
 import { Metadata } from "next";
-import { MapPin, Clock, ArrowRight, CheckCircle2, ShieldCheck, Car, HelpCircle, AlertTriangle, ChevronRight, Phone, MessageSquare } from "lucide-react";
+import { MapPin, Clock, ArrowRight, CheckCircle2, ShieldCheck, Car, HelpCircle, AlertTriangle, ChevronRight, Phone, MessageSquare, Plane, UserCheck, Compass, Users, Briefcase } from "lucide-react";
 import Link from "next/link";
 import { contactConfig } from "@/lib/config/contact";
 import Image from "next/image";
@@ -1223,57 +1223,105 @@ export default async function RouteDetailsPage({ params }: PageProps) {
             <span className="text-[#16A34A]">{route.fromCity} to {route.toCity}</span>
           </div>
 
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
-            <div className="max-w-2xl">
-              {slug === "jeddah-airport-to-makkah" && (
-                <div className="mb-3">
-                  <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/15 backdrop-blur-sm px-3.5 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#B8963B]">
-                    <ShieldCheck className="h-3.5 w-3.5 text-[#C9A84C]" />
-                    Pilgrim-Friendly JED ➔ Makkah Transfer (Miqat Stop Available)
+          {slug === "jeddah-airport-to-makkah" ? (
+            <div className="bg-gradient-to-br from-[#0F281E] via-[#16422F] to-[#0A1C14] rounded-3xl p-8 sm:p-10 text-white shadow-2xl border border-[#C9A84C]/25 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-96 h-96 bg-[#C9A84C]/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="relative z-10 max-w-3xl space-y-6">
+                <div className="flex flex-wrap items-center gap-2.5">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C9A84C]/20 border border-[#C9A84C]/40 px-3.5 py-1 text-[0.65rem] font-bold uppercase tracking-widest text-[#FACC15]">
+                    <Plane className="h-3.5 w-3.5 text-[#FACC15]" />
+                    JED Airport Transfer
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 px-3.5 py-1 text-[0.65rem] font-bold uppercase tracking-widest text-white/90">
+                    <ShieldCheck className="h-3.5 w-3.5 text-[#16A34A]" />
+                    Pilgrim-Friendly (Miqat Stop Available)
                   </span>
                 </div>
-              )}
-              <h1 className="font-heading text-4xl md:text-5xl font-bold leading-tight">
-                {slug === "jeddah-airport-to-makkah" ? (
-                  <>Taxi from Jeddah Airport <span className="text-[#16A34A]">to</span> Makkah</>
-                ) : (
-                  <>{route.fromCity} <span className="text-[#16A34A]">to</span> {route.toCity}</>
-                )}
-              </h1>
-              <p className="mt-4 text-sm md:text-base text-[#6B7280] leading-relaxed">
-                {route.description}
-              </p>
-              {slug === "jeddah-airport-to-makkah" && (
-                <div className="mt-5 flex flex-wrap items-center gap-3">
+
+                <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight tracking-tight text-white">
+                  Taxi from Jeddah Airport <span className="text-[#FACC15]">to</span> Makkah
+                </h1>
+
+                <p className="text-sm sm:text-base text-white/85 leading-relaxed font-normal">
+                  Fixed-price private taxi &amp; chauffeur service from King Abdulaziz International Airport (JED) directly to your hotel near Masjid al-Haram. 24/7 flight tracking with meet &amp; greet included.
+                </p>
+
+                <div className="flex flex-wrap items-center gap-3 pt-1">
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-xl px-4 py-2 border border-white/15 text-xs font-semibold">
+                    <MapPin className="h-4 w-4 text-[#FACC15]" />
+                    <span>~80 km</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-xl px-4 py-2 border border-white/15 text-xs font-semibold">
+                    <Clock className="h-4 w-4 text-[#FACC15]" />
+                    <span>~1 hour</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-xl px-4 py-2 border border-white/15 text-xs font-semibold">
+                    <CheckCircle2 className="h-4 w-4 text-[#16A34A]" />
+                    <span>Fixed price from SAR 249</span>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3 pt-3">
+                  <Link
+                    href={`/book?pickup=${encodeURIComponent(route.fromCity)}&dropoff=${encodeURIComponent(route.toCity)}`}
+                    className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all shadow-lg hover:scale-105"
+                  >
+                    <span>Book Now</span>
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+
+                  <a
+                    href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                      `Salam! I want to book a taxi from Jeddah Airport to Makkah.`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur-md border border-white/30 px-6 py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-white/25 transition-all"
+                  >
+                    <MessageSquare className="h-4 w-4 text-[#FACC15]" />
+                    <span>WhatsApp</span>
+                  </a>
+
                   <a
                     href={contactConfig.primaryPhoneLink}
-                    className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/30 bg-[#16A34A]/10 px-4 py-2 text-xs font-bold text-[#16A34A] hover:bg-[#16A34A] hover:text-white transition-all"
+                    className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/40 bg-[#C9A84C]/15 backdrop-blur-md px-5 py-3.5 text-xs font-bold text-[#FACC15] hover:bg-[#C9A84C]/30 transition-all"
                   >
                     <Phone className="h-3.5 w-3.5" />
                     <span>Call Now: {contactConfig.primaryPhoneDisplay}</span>
                   </a>
                 </div>
-              )}
-            </div>
-            
-            <div className="shrink-0 bg-white/80 backdrop-blur-md border border-[#16A34A]/15 rounded-2xl p-6 flex items-center gap-6">
-              <div>
-                <p className="text-[0.6rem] text-[#6B7280] uppercase font-bold tracking-wider mb-1">Distance</p>
-                <div className="flex items-center gap-1.5 font-bold text-lg">
-                  <MapPin className="h-4 w-4 text-[#C9A84C]" />
-                  {route.distance} km
-                </div>
-              </div>
-              <div className="w-px h-10 bg-[#C9A84C]/20" />
-              <div>
-                <p className="text-[0.6rem] text-[#6B7280] uppercase font-bold tracking-wider mb-1">Est. Time</p>
-                <div className="flex items-center gap-1.5 font-bold text-lg">
-                  <Clock className="h-4 w-4 text-[#C9A84C]" />
-                  ~{Math.round(route.duration / 60)}h {route.duration % 60 > 0 ? `${route.duration % 60}m` : ''}
-                </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+              <div className="max-w-2xl">
+                <h1 className="font-heading text-4xl md:text-5xl font-bold leading-tight">
+                  {route.fromCity} <span className="text-[#16A34A]">to</span> {route.toCity}
+                </h1>
+                <p className="mt-4 text-sm md:text-base text-[#6B7280] leading-relaxed">
+                  {route.description}
+                </p>
+              </div>
+              
+              <div className="shrink-0 bg-white/80 backdrop-blur-md border border-[#16A34A]/15 rounded-2xl p-6 flex items-center gap-6">
+                <div>
+                  <p className="text-[0.6rem] text-[#6B7280] uppercase font-bold tracking-wider mb-1">Distance</p>
+                  <div className="flex items-center gap-1.5 font-bold text-lg">
+                    <MapPin className="h-4 w-4 text-[#C9A84C]" />
+                    {route.distance} km
+                  </div>
+                </div>
+                <div className="w-px h-10 bg-[#C9A84C]/20" />
+                <div>
+                  <p className="text-[0.6rem] text-[#6B7280] uppercase font-bold tracking-wider mb-1">Est. Time</p>
+                  <div className="flex items-center gap-1.5 font-bold text-lg">
+                    <Clock className="h-4 w-4 text-[#C9A84C]" />
+                    ~{Math.round(route.duration / 60)}h {route.duration % 60 > 0 ? `${route.duration % 60}m` : ''}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -1305,36 +1353,145 @@ export default async function RouteDetailsPage({ params }: PageProps) {
           <section>
             <h2 className="font-heading text-2xl font-bold mb-6 flex items-center gap-3">
               <Car className="text-[#C9A84C]" />
-              Vehicle Options & Estimated Pricing
+              Vehicle Options &amp; Estimated Pricing
             </h2>
-            <p className="text-[0.7rem] text-[#6B7280] mb-6">* Estimated fares — your final quotation is confirmed on WhatsApp or email.</p>
-            <div className="grid sm:grid-cols-2 gap-4">
+            <p className="text-[0.7rem] text-[#6B7280] mb-6">* All fares are fixed with zero surge pricing — confirmed on WhatsApp or email prior to dispatch.</p>
+            <div className="grid sm:grid-cols-2 gap-5">
               {vehicles.map((v) => (
-                <div key={v.key} className="border border-[#16A34A]/12 rounded-2xl bg-white overflow-hidden group hover:border-[#16A34A]/35 transition-colors">
-                  <div className="h-32 relative">
-                    <Image src={v.img} alt={v.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent" />
+                <div key={v.key} className="border border-[#16A34A]/15 rounded-2xl bg-white overflow-hidden group hover:border-[#16A34A]/40 transition-all duration-300 shadow-sm hover:shadow-md flex flex-col justify-between">
+                  <div>
+                    <div className="h-36 relative overflow-hidden bg-[#FAFAF7]">
+                      <Image src={v.img} alt={v.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent" />
+                      <span className="absolute top-3 right-3 rounded-full bg-[#16A34A]/90 backdrop-blur-md px-3 py-1 text-[0.6rem] font-bold text-white uppercase tracking-wider">
+                        Fixed Price
+                      </span>
+                    </div>
+                    <div className="p-5 relative -mt-4">
+                      <div className="flex justify-between items-start mb-3">
+                        <div>
+                          <h3 className="font-bold text-lg text-[#1C1C1C]">{v.name}</h3>
+                          <div className="flex items-center gap-3 text-[0.7rem] text-[#6B7280] font-semibold mt-1">
+                            <span className="flex items-center gap-1"><Users className="h-3.5 w-3.5 text-[#C9A84C]" /> {v.pax} Passengers</span>
+                            <span className="flex items-center gap-1"><Briefcase className="h-3.5 w-3.5 text-[#C9A84C]" /> {v.luggage} Bags</span>
+                          </div>
+                        </div>
+                        <div className="text-right shrink-0">
+                          <p className="text-[0.55rem] uppercase tracking-wider text-[#6B7280]">Starting from</p>
+                          <p className="font-heading text-xl font-bold text-[#16A34A]">{route.priceOnRequest ? "On Request" : `SAR ${prices[v.key as keyof typeof prices]}`}</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="p-5 relative -mt-6">
-                    <div className="flex justify-between items-end mb-2">
-                      <h3 className="font-bold text-lg">{v.name}</h3>
-                      <p className="font-heading text-xl font-bold text-[#16A34A]">{route.priceOnRequest ? "On Request" : `SAR ${prices[v.key as keyof typeof prices]}`}</p>
-                    </div>
-                    <div className="flex gap-4 text-[0.65rem] text-[#6B7280] font-bold uppercase tracking-wider">
-                      <span>{v.pax} Passengers</span>
-                      <span>{v.luggage} Luggage</span>
-                    </div>
+
+                  <div className="px-5 pb-5 pt-0">
+                    <Link
+                      href={`/book?pickup=${encodeURIComponent(route.fromCity)}&dropoff=${encodeURIComponent(route.toCity)}&vehicle=${v.key}`}
+                      className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#F0FDF4] border border-[#16A34A]/25 py-2.5 text-xs font-bold uppercase text-[#16A34A] hover:bg-[#16A34A] hover:text-white transition-all"
+                    >
+                      Book This Vehicle <ArrowRight className="h-3.5 w-3.5" />
+                    </Link>
                   </div>
                 </div>
               ))}
             </div>
           </section>
 
+          {/* ─── 4-STEP TRANSFER PROCESS (JED -> Makkah) ─── */}
+          {slug === "jeddah-airport-to-makkah" && (
+            <section className="bg-white border border-[#16A34A]/15 rounded-3xl p-8 shadow-sm">
+              <div className="mb-8">
+                <span className="text-[0.65rem] uppercase tracking-[0.2em] text-[#C9A84C] font-bold">Simple 4-Step Process</span>
+                <h2 className="font-heading text-2xl font-bold mt-1 text-[#1C1C1C]">
+                  How Your Jeddah Airport Transfer Works
+                </h2>
+              </div>
+
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                {[
+                  { step: "1", title: "Flight Tracked", desc: "We monitor your flight status in real time for delays.", icon: Plane },
+                  { step: "2", title: "Meet Your Driver", desc: "Meet your driver at the agreed airport pickup point.", icon: UserCheck },
+                  { step: "3", title: "Optional Miqat Stop", desc: "Request a Miqat stop in advance if required for Ihram.", icon: Compass },
+                  { step: "4", title: "Makkah Hotel Drop-Off", desc: "Direct drop-off at your requested Makkah destination.", icon: MapPin },
+                ].map((s, idx) => {
+                  const Icon = s.icon;
+                  return (
+                    <div key={idx} className="bg-[#FAFAF7] rounded-2xl p-5 border border-[#16A34A]/10 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center justify-between mb-4">
+                          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#16A34A] text-xs font-bold text-white">
+                            {s.step}
+                          </span>
+                          <Icon className="h-5 w-5 text-[#C9A84C]" />
+                        </div>
+                        <h3 className="font-bold text-sm text-[#1C1C1C] mb-1.5">{s.title}</h3>
+                        <p className="text-xs text-[#6B7280] leading-relaxed">{s.desc}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+          )}
+
+          {/* ─── WHAT'S INCLUDED TRUST STRIP (JED -> Makkah) ─── */}
+          {slug === "jeddah-airport-to-makkah" && (
+            <section className="bg-gradient-to-r from-[#F0FDF4] via-white to-[#F0FDF4] border border-[#16A34A]/20 rounded-3xl p-8 shadow-sm">
+              <h2 className="font-heading text-xl font-bold mb-6 flex items-center gap-2 text-[#1C1C1C]">
+                <ShieldCheck className="h-5 w-5 text-[#16A34A]" />
+                What&apos;s Included in Your JED ➔ Makkah Transfer
+              </h2>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {[
+                  { title: "Fixed-Price Private Transfer", desc: "Confirmed upfront fare with zero surge pricing." },
+                  { title: "Meet & Greet Service", desc: "Driver waits in the arrivals hall with a name sign." },
+                  { title: "Real-Time Flight Tracking", desc: "We track your landing time automatically." },
+                  { title: "60 Mins Free Waiting Time", desc: "Ample time for baggage collection and customs." },
+                  { title: "Direct Hotel Drop-Off", desc: "Door-to-door service at your Makkah hotel." },
+                  { title: "Miqat Stop Available", desc: "Complimentary stop on request for assuming Ihram." },
+                ].map((item, idx) => (
+                  <div key={idx} className="flex gap-3 bg-white p-4 rounded-2xl border border-[#16A34A]/12 shadow-2xs">
+                    <CheckCircle2 className="h-5 w-5 text-[#16A34A] shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="font-bold text-xs text-[#1C1C1C]">{item.title}</h4>
+                      <p className="text-[0.7rem] text-[#6B7280] mt-0.5">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* ─── PILGRIM INTENT VISUAL BLOCK (JED -> Makkah) ─── */}
+          {slug === "jeddah-airport-to-makkah" && (
+            <section className="bg-white border border-[#C9A84C]/25 rounded-3xl p-8 relative overflow-hidden shadow-sm">
+              <div className="max-w-2xl space-y-4">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#B8963B]">
+                  Umrah &amp; Hajj Pilgrims
+                </span>
+                <h2 className="font-heading text-2xl font-bold text-[#1C1C1C]">
+                  Jeddah Airport to Makkah for Umrah Travelers
+                </h2>
+                <p className="text-xs sm:text-sm text-[#6B7280] leading-relaxed">
+                  Arriving at King Abdulaziz International Airport (JED) for Umrah? Whether your flight lands late at night or early in the morning, our 24/7 private chauffeurs ensure a seamless journey. We provide spacious vehicles for family luggage, direct drop-off at your requested Makkah destination, and a planned Miqat stop for Ihram.
+                </p>
+                <div className="flex flex-wrap items-center gap-4 pt-2 text-xs font-bold">
+                  <Link href="/services/umrah-transport" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
+                    Umrah Transport Services &rarr;
+                  </Link>
+                  <Link href="/services/makkah-ziyarat" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
+                    Makkah Ziyarat Tours &rarr;
+                  </Link>
+                </div>
+              </div>
+            </section>
+          )}
+
           {/* Route Tips */}
           <section className="bg-white border border-[#16A34A]/12 rounded-3xl p-8">
             <h2 className="font-heading text-2xl font-bold mb-6 flex items-center gap-3">
               <AlertTriangle className="text-[#C9A84C]" />
-              Route Tips & Information
+              Route Tips &amp; Information
             </h2>
             <ul className="space-y-4">
               <li className="flex gap-4">
@@ -1347,19 +1504,58 @@ export default async function RouteDetailsPage({ params }: PageProps) {
               <li className="flex gap-4">
                 <CheckCircle2 className="h-5 w-5 text-[#C9A84C] shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="font-bold text-sm">Meet & Greet Service</h4>
+                  <h4 className="font-bold text-sm">Meet &amp; Greet Service</h4>
                   <p className="text-xs text-[#6B7280] mt-1">Your driver will wait at the pickup location holding a name sign with your name on it.</p>
                 </div>
               </li>
               <li className="flex gap-4">
                 <ShieldCheck className="h-5 w-5 text-[#C9A84C] shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="font-bold text-sm">Professional & Licensed</h4>
+                  <h4 className="font-bold text-sm">Professional &amp; Licensed</h4>
                   <p className="text-xs text-[#6B7280] mt-1">All drivers are fully licensed by the Saudi Ministry of Transport, speak English and Arabic, and are trained for professional service.</p>
                 </div>
               </li>
             </ul>
           </section>
+
+          {/* ─── INLINE BOOKING CTA BEFORE FAQ (JED -> Makkah) ─── */}
+          {slug === "jeddah-airport-to-makkah" && (
+            <section className="bg-gradient-to-br from-[#16A34A] to-[#116B32] rounded-3xl p-8 sm:p-10 text-white text-center shadow-xl space-y-6">
+              <div className="max-w-xl mx-auto space-y-3">
+                <h2 className="font-heading text-2xl sm:text-3xl font-extrabold">
+                  Ready to Travel from Jeddah Airport to Makkah?
+                </h2>
+                <p className="text-xs sm:text-sm text-white/90 leading-relaxed">
+                  Book your fixed-price private transfer in under 2 minutes. Free cancellation up to 24 hours before pickup.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap justify-center items-center gap-4 text-xs font-bold uppercase tracking-wider pt-2">
+                <Link
+                  href={`/book?pickup=${encodeURIComponent(route.fromCity)}&dropoff=${encodeURIComponent(route.toCity)}`}
+                  className="rounded-full bg-[#FACC15] px-8 py-3.5 text-[#1C1C1C] hover:bg-[#e5b810] transition-all hover:scale-105 shadow-md"
+                >
+                  Book Jeddah Airport ➔ Makkah
+                </Link>
+                <a
+                  href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                    `Salam! I want to book a taxi from Jeddah Airport to Makkah.`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full bg-white px-7 py-3.5 text-[#16A34A] hover:bg-white/90 transition-all hover:scale-105"
+                >
+                  WhatsApp Booking
+                </a>
+                <a
+                  href={contactConfig.primaryPhoneLink}
+                  className="rounded-full border border-white/40 px-6 py-3.5 text-white hover:bg-white/10 transition-all"
+                >
+                  Call {contactConfig.primaryPhoneDisplay}
+                </a>
+              </div>
+            </section>
+          )}
 
           {/* FAQs */}
           <section>
@@ -1369,8 +1565,8 @@ export default async function RouteDetailsPage({ params }: PageProps) {
             </h2>
             <div className="space-y-4">
               {faqs.map((faq, idx) => (
-                <div key={idx} className="border border-[#16A34A]/12 rounded-2xl p-5 bg-white">
-                  <h4 className="font-bold text-sm mb-2">{faq.question}</h4>
+                <div key={idx} className="border border-[#16A34A]/12 rounded-2xl p-5 bg-white shadow-2xs">
+                  <h4 className="font-bold text-sm text-[#1C1C1C] mb-2">{faq.question}</h4>
                   <p className="text-xs text-[#6B7280] leading-relaxed">{faq.answer}</p>
                 </div>
               ))}
