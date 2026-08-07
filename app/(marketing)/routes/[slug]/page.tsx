@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { ROUTES_DATA } from "@/lib/data/routes";
 import { Metadata } from "next";
-import { MapPin, Clock, ArrowRight, CheckCircle2, ShieldCheck, Car, HelpCircle, AlertTriangle, ChevronRight, Phone, MessageSquare, Plane, UserCheck, Compass, Users, Briefcase } from "lucide-react";
+import { MapPin, Clock, ArrowRight, CheckCircle2, ShieldCheck, Car, HelpCircle, AlertTriangle, ChevronRight, Phone, MessageSquare, Plane, UserCheck, Compass, Users, Briefcase, Navigation, Coffee } from "lucide-react";
 import Link from "next/link";
 import { contactConfig } from "@/lib/config/contact";
 import Image from "next/image";
@@ -244,10 +244,12 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
-      { question: "How far is Makkah from Madinah?", answer: "Makkah to Madinah is about 430 km — roughly a 4 to 5 hour drive on the Haramain highway, depending on traffic and rest stops." },
-      { question: "How much is a taxi from Makkah to Madinah?", answer: "The fare is fixed from SAR 499 for a sedan. For families and luggage we recommend an SUV or van; the price is confirmed before booking with tolls included." },
-      { question: "Are prayer and rest stops included on the way to Madinah?", answer: "Yes. Stops for prayer, food, and refreshments are included on this long-distance transfer — just let your driver know your preferences." },
-      { question: "Should I take the taxi or the Haramain train to Madinah?", answer: "The Haramain high-speed train is fast between stations, but a private taxi is door-to-door from your Makkah hotel to your Madinah hotel with no transfers — more convenient for pilgrims with luggage and elderly travellers." },
+      { question: "How much is a taxi from Makkah to Madinah?", answer: "The fare is fixed from SAR 499 for a sedan. SUVs and vans are available for families and extra luggage — the exact price is confirmed before booking with tolls included and no surge." },
+      { question: "How long does a taxi from Makkah to Madinah take?", answer: "The journey is approximately 430 km and takes roughly 4 to 5 hours via the Haramain highway, depending on traffic conditions and any rest stops." },
+      { question: "Can I book a private taxi from Makkah to Madinah?", answer: "Yes. Every booking is a private transfer — your vehicle is exclusively for you and your group, with a dedicated driver for the entire journey between the two Holy Cities." },
+      { question: "Is the fare fixed or metered?", answer: "Fixed. The price is confirmed upfront before booking with zero surge pricing. Tolls, fuel, and all costs are included — no hidden fees." },
+      { question: "Can families travel with luggage?", answer: "Yes. We provide spacious SUVs (e.g. GMC Yukon XL) and vans (e.g. Hyundai Staria) with ample luggage space, ideal for families and groups travelling between Makkah and Madinah." },
+      { question: "Can we stop for prayer or rest during the journey?", answer: "Yes. Rest and prayer stops are included on this long-distance transfer at no extra charge — just let your driver know your preferences along the way." },
     ],
   },
   "makkah-to-jeddah": {
@@ -1081,6 +1083,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     : `Taxi ${route.fromCity} to ${route.toCity} — From SAR ${route.basePrice}`;
   const title = slug === "jeddah-airport-to-makkah"
     ? "Taxi Jeddah Airport to Makkah — From SAR 249"
+    : slug === "makkah-to-madinah"
+    ? "Taxi Makkah to Madinah — Fixed Price From SAR 499"
     : (routeLabel.length > 55 ? routeLabel : `${routeLabel} | Taxi Saudi Arabia`);
   const priceBlurb = route.priceOnRequest ? "confirmed on WhatsApp" : `From SAR ${route.basePrice}`;
 
@@ -1292,6 +1296,76 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                 </div>
               </div>
             </div>
+          ) : slug === "makkah-to-madinah" ? (
+            <div className="bg-gradient-to-br from-[#0F281E] via-[#16422F] to-[#0A1C14] rounded-3xl p-8 sm:p-10 text-white shadow-2xl border border-[#C9A84C]/25 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-96 h-96 bg-[#C9A84C]/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute bottom-0 left-0 w-72 h-72 bg-[#16A34A]/8 rounded-full blur-3xl pointer-events-none" />
+              <div className="relative z-10 max-w-3xl space-y-6">
+                <div className="flex flex-wrap items-center gap-2.5">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C9A84C]/20 border border-[#C9A84C]/40 px-3.5 py-1 text-[0.65rem] font-bold uppercase tracking-widest text-[#FACC15]">
+                    <Navigation className="h-3.5 w-3.5 text-[#FACC15]" />
+                    Intercity Private Transfer
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 px-3.5 py-1 text-[0.65rem] font-bold uppercase tracking-widest text-white/90">
+                    <ShieldCheck className="h-3.5 w-3.5 text-[#16A34A]" />
+                    Fixed Price · No Surge
+                  </span>
+                </div>
+
+                <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight tracking-tight text-white">
+                  Taxi from Makkah <span className="text-[#FACC15]">to</span> Madinah
+                </h1>
+
+                <p className="text-sm sm:text-base text-white/85 leading-relaxed font-normal">
+                  Private intercity transfer between the two Holy Cities. Fixed-price, comfortable vehicles for families and luggage, with prayer and rest stops along the Haramain highway.
+                </p>
+
+                <div className="flex flex-wrap items-center gap-3 pt-1">
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-xl px-4 py-2 border border-white/15 text-xs font-semibold">
+                    <MapPin className="h-4 w-4 text-[#FACC15]" />
+                    <span>~430 km</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-xl px-4 py-2 border border-white/15 text-xs font-semibold">
+                    <Clock className="h-4 w-4 text-[#FACC15]" />
+                    <span>~4 hours</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-xl px-4 py-2 border border-white/15 text-xs font-semibold">
+                    <CheckCircle2 className="h-4 w-4 text-[#16A34A]" />
+                    <span>From SAR 499</span>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3 pt-3">
+                  <Link
+                    href={`/book?pickup=${encodeURIComponent(route.fromCity)}&dropoff=${encodeURIComponent(route.toCity)}`}
+                    className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all shadow-lg hover:scale-105"
+                  >
+                    <span>Book Now</span>
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+
+                  <a
+                    href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                      `Salam! I want to book a private taxi from Makkah to Madinah.`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur-md border border-white/30 px-6 py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-white/25 transition-all"
+                  >
+                    <MessageSquare className="h-4 w-4 text-[#FACC15]" />
+                    <span>WhatsApp</span>
+                  </a>
+
+                  <a
+                    href={contactConfig.primaryPhoneLink}
+                    className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/40 bg-[#C9A84C]/15 backdrop-blur-md px-5 py-3.5 text-xs font-bold text-[#FACC15] hover:bg-[#C9A84C]/30 transition-all"
+                  >
+                    <Phone className="h-3.5 w-3.5" />
+                    <span>Call Now: {contactConfig.primaryPhoneDisplay}</span>
+                  </a>
+                </div>
+              </div>
+            </div>
           ) : (
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
               <div className="max-w-2xl">
@@ -1344,6 +1418,21 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                 </Link>
                 <Link href="/services/umrah-transport" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
                   Umrah Transport Services &rarr;
+                </Link>
+              </div>
+            </div>
+          )}
+
+          {/* Contextual Internal Links for Makkah -> Madinah */}
+          {slug === "makkah-to-madinah" && (
+            <div className="rounded-2xl border border-[#16A34A]/20 bg-[#F0FDF4] p-4 text-xs text-[#334155] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <span className="font-medium">Travelling between the Holy Cities for Umrah?</span>
+              <div className="flex flex-wrap items-center gap-4 font-bold shrink-0">
+                <Link href="/services/umrah-transport" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
+                  Umrah Transport Services &rarr;
+                </Link>
+                <Link href="/services/madinah-ziyarat" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
+                  Madinah Ziyarat Tours &rarr;
                 </Link>
               </div>
             </div>
@@ -1434,6 +1523,43 @@ export default async function RouteDetailsPage({ params }: PageProps) {
             </section>
           )}
 
+          {/* ─── 4-STEP TRANSFER PROCESS (Makkah -> Madinah) ─── */}
+          {slug === "makkah-to-madinah" && (
+            <section className="bg-white border border-[#16A34A]/15 rounded-3xl p-8 shadow-sm">
+              <div className="mb-8">
+                <span className="text-[0.65rem] uppercase tracking-[0.2em] text-[#C9A84C] font-bold">Simple 4-Step Process</span>
+                <h2 className="font-heading text-2xl font-bold mt-1 text-[#1C1C1C]">
+                  How Your Makkah to Madinah Transfer Works
+                </h2>
+              </div>
+
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                {[
+                  { step: "1", title: "Makkah Pickup", desc: "Driver collects you from your requested Makkah pickup point.", icon: MapPin },
+                  { step: "2", title: "Haramain Highway", desc: "Comfortable drive on the Haramain highway towards Madinah.", icon: Navigation },
+                  { step: "3", title: "Prayer & Rest Stop", desc: "Optional stops for prayer, food, or refreshments along the way.", icon: Coffee },
+                  { step: "4", title: "Madinah Drop-Off", desc: "Direct drop-off at your requested Madinah destination.", icon: MapPin },
+                ].map((s, idx) => {
+                  const Icon = s.icon;
+                  return (
+                    <div key={idx} className="bg-[#FAFAF7] rounded-2xl p-5 border border-[#16A34A]/10 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center justify-between mb-4">
+                          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#16A34A] text-xs font-bold text-white">
+                            {s.step}
+                          </span>
+                          <Icon className="h-5 w-5 text-[#C9A84C]" />
+                        </div>
+                        <h3 className="font-bold text-sm text-[#1C1C1C] mb-1.5">{s.title}</h3>
+                        <p className="text-xs text-[#6B7280] leading-relaxed">{s.desc}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+          )}
+
           {/* ─── WHAT'S INCLUDED TRUST STRIP (JED -> Makkah) ─── */}
           {slug === "jeddah-airport-to-makkah" && (
             <section className="bg-gradient-to-r from-[#F0FDF4] via-white to-[#F0FDF4] border border-[#16A34A]/20 rounded-3xl p-8 shadow-sm">
@@ -1449,6 +1575,34 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                   { title: "60 Mins Free Waiting Time", desc: "Ample time for baggage collection and customs." },
                   { title: "Direct Hotel Drop-Off", desc: "Door-to-door service at your Makkah hotel." },
                   { title: "Miqat Stop Available", desc: "Complimentary stop on request for assuming Ihram." },
+                ].map((item, idx) => (
+                  <div key={idx} className="flex gap-3 bg-white p-4 rounded-2xl border border-[#16A34A]/12 shadow-2xs">
+                    <CheckCircle2 className="h-5 w-5 text-[#16A34A] shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="font-bold text-xs text-[#1C1C1C]">{item.title}</h4>
+                      <p className="text-[0.7rem] text-[#6B7280] mt-0.5">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* ─── WHAT'S INCLUDED TRUST STRIP (Makkah -> Madinah) ─── */}
+          {slug === "makkah-to-madinah" && (
+            <section className="bg-gradient-to-r from-[#F0FDF4] via-white to-[#F0FDF4] border border-[#16A34A]/20 rounded-3xl p-8 shadow-sm">
+              <h2 className="font-heading text-xl font-bold mb-6 flex items-center gap-2 text-[#1C1C1C]">
+                <ShieldCheck className="h-5 w-5 text-[#16A34A]" />
+                What&apos;s Included in Your Makkah ➔ Madinah Transfer
+              </h2>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {[
+                  { title: "Fixed-Price Private Transfer", desc: "Confirmed upfront fare — no surge, tolls included." },
+                  { title: "24/7 Booking & Contact", desc: "Book and travel any time, day or night." },
+                  { title: "Spacious Luggage Capacity", desc: "SUVs and vans available for families with luggage." },
+                  { title: "Prayer & Rest Stops", desc: "Complimentary stops along the highway on request." },
+                  { title: "Makkah Pickup", desc: "Collected from your requested Makkah pickup point." },
+                  { title: "Madinah Drop-Off", desc: "Direct drop-off at your requested Madinah destination." },
                 ].map((item, idx) => (
                   <div key={idx} className="flex gap-3 bg-white p-4 rounded-2xl border border-[#16A34A]/12 shadow-2xs">
                     <CheckCircle2 className="h-5 w-5 text-[#16A34A] shrink-0 mt-0.5" />
@@ -1481,6 +1635,37 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                   </Link>
                   <Link href="/services/makkah-ziyarat" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
                     Makkah Ziyarat Tours &rarr;
+                  </Link>
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* ─── PILGRIM INTENT VISUAL BLOCK (Makkah -> Madinah) ─── */}
+          {slug === "makkah-to-madinah" && (
+            <section className="bg-white border border-[#C9A84C]/25 rounded-3xl p-8 relative overflow-hidden shadow-sm">
+              <div className="max-w-2xl space-y-4">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#B8963B]">
+                  Umrah Travelers
+                </span>
+                <h2 className="font-heading text-2xl font-bold text-[#1C1C1C]">
+                  Makkah to Madinah Taxi for Umrah Travelers
+                </h2>
+                <p className="text-xs sm:text-sm text-[#6B7280] leading-relaxed">
+                  Completing your Umrah in Makkah and continuing to Madinah? This private intercity transfer covers the approximately 430 km journey in around 4 hours via the Haramain highway. Suitable for individuals, couples, and families — with spacious vehicles for luggage and prayer or rest stops along the way. The fare is fixed from SAR 499 and confirmed before booking.
+                </p>
+                <div className="flex flex-wrap items-center gap-4 pt-2 text-xs font-bold">
+                  <Link href="/locations/makkah" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
+                    Makkah taxi services &rarr;
+                  </Link>
+                  <Link href="/locations/madinah" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
+                    Madinah taxi services &rarr;
+                  </Link>
+                  <Link href="/services/umrah-transport" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
+                    Umrah transport &rarr;
+                  </Link>
+                  <Link href="/services/madinah-ziyarat" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
+                    Madinah Ziyarat tours &rarr;
                   </Link>
                 </div>
               </div>
@@ -1540,6 +1725,45 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                 <a
                   href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
                     `Salam! I want to book a taxi from Jeddah Airport to Makkah.`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full bg-white px-7 py-3.5 text-[#16A34A] hover:bg-white/90 transition-all hover:scale-105"
+                >
+                  WhatsApp Booking
+                </a>
+                <a
+                  href={contactConfig.primaryPhoneLink}
+                  className="rounded-full border border-white/40 px-6 py-3.5 text-white hover:bg-white/10 transition-all"
+                >
+                  Call {contactConfig.primaryPhoneDisplay}
+                </a>
+              </div>
+            </section>
+          )}
+
+          {/* ─── INLINE BOOKING CTA BEFORE FAQ (Makkah -> Madinah) ─── */}
+          {slug === "makkah-to-madinah" && (
+            <section className="bg-gradient-to-br from-[#16A34A] to-[#116B32] rounded-3xl p-8 sm:p-10 text-white text-center shadow-xl space-y-6">
+              <div className="max-w-xl mx-auto space-y-3">
+                <h2 className="font-heading text-2xl sm:text-3xl font-extrabold">
+                  Ready to Travel from Makkah to Madinah?
+                </h2>
+                <p className="text-xs sm:text-sm text-white/90 leading-relaxed">
+                  Book your fixed-price private transfer in under 2 minutes. Free cancellation up to 24 hours before pickup.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap justify-center items-center gap-4 text-xs font-bold uppercase tracking-wider pt-2">
+                <Link
+                  href={`/book?pickup=${encodeURIComponent(route.fromCity)}&dropoff=${encodeURIComponent(route.toCity)}`}
+                  className="rounded-full bg-[#FACC15] px-8 py-3.5 text-[#1C1C1C] hover:bg-[#e5b810] transition-all hover:scale-105 shadow-md"
+                >
+                  Book Makkah ➔ Madinah Taxi
+                </Link>
+                <a
+                  href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                    `Salam! I want to book a private taxi from Makkah to Madinah.`
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -1760,6 +1984,38 @@ export default async function RouteDetailsPage({ params }: PageProps) {
               <a
                 href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
                   `Salam! I want to book a taxi from Jeddah Airport to Makkah.`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 rounded-full border border-[#C9A84C]/40 bg-[#C9A84C]/10 px-3.5 py-2 text-xs font-bold text-[#B8963B] hover:bg-[#C9A84C]/20 transition-all"
+              >
+                <MessageSquare className="h-3.5 w-3.5" />
+                <span>WhatsApp</span>
+              </a>
+              <Link
+                href={`/book?pickup=${encodeURIComponent(route.fromCity)}&dropoff=${encodeURIComponent(route.toCity)}`}
+                className="inline-flex items-center gap-1 rounded-full bg-[#16A34A] px-4 py-2 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all shadow-sm"
+              >
+                <span>Book Now</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ─── MOBILE STICKY BOOKING BAR (Makkah -> Madinah) ─────────────── */}
+      {slug === "makkah-to-madinah" && (
+        <div className="fixed bottom-0 inset-x-0 z-50 lg:hidden bg-white/95 backdrop-blur-md border-t border-[#16A34A]/20 p-3 px-4 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+          <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
+            <div>
+              <p className="text-[0.65rem] font-bold text-[#1C1C1C] uppercase tracking-wider">Makkah ➔ Madinah</p>
+              <p className="text-xs font-extrabold text-[#16A34A]">From SAR 499</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <a
+                href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                  `Salam! I want to book a private taxi from Makkah to Madinah.`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
