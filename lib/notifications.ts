@@ -22,7 +22,16 @@ interface NotificationBooking {
     nameAr?: string | null;
     image?: string | null;
     type?: string | null;
+    plateNumber?: string | null;
   } | null;
+}
+
+/** Escapes HTML special chars so user-submitted booking fields (name, locations,
+ * notes) can't inject markup/links into the emails we generate from them. */
+function escapeHtml(value: unknown): string {
+  return String(value ?? "").replace(/[&<>"']/g, (c) => (
+    { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c] as string
+  ));
 }
 const resendApiKey = process.env.RESEND_API_KEY;
 // Until the domain is verified in Resend, only onboarding@resend.dev can send.
@@ -131,11 +140,11 @@ export async function sendBookingConfirmation(booking: NotificationBooking) {
       <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
         <tr>
           <td style="padding: 8px 0; font-weight: bold; color: #666; width: 120px;">Pickup:</td>
-          <td style="padding: 8px 0; color: #111;">${booking.pickupLocation}</td>
+          <td style="padding: 8px 0; color: #111;">${escapeHtml(booking.pickupLocation)}</td>
         </tr>
         <tr>
           <td style="padding: 8px 0; font-weight: bold; color: #666;">Dropoff:</td>
-          <td style="padding: 8px 0; color: #111;">${booking.dropoffLocation}</td>
+          <td style="padding: 8px 0; color: #111;">${escapeHtml(booking.dropoffLocation)}</td>
         </tr>
         <tr>
           <td style="padding: 8px 0; font-weight: bold; color: #666;">Date & Time:</td>
@@ -143,7 +152,7 @@ export async function sendBookingConfirmation(booking: NotificationBooking) {
         </tr>
         <tr>
           <td style="padding: 8px 0; font-weight: bold; color: #666;">Vehicle:</td>
-          <td style="padding: 8px 0; color: #111;">${booking.vehicle?.name || "Premium Fleet Vehicle"}</td>
+          <td style="padding: 8px 0; color: #111;">${escapeHtml(booking.vehicle?.name || "Premium Fleet Vehicle")}</td>
         </tr>
         <tr>
           <td style="padding: 8px 0; font-weight: bold; color: #666;">Passengers:</td>
@@ -181,7 +190,7 @@ export async function sendBookingConfirmation(booking: NotificationBooking) {
 export async function sendDriverAssignment(booking: NotificationBooking) {
   const ref = normalizeRef(booking.bookingRef);
   const subject = `Your Driver is Ready — Taxi Saudi Arabia Ref: ${ref}`;
-  const callHref = `tel:${booking.driverPhone}`;
+  const callHref = `tel:${encodeURIComponent(booking.driverPhone ?? "")}`;
 
   const html = `
     <div style="font-family: sans-serif; padding: 25px; color: #111; max-width: 600px; border: 1px solid #C9A84C; border-radius: 16px; background-color: #fafafa;">
@@ -190,21 +199,21 @@ export async function sendDriverAssignment(booking: NotificationBooking) {
       </div>
 
       <div style="background: #ffffff; border: 1px solid #eee; border-radius: 12px; padding: 20px; text-align: center; margin-bottom: 25px;">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=120" style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid #C9A84C; object-fit: cover; margin-bottom: 12px;" />
-        <h2 style="margin: 0; color: #111;">${booking.driverName}</h2>
+        <div style="width: 64px; height: 64px; line-height: 64px; margin: 0 auto 12px; border-radius: 50%; border: 3px solid #C9A84C; background: #FFF9E6; color: #C9A84C; font-size: 24px; font-weight: 800;">${escapeHtml((booking.driverName || "D").trim().charAt(0).toUpperCase())}</div>
+        <h2 style="margin: 0; color: #111;">${escapeHtml(booking.driverName)}</h2>
         <p style="margin: 4px 0 0 0; color: #C9A84C; font-weight: bold;">Professional Chauffeur assigned</p>
-        <p style="margin: 10px 0 0 0; font-size: 14px; font-family: monospace; font-weight: bold; color: #666;">Phone: ${booking.driverPhone}</p>
+        <p style="margin: 10px 0 0 0; font-size: 14px; font-family: monospace; font-weight: bold; color: #666;">Phone: ${escapeHtml(booking.driverPhone)}</p>
       </div>
 
       <h3 style="color: #111; border-bottom: 2px solid #C9A84C; padding-bottom: 6px; margin-top: 0;">Vehicle Details</h3>
       <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
         <tr>
           <td style="padding: 8px 0; font-weight: bold; color: #666; width: 120px;">Vehicle Class:</td>
-          <td style="padding: 8px 0; color: #111; font-weight: bold;">${booking.vehicle?.name || "Premium Luxury Vehicle"}</td>
+          <td style="padding: 8px 0; color: #111; font-weight: bold;">${escapeHtml(booking.vehicle?.name || "Premium Luxury Vehicle")}</td>
         </tr>
         <tr>
           <td style="padding: 8px 0; font-weight: bold; color: #666;">Plate Number:</td>
-          <td style="padding: 8px 0; color: #C9A84C; font-weight: bold; font-family: monospace; font-size: 16px;">KSA 9921</td>
+          <td style="padding: 8px 0; color: #C9A84C; font-weight: bold; font-family: monospace; font-size: 16px;">${escapeHtml(booking.vehicle?.plateNumber || "Confirm with driver on arrival")}</td>
         </tr>
         <tr>
           <td style="padding: 8px 0; font-weight: bold; color: #666;">Capacity:</td>
@@ -260,18 +269,13 @@ export async function sendBookingReminder(booking: NotificationBooking) {
         </tr>
         <tr>
           <td style="padding: 10px; font-weight: bold; color: #666;">Route:</td>
-          <td style="padding: 10px; color: #111;">${booking.pickupLocation} → ${booking.dropoffLocation}</td>
+          <td style="padding: 10px; color: #111;">${escapeHtml(booking.pickupLocation)} → ${escapeHtml(booking.dropoffLocation)}</td>
         </tr>
         <tr>
           <td style="padding: 10px; font-weight: bold; color: #666;">Chauffeur:</td>
-          <td style="padding: 10px; color: #111;">${booking.driverName || "Assigning shortly..."} (${booking.driverPhone || "Pending"})</td>
+          <td style="padding: 10px; color: #111;">${escapeHtml(booking.driverName || "Assigning shortly...")} (${escapeHtml(booking.driverPhone || "Pending")})</td>
         </tr>
       </table>
-
-      <div style="background: #eef2f7; border: 1px solid #d0d7de; border-radius: 12px; padding: 15px; margin-bottom: 25px;">
-        <h4 style="margin: 0 0 5px 0; color: #0969da;">🌤 Destination Weather Preview</h4>
-        <p style="margin: 0; font-size: 13px; color: #555;">Clear sky with comfortable traveling conditions forecast. High around 31°C, light breezes.</p>
-      </div>
 
       <div style="background: #FFF9E6; border: 1px solid #C9A84C; border-radius: 12px; padding: 15px; font-size: 13px; color: #111; text-align: center;">
         <strong>Need Changes?</strong> Adjustments or itinerary changes can be requested up to 24 hours prior to travel. Reach our concierge desk immediately via WhatsApp.
@@ -303,23 +307,23 @@ export async function sendAdminNotification(booking: NotificationBooking) {
         </tr>
         <tr>
           <td style="padding: 8px 0; font-weight: bold; color: #666;">Customer Name:</td>
-          <td style="padding: 8px 0; color: #111; font-weight: bold;">${booking.customerName}</td>
+          <td style="padding: 8px 0; color: #111; font-weight: bold;">${escapeHtml(booking.customerName)}</td>
         </tr>
         <tr>
           <td style="padding: 8px 0; font-weight: bold; color: #666;">Phone:</td>
-          <td style="padding: 8px 0; color: #111;"><a href="tel:${booking.customerPhone}">${booking.customerPhone}</a></td>
+          <td style="padding: 8px 0; color: #111;"><a href="tel:${encodeURIComponent(booking.customerPhone)}">${escapeHtml(booking.customerPhone)}</a></td>
         </tr>
         <tr>
           <td style="padding: 8px 0; font-weight: bold; color: #666;">Email:</td>
-          <td style="padding: 8px 0; color: #111;"><a href="mailto:${booking.customerEmail}">${booking.customerEmail}</a></td>
+          <td style="padding: 8px 0; color: #111;"><a href="mailto:${encodeURIComponent(booking.customerEmail)}">${escapeHtml(booking.customerEmail)}</a></td>
         </tr>
         <tr>
           <td style="padding: 8px 0; font-weight: bold; color: #666;">Route:</td>
-          <td style="padding: 8px 0; color: #111;">${booking.pickupLocation} → ${booking.dropoffLocation}</td>
+          <td style="padding: 8px 0; color: #111;">${escapeHtml(booking.pickupLocation)} → ${escapeHtml(booking.dropoffLocation)}</td>
         </tr>
         <tr>
           <td style="padding: 8px 0; font-weight: bold; color: #666;">Vehicle:</td>
-          <td style="padding: 8px 0; color: #111;">${booking.vehicle?.name || "Premium Fleet Vehicle"}</td>
+          <td style="padding: 8px 0; color: #111;">${escapeHtml(booking.vehicle?.name || "Premium Fleet Vehicle")}</td>
         </tr>
         <tr>
           <td style="padding: 8px 0; font-weight: bold; color: #666;">Fare Total:</td>
