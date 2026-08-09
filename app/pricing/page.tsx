@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { trackEvent } from "@/lib/analytics";
 import { ROUTES_DATA } from "@/lib/data/routes";
+import { VEHICLE_PRICE_MULTIPLIERS } from "@/lib/data/vehicleMultipliers";
 
 const translations = {
   en: {
@@ -227,11 +228,9 @@ export default function PricingPage() {
   const distance = fixedRoute ? fixedRoute.distance : getDistance(fromCity, toCity);
   const duration = fixedRoute ? fixedRoute.duration : Math.round(distance / 90 * 60); // approx minutes based on 90km/h average when no fixed route
 
-  const VEHICLE_MULTIPLIER: Record<string, number> = { sedan: 1, suv: 1.5, van: 1.35, luxury: 2.5 };
-
   const getPrice = () => {
     if (fixedRoute) {
-      return Math.round(fixedRoute.basePrice * (VEHICLE_MULTIPLIER[vehicleClass] ?? 1));
+      return Math.round(fixedRoute.basePrice * (VEHICLE_PRICE_MULTIPLIERS[vehicleClass] ?? 1));
     }
 
     let perKm = 2.5;

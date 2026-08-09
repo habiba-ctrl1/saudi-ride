@@ -11,6 +11,7 @@ import Image from "next/image";
 import { breadcrumbSchema, faqSchema, speakableSchema, SITE } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { RouteRelatedLinks } from "@/components/seo/RouteRelatedLinks";
+import { VEHICLE_PRICE_MULTIPLIERS } from "@/lib/data/vehicleMultipliers";
 
 interface PageProps {
   params: Promise<{
@@ -1125,10 +1126,10 @@ export default async function RouteDetailsPage({ params }: PageProps) {
   // Calculate prices based on basePrice
   const prices = {
     SEDAN: route.basePrice,
-    SUV: Math.round(route.basePrice * 1.5),
-    VAN: Math.round(route.basePrice * 1.35),
-    LUXURY: Math.round(route.basePrice * 2.5),
-    BUS: Math.round(route.basePrice * 3.8),
+    SUV: Math.round(route.basePrice * VEHICLE_PRICE_MULTIPLIERS.suv),
+    VAN: Math.round(route.basePrice * VEHICLE_PRICE_MULTIPLIERS.van),
+    LUXURY: Math.round(route.basePrice * VEHICLE_PRICE_MULTIPLIERS.luxury),
+    BUS: Math.round(route.basePrice * VEHICLE_PRICE_MULTIPLIERS.bus),
   };
 
   const vehicles = [
