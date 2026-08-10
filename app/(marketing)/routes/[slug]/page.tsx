@@ -460,6 +460,21 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "Can I book a corporate car for this route?", answer: "Yes. We offer executive sedans and SUVs with professional drivers for the Riyadh–Dammam corporate corridor, with hourly and one-way options." },
     ],
   },
+  "dammam-airport-to-jubail": {
+    tldr: "A taxi from King Fahd International Airport (DMM) to Jubail is about 90 km and takes roughly 65 minutes. The fare is fixed from SAR 250, with corporate accounts available for contractors and companies operating in Jubail Industrial City.",
+    tldrFacts: [
+      { label: "Distance", value: "~90 km" },
+      { label: "Time", value: "~65 minutes" },
+      { label: "From", value: "SAR 250" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How long does the trip from Dammam airport to Jubail take?", answer: "The drive is about 90 km and takes roughly 65 minutes, depending on traffic and shift-change hours around the industrial city." },
+      { question: "How much is a taxi from Dammam airport to Jubail?", answer: "The fare is fixed from SAR 250 for a sedan, with SUVs and vans available for groups and equipment. The price is confirmed before booking, with no surge." },
+      { question: "Do you offer corporate accounts for Jubail Industrial City?", answer: "Yes. Contractors and companies operating in Jubail Industrial City I & II can set up monthly corporate billing instead of paying per trip — message us on WhatsApp to arrange an account." },
+      { question: "Can the driver access restricted plant gates in Jubail?", answer: "Share your company name and site/gate location when booking so the driver can plan the correct access route — some plants have restricted entry points and ID checks." },
+    ],
+  },
   "riyadh-to-alkhobar": {
     tldr: "A taxi from Riyadh to Al Khobar is about 400 km and takes roughly 3 hours 40 minutes on Highway 40. The fare is fixed from SAR 320, door-to-door to the Eastern Province waterfront city.",
     tldrFacts: [
@@ -1095,6 +1110,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description: `Fixed-price taxi from ${route.fromCity} to ${route.toCity} — ${route.distance} km, approx ${Math.round(route.duration / 60)}h. ${priceBlurb}, 24/7, licensed drivers, no surge.`.slice(0, 160),
     alternates: {
       canonical: `https://taxisaudiarabia.com/routes/${slug}`,
+      ...(slug === "jeddah-airport-to-makkah"
+        ? {
+            languages: {
+              en: `https://taxisaudiarabia.com/routes/${slug}`,
+              ar: "https://taxisaudiarabia.com/ar/routes/jeddah-airport-to-makkah",
+              "x-default": `https://taxisaudiarabia.com/routes/${slug}`,
+            },
+          }
+        : {}),
     },
     openGraph: {
       title: route.priceOnRequest

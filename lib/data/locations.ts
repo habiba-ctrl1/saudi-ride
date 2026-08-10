@@ -191,6 +191,41 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { question: "Is taxi available in Dammam 24/7?", answer: "Yes, we operate around the clock in the Eastern Province for airport transfers, corporate travel, cross-border trips, and intercity journeys — at fixed prices with no surge." }
     ]
   },
+  jubail: {
+    name: "Jubail",
+    nameAr: "الجبيل",
+    image: "/locations/dammam-hero.webp",
+    tagline: "Saudi Arabia's Industrial Powerhouse",
+    description: "Book a fixed-price taxi in Jubail for transfers to and from King Fahd International Airport (DMM) (~90 km, ~65 min), corporate travel across Jubail Industrial City I & II, contractor and camp transport for SABIC, Aramco, and Royal Commission (RCJY) sites, and connections to Dammam, Al Khobar, and Dhahran. Our drivers know the industrial zones, gate access points, and shift-change traffic patterns well, and we offer monthly corporate accounts for contractors who need daily, not per-ride, billing. Fares are fixed in advance with no surge pricing.",
+    tldr: "Taxi Saudi Arabia provides 24/7 fixed-price taxi service in Jubail — King Fahd International Airport (DMM) transfers (~90 km, ~65 min), corporate and contractor transport across Jubail Industrial City, and connections to Dammam, Al Khobar, and Dhahran. Monthly corporate billing available for contractor accounts.",
+    tldrFacts: [
+      { label: "Airport (DMM)", value: "~90 km · ~65 min" },
+      { label: "To Dammam", value: "~90 km · ~65 min" },
+      { label: "To Al Khobar", value: "~75 km · ~55 min" },
+      { label: "Pricing", value: "Fixed, no surge" }
+    ],
+    attractions: [
+      { name: "Jubail Industrial City I & II", dist: "City Area" },
+      { name: "SABIC Headquarters", dist: "5 km" },
+      { name: "Jubail Corniche", dist: "City Center" },
+      { name: "Al-Fanateer Beach", dist: "8 km" },
+      { name: "King Fahd Airport (DMM)", dist: "~90 km" },
+      { name: "Dammam / Al Khobar", dist: "~90 km" }
+    ],
+    tips: [
+      "Jubail Industrial City has restricted gate access at several plants — share your company/site name when booking so the driver can plan the correct entry point.",
+      "King Fahd International Airport (DMM) is about 65 minutes from Jubail — allow extra buffer time around shift-change hours.",
+      "Contractors and companies can set up a monthly corporate account instead of paying per trip — ask about invoicing.",
+      "Jubail, Dammam, Al Khobar, and Dhahran are all served by the same Eastern Province driver network for same-day bookings."
+    ],
+    faqs: [
+      { question: "How much is a taxi from Jubail to Dammam airport?", answer: "A fixed-price taxi from Jubail to King Fahd International Airport (DMM) starts from around SAR 250 for a sedan, with SUVs and vans available for groups. It's about 90 km — roughly a 65-minute drive." },
+      { question: "Do you offer corporate accounts for Jubail Industrial City companies?", answer: "Yes. We offer monthly corporate billing for contractors and companies operating in Jubail Industrial City I & II — a dedicated account manager and consolidated invoicing instead of per-trip payment. Contact us via WhatsApp to set one up." },
+      { question: "Is taxi available in Jubail 24/7, including night shifts?", answer: "Yes, we run 24/7 in Jubail, including early-morning and night shift-change hours for plant workers and contractors." },
+      { question: "How far is Jubail from Al Khobar and Dammam?", answer: "Jubail is about 75 km from Al Khobar and 90 km from Dammam — both roughly an hour's drive. We serve all three cities with the same Eastern Province driver network." },
+      { question: "Can you pick up from inside Jubail Industrial City plants?", answer: "Yes. Share your company name and gate/site location when booking so the driver can plan the correct access route — some plants have restricted entry points." }
+    ]
+  },
   alula: {
     name: "AlUla",
     nameAr: "العلا",

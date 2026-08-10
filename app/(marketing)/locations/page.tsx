@@ -76,6 +76,19 @@ const LOCATIONS = [
     slug: "dammam"
   },
   {
+    id: "jubail",
+    name: "Jubail",
+    nameAr: "الجبيل",
+    category: "city",
+    image: "/locations/dammam-hero.webp",
+    tagline: "Saudi Arabia's Industrial Powerhouse",
+    airports: ["King Fahd International Airport (DMM, ~90 km)"],
+    popularRoutes: ["DMM Airport → Jubail", "Jubail → Dammam", "Jubail → Al Khobar"],
+    startingPrice: 250,
+    note: "Corporate and contractor transport for Jubail Industrial City, SABIC, and Royal Commission (RCJY) sites — monthly billing available.",
+    slug: "jubail"
+  },
+  {
     id: "alkhobar",
     name: "Al-Khobar",
     nameAr: "الخبر",

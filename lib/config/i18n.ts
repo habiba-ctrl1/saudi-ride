@@ -1,5 +1,5 @@
 // Pages that have real Arabic translations and their own SSR route under app/ar/*.
-export const AR_REAL_ROUTES = ["/", "/about", "/contact", "/faq", "/pricing", "/partners"];
+export const AR_REAL_ROUTES = ["/", "/about", "/contact", "/faq", "/pricing", "/partners", "/routes/jeddah-airport-to-makkah"];
 
 // Noindex utility pages that still switch to Arabic client-side (via
 // LanguageContext) but don't need a dedicated SSR route since they're never indexed.
