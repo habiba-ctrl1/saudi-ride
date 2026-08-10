@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Manrope, Geist, Cairo } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
@@ -214,13 +215,14 @@ const jsonLd = [
   },
 ];
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = (await headers()).get("x-locale") === "ar" ? "ar" : "en";
   return (
-    <html lang="en" className="light" style={{ colorScheme: "light" }} suppressHydrationWarning>
+    <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} className="light" style={{ colorScheme: "light" }} suppressHydrationWarning>
       <head>
         {jsonLd.map((schema, i) => (
           <script

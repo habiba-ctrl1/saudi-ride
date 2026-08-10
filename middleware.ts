@@ -50,13 +50,19 @@ export async function middleware(request: NextRequest) {
 
   // Only the noindex utility pages still need an internal rewrite; the
   // indexable pages (AR_REAL_ROUTES) have real files under app/ar/*.
+  // x-locale is forwarded as a request header (not just a response cookie) so
+  // the root layout can set <html lang/dir> correctly on the very first
+  // request — a cookie alone wouldn't exist yet on that first visit.
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-locale", isArabic ? "ar" : "en");
+
   let response: NextResponse;
   if (isArabic && AR_REWRITE_ROUTES.includes(strippedPath)) {
     const url = request.nextUrl.clone();
     url.pathname = strippedPath;
-    response = NextResponse.rewrite(url);
+    response = NextResponse.rewrite(url, { request: { headers: requestHeaders } });
   } else {
-    response = NextResponse.next();
+    response = NextResponse.next({ request: { headers: requestHeaders } });
   }
   if (isArabic) {
     response.cookies.set("language", "ar", { maxAge: 60 * 60 * 24 * 365, path: "/" });
