@@ -12,6 +12,7 @@ import { breadcrumbSchema, faqSchema, speakableSchema, SITE } from "@/lib/schema
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { RouteRelatedLinks } from "@/components/seo/RouteRelatedLinks";
 import { VEHICLE_PRICE_MULTIPLIERS } from "@/lib/data/vehicleMultipliers";
+import { credentials, hasCredential } from "@/lib/config/credentials";
 
 interface PageProps {
   params: Promise<{
@@ -1698,7 +1699,11 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                 <ShieldCheck className="h-5 w-5 text-[#C9A84C] shrink-0 mt-0.5" />
                 <div>
                   <h4 className="font-bold text-sm">Professional &amp; Licensed</h4>
-                  <p className="text-xs text-[#6B7280] mt-1">All drivers are fully licensed by the Saudi Ministry of Transport, speak English and Arabic, and are trained for professional service.</p>
+                  <p className="text-xs text-[#6B7280] mt-1">
+                    {hasCredential(credentials.motLicenseNumber)
+                      ? `All drivers are fully licensed by the Saudi Ministry of Transport (Licence ${credentials.motLicenseNumber}), speak English and Arabic, and are trained for professional service.`
+                      : "All drivers hold a valid Saudi driving licence, speak English and Arabic, and are trained for professional service."}
+                  </p>
                 </div>
               </li>
             </ul>

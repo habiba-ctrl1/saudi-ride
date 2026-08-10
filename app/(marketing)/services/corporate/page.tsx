@@ -7,9 +7,14 @@ import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { Building2, ReceiptText, ShieldCheck, UserCheck, Check } from "lucide-react";
 import { CorporateAccountForm } from "@/components/booking/CorporateAccountForm";
+import { credentials, hasCredential } from "@/lib/config/credentials";
+
+const ZATCA_READY = hasCredential(credentials.vatNumber);
 
 const TITLE = "Corporate Taxi & Executive Chauffeur | Saudi Arabia";
-const DESCRIPTION = "Corporate taxi & executive chauffeur accounts in Saudi Arabia. Monthly invoicing, ZATCA receipts, priority dispatch, dedicated account managers.";
+const DESCRIPTION = ZATCA_READY
+  ? "Corporate taxi & executive chauffeur accounts in Saudi Arabia. Monthly invoicing, ZATCA receipts, priority dispatch, dedicated account managers."
+  : "Corporate taxi & executive chauffeur accounts in Saudi Arabia. Monthly invoicing, priority dispatch, dedicated account managers.";
 const OG_IMAGE = "https://taxisaudiarabia.com/services/corporate-hero.webp";
 
 export const metadata: Metadata = {
@@ -32,7 +37,13 @@ export const metadata: Metadata = {
 };
 
 const FEATURES = [
-  { icon: ReceiptText, title: "Monthly Invoicing", desc: "Consolidated billing at the end of the month with full ZATCA-compliant e-invoices for easy accounting." },
+  {
+    icon: ReceiptText,
+    title: "Monthly Invoicing",
+    desc: ZATCA_READY
+      ? "Consolidated billing at the end of the month with full ZATCA-compliant e-invoices for easy accounting."
+      : "Consolidated billing at the end of the month for easy accounting.",
+  },
   { icon: UserCheck, title: "Dedicated Manager", desc: "A single point of contact for all your executive transport logistics and complex bookings." },
   { icon: ShieldCheck, title: "Priority Dispatch", desc: "Corporate accounts receive priority vehicle allocation, even during peak rush hour or major events." },
   { icon: Building2, title: "VIP Fleet Access", desc: "Guaranteed access to our top-tier S-Class and Luxury SUV fleet for visiting executives and board members." },
@@ -45,8 +56,9 @@ export default function CorporateAccountsPage() {
         data={[
           serviceSchema({
             name: "Corporate Taxi Accounts & B2B Transport",
-            description:
-              "Corporate taxi accounts and B2B transport solutions in Saudi Arabia with monthly ZATCA-compliant invoicing, dedicated account managers, and priority dispatch.",
+            description: ZATCA_READY
+              ? "Corporate taxi accounts and B2B transport solutions in Saudi Arabia with monthly ZATCA-compliant invoicing, dedicated account managers, and priority dispatch."
+              : "Corporate taxi accounts and B2B transport solutions in Saudi Arabia with monthly invoicing, dedicated account managers, and priority dispatch.",
             path: "/services/corporate",
             serviceType: "Corporate Transport",
             areaServed: ["Saudi Arabia"],
@@ -82,13 +94,17 @@ export default function CorporateAccountsPage() {
             <span className="text-[#16A34A]">for Modern Business</span>
           </h1>
           <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-8">
-            Streamline your company&apos;s travel logistics with our dedicated corporate accounts. Enjoy monthly billing, ZATCA tax compliance, and unmatched VIP service across the Kingdom.
+            Streamline your company&apos;s travel logistics with our dedicated corporate accounts. Enjoy monthly billing{ZATCA_READY ? ", ZATCA tax compliance," : ","} and unmatched VIP service across the Kingdom.
           </p>
           <div className="max-w-2xl mx-auto mb-10 text-left">
             <TLDRSummary
-              answer="Corporate taxi accounts in Saudi Arabia include monthly ZATCA-compliant invoicing, a dedicated account manager, priority dispatch, and guaranteed access to our VIP fleet for executives."
+              answer={
+                ZATCA_READY
+                  ? "Corporate taxi accounts in Saudi Arabia include monthly ZATCA-compliant invoicing, a dedicated account manager, priority dispatch, and guaranteed access to our VIP fleet for executives."
+                  : "Corporate taxi accounts in Saudi Arabia include monthly invoicing, a dedicated account manager, priority dispatch, and guaranteed access to our VIP fleet for executives."
+              }
               facts={[
-                { label: "Billing", value: "Monthly, ZATCA e-invoice" },
+                { label: "Billing", value: ZATCA_READY ? "Monthly, ZATCA e-invoice" : "Monthly invoicing" },
                 { label: "Support", value: "Dedicated manager" },
                 { label: "Fleet", value: "VIP / Executive" },
               ]}
@@ -149,7 +165,7 @@ export default function CorporateAccountsPage() {
             </thead>
             <tbody className="divide-y divide-[#C9A84C]/5">
               {[
-                ["ZATCA Compliant E-Invoicing", false, true],
+                ...(ZATCA_READY ? [["ZATCA Compliant E-Invoicing", false, true]] : []),
                 ["Monthly Post-Paid Billing", false, true],
                 ["Dedicated Account Manager", false, true],
                 ["Priority Dispatch in Rush Hour", false, true],
@@ -184,7 +200,12 @@ export default function CorporateAccountsPage() {
       </section>
       {(() => {
         const faqs = [
-          { question: "How does monthly corporate billing work?", answer: "Your company is invoiced once at month-end with a consolidated, ZATCA-compliant statement covering all rides, instead of paying per trip." },
+          {
+            question: "How does monthly corporate billing work?",
+            answer: ZATCA_READY
+              ? "Your company is invoiced once at month-end with a consolidated, ZATCA-compliant statement covering all rides, instead of paying per trip."
+              : "Your company is invoiced once at month-end with a consolidated statement covering all rides, instead of paying per trip.",
+          },
           { question: "Can multiple employees book under one account?", answer: "Yes. Corporate accounts support multiple authorized bookers and travelers under a single billing profile with a dedicated account manager." },
           { question: "Do corporate accounts get priority during peak times?", answer: "Yes. Corporate bookings receive priority vehicle allocation during rush hours and major events." },
         ];

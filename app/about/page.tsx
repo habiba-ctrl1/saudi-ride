@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ShieldCheck, Sparkles, CheckCircle2, History, Award } from "lucide-react";
 import Image from "next/image";
 import { trustStats } from "@/lib/config/stats";
+import { credentials, hasCredential } from "@/lib/config/credentials";
 
 const translations = {
   en: {
@@ -43,7 +44,9 @@ const translations = {
       },
       {
         title: "Licensed Drivers",
-        description: "Every driver holds a valid Saudi driving license, and fares are ZATCA e-invoice compliant.",
+        description: hasCredential(credentials.vatNumber)
+          ? "Every driver holds a valid Saudi driving license, and fares are ZATCA e-invoice compliant."
+          : "Every driver holds a valid Saudi driving license.",
         icon: CheckCircle2
       },
       {
@@ -83,7 +86,7 @@ const translations = {
     statsTitle: "مسيرتنا في أرقام",
     stats: [
       { label: "سائقون مرخصون", value: "100%" },
-      { label: "مسار مغطى", value: "+56" },
+      { label: "مسار مغطى", value: trustStats.routesCovered },
       { label: "مدينة سعودية", value: "+11" },
       { label: "لغات التحدث", value: "3" }
     ],
@@ -177,7 +180,9 @@ const translations = {
       },
       {
         title: "شفاف اور قابل اعتماد قیمتیں",
-        description: "ہر ڈرائیور درست سعودی لائسنس رکھتا ہے، اور رسیدیں ZATCA کے مطابق ہیں۔",
+        description: hasCredential(credentials.vatNumber)
+          ? "ہر ڈرائیور درست سعودی لائسنس رکھتا ہے، اور رسیدیں ZATCA کے مطابق ہیں۔"
+          : "ہر ڈرائیور درست سعودی لائسنس رکھتا ہے۔",
         icon: CheckCircle2
       },
       {
@@ -355,7 +360,9 @@ export default function AboutPage() {
         </div>
 
         <div className="grid gap-6 md:grid-cols-3">
-          {t.certs.map((cert, index) => {
+          {t.certs
+            .filter((cert) => hasCredential(credentials.vatNumber) || !cert.name.includes("ZATCA"))
+            .map((cert, index) => {
             const Icon = cert.icon;
             return (
               <motion.div

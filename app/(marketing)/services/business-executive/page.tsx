@@ -7,9 +7,14 @@ import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { Briefcase, ShieldCheck, Clock, Wifi } from "lucide-react";
 import Link from "next/link";
+import { credentials, hasCredential } from "@/lib/config/credentials";
+
+const ZATCA_READY = hasCredential(credentials.vatNumber);
 
 const TITLE = "Business & Executive Transport | Taxi Saudi Arabia";
-const DESCRIPTION = "Executive chauffeur service in Riyadh, Jeddah & Dammam — Mercedes S-Class & GMC Yukon for corporate meetings, KAFD & conferences. Fixed fares, ZATCA receipts, 24/7 dispatch.";
+const DESCRIPTION = ZATCA_READY
+  ? "Executive chauffeur service in Riyadh, Jeddah & Dammam — Mercedes S-Class & GMC Yukon for corporate meetings, KAFD & conferences. Fixed fares, ZATCA receipts, 24/7 dispatch."
+  : "Executive chauffeur service in Riyadh, Jeddah & Dammam — Mercedes S-Class & GMC Yukon for corporate meetings, KAFD & conferences. Fixed fares, 24/7 dispatch.";
 const OG_IMAGE = "https://taxisaudiarabia.com/services/business-executive-hero.webp";
 
 export const metadata: Metadata = {
@@ -118,7 +123,12 @@ export default function BusinessExecutivePage() {
       {(() => {
         const faqs = [
           { question: "Can I book a chauffeur for a full day of meetings?", answer: "Yes. We offer hourly and full-day executive charter where your chauffeur stays on standby between meetings across the city." },
-          { question: "Do you provide invoices for corporate expense claims?", answer: "Yes. We issue ZATCA-compliant e-invoices suitable for company expense and reimbursement claims." },
+          {
+            question: "Do you provide invoices for corporate expense claims?",
+            answer: ZATCA_READY
+              ? "Yes. We issue ZATCA-compliant e-invoices suitable for company expense and reimbursement claims."
+              : "Yes. We issue itemized invoices suitable for company expense and reimbursement claims.",
+          },
           { question: "Are your executive vehicles equipped for working on the move?", answer: "Select vehicles include complimentary Wi-Fi, charging ports, and a quiet cabin so you can work or take calls en route." },
         ];
         return (

@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { buildZATCAInvoice, generateZATCAQR } from "@/lib/zatca";
+import { credentials } from "@/lib/config/credentials";
 
 export async function GET(
   request: Request,
@@ -55,7 +56,7 @@ export async function GET(
     if (!qrCode) {
       const invoice = buildZATCAInvoice(payment.booking, payment);
       qrCode = generateZATCAQR(invoice);
-      zatcaId = `RLT-INV-${payment.id}`;
+      zatcaId = invoice.invoiceNumber;
 
       await prisma.payment.update({
         where: { id: payment.id },
@@ -72,8 +73,8 @@ export async function GET(
         booking_ref: booking.bookingRef,
         invoice_date: payment.paidAt?.toISOString() ?? payment.createdAt.toISOString(),
         seller: {
-          name: "Riyadh Luxe Transportation Co.",
-          vat_number: process.env.ZATCA_VAT_NUMBER ?? "300000000000003",
+          name: credentials.legalEntityName,
+          vat_number: credentials.vatNumber,
         },
         buyer: {
           name: booking.customerName,

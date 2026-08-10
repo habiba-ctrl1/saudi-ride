@@ -76,11 +76,17 @@ export async function POST(request: Request) {
         data: { paymentStatus: "PAID", status: "CONFIRMED" },
       });
 
-      const { qrCode, zatcaId } = await generateAndSubmitInvoice(booking, payment);
-      await prisma.payment.update({
-        where: { id: payment.id },
-        data: { zatcaQrCode: qrCode, zatcaInvoiceId: zatcaId },
-      });
+      try {
+        const { qrCode, zatcaId } = await generateAndSubmitInvoice(booking, payment);
+        await prisma.payment.update({
+          where: { id: payment.id },
+          data: { zatcaQrCode: qrCode, zatcaInvoiceId: zatcaId },
+        });
+      } catch (invoiceError) {
+        // Payment is already captured/confirmed above — a missing ZATCA
+        // credential must not block the customer's confirmation email.
+        console.error("ZATCA invoice generation failed:", invoiceError);
+      }
 
       if (booking.customerEmail) {
         const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://saudi-ride.vercel.app";

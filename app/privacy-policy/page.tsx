@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Calendar, Lock } from "lucide-react";
+import { credentials, hasCredential } from "@/lib/config/credentials";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 15 },
@@ -80,7 +81,7 @@ export default function PrivacyPolicyPage() {
             </p>
             <ul className="list-disc pl-5 space-y-2 border-l border-[#16A34A]/12 ml-2.5">
               <li>To schedule dispatch operations and ensure chauffeurs arrive punctually.</li>
-              <li>To compile digital invoices in accordance with ZATCA electronic billing directives.</li>
+              <li>To compile digital invoices{hasCredential(credentials.vatNumber) ? " in accordance with ZATCA electronic billing directives" : ""}.</li>
               <li>To communicate real-time travel logistics, SMS arrival alerts, and driver profiles.</li>
               <li>To credit loyalty tier bonuses and program referrals.</li>
             </ul>

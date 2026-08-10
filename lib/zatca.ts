@@ -2,6 +2,7 @@
 // Generates QR code payload and submits to ZATCA API.
 
 import crypto from "crypto";
+import { credentials, hasCredential } from "@/lib/config/credentials";
 
 export interface ZATCALineItem {
   description: string;
@@ -48,6 +49,14 @@ export function buildZATCAInvoice(
   booking: BookingForInvoice,
   payment: PaymentForInvoice
 ): ZATCAInvoice {
+  if (!hasCredential(credentials.legalEntityName) || !hasCredential(credentials.vatNumber)) {
+    throw new Error(
+      "Cannot generate a ZATCA invoice: credentials.legalEntityName / vatNumber are not configured " +
+        "(lib/config/credentials.ts). Fabricating a VAT number is a compliance risk — fill in the real " +
+        "values before invoices can be issued."
+    );
+  }
+
   const baseFare = booking.baseFare ?? booking.totalPrice / 1.15;
   const discount = booking.discountAmount ?? 0;
   const subtotal = baseFare - discount;
@@ -59,9 +68,9 @@ export function buildZATCAInvoice(
     : "Transfer";
 
   return {
-    invoiceNumber: `RLT-INV-${payment.id}`,
-    sellerName: "Riyadh Luxe Transportation Co.",
-    sellerVATNumber: process.env.ZATCA_VAT_NUMBER ?? "300000000000003",
+    invoiceNumber: `INV-${booking.bookingRef}`,
+    sellerName: credentials.legalEntityName,
+    sellerVATNumber: credentials.vatNumber,
     buyerName: booking.customerName,
     invoiceDate: new Date().toISOString(),
     lineItems: [

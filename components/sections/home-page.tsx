@@ -10,6 +10,7 @@ import PriceCalculator from "@/components/booking/PriceCalculator";
 import { ParallaxSection } from "./ParallaxSection";
 import { trustStats } from "@/lib/config/stats";
 import { ROUTES_DATA } from "@/lib/data/routes";
+import { credentials, hasCredential } from "@/lib/config/credentials";
 import {
   Calendar,
   Car,
@@ -84,7 +85,7 @@ const homeTranslations = {
         },
         {
           title: "Corporate & Business Car Service",
-          desc: "Professional chauffeurs for business meetings, corporate events, and executive travel. Wi-Fi equipped vehicles, ZATCA-compliant invoicing, and dedicated account management for companies.",
+          desc: `Professional chauffeurs for business meetings, corporate events, and executive travel. Wi-Fi equipped vehicles${hasCredential(credentials.vatNumber) ? ", ZATCA-compliant invoicing," : ","} and dedicated account management for companies.`,
           price: "From SAR 799",
           icon: Award
         },
@@ -1123,7 +1124,11 @@ export function HomePage() {
 
               <div className="grid sm:grid-cols-2 gap-4">
                 {[
-                  { icon: CheckCircle, en: "Licensed drivers & ZATCA-compliant", ar: "سائقون مرخصون ومتوافق مع هيئة الزكاة" },
+                  {
+                    icon: CheckCircle,
+                    en: hasCredential(credentials.vatNumber) ? "Licensed drivers & ZATCA-compliant" : "Licensed, professional drivers",
+                    ar: hasCredential(credentials.vatNumber) ? "سائقون مرخصون ومتوافق مع هيئة الزكاة" : "سائقون مرخصون ومحترفون",
+                  },
                   { icon: ShieldCheck, en: "Vetted, multilingual professional drivers", ar: "سائقون محترفون موثوقون ومتعددو اللغات" },
                   { icon: Sparkles, en: "Clean, air-conditioned, maintained cars", ar: "سيارات نظيفة ومكيفة وبصيانة دورية" },
                   { icon: Award, en: "Licensed drivers · fixed prices 24/7", ar: "سائقون مرخصون · أسعار ثابتة على مدار الساعة" },
@@ -1200,7 +1205,9 @@ export function HomePage() {
 
           {/* Right: feature grid */}
           <div className="grid gap-4 sm:grid-cols-2">
-            {t.whyUs.points.map((pt, idx) => (
+            {t.whyUs.points
+              .filter((pt) => hasCredential(credentials.vatNumber) || !pt.title.includes("ZATCA"))
+              .map((pt, idx) => (
               <motion.div
                 key={idx}
                 initial={{ opacity: 0, y: 16 }}

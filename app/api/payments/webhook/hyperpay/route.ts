@@ -70,12 +70,17 @@ export async function POST(request: Request) {
         data: { paymentStatus: "PAID", status: "CONFIRMED" },
       });
 
-      // Generate ZATCA invoice
-      const { qrCode, zatcaId } = await generateAndSubmitInvoice(booking, payment);
-      await prisma.payment.update({
-        where: { id: payment.id },
-        data: { zatcaQrCode: qrCode, zatcaInvoiceId: zatcaId },
-      });
+      // Generate ZATCA invoice — payment is already captured/confirmed above,
+      // so a missing ZATCA credential must not block the confirmation email.
+      try {
+        const { qrCode, zatcaId } = await generateAndSubmitInvoice(booking, payment);
+        await prisma.payment.update({
+          where: { id: payment.id },
+          data: { zatcaQrCode: qrCode, zatcaInvoiceId: zatcaId },
+        });
+      } catch (invoiceError) {
+        console.error("ZATCA invoice generation failed:", invoiceError);
+      }
 
       // Email confirmation
       if (booking.customerEmail) {
