@@ -848,6 +848,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "How far is Riyadh from Bahrain?", answer: "Riyadh to Manama is about 450 km — roughly a 4.5-hour drive, crossing into Bahrain via the King Fahd Causeway." },
       { question: "What do I need to enter Bahrain?", answer: "A valid passport and the correct Bahrain entry eligibility or visa. Share your details in advance so we can prepare for a smooth crossing." },
       { question: "How much is a taxi from Riyadh to Manama?", answer: "The fare is fixed from SAR 600, confirmed before booking, with comfortable vehicles for the long cross-border journey." },
+      { question: "Is there a train from Riyadh to Bahrain?", answer: "No — there is currently no operational train between Riyadh and Bahrain; the GCC's planned Gulf Railway hasn't been completed on this route. A private taxi via the King Fahd Causeway is the most comfortable door-to-door option." },
     ],
   },
   "dammam-to-kuwait": {

@@ -189,6 +189,13 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { question: "How far is Dammam from Riyadh by taxi?", answer: "Dammam to Riyadh is about 400 km — roughly a 4-hour drive on Highway 40. We offer fixed-price intercity transfers in sedans, SUVs, and vans with rest stops included." },
       { question: "Do you serve the whole Dammam–Khobar–Dhahran area?", answer: "Yes — the three cities form one metropolitan area and we cover all of it 24/7, including Aramco, the corniche, malls, and the industrial zones. Confirm your exact district when booking." },
       { question: "Is taxi available in Dammam 24/7?", answer: "Yes, we operate around the clock in the Eastern Province for airport transfers, corporate travel, cross-border trips, and intercity journeys — at fixed prices with no surge." }
+    ],
+    relatedLinks: [
+      { href: "/locations/dhahran", label: "Dhahran — Saudi Aramco & KFUPM taxi" },
+      { href: "/locations/jubail", label: "Jubail — Industrial City taxi & corporate accounts" },
+      { href: "/locations/alkhobar", label: "Al Khobar taxi & Bahrain causeway transfers" },
+      { href: "/routes/dammam-to-manama", label: "Dammam to Manama, Bahrain taxi" },
+      { href: "/routes/dammam-to-doha", label: "Dammam to Doha, Qatar taxi" }
     ]
   },
   dhahran: {
@@ -259,6 +266,11 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { question: "Is taxi available in Jubail 24/7, including night shifts?", answer: "Yes, we run 24/7 in Jubail, including early-morning and night shift-change hours for plant workers and contractors." },
       { question: "How far is Jubail from Al Khobar and Dammam?", answer: "Jubail is about 75 km from Al Khobar and 90 km from Dammam — both roughly an hour's drive. We serve all three cities with the same Eastern Province driver network." },
       { question: "Can you pick up from inside Jubail Industrial City plants?", answer: "Yes. Share your company name and gate/site location when booking so the driver can plan the correct access route — some plants have restricted entry points." }
+    ],
+    relatedLinks: [
+      { href: "/locations/dhahran", label: "Dhahran — Saudi Aramco & KFUPM taxi" },
+      { href: "/locations/dammam", label: "Dammam taxi & King Fahd Airport transfers" },
+      { href: "/routes/dammam-airport-to-jubail", label: "Dammam Airport to Jubail transfer" }
     ]
   },
   alula: {
@@ -294,6 +306,12 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { question: "Can I get a taxi from AlUla airport to my resort?", answer: "Yes. We provide transfers from AlUla International Airport (ULH) to the resorts and hotels, and onward sightseeing trips. Pre-booking is recommended during festival season." },
       { question: "What is the best time to visit AlUla?", answer: "October to March, when daytime temperatures are a comfortable 15–25°C. Summers are very hot, so the cooler months are best for outdoor heritage sites." },
       { question: "Can I travel between AlUla and Madinah by car?", answer: "Yes. We offer road transfers between AlUla and Madinah, about 330 km and roughly a 3.5-hour drive — popular with pilgrims adding a heritage trip to their Ziyarat." }
+    ],
+    relatedLinks: [
+      { href: "/routes/alula-airport-to-banyan-tree", label: "AlUla Airport to Banyan Tree AlUla — private VIP transfer" },
+      { href: "/routes/alula-airport-to-resorts", label: "AlUla Airport to Resorts" },
+      { href: "/routes/madinah-to-alula", label: "Madinah to AlUla taxi" },
+      { href: "/fleet/mercedes-s-class", label: "Mercedes S-Class — VIP Executive Sedan" }
     ]
   },
   taif: {
