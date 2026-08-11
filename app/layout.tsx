@@ -126,12 +126,12 @@ const jsonLd = [
         text: "Select a vehicle that fits your needs, such as a standard sedan, luxury SUV (GMC Yukon), or family van (Hyundai Staria).",
       },
       {
-        name: "Confirm Fixed Price",
-        text: "Review the instant fixed taxi fare with no hidden fees and provide your contact details.",
+        name: "Get Your Quote",
+        text: "Message your trip details on WhatsApp and receive a clear price quote based on your route, vehicle, date, and passengers.",
       },
       {
         name: "Receive Booking Confirmation",
-        text: "Get your instant booking confirmation via WhatsApp or email with your licensed driver's details.",
+        text: "Once you confirm, get your booking confirmation via WhatsApp or email with your driver's details.",
       },
     ]
   }),
@@ -144,7 +144,7 @@ const jsonLd = [
         "name": "How do I book a taxi in Saudi Arabia?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "You can book a taxi in Saudi Arabia online through our website or via WhatsApp booking. Enter your pickup location, drop-off, date, and time to get an instant fixed price quote. Booking takes less than 2 minutes. Our 24/7 taxi service means you can book any time."
+          "text": "You can book a taxi in Saudi Arabia online through our website or via WhatsApp. Share your pickup location, drop-off, date, and time to get a clear price quote confirmed before you book. Our 24/7 taxi service means you can request a quote any time."
         }
       },
       {
@@ -152,7 +152,7 @@ const jsonLd = [
         "name": "How much does a Jeddah Airport to Makkah taxi cost?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "A Jeddah Airport to Makkah taxi starts from SAR 249 in a sedan and SAR 374 in a GMC Yukon or Hyundai Staria. The taxi fare is fixed — no hidden charges or surge pricing. The journey takes about 1 hour (80 km)."
+          "text": "A Jeddah Airport to Makkah taxi starts from SAR 249 in a sedan and SAR 374 in a GMC Yukon or Hyundai Staria. Your exact fare is confirmed on WhatsApp before booking, with no hidden charges or surge pricing. The journey takes about 1 hour (80 km)."
         }
       },
       {
@@ -160,7 +160,7 @@ const jsonLd = [
         "name": "Do you provide Umrah taxi and Umrah transport service?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes. We provide dedicated Umrah taxi and Umrah transport including Umrah airport transfers from Jeddah Airport to Makkah, Makkah to Madinah taxi, Madinah to Makkah taxi, and Makkah Ziyarat taxi and Madinah Ziyarat taxi services. Our licensed drivers stop at Meeqat and plan trips around prayer times."
+          "text": "Yes. We arrange dedicated Umrah taxi and Umrah transport including Umrah airport transfers from Jeddah Airport to Makkah, Makkah to Madinah taxi, Madinah to Makkah taxi, and Makkah Ziyarat taxi and Madinah Ziyarat taxi services. Drivers stop at Meeqat and plan trips around prayer times."
         }
       },
       {
@@ -168,7 +168,7 @@ const jsonLd = [
         "name": "What is the taxi fare from Makkah to Madinah?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The Makkah to Madinah taxi fare starts from SAR 499 in a sedan (estimated — final price confirmed in your quotation). The fixed price taxi includes a Meeqat stop and bottled water. The journey covers 430 km and takes approximately 4 hours via the Haramain Highway."
+          "text": "The Makkah to Madinah taxi fare starts from SAR 499 in a sedan (estimated — your exact fare is confirmed in your quotation). This includes a Meeqat stop and bottled water. The journey covers 430 km and takes approximately 4 hours via the Haramain Highway."
         }
       },
       {
@@ -176,7 +176,7 @@ const jsonLd = [
         "name": "What vehicles are available for airport transfer in Saudi Arabia?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Our Saudi airport transfer fleet includes executive sedans (Toyota Camry), luxury SUV taxis (GMC Yukon Denali XL), family taxis (Hyundai Staria VIP), group transport (Toyota Hiace), and VIP sedans (Mercedes S-Class). All vehicles are driven by professional chauffeurs with valid Saudi transport licenses."
+          "text": "Our Saudi airport transfer options include executive sedans (Toyota Camry), luxury SUV taxis (GMC Yukon Denali XL), family taxis (Hyundai Staria VIP), group transport (Toyota Hiace), and VIP sedans (Mercedes S-Class), arranged through our transportation partners with professional chauffeurs."
         }
       },
       {
@@ -184,7 +184,7 @@ const jsonLd = [
         "name": "Are your taxi prices fixed in Saudi Arabia?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes — the fare in your confirmed quotation is fixed, with no surge pricing or hidden fees. Prices shown on the website are estimates; your exact fare is confirmed on WhatsApp or email before your trip. You can check the estimated taxi price for any route using our online calculator."
+          "text": "Yes — once your fare is confirmed in your quotation, it is fixed, with no surge pricing or hidden fees. Final pricing depends on your route, vehicle, date, and passengers, so prices shown on the website are starting estimates; message us on WhatsApp with your trip details for a clear quote before you book."
         }
       },
       {
