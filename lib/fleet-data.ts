@@ -14,6 +14,13 @@ export interface FleetVehicle {
   image: string;
   features: string[];
   description: string;
+  /** Optional: a specific high-value route this vehicle is arranged for most often. */
+  popularRoute?: {
+    routeSlug: string;
+    title: string;
+    description: string;
+    faqs: { question: string; answer: string }[];
+  };
 }
 
 export const FLEET_VEHICLES: FleetVehicle[] = [
@@ -41,7 +48,17 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
     badge: "Most Popular",
     image: "/fleet/gmc-yukon-xl.webp",
     features: ["VIP Executive SUV", "Extra Legroom", "Luxury Interior"],
-    description: "Spacious executive SUV for families and VIP groups â€” extra legroom, big luggage space, and a smooth ride.",
+    description: "Spacious executive SUV for families and VIP groups — extra legroom, big luggage space, and a smooth ride.",
+    popularRoute: {
+      routeSlug: "jeddah-airport-to-makkah",
+      title: "GMC Yukon Chauffeur — Jeddah Airport to Makkah",
+      description: "The GMC Yukon XL is the most requested vehicle for the Jeddah Airport to Makkah corridor — spacious enough for a full family or Umrah group with luggage, arranged with a professional chauffeur door-to-door from King Abdulaziz International Airport to your Makkah hotel or the Haram, with a stop at the Miqat on request.",
+      faqs: [
+        { question: "How much does a GMC Yukon cost from Jeddah Airport to Makkah?", answer: "The GMC Yukon on this route is arranged from around SAR 374, confirmed on WhatsApp based on your exact pickup time, passenger count, and luggage — message us for a clear quote before booking." },
+        { question: "Is the GMC Yukon a private vehicle or shared?", answer: "Private — one GMC Yukon and one chauffeur exclusively for your party, not a shared shuttle, for the full Jeddah Airport to Makkah journey." },
+        { question: "How many passengers and bags fit in the Yukon for this route?", answer: "Up to 7 passengers and 5 large suitcases, making it the practical choice for families or small Umrah groups travelling together with luggage." },
+      ],
+    },
   },
   {
     slug: "hyundai-staria",

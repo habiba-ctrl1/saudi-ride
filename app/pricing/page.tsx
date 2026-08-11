@@ -8,6 +8,8 @@ import Link from "next/link";
 import { trackEvent } from "@/lib/analytics";
 import { ROUTES_DATA } from "@/lib/data/routes";
 import { VEHICLE_PRICE_MULTIPLIERS } from "@/lib/data/vehicleMultipliers";
+import { contactConfig } from "@/lib/config/contact";
+import { MessageCircle } from "lucide-react";
 
 const translations = {
   en: {
@@ -23,7 +25,7 @@ const translations = {
     labelDistance: "Estimated Route Distance",
     labelDuration: "Approximate Transit Duration",
     estPriceTitle: "All-Inclusive Fixed Fare",
-    estNotice: "Rates include your driver, fuel, toll fees, airport parking, and VAT. The price shown is the final price — no extra charges.",
+    estNotice: "Final pricing depends on your exact route, vehicle, date, passengers, and any waiting time — message us on WhatsApp for a clear, confirmed quote before you book.",
     bookBtn: "Proceed to Booking",
 
     // Matrices
@@ -362,27 +364,32 @@ export default function PricingPage() {
             <div className="text-center md:text-right space-y-4 shrink-0">
               <div>
                 <span className="text-[0.6rem] uppercase tracking-widest text-[#C9A84C] font-bold block mb-1">{t.estPriceTitle}</span>
-                {fixedRoute?.priceOnRequest ? (
-                  <span className="font-heading text-xl font-extrabold text-[#C9A84C]">Confirmed on WhatsApp</span>
-                ) : (
-                  <span className="font-heading text-4xl font-extrabold text-[#C9A84C]">{calculatedPrice} <span className="text-lg">SAR</span></span>
-                )}
+                <span className="font-heading text-xl font-extrabold text-[#C9A84C]">
+                  {language === "ar" ? "يُؤكَّد عبر واتساب" : "Confirmed on WhatsApp"}
+                </span>
               </div>
-              <Link
-                href={`/book?from=${fromCity}&to=${toCity}&class=${vehicleClass}`}
+              <a
+                href={`${contactConfig.whatsappLink}?text=${encodeURIComponent(
+                  (language === "ar"
+                    ? `السلام عليكم، أرغب بعرض سعر:\n\n• من: ${CITIES.find((c) => c.key === fromCity)?.labelAr}\n• إلى: ${CITIES.find((c) => c.key === toCity)?.labelAr}\n• نوع السيارة: ${vehicleClass}\n• التاريخ والوقت: `
+                    : `Salam! I'd like a quote:\n\n• From: ${CITIES.find((c) => c.key === fromCity)?.labelEn}\n• To: ${CITIES.find((c) => c.key === toCity)?.labelEn}\n• Vehicle: ${vehicleClass}\n• Date & time: `)
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => {
-                  trackEvent("booking_started", {
+                  trackEvent("lead_captured", {
+                    source: "pricing_page",
                     fromCity,
                     toCity,
                     vehicleClass,
-                    locale: language
+                    locale: language,
                   });
                 }}
                 className="inline-flex items-center gap-2 rounded-xl bg-[#16A34A] px-6 py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-colors shadow-lg"
               >
-                <span>{t.bookBtn}</span>
-                <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
+                <MessageCircle className="h-3.5 w-3.5 fill-current" />
+                <span>{language === "ar" ? "احصل على السعر عبر واتساب" : "Get Price on WhatsApp"}</span>
+              </a>
             </div>
           </div>
 

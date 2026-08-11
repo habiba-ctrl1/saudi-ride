@@ -777,6 +777,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "How long is the taxi from Riyadh to Dubai?", answer: "Riyadh to Dubai is about 990 km — roughly a 9-hour drive plus time at the Saudi–UAE border (Al Batha crossing)." },
       { question: "What documents do I need for the border?", answer: "You need a valid passport and the correct UAE entry visa or eligibility. Share your details in advance so we can advise and prepare for a smooth crossing." },
       { question: "How much is a taxi from Riyadh to Dubai?", answer: "The fare is fixed from SAR 1200, confirmed before booking. We use comfortable vehicles suited to the long cross-border journey." },
+      { question: "Can I get a private car with a driver from Riyadh to Dubai?", answer: "Yes. We arrange a private car with a professional driver for the full Riyadh to Dubai journey — not a shared ride — with one vehicle and driver for your whole party door-to-door." },
     ],
   },
   "dammam-to-doha": {
@@ -1160,6 +1161,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "madinah-to-jeddah-airport": "Taxi Madinah to Jeddah Airport — Fare Confirmed on WhatsApp",
     "jeddah-to-madinah": "Taxi Jeddah to Madinah (Madina) — Fare Confirmed on WhatsApp",
     "madinah-airport-to-city": "Madinah Airport Taxi & Car Service — From SAR 80",
+    "riyadh-to-dubai": "Private Car with Driver — Riyadh to Dubai — From SAR 1200",
   };
   const title = TITLE_OVERRIDES[slug] ?? (routeLabel.length > 55 ? routeLabel : `${routeLabel} | Taxi Saudi Arabia`);
   const priceBlurb = route.priceOnRequest ? "confirmed on WhatsApp" : `From SAR ${route.basePrice}`;

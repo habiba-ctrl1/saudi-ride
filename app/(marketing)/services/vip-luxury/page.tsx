@@ -117,9 +117,10 @@ export default function VIPLuxuryPage() {
       </section>
       {(() => {
         const faqs = [
-          { question: "Which luxury vehicles are available?", answer: "Our VIP fleet includes the Mercedes S-Class, BMW 7-Series, GMC Yukon, and Cadillac Escalade, subject to availability." },
-          { question: "Are chauffeurs trained for VIP clients?", answer: "Yes. Our executive chauffeurs are bilingual, professionally attired, and trained in discretion and privacy." },
-          { question: "Can I book luxury transport for a full day or event?", answer: "Yes. We offer hourly charter, full-day standby, and event transport for weddings, conferences, and VIP visits." },
+          { question: "Which luxury vehicles are available?", answer: "We arrange the Mercedes S-Class, BMW 7-Series, GMC Yukon, and Cadillac Escalade through our transportation partners, subject to availability." },
+          { question: "Are chauffeurs trained for VIP clients?", answer: "Yes. The professional chauffeurs we work with are bilingual, professionally attired, and experienced with discretion and privacy for VIP clients." },
+          { question: "Can I book luxury transport for a full day or event?", answer: "Yes. We arrange hourly charter, full-day standby, and event transport for weddings, conferences, and VIP visits." },
+          { question: "Can I hire a car with a private driver in Riyadh or Jeddah?", answer: "Yes. We arrange private cars with professional drivers in Riyadh, Jeddah, and across Saudi Arabia for business, leisure, and full-day hire — message us on WhatsApp with your dates and vehicle preference for a quote." },
         ];
         return (
           <>

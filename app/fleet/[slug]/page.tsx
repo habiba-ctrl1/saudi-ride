@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import { Users, Briefcase, CheckCircle, MessageCircle, ChevronLeft, Wifi, Wind, Shield } from "lucide-react";
 import { FLEET_VEHICLES } from "@/lib/fleet-data";
 import { contactConfig } from "@/lib/config/contact";
+import { faqSchema } from "@/lib/schema";
 
 // ─── Static Params ─────────────────────────────────────────────────────────
 export async function generateStaticParams() {
@@ -137,6 +138,12 @@ export default async function VehicleDetailPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
       />
+      {vehicle.popularRoute && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(vehicle.popularRoute.faqs)) }}
+        />
+      )}
 
       {/* ─── HERO IMAGE ───────────────────────────────────────────── */}
       <section className="relative h-[55vh] min-h-[380px] w-full overflow-hidden">
@@ -238,12 +245,33 @@ export default async function VehicleDetailPage({
               <h2 className="font-heading text-xl font-bold text-[#1C1C1C]">About This Vehicle</h2>
               <p className="text-sm text-[#6B7280] leading-relaxed">{vehicle.description}</p>
               <p className="text-sm text-[#6B7280] leading-relaxed">
-                All vehicles in our fleet are professionally maintained to the highest standards, 
-                regularly inspected, and operated exclusively by certified Saudi Transport Authority licensed drivers.
-                Whether you are heading to Makkah for Umrah, catching a flight from Jeddah, or attending a high-level 
-                business meeting in Riyadh — the {vehicle.name} delivers an experience befitting your status.
+                We arrange the {vehicle.name} through our transportation partners, with a professional
+                chauffeur for your journey. Whether you are heading to Makkah for Umrah, catching a flight
+                from Jeddah, or attending a high-level business meeting in Riyadh — the {vehicle.name}
+                delivers an experience befitting your status.
               </p>
             </div>
+
+            {vehicle.popularRoute && (
+              <div className="rounded-3xl border border-[#C9A84C]/10 bg-white p-7 space-y-4">
+                <h2 className="font-heading text-xl font-bold text-[#1C1C1C]">{vehicle.popularRoute.title}</h2>
+                <p className="text-sm text-[#6B7280] leading-relaxed">{vehicle.popularRoute.description}</p>
+                <div className="space-y-3">
+                  {vehicle.popularRoute.faqs.map((faq) => (
+                    <div key={faq.question} className="border-t border-[#C9A84C]/10 pt-3">
+                      <h3 className="text-sm font-bold text-[#1C1C1C] mb-1">{faq.question}</h3>
+                      <p className="text-xs text-[#6B7280] leading-relaxed">{faq.answer}</p>
+                    </div>
+                  ))}
+                </div>
+                <Link
+                  href={`/routes/${vehicle.popularRoute.routeSlug}`}
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#16A34A] hover:underline"
+                >
+                  View full route details &rarr;
+                </Link>
+              </div>
+            )}
 
           </div>
 
@@ -261,12 +289,12 @@ export default async function VehicleDetailPage({
                   </div>
                   <div className="flex items-center gap-1 bg-[#C9A84C]/10 border border-[#C9A84C]/25 rounded-full px-3 py-1.5">
                     <Shield className="h-3.5 w-3.5 text-[#C9A84C]" />
-                    <span className="text-[0.6rem] font-bold text-[#16A34A]">Fixed Price</span>
+                    <span className="text-[0.6rem] font-bold text-[#16A34A]">Clear Quote</span>
                   </div>
                 </div>
 
                 <div className="space-y-2.5 border-y border-[#C9A84C]/8 py-4 text-[0.65rem] text-[#6B7280]">
-                  {["Free cancellation 24h before", "No hidden fees", "Professional licensed driver", "Guaranteed on-time pickup"].map((p) => (
+                  {["Free cancellation 24h before", "No hidden fees", "Professional chauffeur", "On-time pickup"].map((p) => (
                     <div key={p} className="flex items-center gap-2">
                       <CheckCircle className="h-3.5 w-3.5 text-[#C9A84C] shrink-0" />
                       <span>{p}</span>

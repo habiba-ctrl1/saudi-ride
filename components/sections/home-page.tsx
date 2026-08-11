@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/context/LanguageContext";
 import { contactConfig } from "@/lib/config/contact";
-import PriceCalculator from "@/components/booking/PriceCalculator";
+import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { ParallaxSection } from "./ParallaxSection";
 import { trustStats } from "@/lib/config/stats";
 import { ROUTES_DATA } from "@/lib/data/routes";
@@ -137,7 +137,7 @@ const homeTranslations = {
     },
     clientele: "Trusted by Pilgrims, Business Travelers & Families Across Saudi Arabia",
     misc: {
-      instantCalc: "Instant Price Calculator",
+      instantCalc: "Get a Quote",
       bookNow: "Book Now",
       callWhatsApp: "Call or WhatsApp 24/7",
       viewAllRoutes: "View All Taxi Routes in Saudi Arabia →",
@@ -311,7 +311,7 @@ const homeTranslations = {
     },
     clientele: "موثوقون لدى ضيوف الرحمن ورجال الأعمال والعائلات في جميع أنحاء المملكة",
     misc: {
-      instantCalc: "حاسبة الأسعار الفورية",
+      instantCalc: "احصل على عرض سعر",
       bookNow: "احجز الآن",
       callWhatsApp: "اتصل أو واتساب ٢٤/٧",
       viewAllRoutes: "عرض جميع مسارات التاكسي في السعودية ←",
@@ -979,16 +979,16 @@ export function HomePage() {
             style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", letterSpacing: "-0.02em", color: "#0F172A" }}
           >
             {language === "ar"
-              ? "احجز تاكسيك الآن — احسب السعر فوراً"
-              : "Get an Instant Taxi Price Quote"}
+              ? "احصل على عرض سعر لرحلتك عبر واتساب"
+              : "Get Your Taxi Quote on WhatsApp"}
           </h2>
           <p className="max-w-xl mx-auto text-sm" style={{ color: "#6B7280" }}>
             {language === "ar"
-              ? "احسب سعر رحلتك بدقة لأي مسار في المملكة — بدون رسوم مخفية أو زيادة مفاجئة"
-              : "Get an exact price for your taxi ride anywhere in Saudi Arabia — fixed fare, no hidden charges, no surge pricing."}
+              ? "شارك تفاصيل رحلتك وسنرد عليك بعرض سعر واضح خلال دقائق — بدون رسوم مخفية أو زيادة مفاجئة"
+              : "Share your trip details and get a clear price back within minutes — no hidden charges, no surge pricing."}
           </p>
         </div>
-        <PriceCalculator />
+        <WhatsAppQuoteForm />
       </section>
 
       {/* SECTION 4 — SERVICES */}
