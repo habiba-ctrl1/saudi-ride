@@ -58,7 +58,19 @@ export const SUB_AREAS: Record<string, {
   },
   "al-malaz": { city: "riyadh", subarea: "al-malaz", name: "Al Malaz", nameAr: "الملز", description: "Local and intercity taxi bookings from Al Malaz, Riyadh." },
   "al-murabba": { city: "riyadh", subarea: "al-murabba", name: "Al Murabba", nameAr: "المربع", description: "Historical Al Murabba taxi and private transport services." },
-  "diriyah": { city: "riyadh", subarea: "diriyah", name: "Diriyah", nameAr: "الدرعية", description: "Heritage tours and luxury transfers to At-Turaif and Diriyah." },
+  "diriyah": {
+    city: "riyadh", subarea: "diriyah", name: "Diriyah", nameAr: "الدرعية",
+    description: "Heritage tours and luxury transfers from Riyadh to At-Turaif and Diriyah, about 20 minutes from central Riyadh.",
+    airportMin: "~35 min", makkahMin: "—", airportLabel: "King Khalid Airport (RUH)", popularFor: "At-Turaif UNESCO site, Bujairi Terrace, heritage tours",
+    landmarks: ["At-Turaif District (UNESCO)", "Bujairi Terrace", "Wadi Hanifa"],
+    tldr: "A taxi from Riyadh to Diriyah takes about 20 minutes from central Riyadh (Olaya, King Fahd Road) to At-Turaif and Bujairi Terrace, with fixed pricing confirmed before booking and no surge.",
+    tldrFacts: [{ label: "From Riyadh", value: "~20 min" }, { label: "To RUH", value: "~35 min" }, { label: "Pricing", value: "Confirmed on WhatsApp" }, { label: "Hours", value: "24/7" }],
+    faqs: [
+      { question: "How do I get from Riyadh to Diriyah?", answer: "Book a taxi or private transfer from anywhere in Riyadh to Diriyah — it's about 20 minutes from central Riyadh (Olaya, King Fahd Road) to At-Turaif and Bujairi Terrace, with fixed pricing confirmed before booking and no surge." },
+      { question: "How much does a taxi from Riyadh to Diriyah cost?", answer: "Pricing is confirmed on WhatsApp before your trip based on pickup location and vehicle — message us your Riyadh pickup point for an instant quote, including waiting time if you want a round trip." },
+      { question: "What is there to see in Diriyah?", answer: "Diriyah is home to At-Turaif, a UNESCO World Heritage Site and birthplace of the first Saudi state, plus the restaurants and cafes of Bujairi Terrace overlooking Wadi Hanifa." },
+    ],
+  },
   // Jeddah (Wave 3 — rich programmatic pages)
   "al-balad": {
     city: "jeddah", subarea: "al-balad", name: "Al Balad (Historical Jeddah)", nameAr: "البلد",

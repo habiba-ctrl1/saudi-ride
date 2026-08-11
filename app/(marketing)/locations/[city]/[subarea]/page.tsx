@@ -56,14 +56,21 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const area = SUB_AREAS[areaKey];
   const capitalizedCity = city.charAt(0).toUpperCase() + city.slice(1);
 
+  // Diriyah gets a directional title (matches "Riyadh to Diriyah" search
+  // intent) instead of the generic "Taxi in X, City" formula every other
+  // subarea page uses.
+  const title = areaKey === "diriyah"
+    ? `Riyadh to Diriyah Taxi — At-Turaif & Bujairi Transfer | Taxi Saudi Arabia`
+    : `Taxi & Private Transfer in ${area.name}, ${capitalizedCity} | Taxi Saudi Arabia`;
+
   return {
-    title: `Taxi & Private Transfer in ${area.name}, ${capitalizedCity} | Taxi Saudi Arabia`,
+    title,
     description: area.description,
     alternates: {
       canonical: `https://taxisaudiarabia.com/locations/${city}/${subarea}`,
     },
     openGraph: {
-      title: `Taxi in ${area.name}, ${capitalizedCity} — Book Now`,
+      title: areaKey === "diriyah" ? "Riyadh to Diriyah Taxi — Book Now" : `Taxi in ${area.name}, ${capitalizedCity} — Book Now`,
       description: area.description,
     },
   };

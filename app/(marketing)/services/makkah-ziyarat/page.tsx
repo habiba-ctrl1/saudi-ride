@@ -53,6 +53,7 @@ const FAQS = [
   { question: "How long does a Makkah Ziyarat tour take?", answer: "A typical tour takes 3 to 4 hours. You can book a half-day or full-day tour depending on how long you wish to spend at each site." },
   { question: "Can you also take us to the Meeqat for Ihram?", answer: "Yes. If you need to assume Ihram, we can include a stop at Masjid Aisha (Tan'eem) or the nearest Meeqat during your tour." },
   { question: "Do you pick up from my Makkah hotel?", answer: "Yes. We offer pickup and drop-off directly from your hotel in Aziziyah, Ajyad, the Haram area, and other Makkah districts." },
+  { question: "Is Makkah Ziyarat available as a private taxi service?", answer: "Yes — this is a private, licensed taxi with your own driver and vehicle for the day, not a shared group bus tour. Book via WhatsApp or online in advance." },
 ];
 
 export default function MakkahZiyaratPage() {

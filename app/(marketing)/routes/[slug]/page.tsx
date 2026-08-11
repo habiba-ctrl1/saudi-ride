@@ -160,6 +160,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "How much is a taxi from Jeddah to Makkah?", answer: "The fare is fixed from SAR 199 for a sedan. SUVs and vans are available for families and extra luggage. The price is confirmed before booking, with tolls included and no surge." },
       { question: "Can you pick me up from my Jeddah hotel?", answer: "Yes. We offer door-to-door pickup from any hotel, residence, or address in Jeddah and drop you directly at your Makkah hotel or close to Masjid al-Haram." },
       { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes — let us know when booking and the driver will stop at the Miqat so you can enter Ihram before reaching Makkah." },
+      { question: "Do you offer a taxi service from Jeddah to Mecca?", answer: "Yes, Taxi Saudi Arabia is a licensed taxi service running fixed-price transfers from Jeddah to Makkah (Mecca) 24/7, with door-to-door pickup and Miqat stops for Umrah pilgrims." },
     ],
   },
   "jeddah-airport-to-jeddah-city": {
@@ -217,7 +218,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
     faqs: [
       { question: "How far is Jeddah from Madinah?", answer: "Jeddah is about 420 km from Madinah — roughly a 4 to 5 hour drive on the Haramain highway." },
-      { question: "How much is a taxi from Jeddah to Madinah?", answer: "The exact fare is confirmed on WhatsApp before booking, based on your vehicle choice — sedan, SUV, or van for families. Tolls included, no surge." },
+      { question: "What is the taxi fare from Jeddah to Madinah (Madina)?", answer: "The exact fare is confirmed on WhatsApp before booking, based on your vehicle choice — sedan, SUV, or van for families. Tolls included, no surge." },
       { question: "Can you collect me from my Jeddah hotel?", answer: "Yes, we provide door-to-door pickup from any Jeddah hotel or address and drop you at your Madinah hotel near Masjid an-Nabawi." },
       { question: "Are prayer and rest stops included?", answer: "Yes. Short stops for prayer and refreshments are included on this long-distance route — just tell your driver." },
     ],
@@ -297,6 +298,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "How much is a taxi from Madinah airport to my hotel?", answer: "The fare is fixed from SAR 80 for a sedan, confirmed before booking, with meet & greet at arrivals and larger vehicles for families." },
       { question: "Will the driver meet me at arrivals?", answer: "Yes. We track your flight and your driver waits in the arrivals hall with a name sign, then helps with your luggage to the car." },
       { question: "Is the airport transfer available for late-night flights?", answer: "Yes, we operate 24/7, so your driver is ready even for late-night or early-morning arrivals at MED." },
+      { question: "Is there a car service or cab from Madinah airport?", answer: "Yes — our licensed car service (cab) meets you at Prince Mohammad Bin Abdulaziz Airport (MED) arrivals and drives you directly to your Madinah hotel, fixed from SAR 80." },
     ],
   },
   "madinah-to-makkah": {
@@ -339,7 +341,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
     faqs: [
       { question: "How far is Madinah from Jeddah airport?", answer: "Madinah to King Abdulaziz International Airport (JED) is about 410 km — roughly a 4 to 5 hour drive on the Haramain highway." },
-      { question: "How much is a taxi from Madinah to Jeddah airport?", answer: "The exact fare is confirmed on WhatsApp before booking, based on your vehicle choice — sedan, SUV, or van for families and luggage. Tolls included." },
+      { question: "What is the taxi fare from Madinah to Jeddah airport?", answer: "The exact fare is confirmed on WhatsApp before booking, based on your vehicle choice — sedan, SUV, or van for families and luggage. Tolls included." },
       { question: "Can you collect me from my Madinah hotel for the airport?", answer: "Yes, we provide door-to-door pickup from your Madinah hotel after Ziyarah and take you directly to Jeddah Airport for your flight." },
       { question: "Should I leave extra time for this departure?", answer: "Yes. For a long-distance airport transfer we recommend departing with comfortable buffer time before check-in, especially during Hajj and Ramadan seasons." },
     ],
@@ -458,6 +460,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "How long is the taxi from Riyadh to Dammam?", answer: "Riyadh to Dammam is about 390 km — roughly a 3.5-hour drive on Highway 40, with rest stops on request." },
       { question: "How much is a taxi from Riyadh to Dammam?", answer: "The fare is fixed from SAR 699 for a sedan, with SUVs and vans available. The exact price is confirmed before booking, with no surge." },
       { question: "Can I book a corporate car for this route?", answer: "Yes. We offer executive sedans and SUVs with professional drivers for the Riyadh–Dammam corporate corridor, with hourly and one-way options." },
+      { question: "What is the distance between Riyadh and Dammam?", answer: "The distance between Riyadh and Dammam is about 390 km by road, a roughly 3.5-hour drive on Highway 40." },
     ],
   },
   "dammam-airport-to-jubail": {
@@ -759,6 +762,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "How far is Dammam from Doha?", answer: "Dammam to Doha is about 400 km — roughly a 4-hour drive plus time at the Saudi–Qatar border crossing at Salwa." },
       { question: "What do I need to cross into Qatar?", answer: "A valid passport and the correct Qatar entry permit or visa. Share your details in advance so we can prepare for a smooth border crossing." },
       { question: "How much is a taxi from Dammam to Doha?", answer: "The fare is fixed from SAR 500, confirmed before booking, with comfortable vehicles for the cross-border journey." },
+      { question: "Is there a taxi from Khobar to Doha?", answer: "Yes — Al Khobar and Dammam are twin cities about 15 km apart, so this same Dammam–Doha service picks up from Khobar hotels and addresses at the same fixed fare and border-crossing support." },
     ],
   },
   "riyadh-to-doha": {
@@ -1098,11 +1102,21 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const routeLabel = route.priceOnRequest
     ? `Taxi ${route.fromCity} to ${route.toCity} — Price on Request`
     : `Taxi ${route.fromCity} to ${route.toCity} — From SAR ${route.basePrice}`;
-  const title = slug === "jeddah-airport-to-makkah"
-    ? "Taxi Jeddah Airport to Makkah — From SAR 249"
-    : slug === "makkah-to-madinah"
-    ? "Taxi Makkah to Madinah — Fixed Price From SAR 499"
-    : (routeLabel.length > 55 ? routeLabel : `${routeLabel} | Taxi Saudi Arabia`);
+  // Per-slug overrides below match literal Search Console query phrasing for
+  // pages that already get impressions but zero clicks — title/CTR fixes
+  // only, no price or content claims changed. Formula below still covers
+  // every other route.
+  const TITLE_OVERRIDES: Record<string, string> = {
+    "jeddah-airport-to-makkah": "Taxi Jeddah Airport to Makkah — Fare From SAR 249",
+    "makkah-to-madinah": "Taxi Makkah to Madinah — Fixed Price From SAR 499",
+    "riyadh-to-dammam": "Taxi Riyadh to Dammam — Price, Fare & Distance (390km)",
+    "dammam-to-doha": "Taxi Dammam to Doha, Qatar — Cross-Border Fare From SAR 500",
+    "jeddah-to-makkah": "Jeddah to Makkah (Mecca) Taxi Service — From SAR 199",
+    "madinah-to-jeddah-airport": "Taxi Madinah to Jeddah Airport — Fare Confirmed on WhatsApp",
+    "jeddah-to-madinah": "Taxi Jeddah to Madinah (Madina) — Fare Confirmed on WhatsApp",
+    "madinah-airport-to-city": "Madinah Airport Taxi & Car Service — From SAR 80",
+  };
+  const title = TITLE_OVERRIDES[slug] ?? (routeLabel.length > 55 ? routeLabel : `${routeLabel} | Taxi Saudi Arabia`);
   const priceBlurb = route.priceOnRequest ? "confirmed on WhatsApp" : `From SAR ${route.basePrice}`;
 
   return {
