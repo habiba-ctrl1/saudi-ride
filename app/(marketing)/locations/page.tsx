@@ -89,6 +89,19 @@ const LOCATIONS = [
     slug: "jubail"
   },
   {
+    id: "dhahran",
+    name: "Dhahran",
+    nameAr: "الظهران",
+    category: "city",
+    image: "/locations/dammam-hero.webp",
+    tagline: "Home of Saudi Aramco & KFUPM",
+    airports: ["King Fahd International Airport (DMM, ~25 km)"],
+    popularRoutes: ["DMM Airport → Dhahran", "Dhahran → Al Khobar", "Dhahran → Jubail"],
+    startingPrice: 100,
+    note: "Corporate transfers to Saudi Aramco HQ, KFUPM, and Dhahran Techno Valley — monthly billing available.",
+    slug: "dhahran"
+  },
+  {
     id: "alkhobar",
     name: "Al-Khobar",
     nameAr: "الخبر",

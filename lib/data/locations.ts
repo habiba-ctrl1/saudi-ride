@@ -191,6 +191,41 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { question: "Is taxi available in Dammam 24/7?", answer: "Yes, we operate around the clock in the Eastern Province for airport transfers, corporate travel, cross-border trips, and intercity journeys — at fixed prices with no surge." }
     ]
   },
+  dhahran: {
+    name: "Dhahran",
+    nameAr: "الظهران",
+    image: "/locations/dammam-hero.webp",
+    tagline: "Home of Saudi Aramco & KFUPM",
+    description: "Book a fixed-price taxi in Dhahran for transfers to and from King Fahd International Airport (DMM) (~25 km, ~25 min), corporate travel to Saudi Aramco headquarters, Dhahran Techno Valley, and King Fahd University of Petroleum & Minerals (KFUPM), plus connections to Dammam, Al Khobar, and Jubail. Our drivers know Aramco gate procedures, visitor-badge waiting areas, and shift-change traffic, and we offer monthly corporate accounts for contractors and companies who need consolidated billing instead of per-ride payment. Fares are fixed in advance with no surge pricing.",
+    tldr: "Taxi Saudi Arabia provides 24/7 fixed-price taxi service in Dhahran — King Fahd International Airport (DMM) transfers (~25 km, ~25 min), corporate transport to Saudi Aramco HQ and KFUPM, and connections to Dammam, Al Khobar, and Jubail. Monthly corporate billing available for contractor accounts.",
+    tldrFacts: [
+      { label: "Airport (DMM)", value: "~25 km · ~25 min" },
+      { label: "To Al Khobar", value: "~15 km · ~15 min" },
+      { label: "To Jubail", value: "~85 km · ~60 min" },
+      { label: "Pricing", value: "Fixed, no surge" }
+    ],
+    attractions: [
+      { name: "Saudi Aramco Headquarters", dist: "City Area" },
+      { name: "KFUPM (King Fahd University)", dist: "3 km" },
+      { name: "Dhahran Techno Valley", dist: "4 km" },
+      { name: "Ithra (King Abdulaziz Center)", dist: "6 km" },
+      { name: "King Fahd Airport (DMM)", dist: "~25 km" },
+      { name: "Al Khobar / Dammam", dist: "~15–25 km" }
+    ],
+    tips: [
+      "Aramco and KFUPM sites require visitor badges or gate clearance — share your host company and gate name when booking so the driver can plan the correct entry point and waiting area.",
+      "King Fahd International Airport (DMM) is about 25 minutes from Dhahran — one of the shortest airport transfers in the Eastern Province.",
+      "Contractors and companies can set up a monthly corporate account instead of paying per trip — ask about invoicing.",
+      "Dhahran, Al Khobar, Dammam, and Jubail are all served by the same Eastern Province driver network for same-day bookings."
+    ],
+    faqs: [
+      { question: "How much is a taxi from Dhahran to Dammam airport?", answer: "A fixed-price taxi from Dhahran to King Fahd International Airport (DMM) starts from around SAR 100 for a sedan, with SUVs and vans available. It's about 25 km — roughly a 25-minute drive." },
+      { question: "Do you offer corporate accounts for Saudi Aramco contractors?", answer: "Yes. We offer monthly corporate billing for contractors, consultants, and companies working with Saudi Aramco, KFUPM, or based in Dhahran Techno Valley — a dedicated account manager and consolidated invoicing instead of per-trip payment. Contact us via WhatsApp to set one up." },
+      { question: "Can you pick up visitors from inside Aramco or KFUPM gates?", answer: "Share your host company, badge type, and gate name when booking so the driver can plan the correct visitor entry point and waiting area — some Aramco facilities have restricted access requiring advance notice." },
+      { question: "How far is Dhahran from Al Khobar and Jubail?", answer: "Dhahran is about 15 km from Al Khobar (roughly 15 minutes) and 85 km from Jubail (roughly an hour). We serve all three cities with the same Eastern Province driver network." },
+      { question: "Is taxi available in Dhahran 24/7?", answer: "Yes, we run 24/7 in Dhahran, including early-morning and late-night pickups for shift workers, contractors, and airport connections." }
+    ]
+  },
   jubail: {
     name: "Jubail",
     nameAr: "الجبيل",

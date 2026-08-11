@@ -478,6 +478,35 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "Can the driver access restricted plant gates in Jubail?", answer: "Share your company name and site/gate location when booking so the driver can plan the correct access route — some plants have restricted entry points and ID checks." },
     ],
   },
+  "dammam-airport-to-dhahran": {
+    tldr: "A taxi from King Fahd International Airport (DMM) to Dhahran is about 25 km and takes roughly 25 minutes — one of the shortest airport transfers in the Eastern Province. The fare is fixed from SAR 100, with corporate accounts available for Saudi Aramco and KFUPM visitors.",
+    tldrFacts: [
+      { label: "Distance", value: "~25 km" },
+      { label: "Time", value: "~25 minutes" },
+      { label: "From", value: "SAR 100" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How long does the trip from Dammam airport to Dhahran take?", answer: "The drive is about 25 km and takes roughly 25 minutes — one of the shortest airport-to-city runs in the Eastern Province." },
+      { question: "How much is a taxi from Dammam airport to Dhahran?", answer: "The fare is fixed from SAR 100 for a sedan, with SUVs and vans available. The price is confirmed before booking, with no surge." },
+      { question: "Do you offer corporate accounts for Saudi Aramco or KFUPM?", answer: "Yes. Contractors, consultants, and companies working with Saudi Aramco, KFUPM, or based in Dhahran Techno Valley can set up monthly corporate billing instead of paying per trip — message us on WhatsApp to arrange an account." },
+      { question: "Can the driver pick up visitors from inside Aramco or KFUPM gates?", answer: "Share your host company, badge type, and gate name when booking so the driver can plan the correct visitor entry point — some facilities require advance notice for access." },
+    ],
+  },
+  "dhahran-to-dammam-airport": {
+    tldr: "A taxi from Dhahran to King Fahd International Airport (DMM) is about 25 km and takes roughly 25 minutes. The fare is fixed from SAR 100, with meet & greet pickup from Saudi Aramco, KFUPM, or any Dhahran hotel or address.",
+    tldrFacts: [
+      { label: "Distance", value: "~25 km" },
+      { label: "Time", value: "~25 minutes" },
+      { label: "From", value: "SAR 100" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Dhahran from Dammam airport?", answer: "Dhahran is about 25 km from King Fahd International Airport (DMM) — roughly a 25-minute drive, traffic permitting." },
+      { question: "How much is a taxi from Dhahran to the airport?", answer: "The fare is fixed from SAR 100 for a sedan, confirmed before booking, with larger vehicles available for groups and luggage." },
+      { question: "Can you collect me from Saudi Aramco or KFUPM for my flight?", answer: "Yes, we provide door-to-door pickup from Aramco facilities, KFUPM, Dhahran Techno Valley, or any hotel or address in Dhahran, timed to your flight." },
+    ],
+  },
   "riyadh-to-alkhobar": {
     tldr: "A taxi from Riyadh to Al Khobar is about 400 km and takes roughly 3 hours 40 minutes on Highway 40. The fare is fixed from SAR 320, door-to-door to the Eastern Province waterfront city.",
     tldrFacts: [
@@ -863,6 +892,21 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "How far is AlUla airport from the resorts?", answer: "AlUla International Airport (ULH) is about 30 km from the main resort area — roughly a 30-minute transfer." },
       { question: "How much is a taxi from AlUla airport to my resort?", answer: "The fare is fixed from SAR 150, confirmed before booking, with meet & greet at arrivals and SUVs available for luggage." },
       { question: "Can you arrange sightseeing after my transfer?", answer: "Yes. We offer onward trips to Hegra, Dadan, Elephant Rock, and the Old Town with a driver and flexible waiting time." },
+    ],
+  },
+  "alula-airport-to-banyan-tree": {
+    tldr: "A private VIP taxi from AlUla Airport (ULH) to Banyan Tree AlUla is about 35 km and takes around 35 minutes. The fare is fixed from SAR 220, in a luxury SUV or VIP sedan, with meet & greet at arrivals for the resort's guests.",
+    tldrFacts: [
+      { label: "Distance", value: "~35 km" },
+      { label: "Time", value: "~35 min" },
+      { label: "From", value: "SAR 220" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is AlUla airport from Banyan Tree AlUla?", answer: "AlUla International Airport (ULH) is about 35 km from Banyan Tree AlUla, in Ashar Valley — roughly a 35-minute private transfer through the sandstone canyons." },
+      { question: "How much is a private transfer to Banyan Tree AlUla?", answer: "The fare is fixed from SAR 220 in a luxury SUV or VIP sedan, confirmed before booking, with meet & greet at arrivals and help with luggage." },
+      { question: "Is this a shared shuttle or a private car?", answer: "This is a private, chauffeur-driven vehicle exclusively for you and your party — not a shared shuttle — matching the resort's VIP standard." },
+      { question: "Can you arrange a full-day driver for Hegra or Elephant Rock during my stay?", answer: "Yes. We offer full-day and half-day private chauffeur hire from Banyan Tree AlUla to Hegra, Elephant Rock, Dadan, and the Old Town, with flexible waiting time." },
     ],
   },
   "jeddah-to-alula": {
