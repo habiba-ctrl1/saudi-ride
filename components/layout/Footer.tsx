@@ -6,39 +6,39 @@ import { ShieldCheck, Receipt, BadgeCheck, PhoneCall } from "lucide-react";
 
 const translations = {
   en: {
-    tagline: "Trusted taxi and car service in Saudi Arabia. Airport transfers, Umrah trips, intercity rides, and business travel — fixed prices, licensed drivers, available 24/7.",
+    tagline: "Trusted taxi and car service in Saudi Arabia. Airport transfers, Umrah trips, intercity rides, and business travel — clear quotes on WhatsApp, professional chauffeurs, available 24/7.",
     destinations: "Destinations",
     services: "Services",
     popularRoutes: "Popular Routes",
     company: "Company",
     copyright: "© 2026 Taxi Saudi Arabia. All rights reserved. Created with absolute elegance.",
-    motLicensed: "Licensed Drivers",
+    motLicensed: "Professional Chauffeurs",
     zatcaCompliant: "ZATCA-Ready Invoicing",
-    tgaCertified: "Fixed-Price Fares",
+    tgaCertified: "Clear Quotes",
     support247: "24/7 Customer Support",
   },
   ar: {
-    tagline: "خدمة تاكسي وسيارات موثوقة في المملكة العربية السعودية. توصيل المطارات، رحلات العمرة، التنقل بين المدن وسفر الأعمال — أسعار ثابتة وسائقون مرخصون على مدار الساعة.",
+    tagline: "خدمة تاكسي وسيارات موثوقة في المملكة العربية السعودية. توصيل المطارات، رحلات العمرة، التنقل بين المدن وسفر الأعمال — عروض أسعار واضحة عبر واتساب، سائقون محترفون، على مدار الساعة.",
     destinations: "الوجهات والشحنات",
     services: "خدماتنا",
     popularRoutes: "أشهر المسارات",
     company: "الشركة",
     copyright: "© 2026 تاكسي السعودية. جميع الحقوق محفوظة. صُنع بأناقة مطلقة.",
-    motLicensed: "سائقون مرخصون",
+    motLicensed: "سائقون محترفون",
     zatcaCompliant: "خاضع لهيئة الزكاة والضريبة",
-    tgaCertified: "أسعار ثابتة",
+    tgaCertified: "عروض أسعار واضحة",
     support247: "دعم VIP على مدار الساعة",
   },
   ur: {
-    tagline: "سعودی عرب میں قابل اعتماد ٹیکسی اور کار سروس۔ ایئرپورٹ ٹرانسفر، عمرہ سفر، بین شہر سواری اور بزنس ٹریول — فکسڈ قیمتیں، لائسنس یافتہ ڈرائیورز، 24/7 دستیاب۔",
+    tagline: "سعودی عرب میں قابل اعتماد ٹیکسی اور کار سروس۔ ایئرپورٹ ٹرانسفر، عمرہ سفر، بین شہر سواری اور بزنس ٹریول — واٹس ایپ پر واضح قیمت، پیشہ ور ڈرائیورز، 24/7 دستیاب۔",
     destinations: "منزلیں",
     services: "خدمات",
     popularRoutes: "مشہور روٹس",
     company: "کمپنی",
     copyright: "© 2026 ٹیکسی سعودی عرب۔ جملہ حقوق محفوظ ہیں۔ بہترین نفاست کے ساتھ تیار کردہ۔",
-    motLicensed: "لائسنس یافتہ ڈرائیورز",
+    motLicensed: "پیشہ ور ڈرائیورز",
     zatcaCompliant: "زکوٰۃ و ٹیکس کمپلائنٹ",
-    tgaCertified: "فکسڈ قیمتیں",
+    tgaCertified: "واضح قیمت",
     support247: "24/7 وی آئی پی سپورٹ",
   },
 };
@@ -294,7 +294,7 @@ export function Footer() {
         {/* Trust Badges Row */}
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 py-12 border-b text-xs" style={{ borderColor: "rgba(200,164,93,0.1)" }}>
           {[
-            { icon: BadgeCheck, label: t.motLicensed, sub: "Valid Saudi License" },
+            { icon: BadgeCheck, label: t.motLicensed, sub: "Vetted & Experienced" },
             { icon: Receipt, label: t.zatcaCompliant, sub: "Electronic Invoicing Ready" },
             { icon: ShieldCheck, label: t.tgaCertified, sub: "No Meter, No Surge" },
             { icon: PhoneCall, label: t.support247, sub: "Private Concierge Desk" },

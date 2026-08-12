@@ -72,7 +72,7 @@ export const RECOVERY_GLOBAL_FAQS = [
   {
     question: "How much does car towing cost in Saudi Arabia?",
     answer:
-      "A within-city flatbed tow typically starts from SAR 200. Longer distances are priced per kilometre, and intercity transport (for example Riyadh to Dammam) ranges from roughly SAR 1,100–1,600. You always get a fixed price on WhatsApp before the truck moves — no surprises on arrival.",
+      "A within-city flatbed tow typically starts from SAR 200. Longer distances are priced per kilometre, and intercity transport (for example Riyadh to Dammam) ranges from roughly SAR 1,100–1,600. You always get a clear price on WhatsApp before the truck moves — no surprises on arrival.",
   },
   {
     question: "What is the difference between a satha (سطحة) and a normal tow truck?",

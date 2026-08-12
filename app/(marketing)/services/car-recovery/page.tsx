@@ -130,7 +130,7 @@ export default function CarRecoveryPage() {
             <Link href="/services/car-recovery/dammam" className="text-[#16A34A] hover:underline">Dammam</Link>,{" "}
             <Link href="/services/car-recovery/makkah" className="text-[#16A34A] hover:underline">Makkah</Link> &amp;{" "}
             <Link href="/services/car-recovery/madinah" className="text-[#16A34A] hover:underline">Madinah</Link>{" "}
-            — with a fixed price on WhatsApp before the truck moves.
+            — with a clear price confirmed on WhatsApp before the truck moves.
           </p>
           <p className="text-xs text-[#6B7280] mb-8" dir="rtl" lang="ar">
             سطحة الرياض · سطحة جدة · سطحة الدمام · سطحة مكة · سطحة المدينة — خدمة سحب السيارات ٢٤ ساعة
