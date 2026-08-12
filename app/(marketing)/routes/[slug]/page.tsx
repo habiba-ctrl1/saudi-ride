@@ -42,7 +42,7 @@ const DEFAULT_FAQS = [
 // Keyed by slug → above-the-fold answer + featured-snippet facts + bespoke FAQs.
 const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; value: string }[]; faqs: { question: string; answer: string }[] }> = {
   "jeddah-airport-to-makkah": {
-    tldr: "A taxi from Jeddah Airport (JED) to Makkah is about 80 km and takes roughly 1 hour. The fare is fixed from SAR 249, available 24/7, and the driver can stop at the Miqat so you enter Ihram before reaching Makkah.",
+    tldr: "A private taxi from Jeddah Airport (JED) to Makkah (Mecca) is about 80 km and takes roughly 1 hour. Fares start from SAR 249, confirmed on WhatsApp before booking, available 24/7, with a Miqat stop on request so you can enter Ihram before reaching Makkah.",
     tldrFacts: [
       { label: "Distance", value: "~80 km" },
       { label: "Time", value: "~1 hour" },
@@ -51,10 +51,13 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
     faqs: [
       { question: "How far is Jeddah airport from Makkah?", answer: "King Abdulaziz International Airport (JED) is about 80 km from Makkah — roughly a 1-hour drive on the Makkah Expressway, traffic permitting." },
-      { question: "How much is a taxi from Jeddah airport to Makkah?", answer: "The fare is fixed from SAR 249 for a sedan, with SUVs and vans available for families and extra luggage. You confirm the exact price before booking — no surge, tolls included." },
+      { question: "How much is a taxi from Jeddah airport to Makkah?", answer: "Fares start from SAR 249 for a sedan, with SUVs and vans available for families and extra luggage. Message us on WhatsApp with your flight time and passenger count for a clear quote before booking — no surge, tolls included." },
       { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Just tell us in advance and the driver will stop at the Miqat on the way so you can change into Ihram and make your intention before entering the Haram boundary." },
       { question: "Is the Jeddah airport to Makkah taxi available at night?", answer: "Yes, we operate 24/7. We track your flight number, so the driver is waiting at arrivals with a name sign even for late-night or delayed flights." },
       { question: "Which is better — taxi or the Haramain train?", answer: "A private taxi is door-to-door from the airport to your Makkah hotel with luggage help and a Miqat stop. The Haramain high-speed train is fast but requires transfers to and from the stations. For pilgrims with luggage, the direct taxi is usually more convenient." },
+      { question: "Where do I meet my driver at Jeddah airport?", answer: "Your driver waits in the arrivals hall with a name sign at your terminal (Terminal 1 for most international airlines, the Hajj Terminal during Hajj/Umrah peak season). We track your flight, so pickup timing adjusts automatically if you land early or late." },
+      { question: "Is a private taxi cheaper than Uber or Careem from Jeddah to Makkah?", answer: "A private, pre-booked taxi gives you a confirmed vehicle and driver waiting at arrivals with no surge pricing during peak Umrah season — unlike ride-hailing apps, which can be scarce or surge-priced right after international flights land. Message us on WhatsApp to compare your options for a quote." },
+      { question: "Do you provide a taxi service from Jeddah to Mecca for groups?", answer: "Yes. Alongside sedans, we arrange SUVs and vans for Umrah groups and families travelling together from Jeddah Airport to Mecca, with one driver and vehicle for the whole party." },
     ],
   },
   "jeddah-airport-to-fairmont-makkah": {
@@ -449,7 +452,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "riyadh-to-dammam": {
-    tldr: "A taxi from Riyadh to Dammam is about 390 km and takes roughly 3.5 hours on Highway 40. The fare is fixed from SAR 699, door-to-door, popular with executives travelling to the Eastern Province.",
+    tldr: "A private taxi from Riyadh to Dammam is about 390 km and takes roughly 3.5 hours on Highway 40. Fares start from SAR 699, door-to-door, confirmed on WhatsApp before booking — popular with executives travelling to the Eastern Province and Aramco/Dhahran corridor.",
     tldrFacts: [
       { label: "Distance", value: "~390 km" },
       { label: "Time", value: "~3.5 hours" },
@@ -458,9 +461,10 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
     faqs: [
       { question: "How long is the taxi from Riyadh to Dammam?", answer: "Riyadh to Dammam is about 390 km — roughly a 3.5-hour drive on Highway 40, with rest stops on request." },
-      { question: "How much is a taxi from Riyadh to Dammam?", answer: "The fare is fixed from SAR 699 for a sedan, with SUVs and vans available. The exact price is confirmed before booking, with no surge." },
-      { question: "Can I book a corporate car for this route?", answer: "Yes. We offer executive sedans and SUVs with professional drivers for the Riyadh–Dammam corporate corridor, with hourly and one-way options." },
+      { question: "How much is a taxi from Riyadh to Dammam?", answer: "Fares start from SAR 699 for a sedan, with SUVs and vans available. Message us on WhatsApp with your travel date and passenger count for a clear quote before booking, with no surge." },
+      { question: "Can I book a corporate car for this route?", answer: "Yes. We arrange executive sedans and SUVs with professional drivers for the Riyadh–Dammam corporate corridor — useful for meetings in Dhahran, Al Khobar, or Jubail — with hourly and one-way options." },
       { question: "What is the distance between Riyadh and Dammam?", answer: "The distance between Riyadh and Dammam is about 390 km by road, a roughly 3.5-hour drive on Highway 40." },
+      { question: "Can the driver continue on to Khobar, Dhahran, or Jubail after Dammam?", answer: "Yes. Since Dammam, Al Khobar, Dhahran, and Jubail form one Eastern Province service area, you can extend your trip to any of these cities at booking — just mention your final destination when requesting a quote." },
     ],
   },
   "dammam-airport-to-jubail": {
@@ -766,7 +770,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
 
   // ─── GCC border crossings ───
   "riyadh-to-dubai": {
-    tldr: "A taxi from Riyadh to Dubai is about 990 km and takes roughly 9 hours plus the Saudi–UAE border crossing. The fare is fixed from SAR 1200, with documentation support and a comfortable vehicle for the cross-border journey.",
+    tldr: "A private car with driver from Riyadh to Dubai is about 990 km and takes roughly 9 hours plus the Saudi–UAE border crossing. Fares start from SAR 1200, confirmed on WhatsApp, with documentation support and a comfortable vehicle for the cross-border journey.",
     tldrFacts: [
       { label: "Distance", value: "~990 km" },
       { label: "Time", value: "~9 hours + border" },
@@ -776,12 +780,14 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     faqs: [
       { question: "How long is the taxi from Riyadh to Dubai?", answer: "Riyadh to Dubai is about 990 km — roughly a 9-hour drive plus time at the Saudi–UAE border (Al Batha crossing)." },
       { question: "What documents do I need for the border?", answer: "You need a valid passport and the correct UAE entry visa or eligibility. Share your details in advance so we can advise and prepare for a smooth crossing." },
-      { question: "How much is a taxi from Riyadh to Dubai?", answer: "The fare is fixed from SAR 1200, confirmed before booking. We use comfortable vehicles suited to the long cross-border journey." },
+      { question: "How much is a taxi from Riyadh to Dubai?", answer: "Fares start from SAR 1200 — message us on WhatsApp with your travel date for a clear quote before booking. We arrange comfortable vehicles suited to the long cross-border journey." },
       { question: "Can I get a private car with a driver from Riyadh to Dubai?", answer: "Yes. We arrange a private car with a professional driver for the full Riyadh to Dubai journey — not a shared ride — with one vehicle and driver for your whole party door-to-door." },
+      { question: "Is it better to fly or drive from Riyadh to Dubai?", answer: "Flying is faster, but a private car with driver is popular for business travellers who want to work en route, families with luggage, or anyone who prefers not to navigate two airports and a connecting ride on each end." },
+      { question: "Can I stop overnight or make business stops on the way to Dubai?", answer: "Yes. The Riyadh-Dubai route can include planned stops for meetings, meals, or rest — let us know your itinerary when requesting a quote so we can arrange the right vehicle and driver." },
     ],
   },
   "dammam-to-doha": {
-    tldr: "A taxi from Dammam to Doha is about 400 km and takes roughly 4 hours plus the Saudi–Qatar border crossing at Salwa. The fare is fixed from SAR 500, with documentation support for a smooth crossing.",
+    tldr: "A private taxi from Dammam to Doha is about 400 km and takes roughly 4 hours plus the Saudi–Qatar border crossing at Salwa. Fares start from SAR 500, confirmed on WhatsApp, with documentation support for a smooth crossing.",
     tldrFacts: [
       { label: "Distance", value: "~400 km" },
       { label: "Time", value: "~4 hours + border" },
@@ -791,8 +797,9 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     faqs: [
       { question: "How far is Dammam from Doha?", answer: "Dammam to Doha is about 400 km — roughly a 4-hour drive plus time at the Saudi–Qatar border crossing at Salwa." },
       { question: "What do I need to cross into Qatar?", answer: "A valid passport and the correct Qatar entry permit or visa. Share your details in advance so we can prepare for a smooth border crossing." },
-      { question: "How much is a taxi from Dammam to Doha?", answer: "The fare is fixed from SAR 500, confirmed before booking, with comfortable vehicles for the cross-border journey." },
-      { question: "Is there a taxi from Khobar to Doha?", answer: "Yes — Al Khobar and Dammam are twin cities about 15 km apart, so this same Dammam–Doha service picks up from Khobar hotels and addresses at the same fixed fare and border-crossing support." },
+      { question: "How much is a taxi from Dammam to Doha?", answer: "Fares start from SAR 500 — message us on WhatsApp with your travel date and passenger count for a clear quote before booking, with comfortable vehicles for the cross-border journey." },
+      { question: "Is there a taxi from Khobar to Doha?", answer: "Yes — Al Khobar and Dammam are twin cities about 15 km apart, so this same Dammam–Doha service picks up from Khobar hotels and addresses with the same border-crossing support." },
+      { question: "How long does the Salwa border crossing usually take?", answer: "Crossing time varies with traffic and document checks, typically adding 30-60 minutes to the drive. Our drivers know the Salwa crossing well and can advise on typically busier or quieter times." },
     ],
   },
   "riyadh-to-doha": {
@@ -1168,7 +1175,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title,
-    description: `Fixed-price taxi from ${route.fromCity} to ${route.toCity} — ${route.distance} km, approx ${Math.round(route.duration / 60)}h. ${priceBlurb}, 24/7, licensed drivers, no surge.`.slice(0, 160),
+    description: `Private taxi from ${route.fromCity} to ${route.toCity} — ${route.distance} km, approx ${Math.round(route.duration / 60)}h. ${priceBlurb}, 24/7, professional drivers, no surge.`.slice(0, 160),
     alternates: {
       canonical: `https://taxisaudiarabia.com/routes/${slug}`,
       ...(slug === "jeddah-airport-to-makkah"

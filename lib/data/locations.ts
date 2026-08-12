@@ -161,13 +161,13 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     nameAr: "الدمام",
     image: "/locations/dammam-hero.webp",
     tagline: "Eastern Province Capital",
-    description: "Book a fixed-price taxi in Dammam for airport transfers from King Fahd International Airport (DMM) (~35 km, ~40 min), rides across the Dammam–Khobar–Dhahran metro area, corporate trips to Aramco and the industrial zones, and cross-border journeys to Bahrain via the King Fahd Causeway (~1 hour). Our drivers know the Eastern Province well and provide 24/7 service for business travellers, families, and tourists heading to Half Moon Bay or Ithra. Fares are fixed in advance with tolls included and no surge pricing.",
-    tldr: "Taxi Saudi Arabia provides 24/7 fixed-price taxi service in Dammam — King Fahd International Airport (DMM) transfers (~35 km, ~40 min), rides across the Dammam–Khobar–Dhahran metro, and cross-border trips to Bahrain via the King Fahd Causeway (~1 hour). Corporate and family vehicles available.",
+    description: "Book a private taxi in Dammam for airport transfers from King Fahd International Airport (DMM) (~35 km, ~40 min), rides across the Dammam–Khobar–Dhahran metro area, corporate trips to Aramco and the industrial zones, hotel transfers, and cross-border journeys to Bahrain via the King Fahd Causeway (~1 hour). Our drivers know the Eastern Province well and provide 24/7 service for business travellers, families, and tourists heading to Half Moon Bay or Ithra. Every fare is confirmed on WhatsApp before you book, with tolls included and no surge pricing.",
+    tldr: "Taxi Saudi Arabia arranges 24/7 private taxi service in Dammam — King Fahd International Airport (DMM) transfers (~35 km, ~40 min), rides across the Dammam–Khobar–Dhahran metro, hotel transfers, and cross-border trips to Bahrain via the King Fahd Causeway (~1 hour). Corporate and family vehicles available, quoted on WhatsApp.",
     tldrFacts: [
       { label: "Airport (DMM)", value: "~35 km · ~40 min" },
       { label: "To Bahrain", value: "~1 hr (Causeway)" },
       { label: "To Riyadh", value: "~400 km · ~4 hr" },
-      { label: "Pricing", value: "Fixed, no surge" }
+      { label: "Pricing", value: "Quoted on WhatsApp" }
     ],
     attractions: [
       { name: "Half Moon Bay Beach", dist: "30 km" },
@@ -184,11 +184,12 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       "For Aramco and industrial-zone visits, pre-book a corporate sedan or SUV with a professional driver."
     ],
     faqs: [
-      { question: "How much is a taxi from Dammam airport to the city?", answer: "A fixed-price taxi from King Fahd International Airport (DMM) to Dammam or Al Khobar starts from around SAR 100. It is about 35 km and a 40-minute drive, with meet & greet at arrivals." },
-      { question: "Can I take a taxi from Dammam to Bahrain?", answer: "Yes. We run cross-border transfers to Bahrain via the King Fahd Causeway, roughly a 1-hour drive. Share your passport and visa details in advance so we can prepare the border paperwork." },
-      { question: "How far is Dammam from Riyadh by taxi?", answer: "Dammam to Riyadh is about 400 km — roughly a 4-hour drive on Highway 40. We offer fixed-price intercity transfers in sedans, SUVs, and vans with rest stops included." },
-      { question: "Do you serve the whole Dammam–Khobar–Dhahran area?", answer: "Yes — the three cities form one metropolitan area and we cover all of it 24/7, including Aramco, the corniche, malls, and the industrial zones. Confirm your exact district when booking." },
-      { question: "Is taxi available in Dammam 24/7?", answer: "Yes, we operate around the clock in the Eastern Province for airport transfers, corporate travel, cross-border trips, and intercity journeys — at fixed prices with no surge." }
+      { question: "How much is a taxi from Dammam airport to the city?", answer: "A private taxi from King Fahd International Airport (DMM) to Dammam or Al Khobar starts from around SAR 100 — message us on WhatsApp with your flight time for a clear quote. It is about 35 km and a 40-minute drive, with meet & greet at arrivals." },
+      { question: "Can I take a taxi from Dammam to Bahrain?", answer: "Yes. We arrange cross-border transfers to Bahrain via the King Fahd Causeway, roughly a 1-hour drive. Share your passport and visa details in advance so we can prepare the border paperwork." },
+      { question: "How far is Dammam from Riyadh by taxi?", answer: "Dammam to Riyadh is about 400 km — roughly a 4-hour drive on Highway 40. We arrange intercity transfers in sedans, SUVs, and vans with rest stops included, quoted on WhatsApp before booking." },
+      { question: "Do you serve the whole Dammam–Khobar–Dhahran area?", answer: "Yes — the three cities form one metropolitan area and we cover all of it 24/7, including Aramco, the corniche, business hotels, malls, and the industrial zones. Confirm your exact district when booking." },
+      { question: "Is taxi available in Dammam 24/7?", answer: "Yes, we operate around the clock in the Eastern Province for airport transfers, corporate travel, hotel transfers, cross-border trips, and intercity journeys — with your fare confirmed before you book." },
+      { question: "Can you arrange a hotel transfer within Dammam?", answer: "Yes. We arrange transfers between Dammam hotels, business districts, the airport, and the corniche — useful for conference attendees and business travellers moving between meetings." }
     ],
     relatedLinks: [
       { href: "/locations/dhahran", label: "Dhahran — Saudi Aramco & KFUPM taxi" },
