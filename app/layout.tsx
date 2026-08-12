@@ -58,7 +58,7 @@ const jsonLd = [
     "@type": ["TaxiService", "LocalBusiness"],
     "name": "Taxi Saudi Arabia",
     "alternateName": ["Saudi Taxi Service", "Taxi Saudi Arabia Service", "Saudi Arabia Car Service"],
-    "description": "Professional taxi service in Saudi Arabia offering airport transfers, Umrah transport, and intercity rides. Book a private taxi or VIP taxi with licensed drivers and professional chauffeurs across Riyadh, Jeddah, Makkah, Madinah, Taif, and Dammam. Fixed price taxi with WhatsApp booking available 24/7.",
+    "description": "Professional taxi service in Saudi Arabia offering airport transfers, Umrah transport, and intercity rides. Book a private taxi or VIP taxi with professional chauffeurs across Riyadh, Jeddah, Makkah, Madinah, Taif, and Dammam. Clear pricing on WhatsApp, booking available 24/7.",
     "image": "https://taxisaudiarabia.com/fleet/mercedes-s-class.webp",
     "@id": "https://taxisaudiarabia.com/#taxiservice",
     "url": "https://taxisaudiarabia.com",

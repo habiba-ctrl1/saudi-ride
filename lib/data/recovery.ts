@@ -118,12 +118,17 @@ export const RECOVERY_CITIES: RecoveryCity[] = [
       {
         question: "How much is a satha in Riyadh?",
         answer:
-          "A flatbed tow within Riyadh starts from around SAR 200 for short distances (up to ~10 km) and SAR 250–450 for longer cross-city moves like Olaya to the Second Industrial City. Send your location and destination on WhatsApp for a fixed price.",
+          "A flatbed tow within Riyadh starts from around SAR 200 for short distances (up to ~10 km) and SAR 250–450 for longer cross-city moves like Olaya to the Second Industrial City. Send your location and destination on WhatsApp for a clear price.",
       },
       {
         question: "My car broke down on the Riyadh–Dammam highway. Can you recover it?",
         answer:
           "Yes — Route 40 is one of our most covered highways. Share your live location and we dispatch the nearest flatbed. We can tow you back to Riyadh, onward to Dammam, or to any workshop on the way.",
+      },
+      {
+        question: "Is there a recovery truck near me in Riyadh?",
+        answer:
+          "Yes — units are spread across Olaya, KAFD, Al-Malaz, and the industrial areas, so there is usually one close to you. Share your live location on WhatsApp and we dispatch the nearest available flatbed.",
       },
     ],
   },
@@ -205,6 +210,11 @@ export const RECOVERY_CITIES: RecoveryCity[] = [
         answer:
           "First inform your rental company — many will still ask you to arrange towing to their Makkah or Jeddah branch. Send us your location and the branch address; we flatbed the car there while you continue your worship. Keep the rental agreement handy for the gate.",
       },
+      {
+        question: "Is there a recovery truck near me in Makkah?",
+        answer:
+          "Yes — units are positioned around Aziziyah, Ajyad, and the Makkah entrances. Share your live location on WhatsApp and we coordinate the nearest available flatbed and the closest legal pickup point.",
+      },
     ],
   },
   {
@@ -258,7 +268,12 @@ export const RECOVERY_CITIES: RecoveryCity[] = [
       {
         question: "How much is a satha from Taif to Makkah?",
         answer:
-          "A flatbed tow from Taif to Makkah (~85 km via the mountain road) typically costs SAR 400–600 depending on your exact location on the descent. WhatsApp us for a fixed quote.",
+          "A flatbed tow from Taif to Makkah (~85 km via the mountain road) typically costs SAR 400–600 depending on your exact location on the descent. WhatsApp us for a clear quote.",
+      },
+      {
+        question: "Is there a recovery truck near me in Taif?",
+        answer:
+          "Yes — units are based downtown and near Al-Hada and Al-Shafa. Share your live location on WhatsApp and we dispatch the nearest available flatbed for city or mountain-road breakdowns.",
       },
     ],
   },
@@ -284,6 +299,11 @@ export const RECOVERY_CITIES: RecoveryCity[] = [
         question: "How fast can a satha reach Half Moon Bay?",
         answer:
           "Half Moon Bay is about 25 minutes from our nearest Khobar unit. On weekends we pre-position extra flatbeds in the area because beach-area breakdowns are very common.",
+      },
+      {
+        question: "Is there a recovery truck near me in Al Khobar?",
+        answer:
+          "Yes — units cover the Corniche, Al-Rashid Mall area, Al-Thuqbah, and the Causeway approach. Share your live location on WhatsApp and we dispatch the nearest available flatbed.",
       },
     ],
   },
