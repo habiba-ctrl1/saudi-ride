@@ -7,13 +7,14 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema } from "@/lib/schema";
 import { RecoveryLeadForm } from "@/components/recovery/RecoveryLeadForm";
+import { recoveryContact } from "@/lib/config/contact";
 import {
   RECOVERY_CITIES,
   RECOVERY_SERVICES,
   RECOVERY_GLOBAL_FAQS,
   getRecoveryCity,
 } from "@/lib/data/recovery";
-import { Truck, MapPin, Clock, Route as RouteIcon, CheckCircle2 } from "lucide-react";
+import { Truck, MapPin, Clock, Route as RouteIcon, CheckCircle2, MessageCircle } from "lucide-react";
 
 export const revalidate = 86400;
 
@@ -26,7 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   const city = getRecoveryCity(slug);
   if (!city) return {};
   const title = `Car Recovery ${city.name} | 24/7 Tow Truck & Satha ${city.sathaAr}`;
-  const description = `24/7 car recovery & flatbed tow truck (${city.sathaAr}) in ${city.name}. From SAR ${city.startingPrice}, fixed price on WhatsApp. Breakdown, accident & battery service.`;
+  const description = `24/7 car recovery & flatbed tow truck (${city.sathaAr}) in ${city.name}. From SAR ${city.startingPrice}, confirmed on WhatsApp before dispatch. Breakdown, accident & battery service.`;
   const url = `https://taxisaudiarabia.com/services/car-recovery/${city.slug}`;
   return {
     alternates: { canonical: url },
@@ -101,21 +102,23 @@ export default async function RecoveryCityPage({ params }: { params: Promise<{ c
           </h1>
           <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-10">
             {city.tagline}. Flatbed tow truck (satha), battery jump start, tire help,
-            and accident recovery anywhere in {city.name} — fixed price on WhatsApp before dispatch.
+            and accident recovery anywhere in {city.name} — price confirmed on WhatsApp before dispatch.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <a
-              href="#request"
+              href={`https://wa.me/${recoveryContact.whatsappNumber}?text=${encodeURIComponent(`Salam, I need car recovery (satha) in ${city.name} now. My location: `)}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
             >
-              Request Recovery in {city.name}
+              <MessageCircle className="h-4 w-4 fill-current" /> WhatsApp Now — {city.name}
             </a>
-            <Link
-              href="/services/car-recovery#pricing"
+            <a
+              href="#request"
               className="inline-flex items-center justify-center gap-2 rounded-full border border-[#C9A84C] px-8 py-3.5 text-xs font-bold uppercase text-[#B8963B] hover:bg-[#C9A84C]/10 transition-all"
             >
-              Towing Prices
-            </Link>
+              Request a Callback
+            </a>
           </div>
         </div>
       </section>

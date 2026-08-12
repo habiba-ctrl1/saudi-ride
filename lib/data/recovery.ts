@@ -175,6 +175,11 @@ export const RECOVERY_CITIES: RecoveryCity[] = [
         answer:
           "Yes — we recover vehicles from the causeway approach roads on the Saudi side. If you were heading to Bahrain, we can tow the car back to Khobar or Dammam and help you arrange the rest.",
       },
+      {
+        question: "Is there a recovery truck near me in Dammam right now?",
+        answer:
+          "Our flatbeds are based across Dammam, Al-Khobar, Dhahran, and the Jubail road, so there is usually a unit close to you. Share your live location on WhatsApp and we dispatch the nearest available truck.",
+      },
     ],
   },
   {
@@ -224,6 +229,11 @@ export const RECOVERY_CITIES: RecoveryCity[] = [
         question: "Can you tow my car while I stay at my hotel in Madinah?",
         answer:
           "Yes. Most pilgrims don't want to leave the Haram area — send the car's location, a photo, and your hotel name on WhatsApp. We collect the key from your hotel reception, recover the car, and send you photos of the delivery at the workshop.",
+      },
+      {
+        question: "Is there a recovery truck near me in Madinah?",
+        answer:
+          "Yes — units are based across Markazia, Quba, and the airport-road area. Share your live location on WhatsApp and we send the nearest available flatbed.",
       },
     ],
   },
@@ -293,12 +303,17 @@ export const RECOVERY_CITIES: RecoveryCity[] = [
       {
         question: "Can you tow my car from NEOM or Sharma Beach to Tabuk?",
         answer:
-          "Yes — NEOM and the Sharma coast are about 150 km from Tabuk. Flatbed recovery on this route costs approximately SAR 800–1,200. Share your live location on WhatsApp for an exact fixed quote.",
+          "Yes — NEOM and the Sharma coast are about 150 km from Tabuk. Flatbed recovery on this route costs approximately SAR 800–1,200. Share your live location on WhatsApp for an exact quote.",
       },
       {
         question: "Is recovery available on the Tabuk–AlUla heritage road?",
         answer:
           "Yes, we cover the entire Tabuk–AlUla corridor. This remote highway has limited services, so we recommend notifying us early if your car shows warning signs on this route.",
+      },
+      {
+        question: "Is there a recovery truck near me in Tabuk?",
+        answer:
+          "Yes — units are based in Tabuk City and near the airport road. Share your live location on WhatsApp and we dispatch the nearest available flatbed for city or highway breakdowns.",
       },
     ],
   },
@@ -323,7 +338,12 @@ export const RECOVERY_CITIES: RecoveryCity[] = [
       {
         question: "How much is a satha from Yanbu to Madinah?",
         answer:
-          "Yanbu to Madinah is approximately 240 km. Flatbed transport on this route typically costs SAR 700–1,000. WhatsApp us for a fixed price.",
+          "Yanbu to Madinah is approximately 240 km. Flatbed transport on this route typically costs SAR 700–1,000. WhatsApp us for a quote.",
+      },
+      {
+        question: "Is there a recovery truck near me in Yanbu?",
+        answer:
+          "Yes — units cover Yanbu City, the industrial area, and the corniche. Share your live location on WhatsApp and we dispatch the nearest available flatbed.",
       },
     ],
   },
@@ -349,6 +369,11 @@ export const RECOVERY_CITIES: RecoveryCity[] = [
         question: "My car broke down on the Dammam–Jubail highway. How fast can you reach me?",
         answer:
           "The Dammam–Jubail highway is one of our busiest recovery corridors. We typically reach you within 25–45 minutes depending on your position. Share your live location and the nearest highway sign for faster dispatch.",
+      },
+      {
+        question: "Is there a recovery truck near me in Jubail?",
+        answer:
+          "Yes — units cover Jubail City, the industrial gates, and the Abu Hadriyah highway corridor. Share your live location on WhatsApp and we dispatch the nearest available flatbed.",
       },
     ],
   },

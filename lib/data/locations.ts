@@ -196,7 +196,8 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { href: "/locations/jubail", label: "Jubail — Industrial City taxi & corporate accounts" },
       { href: "/locations/alkhobar", label: "Al Khobar taxi & Bahrain causeway transfers" },
       { href: "/routes/dammam-to-manama", label: "Dammam to Manama, Bahrain taxi" },
-      { href: "/routes/dammam-to-doha", label: "Dammam to Doha, Qatar taxi" }
+      { href: "/routes/dammam-to-doha", label: "Dammam to Doha, Qatar taxi" },
+      { href: "/services/car-recovery/dammam", label: "Dammam car recovery & tow truck (satha)" }
     ]
   },
   dhahran: {
@@ -271,7 +272,8 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     relatedLinks: [
       { href: "/locations/dhahran", label: "Dhahran — Saudi Aramco & KFUPM taxi" },
       { href: "/locations/dammam", label: "Dammam taxi & King Fahd Airport transfers" },
-      { href: "/routes/dammam-airport-to-jubail", label: "Dammam Airport to Jubail transfer" }
+      { href: "/routes/dammam-airport-to-jubail", label: "Dammam Airport to Jubail transfer" },
+      { href: "/services/car-recovery/jubail", label: "Jubail car recovery & tow truck (satha)" }
     ]
   },
   alula: {
