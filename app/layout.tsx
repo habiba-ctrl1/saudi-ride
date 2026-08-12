@@ -32,13 +32,13 @@ const cairo = Cairo({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://taxisaudiarabia.com"),
-  title: "Taxi Service Saudi Arabia — Book Airport Transfer & Umrah Taxi | Fixed Prices 24/7",
+  title: "Taxi Service Saudi Arabia — Book Airport Transfer & Umrah Taxi | 24/7",
   description:
-    "Book a taxi in Saudi Arabia — airport transfers, Umrah transport & intercity rides at fixed prices. Licensed drivers, WhatsApp booking 24/7.",
+    "Book a taxi in Saudi Arabia — airport transfers, Umrah transport & intercity rides. Professional drivers, clear pricing on WhatsApp, 24/7.",
   openGraph: {
-    title: "Taxi Service Saudi Arabia — Book Airport Transfer & Umrah Taxi | Fixed Prices 24/7",
+    title: "Taxi Service Saudi Arabia — Book Airport Transfer & Umrah Taxi | 24/7",
     description:
-      "Book a private taxi in Saudi Arabia. Airport transfers, Umrah transport, Jeddah to Makkah, Makkah to Madinah routes. Licensed drivers, fixed prices, GMC Yukon & Hyundai Staria fleet. WhatsApp booking 24/7.",
+      "Book a private taxi in Saudi Arabia. Airport transfers, Umrah transport, Jeddah to Makkah, Makkah to Madinah routes. Professional drivers, clear pricing on WhatsApp, GMC Yukon & Hyundai Staria available. WhatsApp booking 24/7.",
     type: "website",
     locale: "en_SA",
     url: "https://taxisaudiarabia.com",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Taxi Service Saudi Arabia — Book Airport Transfer & Umrah Taxi",
     description:
-      "Book a taxi in Saudi Arabia for airport transfers and Umrah transport. Fixed price taxi with licensed drivers. Jeddah Airport to Makkah from SAR 249. WhatsApp booking 24/7.",
+      "Book a taxi in Saudi Arabia for airport transfers and Umrah transport. Professional chauffeurs, clear pricing on WhatsApp. Jeddah Airport to Makkah from SAR 249. WhatsApp booking 24/7.",
   },
 };
 
@@ -90,7 +90,7 @@ const jsonLd = [
       "itemListElement": [
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Airport Transfer Saudi Arabia", "description": "Saudi airport transfer with meet-and-greet at Jeddah (JED), Riyadh (RUH), Madinah (MED), and Dammam (DMM). Flight tracking and 60-minute free wait time included." } },
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Umrah Taxi & Transport", "description": "Umrah airport transfer and Umrah transport for pilgrims. Jeddah Airport to Makkah taxi, Makkah to Madinah taxi, Makkah Ziyarat taxi, and Madinah Ziyarat taxi with Meeqat stops." } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Private Taxi Saudi Arabia", "description": "Private taxi and VIP taxi service between Riyadh, Jeddah, Makkah, Madinah, Taif, and Dammam. Fixed price taxi with licensed drivers and professional chauffeurs." } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Private Taxi Saudi Arabia", "description": "Private taxi and VIP taxi service between Riyadh, Jeddah, Makkah, Madinah, Taif, and Dammam. Clear pricing on WhatsApp, professional chauffeurs." } },
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Family & Luxury SUV Taxi", "description": "Family taxi in GMC Yukon, Hyundai Staria, and Toyota Hiace. Luxury SUV taxi for groups, families, and VIP travelers across Saudi Arabia." } },
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "GCC Cross-Border Taxi", "description": "Cross-border car service from Saudi Arabia to Bahrain, Qatar, UAE, and Kuwait with professional chauffeurs." } },
       ],
