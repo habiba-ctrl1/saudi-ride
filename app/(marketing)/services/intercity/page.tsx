@@ -9,7 +9,7 @@ import Link from "next/link";
 import { Map, Car, ShieldCheck, Clock, Navigation, CheckCircle2 } from "lucide-react";
 
 const TITLE = "Intercity Taxi Saudi Arabia | Long-Distance City Transfers";
-const DESCRIPTION = "Book an intercity taxi in Saudi Arabia for long-distance rides between Riyadh, Jeddah, Makkah, Madinah & Dammam. Fixed prices, clean cars, 24/7 drivers.";
+const DESCRIPTION = "Book an intercity taxi in Saudi Arabia for long-distance rides between Riyadh, Jeddah, Makkah, Madinah & Dammam. Clear pricing on WhatsApp, clean cars, 24/7 drivers.";
 const OG_IMAGE = "https://taxisaudiarabia.com/services/intercity-hero.webp";
 
 export const metadata: Metadata = {
@@ -61,7 +61,7 @@ export default function IntercityServicePage() {
           serviceSchema({
             name: "Intercity Taxi Service",
             description:
-              "Long-distance intercity taxi service in Saudi Arabia between Riyadh, Jeddah, Makkah, Madinah, Dammam, and Taif at fixed prices.",
+              "Long-distance intercity taxi service in Saudi Arabia between Riyadh, Jeddah, Makkah, Madinah, Dammam, and Taif with clear pricing confirmed on WhatsApp.",
             path: "/services/intercity",
             serviceType: "Intercity Transfer",
             areaServed: ["Riyadh", "Jeddah", "Makkah", "Madinah", "Dammam", "Taif"],
@@ -102,7 +102,7 @@ export default function IntercityServicePage() {
           </p>
           <div className="max-w-2xl mx-auto mb-10 text-left">
             <TLDRSummary
-              answer="Intercity taxi transfers in Saudi Arabia start from SAR 180 (Makkah to Taif) up to SAR 699+ (Riyadh to Dammam), with fixed prices, rest stops on long routes, and 24/7 availability."
+              answer="Intercity taxi transfers in Saudi Arabia start from SAR 180 (Makkah to Taif) up to SAR 699+ (Riyadh to Dammam), with your exact fare confirmed on WhatsApp, rest stops on long routes, and 24/7 availability."
               facts={[
                 { label: "Makkah → Taif", value: "From SAR 180" },
                 { label: "Riyadh → Dammam", value: "From SAR 699" },

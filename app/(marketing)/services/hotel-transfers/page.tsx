@@ -45,7 +45,7 @@ const FEATURES = [
   { icon: Building2, title: "Lobby Door-to-Door Service", desc: "Our drivers assist with luggage directly at your hotel entrance or concierge desk." },
   { icon: MapPin, title: "Haram & Business Hub Access", desc: "Permitted drivers who navigate Makkah Haram access points and Riyadh KAFD districts efficiently." },
   { icon: Clock, title: "24/7 On-Time Dispatch", desc: "Pre-scheduled pickups so you never miss a flight, train (Haramain High Speed Rail), or meeting." },
-  { icon: ShieldCheck, title: "Fixed Prices — No Surge", desc: "Pre-agreed transparent fares with zero hidden tolls or peak-hour surcharges." },
+  { icon: ShieldCheck, title: "Clear Pricing — No Surge", desc: "Transparent fares confirmed on WhatsApp before booking, with zero hidden tolls or peak-hour surcharges." },
 ];
 
 const FAQS = [

@@ -9,7 +9,7 @@ import { Compass, ShieldCheck, MapPin, Map } from "lucide-react";
 import Link from "next/link";
 
 const TITLE = "Madinah Ziyarat Packages & Taxi Tours | Taxi Saudi Arabia";
-const DESCRIPTION = "Book a private Madinah Ziyarat taxi tour — visit Masjid Quba, Mount Uhud, Qiblatain & Seven Mosques with local drivers. Half-day & full-day tours, fixed prices, WhatsApp booking.";
+const DESCRIPTION = "Book a private Madinah Ziyarat taxi tour — visit Masjid Quba, Mount Uhud, Qiblatain & Seven Mosques with local drivers. Half-day & full-day tours, clear pricing, WhatsApp booking.";
 const OG_IMAGE = "https://taxisaudiarabia.com/services/madinah-ziyarat-hero.webp";
 
 export const metadata: Metadata = {

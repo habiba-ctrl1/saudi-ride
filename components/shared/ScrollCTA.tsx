@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { X, MessageCircle, PhoneCall, ArrowRight } from "lucide-react";
+import { X, MessageCircle } from "lucide-react";
 import { contactConfig } from "@/lib/config/contact";
 
 /**
@@ -62,34 +62,20 @@ export function ScrollCTA() {
             Reserve your private transfer
           </p>
           <p className="mt-1 text-xs text-white/60 max-w-md">
-            Get a fixed-price quote on WhatsApp, usually within 1–2 hours — no hidden fees.
+            Get a clear quote on WhatsApp, usually within 1–2 hours — no hidden fees.
           </p>
 
           {/* Buttons */}
-          <div className="mt-4 flex flex-col sm:flex-row gap-2.5">
+          <div className="mt-4">
             <a
               href={contactConfig.whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-xs font-bold uppercase text-white hover:bg-[#1EBE5B] transition-all shadow-md"
+              onClick={dismiss}
+              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-[#25D366] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#1EBE5B] transition-all shadow-md"
             >
               <MessageCircle className="h-4 w-4" />
-              WhatsApp Quote
-            </a>
-            <a
-              href="#booking-console"
-              onClick={dismiss}
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#16A34A] px-6 py-3 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all shadow-md"
-            >
-              <ArrowRight className="h-4 w-4" />
-              Calculate Price
-            </a>
-            <a
-              href={contactConfig.primaryPhoneLink}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-6 py-3 text-xs font-bold uppercase text-white/80 hover:bg-white/10 transition-all"
-            >
-              <PhoneCall className="h-4 w-4" />
-              Call Now
+              Get a Quote on WhatsApp
             </a>
           </div>
         </div>

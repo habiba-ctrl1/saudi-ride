@@ -45,7 +45,7 @@ const FEATURES = [
   { icon: Navigation, title: "Comfortable Highway Vehicles", desc: "Spacious GMC Yukon XL, Mercedes V-Class VIP, and Toyota Camry maintained for long distance safety." },
   { icon: MapPin, title: "Door-to-Door Intercity Delivery", desc: "Direct pickup from any address in the origin city and drop-off at your destination doorstep." },
   { icon: Clock, title: "Pre-Scheduled Rest Stops", desc: "Drivers plan highway stops at modern SASCO stations for food, prayer, and rest at your preference." },
-  { icon: ShieldCheck, title: "Fixed Price Guarantee", desc: "All-inclusive upfront quotes covering highway tolls, fuel, and driver fees without hidden charges." },
+  { icon: ShieldCheck, title: "Clear Upfront Quotes", desc: "All-inclusive quotes covering highway tolls, fuel, and driver fees without hidden charges — confirmed on WhatsApp before booking." },
 ];
 
 const FAQS = [
@@ -87,7 +87,7 @@ export default function LongDistancePage() {
               Long Distance Taxi Service
             </h1>
             <p className="text-base sm:text-lg text-[#D4D4D4] leading-relaxed mb-6">
-              Comfortable long-distance transfers between all major cities in Saudi Arabia and GCC cross-border routes. Experienced highway chauffeurs, premium vehicles, and fixed prices.
+              Comfortable long-distance transfers between all major cities in Saudi Arabia and GCC cross-border routes. Experienced highway chauffeurs, premium vehicles, and clear pricing on WhatsApp.
             </p>
             <div className="flex flex-wrap gap-4">
               <a

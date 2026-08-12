@@ -9,7 +9,7 @@ import Link from "next/link";
 import { Globe, FileText, Clock, Car, CheckCircle2, AlertTriangle } from "lucide-react";
 
 const TITLE = "GCC Cross-Border Taxi | Saudi to Bahrain, UAE, Qatar & Kuwait";
-const DESCRIPTION = "Book a cross-border taxi from Saudi Arabia to Bahrain, UAE, Qatar, or Kuwait. Fixed prices, experienced drivers, smooth border crossings. Available 24/7.";
+const DESCRIPTION = "Book a cross-border taxi from Saudi Arabia to Bahrain, UAE, Qatar, or Kuwait. Clear pricing on WhatsApp, experienced drivers, smooth border crossings. Available 24/7.";
 const OG_IMAGE = "https://taxisaudiarabia.com/services/border-crossings-hero.webp";
 
 export const metadata: Metadata = {

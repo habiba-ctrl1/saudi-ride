@@ -25,7 +25,7 @@ import {
 } from "lucide-react";
 
 const TITLE = "Car Recovery Saudi Arabia | 24/7 Tow Truck & Flatbed Satha (سطحة)";
-const DESCRIPTION = "24/7 car recovery & flatbed tow truck (satha سطحة) in Riyadh, Jeddah, Dammam, Makkah & Madinah. Fixed prices on WhatsApp, fast dispatch.";
+const DESCRIPTION = "24/7 car recovery & flatbed tow truck (satha سطحة) in Riyadh, Jeddah, Dammam, Makkah & Madinah. Clear pricing on WhatsApp, fast dispatch.";
 const OG_IMAGE = "https://taxisaudiarabia.com/services/car-recovery-hero.webp";
 
 export const metadata: Metadata = {
@@ -55,8 +55,8 @@ const STEPS = [
   },
   {
     icon: BadgeDollarSign,
-    title: "Get a Fixed Price",
-    desc: "We reply within minutes with a fixed price and the truck's ETA. No meter, no surprises, no arrival fees.",
+    title: "Get a Clear Price",
+    desc: "We reply within minutes with a clear price and the truck's ETA. No meter, no surprises, no arrival fees.",
   },
   {
     icon: Truck,
@@ -137,7 +137,7 @@ export default function CarRecoveryPage() {
           </p>
           <div className="max-w-2xl mx-auto mb-10 text-left">
             <TLDRSummary
-              answer="Car recovery (satha) in Saudi Arabia is available 24/7 in Riyadh, Jeddah, Dammam, Makkah, and Madinah — WhatsApp your location for a fixed price before the flatbed truck moves."
+              answer="Car recovery (satha) in Saudi Arabia is available 24/7 in Riyadh, Jeddah, Dammam, Makkah, and Madinah — WhatsApp your location for a clear price before the flatbed truck moves."
               facts={[
                 { label: "Availability", value: "24/7" },
                 { label: "Cities", value: "5 major cities" },
@@ -167,7 +167,7 @@ export default function CarRecoveryPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {[
             { icon: Clock, label: "20–45 min city dispatch" },
-            { icon: BadgeDollarSign, label: "Fixed price before dispatch" },
+            { icon: BadgeDollarSign, label: "Clear price before dispatch" },
             { icon: ShieldCheck, label: "Full flatbed — zero drag damage" },
             { icon: MapPin, label: "City + highway coverage" },
           ].map((t, i) => (

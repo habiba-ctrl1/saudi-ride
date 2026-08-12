@@ -1385,7 +1385,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                     className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/40 bg-[#C9A84C]/15 backdrop-blur-md px-5 py-3.5 text-xs font-bold text-[#FACC15] hover:bg-[#C9A84C]/30 transition-all"
                   >
                     <Phone className="h-3.5 w-3.5" />
-                    <span>Call Now: {contactConfig.primaryPhoneDisplay}</span>
+                    <span>Or call: {contactConfig.primaryPhoneDisplay}</span>
                   </a>
                 </div>
               </div>
@@ -1455,7 +1455,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                     className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/40 bg-[#C9A84C]/15 backdrop-blur-md px-5 py-3.5 text-xs font-bold text-[#FACC15] hover:bg-[#C9A84C]/30 transition-all"
                   >
                     <Phone className="h-3.5 w-3.5" />
-                    <span>Call Now: {contactConfig.primaryPhoneDisplay}</span>
+                    <span>Or call: {contactConfig.primaryPhoneDisplay}</span>
                   </a>
                 </div>
               </div>

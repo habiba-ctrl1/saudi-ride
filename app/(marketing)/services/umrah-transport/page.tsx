@@ -10,7 +10,7 @@ import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 
 const TITLE = "Umrah Taxi Service | Jeddah to Makkah & Madinah Transfers";
-const DESCRIPTION = "Umrah taxi service in Saudi Arabia — airport to Makkah, Makkah to Madinah, Ziyarat tours & Meeqat stops. English, Arabic & Urdu drivers. Fixed prices, 24/7.";
+const DESCRIPTION = "Umrah taxi service in Saudi Arabia — airport to Makkah, Makkah to Madinah, Ziyarat tours & Meeqat stops. English, Arabic & Urdu drivers. Clear pricing on WhatsApp, 24/7.";
 const OG_IMAGE = "https://taxisaudiarabia.com/services/umrah-transport-hero.webp";
 
 export const metadata: Metadata = {
