@@ -36,7 +36,7 @@ const homeTranslations = {
       subtitle: "Private taxi & chauffeur service across Saudi Arabia — airport transfers, Umrah transport, and luxury intercity rides at clear prices, with professional drivers, 24/7.",
       btnBook: "Reserve Your Private Taxi",
       btnFleet: "Get a Free Price Quote",
-      badges: ["24/7 Private Taxi Service", "Licensed Chauffeurs", "Fixed Price Taxi Guarantee", "All Saudi Cities"]
+      badges: ["24/7 Private Taxi Service", "Professional Chauffeurs", "Clear Pricing on WhatsApp", "All Saudi Cities"]
     },
     stats: [
       { label: "Routes Covered", value: trustStats.routesCovered, num: trustStats.routesCount },
@@ -109,7 +109,7 @@ const homeTranslations = {
       desc: "We provide safe, reliable, and affordable taxi service across Saudi Arabia — from airport transfers and Umrah transport to private intercity rides and corporate travel. Here's what makes us different.",
       points: [
         { title: "Professional Drivers", desc: "Experienced drivers arranged through our transportation partners — reliable and courteous." },
-        { title: "Fixed Price Taxi — No Surprises", desc: "The taxi price you see is the taxi fare you pay. No surge pricing, no hidden fees, no meter tricks. Every taxi fare in Saudi Arabia is fixed at booking." },
+        { title: "Clear Pricing — No Surprises", desc: "No surge pricing, no hidden fees, no meter tricks. Your exact fare is confirmed with you on WhatsApp before booking." },
         { title: "WhatsApp Booking Available 24/7", desc: "Book your taxi via WhatsApp booking anytime — day or night. Our team typically confirms your price within 1–2 hours." },
         { title: "Live Flight Tracking", desc: "We track your flight in real time for every Saudi airport transfer. Your professional chauffeur waits 60 minutes free if your flight is delayed." },
         { title: "English, Arabic & Urdu Drivers", desc: "Our professional chauffeurs speak English, Arabic, and Urdu — ensuring clear communication for international pilgrims and business travelers." },
@@ -120,7 +120,7 @@ const homeTranslations = {
     },
     routes: {
       badge: "Popular Routes",
-      title: "Most Booked Taxi Routes in Saudi Arabia — Fixed Prices",
+      title: "Most Booked Taxi Routes in Saudi Arabia",
       btnBook: "Book This Route"
     },
     fleet: {
