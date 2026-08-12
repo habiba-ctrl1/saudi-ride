@@ -33,7 +33,7 @@ const homeTranslations = {
     hero: {
       badge: "Saudi Arabia's Private Chauffeur & Taxi Service",
       title: "Reserve Your Private Taxi & Chauffeur in Saudi Arabia",
-      subtitle: "Private taxi & chauffeur service across Saudi Arabia — airport transfers, Umrah transport, and luxury intercity rides at fixed prices, with licensed drivers, 24/7.",
+      subtitle: "Private taxi & chauffeur service across Saudi Arabia — airport transfers, Umrah transport, and luxury intercity rides at clear prices, with professional drivers, 24/7.",
       btnBook: "Reserve Your Private Taxi",
       btnFleet: "Get a Free Price Quote",
       badges: ["24/7 Private Taxi Service", "Licensed Chauffeurs", "Fixed Price Taxi Guarantee", "All Saudi Cities"]
@@ -79,7 +79,7 @@ const homeTranslations = {
         },
         {
           title: "Private Taxi & VIP Taxi Saudi Arabia",
-          desc: "Book a private taxi or VIP taxi between Riyadh, Jeddah, Makkah, Madinah, Taif, and Dammam. Choose a luxury SUV taxi like the GMC Yukon or a family taxi like the Hyundai Staria — all at fixed prices.",
+          desc: "Book a private taxi or VIP taxi between Riyadh, Jeddah, Makkah, Madinah, Taif, and Dammam. Choose a luxury SUV taxi like the GMC Yukon or a family taxi like the Hyundai Staria — pricing confirmed on WhatsApp.",
           price: "From SAR 599",
           icon: Compass
         },
@@ -91,7 +91,7 @@ const homeTranslations = {
         },
         {
           title: "GCC Cross-Border Taxi",
-          desc: "Cross-border car service from Saudi Arabia to Bahrain, Qatar, UAE, and Kuwait. Licensed drivers with border-crossing experience, fixed fares, and door-to-door service.",
+          desc: "Cross-border car service from Saudi Arabia to Bahrain, Qatar, UAE, and Kuwait. Experienced drivers for border crossings, clear fares confirmed on WhatsApp, and door-to-door service.",
           price: "From SAR 180",
           icon: ShieldCheck
         },
@@ -108,9 +108,9 @@ const homeTranslations = {
       title: "Why Thousands Book Their Taxi Service in Saudi Arabia With Us",
       desc: "We provide safe, reliable, and affordable taxi service across Saudi Arabia — from airport transfers and Umrah transport to private intercity rides and corporate travel. Here's what makes us different.",
       points: [
-        { title: "Licensed Drivers", desc: "Every driver holds a valid Saudi driving license. Licensed drivers you can trust." },
+        { title: "Professional Drivers", desc: "Experienced drivers arranged through our transportation partners — reliable and courteous." },
         { title: "Fixed Price Taxi — No Surprises", desc: "The taxi price you see is the taxi fare you pay. No surge pricing, no hidden fees, no meter tricks. Every taxi fare in Saudi Arabia is fixed at booking." },
-        { title: "WhatsApp Booking Available 24/7", desc: "Book your taxi via WhatsApp booking anytime — day or night. Our team typically confirms with a fixed price within 1–2 hours." },
+        { title: "WhatsApp Booking Available 24/7", desc: "Book your taxi via WhatsApp booking anytime — day or night. Our team typically confirms your price within 1–2 hours." },
         { title: "Live Flight Tracking", desc: "We track your flight in real time for every Saudi airport transfer. Your professional chauffeur waits 60 minutes free if your flight is delayed." },
         { title: "English, Arabic & Urdu Drivers", desc: "Our professional chauffeurs speak English, Arabic, and Urdu — ensuring clear communication for international pilgrims and business travelers." },
         { title: "Free Cancellation — 24 Hours", desc: "Cancel your booking up to 24 hours before your trip for a full refund — no questions asked. Flexibility you can count on." },
@@ -154,7 +154,7 @@ const homeTranslations = {
     },
     umrah: {
       title: "Umrah Taxi Service — Makkah & Madinah Transfers for Pilgrims",
-      desc: "We provide dedicated Umrah transport and Umrah taxi service for pilgrims. Our Umrah airport transfer covers Jeddah Airport to Makkah, Makkah Ziyarat taxi tours, and Madinah Ziyarat taxi tours. Our licensed drivers understand the holy journey and make every trip smooth, comfortable, and spiritually respectful.",
+      desc: "We provide dedicated Umrah transport and Umrah taxi service for pilgrims. Our Umrah airport transfer covers Jeddah Airport to Makkah, Makkah Ziyarat taxi tours, and Madinah Ziyarat taxi tours. Our drivers understand the holy journey and make every trip smooth, comfortable, and spiritually respectful.",
       point1: "Trips planned around prayer times and Salah stops",
       point2: "Meeqat stop for Ihram — no extra charge, no rush",
       point3: "Drop-off at the closest permitted point to Masjid Al-Haram and Masjid An-Nabawi",
@@ -184,11 +184,11 @@ const homeTranslations = {
       items: [
         {
           q: "How do I book a taxi in Saudi Arabia?",
-          a: "You can book a taxi in Saudi Arabia online via our booking console or directly through WhatsApp booking. Simply provide your pickup location, destination, date, and time. Our 24/7 taxi service team will confirm your ride with a fixed price, usually within 1–2 hours."
+          a: "You can book a taxi in Saudi Arabia online via our booking console or directly through WhatsApp booking. Simply provide your pickup location, destination, date, and time. Our 24/7 taxi service team will confirm your ride with a clear price, usually within 1–2 hours."
         },
         {
           q: "How much is a Jeddah Airport to Makkah taxi?",
-          a: "The taxi fare for a Jeddah Airport to Makkah taxi starts from SAR 249 in a standard sedan, and SAR 374 for a family taxi like the Hyundai Staria. We offer a fixed price taxi guarantee, meaning no hidden charges."
+          a: "The taxi fare for a Jeddah Airport to Makkah taxi starts from SAR 249 in a standard sedan, and SAR 374 for a family taxi like the Hyundai Staria. Your exact fare is confirmed before booking, meaning no hidden charges."
         },
         {
           q: "Do you offer Umrah transport from Madinah?",
@@ -212,7 +212,7 @@ const homeTranslations = {
       subtitle: "سائق خاص VIP في جميع أنحاء المملكة — المطارات، العمرة، والتنقل الفاخر بين المدن بأقصى درجات الراحة.",
       btnBook: "احجز رحلتك الفاخرة",
       btnFleet: "تصفح أسطول التميز",
-      badges: ["دعم VIP على مدار ٢٤ ساعة", "سائقون مرخصون", "أسعار ثابتة بدون زيادة مفاجئة", "جميع المدن السعودية"]
+      badges: ["دعم VIP على مدار ٢٤ ساعة", "سائقون محترفون", "أسعار واضحة بدون زيادة مفاجئة", "جميع المدن السعودية"]
     },
     stats: [
       { label: "مسار مغطى", value: "+٥٦", num: 56 },
@@ -284,8 +284,8 @@ const homeTranslations = {
       title: "لماذا يختار كبار الشخصيات خدماتنا؟",
       desc: "نحن ندمج دقة الضيافة المعاصرة الراقية مع الكرم العربي الأصيل لنرتقي بكل كيلومتر تقطعه معنا.",
       points: [
-        { title: "سائقون مرخصون", desc: "كل سائق يحمل رخصة قيادة سعودية سارية." },
-        { title: "أسعار ثابتة ومضمونة", desc: "لا توجد أسعار مرتفعة بشكل مفاجئ. السعر المعروض هو السعر الفعلي الذي تدفعه." },
+        { title: "سائقون محترفون", desc: "سائقون ذوو خبرة يتم ترتيبهم من خلال شركائنا في النقل." },
+        { title: "عروض أسعار واضحة", desc: "لا زيادة مفاجئة في الأسعار. يتم تأكيد السعر معك عبر واتساب قبل الحجز." },
         { title: "متوافق مع أوقات الصلاة", desc: "تخطيط الرحلات والوقفات يراعي أوقات الصلوات ومواقيت الإحرام بشكل طبيعي." },
         { title: "تتبع الرحلات الذكي", desc: "نتابع مواعيد الطيران بدقة. السائق ينتظرك حتى ٦٠ دقيقة مجاناً." },
         { title: "سائقين متحدثين بلغات متعددة", desc: "سائقون محترفون يجيدون العربية والإنجليزية والأوردو بطلاقة." },
@@ -350,7 +350,7 @@ const homeTranslations = {
       desc: "استمتع بأعلى معايير التنقل والأمان في المملكة العربية السعودية. احجز رحلتك الآن في دقيقتين فقط.",
       btnBook: "احجز رحلتك أونلاين",
       btnWhatsApp: "احجز مباشرة عبر الواتساب",
-      trust: "رد سريع على استفسارك • أسعار ثابتة ومضمونة • خدمة عملاء مخصصة على مدار الساعة"
+      trust: "رد سريع على استفسارك • أسعار واضحة عبر واتساب • خدمة عملاء مخصصة على مدار الساعة"
     },
     faq: {
       badge: "الأسئلة الشائعة",
@@ -359,7 +359,7 @@ const homeTranslations = {
         { q: "كيف أحجز تاكسي في السعودية؟", a: "يمكنك الحجز عبر منصة الحجز في موقعنا أو مباشرة عبر واتساب. حدد موقع الانطلاق والوجهة والتاريخ والوقت، وسيؤكد فريقنا رحلتك بسعر ثابت، عادة خلال ساعة إلى ساعتين." },
         { q: "كم تكلفة تاكسي من مطار جدة إلى مكة؟", a: "تبدأ أجرة تاكسي مطار جدة إلى مكة من 249 ريالاً في السيارة العادية، مع خيارات عائلية أكبر. السعر ثابت بدون رسوم خفية." },
         { q: "هل تقدمون نقل العمرة من المدينة؟", a: "نعم، نغطي مسار مكة إلى المدينة والمدينة إلى مكة وجولات الزيارة، مع التوقف عند الميقات وسائقين محترفين." },
-        { q: "هل السائقون مرخصون ومحترفون؟", a: "بالتأكيد. جميع سائقينا يحملون رخصة قيادة سعودية سارية ويتحدثون العربية والإنجليزية والأردية." },
+        { q: "هل السائقون محترفون وذوو خبرة؟", a: "بالتأكيد. يتم ترتيب جميع سائقينا من خلال شركائنا في النقل، وهم يتحدثون العربية والإنجليزية والأردية." },
         { q: "هل لديكم مركبات للعائلات الكبيرة؟", a: "نعم، نوفر سيارات SUV فاخرة مثل GMC Yukon وحافلات صغيرة مثل Toyota Hiace وHyundai Staria المثالية للمجموعات والعائلات." }
       ]
     }
@@ -636,7 +636,7 @@ const customerReviews = [
   { name: "Dr. Farhan Malik", countryFlag: "🇬🇧", stars: 5, text: "Excellent taxi service from Jeddah to Makkah. The driver was waiting in the arrivals hall with a name sign. Smooth, comfortable ride with no issues at all.", vehicle: "GMC Yukon Denali" },
   { name: "Amna Al-Faisal", countryFlag: "🇸🇦", stars: 5, text: "سيارات فاخرة للغاية وخدمة متميزة. سائق محترف ولديه دراية ممتازة بمواقع مكة والمدينة. أفضل خدمة نقل في المملكة.", vehicle: "Mercedes S-Class VIP" },
   { name: "Muhammad Siddique", countryFlag: "🇵🇰", stars: 5, text: "Wonderful Umrah transfer booking. The driver was prayer-time aware and stopped for us at Meeqat with complete respect and patience. Highly recommended.", vehicle: "Mercedes V-Class VIP" },
-  { name: "Hassan Qabbani", countryFlag: "🇦🇪", stars: 5, text: "Highly recommend Taxi Saudi Arabia for anyone in Saudi Arabia. Clean car, Wi-Fi included, fixed price — zero hidden charges or surge fees.", vehicle: "Mercedes S-Class VIP" },
+  { name: "Hassan Qabbani", countryFlag: "🇦🇪", stars: 5, text: "Highly recommend Taxi Saudi Arabia for anyone in Saudi Arabia. Clean car, Wi-Fi included, and the price was exactly what we agreed on WhatsApp — zero hidden charges or surge fees.", vehicle: "Mercedes S-Class VIP" },
   { name: "Evelyn Sterling", countryFlag: "🇺🇸", stars: 5, text: "Amazing airport taxi service. My flight was delayed 2 hours but the driver tracked it and was right there when I landed. Very professional and reliable.", vehicle: "GMC Yukon Denali" },
   { name: "Ahmad Bin-Hamid", countryFlag: "🇶🇦", stars: 5, text: "سفر مريح جداً بين الرياض والدمام. سيارة نظيفة وواسعة وخدمة إنترنت ممتازة طوال الطريق. سأحجز مجدداً بالتأكيد.", vehicle: "Mercedes S-Class VIP" },
   { name: "Verified Customer", countryFlag: "🇸🇦", stars: 5, text: "ما شاء الله تبارك الله، خدمتكم مرة ممتازة، والسيارة مريحة والـdriver ممتاز ومؤدب. والله ودنا نرجع معكم في رحلة ثانية، ما ابغى ادور غيركم — خلاص جربناكم وأعجبتنا خدمتكم.", vehicle: "Executive Sedan" }
@@ -1118,20 +1118,20 @@ export function HomePage() {
               </h2>
               <p className="text-sm leading-relaxed" style={{ color: "#6B7280" }}>
                 {language === "ar"
-                  ? "تاكسي السعودية أسطول يغطي الرياض وجدة ومكة والمدينة والدمام وغيرها — يخدم الحجاج والمسافرين والعائلات بأسعار ثابتة وسائقين مرخصين."
-                  : "Taxi Saudi Arabia's fleet covers Riyadh, Jeddah, Makkah, Madinah, Dammam and beyond — serving pilgrims, business travellers, and families with fixed prices and licensed drivers."}
+                  ? "تاكسي السعودية ينظّم رحلات خاصة تغطي الرياض وجدة ومكة والمدينة والدمام وغيرها — يخدم الحجاج والمسافرين والعائلات بأسعار واضحة وسائقين محترفين."
+                  : "Taxi Saudi Arabia arranges private transportation across Riyadh, Jeddah, Makkah, Madinah, Dammam and beyond — serving pilgrims, business travellers, and families with clear pricing and professional drivers."}
               </p>
 
               <div className="grid sm:grid-cols-2 gap-4">
                 {[
                   {
                     icon: CheckCircle,
-                    en: hasCredential(credentials.vatNumber) ? "Licensed drivers & ZATCA-compliant" : "Licensed, professional drivers",
-                    ar: hasCredential(credentials.vatNumber) ? "سائقون مرخصون ومتوافق مع هيئة الزكاة" : "سائقون مرخصون ومحترفون",
+                    en: hasCredential(credentials.vatNumber) ? "Licensed drivers & ZATCA-compliant" : "Professional, experienced drivers",
+                    ar: hasCredential(credentials.vatNumber) ? "سائقون مرخصون ومتوافق مع هيئة الزكاة" : "سائقون محترفون وذوو خبرة",
                   },
                   { icon: ShieldCheck, en: "Vetted, multilingual professional drivers", ar: "سائقون محترفون موثوقون ومتعددو اللغات" },
                   { icon: Sparkles, en: "Clean, air-conditioned, maintained cars", ar: "سيارات نظيفة ومكيفة وبصيانة دورية" },
-                  { icon: Award, en: "Licensed drivers · fixed prices 24/7", ar: "سائقون مرخصون · أسعار ثابتة على مدار الساعة" },
+                  { icon: Award, en: "Professional drivers · clear pricing 24/7", ar: "سائقون محترفون · أسعار واضحة على مدار الساعة" },
                 ].map((p) => {
                   const Icon = p.icon;
                   return (
