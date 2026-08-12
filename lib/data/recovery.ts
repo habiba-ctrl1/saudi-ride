@@ -42,7 +42,7 @@ export const RECOVERY_SERVICES = [
   {
     key: "intercity",
     name: "Intercity Car Transport",
-    desc: "Moving a car between cities — Riyadh to Jeddah, Dammam to Riyadh, or any route in the Kingdom. Enclosed and open flatbed transport at fixed prices.",
+    desc: "Moving a car between cities — Riyadh to Jeddah, Dammam to Riyadh, or any route in the Kingdom. Enclosed and open flatbed transport, priced on WhatsApp.",
   },
   {
     key: "heavy",
@@ -97,7 +97,7 @@ export const RECOVERY_GLOBAL_FAQS = [
   {
     question: "What information do you need when I call?",
     answer:
-      "Three things: your location (share live location on WhatsApp), your car make/model, and what happened (breakdown, accident, flat battery, etc.). We reply with a fixed price and ETA within minutes.",
+      "Three things: your location (share live location on WhatsApp), your car make/model, and what happened (breakdown, accident, flat battery, etc.). We reply with a clear price and ETA within minutes.",
   },
 ];
 
