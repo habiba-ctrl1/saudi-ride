@@ -40,7 +40,7 @@ const homeTranslations = {
     },
     stats: [
       { label: "Routes Covered", value: trustStats.routesCovered, num: trustStats.routesCount },
-      { label: "Fixed-Price Fares", value: "100%", num: 100 },
+      { label: "Clear Quotes on WhatsApp", value: "100%", num: 100 },
       { label: "Available Support", value: "24/7", num: null },
       { label: "Saudi Cities Covered", value: "11+", num: 11 }
     ],
@@ -216,7 +216,7 @@ const homeTranslations = {
     },
     stats: [
       { label: "مسار مغطى", value: "+٥٦", num: 56 },
-      { label: "أسعار ثابتة", value: "١٠٠٪", num: 100 },
+      { label: "عروض أسعار واضحة", value: "١٠٠٪", num: 100 },
       { label: "دعم متواصل", value: "٢٤/٧", num: null },
       { label: "مدينة سعودية", value: "+١١", num: 11 }
     ],
