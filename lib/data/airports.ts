@@ -7,8 +7,8 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     nameAr: "مطار الملك عبدالعزيز الدولي",
     image: "/airports/jed-hero.webp",
     tagline: "The Main Gateway for Umrah & Hajj",
-    description: "Pre-book a fixed-price taxi from King Abdulaziz International Airport (JED) to Makkah (~1 hour), Madinah, or your Jeddah hotel. Meet & greet at arrivals with a name sign, live flight tracking, no surge pricing, and 24/7 service — including late-night and early-morning pilgrim flights. Drivers can stop at the Miqat so you enter Ihram before reaching Makkah.",
-    tldr: "A taxi from Jeddah Airport (JED) to Makkah takes about 1 hour and is fixed-price from SAR 249. Drivers track your flight and meet you at arrivals with a name sign, 24/7 — including late-night flights — and can stop at the Miqat for Ihram on the way to Makkah.",
+    description: "Pre-book a private taxi from King Abdulaziz International Airport (JED) to Makkah (~1 hour), Madinah, or your Jeddah hotel. Meet & greet at arrivals with a name sign, live flight tracking, no surge pricing, and 24/7 service — including late-night and early-morning pilgrim flights. Drivers can stop at the Miqat so you enter Ihram before reaching Makkah.",
+    tldr: "A taxi from Jeddah Airport (JED) to Makkah takes about 1 hour and starts from around SAR 249, confirmed on WhatsApp. Drivers track your flight and meet you at arrivals with a name sign, 24/7 — including late-night flights — and can stop at the Miqat for Ihram on the way to Makkah.",
     tldrFacts: [
       { label: "JED → Makkah", value: "~1 hr · from SAR 249" },
       { label: "JED → Madinah", value: "~4–5 hr" },
@@ -28,7 +28,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     ],
     priorityRoutes: ["jeddah-airport-to-makkah", "jeddah-airport-to-madinah", "jeddah-airport-to-taif"],
     faqs: [
-      { question: "How much is a taxi from Jeddah airport to Makkah?", answer: "A fixed-price taxi from King Abdulaziz International Airport (JED) to Makkah starts from around SAR 249 for a sedan, with larger SUVs and vans available. The price is confirmed before you book — no surge, tolls included." },
+      { question: "How much is a taxi from Jeddah airport to Makkah?", answer: "A taxi from King Abdulaziz International Airport (JED) to Makkah starts from around SAR 249 for a sedan, with larger SUVs and vans available. The price is confirmed before you book — no surge, tolls included." },
       { question: "Is there a taxi at Jeddah airport at night?", answer: "Yes. We operate 24/7 at JED, including late-night and early-morning arrivals. Because we track your flight, your driver is waiting with a name sign even on 2–4 AM landings." },
       { question: "Where do I meet my driver at Jeddah airport?", answer: "Your driver meets you inside the arrivals hall of your terminal (Terminal 1, North Terminal, or the Hajj Terminal) holding a sign with your name. Confirm your terminal when booking so we meet you at the right exit." },
       { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. On the Jeddah Airport to Makkah route, simply ask and the driver will stop at the Miqat so you can change into Ihram and make your intention before entering the Haram boundary." },
@@ -57,8 +57,8 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     nameAr: "مطار الأمير محمد بن عبدالعزيز",
     image: "/airports/med-hero.webp",
     tagline: "Gateway to the Prophet's City",
-    description: "Pre-book a fixed-price taxi from Prince Mohammad Bin Abdulaziz Airport (MED) to your Madinah hotel near Masjid an-Nabawi (~20 km, ~25 min), or a long-distance transfer to Makkah. Meet & greet at arrivals, flight tracking, and 24/7 service for pilgrims.",
-    tldr: "A taxi from Prince Mohammad Bin Abdulaziz Airport (MED) to central Madinah hotels takes about 25 minutes and is fixed-price from SAR 80. Drivers track your flight and meet you at arrivals with a name sign, 24/7.",
+    description: "Pre-book a private taxi from Prince Mohammad Bin Abdulaziz Airport (MED) to your Madinah hotel near Masjid an-Nabawi (~20 km, ~25 min), or a long-distance transfer to Makkah. Meet & greet at arrivals, flight tracking, and 24/7 service for pilgrims.",
+    tldr: "A taxi from Prince Mohammad Bin Abdulaziz Airport (MED) to central Madinah hotels takes about 25 minutes and starts from around SAR 80, confirmed on WhatsApp. Drivers track your flight and meet you at arrivals with a name sign, 24/7.",
     tldrFacts: [
       { label: "MED → City", value: "~25 min · from SAR 80" },
       { label: "MED → Makkah", value: "~4.5–5 hr" },
@@ -77,7 +77,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     ],
     priorityRoutes: ["madinah-airport-to-makkah", "madinah-airport-to-city"],
     faqs: [
-      { question: "How much is a taxi from Madinah airport to the city?", answer: "A fixed-price taxi from Prince Mohammad Bin Abdulaziz Airport (MED) to central Madinah hotels starts from around SAR 80. It is about 20 km and a 25-minute drive, with meet & greet at arrivals." },
+      { question: "How much is a taxi from Madinah airport to the city?", answer: "A private taxi from Prince Mohammad Bin Abdulaziz Airport (MED) to central Madinah hotels starts from around SAR 80. It is about 20 km and a 25-minute drive, with meet & greet at arrivals." },
       { question: "Is there a taxi at Madinah airport at night?", answer: "Yes. We operate 24/7 at MED, including late-night and early-morning arrivals. We track your flight so your driver waits with a name sign even if the flight is delayed." },
       { question: "Where do I meet my driver at Madinah airport?", answer: "Your driver meets you in the arrivals hall of the main terminal holding a sign with your name, and helps with your luggage to the vehicle." },
       { question: "Can I travel directly from Madinah airport to Makkah?", answer: "Yes. We offer a direct MED to Makkah transfer (about 450 km, ~4.5–5 hours) with prayer and rest stops, ideal for pilgrims connecting between the Holy Cities." },
@@ -98,7 +98,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     image: "/airports/ruh-hero.webp",
     tagline: "The Capital Hub",
     description: "Executive airport transfers from King Khalid International Airport (RUH) in Riyadh. Premium chauffeur services for business travelers heading to KAFD, Olaya, or Diplomatic Quarter.",
-    tldr: "A taxi from King Khalid International Airport (RUH) to central Riyadh takes about 30–45 minutes and is fixed-price from SAR 100. Drivers track your flight and meet you at arrivals with a name sign, 24/7.",
+    tldr: "A taxi from King Khalid International Airport (RUH) to central Riyadh takes about 30–45 minutes and starts from around SAR 100, confirmed on WhatsApp. Drivers track your flight and meet you at arrivals with a name sign, 24/7.",
     tldrFacts: [
       { label: "RUH → City", value: "~30–45 min · from SAR 100" },
       { label: "RUH → KAFD Hotels", value: "~35 min · from SAR 150" },
@@ -118,7 +118,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     ],
     priorityRoutes: ["riyadh-airport-to-city"],
     faqs: [
-      { question: "How much is a taxi from Riyadh airport to the city center?", answer: "A fixed-price taxi from King Khalid International Airport (RUH) to central Riyadh starts from SAR 100. The price is confirmed before you book — no surge or hidden fees." },
+      { question: "How much is a taxi from Riyadh airport to the city center?", answer: "A private taxi from King Khalid International Airport (RUH) to central Riyadh starts from SAR 100. The price is confirmed before you book — no surge or hidden fees." },
       { question: "How long does it take from Riyadh airport to KAFD?", answer: "The drive from RUH to KAFD is about 35–40 minutes (approximately 40 km), depending on traffic." },
       { question: "Where do I meet my driver at Riyadh airport?", answer: "Your driver meets you in the arrivals hall of your terminal holding a name sign. Confirm your terminal number when booking so we meet you at the right exit." },
       { question: "What happens if my flight is delayed?", answer: "We monitor your flight number and adjust the pickup automatically. Up to 60 minutes of free waiting after landing is included." },
@@ -139,7 +139,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     image: "/airports/dammam-hero.webp",
     tagline: "The Eastern Gateway",
     description: "Pre-book your taxi from King Fahd International Airport (DMM) to Dammam, Al Khobar, Dhahran, or Jubail. Cross-border transfers to Bahrain also available upon request.",
-    tldr: "A taxi from King Fahd International Airport (DMM) to Dammam takes about 25–30 minutes. Fixed-price transfers also available to Al Khobar, Dhahran, and cross-border to Bahrain via King Fahd Causeway.",
+    tldr: "A taxi from King Fahd International Airport (DMM) to Dammam takes about 25–30 minutes. Transfers quoted on WhatsApp also available to Al Khobar, Dhahran, and cross-border to Bahrain via King Fahd Causeway.",
     tldrFacts: [
       { label: "DMM → Dammam", value: "~25–30 min" },
       { label: "DMM → Al Khobar", value: "~30–40 min" },
@@ -157,7 +157,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     ],
     priorityRoutes: ["dammam-to-doha", "dammam-to-manama"],
     faqs: [
-      { question: "How much is a taxi from Dammam airport to Al Khobar?", answer: "A fixed-price taxi from King Fahd International Airport (DMM) to Al Khobar is a 30–40 minute drive. The exact fare is confirmed before you book — no surge or hidden fees." },
+      { question: "How much is a taxi from Dammam airport to Al Khobar?", answer: "A taxi from King Fahd International Airport (DMM) to Al Khobar is a 30–40 minute drive. The exact fare is confirmed before you book — no surge or hidden fees." },
       { question: "Can I get a taxi from DMM airport to Bahrain?", answer: "Yes. We offer cross-border transfers from DMM to Bahrain via the King Fahd Causeway. Please provide your passport details 24 hours in advance so we can prepare the border crossing documentation." },
       { question: "Where do I meet my driver at Dammam airport?", answer: "Your driver meets you in the arrivals hall holding a sign with your name. Meet & greet is included with every booking." },
       { question: "What happens if my flight is delayed?", answer: "We monitor your flight in real time and adjust the pickup automatically. Up to 60 minutes of free waiting time after landing is included." }
@@ -185,7 +185,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     ],
     priorityRoutes: ["taif-to-makkah"],
     faqs: [
-      { question: "How much is a taxi from Taif airport to Makkah?", answer: "The drive from Taif Regional Airport (TIF) to Makkah takes approximately 1.5 to 2 hours. The fare is fixed-price and confirmed before you book." },
+      { question: "How much is a taxi from Taif airport to Makkah?", answer: "The drive from Taif Regional Airport (TIF) to Makkah takes approximately 1.5 to 2 hours. The fare is and confirmed before you book." },
       { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Many pilgrims land in Taif to enter Ihram at Miqat Qarn al-Manazil (Al-Sail Al-Kabeer). Just tell us in advance and the driver will stop there." },
       { question: "What happens if my flight is delayed?", answer: "We track your flight and adjust the pickup automatically. Up to 60 minutes of free waiting after landing is included." }
     ],
@@ -255,8 +255,8 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     nameAr: "مطار البحر الأحمر الدولي",
     image: "/locations/neom-hero.webp",
     tagline: "Gateway to AMAALA & the Red Sea Resorts",
-    description: "Book a private VIP airport transfer from Red Sea International Airport (RSI) to AMAALA, Sindalah, or your luxury Red Sea resort. A boutique gateway serving the Red Sea Global destinations, with executive vehicles suited to a premium, remote-resort arrival — fixed prices, no surge, professional English-speaking chauffeurs.",
-    tldr: "A private transfer from Red Sea International Airport (RSI) to AMAALA is about 35 km (~30 min) from SAR 180, and to NEOM about 300 km (~3.5 hr) from SAR 450. Both are fixed-price VIP transfers with an executive vehicle and English-speaking chauffeur — pre-booking is strongly recommended as on-demand taxis are extremely limited this far from any city.",
+    description: "Book a private VIP airport transfer from Red Sea International Airport (RSI) to AMAALA, Sindalah, or your luxury Red Sea resort. A boutique gateway serving the Red Sea Global destinations, with executive vehicles suited to a premium, remote-resort arrival — clear pricing on WhatsApp, no surge, professional English-speaking chauffeurs.",
+    tldr: "A private transfer from Red Sea International Airport (RSI) to AMAALA is about 35 km (~30 min) from SAR 180, and to NEOM about 300 km (~3.5 hr) from SAR 450. Both are VIP transfers with an executive vehicle and English-speaking chauffeur — pre-booking is strongly recommended as on-demand taxis are extremely limited this far from any city.",
     tldrFacts: [
       { label: "RSI → AMAALA", value: "~30 min · from SAR 180" },
       { label: "RSI → NEOM", value: "~3.5 hr · from SAR 450" },
@@ -274,9 +274,9 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     ],
     priorityRoutes: ["red-sea-airport-to-amaala", "red-sea-airport-to-neom"],
     faqs: [
-      { question: "How do I get from Red Sea International Airport to AMAALA?", answer: "A private VIP transfer from Red Sea International Airport (RSI) to AMAALA is about 35 km, roughly a 30-minute drive, fixed-price from SAR 180 in an executive vehicle." },
+      { question: "How do I get from Red Sea International Airport to AMAALA?", answer: "A private VIP transfer from Red Sea International Airport (RSI) to AMAALA is about 35 km, roughly a 30-minute drive, from around SAR 180 in an executive vehicle." },
       { question: "Is there a taxi rank at Red Sea International Airport?", answer: "No — this is a boutique airport built for the Red Sea Global resorts, with no walk-up taxi rank. Pre-booking your transfer in advance is strongly recommended." },
-      { question: "Can I get a transfer from Red Sea International Airport to NEOM?", answer: "Yes. It's approximately 300 km, about a 3.5-hour drive, fixed-price from SAR 450 in an executive vehicle — ideal for investors, contractors, and visitors connecting between the two giga-projects." },
+      { question: "Can I get a transfer from Red Sea International Airport to NEOM?", answer: "Yes. It's approximately 300 km, about a 3.5-hour drive, from around SAR 450 in an executive vehicle — ideal for investors, contractors, and visitors connecting between the two giga-projects." },
       { question: "What kind of vehicles are available at RSI?", answer: "Executive sedans and SUVs (Mercedes S-Class, GMC Yukon, Cadillac Escalade) suited to the premium standard of AMAALA and the Red Sea resorts, all with professional, English-speaking chauffeurs." },
       { question: "Which resorts do you serve from Red Sea International Airport?", answer: "We provide transfers to AMAALA, Sindalah Island, and the Red Sea Global resorts including St. Regis Red Sea Resort, Six Senses Southern Dunes, Desert Rock Resort, and Shebara — tell us your resort name when booking." }
     ]

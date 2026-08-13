@@ -73,7 +73,7 @@ export const GUIDES: Guide[] = [
     content: [
       "There is no direct train between Riyadh and Bahrain today. The GCC's planned Gulf Railway network — intended to eventually connect Saudi Arabia, Bahrain, and other Gulf states — has not been completed on this route, so anyone searching for a 'Riyadh to Bahrain train' will not find one currently in service.",
       "The only land link between Saudi Arabia and Bahrain is the King Fahd Causeway, a bridge-and-causeway road connecting the Eastern Province (near Al Khobar and Dammam) to Manama. All road travel — private taxi, bus, or private car — crosses here, with passport and border formalities at the Saudi and Bahraini checkpoints.",
-      "A private taxi from Riyadh to Manama covers about 450 km and takes roughly 4.5 hours including the Causeway crossing, fixed from SAR 600 with a licensed driver who handles the route door-to-door from your Riyadh address to your Manama hotel or destination.",
+      "A private taxi from Riyadh to Manama covers about 450 km and takes roughly 4.5 hours including the Causeway crossing, from SAR 600 confirmed on WhatsApp, with a professional driver who handles the route door-to-door from your Riyadh address to your Manama hotel or destination.",
       "Flying is faster in the air, but by the time you add airport check-in, security, and transfer time on both ends, a private taxi is often comparable door-to-door for a Riyadh city departure — without needing to route through King Khalid International Airport specifically.",
       "A public intercity bus is typically the lowest-cost option but runs on a fixed schedule, makes stops, and doesn't offer door-to-door pickup — a private taxi is the better choice if you're travelling with family, colleagues, or heavy luggage and want a departure time that suits you.",
       "For business travellers and corporate accounts, a private taxi also allows working during the journey and crossing the Causeway with pre-arranged documentation support — something neither a bus nor a flight can offer.",
@@ -88,7 +88,7 @@ export const GUIDES: Guide[] = [
     faqs: [
       { question: "Is there a train from Riyadh to Bahrain?", answer: "No. There is currently no operational train line between Riyadh and Bahrain. The GCC's planned Gulf Railway network has not been completed on this route. The practical options today are a private taxi, flight, or public bus, with all road travel crossing via the King Fahd Causeway." },
       { question: "How long does it take to drive from Riyadh to Bahrain?", answer: "A private taxi from Riyadh to Manama, Bahrain takes about 4.5 hours covering roughly 450 km, including the King Fahd Causeway crossing and border formalities." },
-      { question: "How much does a taxi from Riyadh to Bahrain cost?", answer: "A fixed-price private taxi from Riyadh to Manama starts from SAR 600, confirmed before booking, with documentation support for a smooth Causeway crossing." },
+      { question: "How much does a taxi from Riyadh to Bahrain cost?", answer: "A private taxi from Riyadh to Manama starts from SAR 600, confirmed on WhatsApp before booking, with documentation support for a smooth Causeway crossing." },
       { question: "What documents do I need to cross into Bahrain from Saudi Arabia?", answer: "A valid passport and the correct Bahrain entry eligibility or visa. Share your details in advance when booking so we can help prepare for a smooth crossing at the King Fahd Causeway." },
       { question: "Is a taxi or flight better for Riyadh to Bahrain?", answer: "A private taxi is often more convenient for door-to-door travel, especially with family or luggage, since it avoids airport check-in and transfer time. A flight is faster in the air but adds airport time on both ends." },
     ],
@@ -176,7 +176,7 @@ export const GUIDES: Guide[] = [
       "VIP arrivals hall (Level 1): Available for business/first class passengers — ask your airline at check-in.",
       "Finding your driver: Your Taxi Saudi Arabia driver will be standing in the Arrivals Meet Zone with your name on a digital sign.",
       "WhatsApp your driver directly from the booking confirmation SMS — no waiting, no confusion.",
-      "Onward transfer: Makkah is about 80 km (~1 hour) and Madinah about 420 km (~4–5 hours) from JED — pre-book a fixed-price taxi to avoid queues and surge pricing.",
+      "Onward transfer: Makkah is about 80 km (~1 hour) and Madinah about 420 km (~4–5 hours) from JED — pre-book a private taxi, quoted on WhatsApp, to avoid queues and surge pricing.",
     ],
     tldr: "King Abdulaziz International Airport (JED) has three terminals — Terminal 1 (international), the North Terminal (domestic), and the seasonal Hajj Terminal. After immigration and baggage claim, meet your pre-booked Taxi Saudi Arabia driver in the arrivals Meet Zone, identified by a name sign.",
     tldrFacts: [
@@ -188,8 +188,8 @@ export const GUIDES: Guide[] = [
     faqs: [
       { question: "Which terminal do international flights use at Jeddah Airport?", answer: "International flights arrive at Terminal 1, with immigration on Level 0 and baggage claim in Halls A–D depending on your flight. Domestic flights use the North Terminal." },
       { question: "How do I find my driver at Jeddah Airport?", answer: "Your pre-booked Taxi Saudi Arabia driver waits in the arrivals Meet Zone holding a name sign. You can also message the driver directly via the WhatsApp link in your booking confirmation SMS." },
-      { question: "How far is Jeddah Airport from Makkah and Madinah?", answer: "Makkah is about 80 km (roughly a 1-hour drive) and Madinah about 420 km (roughly 4–5 hours) from JED. A pre-booked fixed-price taxi is the most direct option with luggage." },
-      { question: "Should I pre-book a taxi or take one at the airport?", answer: "Pre-booking is recommended — it gives you a fixed price, a driver waiting on arrival, and avoids airport queues and surge pricing, especially after a long international flight." },
+      { question: "How far is Jeddah Airport from Makkah and Madinah?", answer: "Makkah is about 80 km (roughly a 1-hour drive) and Madinah about 420 km (roughly 4–5 hours) from JED. A pre-booked private taxi is the most direct option with luggage." },
+      { question: "Should I pre-book a taxi or take one at the airport?", answer: "Pre-booking is recommended — it gives you a clear price confirmed on WhatsApp, a driver waiting on arrival, and avoids airport queues and surge pricing, especially after a long international flight." },
     ],
   },
   {
@@ -343,7 +343,7 @@ export const GUIDES: Guide[] = [
     ],
     content: [
       "Distance & time: JED is about 80 km from Makkah on the Makkah Expressway (Highway 40) — a private taxi takes roughly 1 hour door-to-door, traffic permitting.",
-      "Option 1 — Private taxi (most popular): Pre-booked, fixed-price from SAR 180, available 24/7. The driver meets you at arrivals with a name sign, helps with luggage, and drops you at your Makkah hotel. Best for pilgrims with luggage, families, and late-night flights.",
+      "Option 1 — Private taxi (most popular): Pre-booked, from SAR 180 confirmed on WhatsApp, available 24/7. The driver meets you at arrivals with a name sign, helps with luggage, and drops you at your Makkah hotel. Best for pilgrims with luggage, families, and late-night flights.",
       "Option 2 — Haramain High-Speed Railway: The train reaches Makkah in about 30 minutes, but it departs from Jeddah's station (not the airport), so you still need transfers to and from both stations — which adds time and cost with luggage.",
       "Option 3 — Bus / shared transport: Cheapest but slowest, with fixed schedules and multiple stops. Not ideal after a long international flight.",
       "Ihram & Miqat: If you arrive in Jeddah intending Umrah, you must be in Ihram before crossing the Miqat boundary. On flights the crew announces the Miqat so you can enter Ihram on board; if you land without it, a taxi can stop at the Miqat (Al-Juhfah, near Rabigh) before continuing to Makkah.",
@@ -352,7 +352,7 @@ export const GUIDES: Guide[] = [
     ],
     faqs: [
       { question: "How far is Jeddah airport from Makkah?", answer: "King Abdulaziz International Airport (JED) is about 80 km from Makkah — roughly a 1-hour drive on the Makkah Expressway." },
-      { question: "What is the cheapest way from Jeddah airport to Makkah?", answer: "Buses are the cheapest but slowest. For most pilgrims with luggage, a pre-booked fixed-price taxi (from SAR 180) is the best value because it is direct, door-to-door, and available 24/7 with no surge pricing." },
+      { question: "What is the cheapest way from Jeddah airport to Makkah?", answer: "Buses are the cheapest but slowest. For most pilgrims with luggage, a pre-booked private taxi (from SAR 180) is the best value because it is direct, door-to-door, and available 24/7 with no surge pricing." },
       { question: "Can I take the Haramain train from Jeddah airport to Makkah?", answer: "The Haramain high-speed train runs from Jeddah's station to Makkah in about 30 minutes, but it does not depart from the airport itself — you need transfers to and from the stations, which adds time and cost, especially with luggage." },
       { question: "Do I need to be in Ihram before reaching Makkah?", answer: "Yes. If you intend Umrah, you must enter Ihram before crossing the Miqat boundary. On the flight the crew announces the Miqat; if you land without Ihram, your taxi can stop at the Miqat (Al-Juhfah near Rabigh) on the way to Makkah." },
     ],
@@ -409,7 +409,7 @@ export const GUIDES: Guide[] = [
     ],
     content: [
       "Distance: Makkah to Madinah is about 430 km on the Haramain highway — a major, well-maintained route used by millions of pilgrims each year.",
-      "Option 1 — Private taxi (most flexible): door-to-door from your Makkah hotel to your Madinah hotel in roughly 4–5 hours, fixed-price from SAR 350, with prayer and rest stops included. Best for families, elderly pilgrims, and anyone with luggage.",
+      "Option 1 — Private taxi (most flexible): door-to-door from your Makkah hotel to your Madinah hotel in roughly 4–5 hours, from SAR 350 confirmed on WhatsApp, with prayer and rest stops included. Best for families, elderly pilgrims, and anyone with luggage.",
       "Option 2 — Haramain High-Speed Railway: the train is fast (about 2.5 hours between stations), but you still need a taxi to the Makkah station and from the Madinah station to your hotel, plus check-in time — which adds up with luggage.",
       "Option 3 — Intercity bus: the cheapest option at around 6–7 hours with fixed schedules and stops. Economical but slower and less comfortable after Umrah.",
       "Comfort & timing: a private taxi lets you leave when you want, pray on the way, and arrive directly at your hotel near Masjid an-Nabawi — no transfers or waiting.",
@@ -418,7 +418,7 @@ export const GUIDES: Guide[] = [
     faqs: [
       { question: "How far is Makkah from Madinah?", answer: "Makkah to Madinah is about 430 km — roughly a 4 to 5 hour drive by taxi on the Haramain highway, or about 2.5 hours station-to-station on the Haramain high-speed train." },
       { question: "Is the taxi or train better from Makkah to Madinah?", answer: "The train is faster between stations, but a private taxi is door-to-door from hotel to hotel with prayer stops and no transfers — usually more convenient for pilgrims with luggage or elderly travellers." },
-      { question: "How much is a taxi from Makkah to Madinah?", answer: "A fixed-price taxi starts from around SAR 350 for a sedan, with SUVs and vans available for families. The price is confirmed before booking, with tolls included." },
+      { question: "How much is a taxi from Makkah to Madinah?", answer: "A private taxi starts from around SAR 350 for a sedan, with SUVs and vans available for families. Your exact price is confirmed on WhatsApp before booking, with tolls included." },
       { question: "Are prayer stops included on the way to Madinah?", answer: "Yes, with a private taxi your driver includes stops for prayer, food, and rest on the long-distance journey." },
     ],
   },

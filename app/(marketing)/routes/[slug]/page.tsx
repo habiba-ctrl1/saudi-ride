@@ -1162,7 +1162,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const TITLE_OVERRIDES: Record<string, string> = {
     "jeddah-airport-to-makkah": "Taxi Jeddah Airport to Makkah — Fare From SAR 249",
     "makkah-to-madinah": "Taxi Makkah to Madinah — From SAR 499",
-    "riyadh-to-dammam": "Taxi Riyadh to Dammam — Price, Fare & Distance (390km)",
+    "riyadh-to-dammam": "Riyadh to Dammam Taxi — One Way Price, Fare & Distance",
     "dammam-to-doha": "Taxi Dammam to Doha, Qatar — Cross-Border Fare From SAR 500",
     "jeddah-to-makkah": "Jeddah to Makkah (Mecca) Taxi Service — From SAR 199",
     "madinah-to-jeddah-airport": "Taxi Madinah to Jeddah Airport — Fare Confirmed on WhatsApp",
@@ -1173,9 +1173,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const title = TITLE_OVERRIDES[slug] ?? (routeLabel.length > 55 ? routeLabel : `${routeLabel} | Taxi Saudi Arabia`);
   const priceBlurb = route.priceOnRequest ? "confirmed on WhatsApp" : `From SAR ${route.basePrice}`;
 
+  // Per-slug description overrides — same CTR-fix rationale as TITLE_OVERRIDES,
+  // for pages with confirmed impressions/position but zero clicks.
+  const DESCRIPTION_OVERRIDES: Record<string, string> = {
+    "riyadh-to-dammam": "Riyadh to Dammam taxi, one way — 390 km, about 3.5 hours. Get your exact price and fare confirmed on WhatsApp before booking. Private, professional drivers, 24/7.",
+  };
+
   return {
     title,
-    description: `Private taxi from ${route.fromCity} to ${route.toCity} — ${route.distance} km, approx ${Math.round(route.duration / 60)}h. ${priceBlurb}, 24/7, professional drivers, no surge.`.slice(0, 160),
+    description: DESCRIPTION_OVERRIDES[slug] ?? `Private taxi from ${route.fromCity} to ${route.toCity} — ${route.distance} km, approx ${Math.round(route.duration / 60)}h. ${priceBlurb}, 24/7, professional drivers, no surge.`.slice(0, 160),
     alternates: {
       canonical: `https://taxisaudiarabia.com/routes/${slug}`,
       ...(slug === "jeddah-airport-to-makkah"
