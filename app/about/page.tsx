@@ -11,12 +11,12 @@ const translations = {
   en: {
     badge: "About Taxi Saudi Arabia",
     title: "Saudi Arabia's Trusted Taxi & Car Service",
-    description: "Taxi Saudi Arabia is a licensed taxi and car service operating across Saudi Arabia. We provide pre-booked, fixed-price rides for airport transfers, Umrah pilgrims, business travelers, and families — anywhere in the Kingdom.",
+    description: "Taxi Saudi Arabia is a private taxi and car service operating across Saudi Arabia. We provide pre-booked rides with your price confirmed on WhatsApp for airport transfers, Umrah pilgrims, business travelers, and families — anywhere in the Kingdom.",
 
     // Stats
     statsTitle: "Our Numbers",
     stats: [
-      { label: "Licensed Drivers", value: "100%" },
+      { label: "Professional Drivers", value: "100%" },
       { label: "Routes Covered", value: trustStats.routesCovered },
       { label: "Saudi Cities", value: "11+" },
       { label: "Languages Spoken", value: "3" }
@@ -25,7 +25,7 @@ const translations = {
     // Story
     storyTitle: "Our Story",
     storySubtitle: "Built Around One Idea: A Taxi You Can Actually Trust",
-    storyText1: "Taxi Saudi Arabia was built with one goal: to give people in Saudi Arabia a taxi service they can actually trust. Our fleet covers Riyadh, Jeddah, Makkah, Madinah, Dammam, and beyond — serving pilgrims, business travelers, and families with pre-booked, fixed-price rides.",
+    storyText1: "Taxi Saudi Arabia was built with one goal: to give people in Saudi Arabia a taxi service they can actually trust. Our fleet covers Riyadh, Jeddah, Makkah, Madinah, Dammam, and beyond — serving pilgrims, business travelers, and families with pre-booked rides, price confirmed on WhatsApp.",
     storyText2: "We focus on being on time, transparent with pricing, and respectful of our customers. We combine real Saudi hospitality with modern booking technology to make every trip simple, safe, and comfortable.",
 
     // Pillars (Mission & Values)
@@ -43,7 +43,7 @@ const translations = {
         icon: Sparkles
       },
       {
-        title: "Licensed Drivers",
+        title: "Professional Drivers",
         description: hasCredential(credentials.vatNumber)
           ? "Every driver holds a valid Saudi driving license, and fares are ZATCA e-invoice compliant."
           : "Every driver holds a valid Saudi driving license.",
@@ -58,10 +58,10 @@ const translations = {
 
     // Certifications
     certTitle: "Licenses & Compliance",
-    certSubtitle: "Licensed Drivers, Transparent Pricing",
+    certSubtitle: "Professional Drivers, Transparent Pricing",
     certs: [
-      { name: "Licensed Drivers", desc: "Every driver holds a valid Saudi driving license", icon: Award },
-      { name: "Fixed-Price Fares", desc: "Price confirmed before you book — no meter, no surge", icon: ShieldCheck },
+      { name: "Professional Drivers", desc: "Every driver holds a valid Saudi driving license", icon: Award },
+      { name: "Clear Quotes on WhatsApp", desc: "Price confirmed before you book — no meter, no surge", icon: ShieldCheck },
       { name: "ZATCA E-Invoicing", desc: "VAT-registered and ZATCA-certified for businesses", icon: CheckCircle2 }
     ],
 

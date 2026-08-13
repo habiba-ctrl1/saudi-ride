@@ -150,11 +150,11 @@ const SERVICES = [
     badge: "24/7 Rescue",
     color: "from-red-500/10 to-transparent",
     borderColor: "border-red-500/20",
-    description: "Broken down or in an accident? Flatbed tow truck (satha سطحة) service in Riyadh, Jeddah, Dammam, Makkah & Madinah. Battery jump start, tire help, and intercity car transport at fixed prices.",
+    description: "Broken down or in an accident? Flatbed tow truck (satha سطحة) service in Riyadh, Jeddah, Dammam, Makkah & Madinah. Battery jump start, tire help, and intercity car transport, price confirmed on WhatsApp.",
     features: [
       "Hydraulic flatbed — zero damage towing",
       "20–45 minute dispatch inside cities",
-      "Fixed price on WhatsApp before dispatch",
+      "Clear price confirmed on WhatsApp before dispatch",
       "Highway & intercity recovery covered",
       "Heavy vehicle & winch trucks available",
     ],
@@ -230,7 +230,7 @@ export default function ServicesPage() {
             {[
               { value: "9", label: "Service Types" },
               { value: "14", label: "Fleet Vehicles" },
-              { value: "100%", label: "Fixed-Price Fares" },
+              { value: "100%", label: "Clear Quotes on WhatsApp" },
               { value: "24/7", label: "WhatsApp Booking" },
             ].map((s) => (
               <div key={s.label} className="rounded-2xl border border-[#C9A84C]/10 bg-white p-4 text-center">
@@ -340,10 +340,10 @@ export default function ServicesPage() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               {[
-                { icon: ShieldCheck, label: "Licensed Drivers", sub: "Valid Saudi driving license" },
+                { icon: ShieldCheck, label: "Professional Drivers", sub: "Valid Saudi driving license" },
                 { icon: MapPin, label: "GPS Tracked", sub: "Every trip monitored" },
                 { icon: Clock, label: "Always On-Time", sub: "On-time pickup promise" },
-                { icon: Star, label: "Fixed-Price Fares", sub: "Confirmed before you book" },
+                { icon: Star, label: "Clear Quotes on WhatsApp", sub: "Confirmed before you book" },
               ].map((item) => {
                 const ItemIcon = item.icon;
                 return (

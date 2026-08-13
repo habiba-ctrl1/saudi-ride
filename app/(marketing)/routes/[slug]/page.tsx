@@ -1653,7 +1653,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
               </h2>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {[
-                  { title: "Fixed-Price Private Transfer", desc: "Confirmed upfront fare with zero surge pricing." },
+                  { title: "Clear-Price Private Transfer", desc: "Confirmed upfront fare with zero surge pricing." },
                   { title: "Meet & Greet Service", desc: "Driver waits in the arrivals hall with a name sign." },
                   { title: "Real-Time Flight Tracking", desc: "We track your landing time automatically." },
                   { title: "60 Mins Free Waiting Time", desc: "Ample time for baggage collection and customs." },
@@ -1681,7 +1681,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
               </h2>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {[
-                  { title: "Fixed-Price Private Transfer", desc: "Confirmed upfront fare — no surge, tolls included." },
+                  { title: "Clear-Price Private Transfer", desc: "Confirmed upfront fare — no surge, tolls included." },
                   { title: "24/7 Booking & Contact", desc: "Book and travel any time, day or night." },
                   { title: "Spacious Luggage Capacity", desc: "SUVs and vans available for families with luggage." },
                   { title: "Prayer & Rest Stops", desc: "Complimentary stops along the highway on request." },

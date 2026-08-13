@@ -61,8 +61,8 @@ export default function RoutesClient({ initialRoutes }: { initialRoutes: Route[]
               <span className="text-[#16A34A]">Saudi Arabia & GCC</span>
             </h1>
             <p className="mt-6 max-w-2xl text-sm md:text-base leading-relaxed text-[#6B7280]">
-              Fixed-price taxi rides across all major cities in Saudi Arabia and the GCC.
-              Choose your route, see the exact price, and book with a licensed driver in minutes.
+              Private taxi rides across all major cities in Saudi Arabia and the GCC.
+              Choose your route, see the exact price, and book with a professional driver in minutes.
             </p>
           </motion.div>
         </div>

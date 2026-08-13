@@ -1162,7 +1162,7 @@ Not every "VIP transport" listing you find online is run the same way. Here's wh
 
 > **Quick answer:** Confirm the driver is licensed under the Saudi Transport Authority, the price is fixed and confirmed in writing before travel, and the vehicle photos match what actually arrives. Everything else is a bonus.
 
-### 1. Licensed Drivers, Not Just a Nice Car
+### 1. Verified Drivers, Not Just a Nice Car
 
 A premium vehicle means little if the driver isn't properly licensed and insured for commercial passenger transport. Ask directly: "Is the driver licensed by the Saudi Transport General Authority?" A legitimate operator will answer without hesitation.
 

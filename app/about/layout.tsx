@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { generateMetadata as seo } from "@/lib/seo";
 
 export const metadata: Metadata = seo({
-  title: "About Us — Licensed Drivers & Fixed-Price Taxis",
+  title: "About Us — Professional Drivers & Private Taxis",
   description:
-    "Taxi Saudi Arabia offers 24/7 airport transfers, Umrah transport & intercity rides across Riyadh, Jeddah, Makkah & Madinah. Licensed drivers, fixed fares.",
+    "Taxi Saudi Arabia offers 24/7 airport transfers, Umrah transport & intercity rides across Riyadh, Jeddah, Makkah & Madinah. Professional drivers, clear fares confirmed on WhatsApp.",
   path: "/about",
   hreflangPaths: { en: "/about", ar: "/ar/about" },
 });

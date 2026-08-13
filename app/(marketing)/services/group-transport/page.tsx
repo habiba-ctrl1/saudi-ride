@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 
 const FEATURES = [
   { icon: Bus, title: "Spacious Fleet", desc: "From 7-seater Hyundai Starias to 50-seater luxury buses, we have the right vehicle for your group." },
-  { icon: ShieldCheck, title: "Licensed Drivers", desc: "Professional, vetted drivers experienced in handling large groups and long-distance travel." },
+  { icon: ShieldCheck, title: "Professional Drivers", desc: "Professional, vetted drivers experienced in handling large groups and long-distance travel." },
   { icon: MapPin, title: "Door-to-Door", desc: "Seamless point-to-point transfers from the airport directly to your hotel lobbies." },
   { icon: Users, title: "Dedicated Coordinator", desc: "Large group bookings get a dedicated logistics coordinator to manage arrivals and departures." },
 ];

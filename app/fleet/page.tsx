@@ -50,7 +50,7 @@ export default function FleetPage() {
               <span className="text-[#16A34A]">Sedans, SUVs, Vans & Buses</span>
             </h1>
             <p className="mt-6 max-w-2xl text-sm md:text-base leading-relaxed text-[#6B7280]">
-              Choose from sedans, SUVs, minivans, and buses — all clean, comfortable, and available 24/7 with a professional driver across Saudi Arabia, the GCC, and beyond. Fixed prices, no hidden fees.
+              Choose from sedans, SUVs, minivans, and buses — all clean, comfortable, and available 24/7 with a professional driver across Saudi Arabia, the GCC, and beyond. Clear prices confirmed on WhatsApp, no hidden fees.
             </p>
           </motion.div>
 
@@ -63,9 +63,9 @@ export default function FleetPage() {
           >
             {[
               { value: trustStats.vehicleClasses, label: "Vehicle Classes" },
-              { value: trustStats.licensedDrivers, label: "Licensed Drivers" },
+              { value: trustStats.licensedDrivers, label: "Professional Drivers" },
               { value: trustStats.activeChauffeurs, label: "Available 24/7" },
-              { value: trustStats.fixedPriceGuarantee, label: "Fixed-Price Fares" },
+              { value: trustStats.fixedPriceGuarantee, label: "Clear Quotes on WhatsApp" },
             ].map((s) => (
               <div key={s.label} className="flex flex-col">
                 <span className="font-heading text-2xl font-bold text-[#16A34A]">{s.value}</span>

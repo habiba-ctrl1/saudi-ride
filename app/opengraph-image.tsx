@@ -31,7 +31,7 @@ export default function OpengraphImage() {
           Airport Transfers, Umrah &amp; Intercity Rides
         </div>
         <div style={{ display: "flex", fontSize: 34, color: "#B8B0A1", marginTop: 28 }}>
-          Fixed prices · Licensed drivers · 24/7 across the Kingdom
+          Clear prices · Professional drivers · 24/7 across the Kingdom
         </div>
         <div style={{ display: "flex", fontSize: 30, color: "#C9A227", marginTop: 40 }}>
           Book via WhatsApp · taxisaudiarabia.com

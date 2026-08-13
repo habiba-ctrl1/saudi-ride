@@ -228,7 +228,7 @@ export default function UmrahTransportPage() {
           {[
             { n: 1, title: "Arrive at Jeddah Airport (JED)", desc: "Meet & greet at arrivals with a name sign, 24/7 — even on late-night flights. We track your flight for delays.", href: "/airports/king-abdulaziz-jeddah", cta: "Jeddah Airport taxi" },
             { n: 2, title: "Enter Ihram at the Miqat", desc: "Enter Ihram on the plane, or ask the driver to stop at the Miqat (Al-Juhfah) if you land without it.", href: "/guides/miqat-jeddah-makkah", cta: "Miqat & Ihram guide" },
-            { n: 3, title: "Transfer to Makkah (~80 km, ~1 hr)", desc: "Direct, fixed-price ride from the airport to your Makkah hotel, as close to the Haram as vehicles are permitted.", href: "/routes/jeddah-airport-to-makkah", cta: "JED → Makkah route" },
+            { n: 3, title: "Transfer to Makkah (~80 km, ~1 hr)", desc: "Direct, private ride from the airport to your Makkah hotel, as close to the Haram as vehicles are permitted.", href: "/routes/jeddah-airport-to-makkah", cta: "JED → Makkah route" },
             { n: 4, title: "Makkah Ziyarat", desc: "Visit Jabal Al-Nour, Mina, Arafat and other sites with a knowledgeable driver and flexible waiting time.", href: "/services/makkah-ziyarat", cta: "Makkah Ziyarat tour" },
             { n: 5, title: "Travel to Madinah (~420 km)", desc: "Comfortable long-distance transfer via the Haramain highway, with prayer and rest stops on request.", href: "/routes/jeddah-to-madinah", cta: "Jeddah → Madinah route" },
             { n: 6, title: "Madinah Ziyarat & return", desc: "Visit Masjid an-Nabawi, Quba, and Uhud, then a smooth transfer back to the airport for your flight home.", href: "/services/madinah-ziyarat", cta: "Madinah Ziyarat tour" },

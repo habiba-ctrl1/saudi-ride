@@ -373,9 +373,9 @@ export default function BookPage() {
         n.customerEmail
           ? `Confirmation email sent to ${custEmail}.`
           : custEmail
-            ? `We'll email ${custEmail} once your fixed price is confirmed.`
+            ? `We'll email ${custEmail} once your price is confirmed.`
             : "No email provided — we'll contact you by phone or WhatsApp.",
-        "Our team will confirm your fixed price on WhatsApp shortly.",
+        "Our team will confirm your price on WhatsApp shortly.",
       ]);
 
       // Complete to step 6
@@ -821,7 +821,7 @@ export default function BookPage() {
                               </h3>
                               
                               <div className="text-right">
-                                <p className="text-[0.55rem] text-[#6B7280] uppercase tracking-wider font-bold">Guaranteed Price</p>
+                                <p className="text-[0.55rem] text-[#6B7280] uppercase tracking-wider font-bold">Starting From</p>
                                 <p className="font-heading text-xl font-bold text-[#16A34A]">
                                   SAR {routePrice}
                                 </p>
@@ -1216,7 +1216,7 @@ export default function BookPage() {
                     </p>
                     <div className="flex items-center gap-2 rounded-2xl bg-[#F0FDF4] border border-[#16A34A]/15 p-3 text-[0.65rem] text-[#1C1C1C] font-semibold">
                       <ShieldCheck className="h-4 w-4 text-[#16A34A] shrink-0" />
-                      <span>{isRtl ? "تأكيد بسعر ثابت عبر واتساب خلال 1-2 ساعة عادة" : "Fixed-price confirmation on WhatsApp, usually within 1–2 hours"}</span>
+                      <span>{isRtl ? "تأكيد السعر عبر واتساب خلال 1-2 ساعة عادة" : "Price confirmation on WhatsApp, usually within 1–2 hours"}</span>
                     </div>
                   </div>
 

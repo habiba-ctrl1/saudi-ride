@@ -10,7 +10,7 @@ import Link from "next/link";
 import { Plane, Clock, UserCheck, CheckCircle2, ShieldCheck, Search, PlaneLanding, MapPin } from "lucide-react";
 
 const TITLE = "Airport Taxi Saudi Arabia | Jeddah, Riyadh & Madinah Pickups";
-const DESCRIPTION = "Fixed-price airport taxi in Saudi Arabia with pickups at Jeddah (JED), Riyadh (RUH) & Madinah (MED). Flight tracking, meet & greet, 24/7 licensed drivers.";
+const DESCRIPTION = "Private airport taxi in Saudi Arabia with pickups at Jeddah (JED), Riyadh (RUH) & Madinah (MED). Flight tracking, meet & greet, 24/7 professional drivers.";
 const OG_IMAGE = "https://taxisaudiarabia.com/services/airport-transfers-hero.webp";
 
 export const metadata: Metadata = {
@@ -63,7 +63,7 @@ export default function AirportTransfersPage() {
           serviceSchema({
             name: "Airport Taxi Service",
             description:
-              "Fixed-price airport taxi service in Saudi Arabia with flight tracking and meet & greet at Jeddah (JED), Riyadh (RUH), and Madinah (MED) airports.",
+              "Private airport taxi service in Saudi Arabia with flight tracking and meet & greet at Jeddah (JED), Riyadh (RUH), and Madinah (MED) airports.",
             path: "/services/airport-transfers",
             serviceType: "Airport Transfer",
             areaServed: ["Jeddah", "Riyadh", "Madinah", "Dammam"],
@@ -144,7 +144,7 @@ export default function AirportTransfersPage() {
             { icon: PlaneLanding, title: "Real-Time Flight Tracking", desc: "We monitor your flight and adjust pickup time for early or delayed arrivals." },
             { icon: UserCheck, title: "Meet & Greet at Arrivals", desc: "Driver awaits in the arrivals hall with a personalized name sign and helps with luggage." },
             { icon: Clock, title: "60 Minutes Free Waiting", desc: "Complimentary waiting time after landing for customs and baggage collection." },
-            { icon: ShieldCheck, title: "Fixed-Price Confirmed Fares", desc: "No hidden surge fees or toll charges. Your quoted price is confirmed before the trip." }
+            { icon: ShieldCheck, title: "Clear Fares Confirmed on WhatsApp", desc: "No hidden surge fees or toll charges. Your quoted price is confirmed before the trip." }
           ].map((feat, i) => (
             <div key={i} className="bg-white border border-[#16A34A]/12 rounded-3xl p-8 hover:border-[#16A34A]/35 transition-colors">
               <feat.icon className="h-8 w-8 text-[#C9A84C] mb-6" />

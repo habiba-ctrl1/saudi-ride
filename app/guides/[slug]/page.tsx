@@ -152,7 +152,7 @@ export default async function GuideSinglePage({ params }: PageProps) {
           <BookOpen className="h-8 w-8 text-[#C9A84C] mx-auto mb-4" />
           <h3 className="font-heading text-2xl font-bold mb-3">Ready to plan your journey?</h3>
           <p className="text-[#6B7280] text-sm mb-8 max-w-md mx-auto">
-            Book your fixed-price, premium transfer with Taxi Saudi Arabia and enjoy a stress-free travel experience across the Kingdom.
+            Book your premium transfer with Taxi Saudi Arabia, price confirmed on WhatsApp, and enjoy a stress-free travel experience across the Kingdom.
           </p>
           <Link
             href="/book"

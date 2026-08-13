@@ -133,7 +133,7 @@ export async function sendBookingConfirmation(booking: NotificationBooking) {
       <div style="background: #ffffff; border: 1px solid #eee; border-radius: 12px; padding: 20px; text-align: center; margin-bottom: 25px;">
         <p style="margin: 0 0 5px 0; color: #888; font-size: 12px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">Booking Reference</p>
         <h1 style="margin: 0; color: #C9A84C; font-size: 32px; font-family: monospace; font-weight: 800; letter-spacing: 1px;">${ref}</h1>
-        <p style="margin: 10px 0 0 0; color: #2ecc71; font-weight: bold; font-size: 14px;">✔ REQUEST RECEIVED — we'll confirm your fixed price on WhatsApp shortly</p>
+        <p style="margin: 10px 0 0 0; color: #2ecc71; font-weight: bold; font-size: 14px;">✔ REQUEST RECEIVED — we'll confirm your price on WhatsApp shortly</p>
       </div>
 
       <h3 style="color: #111; border-bottom: 2px solid #C9A84C; padding-bottom: 6px; margin-top: 0;">Trip Summary</h3>
@@ -179,7 +179,7 @@ export async function sendBookingConfirmation(booking: NotificationBooking) {
 
   // Trigger Email + SMS to Customer; return results so callers can log failures.
   const emailId = await sendEmail(booking.customerEmail, subject, html);
-  const smsBody = `Request received! Your Taxi Saudi Arabia transfer on ${new Date(booking.pickupDateTime).toLocaleDateString()} at ${new Date(booking.pickupDateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}. We'll confirm your fixed price on WhatsApp shortly.`;
+  const smsBody = `Request received! Your Taxi Saudi Arabia transfer on ${new Date(booking.pickupDateTime).toLocaleDateString()} at ${new Date(booking.pickupDateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}. We'll confirm your price on WhatsApp shortly.`;
   const smsId = await sendSMS(booking.customerPhone, smsBody);
   return { email: emailId, sms: smsId };
 }

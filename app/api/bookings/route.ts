@@ -210,7 +210,7 @@ export async function POST(request: Request) {
       totalPrice: booking.totalPrice,
       currency: "SAR",
       status: "PENDING",
-      message: "Booking request received. Our team will confirm your fixed price shortly.",
+      message: "Booking request received. Our team will confirm your price shortly.",
       notified,
       success: true,
       bookingId: booking.id

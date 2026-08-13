@@ -124,7 +124,7 @@ export default async function CityLocationPage({ params }: PageProps) {
     nameAr: "",
     image: "/locations/riyadh-hero.webp",
     tagline: "Taxi & Car Service",
-    description: `Reliable taxi and car service in ${city}, Saudi Arabia. Airport transfers, intercity rides, and local pickups with licensed drivers.`,
+    description: `Reliable taxi and car service in ${city}, Saudi Arabia. Airport transfers, intercity rides, and local pickups with professional drivers.`,
     attractions: [],
     tips: []
   };

@@ -4,8 +4,8 @@ import { ROUTES_DATA } from "@/lib/data/routes";
 
 export const revalidate = 86400; // static + refresh daily (was force-dynamic = slow on every request)
 
-const TITLE = "Taxi Routes in Saudi Arabia | Fixed Prices — Taxi Saudi Arabia";
-const DESCRIPTION = `Browse ${ROUTES_DATA.length}+ taxi routes across Saudi Arabia and the GCC. Fixed-price rides between Makkah, Madinah, Riyadh, Jeddah, Dammam, and more. Book online or on WhatsApp.`;
+const TITLE = "Taxi Routes in Saudi Arabia | Clear Prices — Taxi Saudi Arabia";
+const DESCRIPTION = `Browse ${ROUTES_DATA.length}+ taxi routes across Saudi Arabia and the GCC. Private rides between Makkah, Madinah, Riyadh, Jeddah, Dammam, and more, price confirmed on WhatsApp. Book online or on WhatsApp.`;
 
 export const metadata = {
   title: TITLE,

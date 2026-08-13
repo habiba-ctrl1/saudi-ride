@@ -14,8 +14,8 @@ import { MessageCircle } from "lucide-react";
 const translations = {
   en: {
     badge: "Transparent Pricing",
-    title: "Taxi Prices in Saudi Arabia — Fixed Fares",
-    description: "Pre-booked taxi rides across Saudi Arabia with fixed prices. Airport transfers, intercity rides, Umrah transfers, and hourly car hire. No surge pricing, no hidden fees.",
+    title: "Taxi Prices in Saudi Arabia — Clear Fares",
+    description: "Pre-booked taxi rides across Saudi Arabia with your price confirmed on WhatsApp. Airport transfers, intercity rides, Umrah transfers, and hourly car hire. No surge pricing, no hidden fees.",
     
     // Dynamic Calculator
     calcTitle: "Dynamic Fare Estimator",

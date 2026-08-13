@@ -228,7 +228,7 @@ export default function LocationsPage() {
             </h1>
             <p className="mt-6 max-w-2xl text-sm md:text-base leading-relaxed text-[#6B7280]">
               From the Holy Cities of Makkah and Madinah to the futuristic NEOM — we provide
-              fixed-price VIP transfers across the Kingdom with airport-to-hotel precision.
+              private VIP transfers across the Kingdom with airport-to-hotel precision.
             </p>
           </motion.div>
         </div>
