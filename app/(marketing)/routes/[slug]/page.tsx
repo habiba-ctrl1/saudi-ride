@@ -163,7 +163,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "How much is a taxi from Jeddah to Makkah?", answer: "The fare is fixed from SAR 199 for a sedan. SUVs and vans are available for families and extra luggage. The price is confirmed before booking, with tolls included and no surge." },
       { question: "Can you pick me up from my Jeddah hotel?", answer: "Yes. We offer door-to-door pickup from any hotel, residence, or address in Jeddah and drop you directly at your Makkah hotel or close to Masjid al-Haram." },
       { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes — let us know when booking and the driver will stop at the Miqat so you can enter Ihram before reaching Makkah." },
-      { question: "Do you offer a taxi service from Jeddah to Mecca?", answer: "Yes, Taxi Saudi Arabia is a licensed taxi service running fixed-price transfers from Jeddah to Makkah (Mecca) 24/7, with door-to-door pickup and Miqat stops for Umrah pilgrims." },
+      { question: "Do you offer a taxi service from Jeddah to Mecca?", answer: "Yes, Taxi Saudi Arabia arranges private transfers from Jeddah to Makkah (Mecca) 24/7, with door-to-door pickup and Miqat stops for Umrah pilgrims." },
     ],
   },
   "jeddah-airport-to-jeddah-city": {
@@ -550,7 +550,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     faqs: [
       { question: "How far is Riyadh from Buraydah?", answer: "Riyadh to Buraydah, the capital of the Qassim region, is about 350 km — roughly a 3 hour 10 minute drive north." },
       { question: "How much is a taxi from Riyadh to Buraydah?", answer: "The fare is fixed from SAR 280 for a sedan, confirmed before booking, with SUVs and vans available for families." },
-      { question: "Do you cover the Qassim region?", answer: "Yes. We serve Buraydah, Unaizah, and the wider Qassim region with fixed-price intercity transfers from Riyadh, 24/7." },
+      { question: "Do you cover the Qassim region?", answer: "Yes. We serve Buraydah, Unaizah, and the wider Qassim region with intercity transfers from Riyadh, quoted on WhatsApp, 24/7." },
     ],
   },
   "riyadh-to-jeddah": {
@@ -1161,7 +1161,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // every other route.
   const TITLE_OVERRIDES: Record<string, string> = {
     "jeddah-airport-to-makkah": "Taxi Jeddah Airport to Makkah — Fare From SAR 249",
-    "makkah-to-madinah": "Taxi Makkah to Madinah — Fixed Price From SAR 499",
+    "makkah-to-madinah": "Taxi Makkah to Madinah — From SAR 499",
     "riyadh-to-dammam": "Taxi Riyadh to Dammam — Price, Fare & Distance (390km)",
     "dammam-to-doha": "Taxi Dammam to Doha, Qatar — Cross-Border Fare From SAR 500",
     "jeddah-to-makkah": "Jeddah to Makkah (Mecca) Taxi Service — From SAR 199",
@@ -1191,8 +1191,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: route.priceOnRequest
         ? `Taxi from ${route.fromCity} to ${route.toCity} — Price on Request`
-        : `Taxi from ${route.fromCity} to ${route.toCity} — SAR ${route.basePrice} Fixed Price`,
-      description: route.description || `Book a taxi from ${route.fromCity} to ${route.toCity} at a fixed price. No surge, no hidden fees.`,
+        : `Taxi from ${route.fromCity} to ${route.toCity} — From SAR ${route.basePrice}`,
+      description: route.description || `Book a taxi from ${route.fromCity} to ${route.toCity} with a clear price confirmed on WhatsApp. No surge, no hidden fees.`,
       type: "website",
     },
   };
@@ -1322,7 +1322,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
           </div>
 
           {slug === "jeddah-airport-to-makkah" ? (
-            <div className="bg-gradient-to-br from-[#0F281E] via-[#16422F] to-[#0A1C14] rounded-3xl p-8 sm:p-10 text-white shadow-2xl border border-[#C9A84C]/25 relative overflow-hidden">
+            <div className="premium-dark-section bg-gradient-to-br from-[#0F281E] via-[#16422F] to-[#0A1C14] rounded-3xl p-8 sm:p-10 text-white shadow-2xl border border-[#C9A84C]/25 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-96 h-96 bg-[#C9A84C]/10 rounded-full blur-3xl pointer-events-none" />
               <div className="relative z-10 max-w-3xl space-y-6">
                 <div className="flex flex-wrap items-center gap-2.5">
@@ -1341,7 +1341,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                 </h1>
 
                 <p className="text-sm sm:text-base text-white/85 leading-relaxed font-normal">
-                  Fixed-price private taxi &amp; chauffeur service from King Abdulaziz International Airport (JED) directly to your hotel near Masjid al-Haram. 24/7 flight tracking with meet &amp; greet included.
+                  Private taxi &amp; chauffeur service from King Abdulaziz International Airport (JED) directly to your hotel near Masjid al-Haram. 24/7 flight tracking with meet &amp; greet included.
                 </p>
 
                 <div className="flex flex-wrap items-center gap-3 pt-1">
@@ -1355,7 +1355,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                   </div>
                   <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-xl px-4 py-2 border border-white/15 text-xs font-semibold">
                     <CheckCircle2 className="h-4 w-4 text-[#16A34A]" />
-                    <span>Fixed price from SAR 249</span>
+                    <span>From SAR 249</span>
                   </div>
                 </div>
 
@@ -1379,19 +1379,11 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                     <MessageSquare className="h-4 w-4 text-[#FACC15]" />
                     <span>WhatsApp</span>
                   </a>
-
-                  <a
-                    href={contactConfig.primaryPhoneLink}
-                    className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/40 bg-[#C9A84C]/15 backdrop-blur-md px-5 py-3.5 text-xs font-bold text-[#FACC15] hover:bg-[#C9A84C]/30 transition-all"
-                  >
-                    <Phone className="h-3.5 w-3.5" />
-                    <span>Or call: {contactConfig.primaryPhoneDisplay}</span>
-                  </a>
                 </div>
               </div>
             </div>
           ) : slug === "makkah-to-madinah" ? (
-            <div className="bg-gradient-to-br from-[#0F281E] via-[#16422F] to-[#0A1C14] rounded-3xl p-8 sm:p-10 text-white shadow-2xl border border-[#C9A84C]/25 relative overflow-hidden">
+            <div className="premium-dark-section bg-gradient-to-br from-[#0F281E] via-[#16422F] to-[#0A1C14] rounded-3xl p-8 sm:p-10 text-white shadow-2xl border border-[#C9A84C]/25 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-96 h-96 bg-[#C9A84C]/10 rounded-full blur-3xl pointer-events-none" />
               <div className="absolute bottom-0 left-0 w-72 h-72 bg-[#16A34A]/8 rounded-full blur-3xl pointer-events-none" />
               <div className="relative z-10 max-w-3xl space-y-6">
@@ -1402,7 +1394,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                   </span>
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 px-3.5 py-1 text-[0.65rem] font-bold uppercase tracking-widest text-white/90">
                     <ShieldCheck className="h-3.5 w-3.5 text-[#16A34A]" />
-                    Fixed Price · No Surge
+                    Clear Pricing · No Surge
                   </span>
                 </div>
 
@@ -1411,7 +1403,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                 </h1>
 
                 <p className="text-sm sm:text-base text-white/85 leading-relaxed font-normal">
-                  Private intercity transfer between the two Holy Cities. Fixed-price, comfortable vehicles for families and luggage, with prayer and rest stops along the Haramain highway.
+                  Private intercity transfer between the two Holy Cities. Comfortable vehicles for families and luggage, with prayer and rest stops along the Haramain highway.
                 </p>
 
                 <div className="flex flex-wrap items-center gap-3 pt-1">
@@ -1448,14 +1440,6 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                   >
                     <MessageSquare className="h-4 w-4 text-[#FACC15]" />
                     <span>WhatsApp</span>
-                  </a>
-
-                  <a
-                    href={contactConfig.primaryPhoneLink}
-                    className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/40 bg-[#C9A84C]/15 backdrop-blur-md px-5 py-3.5 text-xs font-bold text-[#FACC15] hover:bg-[#C9A84C]/30 transition-all"
-                  >
-                    <Phone className="h-3.5 w-3.5" />
-                    <span>Or call: {contactConfig.primaryPhoneDisplay}</span>
                   </a>
                 </div>
               </div>
@@ -1547,7 +1531,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                       <Image src={v.img} alt={v.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
                       <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent" />
                       <span className="absolute top-3 right-3 rounded-full bg-[#16A34A]/90 backdrop-blur-md px-3 py-1 text-[0.6rem] font-bold text-white uppercase tracking-wider">
-                        Fixed Price
+                        Clear Quote
                       </span>
                     </div>
                     <div className="p-5 relative -mt-4">
@@ -1776,8 +1760,8 @@ export default async function RouteDetailsPage({ params }: PageProps) {
               <li className="flex gap-4">
                 <CheckCircle2 className="h-5 w-5 text-[#C9A84C] shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="font-bold text-sm">All-Inclusive Fixed Price</h4>
-                  <p className="text-xs text-[#6B7280] mt-1">The price you see is the price you pay. No hidden fees, no surge pricing, tolls and taxes included.</p>
+                  <h4 className="font-bold text-sm">Clear, All-Inclusive Pricing</h4>
+                  <p className="text-xs text-[#6B7280] mt-1">Your fare is confirmed with you on WhatsApp before booking. No hidden fees, no surge pricing, tolls and taxes included.</p>
                 </div>
               </li>
               <li className="flex gap-4">
@@ -1803,13 +1787,13 @@ export default async function RouteDetailsPage({ params }: PageProps) {
 
           {/* ─── INLINE BOOKING CTA BEFORE FAQ (JED -> Makkah) ─── */}
           {slug === "jeddah-airport-to-makkah" && (
-            <section className="bg-gradient-to-br from-[#16A34A] to-[#116B32] rounded-3xl p-8 sm:p-10 text-white text-center shadow-xl space-y-6">
+            <section className="premium-dark-section bg-gradient-to-br from-[#16A34A] to-[#116B32] rounded-3xl p-8 sm:p-10 text-white text-center shadow-xl space-y-6">
               <div className="max-w-xl mx-auto space-y-3">
                 <h2 className="font-heading text-2xl sm:text-3xl font-extrabold">
                   Ready to Travel from Jeddah Airport to Makkah?
                 </h2>
                 <p className="text-xs sm:text-sm text-white/90 leading-relaxed">
-                  Book your fixed-price private transfer in under 2 minutes. Free cancellation up to 24 hours before pickup.
+                  Book your private transfer in under 2 minutes. Free cancellation up to 24 hours before pickup.
                 </p>
               </div>
 
@@ -1830,25 +1814,19 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                 >
                   WhatsApp Booking
                 </a>
-                <a
-                  href={contactConfig.primaryPhoneLink}
-                  className="rounded-full border border-white/40 px-6 py-3.5 text-white hover:bg-white/10 transition-all"
-                >
-                  Call {contactConfig.primaryPhoneDisplay}
-                </a>
               </div>
             </section>
           )}
 
           {/* ─── INLINE BOOKING CTA BEFORE FAQ (Makkah -> Madinah) ─── */}
           {slug === "makkah-to-madinah" && (
-            <section className="bg-gradient-to-br from-[#16A34A] to-[#116B32] rounded-3xl p-8 sm:p-10 text-white text-center shadow-xl space-y-6">
+            <section className="premium-dark-section bg-gradient-to-br from-[#16A34A] to-[#116B32] rounded-3xl p-8 sm:p-10 text-white text-center shadow-xl space-y-6">
               <div className="max-w-xl mx-auto space-y-3">
                 <h2 className="font-heading text-2xl sm:text-3xl font-extrabold">
                   Ready to Travel from Makkah to Madinah?
                 </h2>
                 <p className="text-xs sm:text-sm text-white/90 leading-relaxed">
-                  Book your fixed-price private transfer in under 2 minutes. Free cancellation up to 24 hours before pickup.
+                  Book your private transfer in under 2 minutes. Free cancellation up to 24 hours before pickup.
                 </p>
               </div>
 
@@ -1868,12 +1846,6 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                   className="rounded-full bg-white px-7 py-3.5 text-[#16A34A] hover:bg-white/90 transition-all hover:scale-105"
                 >
                   WhatsApp Booking
-                </a>
-                <a
-                  href={contactConfig.primaryPhoneLink}
-                  className="rounded-full border border-white/40 px-6 py-3.5 text-white hover:bg-white/10 transition-all"
-                >
-                  Call {contactConfig.primaryPhoneDisplay}
                 </a>
               </div>
             </section>
@@ -1901,7 +1873,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                 Book by Hotel Near Masjid al-Haram
               </h2>
               <p className="text-xs text-[#6B7280] mb-6">
-                Already have a hotel booked? Same fixed price, direct drop-off at your hotel entrance.
+                Already have a hotel booked? Same clear price, direct drop-off at your hotel entrance.
               </p>
               <div className="grid gap-3 sm:grid-cols-2">
                 {MAKKAH_HOTEL_ROUTES.map((h) => (
