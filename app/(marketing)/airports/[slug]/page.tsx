@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: `Taxi from ${airportData.name} (${airportData.code}) | Taxi Saudi Arabia`,
-    description: `Book your airport transfer from ${airportData.name}. Reliable taxi service, fixed prices, and meet & greet included at ${airportData.code} airport.`,
+    description: `Book your airport transfer from ${airportData.name}. Reliable private taxi service, quoted on WhatsApp, with meet & greet included at ${airportData.code} airport.`,
     alternates: {
       canonical: `https://taxisaudiarabia.com/airports/${slug}`,
     },

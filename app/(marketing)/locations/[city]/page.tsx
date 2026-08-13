@@ -64,18 +64,18 @@ interface PageProps {
 // a local route) instead of the old "Book a fixed-price taxi in {city}..."
 // template that was byte-identical across all 11 pages except the city name.
 const CITY_META_DESCRIPTION: Record<string, string> = {
-  makkah: "Fixed-price taxi in Makkah — Haram hotel drop-offs, Ziyarat tours, and transfers to Jeddah Airport (~80 km) or Madinah (~430 km). No surge, 24/7.",
-  madinah: "Fixed-price taxi in Madinah — Masjid an-Nabawi drop-offs, Ziyarat tours, and MED airport transfers (~20 km). Onward trips to Makkah available.",
-  riyadh: "Fixed-price taxi & chauffeur service in Riyadh — RUH airport transfers (~35 km), KAFD/Olaya business travel, and intercity rides to Dammam.",
-  jeddah: "Fixed-price taxi in Jeddah — JED airport pickups, Miqat stops for Ihram, and transfers to Makkah (~80 km) or Madinah (~420 km). 24/7.",
-  dammam: "Fixed-price taxi in Dammam — DMM airport transfers (~35 km), Khobar–Dhahran rides, and cross-border trips to Bahrain via the Causeway.",
+  makkah: "Taxi in Makkah — Haram hotel drop-offs, Ziyarat tours, and transfers to Jeddah Airport (~80 km) or Madinah (~430 km). No surge, 24/7.",
+  madinah: "Taxi in Madinah — Masjid an-Nabawi drop-offs, Ziyarat tours, and MED airport transfers (~20 km). Onward trips to Makkah available.",
+  riyadh: "Taxi & chauffeur service in Riyadh — RUH airport transfers (~35 km), KAFD/Olaya business travel, and intercity rides to Dammam.",
+  jeddah: "Taxi in Jeddah — JED airport pickups, Miqat stops for Ihram, and transfers to Makkah (~80 km) or Madinah (~420 km). 24/7.",
+  dammam: "Taxi in Dammam — DMM airport transfers (~35 km), Khobar–Dhahran rides, and cross-border trips to Bahrain via the Causeway.",
   alula: "Taxi & full-day car hire in AlUla — Hegra (UNESCO), Elephant Rock, Maraya, and ULH airport transfers. Best visited October–March.",
-  taif: "Fixed-price taxi in Taif — day trips from Makkah (~90 km) via Al Hada, rose farm visits, and TIF airport transfers. Cool mountain escape.",
-  alkhobar: "Fixed-price taxi in Al Khobar — Corniche rides, DMM airport transfers (~30 km), and cross-border trips to Bahrain via the Causeway.",
-  yanbu: "Fixed-price taxi in Yanbu — Red Sea diving trips, and intercity rides to Madinah (~240 km) or Jeddah (~330 km). Industrial City covered.",
+  taif: "Taxi in Taif — day trips from Makkah (~90 km) via Al Hada, rose farm visits, and TIF airport transfers. Cool mountain escape.",
+  alkhobar: "Taxi in Al Khobar — Corniche rides, DMM airport transfers (~30 km), and cross-border trips to Bahrain via the Causeway.",
+  yanbu: "Taxi in Yanbu — Red Sea diving trips, and intercity rides to Madinah (~240 km) or Jeddah (~330 km). Industrial City covered.",
   neom: "Executive taxi across NEOM & Tabuk — Tabuk (TUU) and NEOM Bay (NUM) airport transfers, site access trips, and Gulf of Aqaba coast rides.",
-  abha: "Fixed-price taxi in Abha — Soudah Peak & cable car trips, AHB airport transfers (~25 km), and rides across the misty Asir mountains.",
-  tabuk: "Fixed-price taxi in Tabuk — TUU airport transfers, NEOM business trips (~120 km), and cross-border rides to Jordan via Haql (~130 km).",
+  abha: "Taxi in Abha — Soudah Peak & cable car trips, AHB airport transfers (~25 km), and rides across the misty Asir mountains.",
+  tabuk: "Taxi in Tabuk — TUU airport transfers, NEOM business trips (~120 km), and cross-border rides to Jordan via Haql (~130 km).",
 };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -87,13 +87,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: `Taxi in ${cityData.name} | Airport & Intercity — Taxi Saudi Arabia`,
-    description: CITY_META_DESCRIPTION[cityKeyLower] ?? `Book a fixed-price taxi in ${cityData.name}, Saudi Arabia — airport transfers, Umrah rides, and 24/7 intercity trips with licensed drivers. No surge, fixed fares.`,
+    description: CITY_META_DESCRIPTION[cityKeyLower] ?? `Book a private taxi in ${cityData.name}, Saudi Arabia — airport transfers, Umrah rides, and 24/7 intercity trips with professional drivers. No surge, quoted on WhatsApp.`,
     alternates: {
       canonical: `https://taxisaudiarabia.com/locations/${city}`,
     },
     openGraph: {
       title: `Taxi Service in ${cityData.name} | Taxi Saudi Arabia`,
-      description: `Book a taxi in ${cityData.name} at fixed prices. Airport transfers, Umrah rides, and intercity taxi service. Available 24/7 with licensed drivers.`,
+      description: `Book a private taxi in ${cityData.name}, quoted on WhatsApp. Airport transfers, Umrah rides, and intercity taxi service. Available 24/7 with professional drivers.`,
       type: "website",
       url: `https://taxisaudiarabia.com/locations/${city}`,
       images: [
@@ -108,7 +108,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     twitter: {
       card: "summary_large_image",
       title: `Taxi Service in ${cityData.name} | Taxi Saudi Arabia`,
-      description: `Fixed-price taxi in ${cityData.name} — airport transfers, Umrah rides, and 24/7 intercity trips.`,
+      description: `Taxi in ${cityData.name} — airport transfers, Umrah rides, and 24/7 intercity trips.`,
       images: [`https://taxisaudiarabia.com/locations/${city.toLowerCase()}-og.webp`],
     },
   };

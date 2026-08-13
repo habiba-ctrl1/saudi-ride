@@ -208,7 +208,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             <div className="mt-16 p-8 rounded-3xl bg-white border border-[#16A34A]/15 text-center not-prose">
               <h3 className="font-heading text-2xl font-bold mb-3 text-[#1C1C1C]">Book a Comfortable Ride</h3>
               <p className="text-[#6B7280] text-sm mb-8 max-w-md mx-auto">
-                Going to a meeting or on Umrah? Our clean, air-conditioned cars with a professional driver get you there safely and on time, at a fixed price.
+                Going to a meeting or on Umrah? Our clean, air-conditioned cars with a professional driver get you there safely and on time, with your price confirmed on WhatsApp.
               </p>
               <Link
                 href="/book"
