@@ -39,7 +39,8 @@ export async function PATCH(
       pickupDateTime,
       returnDateTime,
       passengers,
-      flightNumber
+      flightNumber,
+      isTest
     } = body;
 
     if (status !== undefined && !BOOKING_STATUSES.includes(status)) {
@@ -77,6 +78,7 @@ export async function PATCH(
     if (returnDateTime !== undefined) updateData.returnDateTime = returnDateTime ? new Date(returnDateTime) : null;
     if (passengers !== undefined) updateData.passengers = Number(passengers);
     if (flightNumber !== undefined) updateData.flightNumber = flightNumber;
+    if (isTest !== undefined) updateData.isTest = Boolean(isTest);
 
     const updated = await prisma.booking.update({
       where: { id },
@@ -96,5 +98,35 @@ export async function PATCH(
       { error: "Internal server error" },
       { status: 500 }
     );
+  }
+}
+
+// DELETE /api/admin/bookings/[id] — only ever allowed for bookings explicitly
+// marked isTest=true. This check is enforced here, server-side, regardless of
+// what the calling UI shows — the client is never trusted for this decision.
+// There is deliberately no bulk/"delete all" variant.
+export async function DELETE(
+  _request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const auth = await requireAdmin();
+    if (!auth.ok) return NextResponse.json({ error: auth.error }, { status: auth.status });
+
+    const { id } = await params;
+    const booking = await prisma.booking.findUnique({ where: { id } });
+    if (!booking) return NextResponse.json({ error: "Booking not found" }, { status: 404 });
+    if (!booking.isTest) {
+      return NextResponse.json(
+        { error: "Only bookings marked as TEST can be deleted here." },
+        { status: 403 }
+      );
+    }
+
+    await prisma.booking.delete({ where: { id } });
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("Admin booking delete error:", error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

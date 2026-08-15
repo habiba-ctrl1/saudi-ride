@@ -91,6 +91,55 @@ export async function createQuotation(input: NewQuotationInput) {
   return { row: data as Pick<QuotationRow, "id" | "quote_reference"> | null, error: error?.message ?? null };
 }
 
+/**
+ * Admin-side bridge from a Prisma Booking to the real Supabase quotations
+ * system (reused as-is, not a second quotation implementation). Service-role
+ * insert — this is an authenticated admin action, not a public form
+ * submission, so it bypasses the anon `request_quotation` RPC and writes
+ * directly with a real `quoted` status. The DB trigger still generates the
+ * usual TSA-YYYY-NNNN reference.
+ */
+export async function createQuotationFromBooking(input: {
+  customer_name: string;
+  customer_phone: string;
+  customer_email?: string | null;
+  pickup_location: string;
+  drop_location: string;
+  trip_type: TripType;
+  trip_date: string;
+  trip_time?: string | null;
+  passengers_count?: number | null;
+  vehicle_type_requested?: DriverVehicleType | null;
+  quoted_price: number;
+  currency?: string;
+  luggage_notes?: string | null;
+}) {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return { row: null, error: "Supabase not configured" };
+  const { data, error } = await supabase
+    .from("quotations")
+    .insert({
+      customer_name: input.customer_name,
+      customer_phone: input.customer_phone,
+      customer_email: input.customer_email ?? null,
+      pickup_location: input.pickup_location,
+      drop_location: input.drop_location,
+      trip_type: input.trip_type,
+      trip_date: input.trip_date,
+      trip_time: input.trip_time ?? null,
+      passengers_count: input.passengers_count ?? null,
+      vehicle_type_requested: input.vehicle_type_requested ?? null,
+      quoted_price: input.quoted_price,
+      currency: input.currency ?? "SAR",
+      luggage_notes: input.luggage_notes ?? null,
+      status: "quoted",
+      source: "website",
+    })
+    .select()
+    .single();
+  return { row: (data ?? null) as QuotationRow | null, error: error?.message ?? null };
+}
+
 export async function getQuotationById(id: string) {
   const supabase = getSupabaseServerClient();
   if (!supabase) return { row: null as QuotationRow | null, error: "Supabase not configured" };

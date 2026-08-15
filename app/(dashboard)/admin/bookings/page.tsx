@@ -77,6 +77,9 @@ export default async function AdminBookingsPage({
         driverPhone: b.driverPhone,
         vehicleName: b.vehicle.name,
         createdAt: b.createdAt.toISOString(),
+        isTest: b.isTest,
+        quotationId: b.quotationId,
+        quotationRef: b.quotationRef,
       }))}
       total={total}
       page={page}

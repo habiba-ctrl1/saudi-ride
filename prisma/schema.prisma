@@ -203,6 +203,9 @@ model Booking {
   cancellationReason   String?
   cancelledAt          DateTime?
   completedAt          DateTime?
+  isTest               Boolean       @default(false)
+  quotationId          String?
+  quotationRef         String?
   payment              Payment?
   review               Review?
   createdAt            DateTime      @default(now())

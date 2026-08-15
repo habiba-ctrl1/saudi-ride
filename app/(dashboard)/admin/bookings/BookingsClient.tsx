@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { CalendarClock, Loader2, ChevronLeft, ChevronRight, Search, AlertTriangle } from "lucide-react";
+import { CalendarClock, Loader2, ChevronLeft, ChevronRight, Search, AlertTriangle, FileText, Download, FlaskConical, Trash2 } from "lucide-react";
 
 type BookingStatus =
   | "PENDING"
@@ -31,6 +31,9 @@ export type BookingRow = {
   driverPhone: string | null;
   vehicleName: string;
   createdAt: string;
+  isTest: boolean;
+  quotationId: string | null;
+  quotationRef: string | null;
 };
 
 const STATUS_COLOR: Record<BookingStatus, string> = {
@@ -81,7 +84,9 @@ export function BookingsClient({
   const [priceDraft, setPriceDraft] = useState<Record<string, string>>({});
   const [driverNameDraft, setDriverNameDraft] = useState<Record<string, string>>({});
   const [driverPhoneDraft, setDriverPhoneDraft] = useState<Record<string, string>>({});
+  const [notesDraft, setNotesDraft] = useState<Record<string, string>>({});
   const [rowError, setRowError] = useState<Record<string, string>>({});
+  const [quotation, setQuotation] = useState<Record<string, { id: string; ref: string }>>({});
   const [searchDraft, setSearchDraft] = useState(searchParams.get("search") ?? "");
   const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -108,6 +113,44 @@ export function BookingsClient({
       const data = await res.json();
       if (!res.ok) {
         setRowError((prev) => ({ ...prev, [id]: data.error || "Update failed" }));
+        return;
+      }
+      router.refresh();
+    } catch {
+      setRowError((prev) => ({ ...prev, [id]: "Network error" }));
+    } finally {
+      setBusyId(null);
+    }
+  }
+
+  async function generateQuotation(id: string) {
+    setBusyId(id);
+    setRowError((prev) => ({ ...prev, [id]: "" }));
+    try {
+      const res = await fetch(`/api/admin/bookings/${id}/quotation`, { method: "POST" });
+      const data = await res.json();
+      if (!res.ok) {
+        setRowError((prev) => ({ ...prev, [id]: data.error || "Could not generate quotation" }));
+        return;
+      }
+      setQuotation((prev) => ({ ...prev, [id]: { id: data.quotationId, ref: data.quotationRef } }));
+      router.refresh();
+    } catch {
+      setRowError((prev) => ({ ...prev, [id]: "Network error" }));
+    } finally {
+      setBusyId(null);
+    }
+  }
+
+  async function deleteTestBooking(id: string, ref: string) {
+    if (!confirm(`Delete TEST booking ${ref}? This cannot be undone.`)) return;
+    setBusyId(id);
+    setRowError((prev) => ({ ...prev, [id]: "" }));
+    try {
+      const res = await fetch(`/api/admin/bookings/${id}`, { method: "DELETE" });
+      const data = await res.json();
+      if (!res.ok) {
+        setRowError((prev) => ({ ...prev, [id]: data.error || "Delete failed" }));
         return;
       }
       router.refresh();
@@ -186,8 +229,10 @@ export function BookingsClient({
           const flagged = b.notes?.includes("SYSTEM FLAG");
           const priceSet = b.totalPrice > 0;
 
+          const q = quotation[b.id] ?? (b.quotationId && b.quotationRef ? { id: b.quotationId, ref: b.quotationRef } : null);
+
           return (
-            <div key={b.id} className="rounded-2xl border border-[#C9A84C]/10 bg-[#111] p-5 space-y-4">
+            <div key={b.id} className={`rounded-2xl border p-5 space-y-4 ${b.isTest ? "border-dashed border-[#666] bg-[#1a1a1a]/60" : "border-[#C9A84C]/10 bg-[#111]"}`}>
               <div className="flex items-start justify-between flex-wrap gap-3">
                 <div>
                   <div className="flex items-center gap-2 flex-wrap">
@@ -205,12 +250,35 @@ export function BookingsClient({
                         <AlertTriangle className="h-3 w-3" /> Flagged
                       </span>
                     )}
+                    {b.isTest && (
+                      <span className="flex items-center gap-1 rounded-full border border-gray-500/40 bg-gray-500/15 px-2.5 py-0.5 text-[10px] font-bold uppercase text-gray-300">
+                        <FlaskConical className="h-3 w-3" /> Test
+                      </span>
+                    )}
                   </div>
                   <p className="mt-2 text-sm font-semibold text-[#F5F0E8]">{b.customerName}</p>
                   <a href={`https://wa.me/${waPhone}`} target="_blank" rel="noopener noreferrer" className="text-xs text-[#C9A84C] hover:underline">
                     {b.customerPhone} (WhatsApp)
                   </a>
                   {b.customerEmail && <p className="text-xs text-[#A1A1A6]">{b.customerEmail}</p>}
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    disabled={busy}
+                    onClick={() => patch(b.id, { isTest: !b.isTest })}
+                    className="flex items-center gap-1.5 rounded-lg border border-[#333] px-2.5 py-1.5 text-[10px] font-bold uppercase text-[#A1A1A6] hover:border-gray-400 disabled:opacity-40"
+                  >
+                    <FlaskConical className="h-3 w-3" /> {b.isTest ? "Unmark Test" : "Mark as Test"}
+                  </button>
+                  {b.isTest && (
+                    <button
+                      disabled={busy}
+                      onClick={() => deleteTestBooking(b.id, b.bookingRef)}
+                      className="flex items-center gap-1.5 rounded-lg border border-red-500/30 bg-red-500/10 px-2.5 py-1.5 text-[10px] font-bold uppercase text-red-400 hover:bg-red-500/20 disabled:opacity-40"
+                    >
+                      <Trash2 className="h-3 w-3" /> Delete
+                    </button>
+                  )}
                 </div>
               </div>
 
@@ -237,11 +305,39 @@ export function BookingsClient({
                 </div>
               </div>
 
-              {b.notes && (
-                <p className={`text-xs border-t border-[#222] pt-3 ${flagged ? "text-red-400" : "text-[#A1A1A6]"}`}>
-                  {b.notes}
-                </p>
-              )}
+              <div className="border-t border-[#222] pt-3">
+                <label className="text-[10px] uppercase tracking-wide text-[#666]">Internal admin notes</label>
+                <textarea
+                  rows={2}
+                  placeholder="Add a note for other admins (not shown to the customer)…"
+                  value={notesDraft[b.id] ?? b.notes ?? ""}
+                  onChange={(e) => setNotesDraft((prev) => ({ ...prev, [b.id]: e.target.value }))}
+                  className={`mt-1 w-full resize-y rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs outline-none focus:border-[#C9A84C] ${flagged ? "text-red-400" : "text-[#A1A1A6]"}`}
+                />
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3 border-t border-[#222] pt-4">
+                <p className="text-[10px] uppercase tracking-wide text-[#666] w-full sm:w-auto">Quotation</p>
+                {q ? (
+                  <a
+                    href={`/api/quotations/${q.id}/invoice`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 rounded-lg border border-[#C9A84C]/30 bg-[#C9A84C]/10 px-3 py-1.5 text-xs font-bold text-[#C9A84C] hover:bg-[#C9A84C]/20"
+                  >
+                    <Download className="h-3.5 w-3.5" /> Download {q.ref}
+                  </a>
+                ) : (
+                  <button
+                    disabled={busy || !priceSet}
+                    onClick={() => generateQuotation(b.id)}
+                    title={!priceSet ? "Set a confirmed price first" : undefined}
+                    className="flex items-center gap-1.5 rounded-lg border border-[#333] px-3 py-1.5 text-xs font-bold text-[#A1A1A6] hover:border-[#C9A84C]/40 disabled:opacity-40"
+                  >
+                    <FileText className="h-3.5 w-3.5" /> Generate Quotation
+                  </button>
+                )}
+              </div>
 
               <div className="grid gap-3 border-t border-[#222] pt-4 sm:grid-cols-4">
                 <label className="text-xs text-[#A1A1A6]">
@@ -292,12 +388,17 @@ export function BookingsClient({
 
               <div className="flex items-center gap-2">
                 <button
-                  disabled={busy || (!priceDraft[b.id] && !driverNameDraft[b.id] && !driverPhoneDraft[b.id])}
+                  disabled={
+                    busy ||
+                    (!priceDraft[b.id] && !driverNameDraft[b.id] && !driverPhoneDraft[b.id] &&
+                      (notesDraft[b.id] === undefined || notesDraft[b.id] === (b.notes ?? "")))
+                  }
                   onClick={() => {
                     const payload: Record<string, unknown> = {};
                     if (priceDraft[b.id]) payload.totalPrice = priceDraft[b.id];
                     if (driverNameDraft[b.id]) payload.driverName = driverNameDraft[b.id];
                     if (driverPhoneDraft[b.id]) payload.driverPhone = driverPhoneDraft[b.id];
+                    if (notesDraft[b.id] !== undefined && notesDraft[b.id] !== (b.notes ?? "")) payload.notes = notesDraft[b.id];
                     patch(b.id, payload);
                   }}
                   className="rounded-lg bg-[#C9A84C]/15 border border-[#C9A84C]/25 px-3 py-2 text-xs font-bold text-[#C9A84C] hover:bg-[#C9A84C]/25 disabled:opacity-40"
