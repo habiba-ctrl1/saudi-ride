@@ -44,6 +44,12 @@ const styles = StyleSheet.create({
   totalLabelAr: { fontFamily: "Amiri", fontSize: 12, marginTop: 1 },
   totalValue: { fontWeight: 700, fontSize: 12, color: GOLD },
   note: { fontSize: 8.5, color: GRAY, marginTop: 4 },
+  noteAr: { fontSize: 9, color: GRAY, fontFamily: "Amiri", marginTop: 1 },
+  highlightNote: { fontSize: 9, color: DARK, marginTop: 8, padding: 8, backgroundColor: "#FFF9E6", borderRadius: 4, borderWidth: 1, borderColor: GOLD, lineHeight: 1.4 },
+  bulletLine: { fontSize: 9.5, color: "#121417", marginBottom: 4, lineHeight: 1.4 },
+  closingBlock: { marginTop: 4, marginBottom: 16, padding: 12, backgroundColor: "#faf7f0", borderRadius: 6, textAlign: "center" },
+  closingText: { fontSize: 9.5, color: GRAY, marginBottom: 4 },
+  closingContact: { fontSize: 11, color: GOLD, fontWeight: 700 },
   termsBlock: { marginTop: 4 },
   termLineEn: { fontSize: 8.5, color: GRAY, marginBottom: 4, lineHeight: 1.4 },
   termLineAr: { fontSize: 9.5, color: GRAY, fontFamily: "Amiri", textAlign: "right", marginBottom: 5, lineHeight: 1.6 },
@@ -73,6 +79,67 @@ function SectionTitle({ en, ar }: { en: string; ar: string }) {
       <Text style={styles.sectionTitleAr}>{ar}</Text>
     </View>
   );
+}
+
+function BulletList({ items }: { items: string[] }) {
+  return (
+    <View>
+      {items.map((item, i) => (
+        <Text key={i} style={styles.bulletLine}>• {item}</Text>
+      ))}
+    </View>
+  );
+}
+
+type TripExtras = {
+  vehicleLabel?: string;
+  itinerary?: string[];
+  included?: string[];
+  excluded?: string[];
+  notes?: string;
+};
+
+/**
+ * luggage_notes is a plain free-text column shared by every quotation type
+ * (airport transfers, car recovery, day tours, ...). Multi-stop tour quotes
+ * (like a Jeddah–Taif day trip) additionally encode a structured
+ * VEHICLE:/ITINERARY:/INCLUDED:/NOT INCLUDED: block inside it so this one
+ * template can render dedicated sections for them — no schema change, and
+ * any quotation without these markers renders exactly as before (plain
+ * "Notes" field).
+ */
+function parseTripExtras(luggageNotes: string | null): TripExtras {
+  if (!luggageNotes) return {};
+  const HEADERS = ["VEHICLE:", "ITINERARY:", "INCLUDED:", "NOT INCLUDED:"] as const;
+  if (!HEADERS.some((h) => luggageNotes.includes(h))) {
+    return { notes: luggageNotes };
+  }
+
+  const lines = luggageNotes.split("\n");
+  const extras: TripExtras = { itinerary: [], included: [], excluded: [] };
+  let current: "vehicle" | "itinerary" | "included" | "excluded" | "notes" | null = null;
+  const leftover: string[] = [];
+
+  for (const rawLine of lines) {
+    const line = rawLine.trim();
+    if (!line) continue;
+    if (line.startsWith("VEHICLE:")) { extras.vehicleLabel = line.replace("VEHICLE:", "").trim(); current = "vehicle"; continue; }
+    if (line.startsWith("ITINERARY:")) { current = "itinerary"; continue; }
+    if (line.startsWith("NOT INCLUDED:")) { current = "excluded"; continue; }
+    if (line.startsWith("INCLUDED:")) { current = "included"; continue; }
+
+    const bullet = line.replace(/^[-•]\s*/, "");
+    if (current === "itinerary") extras.itinerary!.push(bullet);
+    else if (current === "included") extras.included!.push(bullet);
+    else if (current === "excluded") extras.excluded!.push(bullet);
+    else if (current !== "vehicle") leftover.push(line);
+  }
+
+  if (!extras.itinerary!.length) delete extras.itinerary;
+  if (!extras.included!.length) delete extras.included;
+  if (!extras.excluded!.length) delete extras.excluded;
+  if (leftover.length) extras.notes = leftover.join(" ");
+  return extras;
 }
 
 function buildTerms(validUntilStr: string): Array<{ en: string; ar: string }> {
@@ -110,6 +177,9 @@ export function InvoiceDocument({ q }: { q: QuotationRow }) {
   const validUntil = tripDate < sevenDaysOut ? tripDate : sevenDaysOut;
   const fmtDate = (d: Date) => d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
   const terms = buildTerms(fmtDate(validUntil));
+  const extras = parseTripExtras(q.luggage_notes);
+  const fareLabel = extras.excluded?.length ? "Transportation fare (see exclusions below)" : "Trip fare (all-inclusive)";
+  const fareLabelAr = extras.excluded?.length ? "أجرة النقل (راجع الاستثناءات أدناه)" : "إجمالي أجرة الرحلة (شامل)";
 
   return (
     <Document title={`Quotation ${q.quote_reference}`}>
@@ -146,18 +216,47 @@ export function InvoiceDocument({ q }: { q: QuotationRow }) {
             value={`${q.trip_date}${q.trip_time ? ` — ${q.trip_time.slice(0, 5)}` : ""}`}
           />
           <Field labelEn="Passengers" labelAr="عدد الركاب" value={String(q.passengers_count ?? "-")} />
-          {q.vehicle_type_requested ? (
-            <Field labelEn="Vehicle" labelAr="المركبة" value={q.vehicle_type_requested.toUpperCase()} />
-          ) : null}
-          {q.luggage_notes ? <Field labelEn="Notes" labelAr="ملاحظات" value={q.luggage_notes} /> : null}
+          {extras.notes ? <Field labelEn="Notes" labelAr="ملاحظات" value={extras.notes} /> : null}
         </View>
 
+        {(extras.vehicleLabel || q.vehicle_type_requested) ? (
+          <View style={styles.section}>
+            <SectionTitle en="Vehicle & Service" ar="المركبة والخدمة" />
+            <Field
+              labelEn="Vehicle"
+              labelAr="المركبة"
+              value={extras.vehicleLabel || q.vehicle_type_requested!.toUpperCase()}
+            />
+          </View>
+        ) : null}
+
+        {extras.itinerary?.length ? (
+          <View style={styles.section}>
+            <SectionTitle en="Itinerary" ar="خط سير الرحلة" />
+            <BulletList items={extras.itinerary} />
+          </View>
+        ) : null}
+
+        {extras.included?.length ? (
+          <View style={styles.section}>
+            <SectionTitle en="What's Included" ar="يشمل السعر" />
+            <BulletList items={extras.included} />
+          </View>
+        ) : null}
+
+        {extras.excluded?.length ? (
+          <View style={styles.section}>
+            <SectionTitle en="What's Not Included" ar="لا يشمل السعر" />
+            <BulletList items={extras.excluded} />
+          </View>
+        ) : null}
+
         <View style={styles.section}>
-          <SectionTitle en="Payment" ar="الدفع" />
+          <SectionTitle en="Price Summary" ar="ملخص السعر" />
           <View style={styles.table}>
             <View style={[styles.tableRow, styles.tableRowLast]}>
-              <Text style={styles.tableLabelEn}>Trip fare (all-inclusive)</Text>
-              <Text style={styles.tableLabelAr}>إجمالي أجرة الرحلة (شامل)</Text>
+              <Text style={styles.tableLabelEn}>{fareLabel}</Text>
+              <Text style={styles.tableLabelAr}>{fareLabelAr}</Text>
               <Text style={styles.tableValue}>{fmt(total, q.currency)}</Text>
             </View>
           </View>
@@ -168,7 +267,13 @@ export function InvoiceDocument({ q }: { q: QuotationRow }) {
             </View>
             <Text style={styles.totalValue}>{fmt(total, q.currency)}</Text>
           </View>
-          <Text style={styles.note}>Payable in cash to the driver. / يُدفع نقداً للسائق.</Text>
+          <Text style={styles.note}>Payable in cash to the driver.</Text>
+          <Text style={styles.noteAr}>يُدفع نقداً للسائق.</Text>
+          {extras.excluded?.length ? (
+            <Text style={styles.highlightNote}>
+              This rate covers transportation only. It does not include: {extras.excluded.join(", ")}.
+            </Text>
+          ) : null}
         </View>
 
         <View style={styles.section}>
@@ -185,8 +290,13 @@ export function InvoiceDocument({ q }: { q: QuotationRow }) {
           </View>
         </View>
 
+        <View style={styles.closingBlock}>
+          <Text style={styles.closingText}>Questions or ready to confirm? Reach our concierge desk directly.</Text>
+          <Text style={styles.closingContact}>WhatsApp {contactConfig.primaryPhoneDisplay}</Text>
+        </View>
+
         <View style={styles.footer}>
-          <Text>Taxi Saudi Arabia — {contactConfig.primaryPhoneDisplay} — {contactConfig.email}</Text>
+          <Text>Taxi Saudi Arabia — Private Transportation Services — {contactConfig.primaryPhoneDisplay} — {contactConfig.email}</Text>
         </View>
       </Page>
     </Document>
