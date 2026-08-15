@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
   invoiceTitle: { color: "#fff", fontSize: 13, textAlign: "right" },
   invoiceTitleAr: { color: GOLD, fontSize: 11, textAlign: "right", fontFamily: "Amiri", marginTop: 2 },
   invoiceRef: { color: GOLD, fontSize: 11, textAlign: "right", marginTop: 4 },
+  invoicePurpose: { color: "#A1A1A6", fontSize: 8, textAlign: "right", marginTop: 3 },
   section: { marginBottom: 16 },
   sectionTitleRow: { flexDirection: "row", justifyContent: "space-between", marginBottom: 6, borderBottomWidth: 1, borderBottomColor: "#eee5d0", paddingBottom: 3 },
   sectionTitle: { fontSize: 9, color: GRAY, textTransform: "uppercase", letterSpacing: 1 },
@@ -93,51 +94,76 @@ function BulletList({ items }: { items: string[] }) {
 
 type TripExtras = {
   vehicleLabel?: string;
+  purpose?: string;
+  serviceHours?: string;
   itinerary?: string[];
+  itineraryNote?: string;
   included?: string[];
   excluded?: string[];
+  customTerms?: string[];
   notes?: string;
 };
+
+const SINGLE_LINE_MARKERS = {
+  "VEHICLE:": "vehicleLabel",
+  "FOR:": "purpose",
+  "SERVICE HOURS:": "serviceHours",
+  "ITINERARY_NOTE:": "itineraryNote",
+} as const;
+const LIST_MARKERS = {
+  "ITINERARY:": "itinerary",
+  "NOT INCLUDED:": "excluded",
+  "INCLUDED:": "included",
+  "TERMS:": "customTerms",
+} as const;
 
 /**
  * luggage_notes is a plain free-text column shared by every quotation type
  * (airport transfers, car recovery, day tours, ...). Multi-stop tour quotes
- * (like a Jeddah–Taif day trip) additionally encode a structured
- * VEHICLE:/ITINERARY:/INCLUDED:/NOT INCLUDED: block inside it so this one
- * template can render dedicated sections for them — no schema change, and
+ * (like a Jeddah–Taif day trip) additionally encode a structured block of
+ * plain "MARKER: value" / "MARKER:" + bullet-list lines inside it so this
+ * one template can render dedicated sections for them and an admin can type
+ * a fully custom Terms & Conditions per quotation — no schema change, and
  * any quotation without these markers renders exactly as before (plain
- * "Notes" field).
+ * "Notes" field with the default bilingual terms).
  */
 function parseTripExtras(luggageNotes: string | null): TripExtras {
   if (!luggageNotes) return {};
-  const HEADERS = ["VEHICLE:", "ITINERARY:", "INCLUDED:", "NOT INCLUDED:"] as const;
-  if (!HEADERS.some((h) => luggageNotes.includes(h))) {
+  const allMarkers = [...Object.keys(SINGLE_LINE_MARKERS), ...Object.keys(LIST_MARKERS)];
+  if (!allMarkers.some((h) => luggageNotes.includes(h))) {
     return { notes: luggageNotes };
   }
 
   const lines = luggageNotes.split("\n");
-  const extras: TripExtras = { itinerary: [], included: [], excluded: [] };
-  let current: "vehicle" | "itinerary" | "included" | "excluded" | "notes" | null = null;
+  const extras: TripExtras = {};
+  let current: (typeof LIST_MARKERS)[keyof typeof LIST_MARKERS] | null = null;
   const leftover: string[] = [];
 
   for (const rawLine of lines) {
     const line = rawLine.trim();
     if (!line) continue;
-    if (line.startsWith("VEHICLE:")) { extras.vehicleLabel = line.replace("VEHICLE:", "").trim(); current = "vehicle"; continue; }
-    if (line.startsWith("ITINERARY:")) { current = "itinerary"; continue; }
-    if (line.startsWith("NOT INCLUDED:")) { current = "excluded"; continue; }
-    if (line.startsWith("INCLUDED:")) { current = "included"; continue; }
 
-    const bullet = line.replace(/^[-•]\s*/, "");
-    if (current === "itinerary") extras.itinerary!.push(bullet);
-    else if (current === "included") extras.included!.push(bullet);
-    else if (current === "excluded") extras.excluded!.push(bullet);
-    else if (current !== "vehicle") leftover.push(line);
+    const singleMatch = (Object.keys(SINGLE_LINE_MARKERS) as Array<keyof typeof SINGLE_LINE_MARKERS>)
+      .find((marker) => line.startsWith(marker));
+    if (singleMatch) {
+      extras[SINGLE_LINE_MARKERS[singleMatch]] = line.slice(singleMatch.length).trim();
+      current = null;
+      continue;
+    }
+
+    const listMatch = (Object.keys(LIST_MARKERS) as Array<keyof typeof LIST_MARKERS>)
+      .find((marker) => line.startsWith(marker));
+    if (listMatch) {
+      current = LIST_MARKERS[listMatch];
+      extras[current] = extras[current] ?? [];
+      continue;
+    }
+
+    const bullet = line.replace(/^[-•\d.]+\s*/, "");
+    if (current) extras[current]!.push(bullet);
+    else leftover.push(line);
   }
 
-  if (!extras.itinerary!.length) delete extras.itinerary;
-  if (!extras.included!.length) delete extras.included;
-  if (!extras.excluded!.length) delete extras.excluded;
   if (leftover.length) extras.notes = leftover.join(" ");
   return extras;
 }
@@ -176,9 +202,16 @@ export function InvoiceDocument({ q }: { q: QuotationRow }) {
   // it would expire the quote long before the customer's actual travel date.
   const validUntil = new Date(tripDate.getTime() + 24 * 60 * 60 * 1000);
   const fmtDate = (d: Date) => d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
-  const terms = buildTerms(fmtDate(validUntil));
   const extras = parseTripExtras(q.luggage_notes);
-  const fareLabel = extras.excluded?.length ? "Transportation fare (see exclusions below)" : "Trip fare (all-inclusive)";
+  // A per-quotation TERMS: block (admin-typed, English) replaces the default
+  // bilingual boilerplate entirely — the admin is curating exactly what this
+  // specific quotation should say, not appending to a generic template.
+  const terms = extras.customTerms?.length
+    ? extras.customTerms.map((en) => ({ en, ar: null as string | null }))
+    : buildTerms(fmtDate(validUntil)).map((t) => ({ ...t, ar: t.ar as string | null }));
+  const fareLabel = extras.vehicleLabel && extras.itinerary?.length
+    ? `${extras.vehicleLabel} — Full-Day Private Service`
+    : extras.excluded?.length ? "Transportation fare (see exclusions below)" : "Trip fare (all-inclusive)";
   const fareLabelAr = extras.excluded?.length ? "أجرة النقل (راجع الاستثناءات أدناه)" : "إجمالي أجرة الرحلة (شامل)";
 
   return (
@@ -187,13 +220,14 @@ export function InvoiceDocument({ q }: { q: QuotationRow }) {
         <View style={styles.header}>
           <View>
             <Text style={styles.brand}>TAXI SAUDI ARABIA</Text>
-            <Text style={styles.brandSub}>PREMIUM CHAUFFEUR NETWORK — KSA</Text>
-            <Text style={styles.brandSubAr}>شبكة سائقين فاخرة - المملكة العربية السعودية</Text>
+            <Text style={styles.brandSub}>PRIVATE TRANSPORTATION SERVICES</Text>
+            <Text style={styles.brandSubAr}>خدمات النقل الخاص</Text>
           </View>
           <View>
             <Text style={styles.invoiceTitle}>QUOTATION</Text>
             <Text style={styles.invoiceTitleAr}>عرض سعر</Text>
             <Text style={styles.invoiceRef}>{q.quote_reference}</Text>
+            {extras.purpose ? <Text style={styles.invoicePurpose}>For {extras.purpose}</Text> : null}
           </View>
         </View>
 
@@ -227,6 +261,7 @@ export function InvoiceDocument({ q }: { q: QuotationRow }) {
               labelAr="المركبة"
               value={extras.vehicleLabel || q.vehicle_type_requested!.toUpperCase()}
             />
+            {extras.serviceHours ? <Field labelEn="Service Hours" labelAr="ساعات الخدمة" value={extras.serviceHours} /> : null}
           </View>
         ) : null}
 
@@ -234,6 +269,7 @@ export function InvoiceDocument({ q }: { q: QuotationRow }) {
           <View style={styles.section}>
             <SectionTitle en="Itinerary" ar="خط سير الرحلة" />
             <BulletList items={extras.itinerary} />
+            {extras.itineraryNote ? <Text style={styles.note}>{extras.itineraryNote}</Text> : null}
           </View>
         ) : null}
 
@@ -283,14 +319,19 @@ export function InvoiceDocument({ q }: { q: QuotationRow }) {
               <Text key={`en-${i}`} style={styles.termLineEn}>{i + 1}. {t.en}</Text>
             ))}
           </View>
-          <View style={styles.termsBlock}>
-            {terms.map((t, i) => (
-              <Text key={`ar-${i}`} style={styles.termLineAr}>{t.ar} .{i + 1}</Text>
-            ))}
-          </View>
+          {terms.some((t) => t.ar) ? (
+            <View style={styles.termsBlock}>
+              {terms.map((t, i) => (
+                t.ar ? <Text key={`ar-${i}`} style={styles.termLineAr}>{t.ar} .{i + 1}</Text> : null
+              ))}
+            </View>
+          ) : null}
         </View>
 
         <View style={styles.closingBlock}>
+          <Text style={styles.closingText}>
+            Thank you for choosing Taxi Saudi Arabia. We look forward to providing you with a comfortable and memorable journey.
+          </Text>
           <Text style={styles.closingText}>Questions or ready to confirm? Reach our concierge desk directly.</Text>
           <Text style={styles.closingContact}>WhatsApp {contactConfig.primaryPhoneDisplay}</Text>
         </View>
