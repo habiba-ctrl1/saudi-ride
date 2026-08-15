@@ -361,6 +361,25 @@ model Lead {
   @@map("leads")
 }
 
+// ─── Batch 2 additions ──────────────────────────────────────────────────────
+
+// ContactSubmission = durable record of every /api/contact enquiry (Contact
+// page + Corporate Account + B2B Partners forms, which all POST to that one
+// route). Saved BEFORE the notification email so a Resend outage can never
+// lose the enquiry the way it previously could.
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  service   String?
+  message   String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([createdAt])
+  @@map("contact_submissions")
+}
+
 // NotificationFailure = durable record of any email/SMS/WhatsApp that failed to
 // send. The booking/lead ALWAYS saves; a failed notification lands here instead
 // of being silently lost.

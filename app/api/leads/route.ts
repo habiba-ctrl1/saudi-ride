@@ -1,10 +1,18 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { sendLeadNotification, recordNotificationFailure } from "@/lib/notifications";
+import { rateLimit, BOOKING_LIMIT } from "@/lib/rate-limit";
 
 // Public: captures a quote/enquiry BEFORE the WhatsApp hand-off so a visitor is
 // never lost just because they didn't finish the chat. Fire-and-forget from the
 // client (keepalive) — this must be fast and must never block the WhatsApp open.
 export async function POST(request: Request) {
+  const ip = request.headers.get("x-forwarded-for") ?? "unknown";
+  const rl = rateLimit({ key: `leads:${ip}`, ...BOOKING_LIMIT });
+  if (!rl.success) {
+    return NextResponse.json({ error: "Too many requests. Please try again later." }, { status: 429 });
+  }
+
   try {
     const b = await request.json();
     const origin = String(b.origin ?? b.pickup ?? "").trim().slice(0, 300);
@@ -38,7 +46,30 @@ export async function POST(request: Request) {
       },
     });
 
-    return NextResponse.json({ success: true, id: lead.id }, { status: 201 });
+    // Lead is already saved — a notification failure below must never lose it
+    // or turn this response into an error. Same best-effort pattern as
+    // notifyNewBooking(): attempt the alert, log (don't throw) on failure.
+    let notified = false;
+    try {
+      const r = await sendLeadNotification(lead);
+      notified = !!r.email;
+      if (!r.email) {
+        await recordNotificationFailure({
+          channel: "lead_admin_email",
+          bookingRef: lead.id,
+          subject: "new lead",
+          error: "sendEmail returned null",
+        });
+      }
+    } catch (err) {
+      await recordNotificationFailure({
+        channel: "lead_admin_email",
+        bookingRef: lead.id,
+        error: String(err),
+      });
+    }
+
+    return NextResponse.json({ success: true, id: lead.id, notified }, { status: 201 });
   } catch (err) {
     console.error("Create lead error:", err);
     return NextResponse.json({ error: "Could not save lead" }, { status: 500 });
