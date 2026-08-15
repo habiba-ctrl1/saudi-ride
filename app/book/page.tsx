@@ -25,24 +25,6 @@ import { contactConfig } from "@/lib/config/contact";
 
 type VehicleKey = 'SEDAN' | 'SUV' | 'VAN' | 'LUXURY' | 'BUS';
 
-type PricingResponse = {
-  price: number;
-  distance: number;
-  duration: number;
-  isFixed: boolean;
-  currency: string;
-  breakdown: {
-    baseFare: number;
-    nightSurcharge: number;
-    ramadanSurcharge: number;
-    isNight: boolean;
-    isRamadan: boolean;
-    subtotal: number;
-    discount: number;
-    isRoundTrip: boolean;
-  };
-};
-
 const defaultSuggestions = [
   "Jeddah King Abdulaziz Airport (JED) - Terminal 1",
   "Makkah Grand Mosque (Haram) - Clock Tower Plaza",
@@ -85,10 +67,6 @@ export default function BookPage() {
 
   // Step 2 Vehicle Selection
   const [selectedVehicle, setSelectedVehicle] = useState<VehicleKey>('SUV');
-  const [computedPrices, setComputedPrices] = useState<Record<VehicleKey, PricingResponse | null>>({
-    SEDAN: null, SUV: null, VAN: null, LUXURY: null, BUS: null
-  });
-  const [loadingPrices, setLoadingPrices] = useState(false);
 
   // Step 3 Addons
   const [addons, setAddons] = useState({
@@ -112,7 +90,6 @@ export default function BookPage() {
   // Payment gateway abhi live nahi — booking sirf request hai, final quotation
   // WhatsApp/email par jati hai aur payment driver ko cash/card se hoti hai.
   const [promoCode, setPromoCode] = useState("");
-  const [promoDiscount, setPromoDiscount] = useState(0); // in ratio e.g. 0.10
   const [termsAgreed, setTermsAgreed] = useState(false);
 
   // Step 6 Confirmation details
@@ -182,52 +159,6 @@ export default function BookPage() {
       setDateTime(localTime);
     }
   }, [dateTime]);
-  // Pre-fetch prices debounced as user enters coordinates
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (pickup.length >= 3 && dropoff.length >= 3 && dateTime) {
-        void fetchAllPrices();
-      }
-    }, 600);
-    return () => clearTimeout(timer);
-  }, [pickup, dropoff, dateTime]);
-  // Fetch prices for all vehicle types
-  const fetchAllPrices = async () => {
-    if (pickup.length < 3 || dropoff.length < 3) return;
-    try {
-      setLoadingPrices(true);
-      const vehicleKeys: VehicleKey[] = ['SEDAN', 'SUV', 'VAN', 'LUXURY', 'BUS'];
-      const responses: Record<VehicleKey, PricingResponse | null> = {
-        SEDAN: null, SUV: null, VAN: null, LUXURY: null, BUS: null
-      };
-
-      for (const vk of vehicleKeys) {
-        try {
-          const res = await fetch("/api/pricing", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              pickup,
-              dropoff,
-              vehicleType: vk,
-              dateTime,
-              isRoundTrip: tripType === "roundtrip"
-            })
-          });
-          if (res.ok) {
-            responses[vk] = await res.json();
-          }
-        } catch (singleErr) {
-          console.error(`Fares estimate failed for class ${vk}:`, singleErr);
-        }
-      }
-      setComputedPrices(responses);
-    } catch (err) {
-      console.error("Global pricing sync error:", err);
-    } finally {
-      setLoadingPrices(false);
-    }
-  };
 
   const handlePickupChange = (val: string) => {
     setPickup(val);
@@ -294,46 +225,30 @@ export default function BookPage() {
     }
   }, [setupGoogleAutocomplete]);
 
-  // Price computations for review step
-  const activePricing = computedPrices[selectedVehicle];
-  const basePrice = activePricing ? activePricing.price : 250;
-
-  // Surcharge for addons
-  const addonTotal =
-    (addons.childSeat ? 30 : 0) +
-    (addons.meetAndGreet ? 20 : 0) +
-    (addons.extraWaiting ? 40 : 0) +
-    (addons.waterBottles ? 10 : 0);
-
-  const subtotalBeforePromo = basePrice + addonTotal;
-  const promoDiscountAmount = Math.round(subtotalBeforePromo * promoDiscount);
-  const subtotalAfterPromo = subtotalBeforePromo - promoDiscountAmount;
-
-  // 15% VAT included
-  const vatAmount = Math.round(subtotalAfterPromo * 0.15);
-  const finalTotalPrice = subtotalAfterPromo; // Pricing is already VAT inclusive or inclusive, let's treat it as total price
-
-
-  // Promo code verification
-  const handleApplyPromo = () => {
-    const code = promoCode.trim().toUpperCase();
-    if (code === "WELCOME10") {
-      setPromoDiscount(0.10);
-      alert("Promo code WELCOME10 applied! 10% discount added to your transfer.");
-    } else if (code === "RAMADAN26") {
-      setPromoDiscount(0.15);
-      alert("Promo code RAMADAN26 applied! 15% Ramadan discount added.");
-    } else {
-      alert("Invalid promo code.");
-      setPromoDiscount(0);
-    }
-  };
+  // Human-readable summary of selected addons, for the review recap + notes
+  const selectedAddonLabels = [
+    addons.childSeat && "Child Safety Seat",
+    addons.meetAndGreet && "Airport Meet & Greet",
+    addons.extraWaiting && "Extra Waiting Time",
+    addons.waterBottles && "Premium Chilled Water",
+    addons.prayerMat && "Sterilized Prayer Mat",
+    addons.wheelchairFilter && "Wheelchair Facility",
+  ].filter(Boolean) as string[];
 
   // Submit Booking to database (POST /api/bookings)
   const handleFinalizeBooking = async () => {
     try {
       setCreatingBooking(true);
       setNotificationLogs([]);
+
+      // Combine addon selections + optional promo code into the free-text
+      // notes the admin sees — no client-side price/discount math anywhere
+      // here, price is always confirmed manually on WhatsApp.
+      const noteParts = [
+        specialNotes || null,
+        selectedAddonLabels.length > 0 ? `Requested add-ons: ${selectedAddonLabels.join(", ")}` : null,
+        promoCode.trim() ? `Promo code entered: ${promoCode.trim()}` : null,
+      ].filter(Boolean);
 
       // Make API POST request
       const res = await fetch("/api/bookings", {
@@ -350,10 +265,9 @@ export default function BookPage() {
           customerName: custName,
           customerPhone: `${phoneCode}${custPhone}`,
           customerEmail: custEmail || null,
-          notes: specialNotes || null,
+          notes: noteParts.length > 0 ? noteParts.join(" | ") : null,
           flightNumber: flightNumber || null,
-          paymentMethod: "arrival",
-          totalPrice: finalTotalPrice
+          paymentMethod: "arrival"
         })
       });
 
@@ -401,8 +315,6 @@ export default function BookPage() {
         alert("Please set pick-up date & time.");
         return;
       }
-      // Load pricing
-      void fetchAllPrices();
       setStep(2);
     } else if (step === 2) {
       setStep(3);
@@ -465,7 +377,7 @@ export default function BookPage() {
             >
               <div className="space-y-1">
                 <h2 className="font-heading text-2xl font-bold">{isRtl ? "ØªÙØ§ØµÙŠÙ„ Ø±Ø­Ù„ØªÙƒ Ø§Ù„ÙØ§Ø®Ø±Ø©" : "Enter Journey Coordinates"}</h2>
-                <p className="text-xs text-[#6B7280]">{isRtl ? "Ø­Ø¯Ø¯ ÙˆØ¬Ù‡ØªÙƒ ÙˆØªØ§Ø±ÙŠØ® Ø§Ù„Ø±Ø­Ù„Ø© ÙˆØ®ÙŠØ§Ø±Ø§Øª Ù…Ø³Ø§Ø±Ùƒ Ù„ØªØ¹Ø¯ÙŠÙ„ Ø§Ù„Ø£Ø³Ø¹Ø§Ø± Ø§Ù„ØªÙ„Ù‚Ø§Ø¦ÙŠ." : "Specify transfer points, schedule details, and vehicle sizing."}</p>
+                <p className="text-xs text-[#6B7280]">{isRtl ? "حدد نقاط النقل، وتفاصيل الجدول الزمني، وحجم السيارة." : "Specify transfer points, schedule details, and vehicle sizing."}</p>
               </div>
 
               <div className="grid gap-6 md:grid-cols-[1.1fr_0.9fr]">
@@ -750,7 +662,7 @@ export default function BookPage() {
               <div className="flex items-center justify-between border-b border-[#C9A84C]/10 pb-4">
                 <div>
                   <h2 className="font-heading text-2xl font-bold">{isRtl ? "Ø§Ø®ØªØ± Ø³ÙŠØ§Ø±ØªÙƒ Ø§Ù„ÙØ§Ø®Ø±Ø©" : "Select Reserved Class"}</h2>
-                  <p className="text-xs text-[#6B7280]">{isRtl ? "Ù…Ù‚Ø§Ø±Ù†Ø© Ø§Ù„Ø£Ø³Ø¹Ø§Ø± Ø§Ù„Ø«Ø§Ø¨ØªØ© Ø§Ù„Ø´Ø§Ù…Ù„Ø© Ù„Ù„Ø¶Ø±ÙŠØ¨Ø© Ù„Ø¬Ù…ÙŠØ¹ ÙØ¦Ø§Øª Ø£Ø³Ø·ÙˆÙ„Ù†Ø§." : "Compare KSA VAT-inclusive flat rates for your journey coordinates."}</p>
+                  <p className="text-xs text-[#6B7280]">{isRtl ? "Ù…Ù‚Ø§Ø±Ù†Ø© Ø§Ù„Ø£Ø³Ø¹Ø§Ø± Ø§Ù„Ø«Ø§Ø¨ØªØ© Ø§Ù„Ø´Ø§Ù…Ù„Ø© Ù„Ù„Ø¶Ø±ÙŠØ¨Ø© Ù„Ø¬Ù…ÙŠØ¹ ÙØ¦Ø§Øª Ø£Ø³Ø·ÙˆÙ„Ù†Ø§." : "Choose the vehicle class that fits your journey — final pricing is confirmed on WhatsApp."}</p>
                 </div>
 
                 <button
@@ -762,17 +674,8 @@ export default function BookPage() {
                 </button>
               </div>
 
-              {loadingPrices ? (
-                <div className="flex flex-col items-center justify-center py-20 bg-white border border-[#C9A84C]/10 rounded-3xl">
-                  <span className="h-8 w-8 animate-spin rounded-full border-4 border-[#C9A84C] border-t-transparent mb-4" />
-                  <p className="text-xs text-[#6B7280]">Calculating dynamic rates...</p>
-                </div>
-              ) : (
-                <div className="grid gap-6">
+              <div className="grid gap-6">
                   {vehicleList.map((veh) => {
-                    const priceData = computedPrices[veh.key];
-                    const routePrice = priceData ? priceData.price : 350;
-                    
                     // Capacity lockout check
                     const isSoldOut = passengers > veh.cap;
 
@@ -819,13 +722,6 @@ export default function BookPage() {
                               <h3 className="font-heading text-lg font-bold text-[#1C1C1C] group-hover:text-[#16A34A] transition-colors">
                                 {veh.name}
                               </h3>
-                              
-                              <div className="text-right">
-                                <p className="text-[0.55rem] text-[#6B7280] uppercase tracking-wider font-bold">Starting From</p>
-                                <p className="font-heading text-xl font-bold text-[#16A34A]">
-                                  SAR {routePrice}
-                                </p>
-                              </div>
                             </div>
 
                             <p className="text-xs text-[#6B7280]">{veh.desc}</p>
@@ -849,13 +745,11 @@ export default function BookPage() {
                     );
                   })}
                 </div>
-              )}
 
               {/* Navigation button */}
               <div className="flex justify-end pt-4">
                 <button
                   onClick={handleNextStep}
-                  disabled={loadingPrices}
                   className="flex items-center justify-center gap-2 rounded-full bg-[#16A34A] px-8 py-4 text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-[#15803D] shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
                 >
                   <span>{isRtl ? "Ø§Ù„Ù…ØªØ§Ø¨Ø¹Ø© Ù„Ù„Ø¥Ø¶Ø§ÙØ§Øª" : "Continue to Extras"}</span>
@@ -902,7 +796,7 @@ export default function BookPage() {
                     <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "ÙƒØ±Ø³ÙŠ Ø£Ø·ÙØ§Ù„ Ø¢Ù…Ù†" : "Child Safety Seat"}</h4>
                     <p className="text-[0.6rem] text-[#6B7280] leading-relaxed">Required for babies and toddlers under 4 years old in KSA.</p>
                   </div>
-                  <span className="text-xs font-bold text-[#16A34A]">+SAR 30</span>
+                  <span className="text-xs font-bold text-[#6B7280]">Optional</span>
                 </div>
 
                 {/* Meet and Greet */}
@@ -914,7 +808,7 @@ export default function BookPage() {
                     <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "Ø§Ù„Ø§Ø³ØªÙ‚Ø¨Ø§Ù„ ÙˆØ§Ù„ØªØ±Ø­ÙŠØ¨ Ø¨Ø§Ù„Ù…Ø·Ø§Ø±" : "Airport Meet & Greet"}</h4>
                     <p className="text-[0.6rem] text-[#6B7280] leading-relaxed">driver greets you at arrivals holding a luxury VIP sign.</p>
                   </div>
-                  <span className="text-xs font-bold text-[#16A34A]">+SAR 20</span>
+                  <span className="text-xs font-bold text-[#6B7280]">Optional</span>
                 </div>
 
                 {/* Extra Waiting */}
@@ -926,7 +820,7 @@ export default function BookPage() {
                     <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "ÙˆÙ‚Øª Ø§Ù†ØªØ¸Ø§Ø± Ø¥Ø¶Ø§ÙÙŠ (Ù£Ù  Ø¯Ù‚ÙŠÙ‚Ø©)" : "Extra Waiting Time"}</h4>
                     <p className="text-[0.6rem] text-[#6B7280] leading-relaxed">Extend driver standby window at your coordinates.</p>
                   </div>
-                  <span className="text-xs font-bold text-[#16A34A]">+SAR 40</span>
+                  <span className="text-xs font-bold text-[#6B7280]">Optional</span>
                 </div>
 
                 {/* Chilled Water Bottles */}
@@ -938,7 +832,7 @@ export default function BookPage() {
                     <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "Ù…ÙŠØ§Ù‡ Ø¨Ø§Ø±Ø¯Ø© ÙØ§Ø®Ø±Ø©" : "Premium Chilled Water"}</h4>
                     <p className="text-[0.6rem] text-[#6B7280] leading-relaxed">Bottled premium chilled water stocked in vehicle.</p>
                   </div>
-                  <span className="text-xs font-bold text-[#16A34A]">+SAR 10</span>
+                  <span className="text-xs font-bold text-[#6B7280]">Optional</span>
                 </div>
 
                 {/* Prayer Mat Stop */}
@@ -1220,22 +1114,18 @@ export default function BookPage() {
                     </div>
                   </div>
 
-                  {/* Promo Code section */}
-                  <div className="rounded-3xl border border-[#C9A84C]/10 bg-white p-6 flex gap-2">
+                  {/* Promo Code section — collected only, never validated/discounted client-side */}
+                  <div className="rounded-3xl border border-[#C9A84C]/10 bg-white p-6 space-y-2">
                     <input
                       type="text"
-                      placeholder="PROMO CODE (e.g. WELCOME10)"
+                      placeholder="PROMO CODE (optional)"
                       value={promoCode}
                       onChange={(e) => setPromoCode(e.target.value)}
-                      className="flex-1 rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 px-3 py-2.5 text-xs text-[#1C1C1C] placeholder-[#7C8088] outline-none"
+                      className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 px-3 py-2.5 text-xs text-[#1C1C1C] placeholder-[#7C8088] outline-none"
                     />
-                    <button
-                      type="button"
-                      onClick={handleApplyPromo}
-                      className="rounded-xl border border-[#C9A84C]/25 hover:bg-[#16A34A] hover:text-white transition-all text-xs font-bold text-[#16A34A] px-5"
-                    >
-                      Apply
-                    </button>
+                    <p className="text-[0.6rem] text-[#6B7280]">
+                      {isRtl ? "سنطبق أي كود صالح يدويًا عند تأكيد السعر." : "We'll apply any valid code manually when confirming your price."}
+                    </p>
                   </div>
 
                   {/* Terms checkbox */}
@@ -1247,80 +1137,52 @@ export default function BookPage() {
                       className="h-4.5 w-4.5 accent-[#C9A84C] rounded border-[#16A34A]/15 mt-0.5"
                     />
                     <p className="text-[0.6rem] leading-relaxed text-[#6B7280]">
-                      I agree to the <span className="underline hover:text-[#16A34A] cursor-pointer">Terms of Carriage</span>, including Saudi Transport General Authority (TGA) regulations. Fares shown are estimates — the final quotation is confirmed on WhatsApp or email.
+                      I agree to the <span className="underline hover:text-[#16A34A] cursor-pointer">Terms of Carriage</span>, including Saudi Transport General Authority (TGA) regulations. No price is shown on the website — the final price for this trip is confirmed on WhatsApp or email before dispatch.
                     </p>
                   </div>
 
                 </div>
 
-                {/* RIGHT: Invoice Summary breakdown */}
+                {/* RIGHT: Trip recap — no pricing, just what's being requested */}
                 <div className="rounded-3xl border border-[#16A34A]/12 bg-white p-6 space-y-6 flex flex-col justify-between shadow-2xl">
-                  
+
                   <div className="space-y-6">
                     <h3 className="font-heading text-sm uppercase tracking-wider text-[#B8963B] font-bold border-b border-[#C9A84C]/10 pb-3 flex items-center gap-1.5">
-                      <FileText className="h-4 w-4" /> {isRtl ? "ملخص الحجز (تقديري)" : "Booking Summary (Estimated)"}
+                      <FileText className="h-4 w-4" /> {isRtl ? "ملخص الطلب" : "Request Summary"}
                     </h3>
 
                     {/* Summary coordinates list */}
                     <div className="space-y-3.5 text-xs">
                       <div>
-                        <p className="text-[0.55rem] text-[#6B7280] font-bold uppercase">{isRtl ? "Ù…Ø³Ø§Ø± Ø§Ù„Ø±Ø­Ù„Ø©" : "Route details"}</p>
-                        <p className="text-[#1C1C1C] truncate max-w-[280px]">{pickup} âž” {dropoff}</p>
+                        <p className="text-[0.55rem] text-[#6B7280] font-bold uppercase">{isRtl ? "مسار الرحلة" : "Route details"}</p>
+                        <p className="text-[#1C1C1C] truncate max-w-[280px]">{pickup} → {dropoff}</p>
                       </div>
 
                       <div className="grid grid-cols-2 gap-2">
                         <div>
-                          <p className="text-[0.55rem] text-[#6B7280] font-bold uppercase">{isRtl ? "Ø§Ù„ØªØ§Ø±ÙŠØ® ÙˆØ§Ù„ÙˆÙ‚Øª" : "Departure"}</p>
+                          <p className="text-[0.55rem] text-[#6B7280] font-bold uppercase">{isRtl ? "التاريخ والوقت" : "Departure"}</p>
                           <p className="text-[0.65rem] text-[#1C1C1C] font-semibold">{new Date(dateTime).toLocaleString()}</p>
                         </div>
                         <div>
-                          <p className="text-[0.55rem] text-[#6B7280] font-bold uppercase">{isRtl ? "Ø§Ù„Ø³ÙŠØ§Ø±Ø© ÙˆØ§Ù„Ø±ÙƒØ§Ø¨" : "Vehicle sizing"}</p>
-                          <p className="text-[0.65rem] text-[#1C1C1C] font-semibold">{selectedVehicle} â€¢ {passengers} Pax</p>
+                          <p className="text-[0.55rem] text-[#6B7280] font-bold uppercase">{isRtl ? "السيارة والركاب" : "Vehicle sizing"}</p>
+                          <p className="text-[0.65rem] text-[#1C1C1C] font-semibold">{selectedVehicle} • {passengers} Pax</p>
                         </div>
                       </div>
 
-                      {/* VAT Surcharges breakdown table */}
-                      <div className="border-t border-[#C9A84C]/10 pt-4 space-y-2.5 text-[0.65rem] text-[#6B7280]">
-                        <div className="flex justify-between">
-                          <span>{isRtl ? "Ø£Ø¬Ø±Ø© Ø§Ù„Ø±Ø­Ù„Ø© Ø§Ù„Ø£Ø³Ø§Ø³ÙŠØ©" : "Reserved Base Fare"}</span>
-                          <span className="text-[#1C1C1C]">SAR {basePrice}</span>
+                      {selectedAddonLabels.length > 0 && (
+                        <div className="border-t border-[#C9A84C]/10 pt-4">
+                          <p className="text-[0.55rem] text-[#6B7280] font-bold uppercase mb-1.5">{isRtl ? "الإضافات المطلوبة" : "Requested add-ons"}</p>
+                          <p className="text-[0.65rem] text-[#1C1C1C]">{selectedAddonLabels.join(", ")}</p>
                         </div>
-
-                        {addonTotal > 0 && (
-                          <div className="flex justify-between text-[#C9A84C]">
-                            <span>{isRtl ? "Ù…Ø¬Ù…ÙˆØ¹ Ø§Ù„Ø¥Ø¶Ø§ÙØ§Øª Ø§Ù„ÙØ§Ø®Ø±Ø©" : "VIP Addon Surcharges"}</span>
-                            <span>+SAR {addonTotal}</span>
-                          </div>
-                        )}
-
-                        {promoDiscount > 0 && (
-                          <div className="flex justify-between text-green-400">
-                            <span>Promo Code Discount ({(promoDiscount * 100)}%)</span>
-                            <span>-SAR {promoDiscountAmount}</span>
-                          </div>
-                        )}
-
-                        <div className="flex justify-between text-[0.55rem] text-[#6B7280] uppercase font-bold pt-1">
-                          <span>{isRtl ? "Ø¶Ø±ÙŠØ¨Ø© Ø§Ù„Ù‚ÙŠÙ…Ø© Ø§Ù„Ù…Ø¶Ø§ÙØ© Ù¡Ù¥Ùª (Ù…Ø´Ù…ÙˆÙ„Ø©)" : "KSA VAT 15% (Included)"}</span>
-                          <span>SAR {vatAmount}</span>
-                        </div>
-                      </div>
-
+                      )}
                     </div>
                   </div>
 
-                  {/* Pricing action buttons */}
+                  {/* Send action */}
                   <div className="space-y-4 pt-6 border-t border-[#C9A84C]/10">
-                    <div className="flex items-end justify-between">
-                      <div>
-                        <p className="text-[0.55rem] text-[#6B7280] font-bold uppercase">{isRtl ? "السعر التقديري (شامل الضريبة)" : "Estimated Total (VAT incl.)"}</p>
-                        <p className="font-heading text-2xl font-bold text-[#16A34A]">
-                          SAR {finalTotalPrice}
-                        </p>
-                        <p className="text-[0.55rem] text-[#6B7280] mt-1">
-                          {isRtl ? "* سعر تقديري — العرض النهائي يصلك عبر واتساب أو البريد الإلكتروني" : "* Estimated fare — final quotation via WhatsApp or email"}
-                        </p>
-                      </div>
+                    <div className="rounded-2xl bg-[#F0FDF4] border border-[#16A34A]/15 p-3 text-[0.65rem] text-[#1C1C1C] font-semibold flex items-center gap-2">
+                      <ShieldCheck className="h-4 w-4 text-[#16A34A] shrink-0" />
+                      <span>{isRtl ? "لا يوجد سعر معروض هنا — السعر النهائي يصلك عبر واتساب" : "No price shown here — final price confirmed on WhatsApp"}</span>
                     </div>
 
                     <button
@@ -1388,8 +1250,8 @@ export default function BookPage() {
                   <span className="text-[#1C1C1C] font-semibold truncate max-w-[200px]">{pickup}</span>
                 </div>
                 <div className="flex justify-between items-center text-xs border-t border-[#C9A84C]/10 pt-3">
-                  <span className="text-[#6B7280] font-bold">TOTAL PRICE (SAR)</span>
-                  <span className="text-[#C9A84C] font-bold">SAR {finalTotalPrice}</span>
+                  <span className="text-[#6B7280] font-bold">PRICE</span>
+                  <span className="text-[#C9A84C] font-bold">Confirmed on WhatsApp</span>
                 </div>
               </div>
 

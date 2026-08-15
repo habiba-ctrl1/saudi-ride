@@ -161,8 +161,8 @@ export async function sendBookingConfirmation(booking: NotificationBooking) {
       </table>
 
       <div style="background: #FFF9E6; border: 1px solid #C9A84C; border-radius: 12px; padding: 15px; text-align: center; margin-bottom: 25px;">
-        <span style="font-size: 13px; font-weight: bold; color: #A8862A; text-transform: uppercase;">Estimated Fare (pay driver on arrival)</span>
-        <h2 style="margin: 5px 0 0 0; color: #111; font-size: 24px;">SAR ${booking.totalPrice} <span style="font-size: 14px; font-weight: normal; color: #666;">(VAT Included)</span></h2>
+        <span style="font-size: 13px; font-weight: bold; color: #A8862A; text-transform: uppercase;">Price Pending</span>
+        <h2 style="margin: 5px 0 0 0; color: #111; font-size: 16px; font-weight: normal;">Our team will confirm your exact fare on WhatsApp shortly.</h2>
       </div>
 
       <div style="text-align: center; margin-bottom: 30px;">
@@ -326,8 +326,8 @@ export async function sendAdminNotification(booking: NotificationBooking) {
           <td style="padding: 8px 0; color: #111;">${escapeHtml(booking.vehicle?.name || "Premium Fleet Vehicle")}</td>
         </tr>
         <tr>
-          <td style="padding: 8px 0; font-weight: bold; color: #666;">Fare Total:</td>
-          <td style="padding: 8px 0; color: #111; font-weight: bold;">SAR ${booking.totalPrice} (unpaid — cash on arrival)</td>
+          <td style="padding: 8px 0; font-weight: bold; color: #666;">Fare:</td>
+          <td style="padding: 8px 0; color: #c0392b; font-weight: bold;">NOT SET — set the real price in Admin &gt; Bookings before quoting the customer</td>
         </tr>
       </table>
 
@@ -365,6 +365,53 @@ export async function sendOneHourBeforeSMS(booking: NotificationBooking) {
 export async function sendBookingCompletedSMS(booking: NotificationBooking) {
   const body = `Thank you for riding with Taxi Saudi Arabia! Rate your experience: ${siteUrl}/reviews/new`;
   await sendSMS(booking.customerPhone, body);
+}
+
+export interface NotificationLead {
+  id: string;
+  origin: string;
+  destination: string;
+  tripDate?: string | null;
+  vehicleType?: string | null;
+  source?: string | null;
+  customerName?: string | null;
+  customerPhone?: string | null;
+  customerEmail?: string | null;
+}
+
+/**
+ * 8. Admin Notification — new website lead/quote request captured by the
+ * homepage WhatsApp-quote widget BEFORE the WhatsApp hand-off. The lead row
+ * is always saved first (in the API route); this is a best-effort alert like
+ * sendAdminNotification() above, with the same honest not-a-lie return shape.
+ */
+export async function sendLeadNotification(lead: NotificationLead) {
+  const subject = `🆕 New Website Lead — ${lead.origin} → ${lead.destination}`;
+  const adminPanelLink = `${siteUrl}/admin`;
+
+  const rows = [
+    `<tr><td style="padding: 8px 0; font-weight: bold; color: #666; width: 120px;">Route:</td><td style="padding: 8px 0; color: #111; font-weight: bold;">${escapeHtml(lead.origin)} → ${escapeHtml(lead.destination)}</td></tr>`,
+    lead.tripDate ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Date/Time:</td><td style="padding: 8px 0; color: #111;">${escapeHtml(lead.tripDate)}</td></tr>` : "",
+    lead.vehicleType ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Vehicle:</td><td style="padding: 8px 0; color: #111;">${escapeHtml(lead.vehicleType)}</td></tr>` : "",
+    lead.customerName ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Name:</td><td style="padding: 8px 0; color: #111;">${escapeHtml(lead.customerName)}</td></tr>` : "",
+    lead.customerPhone ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Phone:</td><td style="padding: 8px 0; color: #111;"><a href="tel:${encodeURIComponent(lead.customerPhone)}">${escapeHtml(lead.customerPhone)}</a></td></tr>` : "",
+    lead.customerEmail ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Email:</td><td style="padding: 8px 0; color: #111;"><a href="mailto:${encodeURIComponent(lead.customerEmail)}">${escapeHtml(lead.customerEmail)}</a></td></tr>` : "",
+    `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Source:</td><td style="padding: 8px 0; color: #111;">${escapeHtml(lead.source || "website")}</td></tr>`,
+  ].join("");
+
+  const html = `
+    <div style="font-family: sans-serif; padding: 25px; color: #111; max-width: 600px; border: 2px solid #C9A84C; border-radius: 16px; background-color: #fafafa;">
+      <h2 style="color: #C9A84C; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 0;">🔔 New Quote Request (Website Widget)</h2>
+      <p>A visitor requested a quote and was handed off to WhatsApp. Follow up if they haven't messaged yet — they may not finish the chat.</p>
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">${rows}</table>
+      <div style="text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
+        <a href="${adminPanelLink}" style="display: inline-block; background-color: #C9A84C; color: #0A0A0A; padding: 12px 30px; text-decoration: none; font-weight: bold; border-radius: 8px; font-size: 14px; text-transform: uppercase;">Open Admin Portal</a>
+      </div>
+    </div>
+  `;
+
+  const emailId = await sendEmail(adminEmail, subject, html);
+  return { email: emailId };
 }
 
 /**
@@ -478,7 +525,7 @@ export async function notifyNewBooking(booking: NotificationBooking): Promise<{
 
   // Admin WhatsApp
   let adminWaOk = false;
-  const waText = `New booking ${ref}\n${booking.customerName} ${booking.customerPhone}\n${booking.pickupLocation} -> ${booking.dropoffLocation}\n${new Date(booking.pickupDateTime).toLocaleString()}\nSAR ${booking.totalPrice} (unpaid)`;
+  const waText = `New booking ${ref}\n${booking.customerName} ${booking.customerPhone}\n${booking.pickupLocation} -> ${booking.dropoffLocation}\n${new Date(booking.pickupDateTime).toLocaleString()}\nFare: NOT SET — set it in Admin > Bookings before quoting the customer`;
   try {
     const id = await sendAdminWhatsApp(waText);
     adminWaOk = !!id;

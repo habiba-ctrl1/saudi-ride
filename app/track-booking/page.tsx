@@ -34,7 +34,8 @@ const translations = {
     notFound: "Booking not found. Please verify the booking reference and phone number.",
     cancelSuccess: "Your booking has been successfully cancelled. A refund/confirmation SMS has been sent.",
     cancelWindowError: "Bookings can only be cancelled up to 24 hours prior to dispatch.",
-    cancelling: "Cancelling booking..."
+    cancelling: "Cancelling booking...",
+    pricePending: "Price pending — our team will confirm your fare on WhatsApp shortly."
   },
   ar: {
     badge: "Ù…Ù†ØµØ© ØªØªØ¨Ø¹ Ø§Ù„Ø³Ø§Ø¦Ù‚ÙŠÙ†",
@@ -48,7 +49,8 @@ const translations = {
     notFound: "Ù„Ù… ÙŠØªÙ… Ø§Ù„Ø¹Ø«ÙˆØ± Ø¹Ù„Ù‰ Ø§Ù„Ø­Ø¬Ø². ÙŠØ±Ø¬Ù‰ Ø§Ù„ØªØ­Ù‚Ù‚ Ù…Ù† Ø±Ù‚Ù… Ø§Ù„Ø­Ø¬Ø² ÙˆØ±Ù‚Ù… Ø§Ù„Ù‡Ø§ØªÙ.",
     cancelSuccess: "ØªÙ… Ø¥Ù„ØºØ§Ø¡ Ø­Ø¬Ø²Ùƒ Ø¨Ù†Ø¬Ø§Ø­. ØªÙ… Ø¥Ø±Ø³Ø§Ù„ Ø±Ø³Ø§Ù„Ø© ØªØ£ÙƒÙŠØ¯ Ù†ØµÙŠØ© Ù‚ØµÙŠØ±Ø©.",
     cancelWindowError: "ÙŠÙ…ÙƒÙ† Ø¥Ù„ØºØ§Ø¡ Ø§Ù„Ø­Ø¬Ø² ÙÙ‚Ø· Ù‚Ø¨Ù„ Ù…ÙˆØ¹Ø¯ Ø§Ù„Ø±Ø­Ù„Ø© Ø¨Ù€ 24 Ø³Ø§Ø¹Ø© Ø¹Ù„Ù‰ Ø§Ù„Ø£Ù‚Ù„.",
-    cancelling: "Ø¬Ø§Ø±ÙŠ Ø¥Ù„ØºØ§Ø¡ Ø§Ù„Ø­Ø¬Ø²..."
+    cancelling: "Ø¬Ø§Ø±ÙŠ Ø¥Ù„ØºØ§Ø¡ Ø§Ù„Ø­Ø¬Ø²...",
+    pricePending: "السعر قيد التأكيد — سيؤكد فريقنا السعر عبر واتساب قريبًا."
   },
   ur: {
     badge: "ÚˆØ±Ø§Ø¦ÛŒÙˆØ± Ù¹Ø±ÛŒÚ©Ù†Ú¯ Ú©Ù†Ø³ÙˆÙ„",
@@ -62,7 +64,8 @@ const translations = {
     notFound: "Ø¨Ú©Ù†Ú¯ Ù†ÛÛŒÚº Ù…Ù„ÛŒÛ” Ø¨Ø±Ø§Û Ú©Ø±Ù… Ø¨Ú©Ù†Ú¯ Ú©Ø§ Ø­ÙˆØ§Ù„Û Ø§ÙˆØ± ÙÙˆÙ† Ù†Ù…Ø¨Ø± Ú†ÛŒÚ© Ú©Ø±ÛŒÚºÛ”",
     cancelSuccess: "Ø¢Ù¾ Ú©ÛŒ Ø¨Ú©Ù†Ú¯ Ú©Ø§Ù…ÛŒØ§Ø¨ÛŒ Ú©Û’ Ø³Ø§ØªÚ¾ Ù…Ù†Ø³ÙˆØ® Ú©Ø± Ø¯ÛŒ Ú¯Ø¦ÛŒ ÛÛ’Û” ØªØµØ¯ÛŒÙ‚ Ú©Ø§ Ù¾ÛŒØºØ§Ù… Ø¨Ú¾ÛŒØ¬ Ø¯ÛŒØ§ Ú¯ÛŒØ§ ÛÛ’Û”",
     cancelWindowError: "Ø¨Ú©Ù†Ú¯ ØµØ±Ù Ù¾Ú© Ø§Ù¾ Ø³Û’ 24 Ú¯Ú¾Ù†Ù¹Û’ Ù¾ÛÙ„Û’ ÛÛŒ Ù…Ù†Ø³ÙˆØ® Ú©ÛŒ Ø¬Ø§ Ø³Ú©ØªÛŒ ÛÛ’Û”",
-    cancelling: "Ø¨Ú©Ù†Ú¯ Ù…Ù†Ø³ÙˆØ® Ú©ÛŒ Ø¬Ø§ Ø±ÛÛŒ ÛÛ’..."
+    cancelling: "Ø¨Ú©Ù†Ú¯ Ù…Ù†Ø³ÙˆØ® Ú©ÛŒ Ø¬Ø§ Ø±ÛÛŒ ÛÛ’...",
+    pricePending: "قیمت ابھی طے نہیں ہوئی — ہماری ٹیم جلد واٹس ایپ پر آپ کا کرایہ بتائے گی۔"
   }
 };
 
@@ -189,7 +192,7 @@ export default function TrackBookingPage() {
       const res = await fetch(`/api/bookings/${booking.bookingRef}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "CANCEL" })
+        body: JSON.stringify({ action: "CANCEL", phone })
       });
 
       if (!res.ok) {
@@ -643,9 +646,15 @@ export default function TrackBookingPage() {
 
                       <div className="flex items-center justify-between border-t border-[#C9A84C]/10 pt-4 text-sm font-bold">
                         <span className="text-[#6B7280]">{isRtl ? "Ø§Ù„Ø£Ø¬Ø±Ø© Ø§Ù„ÙƒÙ„ÙŠØ©" : "Total Fare"}</span>
-                        <span className="text-[#C9A84C] font-heading text-lg">
-                          SAR {booking.totalPrice}
-                        </span>
+                        {booking.status === "PENDING" ? (
+                          <span className="text-[#C9A84C] font-heading text-xs text-right max-w-[180px]">
+                            {t.pricePending}
+                          </span>
+                        ) : (
+                          <span className="text-[#C9A84C] font-heading text-lg">
+                            SAR {booking.totalPrice}
+                          </span>
+                        )}
                       </div>
 
                     </div>

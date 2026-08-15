@@ -59,9 +59,14 @@ export async function POST(request: Request) {
       }
     }
     if (!apiSuccess) {
-      const charSum = pickup.length + dropoff.length;
-      distance = Math.max(30, Math.min(650, charSum * 4.5));
-      duration = Math.round(distance * 0.9);
+      // No fabricated distance fallback: an inaccurate guess here produces an
+      // inaccurate fare, which has directly caused customers to be quoted a
+      // wrong price in the past. Fail loudly instead — callers must handle
+      // 503 by falling back to a manual WhatsApp quote.
+      return NextResponse.json(
+        { error: "distance_unavailable", message: "Live distance lookup is not configured." },
+        { status: 503 },
+      );
     }
 
     // ── Fare from the engine (single source of truth) ──────────────────────

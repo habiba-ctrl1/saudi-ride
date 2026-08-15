@@ -7,6 +7,7 @@ import {
   Tag,
   FileText,
   UserCheck,
+  CalendarClock,
 } from "lucide-react";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
@@ -15,6 +16,7 @@ import { redirect } from "next/navigation";
 const NAV_ITEMS = [
   { name: "Overview",   href: "/admin",           icon: LayoutDashboard },
   { name: "Quotations", href: "/admin/quotations", icon: FileText },
+  { name: "Bookings",   href: "/admin/bookings",  icon: CalendarClock },
   { name: "Drivers",    href: "/admin/driver-applications", icon: UserCheck },
   { name: "Fleet",      href: "/admin/vehicles",  icon: Car },
   { name: "Promo Codes",href: "/admin/promo-codes",icon: Tag },

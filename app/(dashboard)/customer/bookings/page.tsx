@@ -125,7 +125,11 @@ export default async function CustomerBookingsPage(props: {
                     </div>
                     <div className="h-4 w-px bg-[#C9A84C]/20"></div>
                     <div className="text-[#F5F0E8] font-bold">
-                      {booking.currency} {booking.totalPrice}
+                      {booking.status === "PENDING" ? (
+                        <span className="text-[#C9A84C] text-xs uppercase tracking-wide">Price pending</span>
+                      ) : (
+                        `${booking.currency} ${booking.totalPrice}`
+                      )}
                     </div>
                   </div>
                 </div>

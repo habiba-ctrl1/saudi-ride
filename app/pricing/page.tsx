@@ -3,11 +3,9 @@
 import { useLanguage } from "@/lib/context/LanguageContext";
 import { motion } from "framer-motion";
 import { ShieldCheck, HelpCircle, ArrowRight, Percent, RefreshCw } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { trackEvent } from "@/lib/analytics";
-import { ROUTES_DATA } from "@/lib/data/routes";
-import { VEHICLE_PRICE_MULTIPLIERS } from "@/lib/data/vehicleMultipliers";
 import { contactConfig } from "@/lib/config/contact";
 import { MessageCircle } from "lucide-react";
 
@@ -17,14 +15,12 @@ const translations = {
     title: "Taxi Prices in Saudi Arabia — Clear Fares",
     description: "Pre-booked taxi rides across Saudi Arabia with your price confirmed on WhatsApp. Airport transfers, intercity rides, Umrah transfers, and hourly car hire. No surge pricing, no hidden fees.",
     
-    // Dynamic Calculator
-    calcTitle: "Dynamic Fare Estimator",
-    calcSubtitle: "Select your route to estimate luxury fares",
+    // Get a Quote
+    calcTitle: "Get an Instant Quote",
+    calcSubtitle: "Select your route — get exact pricing on WhatsApp",
     labelFrom: "Starting City",
     labelTo: "Destination City",
-    labelDistance: "Estimated Route Distance",
-    labelDuration: "Approximate Transit Duration",
-    estPriceTitle: "All-Inclusive Fixed Fare",
+    estPriceTitle: "Your Fare",
     estNotice: "Final pricing depends on your exact route, vehicle, date, passengers, and any waiting time — message us on WhatsApp for a clear, confirmed quote before you book.",
     bookBtn: "Proceed to Booking",
 
@@ -63,15 +59,13 @@ const translations = {
     title: "تنقل فاخر. أسعار ثابتة ومحددة.",
     description: "خدمات التوصيل الفاخر مسبق الحجز بين المدن، واستقبال المطارات، والسائقين بالساعة بالمملكة. بدون زيادة مفاجئة وبدون رسوم خفية.",
     
-    // Dynamic Calculator
-    calcTitle: "حاسبة الأسعار التقديرية المباشرة",
-    calcSubtitle: "حدد مسار رحلتك للحصول على السعر الفوري",
+    // Get a Quote
+    calcTitle: "احصل على عرض سعر فوري",
+    calcSubtitle: "حدد مسار رحلتك — السعر النهائي عبر واتساب",
     labelFrom: "مدينة الانطلاق",
     labelTo: "مدينة الوصول",
-    labelDistance: "المسافة التقريبية للرحلة",
-    labelDuration: "الزمن التقريبي للرحلة",
-    estPriceTitle: "السعر النهائي الثابت والشامل",
-    estNotice: "الأسعار تشمل السائق المحترف، والوقود، ورسوم الطرق، ومواقف السيارات بالمطار، وضريبة القيمة المضافة.",
+    estPriceTitle: "أجرتك",
+    estNotice: "يعتمد السعر النهائي على مسارك الدقيق والسيارة والتاريخ وعدد الركاب ووقت الانتظار — راسلنا عبر واتساب للحصول على عرض سعر واضح ومؤكد قبل الحجز.",
     bookBtn: "الانتقال إلى صفحة الحجز",
 
     // Matrices
@@ -108,15 +102,13 @@ const translations = {
     title: "شاندار سفر۔ فکسڈ ریٹس۔",
     description: "سعودی عرب میں پہلے سے بک شدہ پریمیم انٹرسٹی ٹرانسفر، ہوائی اڈے کی وی آئی پی شٹل اور ڈرائیور سروسز۔ کوئی اضافی چارجز نہیں ہیں۔",
     
-    // Dynamic Calculator
-    calcTitle: "لائیو کرایہ کیلکولیٹر",
-    calcSubtitle: "فوری اور درست کرایہ جاننے کے لیے شہر منتخب کریں",
+    // Get a Quote
+    calcTitle: "فوری قیمت حاصل کریں",
+    calcSubtitle: "اپنا روٹ منتخب کریں — واٹس ایپ پر حتمی قیمت لیں",
     labelFrom: "روانگی کا شہر",
     labelTo: "منزل کا شہر",
-    labelDistance: "تقریبا فاصلہ",
-    labelDuration: "تقریبا وقت",
-    estPriceTitle: "کل فکسڈ کرایہ (شامل تمام ٹیکس)",
-    estNotice: "ریٹس میں ڈرائیور، ایندھن، ٹولز، ایئرپورٹ پارکنگ اور وی اے ٹی شامل ہیں۔ کوئی پوشیدہ چارجز نہیں ہیں۔",
+    estPriceTitle: "آپ کا کرایہ",
+    estNotice: "حتمی قیمت آپ کے صحیح روٹ، گاڑی، تاریخ، مسافروں اور انتظار کے وقت پر منحصر ہے — بکنگ سے پہلے واضح اور تصدیق شدہ قیمت کے لیے واٹس ایپ پر رابطہ کریں۔",
     bookBtn: "بکنگ کی طرف بڑھیں",
 
     // Matrices
@@ -184,79 +176,6 @@ export default function PricingPage() {
   const [fromCity, setFromCity] = useState("riyadh");
   const [toCity, setToCity] = useState("jeddah");
   const [vehicleClass, setVehicleClass] = useState("sedan");
-
-  // Dynamic distance calculation mock
-  const cityCoords: Record<string, { lat: number; lng: number }> = {
-    riyadh: { lat: 24.7136, lng: 46.6753 },
-    jeddah: { lat: 21.5433, lng: 39.1728 },
-    makkah: { lat: 21.3891, lng: 39.8579 },
-    madinah: { lat: 24.5247, lng: 39.5692 },
-    dammam: { lat: 26.4207, lng: 50.0888 }
-  };
-
-  const getDistance = (c1: string, c2: string) => {
-    if (c1 === c2) return 25; // City local driving mock
-    const coords1 = cityCoords[c1];
-    const coords2 = cityCoords[c2];
-
-    // Haversine formula calculation
-    const R = 6371; // km
-    const dLat = ((coords2.lat - coords1.lat) * Math.PI) / 180;
-    const dLon = ((coords2.lng - coords1.lng) * Math.PI) / 180;
-    const a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos((coords1.lat * Math.PI) / 180) *
-        Math.cos((coords2.lat * Math.PI) / 180) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return Math.round(R * c);
-  };
-
-  // Where an actual fixed-price corridor exists on /routes, use its real
-  // basePrice/distance/duration instead of the haversine estimate below —
-  // otherwise this calculator can quote a different price than the route
-  // page itself for the exact same trip (e.g. was estimating ~SAR 333 for
-  // Jeddah->Makkah sedan while /routes/jeddah-to-makkah says SAR 199 fixed).
-  // Airport- and hotel-specific route variants are excluded on purpose：this
-  // calculator only offers plain city selections.
-  const fixedRoute = fromCity === toCity ? null : ROUTES_DATA.find((r) => {
-    const f = r.fromCity.toLowerCase();
-    const to_ = r.toCity.toLowerCase();
-    if (f.includes("airport") || to_.includes("airport")) return false;
-    return (f === fromCity && to_ === toCity) || (f === toCity && to_ === fromCity);
-  }) ?? null;
-
-  const distance = fixedRoute ? fixedRoute.distance : getDistance(fromCity, toCity);
-  const duration = fixedRoute ? fixedRoute.duration : Math.round(distance / 90 * 60); // approx minutes based on 90km/h average when no fixed route
-
-  const getPrice = () => {
-    if (fixedRoute) {
-      return Math.round(fixedRoute.basePrice * (VEHICLE_PRICE_MULTIPLIERS[vehicleClass] ?? 1));
-    }
-
-    let perKm = 2.5;
-    let base = 150;
-    if (vehicleClass === "suv") { perKm = 3.5; base = 250; }
-    if (vehicleClass === "luxury") { perKm = 7.0; base = 600; }
-    if (vehicleClass === "van") { perKm = 4.0; base = 300; }
-
-    const isLocal = fromCity === toCity;
-    const rawPrice = isLocal ? base : distance * perKm + base;
-    return Math.round(rawPrice);
-  };
-
-  const calculatedPrice = getPrice();
-
-  useEffect(() => {
-    trackEvent("price_calculated", {
-      fromCity,
-      toCity,
-      distanceKm: distance,
-      estimatedPriceSar: calculatedPrice,
-      vehicleClass
-    });
-  }, [fromCity, toCity, distance, calculatedPrice, vehicleClass]);
 
   return (
     <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pt-28 pb-16">
@@ -336,7 +255,6 @@ export default function PricingPage() {
                   setVehicleClass(val);
                   trackEvent("vehicle_selected", {
                     vehicleClass: val,
-                    priceSar: calculatedPrice,
                     sourceContext: "pricing_calculator"
                   });
                 }}
@@ -354,10 +272,6 @@ export default function PricingPage() {
           {/* Calculator Output Display */}
           <div className="mt-8 border-t border-[#C9A84C]/10 pt-8 grid gap-6 md:grid-cols-[1fr_auto] items-center">
             <div className="space-y-4">
-              <div className="flex flex-wrap gap-6 text-xs text-[#6B7280] font-medium">
-                <div>{t.labelDistance}: <span className="text-[#1C1C1C] font-bold">{distance} KM</span></div>
-                <div>{t.labelDuration}: <span className="text-[#1C1C1C] font-bold">{Math.floor(duration / 60)}h {duration % 60}m</span></div>
-              </div>
               <p className="text-[10px] text-[#6B7280] leading-relaxed max-w-xl">{t.estNotice}</p>
             </div>
 

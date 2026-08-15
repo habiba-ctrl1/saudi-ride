@@ -3,25 +3,7 @@ import { db, ensureVehiclesSeeded } from "@/lib/db";
 import { BookingStatus, PaymentStatus, VehicleType, Prisma } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { quote } from "@/lib/pricing";
 import { notifyNewBooking } from "@/lib/notifications";
-
-function getHaversineDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
-  const R = 6371; // Radius of the earth in km
-  const dLat = deg2rad(lat2 - lat1);
-  const dLon = deg2rad(lon2 - lon1);
-  const a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
-    Math.sin(dLon / 2) * Math.sin(dLon / 2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  const d = R * c; // Distance in km
-  return Math.round(d * 1.2 * 10) / 10; // 1.2 routing factor for road distance approximation
-}
-
-function deg2rad(deg: number): number {
-  return deg * (Math.PI / 180);
-}
 
 export async function POST(request: Request) {
   try {
@@ -48,7 +30,6 @@ export async function POST(request: Request) {
       notes,
       flightNumber,
       paymentMethod,
-      totalPrice,
       pickupLat,
       pickupLng,
       dropoffLat,
@@ -106,32 +87,13 @@ export async function POST(request: Request) {
       );
     }
 
-    // Calculate dynamic pricing if totalPrice is not passed
-    let finalPrice = totalPrice;
-    let distance = null;
-    let duration = null;
-
-    if (finalPrice === undefined || finalPrice === null) {
-      // Resolve distance (haversine from coords, else a rough text fallback),
-      // then let the pricing engine compute the fare — one source of truth.
-      if (pickupLat && pickupLng && dropoffLat && dropoffLng) {
-        distance = getHaversineDistance(Number(pickupLat), Number(pickupLng), Number(dropoffLat), Number(dropoffLng));
-        duration = Math.round(distance * 0.9);
-      } else {
-        const charSum = finalPickup.length + finalDropoff.length;
-        distance = Math.max(30, Math.min(650, charSum * 4.5));
-        duration = Math.round(distance * 0.9);
-      }
-
-      const q = quote({
-        vehicleSlug: vehicle.type,
-        distanceKmOverride: distance,
-        durationMinutesOverride: duration,
-        datetime: finalDateTime,
-        options: { roundTrip: Boolean(isRoundTrip) },
-      });
-      finalPrice = q.total;
-    }
+    // Price is never computed or accepted from the client — a wrong
+    // automated fare has directly embarrassed the business with a real
+    // customer before. Every booking starts at 0/PENDING; an admin sets the
+    // real price manually (see /admin/bookings) before it's ever quoted.
+    const finalPrice = 0;
+    const distance = null;
+    const duration = null;
 
     // Generate unique human-readable bookingRef matching the brand (e.g. TSA-2026-001234 style)
     const randomSuffix = Math.floor(100000 + Math.random() * 900000);
