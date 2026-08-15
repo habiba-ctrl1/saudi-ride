@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { sendDriverAssignment } from "@/lib/notifications";
+import { requireAdmin } from "@/lib/auth/requireAdmin";
 
 // PATCH /api/admin/bookings/[id]/assign — assign a driver to a booking
 export async function PATCH(
@@ -8,6 +9,9 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const auth = await requireAdmin();
+    if (!auth.ok) return NextResponse.json({ error: auth.error }, { status: auth.status });
+
     const { id } = await params;
     const body = await request.json();
     const { driverId } = body as { driverId?: string };

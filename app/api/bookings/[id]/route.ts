@@ -2,6 +2,17 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { Prisma } from "@prisma/client";
 import { sendDriverAssignment } from "@/lib/notifications";
+import { requireAdmin } from "@/lib/auth/requireAdmin";
+
+const BOOKING_STATUSES = [
+  "PENDING",
+  "CONFIRMED",
+  "DRIVER_ASSIGNED",
+  "IN_PROGRESS",
+  "COMPLETED",
+  "CANCELLED",
+  "REFUNDED",
+] as const;
 
 export async function GET(
   request: Request,
@@ -173,8 +184,12 @@ export async function PUT(
 ) {
   try {
     const { id } = await params;
+    if (!id || typeof id !== "string") {
+      return NextResponse.json({ error: "Booking reference is required" }, { status: 400 });
+    }
+
     const body = await request.json();
-    const { action, driverName, driverPhone } = body;
+    const { action, driverName, driverPhone, phone } = body;
 
     // Retrieve booking
     const booking = await db.booking.findUnique({
@@ -185,8 +200,22 @@ export async function PUT(
       return NextResponse.json({ error: "Booking not found" }, { status: 404 });
     }
 
-    // Actions: CANCEL or ASSIGN_DRIVER or UPDATE_STATUS
+    // CANCEL is the one action a real (unauthenticated) customer can take —
+    // ownership is proven the same way GET proves it: the phone on file must
+    // match, not just knowledge of the booking reference.
     if (action === "CANCEL") {
+      if (!phone || typeof phone !== "string") {
+        return NextResponse.json({ error: "Phone number is required to cancel this booking." }, { status: 400 });
+      }
+      const normalizedPhoneInput = phone.replace(/[\s\-\+]/g, "");
+      const normalizedBookingPhone = booking.customerPhone.replace(/[\s\-\+]/g, "");
+      if (normalizedPhoneInput !== normalizedBookingPhone && !booking.customerPhone.includes(normalizedPhoneInput)) {
+        return NextResponse.json(
+          { error: "Access denied. Phone number does not match booking records." },
+          { status: 403 }
+        );
+      }
+
       // Validate cancellation time (>24 hours)
       const hoursToPickup = (new Date(booking.pickupDateTime).getTime() - Date.now()) / (1000 * 60 * 60);
       if (hoursToPickup < 24) {
@@ -204,40 +233,48 @@ export async function PUT(
       return NextResponse.json({ success: true, booking: updated });
     }
 
-    if (action === "ASSIGN_DRIVER") {
-      if (!driverName || !driverPhone) {
-        return NextResponse.json({ error: "Driver name and phone are required" }, { status: 400 });
+    // Every other action here is a privileged operations action (assigning a
+    // driver, forcing a status) with no legitimate public caller — admin only.
+    if (action === "ASSIGN_DRIVER" || action === "UPDATE_STATUS") {
+      const auth = await requireAdmin();
+      if (!auth.ok) return NextResponse.json({ error: auth.error }, { status: auth.status });
+
+      if (action === "ASSIGN_DRIVER") {
+        const name = typeof driverName === "string" ? driverName.trim() : "";
+        const phoneVal = typeof driverPhone === "string" ? driverPhone.trim() : "";
+        if (!name || !phoneVal || name.length > 200 || phoneVal.length > 40) {
+          return NextResponse.json({ error: "Valid driver name and phone are required" }, { status: 400 });
+        }
+
+        const updated = await db.booking.update({
+          where: { bookingRef: id },
+          data: {
+            status: "DRIVER_ASSIGNED",
+            driverName: name,
+            driverPhone: phoneVal
+          },
+          include: { vehicle: true }
+        });
+
+        try {
+          await sendDriverAssignment(updated as unknown as Parameters<typeof sendDriverAssignment>[0]);
+        } catch (err) {
+          console.error("⚠️ Driver assignment notifications failed:", err);
+        }
+
+        return NextResponse.json({ success: true, booking: updated });
       }
 
-      const updated = await db.booking.update({
-        where: { bookingRef: id },
-        data: {
-          status: "DRIVER_ASSIGNED",
-          driverName,
-          driverPhone
-        },
-        include: { vehicle: true }
-      });
-
-      // Securely trigger driver assignment notifications (emails & SMS)
-      try {
-        await sendDriverAssignment(updated as unknown as Parameters<typeof sendDriverAssignment>[0]);
-      } catch (err) {
-        console.error("⚠️ Driver assignment notifications failed:", err);
-      }
-
-      return NextResponse.json({ success: true, booking: updated });
-    }
-
-    if (action === "UPDATE_STATUS") {
+      // UPDATE_STATUS
       const { status } = body;
-      if (!status) {
-        return NextResponse.json({ error: "Status is required" }, { status: 400 });
+      if (typeof status !== "string" || !BOOKING_STATUSES.includes(status as (typeof BOOKING_STATUSES)[number])) {
+        return NextResponse.json({ error: "Invalid or missing status" }, { status: 400 });
       }
+      const validatedStatus = status as (typeof BOOKING_STATUSES)[number];
 
       const updated = await db.booking.update({
         where: { bookingRef: id },
-        data: { status }
+        data: { status: validatedStatus }
       });
 
       return NextResponse.json({ success: true, booking: updated });
@@ -256,9 +293,26 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const auth = await requireAdmin();
+    if (!auth.ok) return NextResponse.json({ error: auth.error }, { status: auth.status });
+
     const { id } = await params;
+    if (!id || typeof id !== "string") {
+      return NextResponse.json({ error: "Booking reference is required" }, { status: 400 });
+    }
+
     const body = await request.json();
     const { status, driverName, driverPhone } = body;
+
+    if (status !== undefined && !BOOKING_STATUSES.includes(status as (typeof BOOKING_STATUSES)[number])) {
+      return NextResponse.json({ error: "Invalid status" }, { status: 400 });
+    }
+    if (driverName !== undefined && (typeof driverName !== "string" || driverName.trim().length === 0 || driverName.length > 200)) {
+      return NextResponse.json({ error: "Invalid driver name" }, { status: 400 });
+    }
+    if (driverPhone !== undefined && (typeof driverPhone !== "string" || driverPhone.trim().length === 0 || driverPhone.length > 40)) {
+      return NextResponse.json({ error: "Invalid driver phone" }, { status: 400 });
+    }
 
     // Retrieve booking
     const booking = await db.booking.findUnique({

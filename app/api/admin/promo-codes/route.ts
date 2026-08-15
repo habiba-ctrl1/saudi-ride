@@ -1,9 +1,13 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { requireAdmin } from "@/lib/auth/requireAdmin";
 
 // GET /api/admin/promo-codes — list all promo codes
 export async function GET(request: Request) {
   try {
+    const auth = await requireAdmin();
+    if (!auth.ok) return NextResponse.json({ error: auth.error }, { status: auth.status });
+
     const { searchParams } = new URL(request.url);
     const active = searchParams.get("active");
     const page = Math.max(1, parseInt(searchParams.get("page") ?? "1"));
@@ -34,6 +38,9 @@ export async function GET(request: Request) {
 // POST /api/admin/promo-codes — create a new promo code
 export async function POST(request: Request) {
   try {
+    const auth = await requireAdmin();
+    if (!auth.ok) return NextResponse.json({ error: auth.error }, { status: auth.status });
+
     const body = await request.json();
     const {
       code,

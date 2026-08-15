@@ -1,9 +1,13 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { requireAdmin } from "@/lib/auth/requireAdmin";
 
 // GET /api/admin/reviews — list all reviews with approval filter
 export async function GET(request: Request) {
   try {
+    const auth = await requireAdmin();
+    if (!auth.ok) return NextResponse.json({ error: auth.error }, { status: auth.status });
+
     const { searchParams } = new URL(request.url);
     const approved = searchParams.get("approved");
     const page = Math.max(1, parseInt(searchParams.get("page") ?? "1"));
@@ -38,6 +42,9 @@ export async function GET(request: Request) {
 // PATCH /api/admin/reviews — approve or reject a review
 export async function PATCH(request: Request) {
   try {
+    const auth = await requireAdmin();
+    if (!auth.ok) return NextResponse.json({ error: auth.error }, { status: auth.status });
+
     const body = await request.json();
     const { id, approved } = body as { id?: string; approved?: boolean };
 
