@@ -170,11 +170,11 @@ function buildTerms(validUntilStr: string): Array<{ en: string; ar: string }> {
 export function InvoiceDocument({ q }: { q: QuotationRow }) {
   const total = q.quoted_price ?? 0;
   const issuedAt = new Date(q.updated_at ?? q.created_at);
-  const sevenDaysOut = new Date(issuedAt.getTime() + 7 * 24 * 60 * 60 * 1000);
   const tripDate = new Date(`${q.trip_date}T00:00:00`);
-  // Never quote validity past the trip itself — a 7-day window issued close to
-  // the trip date would otherwise expire after the ride already happened.
-  const validUntil = tripDate < sevenDaysOut ? tripDate : sevenDaysOut;
+  // Valid through the day after the trip itself — a fixed short window (e.g.
+  // 7 days from issue) made no sense for trips booked well in advance, since
+  // it would expire the quote long before the customer's actual travel date.
+  const validUntil = new Date(tripDate.getTime() + 24 * 60 * 60 * 1000);
   const fmtDate = (d: Date) => d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
   const terms = buildTerms(fmtDate(validUntil));
   const extras = parseTripExtras(q.luggage_notes);
