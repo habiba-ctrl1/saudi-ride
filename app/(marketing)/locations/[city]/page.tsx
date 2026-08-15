@@ -78,6 +78,15 @@ const CITY_META_DESCRIPTION: Record<string, string> = {
   tabuk: "Taxi in Tabuk — TUU airport transfers, NEOM business trips (~120 km), and cross-border rides to Jordan via Haql (~130 km).",
 };
 
+// Per-city title overrides — same CTR-fix rationale as routes/[slug]'s
+// TITLE_OVERRIDES: pages with confirmed impressions but zero clicks, where
+// the generic "Taxi in {city} | Airport & Intercity" formula undersells the
+// page relative to what the city's own CITY_META_DESCRIPTION already covers.
+const CITY_META_TITLE: Record<string, string> = {
+  riyadh: "Riyadh Taxi & Chauffeur Service | Airport, KAFD & Intercity",
+  neom: "NEOM Taxi & Executive Transfer | Tabuk & NEOM Bay Airports",
+};
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { city } = await params;
   const cityKeyLower = city.toLowerCase();
@@ -86,7 +95,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!cityData) return { title: "Location Not Found" };
 
   return {
-    title: `Taxi in ${cityData.name} | Airport & Intercity — Taxi Saudi Arabia`,
+    title: CITY_META_TITLE[cityKeyLower] ?? `Taxi in ${cityData.name} | Airport & Intercity — Taxi Saudi Arabia`,
     description: CITY_META_DESCRIPTION[cityKeyLower] ?? `Book a private taxi in ${cityData.name}, Saudi Arabia — airport transfers, Umrah rides, and 24/7 intercity trips with professional drivers. No surge, quoted on WhatsApp.`,
     alternates: {
       canonical: `https://taxisaudiarabia.com/locations/${city}`,

@@ -1163,6 +1163,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "jeddah-airport-to-makkah": "Taxi Jeddah Airport to Makkah — Fare From SAR 249",
     "makkah-to-madinah": "Taxi Makkah to Madinah — From SAR 499",
     "riyadh-to-dammam": "Riyadh to Dammam Taxi — One Way Price, Fare & Distance",
+    "jeddah-to-kaec": "Jeddah to KAEC Taxi — Distance, Fare & Price",
+    "riyadh-to-alula": "Riyadh to AlUla Taxi — Distance, Fare & Price",
+    "madinah-to-alula": "Madinah to AlUla Taxi — Distance, Fare & Price",
     "dammam-to-doha": "Taxi Dammam to Doha, Qatar — Cross-Border Fare From SAR 500",
     "jeddah-to-makkah": "Jeddah to Makkah (Mecca) Taxi Service — From SAR 199",
     "madinah-to-jeddah-airport": "Taxi Madinah to Jeddah Airport — Fare Confirmed on WhatsApp",
@@ -1177,6 +1180,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // for pages with confirmed impressions/position but zero clicks.
   const DESCRIPTION_OVERRIDES: Record<string, string> = {
     "riyadh-to-dammam": "Riyadh to Dammam taxi, one way — 390 km, about 3.5 hours. Get your exact price and fare confirmed on WhatsApp before booking. Private, professional drivers, 24/7.",
+    "jeddah-to-kaec": "Jeddah to KAEC (King Abdullah Economic City) taxi — 120 km, about 1 hr 20 min. Get your exact fare confirmed on WhatsApp before booking. Corporate sedans, 24/7.",
+    "riyadh-to-alula": "Riyadh to AlUla taxi — 1,050 km, about 10 hours. Get your exact fare confirmed on WhatsApp before booking. Premium long-distance transfer, rest stops included.",
+    "madinah-to-alula": "Madinah to AlUla taxi — 330 km, about 3 hours. Get your exact fare confirmed on WhatsApp before booking. Heritage transfer, rest stops included.",
   };
 
   return {

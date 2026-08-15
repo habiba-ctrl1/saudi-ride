@@ -28,9 +28,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!airportData) return { title: "Airport Not Found" };
 
+  // Evidenced CTR fix (GSC: 25 impressions, 0 clicks, pos ~31): the generic
+  // formula uses only the airport's official name, which for MED omits the
+  // word "Madinah" entirely — nobody searches "Prince Mohammad Bin Abdulaziz
+  // airport taxi" by that name. Same TITLE_OVERRIDES pattern as routes/[slug].
+  const TITLE_OVERRIDES: Record<string, string> = {
+    "prince-mohammad-madinah": "Madinah Airport Taxi (MED) | Prince Mohammad Bin Abdulaziz",
+  };
+  const DESCRIPTION_OVERRIDES: Record<string, string> = {
+    "prince-mohammad-madinah": "Madinah Airport (MED) taxi — Prince Mohammad Bin Abdulaziz Airport to your hotel near Masjid an-Nabawi, ~20 km/25 min. Meet & greet included, quoted on WhatsApp, 24/7.",
+  };
+
   return {
-    title: `Taxi from ${airportData.name} (${airportData.code}) | Taxi Saudi Arabia`,
-    description: `Book your airport transfer from ${airportData.name}. Reliable private taxi service, quoted on WhatsApp, with meet & greet included at ${airportData.code} airport.`,
+    title: TITLE_OVERRIDES[slug] ?? `Taxi from ${airportData.name} (${airportData.code}) | Taxi Saudi Arabia`,
+    description: DESCRIPTION_OVERRIDES[slug] ?? `Book your airport transfer from ${airportData.name}. Reliable private taxi service, quoted on WhatsApp, with meet & greet included at ${airportData.code} airport.`,
     alternates: {
       canonical: `https://taxisaudiarabia.com/airports/${slug}`,
     },
