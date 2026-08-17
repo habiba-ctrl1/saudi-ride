@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import Image from "next/image";
 import { Car, Users, Gauge } from "lucide-react";
 import { VehicleAvailabilityToggle } from "./VehicleAvailabilityToggle";
+import { AddVehicleForm } from "./AddVehicleForm";
 
 export const metadata: Metadata = {
   title: "Fleet Management | Admin Dashboard",
@@ -28,6 +29,7 @@ export default async function AdminVehiclesPage() {
           <h1 className="font-heading text-3xl font-bold text-[#F5F0E8]">Fleet Management</h1>
           <p className="text-[#A1A1A6] mt-1 text-sm">{vehicles.length} vehicles in the fleet.</p>
         </div>
+        <AddVehicleForm />
       </div>
 
       {/* ─── VEHICLE GRID ─────────────────────────────────────────── */}
