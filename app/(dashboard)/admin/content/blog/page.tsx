@@ -1,7 +1,8 @@
 import { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import { FileText, Plus, Eye, EyeOff, Edit, Trash2 } from "lucide-react";
+import { FileText, Plus, Eye, EyeOff, Edit } from "lucide-react";
+import { DeletePostButton } from "./DeletePostButton";
 
 export const metadata: Metadata = {
   title: "Blog CMS | Admin Dashboard",
@@ -82,12 +83,13 @@ export default async function AdminBlogCMSPage() {
                     </td>
                     <td className="p-4 text-right">
                       <div className="flex items-center justify-end gap-2">
-                        <button className="p-2 rounded-lg border border-[#C9A84C]/20 text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-colors">
+                        <Link
+                          href={`/admin/content/blog/${post.id}/edit`}
+                          className="p-2 rounded-lg border border-[#C9A84C]/20 text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-colors"
+                        >
                           <Edit className="h-4 w-4" />
-                        </button>
-                        <button className="p-2 rounded-lg border border-red-500/20 text-red-400 hover:bg-red-500/10 transition-colors">
-                          <Trash2 className="h-4 w-4" />
-                        </button>
+                        </Link>
+                        <DeletePostButton id={post.id} title={post.title} />
                       </div>
                     </td>
                   </tr>

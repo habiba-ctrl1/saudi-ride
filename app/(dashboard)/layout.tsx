@@ -8,6 +8,9 @@ import {
   FileText,
   UserCheck,
   CalendarClock,
+  Users,
+  DollarSign,
+  Newspaper,
 } from "lucide-react";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
@@ -17,10 +20,13 @@ const NAV_ITEMS = [
   { name: "Overview",   href: "/admin",           icon: LayoutDashboard },
   { name: "Quotations", href: "/admin/quotations", icon: FileText },
   { name: "Bookings",   href: "/admin/bookings",  icon: CalendarClock },
+  { name: "Customers",  href: "/admin/customers", icon: Users },
   { name: "Drivers",    href: "/admin/driver-applications", icon: UserCheck },
   { name: "Fleet",      href: "/admin/vehicles",  icon: Car },
   { name: "Promo Codes",href: "/admin/promo-codes",icon: Tag },
+  { name: "Revenue",    href: "/admin/revenue",   icon: DollarSign },
   { name: "Analytics",  href: "/admin/analytics", icon: BarChart3 },
+  { name: "Blog CMS",   href: "/admin/content/blog", icon: Newspaper },
 ];
 
 export default async function DashboardLayout({
