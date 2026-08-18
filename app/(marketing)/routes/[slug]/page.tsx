@@ -1117,6 +1117,7 @@ const MORE_JEDDAH_MAKKAH_ROUTES: { slug: string; label: string; distance: number
   { slug: "jeddah-airport-to-jeddah-city", label: "Jeddah Airport to Jeddah City", distance: 20, price: 80 },
   { slug: "jeddah-to-haramain-station", label: "Jeddah to Haramain Station", distance: 15, price: 70 },
   { slug: "makkah-to-jeddah", label: "Makkah to Jeddah", distance: 85, price: 150 },
+  { slug: "jeddah-airport-to-kaec", label: "Jeddah Airport to KAEC", distance: 100, price: 180 },
   { slug: "makkah-to-kaec", label: "Makkah to KAEC", distance: 180, price: 250 },
   { slug: "makkah-to-yanbu", label: "Makkah to Yanbu", distance: 400, price: 350 },
 ];
@@ -1129,6 +1130,7 @@ const MORE_MADINAH_ROUTES: { slug: string; label: string; distance: number; pric
 
 const MORE_RIYADH_ROUTES: { slug: string; label: string; distance: number; price: number }[] = [
   { slug: "riyadh-airport-to-kafd-hotels", label: "Riyadh Airport to KAFD & Olaya Hotels", distance: 40, price: 150 },
+  { slug: "riyadh-to-madinah", label: "Riyadh to Madinah", distance: 840, price: 550 },
   { slug: "riyadh-to-alahsa", label: "Riyadh to Al Ahsa", distance: 330, price: 280 },
   { slug: "riyadh-to-hail", label: "Riyadh to Hail", distance: 600, price: 450 },
   { slug: "riyadh-to-abudhabi", label: "Riyadh to Abu Dhabi, UAE", distance: 850, price: 1100 },

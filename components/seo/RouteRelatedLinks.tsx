@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, MapPin } from "lucide-react";
+import { ArrowRight, MapPin, Plane } from "lucide-react";
 import { ROUTES_DATA } from "@/lib/data/routes";
 
 // City label -> /locations/[city] slug (sirf jahan location page exist karta hai)
@@ -21,6 +21,30 @@ function locationSlug(city: string): string | null {
   const c = city.toLowerCase();
   for (const [needle, slug] of CITY_TO_LOCATION) {
     if (c.includes(needle)) return slug;
+  }
+  return null;
+}
+
+// Airport city label -> /airports/[slug] detail page. Order matters: more
+// specific needles ("red sea") before generic ones. This gives the airport
+// hub pages (king-abdulaziz-jeddah, king-khalid-riyadh, etc.) real inbound
+// links from every indexed *-airport-* route page — the fix for those airport
+// pages sitting "discovered, not indexed" because nothing linked to them.
+const CITY_TO_AIRPORT: { needle: string; slug: string; label: string }[] = [
+  { needle: "jeddah airport", slug: "king-abdulaziz-jeddah", label: "Jeddah Airport (JED)" },
+  { needle: "madinah airport", slug: "prince-mohammad-madinah", label: "Madinah Airport (MED)" },
+  { needle: "riyadh airport", slug: "king-khalid-riyadh", label: "Riyadh Airport (RUH)" },
+  { needle: "dammam airport", slug: "king-fahd-dammam", label: "Dammam Airport (DMM)" },
+  { needle: "abha airport", slug: "abha-regional", label: "Abha Airport (AHB)" },
+  { needle: "tabuk airport", slug: "tabuk-regional", label: "Tabuk Airport (TUU)" },
+  { needle: "alula airport", slug: "alula", label: "AlUla Airport (ULH)" },
+  { needle: "red sea", slug: "red-sea", label: "Red Sea International Airport (RSI)" },
+];
+
+function airportFor(city: string): { slug: string; label: string } | null {
+  const c = city.toLowerCase();
+  for (const a of CITY_TO_AIRPORT) {
+    if (c.includes(a.needle)) return { slug: a.slug, label: a.label };
   }
   return null;
 }
@@ -67,7 +91,16 @@ export function RouteRelatedLinks({ slug, fromCity, toCity }: Props) {
     new Set([locationSlug(fromCity), locationSlug(toCity)].filter(Boolean)),
   ) as string[];
 
-  if (routeLinks.length === 0 && citySlugs.length === 0) return null;
+  // Airport detail-page links (unique) — de-orphans /airports/* hub pages.
+  const airportLinks = Array.from(
+    new Map(
+      [airportFor(fromCity), airportFor(toCity)]
+        .filter((a): a is { slug: string; label: string } => a !== null)
+        .map((a) => [a.slug, a]),
+    ).values(),
+  );
+
+  if (routeLinks.length === 0 && citySlugs.length === 0 && airportLinks.length === 0) return null;
 
   return (
     <section className="mt-16 border-t border-[#C9A84C]/10 pt-10">
@@ -95,7 +128,7 @@ export function RouteRelatedLinks({ slug, fromCity, toCity }: Props) {
         </div>
       )}
 
-      {citySlugs.length > 0 && (
+      {(citySlugs.length > 0 || airportLinks.length > 0) && (
         <div className="flex flex-wrap gap-3">
           {citySlugs.map((c) => (
             <Link
@@ -105,6 +138,16 @@ export function RouteRelatedLinks({ slug, fromCity, toCity }: Props) {
             >
               <MapPin className="h-3.5 w-3.5" />
               Taxi service in {c.charAt(0).toUpperCase() + c.slice(1)}
+            </Link>
+          ))}
+          {airportLinks.map((a) => (
+            <Link
+              key={a.slug}
+              href={`/airports/${a.slug}`}
+              className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#16A34A]/10 transition-all"
+            >
+              <Plane className="h-3.5 w-3.5" />
+              {a.label} taxi
             </Link>
           ))}
         </div>
