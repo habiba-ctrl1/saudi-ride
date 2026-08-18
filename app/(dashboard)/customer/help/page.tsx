@@ -94,7 +94,7 @@ export default function CustomerHelpPage() {
             <h3 className="text-[#F5F0E8] font-heading font-bold text-lg mb-6">Immediate Support</h3>
             
             <div className="space-y-4">
-              <Link href="https://wa.me/966500000000" target="_blank" className="flex items-center gap-4 bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/30 p-4 rounded-2xl transition-colors group">
+              <Link href="https://wa.me/966539388072" target="_blank" className="flex items-center gap-4 bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/30 p-4 rounded-2xl transition-colors group">
                 <div className="bg-[#25D366] text-white p-3 rounded-xl group-hover:scale-110 transition-transform">
                   <MessageCircle className="h-6 w-6" />
                 </div>
