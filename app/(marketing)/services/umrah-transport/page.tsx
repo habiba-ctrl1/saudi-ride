@@ -120,7 +120,7 @@ export default function UmrahTransportPage() {
             src="/services/umrah-transport-hero.webp" 
             alt="Makkah Umrah Pilgrimage" 
             fill 
-            className="object-cover opacity-30" 
+            className="object-cover opacity-60" 
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/50 to-[#FAFAF7]/15" />
         </div>

@@ -63,6 +63,23 @@ const jsonLd = [
     "@id": "https://taxisaudiarabia.com/#taxiservice",
     "url": "https://taxisaudiarabia.com",
     "telephone": "+966539388072",
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": "+966539388072",
+        "url": "https://wa.me/966539388072",
+        "contactType": "reservations",
+        "name": "WhatsApp booking",
+        "availableLanguage": ["English", "Arabic", "Urdu"],
+        "areaServed": ["SA", "BH", "QA", "AE", "KW", "Worldwide"],
+        "hoursAvailable": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+          "opens": "00:00",
+          "closes": "23:59",
+        },
+      },
+    ],
     "priceRange": "$$",
     "currenciesAccepted": "SAR",
     "paymentAccepted": "Cash, Credit Card, Bank Transfer",
