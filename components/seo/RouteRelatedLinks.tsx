@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, MapPin, Plane } from "lucide-react";
+import { ArrowRight, MapPin, Plane, BookOpen } from "lucide-react";
 import { ROUTES_DATA } from "@/lib/data/routes";
 
 // City label -> /locations/[city] slug (sirf jahan location page exist karta hai)
@@ -71,6 +71,23 @@ function serviceLinksFor(fromCity: string, toCity: string): { href: string; labe
   return out.slice(0, 2);
 }
 
+// Relevant travel guides per corridor. Guides have no auto-linker of their own,
+// so most sat orphaned ("discovered, not indexed"); this gives them in-content
+// links from indexed route pages and builds the pilgrim/business topical cluster
+// (routes ↔ miqat/ziyarat/airport guides) that also helps AI/AIO understanding.
+function guidesFor(fromCity: string, toCity: string): { slug: string; label: string }[] {
+  const s = `${fromCity} ${toCity}`.toLowerCase();
+  const g: { slug: string; label: string }[] = [];
+  if (s.includes("jeddah airport")) g.push({ slug: "jeddah-airport-guide", label: "Jeddah Airport arrival guide" });
+  if (s.includes("makkah") || s.includes("mecca")) g.push({ slug: "miqat-jeddah-makkah", label: "Miqat & Ihram guide" });
+  if (s.includes("madinah") || s.includes("medina")) g.push({ slug: "dhul-hulaifah-miqat-madinah", label: "Madinah Miqat (Dhul Hulaifah) guide" });
+  if (s.includes("alula")) g.push({ slug: "alula-transport-guide", label: "AlUla transport guide" });
+  if (s.includes("bahrain") || s.includes("manama")) g.push({ slug: "riyadh-to-bahrain-taxi-vs-train", label: "Saudi–Bahrain: taxi vs train" });
+  if (g.length < 2 && s.includes("riyadh")) g.push({ slug: "riyadh-business-travel", label: "Riyadh business travel guide" });
+  // Dedupe by slug, keep it tidy.
+  return Array.from(new Map(g.map((x) => [x.slug, x])).values()).slice(0, 2);
+}
+
 interface Props {
   slug: string;
   fromCity: string;
@@ -125,7 +142,17 @@ export function RouteRelatedLinks({ slug, fromCity, toCity }: Props) {
   // Contextual service links (unique) — de-orphans service hub pages.
   const serviceLinks = serviceLinksFor(fromCity, toCity);
 
-  if (routeLinks.length === 0 && citySlugs.length === 0 && airportLinks.length === 0 && serviceLinks.length === 0) return null;
+  // Relevant travel guides — de-orphans /guides/* and builds topical cluster.
+  const guideLinks = guidesFor(fromCity, toCity);
+
+  if (
+    routeLinks.length === 0 &&
+    citySlugs.length === 0 &&
+    airportLinks.length === 0 &&
+    serviceLinks.length === 0 &&
+    guideLinks.length === 0
+  )
+    return null;
 
   return (
     <section className="mt-16 border-t border-[#C9A84C]/10 pt-10">
@@ -153,7 +180,7 @@ export function RouteRelatedLinks({ slug, fromCity, toCity }: Props) {
         </div>
       )}
 
-      {(citySlugs.length > 0 || airportLinks.length > 0 || serviceLinks.length > 0) && (
+      {(citySlugs.length > 0 || airportLinks.length > 0 || serviceLinks.length > 0 || guideLinks.length > 0) && (
         <div className="flex flex-wrap gap-3">
           {citySlugs.map((c) => (
             <Link
@@ -183,6 +210,16 @@ export function RouteRelatedLinks({ slug, fromCity, toCity }: Props) {
             >
               <ArrowRight className="h-3.5 w-3.5" />
               {s.label}
+            </Link>
+          ))}
+          {guideLinks.map((g) => (
+            <Link
+              key={g.slug}
+              href={`/guides/${g.slug}`}
+              className="inline-flex items-center gap-2 rounded-full border border-[#6B7280]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#6B7280] hover:bg-[#6B7280]/10 transition-all"
+            >
+              <BookOpen className="h-3.5 w-3.5" />
+              {g.label}
             </Link>
           ))}
         </div>
