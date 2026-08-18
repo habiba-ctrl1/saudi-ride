@@ -201,7 +201,7 @@ export default async function CityLocationPage({ params }: PageProps) {
             className={`absolute inset-0 bg-gradient-to-t ${
               cityKey === "neom"
                 ? "from-[#FAFAF7] via-[#FAFAF7]/50 to-[#FAFAF7]/15"
-                : "from-[#FAFAF7] via-[#FAFAF7]/80 to-[#FAFAF7]/40"
+                : "from-[#FAFAF7] via-[#FAFAF7]/50 to-[#FAFAF7]/15"
             }`}
           />
         </div>

@@ -108,7 +108,7 @@ export default async function AirportLandingPage({ params }: PageProps) {
             fill
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/80 to-[#FAFAF7]/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/50 to-[#FAFAF7]/15" />
         </div>
 
         <div className="section-container relative z-10 max-w-5xl">

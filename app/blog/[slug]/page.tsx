@@ -147,7 +147,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             priority
             className="object-cover opacity-55"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/85 to-[#FAFAF7]/35" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/50 to-[#FAFAF7]/15" />
         </div>
 
         <div className="section-container relative z-10 max-w-4xl">
