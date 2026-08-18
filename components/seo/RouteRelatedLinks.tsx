@@ -49,6 +49,28 @@ function airportFor(city: string): { slug: string; label: string } | null {
   return null;
 }
 
+// Contextual service links per corridor. Gives the orphan-prone service hub
+// pages (umrah-transport, corporate, vip-luxury) real in-content inbound links
+// from strong, indexed route pages — footer/nav boilerplate links alone leave
+// them "discovered, not indexed". Kept to ≤2 per route so pills stay relevant.
+const HOLY_CITIES = ["makkah", "mecca", "madinah", "medina"];
+const BUSINESS_CITIES = ["riyadh", "dammam", "khobar", "dhahran", "jubail", "kaec", "jeddah city"];
+
+function serviceLinksFor(fromCity: string, toCity: string): { href: string; label: string }[] {
+  const both = `${fromCity} ${toCity}`.toLowerCase();
+  const out: { href: string; label: string }[] = [];
+  if (HOLY_CITIES.some((h) => both.includes(h))) {
+    out.push({ href: "/services/umrah-transport", label: "Umrah transport service" });
+  }
+  if (BUSINESS_CITIES.some((b) => both.includes(b))) {
+    out.push({ href: "/services/corporate", label: "Corporate & business travel" });
+  }
+  if (out.length < 2 && both.includes("airport")) {
+    out.push({ href: "/services/vip-luxury", label: "VIP & luxury car service" });
+  }
+  return out.slice(0, 2);
+}
+
 interface Props {
   slug: string;
   fromCity: string;
@@ -100,7 +122,10 @@ export function RouteRelatedLinks({ slug, fromCity, toCity }: Props) {
     ).values(),
   );
 
-  if (routeLinks.length === 0 && citySlugs.length === 0 && airportLinks.length === 0) return null;
+  // Contextual service links (unique) — de-orphans service hub pages.
+  const serviceLinks = serviceLinksFor(fromCity, toCity);
+
+  if (routeLinks.length === 0 && citySlugs.length === 0 && airportLinks.length === 0 && serviceLinks.length === 0) return null;
 
   return (
     <section className="mt-16 border-t border-[#C9A84C]/10 pt-10">
@@ -128,7 +153,7 @@ export function RouteRelatedLinks({ slug, fromCity, toCity }: Props) {
         </div>
       )}
 
-      {(citySlugs.length > 0 || airportLinks.length > 0) && (
+      {(citySlugs.length > 0 || airportLinks.length > 0 || serviceLinks.length > 0) && (
         <div className="flex flex-wrap gap-3">
           {citySlugs.map((c) => (
             <Link
@@ -148,6 +173,16 @@ export function RouteRelatedLinks({ slug, fromCity, toCity }: Props) {
             >
               <Plane className="h-3.5 w-3.5" />
               {a.label} taxi
+            </Link>
+          ))}
+          {serviceLinks.map((s) => (
+            <Link
+              key={s.href}
+              href={s.href}
+              className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
+            >
+              <ArrowRight className="h-3.5 w-3.5" />
+              {s.label}
             </Link>
           ))}
         </div>
