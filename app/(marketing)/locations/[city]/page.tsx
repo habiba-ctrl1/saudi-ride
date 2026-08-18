@@ -335,6 +335,54 @@ export default async function CityLocationPage({ params }: PageProps) {
             </section>
           )}
 
+          {/* Popular services in this city — completes the location×service
+              topical mesh and passes authority from indexed city hubs into
+              the commercial service pages (in-content, not footer boilerplate). */}
+          {(() => {
+            const key = cityKey.toLowerCase();
+            const holy = key.includes("makkah") || key.includes("madinah");
+            const business = ["riyadh", "dammam", "dhahran", "jubail", "khobar"].some((b) => key.includes(b));
+            let svc: { href: string; label: string }[];
+            if (key.includes("jeddah")) {
+              svc = [
+                { href: "/services/umrah-transport", label: "Umrah transport service" },
+                { href: "/services/airport-transfers", label: "Airport transfers" },
+              ];
+            } else if (holy) {
+              svc = [
+                { href: "/services/umrah-transport", label: "Umrah transport service" },
+                { href: key.includes("madinah") ? "/services/madinah-ziyarat" : "/services/makkah-ziyarat", label: key.includes("madinah") ? "Madinah Ziyarat tours" : "Makkah Ziyarat tours" },
+              ];
+            } else if (business) {
+              svc = [
+                { href: "/services/corporate", label: "Corporate & business travel" },
+                { href: "/services/vip-luxury", label: "VIP & luxury car service" },
+              ];
+            } else {
+              svc = [
+                { href: "/services/airport-transfers", label: "Airport transfers" },
+                { href: "/services/intercity", label: "Intercity taxi service" },
+              ];
+            }
+            return (
+              <section>
+                <h2 className="font-heading text-2xl font-bold mb-6">Popular Taxi Services in {cityData.name}</h2>
+                <div className="flex flex-wrap gap-3">
+                  {svc.map((s) => (
+                    <Link
+                      key={s.href}
+                      href={s.href}
+                      className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
+                    >
+                      <ArrowRight className="h-3.5 w-3.5" />
+                      {s.label}
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            );
+          })()}
+
           {/* FAQs (FAQPage schema injected above) */}
           {cityData.faqs && cityData.faqs.length > 0 && (
             <section>
