@@ -75,7 +75,7 @@ export default function TourismChartersPage() {
             src="/services/tourism-hero.webp" 
             alt="Saudi Tourism Transport" 
             fill 
-            className="object-cover opacity-70" 
+            className="object-cover opacity-80" 
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/50 to-[#FAFAF7]/15" />
         </div>

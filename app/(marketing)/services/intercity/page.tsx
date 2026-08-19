@@ -84,7 +84,7 @@ export default function IntercityServicePage() {
             src="/services/intercity-hero.webp" 
             alt="Saudi Arabia Highway" 
             fill 
-            className="object-cover opacity-60" 
+            className="object-cover opacity-80" 
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/50 to-[#FAFAF7]/15" />
         </div>

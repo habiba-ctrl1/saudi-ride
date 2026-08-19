@@ -60,6 +60,10 @@ export function Footer() {
         { label: "NEOM", href: "/locations/neom" },
         { label: "Taif", href: "/locations/taif" },
         { label: "Tabuk", href: "/locations/tabuk" },
+        { label: "Jeddah Airport (JED)", href: "/airports/king-abdulaziz-jeddah" },
+        { label: "Riyadh Airport (RUH)", href: "/airports/king-khalid-riyadh" },
+        { label: "Madinah Airport (MED)", href: "/airports/prince-mohammad-madinah" },
+        { label: "Dammam Airport (DMM)", href: "/airports/king-fahd-dammam" },
       ],
       services: [
         { label: "Airport Transfers", href: "/services/airport-transfers" },

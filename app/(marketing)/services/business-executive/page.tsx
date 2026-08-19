@@ -72,7 +72,7 @@ export default function BusinessExecutivePage() {
             src="/services/business-executive-hero.webp" 
             alt="Business Executive Transport Saudi Arabia" 
             fill 
-            className="object-cover opacity-60" 
+            className="object-cover opacity-80" 
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/50 to-[#FAFAF7]/15" />
         </div>
