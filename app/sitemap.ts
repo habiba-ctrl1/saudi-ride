@@ -3,7 +3,8 @@ import { ROUTES_DATA } from "@/lib/data/routes";
 import { FLEET_VEHICLES } from "@/lib/fleet-data";
 import { BLOG_POSTS_DATA } from "@/lib/data/blog-posts";
 import { GUIDES } from "@/lib/data/guides";
-import { RECOVERY_CITIES } from "@/lib/data/recovery";
+import { RECOVERY_INDEXABLE_CITIES, RECOVERY_AR_CITIES } from "@/lib/data/recovery";
+import { RECOVERY_ROUTES } from "@/lib/data/recovery-routes";
 import { SUB_AREAS as SUB_AREAS_DATA } from "@/lib/data/subareas";
 import { CITY_DETAILS } from "@/lib/data/locations";
 import { AIRPORT_DETAILS } from "@/lib/data/airports";
@@ -114,12 +115,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  const recoveryItems = RECOVERY_CITIES.map((c) => ({
+  const recoveryItems = RECOVERY_INDEXABLE_CITIES.map((c) => ({
     url: `${DOMAIN}/services/car-recovery/${c.slug}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: c.region === "eastern" ? 0.8 : 0.7,
+  }));
+
+  const recoveryRouteItems = RECOVERY_ROUTES.map((r) => ({
+    url: `${DOMAIN}/services/car-recovery/${r.slug}`,
     lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.8,
   }));
+
+  // Arabic recovery pages: hub + Eastern-Province cities + routes.
+  const recoveryArItems = [
+    { url: `${DOMAIN}/ar/services/car-recovery`, priority: 0.7 },
+    ...RECOVERY_AR_CITIES.map((c) => ({ url: `${DOMAIN}/ar/services/car-recovery/${c.slug}`, priority: 0.8 })),
+    ...RECOVERY_ROUTES.map((r) => ({ url: `${DOMAIN}/ar/services/car-recovery/${r.slug}`, priority: 0.8 })),
+  ].map((x) => ({ ...x, lastModified: now, changeFrequency: "weekly" as const }));
 
   const guideItems = GUIDES.map((guide) => ({
     url: `${DOMAIN}/guides/${guide.slug}`,
@@ -139,5 +154,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...blogItems,
     ...guideItems,
     ...recoveryItems,
+    ...recoveryRouteItems,
+    ...recoveryArItems,
   ];
 }

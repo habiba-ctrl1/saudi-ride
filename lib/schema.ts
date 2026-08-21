@@ -104,6 +104,47 @@ export function serviceSchema({ name, description, path, serviceType, areaServed
   };
 }
 
+/** AutomotiveBusiness (towing/recovery) — a single Dammam-based operator.
+ *  Truthful local signal: real Dammam locality + Eastern Province service area,
+ *  no fabricated street address, no rating. 24/7 reflects on-call recovery. */
+export function recoveryBusinessSchema({
+  name,
+  description,
+  path,
+  areaServed,
+  telephone,
+}: {
+  name: string;
+  description: string;
+  path: string;
+  areaServed: string[];
+  telephone: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "AutomotiveBusiness",
+    "@id": `${abs(path)}#recovery`,
+    name,
+    description,
+    url: abs(path),
+    telephone,
+    parentOrganization: { "@id": SITE.businessId },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Dammam",
+      addressRegion: "Eastern Province",
+      addressCountry: "SA",
+    },
+    areaServed: areaServed.map((a) => ({ "@type": "Place", name: a })),
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      opens: "00:00",
+      closes: "23:59",
+    },
+  };
+}
+
 // Wikidata entity URIs for Saudi airports — used for sameAs disambiguation.
 // These are public Wikidata Q-IDs, not operational claims.
 const AIRPORT_WIKIDATA: Record<string, string> = {

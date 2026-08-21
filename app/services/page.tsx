@@ -150,15 +150,15 @@ const SERVICES = [
     badge: "24/7 Rescue",
     color: "from-red-500/10 to-transparent",
     borderColor: "border-red-500/20",
-    description: "Broken down or in an accident? Flatbed tow truck (satha سطحة) service in Riyadh, Jeddah, Dammam, Makkah & Madinah. Battery jump start, tire help, and intercity car transport, price confirmed on WhatsApp.",
+    description: "Broken down or in an accident? Dammam-based flatbed tow truck (satha سطحة) across the Eastern Province — Dammam, Khobar, Dhahran, Qatif & Al-Ahsa. Battery, tire help, and booked intercity car transport to Riyadh, Jeddah & Yanbu. Price confirmed on WhatsApp.",
     features: [
       "Hydraulic flatbed — zero damage towing",
-      "20–45 minute dispatch inside cities",
+      "Dammam-based, 24/7 Eastern Province coverage",
       "Clear price confirmed on WhatsApp before dispatch",
-      "Highway & intercity recovery covered",
-      "Heavy vehicle & winch trucks available",
+      "Booked intercity car transport from Dammam",
+      "Deal directly with the driver",
     ],
-    startingPrice: 200,
+    startingPrice: 0,
     route: "/services/car-recovery",
   },
   {
@@ -282,8 +282,17 @@ export default function ServicesPage() {
                       </div>
                     </div>
                     <div className="text-right shrink-0">
-                      <p className="text-[0.55rem] text-[#6B7280] uppercase font-bold">From</p>
-                      <p className="font-heading text-lg font-bold text-[#16A34A]">SAR {service.startingPrice}</p>
+                      {service.startingPrice > 0 ? (
+                        <>
+                          <p className="text-[0.55rem] text-[#6B7280] uppercase font-bold">From</p>
+                          <p className="font-heading text-lg font-bold text-[#16A34A]">SAR {service.startingPrice}</p>
+                        </>
+                      ) : (
+                        <>
+                          <p className="text-[0.55rem] text-[#6B7280] uppercase font-bold">Price</p>
+                          <p className="font-heading text-sm font-bold text-[#16A34A]">WhatsApp</p>
+                        </>
+                      )}
                     </div>
                   </div>
 
