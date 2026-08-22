@@ -249,10 +249,10 @@ export default function CarRecoveryPage() {
             <Link key={c.slug} href={`/services/car-recovery/${c.slug}`} className="group rounded-3xl overflow-hidden border border-[#16A34A]/12 bg-white hover:border-[#16A34A]/35 transition-all duration-300">
               <div className="relative h-44">
                 <Image src={c.image} alt={`Car recovery in ${c.name} (${c.sathaAr})`} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#111] to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/20" />
                 <div className="absolute bottom-4 left-4 right-4">
-                  <p className="text-lg font-bold text-white">Car Recovery {c.name}</p>
-                  <p className="text-xs text-white/80" dir="rtl" lang="ar">{c.sathaAr}</p>
+                  <p className="text-lg font-bold text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]">Car Recovery {c.name}</p>
+                  <p className="text-xs text-white/90 drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]" dir="rtl" lang="ar">{c.sathaAr}</p>
                 </div>
               </div>
               <div className="p-6 flex items-center justify-between">

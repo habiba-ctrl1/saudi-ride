@@ -40,7 +40,7 @@ export const RECOVERY_ROUTES: RecoveryRoute[] = [
       "Moving a car from Dammam to Riyadh? As a Dammam-based operator, this is our most common intercity transport route. We flatbed your vehicle along the Dammam–Riyadh highway (Route 40, ~410 km) — whether it's a breakdown that has to reach a Riyadh dealership, a car you bought in the Eastern Province, or a full relocation. The car is winched fully onto the bed, secured, and delivered to the address, workshop, or showroom you choose. Send the vehicle type and both addresses on WhatsApp for a clear price before we book the job.",
     introAr:
       "تبي تنقل سيارتك من الدمام إلى الرياض؟ بحكم أن مقرنا في الدمام، هذا أكثر مسار نقل بين المدن لدينا. ننقل سيارتك على سطحة هيدروليك عبر طريق الدمام–الرياض (نحو ٤١٠ كم) — سواء كانت سيارة متعطلة يجب أن تصل إلى معرض في الرياض، أو سيارة اشتريتها في المنطقة الشرقية، أو نقل كامل. تُحمّل السيارة بالكامل على السطحة وتُثبّت وتُسلّم إلى العنوان أو الورشة أو المعرض الذي تختاره. أرسل نوع السيارة والعنوانين عبر واتساب للحصول على سعر واضح قبل حجز النقل.",
-    image: "/locations/riyadh-hero.webp",
+    image: "/services/recovery/route-dammam-riyadh.webp",
     highlights: [
       "Flatbed (satha) transport — no wheels on the road",
       "Broken-down & accident vehicles moved to a Riyadh workshop or dealership",
@@ -104,7 +104,7 @@ export const RECOVERY_ROUTES: RecoveryRoute[] = [
       "Dammam to Jeddah is a full cross-Kingdom car transport — about 1,340 km from the Gulf coast to the Red Sea. As a Dammam-based operator we take this as a booked flatbed job: a car for sale, a relocation, or a vehicle that has to reach a specific Jeddah workshop or the Islamic Port. Your car travels secured on the bed and is delivered to the address you choose. Send the vehicle type, pickup, and destination on WhatsApp and we confirm the price and schedule before booking.",
     introAr:
       "النقل من الدمام إلى جدة نقل كامل عبر المملكة — نحو ١٣٤٠ كم من ساحل الخليج إلى ساحل البحر الأحمر. بحكم أن مقرنا في الدمام، ننفّذه كنقل محجوز على سطحة: سيارة للبيع، أو نقل سكن، أو سيارة يجب أن تصل إلى ورشة محددة في جدة أو إلى الميناء الإسلامي. تُنقل سيارتك مثبّتة على السطحة وتُسلّم إلى العنوان الذي تختاره. أرسل نوع السيارة ومكان الاستلام والوجهة عبر واتساب ونؤكد السعر والجدول قبل الحجز.",
-    image: "/locations/jeddah-hero.webp",
+    image: "/services/recovery/route-dammam-jeddah.webp",
     highlights: [
       "Cross-Kingdom flatbed transport, Gulf coast to Red Sea",
       "Cars for sale, relocations, and workshop/dealership deliveries",
@@ -168,7 +168,7 @@ export const RECOVERY_ROUTES: RecoveryRoute[] = [
       "Dammam to Yanbu is a long-haul, cross-Kingdom car transport toward the Red Sea industrial coast — around 1,250 km. As a Dammam-based operator we handle this as a booked flatbed job: common for the Yanbu industrial workforce moving a car, a sale, or a relocation between the two coasts. The vehicle travels secured on the bed and is delivered to Yanbu city or the industrial area. WhatsApp the vehicle type, pickup, and destination for a clear price and schedule.",
     introAr:
       "النقل من الدمام إلى ينبع نقل طويل عبر المملكة باتجاه ساحل البحر الأحمر الصناعي — نحو ١٢٥٠ كم. بحكم أن مقرنا في الدمام، ننفّذه كنقل محجوز على سطحة: شائع لدى العاملين في صناعة ينبع لنقل سيارة، أو بيع، أو نقل سكن بين الساحلين. تُنقل السيارة مثبّتة على السطحة وتُسلّم في مدينة ينبع أو المنطقة الصناعية. أرسل نوع السيارة ومكان الاستلام والوجهة عبر واتساب للحصول على سعر وجدول واضحين.",
-    image: "/locations/jeddah-hero.webp",
+    image: "/services/recovery/route-dammam-yanbu.webp",
     highlights: [
       "Long-haul flatbed transport to the Red Sea coast",
       "Popular with the Yanbu industrial workforce",

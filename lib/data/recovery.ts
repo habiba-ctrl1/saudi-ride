@@ -166,7 +166,7 @@ export const RECOVERY_CITIES: RecoveryCity[] = [
     tagline: "Dammam-based flatbed satha — Eastern Province, 24/7",
     intro:
       "Dammam is our home base. We run a hydraulic flatbed (satha) for the city and the surrounding Eastern Province — Dammam, Al-Khobar, Dhahran, Qatif, and the corridor toward Jubail. Breakdown, accident, dead battery, or a car that won't start: share your location on WhatsApp and we confirm the price and timing before the truck moves. We also handle booked intercity transport from Dammam to Riyadh, Jeddah, and beyond.",
-    image: "/services/car-recovery-hero.webp",
+    image: "/services/recovery/dammam.webp",
     areas: ["Dammam Corniche", "Al-Khobar", "Dhahran", "Qatif", "Half Moon Bay", "Dammam Industrial City", "Jubail Road", "King Fahd Causeway approach"],
     highways: ["Dammam–Riyadh Highway (Route 40)", "Dhahran–Jubail Highway", "King Fahd Causeway Expressway", "Abu Hadriyah Highway (Route 95)"],
     faqs: [
@@ -217,7 +217,7 @@ export const RECOVERY_CITIES: RecoveryCity[] = [
     tagline: "Khobar, Corniche & the Causeway approach",
     intro:
       "Al Khobar sits between Dammam, Dhahran, and the King Fahd Causeway to Bahrain. From our Dammam base we cover the Khobar waterfront, the Al-Rashid Mall area, Al-Thuqbah, and the busy Causeway approach roads where weekend traffic and salt-air corrosion cause frequent breakdowns. Share your location on WhatsApp for a clear price before dispatch.",
-    image: "/locations/dammam-hero.webp",
+    image: "/services/recovery/al-khobar.webp",
     areas: ["Al Khobar Corniche", "Al-Rashid Mall area", "Al-Thuqbah", "Half Moon Bay", "Causeway approach", "Dhahran–Khobar Road"],
     highways: ["King Fahd Causeway Approach", "Dammam–Khobar Highway", "Dhahran–Jubail Highway", "Abu Hadriyah Highway"],
     faqs: [
@@ -258,7 +258,7 @@ export const RECOVERY_CITIES: RecoveryCity[] = [
     tagline: "Dhahran, Aramco area & the university district",
     intro:
       "Dhahran is minutes from our Dammam base — home to Saudi Aramco, KFUPM, and the Dhahran expressways linking Khobar and Dammam. We recover cars from the residential districts, the mall area, and the highways around Dhahran, and flatbed them to any workshop or dealership in the Eastern Province. Send your location on WhatsApp and we confirm the price first.",
-    image: "/locations/dammam-hero.webp",
+    image: "/services/recovery/dhahran.webp",
     areas: ["Dhahran Hills", "KFUPM area", "Doha district", "Aramco camp approach", "Dhahran Mall area", "Dhahran–Khobar Road"],
     highways: ["Dhahran–Khobar Highway", "Dhahran–Jubail Highway", "Dammam–Dhahran Expressway", "Abu Hadriyah Highway"],
     faqs: [
@@ -299,7 +299,7 @@ export const RECOVERY_CITIES: RecoveryCity[] = [
     tagline: "Qatif, Saihat & Tarout coverage",
     intro:
       "Qatif and its towns — Saihat, Tarout, Anak, and Safwa — sit just north of Dammam along the Gulf coast. From our Dammam base we cover the Qatif districts, the coastal road, and the highway toward Jubail, recovering breakdowns and accident vehicles to workshops across the Eastern Province. WhatsApp your location for a clear price before the truck moves.",
-    image: "/locations/dammam-hero.webp",
+    image: "/services/recovery/qatif.webp",
     areas: ["Qatif center", "Saihat", "Tarout Island", "Anak", "Safwa", "Qatif Corniche", "Qatif–Jubail Road"],
     highways: ["Qatif–Dammam Road", "Abu Hadriyah Highway (Route 95)", "Qatif–Jubail Highway", "Coastal Road"],
     faqs: [
@@ -339,7 +339,7 @@ export const RECOVERY_CITIES: RecoveryCity[] = [
     tagline: "Ras Tanura, refinery area & the coast road",
     intro:
       "Ras Tanura, north of Qatif, is home to one of the world's largest refineries and a long stretch of coastal highway. From our Dammam base we recover vehicles from Ras Tanura town, the industrial and refinery approach roads, and the highway back toward Qatif and Jubail. Long distances make breakdown recovery important here — WhatsApp us early with your location for a clear quote.",
-    image: "/locations/dammam-hero.webp",
+    image: "/services/recovery/ras-tanura.webp",
     areas: ["Ras Tanura town", "Najmah", "Refinery approach", "Ras Tanura Corniche", "Rahima", "Coast road"],
     highways: ["Ras Tanura–Qatif Road", "Abu Hadriyah Highway", "Ras Tanura–Jubail Road"],
     faqs: [
@@ -379,7 +379,7 @@ export const RECOVERY_CITIES: RecoveryCity[] = [
     tagline: "Abqaiq (Buqayq) town & the oil-facility roads",
     intro:
       "Abqaiq (Buqayq) lies southwest of Dammam, a major oil-processing town on the road toward Al-Ahsa and Riyadh. From our Dammam base we recover vehicles in Abqaiq town and along the highways that pass through it — key breakdown routes for workers and long-distance drivers. Send your location on WhatsApp and we confirm the price and timing first.",
-    image: "/locations/dammam-hero.webp",
+    image: "/services/recovery/abqaiq.webp",
     areas: ["Abqaiq town", "Abqaiq industrial approach", "Residential districts", "Abqaiq–Hofuf Road", "Abqaiq–Dammam Road"],
     highways: ["Abqaiq–Dammam Highway", "Abqaiq–Al-Ahsa (Hofuf) Road", "Abqaiq–Riyadh corridor"],
     faqs: [
@@ -419,7 +419,7 @@ export const RECOVERY_CITIES: RecoveryCity[] = [
     tagline: "Al-Ahsa, Hofuf & Al-Mubarraz",
     intro:
       "Al-Ahsa — including Hofuf and Al-Mubarraz — is the largest governorate in the Eastern Province, about 150 km from Dammam. We serve the Al-Ahsa cities for local recovery and, very commonly, for booked transport between Al-Ahsa and Dammam or Riyadh. Whether your car broke down in Hofuf, Al-Mubarraz, or on the highway, WhatsApp your location and we confirm a clear price before dispatch.",
-    image: "/locations/dammam-hero.webp",
+    image: "/services/recovery/al-ahsa.webp",
     areas: ["Hofuf", "Al-Mubarraz", "Al-Ahsa center", "Al-Oyoun", "Al-Jishsha", "King Fahd Road (Al-Ahsa)"],
     highways: ["Al-Ahsa–Dammam Highway", "Al-Ahsa–Riyadh Highway", "Hofuf–Abqaiq Road", "Al-Ahsa–Salwa (Qatar) Road"],
     faqs: [
@@ -460,7 +460,7 @@ export const RECOVERY_CITIES: RecoveryCity[] = [
     tagline: "Jubail city & the Abu Hadriyah corridor",
     intro:
       "Jubail is Saudi Arabia's largest industrial city, about 90 km up the coast from Dammam. The Royal Commission industrial area, the petrochemical plants, and the long Dammam–Jubail highway generate steady demand for flatbed recovery. From our Dammam base we cover Jubail City and the Abu Hadriyah corridor toward Qatif and Dammam. Share your location on WhatsApp for a clear price before dispatch.",
-    image: "/locations/dammam-hero.webp",
+    image: "/services/recovery/jubail.webp",
     areas: ["Jubail City Center", "Jubail Industrial City approach", "Al-Deffi", "Fanateer Beach", "Jubail–Ras Tanura Road"],
     highways: ["Dammam–Jubail Highway", "Abu Hadriyah Highway (Route 95)", "Jubail–Ras Tanura Road"],
     faqs: [
