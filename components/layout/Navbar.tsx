@@ -106,10 +106,10 @@ export function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 flex-shrink-0 group">
             <Image
-              src="/logo-final.png"
-              alt="Taxi Saudi Arabia Logo"
-              width={611}
-              height={526}
+              src="/logo-tsa.png"
+              alt="Taxi Saudi Arabia — Premium Chauffeur & Transportation"
+              width={1254}
+              height={1254}
               className="h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               priority
             />
