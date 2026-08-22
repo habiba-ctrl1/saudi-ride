@@ -9,6 +9,7 @@ import { SUB_AREAS as SUB_AREAS_DATA } from "@/lib/data/subareas";
 import { CITY_DETAILS } from "@/lib/data/locations";
 import { AIRPORT_DETAILS } from "@/lib/data/airports";
 import { AR_ROUTE_SLUGS } from "@/lib/config/i18n";
+import { EVENT_SLUGS } from "@/lib/data/events";
 
 const DOMAIN = "https://taxisaudiarabia.com";
 
@@ -82,6 +83,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "weekly" as const,
     priority: 0.7,
   }));
+
+  // Event/exhibition transport hub + curated event pages.
+  const eventItems = [
+    { url: `${DOMAIN}/events`, priority: 0.8 },
+    ...EVENT_SLUGS.map((slug) => ({ url: `${DOMAIN}/events/${slug}`, priority: 0.7 })),
+  ].map((x) => ({ ...x, lastModified: now, changeFrequency: "weekly" as const }));
 
   const locationItems = LOCATIONS.map((loc) => ({
     url: `${DOMAIN}/locations/${loc}`,
@@ -157,6 +164,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...staticItems,
     ...arItems,
     ...arRouteItems,
+    ...eventItems,
     ...locationItems,
     ...subAreaItems,
     ...airportItems,

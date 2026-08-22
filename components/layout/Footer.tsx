@@ -72,6 +72,7 @@ export function Footer() {
         { label: "Madinah Ziyarat", href: "/services/madinah-ziyarat" },
         { label: "Intercity Rides", href: "/services/intercity" },
         { label: "Corporate Car Service", href: "/services/corporate" },
+        { label: "Event Transportation", href: "/events" },
         { label: "Border Crossings", href: "/services/border-crossings" },
         { label: "Hajj Transport", href: "/services/hajj-transport" },
         { label: "Heritage Tours", href: "/services/heritage-tours" },
