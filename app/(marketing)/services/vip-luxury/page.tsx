@@ -5,8 +5,11 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
-import { Star, ShieldCheck, Clock, Crown } from "lucide-react";
-import Link from "next/link";
+import { Star, ShieldCheck, Clock, Crown, MessageCircle } from "lucide-react";
+import { contactConfig } from "@/lib/config/contact";
+
+const waLink = (msg: string) =>
+  `https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(msg)}`;
 
 const TITLE = "Private Driver & VIP Chauffeur Service | Riyadh, Jeddah";
 const DESCRIPTION = "Hire a private driver or VIP chauffeur in Riyadh, Jeddah & across Saudi Arabia — Mercedes S-Class, BMW 7-Series, Cadillac Escalade. Discreet, 24/7.";
@@ -93,13 +96,21 @@ export default function VIPLuxuryPage() {
               ]}
             />
           </div>
-          <div className="flex justify-center gap-4">
-            <Link
-              href="/book?service=vip-luxury"
-              className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
+          <div className="flex flex-col sm:flex-row justify-center gap-3">
+            <a
+              href={waLink("Salam, I'd like to book a VIP / luxury chauffeur (S-Class / Escalade). My date, city and vehicle preference are:")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
             >
-              Reserve Luxury Transport
-            </Link>
+              <MessageCircle className="h-4 w-4" /> Reserve on WhatsApp
+            </a>
+            <a
+              href={contactConfig.primaryPhoneLink}
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-[#C9A84C]/40 px-8 py-3.5 text-xs font-bold uppercase text-[#B8963B] hover:bg-[#C9A84C]/10 transition-all"
+            >
+              Call {contactConfig.primaryPhoneDisplay}
+            </a>
           </div>
         </div>
       </section>
@@ -139,6 +150,20 @@ export default function VIPLuxuryPage() {
           </>
         );
       })()}
+      <section className="section-container max-w-5xl py-4">
+        <div className="bg-white border border-[#16A34A]/15 shadow-lg rounded-3xl p-12 text-center">
+          <h2 className="font-heading text-2xl font-bold mb-3 text-[#1C1C1C]">Reserve your VIP chauffeur</h2>
+          <p className="text-[#6B7280] mb-8 max-w-lg mx-auto">Tell us your date, city, and vehicle preference on WhatsApp — we&apos;ll confirm availability and your fixed fare.</p>
+          <a
+            href={waLink("Salam, I'd like to arrange a VIP / luxury chauffeur in Saudi Arabia. Details:")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-4 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
+          >
+            <MessageCircle className="h-4 w-4" /> Message on WhatsApp
+          </a>
+        </div>
+      </section>
       <ServiceRelatedLinks currentPath="/services/vip-luxury" />
     </div>
   );

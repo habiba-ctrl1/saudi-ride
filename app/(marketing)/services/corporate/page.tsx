@@ -5,7 +5,8 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
-import { Building2, ReceiptText, ShieldCheck, UserCheck, Check } from "lucide-react";
+import { Building2, ReceiptText, ShieldCheck, UserCheck, Check, MessageCircle } from "lucide-react";
+import { contactConfig } from "@/lib/config/contact";
 import { CorporateAccountForm } from "@/components/booking/CorporateAccountForm";
 import { credentials, hasCredential } from "@/lib/config/credentials";
 
@@ -110,12 +111,20 @@ export default function CorporateAccountsPage() {
               ]}
             />
           </div>
-          <div className="flex justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-3">
             <a
               href="#apply"
-              className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
             >
               Open Corporate Account
+            </a>
+            <a
+              href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent("Salam, I'd like to set up a corporate transport account. Our company and estimated monthly trips are:")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-[#C9A84C]/40 px-8 py-3.5 text-xs font-bold uppercase text-[#B8963B] hover:bg-[#C9A84C]/10 transition-all"
+            >
+              <MessageCircle className="h-4 w-4" /> Enquire on WhatsApp
             </a>
           </div>
         </div>
