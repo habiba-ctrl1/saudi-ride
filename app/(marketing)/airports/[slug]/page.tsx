@@ -1,6 +1,7 @@
 import { Metadata } from "next";
-import { MapPin, ArrowRight, Car, Building2, CheckCircle2, PlaneLanding, HelpCircle, ExternalLink } from "lucide-react";
+import { MapPin, ArrowRight, Car, Building2, CheckCircle2, PlaneLanding, HelpCircle, ExternalLink, MessageCircle } from "lucide-react";
 import Link from "next/link";
+import { contactConfig } from "@/lib/config/contact";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
@@ -34,9 +35,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // airport taxi" by that name. Same TITLE_OVERRIDES pattern as routes/[slug].
   const TITLE_OVERRIDES: Record<string, string> = {
     "prince-mohammad-madinah": "Madinah Airport Taxi (MED) | Prince Mohammad Bin Abdulaziz",
+    // Same CTR fix: the official airport names omit the city travellers actually
+    // search ("Jeddah/Riyadh/Dammam airport taxi"), so lead with the city.
+    "king-abdulaziz-jeddah": "Jeddah Airport Taxi (JED) | King Abdulaziz International Airport",
+    "king-khalid-riyadh": "Riyadh Airport Taxi (RUH) | King Khalid International Airport",
+    "king-fahd-dammam": "Dammam Airport Taxi (DMM) | King Fahd International Airport",
   };
   const DESCRIPTION_OVERRIDES: Record<string, string> = {
     "prince-mohammad-madinah": "Madinah Airport (MED) taxi — Prince Mohammad Bin Abdulaziz Airport to your hotel near Masjid an-Nabawi, ~20 km/25 min. Meet & greet included, quoted on WhatsApp, 24/7.",
+    "king-abdulaziz-jeddah": "Jeddah Airport (JED) taxi — King Abdulaziz International Airport to Makkah, Madinah or your Jeddah hotel. Meet & greet, flight tracking, fare confirmed on WhatsApp, 24/7.",
+    "king-khalid-riyadh": "Riyadh Airport (RUH) taxi — King Khalid International Airport to your hotel, KAFD or city centre. Meet & greet included, fare confirmed on WhatsApp, 24/7.",
+    "king-fahd-dammam": "Dammam Airport (DMM) taxi — King Fahd International Airport to Dammam, Khobar, Dhahran or Jubail. Meet & greet, fare confirmed on WhatsApp, 24/7.",
   };
 
   return {
@@ -124,10 +133,19 @@ export default async function AirportLandingPage({ params }: PageProps) {
             {airportData.description}
           </p>
 
-          <div className="mt-8 flex gap-4">
+          <div className="mt-8 flex flex-col sm:flex-row gap-3">
+            <a
+              href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(`Salam, I need an airport taxi from ${airportData.name} (${airportData.code}). My destination and arrival time are:`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
+            >
+              <MessageCircle className="h-4 w-4" />
+              Get Fare on WhatsApp
+            </a>
             <Link
               href={`/book?pickup=${encodeURIComponent(airportData.name)}`}
-              className="flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
+              className="flex items-center justify-center gap-2 rounded-full border border-[#C9A84C]/40 px-8 py-3.5 text-xs font-bold uppercase text-[#B8963B] hover:bg-[#C9A84C]/10 transition-all"
             >
               <Car className="h-4 w-4" />
               Book Airport Pickup

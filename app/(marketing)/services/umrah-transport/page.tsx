@@ -9,6 +9,10 @@ import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 
+// WhatsApp is the proven conversion path — Umrah CTAs go to a prefilled chat.
+const waLink = (msg: string) =>
+  `https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(msg)}`;
+
 const TITLE = "Umrah Taxi Service | Jeddah to Makkah & Madinah Transfers";
 const DESCRIPTION = "Umrah taxi service in Saudi Arabia — airport to Makkah, Makkah to Madinah, Ziyarat tours & Meeqat stops. English, Arabic & Urdu drivers. Clear pricing on WhatsApp, 24/7.";
 const OG_IMAGE = "https://taxisaudiarabia.com/services/umrah-transport-hero.webp";
@@ -50,19 +54,6 @@ const PACKAGES = [
     desc: "4-hour guided transport to historical Islamic sites.",
     price: "From SAR 250",
     features: ["Jabal Al-Nour / Quba Mosque", "Knowledgeable Driver", "Flexible Timing", "Comfortable SUV/Van"]
-  }
-];
-
-const TESTIMONIALS = [
-  {
-    quote: "Our driver was extremely respectful and spoke fluent Urdu, which helped my parents immensely. The SUV was pristine. Made our Umrah journey so peaceful.",
-    author: "Tariq Mahmood",
-    location: "UK"
-  },
-  {
-    quote: "We booked the full package. From landing in Jeddah to our Ziyarat in Madinah, the service was flawless. They even guided us on the best time to visit the Rawdah.",
-    author: "Fatima Al-Sayed",
-    location: "UAE"
   }
 ];
 
@@ -148,12 +139,14 @@ export default function UmrahTransportPage() {
             />
           </div>
           <div className="flex justify-center gap-4">
-            <Link
-              href="/book"
+            <a
+              href={waLink("Salam, I'd like to arrange Umrah transport (Jeddah Airport / Makkah / Madinah). My dates and group size are:")}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
             >
-              Book Umrah Transfer
-            </Link>
+              <MessageCircle className="h-4 w-4" /> Get Umrah Fare on WhatsApp
+            </a>
           </div>
         </div>
       </section>
@@ -273,37 +266,16 @@ export default function UmrahTransportPage() {
                 ))}
               </ul>
 
-              <Link
-                href="/book"
-                className="w-full text-center rounded-full border border-[#C9A84C]/30 py-3 text-xs font-bold uppercase text-[#C9A84C] hover:bg-[#16A34A] hover:text-white transition-all"
+              <a
+                href={waLink(`Salam, I'm interested in the Umrah "${pkg.title}" package (${pkg.price}). Please confirm details and fare.`)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full inline-flex items-center justify-center gap-2 rounded-full border border-[#C9A84C]/30 py-3 text-xs font-bold uppercase text-[#C9A84C] hover:bg-[#16A34A] hover:text-white transition-all"
               >
-                Select Package
-              </Link>
+                <MessageCircle className="h-3.5 w-3.5" /> Enquire on WhatsApp
+              </a>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* ─── TESTIMONIALS ─────────────────────────────────────────── */}
-      <section className="bg-white py-20 border-y border-[#C9A84C]/10">
-        <div className="section-container max-w-5xl">
-          <h2 className="font-heading text-3xl font-bold mb-12 text-center">Words from Pilgrims</h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            {TESTIMONIALS.map((test, i) => (
-              <div key={i} className="bg-[#FAFAF7] p-8 rounded-3xl border border-[#C9A84C]/10">
-                <p className="text-[#6B7280] italic leading-relaxed mb-6">&quot;{test.quote}&quot;</p>
-                <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-full bg-[#C9A84C]/20 flex items-center justify-center text-[#C9A84C] font-bold">
-                    {test.author.charAt(0)}
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-[#1C1C1C]">{test.author}</p>
-                    <p className="text-xs text-[#6B7280]">{test.location}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 

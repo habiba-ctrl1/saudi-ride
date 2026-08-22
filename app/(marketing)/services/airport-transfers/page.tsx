@@ -7,7 +7,14 @@ import { serviceSchema, faqSchema, speakableSchema, airportTaxiServiceSchema } f
 import { AIRPORT_DETAILS } from "@/lib/data/airports";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import Link from "next/link";
-import { Plane, Clock, UserCheck, CheckCircle2, ShieldCheck, Search, PlaneLanding, MapPin } from "lucide-react";
+import { contactConfig } from "@/lib/config/contact";
+import { Plane, Clock, UserCheck, CheckCircle2, ShieldCheck, Search, PlaneLanding, MapPin, MessageCircle } from "lucide-react";
+
+// WhatsApp is the proven conversion path for this business, so the primary
+// airport-transfer CTAs go straight to a prefilled WhatsApp chat (matching the
+// route pages) instead of the /book form.
+const waLink = (msg: string) =>
+  `https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(msg)}`;
 
 const TITLE = "Airport Taxi Saudi Arabia | Jeddah, Riyadh & Madinah Pickups";
 const DESCRIPTION = "Private airport taxi in Saudi Arabia with pickups at Jeddah (JED), Riyadh (RUH) & Madinah (MED). Flight tracking, meet & greet, 24/7 professional drivers.";
@@ -133,6 +140,24 @@ export default function AirportTransfersPage() {
               *Our dispatch team monitors all entered flights automatically.
             </p>
           </div>
+
+          {/* Primary conversion CTA — WhatsApp (proven lead path) */}
+          <div className="mt-8 flex flex-col sm:flex-row gap-3">
+            <a
+              href={waLink("Salam, I'd like an airport taxi in Saudi Arabia. My flight/airport and destination are:")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#16A34A] px-8 py-4 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
+            >
+              <MessageCircle className="h-4 w-4" /> Get Airport Fare on WhatsApp
+            </a>
+            <a
+              href={contactConfig.primaryPhoneLink}
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-[#C9A84C]/40 px-8 py-4 text-xs font-bold uppercase text-[#B8963B] hover:bg-[#C9A84C]/10 transition-all"
+            >
+              Call {contactConfig.primaryPhoneDisplay}
+            </a>
+          </div>
         </div>
       </section>
 
@@ -210,9 +235,9 @@ export default function AirportTransfersPage() {
                       <Link href={`/routes/${route.routeSlug}`} className="text-xs font-bold uppercase tracking-wider text-[#6B7280] hover:text-[#16A34A] transition-colors">
                         Details
                       </Link>
-                      <Link href={`/book?pickup=${encodeURIComponent(route.airport)}&dropoff=${encodeURIComponent(route.dest)}`} className="text-xs font-bold uppercase tracking-wider text-[#B8963B] hover:text-[#1C1C1C] transition-colors">
-                        Book
-                      </Link>
+                      <a href={waLink(`Salam, I'd like an airport taxi: ${route.airport} to ${route.dest}. Please confirm the fare.`)} target="_blank" rel="noopener noreferrer" className="text-xs font-bold uppercase tracking-wider text-[#B8963B] hover:text-[#1C1C1C] transition-colors">
+                        WhatsApp
+                      </a>
                     </td>
                   </tr>
                 ))}
@@ -245,12 +270,14 @@ export default function AirportTransfersPage() {
           <p className="text-[#6B7280] mb-8 max-w-lg mx-auto">
             Book your premium airport transfer today and let us handle the logistics while you relax.
           </p>
-          <Link
-            href="/book"
+          <a
+            href={waLink("Salam, I'd like to book an airport taxi in Saudi Arabia. My flight details and destination are:")}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-4 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
           >
-            Book Airport Taxi Now
-          </Link>
+            <MessageCircle className="h-4 w-4" /> Book Airport Taxi on WhatsApp
+          </a>
         </div>
       </section>
       <ServiceRelatedLinks currentPath="/services/airport-transfers" />

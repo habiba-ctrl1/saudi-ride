@@ -6,7 +6,7 @@ import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { Compass, ShieldCheck, MapPin, Map } from "lucide-react";
-import Link from "next/link";
+import { contactConfig } from "@/lib/config/contact";
 
 const TITLE = "Madinah Ziyarat Packages & Taxi Tours | Taxi Saudi Arabia";
 const DESCRIPTION = "Book a private Madinah Ziyarat taxi tour — visit Masjid Quba, Mount Uhud, Qiblatain & Seven Mosques with local drivers. Half-day & full-day tours, clear pricing, WhatsApp booking.";
@@ -94,12 +94,14 @@ export default function MadinahZiyaratPage() {
             />
           </div>
           <div className="flex justify-center gap-4">
-            <Link
-              href="/book?service=madinah-ziyarat"
+            <a
+              href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent("Salam, I'd like to book a Madinah Ziyarat tour. My hotel and preferred date are:")}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
             >
-              Book Ziyarat Tour
-            </Link>
+              Book Ziyarat Tour on WhatsApp
+            </a>
           </div>
         </div>
       </section>

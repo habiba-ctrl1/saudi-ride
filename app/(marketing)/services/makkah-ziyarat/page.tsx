@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { Landmark, MapPin, Clock, ShieldCheck, CheckCircle2, MessageCircle } from "lucide-react";
 import { contactConfig } from "@/lib/config/contact";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
@@ -112,12 +111,14 @@ export default function MakkahZiyaratPage() {
               ]}
             />
           </div>
-          <Link
-            href="/book"
+          <a
+            href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent("Salam, I'd like to book a Makkah Ziyarat tour. My hotel and preferred date are:")}`}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
           >
-            Book Ziyarat Tour
-          </Link>
+            Book Ziyarat Tour on WhatsApp
+          </a>
         </div>
       </section>
 
