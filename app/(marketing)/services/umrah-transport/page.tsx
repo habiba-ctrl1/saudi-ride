@@ -40,19 +40,19 @@ const PACKAGES = [
   {
     title: "Airport to Makkah (One-Way)",
     desc: "Direct VIP transfer from Jeddah Airport to your Makkah hotel.",
-    price: "From SAR 249",
+    price: "On WhatsApp",
     features: ["Meet & Greet at Arrivals", "Luggage Assistance", "Zamzam Water Provided", "Direct Haram Drop-off"]
   },
   {
     title: "Full Umrah Package",
     desc: "Complete transport solution for your entire journey.",
-    price: "From SAR 1,200",
+    price: "On WhatsApp",
     features: ["JED to Makkah", "Makkah to Madinah", "Madinah to Airport", "24/7 Support via WhatsApp"]
   },
   {
     title: "Ziyarat Tours (Makkah or Madinah)",
     desc: "4-hour guided transport to historical Islamic sites.",
-    price: "From SAR 250",
+    price: "On WhatsApp",
     features: ["Jabal Al-Nour / Quba Mosque", "Knowledgeable Driver", "Flexible Timing", "Comfortable SUV/Van"]
   }
 ];
@@ -129,9 +129,9 @@ export default function UmrahTransportPage() {
           </p>
           <div className="max-w-2xl mx-auto mb-10 text-left">
             <TLDRSummary
-              answer="Umrah taxi transfers in Saudi Arabia start from SAR 249 (Jeddah Airport to Makkah, ~1 hour), with multilingual drivers and 24/7 availability for airport pickups, intercity Ziyarat, and Miqat stops."
+              answer="Umrah taxi transfers in Saudi Arabia cover Jeddah Airport to Makkah (~1 hour), Makkah to Madinah, and Ziyarat tours, with multilingual drivers and 24/7 availability. Your fare is confirmed on WhatsApp before booking."
               facts={[
-                { label: "Airport → Makkah", value: "From SAR 249" },
+                { label: "Airport → Makkah", value: "On WhatsApp" },
                 { label: "Duration", value: "~1 hour" },
                 { label: "Languages", value: "EN / AR / UR" },
                 { label: "Availability", value: "24/7" },

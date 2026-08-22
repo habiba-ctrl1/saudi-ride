@@ -171,7 +171,7 @@ export function RouteRelatedLinks({ slug, fromCity, toCity }: Props) {
               <span className="text-sm font-semibold">
                 Taxi {r.fromCity} to {r.toCity}
                 <span className="block text-[0.65rem] text-[#6B7280] font-normal mt-0.5">
-                  {r.distance} km · {r.priceOnRequest ? "price on WhatsApp" : `from SAR ${r.basePrice}`}
+                  {r.distance} km · fare on WhatsApp
                 </span>
               </span>
               <ArrowRight className="h-4 w-4 text-[#C9A84C] shrink-0 group-hover:translate-x-1 transition-transform" />

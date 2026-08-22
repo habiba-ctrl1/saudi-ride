@@ -178,7 +178,7 @@ export default async function AirportLandingPage({ params }: PageProps) {
                     <div className="flex items-center justify-between md:gap-6">
                       <div className="text-right">
                         <p className="text-[0.6rem] text-[#6B7280] uppercase font-bold">Starting from</p>
-                        <p className="text-[#C9A84C] font-bold">SAR {route.basePrice}</p>
+                        <p className="text-[#C9A84C] font-bold">On WhatsApp</p>
                       </div>
                       <div className="bg-[#C9A84C]/10 text-[#C9A84C] rounded-full p-2 group-hover:bg-[#16A34A] group-hover:text-white transition-colors">
                         <ArrowRight className="h-4 w-4" />

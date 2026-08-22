@@ -39,10 +39,10 @@ const DESTINATIONS = [
 ];
 
 const CHARTER_RATES = [
-  { class: "Executive Sedan", ex: "Toyota Camry / Ford Taurus", hourly: "SAR 120/hr", daily: "SAR 1,000/day" },
-  { class: "Premium SUV", ex: "GMC Yukon / Chevy Tahoe", hourly: "SAR 180/hr", daily: "SAR 1,500/day" },
-  { class: "Luxury Sedan", ex: "Mercedes S-Class / BMW 7", hourly: "SAR 300/hr", daily: "SAR 2,500/day" },
-  { class: "VIP Van", ex: "Mercedes V-Class (7 Pax)", hourly: "SAR 250/hr", daily: "SAR 2,000/day" }
+  { class: "Executive Sedan", ex: "Toyota Camry / Ford Taurus", hourly: "On WhatsApp", daily: "On WhatsApp" },
+  { class: "Premium SUV", ex: "GMC Yukon / Chevy Tahoe", hourly: "On WhatsApp", daily: "On WhatsApp" },
+  { class: "Luxury Sedan", ex: "Mercedes S-Class / BMW 7", hourly: "On WhatsApp", daily: "On WhatsApp" },
+  { class: "VIP Van", ex: "Mercedes V-Class (7 Pax)", hourly: "On WhatsApp", daily: "On WhatsApp" }
 ];
 
 export default function TourismChartersPage() {
@@ -93,10 +93,10 @@ export default function TourismChartersPage() {
           </p>
           <div className="max-w-2xl mx-auto mb-10 text-left">
             <TLDRSummary
-              answer="Day trip car hire with a driver in Saudi Arabia starts from SAR 120/hour (Executive Sedan) or SAR 1,000/day, covering AlUla, NEOM, Abha, Taif, and Diriyah."
+              answer="Day trip car hire with a driver in Saudi Arabia covers AlUla, NEOM, Abha, Taif, and Diriyah — available hourly or full-day, with your fare confirmed on WhatsApp before booking."
               facts={[
-                { label: "Hourly", value: "From SAR 120" },
-                { label: "Full day", value: "From SAR 1,000" },
+                { label: "Hourly", value: "On WhatsApp" },
+                { label: "Full day", value: "On WhatsApp" },
                 { label: "Destinations", value: "AlUla / NEOM / Abha / Taif" },
               ]}
             />

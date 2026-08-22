@@ -102,11 +102,11 @@ export default function IntercityServicePage() {
           </p>
           <div className="max-w-2xl mx-auto mb-10 text-left">
             <TLDRSummary
-              answer="Intercity taxi transfers in Saudi Arabia start from SAR 180 (Makkah to Taif) up to SAR 699+ (Riyadh to Dammam), with your exact fare confirmed on WhatsApp, rest stops on long routes, and 24/7 availability."
+              answer="Intercity taxi transfers in Saudi Arabia connect cities like Makkah to Taif and Riyadh to Dammam, with your exact fare confirmed on WhatsApp, rest stops on long routes, and 24/7 availability."
               facts={[
-                { label: "Makkah → Taif", value: "From SAR 180" },
-                { label: "Riyadh → Dammam", value: "From SAR 699" },
-                { label: "Jeddah → Madinah", value: "From SAR 549" },
+                { label: "Makkah → Taif", value: "On WhatsApp" },
+                { label: "Riyadh → Dammam", value: "On WhatsApp" },
+                { label: "Jeddah → Madinah", value: "On WhatsApp" },
               ]}
             />
           </div>
@@ -186,7 +186,7 @@ export default function IntercityServicePage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-[0.6rem] uppercase text-[#6B7280] font-bold tracking-wider">Starting at</p>
-                    <p className="text-[#16A34A] font-bold">SAR {route.price}</p>
+                    <p className="text-[#16A34A] font-bold">On WhatsApp</p>
                   </div>
                   <Link href={`/book?pickup=${encodeURIComponent(route.from)}&dropoff=${encodeURIComponent(route.to)}`} className="text-xs font-bold uppercase text-[#1C1C1C] hover:text-[#16A34A] transition-colors">
                     Book Now

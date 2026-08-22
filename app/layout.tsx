@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Taxi Service Saudi Arabia — Book Airport Transfer & Umrah Taxi",
     description:
-      "Book a taxi in Saudi Arabia for airport transfers and Umrah transport. Professional chauffeurs, clear pricing on WhatsApp. Jeddah Airport to Makkah from SAR 249. WhatsApp booking 24/7.",
+      "Book a taxi in Saudi Arabia for airport transfers and Umrah transport. Professional chauffeurs, fixed fares confirmed on WhatsApp — no surge, no hidden fees. WhatsApp booking 24/7.",
   },
 };
 
@@ -169,7 +169,7 @@ const jsonLd = [
         "name": "How much does a Jeddah Airport to Makkah taxi cost?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "A Jeddah Airport to Makkah taxi starts from SAR 249 in a sedan and SAR 374 in a GMC Yukon or Hyundai Staria. Your exact fare is confirmed on WhatsApp before booking, with no hidden charges or surge pricing. The journey takes about 1 hour (80 km)."
+          "text": "A Jeddah Airport to Makkah taxi is a private, fixed-fare transfer confirmed on WhatsApp before booking, with no hidden charges or surge pricing. Sedans and larger vehicles like the GMC Yukon or Hyundai Staria are available. The journey takes about 1 hour (80 km)."
         }
       },
       {
@@ -185,7 +185,7 @@ const jsonLd = [
         "name": "What is the taxi fare from Makkah to Madinah?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The Makkah to Madinah taxi fare starts from SAR 499 in a sedan (estimated — your exact fare is confirmed in your quotation). This includes a Meeqat stop and bottled water. The journey covers 430 km and takes approximately 4 hours via the Haramain Highway."
+          "text": "The Makkah to Madinah taxi is a private transfer with a fixed fare confirmed on WhatsApp before booking. This includes a Meeqat stop and bottled water. The journey covers 430 km and takes approximately 4 hours via the Haramain Highway."
         }
       },
       {

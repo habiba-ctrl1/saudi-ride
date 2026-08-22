@@ -2,9 +2,8 @@
 
 import { useLanguage } from "@/lib/context/LanguageContext";
 import { motion } from "framer-motion";
-import { ShieldCheck, HelpCircle, ArrowRight, Percent, RefreshCw } from "lucide-react";
+import { ShieldCheck, HelpCircle, Percent, RefreshCw } from "lucide-react";
 import { useState } from "react";
-import Link from "next/link";
 import { trackEvent } from "@/lib/analytics";
 import { contactConfig } from "@/lib/config/contact";
 import { MessageCircle } from "lucide-react";
@@ -140,21 +139,6 @@ const translations = {
     ]
   }
 };
-
-const MATRIX_DATA = [
-  { class: "Executive Sedan (Camry)", airport: "150 SAR", km: "2.5 SAR", hourly: "70 SAR", umrah: "450 SAR" },
-  { class: "Premium SUV (Yukon XL)", airport: "250 SAR", km: "3.5 SAR", hourly: "120 SAR", umrah: "700 SAR" },
-  { class: "Luxury VIP Sedan (S-Class)", airport: "600 SAR", km: "7.0 SAR", hourly: "250 SAR", umrah: "1800 SAR" },
-  { class: "VIP Family Van (Staria)", airport: "300 SAR", km: "4.0 SAR", hourly: "140 SAR", umrah: "800 SAR" }
-];
-
-const FIXED_ROUTES = [
-  { route: "Riyadh Airport ⇄ Olaya (City Center)", sedan: "100 SAR", suv: "150 SAR", luxury: "250 SAR" },
-  { route: "Jeddah Airport ⇄ Makkah Hotels", sedan: "249 SAR", suv: "374 SAR", luxury: "623 SAR" },
-  { route: "Makkah Hotels ⇄ Madinah Hotels", sedan: "499 SAR", suv: "749 SAR", luxury: "1248 SAR" },
-  { route: "Riyadh ⇄ Eastern Province (Dammam/Khobar)", sedan: "699 SAR", suv: "1049 SAR", luxury: "1748 SAR" },
-  { route: "Madinah Airport ⇄ Madinah Haram Hotels", sedan: "80 SAR", suv: "120 SAR", luxury: "200 SAR" }
-];
 
 const CITIES = [
   { key: "riyadh", labelEn: "Riyadh", labelAr: "الرياض", labelUr: "ریاض", lat: 24.7136, lng: 46.6753 },
@@ -307,68 +291,6 @@ export default function PricingPage() {
             </div>
           </div>
 
-        </div>
-      </section>
-
-      {/* Service category pricing comparisons Matrix */}
-      <section className="section-container mt-24">
-        <div className="max-w-3xl mb-12">
-          <span className="text-xs uppercase tracking-[0.2em] text-[#B8963B] font-semibold">{t.matrixSubtitle}</span>
-          <h2 className="mt-2 font-heading text-3xl font-bold text-[#1C1C1C]">{t.matrixTitle}</h2>
-        </div>
-
-        <div className="overflow-x-auto rounded-2xl border border-[#16A34A]/12 bg-white">
-          <table className="w-full text-left border-collapse min-w-[700px] text-xs">
-            <thead>
-              <tr className="border-b border-[#C9A84C]/25 bg-[#F0FDF4] text-[#C9A84C] font-bold">
-                {t.cols.map((col, idx) => (
-                  <th key={idx} className="p-5">{col}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[#C9A84C]/8 font-medium">
-              {MATRIX_DATA.map((row, index) => (
-                <tr key={index} className="hover:bg-white/2 transition-colors">
-                  <td className="p-5 font-bold text-[#1C1C1C]">{row.class}</td>
-                  <td className="p-5 text-[#6B7280]">{row.airport}</td>
-                  <td className="p-5 text-[#6B7280]">{row.km}</td>
-                  <td className="p-5 text-[#6B7280]">{row.hourly}</td>
-                  <td className="p-5 text-[#C9A84C] font-semibold">{row.umrah}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      {/* Fixed intercity route tables */}
-      <section className="section-container mt-24">
-        <div className="max-w-3xl mb-12">
-          <span className="text-xs uppercase tracking-[0.2em] text-[#B8963B] font-semibold">{t.fixedSubtitle}</span>
-          <h2 className="mt-2 font-heading text-3xl font-bold text-[#1C1C1C]">{t.fixedTitle}</h2>
-        </div>
-
-        <div className="overflow-x-auto rounded-2xl border border-[#16A34A]/12 bg-white">
-          <table className="w-full text-left border-collapse min-w-[700px] text-xs">
-            <thead>
-              <tr className="border-b border-[#C9A84C]/25 bg-[#F0FDF4] text-[#C9A84C] font-bold">
-                <th className="p-5">{t.routeCol}</th>
-                <th className="p-5">{t.sedanCol}</th>
-                <th className="p-5">{t.suvCol}</th>
-                <th className="p-5">{t.luxuryCol}</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[#C9A84C]/8 font-medium text-[#6B7280]">
-              {FIXED_ROUTES.map((route, index) => (
-                <tr key={index} className="hover:bg-white/2 transition-colors">
-                  <td className="p-5 font-bold text-[#1C1C1C]">{route.route}</td>
-                  <td className="p-5">{route.sedan}</td>
-                  <td className="p-5">{route.suv}</td>
-                  <td className="p-5 text-[#C9A84C] font-bold">{route.luxury}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
         </div>
       </section>
 

@@ -7,14 +7,13 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { contactConfig } from "@/lib/config/contact";
 import { ROUTES_DATA } from "@/lib/data/routes";
-import { VEHICLE_PRICE_MULTIPLIERS } from "@/lib/data/vehicleMultipliers";
 
 const route = ROUTES_DATA.find((r) => r.slug === "jeddah-airport-to-makkah")!;
 
 export const metadata: Metadata = seo({
-  title: "تاكسي من مطار جدة إلى مكة المكرمة — سعر ثابت من 249 ريال",
+  title: "تاكسي من مطار جدة إلى مكة المكرمة — سعر ثابت يُؤكد عبر واتساب",
   description:
-    "احجز تاكسي من مطار الملك عبدالعزيز الدولي بجدة إلى مكة المكرمة بسعر ثابت من 249 ريال. المسافة 80 كم، والرحلة تستغرق حوالي ساعة واحدة. توقف عند الميقات، سائقون مرخصون، حجز فوري عبر واتساب.",
+    "احجز تاكسي من مطار الملك عبدالعزيز الدولي بجدة إلى مكة المكرمة بسعر ثابت يُؤكد عبر واتساب. المسافة 80 كم، والرحلة تستغرق حوالي ساعة واحدة. توقف عند الميقات، سائقون مرخصون، حجز فوري عبر واتساب.",
   path: "/ar/routes/jeddah-airport-to-makkah",
   locale: "ar",
   hreflangPaths: { en: "/routes/jeddah-airport-to-makkah", ar: "/ar/routes/jeddah-airport-to-makkah" },
@@ -24,7 +23,7 @@ const faqs = [
   {
     question: "كم سعر التاكسي من مطار جدة إلى مكة المكرمة؟",
     answer:
-      "يبدأ سعر التاكسي من مطار جدة إلى مكة المكرمة من 249 ريال سعودي لسيارة سيدان، والسعر ثابت ومؤكد قبل الحجز — بدون رسوم خفية أو زيادة في وقت الذروة. تتوفر أيضاً سيارات GMC يوكن وهيونداي ستاريا للعائلات والمجموعات الكبيرة.",
+      "يبدأ سعر التاكسي من مطار جدة إلى مكة المكرمة بسعر يُؤكد عبر واتساب سعودي لسيارة سيدان، والسعر ثابت ومؤكد قبل الحجز — بدون رسوم خفية أو زيادة في وقت الذروة. تتوفر أيضاً سيارات GMC يوكن وهيونداي ستاريا للعائلات والمجموعات الكبيرة.",
   },
   {
     question: "كم تستغرق الرحلة من مطار جدة إلى مكة؟",
@@ -65,12 +64,6 @@ export default function JeddahAirportToMakkahArabicPage() {
         { "@type": "ListItem", position: 2, item: { "@type": "TouristAttraction", name: route.toCityAr } },
       ],
     },
-    offers: {
-      "@type": "Offer",
-      price: route.basePrice,
-      priceCurrency: "SAR",
-      availability: "https://schema.org/InStock",
-    },
   };
 
   const waMessage = encodeURIComponent(
@@ -109,16 +102,16 @@ export default function JeddahAirportToMakkahArabicPage() {
           تاكسي من مطار جدة إلى مكة المكرمة
         </h1>
         <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-8">
-          {route.descriptionAr} السعر ثابت من 249 ريال، بدون رسوم خفية، مع سائقين مرخصين يتحدثون العربية والإنجليزية والأردية.
+          {route.descriptionAr} السعر ثابت يُؤكد عبر واتساب، بدون رسوم خفية، مع سائقين مرخصين يتحدثون العربية والإنجليزية والأردية.
         </p>
 
         <div id="speakable-summary" className="max-w-2xl mx-auto mb-10 text-right">
           <TLDRSummary
-            answer="تاكسي من مطار جدة إلى مكة المكرمة يبدأ من 249 ريال لسيارة سيدان، المسافة 80 كم وتستغرق الرحلة حوالي ساعة واحدة عبر طريق الحرمين، مع توقف عند الميقات وخدمة على مدار الساعة."
+            answer="تاكسي من مطار جدة إلى مكة المكرمة بسعر يُؤكد عبر واتساب، المسافة 80 كم وتستغرق الرحلة حوالي ساعة واحدة عبر طريق الحرمين، مع توقف عند الميقات وخدمة على مدار الساعة."
             facts={[
               { label: "المسافة", value: "80 كم" },
               { label: "المدة", value: "حوالي ساعة واحدة" },
-              { label: "يبدأ من", value: "249 ريال" },
+              { label: "السعر", value: "على واتساب" },
               { label: "التوفر", value: "24/7" },
             ]}
           />
@@ -147,18 +140,15 @@ export default function JeddahAirportToMakkahArabicPage() {
         <h2 className="font-heading text-2xl font-bold mb-2 text-center">خيارات السيارات والأسعار التقديرية</h2>
         <p className="text-center text-[0.7rem] text-[#6B7280] mb-8">* أسعار تقديرية — السعر النهائي يُؤكد عبر واتساب أو البريد الإلكتروني.</p>
         <div className="grid sm:grid-cols-2 gap-4">
-          {vehicles.map((v) => {
-            const price = Math.round(route.basePrice * (VEHICLE_PRICE_MULTIPLIERS[v.key] ?? 1));
-            return (
-              <div key={v.key} className="bg-white border border-[#16A34A]/12 rounded-2xl p-6 flex items-center justify-between">
-                <div>
-                  <h3 className="font-bold text-sm">{v.nameAr}</h3>
-                  <p className="text-[0.7rem] text-[#6B7280] mt-1">{v.pax}</p>
-                </div>
-                <p className="font-heading text-xl font-bold text-[#16A34A] whitespace-nowrap">{price} ريال</p>
+          {vehicles.map((v) => (
+            <div key={v.key} className="bg-white border border-[#16A34A]/12 rounded-2xl p-6 flex items-center justify-between">
+              <div>
+                <h3 className="font-bold text-sm">{v.nameAr}</h3>
+                <p className="text-[0.7rem] text-[#6B7280] mt-1">{v.pax}</p>
               </div>
-            );
-          })}
+              <p className="font-heading text-sm font-bold text-[#16A34A] whitespace-nowrap">السعر عبر واتساب</p>
+            </div>
+          ))}
         </div>
       </section>
 

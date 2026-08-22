@@ -33,12 +33,12 @@ export const metadata: Metadata = {
 };
 
 const ROUTES = [
-  { name: "Riyadh to Dammam / Al Khobar", dist: "410 km (~3.5 hrs)", price: "From SAR 699", desc: "Express highway transfer connecting Saudi capital with Eastern Province business hubs." },
-  { name: "Makkah to Madinah", dist: "430 km (~4.5 hrs)", price: "From SAR 499", desc: "Pilgrim inter-city highway transfer with Meeqat stop (Dhul Hulaifah) included." },
-  { name: "Jeddah to Madinah", dist: "420 km (~4 hrs)", price: "From SAR 549", desc: "Direct highway transfer from Jeddah Airport or hotel straight to Madinah Markaziyah." },
-  { name: "Riyadh to Jeddah / Makkah", dist: "950 km (~9 hrs)", price: "From SAR 550", desc: "Cross-kingdom journey in executive SUV (GMC Yukon) or sedan." },
-  { name: "Dammam to Bahrain (Causeway)", dist: "60 km (~1 hr)", price: "From SAR 200", desc: "Cross-border transfer over King Fahd Causeway to Manama." },
-  { name: "Dammam to Qatar (Salwa Border)", dist: "300 km (~3 hrs)", price: "From SAR 500", desc: "GCC inter-state transfer connecting Saudi Eastern Province with Doha." },
+  { name: "Riyadh to Dammam / Al Khobar", dist: "410 km (~3.5 hrs)", price: "On WhatsApp", desc: "Express highway transfer connecting Saudi capital with Eastern Province business hubs." },
+  { name: "Makkah to Madinah", dist: "430 km (~4.5 hrs)", price: "On WhatsApp", desc: "Pilgrim inter-city highway transfer with Meeqat stop (Dhul Hulaifah) included." },
+  { name: "Jeddah to Madinah", dist: "420 km (~4 hrs)", price: "On WhatsApp", desc: "Direct highway transfer from Jeddah Airport or hotel straight to Madinah Markaziyah." },
+  { name: "Riyadh to Jeddah / Makkah", dist: "950 km (~9 hrs)", price: "On WhatsApp", desc: "Cross-kingdom journey in executive SUV (GMC Yukon) or sedan." },
+  { name: "Dammam to Bahrain (Causeway)", dist: "60 km (~1 hr)", price: "On WhatsApp", desc: "Cross-border transfer over King Fahd Causeway to Manama." },
+  { name: "Dammam to Qatar (Salwa Border)", dist: "300 km (~3 hrs)", price: "On WhatsApp", desc: "GCC inter-state transfer connecting Saudi Eastern Province with Doha." },
 ];
 
 const FEATURES = [

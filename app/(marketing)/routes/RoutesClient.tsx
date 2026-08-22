@@ -12,7 +12,6 @@ const fadeUp = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0 } };
 export default function RoutesClient({ initialRoutes }: { initialRoutes: Route[] }) {
   const [departureCity, setDepartureCity] = useState("All");
   const [destinationCity, setDestinationCity] = useState("All");
-  const [priceRange, setPriceRange] = useState("All");
 
   const departureCities = useMemo(() => {
     const cities = Array.from(new Set(initialRoutes.map((r) => r.fromCity)));
@@ -34,15 +33,9 @@ export default function RoutesClient({ initialRoutes }: { initialRoutes: Route[]
       if (destinationCity !== "All" && route.toCity !== destinationCity) {
         return false;
       }
-      // Price Range Filter
-      if (priceRange !== "All") {
-        if (priceRange === "Under SAR 300" && route.basePrice >= 300) return false;
-        if (priceRange === "SAR 300 - 600" && (route.basePrice < 300 || route.basePrice > 600)) return false;
-        if (priceRange === "Over SAR 600" && route.basePrice <= 600) return false;
-      }
       return true;
     });
-  }, [initialRoutes, departureCity, destinationCity, priceRange]);
+  }, [initialRoutes, departureCity, destinationCity]);
 
   return (
     <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C]">
@@ -105,21 +98,6 @@ export default function RoutesClient({ initialRoutes }: { initialRoutes: Route[]
                   ))}
                 </select>
               </div>
-
-              {/* Price Range */}
-              <div className="flex items-center gap-2 shrink-0">
-                <span className="text-[0.65rem] text-[#6B7280] uppercase font-bold tracking-wider">Price:</span>
-                <select 
-                  value={priceRange}
-                  onChange={(e) => setPriceRange(e.target.value)}
-                  className="bg-white border border-[#16A34A]/15 rounded-full px-4 py-1.5 text-xs text-[#1C1C1C] outline-none focus:border-[#C9A84C] transition-colors"
-                >
-                  <option value="All">All Prices</option>
-                  <option value="Under SAR 300">Under SAR 300</option>
-                  <option value="SAR 300 - 600">SAR 300 - 600</option>
-                  <option value="Over SAR 600">Over SAR 600</option>
-                </select>
-              </div>
             </div>
           </div>
         </div>
@@ -129,7 +107,7 @@ export default function RoutesClient({ initialRoutes }: { initialRoutes: Route[]
       <section className="section-container max-w-6xl py-12 pb-24">
         <AnimatePresence mode="wait">
           <motion.div
-            key={`${departureCity}-${destinationCity}-${priceRange}`}
+            key={`${departureCity}-${destinationCity}`}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
@@ -140,7 +118,7 @@ export default function RoutesClient({ initialRoutes }: { initialRoutes: Route[]
               <div className="col-span-full py-12 text-center text-[#6B7280]">
                 <p>No routes found matching your filters.</p>
                 <button 
-                  onClick={() => { setDepartureCity("All"); setDestinationCity("All"); setPriceRange("All"); }}
+                  onClick={() => { setDepartureCity("All"); setDestinationCity("All"); }}
                   className="mt-4 text-[#16A34A] hover:underline text-sm"
                 >
                   Clear Filters
@@ -205,7 +183,7 @@ export default function RoutesClient({ initialRoutes }: { initialRoutes: Route[]
                       ) : (
                         <>
                           <p className="text-[0.6rem] text-[#6B7280] uppercase font-bold tracking-wider">From</p>
-                          <p className="font-heading text-2xl font-bold text-[#16A34A]">SAR {route.basePrice}</p>
+                          <p className="font-heading text-2xl font-bold text-[#16A34A]">On WhatsApp</p>
                         </>
                       )}
                     </div>

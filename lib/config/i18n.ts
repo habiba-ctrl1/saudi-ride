@@ -11,6 +11,18 @@ const RECOVERY_AR_PATHS = [
   ...RECOVERY_ROUTES.map((r) => `/services/car-recovery/${r.slug}`),
 ];
 
+// Route slugs that have a curated Arabic SSR page under app/ar/routes/<slug>.
+// Single source of truth: middleware uses it (via AR_REAL_ROUTES) to allow the
+// /ar URL, and the English routes/[slug] page uses it to emit bidirectional
+// hreflang. Add a slug here only after its app/ar/routes/<slug>/page.tsx exists.
+export const AR_ROUTE_SLUGS = [
+  "jeddah-airport-to-makkah",
+  "riyadh-to-dammam",
+  "dammam-to-doha",
+  "makkah-to-madinah",
+  "jeddah-to-madinah",
+];
+
 // Pages that have real Arabic translations and their own SSR route under app/ar/*.
 export const AR_REAL_ROUTES = [
   "/",
@@ -19,7 +31,7 @@ export const AR_REAL_ROUTES = [
   "/faq",
   "/pricing",
   "/partners",
-  "/routes/jeddah-airport-to-makkah",
+  ...AR_ROUTE_SLUGS.map((s) => `/routes/${s}`),
   ...RECOVERY_AR_PATHS,
 ];
 

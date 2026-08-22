@@ -118,11 +118,11 @@ export default function BorderCrossingsPage() {
           </p>
           <div className="max-w-2xl mx-auto mb-10 text-left">
             <TLDRSummary
-              answer="Cross-border taxi service from Saudi Arabia to Bahrain (from SAR 200), UAE (from SAR 1,200), Qatar (from SAR 500), or Kuwait (from SAR 600), with drivers experienced in GCC border procedures."
+              answer="Cross-border taxi service from Saudi Arabia to Bahrain, UAE, Qatar, and Kuwait, with drivers experienced in GCC border procedures. Your fare is confirmed on WhatsApp before booking."
               facts={[
-                { label: "To Bahrain", value: "From SAR 200" },
-                { label: "To Qatar", value: "From SAR 500" },
-                { label: "To UAE", value: "From SAR 1,200" },
+                { label: "To Bahrain", value: "On WhatsApp" },
+                { label: "To Qatar", value: "On WhatsApp" },
+                { label: "To UAE", value: "On WhatsApp" },
               ]}
             />
           </div>
@@ -185,7 +185,7 @@ export default function BorderCrossingsPage() {
                 </div>
                 <div className="text-right">
                   <p className="text-[0.6rem] uppercase text-[#6B7280] font-bold tracking-wider">From {border.from}</p>
-                  <p className="text-xl font-bold text-[#16A34A]">SAR {border.price}</p>
+                  <p className="text-xl font-bold text-[#16A34A]">On WhatsApp</p>
                 </div>
               </div>
 

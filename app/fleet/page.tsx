@@ -177,7 +177,7 @@ export default function FleetPage() {
                     </div>
                     <div className="text-right">
                       <p className="text-[0.55rem] text-[#6B7280] uppercase font-bold tracking-wider">From</p>
-                      <p className="font-heading text-xl font-bold text-[#16A34A]">SAR {vehicle.startingPrice}</p>
+                      <p className="font-heading text-xl font-bold text-[#16A34A]">On WhatsApp</p>
                     </div>
                   </div>
 

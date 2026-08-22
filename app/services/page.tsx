@@ -285,7 +285,7 @@ export default function ServicesPage() {
                       {service.startingPrice > 0 ? (
                         <>
                           <p className="text-[0.55rem] text-[#6B7280] uppercase font-bold">From</p>
-                          <p className="font-heading text-lg font-bold text-[#16A34A]">SAR {service.startingPrice}</p>
+                          <p className="font-heading text-lg font-bold text-[#16A34A]">On WhatsApp</p>
                         </>
                       ) : (
                         <>

@@ -11,8 +11,8 @@ import Image from "next/image";
 import { breadcrumbSchema, faqSchema, speakableSchema, SITE } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { RouteRelatedLinks } from "@/components/seo/RouteRelatedLinks";
-import { VEHICLE_PRICE_MULTIPLIERS } from "@/lib/data/vehicleMultipliers";
 import { credentials, hasCredential } from "@/lib/config/credentials";
+import { AR_ROUTE_SLUGS } from "@/lib/config/i18n";
 
 interface PageProps {
   params: Promise<{
@@ -42,16 +42,16 @@ const DEFAULT_FAQS = [
 // Keyed by slug → above-the-fold answer + featured-snippet facts + bespoke FAQs.
 const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; value: string }[]; faqs: { question: string; answer: string }[] }> = {
   "jeddah-airport-to-makkah": {
-    tldr: "A private taxi from Jeddah Airport (JED) to Makkah (Mecca) is about 80 km and takes roughly 1 hour. Fares start from SAR 249, confirmed on WhatsApp before booking, available 24/7, with a Miqat stop on request so you can enter Ihram before reaching Makkah.",
+    tldr: "A private taxi from Jeddah Airport (JED) to Makkah (Mecca) is about 80 km and takes roughly 1 hour. Fares are confirmed on WhatsApp before booking, available 24/7, with a Miqat stop on request so you can enter Ihram before reaching Makkah.",
     tldrFacts: [
       { label: "Distance", value: "~80 km" },
       { label: "Time", value: "~1 hour" },
-      { label: "From", value: "SAR 249" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Jeddah airport from Makkah?", answer: "King Abdulaziz International Airport (JED) is about 80 km from Makkah — roughly a 1-hour drive on the Makkah Expressway, traffic permitting." },
-      { question: "How much is a taxi from Jeddah airport to Makkah?", answer: "Fares start from SAR 249 for a sedan, with SUVs and vans available for families and extra luggage. Message us on WhatsApp with your flight time and passenger count for a clear quote before booking — no surge, tolls included." },
+      { question: "How much is a taxi from Jeddah airport to Makkah?", answer: "Fares are confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Message us on WhatsApp with your flight time and passenger count for a clear quote before booking — no surge, tolls included." },
       { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Just tell us in advance and the driver will stop at the Miqat on the way so you can change into Ihram and make your intention before entering the Haram boundary." },
       { question: "Is the Jeddah airport to Makkah taxi available at night?", answer: "Yes, we operate 24/7. We track your flight number, so the driver is waiting at arrivals with a name sign even for late-night or delayed flights." },
       { question: "Which is better — taxi or the Haramain train?", answer: "A private taxi is door-to-door from the airport to your Makkah hotel with luggage help and a Miqat stop. The Haramain high-speed train is fast but requires transfers to and from the stations. For pilgrims with luggage, the direct taxi is usually more convenient." },
@@ -61,137 +61,137 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "jeddah-airport-to-fairmont-makkah": {
-    tldr: "A taxi from Jeddah Airport (JED) to the Fairmont Makkah Clock Royal Tower is about 80 km and takes roughly 1 hour. The fare is fixed from SAR 249, available 24/7, with drop-off right at the hotel entrance overlooking Masjid al-Haram.",
+    tldr: "A taxi from Jeddah Airport (JED) to the Fairmont Makkah Clock Royal Tower is about 80 km and takes roughly 1 hour. The fare is fixed, confirmed on WhatsApp available 24/7, with drop-off right at the hotel entrance overlooking Masjid al-Haram.",
     tldrFacts: [
       { label: "Distance", value: "~80 km" },
       { label: "Time", value: "~1 hour" },
-      { label: "From", value: "SAR 249" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is the Fairmont Makkah Clock Royal Tower from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. The hotel sits directly in the Abraj Al Bait complex, overlooking Masjid al-Haram." },
-      { question: "How much is a taxi from Jeddah airport to the Fairmont Makkah?", answer: "The fare is fixed from SAR 249 for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "How much is a taxi from Jeddah airport to the Fairmont Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
       { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Let us know in advance and the driver will stop at the Miqat so you can enter Ihram before continuing to the hotel." },
       { question: "Will the driver drop me at the hotel entrance?", answer: "Yes, as close to the Fairmont's entrance as vehicle access allows — during peak prayer times the driver uses the nearest permitted drop-off point, just a short walk from the lobby." },
     ],
   },
   "jeddah-airport-to-swissotel-makkah": {
-    tldr: "A taxi from Jeddah Airport (JED) to Swissotel Al Maqam Makkah is about 80 km and takes roughly 1 hour. The fare is fixed from SAR 249, available 24/7, with drop-off at the hotel, steps from Masjid al-Haram.",
+    tldr: "A taxi from Jeddah Airport (JED) to Swissotel Al Maqam Makkah is about 80 km and takes roughly 1 hour. The fare is fixed, confirmed on WhatsApp available 24/7, with drop-off at the hotel, steps from Masjid al-Haram.",
     tldrFacts: [
       { label: "Distance", value: "~80 km" },
       { label: "Time", value: "~1 hour" },
-      { label: "From", value: "SAR 249" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Swissotel Al Maqam Makkah from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. The hotel is in the Abraj Al Bait towers, a short walk from Masjid al-Haram." },
-      { question: "How much is a taxi from Jeddah airport to Swissotel Makkah?", answer: "The fare is fixed from SAR 249 for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "How much is a taxi from Jeddah airport to Swissotel Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
       { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Let us know in advance and the driver will stop at the Miqat so you can enter Ihram before continuing to the hotel." },
       { question: "Is the transfer available for late-night flight arrivals?", answer: "Yes, we operate 24/7. We track your flight number so the driver is waiting with a name sign even for delayed or late-night arrivals." },
     ],
   },
   "jeddah-airport-to-pullman-zamzam-makkah": {
-    tldr: "A taxi from Jeddah Airport (JED) to Pullman Zamzam Makkah is about 80 km and takes roughly 1 hour. The fare is fixed from SAR 249, available 24/7, with drop-off at one of the closest hotels to Masjid al-Haram.",
+    tldr: "A taxi from Jeddah Airport (JED) to Pullman Zamzam Makkah is about 80 km and takes roughly 1 hour. The fare is fixed, confirmed on WhatsApp available 24/7, with drop-off at one of the closest hotels to Masjid al-Haram.",
     tldrFacts: [
       { label: "Distance", value: "~80 km" },
       { label: "Time", value: "~1 hour" },
-      { label: "From", value: "SAR 249" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Pullman Zamzam Makkah from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. It's one of the closest hotels to Masjid al-Haram." },
-      { question: "How much is a taxi from Jeddah airport to Pullman Zamzam Makkah?", answer: "The fare is fixed from SAR 249 for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "How much is a taxi from Jeddah airport to Pullman Zamzam Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
       { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Let us know in advance and the driver will stop at the Miqat so you can enter Ihram before continuing to the hotel." },
       { question: "Will the driver help with luggage at the hotel?", answer: "Yes, our drivers assist with luggage from the vehicle to the hotel entrance, especially useful for families and larger groups." },
     ],
   },
   "jeddah-airport-to-conrad-makkah": {
-    tldr: "A taxi from Jeddah Airport (JED) to Conrad Makkah is about 80 km and takes roughly 1 hour. The fare is fixed from SAR 249, available 24/7, with drop-off near King Abdulaziz Gate, a short walk from Masjid al-Haram.",
+    tldr: "A taxi from Jeddah Airport (JED) to Conrad Makkah is about 80 km and takes roughly 1 hour. The fare is fixed, confirmed on WhatsApp available 24/7, with drop-off near King Abdulaziz Gate, a short walk from Masjid al-Haram.",
     tldrFacts: [
       { label: "Distance", value: "~80 km" },
       { label: "Time", value: "~1 hour" },
-      { label: "From", value: "SAR 249" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Conrad Makkah from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. The hotel is a short walk from Masjid al-Haram via King Abdulaziz Gate." },
-      { question: "How much is a taxi from Jeddah airport to Conrad Makkah?", answer: "The fare is fixed from SAR 249 for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "How much is a taxi from Jeddah airport to Conrad Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
       { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Let us know in advance and the driver will stop at the Miqat so you can enter Ihram before continuing to the hotel." },
       { question: "Is this transfer available 24/7?", answer: "Yes, we operate around the clock with flight tracking, so your driver is waiting even for late-night or delayed arrivals." },
     ],
   },
   "jeddah-airport-to-hilton-suites-makkah": {
-    tldr: "A taxi from Jeddah Airport (JED) to Hilton Suites Makkah is about 80 km and takes roughly 1 hour. The fare is fixed from SAR 249, available 24/7, with drop-off at the hotel in the Jabal Omar development, adjacent to the Haram.",
+    tldr: "A taxi from Jeddah Airport (JED) to Hilton Suites Makkah is about 80 km and takes roughly 1 hour. The fare is fixed, confirmed on WhatsApp available 24/7, with drop-off at the hotel in the Jabal Omar development, adjacent to the Haram.",
     tldrFacts: [
       { label: "Distance", value: "~80 km" },
       { label: "Time", value: "~1 hour" },
-      { label: "From", value: "SAR 249" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Hilton Suites Makkah from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. The hotel is in the Jabal Omar development, adjacent to Masjid al-Haram." },
-      { question: "How much is a taxi from Jeddah airport to Hilton Suites Makkah?", answer: "The fare is fixed from SAR 249 for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "How much is a taxi from Jeddah airport to Hilton Suites Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
       { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Let us know in advance and the driver will stop at the Miqat so you can enter Ihram before continuing to the hotel." },
       { question: "Is the vehicle suitable for families with luggage?", answer: "Yes, SUVs and vans are available with ample luggage space, ideal for families travelling to Hilton Suites Makkah." },
     ],
   },
   "jeddah-airport-to-movenpick-makkah": {
-    tldr: "A taxi from Jeddah Airport (JED) to Movenpick Hajar Tower Makkah is about 80 km and takes roughly 1 hour. The fare is fixed from SAR 249, available 24/7, with drop-off at the hotel overlooking Masjid al-Haram.",
+    tldr: "A taxi from Jeddah Airport (JED) to Movenpick Hajar Tower Makkah is about 80 km and takes roughly 1 hour. The fare is fixed, confirmed on WhatsApp available 24/7, with drop-off at the hotel overlooking Masjid al-Haram.",
     tldrFacts: [
       { label: "Distance", value: "~80 km" },
       { label: "Time", value: "~1 hour" },
-      { label: "From", value: "SAR 249" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Movenpick Hajar Tower Makkah from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. The hotel overlooks Masjid al-Haram." },
-      { question: "How much is a taxi from Jeddah airport to Movenpick Makkah?", answer: "The fare is fixed from SAR 249 for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "How much is a taxi from Jeddah airport to Movenpick Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
       { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Let us know in advance and the driver will stop at the Miqat so you can enter Ihram before continuing to the hotel." },
       { question: "Is the taxi available for early-morning or late-night flights?", answer: "Yes, we operate 24/7 with flight tracking, so your driver is waiting with a name sign regardless of arrival time." },
     ],
   },
   "jeddah-to-makkah": {
-    tldr: "A taxi from Jeddah city to Makkah is about 85 km and takes around 1 hour 10 minutes. The fare is fixed from SAR 199, available 24/7, with door-to-door pickup from any Jeddah hotel or address.",
+    tldr: "A taxi from Jeddah city to Makkah is about 85 km and takes around 1 hour 10 minutes. The fare is fixed, confirmed on WhatsApp available 24/7, with door-to-door pickup from any Jeddah hotel or address.",
     tldrFacts: [
       { label: "Distance", value: "~85 km" },
       { label: "Time", value: "~1 hr 10 min" },
-      { label: "From", value: "SAR 199" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Jeddah from Makkah?", answer: "Jeddah city centre is about 85 km from Makkah — roughly a 1 hour 10 minute drive on the Makkah Expressway." },
-      { question: "How much is a taxi from Jeddah to Makkah?", answer: "The fare is fixed from SAR 199 for a sedan. SUVs and vans are available for families and extra luggage. The price is confirmed before booking, with tolls included and no surge." },
+      { question: "How much is a taxi from Jeddah to Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan. SUVs and vans are available for families and extra luggage. The price is confirmed before booking, with tolls included and no surge." },
       { question: "Can you pick me up from my Jeddah hotel?", answer: "Yes. We offer door-to-door pickup from any hotel, residence, or address in Jeddah and drop you directly at your Makkah hotel or close to Masjid al-Haram." },
       { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes — let us know when booking and the driver will stop at the Miqat so you can enter Ihram before reaching Makkah." },
       { question: "Do you offer a taxi service from Jeddah to Mecca?", answer: "Yes, Taxi Saudi Arabia arranges private transfers from Jeddah to Makkah (Mecca) 24/7, with door-to-door pickup and Miqat stops for Umrah pilgrims." },
     ],
   },
   "jeddah-airport-to-jeddah-city": {
-    tldr: "A taxi from Jeddah Airport (JED) to the city centre, Corniche, or Al-Balad takes about 20–35 minutes depending on your area. The fare is fixed from SAR 80, with meet & greet at arrivals and 24/7 availability.",
+    tldr: "A taxi from Jeddah Airport (JED) to the city centre, Corniche, or Al-Balad takes about 20–35 minutes depending on your area. The fare is fixed, confirmed on WhatsApp with meet & greet at arrivals and 24/7 availability.",
     tldrFacts: [
       { label: "Distance", value: "~20 km" },
       { label: "Time", value: "~20–35 min" },
-      { label: "From", value: "SAR 80" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Jeddah airport from the city centre?", answer: "King Abdulaziz International Airport (JED) is about 20 km from central Jeddah — roughly a 20–35 minute drive depending on whether you are heading to the Corniche, Al-Balad, or a business district." },
-      { question: "How much is a taxi from Jeddah airport to the city?", answer: "The fare is fixed from SAR 80 for a sedan, confirmed before you book, with no surge and tolls included. Larger vehicles are available for families and extra luggage." },
+      { question: "How much is a taxi from Jeddah airport to the city?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before you book, with no surge and tolls included. Larger vehicles are available for families and extra luggage." },
       { question: "Do you drop off at any Jeddah hotel?", answer: "Yes. We provide door-to-door drop-off at any hotel or address in Jeddah, including the Corniche, Al-Balad, Al-Hamra, and Obhur, with meet & greet at arrivals." },
       { question: "Is the airport taxi available for late-night arrivals?", answer: "Yes, we operate 24/7 and track your flight, so your driver is waiting at arrivals with a name sign even for late-night or early-morning landings." },
     ],
   },
   "jeddah-to-haramain-station": {
-    tldr: "A taxi from Jeddah to the Haramain High-Speed Railway station is about 15 km and takes roughly 25 minutes. The fare is fixed from SAR 70, door-to-door with luggage help, so you can catch the train onward to Makkah or Madinah.",
+    tldr: "A taxi from Jeddah to the Haramain High-Speed Railway station is about 15 km and takes roughly 25 minutes. The fare is fixed, confirmed on WhatsApp door-to-door with luggage help, so you can catch the train onward to Makkah or Madinah.",
     tldrFacts: [
       { label: "Distance", value: "~15 km" },
       { label: "Time", value: "~25 min" },
-      { label: "From", value: "SAR 70" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "Where is the Haramain station in Jeddah?", answer: "The Haramain High-Speed Railway serves Jeddah, with a station at King Abdulaziz International Airport (JED). A taxi from central Jeddah takes about 25 minutes door-to-door." },
-      { question: "How much is a taxi to the Haramain station in Jeddah?", answer: "The fare is fixed from SAR 70 for a sedan, confirmed before booking, with help for your luggage so you make your train comfortably." },
+      { question: "How much is a taxi to the Haramain station in Jeddah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with help for your luggage so you make your train comfortably." },
       { question: "Can you get me to the station in time for my train?", answer: "Yes. We recommend booking with a buffer before departure; we track timing and provide door-to-door pickup so you reach the Haramain station with time to spare." },
       { question: "Should I take the train or a direct taxi to Makkah?", answer: "The Haramain train is fast between stations, but a direct taxi from Jeddah to Makkah is door-to-door with a Miqat stop and no transfers. For pilgrims with luggage, the direct taxi is often more convenient." },
     ],
@@ -227,30 +227,30 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "makkah-to-jeddah-airport": {
-    tldr: "A taxi from Makkah to Jeddah Airport (JED) is about 80 km and takes roughly 1 hour. The fare is fixed from SAR 249, with pickup from your Makkah hotel and 24/7 availability — pre-book and allow buffer time before your flight.",
+    tldr: "A taxi from Makkah to Jeddah Airport (JED) is about 80 km and takes roughly 1 hour. The fare is fixed, confirmed on WhatsApp with pickup from your Makkah hotel and 24/7 availability — pre-book and allow buffer time before your flight.",
     tldrFacts: [
       { label: "Distance", value: "~80 km" },
       { label: "Time", value: "~1 hour" },
-      { label: "From", value: "SAR 249" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
-      { question: "How much is a taxi from Makkah to Jeddah airport?", answer: "The fare is fixed from SAR 249 for a sedan, confirmed before booking, with larger SUVs and vans available for families and luggage. Tolls are included and there is no surge." },
+      { question: "How much is a taxi from Makkah to Jeddah airport?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with larger SUVs and vans available for families and luggage. Tolls are included and there is no surge." },
       { question: "How long does Makkah to Jeddah airport take?", answer: "It is about 80 km and roughly a 1-hour drive. For departures we recommend leaving with extra buffer time, especially during Umrah, Hajj, and Ramadan seasons." },
       { question: "Can you pick up from my Makkah hotel near the Haram?", answer: "Yes. We collect you from your hotel as close to Masjid al-Haram as vehicles are permitted; during prayer-time road closures we use the nearest allowed checkpoint." },
       { question: "Is the airport transfer available late at night?", answer: "Yes, we operate 24/7. Pre-book your departure transfer so a driver is ready at your hotel at the agreed time, even for early-morning flights." },
     ],
   },
   "makkah-to-madinah": {
-    tldr: "A taxi from Makkah to Madinah is about 430 km and takes roughly 4 to 5 hours via the Haramain highway. The fare is fixed from SAR 499, with prayer and rest stops included and comfortable vehicles for families and luggage.",
+    tldr: "A taxi from Makkah to Madinah is about 430 km and takes roughly 4 to 5 hours via the Haramain highway. The fare is fixed, confirmed on WhatsApp with prayer and rest stops included and comfortable vehicles for families and luggage.",
     tldrFacts: [
       { label: "Distance", value: "~430 km" },
       { label: "Time", value: "~4–5 hours" },
-      { label: "From", value: "SAR 499" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
-      { question: "How much is a taxi from Makkah to Madinah?", answer: "The fare is fixed from SAR 499 for a sedan. SUVs and vans are available for families and extra luggage — the exact price is confirmed before booking with tolls included and no surge." },
+      { question: "How much is a taxi from Makkah to Madinah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan. SUVs and vans are available for families and extra luggage — the exact price is confirmed before booking with tolls included and no surge." },
       { question: "How long does a taxi from Makkah to Madinah take?", answer: "The journey is approximately 430 km and takes roughly 4 to 5 hours via the Haramain highway, depending on traffic conditions and any rest stops." },
       { question: "Can I book a private taxi from Makkah to Madinah?", answer: "Yes. Every booking is a private transfer — your vehicle is exclusively for you and your group, with a dedicated driver for the entire journey between the two Holy Cities." },
       { question: "Is the fare fixed or metered?", answer: "Fixed. The price is confirmed upfront before booking with zero surge pricing. Tolls, fuel, and all costs are included — no hidden fees." },
@@ -259,77 +259,77 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "makkah-to-jeddah": {
-    tldr: "A taxi from Makkah to Jeddah city is about 85 km and takes around 1 hour 10 minutes. The fare is fixed from SAR 150, door-to-door from your Makkah hotel to any address in Jeddah, available 24/7.",
+    tldr: "A taxi from Makkah to Jeddah city is about 85 km and takes around 1 hour 10 minutes. The fare is fixed, confirmed on WhatsApp door-to-door from your Makkah hotel to any address in Jeddah, available 24/7.",
     tldrFacts: [
       { label: "Distance", value: "~85 km" },
       { label: "Time", value: "~1 hr 10 min" },
-      { label: "From", value: "SAR 150" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Makkah from Jeddah?", answer: "Makkah to Jeddah city is about 85 km — roughly a 1 hour 10 minute drive on the Makkah Expressway." },
-      { question: "How much is a taxi from Makkah to Jeddah?", answer: "The fare is fixed from SAR 150 for a sedan, confirmed before booking, with no surge and tolls included." },
+      { question: "How much is a taxi from Makkah to Jeddah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with no surge and tolls included." },
       { question: "Can you drop me at any address in Jeddah?", answer: "Yes. We provide door-to-door drop-off anywhere in Jeddah — hotels, the Corniche, Al-Balad, Obhur, or a residence." },
       { question: "Is the Makkah to Jeddah taxi available 24/7?", answer: "Yes, we operate around the clock with fixed pricing and pickup from your Makkah hotel." },
     ],
   },
   "makkah-to-taif": {
-    tldr: "A taxi from Makkah to Taif is about 90 km and takes roughly 1 hour 10 minutes via the scenic Al Hada mountain road. The fare is fixed from SAR 180, with experienced drivers for the winding ascent.",
+    tldr: "A taxi from Makkah to Taif is about 90 km and takes roughly 1 hour 10 minutes via the scenic Al Hada mountain road. The fare is fixed, confirmed on WhatsApp with experienced drivers for the winding ascent.",
     tldrFacts: [
       { label: "Distance", value: "~90 km" },
       { label: "Time", value: "~1 hr 10 min" },
-      { label: "From", value: "SAR 180" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Makkah from Taif?", answer: "Makkah to Taif is about 90 km — roughly a 1 hour 10 minute drive, often via the scenic Al Hada mountain road." },
-      { question: "How much is a taxi from Makkah to Taif?", answer: "The fare is fixed from SAR 180 for a sedan, confirmed before booking, with SUVs available for families. Tolls are included." },
+      { question: "How much is a taxi from Makkah to Taif?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs available for families. Tolls are included." },
       { question: "Is the Al Hada mountain road safe by taxi?", answer: "Yes. Our drivers are experienced on the steep, winding Al Hada route. You can also request the longer, gentler Al Sail road if preferred." },
       { question: "Can I do a Taif day trip from Makkah?", answer: "Yes. We offer round-trip and hourly hire so you can visit Taif's rose farms, Al Hada, and cable car with waiting time included." },
     ],
   },
   "madinah-airport-to-city": {
-    tldr: "A taxi from Madinah Airport (MED) to the central hotels near Masjid an-Nabawi is about 20 km and takes roughly 25 minutes. The fare is fixed from SAR 80, with meet & greet at arrivals and 24/7 availability.",
+    tldr: "A taxi from Madinah Airport (MED) to the central hotels near Masjid an-Nabawi is about 20 km and takes roughly 25 minutes. The fare is fixed, confirmed on WhatsApp with meet & greet at arrivals and 24/7 availability.",
     tldrFacts: [
       { label: "Distance", value: "~20 km" },
       { label: "Time", value: "~25 min" },
-      { label: "From", value: "SAR 80" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Madinah airport from the city centre?", answer: "Prince Mohammad Bin Abdulaziz Airport (MED) is about 20 km from the Central Area (Markazia) hotels — roughly a 25-minute drive." },
-      { question: "How much is a taxi from Madinah airport to my hotel?", answer: "The fare is fixed from SAR 80 for a sedan, confirmed before booking, with meet & greet at arrivals and larger vehicles for families." },
+      { question: "How much is a taxi from Madinah airport to my hotel?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with meet & greet at arrivals and larger vehicles for families." },
       { question: "Will the driver meet me at arrivals?", answer: "Yes. We track your flight and your driver waits in the arrivals hall with a name sign, then helps with your luggage to the car." },
       { question: "Is the airport transfer available for late-night flights?", answer: "Yes, we operate 24/7, so your driver is ready even for late-night or early-morning arrivals at MED." },
-      { question: "Is there a car service or cab from Madinah airport?", answer: "Yes — our licensed car service (cab) meets you at Prince Mohammad Bin Abdulaziz Airport (MED) arrivals and drives you directly to your Madinah hotel, fixed from SAR 80." },
+      { question: "Is there a car service or cab from Madinah airport?", answer: "Yes — our licensed car service (cab) meets you at Prince Mohammad Bin Abdulaziz Airport (MED) arrivals and drives you directly to your Madinah hotel, fixed confirmed on WhatsApp." },
     ],
   },
   "madinah-to-makkah": {
-    tldr: "A taxi from Madinah to Makkah is about 430 km and takes roughly 4 to 5 hours via the Haramain highway. The fare is fixed from SAR 499, door-to-door with prayer and rest stops, ideal for completing your Umrah journey.",
+    tldr: "A taxi from Madinah to Makkah is about 430 km and takes roughly 4 to 5 hours via the Haramain highway. The fare is fixed, confirmed on WhatsApp door-to-door with prayer and rest stops, ideal for completing your Umrah journey.",
     tldrFacts: [
       { label: "Distance", value: "~430 km" },
       { label: "Time", value: "~4–5 hours" },
-      { label: "From", value: "SAR 499" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Madinah from Makkah?", answer: "Madinah to Makkah is about 430 km — roughly a 4 to 5 hour drive on the Haramain highway, depending on traffic and rest stops." },
-      { question: "How much is a taxi from Madinah to Makkah?", answer: "The fare is fixed from SAR 499 for a sedan. For families and luggage we recommend an SUV or van; the price is confirmed before booking with tolls included." },
+      { question: "How much is a taxi from Madinah to Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan. For families and luggage we recommend an SUV or van; the price is confirmed before booking with tolls included." },
       { question: "Do I need to enter Ihram travelling from Madinah to Makkah?", answer: "Yes, if you intend Umrah you enter Ihram at the Miqat of Dhul Hulaifah (Abyar Ali) near Madinah. Your driver can stop there so you assume Ihram before continuing to Makkah." },
       { question: "Are prayer and rest stops included?", answer: "Yes. With a private taxi your driver includes stops for prayer, food, and rest on the long-distance journey between the two Holy Cities." },
     ],
   },
   "madinah-airport-to-makkah": {
-    tldr: "A taxi from Madinah Airport (MED) to Makkah is about 450 km and takes roughly 4.5 to 5 hours. The fare is fixed from SAR 400, with a Miqat stop at Dhul Hulaifah for Ihram and rest stops on request.",
+    tldr: "A taxi from Madinah Airport (MED) to Makkah is about 450 km and takes roughly 4.5 to 5 hours. The fare is fixed, confirmed on WhatsApp with a Miqat stop at Dhul Hulaifah for Ihram and rest stops on request.",
     tldrFacts: [
       { label: "Distance", value: "~450 km" },
       { label: "Time", value: "~4.5–5 hours" },
-      { label: "From", value: "SAR 400" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How long is Madinah airport to Makkah by taxi?", answer: "It is about 450 km and roughly a 4.5 to 5 hour direct drive from Prince Mohammad Bin Abdulaziz Airport (MED) to Makkah." },
-      { question: "How much is the Madinah airport to Makkah taxi?", answer: "The fare is fixed from SAR 400 for a sedan, with SUVs and vans for families and luggage. The price is confirmed before booking, tolls included." },
+      { question: "How much is the Madinah airport to Makkah taxi?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans for families and luggage. The price is confirmed before booking, tolls included." },
       { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Coming from Madinah, the Miqat is Dhul Hulaifah (Abyar Ali). Your driver can stop there so you enter Ihram before continuing to Makkah." },
       { question: "Is this a good option after a late flight into Madinah?", answer: "Yes. We operate 24/7 and track your flight, so a direct comfortable transfer to Makkah is available even after a late arrival at MED." },
     ],
@@ -352,274 +352,274 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
 
   // ─── Jeddah corridors ───
   "jeddah-to-taif": {
-    tldr: "A taxi from Jeddah to Taif is about 170 km and takes around 2 hours via the Al Hada mountain road. The fare is fixed from SAR 200, with experienced drivers for the scenic, winding climb to the City of Roses.",
+    tldr: "A taxi from Jeddah to Taif is about 170 km and takes around 2 hours via the Al Hada mountain road. The fare is fixed, confirmed on WhatsApp with experienced drivers for the scenic, winding climb to the City of Roses.",
     tldrFacts: [
       { label: "Distance", value: "~170 km" },
       { label: "Time", value: "~2 hours" },
-      { label: "From", value: "SAR 200" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How long is the taxi from Jeddah to Taif?", answer: "Jeddah to Taif is about 170 km and takes roughly 2 hours, climbing the scenic Al Hada mountain road to the cool highlands of Taif." },
-      { question: "How much is a taxi from Jeddah to Taif?", answer: "The fare is fixed from SAR 200 for a sedan, with SUVs and vans available. The exact price is confirmed before booking, with tolls included and no surge." },
+      { question: "How much is a taxi from Jeddah to Taif?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available. The exact price is confirmed before booking, with tolls included and no surge." },
       { question: "Is the Al Hada mountain road safe by taxi?", answer: "Yes. Our drivers are experienced on the steep, winding Al Hada route. An SUV is a comfortable choice for families on the climb." },
     ],
   },
   "jeddah-airport-to-taif": {
-    tldr: "A taxi from Jeddah Airport (JED) to Taif is about 180 km and takes roughly 2 hours 10 minutes. The fare is fixed from SAR 220, with meet & greet at arrivals and a direct transfer up the Al Hada road.",
+    tldr: "A taxi from Jeddah Airport (JED) to Taif is about 180 km and takes roughly 2 hours 10 minutes. The fare is fixed, confirmed on WhatsApp with meet & greet at arrivals and a direct transfer up the Al Hada road.",
     tldrFacts: [
       { label: "Distance", value: "~180 km" },
       { label: "Time", value: "~2 hr 10 min" },
-      { label: "From", value: "SAR 220" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Jeddah airport from Taif?", answer: "King Abdulaziz International Airport (JED) is about 180 km from Taif — roughly a 2 hour 10 minute drive via the Al Hada mountain road." },
-      { question: "How much is the Jeddah airport to Taif taxi?", answer: "The fare is fixed from SAR 220 for a sedan, confirmed before booking. SUVs and vans are available for families and luggage, with tolls included." },
+      { question: "How much is the Jeddah airport to Taif taxi?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking. SUVs and vans are available for families and luggage, with tolls included." },
       { question: "Is meet & greet included at Jeddah airport?", answer: "Yes. We track your flight and the driver waits at arrivals with a name sign, then takes you directly to Taif, 24/7." },
     ],
   },
   "jeddah-to-riyadh": {
-    tldr: "A taxi from Jeddah to Riyadh is about 950 km and takes roughly 9 hours across the Kingdom. The fare is fixed from SAR 600, door-to-door, with rest and prayer stops included for the long-distance journey.",
+    tldr: "A taxi from Jeddah to Riyadh is about 950 km and takes roughly 9 hours across the Kingdom. The fare is fixed, confirmed on WhatsApp door-to-door, with rest and prayer stops included for the long-distance journey.",
     tldrFacts: [
       { label: "Distance", value: "~950 km" },
       { label: "Time", value: "~9 hours" },
-      { label: "From", value: "SAR 600" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How long is the drive from Jeddah to Riyadh?", answer: "Jeddah to Riyadh is about 950 km — roughly a 9-hour drive on Highway 40. We include rest and prayer stops along the way." },
-      { question: "How much is a taxi from Jeddah to Riyadh?", answer: "The fare is fixed from SAR 600 for a sedan, with SUVs and vans for families and luggage. The price is confirmed before booking, with no surge." },
+      { question: "How much is a taxi from Jeddah to Riyadh?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans for families and luggage. The price is confirmed before booking, with no surge." },
       { question: "Is a one-way long-distance transfer comfortable?", answer: "Yes. We use comfortable, air-conditioned vehicles and the driver takes rest stops, making the long cross-Kingdom journey far easier than self-driving." },
     ],
   },
   "jeddah-to-kaec": {
-    tldr: "A taxi from Jeddah to King Abdullah Economic City (KAEC) is about 120 km and takes around 1 hour 20 minutes on the coastal highway. The fare is fixed from SAR 200, ideal for business visits to the King Abdullah Port and industrial zones.",
+    tldr: "A taxi from Jeddah to King Abdullah Economic City (KAEC) is about 120 km and takes around 1 hour 20 minutes on the coastal highway. The fare is fixed, confirmed on WhatsApp ideal for business visits to the King Abdullah Port and industrial zones.",
     tldrFacts: [
       { label: "Distance", value: "~120 km" },
       { label: "Time", value: "~1 hr 20 min" },
-      { label: "From", value: "SAR 200" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is KAEC from Jeddah?", answer: "King Abdullah Economic City (KAEC) is about 120 km north of Jeddah on the Red Sea coastal highway — roughly a 1 hour 20 minute drive." },
-      { question: "How much is a taxi from Jeddah to KAEC?", answer: "The fare is fixed from SAR 200 for a sedan, confirmed before booking. Corporate sedans and SUVs are available for business travel." },
+      { question: "How much is a taxi from Jeddah to KAEC?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking. Corporate sedans and SUVs are available for business travel." },
       { question: "Do you serve King Abdullah Port and business visitors?", answer: "Yes. We provide corporate transfers to KAEC for the port, industrial zones, and business meetings, with professional drivers 24/7." },
     ],
   },
   "jeddah-airport-to-kaec": {
-    tldr: "A taxi from Jeddah Airport (JED) to King Abdullah Economic City (KAEC) is about 100 km and takes around 1 hour 10 minutes. The fare is fixed from SAR 180, with meet & greet at arrivals for business travellers.",
+    tldr: "A taxi from Jeddah Airport (JED) to King Abdullah Economic City (KAEC) is about 100 km and takes around 1 hour 10 minutes. The fare is fixed, confirmed on WhatsApp with meet & greet at arrivals for business travellers.",
     tldrFacts: [
       { label: "Distance", value: "~100 km" },
       { label: "Time", value: "~1 hr 10 min" },
-      { label: "From", value: "SAR 180" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is KAEC from Jeddah airport?", answer: "King Abdullah Economic City is about 100 km from King Abdulaziz International Airport (JED) — roughly a 1 hour 10 minute drive on the coastal highway." },
-      { question: "How much is the Jeddah airport to KAEC taxi?", answer: "The fare is fixed from SAR 180 for a sedan, confirmed before booking, with corporate sedans and SUVs available for business travellers." },
+      { question: "How much is the Jeddah airport to KAEC taxi?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with corporate sedans and SUVs available for business travellers." },
       { question: "Is the driver waiting at the airport?", answer: "Yes. We track your flight and the driver meets you at arrivals with a name sign, then takes you directly to KAEC, 24/7." },
     ],
   },
   "jeddah-to-yanbu": {
-    tldr: "A taxi from Jeddah to Yanbu is about 330 km and takes roughly 3 hours on the Red Sea coastal highway. The fare is fixed from SAR 300, door-to-door, suitable for divers, business visitors, and onward pilgrim travel.",
+    tldr: "A taxi from Jeddah to Yanbu is about 330 km and takes roughly 3 hours on the Red Sea coastal highway. The fare is fixed, confirmed on WhatsApp door-to-door, suitable for divers, business visitors, and onward pilgrim travel.",
     tldrFacts: [
       { label: "Distance", value: "~330 km" },
       { label: "Time", value: "~3 hours" },
-      { label: "From", value: "SAR 300" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Jeddah from Yanbu?", answer: "Jeddah to Yanbu is about 330 km — roughly a 3-hour drive along the Red Sea coastal highway." },
-      { question: "How much is a taxi from Jeddah to Yanbu?", answer: "The fare is fixed from SAR 300 for a sedan, with SUVs and vans available. The price is confirmed before booking, with no surge." },
+      { question: "How much is a taxi from Jeddah to Yanbu?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available. The price is confirmed before booking, with no surge." },
       { question: "Do you serve both Yanbu city and the Industrial City?", answer: "Yes. Tell us whether you need Yanbu Al-Bahr (the city) or Yanbu Industrial City, as the two areas are far apart, and the driver will take you directly." },
     ],
   },
 
   // ─── Riyadh corridors ───
   "riyadh-airport-to-city": {
-    tldr: "A taxi from Riyadh Airport (RUH) to the city is about 35 km and takes around 45 minutes. The fare is fixed from SAR 100, with meet & greet at arrivals and direct drop-off to any Riyadh district, 24/7.",
+    tldr: "A taxi from Riyadh Airport (RUH) to the city is about 35 km and takes around 45 minutes. The fare is fixed, confirmed on WhatsApp with meet & greet at arrivals and direct drop-off to any Riyadh district, 24/7.",
     tldrFacts: [
       { label: "Distance", value: "~35 km" },
       { label: "Time", value: "~45 min" },
-      { label: "From", value: "SAR 100" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
-      { question: "How much is a taxi from Riyadh airport to the city?", answer: "The fare is fixed from SAR 100 to central Riyadh districts like Olaya or KAFD. King Khalid International Airport (RUH) is about 35 km from the centre, roughly a 45-minute drive." },
+      { question: "How much is a taxi from Riyadh airport to the city?", answer: "The fare is fixed, confirmed on WhatsApp to central Riyadh districts like Olaya or KAFD. King Khalid International Airport (RUH) is about 35 km from the centre, roughly a 45-minute drive." },
       { question: "Is there a taxi at Riyadh airport 24/7?", answer: "Yes. We operate around the clock at RUH and track your flight, so the driver waits at arrivals with a name sign even for late or delayed flights." },
       { question: "Can the driver take me to any Riyadh district?", answer: "Yes — KAFD, Olaya, the Diplomatic Quarter, and all other districts. Share your exact address when booking so the driver plans the best route." },
     ],
   },
   "riyadh-to-dammam": {
-    tldr: "A private taxi from Riyadh to Dammam is about 390 km and takes roughly 3.5 hours on Highway 40. Fares start from SAR 699, door-to-door, confirmed on WhatsApp before booking — popular with executives travelling to the Eastern Province and Aramco/Dhahran corridor.",
+    tldr: "A private taxi from Riyadh to Dammam is about 390 km and takes roughly 3.5 hours on Highway 40. Fares are confirmed on WhatsApp door-to-door, confirmed on WhatsApp before booking — popular with executives travelling to the Eastern Province and Aramco/Dhahran corridor.",
     tldrFacts: [
       { label: "Distance", value: "~390 km" },
       { label: "Time", value: "~3.5 hours" },
-      { label: "From", value: "SAR 699" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How long is the taxi from Riyadh to Dammam?", answer: "Riyadh to Dammam is about 390 km — roughly a 3.5-hour drive on Highway 40, with rest stops on request." },
-      { question: "How much is a taxi from Riyadh to Dammam?", answer: "Fares start from SAR 699 for a sedan, with SUVs and vans available. Message us on WhatsApp with your travel date and passenger count for a clear quote before booking, with no surge." },
+      { question: "How much is a taxi from Riyadh to Dammam?", answer: "Fares are confirmed on WhatsApp for a sedan, with SUVs and vans available. Message us on WhatsApp with your travel date and passenger count for a clear quote before booking, with no surge." },
       { question: "Can I book a corporate car for this route?", answer: "Yes. We arrange executive sedans and SUVs with professional drivers for the Riyadh–Dammam corporate corridor — useful for meetings in Dhahran, Al Khobar, or Jubail — with hourly and one-way options." },
       { question: "What is the distance between Riyadh and Dammam?", answer: "The distance between Riyadh and Dammam is about 390 km by road, a roughly 3.5-hour drive on Highway 40." },
       { question: "Can the driver continue on to Khobar, Dhahran, or Jubail after Dammam?", answer: "Yes. Since Dammam, Al Khobar, Dhahran, and Jubail form one Eastern Province service area, you can extend your trip to any of these cities at booking — just mention your final destination when requesting a quote." },
     ],
   },
   "dammam-airport-to-jubail": {
-    tldr: "A taxi from King Fahd International Airport (DMM) to Jubail is about 90 km and takes roughly 65 minutes. The fare is fixed from SAR 250, with corporate accounts available for contractors and companies operating in Jubail Industrial City.",
+    tldr: "A taxi from King Fahd International Airport (DMM) to Jubail is about 90 km and takes roughly 65 minutes. The fare is fixed, confirmed on WhatsApp with corporate accounts available for contractors and companies operating in Jubail Industrial City.",
     tldrFacts: [
       { label: "Distance", value: "~90 km" },
       { label: "Time", value: "~65 minutes" },
-      { label: "From", value: "SAR 250" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How long does the trip from Dammam airport to Jubail take?", answer: "The drive is about 90 km and takes roughly 65 minutes, depending on traffic and shift-change hours around the industrial city." },
-      { question: "How much is a taxi from Dammam airport to Jubail?", answer: "The fare is fixed from SAR 250 for a sedan, with SUVs and vans available for groups and equipment. The price is confirmed before booking, with no surge." },
+      { question: "How much is a taxi from Dammam airport to Jubail?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for groups and equipment. The price is confirmed before booking, with no surge." },
       { question: "Do you offer corporate accounts for Jubail Industrial City?", answer: "Yes. Contractors and companies operating in Jubail Industrial City I & II can set up monthly corporate billing instead of paying per trip — message us on WhatsApp to arrange an account." },
       { question: "Can the driver access restricted plant gates in Jubail?", answer: "Share your company name and site/gate location when booking so the driver can plan the correct access route — some plants have restricted entry points and ID checks." },
     ],
   },
   "dammam-airport-to-dhahran": {
-    tldr: "A taxi from King Fahd International Airport (DMM) to Dhahran is about 25 km and takes roughly 25 minutes — one of the shortest airport transfers in the Eastern Province. The fare is fixed from SAR 100, with corporate accounts available for Saudi Aramco and KFUPM visitors.",
+    tldr: "A taxi from King Fahd International Airport (DMM) to Dhahran is about 25 km and takes roughly 25 minutes — one of the shortest airport transfers in the Eastern Province. The fare is fixed, confirmed on WhatsApp with corporate accounts available for Saudi Aramco and KFUPM visitors.",
     tldrFacts: [
       { label: "Distance", value: "~25 km" },
       { label: "Time", value: "~25 minutes" },
-      { label: "From", value: "SAR 100" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How long does the trip from Dammam airport to Dhahran take?", answer: "The drive is about 25 km and takes roughly 25 minutes — one of the shortest airport-to-city runs in the Eastern Province." },
-      { question: "How much is a taxi from Dammam airport to Dhahran?", answer: "The fare is fixed from SAR 100 for a sedan, with SUVs and vans available. The price is confirmed before booking, with no surge." },
+      { question: "How much is a taxi from Dammam airport to Dhahran?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available. The price is confirmed before booking, with no surge." },
       { question: "Do you offer corporate accounts for Saudi Aramco or KFUPM?", answer: "Yes. Contractors, consultants, and companies working with Saudi Aramco, KFUPM, or based in Dhahran Techno Valley can set up monthly corporate billing instead of paying per trip — message us on WhatsApp to arrange an account." },
       { question: "Can the driver pick up visitors from inside Aramco or KFUPM gates?", answer: "Share your host company, badge type, and gate name when booking so the driver can plan the correct visitor entry point — some facilities require advance notice for access." },
     ],
   },
   "dhahran-to-dammam-airport": {
-    tldr: "A taxi from Dhahran to King Fahd International Airport (DMM) is about 25 km and takes roughly 25 minutes. The fare is fixed from SAR 100, with meet & greet pickup from Saudi Aramco, KFUPM, or any Dhahran hotel or address.",
+    tldr: "A taxi from Dhahran to King Fahd International Airport (DMM) is about 25 km and takes roughly 25 minutes. The fare is fixed, confirmed on WhatsApp with meet & greet pickup from Saudi Aramco, KFUPM, or any Dhahran hotel or address.",
     tldrFacts: [
       { label: "Distance", value: "~25 km" },
       { label: "Time", value: "~25 minutes" },
-      { label: "From", value: "SAR 100" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Dhahran from Dammam airport?", answer: "Dhahran is about 25 km from King Fahd International Airport (DMM) — roughly a 25-minute drive, traffic permitting." },
-      { question: "How much is a taxi from Dhahran to the airport?", answer: "The fare is fixed from SAR 100 for a sedan, confirmed before booking, with larger vehicles available for groups and luggage." },
+      { question: "How much is a taxi from Dhahran to the airport?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with larger vehicles available for groups and luggage." },
       { question: "Can you collect me from Saudi Aramco or KFUPM for my flight?", answer: "Yes, we provide door-to-door pickup from Aramco facilities, KFUPM, Dhahran Techno Valley, or any hotel or address in Dhahran, timed to your flight." },
     ],
   },
   "riyadh-to-alkhobar": {
-    tldr: "A taxi from Riyadh to Al Khobar is about 400 km and takes roughly 3 hours 40 minutes on Highway 40. The fare is fixed from SAR 320, door-to-door to the Eastern Province waterfront city.",
+    tldr: "A taxi from Riyadh to Al Khobar is about 400 km and takes roughly 3 hours 40 minutes on Highway 40. The fare is fixed, confirmed on WhatsApp door-to-door to the Eastern Province waterfront city.",
     tldrFacts: [
       { label: "Distance", value: "~400 km" },
       { label: "Time", value: "~3 hr 40 min" },
-      { label: "From", value: "SAR 320" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Riyadh from Al Khobar?", answer: "Riyadh to Al Khobar is about 400 km — roughly a 3 hour 40 minute drive on Highway 40 towards the Eastern Province." },
-      { question: "How much is a taxi from Riyadh to Al Khobar?", answer: "The fare is fixed from SAR 320 for a sedan, confirmed before booking, with SUVs and vans for families and luggage." },
+      { question: "How much is a taxi from Riyadh to Al Khobar?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs and vans for families and luggage." },
       { question: "Does this route also serve Dammam and Dhahran?", answer: "Yes. Al Khobar, Dammam, and Dhahran form one metro area, so we can drop you anywhere across the three cities — just confirm your district." },
     ],
   },
   "riyadh-to-alula": {
-    tldr: "A taxi from Riyadh to AlUla is about 1050 km and takes roughly 10 hours. The fare is fixed from SAR 1000 for this premium long-distance heritage transfer, with rest stops and comfortable vehicles for the desert journey.",
+    tldr: "A taxi from Riyadh to AlUla is about 1050 km and takes roughly 10 hours. The fare is fixed, confirmed on WhatsApp for this premium long-distance heritage transfer, with rest stops and comfortable vehicles for the desert journey.",
     tldrFacts: [
       { label: "Distance", value: "~1050 km" },
       { label: "Time", value: "~10 hours" },
-      { label: "From", value: "SAR 1000" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How long is the drive from Riyadh to AlUla?", answer: "Riyadh to AlUla is about 1050 km — roughly a 10-hour drive. Many travellers prefer to fly, but we offer a comfortable premium road transfer with rest stops." },
-      { question: "How much is a taxi from Riyadh to AlUla?", answer: "The fare is fixed from SAR 1000 for this long-distance heritage transfer, confirmed before booking. SUVs are recommended for comfort over the long journey." },
+      { question: "How much is a taxi from Riyadh to AlUla?", answer: "The fare is fixed, confirmed on WhatsApp for this long-distance heritage transfer, confirmed before booking. SUVs are recommended for comfort over the long journey." },
       { question: "Is it better to fly or drive to AlUla?", answer: "Flying to AlUla (ULH) is faster, but a private car is door-to-door and lets you stop along the way. For comfort on the road, we recommend an SUV." },
     ],
   },
   "riyadh-to-buraydah": {
-    tldr: "A taxi from Riyadh to Buraydah, the Qassim capital, is about 350 km and takes roughly 3 hours 10 minutes. The fare is fixed from SAR 280, door-to-door, with rest stops on request.",
+    tldr: "A taxi from Riyadh to Buraydah, the Qassim capital, is about 350 km and takes roughly 3 hours 10 minutes. The fare is fixed, confirmed on WhatsApp door-to-door, with rest stops on request.",
     tldrFacts: [
       { label: "Distance", value: "~350 km" },
       { label: "Time", value: "~3 hr 10 min" },
-      { label: "From", value: "SAR 280" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Riyadh from Buraydah?", answer: "Riyadh to Buraydah, the capital of the Qassim region, is about 350 km — roughly a 3 hour 10 minute drive north." },
-      { question: "How much is a taxi from Riyadh to Buraydah?", answer: "The fare is fixed from SAR 280 for a sedan, confirmed before booking, with SUVs and vans available for families." },
+      { question: "How much is a taxi from Riyadh to Buraydah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs and vans available for families." },
       { question: "Do you cover the Qassim region?", answer: "Yes. We serve Buraydah, Unaizah, and the wider Qassim region with intercity transfers from Riyadh, quoted on WhatsApp, 24/7." },
     ],
   },
   "riyadh-to-jeddah": {
-    tldr: "A taxi from Riyadh to Jeddah is about 950 km and takes roughly 9 hours across the Kingdom. The fare is fixed from SAR 600, door-to-door, with rest and prayer stops included on the long-distance journey.",
+    tldr: "A taxi from Riyadh to Jeddah is about 950 km and takes roughly 9 hours across the Kingdom. The fare is fixed, confirmed on WhatsApp door-to-door, with rest and prayer stops included on the long-distance journey.",
     tldrFacts: [
       { label: "Distance", value: "~950 km" },
       { label: "Time", value: "~9 hours" },
-      { label: "From", value: "SAR 600" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How long is the drive from Riyadh to Jeddah?", answer: "Riyadh to Jeddah is about 950 km — roughly a 9-hour drive on Highway 40, with rest and prayer stops along the way." },
-      { question: "How much is a taxi from Riyadh to Jeddah?", answer: "The fare is fixed from SAR 600 for a sedan, with SUVs and vans for families and luggage. The price is confirmed before booking, with no surge." },
+      { question: "How much is a taxi from Riyadh to Jeddah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans for families and luggage. The price is confirmed before booking, with no surge." },
       { question: "Is a long-distance car better than flying?", answer: "Flying is faster, but a private car is door-to-door with no airport check-in. For groups with luggage it can be convenient and comfortable with rest stops." },
     ],
   },
   "riyadh-to-makkah": {
-    tldr: "A taxi from Riyadh to Makkah is about 870 km and takes roughly 8 hours. The fare is fixed from SAR 550, door-to-door, with prayer and rest stops and a Miqat stop for Ihram on request.",
+    tldr: "A taxi from Riyadh to Makkah is about 870 km and takes roughly 8 hours. The fare is fixed, confirmed on WhatsApp door-to-door, with prayer and rest stops and a Miqat stop for Ihram on request.",
     tldrFacts: [
       { label: "Distance", value: "~870 km" },
       { label: "Time", value: "~8 hours" },
-      { label: "From", value: "SAR 550" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How long is the drive from Riyadh to Makkah?", answer: "Riyadh to Makkah is about 870 km — roughly an 8-hour drive. We include prayer and rest stops, and a Miqat stop for Ihram if you are performing Umrah." },
-      { question: "How much is a taxi from Riyadh to Makkah?", answer: "The fare is fixed from SAR 550 for a sedan, confirmed before booking, with SUVs and vans for families and luggage." },
+      { question: "How much is a taxi from Riyadh to Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs and vans for families and luggage." },
       { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Tell us in advance and the driver will stop at the relevant Miqat (Qarn Al-Manazil for those coming from Najd) so you can enter Ihram." },
     ],
   },
   "riyadh-to-madinah": {
-    tldr: "A taxi from Riyadh to Madinah is about 840 km and takes roughly 7.5 hours. The fare is fixed from SAR 550, door-to-door to your Madinah hotel, with prayer and rest stops included.",
+    tldr: "A taxi from Riyadh to Madinah is about 840 km and takes roughly 7.5 hours. The fare is fixed, confirmed on WhatsApp door-to-door to your Madinah hotel, with prayer and rest stops included.",
     tldrFacts: [
       { label: "Distance", value: "~840 km" },
       { label: "Time", value: "~7.5 hours" },
-      { label: "From", value: "SAR 550" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How long is the drive from Riyadh to Madinah?", answer: "Riyadh to Madinah is about 840 km — roughly a 7.5-hour drive, with prayer and rest stops along the way." },
-      { question: "How much is a taxi from Riyadh to Madinah?", answer: "The fare is fixed from SAR 550 for a sedan, confirmed before booking, with SUVs and vans for families and luggage." },
+      { question: "How much is a taxi from Riyadh to Madinah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs and vans for families and luggage." },
       { question: "Can you drop me at my hotel near Masjid an-Nabawi?", answer: "Yes. We provide door-to-door transfer to your Central Area (Markazia) hotel, handling any prayer-time road restrictions near the Haram." },
     ],
   },
   "riyadh-to-alahsa": {
-    tldr: "A taxi from Riyadh to Al Ahsa, the world's largest oasis, is about 330 km and takes roughly 3 hours. The fare is fixed from SAR 280, door-to-door, ideal for visiting the UNESCO-listed palm groves and heritage sites.",
+    tldr: "A taxi from Riyadh to Al Ahsa, the world's largest oasis, is about 330 km and takes roughly 3 hours. The fare is fixed, confirmed on WhatsApp door-to-door, ideal for visiting the UNESCO-listed palm groves and heritage sites.",
     tldrFacts: [
       { label: "Distance", value: "~330 km" },
       { label: "Time", value: "~3 hours" },
-      { label: "From", value: "SAR 280" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Riyadh from Al Ahsa?", answer: "Riyadh to Al Ahsa (Hofuf) is about 330 km — roughly a 3-hour drive east towards the Eastern Province oasis." },
-      { question: "How much is a taxi from Riyadh to Al Ahsa?", answer: "The fare is fixed from SAR 280 for a sedan, confirmed before booking, with SUVs and vans available for families and groups." },
+      { question: "How much is a taxi from Riyadh to Al Ahsa?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs and vans available for families and groups." },
       { question: "Is Al Ahsa worth visiting?", answer: "Yes. Al Ahsa is a UNESCO World Heritage oasis with vast palm groves, springs, and heritage sites. A full-day car lets you explore the highlights comfortably." },
     ],
   },
   "riyadh-to-hail": {
-    tldr: "A taxi from Riyadh to Hail is about 600 km and takes roughly 5.5 hours on the northern highway. The fare is fixed from SAR 450, door-to-door, with rest stops included for the long-distance journey.",
+    tldr: "A taxi from Riyadh to Hail is about 600 km and takes roughly 5.5 hours on the northern highway. The fare is fixed, confirmed on WhatsApp door-to-door, with rest stops included for the long-distance journey.",
     tldrFacts: [
       { label: "Distance", value: "~600 km" },
       { label: "Time", value: "~5.5 hours" },
-      { label: "From", value: "SAR 450" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Riyadh from Hail?", answer: "Riyadh to Hail is about 600 km — roughly a 5.5-hour drive on the northern highway, with rest stops on request." },
-      { question: "How much is a taxi from Riyadh to Hail?", answer: "The fare is fixed from SAR 450 for a sedan, confirmed before booking, with SUVs and vans available for families and luggage." },
+      { question: "How much is a taxi from Riyadh to Hail?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs and vans available for families and luggage." },
       { question: "Are rest stops included on the way to Hail?", answer: "Yes. On this long-distance route the driver includes stops for prayer, food, and rest to keep the journey comfortable." },
     ],
   },
@@ -640,453 +640,453 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "madinah-to-yanbu": {
-    tldr: "A taxi from Madinah to Yanbu is about 220 km and takes roughly 2 hours 10 minutes. The fare is fixed from SAR 200, door-to-door, popular for onward Red Sea coastal travel and diving trips.",
+    tldr: "A taxi from Madinah to Yanbu is about 220 km and takes roughly 2 hours 10 minutes. The fare is fixed, confirmed on WhatsApp door-to-door, popular for onward Red Sea coastal travel and diving trips.",
     tldrFacts: [
       { label: "Distance", value: "~220 km" },
       { label: "Time", value: "~2 hr 10 min" },
-      { label: "From", value: "SAR 200" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Madinah from Yanbu?", answer: "Madinah to Yanbu is about 220 km — roughly a 2 hour 10 minute drive towards the Red Sea coast." },
-      { question: "How much is a taxi from Madinah to Yanbu?", answer: "The fare is fixed from SAR 200 for a sedan, confirmed before booking, with SUVs and vans available." },
+      { question: "How much is a taxi from Madinah to Yanbu?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs and vans available." },
       { question: "Do you serve Yanbu Industrial City too?", answer: "Yes. Tell us whether you need Yanbu Al-Bahr or the Industrial City, as the two are far apart, and the driver will take you directly." },
     ],
   },
   "madinah-to-alula": {
-    tldr: "A taxi from Madinah to AlUla is about 330 km and takes roughly 3 hours. The fare is fixed from SAR 400, door-to-door, popular with pilgrims adding a heritage trip to Hegra and the Old Town after Ziyarah.",
+    tldr: "A taxi from Madinah to AlUla is about 330 km and takes roughly 3 hours. The fare is fixed, confirmed on WhatsApp door-to-door, popular with pilgrims adding a heritage trip to Hegra and the Old Town after Ziyarah.",
     tldrFacts: [
       { label: "Distance", value: "~330 km" },
       { label: "Time", value: "~3 hours" },
-      { label: "From", value: "SAR 400" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Madinah from AlUla?", answer: "Madinah to AlUla is about 330 km — roughly a 3-hour drive, making it an easy heritage trip after visiting Madinah." },
-      { question: "How much is a taxi from Madinah to AlUla?", answer: "The fare is fixed from SAR 400 for a sedan, confirmed before booking, with SUVs recommended for comfort and luggage." },
+      { question: "How much is a taxi from Madinah to AlUla?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs recommended for comfort and luggage." },
       { question: "Can I combine Ziyarah with an AlUla heritage trip?", answer: "Yes. Many pilgrims travel from Madinah to AlUla to visit Hegra, Dadan, and the Old Town. We can arrange the transfer and onward sightseeing." },
     ],
   },
   "madinah-to-riyadh": {
-    tldr: "A taxi from Madinah to Riyadh is about 840 km and takes roughly 7.5 hours. The fare is fixed from SAR 550, door-to-door, with prayer and rest stops included on the long-distance journey.",
+    tldr: "A taxi from Madinah to Riyadh is about 840 km and takes roughly 7.5 hours. The fare is fixed, confirmed on WhatsApp door-to-door, with prayer and rest stops included on the long-distance journey.",
     tldrFacts: [
       { label: "Distance", value: "~840 km" },
       { label: "Time", value: "~7.5 hours" },
-      { label: "From", value: "SAR 550" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How long is the drive from Madinah to Riyadh?", answer: "Madinah to Riyadh is about 840 km — roughly a 7.5-hour drive, with prayer and rest stops along the way." },
-      { question: "How much is a taxi from Madinah to Riyadh?", answer: "The fare is fixed from SAR 550 for a sedan, confirmed before booking, with SUVs and vans for families and luggage." },
+      { question: "How much is a taxi from Madinah to Riyadh?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs and vans for families and luggage." },
       { question: "Is this comfortable for families?", answer: "Yes. We use spacious, air-conditioned SUVs and vans for long trips, and the driver takes regular rest stops for comfort." },
     ],
   },
   "madinah-to-tabuk": {
-    tldr: "A taxi from Madinah to Tabuk is about 620 km and takes roughly 5.5 hours on the northern highway. The fare is fixed from SAR 500, door-to-door, with rest stops included for the long journey north.",
+    tldr: "A taxi from Madinah to Tabuk is about 620 km and takes roughly 5.5 hours on the northern highway. The fare is fixed, confirmed on WhatsApp door-to-door, with rest stops included for the long journey north.",
     tldrFacts: [
       { label: "Distance", value: "~620 km" },
       { label: "Time", value: "~5.5 hours" },
-      { label: "From", value: "SAR 500" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Madinah from Tabuk?", answer: "Madinah to Tabuk is about 620 km — roughly a 5.5-hour drive on the northern highway towards the Tabuk region and NEOM." },
-      { question: "How much is a taxi from Madinah to Tabuk?", answer: "The fare is fixed from SAR 500 for a sedan, confirmed before booking, with SUVs and vans for families and luggage." },
+      { question: "How much is a taxi from Madinah to Tabuk?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs and vans for families and luggage." },
       { question: "Can I continue to NEOM from Tabuk?", answer: "Yes. Tabuk is the main gateway to the NEOM region, and we can arrange onward transfers to the project zones and the Red Sea coast." },
     ],
   },
   "madinah-to-taif": {
-    tldr: "A taxi from Madinah to Taif is about 480 km and takes roughly 4.5 hours, ending on the scenic Al Hada mountain road. The fare is fixed from SAR 400, door-to-door, with rest stops on request.",
+    tldr: "A taxi from Madinah to Taif is about 480 km and takes roughly 4.5 hours, ending on the scenic Al Hada mountain road. The fare is fixed, confirmed on WhatsApp door-to-door, with rest stops on request.",
     tldrFacts: [
       { label: "Distance", value: "~480 km" },
       { label: "Time", value: "~4.5 hours" },
-      { label: "From", value: "SAR 400" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Madinah from Taif?", answer: "Madinah to Taif is about 480 km — roughly a 4.5-hour drive, finishing with the scenic mountain climb into Taif." },
-      { question: "How much is a taxi from Madinah to Taif?", answer: "The fare is fixed from SAR 400 for a sedan, confirmed before booking, with SUVs and vans available for families." },
+      { question: "How much is a taxi from Madinah to Taif?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs and vans available for families." },
       { question: "Are rest stops included?", answer: "Yes. On this long route the driver includes prayer and rest stops, and an SUV is recommended for comfort on the mountain section." },
     ],
   },
 
   // ─── Makkah corridors ───
   "makkah-to-madinah-airport": {
-    tldr: "A taxi from Makkah to Madinah Airport (MED) is about 450 km and takes roughly 4.5 hours. The fare is fixed from SAR 400, door-to-door from your Makkah hotel, with prayer and rest stops for departing pilgrims.",
+    tldr: "A taxi from Makkah to Madinah Airport (MED) is about 450 km and takes roughly 4.5 hours. The fare is fixed, confirmed on WhatsApp door-to-door from your Makkah hotel, with prayer and rest stops for departing pilgrims.",
     tldrFacts: [
       { label: "Distance", value: "~450 km" },
       { label: "Time", value: "~4.5 hours" },
-      { label: "From", value: "SAR 400" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Makkah from Madinah airport?", answer: "Makkah to Prince Mohammad Bin Abdulaziz Airport (MED) is about 450 km — roughly a 4.5-hour drive on the Haramain highway." },
-      { question: "How much is a taxi from Makkah to Madinah airport?", answer: "The fare is fixed from SAR 400 for a sedan, confirmed before booking, with SUVs and vans for families and luggage." },
+      { question: "How much is a taxi from Makkah to Madinah airport?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs and vans for families and luggage." },
       { question: "Will I have time for my flight?", answer: "Yes. We recommend departing Makkah with comfortable buffer time, and the driver takes you directly to MED departures, with rest stops if needed." },
     ],
   },
   "makkah-to-riyadh": {
-    tldr: "A taxi from Makkah to Riyadh is about 870 km and takes roughly 8 hours. The fare is fixed from SAR 550, door-to-door, with prayer and rest stops included for the long-distance journey to the capital.",
+    tldr: "A taxi from Makkah to Riyadh is about 870 km and takes roughly 8 hours. The fare is fixed, confirmed on WhatsApp door-to-door, with prayer and rest stops included for the long-distance journey to the capital.",
     tldrFacts: [
       { label: "Distance", value: "~870 km" },
       { label: "Time", value: "~8 hours" },
-      { label: "From", value: "SAR 550" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How long is the drive from Makkah to Riyadh?", answer: "Makkah to Riyadh is about 870 km — roughly an 8-hour drive, with prayer and rest stops along the way." },
-      { question: "How much is a taxi from Makkah to Riyadh?", answer: "The fare is fixed from SAR 550 for a sedan, confirmed before booking, with SUVs and vans for families and luggage." },
+      { question: "How much is a taxi from Makkah to Riyadh?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs and vans for families and luggage." },
       { question: "Is this route comfortable for a family?", answer: "Yes. We use spacious, air-conditioned SUVs and vans for long trips, and the driver takes regular rest stops for comfort." },
     ],
   },
   "makkah-to-kaec": {
-    tldr: "A taxi from Makkah to King Abdullah Economic City (KAEC) is about 180 km and takes roughly 1 hour 50 minutes. The fare is fixed from SAR 250, door-to-door, ideal for business travel to the Red Sea coast.",
+    tldr: "A taxi from Makkah to King Abdullah Economic City (KAEC) is about 180 km and takes roughly 1 hour 50 minutes. The fare is fixed, confirmed on WhatsApp door-to-door, ideal for business travel to the Red Sea coast.",
     tldrFacts: [
       { label: "Distance", value: "~180 km" },
       { label: "Time", value: "~1 hr 50 min" },
-      { label: "From", value: "SAR 250" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Makkah from KAEC?", answer: "Makkah to King Abdullah Economic City (KAEC) is about 180 km — roughly a 1 hour 50 minute drive towards the Red Sea coast." },
-      { question: "How much is a taxi from Makkah to KAEC?", answer: "The fare is fixed from SAR 250 for a sedan, confirmed before booking, with corporate sedans and SUVs available." },
+      { question: "How much is a taxi from Makkah to KAEC?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with corporate sedans and SUVs available." },
       { question: "Do you serve King Abdullah Port?", answer: "Yes. We provide corporate transfers to KAEC for the port, industrial zones, and business meetings, with professional drivers 24/7." },
     ],
   },
   "makkah-to-yanbu": {
-    tldr: "A taxi from Makkah to Yanbu is about 400 km and takes roughly 3 hours 40 minutes on the coastal route. The fare is fixed from SAR 350, door-to-door, with rest stops on request.",
+    tldr: "A taxi from Makkah to Yanbu is about 400 km and takes roughly 3 hours 40 minutes on the coastal route. The fare is fixed, confirmed on WhatsApp door-to-door, with rest stops on request.",
     tldrFacts: [
       { label: "Distance", value: "~400 km" },
       { label: "Time", value: "~3 hr 40 min" },
-      { label: "From", value: "SAR 350" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Makkah from Yanbu?", answer: "Makkah to Yanbu is about 400 km — roughly a 3 hour 40 minute drive towards the Red Sea coast." },
-      { question: "How much is a taxi from Makkah to Yanbu?", answer: "The fare is fixed from SAR 350 for a sedan, confirmed before booking, with SUVs and vans available for families." },
+      { question: "How much is a taxi from Makkah to Yanbu?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs and vans available for families." },
       { question: "Are rest stops included on this route?", answer: "Yes. The driver includes prayer and rest stops, and tells us whether you need Yanbu city or the Industrial City for a direct drop-off." },
     ],
   },
 
   // ─── GCC border crossings ───
   "riyadh-to-dubai": {
-    tldr: "A private car with driver from Riyadh to Dubai is about 990 km and takes roughly 9 hours plus the Saudi–UAE border crossing. Fares start from SAR 1200, confirmed on WhatsApp, with documentation support and a comfortable vehicle for the cross-border journey.",
+    tldr: "A private car with driver from Riyadh to Dubai is about 990 km and takes roughly 9 hours plus the Saudi–UAE border crossing. Fares are confirmed on WhatsApp, with documentation support and a comfortable vehicle for the cross-border journey.",
     tldrFacts: [
       { label: "Distance", value: "~990 km" },
       { label: "Time", value: "~9 hours + border" },
-      { label: "From", value: "SAR 1200" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How long is the taxi from Riyadh to Dubai?", answer: "Riyadh to Dubai is about 990 km — roughly a 9-hour drive plus time at the Saudi–UAE border (Al Batha crossing)." },
       { question: "What documents do I need for the border?", answer: "You need a valid passport and the correct UAE entry visa or eligibility. Share your details in advance so we can advise and prepare for a smooth crossing." },
-      { question: "How much is a taxi from Riyadh to Dubai?", answer: "Fares start from SAR 1200 — message us on WhatsApp with your travel date for a clear quote before booking. We arrange comfortable vehicles suited to the long cross-border journey." },
+      { question: "How much is a taxi from Riyadh to Dubai?", answer: "Fares are confirmed on WhatsApp — message us on WhatsApp with your travel date for a clear quote before booking. We arrange comfortable vehicles suited to the long cross-border journey." },
       { question: "Can I get a private car with a driver from Riyadh to Dubai?", answer: "Yes. We arrange a private car with a professional driver for the full Riyadh to Dubai journey — not a shared ride — with one vehicle and driver for your whole party door-to-door." },
       { question: "Is it better to fly or drive from Riyadh to Dubai?", answer: "Flying is faster, but a private car with driver is popular for business travellers who want to work en route, families with luggage, or anyone who prefers not to navigate two airports and a connecting ride on each end." },
       { question: "Can I stop overnight or make business stops on the way to Dubai?", answer: "Yes. The Riyadh-Dubai route can include planned stops for meetings, meals, or rest — let us know your itinerary when requesting a quote so we can arrange the right vehicle and driver." },
     ],
   },
   "dammam-to-doha": {
-    tldr: "A private taxi from Dammam to Doha is about 400 km and takes roughly 4 hours plus the Saudi–Qatar border crossing at Salwa. Fares start from SAR 500, confirmed on WhatsApp, with documentation support for a smooth crossing.",
+    tldr: "A private taxi from Dammam to Doha is about 400 km and takes roughly 4 hours plus the Saudi–Qatar border crossing at Salwa. Fares are confirmed on WhatsApp, with documentation support for a smooth crossing.",
     tldrFacts: [
       { label: "Distance", value: "~400 km" },
       { label: "Time", value: "~4 hours + border" },
-      { label: "From", value: "SAR 500" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Dammam from Doha?", answer: "Dammam to Doha is about 400 km — roughly a 4-hour drive plus time at the Saudi–Qatar border crossing at Salwa." },
       { question: "What do I need to cross into Qatar?", answer: "A valid passport and the correct Qatar entry permit or visa. Share your details in advance so we can prepare for a smooth border crossing." },
-      { question: "How much is a taxi from Dammam to Doha?", answer: "Fares start from SAR 500 — message us on WhatsApp with your travel date and passenger count for a clear quote before booking, with comfortable vehicles for the cross-border journey." },
+      { question: "How much is a taxi from Dammam to Doha?", answer: "Fares are confirmed on WhatsApp — message us on WhatsApp with your travel date and passenger count for a clear quote before booking, with comfortable vehicles for the cross-border journey." },
       { question: "Is there a taxi from Khobar to Doha?", answer: "Yes — Al Khobar and Dammam are twin cities about 15 km apart, so this same Dammam–Doha service picks up from Khobar hotels and addresses with the same border-crossing support." },
       { question: "How long does the Salwa border crossing usually take?", answer: "Crossing time varies with traffic and document checks, typically adding 30-60 minutes to the drive. Our drivers know the Salwa crossing well and can advise on typically busier or quieter times." },
     ],
   },
   "riyadh-to-doha": {
-    tldr: "A taxi from Riyadh to Doha is about 580 km and takes roughly 5.5 hours plus the Saudi–Qatar border crossing at Salwa. The fare is fixed from SAR 800, with documentation support for the cross-border trip.",
+    tldr: "A taxi from Riyadh to Doha is about 580 km and takes roughly 5.5 hours plus the Saudi–Qatar border crossing at Salwa. The fare is fixed, confirmed on WhatsApp with documentation support for the cross-border trip.",
     tldrFacts: [
       { label: "Distance", value: "~580 km" },
       { label: "Time", value: "~5.5 hours + border" },
-      { label: "From", value: "SAR 800" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Riyadh from Doha?", answer: "Riyadh to Doha is about 580 km — roughly a 5.5-hour drive plus time at the Salwa border crossing into Qatar." },
       { question: "What documents are needed for Qatar?", answer: "A valid passport and the correct Qatar visa or entry permit. Send your details in advance so we can advise and prepare for the crossing." },
-      { question: "How much is a taxi from Riyadh to Doha?", answer: "The fare is fixed from SAR 800, confirmed before booking, with comfortable vehicles for the long cross-border journey." },
+      { question: "How much is a taxi from Riyadh to Doha?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles for the long cross-border journey." },
     ],
   },
   "dammam-to-manama": {
-    tldr: "A taxi from Dammam to Manama, Bahrain is about 70 km and takes roughly 1 hour across the King Fahd Causeway. The fare is fixed from SAR 200, with border documentation support for a quick, smooth crossing.",
+    tldr: "A taxi from Dammam to Manama, Bahrain is about 70 km and takes roughly 1 hour across the King Fahd Causeway. The fare is fixed, confirmed on WhatsApp with border documentation support for a quick, smooth crossing.",
     tldrFacts: [
       { label: "Distance", value: "~70 km" },
       { label: "Time", value: "~1 hour" },
-      { label: "From", value: "SAR 200" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How long is the taxi from Dammam to Bahrain?", answer: "Dammam to Manama is about 70 km — roughly a 1-hour drive across the King Fahd Causeway, plus border formalities." },
       { question: "What do I need to cross the Causeway?", answer: "A valid passport and the correct Bahrain entry eligibility or visa. Share your details in advance so we can prepare for a smooth crossing." },
-      { question: "How much is a taxi from Dammam to Manama?", answer: "The fare is fixed from SAR 200, confirmed before booking, with comfortable vehicles and causeway toll handling." },
+      { question: "How much is a taxi from Dammam to Manama?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles and causeway toll handling." },
     ],
   },
   "alkhobar-to-manama": {
-    tldr: "A taxi from Al Khobar to Manama, Bahrain is about 50 km and takes roughly 50 minutes across the King Fahd Causeway. The fare is fixed from SAR 180, with border documentation support for a quick crossing.",
+    tldr: "A taxi from Al Khobar to Manama, Bahrain is about 50 km and takes roughly 50 minutes across the King Fahd Causeway. The fare is fixed, confirmed on WhatsApp with border documentation support for a quick crossing.",
     tldrFacts: [
       { label: "Distance", value: "~50 km" },
       { label: "Time", value: "~50 min" },
-      { label: "From", value: "SAR 180" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Al Khobar from Bahrain?", answer: "Al Khobar to Manama is about 50 km — roughly a 50-minute drive across the King Fahd Causeway, plus border formalities." },
       { question: "What documents do I need for Bahrain?", answer: "A valid passport and the correct Bahrain entry eligibility or visa. Send your details in advance so we can advise and prepare for the crossing." },
-      { question: "How much is a taxi from Al Khobar to Manama?", answer: "The fare is fixed from SAR 180, confirmed before booking, with comfortable vehicles and causeway toll handling." },
+      { question: "How much is a taxi from Al Khobar to Manama?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles and causeway toll handling." },
     ],
   },
   "riyadh-to-manama": {
-    tldr: "A taxi from Riyadh to Manama, Bahrain is about 450 km and takes roughly 4.5 hours, crossing the King Fahd Causeway. The fare is fixed from SAR 600, with documentation support for the cross-border journey.",
+    tldr: "A taxi from Riyadh to Manama, Bahrain is about 450 km and takes roughly 4.5 hours, crossing the King Fahd Causeway. The fare is fixed, confirmed on WhatsApp with documentation support for the cross-border journey.",
     tldrFacts: [
       { label: "Distance", value: "~450 km" },
       { label: "Time", value: "~4.5 hours" },
-      { label: "From", value: "SAR 600" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Riyadh from Bahrain?", answer: "Riyadh to Manama is about 450 km — roughly a 4.5-hour drive, crossing into Bahrain via the King Fahd Causeway." },
       { question: "What do I need to enter Bahrain?", answer: "A valid passport and the correct Bahrain entry eligibility or visa. Share your details in advance so we can prepare for a smooth crossing." },
-      { question: "How much is a taxi from Riyadh to Manama?", answer: "The fare is fixed from SAR 600, confirmed before booking, with comfortable vehicles for the long cross-border journey." },
+      { question: "How much is a taxi from Riyadh to Manama?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles for the long cross-border journey." },
       { question: "Is there a train from Riyadh to Bahrain?", answer: "No — there is currently no operational train between Riyadh and Bahrain; the GCC's planned Gulf Railway hasn't been completed on this route. A private taxi via the King Fahd Causeway is the most comfortable door-to-door option." },
     ],
   },
   "dammam-to-kuwait": {
-    tldr: "A taxi from Dammam to Kuwait City is about 410 km and takes roughly 4 hours plus the Saudi–Kuwait border crossing at Al Khafji. The fare is fixed from SAR 600, with documentation support for the crossing.",
+    tldr: "A taxi from Dammam to Kuwait City is about 410 km and takes roughly 4 hours plus the Saudi–Kuwait border crossing at Al Khafji. The fare is fixed, confirmed on WhatsApp with documentation support for the crossing.",
     tldrFacts: [
       { label: "Distance", value: "~410 km" },
       { label: "Time", value: "~4 hours + border" },
-      { label: "From", value: "SAR 600" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Dammam from Kuwait City?", answer: "Dammam to Kuwait City is about 410 km — roughly a 4-hour drive plus time at the Saudi–Kuwait border crossing at Al Khafji." },
       { question: "What documents are needed for Kuwait?", answer: "A valid passport and the correct Kuwait visa or entry permit. Send your details in advance so we can advise and prepare for the crossing." },
-      { question: "How much is a taxi from Dammam to Kuwait?", answer: "The fare is fixed from SAR 600, confirmed before booking, with comfortable vehicles for the cross-border journey." },
+      { question: "How much is a taxi from Dammam to Kuwait?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles for the cross-border journey." },
     ],
   },
   "riyadh-to-abudhabi": {
-    tldr: "A taxi from Riyadh to Abu Dhabi is about 850 km and takes roughly 8 hours plus the Saudi–UAE border crossing. The fare is fixed from SAR 1100, with documentation support and a comfortable vehicle for the journey.",
+    tldr: "A taxi from Riyadh to Abu Dhabi is about 850 km and takes roughly 8 hours plus the Saudi–UAE border crossing. The fare is fixed, confirmed on WhatsApp with documentation support and a comfortable vehicle for the journey.",
     tldrFacts: [
       { label: "Distance", value: "~850 km" },
       { label: "Time", value: "~8 hours + border" },
-      { label: "From", value: "SAR 1100" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Riyadh from Abu Dhabi?", answer: "Riyadh to Abu Dhabi is about 850 km — roughly an 8-hour drive plus time at the Saudi–UAE border (Al Batha crossing)." },
       { question: "What do I need for the UAE border?", answer: "A valid passport and the correct UAE entry visa or eligibility. Share your details in advance so we can advise and prepare for a smooth crossing." },
-      { question: "How much is a taxi from Riyadh to Abu Dhabi?", answer: "The fare is fixed from SAR 1100, confirmed before booking, with comfortable vehicles for the long cross-border journey." },
+      { question: "How much is a taxi from Riyadh to Abu Dhabi?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles for the long cross-border journey." },
     ],
   },
 
   // ─── Tourism routes ───
   "alula-airport-to-resorts": {
-    tldr: "A taxi from AlUla Airport (ULH) to the resorts is about 30 km and takes around 30 minutes. The fare is fixed from SAR 150, with meet & greet at arrivals and a smooth transfer to AlUla's luxury desert hotels.",
+    tldr: "A taxi from AlUla Airport (ULH) to the resorts is about 30 km and takes around 30 minutes. The fare is fixed, confirmed on WhatsApp with meet & greet at arrivals and a smooth transfer to AlUla's luxury desert hotels.",
     tldrFacts: [
       { label: "Distance", value: "~30 km" },
       { label: "Time", value: "~30 min" },
-      { label: "From", value: "SAR 150" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is AlUla airport from the resorts?", answer: "AlUla International Airport (ULH) is about 30 km from the main resort area — roughly a 30-minute transfer." },
-      { question: "How much is a taxi from AlUla airport to my resort?", answer: "The fare is fixed from SAR 150, confirmed before booking, with meet & greet at arrivals and SUVs available for luggage." },
+      { question: "How much is a taxi from AlUla airport to my resort?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with meet & greet at arrivals and SUVs available for luggage." },
       { question: "Can you arrange sightseeing after my transfer?", answer: "Yes. We offer onward trips to Hegra, Dadan, Elephant Rock, and the Old Town with a driver and flexible waiting time." },
     ],
   },
   "alula-airport-to-banyan-tree": {
-    tldr: "A private VIP taxi from AlUla Airport (ULH) to Banyan Tree AlUla is about 35 km and takes around 35 minutes. The fare is fixed from SAR 220, in a luxury SUV or VIP sedan, with meet & greet at arrivals for the resort's guests.",
+    tldr: "A private VIP taxi from AlUla Airport (ULH) to Banyan Tree AlUla is about 35 km and takes around 35 minutes. The fare is fixed, confirmed on WhatsApp in a luxury SUV or VIP sedan, with meet & greet at arrivals for the resort's guests.",
     tldrFacts: [
       { label: "Distance", value: "~35 km" },
       { label: "Time", value: "~35 min" },
-      { label: "From", value: "SAR 220" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is AlUla airport from Banyan Tree AlUla?", answer: "AlUla International Airport (ULH) is about 35 km from Banyan Tree AlUla, in Ashar Valley — roughly a 35-minute private transfer through the sandstone canyons." },
-      { question: "How much is a private transfer to Banyan Tree AlUla?", answer: "The fare is fixed from SAR 220 in a luxury SUV or VIP sedan, confirmed before booking, with meet & greet at arrivals and help with luggage." },
+      { question: "How much is a private transfer to Banyan Tree AlUla?", answer: "The fare is fixed, confirmed on WhatsApp in a luxury SUV or VIP sedan, confirmed before booking, with meet & greet at arrivals and help with luggage." },
       { question: "Is this a shared shuttle or a private car?", answer: "This is a private, chauffeur-driven vehicle exclusively for you and your party — not a shared shuttle — matching the resort's VIP standard." },
       { question: "Can you arrange a full-day driver for Hegra or Elephant Rock during my stay?", answer: "Yes. We offer full-day and half-day private chauffeur hire from Banyan Tree AlUla to Hegra, Elephant Rock, Dadan, and the Old Town, with flexible waiting time." },
     ],
   },
   "jeddah-to-alula": {
-    tldr: "A taxi from Jeddah to AlUla is about 700 km and takes roughly 6.5 hours. The fare is fixed from SAR 800 for this coastal-to-desert heritage transfer, with rest stops and comfortable vehicles for the journey.",
+    tldr: "A taxi from Jeddah to AlUla is about 700 km and takes roughly 6.5 hours. The fare is fixed, confirmed on WhatsApp for this coastal-to-desert heritage transfer, with rest stops and comfortable vehicles for the journey.",
     tldrFacts: [
       { label: "Distance", value: "~700 km" },
       { label: "Time", value: "~6.5 hours" },
-      { label: "From", value: "SAR 800" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Jeddah from AlUla?", answer: "Jeddah to AlUla is about 700 km — roughly a 6.5-hour drive from the Red Sea coast to the desert heritage valley." },
-      { question: "How much is a taxi from Jeddah to AlUla?", answer: "The fare is fixed from SAR 800, confirmed before booking, with SUVs recommended for comfort over the long journey." },
+      { question: "How much is a taxi from Jeddah to AlUla?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with SUVs recommended for comfort over the long journey." },
       { question: "Is it better to fly or drive to AlUla from Jeddah?", answer: "Flying to AlUla (ULH) is faster, but a private car is door-to-door with rest stops. For comfort on the road, we recommend an SUV." },
     ],
   },
   "tabuk-airport-to-neom": {
-    tldr: "A taxi from Tabuk Airport (TUU) to NEOM is about 120 km and takes roughly 1 hour 20 minutes. The fare is fixed from SAR 200, with meet & greet at arrivals — the main gateway transfer into the NEOM project.",
+    tldr: "A taxi from Tabuk Airport (TUU) to NEOM is about 120 km and takes roughly 1 hour 20 minutes. The fare is fixed, confirmed on WhatsApp with meet & greet at arrivals — the main gateway transfer into the NEOM project.",
     tldrFacts: [
       { label: "Distance", value: "~120 km" },
       { label: "Time", value: "~1 hr 20 min" },
-      { label: "From", value: "SAR 200" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Tabuk airport from NEOM?", answer: "Tabuk Airport (TUU) is about 120 km from the NEOM zone — roughly a 1 hour 20 minute drive, and the main air gateway to the project." },
-      { question: "How much is a taxi from Tabuk airport to NEOM?", answer: "The fare is fixed from SAR 200, confirmed before booking, with executive SUVs available for business visitors and contractors." },
+      { question: "How much is a taxi from Tabuk airport to NEOM?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with executive SUVs available for business visitors and contractors." },
       { question: "Do I need a permit for NEOM site access?", answer: "Some NEOM gates require access clearance. Confirm your permit in advance so the driver can take you to the correct entry point." },
     ],
   },
   "riyadh-to-neom": {
-    tldr: "A taxi from Riyadh to NEOM is about 1300 km and takes roughly 12 hours. The fare is fixed from SAR 1500 for this elite long-distance transfer, with rest stops and an executive vehicle for the journey north.",
+    tldr: "A taxi from Riyadh to NEOM is about 1300 km and takes roughly 12 hours. The fare is fixed, confirmed on WhatsApp for this elite long-distance transfer, with rest stops and an executive vehicle for the journey north.",
     tldrFacts: [
       { label: "Distance", value: "~1300 km" },
       { label: "Time", value: "~12 hours" },
-      { label: "From", value: "SAR 1500" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Riyadh from NEOM?", answer: "Riyadh to NEOM is about 1300 km — roughly a 12-hour drive. Many travellers fly to Tabuk or NEOM Bay, but we offer a premium road transfer with rest stops." },
-      { question: "How much is a taxi from Riyadh to NEOM?", answer: "The fare is fixed from SAR 1500 for this elite long-distance transfer, confirmed before booking, with executive SUVs for comfort." },
+      { question: "How much is a taxi from Riyadh to NEOM?", answer: "The fare is fixed, confirmed on WhatsApp for this elite long-distance transfer, confirmed before booking, with executive SUVs for comfort." },
       { question: "Is flying better for Riyadh to NEOM?", answer: "Flying to Tabuk (TUU) or NEOM Bay (NUM) is much faster. We can arrange the airport transfer at the NEOM end, or a full road transfer if you prefer." },
     ],
   },
   "jeddah-to-neom": {
-    tldr: "A taxi from Jeddah to NEOM is about 1000 km and takes roughly 9 hours along the Red Sea coast. The fare is fixed from SAR 1100 for this long-distance transfer, with rest stops and a comfortable vehicle.",
+    tldr: "A taxi from Jeddah to NEOM is about 1000 km and takes roughly 9 hours along the Red Sea coast. The fare is fixed, confirmed on WhatsApp for this long-distance transfer, with rest stops and a comfortable vehicle.",
     tldrFacts: [
       { label: "Distance", value: "~1000 km" },
       { label: "Time", value: "~9 hours" },
-      { label: "From", value: "SAR 1100" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Jeddah from NEOM?", answer: "Jeddah to NEOM is about 1000 km — roughly a 9-hour drive north along the Red Sea coast." },
-      { question: "How much is a taxi from Jeddah to NEOM?", answer: "The fare is fixed from SAR 1100, confirmed before booking, with executive SUVs recommended for comfort on the long journey." },
+      { question: "How much is a taxi from Jeddah to NEOM?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with executive SUVs recommended for comfort on the long journey." },
       { question: "Do I need NEOM site clearance?", answer: "Some NEOM gates require access permits. Confirm your clearance in advance so the driver can take you to the correct entry point." },
     ],
   },
   "abha-airport-to-soudah": {
-    tldr: "A taxi from Abha Airport (AHB) to Soudah is about 45 km and takes roughly 50 minutes up the Asir mountain road. The fare is fixed from SAR 150, with experienced drivers for the climb to Saudi Arabia's highest peak.",
+    tldr: "A taxi from Abha Airport (AHB) to Soudah is about 45 km and takes roughly 50 minutes up the Asir mountain road. The fare is fixed, confirmed on WhatsApp with experienced drivers for the climb to Saudi Arabia's highest peak.",
     tldrFacts: [
       { label: "Distance", value: "~45 km" },
       { label: "Time", value: "~50 min" },
-      { label: "From", value: "SAR 150" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Abha airport from Soudah?", answer: "Abha International Airport (AHB) is about 45 km from Soudah — roughly a 50-minute drive up the Asir mountain road to Saudi Arabia's highest peak." },
-      { question: "How much is a taxi from Abha airport to Soudah?", answer: "The fare is fixed from SAR 150, confirmed before booking, with experienced mountain drivers and SUVs for the climb." },
+      { question: "How much is a taxi from Abha airport to Soudah?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with experienced mountain drivers and SUVs for the climb." },
       { question: "Can the driver wait while I explore Soudah?", answer: "Yes. We offer full-day hire with waiting time so you can enjoy Soudah Peak, the cable car, and the viewpoints at your own pace." },
     ],
   },
   "jeddah-to-abha": {
-    tldr: "A taxi from Jeddah to Abha is about 630 km and takes roughly 6 hours, climbing into the cool Asir mountains. The fare is fixed from SAR 700, door-to-door, with rest stops included on the long journey south.",
+    tldr: "A taxi from Jeddah to Abha is about 630 km and takes roughly 6 hours, climbing into the cool Asir mountains. The fare is fixed, confirmed on WhatsApp door-to-door, with rest stops included on the long journey south.",
     tldrFacts: [
       { label: "Distance", value: "~630 km" },
       { label: "Time", value: "~6 hours" },
-      { label: "From", value: "SAR 700" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Jeddah from Abha?", answer: "Jeddah to Abha is about 630 km — roughly a 6-hour drive from the Red Sea coast into the cool Asir mountains." },
-      { question: "How much is a taxi from Jeddah to Abha?", answer: "The fare is fixed from SAR 700, confirmed before booking, with SUVs recommended for comfort on the long mountain journey." },
+      { question: "How much is a taxi from Jeddah to Abha?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with SUVs recommended for comfort on the long mountain journey." },
       { question: "Are rest stops included on this route?", answer: "Yes. The driver includes prayer and rest stops, and an SUV is recommended for the climb into the Asir highlands." },
     ],
   },
   "taif-to-albaha": {
-    tldr: "A taxi from Taif to Al Baha is about 220 km and takes roughly 2 hours 20 minutes on a scenic mountain road between two resort cities. The fare is fixed from SAR 300, with experienced drivers for the winding route.",
+    tldr: "A taxi from Taif to Al Baha is about 220 km and takes roughly 2 hours 20 minutes on a scenic mountain road between two resort cities. The fare is fixed, confirmed on WhatsApp with experienced drivers for the winding route.",
     tldrFacts: [
       { label: "Distance", value: "~220 km" },
       { label: "Time", value: "~2 hr 20 min" },
-      { label: "From", value: "SAR 300" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Taif from Al Baha?", answer: "Taif to Al Baha is about 220 km — roughly a 2 hour 20 minute drive on a scenic mountain road connecting the two resort cities." },
-      { question: "How much is a taxi from Taif to Al Baha?", answer: "The fare is fixed from SAR 300, confirmed before booking, with SUVs available for comfort on the mountain route." },
+      { question: "How much is a taxi from Taif to Al Baha?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with SUVs available for comfort on the mountain route." },
       { question: "Is the mountain road safe by taxi?", answer: "Yes. Our drivers are experienced on the winding Sarawat mountain roads, and an SUV is a comfortable choice for families." },
     ],
   },
   "jeddah-airport-to-makkah-clock-tower": {
-    tldr: "A taxi from Jeddah Airport (JED) to the Makkah Clock Tower hotels (Fairmont, Pullman Zamzam, Abraj Al Bait) is about 85 km and takes roughly 65 minutes. The fare is fixed from SAR 249, available 24/7, with door-to-door drop-off and luggage help.",
+    tldr: "A taxi from Jeddah Airport (JED) to the Makkah Clock Tower hotels (Fairmont, Pullman Zamzam, Abraj Al Bait) is about 85 km and takes roughly 65 minutes. The fare is fixed, confirmed on WhatsApp available 24/7, with door-to-door drop-off and luggage help.",
     tldrFacts: [
       { label: "Distance", value: "~85 km" },
       { label: "Time", value: "~65 min" },
-      { label: "From", value: "SAR 249" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is the Makkah Clock Tower from Jeddah airport?", answer: "About 85 km — roughly a 65-minute drive on the Makkah Expressway from King Abdulaziz International Airport (JED) to the Clock Tower hotel complex (Abraj Al Bait), which includes the Fairmont, Pullman Zamzam, and other Haram-adjacent hotels." },
-      { question: "How much is a taxi from Jeddah airport to the Clock Tower hotels?", answer: "The fare is fixed from SAR 249 for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "How much is a taxi from Jeddah airport to the Clock Tower hotels?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
       { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Let us know in advance and the driver will stop at the Miqat so you can enter Ihram before continuing to your hotel." },
       { question: "Which hotels are in the Clock Tower complex?", answer: "The Abraj Al Bait complex includes the Fairmont Makkah Clock Royal Tower, Pullman Zamzam Makkah, and several other towers — all directly overlooking Masjid al-Haram. Tell us your specific hotel when booking." },
     ],
   },
   "madinah-airport-to-madinah-markaziyah": {
-    tldr: "A taxi from Madinah Airport (MED) to the Central Markaziyah hotels is about 22 km and takes roughly 25 minutes. The fare is fixed from SAR 120, available 24/7, with drop-off steps from Al-Masjid an-Nabawi.",
+    tldr: "A taxi from Madinah Airport (MED) to the Central Markaziyah hotels is about 22 km and takes roughly 25 minutes. The fare is fixed, confirmed on WhatsApp available 24/7, with drop-off steps from Al-Masjid an-Nabawi.",
     tldrFacts: [
       { label: "Distance", value: "~22 km" },
       { label: "Time", value: "~25 min" },
-      { label: "From", value: "SAR 120" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is Central Markaziyah from Madinah airport?", answer: "About 22 km — roughly a 25-minute drive from Prince Mohammad Bin Abdulaziz International Airport (MED) to the Central Markaziyah hotel district, which sits directly around Al-Masjid an-Nabawi." },
-      { question: "How much is a taxi from Madinah airport to Markaziyah hotels?", answer: "The fare is fixed from SAR 120 for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "How much is a taxi from Madinah airport to Markaziyah hotels?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
       { question: "Is there a taxi at Madinah airport at night?", answer: "Yes. We operate 24/7 at MED, including late-night and early-morning arrivals, and track your flight so your driver is waiting even if it's delayed." },
       { question: "How close is the drop-off to the Prophet's Mosque?", answer: "Markaziyah hotels are within walking distance of Al-Masjid an-Nabawi — the driver drops you as close to your hotel entrance as vehicle access allows, especially during prayer-time road closures." },
     ],
   },
   "makkah-clock-tower-to-madinah-markaziyah": {
-    tldr: "A taxi from the Makkah Clock Tower hotels to Madinah Central Markaziyah is about 430 km and takes roughly 4 hours 10 minutes via the Haramain Highway. The fare is fixed from SAR 499, with a Meeqat stop included for pilgrims continuing to Umrah.",
+    tldr: "A taxi from the Makkah Clock Tower hotels to Madinah Central Markaziyah is about 430 km and takes roughly 4 hours 10 minutes via the Haramain Highway. The fare is fixed, confirmed on WhatsApp with a Meeqat stop included for pilgrims continuing to Umrah.",
     tldrFacts: [
       { label: "Distance", value: "~430 km" },
       { label: "Time", value: "~4h 10m" },
-      { label: "From", value: "SAR 499" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Meeqat stop", value: "Included" },
     ],
     faqs: [
       { question: "How far is it from Makkah Clock Tower hotels to Madinah?", answer: "About 430 km — roughly a 4 hour 10 minute drive via the Haramain Highway, direct from the Clock Tower hotel complex to the Central Markaziyah hotels around the Prophet's Mosque." },
-      { question: "How much is a taxi from Makkah Clock Tower to Madinah?", answer: "The fare is fixed from SAR 499 for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "How much is a taxi from Makkah Clock Tower to Madinah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
       { question: "Is there a Meeqat stop on this route?", answer: "Yes. Dhul Hulaifah (Abyar Ali) is on the route from Makkah to Madinah, and the driver will stop there so you can enter Ihram if you're continuing on to Umrah." },
       { question: "Are rest stops included on the drive?", answer: "Yes, brief stops for prayer or refreshments along the highway are included at no extra charge — just let the driver know." },
     ],
   },
   "makkah-hotels-to-taif-resorts": {
-    tldr: "A taxi from Makkah Haram-area hotels to the Al-Hada and Shafa mountain resorts of Taif is about 85 km and takes roughly 75 minutes. The fare is fixed from SAR 220, available 24/7, ideal as a day trip or resort-hotel transfer.",
+    tldr: "A taxi from Makkah Haram-area hotels to the Al-Hada and Shafa mountain resorts of Taif is about 85 km and takes roughly 75 minutes. The fare is fixed, confirmed on WhatsApp available 24/7, ideal as a day trip or resort-hotel transfer.",
     tldrFacts: [
       { label: "Distance", value: "~85 km" },
       { label: "Time", value: "~75 min" },
-      { label: "From", value: "SAR 220" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Route", value: "Al-Hada mountain road" },
     ],
     faqs: [
       { question: "How far are the Taif resorts from Makkah hotels?", answer: "About 85 km — roughly a 75-minute drive on the Al-Hada mountain road, from the Makkah Haram area up to the resort hotels of Al-Hada and Shafa in Taif." },
-      { question: "How much is a taxi from Makkah to Taif resorts?", answer: "The fare is fixed from SAR 220 for a sedan, with SUVs recommended for the mountain road and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "How much is a taxi from Makkah to Taif resorts?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs recommended for the mountain road and extra luggage. Confirmed before booking, no surge, tolls included." },
       { question: "Can we stop at the rose distilleries?", answer: "Yes — this route is popular as a day trip that includes a stop at the Taif rose distilleries and gardens. Mention it when booking so the driver plans the stop into your day." },
       { question: "Is this a good day trip from Makkah?", answer: "Yes. Taif's cooler mountain climate, the Al-Hada cable car, and the rose season (spring) make it a popular half-day or full-day escape from Makkah — book a return trip or hourly hire if you want the driver to wait." },
     ],
   },
   "riyadh-airport-to-kafd-hotels": {
-    tldr: "A taxi from Riyadh Airport (RUH) to KAFD and Olaya business-district hotels is about 40 km and takes roughly 35 minutes. The fare is fixed from SAR 150, available 24/7, with meet & greet for executive and business arrivals.",
+    tldr: "A taxi from Riyadh Airport (RUH) to KAFD and Olaya business-district hotels is about 40 km and takes roughly 35 minutes. The fare is fixed, confirmed on WhatsApp available 24/7, with meet & greet for executive and business arrivals.",
     tldrFacts: [
       { label: "Distance", value: "~40 km" },
       { label: "Time", value: "~35 min" },
-      { label: "From", value: "SAR 150" },
+      { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
       { question: "How far is KAFD from Riyadh airport?", answer: "About 40 km — roughly a 35-minute drive from King Khalid International Airport (RUH) to the King Abdullah Financial District (KAFD) and the Olaya business district." },
-      { question: "How much is a taxi from Riyadh airport to KAFD hotels?", answer: "The fare is fixed from SAR 150 for a sedan, with executive SUVs and luxury sedans available for business travelers. Confirmed before booking, no surge, tolls included." },
+      { question: "How much is a taxi from Riyadh airport to KAFD hotels?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with executive SUVs and luxury sedans available for business travelers. Confirmed before booking, no surge, tolls included." },
       { question: "Do you offer executive vehicles for business travel?", answer: "Yes. A Mercedes S-Class or premium SUV can be booked for corporate and VIP arrivals, with a professional chauffeur and flight tracking included." },
       { question: "Is meet & greet included for business arrivals?", answer: "Yes — your driver waits inside the arrivals hall with a name sign, tracks your flight for delays, and includes 60 minutes of free waiting time, the same as every other airport transfer." },
     ],
@@ -1154,29 +1154,27 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // Hotel-specific destinations (e.g. "Fairmont Makkah Clock Royal Tower")
   // push the full title well past the ~600px truncation point — drop the
   // brand suffix when the route name itself is already long.
-  const routeLabel = route.priceOnRequest
-    ? `Taxi ${route.fromCity} to ${route.toCity} — Price on Request`
-    : `Taxi ${route.fromCity} to ${route.toCity} — From SAR ${route.basePrice}`;
+  const routeLabel = `Taxi ${route.fromCity} to ${route.toCity}`;
   // Per-slug overrides below match literal Search Console query phrasing for
   // pages that already get impressions but zero clicks — title/CTR fixes
   // only, no price or content claims changed. Formula below still covers
   // every other route.
   const TITLE_OVERRIDES: Record<string, string> = {
-    "jeddah-airport-to-makkah": "Taxi Jeddah Airport to Makkah — Fare From SAR 249",
-    "makkah-to-madinah": "Taxi Makkah to Madinah — From SAR 499",
+    "jeddah-airport-to-makkah": "Taxi Jeddah Airport to Makkah — Fare, Distance & Booking",
+    "makkah-to-madinah": "Taxi Makkah to Madinah — Fare on WhatsApp",
     "riyadh-to-dammam": "Riyadh to Dammam Taxi — One Way Price, Fare & Distance",
     "jeddah-to-kaec": "Jeddah to KAEC Taxi — Distance, Fare & Price",
     "riyadh-to-alula": "Riyadh to AlUla Taxi — Distance, Fare & Price",
     "madinah-to-alula": "Madinah to AlUla Taxi — Distance, Fare & Price",
-    "dammam-to-doha": "Taxi Dammam to Doha, Qatar — Cross-Border Fare From SAR 500",
-    "jeddah-to-makkah": "Jeddah to Makkah (Mecca) Taxi Service — From SAR 199",
+    "dammam-to-doha": "Taxi Dammam to Doha, Qatar — Cross-Border Fare, Distance & Booking",
+    "jeddah-to-makkah": "Jeddah to Makkah (Mecca) Taxi Service — Fare on WhatsApp",
     "madinah-to-jeddah-airport": "Taxi Madinah to Jeddah Airport — Fare Confirmed on WhatsApp",
     "jeddah-to-madinah": "Taxi Jeddah to Madinah (Madina) — Fare Confirmed on WhatsApp",
-    "madinah-airport-to-city": "Madinah Airport Taxi & Car Service — From SAR 80",
-    "riyadh-to-dubai": "Private Car with Driver — Riyadh to Dubai — From SAR 1200",
+    "madinah-airport-to-city": "Madinah Airport Taxi & Car Service — Fare on WhatsApp",
+    "riyadh-to-dubai": "Private Car with Driver — Riyadh to Dubai — Fare on WhatsApp",
   };
   const title = TITLE_OVERRIDES[slug] ?? (routeLabel.length > 55 ? routeLabel : `${routeLabel} | Taxi Saudi Arabia`);
-  const priceBlurb = route.priceOnRequest ? "confirmed on WhatsApp" : `From SAR ${route.basePrice}`;
+  const priceBlurb = "Fare confirmed on WhatsApp";
 
   // Per-slug description overrides — same CTR-fix rationale as TITLE_OVERRIDES,
   // for pages with confirmed impressions/position but zero clicks.
@@ -1192,20 +1190,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description: DESCRIPTION_OVERRIDES[slug] ?? `Private taxi from ${route.fromCity} to ${route.toCity} — ${route.distance} km, approx ${Math.round(route.duration / 60)}h. ${priceBlurb}, 24/7, professional drivers, no surge.`.slice(0, 160),
     alternates: {
       canonical: `https://taxisaudiarabia.com/routes/${slug}`,
-      ...(slug === "jeddah-airport-to-makkah"
+      ...(AR_ROUTE_SLUGS.includes(slug)
         ? {
             languages: {
               en: `https://taxisaudiarabia.com/routes/${slug}`,
-              ar: "https://taxisaudiarabia.com/ar/routes/jeddah-airport-to-makkah",
+              ar: `https://taxisaudiarabia.com/ar/routes/${slug}`,
               "x-default": `https://taxisaudiarabia.com/routes/${slug}`,
             },
           }
         : {}),
     },
     openGraph: {
-      title: route.priceOnRequest
-        ? `Taxi from ${route.fromCity} to ${route.toCity} — Price on Request`
-        : `Taxi from ${route.fromCity} to ${route.toCity} — From SAR ${route.basePrice}`,
+      title: `Taxi from ${route.fromCity} to ${route.toCity}`,
       description: route.description || `Book a taxi from ${route.fromCity} to ${route.toCity} with a clear price confirmed on WhatsApp. No surge, no hidden fees.`,
       type: "website",
     },
@@ -1229,15 +1225,6 @@ export default async function RouteDetailsPage({ params }: PageProps) {
   // falls back to generic FAQs for all other routes.
   const content = ROUTE_CONTENT[slug];
   const faqs = content?.faqs ?? DEFAULT_FAQS;
-
-  // Calculate prices based on basePrice
-  const prices = {
-    SEDAN: route.basePrice,
-    SUV: Math.round(route.basePrice * VEHICLE_PRICE_MULTIPLIERS.suv),
-    VAN: Math.round(route.basePrice * VEHICLE_PRICE_MULTIPLIERS.van),
-    LUXURY: Math.round(route.basePrice * VEHICLE_PRICE_MULTIPLIERS.luxury),
-    BUS: Math.round(route.basePrice * VEHICLE_PRICE_MULTIPLIERS.bus),
-  };
 
   const vehicles = [
     { name: "Executive Sedan", key: "SEDAN", pax: 3, luggage: 2, img: "/fleet/toyota-camry.webp" },
@@ -1274,14 +1261,6 @@ export default async function RouteDetailsPage({ params }: PageProps) {
         }
       ]
     },
-    ...(route.priceOnRequest ? {} : {
-      "offers": {
-        "@type": "Offer",
-        "price": route.basePrice,
-        "priceCurrency": "SAR",
-        "availability": "https://schema.org/InStock"
-      }
-    }),
   };
 
   // Google Static Maps integration (Placeholder logic using standard maps URL if no key)
@@ -1369,7 +1348,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                   </div>
                   <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-xl px-4 py-2 border border-white/15 text-xs font-semibold">
                     <CheckCircle2 className="h-4 w-4 text-[#16A34A]" />
-                    <span>From SAR 249</span>
+                    <span>Fare on WhatsApp</span>
                   </div>
                 </div>
 
@@ -1431,7 +1410,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                   </div>
                   <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-xl px-4 py-2 border border-white/15 text-xs font-semibold">
                     <CheckCircle2 className="h-4 w-4 text-[#16A34A]" />
-                    <span>From SAR 499</span>
+                    <span>Fare on WhatsApp</span>
                   </div>
                 </div>
 
@@ -1558,8 +1537,8 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                           </div>
                         </div>
                         <div className="text-right shrink-0">
-                          <p className="text-[0.55rem] uppercase tracking-wider text-[#6B7280]">Starting from</p>
-                          <p className="font-heading text-xl font-bold text-[#16A34A]">{route.priceOnRequest ? "On Request" : `SAR ${prices[v.key as keyof typeof prices]}`}</p>
+                          <p className="text-[0.55rem] uppercase tracking-wider text-[#6B7280]">Fare</p>
+                          <p className="font-heading text-xl font-bold text-[#16A34A]">On WhatsApp</p>
                         </div>
                       </div>
                     </div>
@@ -1744,7 +1723,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                   Makkah to Madinah Taxi for Umrah Travelers
                 </h2>
                 <p className="text-xs sm:text-sm text-[#6B7280] leading-relaxed">
-                  Completing your Umrah in Makkah and continuing to Madinah? This private intercity transfer covers the approximately 430 km journey in around 4 hours via the Haramain highway. Suitable for individuals, couples, and families — with spacious vehicles for luggage and prayer or rest stops along the way. The fare is fixed from SAR 499 and confirmed before booking.
+                  Completing your Umrah in Makkah and continuing to Madinah? This private intercity transfer covers the approximately 430 km journey in around 4 hours via the Haramain highway. Suitable for individuals, couples, and families — with spacious vehicles for luggage and prayer or rest stops along the way. The fare is fixed, confirmed on WhatsApp and confirmed before booking.
                 </p>
                 <div className="flex flex-wrap items-center gap-4 pt-2 text-xs font-bold">
                   <Link href="/locations/makkah" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
@@ -1899,7 +1878,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                     <span className="text-sm font-semibold">
                       Taxi to {h.hotel}
                       <span className="block text-[0.65rem] text-[#6B7280] font-normal mt-0.5">
-                        80 km · from SAR 249
+                        80 km · confirmed on WhatsApp
                       </span>
                     </span>
                     <ArrowRight className="h-4 w-4 text-[#C9A84C] shrink-0 group-hover:translate-x-1 transition-transform" />
@@ -1924,7 +1903,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                     <span className="text-sm font-semibold">
                       {r.label}
                       <span className="block text-[0.65rem] text-[#6B7280] font-normal mt-0.5">
-                        {r.distance} km · from SAR {r.price}
+                        {r.distance} km · Fare on WhatsApp
                       </span>
                     </span>
                     <ArrowRight className="h-4 w-4 text-[#C9A84C] shrink-0 group-hover:translate-x-1 transition-transform" />
@@ -1949,7 +1928,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                     <span className="text-sm font-semibold">
                       {r.label}
                       <span className="block text-[0.65rem] text-[#6B7280] font-normal mt-0.5">
-                        {r.distance} km · from SAR {r.price}
+                        {r.distance} km · Fare on WhatsApp
                       </span>
                     </span>
                     <ArrowRight className="h-4 w-4 text-[#C9A84C] shrink-0 group-hover:translate-x-1 transition-transform" />
@@ -1974,7 +1953,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                     <span className="text-sm font-semibold">
                       {r.label}
                       <span className="block text-[0.65rem] text-[#6B7280] font-normal mt-0.5">
-                        {r.distance} km · from SAR {r.price}
+                        {r.distance} km · Fare on WhatsApp
                       </span>
                     </span>
                     <ArrowRight className="h-4 w-4 text-[#C9A84C] shrink-0 group-hover:translate-x-1 transition-transform" />
@@ -2015,14 +1994,8 @@ export default async function RouteDetailsPage({ params }: PageProps) {
               </div>
               
               <div className="flex justify-between items-center px-2">
-                {route.priceOnRequest ? (
-                  <span className="text-sm font-bold text-[#16A34A]">Price confirmed on WhatsApp</span>
-                ) : (
-                  <>
-                    <span className="text-sm font-bold text-[#6B7280]">Starting from</span>
-                    <span className="font-heading text-2xl font-bold text-[#16A34A]">SAR {route.basePrice}</span>
-                  </>
-                )}
+                <span className="text-sm font-bold text-[#6B7280]">Fare</span>
+                <span className="text-sm font-bold text-[#16A34A]">Confirmed on WhatsApp</span>
               </div>
             </div>
 
@@ -2062,7 +2035,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
           <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
             <div>
               <p className="text-[0.65rem] font-bold text-[#1C1C1C] uppercase tracking-wider">JED ➔ Makkah</p>
-              <p className="text-xs font-extrabold text-[#16A34A]">From SAR 249</p>
+              <p className="text-xs font-extrabold text-[#16A34A]">Fare on WhatsApp</p>
             </div>
             <div className="flex items-center gap-2">
               <a
@@ -2094,7 +2067,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
           <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
             <div>
               <p className="text-[0.65rem] font-bold text-[#1C1C1C] uppercase tracking-wider">Makkah ➔ Madinah</p>
-              <p className="text-xs font-extrabold text-[#16A34A]">From SAR 499</p>
+              <p className="text-xs font-extrabold text-[#16A34A]">Fare on WhatsApp</p>
             </div>
             <div className="flex items-center gap-2">
               <a

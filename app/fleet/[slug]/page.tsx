@@ -28,7 +28,7 @@ export async function generateMetadata({
   // (e.g. "GMC Yukon XL / Denali") get a shorter brand suffix.
   const baseName = `${vehicle.name} — ${vehicle.subtitle} Hire`;
   const title = baseName.length > 45 ? `${baseName} | TaxiKSA` : `${baseName} | Taxi Saudi Arabia`;
-  const description = `Hire a ${vehicle.name} in Saudi Arabia from SAR ${vehicle.startingPrice}. ${vehicle.description} Book on WhatsApp — clear prices, professional drivers.`.slice(0, 160);
+  const description = `Hire a ${vehicle.name} in Saudi Arabia with a fixed fare confirmed on WhatsApp. ${vehicle.description} Professional drivers, no surge, no hidden fees.`.slice(0, 160);
 
   return {
     title,
@@ -118,15 +118,6 @@ export default async function VehicleDetailPage({
     "brand": {
       "@type": "Brand",
       "name": "Taxi Saudi Arabia"
-    },
-    "offers": {
-      "@type": "Offer",
-      "url": `https://taxisaudiarabia.com/fleet/${vehicle.slug}`,
-      "priceCurrency": "SAR",
-      "price": vehicle.startingPrice,
-      "priceValidUntil": "2027-12-31",
-      "availability": "https://schema.org/InStock",
-      "itemCondition": "https://schema.org/NewCondition"
     },
     // NOTE: no aggregateRating/review schema or on-page review display —
     // add only once real customer reviews exist (see WORK-LEDGER).
@@ -284,7 +275,7 @@ export default async function VehicleDetailPage({
                 <div className="flex items-end justify-between">
                   <div>
                     <p className="text-[0.6rem] text-[#6B7280] uppercase font-bold tracking-wider">Starting From</p>
-                    <p className="font-heading text-3xl font-bold text-[#16A34A]">SAR {vehicle.startingPrice}</p>
+                    <p className="font-heading text-3xl font-bold text-[#16A34A]">On WhatsApp</p>
                     <p className="text-[0.6rem] text-[#6B7280]">per transfer · VAT inclusive</p>
                   </div>
                   <div className="flex items-center gap-1 bg-[#C9A84C]/10 border border-[#C9A84C]/25 rounded-full px-3 py-1.5">
@@ -365,7 +356,7 @@ export default async function VehicleDetailPage({
                   <h3 className="font-heading text-base font-bold text-[#1C1C1C] group-hover:text-[#16A34A] transition-colors">{v.name}</h3>
                   <div className="flex items-center justify-between pt-1">
                     <span className="text-xs text-[#6B7280]">👥 {v.passengers} Pax · 🧳 {v.luggage} Bags</span>
-                    <span className="text-xs font-bold text-[#16A34A]">SAR {v.startingPrice}+</span>
+                    <span className="text-xs font-bold text-[#16A34A]">On WhatsApp</span>
                   </div>
                 </div>
               </Link>

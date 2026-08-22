@@ -8,6 +8,7 @@ import { RECOVERY_ROUTES } from "@/lib/data/recovery-routes";
 import { SUB_AREAS as SUB_AREAS_DATA } from "@/lib/data/subareas";
 import { CITY_DETAILS } from "@/lib/data/locations";
 import { AIRPORT_DETAILS } from "@/lib/data/airports";
+import { AR_ROUTE_SLUGS } from "@/lib/config/i18n";
 
 const DOMAIN = "https://taxisaudiarabia.com";
 
@@ -71,6 +72,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.5,
+  }));
+
+  // Curated Arabic route pages (real SSR under app/ar/routes/*). Kept in sync
+  // with the English routes via AR_ROUTE_SLUGS so hreflang has a crawlable pair.
+  const arRouteItems = AR_ROUTE_SLUGS.map((slug) => ({
+    url: `${DOMAIN}/ar/routes/${slug}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.7,
   }));
 
   const locationItems = LOCATIONS.map((loc) => ({
@@ -146,6 +156,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...staticItems,
     ...arItems,
+    ...arRouteItems,
     ...locationItems,
     ...subAreaItems,
     ...airportItems,

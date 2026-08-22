@@ -68,37 +68,37 @@ const homeTranslations = {
         {
           title: "Airport Transfer Saudi Arabia",
           desc: "Book an airport transfer at Jeddah (JED), Riyadh (RUH), Madinah (MED), and Dammam (DMM). We track your flight in real time — your professional chauffeur waits 60 minutes free if your flight is delayed. Meet-and-greet included.",
-          price: "From SAR 80",
+          price: "On WhatsApp",
           icon: Globe
         },
         {
           title: "Umrah Taxi & Umrah Transport",
           desc: "Dedicated Umrah taxi and Umrah transport for pilgrims. Umrah airport transfer from Jeddah to Makkah, Makkah Ziyarat taxi, and Madinah Ziyarat taxi with Meeqat stops, prayer-time awareness, and multilingual drivers.",
-          price: "From SAR 249",
+          price: "On WhatsApp",
           icon: Sparkles
         },
         {
           title: "Private Taxi & VIP Taxi Saudi Arabia",
           desc: "Book a private taxi or VIP taxi between Riyadh, Jeddah, Makkah, Madinah, Taif, and Dammam. Choose a luxury SUV taxi like the GMC Yukon or a family taxi like the Hyundai Staria — pricing confirmed on WhatsApp.",
-          price: "From SAR 599",
+          price: "On WhatsApp",
           icon: Compass
         },
         {
           title: "Corporate & Business Car Service",
           desc: `Professional chauffeurs for business meetings, corporate events, and executive travel. Wi-Fi equipped vehicles${hasCredential(credentials.vatNumber) ? ", ZATCA-compliant invoicing," : ","} and dedicated account management for companies.`,
-          price: "From SAR 799",
+          price: "On WhatsApp",
           icon: Award
         },
         {
           title: "GCC Cross-Border Taxi",
           desc: "Cross-border car service from Saudi Arabia to Bahrain, Qatar, UAE, and Kuwait. Experienced drivers for border crossings, clear fares confirmed on WhatsApp, and door-to-door service.",
-          price: "From SAR 180",
+          price: "On WhatsApp",
           icon: ShieldCheck
         },
         {
           title: "Taif Taxi, Dammam Taxi & Day Tours",
           desc: "Book a Taif taxi for mountain getaways or a Dammam taxi for Eastern Province trips. Full-day car hire with a local driver for AlUla, Diriyah, NEOM, and other Saudi destinations.",
-          price: "From SAR 349",
+          price: "On WhatsApp",
           icon: Car
         }
       ]
@@ -188,7 +188,7 @@ const homeTranslations = {
         },
         {
           q: "How much is a Jeddah Airport to Makkah taxi?",
-          a: "The taxi fare for a Jeddah Airport to Makkah taxi starts from SAR 249 in a standard sedan, and SAR 374 for a family taxi like the Hyundai Staria. Your exact fare is confirmed before booking, meaning no hidden charges."
+          a: "The taxi fare for a Jeddah Airport to Makkah taxi is confirmed on WhatsApp before booking — a fixed fare with no hidden charges or surge. Standard sedans and larger family vehicles like the Hyundai Staria are available."
         },
         {
           q: "Do you offer Umrah transport from Madinah?",
@@ -244,37 +244,37 @@ const homeTranslations = {
         {
           title: "توصيل المطارات",
           desc: "خدمة استقبال وتوديع وتتبع رحلات الطيران في مطارات جدة والرياض والمدينة المنورة.",
-          price: "من ١٩٩ ريال",
+          price: "على واتساب",
           icon: Globe
         },
         {
           title: "العمرة والزيارة",
           desc: "توصيل خاص للمشاعر المقدسة مع سائقين مدربين على معرفة كاملة بالمواقيت والإحرام عند الطلب.",
-          price: "من ٢٤٩ ريال",
+          price: "على واتساب",
           icon: Sparkles
         },
         {
           title: "التنقل بين المدن",
           desc: "سفر مريح وسريع بين الرياض، جدة، مكة المكرمة، المدينة المنورة، والدمام بسيارات حديثة.",
-          price: "من ٥٩٩ ريال",
+          price: "على واتساب",
           icon: Compass
         },
         {
           title: "رجال الأعمال وكبار الشخصيات",
           desc: "تنقل فاخر لرجال الأعمال والدبلوماسيين بسيارات مجهزة بشبكة واي فاي عالية السرعة ومقاعد جلدية.",
-          price: "من ٧٩٩ ريال",
+          price: "على واتساب",
           icon: Award
         },
         {
           title: "عبور الحدود الخليجية",
           desc: "رحلات برية فاخرة وسلسة تربط المملكة بالبحرين، قطر، الإمارات، والكويت.",
-          price: "من ١,٤٩٩ ريال",
+          price: "على واتساب",
           icon: ShieldCheck
         },
         {
           title: "باقات السياحة في المملكة",
           desc: "رحلات مخصصة مع سائقين لاستكشاف وجهات السياحة السعودية الفاخرة مثل العلا، الطائف ونيوم.",
-          price: "من ٩٩٩ ريال",
+          price: "على واتساب",
           icon: Car
         }
       ]
@@ -357,7 +357,7 @@ const homeTranslations = {
       title: "كل ما تحتاج معرفته",
       items: [
         { q: "كيف أحجز تاكسي في السعودية؟", a: "يمكنك الحجز عبر منصة الحجز في موقعنا أو مباشرة عبر واتساب. حدد موقع الانطلاق والوجهة والتاريخ والوقت، وسيؤكد فريقنا رحلتك بسعر ثابت، عادة خلال ساعة إلى ساعتين." },
-        { q: "كم تكلفة تاكسي من مطار جدة إلى مكة؟", a: "تبدأ أجرة تاكسي مطار جدة إلى مكة من 249 ريالاً في السيارة العادية، مع خيارات عائلية أكبر. السعر ثابت بدون رسوم خفية." },
+        { q: "كم تكلفة تاكسي من مطار جدة إلى مكة؟", a: "تُؤكد أجرة تاكسي مطار جدة إلى مكة عبر واتساب قبل الحجز — سعر ثابت بدون رسوم خفية، مع توفر السيارات العادية وخيارات عائلية أكبر." },
         { q: "هل تقدمون نقل العمرة من المدينة؟", a: "نعم، نغطي مسار مكة إلى المدينة والمدينة إلى مكة وجولات الزيارة، مع التوقف عند الميقات وسائقين محترفين." },
         { q: "هل السائقون محترفون وذوو خبرة؟", a: "بالتأكيد. يتم ترتيب جميع سائقينا من خلال شركائنا في النقل، وهم يتحدثون العربية والإنجليزية والأردية." },
         { q: "هل لديكم مركبات للعائلات الكبيرة؟", a: "نعم، نوفر سيارات SUV فاخرة مثل GMC Yukon وحافلات صغيرة مثل Toyota Hiace وHyundai Staria المثالية للمجموعات والعائلات." }
@@ -404,37 +404,37 @@ const homeTranslations = {
         {
           title: "ایئرپورٹ ٹرانسفر",
           desc: "جدہ (JED)، ریاض (RUH)، اور مدینہ (MED) ہوائی اڈوں پر فلائٹ ٹریکنگ کے ساتھ استقبال۔",
-          price: "SAR 199 سے",
+          price: "واٹس ایپ پر",
           icon: Globe
         },
         {
           title: "عمرہ اور زیارت",
           desc: "مقدس مقامات کے لیے وقف سفر۔ احرام کی حالت میں ڈرائیور کی دستیابی اور میقات کی مکمل معلومات۔",
-          price: "SAR 249 سے",
+          price: "واٹس ایپ پر",
           icon: Sparkles
         },
         {
           title: "بین شہر روٹس",
           desc: "ریاض، جدہ، مکہ، دمام، اور مدینہ کے درمیان شاندار ہائی وے کروزنگ سروس۔",
-          price: "SAR 599 سے",
+          price: "واٹس ایپ پر",
           icon: Compass
         },
         {
           title: "کارپوریٹ اور ایگزیکٹو",
           desc: "کاروباری شخصیات اور وی آئی پی وفود کے لیے پریمیم وائی فائی سے لیس لگژری کیبنز۔",
-          price: "SAR 799 سے",
+          price: "واٹس ایپ پر",
           icon: Award
         },
         {
           title: "جی سی سی بارڈر کراسنگ",
           desc: "بحرین، قطر، متحدہ عرب امارات، اور کویت کو ملانے والی شاہراہوں پر ہموار سفر۔",
-          price: "SAR 1,499 سے",
+          price: "واٹس ایپ پر",
           icon: ShieldCheck
         },
         {
           title: "سعودی سیاحتی پیکجز",
           desc: "العلا، طائف اور نیوم جیسے تاریخی اور خوبصورت مقامات کے لیے اپنی مرضی کا سیاحتی سفر۔",
-          price: "SAR 999 سے",
+          price: "واٹس ایپ پر",
           icon: Car
         }
       ]
@@ -1285,7 +1285,7 @@ export function HomePage() {
                     {t.misc.from}
                   </p>
                   <p className="font-heading text-lg font-bold text-[#1C1C1C]">
-                    SAR {route.price}
+                    On WhatsApp
                   </p>
                 </div>
 
@@ -1450,7 +1450,7 @@ export function HomePage() {
                     </div>
                     <div className="text-right">
                       <p className="text-[0.55rem] text-[#6B7280] uppercase">{t.misc.from}</p>
-                      <p className="font-bold text-[#16A34A] mt-0.5">SAR {route.price}</p>
+                      <p className="font-bold text-[#16A34A] mt-0.5">On WhatsApp</p>
                     </div>
                   </>
                 );

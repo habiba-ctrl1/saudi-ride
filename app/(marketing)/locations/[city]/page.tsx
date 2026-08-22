@@ -259,7 +259,7 @@ export default async function CityLocationPage({ params }: PageProps) {
                         ) : (
                           <>
                             <p className="text-[0.6rem] text-[#6B7280] uppercase font-bold">Starting from</p>
-                            <p className="text-[#C9A84C] font-bold">SAR {route.basePrice}</p>
+                            <p className="text-[#C9A84C] font-bold">On WhatsApp</p>
                           </>
                         )}
                       </div>

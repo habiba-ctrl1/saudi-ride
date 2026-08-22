@@ -111,10 +111,10 @@ export default function AirportTransfersPage() {
           </p>
           <div className="max-w-2xl mb-10">
             <TLDRSummary
-              answer="Airport taxi transfers in Saudi Arabia start from SAR 80 (Jeddah city) to SAR 549 (Jeddah to Madinah), with flight tracking, meet & greet, and 60 minutes of free waiting time at Jeddah (JED), Riyadh (RUH), and Madinah (MED)."
+              answer="Airport taxi transfers in Saudi Arabia cover Jeddah (JED), Riyadh (RUH), and Madinah (MED), with flight tracking, meet & greet, and 60 minutes of free waiting time. Your exact fare is confirmed on WhatsApp before booking."
               facts={[
-                { label: "JED → Makkah", value: "From SAR 249" },
-                { label: "RUH → City", value: "From SAR 100" },
+                { label: "JED → Makkah", value: "On WhatsApp" },
+                { label: "RUH → City", value: "On WhatsApp" },
                 { label: "Free waiting", value: "60 minutes" },
                 { label: "Availability", value: "24/7" },
               ]}
@@ -220,7 +220,7 @@ export default function AirportTransfersPage() {
                   <th className="p-6 font-bold">Departure Airport</th>
                   <th className="p-6 font-bold">Destination</th>
                   <th className="p-6 font-bold">Est. Time</th>
-                  <th className="p-6 font-bold text-right">Starting Price (SAR)</th>
+                  <th className="p-6 font-bold text-right">Fare</th>
                   <th className="p-6 font-bold text-center">Action</th>
                 </tr>
               </thead>
