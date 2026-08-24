@@ -113,12 +113,15 @@ export function Navbar() {
               className="h-[4.75rem] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               priority
             />
-            <div className="hidden sm:flex flex-col leading-tight">
-              <span className="font-heading text-[1.25rem] font-extrabold text-white tracking-tight whitespace-nowrap">
+            <div className="hidden sm:flex flex-col leading-none gap-1.5">
+              <span
+                style={{ fontFamily: "var(--font-display)" }}
+                className="text-[1.4rem] font-bold text-[#FDE68A] tracking-wide whitespace-nowrap"
+              >
                 Taxi Saudi Arabia
               </span>
-              <span className="text-[0.62rem] uppercase tracking-[0.18em] font-semibold text-[#FDE68A] whitespace-nowrap">
-                Premium Chauffeur &amp; Transportation
+              <span className="text-[0.55rem] uppercase tracking-[0.22em] font-bold text-white/85 leading-[1.4]">
+                Premium Chauffeur<br />&amp; Transportation
               </span>
             </div>
           </Link>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import { Manrope, Geist, Cairo } from "next/font/google";
+import { Manrope, Geist, Cairo, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Providers } from "@/components/providers";
@@ -27,6 +27,14 @@ const cairo = Cairo({
   subsets: ["arabic"],
   weight: ["400", "600", "700"],
   variable: "--font-arabic",
+  display: "swap",
+});
+
+// Elegant serif for the brand wordmark — matches the Trajan-style "TSA" mark.
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["600", "700"],
+  variable: "--font-display",
   display: "swap",
 });
 
@@ -249,7 +257,7 @@ export default async function RootLayout({
           />
         ))}
       </head>
-      <body className={cn(manrope.variable, geist.variable, cairo.variable, "font-sans antialiased bg-background text-foreground")}>
+      <body className={cn(manrope.variable, geist.variable, cairo.variable, playfair.variable, "font-sans antialiased bg-background text-foreground")}>
         <Providers>
           <SiteShell>
             {children}
