@@ -101,6 +101,7 @@ type TripExtras = {
   included?: string[];
   excluded?: string[];
   customTerms?: string[];
+  validUntil?: string;
   notes?: string;
 };
 
@@ -109,6 +110,7 @@ const SINGLE_LINE_MARKERS = {
   "FOR:": "purpose",
   "SERVICE HOURS:": "serviceHours",
   "ITINERARY_NOTE:": "itineraryNote",
+  "VALID UNTIL:": "validUntil",
 } as const;
 const LIST_MARKERS = {
   "ITINERARY:": "itinerary",
@@ -171,8 +173,8 @@ function parseTripExtras(luggageNotes: string | null): TripExtras {
 function buildTerms(validUntilStr: string): Array<{ en: string; ar: string }> {
   return [
     {
-      en: "This price includes the driver, fuel, and airport parking fees for the pickup terminal/location specified above.",
-      ar: "يشمل هذا السعر السائق والوقود ورسوم مواقف المطار الخاصة بنقطة الانطلاق أو الصالة المحددة أعلاه.",
+      en: "This price includes the driver and fuel for the trip specified above.",
+      ar: "يشمل هذا السعر السائق والوقود للرحلة المحددة أعلاه.",
     },
     {
       en: "Any changes made after confirmation (pickup point, terminal, date, time, route, or vehicle) may result in additional charges, which will be calculated and communicated separately.",
@@ -200,9 +202,14 @@ export function InvoiceDocument({ q }: { q: QuotationRow }) {
   // Valid through the day after the trip itself — a fixed short window (e.g.
   // 7 days from issue) made no sense for trips booked well in advance, since
   // it would expire the quote long before the customer's actual travel date.
-  const validUntil = new Date(tripDate.getTime() + 24 * 60 * 60 * 1000);
   const fmtDate = (d: Date) => d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
   const extras = parseTripExtras(q.luggage_notes);
+  // An admin-typed "VALID UNTIL: YYYY-MM-DD" marker overrides the default
+  // (trip date + 1 day) — useful for multi-day trips where the quote should
+  // stay valid past the first leg's date.
+  const validUntil = extras.validUntil
+    ? new Date(`${extras.validUntil}T00:00:00`)
+    : new Date(tripDate.getTime() + 24 * 60 * 60 * 1000);
   // A per-quotation TERMS: block (admin-typed, English) replaces the default
   // bilingual boilerplate entirely — the admin is curating exactly what this
   // specific quotation should say, not appending to a generic template.

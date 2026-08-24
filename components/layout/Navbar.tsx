@@ -106,19 +106,19 @@ export function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 flex-shrink-0 group">
             <Image
-              src="/logo-tsa.png"
+              src="/logo-tsa-white.png"
               alt="Taxi Saudi Arabia — Premium Chauffeur & Transportation"
-              width={1254}
-              height={1254}
-              className="h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              width={948}
+              height={650}
+              className="h-[4.75rem] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               priority
             />
             <div className="hidden sm:flex flex-col leading-tight">
-              <span className="font-heading text-[1.2rem] font-extrabold text-white tracking-tight whitespace-nowrap">
+              <span className="font-heading text-[1.25rem] font-extrabold text-white tracking-tight whitespace-nowrap">
                 Taxi Saudi Arabia
               </span>
-              <span className="text-[0.6rem] uppercase tracking-[0.3em] font-semibold text-[#FDE68A] whitespace-nowrap">
-                Taxi &amp; Car Service
+              <span className="text-[0.62rem] uppercase tracking-[0.18em] font-semibold text-[#FDE68A] whitespace-nowrap">
+                Premium Chauffeur &amp; Transportation
               </span>
             </div>
           </Link>
