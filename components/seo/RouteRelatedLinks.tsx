@@ -66,7 +66,7 @@ function serviceLinksFor(fromCity: string, toCity: string): { href: string; labe
     out.push({ href: "/services/corporate", label: "Corporate & business travel" });
   }
   if (out.length < 2 && both.includes("airport")) {
-    out.push({ href: "/services/vip-luxury", label: "VIP & luxury car service" });
+    out.push({ href: "/services/vip-transportation", label: "VIP transportation Riyadh" });
   }
   return out.slice(0, 2);
 }

@@ -41,7 +41,7 @@ const STATIC_PAGES = [
   { path: "/services/umrah-transport", priority: 0.9 },
   { path: "/services/group-transport", priority: 0.8 },
   { path: "/services/hajj-transport", priority: 0.9 },
-  { path: "/services/vip-luxury", priority: 0.8 },
+  { path: "/services/vip-transportation", priority: 0.9 },
   { path: "/services/madinah-ziyarat", priority: 0.9 },
   { path: "/services/makkah-ziyarat", priority: 0.9 },
   { path: "/services/business-executive", priority: 0.8 },

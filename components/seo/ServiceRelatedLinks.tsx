@@ -17,7 +17,7 @@ const SERVICES: { href: string; label: string }[] = [
   { href: "/services/taif-ziyarat", label: "Taif Ziyarat & mountain day trip" },
   { href: "/services/badr-ziyarat", label: "Badr battlefield Ziyarat tour" },
   { href: "/services/corporate", label: "Corporate & business travel" },
-  { href: "/services/vip-luxury", label: "VIP & luxury car service" },
+  { href: "/services/vip-transportation", label: "VIP transportation Riyadh" },
   { href: "/services/border-crossings", label: "GCC border-crossing taxi" },
 ];
 

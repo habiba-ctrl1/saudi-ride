@@ -71,7 +71,17 @@ const nextConfig: NextConfig = {
       permanent: true,
     }));
 
-    return [...guideRedirects, ...dedupeRedirects, ...jobCityRedirects, ...jobHubRedirects];
+    // VIP pillar re-slugged (2026-08-27): /services/vip-luxury -> /services/vip-transportation
+    // to target the primary "VIP Transportation Riyadh" intent. Preserve crawl trust.
+    const vipRedirect = [
+      {
+        source: "/services/vip-luxury",
+        destination: "/services/vip-transportation",
+        permanent: true,
+      },
+    ];
+
+    return [...guideRedirects, ...dedupeRedirects, ...jobCityRedirects, ...jobHubRedirects, ...vipRedirect];
   },
   images: {
     remotePatterns: [

@@ -189,7 +189,7 @@ const DETAIL_PAGES: Record<string, string> = {
   "airport-transfers": "/services/airport-transfers",
   "umrah-transport": "/services/umrah-transport",
   "business-executive": "/services/business-executive",
-  "vip-luxury": "/services/vip-luxury",
+  "vip-luxury": "/services/vip-transportation",
   "tourism-tours": "/services/tourism",
   "group-transport": "/services/group-transport",
   "car-recovery": "/services/car-recovery",

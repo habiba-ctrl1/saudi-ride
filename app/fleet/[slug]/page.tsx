@@ -65,6 +65,19 @@ const GALLERY_IMAGES: Record<string, string[]> = {
     "/fleet/gallery/s-class-interior.webp",
     "/fleet/gallery/s-class-side.webp",
   ],
+  "mercedes-maybach-s-class": [
+    "/fleet/mercedes-maybach.webp",
+    "/fleet/gallery/maybach-interior.webp",
+  ],
+  "range-rover-autobiography": [
+    "/fleet/range-rover-autobiography.webp",
+    "/fleet/gallery/range-rover-interior.webp",
+    "/fleet/gallery/range-rover-interior-2.webp",
+  ],
+  "lexus-lx-600": [
+    "/fleet/lexus-lx-600.webp",
+    "/fleet/gallery/lexus-lx-interior.webp",
+  ],
   default: [
     "/fleet/toyota-camry.webp",
     "/fleet/gmc-yukon-xl.webp",
@@ -79,6 +92,9 @@ const EXTENDED_SPECS: Record<string, { wifi: boolean; ac: string; drive: string;
   "hyundai-staria":  { wifi: true,  ac: "Multi-Zone AC", drive: "FWD", year: "2023" },
   "cadillac-escalade":{ wifi: true, ac: "Tri-Zone AC", drive: "4WD", year: "2024" },
   "mercedes-s-class":{ wifi: true,  ac: "4-Zone THERMATIC", drive: "RWD", year: "2024" },
+  "mercedes-maybach-s-class":{ wifi: true, ac: "4-Zone THERMATIC", drive: "RWD", year: "2024" },
+  "range-rover-autobiography":{ wifi: true, ac: "4-Zone AC", drive: "4WD", year: "2024" },
+  "lexus-lx-600":    { wifi: true,  ac: "4-Zone AC", drive: "4WD", year: "2024" },
   "bmw-7-series":    { wifi: true,  ac: "4-Zone AC", drive: "RWD", year: "2024" },
   "genesis-g80":     { wifi: true,  ac: "Dual-Zone AC", drive: "AWD", year: "2023" },
   "ford-taurus":     { wifi: false, ac: "Dual-Zone AC", drive: "FWD", year: "2022" },

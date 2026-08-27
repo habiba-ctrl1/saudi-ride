@@ -356,7 +356,7 @@ export default async function CityLocationPage({ params }: PageProps) {
             } else if (business) {
               svc = [
                 { href: "/services/corporate", label: "Corporate & business travel" },
-                { href: "/services/vip-luxury", label: "VIP & luxury car service" },
+                { href: "/services/vip-transportation", label: "VIP transportation Riyadh" },
               ];
             } else {
               svc = [

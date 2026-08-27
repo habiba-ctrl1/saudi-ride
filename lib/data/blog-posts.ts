@@ -1050,7 +1050,7 @@ Apps like Uber and Careem are convenient for a single point-to-point ride, but t
 
 ### Book a Private Driver
 
-Tell us your city, dates, and rough itinerary on WhatsApp and we'll confirm the right vehicle class and a clear price before you travel. See our [VIP & luxury chauffeur service](/services/vip-luxury) or [corporate accounts](/services/corporate) for regular business travel.
+Tell us your city, dates, and rough itinerary on WhatsApp and we'll confirm the right vehicle class and a clear price before you travel. See our [VIP transportation service](/services/vip-transportation) or [corporate accounts](/services/corporate) for regular business travel.
 `
   },
   {
@@ -1188,7 +1188,7 @@ If your trip involves Umrah or Ziyarat, ask specifically whether the driver plan
 
 ### What We Offer
 
-Professional chauffeurs, a 2020-or-newer fleet (Mercedes S-Class, GMC Yukon, Hyundai Staria and more), clear prices confirmed before travel, and flight tracking with 60 minutes of free waiting time. See our [VIP & luxury chauffeur service](/services/vip-luxury) or [full fleet](/fleet).
+Professional chauffeurs, a 2020-or-newer fleet (Mercedes S-Class, GMC Yukon, Hyundai Staria and more), clear prices confirmed before travel, and flight tracking with 60 minutes of free waiting time. See our [VIP transportation service](/services/vip-transportation) or [full fleet](/fleet).
 `
   },
   {

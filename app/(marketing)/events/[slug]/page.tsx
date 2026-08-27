@@ -167,8 +167,8 @@ export default async function EventPage({ params }: PageProps) {
           <Link href="/services/corporate" className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all">
             <ArrowRight className="h-3.5 w-3.5" /> Corporate accounts
           </Link>
-          <Link href="/services/vip-luxury" className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all">
-            <ArrowRight className="h-3.5 w-3.5" /> VIP chauffeur
+          <Link href="/services/vip-transportation" className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all">
+            <ArrowRight className="h-3.5 w-3.5" /> VIP transportation
           </Link>
         </div>
       </section>
