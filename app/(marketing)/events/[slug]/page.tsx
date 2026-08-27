@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Calendar, MapPin, Building2, CheckCircle2, MessageCircle, CalendarDays, ArrowRight } from "lucide-react";
 import { contactConfig } from "@/lib/config/contact";
@@ -27,7 +28,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: ev.title,
     description: ev.description,
     alternates: { canonical: `https://taxisaudiarabia.com/events/${slug}` },
-    openGraph: { title: ev.title, description: ev.description, type: "website", url: `https://taxisaudiarabia.com/events/${slug}` },
+    openGraph: {
+      title: ev.title,
+      description: ev.description,
+      type: "website",
+      url: `https://taxisaudiarabia.com/events/${slug}`,
+      ...(ev.heroImage ? { images: [{ url: `https://taxisaudiarabia.com${ev.heroImage}`, width: 1376, height: 768, alt: ev.heroAlt ?? ev.h1 }] } : {}),
+    },
   };
 }
 
@@ -40,8 +47,10 @@ export default async function EventPage({ params }: PageProps) {
     `Salam, I need ${ev.waContext}. My dates, group size and pickup are:`,
   )}`;
 
-  // Related event pages (same city / kind), excluding current.
-  const related = EVENTS.filter((e) => e.slug !== slug).slice(0, 4);
+  // Related event pages — prefer the same city, then fill from the rest.
+  const others = EVENTS.filter((e) => e.slug !== slug);
+  const sameCity = others.filter((e) => e.city === ev.city);
+  const related = [...sameCity, ...others.filter((e) => e.city !== ev.city)].slice(0, 4);
 
   return (
     <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
@@ -78,6 +87,19 @@ export default async function EventPage({ params }: PageProps) {
         </span>
         <h1 className="font-heading text-3xl md:text-5xl font-bold leading-tight mb-6">{ev.h1}</h1>
         <p className="max-w-2xl text-sm md:text-base text-[#6B7280] leading-relaxed mb-8">{ev.intro}</p>
+
+        {ev.heroImage && (
+          <div className="relative aspect-[16/9] w-full overflow-hidden rounded-3xl border border-[#C9A84C]/20 mb-8 shadow-[0_8px_40px_rgba(0,0,0,0.12)]">
+            <Image
+              src={ev.heroImage}
+              alt={ev.heroAlt ?? ev.h1}
+              fill
+              priority
+              sizes="(max-width: 1024px) 100vw, 1024px"
+              className="object-cover"
+            />
+          </div>
+        )}
 
         {ev.edition && (
           <div className="grid sm:grid-cols-2 gap-4 max-w-2xl mb-8">
@@ -137,6 +159,11 @@ export default async function EventPage({ params }: PageProps) {
           <Link href={`/airports/${ev.airport.slug}`} className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#16A34A]/10 transition-all">
             <MapPin className="h-3.5 w-3.5" /> {ev.airport.label} transfers
           </Link>
+          {(ev.city === "Riyadh" || ev.city === "Jeddah") && (
+            <Link href={`/locations/${ev.city.toLowerCase()}`} className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#16A34A]/10 transition-all">
+              <MapPin className="h-3.5 w-3.5" /> {ev.city} taxi &amp; transfers
+            </Link>
+          )}
           <Link href="/services/corporate" className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all">
             <ArrowRight className="h-3.5 w-3.5" /> Corporate accounts
           </Link>
