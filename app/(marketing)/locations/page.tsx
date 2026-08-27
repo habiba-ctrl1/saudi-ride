@@ -219,7 +219,7 @@ export default function LocationsPage() {
 
         <div className="section-container relative z-10 max-w-5xl">
           <motion.div initial="hidden" animate="show" variants={fadeUp} transition={{ duration: 0.6 }}>
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#B8963B]">
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#16A34A]">
               <MapPin className="h-3 w-3" /> Kingdom-Wide Coverage
             </span>
             <h1 className="mt-6 font-heading text-4xl font-bold leading-tight md:text-6xl">
@@ -338,7 +338,7 @@ export default function LocationsPage() {
                       href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam, I need a transfer to/from ${loc.name}.`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-1.5 rounded-full border border-[#C9A84C]/30 py-3 text-[0.65rem] font-bold uppercase tracking-wider text-[#B8963B] hover:bg-[#C9A84C]/10 transition-all"
+                      className="flex items-center justify-center gap-1.5 rounded-full border border-[#C9A84C]/30 py-3 text-[0.65rem] font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#C9A84C]/10 transition-all"
                     >
                       <MessageCircle className="h-3.5 w-3.5 fill-current" />
                       WhatsApp

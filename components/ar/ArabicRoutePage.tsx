@@ -72,7 +72,7 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
 
       {/* HERO */}
       <section className="section-container max-w-5xl pt-32 pb-12 text-center">
-        <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 px-4 py-1.5 text-[0.65rem] font-bold text-[#B8963B] mb-6">
+        <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 px-4 py-1.5 text-[0.65rem] font-bold text-[#16A34A] mb-6">
           {content.badge}
         </span>
         <h1 className="font-heading text-3xl md:text-5xl font-bold leading-tight mb-6">{h1}</h1>
@@ -95,7 +95,7 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
           </a>
           <Link
             href="/book"
-            className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/40 px-8 py-3.5 text-xs font-bold text-[#B8963B] hover:bg-[#C9A84C]/10 transition-all"
+            className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/40 px-8 py-3.5 text-xs font-bold text-[#16A34A] hover:bg-[#C9A84C]/10 transition-all"
           >
             احجز الآن أونلاين
           </Link>
@@ -150,7 +150,7 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
       {/* RELATED */}
       <section className="section-container max-w-4xl py-12 border-t border-[#C9A84C]/10 text-center">
         <p className="text-sm text-[#6B7280] mb-4">تحتاج مساراً آخر أو معلومات إضافية؟</p>
-        <div className="flex flex-wrap justify-center gap-4 text-xs font-bold text-[#B8963B]">
+        <div className="flex flex-wrap justify-center gap-4 text-xs font-bold text-[#16A34A]">
           <Link href="/routes" className="hover:underline">
             جميع رحلات التاكسي في السعودية
           </Link>

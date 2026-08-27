@@ -29,7 +29,7 @@ export function DistanceTable({
           </caption>
         )}
         <thead>
-          <tr className="bg-[#F4E4BC]/40 text-left">
+          <tr className="bg-[#86EFAC]/40 text-left">
             {columns.map((col) => (
               <th
                 key={col}

@@ -163,7 +163,7 @@ export default async function VehicleDetailPage({
 
         {/* Hero Title Overlay */}
         <div className="absolute bottom-10 left-0 right-0 section-container">
-          <span className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#B8963B]">{vehicle.subtitle}</span>
+          <span className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#16A34A]">{vehicle.subtitle}</span>
           <h1 className="mt-2 font-heading text-3xl font-bold md:text-5xl text-[#1C1C1C]">{vehicle.name}</h1>
           <div className="mt-3 flex items-center gap-3 flex-wrap">
             <span className="rounded-full bg-[#16A34A] px-3 py-0.5 text-[0.6rem] font-bold text-white uppercase tracking-wider">{vehicle.badge}</span>
@@ -304,7 +304,7 @@ export default async function VehicleDetailPage({
                   href={waLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 w-full rounded-full border border-[#C9A84C]/30 py-3.5 text-xs font-bold uppercase tracking-wider text-[#B8963B] transition-all hover:bg-[#C9A84C]/10"
+                  className="flex items-center justify-center gap-2 w-full rounded-full border border-[#C9A84C]/30 py-3.5 text-xs font-bold uppercase tracking-wider text-[#16A34A] transition-all hover:bg-[#C9A84C]/10"
                 >
                   <MessageCircle className="h-4 w-4 fill-current" />
                   WhatsApp Quote

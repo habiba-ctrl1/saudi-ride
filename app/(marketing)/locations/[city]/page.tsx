@@ -207,7 +207,7 @@ export default async function CityLocationPage({ params }: PageProps) {
         </div>
 
         <div className="section-container relative z-10 max-w-5xl">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/20 backdrop-blur-sm px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#B8963B] mb-6">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/20 backdrop-blur-sm px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#16A34A] mb-6">
             <MapPin className="h-3 w-3" /> Location Guide
           </span>
           <h1 className="font-heading text-4xl md:text-6xl font-bold leading-tight">
@@ -422,7 +422,7 @@ export default async function CityLocationPage({ params }: PageProps) {
                         <p className="text-sm font-bold text-[#1C1C1C]">{t.author}</p>
                         <p className="text-[0.7rem] text-[#6B7280]">{t.location}</p>
                       </div>
-                      <span className="text-[0.6rem] uppercase tracking-wider text-[#B8963B] bg-[#C9A84C]/10 px-2 py-1 rounded-md">{t.trip}</span>
+                      <span className="text-[0.6rem] uppercase tracking-wider text-[#16A34A] bg-[#C9A84C]/10 px-2 py-1 rounded-md">{t.trip}</span>
                     </div>
                   </div>
                 ))}
@@ -488,7 +488,7 @@ export default async function CityLocationPage({ params }: PageProps) {
                 {cityData.attractions.map((attr, idx) => (
                   <div key={idx} className="flex justify-between items-center border-b border-[#C9A84C]/10 pb-4 last:border-0 last:pb-0">
                     <span className="text-sm font-bold text-[#1C1C1C]">{attr.name}</span>
-                    <span className="text-[0.65rem] uppercase tracking-wider text-[#B8963B] bg-[#C9A84C]/10 px-2 py-1 rounded-md">{attr.dist}</span>
+                    <span className="text-[0.65rem] uppercase tracking-wider text-[#16A34A] bg-[#C9A84C]/10 px-2 py-1 rounded-md">{attr.dist}</span>
                   </div>
                 ))}
               </div>

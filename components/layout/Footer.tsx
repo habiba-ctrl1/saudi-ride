@@ -199,47 +199,47 @@ export function Footer() {
   return (
     <footer
       className="relative pt-20 pb-10 overflow-hidden font-sans premium-dark-section"
-      style={{ backgroundColor: "#0B3B21", borderTop: "1px solid rgba(200,164,93,0.15)", color: "#F5F0E8" }}
+      style={{ backgroundColor: "#16A34A", borderTop: "1px solid rgba(255,255,255,0.18)", color: "#ffffff" }}
     >
-      {/* Decorative brand-green glow */}
-      <div className="absolute bottom-0 right-1/4 h-96 w-96 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(200,164,93,0.06) 0%, transparent 70%)" }} />
-      <div className="absolute top-0 left-1/4 h-64 w-64 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(22,163,74,0.18) 0%, transparent 70%)" }} />
+      {/* Decorative brand glow — yellow + white to match header identity */}
+      <div className="absolute bottom-0 right-1/4 h-96 w-96 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(250,204,21,0.12) 0%, transparent 70%)" }} />
+      <div className="absolute top-0 left-1/4 h-64 w-64 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%)" }} />
 
       <div className="section-container">
         {/* Top brand grid */}
-        <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr_0.8fr_1fr_1fr] pb-16 border-b border-[#C9A84C]/10 text-sm">
+        <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr_0.8fr_1fr_1fr] pb-16 border-b border-white/15 text-sm">
           {/* Brand Tagline */}
           <div className="space-y-5">
             <Link href="/" className="flex items-center gap-3 group">
               <span
                 className="relative flex h-10 w-10 items-center justify-center rounded-full"
-                style={{ border: "1.5px solid rgba(200,164,93,0.5)", backgroundColor: "rgba(6,38,21,0.8)" }}
+                style={{ border: "1.5px solid rgba(255,255,255,0.55)", backgroundColor: "rgba(20,83,45,0.65)" }}
               >
                 <span className="text-base">🌙</span>
               </span>
               <div className="flex flex-col leading-none">
-                <span className="font-heading text-lg font-bold tracking-tight" style={{ color: "#F5F0E8", letterSpacing: "-0.01em" }}>
+                <span className="font-heading text-lg font-bold tracking-tight" style={{ color: "#ffffff", letterSpacing: "-0.01em" }}>
                   Taxi Saudi Arabia
                 </span>
-                <span className="text-[0.52rem] uppercase tracking-[0.38em] font-semibold -mt-0.5" style={{ color: "#C8A45D" }}>
+                <span className="text-[0.52rem] uppercase tracking-[0.38em] font-semibold -mt-0.5" style={{ color: "#FACC15" }}>
                   Taxi & Car Service
                 </span>
               </div>
             </Link>
-            <p className="text-sm leading-relaxed max-w-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
+            <p className="text-sm leading-relaxed max-w-sm" style={{ color: "rgba(255,255,255,0.85)" }}>
               {t.tagline}
             </p>
           </div>
 
           {/* Destinations Column */}
           <div className="space-y-4">
-            <h4 className="text-xs uppercase font-bold tracking-[0.2em] text-[#C9A84C]">
+            <h4 className="text-xs uppercase font-bold tracking-[0.2em] text-[#FACC15]">
               {t.destinations}
             </h4>
             <ul className="space-y-2 text-xs">
               {activeContent.destinations.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-[#A1A1A6] hover:text-[#C9A84C] transition-colors">
+                  <Link href={link.href} className="text-white/75 hover:text-[#FACC15] transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -249,13 +249,13 @@ export function Footer() {
 
           {/* Services Column */}
           <div className="space-y-4">
-            <h4 className="text-xs uppercase font-bold tracking-[0.2em] text-[#C9A84C]">
+            <h4 className="text-xs uppercase font-bold tracking-[0.2em] text-[#FACC15]">
               {t.services}
             </h4>
             <ul className="space-y-2 text-xs">
               {activeContent.services.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-[#A1A1A6] hover:text-[#C9A84C] transition-colors">
+                  <Link href={link.href} className="text-white/75 hover:text-[#FACC15] transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -265,13 +265,13 @@ export function Footer() {
 
           {/* Popular Routes Column */}
           <div className="space-y-4">
-            <h4 className="text-xs uppercase font-bold tracking-[0.2em] text-[#C9A84C]">
+            <h4 className="text-xs uppercase font-bold tracking-[0.2em] text-[#FACC15]">
               {t.popularRoutes}
             </h4>
             <ul className="space-y-2 text-xs">
               {activeContent.routes.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-[#A1A1A6] hover:text-[#C9A84C] transition-colors">
+                  <Link href={link.href} className="text-white/75 hover:text-[#FACC15] transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -281,13 +281,13 @@ export function Footer() {
 
           {/* Company Column */}
           <div className="space-y-4">
-            <h4 className="text-xs uppercase font-bold tracking-[0.2em] text-[#C9A84C]">
+            <h4 className="text-xs uppercase font-bold tracking-[0.2em] text-[#FACC15]">
               {t.company}
             </h4>
             <ul className="space-y-2 text-xs">
               {activeContent.company.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-[#A1A1A6] hover:text-[#C9A84C] transition-colors">
+                  <Link href={link.href} className="text-white/75 hover:text-[#FACC15] transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -297,7 +297,7 @@ export function Footer() {
         </div>
 
         {/* Trust Badges Row */}
-        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 py-12 border-b text-xs" style={{ borderColor: "rgba(200,164,93,0.1)" }}>
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 py-12 border-b text-xs" style={{ borderColor: "rgba(255,255,255,0.15)" }}>
           {[
             { icon: BadgeCheck, label: t.motLicensed, sub: "Vetted & Experienced" },
             { icon: Receipt, label: t.zatcaCompliant, sub: "Electronic Invoicing Ready" },
@@ -307,12 +307,12 @@ export function Footer() {
             <div
               key={sub}
               className="flex items-center gap-3 rounded-xl p-4"
-              style={{ backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(200,164,93,0.12)" }}
+              style={{ backgroundColor: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)" }}
             >
-              <Icon className="h-5 w-5 shrink-0" style={{ color: "#C8A45D" }} />
+              <Icon className="h-5 w-5 shrink-0" style={{ color: "#FACC15" }} />
               <div>
-                <p className="font-semibold" style={{ color: "#F5F0E8" }}>{label}</p>
-                <p className="text-[0.62rem] mt-0.5" style={{ color: "rgba(255,255,255,0.55)" }}>{sub}</p>
+                <p className="font-semibold" style={{ color: "#ffffff" }}>{label}</p>
+                <p className="text-[0.62rem] mt-0.5" style={{ color: "rgba(255,255,255,0.75)" }}>{sub}</p>
               </div>
             </div>
           ))}
@@ -320,7 +320,7 @@ export function Footer() {
 
         {/* Bottom copyright & socials */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-10 text-xs">
-          <p className="text-center md:text-left leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
+          <p className="text-center md:text-left leading-relaxed" style={{ color: "rgba(255,255,255,0.8)" }}>
             {t.copyright}
           </p>
           
@@ -329,7 +329,7 @@ export function Footer() {
               href="https://wa.me/966539388072"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-[#C9A84C]/20 bg-black/30 text-[#A1A1A6] hover:text-[#C9A84C] hover:border-[#C9A84C] hover:shadow-[0_0_10px_rgba(201,168,76,0.2)] transition-all"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white/80 hover:text-[#FACC15] hover:border-[#FACC15] hover:shadow-[0_0_10px_rgba(250,204,21,0.3)] transition-all"
               aria-label="WhatsApp"
             >
               <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
@@ -340,7 +340,7 @@ export function Footer() {
               href="https://facebook.com/taxisaudiarabia"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-[#C9A84C]/20 bg-black/30 text-[#A1A1A6] hover:text-[#C9A84C] hover:border-[#C9A84C] hover:shadow-[0_0_10px_rgba(201,168,76,0.2)] transition-all"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white/80 hover:text-[#FACC15] hover:border-[#FACC15] hover:shadow-[0_0_10px_rgba(250,204,21,0.3)] transition-all"
               aria-label="Facebook"
             >
               <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -351,7 +351,7 @@ export function Footer() {
               href="https://instagram.com/taxisaudiarabia"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-[#C9A84C]/20 bg-black/30 text-[#A1A1A6] hover:text-[#C9A84C] hover:border-[#C9A84C] hover:shadow-[0_0_10px_rgba(201,168,76,0.2)] transition-all"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white/80 hover:text-[#FACC15] hover:border-[#FACC15] hover:shadow-[0_0_10px_rgba(250,204,21,0.3)] transition-all"
               aria-label="Instagram"
             >
               <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -362,7 +362,7 @@ export function Footer() {
               href="https://youtube.com/@taxisaudiarabia"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-[#C9A84C]/20 bg-black/30 text-[#A1A1A6] hover:text-[#C9A84C] hover:border-[#C9A84C] hover:shadow-[0_0_10px_rgba(201,168,76,0.2)] transition-all"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white/80 hover:text-[#FACC15] hover:border-[#FACC15] hover:shadow-[0_0_10px_rgba(250,204,21,0.3)] transition-all"
               aria-label="YouTube"
             >
               <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

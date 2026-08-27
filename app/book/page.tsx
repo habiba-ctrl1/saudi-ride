@@ -355,7 +355,7 @@ export default function BookPage() {
 
           <div className="mt-3 h-1 w-full bg-[#E5E7EB] rounded-full overflow-hidden border border-[#C9A84C]/10">
             <motion.div
-              className="h-full bg-gradient-to-r from-[#C9A84C] to-[#B8963B]"
+              className="h-full bg-gradient-to-r from-[#C9A84C] to-[#16A34A]"
               initial={{ width: "16.6%" }}
               animate={{ width: `${(step / 6) * 100}%` }}
               transition={{ duration: 0.3 }}
@@ -608,7 +608,7 @@ export default function BookPage() {
                   <div className="absolute inset-0 bg-[linear-gradient(to_right,#C9A84C_1px,transparent_1px),linear-gradient(to_bottom,#C9A84C_1px,transparent_1px)] bg-[size:25px_25px] opacity-5 pointer-events-none" />
 
                   <div className="space-y-1">
-                    <span className="text-[0.65rem] uppercase tracking-wider text-[#B8963B] font-bold">
+                    <span className="text-[0.65rem] uppercase tracking-wider text-[#16A34A] font-bold">
                       {isRtl ? "Ù…Ø¹Ø§ÙŠÙ†Ø© Ø¥Ø­Ø¯Ø§Ø«ÙŠØ§Øª Ø§Ù„Ù…Ø³Ø§Ø±" : "Transfer Coordinates Preview"}
                     </span>
                     <h3 className="font-heading text-lg font-bold">Taxi Saudi Arabia Dispatch GPS</h3>
@@ -704,7 +704,7 @@ export default function BookPage() {
 
                           {/* Top tags */}
                           <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
-                            <span className="rounded-full bg-black/80 px-3 py-1 text-[0.55rem] font-bold uppercase tracking-wider text-[#B8963B] border border-[#C9A84C]/25">
+                            <span className="rounded-full bg-black/80 px-3 py-1 text-[0.55rem] font-bold uppercase tracking-wider text-[#16A34A] border border-[#C9A84C]/25">
                               {veh.badge}
                             </span>
                             {isSoldOut && (
@@ -1100,7 +1100,7 @@ export default function BookPage() {
                   
                   {/* No online payment — quotation-based booking request */}
                   <div className="rounded-3xl border border-[#16A34A]/12 bg-white p-6 space-y-3">
-                    <h3 className="font-heading text-sm uppercase tracking-wider text-[#B8963B] font-bold">
+                    <h3 className="font-heading text-sm uppercase tracking-wider text-[#16A34A] font-bold">
                       {isRtl ? "لا حاجة للدفع الآن" : "No Payment Required Now"}
                     </h3>
                     <p className="text-xs text-[#6B7280] leading-relaxed">
@@ -1147,7 +1147,7 @@ export default function BookPage() {
                 <div className="rounded-3xl border border-[#16A34A]/12 bg-white p-6 space-y-6 flex flex-col justify-between shadow-2xl">
 
                   <div className="space-y-6">
-                    <h3 className="font-heading text-sm uppercase tracking-wider text-[#B8963B] font-bold border-b border-[#C9A84C]/10 pb-3 flex items-center gap-1.5">
+                    <h3 className="font-heading text-sm uppercase tracking-wider text-[#16A34A] font-bold border-b border-[#C9A84C]/10 pb-3 flex items-center gap-1.5">
                       <FileText className="h-4 w-4" /> {isRtl ? "ملخص الطلب" : "Request Summary"}
                     </h3>
 

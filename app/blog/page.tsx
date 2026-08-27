@@ -39,7 +39,7 @@ export default function BlogIndexPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#C9A84C]/6 to-transparent pointer-events-none" />
 
         <div className="section-container relative z-10 max-w-5xl">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#B8963B] mb-6">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#16A34A] mb-6">
             <BookOpen className="h-3 w-3" /> Our Blog
           </span>
           <h1 className="font-heading text-4xl font-bold leading-tight md:text-6xl mb-6">
@@ -65,7 +65,7 @@ export default function BlogIndexPage() {
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute top-4 left-4">
-                  <span className="rounded-full border border-[#C9A84C]/30 bg-black/60 backdrop-blur-md px-3 py-1 text-[0.6rem] font-bold uppercase tracking-wider text-[#B8963B]">
+                  <span className="rounded-full border border-[#C9A84C]/30 bg-black/60 backdrop-blur-md px-3 py-1 text-[0.6rem] font-bold uppercase tracking-wider text-[#16A34A]">
                     {post.category}
                   </span>
                 </div>

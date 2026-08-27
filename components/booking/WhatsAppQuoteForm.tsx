@@ -23,10 +23,10 @@ const VEHICLES = [
 function InputRow({ icon, children }: { icon: React.ReactNode; children: React.ReactNode }) {
   return (
     <div
-      className="flex items-center gap-3 rounded-xl px-4 py-3.5 transition-all duration-200 focus-within:shadow-[0_0_0_2px_rgba(200,164,93,0.25)]"
-      style={{ border: "1.5px solid rgba(200,164,93,0.25)", backgroundColor: "#FFFFFF" }}
+      className="flex items-center gap-3 rounded-xl px-4 py-3.5 transition-all duration-200 focus-within:shadow-[0_0_0_2px_rgba(22,163,74,0.25)]"
+      style={{ border: "1.5px solid rgba(22,163,74,0.25)", backgroundColor: "#FFFFFF" }}
     >
-      <span className="shrink-0 text-[#C8A45D]">{icon}</span>
+      <span className="shrink-0 text-[#16A34A]">{icon}</span>
       {children}
     </div>
   );
@@ -91,7 +91,7 @@ export default function WhatsAppQuoteForm() {
     <div
       dir={isRtl ? "rtl" : "ltr"}
       className="mx-auto max-w-2xl rounded-3xl p-6 md:p-8 space-y-5"
-      style={{ border: "1.5px solid rgba(200,164,93,0.25)", backgroundColor: "#FAFAF7" }}
+      style={{ border: "1.5px solid rgba(22,163,74,0.25)", backgroundColor: "#FAFAF7" }}
     >
       <InputRow icon={<MapPin className="h-4 w-4" />}>
         <input

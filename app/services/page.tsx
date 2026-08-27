@@ -206,7 +206,7 @@ export default function ServicesPage() {
 
         <div className="section-container relative z-10 max-w-5xl">
           <motion.div initial="hidden" animate="show" variants={fadeUp} transition={{ duration: 0.6 }}>
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#B8963B]">
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#16A34A]">
               <Car className="h-3 w-3" /> Premium Services
             </span>
             <h1 className="mt-6 font-heading text-4xl font-bold leading-tight md:text-6xl">
@@ -268,7 +268,7 @@ export default function ServicesPage() {
                         <Icon className="h-5 w-5 text-[#C9A84C]" />
                       </div>
                       <div>
-                        <span className="text-[0.55rem] font-bold uppercase tracking-wider text-[#B8963B]">{service.badge}</span>
+                        <span className="text-[0.55rem] font-bold uppercase tracking-wider text-[#16A34A]">{service.badge}</span>
                         <h2 className="font-heading text-lg font-bold text-[#1C1C1C] group-hover:text-[#16A34A] transition-colors leading-tight">
                           {DETAIL_PAGES[service.slug] ? (
                             <Link href={DETAIL_PAGES[service.slug]} className="hover:underline">
@@ -322,7 +322,7 @@ export default function ServicesPage() {
                       href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam, I need your ${service.title} service.`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-1.5 rounded-full border border-[#C9A84C]/30 py-3 text-[0.65rem] font-bold uppercase tracking-wider text-[#B8963B] hover:bg-[#C9A84C]/10 transition-all"
+                      className="flex items-center justify-center gap-1.5 rounded-full border border-[#C9A84C]/30 py-3 text-[0.65rem] font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#C9A84C]/10 transition-all"
                     >
                       <MessageCircle className="h-3.5 w-3.5 fill-current" />
                       Inquire
@@ -338,7 +338,7 @@ export default function ServicesPage() {
         <div className="mt-16 rounded-3xl border border-[#16A34A]/12 bg-white p-8 md:p-12">
           <div className="grid gap-8 md:grid-cols-2 items-center">
             <div className="space-y-4">
-              <span className="text-[0.65rem] uppercase tracking-[0.2em] text-[#B8963B] font-bold">Why Taxi Saudi Arabia?</span>
+              <span className="text-[0.65rem] uppercase tracking-[0.2em] text-[#16A34A] font-bold">Why Taxi Saudi Arabia?</span>
               <h2 className="font-heading text-2xl md:text-3xl font-bold">
                 Saudi Arabia&apos;s Most Trusted<br />Taxi & Car Service
               </h2>

@@ -117,7 +117,7 @@ export default function UmrahTransportPage() {
         </div>
 
         <div className="section-container relative z-10 max-w-5xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 backdrop-blur-md px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#B8963B] mb-6">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 backdrop-blur-md px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#16A34A] mb-6">
             <Landmark className="h-3 w-3" /> Spiritual Journeys
           </span>
           <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
@@ -211,7 +211,7 @@ export default function UmrahTransportPage() {
       {/* ─── UMRAH FROM JEDDAH (journey + internal linking) ───────── */}
       <section className="section-container max-w-5xl py-20 border-b border-[#C9A84C]/10">
         <div className="mb-12">
-          <span className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#B8963B]">The Gateway</span>
+          <span className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#16A34A]">The Gateway</span>
           <h2 className="font-heading text-3xl font-bold mt-2 mb-4">Your Umrah Journey from Jeddah, Step by Step</h2>
           <p className="text-[#6B7280] leading-relaxed max-w-2xl">
             Most pilgrims begin Umrah by landing at King Abdulaziz International Airport (JED) in Jeddah — the Kingdom&apos;s main gateway. Here is the full transport chain we handle for you, from arrival to your return flight.

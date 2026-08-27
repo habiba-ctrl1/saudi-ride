@@ -239,7 +239,7 @@ export default function ContactPage() {
           transition={{ duration: 0.6 }}
           className="max-w-3xl"
         >
-          <span className="text-xs uppercase tracking-[0.2em] text-[#B8963B] font-semibold">
+          <span className="text-xs uppercase tracking-[0.2em] text-[#16A34A] font-semibold">
             {t.badge}
           </span>
           <h1 className="mt-4 font-heading text-4xl font-bold leading-tight md:text-5.5xl text-[#1C1C1C]">

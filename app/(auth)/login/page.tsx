@@ -141,7 +141,7 @@ function LoginForm() {
             <button
               type="submit"
               disabled={loading || !phone}
-              className="w-full bg-[#C9A84C] text-[#0A0A0A] font-bold uppercase tracking-wider text-xs py-4 rounded-xl hover:bg-[#B8963B] transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+              className="w-full bg-[#C9A84C] text-[#0A0A0A] font-bold uppercase tracking-wider text-xs py-4 rounded-xl hover:bg-[#16A34A] transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
             >
               {loading ? <><Loader2 className="h-4 w-4 animate-spin" /> Sending...</> : "Send OTP"}
             </button>
@@ -165,7 +165,7 @@ function LoginForm() {
             <button
               type="submit"
               disabled={loading || otp.length !== 6}
-              className="w-full bg-[#C9A84C] text-[#0A0A0A] font-bold uppercase tracking-wider text-xs py-4 rounded-xl hover:bg-[#B8963B] transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+              className="w-full bg-[#C9A84C] text-[#0A0A0A] font-bold uppercase tracking-wider text-xs py-4 rounded-xl hover:bg-[#16A34A] transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
             >
               {loading ? <><Loader2 className="h-4 w-4 animate-spin" /> Verifying...</> : <><ShieldCheck className="h-4 w-4" /> Verify Code</>}
             </button>

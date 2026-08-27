@@ -99,7 +99,7 @@ export default function AirportTransfersPage() {
         </div>
 
         <div className="section-container relative z-10 max-w-5xl">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 backdrop-blur-md px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#B8963B] mb-6">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 backdrop-blur-md px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#16A34A] mb-6">
             <Plane className="h-3 w-3" /> Airport Services
           </span>
           <h1 className="font-heading text-4xl md:text-6xl font-bold leading-tight mb-6">
@@ -153,7 +153,7 @@ export default function AirportTransfersPage() {
             </a>
             <a
               href={contactConfig.primaryPhoneLink}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-[#C9A84C]/40 px-8 py-4 text-xs font-bold uppercase text-[#B8963B] hover:bg-[#C9A84C]/10 transition-all"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-[#C9A84C]/40 px-8 py-4 text-xs font-bold uppercase text-[#16A34A] hover:bg-[#C9A84C]/10 transition-all"
             >
               Call {contactConfig.primaryPhoneDisplay}
             </a>
@@ -235,7 +235,7 @@ export default function AirportTransfersPage() {
                       <Link href={`/routes/${route.routeSlug}`} className="text-xs font-bold uppercase tracking-wider text-[#6B7280] hover:text-[#16A34A] transition-colors">
                         Details
                       </Link>
-                      <a href={waLink(`Salam, I'd like an airport taxi: ${route.airport} to ${route.dest}. Please confirm the fare.`)} target="_blank" rel="noopener noreferrer" className="text-xs font-bold uppercase tracking-wider text-[#B8963B] hover:text-[#1C1C1C] transition-colors">
+                      <a href={waLink(`Salam, I'd like an airport taxi: ${route.airport} to ${route.dest}. Please confirm the fare.`)} target="_blank" rel="noopener noreferrer" className="text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:text-[#1C1C1C] transition-colors">
                         WhatsApp
                       </a>
                     </td>

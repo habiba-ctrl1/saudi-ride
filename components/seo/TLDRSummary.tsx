@@ -25,7 +25,7 @@ export function TLDRSummary({
 }) {
   return (
     <div
-      className={`rounded-2xl border border-[#C8A45D]/30 bg-[#F4E4BC]/25 p-5 sm:p-6 ${className}`}
+      className={`rounded-2xl border border-[#16A34A]/30 bg-[#86EFAC]/25 p-5 sm:p-6 ${className}`}
     >
       <div className="flex items-center gap-2 mb-2">
         <Zap className="h-4 w-4 text-[#C9A84C]" />

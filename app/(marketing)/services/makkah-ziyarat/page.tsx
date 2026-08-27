@@ -92,7 +92,7 @@ export default function MakkahZiyaratPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/50 to-[#FAFAF7]/15" />
         </div>
         <div className="section-container relative z-10 max-w-5xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 backdrop-blur-md px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#B8963B] mb-6">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 backdrop-blur-md px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#16A34A] mb-6">
             <Landmark className="h-3 w-3" /> Historical Sites of Makkah
           </span>
           <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
@@ -133,7 +133,7 @@ export default function MakkahZiyaratPage() {
             <div key={i} className="bg-white border border-[#16A34A]/12 rounded-3xl p-6 hover:border-[#16A34A]/35 transition-colors">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="font-heading text-lg font-bold text-[#1C1C1C]">{site.name}</h3>
-                <span className="text-[0.6rem] uppercase tracking-wider text-[#B8963B] bg-[#C9A84C]/10 px-2 py-1 rounded-md shrink-0">{site.dist}</span>
+                <span className="text-[0.6rem] uppercase tracking-wider text-[#16A34A] bg-[#C9A84C]/10 px-2 py-1 rounded-md shrink-0">{site.dist}</span>
               </div>
               <p className="text-sm text-[#6B7280] leading-relaxed">{site.desc}</p>
             </div>

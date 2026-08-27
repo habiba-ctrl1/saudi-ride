@@ -1172,6 +1172,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "jeddah-to-madinah": "Taxi Jeddah to Madinah (Madina) — Fare Confirmed on WhatsApp",
     "madinah-airport-to-city": "Madinah Airport Taxi & Car Service — Fare on WhatsApp",
     "riyadh-to-dubai": "Private Car with Driver — Riyadh to Dubai — Fare on WhatsApp",
+    "jeddah-airport-to-swissotel-makkah": "Jeddah Airport to Swissotel Makkah Taxi — Fare & Booking",
+    "red-sea-airport-to-neom": "Red Sea Airport (RSI) to NEOM Taxi — Fare & Transfer",
   };
   const title = TITLE_OVERRIDES[slug] ?? (routeLabel.length > 55 ? routeLabel : `${routeLabel} | Taxi Saudi Arabia`);
   const priceBlurb = "Fare confirmed on WhatsApp";
@@ -1183,6 +1185,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "jeddah-to-kaec": "Jeddah to KAEC (King Abdullah Economic City) taxi — 120 km, about 1 hr 20 min. Get your exact fare confirmed on WhatsApp before booking. Corporate sedans, 24/7.",
     "riyadh-to-alula": "Riyadh to AlUla taxi — 1,050 km, about 10 hours. Get your exact fare confirmed on WhatsApp before booking. Premium long-distance transfer, rest stops included.",
     "madinah-to-alula": "Madinah to AlUla taxi — 330 km, about 3 hours. Get your exact fare confirmed on WhatsApp before booking. Heritage transfer, rest stops included.",
+    "jeddah-airport-to-swissotel-makkah": "Taxi from Jeddah Airport (JED) to Swissotel Al Maqam Makkah — ~80 km, about 1 hour. Meet & greet, Miqat stop on request, fare confirmed on WhatsApp. 24/7.",
+    "red-sea-airport-to-neom": "Taxi from Red Sea International Airport (RSI) to NEOM — private transfer, meet & greet, professional drivers. Fare confirmed on WhatsApp before booking. 24/7.",
+    "riyadh-to-dubai": "Private car with driver from Riyadh to Dubai (UAE) — cross-border GCC road transfer. Fare confirmed on WhatsApp before booking. 24/7, professional drivers.",
   };
 
   return {
@@ -1265,9 +1270,17 @@ export default async function RouteDetailsPage({ params }: PageProps) {
 
   // Google Static Maps integration (Placeholder logic using standard maps URL if no key)
   const mapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY;
-  const mapUrl = mapsApiKey 
-    ? `https://maps.googleapis.com/maps/api/staticmap?size=800x400&path=color:0xC9A84C|weight:4|${encodeURIComponent(route.fromCity)}|${encodeURIComponent(route.toCity)}&markers=color:black|label:A|${encodeURIComponent(route.fromCity)}&markers=color:black|label:B|${encodeURIComponent(route.toCity)}&key=${mapsApiKey}`
+  const mapUrl = mapsApiKey
+    ? `https://maps.googleapis.com/maps/api/staticmap?size=800x400&path=color:0x16A34A|weight:4|${encodeURIComponent(route.fromCity)}|${encodeURIComponent(route.toCity)}&markers=color:black|label:A|${encodeURIComponent(route.fromCity)}&markers=color:black|label:B|${encodeURIComponent(route.toCity)}&key=${mapsApiKey}`
     : `/routes/map-abstract.webp`; // Fallback beautiful map abstract
+
+  // Real vehicle photo for the hero panel, picked by trip type so the image
+  // matches the journey — airport meet & greet, long-haul highway, or city sedan.
+  const heroCar = slug.includes("airport")
+    ? "/gallery/airport-meet.webp"
+    : route.distance >= 250
+      ? "/gallery/highway-travel.webp"
+      : "/gallery/vip-sedan.webp";
 
   return (
     <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
@@ -1315,7 +1328,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
           </div>
 
           {slug === "jeddah-airport-to-makkah" ? (
-            <div className="premium-dark-section bg-gradient-to-br from-[#0F281E] via-[#16422F] to-[#0A1C14] rounded-3xl p-8 sm:p-10 text-white shadow-2xl border border-[#C9A84C]/25 relative overflow-hidden">
+            <div className="premium-dark-section bg-gradient-to-br from-[#16A34A] via-[#15803D] to-[#116B32] rounded-3xl p-8 sm:p-10 text-white shadow-2xl border border-[#C9A84C]/25 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-96 h-96 bg-[#C9A84C]/10 rounded-full blur-3xl pointer-events-none" />
               <div className="relative z-10 max-w-3xl space-y-6">
                 <div className="flex flex-wrap items-center gap-2.5">
@@ -1376,7 +1389,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
               </div>
             </div>
           ) : slug === "makkah-to-madinah" ? (
-            <div className="premium-dark-section bg-gradient-to-br from-[#0F281E] via-[#16422F] to-[#0A1C14] rounded-3xl p-8 sm:p-10 text-white shadow-2xl border border-[#C9A84C]/25 relative overflow-hidden">
+            <div className="premium-dark-section bg-gradient-to-br from-[#16A34A] via-[#15803D] to-[#116B32] rounded-3xl p-8 sm:p-10 text-white shadow-2xl border border-[#C9A84C]/25 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-96 h-96 bg-[#C9A84C]/10 rounded-full blur-3xl pointer-events-none" />
               <div className="absolute bottom-0 left-0 w-72 h-72 bg-[#16A34A]/8 rounded-full blur-3xl pointer-events-none" />
               <div className="relative z-10 max-w-3xl space-y-6">
@@ -1438,31 +1451,77 @@ export default async function RouteDetailsPage({ params }: PageProps) {
               </div>
             </div>
           ) : (
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
-              <div className="max-w-2xl">
-                <h1 className="font-heading text-4xl md:text-5xl font-bold leading-tight">
-                  {route.fromCity} <span className="text-[#16A34A]">to</span> {route.toCity}
+            <div className="premium-dark-section relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#16A34A] via-[#15803D] to-[#116B32] p-8 sm:p-10 text-white shadow-2xl border border-[#C9A84C]/25">
+              {/* Real vehicle photo, right side, fading into the green so the
+                  car is clearly visible while the copy stays fully readable. */}
+              <div className="absolute inset-y-0 right-0 hidden sm:block sm:w-3/5 pointer-events-none">
+                <Image
+                  src={heroCar}
+                  alt={`Private taxi from ${route.fromCity} to ${route.toCity}`}
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 0vw, 60vw"
+                  className="object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#16A34A] via-[#16A34A]/70 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#116B32]/70 via-transparent to-transparent" />
+              </div>
+
+              <div className="relative z-10 max-w-xl space-y-6">
+                <div className="flex flex-wrap items-center gap-2.5">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C9A84C]/20 border border-[#C9A84C]/40 px-3.5 py-1 text-[0.65rem] font-bold uppercase tracking-widest text-[#FACC15]">
+                    <Navigation className="h-3.5 w-3.5 text-[#FACC15]" />
+                    {slug.includes("airport") ? "Airport Transfer" : "Private Transfer"}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 px-3.5 py-1 text-[0.65rem] font-bold uppercase tracking-widest text-white/90">
+                    <ShieldCheck className="h-3.5 w-3.5 text-[#FACC15]" />
+                    Clear Pricing · No Surge
+                  </span>
+                </div>
+
+                <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight tracking-tight text-white">
+                  {route.fromCity} <span className="text-[#FACC15]">to</span> {route.toCity}
                 </h1>
-                <p className="mt-4 text-sm md:text-base text-[#6B7280] leading-relaxed">
+
+                <p className="text-sm sm:text-base text-white/85 leading-relaxed font-normal max-w-lg">
                   {route.description}
                 </p>
-              </div>
-              
-              <div className="shrink-0 bg-white/80 backdrop-blur-md border border-[#16A34A]/15 rounded-2xl p-6 flex items-center gap-6">
-                <div>
-                  <p className="text-[0.6rem] text-[#6B7280] uppercase font-bold tracking-wider mb-1">Distance</p>
-                  <div className="flex items-center gap-1.5 font-bold text-lg">
-                    <MapPin className="h-4 w-4 text-[#C9A84C]" />
-                    {route.distance} km
+
+                <div className="flex flex-wrap items-center gap-3 pt-1">
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-xl px-4 py-2 border border-white/15 text-xs font-semibold">
+                    <MapPin className="h-4 w-4 text-[#FACC15]" />
+                    <span>~{route.distance} km</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-xl px-4 py-2 border border-white/15 text-xs font-semibold">
+                    <Clock className="h-4 w-4 text-[#FACC15]" />
+                    <span>~{Math.round(route.duration / 60)}h {route.duration % 60 > 0 ? `${route.duration % 60}m` : ''}</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-xl px-4 py-2 border border-white/15 text-xs font-semibold">
+                    <CheckCircle2 className="h-4 w-4 text-[#FACC15]" />
+                    <span>Fare on WhatsApp</span>
                   </div>
                 </div>
-                <div className="w-px h-10 bg-[#C9A84C]/20" />
-                <div>
-                  <p className="text-[0.6rem] text-[#6B7280] uppercase font-bold tracking-wider mb-1">Est. Time</p>
-                  <div className="flex items-center gap-1.5 font-bold text-lg">
-                    <Clock className="h-4 w-4 text-[#C9A84C]" />
-                    ~{Math.round(route.duration / 60)}h {route.duration % 60 > 0 ? `${route.duration % 60}m` : ''}
-                  </div>
+
+                <div className="flex flex-wrap items-center gap-3 pt-3">
+                  <Link
+                    href={`/book?pickup=${encodeURIComponent(route.fromCity)}&dropoff=${encodeURIComponent(route.toCity)}`}
+                    className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all shadow-lg hover:scale-105 border border-white/20"
+                  >
+                    <span>Book Now</span>
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+
+                  <a
+                    href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                      `Salam! I want to book a private taxi from ${route.fromCity} to ${route.toCity}.`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur-md border border-white/30 px-6 py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-white/25 transition-all"
+                  >
+                    <MessageSquare className="h-4 w-4 text-[#FACC15]" />
+                    <span>WhatsApp</span>
+                  </a>
                 </div>
               </div>
             </div>
@@ -1691,7 +1750,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
           {slug === "jeddah-airport-to-makkah" && (
             <section className="bg-white border border-[#C9A84C]/25 rounded-3xl p-8 relative overflow-hidden shadow-sm">
               <div className="max-w-2xl space-y-4">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#B8963B]">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#16A34A]">
                   Umrah &amp; Hajj Pilgrims
                 </span>
                 <h2 className="font-heading text-2xl font-bold text-[#1C1C1C]">
@@ -1716,7 +1775,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
           {slug === "makkah-to-madinah" && (
             <section className="bg-white border border-[#C9A84C]/25 rounded-3xl p-8 relative overflow-hidden shadow-sm">
               <div className="max-w-2xl space-y-4">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#B8963B]">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#16A34A]">
                   Umrah Travelers
                 </span>
                 <h2 className="font-heading text-2xl font-bold text-[#1C1C1C]">
@@ -2018,7 +2077,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex w-full items-center justify-center gap-2 rounded-full border border-[#C9A84C]/30 py-3.5 text-xs font-bold uppercase tracking-wider text-[#B8963B] hover:bg-[#C9A84C]/10 transition-all"
+                className="flex w-full items-center justify-center gap-2 rounded-full border border-[#C9A84C]/30 py-3.5 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#C9A84C]/10 transition-all"
               >
                 Book via WhatsApp
               </a>
@@ -2044,7 +2103,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 rounded-full border border-[#C9A84C]/40 bg-[#C9A84C]/10 px-3.5 py-2 text-xs font-bold text-[#B8963B] hover:bg-[#C9A84C]/20 transition-all"
+                className="inline-flex items-center gap-1 rounded-full border border-[#C9A84C]/40 bg-[#C9A84C]/10 px-3.5 py-2 text-xs font-bold text-[#16A34A] hover:bg-[#C9A84C]/20 transition-all"
               >
                 <MessageSquare className="h-3.5 w-3.5" />
                 <span>WhatsApp</span>
@@ -2076,7 +2135,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 rounded-full border border-[#C9A84C]/40 bg-[#C9A84C]/10 px-3.5 py-2 text-xs font-bold text-[#B8963B] hover:bg-[#C9A84C]/20 transition-all"
+                className="inline-flex items-center gap-1 rounded-full border border-[#C9A84C]/40 bg-[#C9A84C]/10 px-3.5 py-2 text-xs font-bold text-[#16A34A] hover:bg-[#C9A84C]/20 transition-all"
               >
                 <MessageSquare className="h-3.5 w-3.5" />
                 <span>WhatsApp</span>

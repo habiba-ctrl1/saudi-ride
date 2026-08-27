@@ -255,7 +255,7 @@ export default function TrackBookingPage() {
               className="max-w-xl mx-auto space-y-10"
             >
               <div className="text-center space-y-4">
-                <span className="inline-block text-xs uppercase tracking-[0.2em] text-[#B8963B] font-semibold">
+                <span className="inline-block text-xs uppercase tracking-[0.2em] text-[#16A34A] font-semibold">
                   {t.badge}
                 </span>
                 <h1 className="font-heading text-4xl font-bold leading-tight text-[#1C1C1C]">
@@ -402,7 +402,7 @@ export default function TrackBookingPage() {
                                 isCurrent
                                   ? "bg-[#16A34A] border-[#C9A84C] text-white scale-110 shadow-[0_0_15px_rgba(22,163,74,0.5)]"
                                   : isActive
-                                  ? "bg-white border-[#C9A84C] text-[#B8963B]"
+                                  ? "bg-white border-[#C9A84C] text-[#16A34A]"
                                   : "bg-white border-[#6B7280]/20 text-[#6B7280]/40"
                               }`}>
                                 <span className={`h-2 w-2 rounded-full ${isActive ? "bg-current" : "bg-[#7C8088]/25"}`} />
@@ -514,7 +514,7 @@ export default function TrackBookingPage() {
                       {/* background gold crescent branding symbol */}
                       <div className="absolute right-0 top-0 text-[8rem] text-[#C9A84C]/5 font-serif select-none pointer-events-none">ðŸŒ™</div>
 
-                      <h3 className="font-heading text-sm uppercase tracking-wider text-[#B8963B] mb-6 font-bold">
+                      <h3 className="font-heading text-sm uppercase tracking-wider text-[#16A34A] mb-6 font-bold">
                         {isRtl ? "ØªÙØ§ØµÙŠÙ„ Ø³Ø§Ø¦Ù‚Ùƒ Ø§Ù„Ø®Ø§Øµ" : "VIP Driver Assigned"}
                       </h3>
 

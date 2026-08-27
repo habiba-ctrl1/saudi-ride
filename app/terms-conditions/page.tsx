@@ -23,7 +23,7 @@ export default function TermsConditionsPage() {
           transition={{ duration: 0.6 }}
           className="border-b border-[#16A34A]/12 pb-8 mb-10"
         >
-          <span className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-[#B8963B] font-semibold">
+          <span className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-[#16A34A] font-semibold">
             <Scale className="h-3 w-3" /> Regulatory Framework
           </span>
           <h1 className="mt-4 font-heading text-3xl md:text-4.5xl font-bold text-[#1C1C1C]">

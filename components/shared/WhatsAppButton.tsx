@@ -41,7 +41,7 @@ export function WhatsAppButton() {
             initial={{ opacity: 0, y: 10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
-            className="relative flex max-w-xs items-center gap-3 rounded-2xl border border-[#25D366]/30 bg-[#121212]/95 p-3.5 shadow-2xl backdrop-blur-md text-white"
+            className="premium-dark-section relative flex max-w-xs items-center gap-3 rounded-2xl border border-[#25D366]/30 bg-[#121212]/95 p-3.5 shadow-2xl backdrop-blur-md text-white"
           >
             <div className="relative flex-shrink-0">
               <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#25D366]/20 text-[#25D366]">
@@ -83,7 +83,7 @@ export function WhatsAppButton() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 20 }}
               transition={{ duration: 0.2 }}
-              className="mr-3 hidden rounded-lg border border-[#C9A84C]/30 bg-[#121212] px-3.5 py-1.5 text-xs font-semibold tracking-wider text-[#C9A84C] shadow-2xl backdrop-blur-md md:block"
+              className="premium-dark-section mr-3 hidden rounded-lg border border-[#C9A84C]/30 bg-[#121212] px-3.5 py-1.5 text-xs font-semibold tracking-wider text-[#C9A84C] shadow-2xl backdrop-blur-md md:block"
             >
               Reserve via WhatsApp 24/7
             </motion.div>

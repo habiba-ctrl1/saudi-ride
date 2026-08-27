@@ -161,7 +161,7 @@ export default function GalleryPage() {
 
         <div className="section-container relative z-10 max-w-5xl text-center">
           <motion.div initial="hidden" animate="show" variants={fadeUp} transition={{ duration: 0.6 }}>
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#B8963B] mx-auto">
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#16A34A] mx-auto">
               <Camera className="h-3 w-3" /> Visual Showcase
             </span>
             <h1 className="mt-6 font-heading text-4xl font-bold leading-tight md:text-6xl mx-auto max-w-4xl">
@@ -232,7 +232,7 @@ export default function GalleryPage() {
                   
                   {/* Category Badge */}
                   <div className="absolute top-4 left-4 z-10">
-                    <span className="rounded-full bg-black/60 border border-[#C9A84C]/30 px-3 py-1 text-[0.55rem] font-bold uppercase tracking-wider text-[#B8963B] backdrop-blur-md">
+                    <span className="rounded-full bg-black/60 border border-[#C9A84C]/30 px-3 py-1 text-[0.55rem] font-bold uppercase tracking-wider text-[#16A34A] backdrop-blur-md">
                       {GALLERY_CATEGORIES.find(c => c.key === item.category)?.label}
                     </span>
                   </div>
@@ -277,7 +277,7 @@ export default function GalleryPage() {
               href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam, I would like to inquire about your luxury fleet services.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full border border-[#C9A84C]/30 px-8 py-4 text-xs font-bold uppercase tracking-wider text-[#B8963B] hover:bg-[#C9A84C]/10 transition-all"
+              className="flex items-center gap-2 rounded-full border border-[#C9A84C]/30 px-8 py-4 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#C9A84C]/10 transition-all"
             >
               <MessageCircle className="h-4 w-4 fill-current" />
               Inquire via WhatsApp
@@ -337,7 +337,7 @@ export default function GalleryPage() {
                 />
               </div>
               <div className="w-full md:w-[350px] shrink-0 p-8 flex flex-col justify-center border-t md:border-t-0 md:border-l border-[#C9A84C]/10">
-                <span className="inline-block rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 px-3 py-1 text-[0.55rem] font-bold uppercase tracking-wider text-[#B8963B] mb-4 w-fit">
+                <span className="inline-block rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 px-3 py-1 text-[0.55rem] font-bold uppercase tracking-wider text-[#16A34A] mb-4 w-fit">
                   {GALLERY_CATEGORIES.find(c => c.key === GALLERY_ITEMS[lightboxIndex].category)?.label}
                 </span>
                 <h3 className="font-heading text-2xl font-bold text-[#1C1C1C] mb-4">
@@ -351,7 +351,7 @@ export default function GalleryPage() {
                   <Link
                     href="/book"
                     onClick={closeLightbox}
-                    className="flex items-center justify-center gap-2 w-full rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 py-3 text-xs font-bold uppercase tracking-wider text-[#B8963B] hover:bg-[#16A34A] hover:text-black transition-all"
+                    className="flex items-center justify-center gap-2 w-full rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 py-3 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#16A34A] hover:text-black transition-all"
                   >
                     Book Now
                   </Link>

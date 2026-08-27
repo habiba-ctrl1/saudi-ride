@@ -837,7 +837,7 @@ export function HomePage() {
                 <p className="font-heading text-lg md:text-2xl font-extrabold text-white uppercase tracking-tight leading-tight drop-shadow-md">
                   {language === "ar" ? "سافر براحة مع تاكسي السعودية" : "Travel in Comfort with Taxi Saudi Arabia"}
                 </p>
-                <p key={currentCar.name} className="mt-2 text-xs md:text-sm font-bold text-[#C8A45D] uppercase tracking-widest animate-fade-in">
+                <p key={currentCar.name} className="mt-2 text-xs md:text-sm font-bold text-[#16A34A] uppercase tracking-widest animate-fade-in">
                   {language === "ar" ? currentCar.nameAr : currentCar.name}
                 </p>
               </div>
@@ -969,7 +969,7 @@ export function HomePage() {
         <div className="text-center space-y-4 mb-12">
           <span
             className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[0.65rem] uppercase tracking-widest font-bold"
-            style={{ backgroundColor: "rgba(200,164,93,0.1)", border: "1px solid rgba(200,164,93,0.25)", color: "#B8963B" }}
+            style={{ backgroundColor: "rgba(22,163,74,0.1)", border: "1px solid rgba(22,163,74,0.25)", color: "#16A34A" }}
           >
             <Calendar className="h-3.5 w-3.5" />
             <span>{t.misc.instantCalc}</span>
@@ -1017,7 +1017,7 @@ export function HomePage() {
                   viewport={{ once: true, amount: 0.15 }}
                   variants={fadeUp}
                   transition={{ duration: 0.45, delay: index * 0.07 }}
-                  whileHover={{ y: -6, boxShadow: "0 20px 56px rgba(200,164,93,0.13)" }}
+                  whileHover={{ y: -6, boxShadow: "0 20px 56px rgba(22,163,74,0.13)" }}
                   className="group relative flex flex-col justify-between rounded-2xl p-7 bg-white transition-all duration-350"
                   style={{
                     border: "1.5px solid rgba(22,163,74,0.12)",
@@ -1029,7 +1029,7 @@ export function HomePage() {
                     className="block h-[3px] rounded-full mb-6 transition-all duration-400"
                     style={{
                       width: "40px",
-                      background: "linear-gradient(90deg, #C8A45D, #F4E4BC)",
+                      background: "linear-gradient(90deg, #16A34A, #86EFAC)",
                     }}
                   />
 
@@ -1037,13 +1037,13 @@ export function HomePage() {
                     <div className="flex items-start justify-between mb-5">
                       <div
                         className="rounded-xl p-3 transition-transform duration-300 group-hover:scale-110"
-                        style={{ backgroundColor: "rgba(200,164,93,0.1)" }}
+                        style={{ backgroundColor: "rgba(22,163,74,0.1)" }}
                       >
                         <Icon className="h-6 w-6 text-[#C9A84C]" />
                       </div>
                       <span
                         className="text-[0.62rem] uppercase tracking-widest font-bold px-2.5 py-1 rounded-full"
-                        style={{ color: "#C8A45D", backgroundColor: "rgba(200,164,93,0.08)", border: "1px solid rgba(200,164,93,0.2)" }}
+                        style={{ color: "#16A34A", backgroundColor: "rgba(22,163,74,0.08)", border: "1px solid rgba(22,163,74,0.2)" }}
                       >
                         {service.price}
                       </span>
@@ -1063,7 +1063,7 @@ export function HomePage() {
 
                   <div
                     className="mt-6 pt-5 flex items-center justify-between"
-                    style={{ borderTop: "1px solid rgba(200,164,93,0.1)" }}
+                    style={{ borderTop: "1px solid rgba(22,163,74,0.1)" }}
                   >
                     <a
                       href="#booking-console"
@@ -1179,7 +1179,7 @@ export function HomePage() {
 
           {/* Left: title + description */}
           <div className="space-y-5 lg:sticky lg:top-28">
-            <span className="text-[0.65rem] uppercase tracking-[0.25em] font-bold" style={{ color: "#C8A45D" }}>
+            <span className="text-[0.65rem] uppercase tracking-[0.25em] font-bold" style={{ color: "#16A34A" }}>
               {t.whyUs.badge}
             </span>
             <h2
@@ -1196,7 +1196,7 @@ export function HomePage() {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-xs font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
-              style={{ border: "1.5px solid rgba(200,164,93,0.35)" }}
+              style={{ border: "1.5px solid rgba(22,163,74,0.35)" }}
             >
               <PhoneCall className="h-4 w-4" />
               <span>{t.misc.callWhatsApp}</span>
@@ -1216,18 +1216,18 @@ export function HomePage() {
                 transition={{ duration: 0.4, delay: idx * 0.06 }}
                 className="rounded-xl p-5 space-y-2.5 transition-all duration-300 hover:shadow-md group"
                 style={{
-                  border: "1.5px solid rgba(200,164,93,0.12)",
+                  border: "1.5px solid rgba(22,163,74,0.12)",
                   backgroundColor: "#FFFFFF",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(200,164,93,0.35)")}
-                onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(200,164,93,0.12)")}
+                onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(22,163,74,0.35)")}
+                onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(22,163,74,0.12)")}
               >
                 <div className="flex items-center gap-2.5">
                   <span
                     className="flex h-6 w-6 items-center justify-center rounded-full shrink-0"
-                    style={{ backgroundColor: "rgba(200,164,93,0.12)" }}
+                    style={{ backgroundColor: "rgba(22,163,74,0.12)" }}
                   >
-                    <CheckCircle className="h-3.5 w-3.5" style={{ color: "#C8A45D" }} />
+                    <CheckCircle className="h-3.5 w-3.5" style={{ color: "#16A34A" }} />
                   </span>
                   <h4 className="font-heading font-bold text-[0.9rem]" style={{ color: "#0F172A" }}>
                     {pt.title}
@@ -1306,7 +1306,7 @@ export function HomePage() {
       <section id="fleet-showcase" className="section-container py-24 border-t border-[#C9A84C]/10 relative z-10">
         <div className="text-center space-y-4 mb-16">
           <span className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-[#C9A84C] font-bold">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#C8A45D]" />
+            <span className="h-1.5 w-1.5 rounded-full bg-[#16A34A]" />
             {t.fleet.badge}
           </span>
           <h2 className="font-heading font-bold leading-tight"
@@ -1334,7 +1334,7 @@ export function HomePage() {
         <div className="text-center mt-12">
           <Link
             href="/fleet"
-            className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/35 px-8 py-3.5 text-sm font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all hover:border-[#C8A45D]"
+            className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/35 px-8 py-3.5 text-sm font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all hover:border-[#16A34A]"
           >
             <span>{t.fleet.btnMore}</span>
             <ArrowRight className="h-4 w-4" />
@@ -1480,7 +1480,7 @@ export function HomePage() {
             <div className="mt-6 pt-5 border-t border-[#16A34A]/10">
               <Link
                 href="/locations/neom"
-                className="group flex flex-col justify-between rounded-2xl border border-[#C9A84C]/25 bg-gradient-to-br from-[#0F281E] via-[#16422F] to-[#0A1C14] p-4 text-white hover:border-[#C9A84C]/50 transition-all shadow-md"
+                className="group flex flex-col justify-between rounded-2xl border border-[#C9A84C]/25 bg-gradient-to-br from-[#16A34A] via-[#15803D] to-[#116B32] p-4 text-white hover:border-[#C9A84C]/50 transition-all shadow-md"
               >
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
@@ -1520,7 +1520,7 @@ export function HomePage() {
       <section className="py-24 border-t border-[#C9A84C]/10 relative z-10" style={{ backgroundColor: "#F8FAFC" }}>
         <div className="section-container">
           <div className="text-center space-y-3 mb-14">
-            <span className="text-[0.65rem] uppercase tracking-[0.25em] font-bold" style={{ color: "#C8A45D" }}>
+            <span className="text-[0.65rem] uppercase tracking-[0.25em] font-bold" style={{ color: "#16A34A" }}>
               {t.testimonials.badge}
             </span>
             <h2
@@ -1542,16 +1542,16 @@ export function HomePage() {
                 className="rounded-2xl p-6 space-y-4 flex flex-col transition-all duration-300"
                 style={{
                   backgroundColor: "#FFFFFF",
-                  border: "1.5px solid rgba(200,164,93,0.12)",
+                  border: "1.5px solid rgba(22,163,74,0.12)",
                   boxShadow: "0 2px 16px rgba(0,0,0,0.04)",
                 }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(200,164,93,0.35)";
+                  (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(22,163,74,0.35)";
                   (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)";
-                  (e.currentTarget as HTMLDivElement).style.boxShadow = "0 16px 40px rgba(200,164,93,0.1)";
+                  (e.currentTarget as HTMLDivElement).style.boxShadow = "0 16px 40px rgba(22,163,74,0.1)";
                 }}
                 onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(200,164,93,0.12)";
+                  (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(22,163,74,0.12)";
                   (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
                   (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 16px rgba(0,0,0,0.04)";
                 }}
@@ -1559,7 +1559,7 @@ export function HomePage() {
                 {/* Stars */}
                 <div className="flex gap-0.5">
                   {[...Array(review.stars)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4" style={{ color: "#C8A45D", fill: "#C8A45D" }} />
+                    <Star key={i} className="h-4 w-4" style={{ color: "#16A34A", fill: "#16A34A" }} />
                   ))}
                 </div>
 
@@ -1571,7 +1571,7 @@ export function HomePage() {
                 {/* Reviewer */}
                 <div
                   className="flex items-center justify-between pt-4"
-                  style={{ borderTop: "1px solid rgba(200,164,93,0.12)" }}
+                  style={{ borderTop: "1px solid rgba(22,163,74,0.12)" }}
                 >
                   <div className="flex items-center gap-2.5">
                     <span className="text-xl">{review.countryFlag}</span>
@@ -1586,7 +1586,7 @@ export function HomePage() {
                   </div>
                   <span
                     className="text-[0.58rem] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full flex items-center gap-1"
-                    style={{ color: "#C8A45D", backgroundColor: "rgba(200,164,93,0.08)", border: "1px solid rgba(200,164,93,0.2)" }}
+                    style={{ color: "#16A34A", backgroundColor: "rgba(22,163,74,0.08)", border: "1px solid rgba(22,163,74,0.2)" }}
                   >
                     <Car className="h-3 w-3" />
                     {review.vehicle.split(" ")[0]}
@@ -1656,7 +1656,7 @@ export function HomePage() {
       <section className="section-container py-24 border-t border-[#C9A84C]/10 relative z-10 bg-white">
         <div className="max-w-4xl mx-auto">
           <div className="text-center space-y-3 mb-12">
-            <span className="text-[0.65rem] uppercase tracking-[0.25em] font-bold text-[#C8A45D]">
+            <span className="text-[0.65rem] uppercase tracking-[0.25em] font-bold text-[#16A34A]">
               {t.faq?.badge || "Frequently Asked Questions"}
             </span>
             <h2

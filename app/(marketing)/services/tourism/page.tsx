@@ -81,7 +81,7 @@ export default function TourismChartersPage() {
         </div>
 
         <div className="section-container relative z-10 max-w-5xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 backdrop-blur-md px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#B8963B] mb-6">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 backdrop-blur-md px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#16A34A] mb-6">
             <Compass className="h-3 w-3" /> Explore Saudi Arabia
           </span>
           <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
@@ -126,7 +126,7 @@ export default function TourismChartersPage() {
                 <Image src={dest.img} alt={dest.name} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#111] via-black/40 to-transparent" />
                 <div className="absolute top-4 left-4">
-                  <span className="rounded-full bg-[#FAFAF7]/80 backdrop-blur-md px-3 py-1 text-[0.55rem] font-bold uppercase tracking-wider text-[#B8963B] border border-[#16A34A]/15">
+                  <span className="rounded-full bg-[#FAFAF7]/80 backdrop-blur-md px-3 py-1 text-[0.55rem] font-bold uppercase tracking-wider text-[#16A34A] border border-[#16A34A]/15">
                     {dest.tag}
                   </span>
                 </div>

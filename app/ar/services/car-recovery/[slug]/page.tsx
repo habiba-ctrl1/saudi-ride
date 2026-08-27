@@ -108,7 +108,7 @@ function CityViewAr({ city }: { city: NonNullable<ReturnType<typeof getRecoveryC
           <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/55 to-[#FAFAF7]/20" />
         </div>
         <div className="section-container relative z-10 max-w-5xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 backdrop-blur-md px-4 py-1.5 text-[0.7rem] font-bold text-[#B8963B] mb-6">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 backdrop-blur-md px-4 py-1.5 text-[0.7rem] font-bold text-[#16A34A] mb-6">
             <Clock className="h-3 w-3" /> ٢٤ ساعة · مقرنا في الدمام
           </span>
           <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">{city.sathaAr}</h1>
@@ -122,7 +122,7 @@ function CityViewAr({ city }: { city: NonNullable<ReturnType<typeof getRecoveryC
             >
               <MessageCircle className="h-4 w-4" /> اطلب السعر عبر واتساب
             </a>
-            <a href={recoveryContact.phoneLink} className="inline-flex items-center justify-center gap-2 rounded-full border border-[#C9A84C] px-8 py-3.5 text-xs font-bold text-[#B8963B] hover:bg-[#C9A84C]/10 transition-all">
+            <a href={recoveryContact.phoneLink} className="inline-flex items-center justify-center gap-2 rounded-full border border-[#C9A84C] px-8 py-3.5 text-xs font-bold text-[#16A34A] hover:bg-[#C9A84C]/10 transition-all">
               <Phone className="h-4 w-4" /> اتصال مباشر
             </a>
           </div>
@@ -220,7 +220,7 @@ function CityViewAr({ city }: { city: NonNullable<ReturnType<typeof getRecoveryC
             </Link>
           ))}
           {RECOVERY_ROUTES.map((r) => (
-            <Link key={r.slug} href={`/ar/services/car-recovery/${r.slug}`} className="rounded-full bg-white border border-[#C9A84C]/25 px-5 py-2.5 text-sm text-[#6B7280] hover:text-[#B8963B] hover:border-[#C9A84C]/50 transition-all">
+            <Link key={r.slug} href={`/ar/services/car-recovery/${r.slug}`} className="rounded-full bg-white border border-[#C9A84C]/25 px-5 py-2.5 text-sm text-[#6B7280] hover:text-[#16A34A] hover:border-[#C9A84C]/50 transition-all">
               {r.taglineAr}
             </Link>
           ))}
@@ -273,7 +273,7 @@ function RouteViewAr({ route }: { route: (typeof RECOVERY_ROUTES)[number] }) {
           <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/55 to-[#FAFAF7]/20" />
         </div>
         <div className="section-container relative z-10 max-w-5xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 backdrop-blur-md px-4 py-1.5 text-[0.7rem] font-bold text-[#B8963B] mb-6">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 backdrop-blur-md px-4 py-1.5 text-[0.7rem] font-bold text-[#16A34A] mb-6">
             <RouteIcon className="h-3 w-3" /> نحو {route.distanceKm} كم · نقل على سطحة
           </span>
           <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">{route.taglineAr}</h1>
@@ -287,7 +287,7 @@ function RouteViewAr({ route }: { route: (typeof RECOVERY_ROUTES)[number] }) {
             >
               <MessageCircle className="h-4 w-4" /> اطلب السعر عبر واتساب
             </a>
-            <a href={recoveryContact.phoneLink} className="inline-flex items-center justify-center gap-2 rounded-full border border-[#C9A84C] px-8 py-3.5 text-xs font-bold text-[#B8963B] hover:bg-[#C9A84C]/10 transition-all">
+            <a href={recoveryContact.phoneLink} className="inline-flex items-center justify-center gap-2 rounded-full border border-[#C9A84C] px-8 py-3.5 text-xs font-bold text-[#16A34A] hover:bg-[#C9A84C]/10 transition-all">
               <Phone className="h-4 w-4" /> اتصال مباشر
             </a>
           </div>
@@ -354,7 +354,7 @@ function RouteViewAr({ route }: { route: (typeof RECOVERY_ROUTES)[number] }) {
           <Link href="/ar/services/car-recovery/dammam" className="text-[#16A34A] font-bold hover:underline">سطحة الدمام</Link>.</p>
         <div className="flex flex-wrap justify-center gap-3">
           {RECOVERY_ROUTES.filter((r) => r.slug !== route.slug).map((r) => (
-            <Link key={r.slug} href={`/ar/services/car-recovery/${r.slug}`} className="rounded-full bg-white border border-[#C9A84C]/25 px-5 py-2.5 text-sm text-[#6B7280] hover:text-[#B8963B] hover:border-[#C9A84C]/50 transition-all">
+            <Link key={r.slug} href={`/ar/services/car-recovery/${r.slug}`} className="rounded-full bg-white border border-[#C9A84C]/25 px-5 py-2.5 text-sm text-[#6B7280] hover:text-[#16A34A] hover:border-[#C9A84C]/50 transition-all">
               {r.taglineAr}
             </Link>
           ))}

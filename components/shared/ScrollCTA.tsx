@@ -47,7 +47,7 @@ export function ScrollCTA() {
     >
       {/* Backdrop blur bar */}
       <div className="mx-auto max-w-2xl px-4 pb-4">
-        <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-[#1C1C1C]/95 backdrop-blur-xl shadow-[0_-8px_40px_rgba(0,0,0,0.35)] p-5">
+        <div className="premium-dark-section relative overflow-hidden rounded-2xl border border-white/15 bg-[#1C1C1C]/95 backdrop-blur-xl shadow-[0_-8px_40px_rgba(0,0,0,0.35)] p-5">
           {/* Close button */}
           <button
             onClick={dismiss}
@@ -59,7 +59,7 @@ export function ScrollCTA() {
 
           {/* Content */}
           <p className="font-heading text-base md:text-lg font-bold text-white pr-8">
-            Reserve your private transfer
+            Reserve Your Private Taxi
           </p>
           <p className="mt-1 text-xs text-white/60 max-w-md">
             Get a clear quote on WhatsApp, usually within 1–2 hours — no hidden fees.

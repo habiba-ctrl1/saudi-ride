@@ -26,11 +26,11 @@
   --secondary: #F1F5F9;
   --secondary-foreground: #1C1C1C;
   --muted: #F4F6F4;
-  --accent: #C8A45D;           /* Gold — accents */
-  --accent-foreground: #0F172A;
+  --accent: #FACC15;           /* Yellow — accent chips/highlights (on green/dark) */
+  --accent-foreground: #14532D;
   --navy: #0F172A;
   --navy-secondary: #1E293B;
-  --gold-light: #F4E4BC;
+  --gold-light: #DCFCE7;
 
   /* Utility */
   --destructive: #DC2626;
@@ -43,8 +43,11 @@
   /* Legacy aliases (kept for component compatibility) */
   --charcoal: #FAFAF7;
   --charcoal-soft: #FFFFFF;
-  --gold: #C8A45D;
-  --gold-soft: #F4E4BC;
+  /* "gold" slot is now the brand green on light surfaces (readable on white);
+     yellow is reserved for accents on green/dark backgrounds. Kept the name so
+     the 1400+ existing text-/border-/fill-[#C9A84C] classes recolour centrally. */
+  --gold: #16A34A;
+  --gold-soft: #DCFCE7;
 
   /* Sidebar */
   --sidebar: #FFFFFF;
@@ -53,7 +56,7 @@
   --sidebar-primary-foreground: #0F172A;
   --sidebar-accent: #F1F5F9;
   --sidebar-accent-foreground: #1C1C1C;
-  --sidebar-border: rgba(200, 164, 93, 0.2);
+  --sidebar-border: rgba(22, 163, 74, 0.2);
   --sidebar-ring: #C8A45D;
 }
 
@@ -83,7 +86,7 @@
   --sidebar-primary-foreground: #0F172A;
   --sidebar-accent: #F1F5F9;
   --sidebar-accent-foreground: #1C1C1C;
-  --sidebar-border: rgba(200, 164, 93, 0.2);
+  --sidebar-border: rgba(22, 163, 74, 0.2);
   --sidebar-ring: #C8A45D;
 }
 
@@ -228,11 +231,11 @@
 }
 
 .bg-\[\#C9A84C\]\/10:not(.premium-dark-section *):not(.premium-dark-section) {
-  background-color: rgba(200, 164, 93, 0.1) !important;
+  background-color: rgba(22, 163, 74, 0.1) !important;
 }
 
 .bg-\[\#C9A84C\]\/5:not(.premium-dark-section *):not(.premium-dark-section) {
-  background-color: rgba(200, 164, 93, 0.06) !important;
+  background-color: rgba(22, 163, 74, 0.06) !important;
 }
 
 .border-\[\#C9A84C\]:not(.premium-dark-section *):not(.premium-dark-section) {
@@ -245,7 +248,7 @@
 .border-\[\#C9A84C\]\/25:not(.premium-dark-section *):not(.premium-dark-section),
 .border-\[\#C9A84C\]\/30:not(.premium-dark-section *):not(.premium-dark-section),
 .border-\[\#C9A84C\]\/35:not(.premium-dark-section *):not(.premium-dark-section) {
-  border-color: rgba(200, 164, 93, 0.2) !important;
+  border-color: rgba(22, 163, 74, 0.2) !important;
 }
 
 .fill-\[\#C9A84C\]:not(.premium-dark-section *):not(.premium-dark-section) {
@@ -285,18 +288,60 @@
 
 /* Active / selected state (booking & fleet page selected cards) */
 .bg-\[\#1A1813\]:not(.premium-dark-section *):not(.premium-dark-section) {
-  background-color: rgba(200, 164, 93, 0.08) !important;
+  background-color: rgba(22, 163, 74, 0.08) !important;
 }
 
 /* Extra gold badge opacity variants */
 .bg-\[\#C9A84C\]\/6:not(.premium-dark-section *):not(.premium-dark-section),
 .bg-\[\#C9A84C\]\/8:not(.premium-dark-section *):not(.premium-dark-section) {
-  background-color: rgba(200, 164, 93, 0.08) !important;
+  background-color: rgba(22, 163, 74, 0.08) !important;
 }
 
 /* Suggestion dropdown fix */
 .bg-neutral-800:not(.premium-dark-section *):not(.premium-dark-section) {
   background-color: #E5E7EB !important;
+}
+
+/* ── Catch-all: any remaining gold (non-standard opacity variants, #B8963B,
+   etc.) on LIGHT surfaces → brand green. Keeps the site green+yellow+white with
+   no leftover gold. Solid `bg-[#C9A84C]` buttons are excluded (no trailing "/")
+   and stay handled by the specific green rule above. */
+[class*="text-[#C9A84C]"]:not(.premium-dark-section *):not(.premium-dark-section),
+[class*="text-[#B8963B]"]:not(.premium-dark-section *):not(.premium-dark-section),
+[class*="text-[#C8A45D]"]:not(.premium-dark-section *):not(.premium-dark-section) {
+  color: #16A34A !important;
+}
+[class*="border-[#C9A84C]"]:not(.premium-dark-section *):not(.premium-dark-section),
+[class*="border-[#B8963B]"]:not(.premium-dark-section *):not(.premium-dark-section) {
+  border-color: rgba(22, 163, 74, 0.3) !important;
+}
+[class*="bg-[#C9A84C]/"]:not(.premium-dark-section *):not(.premium-dark-section),
+[class*="bg-[#B8963B]/"]:not(.premium-dark-section *):not(.premium-dark-section) {
+  background-color: rgba(22, 163, 74, 0.09) !important;
+}
+[class*="fill-[#C9A84C]"]:not(.premium-dark-section *):not(.premium-dark-section) {
+  fill: #16A34A !important;
+}
+/* Gradient / ring / accent gold utilities on light → green */
+[class*="from-[#C9A84C]"]:not(.premium-dark-section *):not(.premium-dark-section),
+[class*="via-[#C9A84C]"]:not(.premium-dark-section *):not(.premium-dark-section),
+[class*="to-[#C9A84C]"]:not(.premium-dark-section *):not(.premium-dark-section) {
+  --tw-gradient-from: rgba(22,163,74,0.10) !important;
+  --tw-gradient-via: rgba(22,163,74,0.10) !important;
+  --tw-gradient-to: rgba(22,163,74,0.10) !important;
+}
+[class*="ring-[#C9A84C]"]:not(.premium-dark-section *):not(.premium-dark-section) {
+  --tw-ring-color: rgba(22,163,74,0.4) !important;
+}
+[class*="accent-[#C9A84C]"] { accent-color: #16A34A !important; }
+[class*="divide-[#C9A84C]"] > * + * { border-color: rgba(22,163,74,0.12) !important; }
+/* Same gradients inside dark sections → yellow */
+.premium-dark-section [class*="from-[#C9A84C]"],
+.premium-dark-section [class*="via-[#C9A84C]"],
+.premium-dark-section [class*="to-[#C9A84C]"] {
+  --tw-gradient-from: rgba(250,204,21,0.12) !important;
+  --tw-gradient-via: rgba(250,204,21,0.12) !important;
+  --tw-gradient-to: rgba(250,204,21,0.12) !important;
 }
 
 /* ─── Premium Dark Sections (Hero, Umrah, etc.) ──────────────────────────── */
@@ -322,8 +367,11 @@
   color: #7C8088 !important;
 }
 
-.premium-dark-section .text-\[\#C9A84C\] {
-  color: #C8A45D !important;
+/* On dark sections the gold accent becomes brand yellow (matches the header
+   language: green ground, yellow pop, white text). */
+.premium-dark-section .text-\[\#C9A84C\],
+.premium-dark-section .text-\[\#B8963B\] {
+  color: #FACC15 !important;
 }
 
 .premium-dark-section .bg-\[\#C9A84C\],
@@ -331,6 +379,25 @@
 .premium-dark-section button.bg-\[\#C9A84C\] {
   background-color: var(--primary) !important;
   color: #FFFFFF !important;
+}
+
+/* Faint gold badge/panel fills on dark → faint yellow */
+.premium-dark-section .bg-\[\#C9A84C\]\/5,
+.premium-dark-section .bg-\[\#C9A84C\]\/6,
+.premium-dark-section .bg-\[\#C9A84C\]\/8,
+.premium-dark-section .bg-\[\#C9A84C\]\/10,
+.premium-dark-section .bg-\[\#C9A84C\]\/15,
+.premium-dark-section .bg-\[\#C9A84C\]\/20 {
+  background-color: rgba(250, 204, 21, 0.14) !important;
+}
+
+/* Gold borders on dark → yellow borders (any opacity variant) */
+.premium-dark-section [class*="border-[#C9A84C]"] {
+  border-color: rgba(250, 204, 21, 0.4) !important;
+}
+
+.premium-dark-section .fill-\[\#C9A84C\] {
+  fill: #FACC15 !important;
 }
 
 .premium-dark-section svg {
@@ -346,7 +413,7 @@ select,
 textarea {
   background-color: #FFFFFF !important;
   color: var(--foreground) !important;
-  border: 1.5px solid rgba(200, 164, 93, 0.3) !important;
+  border: 1.5px solid rgba(22, 163, 74, 0.3) !important;
   border-radius: 0.75rem;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -368,7 +435,7 @@ textarea:focus {
 .premium-dark-section textarea {
   background-color: rgba(0, 0, 0, 0.5) !important;
   color: #FAF8F5 !important;
-  border: 1.5px solid rgba(200, 164, 93, 0.25) !important;
+  border: 1.5px solid rgba(22, 163, 74, 0.25) !important;
 }
 
 /* ─── Layout Utilities ───────────────────────────────────────────────────── */
@@ -409,7 +476,7 @@ textarea:focus {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(200, 164, 93, 0.2);
+  border: 1px solid rgba(22, 163, 74, 0.2);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
 }
 
@@ -417,22 +484,22 @@ textarea:focus {
   background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(200, 164, 93, 0.15);
+  border-bottom: 1px solid rgba(22, 163, 74, 0.15);
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
 }
 
 /* ─── Premium Card Hover ─────────────────────────────────────────────────── */
 .premium-card {
   background: #FFFFFF;
-  border: 1px solid rgba(200, 164, 93, 0.15);
+  border: 1px solid rgba(22, 163, 74, 0.15);
   border-radius: 1.25rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .premium-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 20px 60px rgba(200, 164, 93, 0.12);
-  border-color: rgba(200, 164, 93, 0.4);
+  box-shadow: 0 20px 60px rgba(22, 163, 74, 0.12);
+  border-color: rgba(22, 163, 74, 0.4);
 }
 
 .premium-card .gold-accent-line {
@@ -458,7 +525,7 @@ textarea:focus {
   height: 30rem;
   border-radius: 9999px;
   pointer-events: none;
-  background: radial-gradient(circle, rgba(200, 164, 93, 0.12) 0%, rgba(200, 164, 93, 0) 70%);
+  background: radial-gradient(circle, rgba(22, 163, 74, 0.12) 0%, rgba(22, 163, 74, 0) 70%);
 }
 
 /* ─── Animations ─────────────────────────────────────────────────────────── */
@@ -478,8 +545,8 @@ textarea:focus {
 }
 
 @keyframes goldPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(200, 164, 93, 0.4); }
-  50%       { box-shadow: 0 0 0 8px rgba(200, 164, 93, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.4); }
+  50%       { box-shadow: 0 0 0 8px rgba(22, 163, 74, 0); }
 }
 
 @keyframes marquee {
@@ -587,7 +654,7 @@ textarea:focus {
   background: #F1F5F9;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(200, 164, 93, 0.4);
+  background: rgba(22, 163, 74, 0.4);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {

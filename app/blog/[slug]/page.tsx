@@ -156,7 +156,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           </Link>
           
           <div className="mb-6">
-            <span className="rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#B8963B]">
+            <span className="rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#16A34A]">
               {post.category}
             </span>
           </div>

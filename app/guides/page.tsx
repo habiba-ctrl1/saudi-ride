@@ -19,10 +19,10 @@ const CATEGORIES = [
 const CATEGORY_COLORS: Record<string, string> = {
   arrival: "text-[#16A34A] bg-[#16A34A]/10 border-[#16A34A]/20",
   umrah: "text-[#16A34A] bg-[#16A34A]/10 border-[#16A34A]/20",
-  money: "text-[#B8963B] bg-[#C9A84C]/10 border-[#C9A84C]/25",
-  culture: "text-[#B8963B] bg-[#C9A84C]/10 border-[#C9A84C]/25",
+  money: "text-[#16A34A] bg-[#C9A84C]/10 border-[#C9A84C]/25",
+  culture: "text-[#16A34A] bg-[#C9A84C]/10 border-[#C9A84C]/25",
   business: "text-[#16A34A] bg-[#16A34A]/10 border-[#16A34A]/20",
-  tourism: "text-[#B8963B] bg-[#C9A84C]/10 border-[#C9A84C]/25",
+  tourism: "text-[#16A34A] bg-[#C9A84C]/10 border-[#C9A84C]/25",
 };
 
 const fadeUp = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0 } };
@@ -41,7 +41,7 @@ export default function GuidesPage() {
 
         <div className="section-container relative z-10 max-w-5xl">
           <motion.div initial="hidden" animate="show" variants={fadeUp} transition={{ duration: 0.6 }}>
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#B8963B]">
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#16A34A]">
               <BookOpen className="h-3 w-3" /> Knowledge Base
             </span>
             <h1 className="mt-6 font-heading text-4xl font-bold leading-tight md:text-6xl">

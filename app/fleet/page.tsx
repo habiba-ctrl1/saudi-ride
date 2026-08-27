@@ -42,7 +42,7 @@ export default function FleetPage() {
 
         <div className="section-container relative z-10 max-w-5xl">
           <motion.div initial="hidden" animate="show" variants={fadeUp} transition={{ duration: 0.6 }}>
-            <span className="inline-block rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#B8963B]">
+            <span className="inline-block rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#16A34A]">
               Our Cars
             </span>
             <h1 className="mt-6 font-heading text-4xl font-bold leading-tight md:text-6xl text-[#1C1C1C]">
@@ -160,7 +160,7 @@ export default function FleetPage() {
                   </div>
 
                   <div className="absolute top-4 right-4">
-                    <span className="rounded-full bg-black/70 border border-[#C9A84C]/25 px-3 py-1 text-[0.55rem] font-bold uppercase tracking-wider text-[#B8963B]">
+                    <span className="rounded-full bg-black/70 border border-[#C9A84C]/25 px-3 py-1 text-[0.55rem] font-bold uppercase tracking-wider text-[#16A34A]">
                       {vehicle.subtitle}
                     </span>
                   </div>
@@ -222,7 +222,7 @@ export default function FleetPage() {
                       href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam, I would like a quote for the ${vehicle.name} (${vehicle.subtitle})`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-1.5 rounded-full border border-[#C9A84C]/30 bg-white py-3 text-[0.65rem] font-bold uppercase tracking-wider text-[#B8963B] transition-all hover:bg-[#C9A84C]/10"
+                      className="flex items-center justify-center gap-1.5 rounded-full border border-[#C9A84C]/30 bg-white py-3 text-[0.65rem] font-bold uppercase tracking-wider text-[#16A34A] transition-all hover:bg-[#C9A84C]/10"
                     >
                       <MessageCircle className="h-3.5 w-3.5 fill-current" />
                       <span>WhatsApp Quote</span>
@@ -247,7 +247,7 @@ export default function FleetPage() {
       <section className="section-container max-w-3xl text-center pb-24">
         <div className="rounded-3xl border border-[#16A34A]/15 bg-white p-10 space-y-5 shadow-2xl relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-[#C9A84C]/4 to-transparent pointer-events-none rounded-3xl" />
-          <span className="text-[0.65rem] uppercase tracking-[0.2em] text-[#B8963B] font-bold">Group & Corporate Bookings</span>
+          <span className="text-[0.65rem] uppercase tracking-[0.2em] text-[#16A34A] font-bold">Group & Corporate Bookings</span>
           <h2 className="font-heading text-2xl font-bold text-[#1C1C1C]">
             Need a specific car type<br />or a long-term booking?
           </h2>
@@ -266,7 +266,7 @@ export default function FleetPage() {
             </a>
             <Link
               href="/contact"
-              className="flex items-center gap-2 rounded-full border border-[#C9A84C]/30 px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-[#B8963B] transition-all hover:bg-[#C9A84C]/10"
+              className="flex items-center gap-2 rounded-full border border-[#C9A84C]/30 px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-[#16A34A] transition-all hover:bg-[#C9A84C]/10"
             >
               Send Inquiry Form
             </Link>
