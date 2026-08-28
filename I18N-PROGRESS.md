@@ -9,11 +9,11 @@ Full audit: see [I18N-AUDIT.md](./I18N-AUDIT.md). Rules: no redesign, English UR
 - English root URLs & content untouched. Arabic on `/ar/` only.
 - `components/ar/*` = Arabic-only, written RTL-visual — **excluded from logical-class codemod**.
 
-## STEP 1 — RTL sweep
+## STEP 1 — RTL sweep ✅ COMPLETE (1a=cdd0fb9, 1b=5dd8e22, 1c=bcb05f0, 1d=verified)
 - [x] **1a** Logical margins/padding/text-align in shared components (`ml/mr/pl/pr → ms/me/ps/pe`, `text-left/right → text-start/end`). 14 files, codemod, `ar/` excluded. globals.css had 0 targets. ✅ committed
 - [x] **1b** `left-/right-` → `start-/end-` — MANUAL (11 files). Floating CTAs → `end` (bottom-left in RTL). Intentionally left: `dialog` centering `left-1/2 -translate-x-1/2` (symmetric), `popover`/`select` `slide-in-from-left/right` (physical placement-side animations). ✅ committed
 - [x] **1c** Arrow flips → `rtl:-scale-x-100` on **lucide icon arrows** only (12: RouteRelatedLinks, ServiceRelatedLinks, RelatedLinks, Breadcrumbs, home-page cards). Text-glyph arrows already language-correct (English `→`, Arabic strings already use `←`), so NOT CSS-flipped. ✅ committed
-- [ ] **1d** Visual verify on `/ar/about` + `/ar/routes/jeddah-airport-to-makkah`
+- [x] **1d** RTL verify (structural/CSS-level via dev server). Both pages `<html lang=ar dir=rtl>`, Arabic SSR content, no forced-LTR override, no compile errors. Generated CSS confirms logical utilities (`margin/padding-inline`, `inset-inline`, `text-align:start`) + `.rtl\:-scale-x-100` rule all emit. Chrome (switcher/WhatsApp/footer) renders. ⚠️ Pixel-level not done headless — **user to browser-eyeball**: WhatsApp now bottom-left, long-Arabic overflow, `/ar/book` calendar. ✅
 
 ### Deferred (global-chrome translation, STEP 4)
 - [ ] **Navbar mega-menu is English-only** (no `useLanguage`) — its `→` glyphs + labels ("View All Services →", "Jeddah Airport → Makkah") get Arabic `←` when Navbar is translated, matching the Footer/home-page string pattern. Not CSS-flipped.
