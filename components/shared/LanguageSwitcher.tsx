@@ -62,7 +62,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
                     setIsOpen(false);
                   }}
                   className={cn(
-                    "flex w-full items-center gap-3 px-4 py-2.5 text-left text-xs font-medium transition-colors hover:bg-black/50 hover:text-[#C9A84C]",
+                    "flex w-full items-center gap-3 px-4 py-2.5 text-start text-xs font-medium transition-colors hover:bg-black/50 hover:text-[#C9A84C]",
                     language === lang.code ? "text-[#C9A84C] bg-black/20" : "text-[#F5F0E8]"
                   )}
                 >

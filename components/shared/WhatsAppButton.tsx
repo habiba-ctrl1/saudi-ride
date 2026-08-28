@@ -50,7 +50,7 @@ export function WhatsAppButton() {
               <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-[#25D366] ring-2 ring-[#121212]" />
             </div>
 
-            <div className="flex-1 pr-4 text-xs leading-relaxed">
+            <div className="flex-1 pe-4 text-xs leading-relaxed">
               <p className="font-semibold text-white">Reserve Your Private Taxi</p>
               <p className="text-[#A3A3A3]">Chat 24/7 on WhatsApp — clear price, usually within 1–2 hours</p>
             </div>
@@ -83,7 +83,7 @@ export function WhatsAppButton() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 20 }}
               transition={{ duration: 0.2 }}
-              className="premium-dark-section mr-3 hidden rounded-lg border border-[#C9A84C]/30 bg-[#121212] px-3.5 py-1.5 text-xs font-semibold tracking-wider text-[#C9A84C] shadow-2xl backdrop-blur-md md:block"
+              className="premium-dark-section me-3 hidden rounded-lg border border-[#C9A84C]/30 bg-[#121212] px-3.5 py-1.5 text-xs font-semibold tracking-wider text-[#C9A84C] shadow-2xl backdrop-blur-md md:block"
             >
               Reserve via WhatsApp 24/7
             </motion.div>

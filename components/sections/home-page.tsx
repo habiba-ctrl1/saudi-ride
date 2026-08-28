@@ -1233,7 +1233,7 @@ export function HomePage() {
                     {pt.title}
                   </h4>
                 </div>
-                <p className="text-[0.72rem] leading-relaxed text-[#6B7280] pl-8">
+                <p className="text-[0.72rem] leading-relaxed text-[#6B7280] ps-8">
                   {pt.desc}
                 </p>
               </motion.div>
@@ -1448,7 +1448,7 @@ export function HomePage() {
                         {route.time}
                       </p>
                     </div>
-                    <div className="text-right">
+                    <div className="text-end">
                       <p className="text-[0.55rem] text-[#6B7280] uppercase">{t.misc.from}</p>
                       <p className="font-bold text-[#16A34A] mt-0.5">On WhatsApp</p>
                     </div>
@@ -1498,7 +1498,7 @@ export function HomePage() {
                 </div>
                 <div className="mt-3 flex items-center justify-end text-[0.65rem] font-bold text-[#FACC15] group-hover:underline">
                   <span>Explore NEOM Services</span>
-                  <ArrowRight className="h-3 w-3 ml-1 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="h-3 w-3 ms-1 group-hover:translate-x-1 transition-transform" />
                 </div>
               </Link>
             </div>

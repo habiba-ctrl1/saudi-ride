@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 const DropdownMenu = ({ children }: { children: React.ReactNode }) => {
   const [open, setOpen] = React.useState(false)
   return (
-    <div className="relative inline-block text-left">
+    <div className="relative inline-block text-start">
       {React.Children.map(children, (child) =>
         React.isValidElement(child)
           ? React.cloneElement(child as React.ReactElement<{ open?: boolean; setOpen?: (v: boolean) => void }>, { open, setOpen })

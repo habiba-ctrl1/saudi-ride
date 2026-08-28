@@ -58,7 +58,7 @@ export function ScrollCTA() {
           </button>
 
           {/* Content */}
-          <p className="font-heading text-base md:text-lg font-bold text-white pr-8">
+          <p className="font-heading text-base md:text-lg font-bold text-white pe-8">
             Reserve Your Private Taxi
           </p>
           <p className="mt-1 text-xs text-white/60 max-w-md">

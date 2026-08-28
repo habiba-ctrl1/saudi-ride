@@ -320,7 +320,7 @@ export function Footer() {
 
         {/* Bottom copyright & socials */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-10 text-xs">
-          <p className="text-center md:text-left leading-relaxed" style={{ color: "rgba(255,255,255,0.8)" }}>
+          <p className="text-center md:text-start leading-relaxed" style={{ color: "rgba(255,255,255,0.8)" }}>
             {t.copyright}
           </p>
           

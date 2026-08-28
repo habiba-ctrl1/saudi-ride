@@ -150,7 +150,7 @@ export function Navbar() {
                             <ChevronRight className="h-4 w-4 text-[#16A34A]" />
                           </button>
                           {/* nested flyout */}
-                          <div className="invisible opacity-0 group-hover/sub:visible group-hover/sub:opacity-100 group-focus-within/sub:visible group-focus-within/sub:opacity-100 transition-all duration-150 absolute left-full top-0 pl-2">
+                          <div className="invisible opacity-0 group-hover/sub:visible group-hover/sub:opacity-100 group-focus-within/sub:visible group-focus-within/sub:opacity-100 transition-all duration-150 absolute left-full top-0 ps-2">
                             <ul className="w-60 rounded-2xl bg-white shadow-2xl border border-black/5 p-2">
                               {item.children.map((c) => (
                                 <li key={c.href}>
@@ -260,7 +260,7 @@ export function Navbar() {
           </nav>
 
           {/* Right: actions */}
-          <div className="hidden xl:flex items-center gap-2.5 flex-shrink-0 ml-auto">
+          <div className="hidden xl:flex items-center gap-2.5 flex-shrink-0 ms-auto">
             <LanguageSwitcher />
             <Link
               href={bookHref}
@@ -282,7 +282,7 @@ export function Navbar() {
           {/* Mobile hamburger */}
           <button
             onClick={() => setIsMobileOpen(true)}
-            className="flex xl:hidden items-center justify-center h-10 w-10 rounded-full bg-white/15 text-white hover:bg-white/25 transition-colors ml-auto"
+            className="flex xl:hidden items-center justify-center h-10 w-10 rounded-full bg-white/15 text-white hover:bg-white/25 transition-colors ms-auto"
             aria-label="Open menu"
           >
             <Menu className="h-5 w-5" />
@@ -313,7 +313,7 @@ export function Navbar() {
 
               <div>
                 <p className="text-[0.7rem] uppercase tracking-wider font-bold text-[#16A34A] mb-2">Transportation Services</p>
-                <div className="space-y-1.5 pl-1">
+                <div className="space-y-1.5 ps-1">
                   {TRANSPORT_MENU.flatMap((item) =>
                     item.children
                       ? item.children.map((c) => (
@@ -327,7 +327,7 @@ export function Navbar() {
 
               <div>
                 <p className="text-[0.7rem] uppercase tracking-wider font-bold text-[#16A34A] mb-2">Taxi Routes</p>
-                <div className="space-y-1.5 pl-1">
+                <div className="space-y-1.5 ps-1">
                   {ROUTES_MENU.map((r) => (
                     <Link key={r.href} href={r.href} className="block text-sm text-[#334155] py-1">{r.label}</Link>
                   ))}
@@ -337,17 +337,17 @@ export function Navbar() {
 
               <div>
                 <p className="text-[0.7rem] uppercase tracking-wider font-bold text-[#16A34A] mb-2">Locations</p>
-                <div className="grid grid-cols-2 gap-x-4 gap-y-0.5 pl-1">
+                <div className="grid grid-cols-2 gap-x-4 gap-y-0.5 ps-1">
                   {LOCATIONS_MENU.map((l) => (
                     <Link key={l.href} href={l.href} className="block text-sm text-[#334155] py-1">{l.label}</Link>
                   ))}
                 </div>
-                <Link href="/locations" className="block text-sm font-semibold text-[#16A34A] py-1 pl-1 mt-1">View All Locations →</Link>
+                <Link href="/locations" className="block text-sm font-semibold text-[#16A34A] py-1 ps-1 mt-1">View All Locations →</Link>
               </div>
 
               <div>
                 <p className="text-[0.7rem] uppercase tracking-wider font-bold text-[#16A34A] mb-2">Partners</p>
-                <div className="space-y-1.5 pl-1">
+                <div className="space-y-1.5 ps-1">
                   {PARTNERS_MENU.map((p) => (
                     <Link key={p.href} href={p.href} className="block text-sm text-[#334155] py-1">{p.label}</Link>
                   ))}
