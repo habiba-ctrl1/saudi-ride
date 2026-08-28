@@ -21,8 +21,20 @@ Full audit: see [I18N-AUDIT.md](./I18N-AUDIT.md). Rules: no redesign, English UR
 ### ⚠️ Deferred visual test (don't miss)
 - [ ] **`/ar/book` calendar** date-range RTL: `calendar.tsx` was converted to logical (`rounded-s/e`, `after:end/start-0`) but `/ar/book` isn't in 1d scope. Eyeball date-range mirroring on `/ar/book` before final sign-off.
 
-## STEP 2 — Routes Arabic template
-- [ ] 1 template Arabic-ready → 76 pages (data already 100% bilingual: fromCityAr/toCityAr/descriptionAr)
+## STEP 2 — Routes Arabic template (decision: FULL PARITY — translate all 71 bespoke)
+Content audit done: ArabicRoutePage chrome = 100% Arabic; English has 71/76 bespoke `ROUTE_CONTENT` entries (only 5 use DEFAULT_FAQS); Arabic had only 5. Real English leak on /ar pages = **Navbar mega-menu** (global-chrome, STEP 4). Route content lives in a parallel map, NOT routes.ts.
+
+- [x] **2a Infrastructure** ✅ committed
+  - `lib/data/routes-content-ar.ts` — `AR_ROUTE_CONTENT` map (meta + ArabicRouteContent) + `AR_ROUTE_CONTENT_SLUGS`
+  - `app/ar/routes/[slug]/page.tsx` — dynamic (generateStaticParams, per-slug Arabic metadata, `dynamicParams=false`, revalidate 86400)
+  - `lib/config/i18n.ts` — `AR_ROUTE_SLUGS` now derived from content map (single source)
+  - Deleted 5 standalone hand-written pages → migrated into the map
+  - Verified: 5 pages 200+Arabic, non-content /ar 301→EN, hreflang en/ar/x-default bidirectional, og:locale ar_SA, tsc clean
+- [ ] **2b–2n Translation batches** — remaining 66 routes (~10/batch), each = metaTitle + metaDescription + badge + introExtra + tldrAnswer + tldrFacts + whyUs + faqs. Add entry to `AR_ROUTE_CONTENT` → auto-registers (middleware + hreflang + static param). Native review on money routes.
+  - Done so far: 5/76 (jeddah-airport-to-makkah, riyadh-to-dammam, dammam-to-doha, makkah-to-madinah, jeddah-to-madinah)
+
+### ⚠️ Branch reconciliation needed (main diverged)
+`main` advanced past feat's base (`61a167c`) with 2 SEO commits (`bb752a3` Premium repositioning, `8666a4b` SEO internal links). Those touched `Footer.tsx`, `home-page.tsx`, `WhatsAppQuoteForm.tsx` — **same files STEP 1 RTL changed** → will conflict on merge/rebase. Decide: rebase feat onto main, or merge main into feat. Not done yet.
 
 ## STEP 3 — Pilot: `/ar/services/umrah-transport`
 - [ ] First hardcoded service page translated (pattern for remaining 17)
