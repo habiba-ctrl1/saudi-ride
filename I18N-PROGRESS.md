@@ -11,9 +11,12 @@ Full audit: see [I18N-AUDIT.md](./I18N-AUDIT.md). Rules: no redesign, English UR
 
 ## STEP 1 — RTL sweep
 - [x] **1a** Logical margins/padding/text-align in shared components (`ml/mr/pl/pr → ms/me/ps/pe`, `text-left/right → text-start/end`). 14 files, codemod, `ar/` excluded. globals.css had 0 targets. ✅ committed
-- [ ] **1b** `left-/right-` → `start-/end-` — MANUAL (absolute positioning). 34 occurrences in shared components. Marquee animation untouched.
+- [x] **1b** `left-/right-` → `start-/end-` — MANUAL (11 files). Floating CTAs → `end` (bottom-left in RTL). Intentionally left: `dialog` centering `left-1/2 -translate-x-1/2` (symmetric), `popover`/`select` `slide-in-from-left/right` (physical placement-side animations). ✅ committed
 - [ ] **1c** Arrow flips (`→`/`➔`) on route/service cards → `rtl:-scale-x-100`
 - [ ] **1d** Visual verify on `/ar/about` + `/ar/routes/jeddah-airport-to-makkah`
+
+### ⚠️ Deferred visual test (don't miss)
+- [ ] **`/ar/book` calendar** date-range RTL: `calendar.tsx` was converted to logical (`rounded-s/e`, `after:end/start-0`) but `/ar/book` isn't in 1d scope. Eyeball date-range mirroring on `/ar/book` before final sign-off.
 
 ## STEP 2 — Routes Arabic template
 - [ ] 1 template Arabic-ready → 76 pages (data already 100% bilingual: fromCityAr/toCityAr/descriptionAr)

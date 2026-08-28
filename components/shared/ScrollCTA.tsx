@@ -51,7 +51,7 @@ export function ScrollCTA() {
           {/* Close button */}
           <button
             onClick={dismiss}
-            className="absolute top-3 right-3 p-1.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+            className="absolute top-3 end-3 p-1.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
             aria-label="Close popup"
           >
             <X className="h-4 w-4 text-white/70" />

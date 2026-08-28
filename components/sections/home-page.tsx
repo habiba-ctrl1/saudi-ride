@@ -707,7 +707,7 @@ function FleetCard({ veh, index, onBook, btnLabel }: {
         {/* Gold accent overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         <span
-          className="absolute left-3 top-3 rounded-full px-3 py-1 text-[0.58rem] uppercase tracking-wider font-bold"
+          className="absolute start-3 top-3 rounded-full px-3 py-1 text-[0.58rem] uppercase tracking-wider font-bold"
           style={{
             backgroundColor: "rgba(255,255,255,0.85)",
             border: "1px solid rgba(22,163,74,0.3)",
@@ -843,14 +843,14 @@ export function HomePage() {
               </div>
 
               {/* Bottom car badge */}
-              <div className="absolute bottom-5 left-5">
+              <div className="absolute bottom-5 start-5">
                 <span key={currentCar.name} className="inline-block rounded-full bg-[#16A34A] px-4 py-1.5 text-xs font-bold text-white shadow-md animate-fade-in">
                   {language === "ar" ? currentCar.nameAr : currentCar.name}
                 </span>
               </div>
 
               {/* Slideshow dots */}
-              <div className="absolute bottom-5 right-5 flex gap-1.5" aria-hidden="true">
+              <div className="absolute bottom-5 end-5 flex gap-1.5" aria-hidden="true">
                 {heroCars.map((_, i) => (
                   <span
                     key={i}
@@ -1709,7 +1709,7 @@ export function HomePage() {
       <section className="section-container pb-28 pt-10 relative z-10">
         <div className="relative overflow-hidden rounded-3xl border border-[#16A34A]/15 bg-white p-10 md:p-14 text-center shadow-lg">
           {/* Subtle gold overlay lines */}
-          <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-[#C9A84C]/5 blur-3xl pointer-events-none" />
+          <div className="absolute end-0 top-0 h-40 w-40 rounded-full bg-[#C9A84C]/5 blur-3xl pointer-events-none" />
 
           <h3 className="font-heading text-4xl font-bold md:text-5.5xl leading-tight" style={{ color: "#1C1C1C" }}>
             {t.cta.title}
