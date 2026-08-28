@@ -30,7 +30,7 @@ export function Breadcrumbs({ items, className = "" }: { items: Crumb[]; classNa
                     <Link href={item.href} className="hover:text-[#C9A84C] transition-colors">
                       {item.name}
                     </Link>
-                    <ChevronRight className="h-3 w-3 text-[#6B7280]/60" />
+                    <ChevronRight className="rtl:-scale-x-100 h-3 w-3 text-[#6B7280]/60" />
                   </>
                 )}
               </li>

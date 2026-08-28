@@ -12,8 +12,11 @@ Full audit: see [I18N-AUDIT.md](./I18N-AUDIT.md). Rules: no redesign, English UR
 ## STEP 1 — RTL sweep
 - [x] **1a** Logical margins/padding/text-align in shared components (`ml/mr/pl/pr → ms/me/ps/pe`, `text-left/right → text-start/end`). 14 files, codemod, `ar/` excluded. globals.css had 0 targets. ✅ committed
 - [x] **1b** `left-/right-` → `start-/end-` — MANUAL (11 files). Floating CTAs → `end` (bottom-left in RTL). Intentionally left: `dialog` centering `left-1/2 -translate-x-1/2` (symmetric), `popover`/`select` `slide-in-from-left/right` (physical placement-side animations). ✅ committed
-- [ ] **1c** Arrow flips (`→`/`➔`) on route/service cards → `rtl:-scale-x-100`
+- [x] **1c** Arrow flips → `rtl:-scale-x-100` on **lucide icon arrows** only (12: RouteRelatedLinks, ServiceRelatedLinks, RelatedLinks, Breadcrumbs, home-page cards). Text-glyph arrows already language-correct (English `→`, Arabic strings already use `←`), so NOT CSS-flipped. ✅ committed
 - [ ] **1d** Visual verify on `/ar/about` + `/ar/routes/jeddah-airport-to-makkah`
+
+### Deferred (global-chrome translation, STEP 4)
+- [ ] **Navbar mega-menu is English-only** (no `useLanguage`) — its `→` glyphs + labels ("View All Services →", "Jeddah Airport → Makkah") get Arabic `←` when Navbar is translated, matching the Footer/home-page string pattern. Not CSS-flipped.
 
 ### ⚠️ Deferred visual test (don't miss)
 - [ ] **`/ar/book` calendar** date-range RTL: `calendar.tsx` was converted to logical (`rounded-s/e`, `after:end/start-0`) but `/ar/book` isn't in 1d scope. Eyeball date-range mirroring on `/ar/book` before final sign-off.

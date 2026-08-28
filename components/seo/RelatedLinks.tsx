@@ -45,7 +45,7 @@ export function RelatedLinks({
                 <span className="block truncate text-xs text-[#6B7280]">{link.note}</span>
               )}
             </span>
-            <ArrowRight className="h-4 w-4 flex-shrink-0 text-[#C9A84C] transition-transform group-hover:translate-x-0.5" />
+            <ArrowRight className="rtl:-scale-x-100 h-4 w-4 flex-shrink-0 text-[#C9A84C] transition-transform group-hover:translate-x-0.5" />
           </Link>
         ))}
       </div>

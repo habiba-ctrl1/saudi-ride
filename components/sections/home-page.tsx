@@ -887,7 +887,7 @@ export function HomePage() {
                   style={{ backgroundColor: "#FACC15", color: "#1C1C1C", boxShadow: "0 8px 24px rgba(250,204,21,0.4)" }}
                 >
                   {t.hero.btnBook}
-                  <ChevronRight className="h-4 w-4" />
+                  <ChevronRight className="rtl:-scale-x-100 h-4 w-4" />
                 </a>
                 <a
                   href={contactConfig.whatsappLink}
@@ -1070,7 +1070,7 @@ export function HomePage() {
                       className="inline-flex items-center gap-1.5 text-[0.72rem] font-bold uppercase tracking-wider text-[#C9A84C] hover:gap-3 transition-all"
                     >
                       <span>{t.misc.bookNow}</span>
-                      <ArrowRight className="h-3.5 w-3.5" />
+                      <ArrowRight className="rtl:-scale-x-100 h-3.5 w-3.5" />
                     </a>
                   </div>
                 </motion.article>
@@ -1150,7 +1150,7 @@ export function HomePage() {
                   style={{ backgroundColor: "#16A34A" }}
                 >
                   {language === "ar" ? "اعرف المزيد عنا" : "Learn More About Us"}
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="rtl:-scale-x-100 h-4 w-4" />
                 </Link>
                 <a
                   href="#booking-console"
@@ -1294,7 +1294,7 @@ export function HomePage() {
                   aria-label={`${t.routes.btnBook}: ${route[`name${language === 'ar' ? 'Ar' : 'En'}` as const]}`}
                   className="rounded-full bg-[#16A34A]/10 group-hover:bg-[#16A34A] p-2 text-[#16A34A] group-hover:text-white transition-all"
                 >
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="rtl:-scale-x-100 h-4 w-4" />
                 </button>
               </div>
             </div>
@@ -1337,7 +1337,7 @@ export function HomePage() {
             className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/35 px-8 py-3.5 text-sm font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all hover:border-[#16A34A]"
           >
             <span>{t.fleet.btnMore}</span>
-            <ArrowRight className="h-4 w-4" />
+            <ArrowRight className="rtl:-scale-x-100 h-4 w-4" />
           </Link>
         </div>
       </section>
@@ -1498,7 +1498,7 @@ export function HomePage() {
                 </div>
                 <div className="mt-3 flex items-center justify-end text-[0.65rem] font-bold text-[#FACC15] group-hover:underline">
                   <span>Explore NEOM Services</span>
-                  <ArrowRight className="h-3 w-3 ms-1 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="rtl:-scale-x-100 h-3 w-3 ms-1 group-hover:translate-x-1 transition-transform" />
                 </div>
               </Link>
             </div>
