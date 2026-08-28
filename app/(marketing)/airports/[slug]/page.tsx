@@ -126,9 +126,11 @@ export default async function AirportLandingPage({ params }: PageProps) {
           </span>
           <h1 className="font-heading text-4xl md:text-5xl font-bold leading-tight mb-2">
             Taxi Service from <br />
-            <span className="text-[#16A34A]">{airportData.name}</span>
+            <span className="text-[#16A34A]">{airportData.h1Name ?? airportData.name}</span>
           </h1>
-          <p className="text-[#C9A84C] text-lg tracking-widest font-bold mb-6">{airportData.code} - {airportData.nameAr}</p>
+          <p className="text-[#C9A84C] text-lg tracking-widest font-bold mb-6">
+            {airportData.h1Name ? `${airportData.name} · ` : ""}{airportData.code} - {airportData.nameAr}
+          </p>
           <p className="max-w-2xl text-sm md:text-base text-[#6B7280] leading-relaxed">
             {airportData.description}
           </p>

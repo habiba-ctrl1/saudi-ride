@@ -39,6 +39,16 @@ const CITY_TO_AIRPORT: { needle: string; slug: string; label: string }[] = [
   { needle: "tabuk airport", slug: "tabuk-regional", label: "Tabuk Airport (TUU)" },
   { needle: "alula airport", slug: "alula", label: "AlUla Airport (ULH)" },
   { needle: "red sea", slug: "red-sea", label: "Red Sea International Airport (RSI)" },
+  // Plain-city fallbacks for the four major hub airports (all sitting on GSC
+  // page 2). Listed AFTER the "X airport" needles so airport-endpoint routes
+  // still resolve first (same slug either way). This lets intercity/city
+  // routes touching a hub city — e.g. the site's #1 page riyadh-to-dammam —
+  // pass a contextual inbound link to that city's airport money page, which
+  // the "X airport"-only match previously never surfaced.
+  { needle: "jeddah", slug: "king-abdulaziz-jeddah", label: "Jeddah Airport (JED)" },
+  { needle: "madinah", slug: "prince-mohammad-madinah", label: "Madinah Airport (MED)" },
+  { needle: "riyadh", slug: "king-khalid-riyadh", label: "Riyadh Airport (RUH)" },
+  { needle: "dammam", slug: "king-fahd-dammam", label: "Dammam Airport (DMM)" },
 ];
 
 function airportFor(city: string): { slug: string; label: string } | null {

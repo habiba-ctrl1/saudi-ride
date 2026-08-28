@@ -16,12 +16,41 @@ import {
   getRecoveryCity,
 } from "@/lib/data/recovery";
 import { RECOVERY_ROUTES, getRecoveryRoute } from "@/lib/data/recovery-routes";
-import { Truck, MapPin, Clock, Route as RouteIcon, CheckCircle2, MessageCircle, Phone, PackageCheck } from "lucide-react";
+import { Truck, MapPin, Clock, Route as RouteIcon, CheckCircle2, MessageCircle, Phone, PackageCheck, ArrowRight } from "lucide-react";
 
 export const revalidate = 86400;
 
 const REAL_TRUCK = "/services/car-recovery-hero.webp";
 const BUSINESS_WA = recoveryContact.whatsappNumber;
+
+// Supporting recovery/towing guides (real, published blog posts). These build
+// the recovery topical cluster and answer the "how much / is it safe / what do
+// I do" intent that these service pages themselves deliberately don't quote
+// prices for — the cost guide already ranks on GSC page 1 but nothing in the
+// recovery cluster linked to it.
+const RECOVERY_GUIDES: { slug: string; label: string }[] = [
+  { slug: "car-towing-cost-saudi-arabia-2026", label: "How much does car towing (satha) cost in Saudi Arabia?" },
+  { slug: "car-breakdown-saudi-highway-guide", label: "Car breakdown on a Saudi highway? 7 steps to stay safe" },
+  { slug: "flatbed-vs-hook-towing-automatic-cars", label: "Flatbed vs hook towing: what's safe for your car" },
+];
+
+function RecoveryGuides() {
+  return (
+    <div className="mx-auto mt-12 max-w-3xl rounded-3xl border border-[#16A34A]/12 bg-white p-7">
+      <h3 className="font-heading text-lg font-bold mb-4 text-center">Helpful Car Recovery Guides</h3>
+      <ul className="grid gap-2.5 sm:grid-cols-1">
+        {RECOVERY_GUIDES.map((g) => (
+          <li key={g.slug}>
+            <Link href={`/blog/${g.slug}`} className="group inline-flex items-start gap-2 text-sm text-[#6B7280] hover:text-[#16A34A] transition-colors">
+              <ArrowRight className="h-3.5 w-3.5 mt-0.5 shrink-0 text-[#C9A84C]/60 group-hover:text-[#16A34A] transition-colors" />
+              {g.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 export function generateStaticParams() {
   return [
@@ -311,6 +340,7 @@ function CityView({ city }: { city: NonNullable<ReturnType<typeof getRecoveryCit
             <Link href={`/locations/${city.slug === "al-khobar" ? "alkhobar" : city.slug}`} className="text-[#16A34A] hover:underline">{city.name} taxi service</Link>.
           </p>
         )}
+        <RecoveryGuides />
       </section>
 
       <ServiceRelatedLinks currentPath={`/services/car-recovery/${city.slug}`} />
@@ -452,6 +482,7 @@ function RouteView({ route }: { route: (typeof RECOVERY_ROUTES)[number] }) {
           ))}
           <Link href="/services/car-recovery" className="rounded-full bg-[#16A34A] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#15803D] transition-all">All Recovery →</Link>
         </div>
+        <RecoveryGuides />
       </section>
 
       <ServiceRelatedLinks currentPath={`/services/car-recovery/${route.slug}`} />

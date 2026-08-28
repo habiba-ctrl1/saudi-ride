@@ -1,10 +1,11 @@
 // Static content for airport landing pages — single source of truth for
 // app/(marketing)/airports/[slug]/page.tsx AND app/sitemap.ts (AIRPORTS).
-export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameAr: string, image: string, tagline: string, description: string, terminals: { name: string, desc: string }[], tips: string[], priorityRoutes: string[], tldr?: string, tldrFacts?: { label: string, value: string }[], faqs?: { question: string, answer: string }[], relatedLinks?: { href: string, label: string }[] }> = {
+export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameAr: string, h1Name?: string, image: string, tagline: string, description: string, terminals: { name: string, desc: string }[], tips: string[], priorityRoutes: string[], tldr?: string, tldrFacts?: { label: string, value: string }[], faqs?: { question: string, answer: string }[], relatedLinks?: { href: string, label: string }[] }> = {
   "king-abdulaziz-jeddah": {
     name: "King Abdulaziz International Airport",
     code: "JED",
     nameAr: "مطار الملك عبدالعزيز الدولي",
+    h1Name: "Jeddah Airport (JED)",
     image: "/airports/jed-hero.webp",
     tagline: "The Main Gateway for Umrah & Hajj",
     description: "Pre-book a private taxi from King Abdulaziz International Airport (JED) to Makkah (~1 hour), Madinah, or your Jeddah hotel. Meet & greet at arrivals with a name sign, live flight tracking, no surge pricing, and 24/7 service — including late-night and early-morning pilgrim flights. Drivers can stop at the Miqat so you enter Ihram before reaching Makkah.",
@@ -55,6 +56,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     name: "Prince Mohammad Bin Abdulaziz Airport",
     code: "MED",
     nameAr: "مطار الأمير محمد بن عبدالعزيز",
+    h1Name: "Madinah Airport (MED)",
     image: "/airports/med-hero.webp",
     tagline: "Gateway to the Prophet's City",
     description: "Pre-book a private taxi from Prince Mohammad Bin Abdulaziz Airport (MED) to your Madinah hotel near Masjid an-Nabawi (~20 km, ~25 min), or a long-distance transfer to Makkah. Meet & greet at arrivals, flight tracking, and 24/7 service for pilgrims.",
@@ -95,6 +97,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     name: "King Khalid International Airport",
     code: "RUH",
     nameAr: "مطار الملك خالد الدولي",
+    h1Name: "Riyadh Airport (RUH)",
     image: "/airports/ruh-hero.webp",
     tagline: "The Capital Hub",
     description: "Executive airport transfers from King Khalid International Airport (RUH) in Riyadh. Premium chauffeur services for business travelers heading to KAFD, Olaya, or Diplomatic Quarter.",
@@ -135,6 +138,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
   "king-fahd-dammam": {
     name: "King Fahd International Airport",
     code: "DMM",
+    h1Name: "Dammam Airport (DMM)",
     nameAr: "مطار الملك فهد الدولي",
     image: "/airports/dammam-hero.webp",
     tagline: "The Eastern Gateway",
