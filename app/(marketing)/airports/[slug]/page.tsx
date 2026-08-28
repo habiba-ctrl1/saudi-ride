@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // use "car service" + terminal, which the old taxi-only titles omitted —
   // "car service" is also the premium-intent term we want to rank for.
   const TITLE_OVERRIDES: Record<string, string> = {
-    "prince-mohammad-madinah": "Madinah Airport Taxi & Car Service (MED) | Meet & Greet",
+    "prince-mohammad-madinah": "Madinah Airport Taxi & Private Car Service (MED) | Meet & Greet",
     // Lead with the city travellers actually search + add "car service" for the
     // premium intent GSC shows ("ruh terminal X car service").
     "king-abdulaziz-jeddah": "Jeddah Airport Taxi (JED) | King Abdulaziz International Airport",
@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "king-fahd-dammam": "Dammam Airport Taxi (DMM) | King Fahd International Airport",
   };
   const DESCRIPTION_OVERRIDES: Record<string, string> = {
-    "prince-mohammad-madinah": "Madinah Airport (MED) taxi & private car service — Prince Mohammad Bin Abdulaziz Airport to your hotel near Masjid an-Nabawi (~25 min). Meet & greet, chauffeur with a name sign, quoted on WhatsApp, 24/7.",
+    "prince-mohammad-madinah": "Madinah Airport (MED) taxi & private car service — a pre-booked private transfer to your Madinah (Medina) hotel near Masjid an-Nabawi (~25 min). Meet & greet, chauffeur, family vans; get the current fare on WhatsApp, 24/7.",
     "king-abdulaziz-jeddah": "Jeddah Airport (JED) taxi — King Abdulaziz International Airport to Makkah, Madinah or your Jeddah hotel. Meet & greet, flight tracking, fare confirmed on WhatsApp, 24/7.",
     "king-khalid-riyadh": "Riyadh Airport (RUH) taxi & executive car service — King Khalid International Airport, all terminals (1–5) to KAFD, Olaya or your hotel. Meet & greet, chauffeur with a name sign, quoted on WhatsApp, 24/7.",
     "king-fahd-dammam": "Dammam Airport (DMM) taxi — King Fahd International Airport to Dammam, Khobar, Dhahran or Jubail. Meet & greet, fare confirmed on WhatsApp, 24/7.",

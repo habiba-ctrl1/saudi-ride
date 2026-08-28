@@ -452,7 +452,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "riyadh-to-dammam": {
-    tldr: "A private taxi from Riyadh to Dammam is about 390 km and takes roughly 3.5 hours on Highway 40. Fares are confirmed on WhatsApp door-to-door, confirmed on WhatsApp before booking — popular with executives travelling to the Eastern Province and Aramco/Dhahran corridor.",
+    tldr: "A private taxi from Riyadh to Dammam is about 390 km and takes roughly 3.5 hours on Highway 40. Choose a private car or SUV with a professional chauffeur, door-to-door, with your fare confirmed on WhatsApp before booking — popular with executives and families travelling to the Eastern Province and the Aramco/Dhahran corridor.",
     tldrFacts: [
       { label: "Distance", value: "~390 km" },
       { label: "Time", value: "~3.5 hours" },
@@ -465,6 +465,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "Can I book a corporate car for this route?", answer: "Yes. We arrange executive sedans and SUVs with professional drivers for the Riyadh–Dammam corporate corridor — useful for meetings in Dhahran, Al Khobar, or Jubail — with hourly and one-way options." },
       { question: "What is the distance between Riyadh and Dammam?", answer: "The distance between Riyadh and Dammam is about 390 km by road, a roughly 3.5-hour drive on Highway 40." },
       { question: "Can the driver continue on to Khobar, Dhahran, or Jubail after Dammam?", answer: "Yes. Since Dammam, Al Khobar, Dhahran, and Jubail form one Eastern Province service area, you can extend your trip to any of these cities at booking — just mention your final destination when requesting a quote." },
+      { question: "Can I book a private car or chauffeur from Riyadh to Dammam instead of a taxi?", answer: "Yes. Alongside a standard taxi, we offer a pre-booked private car from Riyadh to Dammam with a professional chauffeur — an executive sedan, SUV or van reserved just for you and your group, door-to-door. Share your travel date and passenger count on WhatsApp for a fare before booking." },
     ],
   },
   "dammam-airport-to-jubail": {
@@ -770,7 +771,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
 
   // ─── GCC border crossings ───
   "riyadh-to-dubai": {
-    tldr: "A private car with driver from Riyadh to Dubai is about 990 km and takes roughly 9 hours plus the Saudi–UAE border crossing. Fares are confirmed on WhatsApp, with documentation support and a comfortable vehicle for the cross-border journey.",
+    tldr: "A private car with a professional chauffeur from Riyadh to Dubai is about 990 km and takes roughly 9 hours plus the Saudi–UAE border crossing. Fares are confirmed on WhatsApp, with documentation support and a comfortable executive vehicle for business and family cross-border travel.",
     tldrFacts: [
       { label: "Distance", value: "~990 km" },
       { label: "Time", value: "~9 hours + border" },
@@ -781,7 +782,8 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "How long is the taxi from Riyadh to Dubai?", answer: "Riyadh to Dubai is about 990 km — roughly a 9-hour drive plus time at the Saudi–UAE border (Al Batha crossing)." },
       { question: "What documents do I need for the border?", answer: "You need a valid passport and the correct UAE entry visa or eligibility. Share your details in advance so we can advise and prepare for a smooth crossing." },
       { question: "How much is a taxi from Riyadh to Dubai?", answer: "Fares are confirmed on WhatsApp — message us on WhatsApp with your travel date for a clear quote before booking. We arrange comfortable vehicles suited to the long cross-border journey." },
-      { question: "Can I get a private car with a driver from Riyadh to Dubai?", answer: "Yes. We arrange a private car with a professional driver for the full Riyadh to Dubai journey — not a shared ride — with one vehicle and driver for your whole party door-to-door." },
+      { question: "Can I get a private car with a driver from Riyadh to Dubai?", answer: "Yes. We arrange a private car with a professional chauffeur for the full Riyadh to Dubai journey — one vehicle and driver reserved exclusively for your party, door-to-door." },
+      { question: "Do you offer an executive or corporate car service from Riyadh to Dubai?", answer: "Yes. For business travellers we provide an executive car with a professional chauffeur from Riyadh to Dubai — a pre-booked private transfer with corporate invoicing on request, comfortable vehicles to work en route, and planned meeting or rest stops. Share your itinerary on WhatsApp for a fare." },
       { question: "Is it better to fly or drive from Riyadh to Dubai?", answer: "Flying is faster, but a private car with driver is popular for business travellers who want to work en route, families with luggage, or anyone who prefers not to navigate two airports and a connecting ride on each end." },
       { question: "Can I stop overnight or make business stops on the way to Dubai?", answer: "Yes. The Riyadh-Dubai route can include planned stops for meetings, meals, or rest — let us know your itinerary when requesting a quote so we can arrange the right vehicle and driver." },
     ],
@@ -1181,13 +1183,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // Per-slug description overrides — same CTR-fix rationale as TITLE_OVERRIDES,
   // for pages with confirmed impressions/position but zero clicks.
   const DESCRIPTION_OVERRIDES: Record<string, string> = {
-    "riyadh-to-dammam": "Riyadh to Dammam taxi, one way — 390 km, about 3.5 hours. Get your exact price and fare confirmed on WhatsApp before booking. Private, professional drivers, 24/7.",
+    "riyadh-to-dammam": "Riyadh to Dammam taxi, one way — 390 km, ~3.5 hrs. Private car or executive chauffeur; get your exact price & fare confirmed on WhatsApp before booking, 24/7.",
     "jeddah-to-kaec": "Jeddah to KAEC (King Abdullah Economic City) taxi — 120 km, about 1 hr 20 min. Get your exact fare confirmed on WhatsApp before booking. Corporate sedans, 24/7.",
     "riyadh-to-alula": "Riyadh to AlUla taxi — 1,050 km, about 10 hours. Get your exact fare confirmed on WhatsApp before booking. Premium long-distance transfer, rest stops included.",
     "madinah-to-alula": "Madinah to AlUla taxi — 330 km, about 3 hours. Get your exact fare confirmed on WhatsApp before booking. Heritage transfer, rest stops included.",
     "jeddah-airport-to-swissotel-makkah": "Taxi from Jeddah Airport (JED) to Swissotel Al Maqam Makkah — ~80 km, about 1 hour. Meet & greet, Miqat stop on request, fare confirmed on WhatsApp. 24/7.",
     "red-sea-airport-to-neom": "Taxi from Red Sea International Airport (RSI) to NEOM — private transfer, meet & greet, professional drivers. Fare confirmed on WhatsApp before booking. 24/7.",
-    "riyadh-to-dubai": "Private car with driver from Riyadh to Dubai (UAE) — cross-border GCC road transfer. Fare confirmed on WhatsApp before booking. 24/7, professional drivers.",
+    "riyadh-to-dubai": "Private car with driver, Riyadh to Dubai (UAE) — executive chauffeur for business & family. Cross-border GCC transfer, fare confirmed on WhatsApp before booking, 24/7.",
   };
 
   return {

@@ -86,8 +86,8 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     nameAr: "الرياض",
     image: "/locations/riyadh-hero.webp",
     tagline: "The Saudi Capital",
-    description: "Book a private taxi in Riyadh for airport transfers from King Khalid International Airport (RUH) (~35 km, ~45 min), business travel across KAFD, Olaya, and the Diplomatic Quarter, shopping trips, and intercity rides to Dammam (~400 km), Makkah, Jeddah, or Al Ahsa. Our professional drivers cover every Riyadh district 24/7, with hourly chauffeur charters for executives and meet & greet for arrivals. Whether you need a quick city ride, a full business day on hire, or a long-distance transfer, your fare is confirmed on WhatsApp before booking, with no surge pricing.",
-    tldr: "Taxi Saudi Arabia arranges 24/7 private taxi and chauffeur service in Riyadh — King Khalid International Airport (RUH) transfers (~35 km, ~45 min), business travel across KAFD and Olaya, and intercity rides to Dammam (~400 km), Makkah, and Jeddah. Hourly charters and meet & greet available, quoted on WhatsApp.",
+    description: "Book a private taxi, private car or executive chauffeur in Riyadh for airport transfers from King Khalid International Airport (RUH) (~35 km, ~45 min), corporate and business travel across KAFD, Olaya, and the Diplomatic Quarter, shopping trips, and intercity rides to Dammam (~400 km), Makkah, Jeddah, or Al Ahsa. Our professional drivers cover every Riyadh district 24/7, with hourly chauffeur charters for executives and meet & greet for arrivals. Whether you need a quick city ride, a full business day on hire, or a long-distance transfer, your fare is confirmed on WhatsApp before booking, with no surge pricing.",
+    tldr: "Taxi Saudi Arabia arranges 24/7 private taxi, executive car and chauffeur service in Riyadh — King Khalid International Airport (RUH) transfers (~35 km, ~45 min), corporate and business travel across KAFD and Olaya, and intercity rides to Dammam (~400 km), Makkah, and Jeddah. Hourly charters and meet & greet available, quoted on WhatsApp.",
     tldrFacts: [
       { label: "Airport (RUH)", value: "~35 km · ~45 min" },
       { label: "To Dammam", value: "~400 km · ~4 hr" },
@@ -109,11 +109,12 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       "King Khalid International Airport (RUH) is about 35 km north of the centre — allow 45–60 minutes during peak hours."
     ],
     faqs: [
-      { question: "How much is a taxi from Riyadh airport to the city?", answer: "A private taxi from King Khalid International Airport (RUH) to central Riyadh districts like Olaya or KAFD starts from around SAR 100 — message us on WhatsApp with your flight time for a clear quote. It is about 35 km and a 45-minute drive, with meet & greet at arrivals." },
+      { question: "How much is a taxi from Riyadh airport to the city?", answer: "A private taxi from King Khalid International Airport (RUH) to central Riyadh districts like Olaya or KAFD is about 35 km and a 45-minute drive, with meet & greet at arrivals. Message us on WhatsApp with your flight time for the current fare before you book." },
       { question: "Can I hire a car with driver in Riyadh for a full day?", answer: "Yes. We arrange hourly and full-day chauffeur charters across Riyadh — ideal for business meetings, where the driver waits between stops and knows the fastest routes, avoiding ride-hailing surge pricing." },
       { question: "How far is Riyadh from Dammam by taxi?", answer: "Riyadh to Dammam is about 400 km — roughly a 4-hour drive on Highway 40. We arrange intercity transfers in sedans, SUVs, and vans with rest stops included, quoted on WhatsApp before booking." },
       { question: "Do you cover all Riyadh business districts?", answer: "Yes — KAFD, Olaya, the Diplomatic Quarter, Granada, and Diriyah are all covered 24/7. Share your exact district when booking so the driver plans the best route." },
-      { question: "Is taxi available in Riyadh 24/7?", answer: "Yes, we operate around the clock in Riyadh for airport transfers, business travel, shopping, and intercity trips — with your fare confirmed before you book." }
+      { question: "Is taxi available in Riyadh 24/7?", answer: "Yes, we operate around the clock in Riyadh for airport transfers, business travel, shopping, and intercity trips — with your fare confirmed before you book." },
+      { question: "Do you offer a private car or executive car service in Riyadh, not just a taxi?", answer: "Yes. Alongside a standard taxi, we provide a pre-booked private car and executive car service in Riyadh — an executive sedan, SUV or van with a professional chauffeur for airport transfers, corporate travel and full-day hire across KAFD, Olaya and the Diplomatic Quarter. Corporate invoicing is available on request; your fare is confirmed on WhatsApp." }
     ],
     relatedLinks: [
       { href: "/services/car-recovery/riyadh", label: "Riyadh car recovery & tow truck (satha)" },

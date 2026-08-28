@@ -16,8 +16,8 @@ import { Plane, Clock, UserCheck, CheckCircle2, ShieldCheck, Search, PlaneLandin
 const waLink = (msg: string) =>
   `https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(msg)}`;
 
-const TITLE = "Airport Taxi Saudi Arabia | Jeddah, Riyadh & Madinah Pickups";
-const DESCRIPTION = "Private airport taxi in Saudi Arabia with pickups at Jeddah (JED), Riyadh (RUH) & Madinah (MED). Flight tracking, meet & greet, 24/7 professional drivers.";
+const TITLE = "Airport Taxi & Private Transfer Saudi Arabia | Jeddah, Riyadh, Madinah";
+const DESCRIPTION = "Private airport taxi & transfer in Saudi Arabia — Jeddah, Riyadh, Madinah, Dammam. Meet & greet, flight tracking, chauffeur & family vehicles, fare confirmed on WhatsApp.";
 const OG_IMAGE = "https://taxisaudiarabia.com/services/airport-transfers-hero.webp";
 
 export const metadata: Metadata = {
@@ -58,7 +58,11 @@ const FAQS = [
   },
   {
     q: "Are the prices fixed?",
-    a: "Prices shown on the website are estimates. Your final fare is confirmed in your quotation on WhatsApp or email before the trip — and that confirmed price is final, with no hidden fees, toll charges, or surge pricing."
+    a: "Your fare is confirmed in a quotation on WhatsApp or email before the trip — and that confirmed price is final, with no hidden fees, toll charges, or surge pricing."
+  },
+  {
+    q: "Do you offer private airport transfers and chauffeur service across Saudi Arabia?",
+    a: "Yes. Every airport booking is a pre-booked private transfer — your own car with a professional chauffeur, meet & greet at arrivals, and flight tracking. We arrange executive sedans, SUVs and family vehicles at Jeddah, Riyadh, Madinah and Dammam airports, with the fare confirmed on WhatsApp."
   }
 ];
 
@@ -103,15 +107,15 @@ export default function AirportTransfersPage() {
             <Plane className="h-3 w-3" /> Airport Services
           </span>
           <h1 className="font-heading text-4xl md:text-6xl font-bold leading-tight mb-6">
-            Seamless Airport <br />
-            <span className="text-[#16A34A]">Transfers Across KSA</span>
+            Airport Taxi & Private <br />
+            <span className="text-[#16A34A]">Transfers Across Saudi Arabia</span>
           </h1>
           <p className="max-w-2xl text-sm md:text-base text-[#6B7280] leading-relaxed mb-8">
-            Arrive relaxed. We serve King Abdulaziz (JED), King Khalid (RUH), and Prince Mohammad Bin Abdulaziz (MED) airports with flight tracking, meet & greet, and zero waiting fees.
+            Arrive relaxed with a pre-booked private airport transfer. We serve King Abdulaziz (JED), King Khalid (RUH), Prince Mohammad Bin Abdulaziz (MED) and King Fahd (DMM) airports — private cars, chauffeur service and family vehicles, with flight tracking and meet & greet.
           </p>
           <div className="max-w-2xl mb-10">
             <TLDRSummary
-              answer="Airport taxi transfers in Saudi Arabia cover Jeddah (JED), Riyadh (RUH), and Madinah (MED), with flight tracking, meet & greet, and 60 minutes of free waiting time. Your exact fare is confirmed on WhatsApp before booking."
+              answer="Airport taxi and private transfers in Saudi Arabia cover Jeddah (JED), Riyadh (RUH), Madinah (MED) and Dammam (DMM), with a private car or chauffeur, flight tracking, meet & greet, and 60 minutes of free waiting time. Your exact fare is confirmed on WhatsApp before booking."
               facts={[
                 { label: "JED → Makkah", value: "On WhatsApp" },
                 { label: "RUH → City", value: "On WhatsApp" },
@@ -163,7 +167,7 @@ export default function AirportTransfersPage() {
 
       {/* ─── FEATURES ─────────────────────────────────────────────── */}
       <section className="section-container max-w-7xl py-20 border-b border-[#C9A84C]/10">
-        <h2 className="font-heading text-3xl md:text-4xl font-bold mb-10 text-center">Why Book an Airport Taxi in Saudi Arabia</h2>
+        <h2 className="font-heading text-3xl md:text-4xl font-bold mb-10 text-center">Why Pre-Book a Private Airport Taxi in Saudi Arabia</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {[
             { icon: PlaneLanding, title: "Real-Time Flight Tracking", desc: "We monitor your flight and adjust pickup time for early or delayed arrivals." },
@@ -208,8 +212,8 @@ export default function AirportTransfersPage() {
       {/* ─── PRICING TABLE ────────────────────────────────────────── */}
       <section className="section-container max-w-5xl py-20">
         <div className="text-center mb-12">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">Airport Transfer Prices in Saudi Arabia</h2>
-          <p className="text-[#6B7280]">Starting fares for sedan transfers — SUV and luxury classes also available. Final price is confirmed before your trip.</p>
+          <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">Popular Airport Transfer Routes in Saudi Arabia</h2>
+          <p className="text-[#6B7280]">Sedan, SUV and family vehicles available — a pre-booked private transfer with a professional chauffeur. Your fare is confirmed on WhatsApp before your trip.</p>
         </div>
 
         <div className="bg-white rounded-3xl border border-[#16A34A]/12 overflow-hidden">
@@ -230,7 +234,7 @@ export default function AirportTransfersPage() {
                     <td className="p-6 font-bold text-sm text-[#1C1C1C]">{route.airport}</td>
                     <td className="p-6 text-sm text-[#6B7280]">{route.dest}</td>
                     <td className="p-6 text-sm text-[#6B7280]">{route.time}</td>
-                    <td className="p-6 font-bold text-[#16A34A] text-right">{route.price}</td>
+                    <td className="p-6 font-bold text-[#16A34A] text-right">On WhatsApp</td>
                     <td className="p-6 text-center flex items-center justify-center gap-4">
                       <Link href={`/routes/${route.routeSlug}`} className="text-xs font-bold uppercase tracking-wider text-[#6B7280] hover:text-[#16A34A] transition-colors">
                         Details
@@ -268,7 +272,7 @@ export default function AirportTransfersPage() {
         <div className="bg-white border border-[#16A34A]/15 shadow-lg rounded-3xl p-12 text-center">
           <h2 className="font-heading text-3xl font-bold mb-4 text-[#1C1C1C]">Ready for a stress-free arrival?</h2>
           <p className="text-[#6B7280] mb-8 max-w-lg mx-auto">
-            Book your premium airport transfer today and let us handle the logistics while you relax.
+            Book your pre-booked private airport transfer today and let us handle the logistics while you relax.
           </p>
           <a
             href={waLink("Salam, I'd like to book an airport taxi in Saudi Arabia. My flight details and destination are:")}
