@@ -283,7 +283,7 @@ export const SUB_AREAS: Record<string, {
   },
   "al-mansour": {
     city: "makkah", subarea: "al-mansour", name: "Al Mansour", nameAr: "المنصور",
-    description: "Reliable and affordable taxi rides in the Al Mansour district of Makkah for Haram transfers and airport departures.",
+    description: "Reliable private taxi rides in the Al Mansour district of Makkah for Haram transfers and airport departures.",
     airportMin: "~55 min", makkahMin: "~10 min drive", popularFor: "Residential, local rides",
     landmarks: ["Al Mansour district", "Route to Haram", "Makkah ring road"],
     tldr: "A taxi in Al Mansour, Makkah is quoted on WhatsApp before booking and available 24/7. The district is about a 10-minute drive to Masjid al-Haram and roughly 55 minutes to Jeddah Airport (JED).",

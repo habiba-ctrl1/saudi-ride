@@ -35,7 +35,7 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
     badge: "Best Value",
     image: "/fleet/toyota-camry.webp",
     features: ["Professional Chauffeur", "Climate Controlled", "Efficient Transfer"],
-    description: "Our most booked sedan for airport pickups and city rides. Clean, comfortable, and easy on the budget.",
+    description: "Our most booked executive sedan for private airport transfers and city rides. Clean, comfortable, and driven by a professional chauffeur.",
   },
   {
     slug: "gmc-yukon-xl",

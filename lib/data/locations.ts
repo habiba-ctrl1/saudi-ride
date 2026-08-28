@@ -117,7 +117,9 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     ],
     relatedLinks: [
       { href: "/services/car-recovery/riyadh", label: "Riyadh car recovery & tow truck (satha)" },
-      { href: "/locations/riyadh/diriyah", label: "Riyadh to Diriyah taxi & heritage transfer" }
+      { href: "/locations/riyadh/diriyah", label: "Riyadh to Diriyah taxi & heritage transfer" },
+      { href: "/routes/riyadh-to-dubai", label: "Riyadh to Dubai — private car with driver" },
+      { href: "/blog/private-driver-cost-saudi-arabia", label: "How much a private driver costs in Saudi Arabia" }
     ]
   },
   jeddah: {
@@ -158,6 +160,12 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { quote: "Landed at Jeddah at 2 AM and the driver was waiting with my name sign. Stopped at the Miqat so we could enter Ihram, then straight to our Makkah hotel. Stress-free start to Umrah.", author: "Imran S.", location: "Birmingham, UK", trip: "JED → Makkah" },
       { quote: "Booked an SUV from the airport to Madinah for my parents and all the luggage. Comfortable, exactly the price we agreed on WhatsApp, and the driver took rest stops for prayer without us asking. Highly recommend.", author: "Aisha R.", location: "Toronto, Canada", trip: "JED → Madinah" },
       { quote: "Used them for a Corniche and Al-Balad day tour. The driver knew every spot and waited while we explored. Fair price as agreed, very polite. Will use again next visit.", author: "Khalid M.", location: "Jeddah", trip: "Jeddah City Tour" },
+    ],
+    relatedLinks: [
+      { href: "/routes/jeddah-to-kaec", label: "Jeddah to KAEC (King Abdullah Economic City) taxi" },
+      { href: "/routes/jeddah-airport-to-makkah", label: "Jeddah Airport to Makkah taxi" },
+      { href: "/services/car-recovery/jeddah", label: "Jeddah car recovery & tow truck (satha)" },
+      { href: "/blog/private-driver-cost-saudi-arabia", label: "How much a private driver costs in Saudi Arabia" }
     ]
   },
   dammam: {
@@ -451,7 +459,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       "NEOM covers a vast area — provide your specific destination or gate access point when requesting a transfer.",
       "Tabuk Airport (TUU) is the primary regional air gateway (~120 km), while NEOM Bay (NUM) and Red Sea International (RSI) also serve the region.",
       "Given the long highway distances across the region, executive SUVs (e.g. GMC Yukon XL) provide optimal comfort.",
-      "Corporate VAT invoicing is available for business accounts upon request.",
+      "Corporate invoicing is available for business accounts on request.",
       "Confirm any required site entry clearance with your host before travel."
     ],
     faqs: [
