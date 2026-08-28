@@ -47,9 +47,9 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
       { href: "/routes/jeddah-airport-to-conrad-makkah", label: "JED to Conrad Makkah" },
       { href: "/routes/jeddah-airport-to-hilton-suites-makkah", label: "JED to Hilton Suites Makkah" },
       { href: "/routes/jeddah-airport-to-movenpick-makkah", label: "JED to Movenpick Makkah" },
-      { href: "/fleet/gmc-yukon-xl", label: "GMC Yukon XL — for families with luggage" },
-      { href: "/fleet/hyundai-staria", label: "Hyundai Staria VIP — group van" },
-      { href: "/fleet/toyota-camry", label: "Toyota Camry — budget sedan" },
+      { href: "/fleet/gmc-yukon-xl", label: "GMC Yukon XL — Premium SUV" },
+      { href: "/fleet/hyundai-staria", label: "Hyundai Staria — VIP Van" },
+      { href: "/fleet/toyota-camry", label: "Toyota Camry — Executive Sedan" },
     ]
   },
   "prince-mohammad-madinah": {
@@ -80,6 +80,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     priorityRoutes: ["madinah-airport-to-makkah", "madinah-airport-to-city"],
     faqs: [
       { question: "How much is a taxi from Madinah airport to the city?", answer: "A private taxi from Prince Mohammad Bin Abdulaziz Airport (MED) to central Madinah hotels starts from around SAR 80. It is about 20 km and a 25-minute drive, with meet & greet at arrivals." },
+      { question: "Do you offer a private car service from Madinah Airport (MED)?", answer: "Yes. Beyond a standard taxi, we offer a pre-booked private car service from Madinah Airport (MED) — an executive sedan, SUV or VIP van with a professional chauffeur and meet & greet at arrivals. Every booking is your own vehicle, quoted on WhatsApp before you travel." },
       { question: "Is there a taxi at Madinah airport at night?", answer: "Yes. We operate 24/7 at MED, including late-night and early-morning arrivals. We track your flight so your driver waits with a name sign even if the flight is delayed." },
       { question: "Where do I meet my driver at Madinah airport?", answer: "Your driver meets you in the arrivals hall of the main terminal holding a sign with your name, and helps with your luggage to the vehicle." },
       { question: "Can I travel directly from Madinah airport to Makkah?", answer: "Yes. We offer a direct MED to Makkah transfer (about 450 km, ~4.5–5 hours) with prayer and rest stops, ideal for pilgrims connecting between the Holy Cities." },
@@ -89,8 +90,8 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
       { href: "/routes/madinah-airport-to-city", label: "MED Airport to Madinah City" },
       { href: "/routes/madinah-airport-to-makkah", label: "MED Airport to Makkah direct" },
       { href: "/routes/madinah-airport-to-madinah-markaziyah", label: "MED to Markaziyah Hotels" },
-      { href: "/fleet/hyundai-staria", label: "Hyundai Staria VIP — group van" },
-      { href: "/fleet/gmc-yukon-xl", label: "GMC Yukon XL — family SUV" },
+      { href: "/fleet/hyundai-staria", label: "Hyundai Staria — VIP Van" },
+      { href: "/fleet/gmc-yukon-xl", label: "GMC Yukon XL — Premium SUV" },
     ]
   },
   "king-khalid-riyadh": {
@@ -115,7 +116,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     ],
     tips: [
       "Riyadh airport is 35km north of the city center. Expect a 30-45 minute drive.",
-      "Corporate invoicing and VAT receipts are provided for business travelers.",
+      "Corporate invoicing is available for business travelers on request.",
       "We track your flight and include 60 minutes of free waiting time after landing.",
       "Meet & greet is included — your driver waits in the arrivals hall with a name sign."
     ],
@@ -123,16 +124,17 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     faqs: [
       { question: "How much is a taxi from Riyadh airport to the city center?", answer: "A private taxi from King Khalid International Airport (RUH) to central Riyadh starts from SAR 100. The price is confirmed before you book — no surge or hidden fees." },
       { question: "How long does it take from Riyadh airport to KAFD?", answer: "The drive from RUH to KAFD is about 35–40 minutes (approximately 40 km), depending on traffic." },
+      { question: "Do you offer car service at every Riyadh Airport terminal?", answer: "Yes. We provide private car service and meet & greet at all King Khalid International Airport (RUH) terminals — Terminals 1, 2, 3 and 4 for international flights and Terminal 5 for domestic. Share your terminal when booking and your chauffeur waits in that arrivals hall with a name sign." },
       { question: "Where do I meet my driver at Riyadh airport?", answer: "Your driver meets you in the arrivals hall of your terminal holding a name sign. Confirm your terminal number when booking so we meet you at the right exit." },
       { question: "What happens if my flight is delayed?", answer: "We monitor your flight number and adjust the pickup automatically. Up to 60 minutes of free waiting after landing is included." },
-      { question: "Do you provide VAT invoices for business travelers?", answer: "Yes. Corporate invoicing with VAT receipts is available for business travelers upon request." }
+      { question: "Do you provide invoices for business travelers?", answer: "Yes. Corporate invoices are available for business travelers on request — just let us know when you book." }
     ],
     relatedLinks: [
       { href: "/routes/riyadh-airport-to-city", label: "RUH Airport to Riyadh City" },
       { href: "/routes/riyadh-airport-to-kafd-hotels", label: "RUH to KAFD & Olaya Hotels" },
       { href: "/fleet/mercedes-s-class", label: "Mercedes S-Class — executive sedan" },
-      { href: "/fleet/gmc-yukon-xl", label: "GMC Yukon XL — family SUV" },
-      { href: "/fleet/toyota-camry", label: "Toyota Camry — budget sedan" },
+      { href: "/fleet/gmc-yukon-xl", label: "GMC Yukon XL — Premium SUV" },
+      { href: "/fleet/toyota-camry", label: "Toyota Camry — Executive Sedan" },
     ]
   },
   "king-fahd-dammam": {
@@ -170,7 +172,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
       { href: "/routes/dammam-to-doha", label: "DMM to Doha, Qatar — cross-border" },
       { href: "/routes/dammam-to-manama", label: "DMM to Manama, Bahrain" },
       { href: "/fleet/gmc-yukon-xl", label: "GMC Yukon XL — spacious SUV" },
-      { href: "/fleet/toyota-camry", label: "Toyota Camry — budget sedan" },
+      { href: "/fleet/toyota-camry", label: "Toyota Camry — Executive Sedan" },
     ]
   },
   "taif-regional": {
@@ -196,7 +198,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     relatedLinks: [
       { href: "/routes/makkah-to-taif", label: "Makkah to Taif taxi" },
       { href: "/routes/jeddah-to-taif", label: "Jeddah to Taif taxi" },
-      { href: "/fleet/toyota-camry", label: "Toyota Camry — budget sedan" },
+      { href: "/fleet/toyota-camry", label: "Toyota Camry — Executive Sedan" },
     ]
   },
   "tabuk-regional": {

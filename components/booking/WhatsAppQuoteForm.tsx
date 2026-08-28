@@ -145,6 +145,20 @@ export default function WhatsAppQuoteForm() {
           ? "السعر النهائي يعتمد على المسار والسيارة والتاريخ وعدد الركاب — يتم تأكيده معك مباشرة قبل الحجز."
           : "Final pricing depends on route, vehicle, date, and passengers — confirmed with you directly before booking."}
       </p>
+
+      <div
+        className="rounded-xl px-4 py-3 text-center"
+        style={{ border: "1px solid rgba(22,163,74,0.2)", backgroundColor: "rgba(22,163,74,0.05)" }}
+      >
+        <p className="text-xs font-semibold text-[#15803D]">
+          {isRtl ? "نقل خاص فقط" : "Private Transportation Only"}
+        </p>
+        <p className="mt-1 text-[0.7rem] text-[#4B5563]">
+          {isRtl
+            ? "كل حجز يشمل سيارتك وسائقك بشكل خاص — سيارة خاصة وسائق محترف."
+            : "Every booking is your own private vehicle and professional chauffeur."}
+        </p>
+      </div>
     </div>
   );
 }

@@ -29,22 +29,23 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!airportData) return { title: "Airport Not Found" };
 
-  // Evidenced CTR fix (GSC: 25 impressions, 0 clicks, pos ~31): the generic
-  // formula uses only the airport's official name, which for MED omits the
-  // word "Madinah" entirely — nobody searches "Prince Mohammad Bin Abdulaziz
-  // airport taxi" by that name. Same TITLE_OVERRIDES pattern as routes/[slug].
+  // Evidenced CTR fix (GSC 7-day, 2026-08-28): MED had 121 impressions / 0
+  // clicks at pos ~26; RUH's premium terminal queries ("ruh terminal 4 car
+  // service", "med airport car service") had 0 clicks at pos 31-45. Searchers
+  // use "car service" + terminal, which the old taxi-only titles omitted —
+  // "car service" is also the premium-intent term we want to rank for.
   const TITLE_OVERRIDES: Record<string, string> = {
-    "prince-mohammad-madinah": "Madinah Airport Taxi (MED) | Prince Mohammad Bin Abdulaziz",
-    // Same CTR fix: the official airport names omit the city travellers actually
-    // search ("Jeddah/Riyadh/Dammam airport taxi"), so lead with the city.
+    "prince-mohammad-madinah": "Madinah Airport Taxi & Car Service (MED) | Meet & Greet",
+    // Lead with the city travellers actually search + add "car service" for the
+    // premium intent GSC shows ("ruh terminal X car service").
     "king-abdulaziz-jeddah": "Jeddah Airport Taxi (JED) | King Abdulaziz International Airport",
-    "king-khalid-riyadh": "Riyadh Airport Taxi (RUH) | King Khalid International Airport",
+    "king-khalid-riyadh": "Riyadh Airport Taxi & Car Service (RUH) | All Terminals",
     "king-fahd-dammam": "Dammam Airport Taxi (DMM) | King Fahd International Airport",
   };
   const DESCRIPTION_OVERRIDES: Record<string, string> = {
-    "prince-mohammad-madinah": "Madinah Airport (MED) taxi — Prince Mohammad Bin Abdulaziz Airport to your hotel near Masjid an-Nabawi, ~20 km/25 min. Meet & greet included, quoted on WhatsApp, 24/7.",
+    "prince-mohammad-madinah": "Madinah Airport (MED) taxi & private car service — Prince Mohammad Bin Abdulaziz Airport to your hotel near Masjid an-Nabawi (~25 min). Meet & greet, chauffeur with a name sign, quoted on WhatsApp, 24/7.",
     "king-abdulaziz-jeddah": "Jeddah Airport (JED) taxi — King Abdulaziz International Airport to Makkah, Madinah or your Jeddah hotel. Meet & greet, flight tracking, fare confirmed on WhatsApp, 24/7.",
-    "king-khalid-riyadh": "Riyadh Airport (RUH) taxi — King Khalid International Airport to your hotel, KAFD or city centre. Meet & greet included, fare confirmed on WhatsApp, 24/7.",
+    "king-khalid-riyadh": "Riyadh Airport (RUH) taxi & executive car service — King Khalid International Airport, all terminals (1–5) to KAFD, Olaya or your hotel. Meet & greet, chauffeur with a name sign, quoted on WhatsApp, 24/7.",
     "king-fahd-dammam": "Dammam Airport (DMM) taxi — King Fahd International Airport to Dammam, Khobar, Dhahran or Jubail. Meet & greet, fare confirmed on WhatsApp, 24/7.",
   };
 

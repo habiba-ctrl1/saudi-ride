@@ -36,7 +36,7 @@ const homeTranslations = {
       subtitle: "Private taxi & chauffeur service across Saudi Arabia — airport transfers, Umrah transport, and luxury intercity rides at clear prices, with professional drivers, 24/7.",
       btnBook: "Reserve Your Private Taxi",
       btnFleet: "Get a Free Price Quote",
-      badges: ["24/7 Private Taxi Service", "Professional Chauffeurs", "Clear Pricing on WhatsApp", "All Saudi Cities"]
+      badges: ["Private Transportation Only", "24/7 Private Taxi Service", "Professional Chauffeurs", "Clear Pricing on WhatsApp", "All Saudi Cities"]
     },
     stats: [
       { label: "Routes Covered", value: trustStats.routesCovered, num: trustStats.routesCount },
@@ -106,7 +106,7 @@ const homeTranslations = {
     whyUs: {
       badge: "Why Choose Us",
       title: "Why Thousands Book Their Taxi Service in Saudi Arabia With Us",
-      desc: "We provide safe, reliable, and affordable taxi service across Saudi Arabia — from airport transfers and Umrah transport to private intercity rides and corporate travel. Here's what makes us different.",
+      desc: "We provide safe, reliable, professional private taxi & chauffeur service across Saudi Arabia — from airport transfers and Umrah transport to private intercity rides and corporate travel. Here's what makes us different.",
       points: [
         { title: "Professional Drivers", desc: "Experienced drivers arranged through our transportation partners — reliable and courteous." },
         { title: "Clear Pricing — No Surprises", desc: "No surge pricing, no hidden fees, no meter tricks. Your exact fare is confirmed with you on WhatsApp before booking." },
@@ -212,7 +212,7 @@ const homeTranslations = {
       subtitle: "سائق خاص VIP في جميع أنحاء المملكة — المطارات، العمرة، والتنقل الفاخر بين المدن بأقصى درجات الراحة.",
       btnBook: "احجز رحلتك الفاخرة",
       btnFleet: "تصفح أسطول التميز",
-      badges: ["دعم VIP على مدار ٢٤ ساعة", "سائقون محترفون", "أسعار واضحة بدون زيادة مفاجئة", "جميع المدن السعودية"]
+      badges: ["نقل خاص فقط", "دعم VIP على مدار ٢٤ ساعة", "سائقون محترفون", "أسعار واضحة بدون زيادة مفاجئة", "جميع المدن السعودية"]
     },
     stats: [
       { label: "مسار مغطى", value: "+٥٦", num: 56 },
@@ -372,7 +372,7 @@ const homeTranslations = {
       subtitle: "سعودی عرب بھر میں وی آئی پی ڈرائیور سروس — ہوائی اڈے، عمرہ اور بین شہر سفر بہترین آرام کے ساتھ۔",
       btnBook: "لگژری سواری بک کریں",
       btnFleet: "پریسٹيج بیڑے کو دیکھیں",
-      badges: ["24/7 پریمیم سپورٹ", "لائسنس یافتہ ڈرائیورز", "مقررہ مسابقتی قیمتیں", "تمام سعودی شہر"]
+      badges: ["صرف پرائیویٹ ٹرانسپورٹ", "24/7 پریمیم سپورٹ", "لائسنس یافتہ ڈرائیورز", "مقررہ مسابقتی قیمتیں", "تمام سعودی شہر"]
     },
     stats: [
       { label: "روٹس", value: trustStats.routesCovered, num: trustStats.routesCount },

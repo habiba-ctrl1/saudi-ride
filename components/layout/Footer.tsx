@@ -13,7 +13,7 @@ const translations = {
     company: "Company",
     copyright: "© 2026 Taxi Saudi Arabia. All rights reserved. Created with absolute elegance.",
     motLicensed: "Professional Chauffeurs",
-    zatcaCompliant: "ZATCA-Ready Invoicing",
+    zatcaCompliant: "Corporate Invoicing",
     tgaCertified: "Clear Quotes",
     support247: "24/7 Customer Support",
   },
@@ -25,7 +25,7 @@ const translations = {
     company: "الشركة",
     copyright: "© 2026 تاكسي السعودية. جميع الحقوق محفوظة. صُنع بأناقة مطلقة.",
     motLicensed: "سائقون محترفون",
-    zatcaCompliant: "خاضع لهيئة الزكاة والضريبة",
+    zatcaCompliant: "فوترة للشركات",
     tgaCertified: "عروض أسعار واضحة",
     support247: "دعم VIP على مدار الساعة",
   },
@@ -37,7 +37,7 @@ const translations = {
     company: "کمپنی",
     copyright: "© 2026 ٹیکسی سعودی عرب۔ جملہ حقوق محفوظ ہیں۔ بہترین نفاست کے ساتھ تیار کردہ۔",
     motLicensed: "پیشہ ور ڈرائیورز",
-    zatcaCompliant: "زکوٰۃ و ٹیکس کمپلائنٹ",
+    zatcaCompliant: "کارپوریٹ انوائسنگ",
     tgaCertified: "واضح قیمت",
     support247: "24/7 وی آئی پی سپورٹ",
   },
@@ -300,7 +300,7 @@ export function Footer() {
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 py-12 border-b text-xs" style={{ borderColor: "rgba(255,255,255,0.15)" }}>
           {[
             { icon: BadgeCheck, label: t.motLicensed, sub: "Vetted & Experienced" },
-            { icon: Receipt, label: t.zatcaCompliant, sub: "Electronic Invoicing Ready" },
+            { icon: Receipt, label: t.zatcaCompliant, sub: "Available on Request" },
             { icon: ShieldCheck, label: t.tgaCertified, sub: "No Meter, No Surge" },
             { icon: PhoneCall, label: t.support247, sub: "Private Concierge Desk" },
           ].map(({ icon: Icon, label, sub }) => (

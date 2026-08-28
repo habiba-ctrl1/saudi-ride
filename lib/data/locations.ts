@@ -451,7 +451,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       "NEOM covers a vast area — provide your specific destination or gate access point when requesting a transfer.",
       "Tabuk Airport (TUU) is the primary regional air gateway (~120 km), while NEOM Bay (NUM) and Red Sea International (RSI) also serve the region.",
       "Given the long highway distances across the region, executive SUVs (e.g. GMC Yukon XL) provide optimal comfort.",
-      "Corporate VAT invoicing is available for business accounts upon request.",
+      "Corporate invoicing is available for business accounts on request.",
       "Confirm any required site entry clearance with your host before travel."
     ],
     faqs: [
