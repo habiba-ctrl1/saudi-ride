@@ -33,8 +33,8 @@ Content audit done: ArabicRoutePage chrome = 100% Arabic; English has 71/76 besp
 - [ ] **2b–2n Translation batches** — remaining 66 routes (~10/batch), each = metaTitle + metaDescription + badge + introExtra + tldrAnswer + tldrFacts + whyUs + faqs. Add entry to `AR_ROUTE_CONTENT` → auto-registers (middleware + hreflang + static param). Native review on money routes.
   - Done so far: 5/76 (jeddah-airport-to-makkah, riyadh-to-dammam, dammam-to-doha, makkah-to-madinah, jeddah-to-madinah)
 
-### ⚠️ Branch reconciliation needed (main diverged)
-`main` advanced past feat's base (`61a167c`) with 2 SEO commits (`bb752a3` Premium repositioning, `8666a4b` SEO internal links). Those touched `Footer.tsx`, `home-page.tsx`, `WhatsAppQuoteForm.tsx` — **same files STEP 1 RTL changed** → will conflict on merge/rebase. Decide: rebase feat onto main, or merge main into feat. Not done yet.
+### Branch reconciliation ✅ done (merge `1d78540`)
+`main` had advanced with 2 SEO commits (`bb752a3` Premium repositioning, `8666a4b` SEO internal links). Merged main → feat; overlap in `Footer.tsx` + `home-page.tsx` auto-merged cleanly (RTL logical classes and SEO changes were on different lines). Verified: both change-sets present, no physical directional classes remain, tsc clean. feat is now a superset of main.
 
 ## STEP 3 — Pilot: `/ar/services/umrah-transport`
 - [ ] First hardcoded service page translated (pattern for remaining 17)
