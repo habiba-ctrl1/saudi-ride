@@ -30,8 +30,9 @@ Content audit done: ArabicRoutePage chrome = 100% Arabic; English has 71/76 besp
   - `lib/config/i18n.ts` — `AR_ROUTE_SLUGS` now derived from content map (single source)
   - Deleted 5 standalone hand-written pages → migrated into the map
   - Verified: 5 pages 200+Arabic, non-content /ar 301→EN, hreflang en/ar/x-default bidirectional, og:locale ar_SA, tsc clean
-- [ ] **2b–2n Translation batches** — remaining 66 routes (~10/batch), each = metaTitle + metaDescription + badge + introExtra + tldrAnswer + tldrFacts + whyUs + faqs. Add entry to `AR_ROUTE_CONTENT` → auto-registers (middleware + hreflang + static param). Native review on money routes.
-  - Done so far: 5/76 (jeddah-airport-to-makkah, riyadh-to-dammam, dammam-to-doha, makkah-to-madinah, jeddah-to-madinah)
+- [ ] **2b–2n Translation batches** — remaining routes (~10/batch), each = metaTitle + metaDescription + badge + introExtra + tldrAnswer + tldrFacts + whyUs + faqs. Add entry to `AR_ROUTE_CONTENT` → auto-registers (middleware + hreflang + static param). Native review on money routes.
+  - [x] **Batch 1** (10 money routes) ✅ committed — machine-translated, native review pending: jeddah-to-makkah, makkah-to-jeddah-airport, makkah-to-jeddah, madinah-to-makkah, jeddah-airport-to-jeddah-city, riyadh-airport-to-city, madinah-airport-to-city, riyadh-to-alula, madinah-to-alula, riyadh-to-dubai. Verified: 200+Arabic H1+FAQ, untranslated still 301, tsc clean.
+  - **Progress: 15/76 routes** (5 infra + 10 batch-1). Remaining: 61.
 
 ### Branch reconciliation ✅ done (merge `1d78540`)
 `main` had advanced with 2 SEO commits (`bb752a3` Premium repositioning, `8666a4b` SEO internal links). Merged main → feat; overlap in `Footer.tsx` + `home-page.tsx` auto-merged cleanly (RTL logical classes and SEO changes were on different lines). Verified: both change-sets present, no physical directional classes remain, tsc clean. feat is now a superset of main.
