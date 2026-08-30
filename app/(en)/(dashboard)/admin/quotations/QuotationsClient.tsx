@@ -101,6 +101,7 @@ export function QuotationsClient({
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editDraft, setEditDraft] = useState<EditDraft | null>(null);
   const [notesDraft, setNotesDraft] = useState<Record<string, string>>({});
+  const [profitDraft, setProfitDraft] = useState<Record<string, string>>({});
   const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const totalPages = Math.max(1, Math.ceil(total / limit));
@@ -213,6 +214,28 @@ export function QuotationsClient({
       const data = await res.json();
       if (!res.ok) {
         setRowError((prev) => ({ ...prev, [id]: data.error || "Update failed" }));
+        return;
+      }
+      router.refresh();
+    } catch {
+      setRowError((prev) => ({ ...prev, [id]: "Network error" }));
+    } finally {
+      setBusyId(null);
+    }
+  }
+
+  async function saveProfit(id: string) {
+    setBusyId(id);
+    setRowError((prev) => ({ ...prev, [id]: "" }));
+    try {
+      const res = await fetch(`/api/quotations/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ profit: profitDraft[id] }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setRowError((prev) => ({ ...prev, [id]: data.error || "Could not save profit" }));
         return;
       }
       router.refresh();
@@ -526,7 +549,7 @@ export function QuotationsClient({
               )}
 
               {!editing && (
-                <div className="grid gap-4 border-t border-[#222] pt-4 sm:grid-cols-3">
+                <div className="grid gap-4 border-t border-[#222] pt-4 sm:grid-cols-4">
                   <div>
                     <p className="text-[10px] uppercase tracking-wide text-[#666]">Trip</p>
                     <p className="mt-1 text-sm text-[#F5F0E8]">{q.pickup_location} → {q.drop_location}</p>
@@ -552,6 +575,28 @@ export function QuotationsClient({
                       <p className="mt-1 text-sm font-bold text-[#C9A84C]">{q.quoted_price} {q.currency}</p>
                     ) : (
                       <p className="mt-1 text-xs text-[#666]">Not quoted yet</p>
+                    )}
+                  </div>
+                  <div>
+                    <p className="text-[10px] uppercase tracking-wide text-[#666]">My Profit (SAR)</p>
+                    <div className="mt-1 flex items-center gap-1.5">
+                      <input
+                        type="number"
+                        placeholder={q.profit !== null ? String(q.profit) : "Not set"}
+                        value={profitDraft[q.id] ?? ""}
+                        onChange={(e) => setProfitDraft((prev) => ({ ...prev, [q.id]: e.target.value }))}
+                        className="w-24 rounded-lg border border-[#333] bg-black/40 px-2 py-1.5 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
+                      />
+                      <button
+                        disabled={busy || !profitDraft[q.id]}
+                        onClick={() => saveProfit(q.id)}
+                        className="rounded-lg border border-[#C9A84C]/25 bg-[#C9A84C]/15 px-2.5 py-1.5 text-[10px] font-bold text-[#C9A84C] hover:bg-[#C9A84C]/25 disabled:opacity-40"
+                      >
+                        Save
+                      </button>
+                    </div>
+                    {q.profit !== null && !profitDraft[q.id] && (
+                      <p className="mt-1 text-xs font-bold text-emerald-400">Saved: {q.profit} SAR</p>
                     )}
                   </div>
                 </div>

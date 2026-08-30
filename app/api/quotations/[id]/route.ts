@@ -5,6 +5,7 @@ import {
   updateQuotationStatus,
   updateQuotationDetails,
   setQuotationTestFlag,
+  setQuotationProfit,
   deleteQuotation,
   getQuotationById,
   type QuotationStatus,
@@ -27,6 +28,16 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 
   if (body.is_test !== undefined) {
     const { row, error } = await setQuotationTestFlag(id, Boolean(body.is_test));
+    if (error) return NextResponse.json({ error }, { status: 400 });
+    return NextResponse.json({ success: true, row });
+  }
+
+  if (body.profit !== undefined) {
+    const profit = body.profit === null || body.profit === "" ? null : Number(body.profit);
+    if (profit !== null && !Number.isFinite(profit)) {
+      return NextResponse.json({ error: "Invalid profit amount" }, { status: 400 });
+    }
+    const { row, error } = await setQuotationProfit(id, profit);
     if (error) return NextResponse.json({ error }, { status: 400 });
     return NextResponse.json({ success: true, row });
   }

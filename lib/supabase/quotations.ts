@@ -34,6 +34,7 @@ export type QuotationRow = {
   updated_at: string;
   confirmed_at: string | null;
   is_test: boolean;
+  profit: number | null;
 };
 
 export type QuotationFilters = {
@@ -188,6 +189,22 @@ export async function setQuotationTestFlag(id: string, isTest: boolean) {
   const { data, error } = await supabase
     .from("quotations")
     .update({ is_test: isTest })
+    .eq("id", id)
+    .select()
+    .single();
+  return { row: (data ?? null) as QuotationRow | null, error: error?.message ?? null };
+}
+
+/** Manual profit entry — a bookkeeping field the admin fills in by hand per
+ *  ride (this business's real fare/cost isn't computed anywhere in the
+ *  system), not a business-status change, so it's a direct update like
+ *  is_test rather than going through the audit-logged RPCs. */
+export async function setQuotationProfit(id: string, profit: number | null) {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return { row: null, error: "Supabase not configured" };
+  const { data, error } = await supabase
+    .from("quotations")
+    .update({ profit })
     .eq("id", id)
     .select()
     .single();
