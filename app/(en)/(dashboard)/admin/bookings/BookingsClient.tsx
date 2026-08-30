@@ -1,17 +1,17 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { CalendarClock, Loader2, ChevronLeft, ChevronRight, Search, AlertTriangle, FileText, Download, FlaskConical, Trash2 } from "lucide-react";
+import {
+  CalendarClock, Loader2, ChevronLeft, ChevronRight, Search, AlertTriangle,
+  FileText, Download, FlaskConical, Trash2, ChevronDown, TrendingUp,
+  DollarSign, Zap, Clock,
+} from "lucide-react";
+import { NewBookingForm } from "./NewBookingForm";
 
 type BookingStatus =
-  | "PENDING"
-  | "CONFIRMED"
-  | "DRIVER_ASSIGNED"
-  | "IN_PROGRESS"
-  | "COMPLETED"
-  | "CANCELLED"
-  | "REFUNDED";
+  | "PENDING" | "CONFIRMED" | "DRIVER_ASSIGNED" | "IN_PROGRESS"
+  | "COMPLETED" | "CANCELLED" | "REFUNDED";
 
 export type BookingRow = {
   id: string;
@@ -36,50 +36,68 @@ export type BookingRow = {
   quotationRef: string | null;
 };
 
+type Vehicle = { id: string; name: string; type: string };
+
 const STATUS_COLOR: Record<BookingStatus, string> = {
   PENDING: "bg-amber-500/10 text-amber-500 border-amber-500/20",
   CONFIRMED: "bg-blue-500/10 text-blue-400 border-blue-500/20",
   DRIVER_ASSIGNED: "bg-purple-500/10 text-purple-400 border-purple-500/20",
   IN_PROGRESS: "bg-purple-500/10 text-purple-400 border-purple-500/20",
-  COMPLETED: "bg-[#C9A84C]/10 text-[#C9A84C] border-[#C9A84C]/20",
+  COMPLETED: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
   CANCELLED: "bg-red-500/10 text-red-500 border-red-500/20",
   REFUNDED: "bg-red-500/10 text-red-500 border-red-500/20",
 };
 const ALL_STATUSES: BookingStatus[] = [
-  "PENDING",
-  "CONFIRMED",
-  "DRIVER_ASSIGNED",
-  "IN_PROGRESS",
-  "COMPLETED",
-  "CANCELLED",
-  "REFUNDED",
+  "PENDING", "CONFIRMED", "DRIVER_ASSIGNED", "IN_PROGRESS", "COMPLETED", "CANCELLED", "REFUNDED",
 ];
 
-const STAGE_FILTERS: Array<{ key: string; label: string }> = [
-  { key: "all", label: "All" },
-  { key: "needs_price", label: "Needs Price" },
-  { key: "confirmed", label: "Confirmed / Active" },
+const STAGE_TABS: Array<{ key: string; label: string }> = [
+  { key: "all", label: "All Bookings" },
+  { key: "pending", label: "Pending" },
+  { key: "quote_sent", label: "Quote Sent" },
+  { key: "confirmed", label: "Confirmed" },
+  { key: "in_progress", label: "In Progress" },
   { key: "completed", label: "Completed" },
   { key: "cancelled", label: "Cancelled" },
 ];
+
+function StatCard({ icon: Icon, label, value, sub }: { icon: typeof TrendingUp; label: string; value: string; sub?: string }) {
+  return (
+    <div className="rounded-2xl border border-[#C9A84C]/10 bg-[#111] p-4 flex items-center gap-3">
+      <div className="rounded-xl bg-[#C9A84C]/10 p-2.5 shrink-0">
+        <Icon className="h-5 w-5 text-[#C9A84C]" />
+      </div>
+      <div className="min-w-0">
+        <p className="text-[10px] uppercase tracking-wide text-[#7C8088]">{label}</p>
+        <p className="text-xl font-bold text-[#F5F0E8] truncate">{value}</p>
+        {sub && <p className="text-[10px] text-[#7C8088] truncate">{sub}</p>}
+      </div>
+    </div>
+  );
+}
 
 export function BookingsClient({
   bookings,
   total,
   page,
   limit,
-  needsPriceCount,
+  vehicles,
+  stats,
+  stageCounts,
 }: {
   bookings: BookingRow[];
   total: number;
   page: number;
   limit: number;
-  needsPriceCount: number;
+  vehicles: Vehicle[];
+  stats: { totalAllTime: number; todayRevenue: number; activeJobsToday: number };
+  stageCounts: Record<string, number>;
 }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  const [expandedId, setExpandedId] = useState<string | null>(null);
   const [busyId, setBusyId] = useState<string | null>(null);
   const [priceDraft, setPriceDraft] = useState<Record<string, string>>({});
   const [driverNameDraft, setDriverNameDraft] = useState<Record<string, string>>({});
@@ -163,25 +181,26 @@ export function BookingsClient({
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between flex-wrap gap-3">
+      <div className="flex items-start justify-between flex-wrap gap-3">
         <div className="flex items-center gap-3">
           <CalendarClock className="h-6 w-6 text-[#C9A84C]" />
-          <h1 className="text-xl font-bold text-[#F5F0E8]">Bookings</h1>
-          <span className="text-xs text-[#A1A1A6]">{total} total</span>
-          {needsPriceCount > 0 && (
-            <span className="flex items-center gap-1 rounded-full border border-amber-500/25 bg-amber-500/10 px-2.5 py-0.5 text-[10px] font-bold uppercase text-amber-400">
-              <AlertTriangle className="h-3 w-3" /> {needsPriceCount} need{needsPriceCount === 1 ? "s" : ""} a price
-            </span>
-          )}
+          <div>
+            <h1 className="text-xl font-bold text-[#F5F0E8]">Bookings</h1>
+            <p className="text-xs text-[#7C8088] mt-0.5">Monitor and process every transport reservation.</p>
+          </div>
         </div>
+        <NewBookingForm vehicles={vehicles} />
       </div>
 
-      <p className="rounded-xl border border-[#333] bg-[#111] px-4 py-3 text-xs text-[#A1A1A6]">
-        The site no longer shows or emails an automated price to customers — every booking here starts at{" "}
-        <span className="text-[#F5F0E8] font-semibold">PENDING / no price set</span>. Confirm the real fare with the
-        customer on WhatsApp, then enter it below.
-      </p>
+      {/* ─── STAT CARDS ─────────────────────────────────────────────── */}
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <StatCard icon={TrendingUp} label="Total Bookings" value={String(stats.totalAllTime)} />
+        <StatCard icon={DollarSign} label="Today's Paid Revenue" value={`SAR ${stats.todayRevenue.toLocaleString()}`} sub="Cash-on-arrival — most trips settle later" />
+        <StatCard icon={Zap} label="Active Jobs Today" value={String(stats.activeJobsToday)} sub="Assigned or in progress" />
+        <StatCard icon={Clock} label="Needs a Price" value={String(stageCounts.pending ?? 0)} sub="Waiting on WhatsApp confirmation" />
+      </div>
 
+      {/* ─── STAGE TABS ─────────────────────────────────────────────── */}
       <div className="rounded-2xl border border-[#333] bg-[#111] p-4 space-y-3">
         <div className="flex flex-wrap items-center gap-2">
           <div className="relative">
@@ -200,7 +219,7 @@ export function BookingsClient({
           </div>
         </div>
         <div className="flex gap-2 flex-wrap">
-          {STAGE_FILTERS.map((f) => (
+          {STAGE_TABS.map((f) => (
             <button
               key={f.key}
               onClick={() => setParam("stage", f.key === "all" ? null : f.key)}
@@ -210,207 +229,228 @@ export function BookingsClient({
                   : "border-[#333] text-[#A1A1A6] hover:border-[#C9A84C]/40"
               }`}
             >
-              {f.label}
+              {f.label} <span className="opacity-60">({stageCounts[f.key] ?? 0})</span>
             </button>
           ))}
         </div>
       </div>
 
-      {bookings.length === 0 && (
-        <p className="rounded-xl border border-[#333] bg-[#111] px-4 py-8 text-center text-sm text-[#A1A1A6]">
-          No bookings match these filters.
-        </p>
-      )}
+      {/* ─── TABLE ──────────────────────────────────────────────────── */}
+      <div className="rounded-2xl border border-[#C9A84C]/10 bg-[#111] overflow-hidden">
+        {bookings.length === 0 ? (
+          <p className="px-4 py-10 text-center text-sm text-[#A1A1A6]">No bookings match these filters.</p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-[#1A1A1A] border-b border-[#C9A84C]/10 text-[0.65rem] uppercase tracking-widest text-[#7C8088]">
+                  <th className="p-4 font-bold">Booking</th>
+                  <th className="p-4 font-bold">Customer</th>
+                  <th className="p-4 font-bold">Trip</th>
+                  <th className="p-4 font-bold">Vehicle</th>
+                  <th className="p-4 font-bold">Date &amp; Time</th>
+                  <th className="p-4 font-bold">Price</th>
+                  <th className="p-4 font-bold">Status</th>
+                  <th className="p-4 font-bold text-right">Manage</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[#C9A84C]/5">
+                {bookings.map((b) => {
+                  const busy = busyId === b.id;
+                  const waPhone = b.customerPhone.replace(/[^0-9]/g, "");
+                  const flagged = b.notes?.includes("SYSTEM FLAG");
+                  const priceSet = b.totalPrice > 0;
+                  const expanded = expandedId === b.id;
+                  const q = quotation[b.id] ?? (b.quotationId && b.quotationRef ? { id: b.quotationId, ref: b.quotationRef } : null);
 
-      <div className="grid gap-4">
-        {bookings.map((b) => {
-          const busy = busyId === b.id;
-          const waPhone = b.customerPhone.replace(/[^0-9]/g, "");
-          const flagged = b.notes?.includes("SYSTEM FLAG");
-          const priceSet = b.totalPrice > 0;
+                  return (
+                    <Fragment key={b.id}>
+                      <tr
+                        onClick={() => setExpandedId(expanded ? null : b.id)}
+                        className={`cursor-pointer hover:bg-[#1A1A1A]/50 transition-colors ${b.isTest ? "opacity-70" : ""}`}
+                      >
+                        <td className="p-4">
+                          <div className="flex items-center gap-1.5">
+                            <ChevronDown className={`h-3.5 w-3.5 text-[#666] transition-transform shrink-0 ${expanded ? "rotate-180" : ""}`} />
+                            <span className="font-mono text-xs font-bold text-[#C9A84C]">{b.bookingRef}</span>
+                          </div>
+                          <div className="flex gap-1 mt-1 ml-5">
+                            {b.isTest && <span className="inline-flex items-center gap-0.5 text-[9px] font-bold uppercase text-gray-400"><FlaskConical className="h-2.5 w-2.5" /> Test</span>}
+                            {flagged && <span className="inline-flex items-center gap-0.5 text-[9px] font-bold uppercase text-red-400"><AlertTriangle className="h-2.5 w-2.5" /> Flagged</span>}
+                          </div>
+                        </td>
+                        <td className="p-4">
+                          <p className="text-sm font-medium text-[#F5F0E8]">{b.customerName}</p>
+                          <p className="text-xs text-[#7C8088]">{b.customerPhone}</p>
+                        </td>
+                        <td className="p-4 max-w-[220px]">
+                          <p className="text-xs text-[#F5F0E8] truncate">{b.pickupLocation} → {b.dropoffLocation}</p>
+                          <p className="text-[10px] text-[#7C8088]">{b.passengers} pax</p>
+                        </td>
+                        <td className="p-4 text-xs text-[#A1A1A6]">{b.vehicleName}</td>
+                        <td className="p-4 text-xs text-[#A1A1A6]">{new Date(b.pickupDateTime).toLocaleString()}</td>
+                        <td className="p-4">
+                          {priceSet ? (
+                            <span className="text-sm font-bold text-[#C9A84C]">{b.currency} {b.totalPrice}</span>
+                          ) : (
+                            <span className="text-xs text-amber-400">Not set</span>
+                          )}
+                        </td>
+                        <td className="p-4">
+                          <span className={`rounded-full border px-2.5 py-0.5 text-[10px] font-bold uppercase ${STATUS_COLOR[b.status]}`}>
+                            {b.status.replace("_", " ")}
+                          </span>
+                        </td>
+                        <td className="p-4 text-right">
+                          <a
+                            href={`https://wa.me/${waPhone}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="text-[#C9A84C] hover:underline text-xs font-bold"
+                          >
+                            WhatsApp
+                          </a>
+                        </td>
+                      </tr>
 
-          const q = quotation[b.id] ?? (b.quotationId && b.quotationRef ? { id: b.quotationId, ref: b.quotationRef } : null);
+                      {expanded && (
+                        <tr className="bg-black/20">
+                          <td colSpan={8} className="p-5 space-y-4" onClick={(e) => e.stopPropagation()}>
+                            {b.customerEmail && <p className="text-xs text-[#A1A1A6]">Email: {b.customerEmail}</p>}
 
-          return (
-            <div key={b.id} className={`rounded-2xl border p-5 space-y-4 ${b.isTest ? "border-dashed border-[#666] bg-[#1a1a1a]/60" : "border-[#C9A84C]/10 bg-[#111]"}`}>
-              <div className="flex items-start justify-between flex-wrap gap-3">
-                <div>
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="font-mono text-sm font-bold text-[#C9A84C]">{b.bookingRef}</span>
-                    <span className={`rounded-full border px-2.5 py-0.5 text-[10px] font-bold uppercase ${STATUS_COLOR[b.status]}`}>
-                      {b.status.replace("_", " ")}
-                    </span>
-                    {!priceSet && b.status === "PENDING" && (
-                      <span className="rounded-full border border-amber-500/25 bg-amber-500/10 px-2.5 py-0.5 text-[10px] font-bold uppercase text-amber-400">
-                        Needs price
-                      </span>
-                    )}
-                    {flagged && (
-                      <span className="flex items-center gap-1 rounded-full border border-red-500/25 bg-red-500/10 px-2.5 py-0.5 text-[10px] font-bold uppercase text-red-400">
-                        <AlertTriangle className="h-3 w-3" /> Flagged
-                      </span>
-                    )}
-                    {b.isTest && (
-                      <span className="flex items-center gap-1 rounded-full border border-gray-500/40 bg-gray-500/15 px-2.5 py-0.5 text-[10px] font-bold uppercase text-gray-300">
-                        <FlaskConical className="h-3 w-3" /> Test
-                      </span>
-                    )}
-                  </div>
-                  <p className="mt-2 text-sm font-semibold text-[#F5F0E8]">{b.customerName}</p>
-                  <a href={`https://wa.me/${waPhone}`} target="_blank" rel="noopener noreferrer" className="text-xs text-[#C9A84C] hover:underline">
-                    {b.customerPhone} (WhatsApp)
-                  </a>
-                  {b.customerEmail && <p className="text-xs text-[#A1A1A6]">{b.customerEmail}</p>}
-                </div>
-                <div className="flex items-center gap-2">
-                  <button
-                    disabled={busy}
-                    onClick={() => patch(b.id, { isTest: !b.isTest })}
-                    className="flex items-center gap-1.5 rounded-lg border border-[#333] px-2.5 py-1.5 text-[10px] font-bold uppercase text-[#A1A1A6] hover:border-gray-400 disabled:opacity-40"
-                  >
-                    <FlaskConical className="h-3 w-3" /> {b.isTest ? "Unmark Test" : "Mark as Test"}
-                  </button>
-                  {b.isTest && (
-                    <button
-                      disabled={busy}
-                      onClick={() => deleteTestBooking(b.id, b.bookingRef)}
-                      className="flex items-center gap-1.5 rounded-lg border border-red-500/30 bg-red-500/10 px-2.5 py-1.5 text-[10px] font-bold uppercase text-red-400 hover:bg-red-500/20 disabled:opacity-40"
-                    >
-                      <Trash2 className="h-3 w-3" /> Delete
-                    </button>
-                  )}
-                </div>
-              </div>
+                            <div>
+                              <label className="text-[10px] uppercase tracking-wide text-[#666]">Internal admin notes</label>
+                              <textarea
+                                rows={2}
+                                placeholder="Add a note for other admins (not shown to the customer)…"
+                                value={notesDraft[b.id] ?? b.notes ?? ""}
+                                onChange={(e) => setNotesDraft((prev) => ({ ...prev, [b.id]: e.target.value }))}
+                                className={`mt-1 w-full resize-y rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs outline-none focus:border-[#C9A84C] ${flagged ? "text-red-400" : "text-[#A1A1A6]"}`}
+                              />
+                            </div>
 
-              <div className="grid gap-4 border-t border-[#222] pt-4 sm:grid-cols-3">
-                <div>
-                  <p className="text-[10px] uppercase tracking-wide text-[#666]">Trip</p>
-                  <p className="mt-1 text-sm text-[#F5F0E8]">{b.pickupLocation} → {b.dropoffLocation}</p>
-                  <p className="mt-1 text-xs text-[#A1A1A6]">
-                    {new Date(b.pickupDateTime).toLocaleString()} · {b.passengers} pax · {b.vehicleName}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-wide text-[#666]">Price</p>
-                  {priceSet ? (
-                    <p className="mt-1 text-sm font-bold text-[#C9A84C]">{b.currency} {b.totalPrice}</p>
-                  ) : (
-                    <p className="mt-1 text-xs text-amber-400">Not set — confirm on WhatsApp first</p>
-                  )}
-                </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-wide text-[#666]">Driver</p>
-                  <p className="mt-1 text-xs text-[#F5F0E8]">{b.driverName || "Not assigned"}</p>
-                  {b.driverPhone && <p className="text-xs text-[#A1A1A6]">{b.driverPhone}</p>}
-                </div>
-              </div>
+                            <div className="flex flex-wrap items-center gap-3">
+                              <p className="text-[10px] uppercase tracking-wide text-[#666] w-full sm:w-auto">Quotation</p>
+                              {q ? (
+                                <a
+                                  href={`/api/quotations/${q.id}/invoice`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="flex items-center gap-1.5 rounded-lg border border-[#C9A84C]/30 bg-[#C9A84C]/10 px-3 py-1.5 text-xs font-bold text-[#C9A84C] hover:bg-[#C9A84C]/20"
+                                >
+                                  <Download className="h-3.5 w-3.5" /> Download {q.ref}
+                                </a>
+                              ) : (
+                                <button
+                                  disabled={busy || !priceSet}
+                                  onClick={() => generateQuotation(b.id)}
+                                  title={!priceSet ? "Set a confirmed price first" : undefined}
+                                  className="flex items-center gap-1.5 rounded-lg border border-[#333] px-3 py-1.5 text-xs font-bold text-[#A1A1A6] hover:border-[#C9A84C]/40 disabled:opacity-40"
+                                >
+                                  <FileText className="h-3.5 w-3.5" /> Generate Quotation
+                                </button>
+                              )}
+                            </div>
 
-              <div className="border-t border-[#222] pt-3">
-                <label className="text-[10px] uppercase tracking-wide text-[#666]">Internal admin notes</label>
-                <textarea
-                  rows={2}
-                  placeholder="Add a note for other admins (not shown to the customer)…"
-                  value={notesDraft[b.id] ?? b.notes ?? ""}
-                  onChange={(e) => setNotesDraft((prev) => ({ ...prev, [b.id]: e.target.value }))}
-                  className={`mt-1 w-full resize-y rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs outline-none focus:border-[#C9A84C] ${flagged ? "text-red-400" : "text-[#A1A1A6]"}`}
-                />
-              </div>
+                            <div className="grid gap-3 sm:grid-cols-4">
+                              <label className="text-xs text-[#A1A1A6]">
+                                Set price (SAR)
+                                <input
+                                  type="number"
+                                  min={0}
+                                  placeholder={String(b.totalPrice || "")}
+                                  value={priceDraft[b.id] ?? ""}
+                                  onChange={(e) => setPriceDraft((prev) => ({ ...prev, [b.id]: e.target.value }))}
+                                  className="mt-1 w-full rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
+                                />
+                              </label>
+                              <label className="text-xs text-[#A1A1A6]">
+                                Status
+                                <select
+                                  value={b.status}
+                                  disabled={busy}
+                                  onChange={(e) => patch(b.id, { status: e.target.value })}
+                                  className="mt-1 w-full rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
+                                >
+                                  {ALL_STATUSES.map((s) => (
+                                    <option key={s} value={s} className="bg-[#121212]">{s.replace("_", " ")}</option>
+                                  ))}
+                                </select>
+                              </label>
+                              <label className="text-xs text-[#A1A1A6]">
+                                Driver name
+                                <input
+                                  type="text"
+                                  placeholder={b.driverName || ""}
+                                  value={driverNameDraft[b.id] ?? ""}
+                                  onChange={(e) => setDriverNameDraft((prev) => ({ ...prev, [b.id]: e.target.value }))}
+                                  className="mt-1 w-full rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
+                                />
+                              </label>
+                              <label className="text-xs text-[#A1A1A6]">
+                                Driver phone
+                                <input
+                                  type="text"
+                                  placeholder={b.driverPhone || ""}
+                                  value={driverPhoneDraft[b.id] ?? ""}
+                                  onChange={(e) => setDriverPhoneDraft((prev) => ({ ...prev, [b.id]: e.target.value }))}
+                                  className="mt-1 w-full rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
+                                />
+                              </label>
+                            </div>
 
-              <div className="flex flex-wrap items-center gap-3 border-t border-[#222] pt-4">
-                <p className="text-[10px] uppercase tracking-wide text-[#666] w-full sm:w-auto">Quotation</p>
-                {q ? (
-                  <a
-                    href={`/api/quotations/${q.id}/invoice`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 rounded-lg border border-[#C9A84C]/30 bg-[#C9A84C]/10 px-3 py-1.5 text-xs font-bold text-[#C9A84C] hover:bg-[#C9A84C]/20"
-                  >
-                    <Download className="h-3.5 w-3.5" /> Download {q.ref}
-                  </a>
-                ) : (
-                  <button
-                    disabled={busy || !priceSet}
-                    onClick={() => generateQuotation(b.id)}
-                    title={!priceSet ? "Set a confirmed price first" : undefined}
-                    className="flex items-center gap-1.5 rounded-lg border border-[#333] px-3 py-1.5 text-xs font-bold text-[#A1A1A6] hover:border-[#C9A84C]/40 disabled:opacity-40"
-                  >
-                    <FileText className="h-3.5 w-3.5" /> Generate Quotation
-                  </button>
-                )}
-              </div>
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <button
+                                disabled={
+                                  busy ||
+                                  (!priceDraft[b.id] && !driverNameDraft[b.id] && !driverPhoneDraft[b.id] &&
+                                    (notesDraft[b.id] === undefined || notesDraft[b.id] === (b.notes ?? "")))
+                                }
+                                onClick={() => {
+                                  const payload: Record<string, unknown> = {};
+                                  if (priceDraft[b.id]) payload.totalPrice = priceDraft[b.id];
+                                  if (driverNameDraft[b.id]) payload.driverName = driverNameDraft[b.id];
+                                  if (driverPhoneDraft[b.id]) payload.driverPhone = driverPhoneDraft[b.id];
+                                  if (notesDraft[b.id] !== undefined && notesDraft[b.id] !== (b.notes ?? "")) payload.notes = notesDraft[b.id];
+                                  patch(b.id, payload);
+                                }}
+                                className="rounded-lg bg-[#C9A84C]/15 border border-[#C9A84C]/25 px-3 py-2 text-xs font-bold text-[#C9A84C] hover:bg-[#C9A84C]/25 disabled:opacity-40"
+                              >
+                                {busy ? "Saving…" : "Save Changes"}
+                              </button>
+                              {busy && <Loader2 className="h-4 w-4 animate-spin text-[#C9A84C]" />}
 
-              <div className="grid gap-3 border-t border-[#222] pt-4 sm:grid-cols-4">
-                <label className="text-xs text-[#A1A1A6]">
-                  Set price (SAR)
-                  <input
-                    type="number"
-                    min={0}
-                    placeholder={String(b.totalPrice || "")}
-                    value={priceDraft[b.id] ?? ""}
-                    onChange={(e) => setPriceDraft((prev) => ({ ...prev, [b.id]: e.target.value }))}
-                    className="mt-1 w-full rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
-                  />
-                </label>
-                <label className="text-xs text-[#A1A1A6]">
-                  Status
-                  <select
-                    value={b.status}
-                    disabled={busy}
-                    onChange={(e) => patch(b.id, { status: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
-                  >
-                    {ALL_STATUSES.map((s) => (
-                      <option key={s} value={s} className="bg-[#121212]">{s.replace("_", " ")}</option>
-                    ))}
-                  </select>
-                </label>
-                <label className="text-xs text-[#A1A1A6]">
-                  Driver name
-                  <input
-                    type="text"
-                    placeholder={b.driverName || ""}
-                    value={driverNameDraft[b.id] ?? ""}
-                    onChange={(e) => setDriverNameDraft((prev) => ({ ...prev, [b.id]: e.target.value }))}
-                    className="mt-1 w-full rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
-                  />
-                </label>
-                <label className="text-xs text-[#A1A1A6]">
-                  Driver phone
-                  <input
-                    type="text"
-                    placeholder={b.driverPhone || ""}
-                    value={driverPhoneDraft[b.id] ?? ""}
-                    onChange={(e) => setDriverPhoneDraft((prev) => ({ ...prev, [b.id]: e.target.value }))}
-                    className="mt-1 w-full rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
-                  />
-                </label>
-              </div>
+                              <span className="flex-1" />
 
-              <div className="flex items-center gap-2">
-                <button
-                  disabled={
-                    busy ||
-                    (!priceDraft[b.id] && !driverNameDraft[b.id] && !driverPhoneDraft[b.id] &&
-                      (notesDraft[b.id] === undefined || notesDraft[b.id] === (b.notes ?? "")))
-                  }
-                  onClick={() => {
-                    const payload: Record<string, unknown> = {};
-                    if (priceDraft[b.id]) payload.totalPrice = priceDraft[b.id];
-                    if (driverNameDraft[b.id]) payload.driverName = driverNameDraft[b.id];
-                    if (driverPhoneDraft[b.id]) payload.driverPhone = driverPhoneDraft[b.id];
-                    if (notesDraft[b.id] !== undefined && notesDraft[b.id] !== (b.notes ?? "")) payload.notes = notesDraft[b.id];
-                    patch(b.id, payload);
-                  }}
-                  className="rounded-lg bg-[#C9A84C]/15 border border-[#C9A84C]/25 px-3 py-2 text-xs font-bold text-[#C9A84C] hover:bg-[#C9A84C]/25 disabled:opacity-40"
-                >
-                  {busy ? "Saving…" : "Save"}
-                </button>
-                {busy && <Loader2 className="h-4 w-4 animate-spin text-[#C9A84C]" />}
-                {rowError[b.id] && <p className="text-xs text-red-400">{rowError[b.id]}</p>}
-              </div>
-            </div>
-          );
-        })}
+                              <button
+                                disabled={busy}
+                                onClick={() => patch(b.id, { isTest: !b.isTest })}
+                                className="flex items-center gap-1.5 rounded-lg border border-[#333] px-2.5 py-1.5 text-[10px] font-bold uppercase text-[#A1A1A6] hover:border-gray-400 disabled:opacity-40"
+                              >
+                                <FlaskConical className="h-3 w-3" /> {b.isTest ? "Unmark Test" : "Mark as Test"}
+                              </button>
+                              {b.isTest && (
+                                <button
+                                  disabled={busy}
+                                  onClick={() => deleteTestBooking(b.id, b.bookingRef)}
+                                  className="flex items-center gap-1.5 rounded-lg border border-red-500/30 bg-red-500/10 px-2.5 py-1.5 text-[10px] font-bold uppercase text-red-400 hover:bg-red-500/20 disabled:opacity-40"
+                                >
+                                  <Trash2 className="h-3 w-3" /> Delete
+                                </button>
+                              )}
+                            </div>
+                            {rowError[b.id] && <p className="text-xs text-red-400">{rowError[b.id]}</p>}
+                          </td>
+                        </tr>
+                      )}
+                    </Fragment>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
 
       {totalPages > 1 && (
