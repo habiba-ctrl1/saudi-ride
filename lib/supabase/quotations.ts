@@ -33,6 +33,7 @@ export type QuotationRow = {
   created_at: string;
   updated_at: string;
   confirmed_at: string | null;
+  is_test: boolean;
 };
 
 export type QuotationFilters = {
@@ -176,6 +177,31 @@ export async function listQuotations(filters: QuotationFilters = {}) {
 
   const { data, count, error } = await q.range((page - 1) * limit, page * limit - 1);
   return { rows: (data ?? []) as QuotationRow[], total: count ?? 0, error: error?.message ?? null };
+}
+
+/** Toggle the is_test flag — a lightweight admin/meta field, not a business
+ *  record change, so it's a direct update rather than going through the
+ *  audit-logged status/details RPCs. */
+export async function setQuotationTestFlag(id: string, isTest: boolean) {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return { row: null, error: "Supabase not configured" };
+  const { data, error } = await supabase
+    .from("quotations")
+    .update({ is_test: isTest })
+    .eq("id", id)
+    .select()
+    .single();
+  return { row: (data ?? null) as QuotationRow | null, error: error?.message ?? null };
+}
+
+/** Permanently deletes a quotation. Callers MUST verify is_test=true
+ *  themselves first (see DELETE /api/quotations/[id]) — this function does
+ *  not re-check, so it must never be called directly from user input. */
+export async function deleteQuotation(id: string) {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return { error: "Supabase not configured" };
+  const { error } = await supabase.from("quotations").delete().eq("id", id);
+  return { error: error?.message ?? null };
 }
 
 /** Status change through the audit-logged RPC. Triggers enforce double-booking

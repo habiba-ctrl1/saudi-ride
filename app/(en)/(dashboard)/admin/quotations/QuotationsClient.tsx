@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { FileText, Loader2, Flag, Pencil, X, ChevronLeft, ChevronRight, Search, Eye, Download } from "lucide-react";
+import { FileText, Loader2, Flag, Pencil, X, ChevronLeft, ChevronRight, Search, Eye, Download, FlaskConical, Trash2 } from "lucide-react";
 import type { QuotationRow, QuotationStatus, LeadSource, QuotationPaymentStatus, TripType } from "@/lib/supabase/quotations";
 
 type DriverOption = { id: string; name: string; city: string; vehicleType: string };
@@ -201,6 +201,47 @@ export function QuotationsClient({
     }
   }
 
+  async function toggleTest(id: string, isTest: boolean) {
+    setBusyId(id);
+    setRowError((prev) => ({ ...prev, [id]: "" }));
+    try {
+      const res = await fetch(`/api/quotations/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ is_test: isTest }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setRowError((prev) => ({ ...prev, [id]: data.error || "Update failed" }));
+        return;
+      }
+      router.refresh();
+    } catch {
+      setRowError((prev) => ({ ...prev, [id]: "Network error" }));
+    } finally {
+      setBusyId(null);
+    }
+  }
+
+  async function deleteTestQuotation(id: string, ref: string) {
+    if (!confirm(`Delete TEST quotation ${ref}? This cannot be undone.`)) return;
+    setBusyId(id);
+    setRowError((prev) => ({ ...prev, [id]: "" }));
+    try {
+      const res = await fetch(`/api/quotations/${id}`, { method: "DELETE" });
+      const data = await res.json();
+      if (!res.ok) {
+        setRowError((prev) => ({ ...prev, [id]: data.error || "Delete failed" }));
+        return;
+      }
+      router.refresh();
+    } catch {
+      setRowError((prev) => ({ ...prev, [id]: "Network error" }));
+    } finally {
+      setBusyId(null);
+    }
+  }
+
   function startEdit(q: QuotationRow) {
     setEditingId(q.id);
     setEditDraft(draftFromRow(q));
@@ -377,6 +418,11 @@ export function QuotationsClient({
                     <span className="rounded-full border border-[#333] px-2.5 py-0.5 text-[10px] uppercase text-[#A1A1A6]">
                       {q.source.replace("_", " ")}
                     </span>
+                    {q.is_test && (
+                      <span className="flex items-center gap-1 rounded-full border border-gray-500/40 bg-gray-500/15 px-2.5 py-0.5 text-[10px] font-bold uppercase text-gray-300">
+                        <FlaskConical className="h-3 w-3" /> Test
+                      </span>
+                    )}
                     <button
                       disabled={busy}
                       onClick={() => patchDetails(q.id, { followup_flagged: !q.followup_flagged })}
@@ -444,6 +490,24 @@ export function QuotationsClient({
                     <span title="Set a price first to generate an invoice" className="cursor-not-allowed rounded-lg border border-[#222] p-1.5 text-[#444]">
                       <Download className="h-3.5 w-3.5" />
                     </span>
+                  )}
+                  <button
+                    disabled={busy}
+                    onClick={() => toggleTest(q.id, !q.is_test)}
+                    title={q.is_test ? "Unmark as test" : "Mark as test"}
+                    className="rounded-lg border border-[#333] p-1.5 text-[#A1A1A6] transition hover:border-gray-400 disabled:opacity-40"
+                  >
+                    <FlaskConical className="h-3.5 w-3.5" />
+                  </button>
+                  {q.is_test && (
+                    <button
+                      disabled={busy}
+                      onClick={() => deleteTestQuotation(q.id, q.quote_reference)}
+                      title="Delete this test quotation"
+                      className="rounded-lg border border-red-500/30 bg-red-500/10 p-1.5 text-red-400 transition hover:bg-red-500/20 disabled:opacity-40"
+                    >
+                      <Trash2 className="h-3.5 w-3.5" />
+                    </button>
                   )}
                 </div>
               </div>

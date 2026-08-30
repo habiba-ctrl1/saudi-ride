@@ -45,6 +45,7 @@ const q: QuotationRow = {
   created_at: now,
   updated_at: now,
   confirmed_at: null,
+  is_test: false,
 };
 
 const out = process.argv[2] || "quotation.pdf";

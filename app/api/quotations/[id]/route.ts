@@ -4,6 +4,9 @@ import { authOptions } from "@/lib/auth";
 import {
   updateQuotationStatus,
   updateQuotationDetails,
+  setQuotationTestFlag,
+  deleteQuotation,
+  getQuotationById,
   type QuotationStatus,
   type QuotationDetailsInput,
 } from "@/lib/supabase/quotations";
@@ -11,7 +14,7 @@ import {
 const STATUSES: QuotationStatus[] = ["new", "quoted", "confirmed", "assigned", "completed", "cancelled"];
 
 // Admin: change quotation status / set price / assign driver / edit
-// customer+trip details (audit-logged RPCs, 0008 + 0010)
+// customer+trip details (audit-logged RPCs, 0008 + 0010) / toggle is_test
 export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   const session = await getServerSession(authOptions);
   const user = session?.user as { role?: string; email?: string } | undefined;
@@ -21,6 +24,12 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 
   const { id } = await params;
   const body = await request.json();
+
+  if (body.is_test !== undefined) {
+    const { row, error } = await setQuotationTestFlag(id, Boolean(body.is_test));
+    if (error) return NextResponse.json({ error }, { status: 400 });
+    return NextResponse.json({ success: true, row });
+  }
 
   if (body.details) {
     const details = body.details as QuotationDetailsInput;
@@ -61,4 +70,28 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 
   if (error) return NextResponse.json({ error }, { status: 400 });
   return NextResponse.json({ success: true, row });
+}
+
+// DELETE /api/quotations/[id] — only ever allowed for quotations explicitly
+// marked is_test=true. Enforced here server-side regardless of what the
+// calling UI shows. No bulk/"delete all" variant exists.
+export async function DELETE(_request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const session = await getServerSession(authOptions);
+  const user = session?.user as { role?: string } | undefined;
+  if (user?.role !== "ADMIN") {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const { id } = await params;
+  const { row, error: fetchError } = await getQuotationById(id);
+  if (fetchError || !row) {
+    return NextResponse.json({ error: fetchError ?? "Quotation not found" }, { status: 404 });
+  }
+  if (!row.is_test) {
+    return NextResponse.json({ error: "Only quotations marked as TEST can be deleted here." }, { status: 403 });
+  }
+
+  const { error } = await deleteQuotation(id);
+  if (error) return NextResponse.json({ error }, { status: 500 });
+  return NextResponse.json({ success: true });
 }
