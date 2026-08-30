@@ -1,5 +1,6 @@
 import { RECOVERY_AR_CITIES } from "@/lib/data/recovery";
 import { RECOVERY_ROUTES } from "@/lib/data/recovery-routes";
+import { AR_ROUTE_CONTENT_SLUGS } from "@/lib/data/routes-content-ar";
 
 // Recovery/transport paths that have real Arabic SSR pages under
 // app/ar/services/car-recovery/*. Generated from data so a new Eastern-Province
@@ -11,17 +12,13 @@ const RECOVERY_AR_PATHS = [
   ...RECOVERY_ROUTES.map((r) => `/services/car-recovery/${r.slug}`),
 ];
 
-// Route slugs that have a curated Arabic SSR page under app/ar/routes/<slug>.
-// Single source of truth: middleware uses it (via AR_REAL_ROUTES) to allow the
-// /ar URL, and the English routes/[slug] page uses it to emit bidirectional
-// hreflang. Add a slug here only after its app/ar/routes/<slug>/page.tsx exists.
-export const AR_ROUTE_SLUGS = [
-  "jeddah-airport-to-makkah",
-  "riyadh-to-dammam",
-  "dammam-to-doha",
-  "makkah-to-madinah",
-  "jeddah-to-madinah",
-];
+// Route slugs that have curated Arabic content and thus a real SSR page under
+// the dynamic app/ar/routes/[slug]. Single source of truth is AR_ROUTE_CONTENT
+// (lib/data/routes-content-ar.ts): middleware uses this list (via
+// AR_REAL_ROUTES) to allow the /ar URL, and the English routes/[slug] page uses
+// it to emit bidirectional hreflang. Add a slug by adding its AR_ROUTE_CONTENT
+// entry — no need to touch this file.
+export const AR_ROUTE_SLUGS = AR_ROUTE_CONTENT_SLUGS;
 
 // Pages that have real Arabic translations and their own SSR route under app/ar/*.
 export const AR_REAL_ROUTES = [

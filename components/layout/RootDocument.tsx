@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import { Manrope, Geist, Cairo, Playfair_Display } from "next/font/google";
-import "./globals.css";
+import "@/app/globals.css";
 import { cn } from "@/lib/utils";
 import { Providers } from "@/components/providers";
 import { SiteShell } from "@/components/layout/SiteShell";
@@ -38,7 +37,10 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
-export const metadata: Metadata = {
+// Shared default metadata for both the English and Arabic root layouts. Kept
+// identical to the previous single root layout so /ar pages inherit the same
+// defaults they always have (each /ar page still overrides title/description).
+export const rootMetadata: Metadata = {
   metadataBase: new URL("https://taxisaudiarabia.com"),
   title: "Taxi Service Saudi Arabia — Book Airport Transfer & Umrah Taxi | 24/7",
   description:
@@ -240,14 +242,25 @@ const jsonLd = [
   },
 ];
 
-export default async function RootLayout({
+/**
+ * Shared <html> document shell for the site's two root layouts. The English
+ * root layout renders it with lang="en"/dir="ltr" and the Arabic root layout
+ * with lang="ar"/dir="rtl". Splitting the roots this way lets both trees be
+ * statically prerendered with the correct language baked in, instead of
+ * reading the request-time `x-locale` header (which forced dynamic rendering
+ * on every page).
+ */
+export function RootDocument({
+  lang,
+  dir,
   children,
 }: Readonly<{
+  lang: "en" | "ar";
+  dir: "ltr" | "rtl";
   children: React.ReactNode;
 }>) {
-  const locale = (await headers()).get("x-locale") === "ar" ? "ar" : "en";
   return (
-    <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} className="light" style={{ colorScheme: "light" }} suppressHydrationWarning>
+    <html lang={lang} dir={dir} className="light" style={{ colorScheme: "light" }} suppressHydrationWarning>
       <head>
         {jsonLd.map((schema, i) => (
           <script

@@ -33,7 +33,7 @@ export function WhatsAppButton() {
   const whatsappUrl = `https://wa.me/${formattedNumber}?text=${encodedText}`;
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
+    <div className="fixed bottom-6 end-6 z-50 flex flex-col items-end gap-2">
       {/* Speech Bubble Prompt */}
       <AnimatePresence>
         {showBubble && (
@@ -47,10 +47,10 @@ export function WhatsAppButton() {
               <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#25D366]/20 text-[#25D366]">
                 <span className="text-base">💬</span>
               </div>
-              <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-[#25D366] ring-2 ring-[#121212]" />
+              <span className="absolute bottom-0 end-0 h-2.5 w-2.5 rounded-full bg-[#25D366] ring-2 ring-[#121212]" />
             </div>
 
-            <div className="flex-1 pr-4 text-xs leading-relaxed">
+            <div className="flex-1 pe-4 text-xs leading-relaxed">
               <p className="font-semibold text-white">Reserve Your Private Taxi</p>
               <p className="text-[#A3A3A3]">Chat 24/7 on WhatsApp — clear price, usually within 1–2 hours</p>
             </div>
@@ -62,14 +62,14 @@ export function WhatsAppButton() {
                 setShowBubble(false);
                 setHasClosedBubble(true);
               }}
-              className="absolute top-2 right-2 text-[#737373] hover:text-white transition-colors p-1"
+              className="absolute top-2 end-2 text-[#737373] hover:text-white transition-colors p-1"
               aria-label="Close message"
             >
               <X className="h-3.5 w-3.5" />
             </button>
 
             {/* Bubble arrow pointing to button */}
-            <div className="absolute -bottom-2 right-6 h-3 w-3 rotate-45 border-b border-r border-[#25D366]/30 bg-[#121212]" />
+            <div className="absolute -bottom-2 end-6 h-3 w-3 rotate-45 border-b border-e border-[#25D366]/30 bg-[#121212]" />
           </motion.div>
         )}
       </AnimatePresence>
@@ -83,7 +83,7 @@ export function WhatsAppButton() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 20 }}
               transition={{ duration: 0.2 }}
-              className="premium-dark-section mr-3 hidden rounded-lg border border-[#C9A84C]/30 bg-[#121212] px-3.5 py-1.5 text-xs font-semibold tracking-wider text-[#C9A84C] shadow-2xl backdrop-blur-md md:block"
+              className="premium-dark-section me-3 hidden rounded-lg border border-[#C9A84C]/30 bg-[#121212] px-3.5 py-1.5 text-xs font-semibold tracking-wider text-[#C9A84C] shadow-2xl backdrop-blur-md md:block"
             >
               Reserve via WhatsApp 24/7
             </motion.div>
@@ -108,7 +108,7 @@ export function WhatsAppButton() {
           aria-label="Book via WhatsApp"
         >
           {/* Unread Badge Indicator */}
-          <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-[10px] font-bold text-white shadow-md ring-2 ring-white">
+          <span className="absolute -top-1 -end-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-[10px] font-bold text-white shadow-md ring-2 ring-white">
             1
           </span>
 

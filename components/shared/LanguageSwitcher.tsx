@@ -51,7 +51,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.15 }}
-            className="absolute right-0 mt-2 w-36 overflow-hidden rounded-xl border border-border/80 bg-[#121212] shadow-2xl backdrop-blur-md"
+            className="absolute end-0 mt-2 w-36 overflow-hidden rounded-xl border border-border/80 bg-[#121212] shadow-2xl backdrop-blur-md"
           >
             <div className="py-1">
               {languages.map((lang) => (
@@ -62,7 +62,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
                     setIsOpen(false);
                   }}
                   className={cn(
-                    "flex w-full items-center gap-3 px-4 py-2.5 text-left text-xs font-medium transition-colors hover:bg-black/50 hover:text-[#C9A84C]",
+                    "flex w-full items-center gap-3 px-4 py-2.5 text-start text-xs font-medium transition-colors hover:bg-black/50 hover:text-[#C9A84C]",
                     language === lang.code ? "text-[#C9A84C] bg-black/20" : "text-[#F5F0E8]"
                   )}
                 >

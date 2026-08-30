@@ -184,7 +184,7 @@ export function RouteRelatedLinks({ slug, fromCity, toCity }: Props) {
                   {r.distance} km · fare on WhatsApp
                 </span>
               </span>
-              <ArrowRight className="h-4 w-4 text-[#C9A84C] shrink-0 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="rtl:-scale-x-100 h-4 w-4 text-[#C9A84C] shrink-0 group-hover:translate-x-1 transition-transform" />
             </Link>
           ))}
         </div>
@@ -218,7 +218,7 @@ export function RouteRelatedLinks({ slug, fromCity, toCity }: Props) {
               href={s.href}
               className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
             >
-              <ArrowRight className="h-3.5 w-3.5" />
+              <ArrowRight className="rtl:-scale-x-100 h-3.5 w-3.5" />
               {s.label}
             </Link>
           ))}

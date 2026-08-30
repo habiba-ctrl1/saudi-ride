@@ -202,8 +202,8 @@ export function Footer() {
       style={{ backgroundColor: "#16A34A", borderTop: "1px solid rgba(255,255,255,0.18)", color: "#ffffff" }}
     >
       {/* Decorative brand glow — yellow + white to match header identity */}
-      <div className="absolute bottom-0 right-1/4 h-96 w-96 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(250,204,21,0.12) 0%, transparent 70%)" }} />
-      <div className="absolute top-0 left-1/4 h-64 w-64 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%)" }} />
+      <div className="absolute bottom-0 end-1/4 h-96 w-96 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(250,204,21,0.12) 0%, transparent 70%)" }} />
+      <div className="absolute top-0 start-1/4 h-64 w-64 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%)" }} />
 
       <div className="section-container">
         {/* Top brand grid */}
@@ -320,7 +320,7 @@ export function Footer() {
 
         {/* Bottom copyright & socials */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-10 text-xs">
-          <p className="text-center md:text-left leading-relaxed" style={{ color: "rgba(255,255,255,0.8)" }}>
+          <p className="text-center md:text-start leading-relaxed" style={{ color: "rgba(255,255,255,0.8)" }}>
             {t.copyright}
           </p>
           

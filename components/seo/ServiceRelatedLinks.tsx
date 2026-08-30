@@ -63,7 +63,7 @@ function LinkColumn({
               href={l.href}
               className="group inline-flex items-start gap-2 text-sm text-[#6B7280] hover:text-[#16A34A] transition-colors"
             >
-              <ArrowRight className="h-3.5 w-3.5 mt-0.5 shrink-0 text-[#C9A84C]/60 group-hover:text-[#16A34A] transition-colors" />
+              <ArrowRight className="rtl:-scale-x-100 h-3.5 w-3.5 mt-0.5 shrink-0 text-[#C9A84C]/60 group-hover:text-[#16A34A] transition-colors" />
               {l.label}
             </Link>
           </li>
@@ -97,7 +97,7 @@ export function ServiceRelatedLinks({ currentPath }: { currentPath?: string }) {
           href="/contact"
           className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#6B7280] hover:text-[#16A34A] transition-colors"
         >
-          Need help planning? Contact our team <ArrowRight className="h-4 w-4" />
+          Need help planning? Contact our team <ArrowRight className="rtl:-scale-x-100 h-4 w-4" />
         </Link>
       </div>
     </section>

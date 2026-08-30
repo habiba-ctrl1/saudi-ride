@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { generateMetadata as seo } from "@/lib/seo";
-import PartnersPage from "@/app/partners/page";
+import PartnersPage from "@/app/(en)/partners/page";
 
 export const metadata: Metadata = seo({
   title: "برنامج الشراكة للشركات والوكالات السياحية",

@@ -707,7 +707,7 @@ function FleetCard({ veh, index, onBook, btnLabel }: {
         {/* Gold accent overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         <span
-          className="absolute left-3 top-3 rounded-full px-3 py-1 text-[0.58rem] uppercase tracking-wider font-bold"
+          className="absolute start-3 top-3 rounded-full px-3 py-1 text-[0.58rem] uppercase tracking-wider font-bold"
           style={{
             backgroundColor: "rgba(255,255,255,0.85)",
             border: "1px solid rgba(22,163,74,0.3)",
@@ -843,14 +843,14 @@ export function HomePage() {
               </div>
 
               {/* Bottom car badge */}
-              <div className="absolute bottom-5 left-5">
+              <div className="absolute bottom-5 start-5">
                 <span key={currentCar.name} className="inline-block rounded-full bg-[#16A34A] px-4 py-1.5 text-xs font-bold text-white shadow-md animate-fade-in">
                   {language === "ar" ? currentCar.nameAr : currentCar.name}
                 </span>
               </div>
 
               {/* Slideshow dots */}
-              <div className="absolute bottom-5 right-5 flex gap-1.5" aria-hidden="true">
+              <div className="absolute bottom-5 end-5 flex gap-1.5" aria-hidden="true">
                 {heroCars.map((_, i) => (
                   <span
                     key={i}
@@ -887,7 +887,7 @@ export function HomePage() {
                   style={{ backgroundColor: "#FACC15", color: "#1C1C1C", boxShadow: "0 8px 24px rgba(250,204,21,0.4)" }}
                 >
                   {t.hero.btnBook}
-                  <ChevronRight className="h-4 w-4" />
+                  <ChevronRight className="rtl:-scale-x-100 h-4 w-4" />
                 </a>
                 <a
                   href={contactConfig.whatsappLink}
@@ -1070,7 +1070,7 @@ export function HomePage() {
                       className="inline-flex items-center gap-1.5 text-[0.72rem] font-bold uppercase tracking-wider text-[#C9A84C] hover:gap-3 transition-all"
                     >
                       <span>{t.misc.bookNow}</span>
-                      <ArrowRight className="h-3.5 w-3.5" />
+                      <ArrowRight className="rtl:-scale-x-100 h-3.5 w-3.5" />
                     </a>
                   </div>
                 </motion.article>
@@ -1150,7 +1150,7 @@ export function HomePage() {
                   style={{ backgroundColor: "#16A34A" }}
                 >
                   {language === "ar" ? "اعرف المزيد عنا" : "Learn More About Us"}
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="rtl:-scale-x-100 h-4 w-4" />
                 </Link>
                 <a
                   href="#booking-console"
@@ -1233,7 +1233,7 @@ export function HomePage() {
                     {pt.title}
                   </h4>
                 </div>
-                <p className="text-[0.72rem] leading-relaxed text-[#6B7280] pl-8">
+                <p className="text-[0.72rem] leading-relaxed text-[#6B7280] ps-8">
                   {pt.desc}
                 </p>
               </motion.div>
@@ -1294,7 +1294,7 @@ export function HomePage() {
                   aria-label={`${t.routes.btnBook}: ${route[`name${language === 'ar' ? 'Ar' : 'En'}` as const]}`}
                   className="rounded-full bg-[#16A34A]/10 group-hover:bg-[#16A34A] p-2 text-[#16A34A] group-hover:text-white transition-all"
                 >
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="rtl:-scale-x-100 h-4 w-4" />
                 </button>
               </div>
             </div>
@@ -1337,7 +1337,7 @@ export function HomePage() {
             className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/35 px-8 py-3.5 text-sm font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all hover:border-[#16A34A]"
           >
             <span>{t.fleet.btnMore}</span>
-            <ArrowRight className="h-4 w-4" />
+            <ArrowRight className="rtl:-scale-x-100 h-4 w-4" />
           </Link>
         </div>
       </section>
@@ -1448,7 +1448,7 @@ export function HomePage() {
                         {route.time}
                       </p>
                     </div>
-                    <div className="text-right">
+                    <div className="text-end">
                       <p className="text-[0.55rem] text-[#6B7280] uppercase">{t.misc.from}</p>
                       <p className="font-bold text-[#16A34A] mt-0.5">On WhatsApp</p>
                     </div>
@@ -1498,7 +1498,7 @@ export function HomePage() {
                 </div>
                 <div className="mt-3 flex items-center justify-end text-[0.65rem] font-bold text-[#FACC15] group-hover:underline">
                   <span>Explore NEOM Services</span>
-                  <ArrowRight className="h-3 w-3 ml-1 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="rtl:-scale-x-100 h-3 w-3 ms-1 group-hover:translate-x-1 transition-transform" />
                 </div>
               </Link>
             </div>
@@ -1709,7 +1709,7 @@ export function HomePage() {
       <section className="section-container pb-28 pt-10 relative z-10">
         <div className="relative overflow-hidden rounded-3xl border border-[#16A34A]/15 bg-white p-10 md:p-14 text-center shadow-lg">
           {/* Subtle gold overlay lines */}
-          <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-[#C9A84C]/5 blur-3xl pointer-events-none" />
+          <div className="absolute end-0 top-0 h-40 w-40 rounded-full bg-[#C9A84C]/5 blur-3xl pointer-events-none" />
 
           <h3 className="font-heading text-4xl font-bold md:text-5.5xl leading-tight" style={{ color: "#1C1C1C" }}>
             {t.cta.title}

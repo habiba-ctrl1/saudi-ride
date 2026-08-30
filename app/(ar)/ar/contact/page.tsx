@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { generateMetadata as seo } from "@/lib/seo";
-import ContactPage from "@/app/contact/page";
+import ContactPage from "@/app/(en)/contact/page";
 
 export const metadata: Metadata = seo({
   title: "تواصل معنا — مكتب الحجز على مدار الساعة",

@@ -24,12 +24,12 @@ export function DistanceTable({
     <div className={`overflow-x-auto rounded-2xl border border-black/8 ${className}`}>
       <table className="w-full border-collapse text-sm">
         {caption && (
-          <caption className="bg-[#006C35] px-4 py-3 text-left text-sm font-semibold text-white">
+          <caption className="bg-[#006C35] px-4 py-3 text-start text-sm font-semibold text-white">
             {caption}
           </caption>
         )}
         <thead>
-          <tr className="bg-[#86EFAC]/40 text-left">
+          <tr className="bg-[#86EFAC]/40 text-start">
             {columns.map((col) => (
               <th
                 key={col}

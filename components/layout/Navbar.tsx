@@ -136,7 +136,7 @@ export function Navbar() {
                 Transportation Services
                 <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180" />
               </button>
-              <div className="invisible opacity-0 translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:visible group-focus-within:opacity-100 group-focus-within:translate-y-0 transition-all duration-200 absolute left-0 top-full pt-1">
+              <div className="invisible opacity-0 translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:visible group-focus-within:opacity-100 group-focus-within:translate-y-0 transition-all duration-200 absolute start-0 top-full pt-1">
                 <ul className="w-64 rounded-2xl bg-white shadow-2xl border border-black/5 p-2">
                   {TRANSPORT_MENU.map((item) => (
                     <li key={item.label} className="relative group/sub">
@@ -150,7 +150,7 @@ export function Navbar() {
                             <ChevronRight className="h-4 w-4 text-[#16A34A]" />
                           </button>
                           {/* nested flyout */}
-                          <div className="invisible opacity-0 group-hover/sub:visible group-hover/sub:opacity-100 group-focus-within/sub:visible group-focus-within/sub:opacity-100 transition-all duration-150 absolute left-full top-0 pl-2">
+                          <div className="invisible opacity-0 group-hover/sub:visible group-hover/sub:opacity-100 group-focus-within/sub:visible group-focus-within/sub:opacity-100 transition-all duration-150 absolute end-full top-0 ps-2">
                             <ul className="w-60 rounded-2xl bg-white shadow-2xl border border-black/5 p-2">
                               {item.children.map((c) => (
                                 <li key={c.href}>
@@ -186,7 +186,7 @@ export function Navbar() {
                 Taxi Routes
                 <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180" />
               </button>
-              <div className="invisible opacity-0 translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:visible group-focus-within:opacity-100 group-focus-within:translate-y-0 transition-all duration-200 absolute left-0 top-full pt-1">
+              <div className="invisible opacity-0 translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:visible group-focus-within:opacity-100 group-focus-within:translate-y-0 transition-all duration-200 absolute start-0 top-full pt-1">
                 <ul className="w-64 rounded-2xl bg-white shadow-2xl border border-black/5 p-2">
                   {ROUTES_MENU.map((r) => (
                     <li key={r.href}>
@@ -211,7 +211,7 @@ export function Navbar() {
                 Locations
                 <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180" />
               </button>
-              <div className="invisible opacity-0 translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:visible group-focus-within:opacity-100 group-focus-within:translate-y-0 transition-all duration-200 absolute left-0 top-full pt-1">
+              <div className="invisible opacity-0 translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:visible group-focus-within:opacity-100 group-focus-within:translate-y-0 transition-all duration-200 absolute start-0 top-full pt-1">
                 <div className="w-[26rem] rounded-2xl bg-white shadow-2xl border border-black/5 p-2">
                   <ul className="grid grid-cols-2 gap-0.5">
                     {LOCATIONS_MENU.map((l) => (
@@ -238,7 +238,7 @@ export function Navbar() {
                 Partners
                 <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180" />
               </button>
-              <div className="invisible opacity-0 translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:visible group-focus-within:opacity-100 group-focus-within:translate-y-0 transition-all duration-200 absolute left-0 top-full pt-1">
+              <div className="invisible opacity-0 translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:visible group-focus-within:opacity-100 group-focus-within:translate-y-0 transition-all duration-200 absolute start-0 top-full pt-1">
                 <ul className="w-64 rounded-2xl bg-white shadow-2xl border border-black/5 p-2">
                   {PARTNERS_MENU.map((p) => (
                     <li key={p.href}>
@@ -260,7 +260,7 @@ export function Navbar() {
           </nav>
 
           {/* Right: actions */}
-          <div className="hidden xl:flex items-center gap-2.5 flex-shrink-0 ml-auto">
+          <div className="hidden xl:flex items-center gap-2.5 flex-shrink-0 ms-auto">
             <LanguageSwitcher />
             <Link
               href={bookHref}
@@ -282,7 +282,7 @@ export function Navbar() {
           {/* Mobile hamburger */}
           <button
             onClick={() => setIsMobileOpen(true)}
-            className="flex xl:hidden items-center justify-center h-10 w-10 rounded-full bg-white/15 text-white hover:bg-white/25 transition-colors ml-auto"
+            className="flex xl:hidden items-center justify-center h-10 w-10 rounded-full bg-white/15 text-white hover:bg-white/25 transition-colors ms-auto"
             aria-label="Open menu"
           >
             <Menu className="h-5 w-5" />
@@ -313,7 +313,7 @@ export function Navbar() {
 
               <div>
                 <p className="text-[0.7rem] uppercase tracking-wider font-bold text-[#16A34A] mb-2">Transportation Services</p>
-                <div className="space-y-1.5 pl-1">
+                <div className="space-y-1.5 ps-1">
                   {TRANSPORT_MENU.flatMap((item) =>
                     item.children
                       ? item.children.map((c) => (
@@ -327,7 +327,7 @@ export function Navbar() {
 
               <div>
                 <p className="text-[0.7rem] uppercase tracking-wider font-bold text-[#16A34A] mb-2">Taxi Routes</p>
-                <div className="space-y-1.5 pl-1">
+                <div className="space-y-1.5 ps-1">
                   {ROUTES_MENU.map((r) => (
                     <Link key={r.href} href={r.href} className="block text-sm text-[#334155] py-1">{r.label}</Link>
                   ))}
@@ -337,17 +337,17 @@ export function Navbar() {
 
               <div>
                 <p className="text-[0.7rem] uppercase tracking-wider font-bold text-[#16A34A] mb-2">Locations</p>
-                <div className="grid grid-cols-2 gap-x-4 gap-y-0.5 pl-1">
+                <div className="grid grid-cols-2 gap-x-4 gap-y-0.5 ps-1">
                   {LOCATIONS_MENU.map((l) => (
                     <Link key={l.href} href={l.href} className="block text-sm text-[#334155] py-1">{l.label}</Link>
                   ))}
                 </div>
-                <Link href="/locations" className="block text-sm font-semibold text-[#16A34A] py-1 pl-1 mt-1">View All Locations →</Link>
+                <Link href="/locations" className="block text-sm font-semibold text-[#16A34A] py-1 ps-1 mt-1">View All Locations →</Link>
               </div>
 
               <div>
                 <p className="text-[0.7rem] uppercase tracking-wider font-bold text-[#16A34A] mb-2">Partners</p>
-                <div className="space-y-1.5 pl-1">
+                <div className="space-y-1.5 ps-1">
                   {PARTNERS_MENU.map((p) => (
                     <Link key={p.href} href={p.href} className="block text-sm text-[#334155] py-1">{p.label}</Link>
                   ))}
