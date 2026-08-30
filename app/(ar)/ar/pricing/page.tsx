@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { generateMetadata as seo } from "@/lib/seo";
-import PricingPage from "@/app/pricing/page";
+import PricingPage from "@/app/(en)/pricing/page";
 
 export const metadata: Metadata = seo({
   title: "أسعار التاكسي الثابتة في السعودية 2026",
