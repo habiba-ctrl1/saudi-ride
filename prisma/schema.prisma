@@ -206,6 +206,7 @@ model Booking {
   isTest               Boolean       @default(false)
   quotationId          String?
   quotationRef         String?
+  lastUrgentAlertAt    DateTime?
   payment              Payment?
   review               Review?
   createdAt            DateTime      @default(now())

@@ -343,6 +343,47 @@ export async function sendAdminNotification(booking: NotificationBooking) {
 }
 
 /**
+ * 4b. Urgent re-alert — a second, louder notification for a booking that's
+ * still PENDING with no price set as its pickup time gets close (or has
+ * already passed). The normal sendAdminNotification() only fires once, at
+ * creation; a busy inbox can bury it. This is a distinct, unmissable follow
+ * up, called by the /api/cron/urgent-bookings job, not on every booking.
+ */
+export async function sendUrgentBookingAlert(booking: NotificationBooking & { hoursUntilPickup: number }) {
+  const ref = normalizeRef(booking.bookingRef);
+  const overdue = booking.hoursUntilPickup < 0;
+  const timeLabel = overdue
+    ? `${Math.abs(Math.round(booking.hoursUntilPickup))}h OVERDUE`
+    : `in ${Math.round(booking.hoursUntilPickup)}h`;
+  const subject = `🚨 URGENT — ${ref} still has no price, pickup ${timeLabel}`;
+  const adminPanelLink = `${siteUrl}/admin/bookings`;
+
+  const html = `
+    <div style="font-family: sans-serif; padding: 25px; color: #111; max-width: 600px; border: 3px solid #c0392b; border-radius: 16px; background-color: #fff5f5;">
+      <h2 style="color: #c0392b; border-bottom: 1px solid #f5c6c6; padding-bottom: 10px; margin-top: 0;">🚨 Booking Needs Attention Now</h2>
+      <p style="color: #111;">This booking is still <strong>Pending / No price set</strong>, and pickup is
+        <strong style="color: #c0392b;">${overdue ? "already overdue" : timeLabel}</strong>.
+        The first alert for this booking may have been missed.</p>
+      <table style="width: 100%; border-collapse: collapse; margin: 16px 0;">
+        <tr><td style="padding: 8px 0; font-weight: bold; color: #666; width: 120px;">Reference:</td><td style="padding: 8px 0; color: #c0392b; font-weight: bold; font-family: monospace;">${ref}</td></tr>
+        <tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Customer:</td><td style="padding: 8px 0; color: #111; font-weight: bold;">${escapeHtml(booking.customerName)}</td></tr>
+        <tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Phone:</td><td style="padding: 8px 0; color: #111;"><a href="tel:${encodeURIComponent(booking.customerPhone)}">${escapeHtml(booking.customerPhone)}</a></td></tr>
+        <tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Route:</td><td style="padding: 8px 0; color: #111;">${escapeHtml(booking.pickupLocation)} → ${escapeHtml(booking.dropoffLocation)}</td></tr>
+        <tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Pickup:</td><td style="padding: 8px 0; color: #111; font-weight: bold;">${new Date(booking.pickupDateTime).toLocaleString()}</td></tr>
+      </table>
+      <div style="text-align: center; border-top: 1px solid #f5c6c6; padding-top: 20px;">
+        <a href="${adminPanelLink}" style="display: inline-block; background-color: #c0392b; color: #fff; padding: 12px 30px; text-decoration: none; font-weight: bold; border-radius: 8px; font-size: 14px; text-transform: uppercase;">Open Admin &gt; Bookings Now</a>
+      </div>
+    </div>
+  `;
+
+  const emailId = await sendEmail(adminEmail, subject, html);
+  const waText = `🚨 URGENT: ${ref} still PENDING/no price, pickup ${timeLabel}.\n${booking.customerName} ${booking.customerPhone}\n${booking.pickupLocation} -> ${booking.dropoffLocation}`;
+  const waId = await sendAdminWhatsApp(waText);
+  return { email: emailId, whatsapp: waId };
+}
+
+/**
  * 5. Booking Created SMS
  */
 export async function sendBookingCreatedSMS(booking: NotificationBooking) {

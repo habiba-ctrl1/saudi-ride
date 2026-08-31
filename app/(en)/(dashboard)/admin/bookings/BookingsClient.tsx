@@ -5,7 +5,7 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import {
   CalendarClock, Loader2, ChevronLeft, ChevronRight, Search, AlertTriangle,
   FileText, Download, FlaskConical, Trash2, ChevronDown, TrendingUp,
-  DollarSign, Zap, Clock,
+  DollarSign, Zap, Clock, Siren,
 } from "lucide-react";
 import { NewBookingForm } from "./NewBookingForm";
 
@@ -34,6 +34,15 @@ export type BookingRow = {
   isTest: boolean;
   quotationId: string | null;
   quotationRef: string | null;
+  isUrgent: boolean;
+};
+
+type UrgentBooking = {
+  id: string;
+  bookingRef: string;
+  customerName: string;
+  customerPhone: string;
+  pickupDateTime: string;
 };
 
 type Vehicle = { id: string; name: string; type: string };
@@ -84,6 +93,7 @@ export function BookingsClient({
   vehicles,
   stats,
   stageCounts,
+  urgentBookings,
 }: {
   bookings: BookingRow[];
   total: number;
@@ -92,6 +102,7 @@ export function BookingsClient({
   vehicles: Vehicle[];
   stats: { totalAllTime: number; todayRevenue: number; activeJobsToday: number };
   stageCounts: Record<string, number>;
+  urgentBookings: UrgentBooking[];
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -192,6 +203,45 @@ export function BookingsClient({
         <NewBookingForm vehicles={vehicles} />
       </div>
 
+      {/* ─── URGENT BANNER ──────────────────────────────────────────── */}
+      {urgentBookings.length > 0 && (
+        <div className="rounded-2xl border-2 border-red-500/50 bg-red-950/30 p-5 space-y-3">
+          <div className="flex items-center gap-2">
+            <Siren className="h-5 w-5 text-red-400 animate-pulse" />
+            <h2 className="text-sm font-bold uppercase tracking-wide text-red-400">
+              {urgentBookings.length} booking{urgentBookings.length === 1 ? "" : "s"} need{urgentBookings.length === 1 ? "s" : ""} attention now
+            </h2>
+          </div>
+          <p className="text-xs text-red-300/80">
+            No price set, and pickup is within 24 hours or already passed. These are also re-alerted by email/WhatsApp automatically.
+          </p>
+          <div className="space-y-1.5">
+            {urgentBookings.map((u) => {
+              const overdue = new Date(u.pickupDateTime).getTime() < Date.now();
+              return (
+                <div key={u.id} className="flex items-center justify-between gap-3 rounded-lg bg-black/30 px-3 py-2 text-xs flex-wrap">
+                  <div>
+                    <span className="font-mono font-bold text-red-300">{u.bookingRef}</span>
+                    <span className="text-[#F5F0E8] ml-2">{u.customerName}</span>
+                    <span className={`ml-2 font-bold ${overdue ? "text-red-400" : "text-amber-400"}`}>
+                      {overdue ? "OVERDUE" : "soon"} — {new Date(u.pickupDateTime).toLocaleString()}
+                    </span>
+                  </div>
+                  <a
+                    href={`https://wa.me/${u.customerPhone.replace(/[^0-9]/g, "")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-bold text-[#C9A84C] hover:underline"
+                  >
+                    WhatsApp {u.customerPhone}
+                  </a>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {/* ─── STAT CARDS ─────────────────────────────────────────────── */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard icon={TrendingUp} label="Total Bookings" value={String(stats.totalAllTime)} />
@@ -267,7 +317,7 @@ export function BookingsClient({
                     <Fragment key={b.id}>
                       <tr
                         onClick={() => setExpandedId(expanded ? null : b.id)}
-                        className={`cursor-pointer hover:bg-[#1A1A1A]/50 transition-colors ${b.isTest ? "opacity-70" : ""}`}
+                        className={`cursor-pointer hover:bg-[#1A1A1A]/50 transition-colors ${b.isTest ? "opacity-70" : ""} ${b.isUrgent ? "bg-red-950/20 border-l-2 border-red-500" : ""}`}
                       >
                         <td className="p-4">
                           <div className="flex items-center gap-1.5">
@@ -275,6 +325,7 @@ export function BookingsClient({
                             <span className="font-mono text-xs font-bold text-[#C9A84C]">{b.bookingRef}</span>
                           </div>
                           <div className="flex gap-1 mt-1 ml-5">
+                            {b.isUrgent && <span className="inline-flex items-center gap-0.5 text-[9px] font-bold uppercase text-red-400"><Siren className="h-2.5 w-2.5" /> Urgent</span>}
                             {b.isTest && <span className="inline-flex items-center gap-0.5 text-[9px] font-bold uppercase text-gray-400"><FlaskConical className="h-2.5 w-2.5" /> Test</span>}
                             {flagged && <span className="inline-flex items-center gap-0.5 text-[9px] font-bold uppercase text-red-400"><AlertTriangle className="h-2.5 w-2.5" /> Flagged</span>}
                           </div>

@@ -49,6 +49,16 @@ export default async function AdminBookingsPage({
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+  const now = new Date();
+  const in24h = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+  // Same definition the /api/cron/urgent-bookings re-alert job uses: still
+  // Pending, no price set, pickup within 24h or already overdue.
+  const urgentWhere: Prisma.BookingWhereInput = {
+    status: "PENDING",
+    totalPrice: 0,
+    isTest: false,
+    pickupDateTime: { lt: in24h },
+  };
 
   const [
     total,
@@ -63,6 +73,7 @@ export default async function AdminBookingsPage({
     countInProgress,
     countCompleted,
     countCancelled,
+    urgentBookings,
   ] = await Promise.all([
     prisma.booking.count({ where: whereClause }),
     prisma.booking.findMany({
@@ -82,6 +93,7 @@ export default async function AdminBookingsPage({
     prisma.booking.count({ where: stageWhere("in_progress") }),
     prisma.booking.count({ where: stageWhere("completed") }),
     prisma.booking.count({ where: stageWhere("cancelled") }),
+    prisma.booking.findMany({ where: urgentWhere, select: { id: true, bookingRef: true, customerName: true, customerPhone: true, pickupDateTime: true }, orderBy: { pickupDateTime: "asc" } }),
   ]);
 
   return (
@@ -107,6 +119,7 @@ export default async function AdminBookingsPage({
         isTest: b.isTest,
         quotationId: b.quotationId,
         quotationRef: b.quotationRef,
+        isUrgent: b.status === "PENDING" && b.totalPrice === 0 && !b.isTest && b.pickupDateTime.getTime() < in24h.getTime(),
       }))}
       total={total}
       page={page}
@@ -117,6 +130,13 @@ export default async function AdminBookingsPage({
         todayRevenue: todayRevenueAgg._sum.totalPrice ?? 0,
         activeJobsToday,
       }}
+      urgentBookings={urgentBookings.map((b) => ({
+        id: b.id,
+        bookingRef: b.bookingRef,
+        customerName: b.customerName,
+        customerPhone: b.customerPhone,
+        pickupDateTime: b.pickupDateTime.toISOString(),
+      }))}
       stageCounts={{
         all: totalAllTime,
         pending: countPending,
