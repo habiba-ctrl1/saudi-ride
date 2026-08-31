@@ -34,6 +34,7 @@ const TRANSPORT_MENU: {
       { label: "Madinah Taxi Service", href: "/locations/madinah" },
       { label: "Jeddah Taxi Service", href: "/locations/jeddah" },
       { label: "Riyadh Taxi Service", href: "/locations/riyadh" },
+      { label: "Wedding Car Rental", href: "/services/wedding-car-rental" },
     ],
   },
   {

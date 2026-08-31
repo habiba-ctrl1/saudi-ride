@@ -18,7 +18,9 @@ const SERVICES: { href: string; label: string }[] = [
   { href: "/services/badr-ziyarat", label: "Badr battlefield Ziyarat tour" },
   { href: "/services/corporate", label: "Corporate & business travel" },
   { href: "/services/vip-transportation", label: "VIP transportation Riyadh" },
+  { href: "/services/wedding-car-rental", label: "Wedding car rental & bridal cars" },
   { href: "/services/border-crossings", label: "GCC border-crossing taxi" },
+  { href: "/services/corporate-bahrain-transport", label: "Corporate Bahrain transport (B2B)" },
 ];
 
 const ROUTES: { href: string; label: string }[] = [

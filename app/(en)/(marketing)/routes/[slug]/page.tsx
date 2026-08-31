@@ -861,6 +861,104 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "Is there a train from Riyadh to Bahrain?", answer: "No — there is currently no operational train between Riyadh and Bahrain; the GCC's planned Gulf Railway hasn't been completed on this route. A private taxi via the King Fahd Causeway is the most comfortable door-to-door option." },
     ],
   },
+  "manama-to-dammam": {
+    tldr: "A taxi from Manama, Bahrain to Dammam is about 70 km and takes roughly 1 hour across the King Fahd Causeway. The fare is fixed, confirmed on WhatsApp with airport (DMM) and hotel drop-offs and border documentation support.",
+    tldrFacts: [
+      { label: "Distance", value: "~70 km" },
+      { label: "Time", value: "~1 hour" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How long is the taxi from Bahrain to Dammam?", answer: "Manama to Dammam is about 70 km — roughly a 1-hour drive across the King Fahd Causeway, plus border formalities." },
+      { question: "Can you pick me up in Bahrain and drop at Dammam Airport?", answer: "Yes. We arrange pickup from your Bahrain hotel or address and drop you at King Fahd International Airport (DMM) or any Dammam address, with time buffer for the causeway." },
+      { question: "How much is a taxi from Manama to Dammam?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles and causeway toll handling." },
+    ],
+  },
+  "manama-to-alkhobar": {
+    tldr: "A taxi from Manama, Bahrain to Al Khobar is about 50 km and takes roughly 50 minutes across the King Fahd Causeway. The fare is fixed, confirmed on WhatsApp — ideal for weekend and business returns to the Eastern Province.",
+    tldrFacts: [
+      { label: "Distance", value: "~50 km" },
+      { label: "Time", value: "~50 min" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Bahrain from Al Khobar by taxi?", answer: "Manama to Al Khobar is about 50 km — roughly a 50-minute drive across the King Fahd Causeway, plus border formalities." },
+      { question: "Is this good for a weekend return trip?", answer: "Yes — it is our most popular return crossing for weekend and business travellers heading back from Bahrain to Khobar, Dammam, and Dhahran." },
+      { question: "How much is a taxi from Manama to Al Khobar?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with causeway toll handling included." },
+    ],
+  },
+  "manama-to-riyadh": {
+    tldr: "A taxi from Manama, Bahrain to Riyadh is about 450 km and takes roughly 4.5 hours, crossing the King Fahd Causeway into Saudi Arabia. The fare is fixed, confirmed on WhatsApp with documentation support for the cross-border journey.",
+    tldrFacts: [
+      { label: "Distance", value: "~450 km" },
+      { label: "Time", value: "~4.5 hours" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Bahrain from Riyadh?", answer: "Manama to Riyadh is about 450 km — roughly a 4.5-hour drive, crossing into Saudi Arabia via the King Fahd Causeway." },
+      { question: "Do you handle the return border crossing?", answer: "Yes. A valid passport and the correct Saudi entry eligibility or visa are required. Share your details in advance so we can prepare for a smooth crossing." },
+      { question: "How much is a taxi from Manama to Riyadh?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles for the long cross-border journey." },
+    ],
+  },
+  "doha-to-dammam": {
+    tldr: "A taxi from Doha, Qatar to Dammam is about 400 km and takes roughly 4 hours plus the Qatar–Saudi border crossing at Salwa. The fare is fixed, confirmed on WhatsApp with documentation support for the crossing.",
+    tldrFacts: [
+      { label: "Distance", value: "~400 km" },
+      { label: "Time", value: "~4 hours" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How long is the taxi from Doha to Dammam?", answer: "Doha to Dammam is about 400 km — roughly a 4-hour drive via the Salwa border, plus crossing formalities." },
+      { question: "What do I need to cross from Qatar into Saudi Arabia?", answer: "A valid passport and the correct Saudi entry eligibility or visa. Share your details in advance so we can prepare for a smooth Salwa border crossing." },
+      { question: "How much is a taxi from Doha to Dammam?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles for the cross-border journey." },
+    ],
+  },
+  "doha-to-riyadh": {
+    tldr: "A taxi from Doha, Qatar to Riyadh is about 580 km and takes roughly 5.5 hours plus the Salwa border crossing. The fare is fixed, confirmed on WhatsApp with documentation support for the cross-border journey.",
+    tldrFacts: [
+      { label: "Distance", value: "~580 km" },
+      { label: "Time", value: "~5.5 hours" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Doha from Riyadh by road?", answer: "Doha to Riyadh is about 580 km — roughly a 5.5-hour drive via the Salwa border, plus crossing formalities." },
+      { question: "Do you handle the Salwa border crossing?", answer: "Yes. A valid passport and the correct Saudi entry eligibility or visa are required. Share your details in advance so we can prepare for a smooth crossing." },
+      { question: "How much is a taxi from Doha to Riyadh?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles for the long cross-border journey." },
+    ],
+  },
+  "kuwait-to-dammam": {
+    tldr: "A taxi from Kuwait City to Dammam is about 410 km and takes roughly 4 hours plus the Kuwait–Saudi border crossing at Al Khafji. The fare is fixed, confirmed on WhatsApp with documentation support for the crossing.",
+    tldrFacts: [
+      { label: "Distance", value: "~410 km" },
+      { label: "Time", value: "~4 hours" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How long is the taxi from Kuwait to Dammam?", answer: "Kuwait City to Dammam is about 410 km — roughly a 4-hour drive via the Al Khafji border, plus crossing formalities." },
+      { question: "What do I need to cross from Kuwait into Saudi Arabia?", answer: "A valid passport and the correct Saudi entry eligibility or visa. Share your details in advance so we can prepare for the Al Khafji border crossing." },
+      { question: "How much is a taxi from Kuwait to Dammam?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles for the cross-border journey." },
+    ],
+  },
+  "alahsa-to-doha": {
+    tldr: "A taxi from Al Ahsa to Doha, Qatar is about 320 km and takes roughly 3.5 hours via the Salwa border — the shortest Saudi gateway to Qatar. The fare is fixed, confirmed on WhatsApp with documentation support for the crossing.",
+    tldrFacts: [
+      { label: "Distance", value: "~320 km" },
+      { label: "Time", value: "~3.5 hours" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Al Ahsa from Doha?", answer: "Al Ahsa to Doha is about 320 km — roughly a 3.5-hour drive via the Salwa border, making it the shortest Saudi road gateway to Qatar." },
+      { question: "What do I need to cross into Qatar?", answer: "A valid passport and a Qatar Hayya card or the correct entry eligibility. Share your details in advance so we can prepare for a smooth Salwa crossing." },
+      { question: "How much is a taxi from Al Ahsa to Doha?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles for the cross-border journey." },
+    ],
+  },
   "dammam-to-kuwait": {
     tldr: "A taxi from Dammam to Kuwait City is about 410 km and takes roughly 4 hours plus the Saudi–Kuwait border crossing at Al Khafji. The fare is fixed, confirmed on WhatsApp with documentation support for the crossing.",
     tldrFacts: [
@@ -1169,6 +1267,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "riyadh-to-alula": "Riyadh to AlUla Taxi — Distance, Fare & Price",
     "madinah-to-alula": "Madinah to AlUla Taxi — Distance, Fare & Price",
     "dammam-to-doha": "Taxi Dammam to Doha, Qatar — Cross-Border Fare, Distance & Booking",
+    "manama-to-dammam": "Taxi Bahrain to Dammam — Causeway Fare, Distance & Booking",
+    "manama-to-alkhobar": "Taxi Bahrain to Al Khobar — King Fahd Causeway Fare & Booking",
+    "manama-to-riyadh": "Taxi Bahrain to Riyadh — Cross-Border Fare, Distance & Booking",
+    "doha-to-dammam": "Taxi Doha, Qatar to Dammam — Salwa Border Fare & Booking",
+    "doha-to-riyadh": "Taxi Doha, Qatar to Riyadh — Cross-Border Fare & Booking",
+    "kuwait-to-dammam": "Taxi Kuwait to Dammam — Khafji Border Fare, Distance & Booking",
+    "alahsa-to-doha": "Taxi Al Ahsa to Doha, Qatar — Shortest Salwa Border Route",
     "jeddah-to-makkah": "Jeddah to Makkah (Mecca) Taxi Service — Fare on WhatsApp",
     "madinah-to-jeddah-airport": "Taxi Madinah to Jeddah Airport — Fare Confirmed on WhatsApp",
     "jeddah-to-madinah": "Taxi Jeddah to Madinah (Madina) — Fare Confirmed on WhatsApp",
@@ -1190,6 +1295,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "jeddah-airport-to-swissotel-makkah": "Taxi from Jeddah Airport (JED) to Swissotel Al Maqam Makkah — ~80 km, about 1 hour. Meet & greet, Miqat stop on request, fare confirmed on WhatsApp. 24/7.",
     "red-sea-airport-to-neom": "Taxi from Red Sea International Airport (RSI) to NEOM — private transfer, meet & greet, professional drivers. Fare confirmed on WhatsApp before booking. 24/7.",
     "riyadh-to-dubai": "Private car with driver, Riyadh to Dubai (UAE) — executive chauffeur for business & family. Cross-border GCC transfer, fare confirmed on WhatsApp before booking, 24/7.",
+    "manama-to-dammam": "Bahrain to Dammam taxi via King Fahd Causeway — ~70 km, ~1 hr. Airport (DMM) & hotel drop-offs, border support. Fare confirmed on WhatsApp, 24/7.",
+    "manama-to-alkhobar": "Bahrain to Al Khobar taxi across the King Fahd Causeway — ~50 km, ~50 min. Ideal for weekend & business returns. Fare confirmed on WhatsApp, 24/7.",
+    "manama-to-riyadh": "Bahrain to Riyadh taxi — ~450 km via the King Fahd Causeway. Executive cross-border transfer with documentation support. Fare confirmed on WhatsApp, 24/7.",
+    "doha-to-dammam": "Doha to Dammam taxi via the Salwa border — ~400 km, ~4 hrs. Cross-border transfer with documentation support. Fare confirmed on WhatsApp, 24/7.",
+    "doha-to-riyadh": "Doha to Riyadh taxi via the Salwa border — ~580 km. Executive cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
+    "kuwait-to-dammam": "Kuwait City to Dammam taxi via the Al Khafji border — ~410 km. Cross-border transfer with documentation support. Fare confirmed on WhatsApp, 24/7.",
+    "alahsa-to-doha": "Al Ahsa to Doha taxi — ~320 km via Salwa, the shortest Saudi road gateway to Qatar. Border support, fare confirmed on WhatsApp, 24/7.",
   };
 
   return {
@@ -1234,10 +1346,10 @@ export default async function RouteDetailsPage({ params }: PageProps) {
   const faqs = content?.faqs ?? DEFAULT_FAQS;
 
   const vehicles = [
-    { name: "Executive Sedan", key: "SEDAN", pax: 3, luggage: 2, img: "/fleet/toyota-camry.webp" },
-    { name: "Family SUV", key: "SUV", pax: 6, luggage: 5, img: "/fleet/gmc-yukon-xl.webp" },
-    { name: "Luxury VIP", key: "LUXURY", pax: 3, luggage: 3, img: "/fleet/mercedes-s-class.webp" },
-    { name: "Group Van", key: "VAN", pax: 7, luggage: 7, img: "/fleet/hyundai-staria.webp" },
+    { name: "Executive Sedan", note: "Latest Toyota Camry / Ford — 2025–26 models", key: "SEDAN", pax: 3, luggage: 2, img: "/fleet/toyota-camry.webp" },
+    { name: "Family SUV", note: "GMC Yukon / Suburban — spacious & premium", key: "SUV", pax: 6, luggage: 5, img: "/fleet/gmc-yukon-xl.webp" },
+    { name: "Luxury VIP", note: "Mercedes S-Class / Lexus — subject to route", key: "LUXURY", pax: 3, luggage: 3, img: "/fleet/mercedes-s-class.webp" },
+    { name: "Group Van", note: "Hyundai Staria — comfortable for groups", key: "VAN", pax: 7, luggage: 7, img: "/fleet/hyundai-staria.webp" },
   ];
 
   // Schema Markup
@@ -1592,6 +1704,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                       <div className="flex justify-between items-start mb-3">
                         <div>
                           <h3 className="font-bold text-lg text-[#1C1C1C]">{v.name}</h3>
+                          <p className="text-[0.68rem] text-[#16A34A] font-semibold mt-0.5">{v.note}</p>
                           <div className="flex items-center gap-3 text-[0.7rem] text-[#6B7280] font-semibold mt-1">
                             <span className="flex items-center gap-1"><Users className="h-3.5 w-3.5 text-[#C9A84C]" /> {v.pax} Passengers</span>
                             <span className="flex items-center gap-1"><Briefcase className="h-3.5 w-3.5 text-[#C9A84C]" /> {v.luggage} Bags</span>
