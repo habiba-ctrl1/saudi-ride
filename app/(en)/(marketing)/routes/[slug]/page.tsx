@@ -1237,6 +1237,31 @@ const MORE_RIYADH_ROUTES: { slug: string; label: string; distance: number; price
   { slug: "riyadh-to-abudhabi", label: "Riyadh to Abu Dhabi, UAE", distance: 850, price: 1100 },
 ];
 
+// Static fallback from ROUTES_DATA — used when the DB is unreachable (flaky
+// pooler at build time) OR the slug exists in ROUTES_DATA but isn't seeded in
+// the DB yet (e.g. newly added cross-border routes). Keeps every route in
+// ROUTES_DATA renderable without depending on the database at build time.
+type DbRoute = NonNullable<Awaited<ReturnType<typeof db.route.findUnique>>>;
+function staticRouteFallback(slug: string): DbRoute | null {
+  const s = ROUTES_DATA.find((r) => r.slug === slug);
+  if (!s) return null;
+  return {
+    id: s.slug,
+    fromCity: s.fromCity,
+    toCity: s.toCity,
+    fromCityAr: s.fromCityAr,
+    toCityAr: s.toCityAr,
+    distance: s.distance,
+    duration: s.duration,
+    basePrice: s.basePrice,
+    popular: s.popular ?? false,
+    description: s.description ?? null,
+    descriptionAr: s.descriptionAr ?? null,
+    slug: s.slug,
+    priceOnRequest: false,
+  } as DbRoute;
+}
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   // A transient DB hiccup here must not fail metadata for this one page,
@@ -1250,6 +1275,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     console.error(`❌ Route metadata fetch failed for ${slug}.`, error);
   }
 
+  if (!route) route = staticRouteFallback(slug);
   if (!route) return { title: "Route Not Found" };
 
   // Hotel-specific destinations (e.g. "Fairmont Makkah Clock Royal Tower")
@@ -1334,9 +1360,10 @@ export default async function RouteDetailsPage({ params }: PageProps) {
   try {
     route = await db.route.findUnique({ where: { slug } });
   } catch (error) {
-    console.error(`❌ Route page fetch failed for ${slug}. Building as 404 instead of failing the whole site build — next revalidate will retry.`, error);
+    console.error(`❌ Route page fetch failed for ${slug}. Falling back to static ROUTES_DATA — next revalidate will retry.`, error);
   }
 
+  if (!route) route = staticRouteFallback(slug);
   if (!route) {
     notFound();
   }
