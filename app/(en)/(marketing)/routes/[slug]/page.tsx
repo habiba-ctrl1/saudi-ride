@@ -3,6 +3,7 @@ export const revalidate = 86400; // static + refresh daily (was force-dynamic = 
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { ROUTES_DATA } from "@/lib/data/routes";
+import { DISTANCE_GUIDES } from "@/lib/data/distances";
 import { Metadata } from "next";
 import { MapPin, Clock, ArrowRight, CheckCircle2, ShieldCheck, Car, HelpCircle, AlertTriangle, ChevronRight, Phone, MessageSquare, Plane, UserCheck, Compass, Users, Briefcase, Navigation, Coffee } from "lucide-react";
 import Link from "next/link";
@@ -1345,6 +1346,8 @@ export default async function RouteDetailsPage({ params }: PageProps) {
   const content = ROUTE_CONTENT[slug];
   const faqs = content?.faqs ?? DEFAULT_FAQS;
 
+  const distanceGuide = DISTANCE_GUIDES.find((d) => d.routeSlug === slug);
+
   const vehicles = [
     { name: "Executive Sedan", note: "Latest Toyota Camry / Ford — 2025–26 models", key: "SEDAN", pax: 3, luggage: 2, img: "/fleet/toyota-camry.webp" },
     { name: "Family SUV", note: "GMC Yukon / Suburban — spacious & premium", key: "SUV", pax: 6, luggage: 5, img: "/fleet/gmc-yukon-xl.webp" },
@@ -1680,6 +1683,18 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                 </Link>
               </div>
             </div>
+          )}
+
+          {distanceGuide && (
+            <Link
+              href={`/distance/${distanceGuide.slug}`}
+              className="flex items-center justify-between gap-3 rounded-2xl border border-[#16A34A]/20 bg-[#F0FDF4] px-5 py-4 hover:border-[#16A34A]/45 transition-colors"
+            >
+              <span className="text-sm font-semibold text-[#166534]">
+                How far is {route.fromCity} from {route.toCity}? See the full distance &amp; journey guide
+              </span>
+              <ArrowRight className="h-4 w-4 text-[#16A34A] shrink-0" />
+            </Link>
           )}
 
           {/* Vehicles & Pricing */}

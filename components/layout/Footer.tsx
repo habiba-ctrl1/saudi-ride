@@ -96,6 +96,7 @@ export function Footer() {
         { label: "FAQ", href: "/faq" },
         { label: "Contact Us", href: "/contact" },
         { label: "Blog", href: "/blog" },
+        { label: "City Distances", href: "/distance" },
         { label: "Luxury Gallery", href: "/gallery" },
         { label: "Track Booking", href: "/track-booking" },
         { label: "Privacy Policy", href: "/privacy-policy" },

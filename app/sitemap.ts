@@ -10,6 +10,7 @@ import { CITY_DETAILS } from "@/lib/data/locations";
 import { AIRPORT_DETAILS } from "@/lib/data/airports";
 import { AR_ROUTE_SLUGS } from "@/lib/config/i18n";
 import { EVENT_SLUGS } from "@/lib/data/events";
+import { DISTANCE_GUIDES } from "@/lib/data/distances";
 
 const DOMAIN = "https://taxisaudiarabia.com";
 
@@ -120,6 +121,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  const distanceItems = [
+    { url: `${DOMAIN}/distance`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.7 },
+    ...DISTANCE_GUIDES.map((g) => ({
+      url: `${DOMAIN}/distance/${g.slug}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+  ];
+
   const fleetItems = FLEET_VEHICLES.map((vehicle) => ({
     url: `${DOMAIN}/fleet/${vehicle.slug}`,
     lastModified: now,
@@ -171,6 +182,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...subAreaItems,
     ...airportItems,
     ...routeItems,
+    ...distanceItems,
     ...fleetItems,
     ...blogItems,
     ...guideItems,
