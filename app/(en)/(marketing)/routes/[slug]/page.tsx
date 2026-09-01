@@ -453,7 +453,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "riyadh-to-dammam": {
-    tldr: "A private taxi from Riyadh to Dammam is about 390 km and takes roughly 3.5 hours on Highway 40. Choose a private car or SUV with a professional chauffeur, door-to-door, with your fare confirmed on WhatsApp before booking — popular with executives and families travelling to the Eastern Province and the Aramco/Dhahran corridor.",
+    tldr: "A private taxi from Riyadh to Dammam covers about 390 km and takes around 3.5 hours, door-to-door on Highway 40. Travel by private sedan, SUV or van with a professional chauffeur, with your fare confirmed on WhatsApp before booking — popular with executives and families travelling to the Eastern Province and the Aramco/Dhahran corridor.",
     tldrFacts: [
       { label: "Distance", value: "~390 km" },
       { label: "Time", value: "~3.5 hours" },
@@ -467,6 +467,8 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "What is the distance between Riyadh and Dammam?", answer: "The distance between Riyadh and Dammam is about 390 km by road, a roughly 3.5-hour drive on Highway 40." },
       { question: "Can the driver continue on to Khobar, Dhahran, or Jubail after Dammam?", answer: "Yes. Since Dammam, Al Khobar, Dhahran, and Jubail form one Eastern Province service area, you can extend your trip to any of these cities at booking — just mention your final destination when requesting a quote." },
       { question: "Can I book a private car or chauffeur from Riyadh to Dammam instead of a taxi?", answer: "Yes. Alongside a standard taxi, we offer a pre-booked private car from Riyadh to Dammam with a professional chauffeur — an executive sedan, SUV or van reserved just for you and your group, door-to-door. Share your travel date and passenger count on WhatsApp for a fare before booking." },
+      { question: "Can I book a return taxi from Dammam to Riyadh?", answer: "Yes. We run the Dammam to Riyadh direction just as often as Riyadh to Dammam — one-way or same-day return, door-to-door by private sedan, SUV or van. Send your pickup point in Dammam (or Khobar/Dhahran), travel date and passenger count on WhatsApp and we confirm the fare before booking." },
+      { question: "Is a private taxi from Riyadh to Dammam available 24/7?", answer: "Yes. You can book at any time of day or night and a professional driver is ready at the time you set — useful for early business departures and late arrivals across the Eastern Province." },
     ],
   },
   "dammam-airport-to-jubail": {
@@ -1289,7 +1291,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const TITLE_OVERRIDES: Record<string, string> = {
     "jeddah-airport-to-makkah": "Taxi Jeddah Airport to Makkah — Fare, Distance & Booking",
     "makkah-to-madinah": "Taxi Makkah to Madinah — Fare on WhatsApp",
-    "riyadh-to-dammam": "Riyadh to Dammam Taxi — One Way Price, Fare & Distance",
+    "riyadh-to-dammam": "Riyadh to Dammam Taxi | Private Car & Chauffeur",
     "jeddah-to-kaec": "Jeddah to KAEC Taxi — Distance, Fare & Price",
     "riyadh-to-alula": "Riyadh to AlUla Taxi — Distance, Fare & Price",
     "madinah-to-alula": "Madinah to AlUla Taxi — Distance, Fare & Price",
@@ -1315,7 +1317,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // Per-slug description overrides — same CTR-fix rationale as TITLE_OVERRIDES,
   // for pages with confirmed impressions/position but zero clicks.
   const DESCRIPTION_OVERRIDES: Record<string, string> = {
-    "riyadh-to-dammam": "Riyadh to Dammam taxi, one way — 390 km, ~3.5 hrs. Private car or executive chauffeur; get your exact price & fare confirmed on WhatsApp before booking, 24/7.",
+    "riyadh-to-dammam": "Private taxi from Riyadh to Dammam — approx 390 km, around 3.5 hours, door-to-door by sedan, SUV or van. Fare confirmed on WhatsApp before booking, 24/7.",
     "jeddah-to-kaec": "Jeddah to KAEC (King Abdullah Economic City) taxi — 120 km, about 1 hr 20 min. Get your exact fare confirmed on WhatsApp before booking. Corporate sedans, 24/7.",
     "riyadh-to-alula": "Riyadh to AlUla taxi — 1,050 km, about 10 hours. Get your exact fare confirmed on WhatsApp before booking. Premium long-distance transfer, rest stops included.",
     "madinah-to-alula": "Madinah to AlUla taxi — 330 km, about 3 hours. Get your exact fare confirmed on WhatsApp before booking. Heritage transfer, rest stops included.",
@@ -1352,6 +1354,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       type: "website",
     },
   };
+}
+
+// Format a duration in minutes as "3h 30m" / "4h" / "45m". Uses floor for the
+// hour part so half-hour routes (e.g. 210 min) are not double-counted the way
+// Math.round(min/60) + (min%60) previously produced ("4h 30m" for 3.5 hrs).
+function formatDuration(totalMinutes: number): string {
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  if (hours === 0) return `${minutes}m`;
+  return minutes > 0 ? `${hours}h ${minutes}m` : `${hours}h`;
 }
 
 export default async function RouteDetailsPage({ params }: PageProps) {
@@ -1625,6 +1637,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
 
                 <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight tracking-tight text-white">
                   {route.fromCity} <span className="text-[#FACC15]">to</span> {route.toCity}
+                  {slug === "riyadh-to-dammam" ? " Taxi" : ""}
                 </h1>
 
                 <p className="text-sm sm:text-base text-white/85 leading-relaxed font-normal max-w-lg">
@@ -1638,7 +1651,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                   </div>
                   <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-xl px-4 py-2 border border-white/15 text-xs font-semibold">
                     <Clock className="h-4 w-4 text-[#FACC15]" />
-                    <span>~{Math.round(route.duration / 60)}h {route.duration % 60 > 0 ? `${route.duration % 60}m` : ''}</span>
+                    <span>~{formatDuration(route.duration)}</span>
                   </div>
                   <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-xl px-4 py-2 border border-white/15 text-xs font-semibold">
                     <CheckCircle2 className="h-4 w-4 text-[#FACC15]" />
@@ -1718,7 +1731,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
               className="flex items-center justify-between gap-3 rounded-2xl border border-[#16A34A]/20 bg-[#F0FDF4] px-5 py-4 hover:border-[#16A34A]/45 transition-colors"
             >
               <span className="text-sm font-semibold text-[#166534]">
-                How far is {route.fromCity} from {route.toCity}? See the full distance &amp; journey guide
+                {route.fromCity} to {route.toCity} distance, driving time &amp; journey guide
               </span>
               <ArrowRight className="h-4 w-4 text-[#16A34A] shrink-0" />
             </Link>
@@ -1728,7 +1741,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
           <section>
             <h2 className="font-heading text-2xl font-bold mb-6 flex items-center gap-3">
               <Car className="text-[#C9A84C]" />
-              Vehicle Options &amp; Estimated Pricing
+              Vehicle Options for {route.fromCity} to {route.toCity}
             </h2>
             <p className="text-[0.7rem] text-[#6B7280] mb-6">* All fares are fixed with zero surge pricing — confirmed on WhatsApp or email prior to dispatch.</p>
             <div className="grid sm:grid-cols-2 gap-5">
@@ -1736,7 +1749,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                 <div key={v.key} className="border border-[#16A34A]/15 rounded-2xl bg-white overflow-hidden group hover:border-[#16A34A]/40 transition-all duration-300 shadow-sm hover:shadow-md flex flex-col justify-between">
                   <div>
                     <div className="h-36 relative overflow-hidden bg-[#FAFAF7]">
-                      <Image src={v.img} alt={v.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                      <Image src={v.img} alt={`${v.name} for ${route.fromCity} to ${route.toCity} transfer`} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
                       <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent" />
                       <span className="absolute top-3 right-3 rounded-full bg-[#16A34A]/90 backdrop-blur-md px-3 py-1 text-[0.6rem] font-bold text-white uppercase tracking-wider">
                         Clear Quote
@@ -2056,6 +2069,59 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                 >
                   WhatsApp Booking
                 </a>
+              </div>
+            </section>
+          )}
+
+          {/* ─── REVERSE-INTENT SECTION (Dammam -> Riyadh) ─── */}
+          {slug === "riyadh-to-dammam" && (
+            <section className="bg-white border border-[#16A34A]/12 rounded-3xl p-8 shadow-sm">
+              <div className="max-w-2xl space-y-4">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#16A34A]">
+                  <Navigation className="h-3.5 w-3.5" />
+                  Return &amp; Reverse Direction
+                </span>
+                <h2 className="font-heading text-2xl font-bold text-[#1C1C1C]">
+                  Dammam to Riyadh Private Taxi
+                </h2>
+                <p className="text-xs sm:text-sm text-[#6B7280] leading-relaxed">
+                  We run the Dammam to Riyadh direction just as often as the outbound trip — book a taxi from Dammam to Riyadh one-way, or a same-day return for meetings in the capital. It is the same private, door-to-door service: a professional chauffeur collects you from your Dammam address (or Al Khobar and Dhahran nearby) and drives the ~390 km back to Riyadh in around 3.5 hours on Highway 40.
+                </p>
+                <p className="text-xs sm:text-sm text-[#6B7280] leading-relaxed">
+                  Choose an executive sedan for 1–3 business travellers, a GMC SUV for families or teams, or a Staria van for larger groups with luggage. For companies moving staff between the Eastern Province and Riyadh, we also arrange{" "}
+                  <Link href="/services/corporate" className="text-[#16A34A] font-semibold hover:underline">corporate &amp; business transport</Link>{" "}
+                  with hourly and one-way options. Share your Dammam pickup point, travel date and passenger count on WhatsApp and we confirm the fare before booking — no meter, no surge.
+                </p>
+                <div className="flex flex-wrap items-center gap-3 pt-1">
+                  <a
+                    href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                      `Salam! I want to book a private taxi from Dammam to Riyadh.`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-6 py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all shadow-sm"
+                  >
+                    <MessageSquare className="h-4 w-4 text-[#FACC15]" />
+                    Get a Dammam → Riyadh quote on WhatsApp
+                  </a>
+                </div>
+                <div className="flex flex-wrap gap-3 pt-2">
+                  <Link href="/locations/dammam" className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all">
+                    <MapPin className="h-3.5 w-3.5" /> Taxi service in Dammam
+                  </Link>
+                  <Link href="/routes/riyadh-to-alkhobar" className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#16A34A]/10 transition-all">
+                    <ArrowRight className="h-3.5 w-3.5" /> Riyadh to Al Khobar
+                  </Link>
+                  <Link href="/routes/dammam-to-manama" className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#16A34A]/10 transition-all">
+                    <ArrowRight className="h-3.5 w-3.5" /> Dammam to Bahrain
+                  </Link>
+                  <Link href="/routes/dammam-to-doha" className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#16A34A]/10 transition-all">
+                    <ArrowRight className="h-3.5 w-3.5" /> Dammam to Doha
+                  </Link>
+                  <Link href="/routes/dammam-to-kuwait" className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#16A34A]/10 transition-all">
+                    <ArrowRight className="h-3.5 w-3.5" /> Dammam to Kuwait
+                  </Link>
+                </div>
               </div>
             </section>
           )}
