@@ -22,7 +22,6 @@ import {
   Award,
   Sparkles,
   Globe,
-  Star,
   MessageCircle,
   ChevronRight
 } from "lucide-react";
@@ -162,9 +161,14 @@ const homeTranslations = {
       btnWhatsApp: "Reserve Your Private Umrah Chauffeur on WhatsApp"
     },
     testimonials: {
-      badge: "Customer Reviews",
-      title: "What Our Customers Say About Our Taxi Service",
-      verified: "Traveller testimonial"
+      badge: "Why Book With Us",
+      title: "Clear Pricing, Professional Drivers, Real Support",
+      items: [
+        { title: "Fixed price, agreed on WhatsApp", desc: "Your exact fare is confirmed with you on WhatsApp before you book — no surge, no meter, no hidden charges." },
+        { title: "24/7 WhatsApp booking", desc: "Message us any time, day or night. Our team typically confirms your ride within 1–2 hours." },
+        { title: "Drivers speak English, Arabic & Urdu", desc: "Clear communication for pilgrims, families, and business travellers across the Kingdom." },
+        { title: "Airport meet & greet", desc: "Your driver meets you in the arrivals hall with a name sign and helps carry your luggage to the car." }
+      ]
     },
     blog: {
       badge: "Travel Tips & Guides",
@@ -336,9 +340,14 @@ const homeTranslations = {
       btnWhatsApp: "احجز سائق العمرة الخاص عبر الواتساب"
     },
     testimonials: {
-      badge: "آراء عملائنا الكرام",
-      title: "ماذا يقول كبار زوار ومعتمري المملكة؟",
-      verified: "رأي مسافر"
+      badge: "لماذا تحجز معنا",
+      title: "أسعار واضحة، سائقون محترفون، دعم حقيقي",
+      items: [
+        { title: "سعر ثابت يُؤكد عبر واتساب", desc: "نؤكد أجرتك بالضبط عبر واتساب قبل الحجز — بدون زيادة مفاجئة أو عداد أو رسوم خفية." },
+        { title: "الحجز عبر واتساب على مدار الساعة", desc: "راسلنا في أي وقت ليلاً أو نهاراً، ويؤكد فريقنا رحلتك عادةً خلال ساعة إلى ساعتين." },
+        { title: "سائقون يتحدثون العربية والإنجليزية والأردية", desc: "تواصل واضح للمعتمرين والعائلات ورجال الأعمال في جميع أنحاء المملكة." },
+        { title: "استقبال وترحيب في المطار", desc: "يستقبلك سائقك في صالة الوصول بلوحة تحمل اسمك ويساعدك في حمل أمتعتك إلى السيارة." }
+      ]
     },
     blog: {
       badge: "دليل السفر والإرشادات",
@@ -496,9 +505,14 @@ const homeTranslations = {
       btnWhatsApp: "واٹس ایپ پر عمرہ کا ڈرائیور بک کریں"
     },
     testimonials: {
-      badge: "عالمی آراء",
-      title: "ہمارے وی آئی پی زائرین کا کیا کہنا ہے؟",
-      verified: "مسافر کی رائے"
+      badge: "ہمیں کیوں منتخب کریں",
+      title: "واضح قیمت، پیشہ ور ڈرائیور، حقیقی سپورٹ",
+      items: [
+        { title: "مقررہ کرایہ، واٹس ایپ پر طے شدہ", desc: "بکنگ سے پہلے آپ کا درست کرایہ واٹس ایپ پر طے کیا جاتا ہے — کوئی سرج، میٹر یا چھپے چارجز نہیں۔" },
+        { title: "چوبیس گھنٹے واٹس ایپ بکنگ", desc: "دن ہو یا رات، کسی بھی وقت پیغام بھیجیں۔ ہماری ٹیم عموماً 1–2 گھنٹے میں آپ کی رائیڈ کنفرم کر دیتی ہے۔" },
+        { title: "ڈرائیور انگریزی، عربی اور اردو بولتے ہیں", desc: "زائرین، خاندانوں اور کاروباری مسافروں کے لیے واضح رابطہ۔" },
+        { title: "ایئرپورٹ میٹ اینڈ گریٹ", desc: "آپ کا ڈرائیور نام کی تختی کے ساتھ اریول ہال میں ملتا ہے اور گاڑی تک سامان لے جانے میں مدد کرتا ہے۔" }
+      ]
     },
     blog: {
       badge: "ٹریول گائیڈز",
@@ -632,15 +646,12 @@ const internationalNations = [
   { name: "Nigeria", flag: "🇳🇬" }
 ];
 
-const customerReviews = [
-  { name: "Dr. Farhan Malik", countryFlag: "🇬🇧", stars: 5, text: "Excellent taxi service from Jeddah to Makkah. The driver was waiting in the arrivals hall with a name sign. Smooth, comfortable ride with no issues at all.", vehicle: "GMC Yukon Denali" },
-  { name: "Amna Al-Faisal", countryFlag: "🇸🇦", stars: 5, text: "سيارات فاخرة للغاية وخدمة متميزة. سائق محترف ولديه دراية ممتازة بمواقع مكة والمدينة. أفضل خدمة نقل في المملكة.", vehicle: "Mercedes S-Class VIP" },
-  { name: "Muhammad Siddique", countryFlag: "🇵🇰", stars: 5, text: "Wonderful Umrah transfer booking. The driver was prayer-time aware and stopped for us at Meeqat with complete respect and patience. Highly recommended.", vehicle: "Mercedes V-Class VIP" },
-  { name: "Hassan Qabbani", countryFlag: "🇦🇪", stars: 5, text: "Highly recommend Taxi Saudi Arabia for anyone in Saudi Arabia. Clean car, Wi-Fi included, and the price was exactly what we agreed on WhatsApp — zero hidden charges or surge fees.", vehicle: "Mercedes S-Class VIP" },
-  { name: "Evelyn Sterling", countryFlag: "🇺🇸", stars: 5, text: "Amazing airport taxi service. My flight was delayed 2 hours but the driver tracked it and was right there when I landed. Very professional and reliable.", vehicle: "GMC Yukon Denali" },
-  { name: "Ahmad Bin-Hamid", countryFlag: "🇶🇦", stars: 5, text: "سفر مريح جداً بين الرياض والدمام. سيارة نظيفة وواسعة وخدمة إنترنت ممتازة طوال الطريق. سأحجز مجدداً بالتأكيد.", vehicle: "Mercedes S-Class VIP" },
-  { name: "Verified Customer", countryFlag: "🇸🇦", stars: 5, text: "ما شاء الله تبارك الله، خدمتكم مرة ممتازة، والسيارة مريحة والـdriver ممتاز ومؤدب. والله ودنا نرجع معكم في رحلة ثانية، ما ابغى ادور غيركم — خلاص جربناكم وأعجبتنا خدمتكم.", vehicle: "Executive Sedan" }
-];
+// NOTE: fabricated "customerReviews" array removed (Batch 1, 2026-08-31).
+// No genuine review data exists in the codebase, so the on-page section was
+// replaced with an honest assurances band (t.testimonials.items) built only
+// from claims already stated in the page's "whyUs" section — no fabrication.
+// When REAL, attributable reviews become available (e.g. Google Business
+// Profile), reintroduce a reviews section + valid Review schema then.
 
 // Homepage blog cards -> real guide detail pages (pehle /guides?id= duplicate URLs ban rahe the)
 const GUIDE_SLUG_LINKS: Record<string, string> = {
@@ -1531,69 +1542,38 @@ export function HomePage() {
             </h2>
           </div>
 
-          <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
-            {customerReviews.map((review, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.07 }}
-                className="rounded-2xl p-6 space-y-4 flex flex-col transition-all duration-300"
-                style={{
-                  backgroundColor: "#FFFFFF",
-                  border: "1.5px solid rgba(22,163,74,0.12)",
-                  boxShadow: "0 2px 16px rgba(0,0,0,0.04)",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(22,163,74,0.35)";
-                  (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)";
-                  (e.currentTarget as HTMLDivElement).style.boxShadow = "0 16px 40px rgba(22,163,74,0.1)";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(22,163,74,0.12)";
-                  (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
-                  (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 16px rgba(0,0,0,0.04)";
-                }}
-              >
-                {/* Stars */}
-                <div className="flex gap-0.5">
-                  {[...Array(review.stars)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4" style={{ color: "#16A34A", fill: "#16A34A" }} />
-                  ))}
-                </div>
-
-                {/* Quote */}
-                <p className="text-sm leading-relaxed flex-1" style={{ color: "#374151", fontStyle: "italic" }}>
-                  &ldquo;{review.text}&rdquo;
-                </p>
-
-                {/* Reviewer */}
-                <div
-                  className="flex items-center justify-between pt-4"
-                  style={{ borderTop: "1px solid rgba(22,163,74,0.12)" }}
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {t.testimonials.items.map((item, index) => {
+              const Icon = [ShieldCheck, MessageCircle, Globe, CheckCircle][index % 4];
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.07 }}
+                  className="rounded-2xl p-6 space-y-4 flex flex-col transition-all duration-300"
+                  style={{
+                    backgroundColor: "#FFFFFF",
+                    border: "1.5px solid rgba(22,163,74,0.12)",
+                    boxShadow: "0 2px 16px rgba(0,0,0,0.04)",
+                  }}
                 >
-                  <div className="flex items-center gap-2.5">
-                    <span className="text-xl">{review.countryFlag}</span>
-                    <div>
-                      <p className="font-heading font-bold text-[0.85rem]" style={{ color: "#0F172A" }}>
-                        {review.name}
-                      </p>
-                      <p className="text-[0.58rem] font-medium" style={{ color: "#9CA3AF" }}>
-                        {t.testimonials.verified}
-                      </p>
-                    </div>
-                  </div>
                   <span
-                    className="text-[0.58rem] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full flex items-center gap-1"
-                    style={{ color: "#16A34A", backgroundColor: "rgba(22,163,74,0.08)", border: "1px solid rgba(22,163,74,0.2)" }}
+                    className="flex h-12 w-12 items-center justify-center rounded-xl"
+                    style={{ backgroundColor: "rgba(22,163,74,0.1)", color: "#16A34A" }}
                   >
-                    <Car className="h-3 w-3" />
-                    {review.vehicle.split(" ")[0]}
+                    <Icon className="h-6 w-6" />
                   </span>
-                </div>
-              </motion.div>
-            ))}
+                  <h3 className="font-heading font-bold text-[1.05rem]" style={{ color: "#0F172A" }}>
+                    {item.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed flex-1" style={{ color: "#374151" }}>
+                    {item.desc}
+                  </p>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>

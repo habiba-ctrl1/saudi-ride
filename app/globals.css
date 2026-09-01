@@ -506,7 +506,7 @@ textarea:focus {
   display: block;
   height: 3px;
   width: 48px;
-  background: linear-gradient(90deg, #C8A45D, #F4E4BC);
+  background: linear-gradient(90deg, #16A34A, #FACC15);
   border-radius: 2px;
   margin-bottom: 1rem;
   transition: width 0.3s ease;
@@ -633,6 +633,53 @@ textarea:focus {
   font-weight: 700;
 }
 
+/* ─── Design-System Tokens (Batch 1) ─────────────────────────────────────────
+   Reusable container / spacing / type utilities. Additive only — existing
+   pages keep working; templates adopt these incrementally in later batches.
+   No new !important rules are introduced here. */
+
+/* Container scale — pairs with the existing .section-container (max-w 72rem).
+   Use .container-wide for full-bleed feature bands that still need gutters. */
+.container-wide {
+  margin-inline: auto;
+  max-width: 87.5rem; /* 1400px */
+  padding-inline: 1.5rem;
+}
+@media (min-width: 768px) {
+  .container-wide { padding-inline: 2.5rem; }
+}
+
+/* Vertical rhythm — responsive replacement for ad-hoc py-24. */
+.section-y   { padding-block: clamp(3.5rem, 8vw, 6rem); }
+.section-y-sm { padding-block: clamp(2.5rem, 6vw, 4rem); }
+
+/* Type helpers — complement .text-hero / .text-section-title / .text-card-title */
+.text-eyebrow {
+  font-size: 0.72rem;
+  line-height: 1.2;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.text-subhead {
+  font-size: 1.25rem;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+}
+.text-body-lg {
+  font-size: clamp(1rem, 1.2vw, 1.125rem);
+  line-height: 1.7;
+}
+.text-body {
+  font-size: 1rem;
+  line-height: 1.65;
+}
+.text-caption {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
 /* Arabic font class */
 [lang="ar"], .font-arabic {
   font-family: var(--font-arabic), 'Cairo', sans-serif;
@@ -640,7 +687,7 @@ textarea:focus {
 
 /* ─── Gold Gradient Text ─────────────────────────────────────────────────── */
 .text-gold-gradient {
-  background: linear-gradient(135deg, #C8A45D 0%, #F4E4BC 50%, #C8A45D 100%);
+  background: linear-gradient(135deg, #16A34A 0%, #FACC15 50%, #16A34A 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -658,5 +705,5 @@ textarea:focus {
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #C8A45D;
+  background: #15803D;
 }

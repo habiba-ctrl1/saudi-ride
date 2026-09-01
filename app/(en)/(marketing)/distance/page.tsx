@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { DISTANCE_GUIDES } from "@/lib/data/distances";
 import { Route, MapPin, Clock, ArrowRight } from "lucide-react";
@@ -29,20 +30,25 @@ export default function DistanceHubPage() {
           Real driving distances and times between major Saudi cities, with the main highway, rest stops, and how each journey compares by car, train, and flight. Book a private taxi for any route — fare confirmed on WhatsApp.
         </p>
 
-        <div className="grid sm:grid-cols-2 gap-5">
+        <div className="grid sm:grid-cols-2 gap-6">
           {DISTANCE_GUIDES.map((g) => (
             <Link
               key={g.slug}
               href={`/distance/${g.slug}`}
-              className="group bg-white border border-[#16A34A]/12 rounded-2xl p-6 hover:border-[#16A34A]/40 hover:shadow-md transition-all"
+              className="group bg-white border border-[#16A34A]/12 rounded-3xl overflow-hidden hover:border-[#16A34A]/40 hover:shadow-lg transition-all"
             >
-              <h2 className="font-heading text-lg font-bold mb-3 flex items-center justify-between">
-                {g.fromCity} → {g.toCity}
-                <ArrowRight className="h-4 w-4 text-[#16A34A] opacity-0 group-hover:opacity-100 transition-opacity" />
-              </h2>
-              <div className="flex items-center gap-4 text-[0.7rem] text-[#6B7280] font-semibold">
+              <div className="h-40 relative">
+                <Image src={g.toImage} alt={`${g.fromCity} to ${g.toCity}`} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between text-white">
+                  <h2 className="font-heading text-lg font-bold drop-shadow">{g.fromCity} → {g.toCity}</h2>
+                  <ArrowRight className="h-5 w-5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+              </div>
+              <div className="p-5 flex items-center gap-4 text-[0.72rem] text-[#6B7280] font-semibold">
                 <span className="flex items-center gap-1"><MapPin className="h-3.5 w-3.5 text-[#C9A84C]" /> ~{g.km} km</span>
                 <span className="flex items-center gap-1"><Clock className="h-3.5 w-3.5 text-[#C9A84C]" /> {g.driveLabel}</span>
+                <span className="ml-auto text-[#16A34A]">Taxi on WhatsApp</span>
               </div>
             </Link>
           ))}

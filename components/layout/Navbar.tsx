@@ -111,7 +111,7 @@ export function Navbar() {
               alt="Taxi Saudi Arabia — Premium Chauffeur & Transportation"
               width={948}
               height={650}
-              className="h-[4.75rem] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              className="h-14 sm:h-[4.75rem] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               priority
             />
             <div className="hidden sm:flex flex-col leading-none gap-1.5">
@@ -133,7 +133,7 @@ export function Navbar() {
 
             {/* Transportation Services (mega dropdown) */}
             <div className="relative group">
-              <button className={cn(navLinkCls, "py-4")}>
+              <button type="button" aria-haspopup="true" className={cn(navLinkCls, "py-4")}>
                 Transportation Services
                 <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180" />
               </button>
@@ -183,7 +183,7 @@ export function Navbar() {
 
             {/* Taxi Routes dropdown */}
             <div className="relative group">
-              <button className={cn(navLinkCls, "py-4")}>
+              <button type="button" aria-haspopup="true" className={cn(navLinkCls, "py-4")}>
                 Taxi Routes
                 <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180" />
               </button>
@@ -208,7 +208,7 @@ export function Navbar() {
 
             {/* Locations dropdown */}
             <div className="relative group">
-              <button className={cn(navLinkCls, "py-4")}>
+              <button type="button" aria-haspopup="true" className={cn(navLinkCls, "py-4")}>
                 Locations
                 <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180" />
               </button>
@@ -235,7 +235,7 @@ export function Navbar() {
 
             {/* Partners dropdown */}
             <div className="relative group">
-              <button className={cn(navLinkCls, "py-4")}>
+              <button type="button" aria-haspopup="true" className={cn(navLinkCls, "py-4")}>
                 Partners
                 <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180" />
               </button>
