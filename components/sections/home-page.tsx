@@ -114,7 +114,7 @@ const homeTranslations = {
         { title: "English, Arabic & Urdu Drivers", desc: "Our professional chauffeurs speak English, Arabic, and Urdu — ensuring clear communication for international pilgrims and business travelers." },
         { title: "Free Cancellation — 24 Hours", desc: "Cancel your booking up to 24 hours before your trip for a full refund — no questions asked. Flexibility you can count on." },
         { title: "Airport Meet & Greet Service", desc: "For every airport transfer in Saudi Arabia, your driver meets you inside the arrivals terminal with a name sign and helps carry your luggage to the car." },
-        { title: "ZATCA-Compliant E-Invoice", desc: "Automated VAT-compliant e-invoices via ZATCA for all corporate and business bookings. Trusted by hotels, embassies, and enterprises." }
+        { title: "ZATCA-Compliant E-Invoice", desc: "VAT-compliant e-invoices via ZATCA available on request for corporate and business bookings — clean paperwork for your company accounts." }
       ]
     },
     routes: {
@@ -990,13 +990,13 @@ export function HomePage() {
             style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", letterSpacing: "-0.02em", color: "#0F172A" }}
           >
             {language === "ar"
-              ? "احصل على عرض سعر لرحلتك عبر واتساب"
-              : "Get Your Taxi Quote on WhatsApp"}
+              ? "احصل على عرض سعر النقل الخاص عبر واتساب"
+              : "Get Your Private Transfer Quote on WhatsApp"}
           </h2>
           <p className="max-w-xl mx-auto text-sm" style={{ color: "#6B7280" }}>
             {language === "ar"
-              ? "شارك تفاصيل رحلتك وسنرد عليك بعرض سعر واضح خلال دقائق — بدون رسوم مخفية أو زيادة مفاجئة"
-              : "Share your trip details and get a clear price back within minutes — no hidden charges, no surge pricing."}
+              ? "شارك تفاصيل رحلتك وسنرد عليك بعرض سعر واضح عبر واتساب، عادةً خلال ساعة إلى ساعتين — بدون رسوم مخفية أو زيادة مفاجئة"
+              : "Share your trip details and we'll send a clear price on WhatsApp, usually within 1–2 hours — no hidden charges, no surge pricing."}
           </p>
         </div>
         <WhatsAppQuoteForm />

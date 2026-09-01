@@ -65,6 +65,8 @@ interface LeadCapturedProps {
   fromCity?: string;
   toCity?: string;
   vehicleClass?: string;
+  tripType?: string;
+  passengers?: string;
   estimatedPriceSar?: number;
   locale?: string;
 }
