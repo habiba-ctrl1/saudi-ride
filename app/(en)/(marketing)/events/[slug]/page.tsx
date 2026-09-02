@@ -35,6 +35,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       url: `https://taxisaudiarabia.com/events/${slug}`,
       ...(ev.heroImage ? { images: [{ url: `https://taxisaudiarabia.com${ev.heroImage}`, width: 1376, height: 768, alt: ev.heroAlt ?? ev.h1 }] } : {}),
     },
+    // Explicit twitter block so the card title/description/image match this page
+    // instead of inheriting the site-wide default from the root layout.
+    twitter: {
+      card: "summary_large_image",
+      title: ev.title,
+      description: ev.description,
+      ...(ev.heroImage ? { images: [{ url: `https://taxisaudiarabia.com${ev.heroImage}`, alt: ev.heroAlt ?? ev.h1 }] } : {}),
+    },
   };
 }
 
@@ -44,8 +52,37 @@ export default async function EventPage({ params }: PageProps) {
   if (!ev) notFound();
 
   const waLink = `https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
-    `Salam, I need ${ev.waContext}. My dates, group size and pickup are:`,
+    ev.waPrefill ?? `Salam, I need ${ev.waContext}. My dates, group size and pickup are:`,
   )}`;
+
+  // Time-limited departure callout: render only up to its cut-off instant.
+  const showDeparture = !!ev.departureCallout && Date.now() <= Date.parse(ev.departureCallout.untilISO);
+  const departureWaLink = ev.departureCallout
+    ? `https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(ev.departureCallout.waPrefill)}`
+    : "";
+
+  // WebPage node that references the real event via `about` (Event is never the
+  // root type — we are the transport provider, not the organiser).
+  const aboutSchema = ev.about
+    ? {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": `https://taxisaudiarabia.com/events/${slug}#webpage`,
+        name: ev.title,
+        url: `https://taxisaudiarabia.com/events/${slug}`,
+        ...(ev.heroImage ? { primaryImageOfPage: { "@type": "ImageObject", url: `https://taxisaudiarabia.com${ev.heroImage}` } } : {}),
+        about: {
+          "@type": "Event",
+          name: ev.about.eventName,
+          startDate: ev.about.startDate,
+          endDate: ev.about.endDate,
+          eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+          location: { "@type": "Place", name: ev.about.venueName, address: { "@type": "PostalAddress", addressLocality: ev.city, addressCountry: "SA" } },
+          ...(ev.about.organizer ? { organizer: { "@type": "Organization", name: ev.about.organizer } } : {}),
+          ...(ev.about.sameAs ? { sameAs: ev.about.sameAs } : {}),
+        },
+      }
+    : null;
 
   // Related event pages — prefer the same city, then fill from the rest.
   const others = EVENTS.filter((e) => e.slug !== slug);
@@ -63,6 +100,7 @@ export default async function EventPage({ params }: PageProps) {
             serviceType: "Event Transportation",
             areaServed: [ev.city],
           }),
+          ...(aboutSchema ? [aboutSchema] : []),
           faqSchema(ev.faqs),
           speakableSchema({ path: `/events/${slug}` }),
           breadcrumbSchema([
@@ -131,7 +169,7 @@ export default async function EventPage({ params }: PageProps) {
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 rounded-full bg-[#16A34A] px-8 py-4 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
           >
-            <MessageCircle className="h-4 w-4" /> Get Event Transport on WhatsApp
+            <MessageCircle className="h-4 w-4" /> {ev.waCtaLabel ?? "Get Event Transport on WhatsApp"}
           </a>
           <a
             href={contactConfig.primaryPhoneLink}
@@ -141,6 +179,68 @@ export default async function EventPage({ params }: PageProps) {
           </a>
         </div>
       </section>
+
+      {/* DEPARTURE CALLOUT (time-limited; auto-hides after cut-off) */}
+      {showDeparture && ev.departureCallout && (
+        <section className="section-container max-w-5xl pt-2 pb-4">
+          <div className="rounded-3xl border-2 border-[#C9A84C] bg-[#FFF8E6] p-6 sm:p-8 shadow-sm">
+            <div className="flex items-center gap-2 mb-3">
+              <CalendarDays className="h-5 w-5 text-[#C9A84C]" />
+              <h2 className="font-heading text-xl md:text-2xl font-bold">{ev.departureCallout.heading}</h2>
+            </div>
+            <p className="max-w-2xl text-sm text-[#6B7280] leading-relaxed mb-5">{ev.departureCallout.body}</p>
+            <a
+              href={departureWaLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
+            >
+              <MessageCircle className="h-4 w-4" /> Book my departure transfer
+            </a>
+          </div>
+        </section>
+      )}
+
+      {/* VENUE TIMINGS TABLE */}
+      {ev.timings && (
+        <section className="section-container max-w-5xl py-16 border-t border-[#C9A84C]/10">
+          <h2 className="font-heading text-2xl md:text-3xl font-bold mb-3 text-center">{ev.timings.heading}</h2>
+          {ev.timings.intro && (
+            <p className="max-w-2xl mx-auto text-sm text-[#6B7280] leading-relaxed mb-8 text-center">{ev.timings.intro}</p>
+          )}
+          <div className="overflow-x-auto rounded-2xl border border-[#16A34A]/12 bg-white">
+            <table className="w-full text-left text-sm">
+              <thead>
+                <tr className="border-b border-[#16A34A]/12 bg-[#F0FDF4]">
+                  <th className="px-5 py-3 font-bold text-[#166534]">Who</th>
+                  <th className="px-5 py-3 font-bold text-[#166534]">Hours</th>
+                  <th className="px-5 py-3 font-bold text-[#166534]">What it means for your transport</th>
+                </tr>
+              </thead>
+              <tbody>
+                {ev.timings.rows.map((r) => (
+                  <tr key={r.who} className="border-b border-[#16A34A]/10 last:border-0">
+                    <td className="px-5 py-3 font-semibold whitespace-nowrap">{r.who}</td>
+                    <td className="px-5 py-3 whitespace-nowrap">{r.hours}</td>
+                    <td className="px-5 py-3 text-[#6B7280] leading-relaxed">{r.meaning}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {ev.timings.closingLine && (
+            <p className="max-w-2xl mx-auto text-sm text-[#1C1C1C] font-medium leading-relaxed mt-6 text-center">{ev.timings.closingLine}</p>
+          )}
+          {ev.timings.sourceHref && ev.timings.sourceLabel && (
+            <p className="text-center text-xs text-[#6B7280] mt-4">
+              Hours per the{" "}
+              <a href={ev.timings.sourceHref} target="_blank" rel="noopener noreferrer" className="text-[#16A34A] font-semibold hover:underline">
+                {ev.timings.sourceLabel}
+              </a>.
+            </p>
+          )}
+        </section>
+      )}
 
       {/* SERVICES */}
       <section className="section-container max-w-5xl py-16 border-t border-[#C9A84C]/10">
@@ -172,6 +272,55 @@ export default async function EventPage({ params }: PageProps) {
           </Link>
         </div>
       </section>
+
+      {/* COMMERCIAL OPTIONS (named events only) */}
+      {ev.optionsSection && (
+        <section className="section-container max-w-5xl py-16 border-t border-[#C9A84C]/10">
+          <h2 className="font-heading text-2xl md:text-3xl font-bold mb-3 text-center">{ev.optionsSection.heading}</h2>
+          <p className="max-w-2xl mx-auto text-sm text-[#6B7280] leading-relaxed mb-8 text-center">{ev.optionsSection.intro}</p>
+          <div className="grid sm:grid-cols-2 gap-6">
+            {ev.optionsSection.items.map((s) => (
+              <div key={s.title} className="rounded-2xl border border-[#16A34A]/12 bg-white p-6">
+                <h3 className="font-bold text-sm mb-2 flex items-center gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-[#C9A84C]" /> {s.title}
+                </h3>
+                <p className="text-sm text-[#6B7280] leading-relaxed">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+          {ev.optionsSection.links && ev.optionsSection.links.length > 0 && (
+            <div className="mt-8 flex flex-wrap gap-3">
+              {ev.optionsSection.links.map((l) => (
+                <Link key={l.href} href={l.href} className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#16A34A]/10 transition-all">
+                  <ArrowRight className="h-3.5 w-3.5" /> {l.label}
+                </Link>
+              ))}
+            </div>
+          )}
+        </section>
+      )}
+
+      {/* BOOKING / TRUST STRIP (confirmed policy + internal links only) */}
+      {ev.trustStrip && (
+        <section className="section-container max-w-4xl py-12 border-t border-[#C9A84C]/10">
+          <h2 className="font-heading text-2xl md:text-3xl font-bold mb-6 text-center">{ev.trustStrip.heading}</h2>
+          <ul className="max-w-2xl mx-auto space-y-3 mb-8">
+            {ev.trustStrip.items.map((it) => (
+              <li key={it} className="flex gap-3 text-sm text-[#1C1C1C]">
+                <CheckCircle2 className="h-5 w-5 text-[#16A34A] shrink-0 mt-0.5" />
+                <span className="leading-relaxed">{it}</span>
+              </li>
+            ))}
+          </ul>
+          <div className="flex flex-wrap justify-center gap-3">
+            {ev.trustStrip.links.map((l) => (
+              <Link key={l.href} href={l.href} className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#16A34A]/10 transition-all">
+                <ArrowRight className="h-3.5 w-3.5" /> {l.label}
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* FAQ */}
       <section className="section-container max-w-4xl py-16 border-t border-[#C9A84C]/10">

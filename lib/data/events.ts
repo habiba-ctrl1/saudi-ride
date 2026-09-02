@@ -44,6 +44,53 @@ export interface EventPageData {
   faqs: EventFaq[];
   /** Prefilled WhatsApp message (event context). */
   waContext: string;
+  /** Optional per-event WhatsApp CTA label (falls back to a generic label). */
+  waCtaLabel?: string;
+  /** Optional structured (raw, un-encoded) WhatsApp prefill; falls back to a generic line. */
+  waPrefill?: string;
+  /** Optional commercial "options" section rendered before the FAQ (named events). */
+  optionsSection?: {
+    heading: string;
+    intro: string;
+    items: EventService[];
+    links?: { href: string; label: string }[];
+  };
+  /** Optional time-limited departure/return callout (auto-hides after `untilISO`). */
+  departureCallout?: {
+    heading: string;
+    body: string;
+    /** Raw (un-encoded) WhatsApp prefill for the departure button. */
+    waPrefill: string;
+    /** ISO instant after which the callout stops rendering. */
+    untilISO: string;
+  };
+  /** Optional venue-timings table (named events with published hours). */
+  timings?: {
+    heading: string;
+    intro?: string;
+    rows: { who: string; hours: string; meaning: string }[];
+    closingLine?: string;
+    sourceHref?: string;
+    sourceLabel?: string;
+  };
+  /** Optional booking/trust strip — confirmed policy items + internal links only. */
+  trustStrip?: {
+    heading: string;
+    items: string[];
+    links: { href: string; label: string }[];
+  };
+  /**
+   * Optional real-world event this page is ABOUT (for WebPage.about → Event schema).
+   * We are the transport provider, NOT the organiser — Event is never the root type.
+   */
+  about?: {
+    eventName: string;
+    startDate: string;
+    endDate: string;
+    venueName: string;
+    organizer?: string;
+    sameAs?: string[];
+  };
   /** Hero image (assigned below by slug group). */
   heroImage?: string;
   heroAlt?: string;
@@ -231,14 +278,14 @@ export const EVENTS: EventPageData[] = [
     kind: "event",
     badge: "LEAP · Riyadh",
     shortName: "LEAP Transport",
-    h1: "LEAP Riyadh — Event Transportation",
-    title: "LEAP Riyadh Transportation | Airport & Venue Transfers",
-    description: "Private transport for LEAP in Riyadh — airport transfers to the Riyadh Exhibition & Convention Centre (Malham), daily chauffeur standby, group and VIP cars for delegates and exhibitors. Fare on WhatsApp.",
+    h1: "LEAP Riyadh Event Transportation",
+    title: "LEAP Riyadh Event Transportation | Airport & Venue Transfers",
+    description: "Private LEAP Riyadh transportation — airport transfers to the Riyadh Exhibition & Convention Centre in Malham, daily chauffeur standby, group and VIP cars for delegates and exhibitors. Fare confirmed on WhatsApp.",
     intro: "LEAP is one of the world's largest tech events, drawing hundreds of thousands to the Riyadh Exhibition & Convention Centre in Malham — well north-west of the city, where app-based rides get scarce and pricey at peak. Pre-booked transport is the difference between leaving on time and queueing in the desert car park.",
     city: "Riyadh",
     edition: { dates: "31 August – 3 September 2026", venue: "Riyadh Exhibition & Convention Centre, Malham", note: "Held annually in Riyadh." },
     airport: RUH,
-    tldrAnswer: "For LEAP in Riyadh we provide private airport transfers to the Riyadh Exhibition & Convention Centre in Malham, daily chauffeur standby, and group vehicles for delegates and exhibitors — with your fare confirmed on WhatsApp and no peak-hour surge.",
+    tldrAnswer: "For LEAP in Riyadh we provide private event transportation — Riyadh Airport (RUH) transfers, hotel-to-venue runs to the Exhibition & Convention Centre in Malham, exhibitor and team vehicles, VIP chauffeur cars, and group vans and SUVs — with your fare confirmed on WhatsApp and no peak-hour surge.",
     tldrFacts: [
       { label: "Venue", value: "RECC, Malham" },
       { label: "Edition", value: "31 Aug – 3 Sep 2026" },
@@ -247,7 +294,7 @@ export const EVENTS: EventPageData[] = [
     ],
     services: [
       { title: "Airport → Malham Transfers", desc: "Direct pickups from Riyadh Airport (RUH) to the Exhibition & Convention Centre in Malham — a 30–45 minute run depending on traffic. We track your flight and meet you at arrivals, so you skip the taxi queue on a busy LEAP arrivals day." },
-      { title: "Daily Standby at a Remote Venue", desc: "Malham sits outside the city and rides thin out fast when 100,000+ people leave at once. A dedicated car on daily standby means your ride is already there — no waiting in the car park while surge prices climb." },
+      { title: "Daily Standby at a Remote Venue", desc: "Malham sits outside the city and rides thin out fast when the venue empties at the end of each day. A dedicated car on daily standby means your ride is already there — no waiting in the car park while surge prices climb." },
       { title: "Exhibitor & Stand-Team Vehicles", desc: "SUVs and vans for exhibitor teams carrying demo kit and sample cases, plus early build-up and late breakdown runs so your stand is ready before doors open." },
       { title: "VIP & Investor Chauffeur", desc: "Executive S-Class and Escalade-class cars for founders, investors, and sponsors moving between LEAP, hotel meetings, and side-events with a discreet, bilingual chauffeur." },
     ],
@@ -256,8 +303,79 @@ export const EVENTS: EventPageData[] = [
       { question: "Is it hard to get a ride when LEAP closes for the day?", answer: "Yes — that's the main pain point. With hundreds of thousands leaving Malham within a short window, app-based cars get scarce and expensive. A pre-booked car or daily standby means your driver is waiting, at a fixed fare agreed in advance." },
       { question: "Can you move an exhibitor team with equipment?", answer: "Yes. Ask for an SUV or van and we allow room for demo units, sample cases, and marketing materials, plus early-morning build-up and late breakdown runs so your stand crew reaches the halls on schedule." },
       { question: "Do you cover hotel-to-venue runs for a group?", answer: "Yes. Tell us your hotel and group size on WhatsApp and we run daily loops between your hotel and Malham with the right-sized vehicle, timed to the sessions you want to attend." },
+      { question: "Can I book a private taxi from Riyadh Airport to LEAP in Malham?", answer: "Yes. We run private airport transfers from King Khalid Airport (RUH) straight to the Riyadh Exhibition & Convention Centre in Malham — we track your flight, meet you at arrivals, and take you directly to the venue, so you skip the taxi queue on a busy LEAP arrivals day. Fare confirmed on WhatsApp before you travel." },
+      { question: "Can you provide daily transportation between my Riyadh hotel and LEAP?", answer: "Yes. Book a car on daily standby and it runs your morning drop to Malham and evening pickup for the length of LEAP — a fixed daily arrangement for individuals or small teams, so you never hunt for a ride at a remote venue. Send your hotel, dates, and passenger count on WhatsApp for a quote." },
+      { question: "What time does LEAP close each day?", answer: "LEAP is open to visitors from 1:00 PM to 9:00 PM, while exhibitors have access from 9:00 AM to 9:30 PM for stand build-up and breakdown. The busiest transport moment is the 9:00 PM close, when the crowd leaves Malham at once — which is exactly why a pre-booked car or daily standby beats waiting for an app ride at a remote venue after dark." },
+      { question: "Should I drive to LEAP or book a car?", answer: "Both work. The venue has large on-site parking, so self-driving is possible if you're comfortable with Malham's out-of-town location. The real constraint is the simultaneous end-of-day exit: everyone leaves within the same short window, so the car parks and access roads back up. A pre-booked chauffeur means you're collected at the hall exit at a fixed fare, with no parking hunt or exit queue to manage yourself." },
+      { question: "Can you also cover DeepFest?", answer: "Yes. DeepFest is co-located within LEAP as its artificial-intelligence programme — same venue in Malham, same dates. Your airport transfers, hotel runs, and daily standby cover DeepFest exactly as they cover the main LEAP halls; just tell us which programme you're attending when you message us." },
     ],
     waContext: "LEAP Riyadh event transportation",
+    waCtaLabel: "Get LEAP Riyadh Transport Quote on WhatsApp",
+    waPrefill:
+      "Salam! I need transport for LEAP Riyadh.\n• Arriving (flight / date / time):\n• Hotel:\n• Passengers & bags:\n• Need: airport transfer / daily standby / exhibitor van / VIP car\n• Departure flight:",
+    departureCallout: {
+      heading: "Leaving LEAP on the final day?",
+      body: "LEAP halls close at 9:00 PM and tens of thousands of people head for the exits at the same time, from a venue outside the city. If you have a flight on 3 or 4 September, send us your flight time and hotel now and we will have a car waiting at the hall exit — fixed fare, no surge.",
+      waPrefill:
+        "Salam! I need a departure transfer from LEAP.\n• Pickup (venue or hotel):\n• Date & time:\n• Flight number & departure time:\n• Passengers & bags:",
+      untilISO: "2026-09-05T23:59:00+03:00",
+    },
+    timings: {
+      heading: "LEAP daily timings and what they mean for your transport",
+      intro: "LEAP runs on a split schedule — exhibitors are on-site hours before visitors arrive, and everyone leaves together at the 9 PM close. Planning your car around these windows is the difference between a smooth exit and a long wait in the Malham car park.",
+      rows: [
+        { who: "Visitors", hours: "1:00 PM – 9:00 PM", meaning: "Midday pickup from your hotel; expect the heaviest demand at the 9 PM exit." },
+        { who: "Selected / premium pass", hours: "from 12:00 PM", meaning: "An earlier arrival window — book your drop a little ahead of the general rush." },
+        { who: "Exhibitors", hours: "9:00 AM – 9:30 PM", meaning: "Morning build-up and late breakdown — a 12-hour day that suits a car on daily standby." },
+      ],
+      closingLine: "That's a 12-hour window for exhibitor teams — the reason most stand crews book a car on daily standby rather than trip by trip.",
+      sourceHref: "https://onegiantleap.com",
+      sourceLabel: "official LEAP visitor information",
+    },
+    trustStrip: {
+      heading: "Booking, fares and what to expect",
+      items: [
+        "Fare confirmed in writing on WhatsApp before you book — no meter, no surge.",
+        "Professional, bilingual (English & Arabic) chauffeurs.",
+        "Booking and support available 24/7 through the LEAP week.",
+      ],
+      links: [
+        { href: "/fleet", label: "see the vehicles we run" },
+        { href: "/pricing", label: "how our fixed fares work" },
+        { href: "/services/airport-transfers", label: "airport transfers across Saudi Arabia" },
+        { href: "/about", label: "about Taxi Saudi Arabia" },
+        { href: "/contact", label: "contact us" },
+        { href: "/events", label: "all Saudi event transport" },
+      ],
+    },
+    about: {
+      eventName: "LEAP",
+      startDate: "2026-08-31",
+      endDate: "2026-09-03",
+      venueName: "Riyadh Exhibition & Convention Centre, Malham",
+      organizer: "Tahaluf",
+      sameAs: ["https://onegiantleap.com", "https://en.wikipedia.org/wiki/LEAP_(technology_conference)"],
+    },
+    heroAlt: "Group and executive vehicles for LEAP Riyadh event transportation at the Riyadh Exhibition & Convention Centre in Malham",
+    optionsSection: {
+      heading: "LEAP Riyadh Transportation Options",
+      intro: "Whether you're a delegate, exhibitor, or part of a stand team, these are the LEAP Riyadh transportation options we arrange most often — private event transportation in Riyadh for the run out to Malham and back, all confirmed on WhatsApp before you travel.",
+      items: [
+        { title: "Airport → LEAP Malham", desc: "A private LEAP Malham transfer straight from Riyadh Airport (RUH) to the Exhibition & Convention Centre, with flight tracking and meet & greet at arrivals." },
+        { title: "Hotel → LEAP Venue", desc: "Door-to-door runs from your Riyadh hotel to the LEAP venue in Malham, timed to doors-open so you arrive ahead of the morning rush." },
+        { title: "Daily Event Transportation", desc: "A dedicated car and driver on daily standby for the length of LEAP, so you move between hotel, venue, and side-events on your own schedule." },
+        { title: "Exhibitor & Stand-Team Transport", desc: "SUVs and vans for stand teams carrying demo kit and sample cases, including early build-up and late breakdown runs." },
+        { title: "VIP & Chauffeur Transportation", desc: "Executive chauffeur cars for founders, investors, and sponsors moving between LEAP, hotel meetings, and evening functions." },
+        { title: "Group Vans & SUVs", desc: "Right-sized group vehicles for delegations travelling together to LEAP, coordinated under one point of contact." },
+        { title: "Return Transfers After the Event", desc: "Pre-booked return transfers for the end-of-day rush, so your car is waiting when LEAP closes instead of competing for a scarce ride out of Malham." },
+      ],
+      links: [
+        { href: "/events/riyadh-event-transportation", label: "Riyadh event transportation hub" },
+        { href: "/events/riyadh-exhibition-transportation", label: "Riyadh exhibition transport" },
+        { href: "/events/riyadh-conference-transportation", label: "Riyadh conference transport" },
+        { href: "/events/vip-event-chauffeur-riyadh", label: "VIP event chauffeur in Riyadh" },
+      ],
+    },
   },
   {
     slug: "black-hat-mea-transportation",
@@ -597,8 +715,9 @@ const HERO_BY_SLUG: Record<string, keyof typeof HERO_SRC> = {
 for (const e of EVENTS) {
   const key = HERO_BY_SLUG[e.slug];
   if (key) {
-    e.heroImage = HERO_SRC[key];
-    e.heroAlt = HERO_ALT[key];
+    // Respect a per-event heroImage/heroAlt override; otherwise use the group default.
+    e.heroImage = e.heroImage ?? HERO_SRC[key];
+    e.heroAlt = e.heroAlt ?? HERO_ALT[key];
   }
 }
 
