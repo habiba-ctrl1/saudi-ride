@@ -61,6 +61,15 @@ export default async function EventPage({ params }: PageProps) {
     ? `https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(ev.departureCallout.waPrefill)}`
     : "";
 
+  // Organiser desk (Path B): WhatsApp RFQ + email RFQ (mailto — corporate buyers
+  // who cannot transact on WhatsApp need a written quote / CR-VAT / PO trail).
+  const organiserWaLink = ev.organiserDesk
+    ? `https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(ev.organiserDesk.waPrefill)}`
+    : "";
+  const organiserMailto = ev.organiserDesk
+    ? `mailto:${contactConfig.email}?subject=${encodeURIComponent(ev.organiserDesk.emailSubject)}&body=${encodeURIComponent(ev.organiserDesk.emailBody)}`
+    : "";
+
   // WebPage node that references the real event via `about` (Event is never the
   // root type — we are the transport provider, not the organiser).
   const aboutSchema = ev.about
@@ -84,6 +93,20 @@ export default async function EventPage({ params }: PageProps) {
       }
     : null;
 
+  // ItemList of covered venues (Place, name only — no asserted business relationship).
+  const venueListSchema = ev.venueTable
+    ? {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: ev.venueTable.heading,
+        itemListElement: ev.venueTable.rows.map((r, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          item: { "@type": "Place", name: r.venue, address: { "@type": "PostalAddress", addressLocality: ev.city, addressCountry: "SA" } },
+        })),
+      }
+    : null;
+
   // Related event pages — prefer the same city, then fill from the rest.
   const others = EVENTS.filter((e) => e.slug !== slug);
   const sameCity = others.filter((e) => e.city === ev.city);
@@ -101,6 +124,7 @@ export default async function EventPage({ params }: PageProps) {
             areaServed: [ev.city],
           }),
           ...(aboutSchema ? [aboutSchema] : []),
+          ...(venueListSchema ? [venueListSchema] : []),
           faqSchema(ev.faqs),
           speakableSchema({ path: `/events/${slug}` }),
           breadcrumbSchema([
@@ -133,7 +157,7 @@ export default async function EventPage({ params }: PageProps) {
               alt={ev.heroAlt ?? ev.h1}
               fill
               priority
-              sizes="(max-width: 1024px) 100vw, 1024px"
+              sizes="(max-width: 768px) 100vw, 1200px"
               className="object-cover"
             />
           </div>
@@ -179,6 +203,32 @@ export default async function EventPage({ params }: PageProps) {
           </a>
         </div>
       </section>
+
+      {/* ORGANISER DESK (Path B — delegation / B2B; WhatsApp RFQ + email RFQ) */}
+      {ev.organiserDesk && (
+        <section className="section-container max-w-5xl pt-2 pb-4">
+          <div className="rounded-3xl border-2 border-[#16A34A]/35 bg-gradient-to-br from-[#F0FDF4] to-white p-6 sm:p-8 shadow-sm">
+            <h2 className="font-heading text-xl md:text-2xl font-bold mb-3">{ev.organiserDesk.heading}</h2>
+            <p className="max-w-2xl text-sm text-[#6B7280] leading-relaxed mb-5">{ev.organiserDesk.body}</p>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <a
+                href={organiserWaLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#16A34A] px-6 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
+              >
+                <MessageCircle className="h-4 w-4" /> Request a delegation quote on WhatsApp
+              </a>
+              <a
+                href={organiserMailto}
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-[#16A34A]/40 px-6 py-3.5 text-xs font-bold uppercase text-[#16A34A] hover:bg-[#16A34A]/10 transition-all"
+              >
+                Email our organiser desk
+              </a>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* DEPARTURE CALLOUT (time-limited; auto-hides after cut-off) */}
       {showDeparture && ev.departureCallout && (
@@ -255,6 +305,18 @@ export default async function EventPage({ params }: PageProps) {
             </div>
           ))}
         </div>
+        {ev.servicesImage && (
+          <figure className="mt-8 overflow-hidden rounded-3xl border border-[#C9A84C]/20 shadow-sm">
+            <Image
+              src={ev.servicesImage.src}
+              alt={ev.servicesImage.alt}
+              width={1200}
+              height={655}
+              sizes="(max-width: 768px) 100vw, 1000px"
+              className="w-full h-auto"
+            />
+          </figure>
+        )}
         <div className="mt-8 flex flex-wrap gap-3">
           <Link href={`/airports/${ev.airport.slug}`} className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#16A34A]/10 transition-all">
             <MapPin className="h-3.5 w-3.5" /> {ev.airport.label} transfers
@@ -272,6 +334,70 @@ export default async function EventPage({ params }: PageProps) {
           </Link>
         </div>
       </section>
+
+      {/* VENUE COVERAGE TABLE (pillar asset) */}
+      {ev.venueTable && (
+        <section className="section-container max-w-5xl py-16 border-t border-[#C9A84C]/10">
+          <h2 className="font-heading text-2xl md:text-3xl font-bold mb-3 text-center">{ev.venueTable.heading}</h2>
+          {ev.venueTable.intro && (
+            <p className="max-w-2xl mx-auto text-sm text-[#6B7280] leading-relaxed mb-8 text-center">{ev.venueTable.intro}</p>
+          )}
+          {ev.venueTable.image && (
+            <figure className="mb-8 overflow-hidden rounded-3xl border border-[#C9A84C]/20 shadow-sm">
+              <Image
+                src={ev.venueTable.image.src}
+                alt={ev.venueTable.image.alt}
+                width={1200}
+                height={655}
+                sizes="(max-width: 768px) 100vw, 1000px"
+                className="w-full h-auto"
+              />
+            </figure>
+          )}
+          <div className="overflow-x-auto rounded-2xl border border-[#16A34A]/12 bg-white">
+            <table className="w-full text-left text-sm min-w-[640px]">
+              <thead>
+                <tr className="border-b border-[#16A34A]/12 bg-[#F0FDF4]">
+                  <th className="px-5 py-3 font-bold text-[#166534]">Venue</th>
+                  <th className="px-5 py-3 font-bold text-[#166534]">District</th>
+                  <th className="px-5 py-3 font-bold text-[#166534]">Access &amp; parking</th>
+                  <th className="px-5 py-3 font-bold text-[#166534]">Best transport setup</th>
+                </tr>
+              </thead>
+              <tbody>
+                {ev.venueTable.rows.map((r) => (
+                  <tr key={r.venue} className="border-b border-[#16A34A]/10 last:border-0 align-top">
+                    <td className="px-5 py-3 font-semibold">{r.venue}</td>
+                    <td className="px-5 py-3 text-[#6B7280] whitespace-nowrap">{r.district}</td>
+                    <td className="px-5 py-3 text-[#6B7280] leading-relaxed">{r.access}</td>
+                    <td className="px-5 py-3 text-[#6B7280] leading-relaxed">{r.setup}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {ev.venueTable.closing && (
+            <p className="max-w-3xl mx-auto text-sm text-[#1C1C1C] leading-relaxed mt-6">{ev.venueTable.closing}</p>
+          )}
+          {/* Mid-page CTA */}
+          <div className="mt-8 flex flex-col sm:flex-row justify-center gap-3">
+            <a
+              href={waLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
+            >
+              <MessageCircle className="h-4 w-4" /> {ev.waCtaLabel ?? "Get Event Transport on WhatsApp"}
+            </a>
+            <a
+              href={contactConfig.primaryPhoneLink}
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-[#C9A84C]/40 px-7 py-3.5 text-xs font-bold uppercase text-[#16A34A] hover:bg-[#C9A84C]/10 transition-all"
+            >
+              Call {contactConfig.primaryPhoneDisplay}
+            </a>
+          </div>
+        </section>
+      )}
 
       {/* COMMERCIAL OPTIONS (named events only) */}
       {ev.optionsSection && (
@@ -336,17 +462,38 @@ export default async function EventPage({ params }: PageProps) {
       </section>
 
       {/* RELATED */}
-      <section className="section-container max-w-5xl py-12 border-t border-[#C9A84C]/10">
-        <h2 className="font-heading text-xl font-bold mb-6">Other event transport in Saudi Arabia</h2>
-        <div className="grid gap-3 sm:grid-cols-2">
-          {related.map((r) => (
-            <Link key={r.slug} href={`/events/${r.slug}`} className="group flex items-center justify-between rounded-2xl border border-[#16A34A]/12 bg-white px-5 py-4 hover:border-[#16A34A]/35 transition-all">
-              <span className="text-sm font-semibold">{r.h1}</span>
-              <ArrowRight className="h-4 w-4 text-[#C9A84C] shrink-0 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          ))}
-        </div>
-      </section>
+      {ev.relatedOverride ? (
+        <section className="section-container max-w-5xl py-12 border-t border-[#C9A84C]/10">
+          <h2 className="font-heading text-xl font-bold mb-6">{ev.relatedOverride.heading}</h2>
+          <div className="space-y-6">
+            {ev.relatedOverride.groups.map((g) => (
+              <div key={g.label}>
+                <p className="text-[0.65rem] font-bold uppercase tracking-wider text-[#6B7280] mb-3">{g.label}</p>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {g.links.map((l) => (
+                    <Link key={l.href} href={l.href} className="group flex items-center justify-between rounded-2xl border border-[#16A34A]/12 bg-white px-5 py-4 hover:border-[#16A34A]/35 transition-all">
+                      <span className="text-sm font-semibold">{l.label}</span>
+                      <ArrowRight className="h-4 w-4 text-[#C9A84C] shrink-0 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : (
+        <section className="section-container max-w-5xl py-12 border-t border-[#C9A84C]/10">
+          <h2 className="font-heading text-xl font-bold mb-6">Other event transport in Saudi Arabia</h2>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {related.map((r) => (
+              <Link key={r.slug} href={`/events/${r.slug}`} className="group flex items-center justify-between rounded-2xl border border-[#16A34A]/12 bg-white px-5 py-4 hover:border-[#16A34A]/35 transition-all">
+                <span className="text-sm font-semibold">{r.h1}</span>
+                <ArrowRight className="h-4 w-4 text-[#C9A84C] shrink-0 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

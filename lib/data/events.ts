@@ -79,6 +79,31 @@ export interface EventPageData {
     items: string[];
     links: { href: string; label: string }[];
   };
+  /** Optional "delegation / organiser desk" module (Path B — B2B, multi-vehicle). */
+  organiserDesk?: {
+    heading: string;
+    body: string;
+    /** Raw (un-encoded) WhatsApp prefill for the delegation-quote button. */
+    waPrefill: string;
+    /** mailto subject + body (raw, un-encoded) for the organiser-desk email button. */
+    emailSubject: string;
+    emailBody: string;
+  };
+  /** Optional venue-coverage table (pillar asset). */
+  venueTable?: {
+    heading: string;
+    intro?: string;
+    rows: { venue: string; district: string; access: string; setup: string }[];
+    closing?: string;
+    image?: { src: string; alt: string };
+  };
+  /** Optional image rendered under the services grid (e.g. fleet line-up). */
+  servicesImage?: { src: string; alt: string };
+  /** Optional hierarchical related-links block (overrides the auto sibling list). */
+  relatedOverride?: {
+    heading: string;
+    groups: { label: string; links: { href: string; label: string }[] }[];
+  };
   /**
    * Optional real-world event this page is ABOUT (for WebPage.about → Event schema).
    * We are the transport provider, NOT the organiser — Event is never the root type.
@@ -117,24 +142,114 @@ export const EVENTS: EventPageData[] = [
     h1: "Event Transportation in Riyadh",
     title: "Event Transportation in Riyadh | Delegate & VIP Transfers",
     description: "Private event transportation in Riyadh — airport transfers, daily chauffeur standby, group & VIP transport for conferences, exhibitions, and corporate events. Fare confirmed on WhatsApp.",
-    intro: "Reliable private transport for any event in Riyadh — from a single delegate arriving at the airport to a full company delegation. Airport transfers, daily standby, group vehicles, and VIP chauffeurs, all coordinated under one contact.",
+    intro: "Reliable private transport for any event in Riyadh — from a single delegate arriving at the airport to a full company delegation. Airport transfers, daily standby, group vehicles, and a premium chauffeur for VIP guests, all coordinated under one point of contact.",
     city: "Riyadh",
     airport: RUH,
-    tldrAnswer: "Event transportation in Riyadh covers private airport transfers, hourly and full-day chauffeur standby, group and delegation vehicles, and VIP executive cars for conferences, exhibitions, and corporate events — with your fare confirmed on WhatsApp.",
+    tldrAnswer: "Event transportation in Riyadh covers private airport transfers, hourly and full-day chauffeur standby, group and delegation vehicles, and an executive limousine service for conferences, exhibitions, and corporate events — with your fare confirmed on WhatsApp and, for companies, a written quote and invoicing on request.",
     tldrFacts: [
       { label: "Coverage", value: "Riyadh · all venues" },
-      { label: "Vehicles", value: "Sedan · SUV · Van · Coaster" },
+      { label: "Vehicles", value: "Sedan · SUV · Van · Coaster · Limousine" },
       { label: "Booking", value: "Hourly / daily / delegation" },
+      { label: "Response", value: "Written quote in 1–2 hrs" },
       { label: "Availability", value: "24/7" },
     ],
-    services: STD_SERVICES("your Riyadh venue"),
+    // Bespoke services (this pillar): renamed VIP block to the licensed "limousine"
+    // term, generic vehicle categories (no unverified S-Class/Escalade claim),
+    // and organiser-relevant specificity (coaster capacity, single contact).
+    services: [
+      { title: "Airport ⇄ Venue Transfers", desc: "Private pickups from Riyadh Airport (RUH) straight to your venue, with flight tracking and meet & greet for arriving delegates and speakers." },
+      { title: "Daily Standby & Hourly Chauffeur", desc: "A dedicated car and driver on standby for the event — move between sessions, meetings, and your hotel on your own schedule, hourly or full-day." },
+      { title: "Group & Delegation Transport", desc: "Executive sedans, full-size SUVs, 7-seat vans and up-to-22-seat coasters for teams, exhibitors, and delegations travelling together, coordinated under one point of contact." },
+      { title: "VIP & Executive Limousine Service", desc: "Discreet executive limousine service for VIPs, sponsors, and C-level guests — Mercedes S-Class and Cadillac Escalade-class cars with professional, bilingual (English & Arabic) chauffeurs, for VIP arrivals and hotel-to-meeting circuits." },
+    ],
     faqs: [
       { question: "Which Riyadh event venues do you cover?", answer: "All of them — the Riyadh Exhibition & Convention Centre (RECC) in Malham, King Abdulaziz International Conference Centre (KAICC), Riyadh Front / ROSHN Front, The Arena, and hotel ballrooms across the DQ, Olaya, and King Fahd Road districts. Tell us your venue on WhatsApp and we plan the run." },
       { question: "Can I book one car for the whole event?", answer: "Yes. An hourly or full-day chauffeur stays on standby so you move between the venue, meetings, and your hotel without waiting for a ride each time — useful when sessions run late or your schedule shifts." },
       { question: "Do you handle arrivals across different flights and hotels?", answer: "Yes. We coordinate multiple pickups from Riyadh Airport (RUH) and several hotels under one point of contact, so a whole team lands and reaches the venue together even on different flights." },
       { question: "How is the fare confirmed?", answer: "Send your dates, venue, vehicle type, and passenger count on WhatsApp. We confirm a fixed fare before you book — no surge and no hidden fees, even during peak event weeks." },
+      { question: "How much does event transportation in Riyadh cost?", answer: "The fare depends on the vehicle, the number of movements each day, and whether you need a car on daily standby. We confirm a fixed price in writing on WhatsApp before you book — no meter, no surge. Send your event, venue, dates, and passenger count for a clear quote." },
+      { question: "Should I book a car per trip or a chauffeur on standby?", answer: "As a rough guide, once you have more than about three movements in a day, a chauffeur on daily standby usually costs less than booking separate trips — and the car is always waiting, so you're never delayed between sessions. For one or two transfers a day, per-trip booking is simpler. Tell us your schedule and we'll advise honestly." },
+      { question: "Can you invoice our company?", answer: "Yes — corporate invoicing is available on request for delegations and company bookings, with a written quote before you commit. Share your company details on WhatsApp or by email and we'll set it up." },
+      { question: "Do you provide limousine service for corporate events in Riyadh?", answer: "Yes. Our executive limousine service covers VIP arrivals, hotel-to-meeting circuits, and discreet transport for sponsors and C-level guests, with bilingual chauffeurs — booked as a single car or as part of a wider delegation arrangement." },
+      { question: "How far in advance should we book for a major event week?", answer: "For major event weeks in Riyadh, vehicles and chauffeurs are in high demand, so the earlier you confirm the better — booking ahead secures both the fleet you need and your fixed fare. For quieter dates, a few days' notice is usually enough." },
     ],
     waContext: "event transportation in Riyadh",
+    waPrefill:
+      "Salam! I need event transportation in Riyadh.\n• Event / venue:\n• Dates:\n• Pickup (airport or hotel):\n• Passengers & bags:\n• Need: airport transfer / daily standby / group vehicle / VIP chauffeur",
+    heroAlt: "Chauffeur opening the rear door of a black executive sedan at a Riyadh event venue entrance at dusk",
+    organiserDesk: {
+      heading: "Moving a delegation or running an event?",
+      body: "Multi-vehicle, multi-day event transport with one coordinator, one schedule and one invoice. Executive sedans, SUVs, vans and coasters — arrival manifests, daily hotel-to-venue loops, and VIP limousine service under a single point of contact.",
+      waPrefill:
+        "Salam! I need a delegation transport quote.\n• Event name & venue:\n• Dates (from – to):\n• Total passengers:\n• Vehicles needed (sedan / SUV / van / coaster):\n• Daily schedule (airport / hotel loops / standby):\n• Invoicing & payment terms required:\n• Company & your role:",
+      emailSubject: "Delegation / event transport quote — Riyadh",
+      emailBody:
+        "Salam,\n\nWe need a delegation transport quote for an event in Riyadh:\n\n• Event name & venue:\n• Dates (from – to):\n• Total passengers:\n• Vehicles needed (sedan / SUV / van / coaster):\n• Daily schedule (airport / hotel loops / standby):\n• Invoicing & payment terms required:\n• Company & your role:\n\nThank you.",
+    },
+    venueTable: {
+      heading: "Riyadh event venues we cover",
+      intro: "Transport needs vary sharply by venue — where it is, whether it has metro access and parking, and how far it sits from the airport and the hotel belt. Here's how we plan the run for each of the main Riyadh venues.",
+      rows: [
+        { venue: "Riyadh Exhibition & Convention Centre (RECC)", district: "Malham, north-west Riyadh", access: "Out of town; no metro; remote from the hotel belt.", setup: "This is where a chauffeur on daily standby earns its cost — rides get scarce at the evening close." },
+        { venue: "Riyadh International Convention & Exhibition Center (RICEC)", district: "Al Murabba, King Abdullah Road", access: "Central; ~70,000 m², four halls, ~1,500 parking spaces, a direct metro stop, Radisson Blu within walking distance; roughly 30 minutes from King Khalid Airport (RUH).", setup: "Central and metro-served — often a single airport transfer is all you need." },
+        { venue: "Riyadh Front Exhibition & Conference Center (RFECC)", district: "ROSHN Front, near King Khalid Airport", access: "Minutes from King Khalid Airport and from major hotels and malls.", setup: "Close to the airport but far from the Olaya belt — airport transfers plus hotel-to-venue loops." },
+        { venue: "King Abdulaziz International Conference Centre (KAICC)", district: "Central Riyadh", access: "~24,500 m²; a government and institutional conference venue.", setup: "Accreditation and access timing shape the schedule — standby around session windows works best." },
+        { venue: "The Arena Riyadh", district: "Riyadh", access: "Multipurpose venue for exhibitions and large gatherings.", setup: "Group vehicles and coasters for larger delegations." },
+        { venue: "Diriyah", district: "North-west Riyadh (UNESCO World Heritage area)", access: "A premium destination for high-profile and cultural events.", setup: "VIP limousine service and discreet chauffeurs for cultural and sponsor guests." },
+        { venue: "Hotel ballrooms", district: "Diplomatic Quarter · Olaya · King Fahd Road", access: "Central hotel clusters hosting corporate functions and gala dinners.", setup: "Short hotel-to-venue transfers and evening standby." },
+      ],
+      closing:
+        "Transport needs vary sharply by venue. RICEC is central with metro access and its own parking, so a single airport transfer is often enough. RECC Malham is well outside the city with no metro — that's where a chauffeur on daily standby earns its cost. RFECC is minutes from the airport but far from the Olaya hotel belt. KAICC is a government venue where accreditation and access timing shape the schedule. Tell us the venue and we'll tell you which setup actually makes sense — exact drive times from the airport confirmed on request.",
+      image: {
+        src: "/gallery/riyadh-event-venues-map-transport.webp",
+        alt: "Map of major Riyadh event venues including RECC Malham, RICEC, RFECC and KAICC with airport distances",
+      },
+    },
+    servicesImage: {
+      src: "/gallery/event-fleet-lineup-sedan-suv-van-coaster-riyadh.webp",
+      alt: "Executive sedan, SUV, van and coaster lined up for event delegation transport in Riyadh",
+    },
+    trustStrip: {
+      heading: "Booking, fares and invoicing",
+      items: [
+        "Written quote confirmed on WhatsApp or email, usually within 1–2 hours.",
+        "Fixed fare confirmed in writing before booking — no meter, no surge.",
+        "Corporate invoicing available on request for company and delegation bookings.",
+        "Professional, bilingual (English & Arabic) chauffeurs.",
+      ],
+      links: [
+        { href: "/fleet", label: "vehicles we run for event work" },
+        { href: "/pricing", label: "how our fixed fares are set" },
+        { href: "/services/airport-transfers", label: "airport transfers across Saudi Arabia" },
+        { href: "/about", label: "about Taxi Saudi Arabia" },
+        { href: "/contact", label: "contact us" },
+      ],
+    },
+    relatedOverride: {
+      heading: "Related event transport services in Riyadh",
+      groups: [
+        {
+          label: "By event type",
+          links: [
+            { href: "/events/riyadh-exhibition-transportation", label: "Exhibition transportation" },
+            { href: "/events/riyadh-conference-transportation", label: "Conference transportation" },
+            { href: "/events/vip-event-chauffeur-riyadh", label: "VIP event chauffeur" },
+          ],
+        },
+        {
+          label: "By event",
+          links: [{ href: "/events/leap-riyadh-transportation", label: "LEAP Riyadh transportation" }],
+        },
+        {
+          label: "More",
+          links: [
+            { href: "/fleet", label: "Our fleet" },
+            { href: "/pricing", label: "How fares work" },
+            { href: "/events", label: "All Saudi event transport" },
+          ],
+        },
+      ],
+    },
   },
   {
     slug: "riyadh-exhibition-transportation",
