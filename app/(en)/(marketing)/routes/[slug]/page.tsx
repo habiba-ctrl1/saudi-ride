@@ -12,6 +12,7 @@ import Image from "next/image";
 import { breadcrumbSchema, faqSchema, speakableSchema, SITE } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { RouteRelatedLinks } from "@/components/seo/RouteRelatedLinks";
+import { KuwaitRouteSections, type KuwaitRouteConfig } from "@/components/seo/KuwaitRouteSections";
 import { credentials, hasCredential } from "@/lib/config/credentials";
 import { AR_ROUTE_SLUGS } from "@/lib/config/i18n";
 
@@ -38,6 +39,64 @@ const DEFAULT_FAQS = [
     answer: "Brief rest stops for prayer or refreshments are absolutely fine and included in long-distance trips. For extensive detours, please request a custom quote.",
   },
 ];
+
+// Bespoke sections for Kuwait cross-border corridors, rendered by the shared
+// KuwaitRouteSections component. Add a slug here to give a Kuwait → Saudi route
+// the full journey / coverage / border / why-book / CTA treatment. Facts only.
+const KUWAIT_ROUTE_SECTIONS: Record<string, KuwaitRouteConfig> = {
+  "kuwait-to-dammam": {
+    destination: "Dammam",
+    dropoffRegionLabel: "the Eastern Province",
+    distanceLabel: "~436 km",
+    drivePhrase: "roughly 4-hour drive",
+    journeySteps: [
+      { title: "Kuwait Pickup", desc: "Your driver collects you door-to-door from any address in Kuwait City or Greater Kuwait.", icon: "MapPin" },
+      { title: "Highway 95 South", desc: "A comfortable drive south on Highway 95 towards the Saudi border.", icon: "Navigation" },
+      { title: "Nuwaiseeb–Khafji Border", desc: "You clear immigration and customs in person; crossing time varies with traffic and checks.", icon: "ShieldCheck" },
+      { title: "Dammam Drop-Off", desc: "Direct drop-off at your Dammam, Al Khobar or Dhahran address.", icon: "MapPin" },
+    ],
+    pickupAreas: ["Kuwait City", "Salmiya", "Hawalli", "Farwaniya", "Fahaheel", "Ahmadi"],
+    dropoffAreas: ["Dammam city & hotels", "Al Khobar", "Dhahran", "King Fahd International Airport (DMM)", "Business & residential addresses"],
+    whyBook: [
+      { title: "Clear, Confirmed Fare", desc: "Fixed price confirmed on WhatsApp before booking. No meter, no surge." },
+      { title: "Private Door-to-Door", desc: "Your vehicle only, from your Kuwait address to your Dammam destination." },
+      { title: "Professional Chauffeur", desc: "Experienced with the Nuwaiseeb–Khafji crossing and the Highway 95 route." },
+      { title: "Documentation Support", desc: "We advise on the crossing and prepare your trip; you carry your own valid documents." },
+      { title: "Comfortable for the Distance", desc: "Sedan, SUV or Staria van with space for luggage on the ~436 km drive." },
+      { title: "24/7 Booking", desc: "Book any time and travel day or night." },
+    ],
+    borderLinks: [
+      { href: "/services/border-crossings", label: "GCC cross-border transfer service" },
+      { href: "/routes/dammam-to-kuwait", label: "Return: Dammam to Kuwait" },
+    ],
+  },
+  "kuwait-to-riyadh": {
+    destination: "Riyadh",
+    dropoffRegionLabel: "Riyadh",
+    distanceLabel: "~650 km",
+    drivePhrase: "roughly 6 to 7 hour drive",
+    journeySteps: [
+      { title: "Kuwait Pickup", desc: "Your chauffeur collects you door-to-door from any address in Kuwait City or Greater Kuwait.", icon: "MapPin" },
+      { title: "Nuwaiseeb–Khafji Border", desc: "You clear immigration and customs in person; crossing time varies with traffic and checks.", icon: "ShieldCheck" },
+      { title: "Inland to Riyadh", desc: "A long-distance drive inland to the capital, with rest and prayer stops on request.", icon: "Navigation" },
+      { title: "Riyadh Drop-Off", desc: "Direct drop-off at your Riyadh district, hotel or King Khalid Airport (RUH).", icon: "MapPin" },
+    ],
+    pickupAreas: ["Kuwait City", "Salmiya", "Hawalli", "Farwaniya", "Fahaheel", "Ahmadi"],
+    dropoffAreas: ["Olaya & central Riyadh", "KAFD (financial district)", "Diplomatic Quarter (DQ)", "King Khalid International Airport (RUH)", "Business & residential addresses"],
+    whyBook: [
+      { title: "Clear, Confirmed Fare", desc: "Fixed price confirmed on WhatsApp before booking. No meter, no surge." },
+      { title: "Private Door-to-Door", desc: "Your vehicle only, from your Kuwait address to your Riyadh destination." },
+      { title: "Professional Chauffeur", desc: "Experienced with the Nuwaiseeb–Khafji crossing and the long inland highway to Riyadh." },
+      { title: "Corporate & Business Travel", desc: "Executive sedans and SUVs; company bookings can be invoiced through our licensed Saudi partner operator." },
+      { title: "Comfortable for the Distance", desc: "SUV or Staria van with luggage space and rest stops on the ~650 km drive." },
+      { title: "24/7 Booking", desc: "Book any time and travel day or night." },
+    ],
+    borderLinks: [
+      { href: "/services/border-crossings", label: "GCC cross-border transfer service" },
+      { href: "/services/corporate", label: "Corporate & business travel" },
+    ],
+  },
+};
 
 // Route-specific, entity-rich content for the highest-value Jeddah corridors.
 // Keyed by slug → above-the-fold answer + featured-snippet facts + bespoke FAQs.
@@ -935,7 +994,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "kuwait-to-dammam": {
-    tldr: "A private taxi from Kuwait City to Dammam covers about 436 km (roughly 270 miles) and takes around 4 hours of driving, plus border-crossing time at the Nuwaiseeb–Al Khafji crossing between Kuwait and Saudi Arabia, which varies with traffic and checks. Travel door-to-door by private sedan, SUV or van with a professional driver, available 24/7 — your fare is confirmed on WhatsApp before booking, with documentation support for the crossing.",
+    tldr: "A private taxi from Kuwait City to Dammam covers about 436 km (roughly 270 miles) and takes around 4 hours of driving, plus border-crossing time at the Nuwaiseeb–Al Khafji crossing between Kuwait and Saudi Arabia, which varies with traffic and checks. Travel door-to-door by private sedan, SUV or van with a private chauffeur, available 24/7 — your fare is confirmed on WhatsApp before booking, with documentation support for the crossing.",
     tldrFacts: [
       { label: "Distance", value: "~436 km" },
       { label: "Driving time", value: "~4 hrs + border" },
@@ -951,6 +1010,25 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "Can I travel with luggage?", answer: "Yes. A sedan suits 1–3 passengers with a couple of bags; for families or extra luggage choose an SUV or a Staria van with more space. Tell us your passenger and bag count when booking so we assign the right vehicle." },
       { question: "Can I book from Kuwait City or other areas in Kuwait?", answer: "Yes. We collect you door-to-door from any address across Kuwait — including Kuwait City, Salmiya, Hawalli, Farwaniya, Fahaheel and Ahmadi. Share your exact pickup point when booking." },
       { question: "Can I book a one-way or return trip?", answer: "Both. Book Kuwait to Dammam one-way, or a return in the Dammam to Kuwait direction — the same private, door-to-door service either way. Tell us your dates and we confirm the fare for each leg." },
+    ],
+  },
+  "kuwait-to-riyadh": {
+    tldr: "A private taxi from Kuwait City to Riyadh runs inland across the Kuwait–Saudi border and, depending on the exact route, covers roughly 630–720 km — around 6 to 7 hours of driving plus border-crossing time, which varies. Travel door-to-door by private sedan, SUV or van with a private chauffeur, available 24/7. Your fare is confirmed on WhatsApp before booking, with documentation support for the crossing and corporate invoicing available for business trips.",
+    tldrFacts: [
+      { label: "Distance", value: "~630–720 km" },
+      { label: "Driving time", value: "~6–7 hrs + border" },
+      { label: "Border", value: "Nuwaiseeb–Khafji" },
+      { label: "Fare", value: "On WhatsApp" },
+    ],
+    faqs: [
+      { question: "Can I book a private taxi from Kuwait to Riyadh?", answer: "Yes. Taxi Saudi Arabia arranges a private, door-to-door transfer from Kuwait City to Riyadh with a professional chauffeur — an executive sedan, SUV or van reserved just for you and your group. Share your pickup address in Kuwait, travel date and passenger count on WhatsApp and we confirm the fare before booking." },
+      { question: "How long does Kuwait to Riyadh take by taxi?", answer: "Kuwait City to Riyadh is roughly 6 to 7 hours of driving, depending on the exact route and traffic. Border-crossing time at the Nuwaiseeb–Al Khafji crossing is separate from the drive and varies; it can be longer on weekends and public holidays. Rest and prayer stops are included on request." },
+      { question: "How far is Kuwait from Riyadh by road?", answer: "Estimates vary by route — roughly 630 to 720 km. The journey crosses into Saudi Arabia at the Nuwaiseeb–Al Khafji border and then continues inland to the capital. We plan the most practical route for your pickup and drop-off points." },
+      { question: "How is the fare calculated and confirmed?", answer: "There is no meter and no surge. We quote a fixed fare for your chosen vehicle based on the route and passenger count, and confirm it with you on WhatsApp before you book. Tolls are included; any border or visa fees paid to the authorities are separate." },
+      { question: "Can I get a corporate booking with a VAT invoice?", answer: "Corporate bookings are invoiced through our licensed Saudi partner operator, so you receive a compliant VAT invoice. Send your company name, VAT number and PO reference with your enquiry and we'll confirm invoicing details before the booking is finalised." },
+      { question: "What documents should I check before travelling?", answer: "A valid passport and the correct Saudi entry visa or eligibility, plus any Kuwaiti exit requirements. Rules depend on your nationality and can change, so confirm current requirements with the official Saudi (visa.mofa.gov.sa) and Kuwaiti government sources in advance. Each passenger is responsible for their own eligibility and documents." },
+      { question: "Can I travel with luggage?", answer: "Yes. A sedan suits 1–3 passengers with a couple of bags; for families, teams or extra luggage on this long-distance route choose an SUV or a Staria van with more space. Tell us your passenger and bag count when booking." },
+      { question: "Can I book a one-way or return trip?", answer: "Both. Book Kuwait to Riyadh one-way, or a return in the Riyadh to Kuwait direction — the same private, door-to-door service either way. Tell us your dates and we confirm the fare for each leg." },
     ],
   },
   "alahsa-to-doha": {
@@ -1307,6 +1385,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "doha-to-dammam": "Taxi Doha, Qatar to Dammam — Salwa Border Fare & Booking",
     "doha-to-riyadh": "Taxi Doha, Qatar to Riyadh — Cross-Border Fare & Booking",
     "kuwait-to-dammam": "Taxi Kuwait to Dammam — Khafji Border Fare, Distance & Booking",
+    "kuwait-to-riyadh": "Kuwait to Riyadh Taxi — Private Cross-Border Car & Chauffeur",
     "alahsa-to-doha": "Taxi Al Ahsa to Doha, Qatar — Shortest Salwa Border Route",
     "jeddah-to-makkah": "Jeddah to Makkah (Mecca) Taxi Service — Fare on WhatsApp",
     "madinah-to-jeddah-airport": "Taxi Madinah to Jeddah Airport — Fare Confirmed on WhatsApp",
@@ -1335,6 +1414,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "doha-to-dammam": "Doha to Dammam taxi via the Salwa border — ~400 km, ~4 hrs. Cross-border transfer with documentation support. Fare confirmed on WhatsApp, 24/7.",
     "doha-to-riyadh": "Doha to Riyadh taxi via the Salwa border — ~580 km. Executive cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
     "kuwait-to-dammam": "Kuwait to Dammam taxi via the Nuwaiseeb–Al Khafji border — ~436 km, about 4 hrs driving plus border. Private door-to-door transfer, fare confirmed on WhatsApp.",
+    "kuwait-to-riyadh": "Kuwait to Riyadh taxi — private cross-border car & chauffeur via the Nuwaiseeb–Al Khafji border, ~6–7 hrs driving. Corporate invoicing, fare confirmed on WhatsApp.",
     "alahsa-to-doha": "Al Ahsa to Doha taxi — ~320 km via Salwa, the shortest Saudi road gateway to Qatar. Border support, fare confirmed on WhatsApp, 24/7.",
   };
 
@@ -1642,7 +1722,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
 
                 <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight tracking-tight text-white">
                   {route.fromCity} <span className="text-[#FACC15]">to</span> {route.toCity}
-                  {slug === "riyadh-to-dammam" || slug === "kuwait-to-dammam" ? " Taxi" : ""}
+                  {slug === "riyadh-to-dammam" || slug === "kuwait-to-dammam" || slug === "kuwait-to-riyadh" ? " Taxi" : ""}
                 </h1>
 
                 <p className="text-sm sm:text-base text-white/85 leading-relaxed font-normal max-w-lg">
@@ -1791,175 +1871,15 @@ export default async function RouteDetailsPage({ params }: PageProps) {
             </div>
           </section>
 
-          {/* ─── HOW THE JOURNEY WORKS (Kuwait -> Dammam) ─── */}
-          {slug === "kuwait-to-dammam" && (
-            <section className="bg-white border border-[#16A34A]/15 rounded-3xl p-8 shadow-sm">
-              <div className="mb-8">
-                <span className="text-[0.65rem] uppercase tracking-[0.2em] text-[#C9A84C] font-bold">Cross-Border Journey</span>
-                <h2 className="font-heading text-2xl font-bold mt-1 text-[#1C1C1C]">
-                  How the Kuwait to Dammam Journey Works
-                </h2>
-              </div>
-
-              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                {[
-                  { step: "1", title: "Kuwait Pickup", desc: "Your driver collects you door-to-door from any address in Kuwait City or Greater Kuwait.", icon: MapPin },
-                  { step: "2", title: "Highway 95 South", desc: "A comfortable drive south on Highway 95 towards the Saudi border.", icon: Navigation },
-                  { step: "3", title: "Nuwaiseeb–Khafji Border", desc: "You clear immigration and customs in person; crossing time varies with traffic and checks.", icon: ShieldCheck },
-                  { step: "4", title: "Dammam Drop-Off", desc: "Direct drop-off at your Dammam, Al Khobar or Dhahran address.", icon: MapPin },
-                ].map((s, idx) => {
-                  const Icon = s.icon;
-                  return (
-                    <div key={idx} className="bg-[#FAFAF7] rounded-2xl p-5 border border-[#16A34A]/10 flex flex-col justify-between">
-                      <div>
-                        <div className="flex items-center justify-between mb-4">
-                          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#16A34A] text-xs font-bold text-white">
-                            {s.step}
-                          </span>
-                          <Icon className="h-5 w-5 text-[#C9A84C]" />
-                        </div>
-                        <h3 className="font-bold text-sm text-[#1C1C1C] mb-1.5">{s.title}</h3>
-                        <p className="text-xs text-[#6B7280] leading-relaxed">{s.desc}</p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </section>
-          )}
-
-          {/* ─── PICKUP & DROP-OFF COVERAGE (Kuwait -> Dammam) ─── */}
-          {slug === "kuwait-to-dammam" && (
-            <section className="bg-white border border-[#16A34A]/12 rounded-3xl p-8 shadow-sm">
-              <h2 className="font-heading text-2xl font-bold mb-2 flex items-center gap-3">
-                <MapPin className="text-[#C9A84C]" />
-                Where We Pick Up and Drop Off
-              </h2>
-              <p className="text-xs sm:text-sm text-[#6B7280] leading-relaxed mb-6 max-w-2xl">
-                Every booking is door-to-door, so the areas below are examples of where we collect and drop off — not a fixed list. Share your exact pickup and destination when booking.
-              </p>
-              <div className="grid gap-6 sm:grid-cols-2">
-                <div className="rounded-2xl border border-[#16A34A]/12 bg-[#FAFAF7] p-5">
-                  <h3 className="font-bold text-sm text-[#1C1C1C] mb-3">Kuwait pickup areas</h3>
-                  <ul className="space-y-2">
-                    {["Kuwait City", "Salmiya", "Hawalli", "Farwaniya", "Fahaheel", "Ahmadi"].map((a) => (
-                      <li key={a} className="flex items-center gap-2 text-xs text-[#334155]">
-                        <CheckCircle2 className="h-4 w-4 text-[#16A34A] shrink-0" /> {a}
-                      </li>
-                    ))}
-                    <li className="text-[0.7rem] text-[#6B7280] pt-1">…and any other address in Kuwait.</li>
-                  </ul>
-                </div>
-                <div className="rounded-2xl border border-[#16A34A]/12 bg-[#FAFAF7] p-5">
-                  <h3 className="font-bold text-sm text-[#1C1C1C] mb-3">Dammam drop-off options</h3>
-                  <ul className="space-y-2">
-                    {["Dammam city & hotels", "Al Khobar", "Dhahran", "King Fahd International Airport (DMM)", "Business & residential addresses"].map((a) => (
-                      <li key={a} className="flex items-center gap-2 text-xs text-[#334155]">
-                        <CheckCircle2 className="h-4 w-4 text-[#16A34A] shrink-0" /> {a}
-                      </li>
-                    ))}
-                    <li className="text-[0.7rem] text-[#6B7280] pt-1">…or your exact address in the Eastern Province.</li>
-                  </ul>
-                </div>
-              </div>
-            </section>
-          )}
-
-          {/* ─── BORDER CROSSING & DOCUMENTS (Kuwait -> Dammam) ─── */}
-          {slug === "kuwait-to-dammam" && (
-            <section className="bg-white border border-[#C9A84C]/25 rounded-3xl p-8 relative overflow-hidden shadow-sm">
-              <div className="max-w-2xl space-y-4">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#16A34A]">
-                  <ShieldCheck className="h-3.5 w-3.5" />
-                  Border Crossing &amp; Documents
-                </span>
-                <h2 className="font-heading text-2xl font-bold text-[#1C1C1C]">
-                  Crossing the Kuwait–Saudi Border
-                </h2>
-                <p className="text-xs sm:text-sm text-[#6B7280] leading-relaxed">
-                  The Kuwait to Dammam route uses the land crossing at Nuwaiseeb on the Kuwaiti side and Al Khafji on the Saudi side. Every traveller clears immigration and customs in person with their own passport. Your driver knows the crossing and assists with the process, but <strong className="text-[#334155] font-semibold">each passenger is responsible for their own visa and entry eligibility</strong>.
-                </p>
-                <p className="text-xs sm:text-sm text-[#6B7280] leading-relaxed">
-                  Entry rules depend on your nationality and can change, so confirm current requirements with the official Saudi and Kuwaiti government sources before you travel — for Saudi entry, the Ministry of Foreign Affairs visa portal (visa.mofa.gov.sa) is the authoritative reference. Border-crossing time is separate from the roughly 4-hour drive and varies with traffic and checks; it can be longer on weekends and public holidays.
-                </p>
-                <div className="flex flex-wrap items-center gap-4 pt-1 text-xs font-bold">
-                  <Link href="/services/border-crossings" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
-                    GCC cross-border transfer service &rarr;
-                  </Link>
-                  <Link href="/routes/dammam-to-kuwait" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
-                    Return: Dammam to Kuwait &rarr;
-                  </Link>
-                </div>
-              </div>
-            </section>
-          )}
-
-          {/* ─── WHY BOOK / WHAT'S INCLUDED (Kuwait -> Dammam) ─── */}
-          {slug === "kuwait-to-dammam" && (
-            <section className="bg-gradient-to-r from-[#F0FDF4] via-white to-[#F0FDF4] border border-[#16A34A]/20 rounded-3xl p-8 shadow-sm">
-              <h2 className="font-heading text-xl font-bold mb-6 flex items-center gap-2 text-[#1C1C1C]">
-                <ShieldCheck className="h-5 w-5 text-[#16A34A]" />
-                Why Book This Kuwait to Dammam Transfer
-              </h2>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {[
-                  { title: "Clear, Confirmed Fare", desc: "Fixed price confirmed on WhatsApp before booking. No meter, no surge." },
-                  { title: "Private Door-to-Door", desc: "Your vehicle only, from your Kuwait address to your Dammam destination." },
-                  { title: "Professional Driver", desc: "Experienced with the Nuwaiseeb–Khafji crossing and the Highway 95 route." },
-                  { title: "Documentation Support", desc: "We advise on the crossing and prepare your trip; you carry your own valid documents." },
-                  { title: "Comfortable for the Distance", desc: "Sedan, SUV or Staria van with space for luggage on the ~436 km drive." },
-                  { title: "24/7 Booking", desc: "Book any time and travel day or night." },
-                ].map((item, idx) => (
-                  <div key={idx} className="flex gap-3 bg-white p-4 rounded-2xl border border-[#16A34A]/12 shadow-2xs">
-                    <CheckCircle2 className="h-5 w-5 text-[#16A34A] shrink-0 mt-0.5" />
-                    <div>
-                      <h3 className="font-bold text-xs text-[#1C1C1C]">{item.title}</h3>
-                      <p className="text-[0.7rem] text-[#6B7280] mt-0.5">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {/* ─── INLINE BOOKING CTA BEFORE FAQ (Kuwait -> Dammam) ─── */}
-          {slug === "kuwait-to-dammam" && (
-            <section className="premium-dark-section bg-gradient-to-br from-[#16A34A] to-[#116B32] rounded-3xl p-8 sm:p-10 text-white text-center shadow-xl space-y-6">
-              <div className="max-w-xl mx-auto space-y-3">
-                <h2 className="font-heading text-2xl sm:text-3xl font-extrabold">
-                  Ready to Travel from Kuwait to Dammam?
-                </h2>
-                <p className="text-xs sm:text-sm text-white/90 leading-relaxed">
-                  Send us your pickup area, destination, travel date and time, passenger count and luggage on WhatsApp, and we confirm your fixed fare before you book.
-                </p>
-              </div>
-
-              <div className="flex flex-wrap justify-center items-center gap-4 text-xs font-bold uppercase tracking-wider pt-2">
-                <a
-                  href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
-                    `Salam! I want to book a private taxi from Kuwait to Dammam.\n\n` +
-                      `• Pickup (Kuwait area): \n` +
-                      `• Drop-off (Dammam area): \n` +
-                      `• Travel date: \n` +
-                      `• Travel time: \n` +
-                      `• Passengers & luggage: \n` +
-                      `• Vehicle (Sedan / SUV / Van): `,
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-full bg-[#FACC15] px-8 py-3.5 text-[#1C1C1C] hover:bg-[#e5b810] transition-all hover:scale-105 shadow-md inline-flex items-center gap-2"
-                >
-                  <MessageSquare className="h-4 w-4" />
-                  Get a Kuwait → Dammam Quote
-                </a>
-                <Link
-                  href={`/book?pickup=${encodeURIComponent(route.fromCity)}&dropoff=${encodeURIComponent(route.toCity)}`}
-                  className="rounded-full bg-white px-7 py-3.5 text-[#16A34A] hover:bg-white/90 transition-all hover:scale-105"
-                >
-                  Book Online
-                </Link>
-              </div>
-            </section>
+          {/* ─── BESPOKE KUWAIT CROSS-BORDER SECTIONS (data-driven) ─── */}
+          {KUWAIT_ROUTE_SECTIONS[slug] && (
+            <KuwaitRouteSections
+              slug={slug}
+              fromCity={route.fromCity}
+              toCity={route.toCity}
+              whatsappNumber={contactConfig.whatsappNumber}
+              config={KUWAIT_ROUTE_SECTIONS[slug]}
+            />
           )}
 
           {/* ─── 4-STEP TRANSFER PROCESS (JED -> Makkah) ─── */}

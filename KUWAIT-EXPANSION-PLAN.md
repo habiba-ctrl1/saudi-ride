@@ -223,9 +223,9 @@ User reviews → next page
 
 Routes:
 - [x] kuwait-to-dammam (enriched in-place 2026-09-03 — Quick Answer+8 FAQs, 5 bespoke sections, distance 410→436, H1 "+Taxi"; GSC baseline 0 impr. See seo/page-log.md)
-- [ ] kuwait-to-khobar
+- [~] kuwait-to-khobar — SKIPPED (twin city of Dammam ~15km; Dammam page covers Khobar per site convention; avoid thin duplicate)
 - [ ] kuwait-to-khafji
-- [ ] kuwait-to-riyadh
+- [x] kuwait-to-riyadh — built 2026-09-04 (page 2). Distinct destination, corporate Path B. Bespoke sections now via reusable components/seo/KuwaitRouteSections.tsx + KUWAIT_ROUTE_SECTIONS config map. See seo/page-log.md
 - [ ] kuwait-to-jubail
 - [ ] kuwait-to-dhahran
 - [ ] kuwait-to-makkah
