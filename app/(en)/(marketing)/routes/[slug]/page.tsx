@@ -103,6 +103,20 @@ const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup:
     pickup: "Makkah",
     dropoff: "Madinah",
   },
+  "riyadh-to-makkah": {
+    heading: "Get your Riyadh to Makkah quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, door-to-door transfer to Makkah with a professional chauffeur, prayer and rest stops, and a Miqat stop for Ihram on request.",
+    pickup: "Riyadh",
+    dropoff: "Makkah",
+  },
+  "jeddah-airport-to-makkah": {
+    heading: "Get your Jeddah Airport to Makkah quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private transfer from Jeddah Airport (JED) to Makkah with meet & greet at arrivals, flight tracking, and a Miqat stop for Ihram on request.",
+    pickup: "Jeddah Airport (JED)",
+    dropoff: "Makkah",
+  },
 };
 
 // Corporate (Path B) block config for business-corridor routes. The invoicing
@@ -169,6 +183,22 @@ const UMRAH_GROUP_CONFIG: Record<string, { heading: string; intro: string; waPre
     waPrefill: `Salam! Umrah transfer — Makkah to Madinah.\n• Date & time: \n• Passengers (adults / children): \n• Luggage: \n• Vehicle (Sedan / SUV / Van): \n• Madinah hotel: `,
     emailSubject: "Umrah group transfer RFQ — Makkah to Madinah",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for Umrah transfers between Makkah and Madinah.\n\n• Agency / group name: \n• Contact name: \n• Travel date: \n• Number of pilgrims (adults / children): \n• Luggage: \n• Vehicle(s) needed (SUV / Van): \n• Madinah hotel: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+  },
+  "riyadh-to-makkah": {
+    heading: "Umrah group from Riyadh to Makkah?",
+    intro:
+      "For families and Umrah groups we arrange a full-size SUV or van so everyone travels together with their luggage on the long drive from Riyadh — one vehicle and one chauffeur, with a Miqat stop at Qarn Al-Manazil for those coming from Najd, and prayer and rest stops along the way.",
+    waPrefill: `Salam! Umrah transfer — Riyadh to Makkah.\n• Date & time: \n• Passengers (adults / children): \n• Luggage: \n• Vehicle (Sedan / SUV / Van): \n• Miqat stop for Ihram? : `,
+    emailSubject: "Umrah group transfer RFQ — Riyadh to Makkah",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for Umrah transfers from Riyadh to Makkah.\n\n• Agency / group name: \n• Contact name: \n• Travel date: \n• Number of pilgrims (adults / children): \n• Luggage: \n• Vehicle(s) needed (SUV / Van): \n• Miqat stop for Ihram?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+  },
+  "jeddah-airport-to-makkah": {
+    heading: "Arriving for Umrah — family or group?",
+    intro:
+      "For families and groups we arrange a full-size SUV or van so everyone travels together with their luggage — one vehicle and one chauffeur from Jeddah Airport (JED) to Makkah. Meet & greet in the arrivals hall with a name sign, flight tracking, and a Miqat stop for Ihram on request.",
+    waPrefill: `Salam! Umrah transfer — Jeddah Airport to Makkah.\n• Flight no. & arrival time: \n• Passengers (adults / children): \n• Luggage: \n• Vehicle (Sedan / SUV / Van): \n• Miqat stop for Ihram? : `,
+    emailSubject: "Umrah group transfer RFQ — Jeddah Airport to Makkah",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for Umrah airport transfers from Jeddah Airport (JED) to Makkah.\n\n• Agency / group name: \n• Contact name: \n• Arrival date & flight number: \n• Number of pilgrims (adults / children): \n• Luggage: \n• Vehicle(s) needed (SUV / Van): \n• Miqat stop for Ihram?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
   },
 };
 
@@ -2800,8 +2830,8 @@ export default async function RouteDetailsPage({ params }: PageProps) {
       )}
 
       {/* ─── MOBILE STICKY BOOKING BAR (enhanced lead-pass routes) ──────── */}
-      {/* makkah-to-madinah is excluded — it already renders its own sticky bar above. */}
-      {leadForm && slug !== "makkah-to-madinah" && (
+      {/* makkah-to-madinah & jeddah-airport-to-makkah are excluded — they render their own sticky bars above. */}
+      {leadForm && slug !== "makkah-to-madinah" && slug !== "jeddah-airport-to-makkah" && (
         <div className="fixed bottom-0 inset-x-0 z-50 lg:hidden bg-white/95 backdrop-blur-md border-t border-[#16A34A]/20 p-3 px-4 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] pb-[max(0.75rem,env(safe-area-inset-bottom))]">
           <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
             <div>

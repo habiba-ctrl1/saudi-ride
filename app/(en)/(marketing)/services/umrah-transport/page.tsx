@@ -8,6 +8,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
+import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 
 // WhatsApp is the proven conversion path — Umrah CTAs go to a prefilled chat.
 const waLink = (msg: string) =>
@@ -295,21 +296,40 @@ export default function UmrahTransportPage() {
         </div>
       </section>
 
-      {/* ─── CTA ──────────────────────────────────────────────────── */}
+      {/* ─── CTA + on-page lead form + Umrah group Path B ────────────── */}
       <section className="section-container max-w-5xl pb-20">
-        <div className="bg-white border border-[#16A34A]/15 shadow-lg rounded-3xl p-12 text-center">
-          <h2 className="font-heading text-2xl font-bold mb-4 text-[#1C1C1C]">Have custom itinerary requirements?</h2>
-          <p className="text-[#6B7280] mb-8 max-w-lg mx-auto">
-            Our team is available 24/7 on WhatsApp to help you plan complex family itineraries across Makkah and Madinah.
-          </p>
-          <a
-            href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam, I need help planning my Umrah transportation.`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C] px-8 py-4 text-xs font-bold uppercase text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
-          >
-            <MessageCircle className="h-4 w-4" /> Message on WhatsApp
-          </a>
+        <div className="bg-white border border-[#16A34A]/15 shadow-lg rounded-3xl p-6 sm:p-10">
+          <div className="text-center mb-6">
+            <h2 className="font-heading text-2xl font-bold mb-3 text-[#1C1C1C]">Plan your Umrah transport</h2>
+            <p className="text-[#6B7280] max-w-lg mx-auto">
+              Fill a few details for a fast WhatsApp quote — airport to Makkah, Makkah to Madinah, or a full itinerary. Group or travel-agency bookings can be quoted in writing.
+            </p>
+          </div>
+
+          <WhatsAppQuoteForm defaultPickup="Jeddah Airport (JED)" defaultDropoff="Makkah" />
+
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            <a
+              href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                `Salam! Umrah transport enquiry.\n• Route(s) (e.g. JED → Makkah, Makkah → Madinah): \n• Dates: \n• Passengers (adults / children): \n• Vehicle (Sedan / SUV / Van): \n• Miqat stop for Ihram? : `,
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
+            >
+              <MessageCircle className="h-4 w-4" /> Plan Umrah transport on WhatsApp
+            </a>
+            <a
+              href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(
+                "Umrah group transport RFQ",
+              )}&body=${encodeURIComponent(
+                `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for Umrah transport.\n\n• Agency / group name: \n• Contact name: \n• Route(s) (e.g. JED → Makkah, Makkah → Madinah, Madinah → JED): \n• Dates: \n• Number of pilgrims (adults / children): \n• Vehicle(s) needed (SUV / Van): \n• Miqat stop for Ihram?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+              )}`}
+              className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C] px-7 py-3.5 text-xs font-bold uppercase text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
+            >
+              Email a group RFQ
+            </a>
+          </div>
         </div>
       </section>
       <ServiceRelatedLinks currentPath="/services/umrah-transport" />

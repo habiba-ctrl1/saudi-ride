@@ -7,6 +7,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
+import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 
 const TITLE = "Makkah Ziyarat Taxi Tours | Jabal Al-Noor, Mina & Arafat";
 const DESCRIPTION = "Book a Makkah Ziyarat taxi tour — visit Jabal Al-Noor, Jabal Thawr, Mina, Arafat & Muzdalifah with knowledgeable drivers. Flexible half-day & full-day tours.";
@@ -174,21 +175,40 @@ export default function MakkahZiyaratPage() {
         </div>
       </section>
 
-      {/* ─── CTA ──────────────────────────────────────────────────── */}
+      {/* ─── CTA + on-page lead form + group Path B ──────────────────── */}
       <section className="section-container max-w-5xl pb-4">
-        <div className="bg-white border border-[#16A34A]/15 shadow-lg rounded-3xl p-12 text-center">
-          <h2 className="font-heading text-2xl font-bold mb-4 text-[#1C1C1C]">Plan your Makkah Ziyarat</h2>
-          <p className="text-[#6B7280] mb-8 max-w-lg mx-auto">
-            Message us on WhatsApp to arrange a half-day or full-day Ziyarat tour around your prayer times.
-          </p>
-          <a
-            href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam, I would like to book a Makkah Ziyarat tour.`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C] px-8 py-4 text-xs font-bold uppercase text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
-          >
-            <MessageCircle className="h-4 w-4" /> Message on WhatsApp
-          </a>
+        <div className="bg-white border border-[#16A34A]/15 shadow-lg rounded-3xl p-6 sm:p-10">
+          <div className="text-center mb-6">
+            <h2 className="font-heading text-2xl font-bold mb-3 text-[#1C1C1C]">Plan your Makkah Ziyarat</h2>
+            <p className="text-[#6B7280] max-w-lg mx-auto">
+              Fill a few details for a fast WhatsApp quote, or message our team to arrange a half-day or full-day private Ziyarat tour around your prayer times.
+            </p>
+          </div>
+
+          <WhatsAppQuoteForm defaultPickup="Makkah hotel" defaultDropoff="Makkah Ziyarat tour" />
+
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            <a
+              href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                `Salam! Makkah Ziyarat tour enquiry.\n• Makkah hotel: \n• Date: \n• Passengers: \n• Half-day or full-day? : \n• Sites of interest (Jabal al-Noor / Jabal Thawr / Mina / Arafat / Muzdalifah): `,
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
+            >
+              <MessageCircle className="h-4 w-4" /> Book Ziyarat on WhatsApp
+            </a>
+            <a
+              href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(
+                "Makkah Ziyarat tour enquiry",
+              )}&body=${encodeURIComponent(
+                `Hello Taxi Saudi Arabia team,\n\nWe'd like a private Makkah Ziyarat tour.\n\n• Group / family name: \n• Contact name: \n• Makkah hotel: \n• Date: \n• Number of passengers: \n• Half-day or full-day?: \n• Sites of interest (Jabal al-Noor / Jabal Thawr / Mina / Arafat / Muzdalifah): \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+              )}`}
+              className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C] px-7 py-3.5 text-xs font-bold uppercase text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
+            >
+              Email a group enquiry
+            </a>
+          </div>
         </div>
       </section>
       <ServiceRelatedLinks currentPath="/services/makkah-ziyarat" />
