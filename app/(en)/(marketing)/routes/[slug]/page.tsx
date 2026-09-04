@@ -61,6 +61,35 @@ const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup:
     pickup: "Madinah",
     dropoff: "AlUla",
   },
+  "jeddah-to-kaec": {
+    heading: "Get your Jeddah to KAEC quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, door-to-door transfer with a professional chauffeur for King Abdullah Economic City. No meter, no surge.",
+    pickup: "Jeddah",
+    dropoff: "KAEC",
+  },
+};
+
+// Corporate (Path B) block config for business-corridor routes. The invoicing
+// paragraph, button labels and /services/corporate link are shared in the JSX;
+// only the heading, intro and prefills differ per route.
+const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefill: string; emailSubject: string; emailBody: string }> = {
+  "riyadh-to-dammam": {
+    heading: "Moving a team between Riyadh and the Eastern Province?",
+    intro:
+      "For the Aramco, Dhahran and Al Khobar corporate corridor we run executive sedans and full-size SUVs with professional chauffeurs — one-way, same-day return, or by the hour. Regular staff movements can run on a single account with one point of contact, so you are not booking trip by trip.",
+    waPrefill: `Salam! Corporate transfer enquiry — Riyadh / Dammam (Eastern Province).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Riyadh–Dammam",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate transfers on the Riyadh–Dammam / Eastern Province corridor.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
+  "jeddah-to-kaec": {
+    heading: "Business travel to King Abdullah Economic City?",
+    intro:
+      "For KAEC — King Abdullah Port, the Industrial Valley and business visits — we run executive sedans and full-size SUVs with professional chauffeurs, one-way or by the hour with waiting time. Regular company travel can run on a single account with one point of contact instead of trip-by-trip bookings.",
+    waPrefill: `Salam! Corporate transfer enquiry — Jeddah / KAEC (King Abdullah Economic City).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Jeddah–KAEC",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate transfers between Jeddah and King Abdullah Economic City (KAEC).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
 };
 
 // Bespoke sections for Kuwait cross-border corridors, rendered by the shared
@@ -1558,6 +1587,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
   // structured prefills + mobile sticky CTA). Add a slug here to switch a route
   // to the enhanced treatment; every other route keeps its existing behaviour.
   const leadForm = LEAD_FORM_CONFIG[slug];
+  const corporate = CORPORATE_CONFIG[slug];
 
   // Easy-to-fill, structured WhatsApp prefill for the hero button. Kept short
   // (3 fields) so a client can complete it in seconds. Only enhanced routes get
@@ -2283,27 +2313,25 @@ export default async function RouteDetailsPage({ params }: PageProps) {
             </section>
           )}
 
-          {/* ─── CORPORATE / DELEGATION (Path B) ─── Aramco/Dhahran corridor ── */}
-          {slug === "riyadh-to-dammam" && (
+          {/* ─── CORPORATE / DELEGATION (Path B) — business-corridor routes ── */}
+          {corporate && (
             <section className="rounded-3xl border border-[#16A34A]/15 bg-[#0F172A] p-8 text-white shadow-sm">
               <div className="max-w-2xl space-y-4">
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-[#FACC15]/15 border border-[#FACC15]/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#FACC15]">
                   <Briefcase className="h-3.5 w-3.5" /> Corporate &amp; Delegation Travel
                 </span>
                 <h2 className="font-heading text-2xl font-bold">
-                  Moving a team between Riyadh and the Eastern Province?
+                  {corporate.heading}
                 </h2>
                 <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
-                  For the Aramco, Dhahran and Al Khobar corporate corridor we run executive sedans and full-size SUVs with professional chauffeurs — one-way, same-day return, or by the hour. Regular staff movements can run on a single account with one point of contact, so you are not booking trip by trip.
+                  {corporate.intro}
                 </p>
                 <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
                   Corporate bookings are invoiced through our licensed Saudi partner operator, so you receive a compliant VAT invoice. Send your company name, VAT number and PO reference with your enquiry and we&apos;ll confirm invoicing details before the booking is finalised.
                 </p>
                 <div className="flex flex-wrap items-center gap-3 pt-1">
                   <a
-                    href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
-                      `Salam! Corporate transfer enquiry — Riyadh / Dammam (Eastern Province).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
-                    )}`}
+                    href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(corporate.waPrefill)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-6 py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all shadow-sm"
@@ -2312,11 +2340,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                     Corporate quote on WhatsApp
                   </a>
                   <a
-                    href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(
-                      "Corporate transfer RFQ — Riyadh–Dammam",
-                    )}&body=${encodeURIComponent(
-                      `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate transfers on the Riyadh–Dammam / Eastern Province corridor.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
-                    )}`}
+                    href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(corporate.emailSubject)}&body=${encodeURIComponent(corporate.emailBody)}`}
                     className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-white/15 transition-all"
                   >
                     <Briefcase className="h-4 w-4 text-[#FACC15]" />

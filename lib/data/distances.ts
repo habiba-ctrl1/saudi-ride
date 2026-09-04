@@ -713,6 +713,60 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
     ],
     routeSlug: "madinah-to-alula",
   },
+  {
+    slug: "jeddah-to-kaec",
+    fromCity: "Jeddah",
+    toCity: "KAEC",
+    km: 120,
+    driveMinutes: 80,
+    driveLabel: "about 1 hour 20 minutes",
+    highway: "the Red Sea coastal highway north of Jeddah",
+    stops: ["Thuwal (KAUST)", "Coastal rest stops"],
+    heroImage: "/gallery/business-transfer.webp",
+    fromImage: "/locations/jeddah-hero.webp",
+    toImage: "/gallery/business-transfer.webp",
+    routeStripImage: "/gallery/highway-travel.webp",
+    valueProp:
+      "A private car from Jeddah to King Abdullah Economic City (KAEC) — about 120 km north up the Red Sea coast, roughly 1 hour 20 minutes door-to-door. The practical choice for business visits to King Abdullah Port and the Industrial Valley, with a fare confirmed on WhatsApp.",
+    whoBooks: [
+      "Most travellers on this route are heading to KAEC for business — King Abdullah Port (one of the region's largest container ports), the Industrial Valley, or company offices in the city. A private car gives a fixed, door-to-door transfer that fits meeting schedules far better than arranging transport at both ends of a train trip.",
+      "It also suits KAUST visitors at Thuwal on the way, and families visiting KAEC's Bay La Sun marina and beaches. A private transfer is one vehicle and one chauffeur for your party, from your Jeddah address straight to your KAEC destination.",
+    ],
+    whyCards: [
+      { img: "/gallery/business-transfer.webp", title: "Built for business visits", body: "Door-to-door to King Abdullah Port, the Industrial Valley, or a KAEC office — with waiting time and corporate invoicing on request." },
+      { img: "/gallery/chauffeur-portrait.webp", title: "One chauffeur, on schedule", body: "A professional chauffeur collects you from your Jeddah hotel or the airport and gets you to KAEC on time." },
+      { img: "/gallery/highway-travel.webp", title: "Comfortable coastal run", body: "An air-conditioned sedan or SUV up the Red Sea coastal highway — about 1 hour 20 minutes each way." },
+    ],
+    routeIntro:
+      "The drive runs north from Jeddah along the Red Sea coastal highway, passing Thuwal (home of KAUST) before reaching King Abdullah Economic City. It is a straightforward coastal route of roughly 1 hour 20 minutes.",
+    vehicleFits: ["1–3 business travellers · light bags", "4–6 with luggage", "up to 7 · team + luggage"],
+    compare: [
+      { mode: "Private taxi", best: true, detail: "Door-to-door in about 1 hr 20 min, one fixed fare, with waiting time and corporate invoicing on request. Best for business visits and meeting schedules." },
+      { mode: "Train", detail: "The Haramain high-speed train stops at KAEC, but you still need transport to the Jeddah station and from the KAEC station to your final destination — a private car is direct, door-to-door." },
+      { mode: "Flight", detail: "KAEC has no airport of its own; Jeddah (JED) is the gateway, then about 1 hr 20 min north by road." },
+    ],
+    tips: [
+      { icon: "clock", text: "For a meeting at King Abdullah Port or the Industrial Valley, pre-book with buffer time — the coastal road is simple but plan for Jeddah city traffic on exit." },
+      { icon: "route", text: "Thuwal (KAUST) is on the way, so a KAUST visit can be combined with a KAEC trip in one booking." },
+      { icon: "luggage", text: "For a team with equipment or samples, an SUV or van is more comfortable than a sedan." },
+      { icon: "shield", text: "Share your company name and site/gate when booking so the chauffeur plans the correct KAEC or port access." },
+    ],
+    faqs: [
+      { question: "How far is KAEC from Jeddah?", answer: "King Abdullah Economic City (KAEC) is about 120 km north of Jeddah along the Red Sea coastal highway — roughly a 1 hour 20 minute drive." },
+      { question: "How long is the drive from Jeddah to KAEC?", answer: "The drive takes around 1 hour 20 minutes door-to-door, depending on Jeddah city traffic on the way out. It passes Thuwal (KAUST) before reaching KAEC." },
+      { question: "Is there a train from Jeddah to KAEC?", answer: "Yes — the Haramain high-speed railway stops at KAEC. But you still need transport to the Jeddah station and from the KAEC station to your final destination, so a private car is often simpler and faster door-to-door for business visits." },
+      { question: "What is at KAEC?", answer: "King Abdullah Economic City is home to King Abdullah Port (one of the region's largest container ports), the Industrial Valley, business and residential districts, and the Bay La Sun marina. KAUST is just south at Thuwal." },
+      { question: "Do you offer corporate accounts for KAEC and King Abdullah Port?", answer: "Yes. Companies with regular travel to KAEC, King Abdullah Port, or the Industrial Valley can be invoiced through our licensed Saudi partner operator with a compliant VAT invoice. Message us on WhatsApp to set up an account." },
+      { question: "How much is a taxi from Jeddah to KAEC?", answer: "The fare depends on your vehicle and whether you need waiting time. We confirm one fixed price on WhatsApp before booking — no surge, no hidden fees." },
+    ],
+    related: [
+      { href: "/routes/jeddah-to-kaec", label: "Jeddah to KAEC taxi (book this route)", img: "/locations/jeddah-hero.webp" },
+      { href: "/routes/jeddah-airport-to-kaec", label: "Jeddah Airport to KAEC taxi", img: "/gallery/business-transfer.webp" },
+      { href: "/services/corporate", label: "Corporate & business transport", img: "/gallery/business-transfer.webp" },
+      { href: "/distance/riyadh-to-jeddah", label: "Riyadh to Jeddah distance guide", img: "/locations/jeddah-hero.webp" },
+    ],
+    routeSlug: "jeddah-to-kaec",
+  },
 ];
 
 export function getDistanceGuide(slug: string) {

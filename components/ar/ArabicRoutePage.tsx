@@ -104,7 +104,7 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
       </section>
 
       {/* نموذج طلب عرض سعر — سهل التعبئة، يُحوّل إلى واتساب مع تعبئة الرحلة مسبقاً */}
-      {["riyadh-to-dammam", "madinah-to-alula"].includes(content.slug) && (
+      {["riyadh-to-dammam", "madinah-to-alula", "jeddah-to-kaec"].includes(content.slug) && (
         <section className="section-container max-w-2xl pb-4 text-right">
           <h2 className="font-heading text-2xl font-bold mb-2 text-center">احصل على عرض سعر رحلتك الخاصة</h2>
           <p className="text-center text-xs sm:text-sm text-[#6B7280] leading-relaxed mb-6">
@@ -181,6 +181,48 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
                   className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-3 text-xs font-bold text-white hover:bg-white/15 transition-all"
                 >
                   راسلنا لاستفسار الجولة
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* تنقلات الشركات (المسار B) — مدينة الملك عبدالله الاقتصادية */}
+      {content.slug === "jeddah-to-kaec" && (
+        <section className="section-container max-w-4xl py-12">
+          <div className="rounded-3xl border border-[#16A34A]/15 bg-[#0F172A] p-8 text-white">
+            <div className="max-w-2xl space-y-4">
+              <span className="inline-flex items-center rounded-full bg-[#FACC15]/15 border border-[#FACC15]/30 px-3 py-1 text-[0.65rem] font-bold text-[#FACC15]">
+                تنقلات الشركات والوفود
+              </span>
+              <h2 className="font-heading text-2xl font-bold">زيارة أعمال إلى مدينة الملك عبدالله الاقتصادية؟</h2>
+              <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+                لزيارات ميناء الملك عبدالله والوادي الصناعي ومكاتب المدينة الاقتصادية نوفّر سيارات سيدان تنفيذية ودفع رباعي مع سائقين محترفين — ذهاب فقط أو بالساعة مع وقت انتظار. ويمكن تشغيل تنقلات الشركة المنتظمة عبر حساب واحد ونقطة تواصل واحدة بدلاً من الحجز لكل رحلة.
+              </p>
+              <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+                تُصدر فواتير حجوزات الشركات عبر شريكنا المشغّل المرخّص في السعودية، لتحصل على فاتورة ضريبية نظامية. أرسل اسم شركتك والرقم الضريبي ومرجع أمر الشراء مع طلبك وسنؤكد تفاصيل الفوترة قبل إتمام الحجز.
+              </p>
+              <div className="flex flex-wrap gap-3 pt-1">
+                <a
+                  href={`${contactConfig.whatsappLink}?text=${encodeURIComponent(
+                    `السلام عليكم، استفسار عن تنقلات الشركات — جدة / مدينة الملك عبدالله الاقتصادية.\n• الشركة: \n• الرحلات والتواريخ: \n• عدد الركاب لكل رحلة: \n• نوع السيارة (سيدان تنفيذية / SUV / فان): \n• هل تحتاج فاتورة (ضريبي / أمر شراء)؟: `,
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-6 py-3 text-xs font-bold text-white hover:bg-[#15803D] transition-all"
+                >
+                  عرض سعر الشركات عبر واتساب
+                </a>
+                <a
+                  href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(
+                    "طلب عرض سعر لتنقلات الشركات — جدة–المدينة الاقتصادية",
+                  )}&body=${encodeURIComponent(
+                    `مرحباً فريق تاكسي السعودية،\n\nنرغب بالحصول على عرض سعر مكتوب لتنقلات الشركات بين جدة ومدينة الملك عبدالله الاقتصادية.\n\n• اسم الشركة: \n• اسم وصفة المسؤول: \n• الرحلات والتواريخ: \n• عدد الركاب لكل رحلة: \n• السيارة المفضّلة (سيدان تنفيذية / SUV / فان): \n• الرقم الضريبي: \n• مرجع أمر الشراء: \n\nيرجى تأكيد تفاصيل الفوترة وسعر ثابت قبل الحجز.\n\nشكراً لكم.`,
+                  )}`}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-3 text-xs font-bold text-white hover:bg-white/15 transition-all"
+                >
+                  راسل قسم الشركات
                 </a>
               </div>
             </div>
