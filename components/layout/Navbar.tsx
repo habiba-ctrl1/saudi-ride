@@ -111,7 +111,7 @@ export function Navbar() {
               alt="Taxi Saudi Arabia — Premium Chauffeur & Transportation"
               width={948}
               height={650}
-              className="h-14 sm:h-[4.75rem] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              className="h-10 sm:h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               priority
             />
             <div className="hidden sm:flex flex-col leading-none gap-1.5">
