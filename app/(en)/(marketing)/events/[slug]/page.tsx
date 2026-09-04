@@ -364,6 +364,66 @@ export default async function EventPage({ params }: PageProps) {
         </div>
       </section>
 
+      {/* EVENT CALENDAR (hub pillars) — month sections, verified events only */}
+      {ev.eventCalendar && (
+        <section className="section-container max-w-5xl py-16 border-t border-[#C9A84C]/10">
+          <h2 className="font-heading text-2xl md:text-3xl font-bold mb-3 text-center flex items-center justify-center gap-2">
+            <CalendarDays className="h-6 w-6 text-[#C9A84C]" /> {ev.eventCalendar.heading}
+          </h2>
+          {ev.eventCalendar.intro && (
+            <p className="max-w-2xl mx-auto text-sm text-[#6B7280] leading-relaxed mb-10 text-center">{ev.eventCalendar.intro}</p>
+          )}
+          <div className="space-y-12">
+            {ev.eventCalendar.months.map((m) => (
+              <div key={m.label}>
+                <h3 className="font-heading text-xl font-bold mb-5 inline-flex items-center gap-2 border-b-2 border-[#16A34A]/30 pb-1">
+                  <Calendar className="h-5 w-5 text-[#16A34A]" /> {m.label}
+                </h3>
+                <div className="grid md:grid-cols-2 gap-5">
+                  {m.events.map((e) => {
+                    const evWa = `https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                      `Salam! I need private transfer for ${e.name} (${e.dates}), ${e.venue}.\n• Pickup (airport / hotel):\n• Passengers & bags:\n• Vehicle (Sedan / SUV / Van):\n• Need: airport transfer / daily standby / group vehicle / VIP`,
+                    )}`;
+                    return (
+                      <div key={e.name} className="rounded-2xl border border-[#16A34A]/12 bg-white p-6 flex flex-col">
+                        <div className="flex items-start justify-between gap-3 mb-2">
+                          <h4 className="font-bold text-base text-[#1C1C1C] leading-snug">{e.name}</h4>
+                          {e.officialHref && (
+                            <a href={e.officialHref} target="_blank" rel="noopener noreferrer" className="shrink-0 text-[0.6rem] font-bold uppercase tracking-wider text-[#16A34A] hover:underline mt-1">
+                              Official ↗
+                            </a>
+                          )}
+                        </div>
+                        <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs font-semibold text-[#16A34A] mb-3">
+                          <span className="inline-flex items-center gap-1"><Calendar className="h-3.5 w-3.5" /> {e.dates}</span>
+                          <span className="inline-flex items-center gap-1"><Building2 className="h-3.5 w-3.5" /> {e.venue}{e.city ? `, ${e.city}` : ""}</span>
+                        </div>
+                        <p className="text-xs text-[#6B7280] leading-relaxed mb-2"><span className="font-semibold text-[#1C1C1C]">Who attends:</span> {e.audience}</p>
+                        <p className="text-xs text-[#6B7280] leading-relaxed mb-2"><span className="font-semibold text-[#1C1C1C]">Why private transfer:</span> {e.whyPrivate}</p>
+                        <p className="text-xs text-[#6B7280] leading-relaxed mb-4"><span className="font-semibold text-[#1C1C1C]">Nearest airport:</span> {e.airportLabel}</p>
+                        <div className="mt-auto flex flex-wrap items-center gap-3">
+                          <a href={evWa} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-5 py-2.5 text-[0.7rem] font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all">
+                            <MessageCircle className="h-3.5 w-3.5" /> Request transfer
+                          </a>
+                          {e.transferHref && e.transferLabel && (
+                            <Link href={e.transferHref} className="inline-flex items-center gap-1 text-[0.7rem] font-bold uppercase tracking-wider text-[#16A34A] hover:underline">
+                              {e.transferLabel} <ArrowRight className="h-3.5 w-3.5" />
+                            </Link>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+          {ev.eventCalendar.closing && (
+            <p className="max-w-2xl mx-auto text-sm text-[#6B7280] leading-relaxed mt-10 text-center">{ev.eventCalendar.closing}</p>
+          )}
+        </section>
+      )}
+
       {/* VENUE COVERAGE TABLE (pillar asset) */}
       {ev.venueTable && (
         <section className="section-container max-w-5xl py-16 border-t border-[#C9A84C]/10">

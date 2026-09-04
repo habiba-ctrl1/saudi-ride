@@ -92,6 +92,40 @@ export interface EventPageData {
     emailSubject: string;
     emailBody: string;
   };
+  /** Optional month-based event calendar (HUB pillars only). Verified events
+   *  only — every date/venue must be confirmed against the official source
+   *  (officialHref) and NEVER invented. Rendered as month sections with a
+   *  per-event transfer CTA. This is visible content for SEO/AEO; no Event
+   *  schema is emitted (we are the transport provider, not the organiser). */
+  eventCalendar?: {
+    heading: string;
+    intro?: string;
+    months: {
+      /** e.g. "September 2026". */
+      label: string;
+      events: {
+        name: string;
+        /** Verified dates, e.g. "14–16 September 2026". */
+        dates: string;
+        /** Verified venue, e.g. "RECC, Malham". */
+        venue: string;
+        /** City (shown on the national hub). */
+        city?: string;
+        /** Who typically attends. */
+        audience: string;
+        /** Why a private transfer helps for this event. */
+        whyPrivate: string;
+        /** Nearest airport label, e.g. "King Khalid Intl (RUH)". */
+        airportLabel: string;
+        /** Official event/source URL used to verify the date. */
+        officialHref?: string;
+        /** Internal cross-link (route/airport/city page). */
+        transferHref?: string;
+        transferLabel?: string;
+      }[];
+    }[];
+    closing?: string;
+  };
   /** Optional venue-coverage table (pillar asset). */
   venueTable?: {
     heading: string;
@@ -136,6 +170,133 @@ const RUH = { slug: "king-khalid-riyadh", label: "Riyadh Airport (RUH)" };
 const JED = { slug: "king-abdulaziz-jeddah", label: "Jeddah Airport (JED)" };
 
 export const EVENTS: EventPageData[] = [
+  // ─── NATIONAL PILLAR (evergreen hub) ──────────────────────────────────
+  {
+    slug: "saudi-arabia-events-private-transfer",
+    kind: "pillar",
+    badge: "Event Transport · Saudi Arabia",
+    shortName: "Saudi Arabia Event Transport",
+    h1: "Saudi Arabia Event Transportation & Private Transfers",
+    title: "Saudi Arabia Event Transportation | Airport, Hotel & Venue Transfers",
+    description:
+      "Private event transportation across Saudi Arabia — airport, hotel and venue transfers for exhibitions, conferences and corporate events. Sedans, SUVs, vans, coasters and executive limousine service. Written quote & invoicing on request.",
+    intro:
+      "Private transport for exhibitions, conferences and corporate events across Saudi Arabia — a single delegate met at the airport, or a full delegation moved city-to-city. Airport ⇄ hotel ⇄ venue transfers, daily chauffeur standby, group vehicles and an executive limousine service for VIP guests, coordinated under one point of contact with a written quote and invoicing for companies.",
+    city: "Saudi Arabia",
+    airport: RUH,
+    tldrAnswer:
+      "Event transportation in Saudi Arabia covers private airport transfers, hotel-to-venue and venue-to-airport runs, hourly and daily chauffeur standby, group and delegation vehicles, and an executive limousine service for exhibitions, conferences and corporate events nationwide — fare confirmed on WhatsApp, with a written quote and corporate invoicing on request.",
+    tldrFacts: [
+      { label: "Coverage", value: "Riyadh · Jeddah · Dammam · AlUla · nationwide" },
+      { label: "Vehicles", value: "Sedan · SUV · Van · Coaster · Limousine" },
+      { label: "Transfers", value: "Airport ⇄ Hotel ⇄ Venue" },
+      { label: "Response", value: "Written quote in 1–2 hrs" },
+      { label: "Availability", value: "24/7" },
+    ],
+    services: [
+      { title: "Airport ⇄ Event Transfers", desc: "Private pickups from any Saudi airport straight to the venue or hotel, with flight tracking and meet & greet for arriving delegates, speakers and exhibitors." },
+      { title: "Hotel ⇄ Venue & Daily Standby", desc: "A dedicated car and chauffeur on standby for the event — move between your hotel, the venue and meetings on your own schedule, hourly or full-day, then a pre-booked run back to the airport." },
+      { title: "Group & Delegation Transport", desc: "Executive sedans, full-size SUVs, 7-seat vans and up-to-22-seat coasters for teams, exhibitors and delegations travelling together, coordinated under one point of contact with a single invoice." },
+      { title: "VIP & Executive Limousine Service", desc: "Discreet executive limousine service for VIPs, sponsors and C-level guests — Mercedes S-Class and Cadillac Escalade-class cars with professional, bilingual (English & Arabic) chauffeurs." },
+    ],
+    faqs: [
+      { question: "How do I book a private transfer for an event in Saudi Arabia?", answer: "Send your event, city, venue, dates and passenger count on WhatsApp. We confirm a fixed fare in writing before you book — for a single airport transfer or a full multi-day delegation schedule." },
+      { question: "Can I book an airport-to-exhibition or airport-to-conference transfer?", answer: "Yes. We meet you at arrivals with a name sign and drive you directly to the exhibition or conference venue — RECC Malham, RICEC, RFECC, KAICC in Riyadh, or venues in Jeddah, Dammam and beyond. Flight tracking is included." },
+      { question: "Can you pick me up from my hotel and take me to the event?", answer: "Yes. Hotel-to-venue transfers are a core part of event transport, either per trip or with a car on daily standby so you are never waiting for a ride between sessions." },
+      { question: "Do you provide corporate event transportation with invoicing?", answer: "Yes. Corporate invoicing is available on request for company and delegation bookings, with a written quote before you commit. Share your company details on WhatsApp or by email and we'll set it up." },
+      { question: "Can I book an SUV or van for an event?", answer: "Yes. Choose a full-size SUV for a small team with luggage, a 7-seat van for a group, or a coaster for a larger delegation — and an executive sedan or limousine for VIP guests." },
+      { question: "Can I arrange airport-to-hotel-to-event transportation as one booking?", answer: "Yes. We plan the whole chain — airport pickup, hotel check-in, daily venue runs and the return airport transfer — under one point of contact and one schedule." },
+      { question: "Can I book transportation for a group or delegation?", answer: "Yes. Group and delegation transport is our core event service: multiple vehicles, arrival manifests across different flights and hotels, daily hotel-to-venue loops and one coordinator." },
+      { question: "Can I arrange a return transfer to the airport after the event?", answer: "Yes. Pre-book your departure so a car is ready at your hotel or the venue at the agreed time — recommended over app cars when a venue empties all at once at the close." },
+      { question: "How early should I book event transportation?", answer: "For major event weeks, vehicles and chauffeurs are in high demand — the earlier you confirm, the better the fleet availability and your fixed fare. For quieter dates, a few days' notice is usually enough." },
+    ],
+    waContext: "event transportation in Saudi Arabia",
+    waPrefill:
+      "Salam! I need private event transportation in Saudi Arabia.\n• Event / venue / city:\n• Dates:\n• Pickup (airport or hotel):\n• Passengers & bags:\n• Need: airport transfer / daily standby / group vehicle / VIP chauffeur",
+    heroAlt: "Executive chauffeur in front of a black SUV at a Saudi Arabia exhibition centre entrance",
+    organiserDesk: {
+      heading: "Moving a delegation to a Saudi event?",
+      body: "Multi-vehicle, multi-day, multi-city event transport with one coordinator, one schedule and one invoice. Executive sedans, SUVs, vans and coasters — arrival manifests across flights and hotels, daily venue loops, and VIP limousine service under a single point of contact.",
+      waPrefill:
+        "Salam! I need a delegation event-transport quote (Saudi Arabia).\n• Event name, venue & city:\n• Dates (from – to):\n• Total passengers:\n• Vehicles needed (sedan / SUV / van / coaster):\n• Daily schedule (airport / hotel loops / standby):\n• Invoicing & payment terms required:\n• Company & your role:",
+      emailSubject: "Delegation / event transport quote — Saudi Arabia",
+      emailBody:
+        "Salam,\n\nWe need a delegation event-transport quote in Saudi Arabia:\n\n• Event name, venue & city:\n• Dates (from – to):\n• Total passengers:\n• Vehicles needed (sedan / SUV / van / coaster):\n• Daily schedule (airport / hotel loops / standby):\n• Invoicing & payment terms required:\n• Company & your role:\n\nThank you.",
+    },
+    eventCalendar: {
+      heading: "Saudi Arabia's major events — September to November 2026",
+      intro:
+        "The Kingdom's autumn event season is concentrated in Riyadh, and we run private transfers to every one of these. Each links through to the fastest way to arrange your airport, hotel and venue transport. We also cover events and arrivals in Jeddah, Dammam and AlUla — see the city links below.",
+      months: [
+        {
+          label: "September 2026",
+          events: [
+            { name: "Big 5 Construct Saudi", dates: "30 August – 2 September 2026", venue: "RFECC (Riyadh Front)", city: "Riyadh", audience: "Contractors, exhibitors and construction buyers.", whyPrivate: "Exhibitor kit and stand crews need SUVs/vans and build-up/breakdown runs, not app cars.", airportLabel: "King Khalid International Airport (RUH)", officialHref: "https://www.big5constructsaudi.com/", transferHref: "/events/riyadh-event-transportation", transferLabel: "Riyadh event transport" },
+            { name: "Money20/20 Middle East", dates: "14–16 September 2026", venue: "RECC, Malham", city: "Riyadh", audience: "Fintech executives, banks, investors and exhibitors.", whyPrivate: "Remote Malham with no metro — daily standby keeps delegates moving.", airportLabel: "King Khalid International Airport (RUH)", officialHref: "https://www.money2020.com/", transferHref: "/airports/king-khalid-riyadh", transferLabel: "Riyadh Airport transfers" },
+            { name: "Global AI Summit (GAIN)", dates: "15–17 September 2026", venue: "KAICC", city: "Riyadh", audience: "AI leaders, government delegates and enterprise.", whyPrivate: "Central government venue — standby around session windows suits speakers and sponsors.", airportLabel: "King Khalid International Airport (RUH)", officialHref: "https://globalaisummit.org/", transferHref: "/services/corporate", transferLabel: "Corporate accounts" },
+          ],
+        },
+        {
+          label: "October 2026",
+          events: [
+            { name: "Saudi International Falcons & Hunting Exhibition", dates: "1–10 October 2026", venue: "RECC, Malham", city: "Riyadh", audience: "Falconry visitors, tourists and families across ten days.", whyPrivate: "A long run in remote Malham with families and gear — private SUVs/vans door-to-door.", airportLabel: "King Khalid International Airport (RUH)", officialHref: "https://sfc.org.sa/", transferHref: "/locations/riyadh", transferLabel: "Riyadh taxi & transfers" },
+            { name: "Future Investment Initiative (FII10)", dates: "26–29 October 2026", venue: "KAICC", city: "Riyadh", audience: "Heads of state, global investors and C-level VIPs.", whyPrivate: "High-security VIP conference — discreet executive limousine service and standby.", airportLabel: "King Khalid International Airport (RUH)", officialHref: "https://fii-institute.org/", transferHref: "/services/vip-transportation", transferLabel: "VIP transportation" },
+          ],
+        },
+        {
+          label: "November 2026",
+          events: [
+            { name: "Cityscape Global", dates: "16–19 November 2026", venue: "RECC, Malham", city: "Riyadh", audience: "Real-estate developers, investors and international buyers.", whyPrivate: "Investor circuits between halls, hotels and site visits — daily standby, SUVs and vans.", airportLabel: "King Khalid International Airport (RUH)", officialHref: "https://cityscapeglobal.com/", transferHref: "/events/riyadh-event-transportation", transferLabel: "Riyadh event transport" },
+          ],
+        },
+      ],
+      closing:
+        "For the full Riyadh season with venue-by-venue transport detail, see our Riyadh event transportation hub. Black Hat MEA follows on 1–3 December 2026 at RECC Malham, and LEAP has its own dedicated transport page. Travelling to an event in Jeddah, Dammam or AlUla instead? Tell us the city and venue on WhatsApp and we'll plan the run.",
+    },
+    trustStrip: {
+      heading: "Booking, fares and invoicing",
+      items: [
+        "Written quote confirmed on WhatsApp or email, usually within 1–2 hours.",
+        "Fixed fare confirmed in writing before booking — no meter, no surge.",
+        "Corporate invoicing available on request for company and delegation bookings.",
+        "Professional, bilingual (English & Arabic) chauffeurs across the Kingdom.",
+      ],
+      links: [
+        { href: "/services/airport-transfers", label: "airport transfers across Saudi Arabia" },
+        { href: "/fleet", label: "vehicles we run for event work" },
+        { href: "/pricing", label: "how our fixed fares are set" },
+        { href: "/about", label: "about Taxi Saudi Arabia" },
+        { href: "/contact", label: "contact us" },
+      ],
+    },
+    relatedOverride: {
+      heading: "Event transport across Saudi Arabia",
+      groups: [
+        {
+          label: "By city",
+          links: [
+            { href: "/events/riyadh-event-transportation", label: "Riyadh event transportation" },
+            { href: "/events/jeddah-event-transportation", label: "Jeddah event transportation" },
+            { href: "/locations/riyadh", label: "Riyadh transfers" },
+            { href: "/locations/jeddah", label: "Jeddah transfers" },
+          ],
+        },
+        {
+          label: "By event type",
+          links: [
+            { href: "/events/corporate-event-transportation-saudi-arabia", label: "Corporate event transportation" },
+            { href: "/events/riyadh-exhibition-transportation", label: "Exhibition transportation" },
+            { href: "/events/riyadh-conference-transportation", label: "Conference transportation" },
+            { href: "/events/vip-event-chauffeur-riyadh", label: "VIP event chauffeur" },
+          ],
+        },
+        {
+          label: "By event",
+          links: [{ href: "/events/leap-riyadh-transportation", label: "LEAP Riyadh transportation" }],
+        },
+      ],
+    },
+  },
   // ─── PILLAR (evergreen) ───────────────────────────────────────────────
   {
     slug: "riyadh-event-transportation",
@@ -246,12 +407,103 @@ export const EVENTS: EventPageData[] = [
         {
           label: "More",
           links: [
+            { href: "/events/saudi-arabia-events-private-transfer", label: "Saudi Arabia event transport" },
             { href: "/fleet", label: "Our fleet" },
             { href: "/pricing", label: "How fares work" },
             { href: "/events", label: "All Saudi event transport" },
           ],
         },
       ],
+    },
+    eventCalendar: {
+      heading: "Major Riyadh events — September to November 2026",
+      intro:
+        "The venue tells you what transport you actually need. Central, metro-served halls (RICEC, KAICC) often need only an airport transfer; remote Malham (RECC) and airport-side Riyadh Front (RFECC) reward a chauffeur on daily standby when app cars get scarce at the close. Below are confirmed Riyadh event dates for the season — each links to the fastest way to arrange your transfer.",
+      months: [
+        {
+          label: "September 2026",
+          events: [
+            {
+              name: "Big 5 Construct Saudi",
+              dates: "30 August – 2 September 2026",
+              venue: "Riyadh Front Exhibition & Conference Centre (RFECC)",
+              audience: "Contractors, exhibitors, engineers and construction buyers — 1,000+ exhibitors, heavy international footfall.",
+              whyPrivate: "Exhibitors arrive with sample cases and stand kit, and RFECC sits by the airport but far from the Olaya hotel belt — an SUV/van plus hotel-to-venue loops beats app cars on build-up and breakdown days.",
+              airportLabel: "King Khalid International Airport (RUH)",
+              officialHref: "https://www.big5constructsaudi.com/",
+              transferHref: "/events/riyadh-exhibition-transportation",
+              transferLabel: "Exhibition transport",
+            },
+            {
+              name: "Money20/20 Middle East",
+              dates: "14–16 September 2026",
+              venue: "Riyadh Exhibition & Convention Centre (RECC), Malham",
+              audience: "Fintech executives, banks, investors and exhibiting brands — a large international business crowd.",
+              whyPrivate: "RECC Malham is out of town with no metro; rides get scarce at the evening close, so a car on daily standby keeps delegates moving between the halls, meetings and the hotel.",
+              airportLabel: "King Khalid International Airport (RUH)",
+              officialHref: "https://www.money2020.com/",
+              transferHref: "/airports/king-khalid-riyadh",
+              transferLabel: "Riyadh Airport (RUH) transfers",
+            },
+            {
+              name: "Global AI Summit (GAIN)",
+              dates: "15–17 September 2026",
+              venue: "King Abdulaziz International Conference Centre (KAICC)",
+              audience: "AI leaders, government delegates, enterprise and C-level speakers.",
+              whyPrivate: "KAICC is a central government venue where accreditation and session timing shape the day — an executive car on standby around session windows suits speakers and sponsors.",
+              airportLabel: "King Khalid International Airport (RUH)",
+              officialHref: "https://globalaisummit.org/",
+              transferHref: "/services/corporate",
+              transferLabel: "Corporate accounts",
+            },
+          ],
+        },
+        {
+          label: "October 2026",
+          events: [
+            {
+              name: "Saudi International Falcons & Hunting Exhibition",
+              dates: "1–10 October 2026",
+              venue: "Riyadh Exhibition & Convention Centre (RECC), Malham",
+              audience: "Falconry enthusiasts, tourists, families and international visitors across a 10-day run.",
+              whyPrivate: "A ten-day event in remote Malham with families and gear — a private SUV or van door-to-door is far simpler than app cars to and from a site well outside the city.",
+              airportLabel: "King Khalid International Airport (RUH)",
+              officialHref: "https://sfc.org.sa/",
+              transferHref: "/locations/riyadh",
+              transferLabel: "Riyadh taxi & transfers",
+            },
+            {
+              name: "Future Investment Initiative (FII10)",
+              dates: "26–29 October 2026",
+              venue: "King Abdulaziz International Conference Centre (KAICC)",
+              audience: "Heads of state, global investors, C-level executives and VIP delegations — the 10th-anniversary edition.",
+              whyPrivate: "A high-security VIP conference where discretion and timing matter — an executive limousine service with bilingual chauffeurs and standby around the programme fits sponsors and C-level guests.",
+              airportLabel: "King Khalid International Airport (RUH)",
+              officialHref: "https://fii-institute.org/",
+              transferHref: "/services/vip-transportation",
+              transferLabel: "VIP transportation",
+            },
+          ],
+        },
+        {
+          label: "November 2026",
+          events: [
+            {
+              name: "Cityscape Global",
+              dates: "16–19 November 2026",
+              venue: "Riyadh Exhibition & Convention Centre (RECC), Malham",
+              audience: "Real-estate developers, investors and international property buyers at one of the region's largest real-estate events.",
+              whyPrivate: "Investor circuits between the halls, hotels and site visits — RECC Malham's remoteness makes a chauffeur on daily standby the reliable choice, with SUVs and vans for groups.",
+              airportLabel: "King Khalid International Airport (RUH)",
+              officialHref: "https://cityscapeglobal.com/",
+              transferHref: "/airports/king-khalid-riyadh",
+              transferLabel: "Riyadh Airport (RUH) transfers",
+            },
+          ],
+        },
+      ],
+      closing:
+        "Looking slightly further ahead, Black Hat MEA runs 1–3 December 2026 at RECC Malham. For LEAP, see our dedicated LEAP Riyadh transportation page. Tell us your event, venue and dates on WhatsApp and we'll plan the run and confirm a fixed fare in writing — exact drive times from the airport confirmed on request.",
     },
   },
   {
@@ -835,6 +1087,7 @@ const HERO_BY_SLUG: Record<string, keyof typeof HERO_SRC> = {
   "future-minerals-forum-transportation": "vip",
   "vip-event-chauffeur-riyadh": "vip",
   "riyadh-event-transportation": "vip",
+  "saudi-arabia-events-private-transfer": "vip",
   "riyadh-conference-transportation": "vip",
   "soundstorm-riyadh-transportation": "vip",
   // Jeddah / motorsport intent → Corniche night circuit shot
