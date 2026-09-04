@@ -204,6 +204,23 @@ export default async function EventPage({ params }: PageProps) {
         </div>
       </section>
 
+      {/* LIVE MAP EMBED (e.g. airport → venue) */}
+      {ev.mapEmbed && (
+        <section className="section-container max-w-5xl pt-2 pb-4">
+          <div className="overflow-hidden rounded-3xl border border-[#C9A84C]/20 shadow-sm">
+            <iframe
+              src={ev.mapEmbed.src}
+              title={ev.mapEmbed.title}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+              className="block w-full h-[320px] sm:h-[420px] border-0"
+            />
+          </div>
+          <p className="text-center text-xs text-[#6B7280] mt-3">{ev.mapEmbed.title}</p>
+        </section>
+      )}
+
       {/* ORGANISER DESK (Path B — delegation / B2B; WhatsApp RFQ + email RFQ) */}
       {ev.organiserDesk && (
         <section className="section-container max-w-5xl pt-2 pb-4">
@@ -239,6 +256,18 @@ export default async function EventPage({ params }: PageProps) {
               <h2 className="font-heading text-xl md:text-2xl font-bold">{ev.departureCallout.heading}</h2>
             </div>
             <p className="max-w-2xl text-sm text-[#6B7280] leading-relaxed mb-5">{ev.departureCallout.body}</p>
+            {ev.departureCallout.image && (
+              <figure className="mb-5 overflow-hidden rounded-2xl border border-[#C9A84C]/20">
+                <Image
+                  src={ev.departureCallout.image.src}
+                  alt={ev.departureCallout.image.alt}
+                  width={1200}
+                  height={655}
+                  sizes="(max-width: 768px) 100vw, 900px"
+                  className="w-full h-auto"
+                />
+              </figure>
+            )}
             <a
               href={departureWaLink}
               target="_blank"

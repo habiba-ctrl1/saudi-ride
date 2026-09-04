@@ -63,7 +63,10 @@ export interface EventPageData {
     waPrefill: string;
     /** ISO instant after which the callout stops rendering. */
     untilISO: string;
+    image?: { src: string; alt: string };
   };
+  /** Optional live map embed (Google Maps iframe) rendered after the hero. */
+  mapEmbed?: { src: string; title: string };
   /** Optional venue-timings table (named events with published hours). */
   timings?: {
     heading: string;
@@ -434,6 +437,18 @@ export const EVENTS: EventPageData[] = [
       waPrefill:
         "Salam! I need a departure transfer from LEAP.\n• Pickup (venue or hotel):\n• Date & time:\n• Flight number & departure time:\n• Passengers & bags:",
       untilISO: "2026-09-05T23:59:00+03:00",
+      image: {
+        src: "/routes/evening-chauffeur-pickup-recc-malham.webp",
+        alt: "Chauffeur waiting beside an executive sedan at the venue exit after evening close",
+      },
+    },
+    mapEmbed: {
+      src: "https://www.google.com/maps?saddr=King+Khalid+International+Airport,+Riyadh&daddr=Riyadh+Exhibition+and+Convention+Center,+Malham&output=embed",
+      title: "Live map: King Khalid Airport (RUH) to the Riyadh Exhibition & Convention Centre, Malham",
+    },
+    servicesImage: {
+      src: "/routes/exhibitor-van-loading-recc-malham-riyadh.webp",
+      alt: "Exhibitor team loading demo equipment into a transport van at the Riyadh Exhibition & Convention Centre",
     },
     timings: {
       heading: "LEAP daily timings and what they mean for your transport",
