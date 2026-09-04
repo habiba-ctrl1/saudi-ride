@@ -96,6 +96,8 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
       { href: "/fleet/gmc-yukon-xl", label: "GMC Yukon XL — Premium SUV" },
       { href: "/services/airport-transfers", label: "Private airport transfers across Saudi Arabia" },
       { href: "/locations/madinah", label: "Madinah private transport & chauffeur service" },
+      { href: "/routes/jeddah-to-madinah", label: "Jeddah to Madinah taxi" },
+      { href: "/routes/makkah-to-madinah", label: "Makkah to Madinah taxi" },
     ]
   },
   "king-khalid-riyadh": {

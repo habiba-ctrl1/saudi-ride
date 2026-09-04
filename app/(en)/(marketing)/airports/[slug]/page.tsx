@@ -9,6 +9,7 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { faqSchema, airportTaxiServiceSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
+import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { AIRPORT_DETAILS } from "@/lib/data/airports";
 
 export const revalidate = 86400;
@@ -164,6 +165,65 @@ export default async function AirportLandingPage({ params }: PageProps) {
           {/* Quick Answer (above-the-fold AI/snippet signal) */}
           {airportData.tldr && (
             <TLDRSummary answer={airportData.tldr} facts={airportData.tldrFacts} />
+          )}
+
+          {/* Madinah Airport (MED) — on-page lead form + Umrah group Path B */}
+          {slug === "prince-mohammad-madinah" && (
+            <>
+              <section className="rounded-3xl border border-[#16A34A]/15 bg-white p-6 sm:p-7 shadow-sm">
+                <div className="mb-5 space-y-1.5">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#16A34A]">
+                    <Car className="h-3.5 w-3.5" /> Private Airport Transfer Quote
+                  </span>
+                  <h2 className="font-heading text-2xl font-bold text-[#1C1C1C]">
+                    Get your Madinah Airport (MED) transfer quote
+                  </h2>
+                  <p className="text-xs sm:text-sm text-[#6B7280] leading-relaxed max-w-xl">
+                    Fill a few details and we confirm your fixed fare on WhatsApp — a pre-booked private transfer from Prince Mohammad Bin Abdulaziz Airport (MED) with meet &amp; greet at arrivals and flight tracking.
+                  </p>
+                </div>
+                <WhatsAppQuoteForm defaultPickup="Madinah Airport (MED)" defaultDropoff="Madinah hotel" />
+              </section>
+
+              <section className="rounded-3xl border border-[#16A34A]/15 bg-[#0F172A] p-8 text-white shadow-sm">
+                <div className="max-w-2xl space-y-4">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-[#FACC15]/15 border border-[#FACC15]/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#FACC15]">
+                    Umrah Group &amp; Family Transfer
+                  </span>
+                  <h2 className="font-heading text-2xl font-bold">Arriving at MED as a family or Umrah group?</h2>
+                  <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+                    For families and groups we arrange a full-size SUV or van so everyone travels together with their luggage — one vehicle and one chauffeur from Madinah Airport (MED) to your hotel near Masjid an-Nabawi. Meet &amp; greet in the arrivals hall with a name sign, flight tracking, and help with bags.
+                  </p>
+                  <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+                    Organising for an Umrah group or through a travel agency? Send your arrival details and party size and we&apos;ll put together the transfers with one point of contact and a written quote.
+                  </p>
+                  <div className="flex flex-wrap items-center gap-3 pt-1">
+                    <a
+                      href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                        `Salam! Madinah Airport (MED) transfer.\n• Flight no. & arrival time: \n• Destination (hotel / city): \n• Passengers (adults / children): \n• Luggage: \n• Vehicle (Sedan / SUV / Van): `,
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-6 py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all shadow-sm"
+                    >
+                      <MessageCircle className="h-4 w-4 text-[#FACC15]" />
+                      Group transfer on WhatsApp
+                    </a>
+                    <a
+                      href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(
+                        "Umrah group transfer RFQ — Madinah Airport (MED)",
+                      )}&body=${encodeURIComponent(
+                        `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for Umrah airport transfers from Madinah Airport (MED).\n\n• Agency / group name: \n• Contact name: \n• Arrival date & flight number: \n• Number of pilgrims (adults / children): \n• Luggage: \n• Vehicle(s) needed (SUV / Van): \n• Destination hotel: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+                      )}`}
+                      className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-white/15 transition-all"
+                    >
+                      <ExternalLink className="h-4 w-4 text-[#FACC15]" />
+                      Email a group enquiry
+                    </a>
+                  </div>
+                </div>
+              </section>
+            </>
           )}
 
           {/* Available Routes */}

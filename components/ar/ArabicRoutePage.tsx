@@ -63,6 +63,35 @@ const AR_CORPORATE: Record<string, { heading: string; intro: string; waPrefill: 
   },
 };
 
+// Arabic Umrah group & family (Path B) block copy, keyed by slug. Shared badge,
+// second paragraph and buttons live in the JSX.
+const AR_UMRAH: Record<string, { heading: string; intro: string; waPrefill: string; emailSubject: string; emailBody: string }> = {
+  "jeddah-airport-to-swissotel-makkah": {
+    heading: "مسافرون كعائلة أو مجموعة عمرة؟",
+    intro:
+      "للعائلات والمجموعات نوفّر سيارة دفع رباعي كبيرة أو فان ليسافر الجميع معاً مع الأمتعة — سيارة واحدة وسائق واحد من مطار جدة مباشرة إلى فندق سويس أوتيل المقام مكة. استقبال في صالة الوصول بلوحة اسم، وتوقف عند الميقات لارتداء الإحرام عند الطلب، ومساعدة في الأمتعة عند الفندق.",
+    waPrefill: `السلام عليكم، نقل عمرة — من مطار جدة إلى سويس أوتيل المقام مكة.\n• رقم الرحلة ووقت الوصول: \n• عدد الركاب (كبار / أطفال): \n• الأمتعة: \n• نوع السيارة (سيدان / SUV / فان): \n• توقف عند الميقات للإحرام؟: `,
+    emailSubject: "طلب عرض سعر لنقل مجموعة عمرة — من مطار جدة إلى مكة",
+    emailBody: `مرحباً فريق تاكسي السعودية،\n\nنرغب بعرض سعر مكتوب لنقل معتمرين من مطار جدة إلى مكة المكرمة.\n\n• اسم الوكالة / المجموعة: \n• اسم جهة الاتصال: \n• تاريخ الوصول ورقم الرحلة: \n• عدد المعتمرين (كبار / أطفال): \n• الأمتعة: \n• السيارات المطلوبة (SUV / فان): \n• الفندق في مكة: \n• توقف عند الميقات للإحرام؟: \n\nيرجى تأكيد سعر ثابت قبل الحجز.\n\nشكراً لكم.`,
+  },
+  "jeddah-to-madinah": {
+    heading: "مسافرون إلى المدينة كعائلة أو مجموعة؟",
+    intro:
+      "للعائلات ومجموعات العمرة نوفّر سيارة دفع رباعي كبيرة أو فان ليسافر الجميع معاً مع الأمتعة — سيارة واحدة وسائق واحد من جدة إلى فندقك في المدينة قرب المسجد النبوي، مع توقفات للصلاة والراحة على طريق الحرمين.",
+    waPrefill: `السلام عليكم، نقل عمرة — من جدة إلى المدينة المنورة.\n• التاريخ والوقت: \n• عدد الركاب (كبار / أطفال): \n• الأمتعة: \n• نوع السيارة (سيدان / SUV / فان): \n• فندق المدينة: `,
+    emailSubject: "طلب عرض سعر لنقل مجموعة عمرة — من جدة إلى المدينة",
+    emailBody: `مرحباً فريق تاكسي السعودية،\n\nنرغب بعرض سعر مكتوب لنقل معتمرين من جدة إلى المدينة المنورة.\n\n• اسم الوكالة / المجموعة: \n• اسم جهة الاتصال: \n• تاريخ الرحلة: \n• عدد المعتمرين (كبار / أطفال): \n• الأمتعة: \n• السيارات المطلوبة (SUV / فان): \n• فندق المدينة: \n\nيرجى تأكيد سعر ثابت قبل الحجز.\n\nشكراً لكم.`,
+  },
+  "makkah-to-madinah": {
+    heading: "مجموعة عمرة بين الحرمين؟",
+    intro:
+      "للعائلات ومجموعات العمرة نوفّر سيارة دفع رباعي كبيرة أو فان ليسافر الجميع معاً مع الأمتعة — سيارة واحدة وسائق واحد من مكة إلى فندقك في المدينة، مع إمكانية التوقف عند ميقات ذي الحليفة عند الطلب وتوقفات للصلاة والراحة على الطريق.",
+    waPrefill: `السلام عليكم، نقل عمرة — من مكة إلى المدينة المنورة.\n• التاريخ والوقت: \n• عدد الركاب (كبار / أطفال): \n• الأمتعة: \n• نوع السيارة (سيدان / SUV / فان): \n• فندق المدينة: `,
+    emailSubject: "طلب عرض سعر لنقل مجموعة عمرة — من مكة إلى المدينة",
+    emailBody: `مرحباً فريق تاكسي السعودية،\n\nنرغب بعرض سعر مكتوب لنقل معتمرين من مكة المكرمة إلى المدينة المنورة.\n\n• اسم الوكالة / المجموعة: \n• اسم جهة الاتصال: \n• تاريخ الرحلة: \n• عدد المعتمرين (كبار / أطفال): \n• الأمتعة: \n• السيارات المطلوبة (SUV / فان): \n• فندق المدينة: \n\nيرجى تأكيد سعر ثابت قبل الحجز.\n\nشكراً لكم.`,
+  },
+};
+
 // Reusable RTL Arabic route page — mirrors the curated
 // app/ar/routes/jeddah-airport-to-makkah page so every Arabic route reads and
 // converts identically. Prices/cities/distance come from ROUTES_DATA (Arabic
@@ -75,6 +104,7 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
   const h1 = `تاكسي من ${route.fromCityAr} إلى ${route.toCityAr}`;
   const arPath = `/ar/routes/${content.slug}`;
   const arCorporate = AR_CORPORATE[content.slug];
+  const arUmrah = AR_UMRAH[content.slug];
 
   const waMessage = encodeURIComponent(
     `السلام عليكم، أرغب بحجز تاكسي من ${route.fromCityAr} إلى ${route.toCityAr}.\n\n• التاريخ والوقت: \n• عدد الركاب والأمتعة: \n• نوع السيارة: `,
@@ -142,7 +172,7 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
       </section>
 
       {/* نموذج طلب عرض سعر — سهل التعبئة، يُحوّل إلى واتساب مع تعبئة الرحلة مسبقاً */}
-      {["riyadh-to-dammam", "madinah-to-alula", "jeddah-to-kaec", "jeddah-airport-to-swissotel-makkah", "dammam-to-doha", "riyadh-to-dubai"].includes(content.slug) && (
+      {["riyadh-to-dammam", "madinah-to-alula", "jeddah-to-kaec", "jeddah-airport-to-swissotel-makkah", "dammam-to-doha", "riyadh-to-dubai", "jeddah-to-madinah", "makkah-to-madinah"].includes(content.slug) && (
         <section className="section-container max-w-2xl pb-4 text-right">
           <h2 className="font-heading text-2xl font-bold mb-2 text-center">احصل على عرض سعر رحلتك الخاصة</h2>
           <p className="text-center text-xs sm:text-sm text-[#6B7280] leading-relaxed mb-6">
@@ -184,26 +214,22 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
         </div>
       </section>
 
-      {/* نقل مجموعات العمرة والعائلات (المسار B) — من المطار إلى الفندق */}
-      {content.slug === "jeddah-airport-to-swissotel-makkah" && (
+      {/* نقل مجموعات العمرة والعائلات (المسار B) — لممرات المعتمرين */}
+      {arUmrah && (
         <section className="section-container max-w-4xl py-12">
           <div className="rounded-3xl border border-[#16A34A]/15 bg-[#0F172A] p-8 text-white">
             <div className="max-w-2xl space-y-4">
               <span className="inline-flex items-center rounded-full bg-[#FACC15]/15 border border-[#FACC15]/30 px-3 py-1 text-[0.65rem] font-bold text-[#FACC15]">
                 نقل مجموعات العمرة والعائلات
               </span>
-              <h2 className="font-heading text-2xl font-bold">مسافرون كعائلة أو مجموعة عمرة؟</h2>
+              <h2 className="font-heading text-2xl font-bold">{arUmrah.heading}</h2>
+              <p className="text-xs sm:text-sm text-white/75 leading-relaxed">{arUmrah.intro}</p>
               <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
-                للعائلات والمجموعات نوفّر سيارة دفع رباعي كبيرة أو فان ليسافر الجميع معاً مع الأمتعة — سيارة واحدة وسائق واحد من مطار جدة مباشرة إلى فندق سويس أوتيل المقام مكة. استقبال في صالة الوصول بلوحة اسم، وتوقف عند الميقات لارتداء الإحرام عند الطلب، ومساعدة في الأمتعة عند الفندق.
-              </p>
-              <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
-                تنظّمون لمجموعة عمرة أو عبر وكالة سفر؟ أرسلوا تفاصيل الوصول وعدد الأفراد ونجهّز لكم عمليات النقل بنقطة تواصل واحدة وعرض سعر مكتوب.
+                تنظّمون لمجموعة عمرة أو عبر وكالة سفر؟ أرسلوا التفاصيل وعدد الأفراد ونجهّز لكم عمليات النقل بنقطة تواصل واحدة وعرض سعر مكتوب.
               </p>
               <div className="flex flex-wrap gap-3 pt-1">
                 <a
-                  href={`${contactConfig.whatsappLink}?text=${encodeURIComponent(
-                    `السلام عليكم، نقل عمرة — من مطار جدة إلى سويس أوتيل المقام مكة.\n• رقم الرحلة ووقت الوصول: \n• عدد الركاب (كبار / أطفال): \n• الأمتعة: \n• نوع السيارة (سيدان / SUV / فان): \n• توقف عند الميقات للإحرام؟: `,
-                  )}`}
+                  href={`${contactConfig.whatsappLink}?text=${encodeURIComponent(arUmrah.waPrefill)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-6 py-3 text-xs font-bold text-white hover:bg-[#15803D] transition-all"
@@ -211,11 +237,7 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
                   نقل المجموعة عبر واتساب
                 </a>
                 <a
-                  href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(
-                    "طلب عرض سعر لنقل مجموعة عمرة — من مطار جدة إلى مكة",
-                  )}&body=${encodeURIComponent(
-                    `مرحباً فريق تاكسي السعودية،\n\nنرغب بعرض سعر مكتوب لنقل معتمرين من مطار جدة إلى مكة المكرمة.\n\n• اسم الوكالة / المجموعة: \n• اسم جهة الاتصال: \n• تاريخ الوصول ورقم الرحلة: \n• عدد المعتمرين (كبار / أطفال): \n• الأمتعة: \n• السيارات المطلوبة (SUV / فان): \n• الفندق في مكة: \n• توقف عند الميقات للإحرام؟: \n\nيرجى تأكيد سعر ثابت قبل الحجز.\n\nشكراً لكم.`,
-                  )}`}
+                  href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(arUmrah.emailSubject)}&body=${encodeURIComponent(arUmrah.emailBody)}`}
                   className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-3 text-xs font-bold text-white hover:bg-white/15 transition-all"
                 >
                   راسلنا لاستفسار المجموعة
