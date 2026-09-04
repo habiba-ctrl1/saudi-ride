@@ -91,6 +91,70 @@ export const RECOVERY_ROUTES: RecoveryRoute[] = [
     ],
   },
   {
+    slug: "dammam-to-madinah",
+    from: "Dammam",
+    to: "Madinah",
+    fromAr: "الدمام",
+    toAr: "المدينة المنورة",
+    distanceKm: 1220,
+    approxDrive: "~11 hours",
+    tagline: "Dammam to Madinah car transport & satha",
+    taglineAr: "نقل سيارة من الدمام إلى المدينة المنورة",
+    intro:
+      "Need a car moved from Dammam to Madinah? As a Dammam-based operator we take this as a booked flatbed job — about 1,220 km cross-Kingdom from the Gulf coast to Madinah. Whether it's a relocation, a car you bought in the Eastern Province, a vehicle heading to a Madinah workshop, or a family car being sent ahead of an Umrah trip, your vehicle travels fully winched onto the bed, secured, and delivered to the address you choose. Send the vehicle type, pickup and destination on WhatsApp and we confirm the price and schedule before booking.",
+    introAr:
+      "تبي تنقل سيارتك من الدمام إلى المدينة المنورة؟ بحكم أن مقرنا في الدمام، ننفّذها كطلب نقل على سطحة — نحو ١٢٢٠ كم عبر المملكة من ساحل الخليج إلى المدينة المنورة. سواء كان نقل سكن، أو سيارة اشتريتها في المنطقة الشرقية، أو سيارة إلى ورشة في المدينة، أو سيارة عائلية تُرسل قبل رحلة عمرة، تُحمّل سيارتك بالكامل على السطحة وتُثبّت وتُسلّم إلى العنوان الذي تختاره. أرسل نوع السيارة ومكان الاستلام والوجهة عبر واتساب ونؤكد السعر والجدول قبل الحجز.",
+    image: "/services/recovery/route-dammam-jeddah.webp",
+    highlights: [
+      "Flatbed (satha) car transport — no wheels on the road for ~1,220 km",
+      "Relocations and newly purchased Eastern Province cars delivered to Madinah",
+      "Broken-down or accident vehicles moved to a Madinah workshop",
+      "Photo-documented handover on request",
+      "Price confirmed on WhatsApp before the job is booked",
+    ],
+    highlightsAr: [
+      "نقل السيارة على سطحة هيدروليك — دون ملامسة العجلات للأرض على مسافة ١٢٢٠ كم",
+      "نقل السكن والسيارات المشتراة حديثاً من المنطقة الشرقية إلى المدينة",
+      "نقل السيارات المتعطلة أو المصدومة إلى ورشة في المدينة",
+      "توثيق التسليم بالصور عند الطلب",
+      "تأكيد السعر عبر واتساب قبل حجز النقل",
+    ],
+    faqs: [
+      {
+        question: "How much does it cost to transport a car from Dammam to Madinah?",
+        answer:
+          "There is no fixed public price — it depends on the vehicle type, the exact pickup and drop-off, and timing on this long cross-Kingdom route. Send those details on WhatsApp and we confirm a clear price before booking.",
+      },
+      {
+        question: "Can you move a broken-down car from Dammam to Madinah?",
+        answer:
+          "Yes — a non-running or accident-damaged car is winched onto the flatbed and transported to the Madinah workshop or address you choose. Share a photo and the destination on WhatsApp.",
+      },
+      {
+        question: "How long does the Dammam to Madinah transport take?",
+        answer:
+          "It's about 1,220 km — roughly an 11-hour drive. As a booked job we agree the pickup and expected delivery window with you on WhatsApp.",
+      },
+    ],
+    faqsAr: [
+      {
+        question: "كم تكلفة نقل سيارة من الدمام إلى المدينة المنورة؟",
+        answer:
+          "لا يوجد سعر ثابت معلن — يعتمد على نوع السيارة ومكان الاستلام والتسليم والوقت على هذا المسار الطويل عبر المملكة. أرسل هذه التفاصيل عبر واتساب ونؤكد لك سعراً واضحاً قبل الحجز.",
+      },
+      {
+        question: "هل تنقلون سيارة متعطلة من الدمام إلى المدينة؟",
+        answer:
+          "نعم، السيارة المتعطلة أو المصدومة تُرفع على السطحة وتُنقل إلى الورشة أو العنوان الذي تختاره في المدينة. أرسل صورة والوجهة عبر واتساب.",
+      },
+      {
+        question: "كم يستغرق نقل السيارة من الدمام إلى المدينة؟",
+        answer:
+          "المسافة نحو ١٢٢٠ كم — أي حوالي ١١ ساعة قيادة. نتفق على الاستلام ونافذة التسليم المتوقعة عبر واتساب.",
+      },
+    ],
+  },
+  {
     slug: "dammam-to-jeddah",
     from: "Dammam",
     to: "Jeddah",
