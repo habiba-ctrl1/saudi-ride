@@ -40,16 +40,33 @@ function InputRow({ icon, children }: { icon: React.ReactNode; children: React.R
   );
 }
 
-export default function WhatsAppQuoteForm() {
+export interface WhatsAppQuoteFormProps {
+  /** Pre-fill the pickup field (e.g. a route page passing its origin city). */
+  defaultPickup?: string;
+  /** Pre-fill the destination field. */
+  defaultDropoff?: string;
+  /** Pre-select the vehicle class. Defaults to "VIP SUV". */
+  defaultVehicle?: string;
+  /** Force the form's language regardless of context — used on the Arabic route
+   *  pages so the form always renders RTL/Arabic even outside a language switch. */
+  forceLocale?: "en" | "ar";
+}
+
+export default function WhatsAppQuoteForm({
+  defaultPickup = "",
+  defaultDropoff = "",
+  defaultVehicle = "VIP SUV",
+  forceLocale,
+}: WhatsAppQuoteFormProps = {}) {
   const { language } = useLanguage();
-  const isRtl = language === "ar";
+  const isRtl = (forceLocale ?? language) === "ar";
 
   const [tripType, setTripType] = useState("One Way");
-  const [pickup, setPickup] = useState("");
-  const [dropoff, setDropoff] = useState("");
+  const [pickup, setPickup] = useState(defaultPickup);
+  const [dropoff, setDropoff] = useState(defaultDropoff);
   const [dateTime, setDateTime] = useState("");
   const [passengers, setPassengers] = useState("");
-  const [vehicle, setVehicle] = useState("VIP SUV");
+  const [vehicle, setVehicle] = useState(defaultVehicle);
 
   const handleSubmit = () => {
     trackEvent("lead_captured", { source: "whatsapp_quote_form", fromCity: pickup, toCity: dropoff, vehicleClass: vehicle, tripType, passengers, locale: language });

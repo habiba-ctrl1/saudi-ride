@@ -5,6 +5,7 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { contactConfig } from "@/lib/config/contact";
 import { ROUTES_DATA } from "@/lib/data/routes";
+import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 
 export interface ArabicRouteContent {
   slug: string;
@@ -102,6 +103,17 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
         </div>
       </section>
 
+      {/* نموذج طلب عرض سعر — سهل التعبئة، يُحوّل إلى واتساب مع تعبئة الرحلة مسبقاً */}
+      {content.slug === "riyadh-to-dammam" && (
+        <section className="section-container max-w-2xl pb-4 text-right">
+          <h2 className="font-heading text-2xl font-bold mb-2 text-center">احصل على عرض سعر رحلتك الخاصة</h2>
+          <p className="text-center text-xs sm:text-sm text-[#6B7280] leading-relaxed mb-6">
+            أدخل بعض التفاصيل ونؤكد لك سعراً ثابتاً عبر واتساب — نقل خاص من الباب إلى الباب مع سائق محترف. بدون عدّاد وبدون تسعير متغيّر.
+          </p>
+          <WhatsAppQuoteForm defaultPickup="الرياض" defaultDropoff="الدمام" forceLocale="ar" />
+        </section>
+      )}
+
       {/* VEHICLES */}
       <section className="section-container max-w-5xl py-16 border-t border-[#C9A84C]/10">
         <h2 className="font-heading text-2xl font-bold mb-2 text-center">خيارات السيارات والأسعار التقديرية</h2>
@@ -133,6 +145,48 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
           ))}
         </div>
       </section>
+
+      {/* تنقلات الشركات والوفود (المسار B) — ممر أرامكو والظهران */}
+      {content.slug === "riyadh-to-dammam" && (
+        <section className="section-container max-w-4xl py-12">
+          <div className="rounded-3xl border border-[#16A34A]/15 bg-[#0F172A] p-8 text-white">
+            <div className="max-w-2xl space-y-4">
+              <span className="inline-flex items-center rounded-full bg-[#FACC15]/15 border border-[#FACC15]/30 px-3 py-1 text-[0.65rem] font-bold text-[#FACC15]">
+                تنقلات الشركات والوفود
+              </span>
+              <h2 className="font-heading text-2xl font-bold">تنقلات فريق عمل بين الرياض والمنطقة الشرقية؟</h2>
+              <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+                لممر أرامكو والظهران والخبر نوفّر سيارات سيدان تنفيذية ودفع رباعي كبيرة مع سائقين محترفين — ذهاب فقط، أو ذهاب وعودة في نفس اليوم، أو بالساعة. ويمكن تشغيل تنقلات الموظفين المنتظمة عبر حساب واحد ونقطة تواصل واحدة بدلاً من الحجز لكل رحلة.
+              </p>
+              <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+                تُصدر فواتير حجوزات الشركات عبر شريكنا المشغّل المرخّص في السعودية، لتحصل على فاتورة ضريبية نظامية. أرسل اسم شركتك والرقم الضريبي ومرجع أمر الشراء مع طلبك وسنؤكد تفاصيل الفوترة قبل إتمام الحجز.
+              </p>
+              <div className="flex flex-wrap gap-3 pt-1">
+                <a
+                  href={`${contactConfig.whatsappLink}?text=${encodeURIComponent(
+                    `السلام عليكم، استفسار عن تنقلات الشركات — الرياض / الدمام (المنطقة الشرقية).\n• الشركة: \n• الرحلات والتواريخ: \n• عدد الركاب لكل رحلة: \n• نوع السيارة (سيدان تنفيذية / SUV / فان): \n• هل تحتاج فاتورة (ضريبي / أمر شراء)؟: `,
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-6 py-3 text-xs font-bold text-white hover:bg-[#15803D] transition-all"
+                >
+                  عرض سعر الشركات عبر واتساب
+                </a>
+                <a
+                  href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(
+                    "طلب عرض سعر لتنقلات الشركات — الرياض–الدمام",
+                  )}&body=${encodeURIComponent(
+                    `مرحباً فريق تاكسي السعودية،\n\nنرغب بالحصول على عرض سعر مكتوب لتنقلات الشركات على ممر الرياض–الدمام / المنطقة الشرقية.\n\n• اسم الشركة: \n• اسم وصفة المسؤول: \n• الرحلات والتواريخ: \n• عدد الركاب لكل رحلة: \n• السيارة المفضّلة (سيدان تنفيذية / SUV / فان): \n• الرقم الضريبي: \n• مرجع أمر الشراء: \n\nيرجى تأكيد تفاصيل الفوترة وسعر ثابت قبل الحجز.\n\nشكراً لكم.`,
+                  )}`}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-3 text-xs font-bold text-white hover:bg-white/15 transition-all"
+                >
+                  راسل قسم الشركات
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* FAQ */}
       <section className="section-container max-w-4xl py-16 border-t border-[#C9A84C]/10">

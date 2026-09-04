@@ -12,6 +12,7 @@ import Image from "next/image";
 import { breadcrumbSchema, faqSchema, speakableSchema, SITE } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { RouteRelatedLinks } from "@/components/seo/RouteRelatedLinks";
+import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { KuwaitRouteSections, type KuwaitRouteConfig } from "@/components/seo/KuwaitRouteSections";
 import { credentials, hasCredential } from "@/lib/config/credentials";
 import { AR_ROUTE_SLUGS } from "@/lib/config/i18n";
@@ -1438,6 +1439,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: route.description || `Book a taxi from ${route.fromCity} to ${route.toCity} with a clear price confirmed on WhatsApp. No surge, no hidden fees.`,
       type: "website",
     },
+    // Explicit twitter card so twitter.title uses THIS page's title instead of
+    // falling back to the site-wide default (G1 template fix — applies to every
+    // route, pure improvement, no visible/SERP title changed).
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: DESCRIPTION_OVERRIDES[slug] ?? `Private taxi from ${route.fromCity} to ${route.toCity} — fare confirmed on WhatsApp, 24/7.`,
+    },
   };
 }
 
@@ -1522,6 +1531,15 @@ export default async function RouteDetailsPage({ params }: PageProps) {
     : route.distance >= 250
       ? "/gallery/highway-travel.webp"
       : "/gallery/vip-sedan.webp";
+
+  // Easy-to-fill, structured WhatsApp prefill for the hero button. Kept short
+  // (3 fields) so a client can complete it in seconds. Per-slug so other routes
+  // keep their existing one-line prefill untouched. Premium "private transfer"
+  // framing, not a cheap street-taxi tone.
+  const heroWaText =
+    slug === "riyadh-to-dammam"
+      ? `Salam! I'd like a private transfer — ${route.fromCity} to ${route.toCity}.\n• Date & time: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): `
+      : `Salam! I want to book a private taxi from ${route.fromCity} to ${route.toCity}.`;
 
   return (
     <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
@@ -1754,9 +1772,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                   </Link>
 
                   <a
-                    href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
-                      `Salam! I want to book a private taxi from ${route.fromCity} to ${route.toCity}.`
-                    )}`}
+                    href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(heroWaText)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur-md border border-white/30 px-6 py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-white/25 transition-all"
@@ -1778,6 +1794,25 @@ export default async function RouteDetailsPage({ params }: PageProps) {
           {/* Quick Answer (above-the-fold AI/snippet signal) */}
           {content?.tldr && (
             <TLDRSummary answer={content.tldr} facts={content.tldrFacts} />
+          )}
+
+          {/* On-page lead form — easy, structured, hands off to WhatsApp with the
+              trip pre-filled (Riyadh → Dammam). Private-transfer framing. */}
+          {slug === "riyadh-to-dammam" && (
+            <section className="rounded-3xl border border-[#16A34A]/15 bg-white p-6 sm:p-7 shadow-sm">
+              <div className="mb-5 space-y-1.5">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#16A34A]">
+                  <Car className="h-3.5 w-3.5" /> Private Transfer Quote
+                </span>
+                <h2 className="font-heading text-2xl font-bold text-[#1C1C1C]">
+                  Get your Riyadh to Dammam quote
+                </h2>
+                <p className="text-xs sm:text-sm text-[#6B7280] leading-relaxed max-w-xl">
+                  Fill a few details and we confirm your fixed fare on WhatsApp — a private, door-to-door transfer with a professional chauffeur. No meter, no surge.
+                </p>
+              </div>
+              <WhatsAppQuoteForm defaultPickup="Riyadh" defaultDropoff="Dammam" />
+            </section>
           )}
 
           {/* Contextual Internal Links for JED -> Makkah */}
@@ -2191,7 +2226,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                 <div className="flex flex-wrap items-center gap-3 pt-1">
                   <a
                     href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
-                      `Salam! I want to book a private taxi from Dammam to Riyadh.`
+                      `Salam! I'd like a private transfer — Dammam to Riyadh.\n• Pickup in Dammam (area/hotel): \n• Date & time: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): `,
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -2218,6 +2253,55 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                     <ArrowRight className="h-3.5 w-3.5" /> Dammam to Kuwait
                   </Link>
                 </div>
+              </div>
+            </section>
+          )}
+
+          {/* ─── CORPORATE / DELEGATION (Path B) ─── Aramco/Dhahran corridor ── */}
+          {slug === "riyadh-to-dammam" && (
+            <section className="rounded-3xl border border-[#16A34A]/15 bg-[#0F172A] p-8 text-white shadow-sm">
+              <div className="max-w-2xl space-y-4">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#FACC15]/15 border border-[#FACC15]/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#FACC15]">
+                  <Briefcase className="h-3.5 w-3.5" /> Corporate &amp; Delegation Travel
+                </span>
+                <h2 className="font-heading text-2xl font-bold">
+                  Moving a team between Riyadh and the Eastern Province?
+                </h2>
+                <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+                  For the Aramco, Dhahran and Al Khobar corporate corridor we run executive sedans and full-size SUVs with professional chauffeurs — one-way, same-day return, or by the hour. Regular staff movements can run on a single account with one point of contact, so you are not booking trip by trip.
+                </p>
+                <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+                  Corporate bookings are invoiced through our licensed Saudi partner operator, so you receive a compliant VAT invoice. Send your company name, VAT number and PO reference with your enquiry and we&apos;ll confirm invoicing details before the booking is finalised.
+                </p>
+                <div className="flex flex-wrap items-center gap-3 pt-1">
+                  <a
+                    href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                      `Salam! Corporate transfer enquiry — Riyadh / Dammam (Eastern Province).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-6 py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all shadow-sm"
+                  >
+                    <MessageSquare className="h-4 w-4 text-[#FACC15]" />
+                    Corporate quote on WhatsApp
+                  </a>
+                  <a
+                    href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(
+                      "Corporate transfer RFQ — Riyadh–Dammam",
+                    )}&body=${encodeURIComponent(
+                      `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate transfers on the Riyadh–Dammam / Eastern Province corridor.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+                    )}`}
+                    className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-white/15 transition-all"
+                  >
+                    <Briefcase className="h-4 w-4 text-[#FACC15]" />
+                    Email our corporate desk
+                  </a>
+                </div>
+                <p className="pt-1">
+                  <Link href="/services/corporate" className="text-[#FACC15] text-xs font-bold hover:underline">
+                    See corporate &amp; business transport &rarr;
+                  </Link>
+                </p>
               </div>
             </section>
           )}
@@ -2452,6 +2536,36 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                 href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
                   `Salam! I want to book a private taxi from Makkah to Madinah.`
                 )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 rounded-full border border-[#C9A84C]/40 bg-[#C9A84C]/10 px-3.5 py-2 text-xs font-bold text-[#16A34A] hover:bg-[#C9A84C]/20 transition-all"
+              >
+                <MessageSquare className="h-3.5 w-3.5" />
+                <span>WhatsApp</span>
+              </a>
+              <Link
+                href={`/book?pickup=${encodeURIComponent(route.fromCity)}&dropoff=${encodeURIComponent(route.toCity)}`}
+                className="inline-flex items-center gap-1 rounded-full bg-[#16A34A] px-4 py-2 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all shadow-sm"
+              >
+                <span>Book Now</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ─── MOBILE STICKY BOOKING BAR (Riyadh -> Dammam) ─────────────── */}
+      {slug === "riyadh-to-dammam" && (
+        <div className="fixed bottom-0 inset-x-0 z-50 lg:hidden bg-white/95 backdrop-blur-md border-t border-[#16A34A]/20 p-3 px-4 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+          <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
+            <div>
+              <p className="text-[0.65rem] font-bold text-[#1C1C1C] uppercase tracking-wider">Riyadh ➔ Dammam</p>
+              <p className="text-xs font-extrabold text-[#16A34A]">Private transfer · Fare on WhatsApp</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <a
+                href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(heroWaText)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 rounded-full border border-[#C9A84C]/40 bg-[#C9A84C]/10 px-3.5 py-2 text-xs font-bold text-[#16A34A] hover:bg-[#C9A84C]/20 transition-all"
