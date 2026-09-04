@@ -38,6 +38,41 @@ const CITY_COORDS: Record<string, { lat: number; lng: number }> = {
 };
 
 // City -> matching airport page slug (only where a dedicated /airports/[slug] page exists).
+// Per-city on-page lead block (form + Path B). Add a city here to enable it;
+// NEOM keeps its own bespoke block above. EN-only (locations have no AR page).
+const CITY_LEAD: Record<string, { heading: string; blurb: string; dropoff: string; pathBHeading: string; pathBBody: string; waPrefill: string; emailSubject: string; emailBody: string }> = {
+  riyadh: {
+    heading: "Get your Riyadh transfer quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a private, door-to-door transfer with a professional chauffeur. Airport pickups from King Khalid International (RUH), business visits, events and daily standby.",
+    dropoff: "Riyadh",
+    pathBHeading: "Corporate or event travel in Riyadh?",
+    pathBBody: "For company travel, KAFD and Olaya business visits, exhibitions and conferences we run executive sedans and full-size SUVs with professional chauffeurs — one account, one point of contact, and corporate invoicing on request.",
+    waPrefill: "Salam! Riyadh transfer enquiry.\n• From / to: \n• Date & time: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• Corporate / event / airport?: ",
+    emailSubject: "Corporate transfer RFQ — Riyadh",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers in Riyadh.\n\n• Company / organisation: \n• Contact name & role: \n• Dates: \n• Route(s) or event/venue: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.",
+  },
+  dammam: {
+    heading: "Get your Dammam transfer quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a private, door-to-door transfer with a professional chauffeur across the Eastern Province. Pickups from King Fahd International (DMM), plus Dhahran, Al Khobar and Jubail.",
+    dropoff: "Dammam",
+    pathBHeading: "Corporate travel in the Eastern Province?",
+    pathBBody: "For Saudi Aramco, Dhahran, Al Khobar and Jubail Industrial City we run executive sedans and full-size SUVs with professional chauffeurs — regular staff movements on a single account with corporate invoicing on request.",
+    waPrefill: "Salam! Dammam / Eastern Province transfer enquiry.\n• From / to (Dammam / Dhahran / Khobar / Jubail): \n• Date & time: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• Corporate / airport?: ",
+    emailSubject: "Corporate transfer RFQ — Dammam / Eastern Province",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers in the Eastern Province (Dammam / Dhahran / Al Khobar / Jubail).\n\n• Company: \n• Contact name & role: \n• Dates: \n• Route(s) / sites: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.",
+  },
+  jeddah: {
+    heading: "Get your Jeddah transfer quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a private, door-to-door transfer with a professional chauffeur. Pickups from King Abdulaziz International (JED), Umrah transfers to Makkah and Madinah, and business travel.",
+    dropoff: "Jeddah",
+    pathBHeading: "Umrah group or corporate travel from Jeddah?",
+    pathBBody: "For Umrah families and groups (Jeddah Airport to Makkah or Madinah) and for business visits, we arrange the right vehicle — vans for families with luggage, executive cars for corporate — with a written quote for agencies and companies.",
+    waPrefill: "Salam! Jeddah transfer enquiry.\n• From / to (e.g. JED → Makkah): \n• Date & time: \n• Passengers (adults / children): \n• Vehicle (Sedan / SUV / Van): \n• Umrah / corporate / airport?: ",
+    emailSubject: "Group / corporate transfer RFQ — Jeddah",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers from Jeddah.\n\n• Agency / company / group name: \n• Contact name: \n• Dates & flight numbers: \n• Route(s) (e.g. JED → Makkah / Madinah): \n• Passengers per transfer (adults / children): \n• Vehicle(s) needed (Sedan / SUV / Van): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.",
+  },
+};
+
 const CITY_AIRPORT: Record<string, { slug: string; name: string }> = {
   jeddah: { slug: "king-abdulaziz-jeddah", name: "King Abdulaziz International Airport (JED)" },
   madinah: { slug: "prince-mohammad-madinah", name: "Prince Mohammad Bin Abdulaziz Airport (MED)" },
@@ -141,6 +176,7 @@ export default async function CityLocationPage({ params }: PageProps) {
 
   const citySubAreas = Object.values(SUB_AREAS).filter((a) => a.city === cityKey);
   const cityAirport = CITY_AIRPORT[cityKey];
+  const cityLead = CITY_LEAD[cityKey];
 
   // Fetch routes connected to this city (best-effort — a DB hiccup during
   // build must not fail the static export for every page in the site).
@@ -490,6 +526,41 @@ export default async function CityLocationPage({ params }: PageProps) {
                   <ExternalLink className="h-4 w-4" />
                   Email our corporate desk
                 </a>
+              </div>
+            </section>
+          )}
+
+          {/* City on-page lead form + Path B (config-driven; EN-only) */}
+          {cityLead && (
+            <section className="bg-[#F0FDF4] border border-[#16A34A]/20 rounded-3xl p-6 sm:p-8">
+              <div className="text-center mb-6">
+                <h2 className="font-heading text-2xl font-bold text-[#1C1C1C] mb-3">{cityLead.heading}</h2>
+                <p className="text-sm text-[#6B7280] max-w-xl mx-auto leading-relaxed">{cityLead.blurb}</p>
+              </div>
+
+              <WhatsAppQuoteForm defaultDropoff={cityLead.dropoff} />
+
+              <div className="mt-8 rounded-2xl border border-[#16A34A]/15 bg-white p-6">
+                <h3 className="font-heading text-lg font-bold text-[#1C1C1C] mb-2">{cityLead.pathBHeading}</h3>
+                <p className="text-xs sm:text-sm text-[#6B7280] leading-relaxed mb-4">{cityLead.pathBBody}</p>
+                <div className="flex flex-wrap items-center gap-3">
+                  <a
+                    href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(cityLead.waPrefill)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2.5 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all"
+                  >
+                    <MessageSquare className="h-4 w-4" />
+                    Quote on WhatsApp
+                  </a>
+                  <a
+                    href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(cityLead.emailSubject)}&body=${encodeURIComponent(cityLead.emailBody)}`}
+                    className="inline-flex items-center gap-2.5 rounded-full border border-[#16A34A]/30 bg-white px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#16A34A]/10 transition-all"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                    Email a written RFQ
+                  </a>
+                </div>
               </div>
             </section>
           )}
