@@ -6,6 +6,7 @@ import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema, speakableSchema, airportTaxiServiceSchema } from "@/lib/schema";
 import { AIRPORT_DETAILS } from "@/lib/data/airports";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
+import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import Link from "next/link";
 import { contactConfig } from "@/lib/config/contact";
 import { Plane, Clock, UserCheck, CheckCircle2, ShieldCheck, Search, PlaneLanding, MapPin, MessageCircle } from "lucide-react";
@@ -267,21 +268,40 @@ export default function AirportTransfersPage() {
         </div>
       </section>
 
-      {/* ─── CTA ──────────────────────────────────────────────────── */}
+      {/* ─── CTA + on-page lead form + corporate/group Path B ────────── */}
       <section className="section-container max-w-5xl pb-20">
-        <div className="bg-white border border-[#16A34A]/15 shadow-lg rounded-3xl p-12 text-center">
-          <h2 className="font-heading text-3xl font-bold mb-4 text-[#1C1C1C]">Ready for a stress-free arrival?</h2>
-          <p className="text-[#6B7280] mb-8 max-w-lg mx-auto">
-            Book your pre-booked private airport transfer today and let us handle the logistics while you relax.
-          </p>
-          <a
-            href={waLink("Salam, I'd like to book an airport taxi in Saudi Arabia. My flight details and destination are:")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-4 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
-          >
-            <MessageCircle className="h-4 w-4" /> Book Airport Taxi on WhatsApp
-          </a>
+        <div className="bg-white border border-[#16A34A]/15 shadow-lg rounded-3xl p-6 sm:p-10">
+          <div className="text-center mb-6">
+            <h2 className="font-heading text-2xl md:text-3xl font-bold mb-3 text-[#1C1C1C]">Ready for a stress-free arrival?</h2>
+            <p className="text-[#6B7280] max-w-lg mx-auto">
+              Fill a few details for a fast WhatsApp quote — meet &amp; greet, flight tracking and a fixed fare confirmed before you book. Companies and groups can request a written quote.
+            </p>
+          </div>
+
+          <WhatsAppQuoteForm defaultDropoff="Airport transfer" />
+
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            <a
+              href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                `Salam! Private airport transfer enquiry.\n• Airport (JED / RUH / MED / DMM): \n• Flight no. & arrival time: \n• Destination (hotel / city): \n• Passengers & bags: \n• Vehicle (Sedan / SUV / Van): `,
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
+            >
+              <MessageCircle className="h-4 w-4" /> Book airport taxi on WhatsApp
+            </a>
+            <a
+              href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(
+                "Corporate / group airport transfer RFQ",
+              )}&body=${encodeURIComponent(
+                `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for airport transfers in Saudi Arabia.\n\n• Company / group name: \n• Contact name: \n• Airport(s) (JED / RUH / MED / DMM): \n• Dates & flight numbers: \n• Passengers per transfer: \n• Vehicle(s) needed (Sedan / SUV / Van): \n• Destination(s): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+              )}`}
+              className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C] px-7 py-3.5 text-xs font-bold uppercase text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
+            >
+              Email a corporate / group RFQ
+            </a>
+          </div>
         </div>
       </section>
       <ServiceRelatedLinks currentPath="/services/airport-transfers" />
