@@ -41,6 +41,28 @@ const DEFAULT_FAQS = [
   },
 ];
 
+// Routes that receive the full lead-conversion pass: an on-page WhatsApp quote
+// form (pre-filled with the route), an easy structured hero prefill, and a
+// mobile sticky CTA. Add a slug + its copy here to enable it — no other route
+// is affected. Path B (corporate vs heritage) is handled by separate per-slug
+// blocks in the body since the buyer differs by route.
+const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup: string; dropoff: string }> = {
+  "riyadh-to-dammam": {
+    heading: "Get your Riyadh to Dammam quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, door-to-door transfer with a professional chauffeur. No meter, no surge.",
+    pickup: "Riyadh",
+    dropoff: "Dammam",
+  },
+  "madinah-to-alula": {
+    heading: "Get your Madinah to AlUla quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, door-to-door heritage transfer with a professional chauffeur. Add waiting time or a full-day AlUla tour on request.",
+    pickup: "Madinah",
+    dropoff: "AlUla",
+  },
+};
+
 // Bespoke sections for Kuwait cross-border corridors, rendered by the shared
 // KuwaitRouteSections component. Add a slug here to give a Kuwait → Saudi route
 // the full journey / coverage / border / why-book / CTA treatment. Facts only.
@@ -1532,14 +1554,18 @@ export default async function RouteDetailsPage({ params }: PageProps) {
       ? "/gallery/highway-travel.webp"
       : "/gallery/vip-sedan.webp";
 
+  // Routes that get the full lead-conversion pass (on-page form + easy
+  // structured prefills + mobile sticky CTA). Add a slug here to switch a route
+  // to the enhanced treatment; every other route keeps its existing behaviour.
+  const leadForm = LEAD_FORM_CONFIG[slug];
+
   // Easy-to-fill, structured WhatsApp prefill for the hero button. Kept short
-  // (3 fields) so a client can complete it in seconds. Per-slug so other routes
-  // keep their existing one-line prefill untouched. Premium "private transfer"
-  // framing, not a cheap street-taxi tone.
-  const heroWaText =
-    slug === "riyadh-to-dammam"
-      ? `Salam! I'd like a private transfer — ${route.fromCity} to ${route.toCity}.\n• Date & time: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): `
-      : `Salam! I want to book a private taxi from ${route.fromCity} to ${route.toCity}.`;
+  // (3 fields) so a client can complete it in seconds. Only enhanced routes get
+  // it; all others keep their existing one-line prefill. Premium "private
+  // transfer" framing, not a cheap street-taxi tone.
+  const heroWaText = leadForm
+    ? `Salam! I'd like a private transfer — ${route.fromCity} to ${route.toCity}.\n• Date & time: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): `
+    : `Salam! I want to book a private taxi from ${route.fromCity} to ${route.toCity}.`;
 
   return (
     <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
@@ -1797,21 +1823,21 @@ export default async function RouteDetailsPage({ params }: PageProps) {
           )}
 
           {/* On-page lead form — easy, structured, hands off to WhatsApp with the
-              trip pre-filled (Riyadh → Dammam). Private-transfer framing. */}
-          {slug === "riyadh-to-dammam" && (
+              trip pre-filled. Private-transfer framing. Config-driven per slug. */}
+          {leadForm && (
             <section className="rounded-3xl border border-[#16A34A]/15 bg-white p-6 sm:p-7 shadow-sm">
               <div className="mb-5 space-y-1.5">
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#16A34A]">
                   <Car className="h-3.5 w-3.5" /> Private Transfer Quote
                 </span>
                 <h2 className="font-heading text-2xl font-bold text-[#1C1C1C]">
-                  Get your Riyadh to Dammam quote
+                  {leadForm.heading}
                 </h2>
                 <p className="text-xs sm:text-sm text-[#6B7280] leading-relaxed max-w-xl">
-                  Fill a few details and we confirm your fixed fare on WhatsApp — a private, door-to-door transfer with a professional chauffeur. No meter, no surge.
+                  {leadForm.blurb}
                 </p>
               </div>
-              <WhatsAppQuoteForm defaultPickup="Riyadh" defaultDropoff="Dammam" />
+              <WhatsAppQuoteForm defaultPickup={leadForm.pickup} defaultDropoff={leadForm.dropoff} />
             </section>
           )}
 
@@ -2306,6 +2332,55 @@ export default async function RouteDetailsPage({ params }: PageProps) {
             </section>
           )}
 
+          {/* ─── HERITAGE DAY-CHARTER (Path B) — AlUla private tour ────────── */}
+          {slug === "madinah-to-alula" && (
+            <section className="rounded-3xl border border-[#16A34A]/15 bg-[#0F172A] p-8 text-white shadow-sm">
+              <div className="max-w-2xl space-y-4">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#FACC15]/15 border border-[#FACC15]/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#FACC15]">
+                  <Compass className="h-3.5 w-3.5" /> Full-Day AlUla Private Tour
+                </span>
+                <h2 className="font-heading text-2xl font-bold">
+                  Turn the drive into a full AlUla day
+                </h2>
+                <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+                  Most travellers don&apos;t just want a one-way drop — they want AlUla for the day. Book a private car by the hour with your chauffeur waiting between stops: Hegra (Mada&apos;in Salih), Dadan, AlUla Old Town and Elephant Rock, then back to Madinah or your AlUla hotel. Comfortable, air-conditioned vehicles for families and small groups, at a fixed fare with no meter.
+                </p>
+                <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+                  Planning for a group or through a travel agency? Send your dates and party size and we&apos;ll put together a private itinerary with one chauffeur for the whole day.
+                </p>
+                <div className="flex flex-wrap items-center gap-3 pt-1">
+                  <a
+                    href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                      `Salam! I'd like a full-day AlUla private tour from Madinah.\n• Date: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Stops (Hegra / Dadan / Old Town / Elephant Rock): \n• Return same day or overnight? : `,
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-6 py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all shadow-sm"
+                  >
+                    <MessageSquare className="h-4 w-4 text-[#FACC15]" />
+                    Plan an AlUla day on WhatsApp
+                  </a>
+                  <a
+                    href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(
+                      "AlUla private tour enquiry — from Madinah",
+                    )}&body=${encodeURIComponent(
+                      `Hello Taxi Saudi Arabia team,\n\nWe'd like a private car for a full-day AlUla tour from Madinah.\n\n• Contact name: \n• Travel date: \n• Passengers: \n• Vehicle preference (Sedan / SUV / Van): \n• Stops of interest (Hegra / Dadan / AlUla Old Town / Elephant Rock): \n• Return to Madinah same day, or overnight in AlUla?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+                    )}`}
+                    className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-white/15 transition-all"
+                  >
+                    <Briefcase className="h-4 w-4 text-[#FACC15]" />
+                    Email a tour enquiry
+                  </a>
+                </div>
+                <p className="pt-1">
+                  <Link href="/services/heritage-tours" className="text-[#FACC15] text-xs font-bold hover:underline">
+                    See heritage &amp; sightseeing tours &rarr;
+                  </Link>
+                </p>
+              </div>
+            </section>
+          )}
+
           {/* FAQs */}
           <section>
             <h2 className="font-heading text-2xl font-bold mb-6 flex items-center gap-3">
@@ -2555,12 +2630,12 @@ export default async function RouteDetailsPage({ params }: PageProps) {
         </div>
       )}
 
-      {/* ─── MOBILE STICKY BOOKING BAR (Riyadh -> Dammam) ─────────────── */}
-      {slug === "riyadh-to-dammam" && (
+      {/* ─── MOBILE STICKY BOOKING BAR (enhanced lead-pass routes) ──────── */}
+      {leadForm && (
         <div className="fixed bottom-0 inset-x-0 z-50 lg:hidden bg-white/95 backdrop-blur-md border-t border-[#16A34A]/20 p-3 px-4 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] pb-[max(0.75rem,env(safe-area-inset-bottom))]">
           <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
             <div>
-              <p className="text-[0.65rem] font-bold text-[#1C1C1C] uppercase tracking-wider">Riyadh ➔ Dammam</p>
+              <p className="text-[0.65rem] font-bold text-[#1C1C1C] uppercase tracking-wider">{route.fromCity} ➔ {route.toCity}</p>
               <p className="text-xs font-extrabold text-[#16A34A]">Private transfer · Fare on WhatsApp</p>
             </div>
             <div className="flex items-center gap-2">

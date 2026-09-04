@@ -659,6 +659,60 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
     ],
     routeSlug: "riyadh-to-alula",
   },
+  {
+    slug: "madinah-to-alula",
+    fromCity: "Madinah",
+    toCity: "AlUla",
+    km: 330,
+    driveMinutes: 180,
+    driveLabel: "about 3 hours",
+    highway: "the main Madinah–AlUla desert highway",
+    stops: ["Desert highway rest stops", "Fuel before AlUla"],
+    heroImage: "/locations/alula-hero.webp",
+    fromImage: "/locations/madinah-hero.webp",
+    toImage: "/locations/alula-hero.webp",
+    routeStripImage: "/gallery/highway-travel.webp",
+    valueProp:
+      "A private car from Madinah to AlUla — about 330 km, roughly a 3-hour drive north to Saudi Arabia's heritage jewel, home of Hegra. The natural next step after Ziyarah, door-to-door with a professional chauffeur and a fare confirmed on WhatsApp.",
+    whoBooks: [
+      "Most travellers on this route are pilgrims who have finished their Ziyarah in Madinah and want to add a heritage trip to AlUla — the UNESCO-listed Hegra (Mada'in Salih), Dadan, AlUla Old Town and Elephant Rock. At only about 3 hours by road, it is an easy extension rather than a separate journey, and a private car keeps a family or small group together for the day.",
+      "A private transfer here is not a shared shuttle — it is one vehicle and one chauffeur exclusively for your party, from your Madinah hotel to your AlUla destination, with the option to keep the car for the day and tour the sites.",
+    ],
+    whyCards: [
+      { img: "/gallery/luggage-assist.webp", title: "Straight after Ziyarah", body: "Pickup from your Madinah hotel with your luggage and family, no airport transfers — just a comfortable drive north to AlUla." },
+      { img: "/gallery/highway-travel.webp", title: "Comfortable 3-hour drive", body: "An air-conditioned sedan, SUV or van and a professional chauffeur make the desert drive to AlUla easy and relaxed." },
+      { img: "/gallery/chauffeur-portrait.webp", title: "Keep the car for the day", body: "Add waiting time and tour Hegra, Dadan and the Old Town with your chauffeur, then return to Madinah or your AlUla hotel." },
+    ],
+    routeIntro:
+      "The drive heads north from Madinah across open desert to AlUla in roughly three hours. It is a straightforward run with fuel and rest stops along the way — most travellers make one short stop for refreshments and prayer.",
+    vehicleFits: ["1–3 travellers · light bags", "4–6 with luggage", "up to 7 · group + luggage"],
+    compare: [
+      { mode: "Private taxi", best: true, detail: "Door-to-door in about 3 hours, one fixed fare for the whole party, and the option to keep the car for a full AlUla day. Best for pilgrims extending their trip and for families." },
+      { mode: "Flight", detail: "AlUla has an airport (ULH), but for a ~3-hour drive from Madinah a private car is usually simpler door-to-door — with no airport transfers at either end." },
+      { mode: "Train", detail: "There is no passenger railway to AlUla; the journey is by road or air." },
+    ],
+    tips: [
+      { icon: "prayer", text: "Book straight after your Ziyarah in Madinah so your chauffeur collects you and your luggage from the hotel." },
+      { icon: "clock", text: "Start in the morning to have a full day at Hegra, Dadan and the Old Town before returning." },
+      { icon: "luggage", text: "For families, a spacious SUV or van is more comfortable than a sedan on the desert drive." },
+      { icon: "map", text: "During the Winter at Tantora season, pre-book well ahead as AlUla demand is high." },
+    ],
+    faqs: [
+      { question: "How far is Madinah from AlUla by road?", answer: "Madinah to AlUla is about 330 km by road, heading north through open desert — roughly a 3-hour drive." },
+      { question: "How long is the drive from Madinah to AlUla?", answer: "The drive takes around 3 hours, making AlUla an easy heritage trip to add after visiting Madinah. Most travellers make one short stop for fuel, food, and prayer." },
+      { question: "Can I combine my Madinah Ziyarah with an AlUla heritage trip?", answer: "Yes. Many pilgrims travel from Madinah to AlUla after their Ziyarah to visit Hegra, Dadan, and the Old Town. We collect you from your Madinah hotel and can keep the car for the day so you tour the sites with your chauffeur." },
+      { question: "What is AlUla known for?", answer: "AlUla is home to the UNESCO-listed Hegra (Mada'in Salih), Dadan, AlUla Old Town, dramatic rock formations like Elephant Rock, and the Winter at Tantora festival — one of Saudi Arabia's leading heritage destinations." },
+      { question: "What vehicle is best for the Madinah to AlUla drive?", answer: "A sedan suits 1–3 travellers with light luggage, while a GMC Yukon SUV or Hyundai Staria van is more comfortable for families and groups with bags on the desert drive." },
+      { question: "How much is a taxi from Madinah to AlUla?", answer: "The fare depends on your vehicle and group size, and whether you keep the car for the day. We confirm one fixed price on WhatsApp before booking — no surge, no hidden fees." },
+    ],
+    related: [
+      { href: "/routes/madinah-to-alula", label: "Madinah to AlUla taxi (book this route)", img: "/locations/alula-hero.webp" },
+      { href: "/routes/riyadh-to-alula", label: "Riyadh to AlUla taxi", img: "/locations/alula-hero.webp" },
+      { href: "/distance/riyadh-to-alula", label: "Riyadh to AlUla distance guide", img: "/locations/alula-hero.webp" },
+      { href: "/services/heritage-tours", label: "Heritage & private tours", img: "/locations/alula-hero.webp" },
+    ],
+    routeSlug: "madinah-to-alula",
+  },
 ];
 
 export function getDistanceGuide(slug: string) {

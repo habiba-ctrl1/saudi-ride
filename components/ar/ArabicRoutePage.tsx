@@ -104,13 +104,13 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
       </section>
 
       {/* نموذج طلب عرض سعر — سهل التعبئة، يُحوّل إلى واتساب مع تعبئة الرحلة مسبقاً */}
-      {content.slug === "riyadh-to-dammam" && (
+      {["riyadh-to-dammam", "madinah-to-alula"].includes(content.slug) && (
         <section className="section-container max-w-2xl pb-4 text-right">
           <h2 className="font-heading text-2xl font-bold mb-2 text-center">احصل على عرض سعر رحلتك الخاصة</h2>
           <p className="text-center text-xs sm:text-sm text-[#6B7280] leading-relaxed mb-6">
             أدخل بعض التفاصيل ونؤكد لك سعراً ثابتاً عبر واتساب — نقل خاص من الباب إلى الباب مع سائق محترف. بدون عدّاد وبدون تسعير متغيّر.
           </p>
-          <WhatsAppQuoteForm defaultPickup="الرياض" defaultDropoff="الدمام" forceLocale="ar" />
+          <WhatsAppQuoteForm defaultPickup={route.fromCityAr} defaultDropoff={route.toCityAr} forceLocale="ar" />
         </section>
       )}
 
@@ -145,6 +145,48 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
           ))}
         </div>
       </section>
+
+      {/* جولة العلا الخاصة ليوم كامل (المسار B) — بعد زيارة المدينة */}
+      {content.slug === "madinah-to-alula" && (
+        <section className="section-container max-w-4xl py-12">
+          <div className="rounded-3xl border border-[#16A34A]/15 bg-[#0F172A] p-8 text-white">
+            <div className="max-w-2xl space-y-4">
+              <span className="inline-flex items-center rounded-full bg-[#FACC15]/15 border border-[#FACC15]/30 px-3 py-1 text-[0.65rem] font-bold text-[#FACC15]">
+                جولة العلا الخاصة ليوم كامل
+              </span>
+              <h2 className="font-heading text-2xl font-bold">حوّل الرحلة إلى يوم كامل في العلا</h2>
+              <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+                معظم الزوار لا يريدون توصيلاً باتجاه واحد فقط، بل يوماً كاملاً في العلا. احجز سيارة خاصة بالساعة مع سائقك ينتظرك بين المواقع: الحِجر (مدائن صالح) ودادان والبلدة القديمة وجبل الفيل، ثم العودة إلى المدينة أو إلى فندقك في العلا. سيارات مريحة ومكيّفة للعائلات والمجموعات الصغيرة، بسعر ثابت وبدون عدّاد.
+              </p>
+              <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+                تنظّمون لمجموعة أو عبر وكالة سفر؟ أرسلوا التواريخ وعدد الأفراد ونجهّز لكم برنامجاً خاصاً بسائق واحد لليوم كامل.
+              </p>
+              <div className="flex flex-wrap gap-3 pt-1">
+                <a
+                  href={`${contactConfig.whatsappLink}?text=${encodeURIComponent(
+                    `السلام عليكم، أرغب بجولة خاصة ليوم كامل في العلا انطلاقاً من المدينة.\n• التاريخ: \n• عدد الركاب: \n• نوع السيارة (سيدان / SUV / فان): \n• المواقع (الحِجر / دادان / البلدة القديمة / جبل الفيل): \n• العودة في نفس اليوم أم مبيت؟: `,
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-6 py-3 text-xs font-bold text-white hover:bg-[#15803D] transition-all"
+                >
+                  خطّط ليوم العلا عبر واتساب
+                </a>
+                <a
+                  href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(
+                    "استفسار عن جولة خاصة في العلا — من المدينة",
+                  )}&body=${encodeURIComponent(
+                    `مرحباً فريق تاكسي السعودية،\n\nنرغب بسيارة خاصة لجولة يوم كامل في العلا انطلاقاً من المدينة.\n\n• اسم جهة الاتصال: \n• تاريخ الرحلة: \n• عدد الركاب: \n• السيارة المفضّلة (سيدان / SUV / فان): \n• المواقع المطلوبة (الحِجر / دادان / البلدة القديمة / جبل الفيل): \n• العودة إلى المدينة في نفس اليوم أم مبيت في العلا؟: \n\nيرجى تأكيد سعر ثابت قبل الحجز.\n\nشكراً لكم.`,
+                  )}`}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-3 text-xs font-bold text-white hover:bg-white/15 transition-all"
+                >
+                  راسلنا لاستفسار الجولة
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* تنقلات الشركات والوفود (المسار B) — ممر أرامكو والظهران */}
       {content.slug === "riyadh-to-dammam" && (
