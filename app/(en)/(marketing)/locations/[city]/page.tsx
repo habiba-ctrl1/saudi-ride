@@ -14,6 +14,7 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
+import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { SUB_AREAS } from "@/lib/data/subareas";
 import { CITY_DETAILS } from "@/lib/data/locations";
 import { trustStats } from "@/lib/config/stats";
@@ -452,24 +453,44 @@ export default async function CityLocationPage({ params }: PageProps) {
             </section>
           )}
 
-          {/* NEOM Executive WhatsApp Inquiry CTA */}
+          {/* NEOM — on-page lead form + executive Path B (WhatsApp + email RFQ) */}
           {cityKey === "neom" && (
-            <section className="bg-[#F0FDF4] border border-[#16A34A]/20 rounded-3xl p-8 text-center">
-              <h2 className="font-heading text-2xl font-bold text-[#1C1C1C] mb-3">
-                Need Executive Chauffeur or Custom Transport in NEOM?
-              </h2>
-              <p className="text-sm text-[#6B7280] max-w-xl mx-auto mb-6 leading-relaxed">
-                Contact our dispatch desk directly on WhatsApp for custom site visit quotes, executive SUV charters, corporate invoicing, and airport transfers.
-              </p>
-              <a
-                href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent("Salam, I need a private transfer / executive chauffeur quote for NEOM.")}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
-              >
-                <MessageSquare className="h-4 w-4" />
-                Request Quote on WhatsApp
-              </a>
+            <section className="bg-[#F0FDF4] border border-[#16A34A]/20 rounded-3xl p-6 sm:p-8">
+              <div className="text-center mb-6">
+                <h2 className="font-heading text-2xl font-bold text-[#1C1C1C] mb-3">
+                  Executive chauffeur &amp; custom transport in NEOM
+                </h2>
+                <p className="text-sm text-[#6B7280] max-w-xl mx-auto leading-relaxed">
+                  Site visits, executive SUV charters, airport transfers from Red Sea International Airport (RSI), and corporate invoicing. Fill the form for a fast WhatsApp quote, or reach our dispatch desk directly.
+                </p>
+              </div>
+
+              <WhatsAppQuoteForm defaultDropoff="NEOM" />
+
+              <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+                <a
+                  href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                    `Salam! NEOM transport enquiry.\n• From / to (airport / zone): \n• Date & time: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• Site visit / corporate invoicing? : `,
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
+                >
+                  <MessageSquare className="h-4 w-4" />
+                  Executive quote on WhatsApp
+                </a>
+                <a
+                  href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(
+                    "NEOM transport / executive chauffeur RFQ",
+                  )}&body=${encodeURIComponent(
+                    `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transport in NEOM.\n\n• Company / organisation: \n• Contact name & role: \n• Dates: \n• Route or zone (Red Sea Airport / Sindalah / Oxagon / Trojena / The Line / NEOM Bay): \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+                  )}`}
+                  className="inline-flex items-center gap-2.5 rounded-full border border-[#16A34A]/30 bg-white px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#16A34A]/10 transition-all"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  Email our corporate desk
+                </a>
+              </div>
             </section>
           )}
 

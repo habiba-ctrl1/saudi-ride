@@ -75,6 +75,20 @@ const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup:
     pickup: "Jeddah Airport (JED)",
     dropoff: "Swissotel Al Maqam Makkah",
   },
+  "dammam-to-doha": {
+    heading: "Get your Dammam to Doha quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, door-to-door cross-border transfer to Qatar with a professional chauffeur. You carry your own valid documents; we support the crossing.",
+    pickup: "Dammam",
+    dropoff: "Doha, Qatar",
+  },
+  "riyadh-to-dubai": {
+    heading: "Get your Riyadh to Dubai car-with-driver quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private car with a professional chauffeur to Dubai (UAE) for business or family. Work or rest en route; you carry your own valid documents.",
+    pickup: "Riyadh",
+    dropoff: "Dubai, UAE",
+  },
 };
 
 // Corporate (Path B) block config for business-corridor routes. The invoicing
@@ -96,6 +110,22 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
     waPrefill: `Salam! Corporate transfer enquiry — Jeddah / KAEC (King Abdullah Economic City).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Jeddah–KAEC",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate transfers between Jeddah and King Abdullah Economic City (KAEC).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
+  "dammam-to-doha": {
+    heading: "Cross-border business travel, Dammam to Doha?",
+    intro:
+      "For business travel across the Salwa border to Qatar we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. Documentation is supported — you carry your own valid papers. Regular company trips can run on a single account with one point of contact.",
+    waPrefill: `Salam! Corporate cross-border transfer — Dammam / Doha (Qatar).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Dammam–Doha",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Dammam and Doha, Qatar (via the Salwa border).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
+  "riyadh-to-dubai": {
+    heading: "Executive car with driver, Riyadh to Dubai?",
+    intro:
+      "For business travellers crossing to the UAE we provide an executive sedan or SUV with a professional chauffeur — work or rest en route, with planned meeting and rest stops. Cross-border documentation is supported; you carry your own valid papers. Regular company travel can run on one account with a single point of contact.",
+    waPrefill: `Salam! Executive car with driver — Riyadh / Dubai (UAE).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Riyadh–Dubai",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for an executive car with driver between Riyadh and Dubai, UAE.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
 };
 
