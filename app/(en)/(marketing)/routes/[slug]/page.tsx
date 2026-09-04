@@ -68,6 +68,13 @@ const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup:
     pickup: "Jeddah",
     dropoff: "KAEC",
   },
+  "jeddah-airport-to-swissotel-makkah": {
+    heading: "Get your airport-to-hotel transfer quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private transfer from Jeddah Airport (JED) straight to Swissotel Al Maqam Makkah, with meet & greet at arrivals and a Miqat stop on request.",
+    pickup: "Jeddah Airport (JED)",
+    dropoff: "Swissotel Al Maqam Makkah",
+  },
 };
 
 // Corporate (Path B) block config for business-corridor routes. The invoicing
@@ -2399,6 +2406,55 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                 <p className="pt-1">
                   <Link href="/services/heritage-tours" className="text-[#FACC15] text-xs font-bold hover:underline">
                     See heritage &amp; sightseeing tours &rarr;
+                  </Link>
+                </p>
+              </div>
+            </section>
+          )}
+
+          {/* ─── UMRAH GROUP & FAMILY (Path B) — airport→hotel transfer ────── */}
+          {slug === "jeddah-airport-to-swissotel-makkah" && (
+            <section className="rounded-3xl border border-[#16A34A]/15 bg-[#0F172A] p-8 text-white shadow-sm">
+              <div className="max-w-2xl space-y-4">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#FACC15]/15 border border-[#FACC15]/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#FACC15]">
+                  <Users className="h-3.5 w-3.5" /> Umrah Group &amp; Family Transfer
+                </span>
+                <h2 className="font-heading text-2xl font-bold">
+                  Travelling as a family or Umrah group?
+                </h2>
+                <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+                  For families and groups we arrange a full-size SUV or van so everyone travels together with their luggage — one vehicle and one chauffeur from Jeddah Airport straight to Swissotel Al Maqam Makkah. Meet &amp; greet at arrivals with a name sign, a Miqat stop for Ihram on request, and help with bags at the hotel.
+                </p>
+                <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+                  Organising for an Umrah group or through a travel agency? Send your arrival details and party size and we&apos;ll put together the transfers with one point of contact and a written quote.
+                </p>
+                <div className="flex flex-wrap items-center gap-3 pt-1">
+                  <a
+                    href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                      `Salam! Umrah transfer — Jeddah Airport to Swissotel Makkah.\n• Flight no. & arrival time: \n• Passengers (adults / children): \n• Luggage: \n• Vehicle (Sedan / SUV / Van): \n• Miqat stop for Ihram? : `,
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-6 py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all shadow-sm"
+                  >
+                    <MessageSquare className="h-4 w-4 text-[#FACC15]" />
+                    Group transfer on WhatsApp
+                  </a>
+                  <a
+                    href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(
+                      "Umrah group transfer RFQ — Jeddah Airport to Makkah",
+                    )}&body=${encodeURIComponent(
+                      `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for Umrah airport transfers from Jeddah Airport (JED) to Makkah.\n\n• Agency / group name: \n• Contact name: \n• Arrival date & flight number: \n• Number of pilgrims (adults / children): \n• Luggage: \n• Vehicle(s) needed (SUV / Van): \n• Hotel in Makkah: \n• Miqat stop for Ihram?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+                    )}`}
+                    className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-white/15 transition-all"
+                  >
+                    <Briefcase className="h-4 w-4 text-[#FACC15]" />
+                    Email a group enquiry
+                  </a>
+                </div>
+                <p className="pt-1">
+                  <Link href="/services/umrah-transport" className="text-[#FACC15] text-xs font-bold hover:underline">
+                    See Umrah transport services &rarr;
                   </Link>
                 </p>
               </div>

@@ -104,7 +104,7 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
       </section>
 
       {/* نموذج طلب عرض سعر — سهل التعبئة، يُحوّل إلى واتساب مع تعبئة الرحلة مسبقاً */}
-      {["riyadh-to-dammam", "madinah-to-alula", "jeddah-to-kaec"].includes(content.slug) && (
+      {["riyadh-to-dammam", "madinah-to-alula", "jeddah-to-kaec", "jeddah-airport-to-swissotel-makkah"].includes(content.slug) && (
         <section className="section-container max-w-2xl pb-4 text-right">
           <h2 className="font-heading text-2xl font-bold mb-2 text-center">احصل على عرض سعر رحلتك الخاصة</h2>
           <p className="text-center text-xs sm:text-sm text-[#6B7280] leading-relaxed mb-6">
@@ -145,6 +145,48 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
           ))}
         </div>
       </section>
+
+      {/* نقل مجموعات العمرة والعائلات (المسار B) — من المطار إلى الفندق */}
+      {content.slug === "jeddah-airport-to-swissotel-makkah" && (
+        <section className="section-container max-w-4xl py-12">
+          <div className="rounded-3xl border border-[#16A34A]/15 bg-[#0F172A] p-8 text-white">
+            <div className="max-w-2xl space-y-4">
+              <span className="inline-flex items-center rounded-full bg-[#FACC15]/15 border border-[#FACC15]/30 px-3 py-1 text-[0.65rem] font-bold text-[#FACC15]">
+                نقل مجموعات العمرة والعائلات
+              </span>
+              <h2 className="font-heading text-2xl font-bold">مسافرون كعائلة أو مجموعة عمرة؟</h2>
+              <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+                للعائلات والمجموعات نوفّر سيارة دفع رباعي كبيرة أو فان ليسافر الجميع معاً مع الأمتعة — سيارة واحدة وسائق واحد من مطار جدة مباشرة إلى فندق سويس أوتيل المقام مكة. استقبال في صالة الوصول بلوحة اسم، وتوقف عند الميقات لارتداء الإحرام عند الطلب، ومساعدة في الأمتعة عند الفندق.
+              </p>
+              <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+                تنظّمون لمجموعة عمرة أو عبر وكالة سفر؟ أرسلوا تفاصيل الوصول وعدد الأفراد ونجهّز لكم عمليات النقل بنقطة تواصل واحدة وعرض سعر مكتوب.
+              </p>
+              <div className="flex flex-wrap gap-3 pt-1">
+                <a
+                  href={`${contactConfig.whatsappLink}?text=${encodeURIComponent(
+                    `السلام عليكم، نقل عمرة — من مطار جدة إلى سويس أوتيل المقام مكة.\n• رقم الرحلة ووقت الوصول: \n• عدد الركاب (كبار / أطفال): \n• الأمتعة: \n• نوع السيارة (سيدان / SUV / فان): \n• توقف عند الميقات للإحرام؟: `,
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-6 py-3 text-xs font-bold text-white hover:bg-[#15803D] transition-all"
+                >
+                  نقل المجموعة عبر واتساب
+                </a>
+                <a
+                  href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(
+                    "طلب عرض سعر لنقل مجموعة عمرة — من مطار جدة إلى مكة",
+                  )}&body=${encodeURIComponent(
+                    `مرحباً فريق تاكسي السعودية،\n\nنرغب بعرض سعر مكتوب لنقل معتمرين من مطار جدة إلى مكة المكرمة.\n\n• اسم الوكالة / المجموعة: \n• اسم جهة الاتصال: \n• تاريخ الوصول ورقم الرحلة: \n• عدد المعتمرين (كبار / أطفال): \n• الأمتعة: \n• السيارات المطلوبة (SUV / فان): \n• الفندق في مكة: \n• توقف عند الميقات للإحرام؟: \n\nيرجى تأكيد سعر ثابت قبل الحجز.\n\nشكراً لكم.`,
+                  )}`}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-3 text-xs font-bold text-white hover:bg-white/15 transition-all"
+                >
+                  راسلنا لاستفسار المجموعة
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* جولة العلا الخاصة ليوم كامل (المسار B) — بعد زيارة المدينة */}
       {content.slug === "madinah-to-alula" && (
