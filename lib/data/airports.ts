@@ -41,6 +41,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
       { href: "/routes/jeddah-airport-to-madinah", label: "Jeddah Airport to Madinah transfer" },
       { href: "/routes/jeddah-airport-to-jeddah-city", label: "JED Airport to Jeddah City" },
       { href: "/routes/jeddah-airport-to-taif", label: "JED Airport to Taif" },
+      { href: "/routes/jeddah-to-kaec", label: "Jeddah to KAEC (King Abdullah Economic City)" },
       { href: "/routes/jeddah-airport-to-fairmont-makkah", label: "JED to Fairmont Makkah Clock Tower" },
       { href: "/routes/jeddah-airport-to-swissotel-makkah", label: "JED to Swissotel Al Maqam Makkah" },
       { href: "/routes/jeddah-airport-to-pullman-zamzam-makkah", label: "JED to Pullman Zamzam Makkah" },
@@ -98,6 +99,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
       { href: "/locations/madinah", label: "Madinah private transport & chauffeur service" },
       { href: "/routes/jeddah-to-madinah", label: "Jeddah to Madinah taxi" },
       { href: "/routes/makkah-to-madinah", label: "Makkah to Madinah taxi" },
+      { href: "/routes/madinah-to-alula", label: "Madinah to AlUla heritage transfer" },
     ]
   },
   "king-khalid-riyadh": {
@@ -139,6 +141,8 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     relatedLinks: [
       { href: "/routes/riyadh-airport-to-city", label: "RUH Airport to Riyadh City" },
       { href: "/routes/riyadh-airport-to-kafd-hotels", label: "RUH to KAFD & Olaya Hotels" },
+      { href: "/routes/riyadh-to-dammam", label: "Riyadh to Dammam taxi" },
+      { href: "/routes/riyadh-to-dubai", label: "Riyadh to Dubai — car with driver" },
       { href: "/fleet/mercedes-s-class", label: "Mercedes S-Class — executive sedan" },
       { href: "/fleet/gmc-yukon-xl", label: "GMC Yukon XL — Premium SUV" },
       { href: "/fleet/toyota-camry", label: "Toyota Camry — Executive Sedan" },

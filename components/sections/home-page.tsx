@@ -554,6 +554,9 @@ const FEATURED_ROUTE_SLUGS = [
   "riyadh-airport-to-city",
   "jeddah-airport-to-taif",
   "riyadh-to-dammam",
+  "riyadh-to-dubai",
+  "madinah-to-alula",
+  "jeddah-to-kaec",
   "dammam-to-manama",
 ];
 
