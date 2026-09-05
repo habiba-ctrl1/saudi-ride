@@ -132,6 +132,18 @@ const HOURLY_HIRE: Record<string, { heading: string; intro: string; useCases: st
     ],
     waPrefill: "Salam! Hourly chauffeur / full-day car hire in Jeddah.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Plan (business / sightseeing / shopping / airport): ",
   },
+  dammam: {
+    heading: "Hourly Chauffeur & Full-Day Car Hire in Dammam",
+    intro: "Need the car and driver for several hours rather than a single transfer? Keep a private car on hourly hire across the Eastern Province — a day of business meetings in Dammam, Al Khobar, Dhahran and Jubail, site visits, Corniche outings, or a full day ending at King Fahd Airport.",
+    useCases: [
+      "Business meetings across Dammam, Al Khobar, Dhahran and Jubail on standby",
+      "Corporate and industrial site visits with waiting time between stops",
+      "Corniche and Half Moon Bay outings with the family",
+      "Shopping and multi-stop trips across the metro area",
+      "A full day ending at King Fahd International Airport (DMM), or a Bahrain Causeway run",
+    ],
+    waPrefill: "Salam! Hourly chauffeur / full-day car hire in Dammam / Eastern Province.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• Plan (business / site visits / family / airport): ",
+  },
 };
 
 const CITY_AIRPORT: Record<string, { slug: string; name: string }> = {
@@ -185,6 +197,7 @@ const CITY_META_TITLE: Record<string, string> = {
   makkah: "Makkah Taxi & Private Transfers | Umrah, Hotels & JED Airport",
   madinah: "Madinah Taxi & Private Transfers | Ziyarat, MED Airport & Hotels",
   jeddah: "Jeddah Taxi & Private Transfers | JED Airport, Makkah & Chauffeur",
+  dammam: "Dammam Taxi & Private Transfers | DMM Airport, Khobar & Bahrain",
 };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
