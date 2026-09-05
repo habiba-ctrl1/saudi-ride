@@ -61,6 +61,16 @@ const CITY_LEAD: Record<string, { heading: string; blurb: string; dropoff: strin
     emailSubject: "Corporate transfer RFQ — Dammam / Eastern Province",
     emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers in the Eastern Province (Dammam / Dhahran / Al Khobar / Jubail).\n\n• Company: \n• Contact name & role: \n• Dates: \n• Route(s) / sites: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.",
   },
+  makkah: {
+    heading: "Get your Makkah transfer quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a private, door-to-door transfer with a professional chauffeur. Haram hotel drop-offs, Jeddah Airport (JED) transfers, Makkah to Madinah, and Ziyarat with prayer stops.",
+    dropoff: "Makkah",
+    pathBHeading: "Umrah group or family transport in Makkah?",
+    pathBBody: "For families and Umrah groups we arrange a full-size SUV or van so everyone travels together with luggage — Haram hotel drop-offs, Ziyarat around the historical sites, and onward transfers to Madinah or Jeddah Airport, with a written quote for agencies and groups.",
+    waPrefill: "Salam! Makkah transfer enquiry.\n• From / to (e.g. Haram hotel / JED / Madinah): \n• Date & time: \n• Passengers (adults / children): \n• Vehicle (Sedan / SUV / Van): \n• Ziyarat / airport / intercity?: ",
+    emailSubject: "Group / family transfer RFQ — Makkah",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers in Makkah.\n\n• Agency / group / family name: \n• Contact name: \n• Dates: \n• Route(s) (e.g. Haram hotel → JED, Makkah → Madinah, Ziyarat): \n• Passengers (adults / children): \n• Vehicle(s) needed (Sedan / SUV / Van): \n• Miqat stop for Ihram (if arriving)?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.",
+  },
   jeddah: {
     heading: "Get your Jeddah transfer quote",
     blurb: "Fill a few details for a fast WhatsApp quote — a private, door-to-door transfer with a professional chauffeur. Pickups from King Abdulaziz International (JED), Umrah transfers to Makkah and Madinah, and business travel.",
@@ -70,6 +80,23 @@ const CITY_LEAD: Record<string, { heading: string; blurb: string; dropoff: strin
     waPrefill: "Salam! Jeddah transfer enquiry.\n• From / to (e.g. JED → Makkah): \n• Date & time: \n• Passengers (adults / children): \n• Vehicle (Sedan / SUV / Van): \n• Umrah / corporate / airport?: ",
     emailSubject: "Group / corporate transfer RFQ — Jeddah",
     emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers from Jeddah.\n\n• Agency / company / group name: \n• Contact name: \n• Dates & flight numbers: \n• Route(s) (e.g. JED → Makkah / Madinah): \n• Passengers per transfer (adults / children): \n• Vehicle(s) needed (Sedan / SUV / Van): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.",
+  },
+};
+
+// Hourly / full-day car-hire section per city (major commercial intent). Add a
+// city here to render it; EN-only. Content must be genuinely city-specific.
+const HOURLY_HIRE: Record<string, { heading: string; intro: string; useCases: string[]; waPrefill: string }> = {
+  makkah: {
+    heading: "Hourly Chauffeur & Full-Day Car Hire in Makkah",
+    intro: "Need the car and driver for several hours rather than a single transfer? Keep a private car on hourly hire in Makkah — for Ziyarat around the historical sites, hotel-to-Haram runs timed around prayer-time road closures, shopping, or a full day that ends at Jeddah Airport.",
+    useCases: [
+      "Ziyarat tour at your own pace — Jabal al-Nour (Cave of Hira), Jabal Thawr, Mina and Arafat",
+      "Hotel ↔ Masjid al-Haram runs timed around Salah road closures near the Haram",
+      "Families and Umrah groups kept together with their luggage in one vehicle",
+      "Shopping and multi-stop trips across Makkah with the car waiting between stops",
+      "A full day ending with your Jeddah Airport (JED) departure transfer",
+    ],
+    waPrefill: "Salam! Hourly chauffeur / full-day car hire in Makkah.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Plan (Ziyarat / hotel-Haram / shopping / airport): ",
   },
 };
 
@@ -121,6 +148,7 @@ const CITY_META_DESCRIPTION: Record<string, string> = {
 const CITY_META_TITLE: Record<string, string> = {
   riyadh: "Riyadh Taxi & Chauffeur Service | Airport, KAFD & Intercity",
   neom: "NEOM Taxi & Executive Transfer | Tabuk & NEOM Bay Airports",
+  makkah: "Makkah Taxi & Private Transfers | Umrah, Hotels & JED Airport",
 };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -177,6 +205,7 @@ export default async function CityLocationPage({ params }: PageProps) {
   const citySubAreas = Object.values(SUB_AREAS).filter((a) => a.city === cityKey);
   const cityAirport = CITY_AIRPORT[cityKey];
   const cityLead = CITY_LEAD[cityKey];
+  const hourlyHire = HOURLY_HIRE[cityKey];
 
   // Fetch routes connected to this city (best-effort — a DB hiccup during
   // build must not fail the static export for every page in the site).
@@ -248,7 +277,7 @@ export default async function CityLocationPage({ params }: PageProps) {
             <MapPin className="h-3 w-3" /> Location Guide
           </span>
           <h1 className="font-heading text-4xl md:text-6xl font-bold leading-tight">
-            Taxi Service in <br />
+            Private Taxi &amp; Car Service in <br />
             <span className="text-[#16A34A]">{cityData.name}</span>
           </h1>
           <p className="text-[#C9A84C] text-sm tracking-widest uppercase font-bold mt-2 mb-6">{cityData.nameAr} - {cityData.tagline}</p>
@@ -419,6 +448,31 @@ export default async function CityLocationPage({ params }: PageProps) {
               </section>
             );
           })()}
+
+          {/* Hourly / full-day car hire (high commercial intent) */}
+          {hourlyHire && (
+            <section className="rounded-3xl border border-[#16A34A]/15 bg-white p-6 sm:p-8">
+              <h2 className="font-heading text-2xl md:text-3xl font-bold mb-3 text-[#1C1C1C]">{hourlyHire.heading}</h2>
+              <p className="text-sm text-[#6B7280] leading-relaxed mb-5 max-w-2xl">{hourlyHire.intro}</p>
+              <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2.5 mb-6">
+                {hourlyHire.useCases.map((u) => (
+                  <li key={u} className="flex items-start gap-2 text-sm text-[#334155] leading-relaxed">
+                    <CheckCircle2 className="h-4 w-4 text-[#16A34A] shrink-0 mt-0.5" />
+                    <span>{u}</span>
+                  </li>
+                ))}
+              </ul>
+              <a
+                href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(hourlyHire.waPrefill)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2.5 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all"
+              >
+                <MessageSquare className="h-4 w-4" />
+                Request an hourly chauffeur quote
+              </a>
+            </section>
+          )}
 
           {/* FAQs (FAQPage schema injected above) */}
           {cityData.faqs && cityData.faqs.length > 0 && (
