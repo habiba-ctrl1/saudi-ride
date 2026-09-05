@@ -71,6 +71,16 @@ const CITY_LEAD: Record<string, { heading: string; blurb: string; dropoff: strin
     emailSubject: "Group / family transfer RFQ — Makkah",
     emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers in Makkah.\n\n• Agency / group / family name: \n• Contact name: \n• Dates: \n• Route(s) (e.g. Haram hotel → JED, Makkah → Madinah, Ziyarat): \n• Passengers (adults / children): \n• Vehicle(s) needed (Sedan / SUV / Van): \n• Miqat stop for Ihram (if arriving)?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.",
   },
+  madinah: {
+    heading: "Get your Madinah transfer quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a private, door-to-door transfer with a professional chauffeur. Masjid an-Nabawi hotel drop-offs, MED airport pickups, Ziyarat, and onward trips to Makkah or AlUla.",
+    dropoff: "Madinah",
+    pathBHeading: "Umrah group or family transport in Madinah?",
+    pathBBody: "For families and Umrah groups we arrange a full-size SUV or van so everyone travels together with luggage — Central Area (Markaziyah) hotel drop-offs near Masjid an-Nabawi, Ziyarat around the historical sites, and onward transfers to Makkah, Jeddah or AlUla, with a written quote for agencies and groups.",
+    waPrefill: "Salam! Madinah transfer enquiry.\n• From / to (e.g. MED / hotel / Makkah / AlUla): \n• Date & time: \n• Passengers (adults / children): \n• Vehicle (Sedan / SUV / Van): \n• Ziyarat / airport / intercity?: ",
+    emailSubject: "Group / family transfer RFQ — Madinah",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers in Madinah.\n\n• Agency / group / family name: \n• Contact name: \n• Dates: \n• Route(s) (e.g. MED → hotel, Madinah → Makkah / AlUla, Ziyarat): \n• Passengers (adults / children): \n• Vehicle(s) needed (Sedan / SUV / Van): \n\nPlease confirm a fixed fare before booking.\n\nThank you.",
+  },
   jeddah: {
     heading: "Get your Jeddah transfer quote",
     blurb: "Fill a few details for a fast WhatsApp quote — a private, door-to-door transfer with a professional chauffeur. Pickups from King Abdulaziz International (JED), Umrah transfers to Makkah and Madinah, and business travel.",
@@ -97,6 +107,18 @@ const HOURLY_HIRE: Record<string, { heading: string; intro: string; useCases: st
       "A full day ending with your Jeddah Airport (JED) departure transfer",
     ],
     waPrefill: "Salam! Hourly chauffeur / full-day car hire in Makkah.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Plan (Ziyarat / hotel-Haram / shopping / airport): ",
+  },
+  madinah: {
+    heading: "Hourly Chauffeur & Full-Day Car Hire in Madinah",
+    intro: "Need the car and driver for several hours rather than a single transfer? Keep a private car on hourly hire in Madinah — for Ziyarat around the historical sites, hotel-to-Masjid an-Nabawi runs, shopping, or a full day that continues to Makkah, Jeddah or AlUla.",
+    useCases: [
+      "Ziyarat tour at your own pace — Quba Mosque, Mount Uhud and Masjid al-Qiblatain",
+      "Central Area (Markaziyah) hotel ↔ Masjid an-Nabawi runs",
+      "Families and Umrah groups kept together with their luggage in one vehicle",
+      "Shopping and multi-stop trips across Madinah with the car waiting",
+      "A full day continuing to Makkah, Jeddah Airport (JED), or an AlUla heritage trip",
+    ],
+    waPrefill: "Salam! Hourly chauffeur / full-day car hire in Madinah.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Plan (Ziyarat / hotel-Masjid / shopping / onward trip): ",
   },
 };
 
@@ -149,6 +171,7 @@ const CITY_META_TITLE: Record<string, string> = {
   riyadh: "Riyadh Taxi & Chauffeur Service | Airport, KAFD & Intercity",
   neom: "NEOM Taxi & Executive Transfer | Tabuk & NEOM Bay Airports",
   makkah: "Makkah Taxi & Private Transfers | Umrah, Hotels & JED Airport",
+  madinah: "Madinah Taxi & Private Transfers | Ziyarat, MED Airport & Hotels",
 };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
