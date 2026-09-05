@@ -120,6 +120,18 @@ const HOURLY_HIRE: Record<string, { heading: string; intro: string; useCases: st
     ],
     waPrefill: "Salam! Hourly chauffeur / full-day car hire in Madinah.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Plan (Ziyarat / hotel-Masjid / shopping / onward trip): ",
   },
+  jeddah: {
+    heading: "Hourly Chauffeur & Full-Day Car Hire in Jeddah",
+    intro: "Need the car and driver for several hours rather than a single transfer? Keep a private car on hourly hire in Jeddah — for a day of business meetings, sightseeing along the Corniche and historic Al-Balad, shopping, or an Umrah stopover day before continuing to Makkah.",
+    useCases: [
+      "Business meetings across Jeddah with the car and chauffeur on standby",
+      "Sightseeing — the Corniche waterfront and UNESCO-listed Al-Balad (Historic Jeddah)",
+      "Shopping and multi-stop trips across the malls and districts",
+      "An Umrah stopover day in Jeddah before continuing to Makkah",
+      "A full day ending with your Jeddah Airport (JED) departure",
+    ],
+    waPrefill: "Salam! Hourly chauffeur / full-day car hire in Jeddah.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Plan (business / sightseeing / shopping / airport): ",
+  },
 };
 
 const CITY_AIRPORT: Record<string, { slug: string; name: string }> = {
@@ -172,6 +184,7 @@ const CITY_META_TITLE: Record<string, string> = {
   neom: "NEOM Taxi & Executive Transfer | Tabuk & NEOM Bay Airports",
   makkah: "Makkah Taxi & Private Transfers | Umrah, Hotels & JED Airport",
   madinah: "Madinah Taxi & Private Transfers | Ziyarat, MED Airport & Hotels",
+  jeddah: "Jeddah Taxi & Private Transfers | JED Airport, Makkah & Chauffeur",
 };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
