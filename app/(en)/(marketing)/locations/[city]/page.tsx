@@ -91,6 +91,16 @@ const CITY_LEAD: Record<string, { heading: string; blurb: string; dropoff: strin
     emailSubject: "Corporate transfer RFQ — Al Khobar / Eastern Province",
     emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers in Al Khobar and the Eastern Province.\n\n• Company: \n• Contact name & role: \n• Dates: \n• Route(s) / sites (Khobar / Dammam / Dhahran / Jubail / Bahrain): \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.",
   },
+  alula: {
+    heading: "Get your AlUla transfer quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a private car with a professional chauffeur in AlUla. AlUla International (ULH) airport pickups, resort transfers, full-day heritage tours, and intercity trips to Madinah or Tabuk.",
+    dropoff: "AlUla",
+    pathBHeading: "Full-day AlUla tour or group booking?",
+    pathBBody: "Most visitors want AlUla for the day — book a private car by the hour with your chauffeur waiting between the sites: Hegra (Mada'in Salih), Dadan, AlUla Old Town, Elephant Rock and Maraya. Families and tour groups kept together in one vehicle; agencies get a written quote.",
+    waPrefill: "Salam! AlUla transfer / tour enquiry.\n• From / to (ULH airport / resort / sites): \n• Date: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Full-day tour / airport / intercity?: ",
+    emailSubject: "AlUla private tour / transfer RFQ",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a private car for AlUla.\n\n• Agency / group / family name: \n• Contact name: \n• Date(s): \n• Passengers: \n• Vehicle preference (Sedan / SUV / Van): \n• Sites / plan (Hegra / Dadan / Old Town / Elephant Rock / Maraya / ULH airport): \n• Resort / hotel: \n\nPlease confirm a fixed fare before booking.\n\nThank you.",
+  },
   jeddah: {
     heading: "Get your Jeddah transfer quote",
     blurb: "Fill a few details for a fast WhatsApp quote — a private, door-to-door transfer with a professional chauffeur. Pickups from King Abdulaziz International (JED), Umrah transfers to Makkah and Madinah, and business travel.",
@@ -166,6 +176,18 @@ const HOURLY_HIRE: Record<string, { heading: string; intro: string; useCases: st
     ],
     waPrefill: "Salam! Hourly chauffeur / full-day car hire in Al Khobar.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• Plan (business / site visits / family / airport / Bahrain): ",
   },
+  alula: {
+    heading: "Full-Day Car Hire & Hourly Chauffeur in AlUla",
+    intro: "AlUla's sites are spread across the valley, so most visitors keep a private car and chauffeur for the day rather than booking single transfers. Tour Hegra, Dadan, the Old Town, Elephant Rock and Maraya at your own pace, with the car waiting between stops.",
+    useCases: [
+      "Full-day heritage tour — Hegra (Mada'in Salih), Dadan, AlUla Old Town, Elephant Rock and Maraya",
+      "Resort ↔ sites transfers across the valley with waiting time",
+      "AlUla International Airport (ULH) arrival day with onward sightseeing",
+      "Families and small groups kept together in one comfortable vehicle",
+      "Higher demand in the cooler Winter at Tantora season — book ahead",
+    ],
+    waPrefill: "Salam! Full-day car hire / hourly chauffeur in AlUla.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Sites (Hegra / Dadan / Old Town / Elephant Rock / Maraya): ",
+  },
 };
 
 const CITY_AIRPORT: Record<string, { slug: string; name: string }> = {
@@ -221,6 +243,7 @@ const CITY_META_TITLE: Record<string, string> = {
   jeddah: "Jeddah Taxi & Private Transfers | JED Airport, Makkah & Chauffeur",
   dammam: "Dammam Taxi & Private Transfers | DMM Airport, Khobar & Bahrain",
   alkhobar: "Al Khobar Taxi & Private Transfers | DMM Airport & Bahrain",
+  alula: "AlUla Taxi & Private Car Hire | Hegra, ULH Airport & Tours",
 };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
