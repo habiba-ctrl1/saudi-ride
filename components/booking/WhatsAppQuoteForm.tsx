@@ -10,7 +10,10 @@ import { useLanguage } from "@/lib/context/LanguageContext";
 import { contactConfig } from "@/lib/config/contact";
 import { trackEvent } from "@/lib/analytics";
 import { getUtm } from "@/lib/utm";
-import { MapPin, Calendar, Car, MessageCircle, Users } from "lucide-react";
+import { MapPin, Calendar, Car, MessageCircle, Users, Phone, User, Mail } from "lucide-react";
+
+const PHONE_RE = /^\+?[0-9\s-]{8,20}$/;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const VEHICLES = [
   { key: "Sedan", en: "Sedan", ar: "سيدان" },
@@ -67,8 +70,22 @@ export default function WhatsAppQuoteForm({
   const [dateTime, setDateTime] = useState("");
   const [passengers, setPassengers] = useState("");
   const [vehicle, setVehicle] = useState(defaultVehicle);
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [nameError, setNameError] = useState(false);
+  const [phoneError, setPhoneError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
 
   const handleSubmit = () => {
+    const nameInvalid = name.trim().length < 2;
+    const phoneInvalid = !PHONE_RE.test(phone.trim());
+    const emailInvalid = email.trim().length > 0 && !EMAIL_RE.test(email.trim());
+    setNameError(nameInvalid);
+    setPhoneError(phoneInvalid);
+    setEmailError(emailInvalid);
+    if (nameInvalid || phoneInvalid || emailInvalid) return;
+
     trackEvent("lead_captured", { source: "whatsapp_quote_form", fromCity: pickup, toCity: dropoff, vehicleClass: vehicle, tripType, passengers, locale: language });
 
     // Non-blocking lead capture — never delays or blocks the WhatsApp open.
@@ -84,6 +101,9 @@ export default function WhatsAppQuoteForm({
           vehicleType: vehicle,
           tripType,
           passengers: passengers || null,
+          customerName: name.trim(),
+          customerPhone: phone.trim(),
+          customerEmail: email.trim() || null,
           locale: language,
           pageUrl: typeof window !== "undefined" ? window.location.href : null,
           utm: getUtm(),
@@ -97,6 +117,7 @@ export default function WhatsAppQuoteForm({
       ? [
           "السلام عليكم، أرغب بالحصول على عرض سعر لرحلة نقل خاصة.",
           "",
+          `• الاسم: ${name}`,
           `• نوع الرحلة: ${tripLabel?.ar ?? tripType}`,
           `• من: ${pickup || "—"}`,
           `• إلى: ${dropoff || "—"}`,
@@ -108,6 +129,7 @@ export default function WhatsAppQuoteForm({
       : [
           "Salam! I'd like a quote for a private transfer.",
           "",
+          `• Name: ${name}`,
           `• Trip type: ${tripLabel?.en ?? tripType}`,
           `• From: ${pickup || "—"}`,
           `• To: ${dropoff || "—"}`,
@@ -205,6 +227,57 @@ export default function WhatsAppQuoteForm({
           ))}
         </select>
       </InputRow>
+      <InputRow icon={<User className="h-4 w-4" />}>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => {
+            setName(e.target.value);
+            if (nameError) setNameError(false);
+          }}
+          placeholder={isRtl ? "الاسم الكامل" : "Full name"}
+          className="w-full bg-transparent text-sm outline-none placeholder:text-[#9CA3AF]"
+        />
+      </InputRow>
+      {nameError && (
+        <p className="text-xs font-semibold text-red-600">
+          {isRtl ? "الرجاء إدخال اسمك." : "Please enter your name."}
+        </p>
+      )}
+      <InputRow icon={<Phone className="h-4 w-4" />}>
+        <input
+          type="tel"
+          value={phone}
+          onChange={(e) => {
+            setPhone(e.target.value);
+            if (phoneError) setPhoneError(false);
+          }}
+          placeholder={isRtl ? "رقم الجوال (مثال: +966501234567)" : "Phone number (e.g. +966501234567)"}
+          className="w-full bg-transparent text-sm outline-none placeholder:text-[#9CA3AF]"
+        />
+      </InputRow>
+      {phoneError && (
+        <p className="text-xs font-semibold text-red-600">
+          {isRtl ? "الرجاء إدخال رقم جوال صحيح للمتابعة." : "Please enter a valid phone number so we can follow up."}
+        </p>
+      )}
+      <InputRow icon={<Mail className="h-4 w-4" />}>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            if (emailError) setEmailError(false);
+          }}
+          placeholder={isRtl ? "البريد الإلكتروني (اختياري)" : "Email (optional)"}
+          className="w-full bg-transparent text-sm outline-none placeholder:text-[#9CA3AF]"
+        />
+      </InputRow>
+      {emailError && (
+        <p className="text-xs font-semibold text-red-600">
+          {isRtl ? "الرجاء إدخال بريد إلكتروني صحيح." : "Please enter a valid email address."}
+        </p>
+      )}
 
       <button
         onClick={handleSubmit}

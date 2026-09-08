@@ -84,17 +84,27 @@ export async function sendSMS(to: string, body: string) {
 }
 
 /**
- * Dispatches an Email alert using Resend (with dynamic fallback logging)
+ * Dispatches an Email alert using Resend (with dynamic fallback logging).
+ * Any email NOT addressed to the admin inbox is automatically CC'd to the
+ * admin, so every client-facing email (quotation, booking confirmation,
+ * contact auto-reply, etc.) always leaves a copy the business can build a
+ * quotation from — without having to remember to CC at each call site. Pass
+ * `cc: []` explicitly to suppress this for a specific send.
  */
-export async function sendEmail(to: string, subject: string, html: string) {
+export async function sendEmail(to: string, subject: string, html: string, options?: { cc?: string | string[] }) {
   try {
     // If using resend in test mode, onboarding@resend.dev can only send to registered address
     const fromAddress = resendApiKey ? `Taxi Saudi Arabia <${resendFrom}>` : "Taxi Saudi Arabia Concierge <onboarding@resend.dev>";
-    
+
+    const cc = options?.cc !== undefined
+      ? (Array.isArray(options.cc) ? options.cc : [options.cc])
+      : (to !== adminEmail ? [adminEmail] : []);
+
     if (resend) {
       const response = await resend.emails.send({
         from: fromAddress,
         to: [to],
+        ...(cc.length ? { cc } : {}),
         subject,
         html
       });
@@ -102,10 +112,10 @@ export async function sendEmail(to: string, subject: string, html: string) {
         console.error("❌ [Resend] Email dispatch failed:", response.error);
         return null;
       }
-      console.log(`📧 [Resend] Email successfully sent to ${to}. ID: ${response.data?.id}`);
+      console.log(`📧 [Resend] Email successfully sent to ${to}${cc.length ? ` (cc: ${cc.join(", ")})` : ""}. ID: ${response.data?.id}`);
       return response.data?.id;
     } else {
-      console.log(`📧 [EMAIL SIMULATION] To: ${to} | Subject: "${subject}" | Length: ${html.length} chars`);
+      console.log(`📧 [EMAIL SIMULATION] To: ${to}${cc.length ? ` (cc: ${cc.join(", ")})` : ""} | Subject: "${subject}" | Length: ${html.length} chars`);
       return "simulated_email_id";
     }
   } catch (err) {
