@@ -15,7 +15,9 @@ Taxi fares in Jeddah depend on the route, the vehicle, and how you book. With Ta
 
 > **Quick answer:** A taxi from Jeddah Airport (JED) to Makkah starts from **SAR 249**, Jeddah to Madinah from **SAR 549**, and a Jeddah airport-to-city ride from **SAR 80** — all quoted on WhatsApp, 24/7.
 
-### Popular Jeddah Fares (from, sedan)
+### Popular Jeddah Fares (starting fares — sedan)
+
+> **These are _starting_ fares for an executive sedan with 1–3 passengers and light luggage.** Your final price depends on the vehicle, number of passengers and bags, pickup time, season (Umrah / Hajj / Ramadan peaks), and any stops or waiting — a larger vehicle, extra luggage, or night / peak-season travel is higher. Every fare is **confirmed on WhatsApp before you book**, so you know the exact total upfront.
 
 - **Jeddah Airport (JED) → Makkah:** from SAR 249 — ~80 km, ~1 hour
 - **Jeddah City → Makkah:** from SAR 199 — ~85 km, ~1 hr 10 min
@@ -71,7 +73,9 @@ Taxi fares from Makkah depend on the route and vehicle. With Taxi Saudi Arabia t
 
 > **Quick answer:** A taxi from Makkah to Jeddah Airport (JED) starts from **SAR 249**, Makkah to Madinah from **SAR 499**, and Makkah to Taif from **SAR 180** — all quoted on WhatsApp, 24/7.
 
-### Popular Makkah Fares (from, sedan)
+### Popular Makkah Fares (starting fares — sedan)
+
+> **These are _starting_ fares for an executive sedan with 1–3 passengers and light luggage.** Your final price depends on the vehicle, number of passengers and bags, pickup time, season (Umrah / Hajj / Ramadan peaks), and any stops or waiting — a larger vehicle, extra luggage, or night / peak-season travel is higher. Every fare is **confirmed on WhatsApp before you book**, so you know the exact total upfront.
 
 - **Makkah → Jeddah Airport (JED):** from SAR 249 — ~80 km, ~1 hour
 - **Makkah → Jeddah City:** from SAR 150 — ~85 km, ~1 hr 10 min
@@ -123,7 +127,9 @@ Taxi fares in Madinah depend on the route and vehicle. With Taxi Saudi Arabia th
 
 > **Quick answer:** A taxi from Madinah Airport (MED) to the city starts from **SAR 80**, Madinah to Makkah from **SAR 499**, and a half-day Ziyarat tour from **SAR 250** — all quoted on WhatsApp, 24/7.
 
-### Popular Madinah Fares (from, sedan)
+### Popular Madinah Fares (starting fares — sedan)
+
+> **These are _starting_ fares for an executive sedan with 1–3 passengers and light luggage.** Your final price depends on the vehicle, number of passengers and bags, pickup time, season (Umrah / Hajj / Ramadan peaks), and any stops or waiting — a larger vehicle, extra luggage, or night / peak-season travel is higher. Every fare is **confirmed on WhatsApp before you book**, so you know the exact total upfront.
 
 - **Madinah Airport (MED) → City / Markazia hotels:** from SAR 80 — ~20 km, ~25 min
 - **Madinah → Makkah:** from SAR 499 — ~430 km, ~4–5 hours
