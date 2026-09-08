@@ -81,6 +81,16 @@ const CITY_LEAD: Record<string, { heading: string; blurb: string; dropoff: strin
     emailSubject: "Group / family transfer RFQ — Madinah",
     emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers in Madinah.\n\n• Agency / group / family name: \n• Contact name: \n• Dates: \n• Route(s) (e.g. MED → hotel, Madinah → Makkah / AlUla, Ziyarat): \n• Passengers (adults / children): \n• Vehicle(s) needed (Sedan / SUV / Van): \n\nPlease confirm a fixed fare before booking.\n\nThank you.",
   },
+  alkhobar: {
+    heading: "Get your Al Khobar transfer quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a private, door-to-door transfer with a professional chauffeur. King Fahd Airport (DMM) pickups, Dammam–Dhahran metro rides, the Corniche, and cross-border trips to Bahrain via the Causeway.",
+    dropoff: "Al Khobar",
+    pathBHeading: "Corporate travel in Al Khobar & the Eastern Province?",
+    pathBBody: "For Saudi Aramco, Dhahran, Dammam and Jubail Industrial City we run executive sedans and full-size SUVs with professional chauffeurs — regular staff movements on a single account with corporate invoicing on request, plus King Fahd Causeway runs to Bahrain.",
+    waPrefill: "Salam! Al Khobar / Eastern Province transfer enquiry.\n• From / to (Khobar / Dammam / Dhahran / DMM / Bahrain): \n• Date & time: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• Corporate / airport / Bahrain?: ",
+    emailSubject: "Corporate transfer RFQ — Al Khobar / Eastern Province",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers in Al Khobar and the Eastern Province.\n\n• Company: \n• Contact name & role: \n• Dates: \n• Route(s) / sites (Khobar / Dammam / Dhahran / Jubail / Bahrain): \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.",
+  },
   jeddah: {
     heading: "Get your Jeddah transfer quote",
     blurb: "Fill a few details for a fast WhatsApp quote — a private, door-to-door transfer with a professional chauffeur. Pickups from King Abdulaziz International (JED), Umrah transfers to Makkah and Madinah, and business travel.",
@@ -144,6 +154,18 @@ const HOURLY_HIRE: Record<string, { heading: string; intro: string; useCases: st
     ],
     waPrefill: "Salam! Hourly chauffeur / full-day car hire in Dammam / Eastern Province.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• Plan (business / site visits / family / airport): ",
   },
+  alkhobar: {
+    heading: "Hourly Chauffeur & Full-Day Car Hire in Al Khobar",
+    intro: "Need the car and driver for several hours rather than a single transfer? Keep a private car on hourly hire in Al Khobar — a day of business meetings across the Dammam–Khobar–Dhahran metro, Corniche and Half Moon Bay outings, shopping, or a full day ending at King Fahd Airport or across the Causeway to Bahrain.",
+    useCases: [
+      "Business meetings across Al Khobar, Dammam, Dhahran and Jubail on standby",
+      "Corporate and industrial site visits with waiting time between stops",
+      "Corniche and Half Moon Bay outings with the family",
+      "Shopping and multi-stop trips across the metro area",
+      "A full day ending at King Fahd International Airport (DMM), or a Bahrain Causeway run",
+    ],
+    waPrefill: "Salam! Hourly chauffeur / full-day car hire in Al Khobar.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• Plan (business / site visits / family / airport / Bahrain): ",
+  },
 };
 
 const CITY_AIRPORT: Record<string, { slug: string; name: string }> = {
@@ -198,6 +220,7 @@ const CITY_META_TITLE: Record<string, string> = {
   madinah: "Madinah Taxi & Private Transfers | Ziyarat, MED Airport & Hotels",
   jeddah: "Jeddah Taxi & Private Transfers | JED Airport, Makkah & Chauffeur",
   dammam: "Dammam Taxi & Private Transfers | DMM Airport, Khobar & Bahrain",
+  alkhobar: "Al Khobar Taxi & Private Transfers | DMM Airport & Bahrain",
 };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
