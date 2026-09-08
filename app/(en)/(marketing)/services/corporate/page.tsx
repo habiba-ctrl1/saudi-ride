@@ -205,6 +205,15 @@ export default function CorporateAccountsPage() {
           </div>
 
           <CorporateAccountForm />
+          <div className="mt-6 pt-6 border-t border-[#16A34A]/10 text-center">
+            <p className="text-xs text-[#6B7280] mb-3">Prefer email? Send your requirements and our B2B team will reply with a written quote and invoicing terms.</p>
+            <a
+              href={`mailto:${contactConfig.email}?subject=${encodeURIComponent("Corporate account / transport RFQ")}&body=${encodeURIComponent("Hello Taxi Saudi Arabia team,\n\nWe'd like to set up a corporate transport account / request a written quote.\n\n• Company: \n• Contact name & role: \n• City / cities: \n• Estimated monthly trips or routes: \n• Vehicle types needed (Executive sedan / SUV / Van / Luxury): \n• Invoicing (VAT / PO) & payment terms: \n\nThank you.")}`}
+              className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C] px-7 py-3 text-xs font-bold uppercase text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
+            >
+              Email our corporate desk
+            </a>
+          </div>
         </div>
       </section>
       {(() => {

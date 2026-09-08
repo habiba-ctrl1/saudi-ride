@@ -366,6 +366,15 @@ export default function VIPTransportationPage() {
             </p>
           </div>
           <VIPPlanForm />
+          <div className="mt-6 pt-6 border-t border-[#16A34A]/10 text-center">
+            <p className="text-xs text-[#6B7280] mb-3">Booking for a company, delegation or agency and need a written quote with invoicing?</p>
+            <a
+              href={`mailto:${contactConfig.email}?subject=${encodeURIComponent("VIP / delegation transport RFQ — Riyadh")}&body=${encodeURIComponent("Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for VIP / delegation transport in Riyadh.\n\n• Company / organisation: \n• Contact name & role: \n• Dates (from – to): \n• Guests / passengers: \n• Vehicles preferred (Maybach / S-Class / Range Rover / Lexus / SUV / Van): \n• Itinerary (airport / hotel / venue / standby): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm vehicles, chauffeurs and a fixed quote before booking.\n\nThank you.")}`}
+              className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C] px-7 py-3 text-xs font-bold uppercase text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
+            >
+              Email our VIP &amp; delegation desk
+            </a>
+          </div>
         </div>
       </section>
 

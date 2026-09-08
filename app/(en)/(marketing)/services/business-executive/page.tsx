@@ -5,6 +5,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
+import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { Briefcase, ShieldCheck, Clock, Wifi, MessageCircle } from "lucide-react";
 import { contactConfig } from "@/lib/config/contact";
 import { credentials, hasCredential } from "@/lib/config/credentials";
@@ -160,17 +161,28 @@ export default function BusinessExecutivePage() {
         );
       })()}
       <section className="section-container max-w-5xl py-4">
-        <div className="bg-white border border-[#16A34A]/15 shadow-lg rounded-3xl p-12 text-center">
-          <h2 className="font-heading text-2xl font-bold mb-3 text-[#1C1C1C]">Book your executive transfer</h2>
-          <p className="text-[#6B7280] mb-8 max-w-lg mx-auto">Airport pickup, meeting standby, or a full-day roadshow — send your schedule on WhatsApp and we&apos;ll confirm your car and fixed fare.</p>
-          <a
-            href={waLink("Salam, I'd like to arrange business / executive transport in Saudi Arabia. Details:")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-4 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
-          >
-            <MessageCircle className="h-4 w-4" /> Message on WhatsApp
-          </a>
+        <div className="bg-white border border-[#16A34A]/15 shadow-lg rounded-3xl p-6 sm:p-10">
+          <div className="text-center mb-6">
+            <h2 className="font-heading text-2xl font-bold mb-3 text-[#1C1C1C]">Book your executive transfer</h2>
+            <p className="text-[#6B7280] max-w-lg mx-auto">Airport pickup, meeting standby, or a full-day roadshow — fill a few details for a fast WhatsApp quote, or email our corporate desk for a written quote with invoicing.</p>
+          </div>
+          <WhatsAppQuoteForm defaultVehicle="Luxury" />
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            <a
+              href={waLink("Salam! Business / executive transport enquiry.\n• From / to: \n• Date & time: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Luxury): \n• Airport / meeting standby / roadshow?: ")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
+            >
+              <MessageCircle className="h-4 w-4" /> Executive quote on WhatsApp
+            </a>
+            <a
+              href={`mailto:${contactConfig.email}?subject=${encodeURIComponent("Corporate / executive transport RFQ")}&body=${encodeURIComponent("Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for business / executive transport in Saudi Arabia.\n\n• Company: \n• Contact name & role: \n• City / route(s): \n• Dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Luxury): \n• Airport / meeting standby / roadshow / multi-day?: \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.")}`}
+              className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C] px-7 py-3.5 text-xs font-bold uppercase text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
+            >
+              Email our corporate desk
+            </a>
+          </div>
         </div>
       </section>
       <ServiceRelatedLinks currentPath="/services/business-executive" />
