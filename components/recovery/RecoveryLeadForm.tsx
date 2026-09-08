@@ -31,6 +31,7 @@ export function RecoveryLeadForm({
   const [form, setForm] = useState({
     name: "",
     phone: "",
+    email: "",
     car: "",
     location: "",
     destination: "",
@@ -88,13 +89,15 @@ export function RecoveryLeadForm({
     try {
       const notes =
         (sourceLabel ?? `CAR RECOVERY${city ? ` — ${city}` : ""}`) +
-        ` | Service: ${form.service} | Vehicle: ${form.car || "not specified"}`;
+        ` | Service: ${form.service} | Vehicle: ${form.car || "not specified"}` +
+        (form.email ? ` | Email: ${form.email}` : "");
       const res = await fetch("/api/quotations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           customerName: form.name,
           customerPhone: form.phone,
+          customerEmail: form.email || null,
           pickup: form.location,
           dropoff: form.destination || "Nearest workshop",
           travelDate: new Date().toISOString().slice(0, 10),
@@ -153,6 +156,13 @@ export function RecoveryLeadForm({
           value={form.phone}
           onChange={set("phone")}
           placeholder={t.phone}
+          className="w-full rounded-xl border border-[#1C1C1C]/10 bg-[#FAFAF7] px-4 py-3 text-sm outline-none focus:border-[#16A34A]"
+        />
+        <input
+          type="email"
+          value={form.email}
+          onChange={set("email")}
+          placeholder={ar ? "البريد الإلكتروني (اختياري)" : "Email (optional)"}
           className="w-full rounded-xl border border-[#1C1C1C]/10 bg-[#FAFAF7] px-4 py-3 text-sm outline-none focus:border-[#16A34A]"
         />
       </div>

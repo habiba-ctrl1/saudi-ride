@@ -4,9 +4,12 @@ import { useState } from "react";
 import { MessageCircle } from "lucide-react";
 import { contactConfig } from "@/lib/config/contact";
 
-// Lead-capture form for the VIP Transportation pillar. Instead of a backend
-// round-trip, it assembles a structured "VIP Transportation Plan" request and
-// hands it to WhatsApp — consistent with the site's WhatsApp-first quoting.
+// Lead-capture form for the VIP Transportation pillar. Captures the lead to the
+// backend (/api/leads) FIRST — so a VIP enquiry is never lost even if the
+// visitor doesn't finish the WhatsApp chat — then hands off to WhatsApp.
+const PHONE_RE = /^\+?[0-9\s-]{8,20}$/;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const EVENT_TYPES = [
   "Corporate meeting / roadshow",
   "Conference / exhibition",
@@ -43,6 +46,8 @@ const labelCls = "block text-[0.7rem] font-bold uppercase tracking-wider text-[#
 export function VIPPlanForm() {
   const [form, setForm] = useState({
     name: "",
+    phone: "",
+    email: "",
     company: "",
     eventType: EVENT_TYPES[0],
     eventDate: "",
@@ -53,16 +58,47 @@ export function VIPPlanForm() {
     duration: DURATIONS[0],
     notes: "",
   });
+  const [phoneError, setPhoneError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
 
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
+    const phoneInvalid = !PHONE_RE.test(form.phone.trim());
+    const emailInvalid = form.email.trim().length > 0 && !EMAIL_RE.test(form.email.trim());
+    setPhoneError(phoneInvalid);
+    setEmailError(emailInvalid);
+    if (phoneInvalid || emailInvalid) return;
+
+    // Capture the lead to the backend FIRST (non-blocking) so a VIP enquiry is
+    // never lost even if the visitor doesn't finish the WhatsApp chat.
+    try {
+      fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        keepalive: true,
+        body: JSON.stringify({
+          origin: form.pickup || "VIP enquiry (Riyadh)",
+          destination: form.destination || form.eventType,
+          tripDate: form.eventDate || null,
+          vehicleType: form.vehicle,
+          customerName: form.name.trim() || null,
+          customerPhone: form.phone.trim(),
+          customerEmail: form.email.trim() || null,
+          pageUrl: typeof window !== "undefined" ? window.location.href : null,
+          source: "vip_plan_form",
+        }),
+      }).catch(() => {});
+    } catch {}
+
     const lines = [
       "Salam, I'd like to request a VIP Transportation Plan in Riyadh.",
       "",
       form.name && `Name: ${form.name}`,
+      `Phone: ${form.phone}`,
+      form.email && `Email: ${form.email}`,
       form.company && `Company: ${form.company}`,
       `Event type: ${form.eventType}`,
       form.eventDate && `Event date: ${form.eventDate}`,
@@ -86,6 +122,32 @@ export function VIPPlanForm() {
       <div>
         <label className={labelCls} htmlFor="vip-company">Company (optional)</label>
         <input id="vip-company" className={field} value={form.company} onChange={set("company")} placeholder="Company / organisation" />
+      </div>
+
+      <div>
+        <label className={labelCls} htmlFor="vip-phone">Phone / WhatsApp *</label>
+        <input
+          id="vip-phone"
+          type="tel"
+          required
+          className={field}
+          value={form.phone}
+          onChange={(e) => { setForm((f) => ({ ...f, phone: e.target.value })); if (phoneError) setPhoneError(false); }}
+          placeholder="+9665XXXXXXXX"
+        />
+        {phoneError && <p className="mt-1 text-[0.7rem] text-red-600">Please enter a valid phone number so we can follow up.</p>}
+      </div>
+      <div>
+        <label className={labelCls} htmlFor="vip-email">Email (optional)</label>
+        <input
+          id="vip-email"
+          type="email"
+          className={field}
+          value={form.email}
+          onChange={(e) => { setForm((f) => ({ ...f, email: e.target.value })); if (emailError) setEmailError(false); }}
+          placeholder="you@email.com"
+        />
+        {emailError && <p className="mt-1 text-[0.7rem] text-red-600">Please enter a valid email address.</p>}
       </div>
 
       <div>
