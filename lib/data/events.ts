@@ -214,6 +214,10 @@ export const EVENTS: EventPageData[] = [
     waPrefill:
       "Salam! I need private event transportation in Saudi Arabia.\n• Event / venue / city:\n• Dates:\n• Pickup (airport or hotel):\n• Passengers & bags:\n• Need: airport transfer / daily standby / group vehicle / VIP chauffeur",
     heroAlt: "Executive chauffeur in front of a black SUV at a Saudi Arabia exhibition centre entrance",
+    servicesImage: {
+      src: "/gallery/partner-vip-van-1.webp",
+      alt: "Quilted-leather executive VIP van cabin, available through our partner network for delegations and events",
+    },
     organiserDesk: {
       heading: "Moving a delegation to a Saudi event?",
       body: "Multi-vehicle, multi-day, multi-city event transport with one coordinator, one schedule and one invoice. Executive sedans, SUVs, vans and coasters — arrival manifests across flights and hotels, daily venue loops, and VIP limousine service under a single point of contact.",

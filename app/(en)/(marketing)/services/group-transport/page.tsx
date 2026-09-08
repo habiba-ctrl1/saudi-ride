@@ -7,6 +7,12 @@ import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { Users, ShieldCheck, Bus, MapPin, Check } from "lucide-react";
 import Link from "next/link";
+import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
+import { contactConfig } from "@/lib/config/contact";
+
+// Premium VIP vans & coaches available through our vetted partner network
+// (owner permission on file). Interiors + exteriors.
+const PARTNER_VANS = Array.from({ length: 13 }, (_, i) => `/gallery/partner-vip-van-${i + 1}.webp`);
 
 const TITLE = "Group Transport & Umrah Bus Hire | Taxi Saudi Arabia";
 const DESCRIPTION = "Spacious group transport in Saudi Arabia. Rent 7-seater Vans, Coaster buses, and luxury coaches for large families and Umrah groups.";
@@ -113,6 +119,61 @@ export default function GroupTransportPage() {
               <p className="text-sm text-[#6B7280] leading-relaxed">{feat.desc}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Partner-network fleet gallery (owner permission on file) */}
+      <section className="section-container max-w-7xl py-20 border-b border-[#C9A84C]/10">
+        <div className="text-center mb-10">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#16A34A]">
+            <Bus className="h-3.5 w-3.5" /> Partner Network Fleet
+          </span>
+          <h2 className="font-heading text-3xl md:text-4xl font-bold mt-3 mb-3">Executive vans &amp; coaches for groups</h2>
+          <p className="text-sm text-[#6B7280] max-w-2xl mx-auto leading-relaxed">
+            Through our vetted partner network we arrange premium executive VIP vans and coaches — quilted-leather cabins that keep a family, delegation or event group together in comfort. Below is a look at the standard of vehicle we coordinate.
+          </p>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {PARTNER_VANS.map((src, i) => (
+            <div key={src} className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-[#16A34A]/12 bg-[#FAFAF7]">
+              <Image
+                src={src}
+                alt={`Executive VIP van available through our partner network — view ${i + 1}`}
+                fill
+                loading="lazy"
+                sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                className="object-cover hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+          ))}
+        </div>
+        <p className="text-center text-[0.7rem] text-[#6B7280] mt-4">Vehicles shown are examples from our partner network; the exact model is confirmed with your quote.</p>
+      </section>
+
+      {/* On-page lead form + Path B */}
+      <section className="section-container max-w-5xl py-16 border-b border-[#C9A84C]/10">
+        <div className="bg-[#F0FDF4] border border-[#16A34A]/20 rounded-3xl p-6 sm:p-8">
+          <div className="text-center mb-6">
+            <h2 className="font-heading text-2xl md:text-3xl font-bold text-[#1C1C1C] mb-3">Get your group transport quote</h2>
+            <p className="text-sm text-[#6B7280] max-w-xl mx-auto leading-relaxed">Fill a few details for a fast WhatsApp quote — vans, coasters and coaches for families, Umrah groups, delegations and events. Agencies and companies can request a written quote.</p>
+          </div>
+          <WhatsAppQuoteForm defaultVehicle="Van" />
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            <a
+              href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent("Salam! Group transport enquiry.\n• From / to: \n• Date & time: \n• Group size: \n• Luggage: \n• Vehicle (Van / Coaster / Coach): \n• Umrah group / event / family?: ")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
+            >
+              Group quote on WhatsApp
+            </a>
+            <a
+              href={`mailto:${contactConfig.email}?subject=${encodeURIComponent("Group / delegation transport RFQ")}&body=${encodeURIComponent("Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for group transport.\n\n• Agency / company / group name: \n• Contact name: \n• Route(s): \n• Dates: \n• Group size (per vehicle): \n• Luggage: \n• Vehicle(s) needed (Van / Coaster / Coach): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.")}`}
+              className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/30 bg-white px-7 py-3.5 text-xs font-bold uppercase text-[#16A34A] hover:bg-[#16A34A]/10 transition-all"
+            >
+              Email a group / delegation RFQ
+            </a>
+          </div>
         </div>
       </section>
       {(() => {
