@@ -7,6 +7,7 @@ import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { Compass, ShieldCheck, MapPin, Map } from "lucide-react";
 import { contactConfig } from "@/lib/config/contact";
+import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 
 const TITLE = "Madinah Ziyarat Packages & Taxi Tours | Taxi Saudi Arabia";
 const DESCRIPTION = "Book a private Madinah Ziyarat taxi tour — visit Masjid Quba, Mount Uhud, Qiblatain & Seven Mosques with local drivers. Half-day & full-day tours, clear pricing, WhatsApp booking.";
@@ -140,6 +141,20 @@ export default function MadinahZiyaratPage() {
           </>
         );
       })()}
+      {/* On-page lead form + group Path B */}
+      <section className="section-container max-w-5xl pb-16">
+        <div className="bg-[#F0FDF4] border border-[#16A34A]/20 rounded-3xl p-6 sm:p-8">
+          <div className="text-center mb-6">
+            <h2 className="font-heading text-2xl md:text-3xl font-bold text-[#1C1C1C] mb-3">Plan your Madinah Ziyarat</h2>
+            <p className="text-sm text-[#6B7280] max-w-xl mx-auto leading-relaxed">Fill a few details for a fast WhatsApp quote — a private half-day or full-day Ziyarat tour with a professional chauffeur, hotel pickup, and the car waiting between sites. Families and groups can request a written quote.</p>
+          </div>
+          <WhatsAppQuoteForm defaultPickup="Madinah hotel" defaultDropoff="Madinah Ziyarat tour" />
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            <a href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent("Salam! Madinah Ziyarat tour enquiry.\n• Madinah hotel: \n• Date: \n• Passengers: \n• Half-day or full-day?: \n• Sites (Quba / Uhud / Qiblatain / Seven Mosques): ")}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all">Book Ziyarat on WhatsApp</a>
+            <a href={`mailto:${contactConfig.email}?subject=${encodeURIComponent("Madinah Ziyarat tour enquiry")}&body=${encodeURIComponent("Hello Taxi Saudi Arabia team,\n\nWe'd like a private Madinah Ziyarat tour.\n\n• Group / family name: \n• Contact name: \n• Madinah hotel: \n• Date: \n• Number of passengers: \n• Half-day or full-day?: \n• Sites of interest (Quba / Uhud / Qiblatain / Seven Mosques): \n\nPlease confirm a fixed fare before booking.\n\nThank you.")}`} className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/30 bg-white px-7 py-3.5 text-xs font-bold uppercase text-[#16A34A] hover:bg-[#16A34A]/10 transition-all">Email a group enquiry</a>
+          </div>
+        </div>
+      </section>
       <ServiceRelatedLinks currentPath="/services/madinah-ziyarat" />
     </div>
   );

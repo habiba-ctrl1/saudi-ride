@@ -5,6 +5,8 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
+import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
+import { contactConfig } from "@/lib/config/contact";
 import Link from "next/link";
 import { Map, Car, ShieldCheck, Clock, Navigation, CheckCircle2 } from "lucide-react";
 
@@ -227,6 +229,20 @@ export default function IntercityServicePage() {
               <p className="text-sm text-[#6B7280] leading-relaxed pl-8">{faq.a}</p>
             </div>
           ))}
+        </div>
+      </section>
+      {/* On-page lead form + Path B */}
+      <section className="section-container max-w-5xl pb-16">
+        <div className="bg-[#F0FDF4] border border-[#16A34A]/20 rounded-3xl p-6 sm:p-8">
+          <div className="text-center mb-6">
+            <h2 className="font-heading text-2xl md:text-3xl font-bold text-[#1C1C1C] mb-3">Get your intercity transfer quote</h2>
+            <p className="text-sm text-[#6B7280] max-w-xl mx-auto leading-relaxed">Fill a few details for a fast WhatsApp quote — a private, door-to-door intercity transfer with a professional chauffeur, any city pair across Saudi Arabia, one-way or round trip. Companies and groups can request a written quote.</p>
+          </div>
+          <WhatsAppQuoteForm />
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            <a href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent("Salam! Intercity transfer enquiry.\n• From city: \n• To city: \n• Date & time: \n• Passengers & bags: \n• Vehicle (Sedan / SUV / Van): \n• One-way or round trip?: ")}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all">Get intercity quote on WhatsApp</a>
+            <a href={`mailto:${contactConfig.email}?subject=${encodeURIComponent("Corporate / group intercity transfer RFQ")}&body=${encodeURIComponent("Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for intercity transfers in Saudi Arabia.\n\n• Company / group name: \n• Contact name: \n• Route(s) (from → to): \n• Dates: \n• Passengers per trip: \n• Vehicle(s) needed (Sedan / SUV / Van): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.")}`} className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/30 bg-white px-7 py-3.5 text-xs font-bold uppercase text-[#16A34A] hover:bg-[#16A34A]/10 transition-all">Email a corporate / group RFQ</a>
+          </div>
         </div>
       </section>
       <ServiceRelatedLinks currentPath="/services/intercity" />
