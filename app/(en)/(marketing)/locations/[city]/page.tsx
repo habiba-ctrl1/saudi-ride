@@ -111,6 +111,46 @@ const CITY_LEAD: Record<string, { heading: string; blurb: string; dropoff: strin
     emailSubject: "Group / corporate transfer RFQ — Jeddah",
     emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers from Jeddah.\n\n• Agency / company / group name: \n• Contact name: \n• Dates & flight numbers: \n• Route(s) (e.g. JED → Makkah / Madinah): \n• Passengers per transfer (adults / children): \n• Vehicle(s) needed (Sedan / SUV / Van): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.",
   },
+  tabuk: {
+    heading: "Get your Tabuk transfer quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a private car with a professional chauffeur in Tabuk. TUU airport pickups, NEOM business trips, AlUla heritage travel, and cross-border runs to Jordan via Haql.",
+    dropoff: "Tabuk",
+    pathBHeading: "NEOM business travel or a group trip from Tabuk?",
+    pathBBody: "For NEOM site access, corporate travel and contractor movements we run executive sedans and SUVs with professional chauffeurs — plus AlUla heritage day trips and Jordan-border runs, with a written quote and corporate invoicing on request.",
+    waPrefill: "Salam! Tabuk transfer enquiry.\n• From / to (TUU / NEOM / AlUla / Jordan border): \n• Date & time: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• NEOM / airport / intercity?: ",
+    emailSubject: "Corporate / group transfer RFQ — Tabuk",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers from Tabuk.\n\n• Company / group name: \n• Contact name: \n• Dates: \n• Route(s) (TUU / NEOM / AlUla / Haql–Jordan): \n• Passengers: \n• Vehicle(s) needed (Executive sedan / SUV / Van): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.",
+  },
+  taif: {
+    heading: "Get your Taif transfer quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a private car with a professional chauffeur in Taif. TIF airport pickups, transfers to Makkah and Jeddah, and sightseeing up the Al Hada and Al Shafa mountain roads.",
+    dropoff: "Taif",
+    pathBHeading: "Family day trip or group booking in Taif?",
+    pathBBody: "For families and groups we arrange SUVs and vans with experienced mountain-road chauffeurs — Al Hada cable car, Al Shafa, the rose farms and Shubra Palace, or a day trip down to Makkah, kept together in one vehicle with a written quote for groups.",
+    waPrefill: "Salam! Taif transfer enquiry.\n• From / to (TIF / Makkah / Jeddah / Al Hada): \n• Date & time: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Sightseeing / airport / intercity?: ",
+    emailSubject: "Group / family transfer RFQ — Taif",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers in Taif.\n\n• Group / family name: \n• Contact name: \n• Date(s): \n• Route(s) / sites (Al Hada / Al Shafa / rose farms / Makkah): \n• Passengers: \n• Vehicle(s) needed (Sedan / SUV / Van): \n\nPlease confirm a fixed fare before booking.\n\nThank you.",
+  },
+  yanbu: {
+    heading: "Get your Yanbu transfer quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a private car with a professional chauffeur in Yanbu. Airport pickups, intercity trips to Madinah and Jeddah, and rides across Yanbu Al-Bahr and the Industrial City.",
+    dropoff: "Yanbu",
+    pathBHeading: "Industrial City or leisure travel in Yanbu?",
+    pathBBody: "For Yanbu Industrial City contractors and companies we run executive sedans and SUVs with corporate invoicing on request; for visitors we cover Red Sea diving trips, the old town, and intercity travel to Madinah or Jeddah — with a written quote for groups.",
+    waPrefill: "Salam! Yanbu transfer enquiry.\n• From / to (airport / Yanbu Al-Bahr / Industrial City / Madinah): \n• Date & time: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Corporate / leisure / intercity?: ",
+    emailSubject: "Corporate / group transfer RFQ — Yanbu",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers in Yanbu.\n\n• Company / group name: \n• Contact name: \n• Dates: \n• Route(s) (Yanbu Al-Bahr / Industrial City / Madinah / Jeddah): \n• Passengers: \n• Vehicle(s) needed (Sedan / SUV / Van): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.",
+  },
+  abha: {
+    heading: "Get your Abha transfer quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a private car with a professional chauffeur in Abha. AHB airport pickups, Soudah and Asir mountain sightseeing, and rides across the cool highlands.",
+    dropoff: "Abha",
+    pathBHeading: "Asir sightseeing or a group trip from Abha?",
+    pathBBody: "For families and groups we arrange SUVs and vans with chauffeurs who know the mountain roads — Soudah Peak and the cable car, Habala, the Green Mountain and the Asir highlands, kept together in one vehicle with a written quote for groups.",
+    waPrefill: "Salam! Abha transfer enquiry.\n• From / to (AHB / Soudah / Asir sites): \n• Date & time: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Sightseeing / airport?: ",
+    emailSubject: "Group / family transfer RFQ — Abha",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers in Abha.\n\n• Group / family name: \n• Contact name: \n• Date(s): \n• Sites / route(s) (Soudah / cable car / Habala / Green Mountain): \n• Passengers: \n• Vehicle(s) needed (Sedan / SUV / Van): \n\nPlease confirm a fixed fare before booking.\n\nThank you.",
+  },
 };
 
 // Hourly / full-day car-hire section per city (major commercial intent). Add a
@@ -188,6 +228,54 @@ const HOURLY_HIRE: Record<string, { heading: string; intro: string; useCases: st
     ],
     waPrefill: "Salam! Full-day car hire / hourly chauffeur in AlUla.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Sites (Hegra / Dadan / Old Town / Elephant Rock / Maraya): ",
   },
+  tabuk: {
+    heading: "Full-Day Car Hire & Hourly Chauffeur in Tabuk",
+    intro: "Tabuk is the gateway to NEOM, AlUla and the north-west, and the sites are far apart — most travellers keep a private car and chauffeur for the day rather than booking single transfers.",
+    useCases: [
+      "NEOM site-access day with waiting time between zones",
+      "AlUla heritage day trip and back",
+      "Tabuk sightseeing — Tabuk Castle, the Hejaz Railway station and Wadi Disah",
+      "Cross-border run to Jordan via the Haql crossing",
+      "Airport (TUU) arrival day with onward travel",
+    ],
+    waPrefill: "Salam! Full-day car hire / hourly chauffeur in Tabuk.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Plan (NEOM / AlUla / sightseeing / Jordan): ",
+  },
+  taif: {
+    heading: "Full-Day Car Hire & Hourly Chauffeur in Taif",
+    intro: "Taif's attractions are spread across the mountains, so a private car by the hour or for the day is the easy way to see them — with a chauffeur experienced on the steep Al Hada road.",
+    useCases: [
+      "Al Hada cable car and mountain viewpoints",
+      "Al Shafa highlands and the rose farms in season",
+      "Shubra Palace and the old souqs",
+      "A day trip down to Makkah (~90 km) and back",
+      "Airport (TIF) arrival day with onward sightseeing",
+    ],
+    waPrefill: "Salam! Full-day car hire / hourly chauffeur in Taif.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Plan (Al Hada / Al Shafa / rose farms / Makkah): ",
+  },
+  yanbu: {
+    heading: "Full-Day Car Hire & Hourly Chauffeur in Yanbu",
+    intro: "Yanbu spreads from the old town on the coast to the Industrial City, so keeping a private car for the day makes moving between them simple — for business or for a Red Sea break.",
+    useCases: [
+      "Industrial City site visits with waiting time between plants",
+      "Red Sea diving and beach trips along the coast",
+      "Yanbu Al-Bahr old town and the waterfront",
+      "Shopping and multi-stop trips across the city",
+      "A full day continuing to Madinah (~240 km) or Jeddah (~330 km)",
+    ],
+    waPrefill: "Salam! Full-day car hire / hourly chauffeur in Yanbu.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Plan (Industrial City / diving / old town / intercity): ",
+  },
+  abha: {
+    heading: "Full-Day Car Hire & Hourly Chauffeur in Abha",
+    intro: "Abha and the Asir highlands are best seen with a private car for the day — the viewpoints and villages are spread across the mountains, on roads a local chauffeur knows well.",
+    useCases: [
+      "Soudah Peak and the Abha cable car",
+      "The hanging village of Habala and Asir mountain viewpoints",
+      "Green Mountain (Jabal Thera) and the city parks",
+      "Shopping and multi-stop trips across Abha and Khamis Mushait",
+      "Airport (AHB) arrival day with onward sightseeing",
+    ],
+    waPrefill: "Salam! Full-day car hire / hourly chauffeur in Abha.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Plan (Soudah / Habala / Green Mountain / sightseeing): ",
+  },
 };
 
 const CITY_AIRPORT: Record<string, { slug: string; name: string }> = {
@@ -244,6 +332,10 @@ const CITY_META_TITLE: Record<string, string> = {
   dammam: "Dammam Taxi & Private Transfers | DMM Airport, Khobar & Bahrain",
   alkhobar: "Al Khobar Taxi & Private Transfers | DMM Airport & Bahrain",
   alula: "AlUla Taxi & Private Car Hire | Hegra, ULH Airport & Tours",
+  tabuk: "Tabuk Taxi & Private Transfers | TUU Airport, NEOM & AlUla",
+  taif: "Taif Taxi & Private Transfers | TIF Airport, Al Hada & Makkah",
+  yanbu: "Yanbu Taxi & Private Transfers | Airport, Hotels & Chauffeur",
+  abha: "Abha Taxi & Private Transfers | AHB Airport, Soudah & Asir",
 };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
