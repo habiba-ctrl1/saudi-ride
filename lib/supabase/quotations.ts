@@ -1,5 +1,5 @@
 import { getSupabaseAnonClient, getSupabaseServerClient } from "./server";
-import type { DriverVehicleType } from "./drivers";
+import type { DriverRow, DriverVehicleType } from "./drivers";
 
 export type QuotationStatus = "new" | "quoted" | "confirmed" | "assigned" | "completed" | "cancelled";
 export type QuotationPaymentStatus = "unpaid" | "partial" | "paid";
@@ -35,7 +35,19 @@ export type QuotationRow = {
   confirmed_at: string | null;
   is_test: boolean;
   profit: number | null;
+  receipt_sent_at: string | null;
+  review_invited_at: string | null;
+  actual_amount_paid: number | null;
+  payment_method_used: string | null;
+  /** Only present when fetched via getQuotationWithDriver (embedded select) —
+   *  plain getQuotationById/listQuotations rows leave this undefined. */
+  drivers?: QuotationDriverJoin | null;
 };
+
+export type QuotationDriverJoin = Pick<
+  DriverRow,
+  "full_name" | "phone" | "vehicle_type" | "vehicle_model" | "vehicle_plate_number"
+>;
 
 export type QuotationFilters = {
   status?: QuotationStatus | QuotationStatus[];
@@ -93,6 +105,60 @@ export async function createQuotation(input: NewQuotationInput) {
   return { row: data as Pick<QuotationRow, "id" | "quote_reference"> | null, error: error?.message ?? null };
 }
 
+export type ManualQuotationInput = {
+  customer_name: string;
+  customer_phone: string;
+  customer_email?: string | null;
+  pickup_location: string;
+  drop_location: string;
+  trip_type?: TripType;
+  trip_date: string;
+  trip_time?: string | null;
+  return_date?: string | null;
+  passengers_count?: number | null;
+  luggage_notes?: string | null;
+  vehicle_type_requested?: DriverVehicleType | null;
+  quoted_price?: number | null;
+  currency?: string;
+  source?: LeadSource;
+};
+
+/**
+ * Admin manually typing in a lead that never went through the public form or
+ * the /book bridge — a WhatsApp-only conversation being entered directly.
+ * Service-role insert (authenticated admin action, bypasses the anon
+ * `request_quotation` RPC). Status auto-derives from whether a price was
+ * given: 'quoted' if so, 'new' otherwise — same convention as every other
+ * quotation in the system.
+ */
+export async function createManualQuotation(input: ManualQuotationInput) {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return { row: null, error: "Supabase not configured" };
+  const { data, error } = await supabase
+    .from("quotations")
+    .insert({
+      customer_name: input.customer_name,
+      customer_phone: input.customer_phone,
+      customer_email: input.customer_email ?? null,
+      pickup_location: input.pickup_location,
+      drop_location: input.drop_location,
+      trip_type: input.trip_type ?? "one_way",
+      trip_date: input.trip_date,
+      trip_time: input.trip_time ?? null,
+      return_date: input.return_date ?? null,
+      passengers_count: input.passengers_count ?? null,
+      luggage_notes: input.luggage_notes ?? null,
+      vehicle_type_requested: input.vehicle_type_requested ?? null,
+      quoted_price: input.quoted_price ?? null,
+      currency: input.currency ?? "SAR",
+      status: input.quoted_price != null ? "quoted" : "new",
+      source: input.source ?? "whatsapp",
+    })
+    .select()
+    .single();
+  return { row: (data ?? null) as QuotationRow | null, error: error?.message ?? null };
+}
+
 /**
  * Admin-side bridge from a Prisma Booking to the real Supabase quotations
  * system (reused as-is, not a second quotation implementation). Service-role
@@ -146,6 +212,20 @@ export async function getQuotationById(id: string) {
   const supabase = getSupabaseServerClient();
   if (!supabase) return { row: null as QuotationRow | null, error: "Supabase not configured" };
   const { data, error } = await supabase.from("quotations").select("*").eq("id", id).single();
+  return { row: (data ?? null) as QuotationRow | null, error: error?.message ?? null };
+}
+
+/** Same as getQuotationById but embeds the assigned driver's name/phone/vehicle
+ *  via the `assigned_driver_id` FK — needed for the receipt PDF/email, which
+ *  (unlike the pre-completion quotation) shows who actually drove the trip. */
+export async function getQuotationWithDriver(id: string) {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return { row: null as QuotationRow | null, error: "Supabase not configured" };
+  const { data, error } = await supabase
+    .from("quotations")
+    .select("*, drivers(full_name, phone, vehicle_type, vehicle_model, vehicle_plate_number)")
+    .eq("id", id)
+    .single();
   return { row: (data ?? null) as QuotationRow | null, error: error?.message ?? null };
 }
 
@@ -205,6 +285,43 @@ export async function setQuotationProfit(id: string, profit: number | null) {
   const { data, error } = await supabase
     .from("quotations")
     .update({ profit })
+    .eq("id", id)
+    .select()
+    .single();
+  return { row: (data ?? null) as QuotationRow | null, error: error?.message ?? null };
+}
+
+/** Records what was actually collected for a completed ride and marks the
+ *  receipt as sent — a bookkeeping/communication event, not a business-status
+ *  change, so it's a direct update like is_test/profit rather than going
+ *  through the audit-logged RPCs. Called once, right after the receipt email
+ *  has actually been sent (see POST /api/quotations/[id]/receipt). */
+export async function setQuotationReceiptSent(
+  id: string,
+  opts: { amountPaid: number; paymentMethod: string }
+) {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return { row: null, error: "Supabase not configured" };
+  const { data, error } = await supabase
+    .from("quotations")
+    .update({
+      receipt_sent_at: new Date().toISOString(),
+      actual_amount_paid: opts.amountPaid,
+      payment_method_used: opts.paymentMethod,
+    })
+    .eq("id", id)
+    .select()
+    .single();
+  return { row: (data ?? null) as QuotationRow | null, error: error?.message ?? null };
+}
+
+/** Marks that a review-request nudge (WhatsApp) was sent to the customer. */
+export async function setQuotationReviewInvited(id: string) {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return { row: null, error: "Supabase not configured" };
+  const { data, error } = await supabase
+    .from("quotations")
+    .update({ review_invited_at: new Date().toISOString() })
     .eq("id", id)
     .select()
     .single();
@@ -289,6 +406,39 @@ export type DashboardSummary = {
   todays_confirmed_trips: number;
   needs_followup: number;
 };
+
+/** Rides in a date window, oldest-first by trip date/time — the "schedule"
+ *  view (today / tomorrow / this week / this month), not the paginated
+ *  admin list. Cancelled rides are excluded; everything else (including
+ *  'new'/unquoted leads with a trip_date) shows up so nothing slips through. */
+export async function listScheduleQuotations(fromDate: string, toDate: string) {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return { rows: [] as QuotationRow[], error: "Supabase not configured" };
+  const { data, error } = await supabase
+    .from("quotations")
+    .select("*")
+    .neq("status", "cancelled")
+    .gte("trip_date", fromDate)
+    .lte("trip_date", toDate)
+    .order("trip_date", { ascending: true })
+    .order("trip_time", { ascending: true, nullsFirst: true });
+  return { rows: (data ?? []) as QuotationRow[], error: error?.message ?? null };
+}
+
+/** Completed rides still owed money, oldest trip first — surfaces cases like
+ *  a cash pickup that was never actually collected (easy to lose track of
+ *  once a ride is marked "completed" and scrolls off the main list). */
+export async function listOutstandingPayments() {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return { rows: [] as QuotationRow[], error: "Supabase not configured" };
+  const { data, error } = await supabase
+    .from("quotations")
+    .select("*")
+    .eq("status", "completed")
+    .neq("payment_status", "paid")
+    .order("trip_date", { ascending: true });
+  return { rows: (data ?? []) as QuotationRow[], error: error?.message ?? null };
+}
 
 export async function getDashboardSummary() {
   const supabase = getSupabaseServerClient();

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { FileText, Loader2, Flag, Pencil, X, ChevronLeft, ChevronRight, Search, Eye, Download, FlaskConical, Trash2 } from "lucide-react";
+import { FileText, Loader2, Flag, Pencil, X, ChevronLeft, ChevronRight, Search, Eye, Download, FlaskConical, Trash2, Receipt, Star, Plus } from "lucide-react";
 import type { QuotationRow, QuotationStatus, LeadSource, QuotationPaymentStatus, TripType } from "@/lib/supabase/quotations";
 
 type DriverOption = { id: string; name: string; city: string; vehicleType: string };
@@ -41,6 +41,7 @@ const DATE_PRESETS: Array<{ key: string; label: string }> = [
 const SOURCE_FILTERS: Array<"all" | LeadSource> = ["all", "website", "whatsapp", "referral", "event_management"];
 const PAYMENT_FILTERS: Array<"all" | QuotationPaymentStatus> = ["all", "unpaid", "partial", "paid"];
 const TRIP_TYPES: TripType[] = ["one_way", "round_trip", "event", "multi_day", "airport_transfer", "hourly"];
+const VEHICLE_TYPES = ["sedan", "suv", "van", "bus", "limousine"] as const;
 
 type EditDraft = {
   customer_name: string;
@@ -53,6 +54,38 @@ type EditDraft = {
   trip_time: string;
   passengers_count: string;
   luggage_notes: string;
+};
+
+type NewDraft = {
+  customer_name: string;
+  customer_phone: string;
+  customer_email: string;
+  pickup_location: string;
+  drop_location: string;
+  trip_type: TripType;
+  trip_date: string;
+  trip_time: string;
+  passengers_count: string;
+  vehicle_type_requested: string;
+  luggage_notes: string;
+  quoted_price: string;
+  source: LeadSource;
+};
+
+const EMPTY_NEW_DRAFT: NewDraft = {
+  customer_name: "",
+  customer_phone: "",
+  customer_email: "",
+  pickup_location: "",
+  drop_location: "",
+  trip_type: "one_way",
+  trip_date: "",
+  trip_time: "",
+  passengers_count: "",
+  vehicle_type_requested: "",
+  luggage_notes: "",
+  quoted_price: "",
+  source: "whatsapp",
 };
 
 function draftFromRow(q: QuotationRow): EditDraft {
@@ -68,6 +101,38 @@ function draftFromRow(q: QuotationRow): EditDraft {
     passengers_count: q.passengers_count !== null ? String(q.passengers_count) : "",
     luggage_notes: q.luggage_notes ?? "",
   };
+}
+
+const RIDE_STAGES: Array<{ key: string; label: string; done: (q: QuotationRow) => boolean }> = [
+  { key: "new", label: "New", done: () => true },
+  { key: "quoted", label: "Quoted", done: (q) => q.quoted_price !== null },
+  { key: "confirmed", label: "Confirmed", done: (q) => ["confirmed", "assigned", "completed"].includes(q.status) },
+  { key: "assigned", label: "Assigned", done: (q) => ["assigned", "completed"].includes(q.status) },
+  { key: "completed", label: "Completed", done: (q) => q.status === "completed" },
+  { key: "receipt", label: "Receipt Sent", done: (q) => q.receipt_sent_at !== null },
+  { key: "reviewed", label: "Reviewed", done: (q) => q.review_invited_at !== null },
+];
+
+/** Small, additive-only visual pipeline (does not replace the status badge/
+ *  filter system above) so a completed ride's post-trip progress — receipt
+ *  sent, review requested — is visible at a glance per row. */
+function RideStepper({ q }: { q: QuotationRow }) {
+  return (
+    <div className="mt-2 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[10px]">
+      {RIDE_STAGES.map((stage, i) => {
+        const done = stage.done(q);
+        return (
+          <span key={stage.key} className="flex items-center gap-1.5">
+            <span className={`flex items-center gap-1 ${done ? "text-[#C9A84C]" : "text-[#444]"}`}>
+              <span className={`h-1.5 w-1.5 rounded-full ${done ? "bg-[#C9A84C]" : "bg-[#333]"}`} />
+              {stage.label}
+            </span>
+            {i < RIDE_STAGES.length - 1 && <span className="text-[#333]">→</span>}
+          </span>
+        );
+      })}
+    </div>
+  );
 }
 
 export function QuotationsClient({
@@ -102,6 +167,10 @@ export function QuotationsClient({
   const [editDraft, setEditDraft] = useState<EditDraft | null>(null);
   const [notesDraft, setNotesDraft] = useState<Record<string, string>>({});
   const [profitDraft, setProfitDraft] = useState<Record<string, string>>({});
+  const [showNewForm, setShowNewForm] = useState(false);
+  const [newDraft, setNewDraft] = useState<NewDraft>(EMPTY_NEW_DRAFT);
+  const [newBusy, setNewBusy] = useState(false);
+  const [newError, setNewError] = useState("");
   const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const totalPages = Math.max(1, Math.ceil(total / limit));
@@ -165,6 +234,42 @@ export function QuotationsClient({
     }
   }
 
+  async function createManual() {
+    if (!newDraft.customer_name.trim() || !newDraft.customer_phone.trim() || !newDraft.pickup_location.trim() || !newDraft.drop_location.trim() || !newDraft.trip_date) {
+      setNewError("Name, phone, pickup, drop-off and trip date are required");
+      return;
+    }
+    setNewBusy(true);
+    setNewError("");
+    try {
+      const res = await fetch("/api/quotations/manual", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...newDraft,
+          passengers_count: newDraft.passengers_count || undefined,
+          vehicle_type_requested: newDraft.vehicle_type_requested || undefined,
+          quoted_price: newDraft.quoted_price || undefined,
+          customer_email: newDraft.customer_email || undefined,
+          trip_time: newDraft.trip_time || undefined,
+          luggage_notes: newDraft.luggage_notes || undefined,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setNewError(data.error || "Could not create quotation");
+        return;
+      }
+      setShowNewForm(false);
+      setNewDraft(EMPTY_NEW_DRAFT);
+      router.refresh();
+    } catch {
+      setNewError("Network error");
+    } finally {
+      setNewBusy(false);
+    }
+  }
+
   function requestStatusChange(q: QuotationRow, status: QuotationStatus) {
     setStatusMenuOpenId(null);
     if (status === "quoted" && !(priceDraft[q.id] ?? q.quoted_price)) {
@@ -222,6 +327,32 @@ export function QuotationsClient({
     } finally {
       setBusyId(null);
     }
+  }
+
+  async function sendReceipt(id: string) {
+    setBusyId(id);
+    setRowError((prev) => ({ ...prev, [id]: "" }));
+    try {
+      const res = await fetch(`/api/quotations/${id}/receipt`, { method: "POST" });
+      const data = await res.json();
+      if (!res.ok) {
+        setRowError((prev) => ({ ...prev, [id]: data.error || "Could not send receipt" }));
+        return;
+      }
+      router.refresh();
+    } catch {
+      setRowError((prev) => ({ ...prev, [id]: "Network error" }));
+    } finally {
+      setBusyId(null);
+    }
+  }
+
+  function markReviewInvited(id: string) {
+    fetch(`/api/quotations/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ reviewInvited: true }),
+    }).then(() => router.refresh());
   }
 
   async function saveProfit(id: string) {
@@ -304,6 +435,12 @@ export function QuotationsClient({
           <h1 className="text-xl font-bold text-[#F5F0E8]">Quotations</h1>
           <span className="text-xs text-[#A1A1A6]">{total} total</span>
         </div>
+        <button
+          onClick={() => { setShowNewForm(true); setNewError(""); }}
+          className="flex items-center gap-1.5 rounded-lg bg-[#C9A84C] px-3.5 py-2 text-xs font-bold text-black hover:bg-[#dcb85e]"
+        >
+          <Plus className="h-3.5 w-3.5" /> New Quotation
+        </button>
       </div>
 
       {/* Filter bar */}
@@ -458,6 +595,7 @@ export function QuotationsClient({
                       <Flag className="h-3 w-3" /> {q.followup_flagged ? "FOLLOW UP" : "flag"}
                     </button>
                   </div>
+                  {q.status !== "cancelled" && <RideStepper q={q} />}
                   {!editing && (
                     <>
                       <p className="mt-2 text-sm font-semibold text-[#F5F0E8]">{q.customer_name}</p>
@@ -514,6 +652,52 @@ export function QuotationsClient({
                       <Download className="h-3.5 w-3.5" />
                     </span>
                   )}
+                  {q.status === "completed" && q.payment_status === "paid" ? (
+                    <>
+                      <a
+                        href={`/api/quotations/${q.id}/receipt`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="Download PDF receipt"
+                        className="rounded-lg border border-[#333] p-1.5 text-[#A1A1A6] transition hover:border-[#C9A84C]/40 hover:text-[#C9A84C]"
+                      >
+                        <Receipt className="h-3.5 w-3.5" />
+                      </a>
+                      {q.receipt_sent_at ? (
+                        <span title={`Receipt sent ${new Date(q.receipt_sent_at).toLocaleString()}`} className="flex items-center gap-1 rounded-full border border-[#C9A84C]/20 bg-[#C9A84C]/10 px-2.5 py-0.5 text-[10px] font-bold uppercase text-[#C9A84C]">
+                          Receipt Sent ✓
+                        </span>
+                      ) : (
+                        <button
+                          disabled={busy || !q.customer_email}
+                          onClick={() => sendReceipt(q.id)}
+                          title={q.customer_email ? "Email the receipt to the customer" : "No customer email on file"}
+                          className="rounded-lg border border-[#333] p-1.5 text-[#A1A1A6] transition hover:border-[#C9A84C]/40 hover:text-[#C9A84C] disabled:cursor-not-allowed disabled:opacity-40"
+                        >
+                          <Receipt className="h-3.5 w-3.5" />
+                          <span className="sr-only">Send Receipt</span>
+                        </button>
+                      )}
+                      {q.receipt_sent_at && (
+                        q.review_invited_at ? (
+                          <span title={`Review requested ${new Date(q.review_invited_at).toLocaleString()}`} className="flex items-center gap-1 rounded-full border border-purple-500/20 bg-purple-500/10 px-2.5 py-0.5 text-[10px] font-bold uppercase text-purple-300">
+                            Reviewed ✓
+                          </span>
+                        ) : (
+                          <a
+                            href={`https://wa.me/${waPhone}?text=${encodeURIComponent(`Hi ${q.customer_name}, thank you for riding with Taxi Saudi Arabia! We'd love a quick review of your experience — it really helps us. 🙏`)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => markReviewInvited(q.id)}
+                            title="Send a WhatsApp review request"
+                            className="rounded-lg border border-[#333] p-1.5 text-[#A1A1A6] transition hover:border-[#C9A84C]/40 hover:text-[#C9A84C]"
+                          >
+                            <Star className="h-3.5 w-3.5" />
+                          </a>
+                        )
+                      )}
+                    </>
+                  ) : null}
                   <button
                     disabled={busy}
                     onClick={() => toggleTest(q.id, !q.is_test)}
@@ -765,6 +949,99 @@ export function QuotationsClient({
           >
             Next <ChevronRight className="h-3.5 w-3.5" />
           </button>
+        </div>
+      )}
+
+      {showNewForm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4" onClick={() => setShowNewForm(false)}>
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-[#333] bg-[#111] p-6"
+          >
+            <div className="mb-4 flex items-center justify-between">
+              <h2 className="text-lg font-bold text-[#F5F0E8]">New Quotation</h2>
+              <button onClick={() => setShowNewForm(false)} className="text-[#A1A1A6] hover:text-white">
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+            <p className="mb-4 text-xs text-[#A1A1A6]">
+              For a WhatsApp-only lead that never touched the website form. Leave price blank to save it as a pending &ldquo;New&rdquo; lead instead of &ldquo;Quoted&rdquo;.
+            </p>
+
+            {newError && <p className="mb-3 rounded-lg border border-red-500/20 bg-red-500/10 px-3 py-2 text-xs text-red-400">{newError}</p>}
+
+            <div className="grid gap-3 sm:grid-cols-2">
+              {([
+                ["Name *", "customer_name", "text"],
+                ["Phone *", "customer_phone", "text"],
+                ["Email", "customer_email", "email"],
+                ["Pickup *", "pickup_location", "text"],
+                ["Drop-off *", "drop_location", "text"],
+                ["Trip date *", "trip_date", "date"],
+                ["Trip time", "trip_time", "time"],
+                ["Passengers", "passengers_count", "number"],
+                ["Price (SAR)", "quoted_price", "number"],
+              ] as const).map(([label, key, type]) => (
+                <label key={key} className="text-xs text-[#A1A1A6]">
+                  {label}
+                  <input
+                    type={type}
+                    value={newDraft[key]}
+                    onChange={(e) => setNewDraft({ ...newDraft, [key]: e.target.value })}
+                    className="mt-1 w-full rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
+                  />
+                </label>
+              ))}
+              <label className="text-xs text-[#A1A1A6]">
+                Trip type
+                <select
+                  value={newDraft.trip_type}
+                  onChange={(e) => setNewDraft({ ...newDraft, trip_type: e.target.value as TripType })}
+                  className="mt-1 w-full rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
+                >
+                  {TRIP_TYPES.map((t) => (
+                    <option key={t} value={t} className="bg-[#121212]">{t.replace("_", " ")}</option>
+                  ))}
+                </select>
+              </label>
+              <label className="text-xs text-[#A1A1A6]">
+                Vehicle type
+                <select
+                  value={newDraft.vehicle_type_requested}
+                  onChange={(e) => setNewDraft({ ...newDraft, vehicle_type_requested: e.target.value })}
+                  className="mt-1 w-full rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
+                >
+                  <option value="" className="bg-[#121212]">— not specified —</option>
+                  {VEHICLE_TYPES.map((v) => (
+                    <option key={v} value={v} className="bg-[#121212]">{v}</option>
+                  ))}
+                </select>
+              </label>
+              <label className="sm:col-span-2 text-xs text-[#A1A1A6]">
+                Luggage / notes
+                <textarea
+                  value={newDraft.luggage_notes}
+                  onChange={(e) => setNewDraft({ ...newDraft, luggage_notes: e.target.value })}
+                  rows={2}
+                  className="mt-1 w-full rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
+                />
+              </label>
+            </div>
+
+            <div className="mt-5 flex justify-end gap-2">
+              <button onClick={() => setShowNewForm(false)} className="rounded-lg border border-[#333] px-4 py-2 text-xs font-bold text-[#A1A1A6] hover:border-[#C9A84C]/40">
+                Cancel
+              </button>
+              <button
+                disabled={newBusy}
+                onClick={createManual}
+                className="flex items-center gap-1.5 rounded-lg bg-[#C9A84C] px-4 py-2 text-xs font-bold text-black hover:bg-[#dcb85e] disabled:opacity-50"
+              >
+                {newBusy && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
+                {newBusy ? "Creating…" : "Create Quotation"}
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

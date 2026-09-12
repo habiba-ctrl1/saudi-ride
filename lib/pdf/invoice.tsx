@@ -3,9 +3,10 @@ import path from "path";
 import { contactConfig } from "@/lib/config/contact";
 import type { QuotationRow } from "@/lib/supabase/quotations";
 
-const GOLD = "#C9A84C";
-const DARK = "#0A0A0A";
+const GREEN = "#16A34A";
+const YELLOW = "#FACC15";
 const GRAY = "#49505a";
+const INK = "#121417";
 
 Font.register({
   family: "Amiri",
@@ -16,18 +17,18 @@ Font.register({
 });
 
 const styles = StyleSheet.create({
-  page: { padding: 36, fontSize: 10, color: "#121417", fontFamily: "Helvetica" },
-  header: { backgroundColor: DARK, padding: 20, marginBottom: 24, flexDirection: "row", justifyContent: "space-between" },
-  brand: { color: GOLD, fontSize: 16, fontWeight: 700, letterSpacing: 2 },
-  brandSub: { color: "#A1A1A6", fontSize: 8, marginTop: 4, letterSpacing: 1 },
-  brandSubAr: { color: "#A1A1A6", fontSize: 9, marginTop: 2, fontFamily: "Amiri", textAlign: "left" },
+  page: { padding: 36, fontSize: 10, color: INK, fontFamily: "Helvetica" },
+  header: { backgroundColor: GREEN, padding: 20, marginBottom: 24, flexDirection: "row", justifyContent: "space-between" },
+  brand: { color: YELLOW, fontSize: 16, fontWeight: 700, letterSpacing: 2 },
+  brandSub: { color: "#d9f5d7", fontSize: 8, marginTop: 4, letterSpacing: 1 },
+  brandSubAr: { color: "#d9f5d7", fontSize: 9, marginTop: 2, fontFamily: "Amiri", textAlign: "left" },
   invoiceTitle: { color: "#fff", fontSize: 13, textAlign: "right" },
-  invoiceTitleAr: { color: GOLD, fontSize: 11, textAlign: "right", fontFamily: "Amiri", marginTop: 2 },
-  invoiceRef: { color: GOLD, fontSize: 11, textAlign: "right", marginTop: 4 },
-  invoicePurpose: { color: "#A1A1A6", fontSize: 8, textAlign: "right", marginTop: 3 },
+  invoiceTitleAr: { color: YELLOW, fontSize: 11, textAlign: "right", fontFamily: "Amiri", marginTop: 2 },
+  invoiceRef: { color: YELLOW, fontSize: 11, textAlign: "right", marginTop: 4 },
+  invoicePurpose: { color: "#d9f5d7", fontSize: 8, textAlign: "right", marginTop: 3 },
   section: { marginBottom: 16 },
   sectionTitleRow: { flexDirection: "row", justifyContent: "space-between", marginBottom: 6, borderBottomWidth: 1, borderBottomColor: "#eee5d0", paddingBottom: 3 },
-  sectionTitle: { fontSize: 9, color: GRAY, textTransform: "uppercase", letterSpacing: 1 },
+  sectionTitle: { fontSize: 9, color: GREEN, textTransform: "uppercase", letterSpacing: 1, fontWeight: 700 },
   sectionTitleAr: { fontSize: 10, color: GRAY, fontFamily: "Amiri" },
   fieldRow: { marginBottom: 6 },
   labelRow: { flexDirection: "row", justifyContent: "space-between" },
@@ -40,17 +41,17 @@ const styles = StyleSheet.create({
   tableLabelEn: { fontSize: 10 },
   tableLabelAr: { fontSize: 10, fontFamily: "Amiri" },
   tableValue: { fontSize: 10, fontWeight: 700 },
-  totalRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", backgroundColor: "#faf7f0", paddingVertical: 10, paddingHorizontal: 10, marginTop: 8, borderRadius: 4 },
-  totalLabelEn: { fontWeight: 700, fontSize: 12 },
-  totalLabelAr: { fontFamily: "Amiri", fontSize: 12, marginTop: 1 },
-  totalValue: { fontWeight: 700, fontSize: 12, color: GOLD },
+  totalRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", backgroundColor: GREEN, paddingVertical: 10, paddingHorizontal: 10, marginTop: 8, borderRadius: 4 },
+  totalLabelEn: { fontWeight: 700, fontSize: 12, color: "#fff" },
+  totalLabelAr: { fontFamily: "Amiri", fontSize: 12, marginTop: 1, color: "#fff" },
+  totalValue: { fontWeight: 700, fontSize: 12, color: "#fff" },
   note: { fontSize: 8.5, color: GRAY, marginTop: 4 },
   noteAr: { fontSize: 9, color: GRAY, fontFamily: "Amiri", marginTop: 1 },
-  highlightNote: { fontSize: 9, color: DARK, marginTop: 8, padding: 8, backgroundColor: "#FFF9E6", borderRadius: 4, borderWidth: 1, borderColor: GOLD, lineHeight: 1.4 },
-  bulletLine: { fontSize: 9.5, color: "#121417", marginBottom: 4, lineHeight: 1.4 },
+  highlightNote: { fontSize: 9, color: INK, marginTop: 8, padding: 8, backgroundColor: "#FFF9E6", borderRadius: 4, borderWidth: 1, borderColor: YELLOW, lineHeight: 1.4 },
+  bulletLine: { fontSize: 9.5, color: INK, marginBottom: 4, lineHeight: 1.4 },
   closingBlock: { marginTop: 4, marginBottom: 16, padding: 12, backgroundColor: "#faf7f0", borderRadius: 6, textAlign: "center" },
   closingText: { fontSize: 9.5, color: GRAY, marginBottom: 4 },
-  closingContact: { fontSize: 11, color: GOLD, fontWeight: 700 },
+  closingContact: { fontSize: 11, color: GREEN, fontWeight: 700 },
   termsBlock: { marginTop: 4 },
   termLineEn: { fontSize: 8.5, color: GRAY, marginBottom: 4, lineHeight: 1.4 },
   termLineAr: { fontSize: 9.5, color: GRAY, fontFamily: "Amiri", textAlign: "right", marginBottom: 5, lineHeight: 1.6 },
@@ -195,8 +196,12 @@ function buildTerms(validUntilStr: string): Array<{ en: string; ar: string }> {
   ];
 }
 
-export function InvoiceDocument({ q }: { q: QuotationRow }) {
+export function InvoiceDocument({ q, mode = "quotation" }: { q: QuotationRow; mode?: "quotation" | "receipt" }) {
+  const isReceipt = mode === "receipt";
   const total = q.quoted_price ?? 0;
+  const amountPaid = q.actual_amount_paid ?? total;
+  const paymentMethod = q.payment_method_used ?? "Cash";
+  const driver = q.drivers ?? null;
   const issuedAt = new Date(q.updated_at ?? q.created_at);
   const tripDate = new Date(`${q.trip_date}T00:00:00`);
   // Valid through the day after the trip itself — a fixed short window (e.g.
@@ -222,7 +227,7 @@ export function InvoiceDocument({ q }: { q: QuotationRow }) {
   const fareLabelAr = extras.excluded?.length ? "أجرة النقل (راجع الاستثناءات أدناه)" : "إجمالي أجرة الرحلة (شامل)";
 
   return (
-    <Document title={`Quotation ${q.quote_reference}`}>
+    <Document title={`${isReceipt ? "Receipt" : "Quotation"} ${q.quote_reference}`}>
       <Page size="A4" style={styles.page}>
         <View style={styles.header}>
           <View>
@@ -231,10 +236,14 @@ export function InvoiceDocument({ q }: { q: QuotationRow }) {
             <Text style={styles.brandSubAr}>خدمات النقل الخاص</Text>
           </View>
           <View>
-            <Text style={styles.invoiceTitle}>QUOTATION</Text>
-            <Text style={styles.invoiceTitleAr}>عرض سعر</Text>
+            <Text style={styles.invoiceTitle}>{isReceipt ? "RECEIPT" : "QUOTATION"}</Text>
+            <Text style={styles.invoiceTitleAr}>{isReceipt ? "إيصال دفع" : "عرض سعر"}</Text>
             <Text style={styles.invoiceRef}>{q.quote_reference}</Text>
-            {extras.purpose ? <Text style={styles.invoicePurpose}>For {extras.purpose}</Text> : null}
+            {isReceipt ? (
+              <Text style={styles.invoicePurpose}>Payment Received — Trip Completed</Text>
+            ) : extras.purpose ? (
+              <Text style={styles.invoicePurpose}>For {extras.purpose}</Text>
+            ) : null}
           </View>
         </View>
 
@@ -243,8 +252,8 @@ export function InvoiceDocument({ q }: { q: QuotationRow }) {
           <Field labelEn="Name" labelAr="الاسم" value={q.customer_name} />
           <Field labelEn="Phone" labelAr="رقم الهاتف" value={q.customer_phone} />
           {q.customer_email ? <Field labelEn="Email" labelAr="البريد الإلكتروني" value={q.customer_email} /> : null}
-          <Field labelEn="Issue Date" labelAr="تاريخ الإصدار" value={fmtDate(issuedAt)} />
-          <Field labelEn="Valid Until" labelAr="صالح حتى" value={fmtDate(validUntil)} />
+          <Field labelEn={isReceipt ? "Payment Date" : "Issue Date"} labelAr={isReceipt ? "تاريخ الدفع" : "تاريخ الإصدار"} value={fmtDate(issuedAt)} />
+          {!isReceipt ? <Field labelEn="Valid Until" labelAr="صالح حتى" value={fmtDate(validUntil)} /> : null}
         </View>
 
         <View style={styles.section}>
@@ -269,6 +278,22 @@ export function InvoiceDocument({ q }: { q: QuotationRow }) {
               value={extras.vehicleLabel || q.vehicle_type_requested!.toUpperCase()}
             />
             {extras.serviceHours ? <Field labelEn="Service Hours" labelAr="ساعات الخدمة" value={extras.serviceHours} /> : null}
+          </View>
+        ) : null}
+
+        {isReceipt && driver ? (
+          <View style={styles.section}>
+            <SectionTitle en="Driver & Vehicle" ar="السائق والمركبة" />
+            <Field labelEn="Driver" labelAr="السائق" value={driver.full_name} />
+            <Field labelEn="Driver Phone" labelAr="هاتف السائق" value={driver.phone} />
+            <Field
+              labelEn="Vehicle"
+              labelAr="المركبة"
+              value={[driver.vehicle_model, driver.vehicle_type.toUpperCase()].filter(Boolean).join(" — ")}
+            />
+            {driver.vehicle_plate_number ? (
+              <Field labelEn="Plate Number" labelAr="رقم اللوحة" value={driver.vehicle_plate_number} />
+            ) : null}
           </View>
         ) : null}
 
@@ -305,13 +330,22 @@ export function InvoiceDocument({ q }: { q: QuotationRow }) {
           </View>
           <View style={styles.totalRow}>
             <View>
-              <Text style={styles.totalLabelEn}>Total — Cash</Text>
-              <Text style={styles.totalLabelAr}>الإجمالي - نقداً</Text>
+              <Text style={styles.totalLabelEn}>{isReceipt ? "Amount Paid" : "Total — Cash"}</Text>
+              <Text style={styles.totalLabelAr}>{isReceipt ? "المبلغ المدفوع" : "الإجمالي - نقداً"}</Text>
             </View>
-            <Text style={styles.totalValue}>{fmt(total, q.currency)}</Text>
+            <Text style={styles.totalValue}>{fmt(isReceipt ? amountPaid : total, q.currency)}</Text>
           </View>
-          <Text style={styles.note}>Payable in cash to the driver.</Text>
-          <Text style={styles.noteAr}>يُدفع نقداً للسائق.</Text>
+          {isReceipt ? (
+            <>
+              <Text style={styles.note}>Payment method: {paymentMethod} — received in full.</Text>
+              <Text style={styles.noteAr}>طريقة الدفع: {paymentMethod} — تم الاستلام بالكامل.</Text>
+            </>
+          ) : (
+            <>
+              <Text style={styles.note}>Payable in cash to the driver.</Text>
+              <Text style={styles.noteAr}>يُدفع نقداً للسائق.</Text>
+            </>
+          )}
           {extras.excluded?.length ? (
             <Text style={styles.highlightNote}>
               This rate covers transportation only. It does not include: {extras.excluded.join(", ")}.
@@ -319,27 +353,33 @@ export function InvoiceDocument({ q }: { q: QuotationRow }) {
           ) : null}
         </View>
 
-        <View style={styles.section}>
-          <SectionTitle en="Terms & Conditions" ar="الشروط والأحكام" />
-          <View style={styles.termsBlock}>
-            {terms.map((t, i) => (
-              <Text key={`en-${i}`} style={styles.termLineEn}>{i + 1}. {t.en}</Text>
-            ))}
-          </View>
-          {terms.some((t) => t.ar) ? (
+        {!isReceipt ? (
+          <View style={styles.section}>
+            <SectionTitle en="Terms & Conditions" ar="الشروط والأحكام" />
             <View style={styles.termsBlock}>
               {terms.map((t, i) => (
-                t.ar ? <Text key={`ar-${i}`} style={styles.termLineAr}>{t.ar} .{i + 1}</Text> : null
+                <Text key={`en-${i}`} style={styles.termLineEn}>{i + 1}. {t.en}</Text>
               ))}
             </View>
-          ) : null}
-        </View>
+            {terms.some((t) => t.ar) ? (
+              <View style={styles.termsBlock}>
+                {terms.map((t, i) => (
+                  t.ar ? <Text key={`ar-${i}`} style={styles.termLineAr}>{t.ar} .{i + 1}</Text> : null
+                ))}
+              </View>
+            ) : null}
+          </View>
+        ) : null}
 
         <View style={styles.closingBlock}>
           <Text style={styles.closingText}>
-            Thank you for choosing Taxi Saudi Arabia. We look forward to providing you with a comfortable and memorable journey.
+            {isReceipt
+              ? "Thank you for traveling with Taxi Saudi Arabia. We hope to welcome you again soon."
+              : "Thank you for choosing Taxi Saudi Arabia. We look forward to providing you with a comfortable and memorable journey."}
           </Text>
-          <Text style={styles.closingText}>Questions or ready to confirm? Reach our concierge desk directly.</Text>
+          <Text style={styles.closingText}>
+            {isReceipt ? "Questions about this trip? Reach our concierge desk directly." : "Questions or ready to confirm? Reach our concierge desk directly."}
+          </Text>
           <Text style={styles.closingContact}>WhatsApp {contactConfig.primaryPhoneDisplay}</Text>
         </View>
 
@@ -351,6 +391,6 @@ export function InvoiceDocument({ q }: { q: QuotationRow }) {
   );
 }
 
-export async function renderInvoicePdf(q: QuotationRow): Promise<Buffer> {
-  return renderToBuffer(<InvoiceDocument q={q} />);
+export async function renderInvoicePdf(q: QuotationRow, mode: "quotation" | "receipt" = "quotation"): Promise<Buffer> {
+  return renderToBuffer(<InvoiceDocument q={q} mode={mode} />);
 }

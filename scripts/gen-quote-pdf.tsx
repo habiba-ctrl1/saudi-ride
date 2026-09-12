@@ -47,6 +47,10 @@ const q: QuotationRow = {
   confirmed_at: null,
   is_test: false,
   profit: null,
+  receipt_sent_at: null,
+  review_invited_at: null,
+  actual_amount_paid: null,
+  payment_method_used: null,
 };
 
 const out = process.argv[2] || "quotation.pdf";

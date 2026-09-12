@@ -8,6 +8,7 @@ import {
   FileText,
   UserCheck,
   CalendarClock,
+  CalendarDays,
   Users,
   DollarSign,
   Newspaper,
@@ -18,6 +19,7 @@ import { redirect } from "next/navigation";
 
 const NAV_ITEMS = [
   { name: "Overview",   href: "/admin",           icon: LayoutDashboard },
+  { name: "Schedule",   href: "/admin/schedule",  icon: CalendarDays },
   { name: "Quotations", href: "/admin/quotations", icon: FileText },
   { name: "Bookings",   href: "/admin/bookings",  icon: CalendarClock },
   { name: "Customers",  href: "/admin/customers", icon: Users },

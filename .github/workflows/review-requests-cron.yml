@@ -1,0 +1,19 @@
+name: Trustpilot review-request cron
+
+# Vercel's free (Hobby) tier only allows daily-or-slower native crons, but
+# /api/cron/review-requests needs to run every 30 minutes to send review
+# emails ~30 min after a booking is marked completed. GitHub Actions' own
+# scheduler runs this instead — no third-party cron service needed.
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch: {} # lets you trigger it manually from the Actions tab
+
+jobs:
+  call-review-requests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hit the review-requests endpoint
+        run: |
+          curl -sS -f -X GET "${{ vars.SITE_URL }}/api/cron/review-requests" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"
