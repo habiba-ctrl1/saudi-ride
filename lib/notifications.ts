@@ -1,4 +1,4 @@
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 import twilio from "twilio";
 import { prisma } from "@/lib/prisma";
 
@@ -33,11 +33,14 @@ function escapeHtml(value: unknown): string {
     { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c] as string
   ));
 }
-const resendApiKey = process.env.RESEND_API_KEY;
-// Until the domain is verified in Resend, only onboarding@resend.dev can send.
-// After verifying, set RESEND_FROM_EMAIL=bookings@taxisaudiarabia.com in .env.local.
-const resendFrom = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
-const resend = resendApiKey ? new Resend(resendApiKey) : null;
+const gmailUser = process.env.GMAIL_USER;
+const gmailAppPassword = process.env.GMAIL_APP_PASSWORD;
+const gmailTransporter = gmailUser && gmailAppPassword
+  ? nodemailer.createTransport({
+      service: "gmail",
+      auth: { user: gmailUser, pass: gmailAppPassword },
+    })
+  : null;
 
 // Initialize Twilio
 const twilioSid = process.env.TWILIO_ACCOUNT_SID;
@@ -84,42 +87,49 @@ export async function sendSMS(to: string, body: string) {
 }
 
 /**
- * Dispatches an Email alert using Resend (with dynamic fallback logging).
+ * Dispatches an Email alert using Gmail SMTP (with dynamic fallback logging).
  * Any email NOT addressed to the admin inbox is automatically CC'd to the
  * admin, so every client-facing email (quotation, booking confirmation,
  * contact auto-reply, etc.) always leaves a copy the business can build a
  * quotation from — without having to remember to CC at each call site. Pass
  * `cc: []` explicitly to suppress this for a specific send.
  */
-export async function sendEmail(to: string, subject: string, html: string, options?: { cc?: string | string[] }) {
+export async function sendEmail(
+  to: string,
+  subject: string,
+  html: string,
+  options?: {
+    cc?: string | string[];
+    bcc?: string | string[];
+    attachments?: Array<{ filename: string; content: Buffer }>;
+  }
+) {
   try {
-    // If using resend in test mode, onboarding@resend.dev can only send to registered address
-    const fromAddress = resendApiKey ? `Taxi Saudi Arabia <${resendFrom}>` : "Taxi Saudi Arabia Concierge <onboarding@resend.dev>";
-
     const cc = options?.cc !== undefined
       ? (Array.isArray(options.cc) ? options.cc : [options.cc])
       : (to !== adminEmail ? [adminEmail] : []);
+    const bcc = options?.bcc !== undefined
+      ? (Array.isArray(options.bcc) ? options.bcc : [options.bcc]).filter(Boolean)
+      : [];
 
-    if (resend) {
-      const response = await resend.emails.send({
-        from: fromAddress,
-        to: [to],
+    if (gmailTransporter) {
+      const info = await gmailTransporter.sendMail({
+        from: `Taxi Saudi Arabia <${gmailUser}>`,
+        to,
         ...(cc.length ? { cc } : {}),
+        ...(bcc.length ? { bcc } : {}),
+        ...(options?.attachments?.length ? { attachments: options.attachments } : {}),
         subject,
         html
       });
-      if (response.error) {
-        console.error("❌ [Resend] Email dispatch failed:", response.error);
-        return null;
-      }
-      console.log(`📧 [Resend] Email successfully sent to ${to}${cc.length ? ` (cc: ${cc.join(", ")})` : ""}. ID: ${response.data?.id}`);
-      return response.data?.id;
+      console.log(`📧 [Gmail] Email successfully sent to ${to}${cc.length ? ` (cc: ${cc.join(", ")})` : ""}${bcc.length ? ` (bcc: ${bcc.join(", ")})` : ""}. ID: ${info.messageId}`);
+      return info.messageId;
     } else {
-      console.log(`📧 [EMAIL SIMULATION] To: ${to}${cc.length ? ` (cc: ${cc.join(", ")})` : ""} | Subject: "${subject}" | Length: ${html.length} chars`);
+      console.log(`📧 [EMAIL SIMULATION] To: ${to}${cc.length ? ` (cc: ${cc.join(", ")})` : ""}${bcc.length ? ` (bcc: ${bcc.join(", ")})` : ""} | Subject: "${subject}" | Length: ${html.length} chars`);
       return "simulated_email_id";
     }
   } catch (err) {
-    console.error("❌ [Resend] Email dispatch failed:", err);
+    console.error("❌ [Gmail] Email dispatch failed:", err);
     return null;
   }
 }
@@ -391,6 +401,45 @@ export async function sendUrgentBookingAlert(booking: NotificationBooking & { ho
   const waText = `🚨 URGENT: ${ref} still PENDING/no price, pickup ${timeLabel}.\n${booking.customerName} ${booking.customerPhone}\n${booking.pickupLocation} -> ${booking.dropoffLocation}`;
   const waId = await sendAdminWhatsApp(waText);
   return { email: emailId, whatsapp: waId };
+}
+
+const trustpilotInviteEmail = process.env.TRUSTPILOT_INVITE_EMAIL;
+const trustpilotReviewUrl = process.env.NEXT_PUBLIC_TRUSTPILOT_URL || "https://www.trustpilot.com/review/taxisaudiarabia.com";
+
+/**
+ * 4c. Review Request Email — sent by /api/cron/review-requests a few hours
+ * after a booking is marked COMPLETED. BCCs the Trustpilot invite address (if
+ * configured) so Trustpilot auto-sends its own official invite on top of this
+ * one, exactly like the manual flow it replaces.
+ */
+export async function sendReviewRequest(booking: NotificationBooking) {
+  const subject = `Thank you for riding with Taxi Saudi Arabia 🚗`;
+
+  const html = `
+    <div style="font-family: Arial, sans-serif; color:#111827; max-width:520px;">
+      <p>Dear ${escapeHtml(booking.customerName)},</p>
+
+      <p>Thank you for choosing Taxi Saudi Arabia for your transfer from ${escapeHtml(booking.pickupLocation)} to ${escapeHtml(booking.dropoffLocation)}. We hope you had a comfortable and enjoyable ride${booking.driverName ? ` with ${escapeHtml(booking.driverName)}` : ""}.</p>
+
+      <p>We'd really appreciate it if you could take a moment to share your experience — it helps us keep improving our service.</p>
+
+      <div style="text-align:center; margin:28px 0;">
+        <a href="${trustpilotReviewUrl}"
+           style="background-color:#16A34A; color:#ffffff; text-decoration:none; padding:14px 28px; border-radius:6px; font-weight:bold; display:inline-block;">
+          ⭐ Leave us a review on Trustpilot
+        </a>
+      </div>
+
+      <p>Thank you again for travelling with us, and we look forward to welcoming you back in the future!</p>
+
+      <p>Best regards,<br>Taxi Saudi Arabia</p>
+    </div>
+  `;
+
+  const emailId = await sendEmail(booking.customerEmail, subject, html, {
+    bcc: trustpilotInviteEmail || undefined,
+  });
+  return { email: emailId };
 }
 
 /**

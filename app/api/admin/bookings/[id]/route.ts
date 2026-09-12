@@ -65,7 +65,12 @@ export async function PATCH(
     // Build strong dynamic update object
     const updateData: Prisma.BookingUpdateInput = {};
 
-    if (status !== undefined) updateData.status = status as BookingStatus;
+    if (status !== undefined) {
+      updateData.status = status as BookingStatus;
+      if (status === "COMPLETED" && !booking.completedAt) {
+        updateData.completedAt = new Date();
+      }
+    }
     if (driverName !== undefined) updateData.driverName = driverName;
     if (driverPhone !== undefined) updateData.driverPhone = driverPhone;
     if (notes !== undefined) updateData.notes = notes;
