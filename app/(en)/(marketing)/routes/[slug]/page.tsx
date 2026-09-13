@@ -1687,11 +1687,14 @@ export default async function RouteDetailsPage({ params }: PageProps) {
 
   // Real vehicle photo for the hero panel, picked by trip type so the image
   // matches the journey — airport meet & greet, long-haul highway, or city sedan.
-  const heroCar = slug.includes("airport")
-    ? "/gallery/airport-meet.webp"
-    : route.distance >= 250
-      ? "/gallery/highway-travel.webp"
-      : "/gallery/vip-sedan.webp";
+  // Abu Dhabi corridor gets a dedicated Corniche shot instead of the generic highway photo.
+  const heroCar = slug.includes("abudhabi")
+    ? "/routes/abudhabi-corniche-executive-suv-transfer.webp"
+    : slug.includes("airport")
+      ? "/gallery/airport-meet.webp"
+      : route.distance >= 250
+        ? "/gallery/highway-travel.webp"
+        : "/gallery/vip-sedan.webp";
 
   // Routes that get the full lead-conversion pass (on-page form + easy
   // structured prefills + mobile sticky CTA). Add a slug here to switch a route

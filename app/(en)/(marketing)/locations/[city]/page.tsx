@@ -35,6 +35,7 @@ const CITY_COORDS: Record<string, { lat: number; lng: number }> = {
   neom: { lat: 27.9958, lng: 35.6367 },
   abha: { lat: 18.2164, lng: 42.5053 },
   tabuk: { lat: 28.3998, lng: 36.5715 },
+  abudhabi: { lat: 24.4539, lng: 54.3773 },
 };
 
 // City -> matching airport page slug (only where a dedicated /airports/[slug] page exists).
@@ -150,6 +151,16 @@ const CITY_LEAD: Record<string, { heading: string; blurb: string; dropoff: strin
     waPrefill: "Salam! Abha transfer enquiry.\n• From / to (AHB / Soudah / Asir sites): \n• Date & time: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Sightseeing / airport?: ",
     emailSubject: "Group / family transfer RFQ — Abha",
     emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers in Abha.\n\n• Group / family name: \n• Contact name: \n• Date(s): \n• Sites / route(s) (Soudah / cable car / Habala / Green Mountain): \n• Passengers: \n• Vehicle(s) needed (Sedan / SUV / Van): \n\nPlease confirm a fixed fare before booking.\n\nThank you.",
+  },
+  abudhabi: {
+    heading: "Get your Riyadh to Abu Dhabi quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a private, pre-booked cross-border car with a professional chauffeur, most commonly from Riyadh (~850 km via Al Batha–Ghuwaifat). Not a local Abu Dhabi taxi service.",
+    dropoff: "Abu Dhabi, UAE",
+    pathBHeading: "Corporate or delegation travel to Abu Dhabi?",
+    pathBBody: "For business travellers and delegations crossing to Abu Dhabi we arrange an executive sedan or full-size SUV with a professional chauffeur. Share your company details, dates and passenger count in advance for a written quote.",
+    waPrefill: "Salam! Cross-border transfer enquiry — Saudi Arabia to Abu Dhabi.\n• From (e.g. Riyadh) / To: Abu Dhabi\n• Date & time: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• Corporate / delegation?: ",
+    emailSubject: "Cross-border transfer RFQ — Abu Dhabi",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for a cross-border transfer to Abu Dhabi.\n\n• Company / organisation: \n• Contact name & role: \n• Dates: \n• From city (e.g. Riyadh): \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van): \n\nPlease confirm a fixed fare before booking.\n\nThank you.",
   },
 };
 
@@ -317,6 +328,7 @@ const CITY_META_DESCRIPTION: Record<string, string> = {
   neom: "Executive taxi across NEOM & Tabuk — Tabuk (TUU) and NEOM Bay (NUM) airport transfers, site access trips, and Gulf of Aqaba coast rides.",
   abha: "Taxi in Abha — Soudah Peak & cable car trips, AHB airport transfers (~25 km), and rides across the misty Asir mountains.",
   tabuk: "Taxi in Tabuk — TUU airport transfers, NEOM business trips (~120 km), and cross-border rides to Jordan via Haql (~130 km).",
+  abudhabi: "Private, pre-booked car between Saudi Arabia and Abu Dhabi — Riyadh corridor (~850 km), executive sedan/SUV/van, fare confirmed on WhatsApp. Not a local UAE taxi.",
 };
 
 // Per-city title overrides — same CTR-fix rationale as routes/[slug]'s
@@ -336,6 +348,7 @@ const CITY_META_TITLE: Record<string, string> = {
   taif: "Taif Taxi & Private Transfers | TIF Airport, Al Hada & Makkah",
   yanbu: "Yanbu Taxi & Private Transfers | Airport, Hotels & Chauffeur",
   abha: "Abha Taxi & Private Transfers | AHB Airport, Soudah & Asir",
+  abudhabi: "Abu Dhabi Private Taxi & Cross-Border Car Service | Taxi Saudi Arabia",
 };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -444,7 +457,11 @@ export default async function CityLocationPage({ params }: PageProps) {
         <div className="absolute inset-0 z-0">
           <Image
             src={cityData.image}
-            alt={`Taxi service in ${cityData.name}, Saudi Arabia — airport transfers and intercity rides`}
+            alt={
+              cityKey === "abudhabi"
+                ? "Abu Dhabi skyline — private cross-border car service between the UAE and Saudi Arabia"
+                : `Taxi service in ${cityData.name}, Saudi Arabia — airport transfers and intercity rides`
+            }
             fill
             placeholder="blur"
             blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="

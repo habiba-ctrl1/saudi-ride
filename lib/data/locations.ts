@@ -555,5 +555,46 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { href: "/routes/tabuk-airport-to-neom", label: "Tabuk Airport to NEOM transfer" },
       { href: "/routes/tabuk-to-aqaba", label: "Tabuk to Aqaba border transfer" }
     ]
+  },
+  abudhabi: {
+    name: "Abu Dhabi",
+    nameAr: "أبوظبي",
+    image: "/locations/abudhabi-hero.webp",
+    tagline: "The UAE Capital",
+    description: "Book an Abu Dhabi private taxi and cross-border car service between Saudi Arabia and the UAE capital — most commonly the Riyadh to Abu Dhabi corridor (~850 km, ~8 hours) via the Al Batha–Ghuwaifat border crossing. This is a private, pre-booked service coordinated through our partner driver network, not a local Abu Dhabi taxi or licensed UAE operator. Executive sedans, full-size SUVs and vans are available, with your fare confirmed on WhatsApp before booking and a written quote available for corporate and delegation travel.",
+    tldr: "Taxi Saudi Arabia arranges a private, pre-booked cross-border car service between Saudi Arabia and Abu Dhabi, the capital of the UAE — most commonly from Riyadh (~850 km, ~8 hours) via the Al Batha–Ghuwaifat border crossing. This is not a local Abu Dhabi taxi service; it is a coordinated cross-border transfer through our partner driver network, with your fare confirmed on WhatsApp before booking.",
+    tldrFacts: [
+      { label: "Riyadh corridor", value: "~850 km · ~8 hr" },
+      { label: "Border crossing", value: "Al Batha / Ghuwaifat" },
+      { label: "Vehicles", value: "Sedan · SUV · Van" },
+      { label: "Pricing", value: "Quoted on WhatsApp" }
+    ],
+    attractions: [
+      { name: "Sheikh Zayed Grand Mosque", dist: "City Area" },
+      { name: "Louvre Abu Dhabi", dist: "Saadiyat Island" },
+      { name: "Yas Island (Yas Marina Circuit)", dist: "Coastal" },
+      { name: "Abu Dhabi Corniche", dist: "Waterfront" },
+      { name: "Zayed International Airport (AUH)", dist: "Gateway" },
+      { name: "Riyadh (via road)", dist: "~850 km" }
+    ],
+    tips: [
+      "Carry a valid passport and confirm your UAE entry visa or eligibility before booking — share your details in advance so we can plan the border crossing.",
+      "The Riyadh to Abu Dhabi drive takes about 8 hours including the Al Batha–Ghuwaifat border crossing — an executive sedan or SUV is recommended for the long-distance comfort.",
+      "This is a pre-booked, cross-border private car service, not a local Abu Dhabi taxi — for trips only within the UAE, use a licensed local UAE operator.",
+      "Corporate and delegation bookings should share company and passenger details in advance for a written quote."
+    ],
+    faqs: [
+      { question: "Is there a private taxi from Saudi Arabia to Abu Dhabi?", answer: "Yes. We arrange a private, pre-booked car from Saudi Arabia to Abu Dhabi — most commonly the Riyadh to Abu Dhabi corridor, about 850 km via the Al Batha–Ghuwaifat border crossing. The fare is confirmed on WhatsApp before booking." },
+      { question: "Do you operate as a local taxi company inside Abu Dhabi?", answer: "No. We arrange pre-booked cross-border transfers between Saudi Arabia and Abu Dhabi through our partner driver network. We are not a licensed local UAE taxi operator and do not run local Abu Dhabi city taxi service." },
+      { question: "How far is Abu Dhabi from Riyadh by road?", answer: "Riyadh to Abu Dhabi is about 850 km, roughly an 8-hour drive including the Saudi–UAE border crossing at Al Batha (Saudi side) and Ghuwaifat (UAE side)." },
+      { question: "What documents do I need to cross into the UAE for Abu Dhabi?", answer: "A valid passport and the correct UAE entry visa or eligibility. Share your details in advance so we can advise and prepare for a smooth crossing." },
+      { question: "What vehicles are available for a Riyadh to Abu Dhabi transfer?", answer: "Executive sedan, full-size SUV, or van, depending on passengers and luggage. Share your group size when requesting a quote on WhatsApp." }
+    ],
+    relatedLinks: [
+      { href: "/routes/riyadh-to-abudhabi", label: "Riyadh to Abu Dhabi — private car with driver" },
+      { href: "/locations/riyadh", label: "Riyadh taxi & chauffeur service" },
+      { href: "/locations/dammam", label: "Dammam taxi & Eastern Province transfers" },
+      { href: "/locations/jeddah", label: "Jeddah taxi & private transfers" }
+    ]
   }
 };

@@ -15,6 +15,7 @@ const CITY_TO_LOCATION: [string, string][] = [
   ["neom", "neom"],
   ["taif", "taif"],
   ["abha", "abha"],
+  ["abu dhabi", "abudhabi"],
 ];
 
 function locationSlug(city: string): string | null {
