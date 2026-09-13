@@ -117,6 +117,27 @@ const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup:
     pickup: "Jeddah Airport (JED)",
     dropoff: "Makkah",
   },
+  "riyadh-to-abudhabi": {
+    heading: "Get your Riyadh to Abu Dhabi car-with-driver quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked cross-border car with a professional chauffeur, about 850 km via the Al Batha–Ghuwaifat border. You carry your own valid documents; we support the crossing.",
+    pickup: "Riyadh",
+    dropoff: "Abu Dhabi, UAE",
+  },
+  "dammam-to-abudhabi": {
+    heading: "Get your Dammam to Abu Dhabi car-with-driver quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked cross-border car with a professional chauffeur down the Gulf coast, about 750 km via the Al Batha–Ghuwaifat border. You carry your own valid documents; we support the crossing.",
+    pickup: "Dammam",
+    dropoff: "Abu Dhabi, UAE",
+  },
+  "jeddah-to-abudhabi": {
+    heading: "Get your Jeddah to Abu Dhabi car-with-driver quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked long-distance car with a professional chauffeur, about 1,750 km via the Al Batha–Ghuwaifat border. Ask about a fly + private-transfer alternative if you'd rather skip the full road journey.",
+    pickup: "Jeddah",
+    dropoff: "Abu Dhabi, UAE",
+  },
 };
 
 // Corporate (Path B) block config for business-corridor routes. The invoicing
@@ -154,6 +175,30 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
     waPrefill: `Salam! Executive car with driver — Riyadh / Dubai (UAE).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Riyadh–Dubai",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for an executive car with driver between Riyadh and Dubai, UAE.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
+  "riyadh-to-abudhabi": {
+    heading: "Executive car with driver, Riyadh to Abu Dhabi?",
+    intro:
+      "For business travellers and delegations crossing to Abu Dhabi we provide an executive sedan or full-size SUV with a professional chauffeur — work or rest en route, with planned meeting and rest stops. Cross-border documentation is supported; you carry your own valid papers. Regular company travel can run on one account with a single point of contact.",
+    waPrefill: `Salam! Executive car with driver — Riyadh / Abu Dhabi (UAE).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Riyadh–Abu Dhabi",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for an executive car with driver between Riyadh and Abu Dhabi, UAE.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
+  "dammam-to-abudhabi": {
+    heading: "Executive car with driver, Dammam to Abu Dhabi?",
+    intro:
+      "For business travellers and delegations from the Eastern Province crossing to Abu Dhabi we provide an executive sedan or full-size SUV with a professional chauffeur down the Gulf coast. Cross-border documentation is supported; you carry your own valid papers. Regular company travel can run on one account with a single point of contact.",
+    waPrefill: `Salam! Executive car with driver — Dammam / Abu Dhabi (UAE).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Dammam–Abu Dhabi",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for an executive car with driver between Dammam and Abu Dhabi, UAE.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
+  "jeddah-to-abudhabi": {
+    heading: "Executive car with driver, Jeddah to Abu Dhabi?",
+    intro:
+      "For business travellers and delegations covering the long Jeddah–Abu Dhabi corridor we provide an executive sedan or full-size SUV with a professional chauffeur, with planned rest stops along the way. Cross-border documentation is supported; you carry your own valid papers. Ask us about a fly + private-transfer alternative for time-sensitive trips.",
+    waPrefill: `Salam! Executive car with driver — Jeddah / Abu Dhabi (UAE).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Jeddah–Abu Dhabi",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for an executive car with driver between Jeddah and Abu Dhabi, UAE.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
 };
 
@@ -1222,7 +1267,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "riyadh-to-abudhabi": {
-    tldr: "A taxi from Riyadh to Abu Dhabi is about 850 km and takes roughly 8 hours plus the Saudi–UAE border crossing. The fare is fixed, confirmed on WhatsApp with documentation support and a comfortable vehicle for the journey.",
+    tldr: "A private car from Riyadh to Abu Dhabi is about 850 km and takes roughly 8 hours plus the Saudi–UAE border crossing at Al Batha–Ghuwaifat. The fare is fixed, confirmed on WhatsApp, with documentation support and a comfortable vehicle for the journey. This is a cross-border transfer through our partner driver network, not a local Abu Dhabi taxi service.",
     tldrFacts: [
       { label: "Distance", value: "~850 km" },
       { label: "Time", value: "~8 hours + border" },
@@ -1230,9 +1275,41 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
-      { question: "How far is Riyadh from Abu Dhabi?", answer: "Riyadh to Abu Dhabi is about 850 km — roughly an 8-hour drive plus time at the Saudi–UAE border (Al Batha crossing)." },
+      { question: "How far is Riyadh from Abu Dhabi?", answer: "Riyadh to Abu Dhabi is about 850 km — roughly an 8-hour drive plus time at the Saudi–UAE border (Al Batha crossing on the Saudi side, Ghuwaifat on the UAE side)." },
       { question: "What do I need for the UAE border?", answer: "A valid passport and the correct UAE entry visa or eligibility. Share your details in advance so we can advise and prepare for a smooth crossing." },
       { question: "How much is a taxi from Riyadh to Abu Dhabi?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles for the long cross-border journey." },
+      { question: "Is this a local Abu Dhabi taxi service?", answer: "No. We arrange a pre-booked, private cross-border car from Riyadh to Abu Dhabi through our partner driver network. We are not a licensed local UAE taxi operator." },
+      { question: "What vehicles are available for the Riyadh to Abu Dhabi trip?", answer: "Executive sedan, full-size SUV, or van, depending on passengers and luggage — share your group size when requesting a quote." },
+    ],
+  },
+  "dammam-to-abudhabi": {
+    tldr: "A private car from Dammam to Abu Dhabi is about 750 km and takes roughly 7.5 hours plus the Saudi–UAE border crossing at Al Batha–Ghuwaifat. The fare is fixed, confirmed on WhatsApp, with a comfortable vehicle for the Gulf-coast route. This is a cross-border transfer through our partner driver network, not a local Dammam or Abu Dhabi taxi service.",
+    tldrFacts: [
+      { label: "Distance", value: "~750 km" },
+      { label: "Time", value: "~7.5 hours + border" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Dammam from Abu Dhabi?", answer: "Dammam to Abu Dhabi is about 750 km — roughly a 7.5-hour drive down the Gulf coast, plus time at the Saudi–UAE border (Al Batha crossing on the Saudi side, Ghuwaifat on the UAE side)." },
+      { question: "What do I need for the UAE border from Dammam?", answer: "A valid passport and the correct UAE entry visa or eligibility. Share your details in advance so we can advise and prepare for a smooth crossing." },
+      { question: "Is this a local Dammam or Abu Dhabi taxi service?", answer: "No. We arrange a pre-booked, private cross-border car between Dammam and Abu Dhabi through our partner driver network. We are not a licensed local UAE taxi operator." },
+      { question: "What vehicles are available for the Dammam to Abu Dhabi trip?", answer: "Executive sedan, full-size SUV, or van, depending on passengers and luggage — share your group size when requesting a quote." },
+    ],
+  },
+  "jeddah-to-abudhabi": {
+    tldr: "A private car from Jeddah to Abu Dhabi is a long-distance drive of about 1,750 km — typically 18+ hours including rest stops and the Saudi–UAE border crossing at Al Batha–Ghuwaifat. Given the distance, many travellers combine a flight with a private airport-to-hotel transfer instead; ask us about both options when requesting a quote.",
+    tldrFacts: [
+      { label: "Distance", value: "~1,750 km" },
+      { label: "Time", value: "~18+ hours" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Alternative", value: "Fly + private transfer" },
+    ],
+    faqs: [
+      { question: "How far is Jeddah from Abu Dhabi by road?", answer: "Jeddah to Abu Dhabi is about 1,750 km via the Saudi interior — typically 18 or more hours including rest stops and the Saudi–UAE border crossing (Al Batha / Ghuwaifat)." },
+      { question: "Is driving from Jeddah to Abu Dhabi practical?", answer: "It's a genuinely long haul — most travellers on this corridor prefer flying and booking a private airport transfer at each end. A private car with a professional driver is available for those who want the full road journey, with planned rest stops along the way." },
+      { question: "What do I need for the UAE border?", answer: "A valid passport and the correct UAE entry visa or eligibility. Share your details in advance so we can advise and prepare for a smooth crossing." },
+      { question: "What vehicles are available for the Jeddah to Abu Dhabi trip?", answer: "Executive sedan, full-size SUV, or van, sized for the long journey and luggage — share your group size when requesting a quote." },
     ],
   },
 
@@ -1484,6 +1561,16 @@ const MORE_RIYADH_ROUTES: { slug: string; label: string; distance: number; price
   { slug: "riyadh-to-abudhabi", label: "Riyadh to Abu Dhabi, UAE", distance: 850, price: 1100 },
 ];
 
+// Explicit cross-links between the 3 Saudi-to-Abu-Dhabi corridor pages —
+// RouteRelatedLinks' generic same-city substring match gets crowded out here
+// (Riyadh/Dammam/Jeddah each appear in dozens of unrelated routes), so without
+// this the 3 pages would rarely link to each other. Rendered on all 3.
+const MORE_ABU_DHABI_ROUTES: { slug: string; label: string; distance: number }[] = [
+  { slug: "riyadh-to-abudhabi", label: "Riyadh to Abu Dhabi, UAE", distance: 850 },
+  { slug: "dammam-to-abudhabi", label: "Dammam to Abu Dhabi, UAE", distance: 750 },
+  { slug: "jeddah-to-abudhabi", label: "Jeddah to Abu Dhabi, UAE", distance: 1750 },
+];
+
 // Static fallback from ROUTES_DATA — used when the DB is unreachable (flaky
 // pooler at build time) OR the slug exists in ROUTES_DATA but isn't seeded in
 // the DB yet (e.g. newly added cross-border routes). Keeps every route in
@@ -1556,6 +1643,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "riyadh-to-dubai": "Private Car with Driver — Riyadh to Dubai — Fare on WhatsApp",
     "jeddah-airport-to-swissotel-makkah": "Jeddah Airport to Swissotel Makkah Taxi — Fare & Booking",
     "red-sea-airport-to-neom": "Red Sea Airport (RSI) to NEOM Taxi — Fare & Transfer",
+    "dammam-to-abudhabi": "Taxi Dammam to Abu Dhabi, UAE — Cross-Border Fare, Distance & Booking",
+    "jeddah-to-abudhabi": "Taxi Jeddah to Abu Dhabi, UAE — Cross-Border Fare, Distance & Booking",
   };
   const title = TITLE_OVERRIDES[slug] ?? (routeLabel.length > 55 ? routeLabel : `${routeLabel} | Taxi Saudi Arabia`);
   const priceBlurb = "Fare confirmed on WhatsApp";
@@ -1578,6 +1667,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "kuwait-to-dammam": "Kuwait to Dammam taxi via the Nuwaiseeb–Al Khafji border — ~436 km, about 4 hrs driving plus border. Private door-to-door transfer, fare confirmed on WhatsApp.",
     "kuwait-to-riyadh": "Kuwait to Riyadh taxi — private cross-border car & chauffeur via the Nuwaiseeb–Al Khafji border, ~6–7 hrs driving. Corporate invoicing, fare confirmed on WhatsApp.",
     "alahsa-to-doha": "Al Ahsa to Doha taxi — ~320 km via Salwa, the shortest Saudi road gateway to Qatar. Border support, fare confirmed on WhatsApp, 24/7.",
+    "riyadh-to-abudhabi": "Private car with driver, Riyadh to Abu Dhabi (UAE) — ~850 km via the Al Batha–Ghuwaifat border. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
+    "dammam-to-abudhabi": "Private car with driver, Dammam to Abu Dhabi (UAE) — ~750 km via the Al Batha–Ghuwaifat border. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
+    "jeddah-to-abudhabi": "Private car with driver, Jeddah to Abu Dhabi (UAE) — ~1,750 km long-distance cross-border transfer via Al Batha–Ghuwaifat. Fare confirmed on WhatsApp, 24/7.",
   };
 
   return {
@@ -2684,6 +2776,31 @@ export default async function RouteDetailsPage({ params }: PageProps) {
               </h2>
               <div className="grid gap-3 sm:grid-cols-2">
                 {MORE_RIYADH_ROUTES.map((r) => (
+                  <Link
+                    key={r.slug}
+                    href={`/routes/${r.slug}`}
+                    className="group flex items-center justify-between rounded-2xl border border-[#16A34A]/12 bg-white px-5 py-4 hover:border-[#16A34A]/35 transition-all"
+                  >
+                    <span className="text-sm font-semibold">
+                      {r.label}
+                      <span className="block text-[0.65rem] text-[#6B7280] font-normal mt-0.5">
+                        {r.distance} km · Fare on WhatsApp
+                      </span>
+                    </span>
+                    <ArrowRight className="h-4 w-4 text-[#C9A84C] shrink-0 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {slug.includes("abudhabi") && (
+            <section className="mt-16 border-t border-[#C9A84C]/10 pt-10">
+              <h2 className="font-heading text-2xl font-bold mb-6">
+                More Saudi Arabia to Abu Dhabi Routes
+              </h2>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {MORE_ABU_DHABI_ROUTES.filter((r) => r.slug !== slug).map((r) => (
                   <Link
                     key={r.slug}
                     href={`/routes/${r.slug}`}
