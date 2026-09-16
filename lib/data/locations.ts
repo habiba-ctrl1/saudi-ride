@@ -120,6 +120,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { href: "/services/car-recovery/riyadh", label: "Riyadh car recovery & tow truck (satha)" },
       { href: "/locations/riyadh/diriyah", label: "Riyadh to Diriyah taxi & heritage transfer" },
       { href: "/routes/riyadh-to-dubai", label: "Riyadh to Dubai — private car with driver" },
+      { href: "/routes/riyadh-to-abudhabi", label: "Riyadh to Abu Dhabi — private car with driver" },
       { href: "/blog/private-driver-cost-saudi-arabia", label: "How much a private driver costs in Saudi Arabia" }
     ]
   },
@@ -165,6 +166,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     relatedLinks: [
       { href: "/routes/jeddah-to-kaec", label: "Jeddah to KAEC (King Abdullah Economic City) taxi" },
       { href: "/routes/jeddah-airport-to-makkah", label: "Jeddah Airport to Makkah taxi" },
+      { href: "/routes/jeddah-to-abudhabi", label: "Jeddah to Abu Dhabi — private car with driver" },
       { href: "/services/car-recovery/jeddah", label: "Jeddah car recovery & tow truck (satha)" },
       { href: "/blog/private-driver-cost-saudi-arabia", label: "How much a private driver costs in Saudi Arabia" }
     ]
@@ -210,6 +212,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { href: "/locations/alkhobar", label: "Al Khobar taxi & Bahrain causeway transfers" },
       { href: "/routes/dammam-to-manama", label: "Dammam to Manama, Bahrain taxi" },
       { href: "/routes/dammam-to-doha", label: "Dammam to Doha, Qatar taxi" },
+      { href: "/routes/dammam-to-abudhabi", label: "Dammam to Abu Dhabi — private car with driver" },
       { href: "/services/car-recovery/dammam", label: "Dammam car recovery & tow truck (satha)" }
     ]
   },

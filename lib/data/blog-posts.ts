@@ -442,6 +442,8 @@ A 10+ hour road trip requires exceptional comfort.
 - **Privacy & Productivity:** A premium sedan or SUV serves as a mobile office for business travelers, allowing you to conduct calls and work seamlessly across the journey.
 
 A road trip to Dubai offers a unique perspective on the Empty Quarter's fringes and the rapid transition into the futuristic UAE skyline.
+
+The same Al Batha / Ghuwaifat crossing also connects Riyadh to Abu Dhabi, the UAE capital — see our [Riyadh to Abu Dhabi private car service](/routes/riyadh-to-abudhabi) if that's your destination instead.
 `
   },
   {
