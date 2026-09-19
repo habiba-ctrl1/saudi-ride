@@ -80,7 +80,7 @@ export default function WhatsAppQuoteForm({
   const handleSubmit = () => {
     const nameInvalid = name.trim().length < 2;
     const phoneInvalid = !PHONE_RE.test(phone.trim());
-    const emailInvalid = email.trim().length > 0 && !EMAIL_RE.test(email.trim());
+    const emailInvalid = !EMAIL_RE.test(email.trim());
     setNameError(nameInvalid);
     setPhoneError(phoneInvalid);
     setEmailError(emailInvalid);
@@ -103,7 +103,7 @@ export default function WhatsAppQuoteForm({
           passengers: passengers || null,
           customerName: name.trim(),
           customerPhone: phone.trim(),
-          customerEmail: email.trim() || null,
+          customerEmail: email.trim(),
           locale: language,
           pageUrl: typeof window !== "undefined" ? window.location.href : null,
           utm: getUtm(),
@@ -269,13 +269,13 @@ export default function WhatsAppQuoteForm({
             setEmail(e.target.value);
             if (emailError) setEmailError(false);
           }}
-          placeholder={isRtl ? "البريد الإلكتروني (اختياري)" : "Email (optional)"}
+          placeholder={isRtl ? "البريد الإلكتروني" : "Email address"}
           className="w-full bg-transparent text-sm outline-none placeholder:text-[#9CA3AF]"
         />
       </InputRow>
       {emailError && (
         <p className="text-xs font-semibold text-red-600">
-          {isRtl ? "الرجاء إدخال بريد إلكتروني صحيح." : "Please enter a valid email address."}
+          {isRtl ? "الرجاء إدخال بريد إلكتروني صحيح." : "Please enter a valid email address so we can send your confirmation."}
         </p>
       )}
 

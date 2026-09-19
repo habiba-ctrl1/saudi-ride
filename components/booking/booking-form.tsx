@@ -71,7 +71,7 @@ export function BookingForm({ copy, locale }: BookingFormProps) {
             ? bookingFormSchema.pick({ travelDate: true, travelTime: true }).safeParse(form)
             : step === 3
               ? bookingFormSchema.pick({ passengers: true }).safeParse(form)
-              : bookingFormSchema.pick({ customerName: true, customerPhone: true }).safeParse(form);
+              : bookingFormSchema.pick({ customerName: true, customerPhone: true, customerEmail: true }).safeParse(form);
     if (result.success) {
       setErrors((prev) => ({ ...prev, ...Object.fromEntries(Object.keys(result.data).map((key) => [key, ""])) }));
       return true;
@@ -288,6 +288,7 @@ export function BookingForm({ copy, locale }: BookingFormProps) {
             <input
               id="customerEmail"
               type="email"
+              required
               autoComplete="email"
               placeholder={copy.placeholders.email}
               value={form.customerEmail ?? ""}

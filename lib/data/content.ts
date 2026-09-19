@@ -124,7 +124,7 @@ export const siteContent: Record<Locale, SiteCopy> = {
         passengers: "Passenger Count",
         name: "Your Name",
         phone: "Phone / WhatsApp Number",
-        email: "Email (optional — to receive your quote)"
+        email: "Email (to receive your quote)"
       },
       placeholders: {
         pickup: "e.g. King Khalid International Airport",
@@ -210,7 +210,7 @@ export const siteContent: Record<Locale, SiteCopy> = {
         passengers: "عدد الركاب",
         name: "الاسم",
         phone: "رقم الجوال / واتساب",
-        email: "البريد الإلكتروني (اختياري — لاستلام عرض السعر)"
+        email: "البريد الإلكتروني (لاستلام عرض السعر)"
       },
       placeholders: {
         pickup: "مثال: مطار الملك خالد الدولي",

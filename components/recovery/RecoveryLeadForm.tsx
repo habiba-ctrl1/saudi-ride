@@ -42,6 +42,7 @@ export function RecoveryLeadForm({
     ? {
         name: "الاسم *",
         phone: "رقم الجوال / واتساب *",
+        email: "البريد الإلكتروني (اختياري)",
         car: "نوع السيارة (مثال: كامري ٢٠٢١)",
         location: `أين السيارة؟ (الحي / الطريق${city ? `، ${city}` : ""}) *`,
         destination: "إلى أين ننقلها؟ (اختياري)",
@@ -58,6 +59,7 @@ export function RecoveryLeadForm({
     : {
         name: "Your name *",
         phone: "Phone / WhatsApp number *",
+        email: "Email address (optional)",
         car: "Car make & model (e.g. Camry 2021)",
         location: `Where is the car? (district / highway${city ? `, ${city}` : ""}) *`,
         destination: "Where should we take it? (optional)",
@@ -162,7 +164,7 @@ export function RecoveryLeadForm({
           type="email"
           value={form.email}
           onChange={set("email")}
-          placeholder={ar ? "البريد الإلكتروني (اختياري)" : "Email (optional)"}
+          placeholder={t.email}
           className="w-full rounded-xl border border-[#1C1C1C]/10 bg-[#FAFAF7] px-4 py-3 text-sm outline-none focus:border-[#16A34A]"
         />
       </div>

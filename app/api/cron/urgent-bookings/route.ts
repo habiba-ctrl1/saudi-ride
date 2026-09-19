@@ -31,7 +31,7 @@ export async function GET(request: Request) {
     include: { vehicle: true },
   });
 
-  const results: Array<{ bookingRef: string; email: boolean; whatsapp: boolean }> = [];
+  const results: Array<{ bookingRef: string; email: boolean }> = [];
 
   for (const booking of urgent) {
     const hoursUntilPickup = (booking.pickupDateTime.getTime() - now.getTime()) / (1000 * 60 * 60);
@@ -49,7 +49,7 @@ export async function GET(request: Request) {
         vehicle: booking.vehicle ? { name: booking.vehicle.name } : null,
         hoursUntilPickup,
       });
-      results.push({ bookingRef: booking.bookingRef, email: !!r.email, whatsapp: !!r.whatsapp });
+      results.push({ bookingRef: booking.bookingRef, email: !!r.email });
       if (!r.email) {
         await recordNotificationFailure({ channel: "urgent_admin_email", bookingRef: booking.bookingRef, error: "sendEmail returned null" });
       }

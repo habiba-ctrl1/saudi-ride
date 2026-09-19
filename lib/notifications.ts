@@ -398,9 +398,7 @@ export async function sendUrgentBookingAlert(booking: NotificationBooking & { ho
   `;
 
   const emailId = await sendEmail(adminEmail, subject, html);
-  const waText = `🚨 URGENT: ${ref} still PENDING/no price, pickup ${timeLabel}.\n${booking.customerName} ${booking.customerPhone}\n${booking.pickupLocation} -> ${booking.dropoffLocation}`;
-  const waId = await sendAdminWhatsApp(waText);
-  return { email: emailId, whatsapp: waId };
+  return { email: emailId };
 }
 
 const trustpilotInviteEmail = process.env.TRUSTPILOT_INVITE_EMAIL;
@@ -514,41 +512,6 @@ export async function sendLeadNotification(lead: NotificationLead) {
   return { email: emailId };
 }
 
-/**
- * Admin WhatsApp alert. Uses CallMeBot (simplest zero-infra option) when
- * CALLMEBOT_PHONE + CALLMEBOT_APIKEY are set; falls back to Twilio WhatsApp when
- * TWILIO_WHATSAPP_FROM is set; otherwise logs a simulation. Returns an id or null.
- *
- * CallMeBot one-time setup (owner does once, no code): on WhatsApp, send the
- * message "I allow callmebot to send me messages" to +34 644 51 95 23. It replies
- * with your personal apikey. Put it + your number in .env.local:
- *   CALLMEBOT_PHONE=+9665XXXXXXXX
- *   CALLMEBOT_APIKEY=123456
- */
-export async function sendAdminWhatsApp(text: string): Promise<string | null> {
-  const cmbPhone = process.env.CALLMEBOT_PHONE;
-  const cmbKey = process.env.CALLMEBOT_APIKEY;
-  try {
-    if (cmbPhone && cmbKey) {
-      const url = `https://api.callmebot.com/whatsapp.php?phone=${encodeURIComponent(cmbPhone)}&text=${encodeURIComponent(text)}&apikey=${encodeURIComponent(cmbKey)}`;
-      const res = await fetch(url);
-      if (!res.ok) throw new Error(`CallMeBot HTTP ${res.status}`);
-      console.log(`📲 [CallMeBot] admin WhatsApp alert sent to ${cmbPhone}`);
-      return `callmebot_${Date.now()}`;
-    }
-    const waFrom = process.env.TWILIO_WHATSAPP_FROM; // e.g. whatsapp:+14155238886
-    if (twilioClient && waFrom && cmbPhone) {
-      const msg = await twilioClient.messages.create({ from: waFrom, to: `whatsapp:${cmbPhone}`, body: text });
-      return msg.sid;
-    }
-    console.log(`📲 [WHATSAPP SIMULATION → admin] ${text}`);
-    return null;
-  } catch (err) {
-    console.error("❌ [WhatsApp] admin alert failed:", err);
-    return null;
-  }
-}
-
 /** Best-effort durable record of a failed send. Never throws. */
 export async function recordNotificationFailure(input: {
   channel: string;
@@ -583,7 +546,6 @@ export async function notifyNewBooking(booking: NotificationBooking): Promise<{
   customerEmail: boolean;
   customerSms: boolean;
   adminEmail: boolean;
-  adminWhatsApp: boolean;
 }> {
   const ref = normalizeRef(booking.bookingRef);
 
@@ -623,17 +585,5 @@ export async function notifyNewBooking(booking: NotificationBooking): Promise<{
     await recordNotificationFailure({ channel: "admin_email", bookingRef: ref, error: String(err) });
   }
 
-  // Admin WhatsApp
-  let adminWaOk = false;
-  const waText = `New booking ${ref}\n${booking.customerName} ${booking.customerPhone}\n${booking.pickupLocation} -> ${booking.dropoffLocation}\n${new Date(booking.pickupDateTime).toLocaleString()}\nFare: NOT SET — set it in Admin > Bookings before quoting the customer`;
-  try {
-    const id = await sendAdminWhatsApp(waText);
-    adminWaOk = !!id;
-    if (!id)
-      await recordNotificationFailure({ channel: "admin_whatsapp", bookingRef: ref, error: "WhatsApp not configured or send failed" });
-  } catch (err) {
-    await recordNotificationFailure({ channel: "admin_whatsapp", bookingRef: ref, error: String(err) });
-  }
-
-  return { customerEmail: custEmailOk, customerSms: custSmsOk, adminEmail: adminEmailOk, adminWhatsApp: adminWaOk };
+  return { customerEmail: custEmailOk, customerSms: custSmsOk, adminEmail: adminEmailOk };
 }

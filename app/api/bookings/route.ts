@@ -40,11 +40,14 @@ export async function POST(request: Request) {
     const finalDropoff = dropoff || dropoffLocation;
     const finalDateTime = dateTime || pickupDateTime;
 
-    if (!finalPickup || !finalDropoff || !finalDateTime || !passengers || (!vehicleId && !vehicleType) || !customerName || !customerPhone) {
+    if (!finalPickup || !finalDropoff || !finalDateTime || !passengers || (!vehicleId && !vehicleType) || !customerName || !customerPhone || !customerEmail) {
       return NextResponse.json(
-        { error: "Missing required booking details (pickupLocation, dropoffLocation, pickupDateTime, passengers, vehicleId or vehicleType, customerName, customerPhone)" },
+        { error: "Missing required booking details (pickupLocation, dropoffLocation, pickupDateTime, passengers, vehicleId or vehicleType, customerName, customerPhone, customerEmail)" },
         { status: 400 }
       );
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(customerEmail).trim())) {
+      return NextResponse.json({ error: "Please provide a valid customerEmail" }, { status: 400 });
     }
 
     // Lookup vehicle
@@ -137,7 +140,7 @@ export async function POST(request: Request) {
         vehicleId: vehicle.id,
         customerName,
         customerPhone,
-        customerEmail: customerEmail || null,
+        customerEmail,
         notes: notes || null,
         flightNumber: flightNumber || null,
         paymentMethod: paymentMethod || "arrival",

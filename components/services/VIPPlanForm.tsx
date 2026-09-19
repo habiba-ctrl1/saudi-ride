@@ -67,7 +67,7 @@ export function VIPPlanForm() {
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     const phoneInvalid = !PHONE_RE.test(form.phone.trim());
-    const emailInvalid = form.email.trim().length > 0 && !EMAIL_RE.test(form.email.trim());
+    const emailInvalid = !EMAIL_RE.test(form.email.trim());
     setPhoneError(phoneInvalid);
     setEmailError(emailInvalid);
     if (phoneInvalid || emailInvalid) return;
@@ -86,7 +86,7 @@ export function VIPPlanForm() {
           vehicleType: form.vehicle,
           customerName: form.name.trim() || null,
           customerPhone: form.phone.trim(),
-          customerEmail: form.email.trim() || null,
+          customerEmail: form.email.trim(),
           pageUrl: typeof window !== "undefined" ? window.location.href : null,
           source: "vip_plan_form",
         }),
@@ -138,10 +138,11 @@ export function VIPPlanForm() {
         {phoneError && <p className="mt-1 text-[0.7rem] text-red-600">Please enter a valid phone number so we can follow up.</p>}
       </div>
       <div>
-        <label className={labelCls} htmlFor="vip-email">Email (optional)</label>
+        <label className={labelCls} htmlFor="vip-email">Email *</label>
         <input
           id="vip-email"
           type="email"
+          required
           className={field}
           value={form.email}
           onChange={(e) => { setForm((f) => ({ ...f, email: e.target.value })); if (emailError) setEmailError(false); }}

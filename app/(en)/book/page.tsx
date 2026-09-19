@@ -329,6 +329,10 @@ export default function BookPage() {
         alert("Please enter a valid phone number.");
         return;
       }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(custEmail.trim())) {
+        alert("Please enter a valid email address.");
+        return;
+      }
       setStep(5);
     }
   };
@@ -995,12 +999,13 @@ export default function BookPage() {
                 <div className="grid gap-4 grid-cols-2">
                   <div>
                     <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-1.5 font-bold">
-                      {isRtl ? "Ø§Ù„Ø¨Ø±ÙŠØ¯ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ (Ø§Ø®ØªÙŠØ§Ø±ÙŠ)" : "Email Address (Optional)"}
+                      {isRtl ? "Ø§Ù„Ø¨Ø±ÙŠØ¯ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ" : "Email Address"}
                     </label>
                     <div className="relative">
                       <Mail className="absolute left-3 top-3.5 h-4 w-4 text-[#C9A84C]/75" />
                       <input
                         type="email"
+                        required
                         value={custEmail}
                         onChange={(e) => setCustEmail(e.target.value)}
                         placeholder="e.g. client@taxisaudiarabia.com"

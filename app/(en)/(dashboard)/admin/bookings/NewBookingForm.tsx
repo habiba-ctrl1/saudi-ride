@@ -36,7 +36,7 @@ export function NewBookingForm({ vehicles }: { vehicles: Vehicle[] }) {
           passengers: Number(form.passengers),
           customerName: form.customerName,
           customerPhone: form.customerPhone,
-          customerEmail: form.customerEmail || undefined,
+          customerEmail: form.customerEmail,
         }),
       });
       const data = await res.json();
@@ -67,7 +67,7 @@ export function NewBookingForm({ vehicles }: { vehicles: Vehicle[] }) {
         <form onSubmit={handleSubmit} className="mt-4 bg-[#111] border border-[#C9A84C]/15 rounded-2xl p-5 grid gap-3 sm:grid-cols-4">
           <input required placeholder="Customer name" value={form.customerName} onChange={(e) => setForm((f) => ({ ...f, customerName: e.target.value }))} className={inputClass} />
           <input required placeholder="Phone (WhatsApp)" value={form.customerPhone} onChange={(e) => setForm((f) => ({ ...f, customerPhone: e.target.value }))} className={inputClass} />
-          <input type="email" placeholder="Email (optional)" value={form.customerEmail} onChange={(e) => setForm((f) => ({ ...f, customerEmail: e.target.value }))} className={inputClass} />
+          <input required type="email" placeholder="Email" value={form.customerEmail} onChange={(e) => setForm((f) => ({ ...f, customerEmail: e.target.value }))} className={inputClass} />
           <select required value={form.vehicleId} onChange={(e) => setForm((f) => ({ ...f, vehicleId: e.target.value }))} className={inputClass}>
             {vehicles.map((v) => <option key={v.id} value={v.id} className="bg-[#121212]">{v.name} ({v.type})</option>)}
           </select>

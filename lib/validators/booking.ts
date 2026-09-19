@@ -18,9 +18,8 @@ export const bookingFormSchema = z.object({
   customerEmail: z
     .string()
     .trim()
+    .min(1, "Please enter your email address.")
     .email("Please enter a valid email address.")
-    .or(z.literal(""))
-    .optional()
 });
 
 export type BookingFormValues = z.infer<typeof bookingFormSchema>;

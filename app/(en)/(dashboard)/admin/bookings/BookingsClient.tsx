@@ -213,7 +213,7 @@ export function BookingsClient({
             </h2>
           </div>
           <p className="text-xs text-red-300/80">
-            No price set, and pickup is within 24 hours or already passed. These are also re-alerted by email/WhatsApp automatically.
+            No price set, and pickup is within 24 hours or already passed. These are also re-alerted by email automatically.
           </p>
           <div className="space-y-1.5">
             {urgentBookings.map((u) => {

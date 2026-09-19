@@ -22,11 +22,20 @@ export async function POST(request: Request) {
     const dropoff = String(body.dropoff ?? body.drop_location ?? "").trim();
     const tripDate = String(body.travelDate ?? body.trip_date ?? "").trim();
 
+    // customerEmail is optional here — this endpoint also serves the recovery
+    // lead form (RecoveryLeadForm.tsx), which deliberately doesn't require an
+    // email (emergency/roadside use case). Forms that need email required
+    // (booking-form.tsx, /book wizard) enforce it client-side before posting.
+    const customerEmail = String(body.customerEmail ?? "").trim();
+
     if (!customerName || !customerPhone || !pickup || !dropoff || !tripDate) {
       return NextResponse.json(
         { error: "Missing required fields: customerName, customerPhone, pickup, dropoff, travelDate" },
         { status: 400 }
       );
+    }
+    if (customerEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerEmail)) {
+      return NextResponse.json({ error: "Please provide a valid customerEmail" }, { status: 400 });
     }
     if (!/^\d{4}-\d{2}-\d{2}$/.test(tripDate)) {
       return NextResponse.json({ error: "travelDate must be YYYY-MM-DD" }, { status: 400 });
@@ -42,7 +51,7 @@ export async function POST(request: Request) {
     const { row, error } = await createQuotation({
       customer_name: customerName,
       customer_phone: customerPhone,
-      customer_email: body.customerEmail ? String(body.customerEmail).trim() : null,
+      customer_email: customerEmail || null,
       pickup_location: pickup,
       drop_location: dropoff,
       trip_type: tripType,
@@ -65,7 +74,7 @@ export async function POST(request: Request) {
       quoteReference: row.quote_reference ?? "",
       customerName,
       customerPhone,
-      customerEmail: body.customerEmail ? String(body.customerEmail).trim() : null,
+      customerEmail,
       pickup,
       dropoff,
       tripDate,

@@ -22,6 +22,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "origin and destination are required" }, { status: 400 });
     }
 
+    const customerEmail = b.customerEmail ? String(b.customerEmail).trim().slice(0, 160) : "";
+    if (!customerEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerEmail)) {
+      return NextResponse.json({ error: "A valid customerEmail is required" }, { status: 400 });
+    }
+
     const utm = (b.utm ?? {}) as Record<string, string | undefined>;
 
     const lead = await prisma.lead.create({
@@ -42,7 +47,7 @@ export async function POST(request: Request) {
         source: b.source ? String(b.source).slice(0, 40) : "price_calculator",
         customerName: b.customerName ? String(b.customerName).slice(0, 120) : null,
         customerPhone: b.customerPhone ? String(b.customerPhone).slice(0, 40) : null,
-        customerEmail: b.customerEmail ? String(b.customerEmail).slice(0, 160) : null,
+        customerEmail,
       },
     });
 
