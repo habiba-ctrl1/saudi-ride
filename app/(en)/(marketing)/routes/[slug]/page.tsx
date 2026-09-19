@@ -180,6 +180,34 @@ const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup:
     pickup: "Dammam",
     dropoff: "Dubai, UAE",
   },
+  "alkhobar-to-manama": {
+    heading: "Get your Al Khobar to Bahrain car-with-driver quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked car with a professional chauffeur, a quick 50 km hop across the King Fahd Causeway to Manama. You carry your own valid documents; we support the crossing.",
+    pickup: "Al Khobar",
+    dropoff: "Manama, Bahrain",
+  },
+  "manama-to-dammam": {
+    heading: "Get your Bahrain to Dammam car-with-driver quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked return car with a professional chauffeur across the King Fahd Causeway to Dammam, about 70 km. You carry your own valid documents; we support the crossing.",
+    pickup: "Manama, Bahrain",
+    dropoff: "Dammam",
+  },
+  "manama-to-alkhobar": {
+    heading: "Get your Bahrain to Al Khobar car-with-driver quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked return car with a professional chauffeur across the King Fahd Causeway to Al Khobar, a quick 50 km hop. You carry your own valid documents; we support the crossing.",
+    pickup: "Manama, Bahrain",
+    dropoff: "Al Khobar",
+  },
+  "manama-to-riyadh": {
+    heading: "Get your Bahrain to Riyadh car-with-driver quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked return car with a professional chauffeur, about 450 km from Manama to the Saudi capital via the King Fahd Causeway. You carry your own valid documents; we support the crossing.",
+    pickup: "Manama, Bahrain",
+    dropoff: "Riyadh",
+  },
 };
 
 // Corporate (Path B) block config for business-corridor routes. The invoicing
@@ -289,6 +317,38 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
     waPrefill: `Salam! Executive car with driver — Dammam / Dubai (UAE).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Dammam–Dubai",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for an executive car with driver between Dammam and Dubai, UAE.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
+  "alkhobar-to-manama": {
+    heading: "Executive car with driver, Al Khobar to Bahrain?",
+    intro:
+      "For business travellers making the quick Causeway crossing to Manama we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. Documentation is supported — you carry your own valid papers. Regular company trips can run on a single account with one point of contact.",
+    waPrefill: `Salam! Executive car with driver — Al Khobar / Manama (Bahrain).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Al Khobar–Bahrain",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Al Khobar and Manama, Bahrain (via the King Fahd Causeway).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
+  "manama-to-dammam": {
+    heading: "Executive car with driver, Bahrain to Dammam?",
+    intro:
+      "For business travellers returning across the King Fahd Causeway to Dammam we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. Documentation is supported — you carry your own valid papers. Regular company trips can run on a single account with one point of contact.",
+    waPrefill: `Salam! Executive car with driver — Manama (Bahrain) / Dammam.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Bahrain–Dammam",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Manama, Bahrain and Dammam (via the King Fahd Causeway).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
+  "manama-to-alkhobar": {
+    heading: "Executive car with driver, Bahrain to Al Khobar?",
+    intro:
+      "For business travellers making the quick Causeway return to Al Khobar we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. Documentation is supported — you carry your own valid papers. Regular company trips can run on a single account with one point of contact.",
+    waPrefill: `Salam! Executive car with driver — Manama (Bahrain) / Al Khobar.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Bahrain–Al Khobar",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Manama, Bahrain and Al Khobar (via the King Fahd Causeway).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
+  "manama-to-riyadh": {
+    heading: "Executive car with driver, Bahrain to Riyadh?",
+    intro:
+      "For business travellers returning to Riyadh across the King Fahd Causeway we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. Documentation is supported — you carry your own valid papers. Regular company trips can run on a single account with one point of contact.",
+    waPrefill: `Salam! Executive car with driver — Manama (Bahrain) / Riyadh.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Bahrain–Riyadh",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Manama, Bahrain and Riyadh (via the King Fahd Causeway).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
 };
 
@@ -1751,6 +1811,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "manama-to-dammam": "Taxi Bahrain to Dammam — Causeway Fare, Distance & Booking",
     "manama-to-alkhobar": "Taxi Bahrain to Al Khobar — King Fahd Causeway Fare & Booking",
     "manama-to-riyadh": "Taxi Bahrain to Riyadh — Cross-Border Fare, Distance & Booking",
+    "alkhobar-to-manama": "Taxi Al Khobar to Bahrain — King Fahd Causeway Fare & Booking",
     "doha-to-dammam": "Taxi Doha, Qatar to Dammam — Salwa Border Fare & Booking",
     "doha-to-riyadh": "Taxi Doha, Qatar to Riyadh — Cross-Border Fare & Booking",
     "kuwait-to-dammam": "Taxi Kuwait to Dammam — Khafji Border Fare, Distance & Booking",
@@ -1784,6 +1845,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "manama-to-dammam": "Bahrain to Dammam taxi via King Fahd Causeway — ~70 km, ~1 hr. Airport (DMM) & hotel drop-offs, border support. Fare confirmed on WhatsApp, 24/7.",
     "manama-to-alkhobar": "Bahrain to Al Khobar taxi across the King Fahd Causeway — ~50 km, ~50 min. Ideal for weekend & business returns. Fare confirmed on WhatsApp, 24/7.",
     "manama-to-riyadh": "Bahrain to Riyadh taxi — ~450 km via the King Fahd Causeway. Executive cross-border transfer with documentation support. Fare confirmed on WhatsApp, 24/7.",
+    "alkhobar-to-manama": "Al Khobar to Bahrain taxi across the King Fahd Causeway — ~50 km, ~50 min. Ideal for weekend & business trips. Fare confirmed on WhatsApp, 24/7.",
     "doha-to-dammam": "Doha to Dammam taxi via the Salwa border — ~400 km, ~4 hrs. Cross-border transfer with documentation support. Fare confirmed on WhatsApp, 24/7.",
     "doha-to-riyadh": "Doha to Riyadh taxi via the Salwa border — ~580 km. Executive cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
     "kuwait-to-dammam": "Kuwait to Dammam taxi via the Nuwaiseeb–Al Khafji border — ~436 km, about 4 hrs driving plus border. Private door-to-door transfer, fare confirmed on WhatsApp.",
