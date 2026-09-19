@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { createManualQuotation, type ManualQuotationInput } from "@/lib/supabase/quotations";
+import { notifyQuotationStatusChange } from "@/lib/notify-quotation-status";
 
 // Admin: manually add a quotation that never went through the public form or
 // the /book bridge — a WhatsApp-only lead typed straight into the system.
@@ -49,6 +50,12 @@ export async function POST(request: Request) {
 
   const { row, error } = await createManualQuotation(input);
   if (error || !row) return NextResponse.json({ error: error ?? "Could not create quotation" }, { status: 500 });
+
+  // A price typed in at creation time takes the row straight to 'quoted' —
+  // send the same quotation email + PDF as the normal "set price" flow.
+  if (row.status === "quoted") {
+    await notifyQuotationStatusChange(row.id, "quoted");
+  }
 
   return NextResponse.json({ success: true, row });
 }

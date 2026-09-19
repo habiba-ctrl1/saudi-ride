@@ -291,11 +291,15 @@ export async function setQuotationProfit(id: string, profit: number | null) {
   return { row: (data ?? null) as QuotationRow | null, error: error?.message ?? null };
 }
 
-/** Records what was actually collected for a completed ride and marks the
- *  receipt as sent — a bookkeeping/communication event, not a business-status
- *  change, so it's a direct update like is_test/profit rather than going
- *  through the audit-logged RPCs. Called once, right after the receipt email
- *  has actually been sent (see POST /api/quotations/[id]/receipt). */
+/** Records what was actually collected for a completed ride, marks payment as
+ *  paid, and marks the receipt as sent — a bookkeeping/communication event,
+ *  not a business-status change, so it's a direct update like is_test/profit
+ *  rather than going through the audit-logged RPCs. Called once, right after
+ *  the receipt email has actually been sent (see POST
+ *  /api/quotations/[id]/receipt). Setting payment_status here (rather than
+ *  requiring it to already be 'paid') is the fix that lets an admin collect
+ *  payment and send the receipt in one action instead of needing a developer
+ *  to flip payment_status in the database first. */
 export async function setQuotationReceiptSent(
   id: string,
   opts: { amountPaid: number; paymentMethod: string }
@@ -308,6 +312,7 @@ export async function setQuotationReceiptSent(
       receipt_sent_at: new Date().toISOString(),
       actual_amount_paid: opts.amountPaid,
       payment_method_used: opts.paymentMethod,
+      payment_status: "paid",
     })
     .eq("id", id)
     .select()

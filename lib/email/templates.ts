@@ -156,6 +156,9 @@ export type ReceiptEmailData = {
   driverPhone?: string | null;
   vehicleLabel?: string | null;
   vehiclePlate?: string | null;
+  /** When set, adds a "Leave us a review" button — sent in the same email so
+   *  the review ask is automatic and doesn't need a separate follow-up. */
+  reviewUrl?: string | null;
 };
 
 /** To the CUSTOMER once a completed ride's receipt PDF is generated. */
@@ -184,7 +187,12 @@ export function receiptEmail(d: ReceiptEmailData) {
     <p style="color:#49505a;font-size:13px;line-height:1.7;margin-top:18px;">
       We hope to welcome you again soon. Questions about this trip? Reach us on
       <a href="${contactConfig.whatsappLink}" style="color:${GREEN};font-weight:bold;">WhatsApp</a>.
-    </p>`;
+    </p>
+    ${d.reviewUrl ? `
+    <div style="text-align:center;margin:22px 0 4px;">
+      <p style="color:#49505a;font-size:13px;margin-bottom:10px;">Enjoyed the ride? A quick review helps us a lot:</p>
+      <a href="${d.reviewUrl}" style="background:${GREEN};color:#fff;text-decoration:none;padding:12px 26px;border-radius:8px;font-weight:bold;font-size:13px;display:inline-block;">⭐ Leave us a review</a>
+    </div>` : ""}`;
   return {
     subject: `Your Receipt ${d.quoteReference} — Taxi Saudi Arabia`,
     html: wrapper("Thank you for riding with us ✔", body, "You are receiving this email because you completed a trip booked at taxisaudiarabia.com."),

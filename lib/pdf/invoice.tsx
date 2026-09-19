@@ -1,6 +1,7 @@
 import { Document, Page, Text, View, StyleSheet, Font, renderToBuffer } from "@react-pdf/renderer";
 import path from "path";
 import { contactConfig } from "@/lib/config/contact";
+import { EAGLE_EYES } from "@/lib/pdf/eagle-eyes";
 import type { QuotationRow } from "@/lib/supabase/quotations";
 
 const GREEN = "#16A34A";
@@ -104,6 +105,7 @@ type TripExtras = {
   customTerms?: string[];
   validUntil?: string;
   notes?: string;
+  paymentMethod?: string;
 };
 
 const SINGLE_LINE_MARKERS = {
@@ -112,6 +114,7 @@ const SINGLE_LINE_MARKERS = {
   "SERVICE HOURS:": "serviceHours",
   "ITINERARY_NOTE:": "itineraryNote",
   "VALID UNTIL:": "validUntil",
+  "PAYMENT:": "paymentMethod",
 } as const;
 const LIST_MARKERS = {
   "ITINERARY:": "itinerary",
@@ -224,6 +227,10 @@ export function InvoiceDocument({ q, mode = "quotation" }: { q: QuotationRow; mo
   const fareLabel = extras.vehicleLabel && extras.itinerary?.length
     ? `${extras.vehicleLabel} — Full-Day Private Service`
     : extras.excluded?.length ? "Transportation fare (see exclusions below)" : "Trip fare (all-inclusive)";
+  // A "PAYMENT: bank transfer" marker on the quotation (never on a receipt,
+  // where payment already happened) swaps the default cash instruction for
+  // Eagle Eyes' verified bank details so the customer can pay in advance.
+  const isBankTransfer = !isReceipt && (extras.paymentMethod ?? "").toLowerCase().includes("bank");
   const fareLabelAr = extras.excluded?.length ? "أجرة النقل (راجع الاستثناءات أدناه)" : "إجمالي أجرة الرحلة (شامل)";
 
   return (
@@ -330,8 +337,8 @@ export function InvoiceDocument({ q, mode = "quotation" }: { q: QuotationRow; mo
           </View>
           <View style={styles.totalRow}>
             <View>
-              <Text style={styles.totalLabelEn}>{isReceipt ? "Amount Paid" : "Total — Cash"}</Text>
-              <Text style={styles.totalLabelAr}>{isReceipt ? "المبلغ المدفوع" : "الإجمالي - نقداً"}</Text>
+              <Text style={styles.totalLabelEn}>{isReceipt ? "Amount Paid" : isBankTransfer ? "Total — Bank Transfer" : "Total — Cash"}</Text>
+              <Text style={styles.totalLabelAr}>{isReceipt ? "المبلغ المدفوع" : isBankTransfer ? "الإجمالي - تحويل بنكي" : "الإجمالي - نقداً"}</Text>
             </View>
             <Text style={styles.totalValue}>{fmt(isReceipt ? amountPaid : total, q.currency)}</Text>
           </View>
@@ -340,12 +347,26 @@ export function InvoiceDocument({ q, mode = "quotation" }: { q: QuotationRow; mo
               <Text style={styles.note}>Payment method: {paymentMethod} — received in full.</Text>
               <Text style={styles.noteAr}>طريقة الدفع: {paymentMethod} — تم الاستلام بالكامل.</Text>
             </>
+          ) : isBankTransfer ? (
+            <>
+              <Text style={styles.note}>Please transfer the total above and share the payment confirmation on WhatsApp.</Text>
+              <Text style={styles.noteAr}>يُرجى تحويل المبلغ الإجمالي ومشاركة إثبات الدفع عبر واتساب.</Text>
+            </>
           ) : (
             <>
               <Text style={styles.note}>Payable in cash to the driver.</Text>
               <Text style={styles.noteAr}>يُدفع نقداً للسائق.</Text>
             </>
           )}
+          {isBankTransfer ? (
+            <View style={{ marginTop: 10 }}>
+              <Field labelEn="Account Name" labelAr="اسم الحساب" value={EAGLE_EYES.accountName} />
+              <Field labelEn="Bank" labelAr="البنك" value={`${EAGLE_EYES.bankName} / ${EAGLE_EYES.bankNameAr}`} />
+              <Field labelEn="IBAN" labelAr="آيبان" value={EAGLE_EYES.iban} />
+              <Field labelEn="Account No." labelAr="رقم الحساب" value={EAGLE_EYES.accountNo} />
+              <Field labelEn="SWIFT/BIC" labelAr="سويفت" value={EAGLE_EYES.swift} />
+            </View>
+          ) : null}
           {extras.excluded?.length ? (
             <Text style={styles.highlightNote}>
               This rate covers transportation only. It does not include: {extras.excluded.join(", ")}.

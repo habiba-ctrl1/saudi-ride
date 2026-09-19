@@ -9,42 +9,10 @@ import {
   setQuotationReviewInvited,
   deleteQuotation,
   getQuotationById,
-  getQuotationWithDriver,
   type QuotationStatus,
   type QuotationDetailsInput,
 } from "@/lib/supabase/quotations";
-import { sendEmail } from "@/lib/notifications";
-import { statusUpdateEmail, type StatusUpdateEmailData } from "@/lib/email/templates";
-
-const EMAILED_STATUSES = new Set<QuotationStatus>(["quoted", "confirmed", "assigned"]);
-
-/** Best-effort — a failed status-update email should never fail the status
- *  change itself (the admin action already succeeded in the DB). */
-async function notifyStatusChange(id: string, status: QuotationStatus) {
-  if (!EMAILED_STATUSES.has(status)) return;
-  try {
-    const { row } = await getQuotationWithDriver(id);
-    if (!row?.customer_email) return;
-    const driver = row.drivers;
-    const { subject, html } = statusUpdateEmail({
-      quoteReference: row.quote_reference,
-      customerName: row.customer_name,
-      pickup: row.pickup_location,
-      dropoff: row.drop_location,
-      tripDate: row.trip_date,
-      tripTime: row.trip_time,
-      status: status as StatusUpdateEmailData["status"],
-      quotedPrice: row.quoted_price,
-      currency: row.currency,
-      driverName: driver?.full_name ?? null,
-      driverPhone: driver?.phone ?? null,
-      vehicleLabel: driver ? [driver.vehicle_model, driver.vehicle_type.toUpperCase()].filter(Boolean).join(" — ") : null,
-    });
-    await sendEmail(row.customer_email, subject, html);
-  } catch (err) {
-    console.error("❌ status-update email failed:", err);
-  }
-}
+import { notifyQuotationStatusChange } from "@/lib/notify-quotation-status";
 
 const STATUSES: QuotationStatus[] = ["new", "quoted", "confirmed", "assigned", "completed", "cancelled"];
 
@@ -120,7 +88,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   });
 
   if (error) return NextResponse.json({ error }, { status: 400 });
-  await notifyStatusChange(id, status);
+  await notifyQuotationStatusChange(id, status);
   return NextResponse.json({ success: true, row });
 }
 

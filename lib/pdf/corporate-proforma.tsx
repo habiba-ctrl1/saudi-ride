@@ -1,6 +1,7 @@
 import { Document, Page, Text, View, StyleSheet, Font, renderToBuffer } from "@react-pdf/renderer";
 import path from "path";
 import { contactConfig } from "@/lib/config/contact";
+import { EAGLE_EYES, VAT_RATE } from "@/lib/pdf/eagle-eyes";
 
 const GREEN = "#16A34A";
 const YELLOW = "#FACC15";
@@ -76,27 +77,6 @@ function SectionTitle({ en, ar }: { en: string; ar: string }) {
     </View>
   );
 }
-
-// Verified partner details — Arabian Eagle Eyes Trading Est., TSA's registered
-// VAT billing partner. Source: client-quotations/_PARTNER - Arabian Eagle Eyes
-// /EAGLE-EYES-DETAILS.html. Never edit these without checking that file first.
-const EAGLE_EYES = {
-  nameEn: "Arabian Eagle Eyes Trading Est.",
-  nameAr: "مؤسسة عيون النسر العربية للتجارة",
-  vatNo: "311686090600003",
-  crNo: "7036504533",
-  address: "Al Amamra Dist., King Saud St., Dammam 32415",
-  email: "sales@arbianeagles.com",
-  phone: "+966 59 400 0687",
-  bankName: "Alinma Bank",
-  bankNameAr: "مصرف الإنماء",
-  accountName: "Arabian Eagle Eyes Trading Est.",
-  iban: "SA2305000068204691550000",
-  accountNo: "68204691550000",
-  swift: "INMASARI",
-};
-
-const VAT_RATE = 0.15;
 
 export interface CorporateProformaInput {
   invoiceNo: string;

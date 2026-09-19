@@ -53,8 +53,19 @@ type EditDraft = {
   trip_date: string;
   trip_time: string;
   passengers_count: string;
+  vehicle_type_requested: string;
   luggage_notes: string;
 };
+
+/** Adds/replaces a "MARKER: value" line inside the free-text luggage_notes
+ *  field (same convention the PDF template already parses for VEHICLE:,
+ *  INCLUDED:, etc. — see lib/pdf/invoice.tsx parseTripExtras) without
+ *  disturbing any other lines already there. */
+function upsertMarkerLine(notes: string, marker: string, value: string): string {
+  const lines = (notes ?? "").split("\n").filter((line) => !line.trim().startsWith(marker));
+  lines.push(`${marker} ${value}`);
+  return lines.join("\n").trim();
+}
 
 type NewDraft = {
   customer_name: string;
@@ -99,6 +110,7 @@ function draftFromRow(q: QuotationRow): EditDraft {
     trip_date: q.trip_date,
     trip_time: q.trip_time ? q.trip_time.slice(0, 5) : "",
     passengers_count: q.passengers_count !== null ? String(q.passengers_count) : "",
+    vehicle_type_requested: q.vehicle_type_requested ?? "",
     luggage_notes: q.luggage_notes ?? "",
   };
 }
@@ -161,6 +173,10 @@ export function QuotationsClient({
   const [statusMenuOpenId, setStatusMenuOpenId] = useState<string | null>(null);
   const [pendingPriceId, setPendingPriceId] = useState<string | null>(null);
   const [pendingDriverId, setPendingDriverId] = useState<string | null>(null);
+  const [quotePaymentDraft, setQuotePaymentDraft] = useState<Record<string, "cash" | "bank_transfer">>({});
+  const [pendingCompleteId, setPendingCompleteId] = useState<string | null>(null);
+  const [completeAmountDraft, setCompleteAmountDraft] = useState<Record<string, string>>({});
+  const [completeMethodDraft, setCompleteMethodDraft] = useState<Record<string, "Cash" | "Bank Transfer">>({});
   const [viewingId, setViewingId] = useState<string | null>(null);
   const [searchDraft, setSearchDraft] = useState(searchParams.get("search") ?? "");
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -280,7 +296,54 @@ export function QuotationsClient({
       setPendingDriverId(q.id);
       return;
     }
+    if (status === "completed" && !q.receipt_sent_at) {
+      setCompleteAmountDraft((prev) => ({ ...prev, [q.id]: prev[q.id] ?? (q.quoted_price !== null ? String(q.quoted_price) : "") }));
+      setPendingCompleteId(q.id);
+      return;
+    }
     patch(q.id, { status });
+  }
+
+  /** One action: mark the ride completed (if not already), record what was
+   *  actually collected, email the receipt (with review link built in) when
+   *  the customer has an address on file, and mark the review as invited —
+   *  the whole post-trip pipeline from a single button press. */
+  async function completeAndCollectPayment(q: QuotationRow) {
+    const amount = completeAmountDraft[q.id];
+    if (!amount) return;
+    const method = completeMethodDraft[q.id] ?? "Cash";
+    setBusyId(q.id);
+    setRowError((prev) => ({ ...prev, [q.id]: "" }));
+    try {
+      if (q.status !== "completed") {
+        const statusRes = await fetch(`/api/quotations/${q.id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status: "completed" }),
+        });
+        if (!statusRes.ok) {
+          const data = await statusRes.json().catch(() => ({}));
+          setRowError((prev) => ({ ...prev, [q.id]: data.error || "Could not mark as completed" }));
+          return;
+        }
+      }
+      const receiptRes = await fetch(`/api/quotations/${q.id}/receipt`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ actualAmountPaid: Number(amount), paymentMethod: method }),
+      });
+      const receiptData = await receiptRes.json().catch(() => ({}));
+      if (!receiptRes.ok) {
+        setRowError((prev) => ({ ...prev, [q.id]: receiptData.error || "Payment recorded, but the receipt step failed" }));
+        return;
+      }
+      setPendingCompleteId(null);
+      router.refresh();
+    } catch {
+      setRowError((prev) => ({ ...prev, [q.id]: "Network error" }));
+    } finally {
+      setBusyId(null);
+    }
   }
 
   async function patchDetails(id: string, details: Record<string, unknown>) {
@@ -319,24 +382,6 @@ export function QuotationsClient({
       const data = await res.json();
       if (!res.ok) {
         setRowError((prev) => ({ ...prev, [id]: data.error || "Update failed" }));
-        return;
-      }
-      router.refresh();
-    } catch {
-      setRowError((prev) => ({ ...prev, [id]: "Network error" }));
-    } finally {
-      setBusyId(null);
-    }
-  }
-
-  async function sendReceipt(id: string) {
-    setBusyId(id);
-    setRowError((prev) => ({ ...prev, [id]: "" }));
-    try {
-      const res = await fetch(`/api/quotations/${id}/receipt`, { method: "POST" });
-      const data = await res.json();
-      if (!res.ok) {
-        setRowError((prev) => ({ ...prev, [id]: data.error || "Could not send receipt" }));
         return;
       }
       router.refresh();
@@ -413,6 +458,7 @@ export function QuotationsClient({
       trip_date: editDraft.trip_date,
       trip_time: editDraft.trip_time || null,
       passengers_count: editDraft.passengers_count ? Number(editDraft.passengers_count) : null,
+      vehicle_type_requested: editDraft.vehicle_type_requested || null,
       luggage_notes: editDraft.luggage_notes || null,
     });
     if (ok) {
@@ -652,7 +698,7 @@ export function QuotationsClient({
                       <Download className="h-3.5 w-3.5" />
                     </span>
                   )}
-                  {q.status === "completed" && q.payment_status === "paid" ? (
+                  {q.status === "completed" ? (
                     <>
                       <a
                         href={`/api/quotations/${q.id}/receipt`}
@@ -669,9 +715,12 @@ export function QuotationsClient({
                         </span>
                       ) : (
                         <button
-                          disabled={busy || !q.customer_email}
-                          onClick={() => sendReceipt(q.id)}
-                          title={q.customer_email ? "Email the receipt to the customer" : "No customer email on file"}
+                          disabled={busy}
+                          onClick={() => {
+                            setCompleteAmountDraft((prev) => ({ ...prev, [q.id]: prev[q.id] ?? (q.quoted_price !== null ? String(q.quoted_price) : "") }));
+                            setPendingCompleteId(q.id);
+                          }}
+                          title={q.customer_email ? "Collect payment & email the receipt" : "Collect payment (no email on file — receipt won't be emailed)"}
                           className="rounded-lg border border-[#333] p-1.5 text-[#A1A1A6] transition hover:border-[#C9A84C]/40 hover:text-[#C9A84C] disabled:cursor-not-allowed disabled:opacity-40"
                         >
                           <Receipt className="h-3.5 w-3.5" />
@@ -827,6 +876,20 @@ export function QuotationsClient({
                       ))}
                     </select>
                   </label>
+                  <label className="text-xs text-[#A1A1A6]">
+                    Vehicle type
+                    <select
+                      disabled={locked}
+                      value={editDraft.vehicle_type_requested}
+                      onChange={(e) => setEditDraft({ ...editDraft, vehicle_type_requested: e.target.value })}
+                      className="mt-1 w-full rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C] disabled:opacity-50"
+                    >
+                      <option value="" className="bg-[#121212]">— not specified —</option>
+                      {VEHICLE_TYPES.map((v) => (
+                        <option key={v} value={v} className="bg-[#121212]">{v}</option>
+                      ))}
+                    </select>
+                  </label>
                   <label className="sm:col-span-2 text-xs text-[#A1A1A6]">
                     Luggage / notes
                     <textarea
@@ -882,9 +945,21 @@ export function QuotationsClient({
                     onChange={(e) => setPriceDraft((prev) => ({ ...prev, [q.id]: e.target.value }))}
                     className="w-32 rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
                   />
+                  <select
+                    value={quotePaymentDraft[q.id] ?? "cash"}
+                    onChange={(e) => setQuotePaymentDraft((prev) => ({ ...prev, [q.id]: e.target.value as "cash" | "bank_transfer" }))}
+                    title="How the customer will pay — shown on the quotation PDF"
+                    className="rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
+                  >
+                    <option value="cash" className="bg-[#121212]">Cash</option>
+                    <option value="bank_transfer" className="bg-[#121212]">Bank Transfer</option>
+                  </select>
                   <button
                     disabled={busy || !priceDraft[q.id]}
                     onClick={async () => {
+                      const method = quotePaymentDraft[q.id] ?? "cash";
+                      const notes = upsertMarkerLine(q.luggage_notes ?? "", "PAYMENT:", method === "bank_transfer" ? "bank transfer" : "cash");
+                      await patchDetails(q.id, { luggage_notes: notes || null });
                       await patch(q.id, { status: "quoted", quotedPrice: priceDraft[q.id] });
                       setPendingPriceId(null);
                     }}
@@ -894,6 +969,42 @@ export function QuotationsClient({
                   </button>
                   <button onClick={() => setPendingPriceId(null)} className="text-xs text-[#666] hover:text-[#A1A1A6]">Cancel</button>
                   {busy && <Loader2 className="h-4 w-4 animate-spin text-[#C9A84C]" />}
+                </div>
+              )}
+              {pendingCompleteId === q.id && (
+                <div className="flex items-center gap-2 flex-wrap border-t border-[#222] pt-4">
+                  <span className="text-xs text-[#A1A1A6]">
+                    {q.status === "completed" ? "Collect payment & send receipt:" : "Mark as Completed — amount actually collected:"}
+                  </span>
+                  <input
+                    type="number"
+                    min={0}
+                    autoFocus
+                    placeholder="Amount (SAR)"
+                    value={completeAmountDraft[q.id] ?? ""}
+                    onChange={(e) => setCompleteAmountDraft((prev) => ({ ...prev, [q.id]: e.target.value }))}
+                    className="w-32 rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
+                  />
+                  <select
+                    value={completeMethodDraft[q.id] ?? "Cash"}
+                    onChange={(e) => setCompleteMethodDraft((prev) => ({ ...prev, [q.id]: e.target.value as "Cash" | "Bank Transfer" }))}
+                    className="rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
+                  >
+                    <option value="Cash" className="bg-[#121212]">Cash</option>
+                    <option value="Bank Transfer" className="bg-[#121212]">Bank Transfer</option>
+                  </select>
+                  <button
+                    disabled={busy || !completeAmountDraft[q.id]}
+                    onClick={() => completeAndCollectPayment(q)}
+                    className="rounded-lg bg-[#C9A84C]/15 border border-[#C9A84C]/25 px-3 py-2 text-xs font-bold text-[#C9A84C] hover:bg-[#C9A84C]/25 disabled:opacity-40"
+                  >
+                    Confirm
+                  </button>
+                  <button onClick={() => setPendingCompleteId(null)} className="text-xs text-[#666] hover:text-[#A1A1A6]">Cancel</button>
+                  {busy && <Loader2 className="h-4 w-4 animate-spin text-[#C9A84C]" />}
+                  <p className="w-full text-[10px] text-[#666]">
+                    {q.customer_email ? "Sends a receipt email with the PDF and a review link." : "No customer email on file — payment will be recorded but no receipt email will be sent."}
+                  </p>
                 </div>
               )}
               {pendingDriverId === q.id && (
