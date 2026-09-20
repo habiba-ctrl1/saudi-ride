@@ -42,3 +42,28 @@ client, per `CLAUDE.md` rule 1.
 | 2026-09-20 | Hanak | Tabuk Airport (round trip) | Unspecified | Round-trip | 1600 | Cash option, no invoice, half/half payment; same trip as 1,840 SAR quote |
 | 2026-09-20 | Riyadh | Dammam | Sedan | One-way | 750 | 1 pax, no luggage; trip 2026-08-30 9:30pm; initial quote |
 | 2026-09-20 | Riyadh | Dammam | Sedan | One-way | 600 | Same trip; discounted follow-up offer |
+| 2026-09-20 | Dammam | Doha (Qatar) | Unspecified (Fortuner/Taurus) | One-way | 1500 | 1 pax; vehicle depends on date/time availability; date not confirmed |
+| 2026-09-20 | Riyadh | Dammam | SUV (GMC) | One-way | 1100 | 2 luggage; trip 2 Sept 2026 (different client than the 750/600 pair above) |
+| 2026-09-20 | Riyadh | Dammam | Sedan | One-way | 650 | Alt. option, same trip as the 1,100 SAR GMC quote |
+| 2026-09-20 | Abha | Rijal Almaa (round trip) | Sedan | Round-trip | 650 | 1 pax, same-day, waiting incl.; 23 Sept after 4pm; client declined, used Uber |
+| 2026-09-20 | Saudi side of Jordan border (near Aqaba) | Tabuk | Sedan | One-way | 1000 | 2 pax, 2 hand luggage; pickup only from Saudi side, not Aqaba; date 25 Dec |
+| 2026-09-20 | Tabuk | Aqaba (Jordan) | Sedan | One-way | 1800 | Direct transfer incl. border crossing; alt to border-only pickup |
+| 2026-09-20 | Tabuk | Aqaba (Jordan) | SUV (GMC) | One-way | 2200 | Direct transfer incl. border crossing; same thread as 1,800 SAR sedan |
+| 2026-09-20 | Madinah | Tabuk | Sedan | One-way | 850 | 1 pax; trip 2026-09-06 12pm; initial quote |
+| 2026-09-20 | Madinah | Tabuk | Sedan (Hyundai Sonata) | One-way | 450 | Discounted after Uber price comparison; same trip |
+| 2026-09-20 | King Fahd Intl Airport (Dammam) | Hyatt Regency Oryx Doha | Sedan | One-way | 1300 | 1 pax, 1 luggage; trip 9 Sept 11am; corporate client, initial quote |
+| 2026-09-20 | King Fahd Intl Airport (Dammam) | Hyatt Regency Oryx Doha | Sedan | One-way | 1200 | Final offer after 1,000 SAR budget; client declined |
+| 2026-09-20 | Abha Airport | Braira Abha Hotel | Sedan | One-way | 300 | 2 pax, 3 luggage; trip 11 Sept 5:30pm |
+| 2026-09-20 | Al-Irqah District, Riyadh | Riyadh Airport | SUV (GMC Yukon) | One-way | 400 | Client wanted Cadillac; GMC Yukon offered as available alt |
+| 2026-09-20 | Riyadh | Makkah | SUV (GMC Yukon XL) | One-way | 2000 | 4 adults + 2 kids; trip 21 Sept; client declined on price |
+| 2026-09-20 | Riyadh | Makkah | Van (Staria) | One-way | 1700 | Alt. option, same trip as the 2,000 SAR GMC quote |
+| 2026-09-20 | Madinah | Al-Ula (round trip) | Van (Staria) | Round-trip | 1100 | Umrah pilgrim client; initial best offer |
+| 2026-09-20 | Madinah | Al-Ula (round trip) | Van (Staria) | Round-trip | 1000 | FINAL, client agreed; trip 4 Oct; stops incl. Old Town AlUla, Maraya; permits (e.g. Hegra) paid separately; fuel+driver incl. |
+| 2026-09-20 | Al Khobar | Manama (Bahrain) | Sedan (Toyota Veloz) | One-way | 400 | Initial quote |
+| 2026-09-20 | Al Khobar | Manama (Bahrain) | Sedan (Toyota Veloz) | One-way | 350 | Final discounted rate |
+| 2026-09-20 | Desert Rock Resort (AlUla) | Six Senses Southern Dunes (AlUla) | Unspecified (Hyundai) | One-way | 100 USD | BOOKED; Fri 11 Sept 12pm; driver Amir, plate 8775 SSA |
+| 2026-09-20 | Tabuk | Aqaba (Jordan) | SUV (GMC) | One-way | 1100 | Different client/thread; trip October (date pending) |
+| 2026-09-20 | Tabuk | Aqaba (Jordan, round trip) | SUV (GMC/Fortuner) | Round-trip | 2150 | Round-trip total, return 6 days later; same client as the 1,100 SAR one-way |
+| 2026-09-20 | Tabuk | Aqaba (Jordan, round trip) | Sedan (Ford Taurus) | Round-trip | 1800 | Round-trip total alt, same thread |
+| 2026-09-20 | Bahrain | Dhahran | Sedan (Toyota Veloz) | One-way | 400 | Trip on the 18th; client didn't confirm |
+| 2026-09-20 | Adani Bar Al-Rawda, Jeddah | Jeddah International Airport | Sedan | One-way | 150 | 1 pax; trip 2026-09-14 06:15; client declined |
