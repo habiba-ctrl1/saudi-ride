@@ -13,6 +13,7 @@ import {
   Users,
   DollarSign,
   Newspaper,
+  BookOpen,
 } from "lucide-react";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
@@ -27,6 +28,7 @@ const NAV_ITEMS = [
   { name: "Customers",  href: "/admin/customers", icon: Users },
   { name: "Drivers",    href: "/admin/driver-applications", icon: UserCheck },
   { name: "Fleet",      href: "/admin/vehicles",  icon: Car },
+  { name: "Pricing Book", href: "/admin/pricing-book", icon: BookOpen },
   { name: "Promo Codes",href: "/admin/promo-codes",icon: Tag },
   { name: "Revenue",    href: "/admin/revenue",   icon: DollarSign },
   { name: "Analytics",  href: "/admin/analytics", icon: BarChart3 },

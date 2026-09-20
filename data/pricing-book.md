@@ -1,0 +1,15 @@
+# Pricing Book — manual ledger
+
+Running record of real prices quoted to clients, by route + vehicle. This file
+is the git-tracked backup of the same data stored in the `price_book_entries`
+table (managed at `/admin/pricing-book`). Whenever a price is shared in chat,
+append a row here AND add it via the admin UI (or `POST /api/admin/pricing-book`).
+
+Never invent a price here — only record prices actually quoted to a real
+client, per `CLAUDE.md` rule 1.
+
+| Date | From | To | Vehicle | Trip | Price (SAR) | Notes / client ref |
+|---|---|---|---|---|---|---|
+| 2026-09-20 | Jeddah Airport (JED) | Makkah - Swissotel Al Maqam (Clock Tower) | Sedan (Toyota Camry 2026) | One-way | 400 | Terminal 1 arrival; incl. pickup, hotel drop-off, flight tracking, free short wait; trip 2026-08-02 3:20am, 4 pax, 2 bags |
+| 2026-09-20 | Jeddah Airport (JED) | Makkah - Swissotel Al Maqam (Clock Tower) | Sedan (Toyota Camry 2026) | One-way | 450 | Any terminal other than T1; same inclusions; trip 2026-08-02 |
+| 2026-09-20 | Jeddah Airport (JED) | Makkah - Swissotel Al Maqam (Clock Tower) | Sedan (Toyota Camry 2026) | One-way | 350 | Final negotiated price after client pushed back on 400/450; incl. airport parking fees; trip 2026-08-02 |

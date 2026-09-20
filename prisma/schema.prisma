@@ -400,3 +400,28 @@ model NotificationFailure {
   @@index([createdAt])
   @@map("notification_failures")
 }
+
+// ─── Pricing book ───────────────────────────────────────────────────────────
+
+// PriceBookEntry = a real price actually quoted to a client for a route +
+// vehicle combination (from WhatsApp/chat negotiation, not a formula). Kept
+// separate from FareRule (which is a calculator input) so admin can look up
+// "what did we charge/quote last time for this route+vehicle" before quoting
+// a new client.
+model PriceBookEntry {
+  id          String   @id @default(cuid())
+  fromCity    String   @map("from_city")
+  toCity      String   @map("to_city")
+  vehicleType String   @map("vehicle_type")
+  price       Float
+  currency    String   @default("SAR")
+  tripType    String   @default("ONE_WAY") @map("trip_type")
+  notes       String?
+  source      String   @default("manual")
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@index([fromCity, toCity])
+  @@map("price_book_entries")
+}
