@@ -88,7 +88,8 @@ client, per `CLAUDE.md` rule 1.
 | 2026-09-20 | Madinah | Riyadh | Van | One-way | 1400 | Same menu/trip |
 | 2026-09-20 | Madinah | Riyadh | SUV (GMC Yukon) | One-way | 1800 | Premium tier, same menu/trip |
 | 2026-09-20 | Dammam | Qatar | Sedan | One-way | 1350 | 3 pax; trip 1 Oct; incl. border crossing assistance |
-| 2026-09-20 | Riyadh | Doha (Qatar) | SUV (GMC) | One-way | 1800 | Client Rauff, 3 pax; initial quote |
-| 2026-09-20 | Riyadh | Doha (Qatar) | Sedan (Ford Taurus) | One-way | 1400 | Same client/trip, sedan alt |
+| 2026-09-20 | Riyadh | Doha (Qatar) | Sedan (Ford Taurus) | One-way | 1400 | Client Rauff, 3 pax; sedan alt to the 1,800 SAR GMC quote above |
 | 2026-09-20 | Riyadh | Doha (Qatar) | SUV (GMC) | One-way | 1700 | Special discount after competitor Innova quote (~1,000 QAR) |
 | 2026-09-20 | Riyadh | Doha (Qatar) | Sedan (Ford Taurus) | One-way | 1350 | Final best price, same negotiation |
+| 2026-09-20 | Oxagon (NEOM) | Aqaba (Jordan, round trip) | SUV (Chevrolet Tahoe) | Round-trip | 2200 | Final best price; same price for 1 or 5 pax (full-distance + border fees); client considered NEOM airport as cheaper alt |
+| 2026-09-20 | Dammam | Qatar | Sedan | One-way | 1500 | Additional price point for this route/vehicle |
