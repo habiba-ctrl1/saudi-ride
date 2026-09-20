@@ -348,7 +348,7 @@ const CITY_META_TITLE: Record<string, string> = {
   taif: "Taif Taxi & Private Transfers | TIF Airport, Al Hada & Makkah",
   yanbu: "Yanbu Taxi & Private Transfers | Airport, Hotels & Chauffeur",
   abha: "Abha Taxi & Private Transfers | AHB Airport, Soudah & Asir",
-  abudhabi: "Abu Dhabi Private Transfer & Cross-Border Car Service | Taxi Saudi Arabia",
+  abudhabi: "Abu Dhabi Private Taxi & Cross-Border Car Service | Taxi Saudi Arabia",
 };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
