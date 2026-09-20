@@ -15,6 +15,9 @@ type PriceBookEntry = {
   notes: string | null;
   source: string;
   isActive: boolean;
+  routeFamily: string | null;
+  crossBorder: boolean;
+  priceKind: string;
   createdAt: string;
 };
 
@@ -24,6 +27,12 @@ const TRIP_TYPES = ["ONE_WAY", "ROUND_TRIP"];
 const inputClass =
   "rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]";
 
+const PRICE_KIND_LABEL: Record<string, { label: string; className: string }> = {
+  CLIENT_OBSERVED: { label: "Client Quote", className: "bg-green-500/10 text-green-500 border-green-500/20" },
+  VENDOR_COST: { label: "Vendor Cost", className: "bg-gray-500/10 text-gray-400 border-gray-500/20" },
+  DERIVED_SUGGESTED: { label: "Derived +Margin", className: "bg-yellow-500/10 text-yellow-500 border-yellow-500/20" },
+};
+
 export function PricingBookClient({ entries }: { entries: PriceBookEntry[] }) {
   const router = useRouter();
   const [busyId, setBusyId] = useState<string | null>(null);
@@ -31,6 +40,10 @@ export function PricingBookClient({ entries }: { entries: PriceBookEntry[] }) {
   const [showForm, setShowForm] = useState(false);
   const [creating, setCreating] = useState(false);
   const [search, setSearch] = useState("");
+  const [pickupFilter, setPickupFilter] = useState("");
+  const [destinationFilter, setDestinationFilter] = useState("");
+  const [vehicleFilter, setVehicleFilter] = useState("All");
+  const [crossBorderOnly, setCrossBorderOnly] = useState(false);
   const [form, setForm] = useState({
     from_city: "",
     to_city: "",
@@ -40,16 +53,24 @@ export function PricingBookClient({ entries }: { entries: PriceBookEntry[] }) {
     notes: "",
   });
 
+  const vehicleOptions = useMemo(
+    () => ["All", ...Array.from(new Set(entries.map((e) => e.vehicleType))).sort()],
+    [entries]
+  );
+
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
-    if (!q) return entries;
-    return entries.filter(
-      (e) =>
-        e.fromCity.toLowerCase().includes(q) ||
-        e.toCity.toLowerCase().includes(q) ||
-        e.vehicleType.toLowerCase().includes(q)
-    );
-  }, [entries, search]);
+    const pickupQ = pickupFilter.trim().toLowerCase();
+    const destQ = destinationFilter.trim().toLowerCase();
+    return entries.filter((e) => {
+      if (q && !(e.fromCity.toLowerCase().includes(q) || e.toCity.toLowerCase().includes(q) || e.vehicleType.toLowerCase().includes(q))) return false;
+      if (pickupQ && !e.fromCity.toLowerCase().includes(pickupQ)) return false;
+      if (destQ && !e.toCity.toLowerCase().includes(destQ)) return false;
+      if (vehicleFilter !== "All" && e.vehicleType !== vehicleFilter) return false;
+      if (crossBorderOnly && !e.crossBorder) return false;
+      return true;
+    });
+  }, [entries, search, pickupFilter, destinationFilter, vehicleFilter, crossBorderOnly]);
 
   async function createEntry(e: React.FormEvent) {
     e.preventDefault();
@@ -140,6 +161,31 @@ export function PricingBookClient({ entries }: { entries: PriceBookEntry[] }) {
         </div>
       </div>
 
+      <div className="flex flex-wrap items-center gap-3">
+        <input
+          placeholder="Filter: pickup contains…"
+          value={pickupFilter}
+          onChange={(e) => setPickupFilter(e.target.value)}
+          className={`${inputClass} w-full sm:w-52`}
+        />
+        <input
+          placeholder="Filter: destination contains…"
+          value={destinationFilter}
+          onChange={(e) => setDestinationFilter(e.target.value)}
+          className={`${inputClass} w-full sm:w-52`}
+        />
+        <select value={vehicleFilter} onChange={(e) => setVehicleFilter(e.target.value)} className={inputClass}>
+          {vehicleOptions.map((v) => (
+            <option key={v} value={v} className="bg-[#121212]">{v}</option>
+          ))}
+        </select>
+        <label className="flex items-center gap-2 text-xs text-[#A1A1A6] cursor-pointer select-none">
+          <input type="checkbox" checked={crossBorderOnly} onChange={(e) => setCrossBorderOnly(e.target.checked)} className="accent-[#C9A84C]" />
+          Cross-border only
+        </label>
+        <span className="text-xs text-[#7C8088]">{filtered.length} of {entries.length} shown</span>
+      </div>
+
       {showForm && (
         <form onSubmit={createEntry} className="bg-[#111] border border-[#C9A84C]/15 rounded-2xl p-5 grid gap-3 sm:grid-cols-6">
           <input required placeholder="From (e.g. Riyadh)" value={form.from_city} onChange={(e) => setForm((f) => ({ ...f, from_city: e.target.value }))} className={inputClass} />
@@ -182,6 +228,7 @@ export function PricingBookClient({ entries }: { entries: PriceBookEntry[] }) {
                   <th className="p-4 font-bold">Vehicle</th>
                   <th className="p-4 font-bold">Trip</th>
                   <th className="p-4 font-bold">Price</th>
+                  <th className="p-4 font-bold">Kind</th>
                   <th className="p-4 font-bold">Notes</th>
                   <th className="p-4 font-bold">Status</th>
                   <th className="p-4 font-bold text-right">Actions</th>
@@ -190,12 +237,25 @@ export function PricingBookClient({ entries }: { entries: PriceBookEntry[] }) {
               <tbody className="divide-y divide-[#C9A84C]/5">
                 {filtered.map((e) => {
                   const busy = busyId === e.id;
+                  const kind = PRICE_KIND_LABEL[e.priceKind] ?? PRICE_KIND_LABEL.CLIENT_OBSERVED;
                   return (
                     <tr key={e.id} className="hover:bg-[#1A1A1A]/50 transition-colors">
-                      <td className="p-4 text-sm font-bold text-[#F5F0E8]">{e.fromCity} → {e.toCity}</td>
+                      <td className="p-4 text-sm font-bold text-[#F5F0E8]">
+                        {e.fromCity} → {e.toCity}
+                        {e.crossBorder && (
+                          <span className="ml-2 inline-flex items-center px-1.5 py-0.5 rounded text-[0.55rem] font-bold uppercase tracking-wider border bg-blue-500/10 text-blue-400 border-blue-500/20">
+                            Cross-border
+                          </span>
+                        )}
+                      </td>
                       <td className="p-4 text-sm text-[#A1A1A6]">{e.vehicleType}</td>
                       <td className="p-4 text-sm text-[#A1A1A6]">{e.tripType === "ONE_WAY" ? "One-way" : "Round-trip"}</td>
                       <td className="p-4 text-sm font-mono font-bold text-[#C9A84C]">{e.currency} {e.price.toLocaleString()}</td>
+                      <td className="p-4">
+                        <span className={`inline-flex items-center px-2 py-1 rounded text-[0.55rem] font-bold uppercase tracking-wider border ${kind.className}`}>
+                          {kind.label}
+                        </span>
+                      </td>
                       <td className="p-4 text-xs text-[#A1A1A6] max-w-[220px] truncate" title={e.notes || ""}>{e.notes || "—"}</td>
                       <td className="p-4">
                         <span className={`inline-flex items-center px-2 py-1 rounded text-[0.55rem] font-bold uppercase tracking-wider border ${e.isActive ? "bg-green-500/10 text-green-500 border-green-500/20" : "bg-red-500/10 text-red-500 border-red-500/20"}`}>

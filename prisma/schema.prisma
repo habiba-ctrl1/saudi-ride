@@ -419,9 +419,45 @@ model PriceBookEntry {
   notes       String?
   source      String   @default("manual")
   isActive    Boolean  @default(true) @map("is_active")
+  // routeFamily/crossBorder = normalized grouping added by the 2026-09-20
+  // consolidation (city-level, e.g. "Jeddah -> Makkah") so many differently
+  // worded quotes for the same corridor roll up into one RoutePriceApproval row.
+  routeFamily String?  @map("route_family")
+  crossBorder Boolean  @default(false) @map("cross_border")
+  // priceKind distinguishes a real client-observed quote from a vendor's raw
+  // cost rate or a derived (cost+margin) suggestion - never blend these silently.
+  priceKind   String   @default("CLIENT_OBSERVED") @map("price_kind")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 
   @@index([fromCity, toCity])
+  @@index([routeFamily])
   @@map("price_book_entries")
+}
+
+// RoutePriceApproval = the per-(route family, trip type, vehicle category)
+// aggregate view used by the "Route Review" approval workflow: lowest/highest
+// observed across all PriceBookEntry evidence, versus the company's actual
+// Final Approved Price once set. Observed/historical pricing must never be
+// silently promoted to an approved operating price - that requires this row's
+// finalApprovedPrice to be explicitly set by an admin.
+model RoutePriceApproval {
+  id                 String   @id @default(cuid())
+  routeFamily        String   @map("route_family")
+  tripType           String   @default("ONE_WAY") @map("trip_type")
+  vehicleCategory    String   @map("vehicle_category")
+  crossBorder        Boolean  @default(false) @map("cross_border")
+  countryFrom        String?  @map("country_from")
+  countryTo          String?  @map("country_to")
+  lowestObserved     Float?   @map("lowest_observed")
+  highestObserved    Float?   @map("highest_observed")
+  sourceCount        Int      @default(0) @map("source_count")
+  pricingStatus      String   @default("NEEDS_CONFIRMATION") @map("pricing_status")
+  finalApprovedPrice Float?   @map("final_approved_price")
+  approvalNotes      String?  @map("approval_notes")
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+
+  @@unique([routeFamily, tripType, vehicleCategory])
+  @@map("route_price_approvals")
 }
