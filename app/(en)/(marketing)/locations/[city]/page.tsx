@@ -82,6 +82,16 @@ const CITY_LEAD: Record<string, { heading: string; blurb: string; dropoff: strin
     emailSubject: "Group / family transfer RFQ — Madinah",
     emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers in Madinah.\n\n• Agency / group / family name: \n• Contact name: \n• Dates: \n• Route(s) (e.g. MED → hotel, Madinah → Makkah / AlUla, Ziyarat): \n• Passengers (adults / children): \n• Vehicle(s) needed (Sedan / SUV / Van): \n\nPlease confirm a fixed fare before booking.\n\nThank you.",
   },
+  dhahran: {
+    heading: "Get your Dhahran transfer quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a private, door-to-door transfer with a professional chauffeur. Aramco and KFUPM area pickups, King Fahd International (DMM) airport runs, plus Dammam and Al Khobar.",
+    dropoff: "Dhahran",
+    pathBHeading: "Corporate travel to Aramco or KFUPM?",
+    pathBBody: "For Saudi Aramco headquarters, KFUPM, and the wider Dhahran business district we run executive sedans and full-size SUVs with professional chauffeurs — regular staff movements on a single account with corporate invoicing on request.",
+    waPrefill: "Salam! Dhahran transfer enquiry.\n• From / to (Dhahran / Aramco / KFUPM / DMM): \n• Date & time: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• Corporate / airport?: ",
+    emailSubject: "Corporate transfer RFQ — Dhahran",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers in Dhahran.\n\n• Company: \n• Contact name & role: \n• Dates: \n• Route(s) / sites (Aramco / KFUPM / DMM / Dammam / Al Khobar): \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.",
+  },
   alkhobar: {
     heading: "Get your Al Khobar transfer quote",
     blurb: "Fill a few details for a fast WhatsApp quote — a private, door-to-door transfer with a professional chauffeur. King Fahd Airport (DMM) pickups, Dammam–Dhahran metro rides, the Corniche, and cross-border trips to Bahrain via the Causeway.",

@@ -767,6 +767,62 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
     ],
     routeSlug: "jeddah-to-kaec",
   },
+
+  {
+    slug: "neom-to-makkah",
+    fromCity: "NEOM",
+    toCity: "Makkah",
+    km: 984,
+    driveMinutes: 764,
+    driveLabel: "about 12–13 hours",
+    highway: "Red Sea coastal highway (Highway 5)",
+    stops: ["Duba", "Umluj", "Yanbu", "Rabigh"],
+    heroImage: "/gallery/highway-travel.webp",
+    fromImage: "/locations/neom-hero.webp",
+    toImage: "/locations/makkah-hero.webp",
+    routeStripImage: "/gallery/makkah-drive.webp",
+    valueProp:
+      "A private, door-to-door car with a professional driver for the full 984 km between NEOM and the Holy City of Makkah — travel on your own schedule down the Red Sea coast, with your family and luggage, for one fixed fare confirmed on WhatsApp.",
+    whoBooks: [
+      "NEOM to Makkah is one of the longest private-transfer corridors we cover — from the Kingdom's northwest coast down the full length of the Red Sea coastline to the Holy City. Travellers who choose a private car over flying are usually NEOM-based staff and families continuing on for Umrah, groups who want to stop along the coast, and travellers without a convenient onward flight connection.",
+      "A private transfer is not a shared shuttle — it is one vehicle and one driver, exclusively for your party, from your NEOM pickup point to your Makkah hotel or the Haram.",
+    ],
+    whyCards: [
+      { img: "/gallery/luggage-assist.webp", title: "Travel with luggage & family", body: "No baggage limits or extra-bag fees on a 984 km coastal drive. Load what you need and let the driver handle the bags." },
+      { img: "/gallery/business-transfer.webp", title: "Break the journey on your schedule", body: "This is a genuinely long drive — stop for rest, prayer, or an overnight break on the coast, on your own timing, not an airline's." },
+      { img: "/gallery/chauffeur-portrait.webp", title: "One driver, door to door", body: "Pickup from your NEOM location and drop-off at your Makkah hotel or the Haram, with a professional driver who knows the coastal route." },
+    ],
+    routeIntro:
+      "The drive follows the Red Sea coastal highway south from NEOM through Duba, Umluj, Yanbu and Rabigh before joining the Jeddah–Makkah corridor. It is a genuinely long single drive — most travellers either start very early to arrive the same day, or break the journey overnight along the coast.",
+    vehicleFits: ["1–3 passengers · 2 bags", "4–6 passengers · 4–5 bags", "up to 7 · extra luggage"],
+    compare: [
+      { mode: "Private transfer", best: true, detail: "Door-to-door, ~12–13 hrs, one fixed fare for the whole party, stop where and when you want along the coast. Best for families, groups, and travellers without a convenient flight connection." },
+      { mode: "Flight", detail: "NEOM Bay Airport (NUM) to Jeddah (JED) is about 1 hr 40 min with Saudia, then a further road transfer from Jeddah to Makkah (~85 km) — faster overall, but adds airport time, a connection, and per-person fares." },
+      { mode: "Train", detail: "No direct rail serves NEOM. The Haramain high-speed line only runs between Makkah, Madinah and Jeddah, so a train only helps once you're already in that region." },
+    ],
+    tips: [
+      { icon: "sunrise", text: "This is a genuinely long single drive — starting very early or splitting the journey with an overnight coastal stop is worth planning for." },
+      { icon: "fuel", text: "The coastal highway has fuel stations at each main town — Duba, Umluj, Yanbu and Rabigh — spaced for comfortable stops." },
+      { icon: "luggage", text: "For families or Umrah groups, an SUV or van is far more comfortable than a sedan over a 12+ hour drive." },
+      { icon: "clock", text: "Pre-book, especially for an early departure — your driver and vehicle are confirmed in advance for a trip this length." },
+    ],
+    faqs: [
+      { question: "How far is NEOM from Makkah by road?", answer: "NEOM to Makkah is about 984 km via the Red Sea coastal highway through Duba, Umluj, Yanbu and Rabigh." },
+      { question: "How long is the drive from NEOM to Makkah?", answer: "The drive takes roughly 12 to 13 hours depending on stops, traffic and speed. Given the distance, many travellers either start very early or break the journey overnight along the coast." },
+      { question: "Is it better to fly or take a private transfer from NEOM to Makkah?", answer: "Flying is faster overall — NEOM Bay Airport (NUM) to Jeddah (JED) is about 1 hr 40 min, then a road transfer on to Makkah. A private transfer takes longer but is one fixed fare, door-to-door, with no connection and no per-person airfare — it suits families, groups, and travellers who want to stop along the coast." },
+      { question: "How much does a NEOM to Makkah taxi cost?", answer: "The fare depends on your vehicle (sedan, SUV, or van), pickup point, and passenger count. We confirm one fixed price on WhatsApp before you book — no surge and no hidden fees." },
+      { question: "Can the driver take me all the way to my Makkah hotel or the Haram?", answer: "Yes. It's a fully door-to-door service — pickup from your NEOM location and drop-off at your Makkah hotel or as close to the Haram as traffic restrictions allow." },
+      { question: "Is there a train from NEOM to Makkah?", answer: "No — there is no rail line serving NEOM. The Haramain high-speed line only runs between Makkah, Madinah and Jeddah, so a private car is the only direct door-to-door option from NEOM." },
+      { question: "What vehicle should I choose for the NEOM to Makkah journey?", answer: "A sedan suits 1–3 passengers with light luggage; a full-size SUV suits 4–6 with more bags; a van suits up to 7. For larger Umrah groups we arrange a bus on request." },
+    ],
+    related: [
+      { href: "/routes/neom-to-makkah", label: "NEOM to Makkah taxi (book this route)", img: "/locations/makkah-hero.webp" },
+      { href: "/locations/neom", label: "NEOM transfers", img: "/locations/neom-hero.webp" },
+      { href: "/routes/jeddah-airport-to-makkah", label: "Jeddah Airport to Makkah taxi", img: "/locations/makkah-hero.webp" },
+      { href: "/services/umrah-transport", label: "Umrah transport services", img: "/locations/makkah-hero.webp" },
+    ],
+    routeSlug: "neom-to-makkah",
+  },
 ];
 
 export function getDistanceGuide(slug: string) {

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { MapPin, ArrowRight, Car, Building2, CheckCircle2, PlaneLanding, HelpCircle, ExternalLink, MessageCircle } from "lucide-react";
+import { MapPin, ArrowRight, Car, Building2, CheckCircle2, PlaneLanding, HelpCircle, ExternalLink, MessageCircle, Briefcase } from "lucide-react";
 import Link from "next/link";
 import { contactConfig } from "@/lib/config/contact";
 import Image from "next/image";
@@ -221,6 +221,73 @@ export default async function AirportLandingPage({ params }: PageProps) {
                       Email a group enquiry
                     </a>
                   </div>
+                </div>
+              </section>
+            </>
+          )}
+
+          {/* Riyadh Airport (RUH) — on-page lead form + corporate/delegation Path B.
+              GSC (2026-09-19): 585 impressions / 2 clicks / pos 17.5 across a 12-query
+              RUH-terminal cluster — highest-impression airport page with no prior
+              lead-capture treatment. */}
+          {slug === "king-khalid-riyadh" && (
+            <>
+              <section className="rounded-3xl border border-[#16A34A]/15 bg-white p-6 sm:p-7 shadow-sm">
+                <div className="mb-5 space-y-1.5">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#16A34A]">
+                    <Car className="h-3.5 w-3.5" /> Private Airport Transfer Quote
+                  </span>
+                  <h2 className="font-heading text-2xl font-bold text-[#1C1C1C]">
+                    Get your Riyadh Airport (RUH) transfer quote
+                  </h2>
+                  <p className="text-xs sm:text-sm text-[#6B7280] leading-relaxed max-w-xl">
+                    Fill a few details and we confirm your fixed fare on WhatsApp — a pre-booked private transfer from King Khalid International Airport (RUH), any terminal (1&ndash;5), with meet &amp; greet at arrivals and flight tracking.
+                  </p>
+                </div>
+                <WhatsAppQuoteForm defaultPickup="Riyadh Airport (RUH)" defaultDropoff="Riyadh hotel" />
+              </section>
+
+              <section className="rounded-3xl border border-[#16A34A]/15 bg-[#0F172A] p-8 text-white shadow-sm">
+                <div className="max-w-2xl space-y-4">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-[#FACC15]/15 border border-[#FACC15]/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#FACC15]">
+                    <Briefcase className="h-3.5 w-3.5" /> Corporate &amp; Delegation Travel
+                  </span>
+                  <h2 className="font-heading text-2xl font-bold">Business travel to KAFD, Olaya or the Diplomatic Quarter?</h2>
+                  <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+                    For executives and delegations arriving at RUH we run executive sedans and full-size SUVs with professional chauffeurs — meet &amp; greet at your terminal, flight tracking, and a direct transfer to KAFD, Olaya or the Diplomatic Quarter. Regular staff arrivals can run on a single account with one point of contact.
+                  </p>
+                  <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+                    Corporate bookings are invoiced through our licensed Saudi partner operator, so you receive a compliant VAT invoice. Send your company name, VAT number and PO reference with your enquiry and we&apos;ll confirm invoicing details before the booking is finalised.
+                  </p>
+                  <div className="flex flex-wrap items-center gap-3 pt-1">
+                    <a
+                      href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                        `Salam! Corporate transfer enquiry — Riyadh Airport (RUH).\n• Company: \n• Flight no. & arrival time: \n• Terminal: \n• Destination (KAFD / Olaya / hotel): \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-6 py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all shadow-sm"
+                    >
+                      <MessageCircle className="h-4 w-4 text-[#FACC15]" />
+                      Corporate quote on WhatsApp
+                    </a>
+                    <a
+                      href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(
+                        "Corporate transfer RFQ — Riyadh Airport (RUH)",
+                      )}&body=${encodeURIComponent(
+                        `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate airport transfers from King Khalid International Airport (RUH).\n\n• Company name: \n• Contact name & role: \n• Flight no. & arrival date/time: \n• Destination (KAFD / Olaya / Diplomatic Quarter / hotel): \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+                      )}`}
+                      className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-white/15 transition-all"
+                    >
+                      <Briefcase className="h-4 w-4 text-[#FACC15]" />
+                      Email our corporate desk
+                    </a>
+                  </div>
+                  <p className="pt-1">
+                    <Link href="/services/corporate" className="text-[#FACC15] text-xs font-bold hover:underline">
+                      See corporate &amp; business transport &rarr;
+                    </Link>
+                  </p>
                 </div>
               </section>
             </>

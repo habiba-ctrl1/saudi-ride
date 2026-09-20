@@ -1127,6 +1127,19 @@ export const ROUTES_DATA = [
     descriptionAr: "نقل تنفيذي ساحلي من مطار البحر الأحمر الدولي إلى نيوم وخليج نيوم.",
     slug: "red-sea-airport-to-neom",
   },
+  {
+    fromCity: "NEOM",
+    toCity: "Makkah",
+    fromCityAr: "نيوم",
+    toCityAr: "مكة المكرمة",
+    distance: 984,
+    duration: 764,
+    basePrice: 1260,
+    popular: false,
+    description: "Long-distance private transfer from NEOM to the Holy City of Makkah via the Red Sea coastal highway through Duba, Umluj, Yanbu and Rabigh — for NEOM-based travellers and staff continuing on for Umrah.",
+    descriptionAr: "نقل خاص طويل المسافة من نيوم إلى مكة المكرمة عبر الطريق الساحلي على البحر الأحمر مروراً بضباء وأملج وينبع ورابغ.",
+    slug: "neom-to-makkah",
+  },
 
   // --- HOTEL-TO-HOTEL SPECIFIC ROUTES ---
   {

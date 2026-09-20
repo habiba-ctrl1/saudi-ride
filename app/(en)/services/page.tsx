@@ -74,9 +74,9 @@ const SERVICES = [
     badge: "Ultra Premium",
     color: "from-[#16A34A]/8 to-transparent",
     borderColor: "border-[#16A34A]/15",
-    description: "Mercedes S-Class, BMW 7 Series, and Cadillac Escalade available for full-day, half-day, or hourly exclusive charter. Perfect for dignitaries, celebrities, and ultra-HNW clients.",
+    description: "Executive sedans and full-size luxury SUVs available for full-day, half-day, or hourly exclusive charter. Perfect for dignitaries, celebrities, and ultra-HNW clients.",
     features: [
-      "S-Class, BMW 7 Series, Escalade fleet",
+      "Executive sedan & full-size luxury SUV fleet",
       "Dedicated concierge attendant available",
       "Chilled beverages & refreshments",
       "Roses, gifts, surprise setups on request",
@@ -131,9 +131,9 @@ const SERVICES = [
     badge: "Up to 25 Pax",
     color: "from-[#16A34A]/8 to-transparent",
     borderColor: "border-[#16A34A]/15",
-    description: "Coaster, Sprinter, and luxury bus for pilgrimage groups, corporate tours, school trips, and large family groups. Scalable fleet for any group size.",
+    description: "Coaster and passenger van options for pilgrimage groups, corporate tours, school trips, and large family groups. Scalable fleet for any group size.",
     features: [
-      "Toyota Coaster & Mercedes Sprinter",
+      "22-seat coaster & passenger van fleet",
       "Luxury bus with WiFi & entertainment",
       "Luggage bay for heavy loads",
       "Pilgrimage group specialist drivers",

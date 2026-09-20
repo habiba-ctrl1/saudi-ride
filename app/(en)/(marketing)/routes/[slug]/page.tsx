@@ -236,6 +236,41 @@ const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup:
     pickup: "Aqaba, Jordan",
     dropoff: "NEOM",
   },
+  "riyadh-to-jeddah": {
+    heading: "Get your Riyadh to Jeddah quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, door-to-door transfer with a professional chauffeur for the 950 km desert crossing to the Red Sea coast. No meter, no surge.",
+    pickup: "Riyadh",
+    dropoff: "Jeddah",
+  },
+  "riyadh-to-alula": {
+    heading: "Get your Riyadh to AlUla quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, door-to-door heritage transfer with a professional chauffeur for the long drive north-west to AlUla. No meter, no surge.",
+    pickup: "Riyadh",
+    dropoff: "AlUla",
+  },
+  "red-sea-airport-to-amaala": {
+    heading: "Get your Red Sea Airport to AMAALA quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private VIP transfer from Red Sea International Airport straight to AMAALA, with meet & greet at arrivals.",
+    pickup: "Red Sea International Airport",
+    dropoff: "AMAALA",
+  },
+  "red-sea-airport-to-neom": {
+    heading: "Get your Red Sea Airport to NEOM quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private executive transfer from Red Sea International Airport to NEOM and NEOM Bay, with meet & greet at arrivals.",
+    pickup: "Red Sea International Airport",
+    dropoff: "NEOM",
+  },
+  "madinah-to-tabuk": {
+    heading: "Get your Madinah to Tabuk quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, door-to-door transfer with a professional chauffeur for the long drive north to Tabuk. No meter, no surge.",
+    pickup: "Madinah",
+    dropoff: "Tabuk",
+  },
 };
 
 // Corporate (Path B) block config for business-corridor routes. The invoicing
@@ -409,6 +444,30 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
     waPrefill: `Salam! Executive car with driver — Aqaba (Jordan) / NEOM.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Aqaba–NEOM",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Aqaba, Jordan and NEOM (via the Al Durrah border near Haql).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
+  "riyadh-to-jeddah": {
+    heading: "Business travel between Riyadh and Jeddah?",
+    intro:
+      "For executives and delegations moving between the capital and the Red Sea coast we run executive sedans and full-size SUVs with professional chauffeurs — work or rest across the 950 km drive, or ask about a fly + private-transfer alternative for time-sensitive trips. Regular company travel can run on one account with a single point of contact.",
+    waPrefill: `Salam! Executive car with driver — Riyadh / Jeddah.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Riyadh–Jeddah",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate transfers between Riyadh and Jeddah.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
+  "red-sea-airport-to-amaala": {
+    heading: "VIP or delegation arrival for AMAALA?",
+    intro:
+      "For executive arrivals, event organisers and travel coordinators booking AMAALA we run executive sedans and full-size SUVs with professional chauffeurs, meet & greet at Red Sea International Airport, and flight tracking. Multi-vehicle delegation movements can run on one account with a single point of contact.",
+    waPrefill: `Salam! VIP / delegation transfer — Red Sea Airport to AMAALA.\n• Company / event: \n• Flight no. & arrival date: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate/VIP transfer RFQ — Red Sea Airport–AMAALA",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for VIP or delegation transfers from Red Sea International Airport to AMAALA.\n\n• Company / organisation: \n• Contact name & role: \n• Flight no. & arrival date/time: \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
+  "red-sea-airport-to-neom": {
+    heading: "Business travel to NEOM?",
+    intro:
+      "For business visitors and contractors arriving for NEOM project work we run executive sedans and full-size SUVs with professional chauffeurs, meet & greet at Red Sea International Airport, and flight tracking on to NEOM and NEOM Bay. Some NEOM gates require access clearance — confirm your permit in advance. Regular staff travel can run on one account with a single point of contact.",
+    waPrefill: `Salam! Corporate transfer — Red Sea Airport to NEOM.\n• Company: \n• Flight no. & arrival date: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• NEOM site / gate clearance confirmed?: \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Red Sea Airport–NEOM",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate transfers from Red Sea International Airport to NEOM.\n\n• Company name: \n• Contact name & role: \n• Flight no. & arrival date/time: \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van): \n• NEOM site / gate clearance: \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
 };
 
