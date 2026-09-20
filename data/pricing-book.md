@@ -67,3 +67,28 @@ client, per `CLAUDE.md` rule 1.
 | 2026-09-20 | Tabuk | Aqaba (Jordan, round trip) | Sedan (Ford Taurus) | Round-trip | 1800 | Round-trip total alt, same thread |
 | 2026-09-20 | Bahrain | Dhahran | Sedan (Toyota Veloz) | One-way | 400 | Trip on the 18th; client didn't confirm |
 | 2026-09-20 | Adani Bar Al-Rawda, Jeddah | Jeddah International Airport | Sedan | One-way | 150 | 1 pax; trip 2026-09-14 06:15; client declined |
+| 2026-09-20 | Jubail | Dammam Airport | SUV/Van | One-way | 370 | 5 pax, 3 cabin bags; trip 14 Sept 2:20pm; client declined |
+| 2026-09-20 | Al Khobar | Doha (Qatar) | Unspecified | One-way | 1300 | 2 pax, small bags; trip 15.09.2026 10am |
+| 2026-09-20 | Dhahran | Makkah | Sedan | One-way | 1600 | 3 pax; trip Dec 2; ~13hr drive; initial quote |
+| 2026-09-20 | Dhahran | Makkah | Sedan | One-way | 1550 | Final discounted price, same trip |
+| 2026-09-20 | W KAFD, Riyadh | Doha (Qatar) | Sedan | One-way | 1900 | 1 pax, 1 bag; trip 17 Sept 5pm; door-to-door, e-receipt; CONFIRMED |
+| 2026-09-20 | Makkah (Pullman Zamzam) | Jeddah Airport (JED) | Sedan | One-way | 300 | 1 pax; midnight pickup 22 Sept, flight 4am; initial quote |
+| 2026-09-20 | Makkah (Pullman Zamzam) | Jeddah Airport (JED) | Sedan | One-way | 250 | Discounted, same trip; client still declined |
+| 2026-09-20 | Makkah (Pullman Zamzam) | Jeddah Airport (JED) | Van (Hyundai Staria) | One-way | 350 | Held for client Mohamed, same 22 Sept trip; booking cancelled (plans changed) |
+| 2026-09-20 | Radisson Olaya, Riyadh | Riyadh Airport Terminal 5 | Sedan (Ford Taurus 2025) | One-way | 250 | 1 pax, 1 luggage; trip 15/09/2026 23:00; CONFIRMED (guest Andrea); card pay +15% VAT |
+| 2026-09-20 | Madinah | Al-Ula (round trip day tour) | Sedan (Toyota Camry) | Round-trip | 1200 | 2 pax; Hegra/Old Town/Elephant Rock; fuel+tolls+driver incl.; trip 30-31 Oct |
+| 2026-09-20 | Riyadh | Hail Jawazat Office | Sedan | One-way | 1000 | 1 pax; trip 16 Sept 8pm; client declined |
+| 2026-09-20 | Doha (Qatar) | Dammam | SUV (Fortuner/GMC) | One-way | 1600 | 1 adult + 2 kids; trip 17 Sept 4pm; client declined |
+| 2026-09-20 | Doha (Qatar) | Dammam | Van (Toyota Innova) | One-way | 1200 | Cheaper alt., same trip |
+| 2026-09-20 | Hail | Riyadh | Sedan | One-way | 800 | 1 pax; 2025/2026 model; client will confirm later |
+| 2026-09-20 | Riyadh | Doha (Qatar) | SUV (GMC) | One-way | 1800 | Ref TSA-2026-131821; trip 22 Sept 9pm; client declined |
+| 2026-09-20 | Al Khobar | Manama Airport (Bahrain) | Sedan | One-way | 400 | 2 bags; trip Sun 20 Sept 4pm |
+| 2026-09-20 | Madinah | Riyadh | Sedan | One-way | 1100 | 4 adults+2 children+6 luggage; trip 18 Oct; fixed-price menu |
+| 2026-09-20 | Madinah | Riyadh | SUV | One-way | 1400 | Same menu/trip |
+| 2026-09-20 | Madinah | Riyadh | Van | One-way | 1400 | Same menu/trip |
+| 2026-09-20 | Madinah | Riyadh | SUV (GMC Yukon) | One-way | 1800 | Premium tier, same menu/trip |
+| 2026-09-20 | Dammam | Qatar | Sedan | One-way | 1350 | 3 pax; trip 1 Oct; incl. border crossing assistance |
+| 2026-09-20 | Riyadh | Doha (Qatar) | SUV (GMC) | One-way | 1800 | Client Rauff, 3 pax; initial quote |
+| 2026-09-20 | Riyadh | Doha (Qatar) | Sedan (Ford Taurus) | One-way | 1400 | Same client/trip, sedan alt |
+| 2026-09-20 | Riyadh | Doha (Qatar) | SUV (GMC) | One-way | 1700 | Special discount after competitor Innova quote (~1,000 QAR) |
+| 2026-09-20 | Riyadh | Doha (Qatar) | Sedan (Ford Taurus) | One-way | 1350 | Final best price, same negotiation |
