@@ -11,7 +11,7 @@ const translations = {
   en: {
     badge: "About Taxi Saudi Arabia",
     title: "Saudi Arabia's Trusted Taxi & Car Service",
-    description: "Taxi Saudi Arabia is a private taxi and car service operating across Saudi Arabia. We provide pre-booked rides with your price confirmed on WhatsApp for airport transfers, Umrah pilgrims, business travelers, and families — anywhere in the Kingdom.",
+    description: "Taxi Saudi Arabia is a private transfer and car service operating across Saudi Arabia. We provide pre-booked rides with your price confirmed on WhatsApp for airport transfers, Umrah pilgrims, business travelers, and families — anywhere in the Kingdom.",
 
     // Stats
     statsTitle: "Our Numbers",

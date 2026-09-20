@@ -348,7 +348,7 @@ const CITY_META_TITLE: Record<string, string> = {
   taif: "Taif Taxi & Private Transfers | TIF Airport, Al Hada & Makkah",
   yanbu: "Yanbu Taxi & Private Transfers | Airport, Hotels & Chauffeur",
   abha: "Abha Taxi & Private Transfers | AHB Airport, Soudah & Asir",
-  abudhabi: "Abu Dhabi Private Taxi & Cross-Border Car Service | Taxi Saudi Arabia",
+  abudhabi: "Abu Dhabi Private Transfer & Cross-Border Car Service | Taxi Saudi Arabia",
 };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -360,13 +360,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: CITY_META_TITLE[cityKeyLower] ?? `Taxi in ${cityData.name} | Airport & Intercity — Taxi Saudi Arabia`,
-    description: CITY_META_DESCRIPTION[cityKeyLower] ?? `Book a private taxi in ${cityData.name}, Saudi Arabia — airport transfers, Umrah rides, and 24/7 intercity trips with professional drivers. No surge, quoted on WhatsApp.`,
+    description: CITY_META_DESCRIPTION[cityKeyLower] ?? `Book a private transfer in ${cityData.name}, Saudi Arabia — airport transfers, Umrah rides, and 24/7 intercity trips with professional drivers. No surge, quoted on WhatsApp.`,
     alternates: {
       canonical: `https://taxisaudiarabia.com/locations/${city}`,
     },
     openGraph: {
       title: `Taxi Service in ${cityData.name} | Taxi Saudi Arabia`,
-      description: `Book a private taxi in ${cityData.name}, quoted on WhatsApp. Airport transfers, Umrah rides, and intercity taxi service. Available 24/7 with professional drivers.`,
+      description: `Book a private transfer in ${cityData.name}, quoted on WhatsApp. Airport transfers, Umrah rides, and intercity taxi service. Available 24/7 with professional drivers.`,
       type: "website",
       url: `https://taxisaudiarabia.com/locations/${city}`,
       images: [

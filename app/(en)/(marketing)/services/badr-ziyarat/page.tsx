@@ -86,7 +86,7 @@ export default function BadrZiyaratPage() {
               Battlefield of Badr Ziyarat Tour
             </h1>
             <p className="text-base sm:text-lg text-[#D4D4D4] leading-relaxed mb-6">
-              Visit the sacred site of Ghazwa Badr — the first decisive battle in Islamic history. Private taxi tour from Madinah to Shuhada Badr, Masjid Al-Areesh, and Jabal Al-Mala&apos;ikah.
+              Visit the sacred site of Ghazwa Badr — the first decisive battle in Islamic history. Private transfer tour from Madinah to Shuhada Badr, Masjid Al-Areesh, and Jabal Al-Mala&apos;ikah.
             </p>
             <div className="flex flex-wrap gap-4">
               <a

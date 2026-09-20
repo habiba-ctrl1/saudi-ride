@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     type: "website",
     url: "https://taxisaudiarabia.com/services/taif-ziyarat",
-    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Taif Ziyarat private taxi tour" }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Taif Ziyarat private transfer tour" }],
   },
   twitter: {
     card: "summary_large_image",

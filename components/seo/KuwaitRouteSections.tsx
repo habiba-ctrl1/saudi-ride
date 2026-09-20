@@ -35,7 +35,7 @@ interface Props {
 export function KuwaitRouteSections({ fromCity, toCity, whatsappNumber, config }: Props) {
   const bookHref = `/book?pickup=${encodeURIComponent(fromCity)}&dropoff=${encodeURIComponent(toCity)}`;
   const waPrefill = encodeURIComponent(
-    `Salam! I want to book a private taxi from Kuwait to ${config.destination}.\n\n` +
+    `Salam! I want to book a private transfer from Kuwait to ${config.destination}.\n\n` +
       `• Pickup (Kuwait area): \n` +
       `• Drop-off (${config.destination} area): \n` +
       `• Travel date: \n` +

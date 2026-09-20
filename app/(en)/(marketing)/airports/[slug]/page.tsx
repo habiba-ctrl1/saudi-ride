@@ -52,7 +52,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: TITLE_OVERRIDES[slug] ?? `Taxi from ${airportData.name} (${airportData.code}) | Taxi Saudi Arabia`,
-    description: DESCRIPTION_OVERRIDES[slug] ?? `Book your airport transfer from ${airportData.name}. Reliable private taxi service, quoted on WhatsApp, with meet & greet included at ${airportData.code} airport.`,
+    description: DESCRIPTION_OVERRIDES[slug] ?? `Book your airport transfer from ${airportData.name}. Reliable private transfer service, quoted on WhatsApp, with meet & greet included at ${airportData.code} airport.`,
     alternates: {
       canonical: `https://taxisaudiarabia.com/airports/${slug}`,
     },

@@ -24,7 +24,7 @@ const VEHICLES = [
 
 export function DistanceGuidePremium({ g }: { g: DistanceGuide }) {
   const WA = `${contactConfig.whatsappLink}?text=${encodeURIComponent(
-    `Salam! I'd like a private taxi from ${g.fromCity} to ${g.toCity}.\n\n• Date & time: \n• Passengers & luggage: \n• Vehicle (Sedan / SUV / Van): `,
+    `Salam! I'd like a private transfer from ${g.fromCity} to ${g.toCity}.\n\n• Date & time: \n• Passengers & luggage: \n• Vehicle (Sedan / SUV / Van): `,
   )}`;
 
   return (
@@ -99,7 +99,7 @@ export function DistanceGuidePremium({ g }: { g: DistanceGuide }) {
       {/* ─── WHO / WHY ─── */}
       <section className="section-container max-w-5xl py-16 md:py-20">
         <div className="max-w-2xl mb-12">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold mb-5">Why travel by private taxi?</h2>
+          <h2 className="font-heading text-3xl md:text-4xl font-bold mb-5">Why travel by private transfer?</h2>
           {g.whoBooks.map((p, i) => (
             <p key={i} className="text-[#374151] leading-relaxed mb-4">{p}</p>
           ))}

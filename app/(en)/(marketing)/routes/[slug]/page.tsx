@@ -519,7 +519,7 @@ const KUWAIT_ROUTE_SECTIONS: Record<string, KuwaitRouteConfig> = {
 // Keyed by slug → above-the-fold answer + featured-snippet facts + bespoke FAQs.
 const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; value: string }[]; faqs: { question: string; answer: string }[] }> = {
   "jeddah-airport-to-makkah": {
-    tldr: "A private taxi from Jeddah Airport (JED) to Makkah (Mecca) is about 80 km and takes roughly 1 hour. Fares are confirmed on WhatsApp before booking, available 24/7, with a Miqat stop on request so you can enter Ihram before reaching Makkah.",
+    tldr: "A private transfer from Jeddah Airport (JED) to Makkah (Mecca) is about 80 km and takes roughly 1 hour. Fares are confirmed on WhatsApp before booking, available 24/7, with a Miqat stop on request so you can enter Ihram before reaching Makkah.",
     tldrFacts: [
       { label: "Distance", value: "~80 km" },
       { label: "Time", value: "~1 hour" },
@@ -531,9 +531,9 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "How much is a taxi from Jeddah airport to Makkah?", answer: "Fares are confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Message us on WhatsApp with your flight time and passenger count for a clear quote before booking — no surge, tolls included." },
       { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Just tell us in advance and the driver will stop at the Miqat on the way so you can change into Ihram and make your intention before entering the Haram boundary." },
       { question: "Is the Jeddah airport to Makkah taxi available at night?", answer: "Yes, we operate 24/7. We track your flight number, so the driver is waiting at arrivals with a name sign even for late-night or delayed flights." },
-      { question: "Which is better — taxi or the Haramain train?", answer: "A private taxi is door-to-door from the airport to your Makkah hotel with luggage help and a Miqat stop. The Haramain high-speed train is fast but requires transfers to and from the stations. For pilgrims with luggage, the direct taxi is usually more convenient." },
+      { question: "Which is better — taxi or the Haramain train?", answer: "A private transfer is door-to-door from the airport to your Makkah hotel with luggage help and a Miqat stop. The Haramain high-speed train is fast but requires transfers to and from the stations. For pilgrims with luggage, the direct taxi is usually more convenient." },
       { question: "Where do I meet my driver at Jeddah airport?", answer: "Your driver waits in the arrivals hall with a name sign at your terminal (Terminal 1 for most international airlines, the Hajj Terminal during Hajj/Umrah peak season). We track your flight, so pickup timing adjusts automatically if you land early or late." },
-      { question: "Is a private taxi cheaper than Uber or Careem from Jeddah to Makkah?", answer: "A private, pre-booked taxi gives you a confirmed vehicle and driver waiting at arrivals with no surge pricing during peak Umrah season — unlike ride-hailing apps, which can be scarce or surge-priced right after international flights land. Message us on WhatsApp to compare your options for a quote." },
+      { question: "Is a private transfer cheaper than Uber or Careem from Jeddah to Makkah?", answer: "A private, pre-booked taxi gives you a confirmed vehicle and driver waiting at arrivals with no surge pricing during peak Umrah season — unlike ride-hailing apps, which can be scarce or surge-priced right after international flights land. Message us on WhatsApp to compare your options for a quote." },
       { question: "Do you provide a taxi service from Jeddah to Mecca for groups?", answer: "Yes. Alongside sedans, we arrange SUVs and vans for Umrah groups and families travelling together from Jeddah Airport to Mecca, with one driver and vehicle for the whole party." },
     ],
   },
@@ -729,7 +729,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     faqs: [
       { question: "How much is a taxi from Makkah to Madinah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan. SUVs and vans are available for families and extra luggage — the exact price is confirmed before booking with tolls included and no surge." },
       { question: "How long does a taxi from Makkah to Madinah take?", answer: "The journey is approximately 430 km and takes roughly 4 to 5 hours via the Haramain highway, depending on traffic conditions and any rest stops." },
-      { question: "Can I book a private taxi from Makkah to Madinah?", answer: "Yes. Every booking is a private transfer — your vehicle is exclusively for you and your group, with a dedicated driver for the entire journey between the two Holy Cities." },
+      { question: "Can I book a private transfer from Makkah to Madinah?", answer: "Yes. Every booking is a private transfer — your vehicle is exclusively for you and your group, with a dedicated driver for the entire journey between the two Holy Cities." },
       { question: "Is the fare fixed or metered?", answer: "Fixed. The price is confirmed upfront before booking with zero surge pricing. Tolls, fuel, and all costs are included — no hidden fees." },
       { question: "Can families travel with luggage?", answer: "Yes. We provide spacious SUVs (e.g. GMC Yukon XL) and vans (e.g. Hyundai Staria) with ample luggage space, ideal for families and groups travelling between Makkah and Madinah." },
       { question: "Can we stop for prayer or rest during the journey?", answer: "Yes. Rest and prayer stops are included on this long-distance transfer at no extra charge — just let your driver know your preferences along the way." },
@@ -793,7 +793,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "How far is Madinah from Makkah?", answer: "Madinah to Makkah is about 430 km — roughly a 4 to 5 hour drive on the Haramain highway, depending on traffic and rest stops." },
       { question: "How much is a taxi from Madinah to Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan. For families and luggage we recommend an SUV or van; the price is confirmed before booking with tolls included." },
       { question: "Do I need to enter Ihram travelling from Madinah to Makkah?", answer: "Yes, if you intend Umrah you enter Ihram at the Miqat of Dhul Hulaifah (Abyar Ali) near Madinah. Your driver can stop there so you assume Ihram before continuing to Makkah." },
-      { question: "Are prayer and rest stops included?", answer: "Yes. With a private taxi your driver includes stops for prayer, food, and rest on the long-distance journey between the two Holy Cities." },
+      { question: "Are prayer and rest stops included?", answer: "Yes. With a private transfer your driver includes stops for prayer, food, and rest on the long-distance journey between the two Holy Cities." },
     ],
   },
   "madinah-airport-to-makkah": {
@@ -929,7 +929,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "riyadh-to-dammam": {
-    tldr: "A private taxi from Riyadh to Dammam covers about 390 km and takes around 3.5 hours, door-to-door on Highway 40. Travel by private sedan, SUV or van with a professional chauffeur, with your fare confirmed on WhatsApp before booking — popular with executives and families travelling to the Eastern Province and the Aramco/Dhahran corridor.",
+    tldr: "A private transfer from Riyadh to Dammam covers about 390 km and takes around 3.5 hours, door-to-door on Highway 40. Travel by private sedan, SUV or van with a professional chauffeur, with your fare confirmed on WhatsApp before booking — popular with executives and families travelling to the Eastern Province and the Aramco/Dhahran corridor.",
     tldrFacts: [
       { label: "Distance", value: "~390 km" },
       { label: "Time", value: "~3.5 hours" },
@@ -944,7 +944,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "Can the driver continue on to Khobar, Dhahran, or Jubail after Dammam?", answer: "Yes. Since Dammam, Al Khobar, Dhahran, and Jubail form one Eastern Province service area, you can extend your trip to any of these cities at booking — just mention your final destination when requesting a quote." },
       { question: "Can I book a private car or chauffeur from Riyadh to Dammam instead of a taxi?", answer: "Yes. Alongside a standard taxi, we offer a pre-booked private car from Riyadh to Dammam with a professional chauffeur — an executive sedan, SUV or van reserved just for you and your group, door-to-door. Share your travel date and passenger count on WhatsApp for a fare before booking." },
       { question: "Can I book a return taxi from Dammam to Riyadh?", answer: "Yes. We run the Dammam to Riyadh direction just as often as Riyadh to Dammam — one-way or same-day return, door-to-door by private sedan, SUV or van. Send your pickup point in Dammam (or Khobar/Dhahran), travel date and passenger count on WhatsApp and we confirm the fare before booking." },
-      { question: "Is a private taxi from Riyadh to Dammam available 24/7?", answer: "Yes. You can book at any time of day or night and a professional driver is ready at the time you set — useful for early business departures and late arrivals across the Eastern Province." },
+      { question: "Is a private transfer from Riyadh to Dammam available 24/7?", answer: "Yes. You can book at any time of day or night and a professional driver is ready at the time you set — useful for early business departures and late arrivals across the Eastern Province." },
     ],
   },
   "dammam-airport-to-jubail": {
@@ -1268,7 +1268,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "dammam-to-doha": {
-    tldr: "A private taxi from Dammam to Doha is about 400 km and takes roughly 4 hours plus the Saudi–Qatar border crossing at Salwa. Fares are confirmed on WhatsApp, with documentation support for a smooth crossing.",
+    tldr: "A private transfer from Dammam to Doha is about 400 km and takes roughly 4 hours plus the Saudi–Qatar border crossing at Salwa. Fares are confirmed on WhatsApp, with documentation support for a smooth crossing.",
     tldrFacts: [
       { label: "Distance", value: "~400 km" },
       { label: "Time", value: "~4 hours + border" },
@@ -1337,7 +1337,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "How far is Riyadh from Bahrain?", answer: "Riyadh to Manama is about 450 km — roughly a 4.5-hour drive, crossing into Bahrain via the King Fahd Causeway." },
       { question: "What do I need to enter Bahrain?", answer: "A valid passport and the correct Bahrain entry eligibility or visa. Share your details in advance so we can prepare for a smooth crossing." },
       { question: "How much is a taxi from Riyadh to Manama?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles for the long cross-border journey." },
-      { question: "Is there a train from Riyadh to Bahrain?", answer: "No — there is currently no operational train between Riyadh and Bahrain; the GCC's planned Gulf Railway hasn't been completed on this route. A private taxi via the King Fahd Causeway is the most comfortable door-to-door option." },
+      { question: "Is there a train from Riyadh to Bahrain?", answer: "No — there is currently no operational train between Riyadh and Bahrain; the GCC's planned Gulf Railway hasn't been completed on this route. A private transfer via the King Fahd Causeway is the most comfortable door-to-door option." },
     ],
   },
   "manama-to-dammam": {
@@ -1411,7 +1411,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "kuwait-to-dammam": {
-    tldr: "A private taxi from Kuwait City to Dammam covers about 436 km (roughly 270 miles) and takes around 4 hours of driving, plus border-crossing time at the Nuwaiseeb–Al Khafji crossing between Kuwait and Saudi Arabia, which varies with traffic and checks. Travel door-to-door by private sedan, SUV or van with a private chauffeur, available 24/7 — your fare is confirmed on WhatsApp before booking, with documentation support for the crossing.",
+    tldr: "A private transfer from Kuwait City to Dammam covers about 436 km (roughly 270 miles) and takes around 4 hours of driving, plus border-crossing time at the Nuwaiseeb–Al Khafji crossing between Kuwait and Saudi Arabia, which varies with traffic and checks. Travel door-to-door by private sedan, SUV or van with a private chauffeur, available 24/7 — your fare is confirmed on WhatsApp before booking, with documentation support for the crossing.",
     tldrFacts: [
       { label: "Distance", value: "~436 km" },
       { label: "Driving time", value: "~4 hrs + border" },
@@ -1419,7 +1419,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { label: "Fare", value: "On WhatsApp" },
     ],
     faqs: [
-      { question: "Can I book a private taxi from Kuwait to Dammam?", answer: "Yes. Taxi Saudi Arabia arranges a private, door-to-door transfer from Kuwait City to Dammam with a professional driver — an executive sedan, SUV or van reserved just for you and your group. Share your pickup address in Kuwait, travel date and passenger count on WhatsApp and we confirm the fare before booking." },
+      { question: "Can I book a private transfer from Kuwait to Dammam?", answer: "Yes. Taxi Saudi Arabia arranges a private, door-to-door transfer from Kuwait City to Dammam with a professional driver — an executive sedan, SUV or van reserved just for you and your group. Share your pickup address in Kuwait, travel date and passenger count on WhatsApp and we confirm the fare before booking." },
       { question: "How long is the taxi from Kuwait to Dammam?", answer: "Kuwait City to Dammam is about 436 km — roughly 4 hours of driving via the Nuwaiseeb–Al Khafji border. Border-crossing time is separate from the drive and varies with traffic and document checks; it can be longer on weekends and public holidays." },
       { question: "How does the Kuwait–Saudi border crossing work?", answer: "You cross at Nuwaiseeb on the Kuwaiti side and Al Khafji on the Saudi side. Every traveller clears immigration and customs in person with their own passport and documents. Your driver knows the crossing and assists with the process, but each passenger is responsible for their own visa and entry eligibility — check the official Saudi and Kuwaiti government requirements before you travel." },
       { question: "What documents should I check before travelling?", answer: "A valid passport and the correct Saudi entry visa or eligibility, plus any Kuwaiti exit requirements. Rules depend on your nationality and can change, so confirm current requirements with the official Saudi (visa.mofa.gov.sa) and Kuwaiti government sources in advance. Send your details when booking so we can prepare for a smoother crossing." },
@@ -1430,7 +1430,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "kuwait-to-riyadh": {
-    tldr: "A private taxi from Kuwait City to Riyadh runs inland across the Kuwait–Saudi border and, depending on the exact route, covers roughly 630–720 km — around 6 to 7 hours of driving plus border-crossing time, which varies. Travel door-to-door by private sedan, SUV or van with a private chauffeur, available 24/7. Your fare is confirmed on WhatsApp before booking, with documentation support for the crossing and corporate invoicing available for business trips.",
+    tldr: "A private transfer from Kuwait City to Riyadh runs inland across the Kuwait–Saudi border and, depending on the exact route, covers roughly 630–720 km — around 6 to 7 hours of driving plus border-crossing time, which varies. Travel door-to-door by private sedan, SUV or van with a private chauffeur, available 24/7. Your fare is confirmed on WhatsApp before booking, with documentation support for the crossing and corporate invoicing available for business trips.",
     tldrFacts: [
       { label: "Distance", value: "~630–720 km" },
       { label: "Driving time", value: "~6–7 hrs + border" },
@@ -1438,7 +1438,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { label: "Fare", value: "On WhatsApp" },
     ],
     faqs: [
-      { question: "Can I book a private taxi from Kuwait to Riyadh?", answer: "Yes. Taxi Saudi Arabia arranges a private, door-to-door transfer from Kuwait City to Riyadh with a professional chauffeur — an executive sedan, SUV or van reserved just for you and your group. Share your pickup address in Kuwait, travel date and passenger count on WhatsApp and we confirm the fare before booking." },
+      { question: "Can I book a private transfer from Kuwait to Riyadh?", answer: "Yes. Taxi Saudi Arabia arranges a private, door-to-door transfer from Kuwait City to Riyadh with a professional chauffeur — an executive sedan, SUV or van reserved just for you and your group. Share your pickup address in Kuwait, travel date and passenger count on WhatsApp and we confirm the fare before booking." },
       { question: "How long does Kuwait to Riyadh take by taxi?", answer: "Kuwait City to Riyadh is roughly 6 to 7 hours of driving, depending on the exact route and traffic. Border-crossing time at the Nuwaiseeb–Al Khafji crossing is separate from the drive and varies; it can be longer on weekends and public holidays. Rest and prayer stops are included on request." },
       { question: "How far is Kuwait from Riyadh by road?", answer: "Estimates vary by route — roughly 630 to 720 km. The journey crosses into Saudi Arabia at the Nuwaiseeb–Al Khafji border and then continues inland to the capital. We plan the most practical route for your pickup and drop-off points." },
       { question: "How is the fare calculated and confirmed?", answer: "There is no meter and no surge. We quote a fixed fare for your chosen vehicle based on the route and passenger count, and confirm it with you on WhatsApp before you book. Tolls are included; any border or visa fees paid to the authorities are separate." },
@@ -1958,7 +1958,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // Per-slug description overrides — same CTR-fix rationale as TITLE_OVERRIDES,
   // for pages with confirmed impressions/position but zero clicks.
   const DESCRIPTION_OVERRIDES: Record<string, string> = {
-    "riyadh-to-dammam": "Private taxi from Riyadh to Dammam — approx 390 km, around 3.5 hours, door-to-door by sedan, SUV or van. Fare confirmed on WhatsApp before booking, 24/7.",
+    "riyadh-to-dammam": "Private transfer from Riyadh to Dammam — approx 390 km, around 3.5 hours, door-to-door by sedan, SUV or van. Fare confirmed on WhatsApp before booking, 24/7.",
     "jeddah-to-kaec": "Jeddah to KAEC (King Abdullah Economic City) taxi — 120 km, about 1 hr 20 min. Get your exact fare confirmed on WhatsApp before booking. Corporate sedans, 24/7.",
     "riyadh-to-alula": "Riyadh to AlUla taxi — 1,050 km, about 10 hours. Get your exact fare confirmed on WhatsApp before booking. Premium long-distance transfer, rest stops included.",
     "madinah-to-alula": "Madinah to AlUla taxi — 330 km, about 3 hours. Get your exact fare confirmed on WhatsApp before booking. Heritage transfer, rest stops included.",
@@ -1992,7 +1992,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title,
-    description: DESCRIPTION_OVERRIDES[slug] ?? `Private taxi from ${route.fromCity} to ${route.toCity} — ${route.distance} km, approx ${Math.round(route.duration / 60)}h. ${priceBlurb}, 24/7, professional drivers, no surge.`.slice(0, 160),
+    description: DESCRIPTION_OVERRIDES[slug] ?? `Private transfer from ${route.fromCity} to ${route.toCity} — ${route.distance} km, approx ${Math.round(route.duration / 60)}h. ${priceBlurb}, 24/7, professional drivers, no surge.`.slice(0, 160),
     alternates: {
       canonical: `https://taxisaudiarabia.com/routes/${slug}`,
       ...(AR_ROUTE_SLUGS.includes(slug)
@@ -2016,7 +2016,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     twitter: {
       card: "summary_large_image",
       title,
-      description: DESCRIPTION_OVERRIDES[slug] ?? `Private taxi from ${route.fromCity} to ${route.toCity} — fare confirmed on WhatsApp, 24/7.`,
+      description: DESCRIPTION_OVERRIDES[slug] ?? `Private transfer from ${route.fromCity} to ${route.toCity} — fare confirmed on WhatsApp, 24/7.`,
     },
   };
 }
@@ -2119,7 +2119,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
   // transfer" framing, not a cheap street-taxi tone.
   const heroWaText = leadForm
     ? `Salam! I'd like a private transfer — ${route.fromCity} to ${route.toCity}.\n• Date & time: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): `
-    : `Salam! I want to book a private taxi from ${route.fromCity} to ${route.toCity}.`;
+    : `Salam! I want to book a private transfer from ${route.fromCity} to ${route.toCity}.`;
 
   return (
     <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
@@ -2186,7 +2186,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                 </h1>
 
                 <p className="text-sm sm:text-base text-white/85 leading-relaxed font-normal">
-                  Private taxi &amp; chauffeur service from King Abdulaziz International Airport (JED) directly to your hotel near Masjid al-Haram. 24/7 flight tracking with meet &amp; greet included.
+                  Private transfer &amp; chauffeur service from King Abdulaziz International Airport (JED) directly to your hotel near Masjid al-Haram. 24/7 flight tracking with meet &amp; greet included.
                 </p>
 
                 <div className="flex flex-wrap items-center gap-3 pt-1">
@@ -2277,7 +2277,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
 
                   <a
                     href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
-                      `Salam! I want to book a private taxi from Makkah to Madinah.`
+                      `Salam! I want to book a private transfer from Makkah to Madinah.`
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -2296,7 +2296,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
               <div className="absolute inset-y-0 right-0 hidden sm:block sm:w-3/5 pointer-events-none">
                 <Image
                   src={heroCar}
-                  alt={`Private taxi from ${route.fromCity} to ${route.toCity}`}
+                  alt={`Private transfer from ${route.fromCity} to ${route.toCity}`}
                   fill
                   priority
                   sizes="(max-width: 768px) 0vw, 60vw"
@@ -2793,7 +2793,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                 </Link>
                 <a
                   href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
-                    `Salam! I want to book a private taxi from Makkah to Madinah.`
+                    `Salam! I want to book a private transfer from Makkah to Madinah.`
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -2814,7 +2814,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                   Return &amp; Reverse Direction
                 </span>
                 <h2 className="font-heading text-2xl font-bold text-[#1C1C1C]">
-                  Dammam to Riyadh Private Taxi
+                  Dammam to Riyadh Private Transfer
                 </h2>
                 <p className="text-xs sm:text-sm text-[#6B7280] leading-relaxed">
                   We run the Dammam to Riyadh direction just as often as the outbound trip — book a taxi from Dammam to Riyadh one-way, or a same-day return for meetings in the capital. It is the same private, door-to-door service: a professional chauffeur collects you from your Dammam address (or Al Khobar and Dhahran nearby) and drives the ~390 km back to Riyadh in around 3.5 hours on Highway 40.
@@ -3246,7 +3246,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
             <div className="flex items-center gap-2">
               <a
                 href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
-                  `Salam! I want to book a private taxi from Makkah to Madinah.`
+                  `Salam! I want to book a private transfer from Makkah to Madinah.`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"

@@ -564,7 +564,7 @@ Performing Umrah is a profoundly personal and spiritual experience. However, the
     content: `
 ## Madinah to Makkah by Taxi: What to Expect
 
-Travelling between the two Holy Cities is one of the most common trips for Umrah pilgrims. A private taxi is the most comfortable and flexible way to do it, especially if you are with family, elderly travellers, or a lot of luggage.
+Travelling between the two Holy Cities is one of the most common trips for Umrah pilgrims. A private transfer is the most comfortable and flexible way to do it, especially if you are with family, elderly travellers, or a lot of luggage.
 
 ### Distance and Travel Time
 
@@ -591,7 +591,7 @@ The highway has clean rest areas with prayer rooms, food, and toilets. Most pilg
 - **Keep your documents ready** for the security checkpoint before Makkah.
 - **Book a bigger car** if you have elderly travellers — the extra space makes the long ride much easier.
 
-A private taxi turns a long highway trip into a calm, comfortable journey. Explore more [popular routes](/routes) across Saudi Arabia, or message us for a quote today.
+A private transfer turns a long highway trip into a calm, comfortable journey. Explore more [popular routes](/routes) across Saudi Arabia, or message us for a quote today.
 `
   },
   {
@@ -606,7 +606,7 @@ A private taxi turns a long highway trip into a calm, comfortable journey. Explo
     content: `
 ## Jeddah to Madinah: The Easy Way to Travel
 
-Many pilgrims land at Jeddah Airport (JED) but want to start their journey in Madinah. A private taxi takes you door to door — from the airport or your Jeddah hotel straight to your hotel in Madinah.
+Many pilgrims land at Jeddah Airport (JED) but want to start their journey in Madinah. A private transfer takes you door to door — from the airport or your Jeddah hotel straight to your hotel in Madinah.
 
 ### Distance and Travel Time
 
@@ -622,7 +622,7 @@ You can choose the car that fits your group:
 
 All trips are offered at a **clear price** agreed in advance. You can see every option on our [cars page](/fleet) or get a quote in seconds by [booking online](/book).
 
-### Why Choose a Private Taxi Over the Bus
+### Why Choose a Private Transfer Over the Bus
 
 - **Door-to-door service** — no dragging luggage between stations.
 - **Your own schedule** — leave at any hour, day or night.
@@ -662,7 +662,7 @@ One of the first questions every visitor asks is: *how much does a taxi cost in 
 ### Two Ways to Pay
 
 1. **Metered taxis** — the price goes up as you drive. Good for short trips, but the final cost is unknown until you arrive.
-2. **Private taxi (recommended)** — you agree the full fare before you travel. No meter, no surprises, no haggling. This is the easiest option for visitors and for long routes.
+2. **Private transfer (recommended)** — you agree the full fare before you travel. No meter, no surprises, no haggling. This is the easiest option for visitors and for long routes.
 
 ### Typical Trips
 
@@ -679,13 +679,13 @@ We publish clear options for every car on our [cars and prices page](/fleet), so
 - **Ask for the total fare upfront**, including any airport or luggage fees.
 - **Use WhatsApp** to confirm your driver and pickup details.
 
-With a private taxi and a price agreed in advance, you travel with total peace of mind. [Book your ride](/book) or message us for a quote on any trip in the Kingdom.
+With a private transfer and a price agreed in advance, you travel with total peace of mind. [Book your ride](/book) or message us for a quote on any trip in the Kingdom.
 `
   },
   {
     title: "Makkah Ziyarat by Taxi: Top Holy Sites to Visit (Half-Day Tour)",
     slug: "makkah-ziyarat-taxi-holy-sites-tour",
-    excerpt: "Visit the most important historical and holy places in Makkah with a private taxi. Here are the top Ziyarat sites and how to plan your visit.",
+    excerpt: "Visit the most important historical and holy places in Makkah with a private transfer. Here are the top Ziyarat sites and how to plan your visit.",
     coverImage: "/blog/makkah-ziyarat-taxi-holy-sites-tour.webp",
     category: "Umrah",
     author: "Sarah Ahmed",
@@ -694,7 +694,7 @@ With a private taxi and a price agreed in advance, you travel with total peace o
     content: `
 ## Makkah Ziyarat: Visit the Holy Sites in Comfort
 
-After completing Umrah, many pilgrims like to visit the historical and holy places around Makkah. This is called **Ziyarat**. A private taxi is the best way to do it — you visit at your own pace, with air conditioning and a knowledgeable local driver.
+After completing Umrah, many pilgrims like to visit the historical and holy places around Makkah. This is called **Ziyarat**. A private transfer is the best way to do it — you visit at your own pace, with air conditioning and a knowledgeable local driver.
 
 ### Top Sites to Visit in Makkah
 
@@ -740,7 +740,7 @@ The airport is about **35 kilometres** north of central Riyadh. The drive to the
 
 ### Your Taxi Options
 
-- **Pre-booked private taxi (recommended):** A driver meets you inside the terminal with a sign and helps with your luggage. The price is fixed before you arrive.
+- **Pre-booked private transfer (recommended):** A driver meets you inside the terminal with a sign and helps with your luggage. The price is fixed before you arrive.
 - **Ride-hailing apps:** Uber and Careem work in Riyadh but need mobile data and a pickup from a set zone.
 - **Airport taxi rank:** Available outside arrivals, but prices and waiting times can vary at busy hours.
 
@@ -1213,7 +1213,7 @@ Professional chauffeurs, a 2020-or-newer fleet (Mercedes S-Class, GMC Yukon, Hyu
 
 Diriyah, the birthplace of the first Saudi state, sits just northwest of Riyadh and has become one of the Kingdom's flagship heritage and lifestyle destinations — home to the At-Turaif UNESCO World Heritage Site and the restaurants and cafés of Bujairi Terrace.
 
-> **Quick answer:** Diriyah is about 20–25 km from central Riyadh, roughly a 25–35 minute drive depending on traffic. A private taxi from Riyadh to Diriyah is the most convenient option, since public transport connections are limited and most visitors combine it with other stops in the same trip.
+> **Quick answer:** Diriyah is about 20–25 km from central Riyadh, roughly a 25–35 minute drive depending on traffic. A private transfer from Riyadh to Diriyah is the most convenient option, since public transport connections are limited and most visitors combine it with other stops in the same trip.
 
 ### What's in Diriyah
 
@@ -1254,7 +1254,7 @@ See our [taxi service in Riyadh](/locations/riyadh) for airport transfers and ci
 
 Riyadh Season is the capital's biggest entertainment period, typically running from October through March as the weather cools — with large crowds moving between the airport, hotels, and event zones like Boulevard World, Boulevard Riyadh City, and Diriyah. With that many people converging on the same venues, parking fills up fast and ride-hailing apps often surge in price right when you need a car most.
 
-> **Quick answer:** King Khalid International Airport (RUH) is about 35 km from central Riyadh — roughly 45 minutes — and most Season venues (Boulevard, Diriyah) are a further 20–30 minutes depending on traffic. A pre-booked private taxi avoids surge pricing and skips the venue parking search entirely.
+> **Quick answer:** King Khalid International Airport (RUH) is about 35 km from central Riyadh — roughly 45 minutes — and most Season venues (Boulevard, Diriyah) are a further 20–30 minutes depending on traffic. A pre-booked private transfer avoids surge pricing and skips the venue parking search entirely.
 
 ### Why Book Ahead During Season
 

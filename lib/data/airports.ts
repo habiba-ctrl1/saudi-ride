@@ -8,7 +8,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     h1Name: "Jeddah Airport (JED)",
     image: "/airports/jed-hero.webp",
     tagline: "The Main Gateway for Umrah & Hajj",
-    description: "Pre-book a private taxi from King Abdulaziz International Airport (JED) to Makkah (~1 hour), Madinah, or your Jeddah hotel. Meet & greet at arrivals with a name sign, live flight tracking, no surge pricing, and 24/7 service — including late-night and early-morning pilgrim flights. Drivers can stop at the Miqat so you enter Ihram before reaching Makkah.",
+    description: "Pre-book a private transfer from King Abdulaziz International Airport (JED) to Makkah (~1 hour), Madinah, or your Jeddah hotel. Meet & greet at arrivals with a name sign, live flight tracking, no surge pricing, and 24/7 service — including late-night and early-morning pilgrim flights. Drivers can stop at the Miqat so you enter Ihram before reaching Makkah.",
     tldr: "A taxi from Jeddah Airport (JED) to Makkah takes about 1 hour, with the fare confirmed on WhatsApp. Drivers track your flight and meet you at arrivals with a name sign, 24/7 — including late-night flights — and can stop at the Miqat for Ihram on the way to Makkah.",
     tldrFacts: [
       { label: "JED → Makkah", value: "~1 hr · fare on WhatsApp" },
@@ -60,7 +60,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     h1Name: "Madinah Airport (MED)",
     image: "/airports/med-hero.webp",
     tagline: "Gateway to the Prophet's City",
-    description: "Pre-book a private taxi or private car with chauffeur from Prince Mohammad Bin Abdulaziz Airport (MED) — Madinah (Medina) — to your hotel near Masjid an-Nabawi (~20 km, ~25 min), or a long-distance transfer to Makkah. This is a pre-booked private airport transfer in your own vehicle: meet & greet at arrivals with a name sign, flight tracking, spacious family vans, and 24/7 service for pilgrims and families.",
+    description: "Pre-book a private transfer or private car with chauffeur from Prince Mohammad Bin Abdulaziz Airport (MED) — Madinah (Medina) — to your hotel near Masjid an-Nabawi (~20 km, ~25 min), or a long-distance transfer to Makkah. This is a pre-booked private airport transfer in your own vehicle: meet & greet at arrivals with a name sign, flight tracking, spacious family vans, and 24/7 service for pilgrims and families.",
     tldr: "A taxi or private car from Prince Mohammad Bin Abdulaziz Airport (MED) to central Madinah hotels takes about 25 minutes — get the current fare on WhatsApp. Every booking is a pre-booked private transfer in your own vehicle, with meet & greet and flight tracking, 24/7.",
     tldrFacts: [
       { label: "MED → City", value: "~25 min · fare on WhatsApp" },
@@ -80,7 +80,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     ],
     priorityRoutes: ["madinah-airport-to-makkah", "madinah-airport-to-city"],
     faqs: [
-      { question: "How much is a taxi from Madinah airport to the city?", answer: "A private taxi from Prince Mohammad Bin Abdulaziz Airport (MED) — Madinah (Medina) — to central Madinah hotels is about 20 km and a 25-minute drive. It is a pre-booked private transfer in your own vehicle with meet & greet at arrivals; get the current fare on WhatsApp before you book." },
+      { question: "How much is a taxi from Madinah airport to the city?", answer: "A private transfer from Prince Mohammad Bin Abdulaziz Airport (MED) — Madinah (Medina) — to central Madinah hotels is about 20 km and a 25-minute drive. It is a pre-booked private transfer in your own vehicle with meet & greet at arrivals; get the current fare on WhatsApp before you book." },
       { question: "Do you offer a private car service from Madinah Airport (MED)?", answer: "Yes. Beyond a standard taxi, we offer a pre-booked private car service from Madinah Airport (MED) — an executive sedan, SUV or VIP van with a professional chauffeur and meet & greet at arrivals. Every booking is your own vehicle, quoted on WhatsApp before you travel." },
       { question: "Is there a taxi at Madinah airport at night?", answer: "Yes. We operate 24/7 at MED, including late-night and early-morning arrivals. We track your flight so your driver waits with a name sign even if the flight is delayed." },
       { question: "Where do I meet my driver at Madinah airport?", answer: "Your driver meets you in the arrivals hall of the main terminal holding a sign with your name, and helps with your luggage to the vehicle." },

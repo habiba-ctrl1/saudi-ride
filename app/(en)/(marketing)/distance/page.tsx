@@ -6,7 +6,7 @@ import { DISTANCE_GUIDES } from "@/lib/data/distances";
 import { Route, MapPin, Clock, ArrowRight } from "lucide-react";
 
 const TITLE = "Saudi Arabia Distance Guides — City-to-City km, Drive Time & Taxi";
-const DESCRIPTION = "How far is it between Saudi cities? Real driving distances and times for Riyadh, Jeddah, Makkah, Madinah, Dammam and more — with private taxi options and fares on WhatsApp.";
+const DESCRIPTION = "How far is it between Saudi cities? Real driving distances and times for Riyadh, Jeddah, Makkah, Madinah, Dammam and more — with private transfer options and fares on WhatsApp.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -27,7 +27,7 @@ export default function DistanceHubPage() {
           Saudi Arabia City Distances
         </h1>
         <p className="text-[#6B7280] leading-relaxed mb-10 max-w-2xl">
-          Real driving distances and times between major Saudi cities, with the main highway, rest stops, and how each journey compares by car, train, and flight. Book a private taxi for any route — fare confirmed on WhatsApp.
+          Real driving distances and times between major Saudi cities, with the main highway, rest stops, and how each journey compares by car, train, and flight. Book a private transfer for any route — fare confirmed on WhatsApp.
         </p>
 
         <div className="grid sm:grid-cols-2 gap-6">

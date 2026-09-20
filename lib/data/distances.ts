@@ -7,7 +7,7 @@
 
 export interface WhyCard { img: string; title: string; body: string }
 export interface Tip { icon: "sunrise" | "fuel" | "luggage" | "clock" | "map" | "shield" | "route" | "prayer"; text: string }
-export interface CompareRow { mode: "Private taxi" | "Flight" | "Train"; best?: boolean; detail: string }
+export interface CompareRow { mode: "Private transfer" | "Flight" | "Train"; best?: boolean; detail: string }
 export interface RelatedLink { href: string; label: string; img: string }
 
 export interface DistanceGuide {
@@ -32,7 +32,7 @@ export interface DistanceGuide {
   routeStripImage: string;
   /** One-line hero value proposition. */
   valueProp: string;
-  /** "Why private taxi" — 2 genuinely distinct paragraphs. */
+  /** "Why private transfer" — 2 genuinely distinct paragraphs. */
   whoBooks: string[];
   /** 3 supporting cards with real service photos. */
   whyCards: WhyCard[];
@@ -68,7 +68,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
       "A private, door-to-door car with a professional driver for the full 950 km between the capital and the Red Sea coast — travel on your own schedule, with your family and luggage, for one fixed fare confirmed on WhatsApp.",
     whoBooks: [
       "The Riyadh–Jeddah corridor is one of the Kingdom's longest, crossing open desert from the inland capital to the Red Sea coast. The travellers who choose a private car over a flight are usually families relocating or visiting relatives, pilgrims continuing on to Makkah, business travellers who want to work or rest along the way, and groups for whom four or five plane tickets cost more than a single car.",
-      "A private taxi is not a shared shuttle — it is one vehicle and one driver, exclusively for your party, from your Riyadh doorstep to your Jeddah destination.",
+      "A private transfer is not a shared shuttle — it is one vehicle and one driver, exclusively for your party, from your Riyadh doorstep to your Jeddah destination.",
     ],
     whyCards: [
       { img: "/gallery/luggage-assist.webp", title: "Travel with luggage & family", body: "No baggage limits or extra-bag fees. Load what you need, keep everyone together, and let the driver handle the bags." },
@@ -79,7 +79,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
       "The drive follows Highway 40, the main multi-lane road between Riyadh and the west. It runs through open desert with fuel stations and rest areas near the main towns — most travellers stop once or twice for fuel, food, and prayer.",
     vehicleFits: ["1–3 passengers · 2 bags", "4–6 passengers · 4–5 bags", "up to 7 · extra luggage"],
     compare: [
-      { mode: "Private taxi", best: true, detail: "Door-to-door, ~9–10 hrs, one fixed fare for the whole party, stops when you want. Best for families, groups, and luggage." },
+      { mode: "Private transfer", best: true, detail: "Door-to-door, ~9–10 hrs, one fixed fare for the whole party, stops when you want. Best for families, groups, and luggage." },
       { mode: "Flight", detail: "~1 hr 20 min in the air, but add airport time both ends, baggage limits, and per-person tickets." },
       { mode: "Train", detail: "No direct Riyadh–Jeddah passenger rail. The Haramain line only serves the west (Makkah–Madinah–Jeddah)." },
     ],
@@ -92,7 +92,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
     faqs: [
       { question: "How far is Riyadh from Jeddah by road?", answer: "Riyadh to Jeddah is about 950 km on Highway 40, the main road linking the capital to the Red Sea coast." },
       { question: "How long is the drive from Riyadh to Jeddah?", answer: "The drive takes roughly 9 to 10 hours, depending on stops, traffic, and speed. Most travellers break the journey once or twice for fuel, food, and prayer." },
-      { question: "Is it better to fly or take a private taxi from Riyadh to Jeddah?", answer: "A flight is faster in the air (about 1 hour 20 minutes), but you add airport check-in, security, and baggage time on both ends, and pay per person. A private taxi is one fixed fare for the whole party, door-to-door, with luggage and stops on your schedule — which often wins for families and groups." },
+      { question: "Is it better to fly or take a private transfer from Riyadh to Jeddah?", answer: "A flight is faster in the air (about 1 hour 20 minutes), but you add airport check-in, security, and baggage time on both ends, and pay per person. A private transfer is one fixed fare for the whole party, door-to-door, with luggage and stops on your schedule — which often wins for families and groups." },
       { question: "How much does a Riyadh to Jeddah taxi cost?", answer: "The fare depends on your vehicle (sedan, SUV, or van), pickup time, and passenger count. We confirm one fixed price on WhatsApp before you book — no surge and no hidden fees." },
       { question: "Can the taxi pick me up from home and drop me at my Jeddah hotel?", answer: "Yes. It is a fully door-to-door service — pickup from any Riyadh address, home, or hotel, and drop-off at any Jeddah address, hotel, or the airport." },
       { question: "Is there a train from Riyadh to Jeddah?", answer: "No — there is currently no direct passenger railway between Riyadh and Jeddah. The Haramain high-speed line only runs in the west between Makkah, Madinah, and Jeddah. A private car is the most comfortable door-to-door option." },
@@ -135,7 +135,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
       "The drive uses the modern Makkah–Madinah expressway, heavily travelled by pilgrims, with frequent fuel stations, restaurants, and rest areas. The direct road passes areas that non-Muslims may not enter around Makkah.",
     vehicleFits: ["1–3 pilgrims · light bags", "4–6 with luggage", "up to 7 · group + luggage"],
     compare: [
-      { mode: "Private taxi", best: true, detail: "Door-to-door, ~4 hrs, with prayer and rest stops on request — the usual choice for pilgrims with luggage and family." },
+      { mode: "Private transfer", best: true, detail: "Door-to-door, ~4 hrs, with prayer and rest stops on request — the usual choice for pilgrims with luggage and family." },
       { mode: "Train", detail: "The Haramain High-Speed Railway links the two cities in about 2 hours, but you still need transfers to and from the stations with your bags." },
       { mode: "Flight", detail: "No practical direct flight for this short domestic sector; road or the Haramain train are the options." },
     ],
@@ -148,7 +148,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
     faqs: [
       { question: "How far is Makkah from Madinah?", answer: "Makkah to Madinah is about 430 km by road on the Makkah–Madinah expressway." },
       { question: "How long is the drive from Makkah to Madinah?", answer: "The drive takes roughly 4 hours, with fuel and prayer stops available along the way." },
-      { question: "Is there a train from Makkah to Madinah?", answer: "Yes — the Haramain High-Speed Railway links Makkah and Madinah in about 2 hours, though you need to reach and leave the stations with your luggage. A private taxi is door-to-door with luggage help." },
+      { question: "Is there a train from Makkah to Madinah?", answer: "Yes — the Haramain High-Speed Railway links Makkah and Madinah in about 2 hours, though you need to reach and leave the stations with your luggage. A private transfer is door-to-door with luggage help." },
       { question: "Can the taxi drop me at my hotel near Masjid an-Nabawi?", answer: "Yes. We drop you as close to your Madinah hotel and the Prophet's Mosque as vehicle access allows, with help for your luggage." },
       { question: "Can you include a Ziyarat stop at Badr on the way?", answer: "Yes. Many pilgrims add a stop at the Badr battlefield between Makkah and Madinah — tell us when you book and the driver will include it." },
       { question: "How much is a taxi from Makkah to Madinah?", answer: "The fare depends on your vehicle and group size. We confirm one fixed price on WhatsApp before booking — no surge, prayer and rest stops included." },
@@ -191,7 +191,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
       "The drive follows Highway 40, a fast, well-maintained expressway across the desert to the Eastern Province, with plenty of fuel stations and rest stops. Traffic is busiest near Riyadh and around the Dammam/Khobar exits.",
     vehicleFits: ["1–3 passengers · 2 bags", "4–6 · business or family", "up to 7 · group + luggage"],
     compare: [
-      { mode: "Private taxi", best: true, detail: "Door-to-door, ~3.5 hrs, flexible and comfortable for business travellers and families — and it can continue to Khobar, Dhahran, or Bahrain." },
+      { mode: "Private transfer", best: true, detail: "Door-to-door, ~3.5 hrs, flexible and comfortable for business travellers and families — and it can continue to Khobar, Dhahran, or Bahrain." },
       { mode: "Train", detail: "The Saudi Railway (SAR) runs a Riyadh–Dammam passenger service in about 4 hours station to station, plus transfers." },
       { mode: "Flight", detail: "Short flights between Riyadh (RUH) and Dammam (DMM) take under an hour in the air, plus airport time on both ends." },
     ],
@@ -235,7 +235,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
     valueProp:
       "The first leg of Umrah for most pilgrims — a private car straight from Jeddah airport or city to your Makkah hotel near the Haram, about 85 km, with a Miqat stop for Ihram. One fixed fare, confirmed on WhatsApp.",
     whoBooks: [
-      "Jeddah to Makkah is the most travelled pilgrim corridor in Saudi Arabia. Most who book a private taxi are pilgrims arriving at King Abdulaziz International Airport (JED) who want to go straight to Makkah after a long flight — the driver meets them at arrivals, helps with luggage, and stops at the Miqat so they can enter Ihram.",
+      "Jeddah to Makkah is the most travelled pilgrim corridor in Saudi Arabia. Most who book a private transfer are pilgrims arriving at King Abdulaziz International Airport (JED) who want to go straight to Makkah after a long flight — the driver meets them at arrivals, helps with luggage, and stops at the Miqat so they can enter Ihram.",
       "Families and groups prefer a private car because it is door-to-door with room for luggage, avoiding the transfers and waiting that come with the train or shared transport. Only Muslims may enter the city limits of Makkah.",
     ],
     whyCards: [
@@ -247,7 +247,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
       "The drive is a short, fast run on Highway 40 connecting Jeddah and the airport with the Holy Mosque. Keep passports and documents ready at the Haramain checkpoint; non-Muslims may not enter Makkah's city limits.",
     vehicleFits: ["1–3 pilgrims · light bags", "4–6 with luggage", "up to 7 · family + luggage"],
     compare: [
-      { mode: "Private taxi", best: true, detail: "Door-to-door from the airport, ~1 hr 10 min, with a Miqat stop and luggage help — the usual choice for pilgrims arriving at Jeddah." },
+      { mode: "Private transfer", best: true, detail: "Door-to-door from the airport, ~1 hr 10 min, with a Miqat stop and luggage help — the usual choice for pilgrims arriving at Jeddah." },
       { mode: "Train", detail: "The Haramain High-Speed Railway links Jeddah and Makkah in about 30 minutes, though you still reach and leave the stations with your bags." },
       { mode: "Flight", detail: "No flight for this short sector; road or the Haramain train are the options." },
     ],
@@ -260,7 +260,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
     faqs: [
       { question: "How far is Jeddah from Makkah?", answer: "Jeddah city to Makkah is about 85 km by road; from Jeddah Airport it is roughly 80 km." },
       { question: "How long is the drive from Jeddah to Makkah?", answer: "The drive takes about 1 hour 10 minutes on the expressway, a little more from the airport in peak Umrah traffic." },
-      { question: "Is there a train from Jeddah to Makkah?", answer: "Yes — the Haramain High-Speed Railway links Jeddah and Makkah in about 30 minutes. A private taxi is door-to-door with a Miqat stop for Ihram and luggage help." },
+      { question: "Is there a train from Jeddah to Makkah?", answer: "Yes — the Haramain High-Speed Railway links Jeddah and Makkah in about 30 minutes. A private transfer is door-to-door with a Miqat stop for Ihram and luggage help." },
       { question: "Will the driver stop at the Miqat for Ihram?", answer: "Yes. On request the driver stops at the Miqat so you can change into Ihram and make your intention before entering Makkah." },
       { question: "Do you meet pilgrims at Jeddah Airport (JED)?", answer: "Yes. We track your flight and the driver waits at arrivals with a name sign, even for late or delayed flights, and helps with luggage." },
       { question: "How much is a taxi from Jeddah to Makkah?", answer: "The fare depends on your vehicle and pickup point. We confirm one fixed price on WhatsApp before booking — no surge, tolls included." },
@@ -303,7 +303,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
       "The drive runs north up the Red Sea coast on Highway 5 before turning inland to Madinah, with fuel stations, restaurants, and rest areas along the way. Most travellers make one stop for fuel and prayer.",
     vehicleFits: ["1–3 pilgrims · light bags", "4–6 with luggage", "up to 7 · group + luggage"],
     compare: [
-      { mode: "Private taxi", best: true, detail: "Door-to-door from the airport or city, ~4 hrs, with luggage help and prayer stops — the usual choice for arriving pilgrims." },
+      { mode: "Private transfer", best: true, detail: "Door-to-door from the airport or city, ~4 hrs, with luggage help and prayer stops — the usual choice for arriving pilgrims." },
       { mode: "Train", detail: "The Haramain High-Speed Railway links Jeddah and Madinah in about 2 hours, but you reach and leave the stations with your bags." },
       { mode: "Flight", detail: "No practical direct flight for this sector; road or the Haramain train are the options." },
     ],
@@ -316,7 +316,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
     faqs: [
       { question: "How far is Jeddah from Madinah?", answer: "Jeddah to Madinah is about 420 km by road via Highway 5/15." },
       { question: "How long is the drive from Jeddah to Madinah?", answer: "The drive takes roughly 4 hours, with fuel and prayer stops along the way." },
-      { question: "Is there a train from Jeddah to Madinah?", answer: "Yes — the Haramain High-Speed Railway connects Jeddah and Madinah in about 2 hours, though you still transfer to and from the stations with luggage. A private taxi is door-to-door." },
+      { question: "Is there a train from Jeddah to Madinah?", answer: "Yes — the Haramain High-Speed Railway connects Jeddah and Madinah in about 2 hours, though you still transfer to and from the stations with luggage. A private transfer is door-to-door." },
       { question: "Do you pick up from Jeddah Airport (JED)?", answer: "Yes. We track your flight and the driver meets you at arrivals with a name sign and helps with luggage before the drive to Madinah." },
       { question: "Can the taxi drop me near Masjid an-Nabawi?", answer: "Yes — we drop you as close to your Madinah hotel and the Prophet's Mosque as vehicle access allows." },
       { question: "How much is a taxi from Jeddah to Madinah?", answer: "The fare depends on your vehicle and group size. We confirm one fixed price on WhatsApp before booking — no surge, tolls included." },
@@ -358,7 +358,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
       "The drive heads west on Highway 40 across open desert, through Al Quway'iyah and Afif, before approaching Makkah. Non-Muslims may not enter Makkah's city limits; keep documents ready at the Haramain checkpoint.",
     vehicleFits: ["1–3 pilgrims · light bags", "4–6 with luggage", "up to 7 · group + luggage"],
     compare: [
-      { mode: "Private taxi", best: true, detail: "Door-to-door, ~8–9 hrs, one fixed fare for the whole party with a Miqat stop — the usual choice for families driving to Umrah." },
+      { mode: "Private transfer", best: true, detail: "Door-to-door, ~8–9 hrs, one fixed fare for the whole party with a Miqat stop — the usual choice for families driving to Umrah." },
       { mode: "Flight", detail: "Fly Riyadh (RUH) to Jeddah (JED) in ~1 hr 20 min, then transfer onward to Makkah — faster, but per-person tickets and two transfers." },
       { mode: "Train", detail: "No direct Riyadh–Makkah passenger rail. The Haramain line only runs in the west (Jeddah–Makkah–Madinah)." },
     ],
@@ -413,7 +413,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
       "The drive heads north-west on Highway 65 through Al Qassim (Buraydah) before turning toward Madinah, crossing open farmland and desert with fuel stations and rest areas in the main towns.",
     vehicleFits: ["1–3 travellers · light bags", "4–6 with luggage", "up to 7 · group + luggage"],
     compare: [
-      { mode: "Private taxi", best: true, detail: "Door-to-door, ~7.5 hrs, one fixed fare for the family with prayer stops — comfortable for Ziyarat travel with luggage." },
+      { mode: "Private transfer", best: true, detail: "Door-to-door, ~7.5 hrs, one fixed fare for the family with prayer stops — comfortable for Ziyarat travel with luggage." },
       { mode: "Flight", detail: "Fly Riyadh (RUH) to Madinah (MED) in about 1 hr 40 min, plus airport time both ends and per-person tickets." },
       { mode: "Train", detail: "No direct Riyadh–Madinah passenger rail. The Haramain line only serves the west (Jeddah–Makkah–Madinah)." },
     ],
@@ -468,7 +468,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
       "The drive climbs the Al Hada mountain road, one of the most scenic routes in the Hijaz, rising quickly from Makkah to Taif's cooler plateau. There are viewpoints and rest spots on the ascent.",
     vehicleFits: ["1–3 passengers · day trip", "4–6 · family outing", "up to 7 · group day trip"],
     compare: [
-      { mode: "Private taxi", best: true, detail: "Door-to-door, ~1 hr 10 min up the mountain, with viewpoint stops and the option to wait and return — ideal for day trips." },
+      { mode: "Private transfer", best: true, detail: "Door-to-door, ~1 hr 10 min up the mountain, with viewpoint stops and the option to wait and return — ideal for day trips." },
       { mode: "Flight", detail: "No flight for this short mountain sector — the road is the only practical option." },
       { mode: "Train", detail: "No rail line between Makkah and Taif; a private car on the Al Hada road is the way to travel." },
     ],
@@ -523,7 +523,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
       "The drive heads inland from Jeddah on Highway 15, skirting Makkah (via the non-Muslim bypass), then climbs the Al Hada mountain road to Taif's cooler plateau.",
     vehicleFits: ["1–3 passengers · weekend bags", "4–6 · family trip", "up to 7 · group getaway"],
     compare: [
-      { mode: "Private taxi", best: true, detail: "Door-to-door, ~2 hrs, with room for weekend luggage and the family — leave when you want and stop on the ascent." },
+      { mode: "Private transfer", best: true, detail: "Door-to-door, ~2 hrs, with room for weekend luggage and the family — leave when you want and stop on the ascent." },
       { mode: "Flight", detail: "No practical flight for this short sector; the mountain road is the way to travel." },
       { mode: "Train", detail: "No rail line to Taif; a private car via the Al Hada road is the option." },
     ],
@@ -578,7 +578,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
       "The drive follows Highway 40, the same fast expressway as the Riyadh–Dammam corridor, across the desert to the Eastern Province coast, with fuel and rest stops around Al Kharj and midway.",
     vehicleFits: ["1–3 passengers · business trip", "4–6 · family or team", "up to 7 · group + luggage"],
     compare: [
-      { mode: "Private taxi", best: true, detail: "Door-to-door, ~3.5–4 hrs, flexible for business and families — and it continues to Dhahran or across the causeway to Bahrain." },
+      { mode: "Private transfer", best: true, detail: "Door-to-door, ~3.5–4 hrs, flexible for business and families — and it continues to Dhahran or across the causeway to Bahrain." },
       { mode: "Train", detail: "The Saudi Railway (SAR) serves nearby Dammam from Riyadh in about 4 hours station to station, plus a transfer to Khobar." },
       { mode: "Flight", detail: "Fly Riyadh (RUH) to Dammam (DMM) in under an hour, then transfer ~20 km to Khobar, plus airport time." },
     ],
@@ -633,7 +633,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
       "The drive heads north-west on Highway 65 through Al Qassim (Buraydah) and Hail before reaching AlUla, crossing farmland, desert, and the striking landscapes of the north.",
     vehicleFits: ["1–3 travellers · light bags", "4–6 with luggage", "up to 7 · group + luggage"],
     compare: [
-      { mode: "Private taxi", best: true, detail: "Door-to-door, ~10 hrs, with the freedom to stop in Qassim or Hail — ideal for travellers who want to see the country on the way." },
+      { mode: "Private transfer", best: true, detail: "Door-to-door, ~10 hrs, with the freedom to stop in Qassim or Hail — ideal for travellers who want to see the country on the way." },
       { mode: "Flight", detail: "Fly Riyadh (RUH) to AlUla (ULH) in about 2 hours, plus airport time — faster, but you miss the road and need transport at both ends." },
       { mode: "Train", detail: "No direct passenger rail to AlUla; the journey is by road or air." },
     ],
@@ -687,7 +687,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
       "The drive heads north from Madinah across open desert to AlUla in roughly three hours. It is a straightforward run with fuel and rest stops along the way — most travellers make one short stop for refreshments and prayer.",
     vehicleFits: ["1–3 travellers · light bags", "4–6 with luggage", "up to 7 · group + luggage"],
     compare: [
-      { mode: "Private taxi", best: true, detail: "Door-to-door in about 3 hours, one fixed fare for the whole party, and the option to keep the car for a full AlUla day. Best for pilgrims extending their trip and for families." },
+      { mode: "Private transfer", best: true, detail: "Door-to-door in about 3 hours, one fixed fare for the whole party, and the option to keep the car for a full AlUla day. Best for pilgrims extending their trip and for families." },
       { mode: "Flight", detail: "AlUla has an airport (ULH), but for a ~3-hour drive from Madinah a private car is usually simpler door-to-door — with no airport transfers at either end." },
       { mode: "Train", detail: "There is no passenger railway to AlUla; the journey is by road or air." },
     ],
@@ -741,7 +741,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
       "The drive runs north from Jeddah along the Red Sea coastal highway, passing Thuwal (home of KAUST) before reaching King Abdullah Economic City. It is a straightforward coastal route of roughly 1 hour 20 minutes.",
     vehicleFits: ["1–3 business travellers · light bags", "4–6 with luggage", "up to 7 · team + luggage"],
     compare: [
-      { mode: "Private taxi", best: true, detail: "Door-to-door in about 1 hr 20 min, one fixed fare, with waiting time and corporate invoicing on request. Best for business visits and meeting schedules." },
+      { mode: "Private transfer", best: true, detail: "Door-to-door in about 1 hr 20 min, one fixed fare, with waiting time and corporate invoicing on request. Best for business visits and meeting schedules." },
       { mode: "Train", detail: "The Haramain high-speed train stops at KAEC, but you still need transport to the Jeddah station and from the KAEC station to your final destination — a private car is direct, door-to-door." },
       { mode: "Flight", detail: "KAEC has no airport of its own; Jeddah (JED) is the gateway, then about 1 hr 20 min north by road." },
     ],
