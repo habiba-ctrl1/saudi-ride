@@ -33,3 +33,12 @@ client, per `CLAUDE.md` rule 1.
 | 2026-09-20 | Makkah | Madinah | SUV (GMC Yukon XL 2026) | One-way | 950 | Final best offer; lost to competitor's 800 SAR (also claimed 2026 model) |
 | 2026-09-20 | Riyadh (Al Khuzama) | Dubai | SUV (GMC Yukon XL 2025) | One-way | 3000 | 2 pax; cross-border; pay-after-trip; generic 1,000 SAR/day baseline floated before route was known, corrected once route confirmed |
 | 2026-09-20 | Riyadh | Manama (Bahrain) | Sedan | One-way | 850 | 1 pax; private ride only, no shared option; pickup ~2 days out |
+| 2026-09-20 | Tabuk Airport | NEOM Airport (Bay) | Sedan (Camry/Elantra/Sonata) | One-way | 500 | 1 pax, 2 small luggage; trip 2026-08-31 6am; not confirmed at time of quote |
+| 2026-09-20 | Al Jubail | Al Khafji Border (outside border) | Unspecified | One-way | 550 | Drop-off outside border only, client crosses into Kuwait himself |
+| 2026-09-20 | Al Jubail | Ar-Ruqi Border (outside border) | Unspecified | One-way | 900 | Alternative border option, not chosen |
+| 2026-09-20 | Al Jubail | Kuwait (driver crosses border) | Unspecified | One-way | 1300 | Incl. driver's border fees + return; client declined |
+| 2026-09-20 | Ras Tanura (Aden Restaurant) | Safwa (Al Rajhi/Riyadh Bank) | Recovery/Tow Truck | One-way | 300 | Car towing job, not a taxi ride; client found competitor at 70 SAR and cancelled |
+| 2026-09-20 | Hanak | Tabuk Airport (round trip) | Unspecified | Round-trip | 1840 | Bank transfer incl. 15% VAT (1,600+240), official invoice via partner Eagle Eyes; 29 Aug 01:30 out / 30 Aug 09:15 back |
+| 2026-09-20 | Hanak | Tabuk Airport (round trip) | Unspecified | Round-trip | 1600 | Cash option, no invoice, half/half payment; same trip as 1,840 SAR quote |
+| 2026-09-20 | Riyadh | Dammam | Sedan | One-way | 750 | 1 pax, no luggage; trip 2026-08-30 9:30pm; initial quote |
+| 2026-09-20 | Riyadh | Dammam | Sedan | One-way | 600 | Same trip; discounted follow-up offer |
