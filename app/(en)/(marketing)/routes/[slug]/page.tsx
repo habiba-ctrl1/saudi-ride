@@ -208,6 +208,34 @@ const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup:
     pickup: "Manama, Bahrain",
     dropoff: "Riyadh",
   },
+  "tabuk-to-aqaba": {
+    heading: "Get your Tabuk to Aqaba car-with-driver quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked cross-border car with a professional chauffeur, about 130 km via the Al Durrah border near Haql. You carry your own valid documents; we support the crossing.",
+    pickup: "Tabuk",
+    dropoff: "Aqaba, Jordan",
+  },
+  "aqaba-to-tabuk": {
+    heading: "Get your Aqaba to Tabuk car-with-driver quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked return car with a professional chauffeur, about 130 km via the Al Durrah border near Haql. You carry your own valid documents; we support the crossing.",
+    pickup: "Aqaba, Jordan",
+    dropoff: "Tabuk",
+  },
+  "neom-to-aqaba": {
+    heading: "Get your NEOM to Aqaba car-with-driver quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked cross-border car with a professional chauffeur, about 100 km via the Al Durrah border near Haql. You carry your own valid documents; we support the crossing.",
+    pickup: "NEOM",
+    dropoff: "Aqaba, Jordan",
+  },
+  "aqaba-to-neom": {
+    heading: "Get your Aqaba to NEOM car-with-driver quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked return car with a professional chauffeur, about 100 km via the Al Durrah border near Haql. You carry your own valid documents; we support the crossing.",
+    pickup: "Aqaba, Jordan",
+    dropoff: "NEOM",
+  },
 };
 
 // Corporate (Path B) block config for business-corridor routes. The invoicing
@@ -218,7 +246,7 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
     heading: "Moving a team between Riyadh and the Eastern Province?",
     intro:
       "For the Aramco, Dhahran and Al Khobar corporate corridor we run executive sedans and full-size SUVs with professional chauffeurs — one-way, same-day return, or by the hour. Regular staff movements can run on a single account with one point of contact, so you are not booking trip by trip.",
-    waPrefill: `Salam! Corporate transfer enquiry — Riyadh / Dammam (Eastern Province).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    waPrefill: `Salam! Corporate transfer enquiry — Riyadh / Dammam (Eastern Province).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Riyadh–Dammam",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate transfers on the Riyadh–Dammam / Eastern Province corridor.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
@@ -226,7 +254,7 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
     heading: "Business travel to King Abdullah Economic City?",
     intro:
       "For KAEC — King Abdullah Port, the Industrial Valley and business visits — we run executive sedans and full-size SUVs with professional chauffeurs, one-way or by the hour with waiting time. Regular company travel can run on a single account with one point of contact instead of trip-by-trip bookings.",
-    waPrefill: `Salam! Corporate transfer enquiry — Jeddah / KAEC (King Abdullah Economic City).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    waPrefill: `Salam! Corporate transfer enquiry — Jeddah / KAEC (King Abdullah Economic City).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Jeddah–KAEC",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate transfers between Jeddah and King Abdullah Economic City (KAEC).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
@@ -234,7 +262,7 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
     heading: "Cross-border business travel, Dammam to Doha?",
     intro:
       "For business travel across the Salwa border to Qatar we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. Documentation is supported — you carry your own valid papers. Regular company trips can run on a single account with one point of contact.",
-    waPrefill: `Salam! Corporate cross-border transfer — Dammam / Doha (Qatar).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    waPrefill: `Salam! Corporate cross-border transfer — Dammam / Doha (Qatar).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Dammam–Doha",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Dammam and Doha, Qatar (via the Salwa border).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
@@ -242,7 +270,7 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
     heading: "Executive car with driver, Riyadh to Dubai?",
     intro:
       "For business travellers crossing to the UAE we provide an executive sedan or SUV with a professional chauffeur — work or rest en route, with planned meeting and rest stops. Cross-border documentation is supported; you carry your own valid papers. Regular company travel can run on one account with a single point of contact.",
-    waPrefill: `Salam! Executive car with driver — Riyadh / Dubai (UAE).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    waPrefill: `Salam! Executive car with driver — Riyadh / Dubai (UAE).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Riyadh–Dubai",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for an executive car with driver between Riyadh and Dubai, UAE.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
@@ -250,7 +278,7 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
     heading: "Executive car with driver, Riyadh to Abu Dhabi?",
     intro:
       "For business travellers and delegations crossing to Abu Dhabi we provide an executive sedan or full-size SUV with a professional chauffeur — work or rest en route, with planned meeting and rest stops. Cross-border documentation is supported; you carry your own valid papers. Regular company travel can run on one account with a single point of contact.",
-    waPrefill: `Salam! Executive car with driver — Riyadh / Abu Dhabi (UAE).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    waPrefill: `Salam! Executive car with driver — Riyadh / Abu Dhabi (UAE).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Riyadh–Abu Dhabi",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for an executive car with driver between Riyadh and Abu Dhabi, UAE.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
@@ -258,7 +286,7 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
     heading: "Executive car with driver, Dammam to Abu Dhabi?",
     intro:
       "For business travellers and delegations from the Eastern Province crossing to Abu Dhabi we provide an executive sedan or full-size SUV with a professional chauffeur down the Gulf coast. Cross-border documentation is supported; you carry your own valid papers. Regular company travel can run on one account with a single point of contact.",
-    waPrefill: `Salam! Executive car with driver — Dammam / Abu Dhabi (UAE).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    waPrefill: `Salam! Executive car with driver — Dammam / Abu Dhabi (UAE).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Dammam–Abu Dhabi",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for an executive car with driver between Dammam and Abu Dhabi, UAE.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
@@ -266,7 +294,7 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
     heading: "Executive car with driver, Jeddah to Abu Dhabi?",
     intro:
       "For business travellers and delegations covering the long Jeddah–Abu Dhabi corridor we provide an executive sedan or full-size SUV with a professional chauffeur, with planned rest stops along the way. Cross-border documentation is supported; you carry your own valid papers. Ask us about a fly + private-transfer alternative for time-sensitive trips.",
-    waPrefill: `Salam! Executive car with driver — Jeddah / Abu Dhabi (UAE).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    waPrefill: `Salam! Executive car with driver — Jeddah / Abu Dhabi (UAE).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Jeddah–Abu Dhabi",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for an executive car with driver between Jeddah and Abu Dhabi, UAE.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
@@ -274,7 +302,7 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
     heading: "Executive car with driver, Riyadh to Doha?",
     intro:
       "For business travellers crossing to Qatar via the Salwa border we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. Documentation is supported — you carry your own valid papers. Regular company trips can run on a single account with one point of contact.",
-    waPrefill: `Salam! Executive car with driver — Riyadh / Doha (Qatar).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    waPrefill: `Salam! Executive car with driver — Riyadh / Doha (Qatar).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Riyadh–Doha",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Riyadh and Doha, Qatar (via the Salwa border).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
@@ -282,7 +310,7 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
     heading: "Executive car with driver, Riyadh to Bahrain?",
     intro:
       "For business travellers crossing the King Fahd Causeway to Manama we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. Documentation is supported — you carry your own valid papers. Regular company trips can run on a single account with one point of contact.",
-    waPrefill: `Salam! Executive car with driver — Riyadh / Manama (Bahrain).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    waPrefill: `Salam! Executive car with driver — Riyadh / Manama (Bahrain).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Riyadh–Bahrain",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Riyadh and Manama, Bahrain (via the King Fahd Causeway).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
@@ -290,7 +318,7 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
     heading: "Executive car with driver, Dammam to Kuwait?",
     intro:
       "For business travellers crossing to Kuwait via the Al Khafji border we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. Documentation is supported — you carry your own valid papers. Regular company trips can run on a single account with one point of contact.",
-    waPrefill: `Salam! Executive car with driver — Dammam / Kuwait City.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    waPrefill: `Salam! Executive car with driver — Dammam / Kuwait City.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Dammam–Kuwait",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Dammam and Kuwait City (via the Al Khafji border).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
@@ -298,7 +326,7 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
     heading: "Executive car with driver, Dammam to Bahrain?",
     intro:
       "For business travellers making the quick Causeway crossing to Manama we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. Documentation is supported — you carry your own valid papers. Regular company trips can run on a single account with one point of contact.",
-    waPrefill: `Salam! Executive car with driver — Dammam / Manama (Bahrain).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    waPrefill: `Salam! Executive car with driver — Dammam / Manama (Bahrain).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Dammam–Bahrain",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Dammam and Manama, Bahrain (via the King Fahd Causeway).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
@@ -306,7 +334,7 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
     heading: "Executive car with driver, Riyadh to Kuwait?",
     intro:
       "For business travellers crossing to Kuwait via the Al Khafji border we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. Documentation is supported — you carry your own valid papers. Regular company trips can run on a single account with one point of contact.",
-    waPrefill: `Salam! Executive car with driver — Riyadh / Kuwait City.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    waPrefill: `Salam! Executive car with driver — Riyadh / Kuwait City.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Riyadh–Kuwait",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Riyadh and Kuwait City (via the Al Khafji border).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
@@ -314,7 +342,7 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
     heading: "Executive car with driver, Dammam to Dubai?",
     intro:
       "For business travellers and delegations from the Eastern Province crossing to Dubai we provide an executive sedan or full-size SUV with a professional chauffeur down the Gulf coast. Cross-border documentation is supported; you carry your own valid papers. Regular company travel can run on one account with a single point of contact.",
-    waPrefill: `Salam! Executive car with driver — Dammam / Dubai (UAE).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    waPrefill: `Salam! Executive car with driver — Dammam / Dubai (UAE).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Dammam–Dubai",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for an executive car with driver between Dammam and Dubai, UAE.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
@@ -322,7 +350,7 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
     heading: "Executive car with driver, Al Khobar to Bahrain?",
     intro:
       "For business travellers making the quick Causeway crossing to Manama we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. Documentation is supported — you carry your own valid papers. Regular company trips can run on a single account with one point of contact.",
-    waPrefill: `Salam! Executive car with driver — Al Khobar / Manama (Bahrain).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    waPrefill: `Salam! Executive car with driver — Al Khobar / Manama (Bahrain).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Al Khobar–Bahrain",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Al Khobar and Manama, Bahrain (via the King Fahd Causeway).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
@@ -330,7 +358,7 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
     heading: "Executive car with driver, Bahrain to Dammam?",
     intro:
       "For business travellers returning across the King Fahd Causeway to Dammam we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. Documentation is supported — you carry your own valid papers. Regular company trips can run on a single account with one point of contact.",
-    waPrefill: `Salam! Executive car with driver — Manama (Bahrain) / Dammam.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    waPrefill: `Salam! Executive car with driver — Manama (Bahrain) / Dammam.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Bahrain–Dammam",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Manama, Bahrain and Dammam (via the King Fahd Causeway).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
@@ -338,7 +366,7 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
     heading: "Executive car with driver, Bahrain to Al Khobar?",
     intro:
       "For business travellers making the quick Causeway return to Al Khobar we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. Documentation is supported — you carry your own valid papers. Regular company trips can run on a single account with one point of contact.",
-    waPrefill: `Salam! Executive car with driver — Manama (Bahrain) / Al Khobar.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    waPrefill: `Salam! Executive car with driver — Manama (Bahrain) / Al Khobar.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Bahrain–Al Khobar",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Manama, Bahrain and Al Khobar (via the King Fahd Causeway).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
@@ -346,9 +374,41 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
     heading: "Executive car with driver, Bahrain to Riyadh?",
     intro:
       "For business travellers returning to Riyadh across the King Fahd Causeway we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. Documentation is supported — you carry your own valid papers. Regular company trips can run on a single account with one point of contact.",
-    waPrefill: `Salam! Executive car with driver — Manama (Bahrain) / Riyadh.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)? : `,
+    waPrefill: `Salam! Executive car with driver — Manama (Bahrain) / Riyadh.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Bahrain–Riyadh",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Manama, Bahrain and Riyadh (via the King Fahd Causeway).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
+  "tabuk-to-aqaba": {
+    heading: "Executive car with driver, Tabuk to Aqaba?",
+    intro:
+      "For business travellers crossing to Jordan via the Al Durrah border we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. Documentation is supported — you carry your own valid papers. Regular company trips can run on a single account with one point of contact.",
+    waPrefill: `Salam! Executive car with driver — Tabuk / Aqaba (Jordan).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Tabuk–Aqaba",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Tabuk and Aqaba, Jordan (via the Al Durrah border near Haql).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
+  "aqaba-to-tabuk": {
+    heading: "Executive car with driver, Aqaba to Tabuk?",
+    intro:
+      "For business travellers returning from Jordan via the Al Durrah border we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. Documentation is supported — you carry your own valid papers. Regular company trips can run on a single account with one point of contact.",
+    waPrefill: `Salam! Executive car with driver — Aqaba (Jordan) / Tabuk.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Aqaba–Tabuk",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Aqaba, Jordan and Tabuk (via the Al Durrah border near Haql).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
+  "neom-to-aqaba": {
+    heading: "Executive car with driver, NEOM to Aqaba?",
+    intro:
+      "For business travellers and delegations crossing to Jordan via the Al Durrah border we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. Documentation is supported — you carry your own valid papers. Regular company trips can run on a single account with one point of contact.",
+    waPrefill: `Salam! Executive car with driver — NEOM / Aqaba (Jordan).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — NEOM–Aqaba",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between NEOM and Aqaba, Jordan (via the Al Durrah border near Haql).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
+  "aqaba-to-neom": {
+    heading: "Executive car with driver, Aqaba to NEOM?",
+    intro:
+      "For business travellers returning from Jordan via the Al Durrah border we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. Documentation is supported — you carry your own valid papers. Regular company trips can run on a single account with one point of contact.",
+    waPrefill: `Salam! Executive car with driver — Aqaba (Jordan) / NEOM.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Aqaba–NEOM",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Aqaba, Jordan and NEOM (via the Al Durrah border near Haql).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
 };
 
@@ -1696,6 +1756,66 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "Is meet & greet included for business arrivals?", answer: "Yes — your driver waits inside the arrivals hall with a name sign, tracks your flight for delays, and includes 60 minutes of free waiting time, the same as every other airport transfer." },
     ],
   },
+  "tabuk-to-aqaba": {
+    tldr: "A private car from Tabuk to Aqaba, Jordan is about 130 km and takes roughly 1 hour 40 minutes plus the Saudi–Jordan border crossing at Al Durrah, near Haql. The fare is fixed, confirmed on WhatsApp, with documentation support for the crossing.",
+    tldrFacts: [
+      { label: "Distance", value: "~130 km" },
+      { label: "Time", value: "~1 hr 40 + border" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Tabuk from Aqaba, Jordan?", answer: "Tabuk to Aqaba is about 130 km — roughly a 1 hour 40 minute drive plus time at the Saudi–Jordan border (Al Durrah crossing near Haql)." },
+      { question: "What documents do I need to cross into Jordan?", answer: "A valid passport and the correct Jordan entry visa or eligibility. Share your details in advance so we can advise and prepare for a smooth crossing." },
+      { question: "Is this a local Aqaba taxi service?", answer: "No. We arrange a pre-booked, private cross-border car from Tabuk to Aqaba through our partner driver network. We are not a licensed local Jordanian taxi operator." },
+      { question: "What vehicles are available for the Tabuk to Aqaba trip?", answer: "Executive sedan, full-size SUV, or van, depending on passengers and luggage — share your group size when requesting a quote." },
+    ],
+  },
+  "aqaba-to-tabuk": {
+    tldr: "A private car from Aqaba, Jordan to Tabuk is about 130 km and takes roughly 1 hour 40 minutes plus the Jordan–Saudi border crossing at Al Durrah, near Haql. The fare is fixed, confirmed on WhatsApp, with documentation support for the return crossing.",
+    tldrFacts: [
+      { label: "Distance", value: "~130 km" },
+      { label: "Time", value: "~1 hr 40 + border" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Aqaba from Tabuk?", answer: "Aqaba to Tabuk is about 130 km — roughly a 1 hour 40 minute drive plus time at the Jordan–Saudi border (Al Durrah crossing near Haql)." },
+      { question: "What documents do I need to cross back into Saudi Arabia?", answer: "A valid passport and the correct Saudi entry visa or eligibility. Share your details in advance so we can advise and prepare for a smooth crossing." },
+      { question: "How much is a taxi from Aqaba to Tabuk?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles for the cross-border journey." },
+      { question: "What vehicles are available for the Aqaba to Tabuk trip?", answer: "Executive sedan, full-size SUV, or van, depending on passengers and luggage — share your group size when requesting a quote." },
+    ],
+  },
+  "neom-to-aqaba": {
+    tldr: "A private car from NEOM to Aqaba, Jordan is about 100 km and takes roughly 1 hour 30 minutes plus the Saudi–Jordan border crossing at Al Durrah, near Haql. The fare is fixed, confirmed on WhatsApp, with documentation support for the crossing.",
+    tldrFacts: [
+      { label: "Distance", value: "~100 km" },
+      { label: "Time", value: "~1 hr 30 + border" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is NEOM from Aqaba, Jordan?", answer: "NEOM to Aqaba is about 100 km — roughly a 1 hour 30 minute drive plus time at the Saudi–Jordan border (Al Durrah crossing near Haql)." },
+      { question: "What documents do I need to cross into Jordan from NEOM?", answer: "A valid passport and the correct Jordan entry visa or eligibility. Share your details in advance so we can advise and prepare for a smooth crossing." },
+      { question: "Is this a local Aqaba taxi service?", answer: "No. We arrange a pre-booked, private cross-border car from NEOM to Aqaba through our partner driver network. We are not a licensed local Jordanian taxi operator." },
+      { question: "What vehicles are available for the NEOM to Aqaba trip?", answer: "Executive sedan, full-size SUV, or van, depending on passengers and luggage — share your group size when requesting a quote." },
+    ],
+  },
+  "aqaba-to-neom": {
+    tldr: "A private car from Aqaba, Jordan to NEOM is about 100 km and takes roughly 1 hour 30 minutes plus the Jordan–Saudi border crossing at Al Durrah, near Haql. The fare is fixed, confirmed on WhatsApp, with documentation support for the return crossing.",
+    tldrFacts: [
+      { label: "Distance", value: "~100 km" },
+      { label: "Time", value: "~1 hr 30 + border" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Aqaba from NEOM?", answer: "Aqaba to NEOM is about 100 km — roughly a 1 hour 30 minute drive plus time at the Jordan–Saudi border (Al Durrah crossing near Haql)." },
+      { question: "What documents do I need to cross back into Saudi Arabia?", answer: "A valid passport and the correct Saudi entry visa or eligibility. Share your details in advance so we can advise and prepare for a smooth crossing." },
+      { question: "How much is a taxi from Aqaba to NEOM?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles for the cross-border journey." },
+      { question: "What vehicles are available for the Aqaba to NEOM trip?", answer: "Executive sedan, full-size SUV, or van, depending on passengers and luggage — share your group size when requesting a quote." },
+    ],
+  },
 };
 
 // Explicit inbound links from the highest-traffic Makkah route page — the
@@ -1828,6 +1948,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "jeddah-to-abudhabi": "Taxi Jeddah to Abu Dhabi, UAE — Cross-Border Fare, Distance & Booking",
     "riyadh-to-kuwait": "Riyadh to Kuwait Taxi — Private Cross-Border Car & Chauffeur",
     "dammam-to-dubai": "Taxi Dammam to Dubai, UAE — Cross-Border Fare, Distance & Booking",
+    "aqaba-to-tabuk": "Taxi Aqaba, Jordan to Tabuk — Cross-Border Fare, Distance & Booking",
+    "neom-to-aqaba": "Taxi NEOM to Aqaba, Jordan — Cross-Border Fare, Distance & Booking",
+    "aqaba-to-neom": "Taxi Aqaba, Jordan to NEOM — Cross-Border Fare, Distance & Booking",
   };
   const title = TITLE_OVERRIDES[slug] ?? (routeLabel.length > 55 ? routeLabel : `${routeLabel} | Taxi Saudi Arabia`);
   const priceBlurb = "Fare confirmed on WhatsApp";
@@ -1861,6 +1984,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "dammam-to-doha": "Private car with driver, Dammam to Doha (Qatar) — ~400 km via the Salwa border. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
     "riyadh-to-kuwait": "Private car with driver, Riyadh to Kuwait City — ~650 km via the Nuwaiseeb–Al Khafji border. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
     "dammam-to-dubai": "Private car with driver, Dammam to Dubai (UAE) — ~890 km via the Al Batha–Ghuwaifat border. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
+    "tabuk-to-aqaba": "Private car with driver, Tabuk to Aqaba, Jordan — ~130 km via the Al Durrah border near Haql. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
+    "aqaba-to-tabuk": "Private car with driver, Aqaba, Jordan to Tabuk — ~130 km via the Al Durrah border near Haql. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
+    "neom-to-aqaba": "Private car with driver, NEOM to Aqaba, Jordan — ~100 km via the Al Durrah border near Haql. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
+    "aqaba-to-neom": "Private car with driver, Aqaba, Jordan to NEOM — ~100 km via the Al Durrah border near Haql. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
   };
 
   return {

@@ -480,6 +480,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { href: "/routes/red-sea-airport-to-neom", label: "Red Sea Airport to NEOM transfer" },
       { href: "/routes/riyadh-to-neom", label: "Riyadh to NEOM long-distance taxi" },
       { href: "/routes/jeddah-to-neom", label: "Jeddah to NEOM long-distance taxi" },
+      { href: "/routes/neom-to-aqaba", label: "NEOM to Aqaba, Jordan — private car with driver" },
       { href: "/airports/tabuk-regional", label: "Tabuk Regional Airport (TUU)" },
       { href: "/airports/red-sea", label: "Red Sea International Airport (RSI)" },
       { href: "/fleet/gmc-yukon-xl", label: "GMC Yukon XL — Family & Group SUV" },
