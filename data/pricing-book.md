@@ -30,3 +30,6 @@ client, per `CLAUDE.md` rule 1.
 | 2026-09-20 | Yanbu | Jeddah Airport (JED) | Sedan | One-way | 500 | Going leg only (1 pax); paired with a separate return vehicle |
 | 2026-09-20 | Jeddah Airport (JED) | Yanbu | SUV (GMC Yukon XL) | One-way | 1200 | Return leg (5 pax); + 500 SAR going leg = 1,700 SAR total (option A) |
 | 2026-09-20 | Jeddah Airport (JED) | Yanbu | Van (Hyundai Staria) | One-way | 700 | Return leg (5 pax), cheaper alt; + 500 SAR going leg = 1,200 SAR total (option B) |
+| 2026-09-20 | Makkah | Madinah | SUV (GMC Yukon XL 2026) | One-way | 950 | Final best offer; lost to competitor's 800 SAR (also claimed 2026 model) |
+| 2026-09-20 | Riyadh (Al Khuzama) | Dubai | SUV (GMC Yukon XL 2025) | One-way | 3000 | 2 pax; cross-border; pay-after-trip; generic 1,000 SAR/day baseline floated before route was known, corrected once route confirmed |
+| 2026-09-20 | Riyadh | Manama (Bahrain) | Sedan | One-way | 850 | 1 pax; private ride only, no shared option; pickup ~2 days out |
