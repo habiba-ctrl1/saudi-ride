@@ -1,8 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Plus, ToggleRight, Trash2, Loader2, BookOpen, Search } from "lucide-react";
+import { Plus, ToggleRight, Trash2, Loader2, BookOpen, Search, ChevronDown, ChevronRight } from "lucide-react";
 
 type PriceBookEntry = {
   id: string;
@@ -71,6 +71,34 @@ export function PricingBookClient({ entries }: { entries: PriceBookEntry[] }) {
       return true;
     });
   }, [entries, search, pickupFilter, destinationFilter, vehicleFilter, crossBorderOnly]);
+
+  // Same route + same vehicle + same trip type -> one row with a price range,
+  // instead of one row per individual quote (which reads as duplicates).
+  const groups = useMemo(() => {
+    const map = new Map<string, { fromCity: string; toCity: string; vehicleType: string; tripType: string; crossBorder: boolean; entries: PriceBookEntry[] }>();
+    for (const e of filtered) {
+      const key = `${e.fromCity}|${e.toCity}|${e.vehicleType}|${e.tripType}`;
+      const g = map.get(key);
+      if (g) {
+        g.entries.push(e);
+      } else {
+        map.set(key, { fromCity: e.fromCity, toCity: e.toCity, vehicleType: e.vehicleType, tripType: e.tripType, crossBorder: e.crossBorder, entries: [e] });
+      }
+    }
+    return Array.from(map.values())
+      .map((g) => ({ ...g, entries: g.entries.sort((a, b) => a.price - b.price) }))
+      .sort((a, b) => a.fromCity.localeCompare(b.fromCity) || a.toCity.localeCompare(b.toCity));
+  }, [filtered]);
+
+  const [expanded, setExpanded] = useState<Set<string>>(new Set());
+  function toggleExpanded(key: string) {
+    setExpanded((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
+  }
 
   async function createEntry(e: React.FormEvent) {
     e.preventDefault();
@@ -213,7 +241,7 @@ export function PricingBookClient({ entries }: { entries: PriceBookEntry[] }) {
       {error && <p className="text-xs text-red-400">{error}</p>}
 
       <div className="bg-[#111] border border-[#C9A84C]/15 rounded-2xl overflow-hidden">
-        {filtered.length === 0 ? (
+        {groups.length === 0 ? (
           <div className="p-12 text-center">
             <BookOpen className="h-12 w-12 text-[#7C8088] mx-auto mb-4" />
             <h3 className="font-heading text-xl font-bold text-[#F5F0E8] mb-2">No Prices Saved Yet</h3>
@@ -227,52 +255,73 @@ export function PricingBookClient({ entries }: { entries: PriceBookEntry[] }) {
                   <th className="p-4 font-bold">Route</th>
                   <th className="p-4 font-bold">Vehicle</th>
                   <th className="p-4 font-bold">Trip</th>
-                  <th className="p-4 font-bold">Price</th>
-                  <th className="p-4 font-bold">Kind</th>
-                  <th className="p-4 font-bold">Notes</th>
-                  <th className="p-4 font-bold">Status</th>
+                  <th className="p-4 font-bold">Price Range</th>
+                  <th className="p-4 font-bold">Quotes</th>
                   <th className="p-4 font-bold text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#C9A84C]/5">
-                {filtered.map((e) => {
-                  const busy = busyId === e.id;
-                  const kind = PRICE_KIND_LABEL[e.priceKind] ?? PRICE_KIND_LABEL.CLIENT_OBSERVED;
+                {groups.map((g) => {
+                  const key = `${g.fromCity}|${g.toCity}|${g.vehicleType}|${g.tripType}`;
+                  const isOpen = expanded.has(key);
+                  const prices = g.entries.map((e) => e.price);
+                  const lo = Math.min(...prices);
+                  const hi = Math.max(...prices);
+                  const currency = g.entries[0].currency;
                   return (
-                    <tr key={e.id} className="hover:bg-[#1A1A1A]/50 transition-colors">
-                      <td className="p-4 text-sm font-bold text-[#F5F0E8]">
-                        {e.fromCity} → {e.toCity}
-                        {e.crossBorder && (
-                          <span className="ml-2 inline-flex items-center px-1.5 py-0.5 rounded text-[0.55rem] font-bold uppercase tracking-wider border bg-blue-500/10 text-blue-400 border-blue-500/20">
-                            Cross-border
-                          </span>
-                        )}
-                      </td>
-                      <td className="p-4 text-sm text-[#A1A1A6]">{e.vehicleType}</td>
-                      <td className="p-4 text-sm text-[#A1A1A6]">{e.tripType === "ONE_WAY" ? "One-way" : "Round-trip"}</td>
-                      <td className="p-4 text-sm font-mono font-bold text-[#C9A84C]">{e.currency} {e.price.toLocaleString()}</td>
-                      <td className="p-4">
-                        <span className={`inline-flex items-center px-2 py-1 rounded text-[0.55rem] font-bold uppercase tracking-wider border ${kind.className}`}>
-                          {kind.label}
-                        </span>
-                      </td>
-                      <td className="p-4 text-xs text-[#A1A1A6] max-w-[220px] truncate" title={e.notes || ""}>{e.notes || "—"}</td>
-                      <td className="p-4">
-                        <span className={`inline-flex items-center px-2 py-1 rounded text-[0.55rem] font-bold uppercase tracking-wider border ${e.isActive ? "bg-green-500/10 text-green-500 border-green-500/20" : "bg-red-500/10 text-red-500 border-red-500/20"}`}>
-                          {e.isActive ? "Active" : "Inactive"}
-                        </span>
-                      </td>
-                      <td className="p-4 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <button disabled={busy} onClick={() => toggleActive(e.id, e.isActive)} className="p-2 rounded-lg border border-[#333] text-[#A1A1A6] hover:border-[#C9A84C]/40 disabled:opacity-40">
-                            {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <ToggleRight className={`h-4 w-4 ${e.isActive ? "text-green-500" : "text-red-500"}`} />}
-                          </button>
-                          <button disabled={busy} onClick={() => deleteEntry(e.id, `${e.fromCity} → ${e.toCity}`)} className="p-2 rounded-lg border border-red-500/20 text-red-400 hover:bg-red-500/10 disabled:opacity-40">
-                            <Trash2 className="h-4 w-4" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
+                    <Fragment key={key}>
+                      <tr className="hover:bg-[#1A1A1A]/50 transition-colors cursor-pointer" onClick={() => toggleExpanded(key)}>
+                        <td className="p-4 text-sm font-bold text-[#F5F0E8]">
+                          <div className="flex items-center gap-2">
+                            {g.entries.length > 1 ? (isOpen ? <ChevronDown className="h-3.5 w-3.5 text-[#7C8088] shrink-0" /> : <ChevronRight className="h-3.5 w-3.5 text-[#7C8088] shrink-0" />) : <span className="w-3.5 shrink-0" />}
+                            <span>{g.fromCity} → {g.toCity}</span>
+                            {g.crossBorder && (
+                              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[0.55rem] font-bold uppercase tracking-wider border bg-blue-500/10 text-blue-400 border-blue-500/20">
+                                Cross-border
+                              </span>
+                            )}
+                          </div>
+                        </td>
+                        <td className="p-4 text-sm text-[#A1A1A6]">{g.vehicleType}</td>
+                        <td className="p-4 text-sm text-[#A1A1A6]">{g.tripType === "ONE_WAY" ? "One-way" : "Round-trip"}</td>
+                        <td className="p-4 text-sm font-mono font-bold text-[#C9A84C]">
+                          {lo === hi ? `${currency} ${lo.toLocaleString()}` : `${currency} ${lo.toLocaleString()}–${hi.toLocaleString()}`}
+                        </td>
+                        <td className="p-4 text-xs text-[#A1A1A6]">{g.entries.length} quote{g.entries.length > 1 ? "s" : ""}</td>
+                        <td className="p-4 text-right text-[0.65rem] text-[#7C8088]">{g.entries.length > 1 ? (isOpen ? "Hide" : "View all") : ""}</td>
+                      </tr>
+                      {isOpen && g.entries.map((e) => {
+                        const busy = busyId === e.id;
+                        const kind = PRICE_KIND_LABEL[e.priceKind] ?? PRICE_KIND_LABEL.CLIENT_OBSERVED;
+                        return (
+                          <tr key={e.id} className="bg-black/20">
+                            <td className="p-3 pl-11 text-xs text-[#A1A1A6]" colSpan={2}>
+                              <span className={`inline-flex items-center px-2 py-0.5 mr-2 rounded text-[0.55rem] font-bold uppercase tracking-wider border ${kind.className}`}>
+                                {kind.label}
+                              </span>
+                              <span className="truncate">{e.notes || "—"}</span>
+                            </td>
+                            <td className="p-3 text-xs text-[#A1A1A6]">
+                              <span className={`inline-flex items-center px-2 py-0.5 rounded text-[0.55rem] font-bold uppercase tracking-wider border ${e.isActive ? "bg-green-500/10 text-green-500 border-green-500/20" : "bg-red-500/10 text-red-500 border-red-500/20"}`}>
+                                {e.isActive ? "Active" : "Inactive"}
+                              </span>
+                            </td>
+                            <td className="p-3 text-xs font-mono font-bold text-[#C9A84C]">{e.currency} {e.price.toLocaleString()}</td>
+                            <td className="p-3" />
+                            <td className="p-3 text-right">
+                              <div className="flex items-center justify-end gap-2">
+                                <button disabled={busy} onClick={() => toggleActive(e.id, e.isActive)} className="p-1.5 rounded-lg border border-[#333] text-[#A1A1A6] hover:border-[#C9A84C]/40 disabled:opacity-40">
+                                  {busy ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <ToggleRight className={`h-3.5 w-3.5 ${e.isActive ? "text-green-500" : "text-red-500"}`} />}
+                                </button>
+                                <button disabled={busy} onClick={() => deleteEntry(e.id, `${e.fromCity} → ${e.toCity}`)} className="p-1.5 rounded-lg border border-red-500/20 text-red-400 hover:bg-red-500/10 disabled:opacity-40">
+                                  <Trash2 className="h-3.5 w-3.5" />
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </Fragment>
                   );
                 })}
               </tbody>
