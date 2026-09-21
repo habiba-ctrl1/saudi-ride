@@ -14,8 +14,8 @@ const ZATCA_READY = hasCredential(credentials.vatNumber);
 
 const TITLE = "Corporate Taxi & Executive Chauffeur | Saudi Arabia";
 const DESCRIPTION = ZATCA_READY
-  ? "Corporate taxi & executive chauffeur accounts in Saudi Arabia. Monthly invoicing, ZATCA receipts, priority dispatch, dedicated account managers."
-  : "Corporate taxi & executive chauffeur accounts in Saudi Arabia. Monthly invoicing, priority dispatch, dedicated account managers.";
+  ? "Corporate taxi & executive chauffeur accounts in Saudi Arabia. Monthly invoicing through our licensed Saudi partner operator with compliant VAT invoices, dedicated account managers."
+  : "Corporate taxi & executive chauffeur accounts in Saudi Arabia. Monthly invoicing through our licensed Saudi partner operator, dedicated account managers.";
 const OG_IMAGE = "https://taxisaudiarabia.com/services/corporate-hero.webp";
 
 export const metadata: Metadata = {
@@ -42,12 +42,12 @@ const FEATURES = [
     icon: ReceiptText,
     title: "Monthly Invoicing",
     desc: ZATCA_READY
-      ? "Consolidated billing at the end of the month with full ZATCA-compliant e-invoices for easy accounting."
-      : "Consolidated billing at the end of the month for easy accounting.",
+      ? "Consolidated billing at the end of the month, invoiced through our licensed Saudi partner operator with a compliant VAT invoice."
+      : "Consolidated billing at the end of the month, invoiced through our licensed Saudi partner operator for easy accounting.",
   },
   { icon: UserCheck, title: "Dedicated Manager", desc: "A single point of contact for all your executive transport logistics and complex bookings." },
-  { icon: ShieldCheck, title: "Priority Dispatch", desc: "Corporate accounts receive priority vehicle allocation, even during peak rush hour or major events." },
-  { icon: Building2, title: "VIP Fleet Access", desc: "Guaranteed access to our top-tier S-Class and Luxury SUV fleet for visiting executives and board members." },
+  { icon: ShieldCheck, title: "Fixed-Fare Quotes", desc: "Every corporate trip is quoted and agreed before booking — no meter, no surge, so costs stay predictable for approvals and reporting." },
+  { icon: Building2, title: "Executive Vehicle Access", desc: "Executive sedans and luxury SUVs available through our partner network for visiting executives and board members, subject to availability." },
 ];
 
 export default function CorporateAccountsPage() {
@@ -58,8 +58,8 @@ export default function CorporateAccountsPage() {
           serviceSchema({
             name: "Corporate Taxi Accounts & B2B Transport",
             description: ZATCA_READY
-              ? "Corporate taxi accounts and B2B transport solutions in Saudi Arabia with monthly ZATCA-compliant invoicing, dedicated account managers, and priority dispatch."
-              : "Corporate taxi accounts and B2B transport solutions in Saudi Arabia with monthly invoicing, dedicated account managers, and priority dispatch.",
+              ? "Corporate taxi accounts and B2B transport solutions in Saudi Arabia with monthly invoicing through a licensed Saudi partner operator, compliant VAT invoices, and dedicated account managers."
+              : "Corporate taxi accounts and B2B transport solutions in Saudi Arabia with monthly invoicing through a licensed Saudi partner operator and dedicated account managers.",
             path: "/services/corporate",
             serviceType: "Corporate Transport",
             areaServed: ["Saudi Arabia"],
@@ -95,19 +95,19 @@ export default function CorporateAccountsPage() {
             <span className="text-[#16A34A]">for Modern Business</span>
           </h1>
           <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-8">
-            Streamline your company&apos;s travel logistics with our dedicated corporate accounts. Enjoy monthly billing{ZATCA_READY ? ", ZATCA tax compliance," : ","} and unmatched VIP service across the Kingdom.
+            Streamline your company&apos;s travel logistics with our dedicated corporate accounts. Enjoy monthly billing through our licensed Saudi partner operator{ZATCA_READY ? " with compliant VAT invoices" : ""}, and access to executive-standard vehicles through our partner network across the Kingdom.
           </p>
           <div className="max-w-2xl mx-auto mb-10 text-left">
             <TLDRSummary
               answer={
                 ZATCA_READY
-                  ? "Corporate taxi accounts in Saudi Arabia include monthly ZATCA-compliant invoicing, a dedicated account manager, priority dispatch, and guaranteed access to our VIP fleet for executives."
-                  : "Corporate taxi accounts in Saudi Arabia include monthly invoicing, a dedicated account manager, priority dispatch, and guaranteed access to our VIP fleet for executives."
+                  ? "Corporate taxi accounts in Saudi Arabia include monthly invoicing through our licensed Saudi partner operator with compliant VAT invoices, a dedicated account manager, and access to executive vehicles through our partner network."
+                  : "Corporate taxi accounts in Saudi Arabia include monthly invoicing through our licensed Saudi partner operator, a dedicated account manager, and access to executive vehicles through our partner network."
               }
               facts={[
-                { label: "Billing", value: ZATCA_READY ? "Monthly, ZATCA e-invoice" : "Monthly invoicing" },
+                { label: "Billing", value: ZATCA_READY ? "Monthly, partner VAT invoice" : "Monthly invoicing" },
                 { label: "Support", value: "Dedicated manager" },
-                { label: "Fleet", value: "VIP / Executive" },
+                { label: "Vehicles", value: "Executive / VIP network" },
               ]}
             />
           </div>
@@ -132,14 +132,10 @@ export default function CorporateAccountsPage() {
 
       {/* ─── LOGOS ────────────────────────────────────────────────── */}
       <section className="border-b border-[#C9A84C]/10 py-10 bg-white">
-        <div className="section-container max-w-5xl">
-          <p className="text-center text-[0.65rem] uppercase tracking-widest font-bold text-[#6B7280] mb-6">Serving organizations across the Kingdom</p>
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-40 grayscale">
-             <div className="font-heading text-xl font-bold">HOTELS</div>
-             <div className="font-heading text-xl font-bold">TRAVEL AGENCIES</div>
-             <div className="font-heading text-xl font-bold">CORPORATES</div>
-             <div className="font-heading text-xl font-bold">EVENT ORGANIZERS</div>
-          </div>
+        <div className="section-container max-w-5xl text-center">
+          <p className="text-sm text-[#6B7280]">
+            Corporate accounts are available for hotels, travel agencies, corporates and event organisers across the Kingdom.
+          </p>
         </div>
       </section>
 
@@ -177,7 +173,7 @@ export default function CorporateAccountsPage() {
                 ...(ZATCA_READY ? [["ZATCA Compliant E-Invoicing", false, true]] : []),
                 ["Monthly Post-Paid Billing", false, true],
                 ["Dedicated Account Manager", false, true],
-                ["Priority Dispatch in Rush Hour", false, true],
+                ["Fixed-Fare Quotes Before Booking", false, true],
                 ["Custom SLA Agreements", false, true],
                 ["Volume Booking Discounts", false, true],
               ].map((row, i) => (
@@ -220,9 +216,8 @@ export default function CorporateAccountsPage() {
         const faqs = [
           {
             question: "How does monthly corporate billing work?",
-            answer: ZATCA_READY
-              ? "Your company is invoiced once at month-end with a consolidated, ZATCA-compliant statement covering all rides, instead of paying per trip."
-              : "Your company is invoiced once at month-end with a consolidated statement covering all rides, instead of paying per trip.",
+            answer:
+              "Corporate bookings are invoiced through our licensed Saudi partner operator, so you receive a compliant VAT invoice. Send your company name, VAT number and PO reference with your enquiry and we'll confirm invoicing details before the booking is finalised. Your company then receives a consolidated statement at month-end covering all rides, instead of paying per trip.",
           },
           { question: "Can multiple employees book under one account?", answer: "Yes. Corporate accounts support multiple authorized bookers and travelers under a single billing profile with a dedicated account manager." },
           { question: "Do corporate accounts get priority during peak times?", answer: "Yes. Corporate bookings receive priority vehicle allocation during rush hours and major events." },

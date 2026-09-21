@@ -15,10 +15,10 @@ const waLink = (msg: string) =>
 
 const ZATCA_READY = hasCredential(credentials.vatNumber);
 
-const TITLE = "Business & Executive Transport | Taxi Saudi Arabia";
+const TITLE = "Private Chauffeur & Executive Transport | Taxi Saudi Arabia";
 const DESCRIPTION = ZATCA_READY
-  ? "Executive chauffeur service in Riyadh, Jeddah & Dammam — Mercedes S-Class & GMC Yukon for corporate meetings, KAFD & conferences. Fixed fares, ZATCA receipts, 24/7 dispatch."
-  : "Executive chauffeur service in Riyadh, Jeddah & Dammam — Mercedes S-Class & GMC Yukon for corporate meetings, KAFD & conferences. Fixed fares, 24/7 dispatch.";
+  ? "Private chauffeur & executive transport in Riyadh, Jeddah & Dammam — hourly, half-day or full day. Fixed fares, partner-operator VAT invoicing, 24/7 dispatch."
+  : "Private chauffeur & executive transport in Riyadh, Jeddah & Dammam — hourly, half-day or full day. Fixed fares, partner-operator invoicing, 24/7 dispatch.";
 const OG_IMAGE = "https://taxisaudiarabia.com/services/business-executive-hero.webp";
 
 export const metadata: Metadata = {
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 
 const FEATURES = [
   { icon: Briefcase, title: "Corporate Standards", desc: "Immaculate vehicles and professionally attired chauffeurs to reflect your corporate image." },
-  { icon: Clock, title: "Punctuality Guaranteed", desc: "We arrive 15 minutes before your scheduled pickup to ensure you're never late for a meeting." },
+  { icon: Clock, title: "Punctual Dispatch", desc: "Chauffeurs are scheduled ahead of your pickup time so you're not left waiting before a meeting." },
   { icon: Wifi, title: "Mobile Office", desc: "Complimentary high-speed Wi-Fi in select vehicles to keep you connected on the go." },
   { icon: ShieldCheck, title: "Discreet Service", desc: "Confidentiality and privacy guaranteed for traveling executives and board members." },
 ];
@@ -53,9 +53,9 @@ export default function BusinessExecutivePage() {
       <JsonLd
         data={[
           serviceSchema({
-            name: "Business & Executive Transport",
+            name: "Private Chauffeur & Executive Transport",
             description:
-              "Executive car service for business travelers in Saudi Arabia with professional chauffeurs, Wi-Fi equipped vehicles, and guaranteed punctuality.",
+              "Private chauffeur and executive car service for business travelers in Saudi Arabia with professional chauffeurs and Wi-Fi equipped vehicles, bookable by the hour, half-day or full day.",
             path: "/services/business-executive",
             serviceType: "Executive Car Service",
             areaServed: ["Riyadh", "Jeddah", "Dammam"],
@@ -67,7 +67,7 @@ export default function BusinessExecutivePage() {
         items={[
           { name: "Home", href: "/" },
           { name: "Services", href: "/services" },
-          { name: "Business & Executive", href: "/services/business-executive" },
+          { name: "Private Chauffeur & Executive", href: "/services/business-executive" },
         ]}
       />
       <section className="relative pt-32 pb-20 overflow-hidden border-b border-[#C9A84C]/10">
@@ -86,15 +86,15 @@ export default function BusinessExecutivePage() {
             <Briefcase className="h-3 w-3" /> Corporate Travel
           </span>
           <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-            Business Executive <br />
-            <span className="text-[#16A34A]">Transport</span>
+            Private Chauffeur & <br />
+            <span className="text-[#16A34A]">Executive Transport</span>
           </h1>
           <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-8">
-            Seamless travel logistics for professionals. From airport pickups to full-day standby services for your roadshows and meetings in Riyadh, Jeddah, or Dammam.
+            A private chauffeur for professionals — book by the hour, for a full-day standby, or for airport pickups, roadshows and meetings in Riyadh, Jeddah, or Dammam.
           </p>
           <div className="max-w-2xl mx-auto mb-10 text-left">
             <TLDRSummary
-              answer="Business executive transport in Saudi Arabia offers professional chauffeurs, Wi-Fi equipped sedans, and guaranteed 15-minute-early arrivals for meetings in Riyadh, Jeddah, and Dammam."
+              answer="Private chauffeur and executive transport in Saudi Arabia offers a dedicated professional driver by the hour, half-day or full day, with Wi-Fi equipped sedans and SUVs for meetings, airport transfers and city travel in Riyadh, Jeddah, and Dammam."
               facts={[
                 { label: "Coverage", value: "Riyadh / Jeddah / Dammam" },
                 { label: "Punctuality", value: "15 min early" },
@@ -134,12 +134,13 @@ export default function BusinessExecutivePage() {
       </section>
       {(() => {
         const faqs = [
+          { question: "Can I book a private chauffeur by the hour?", answer: "Yes. You can book a private chauffeur by the hour, for a half-day, or for a full day — the vehicle and driver stay dedicated to you between stops." },
           { question: "Can I book a chauffeur for a full day of meetings?", answer: "Yes. We offer hourly and full-day executive charter where your chauffeur stays on standby between meetings across the city." },
           {
             question: "Do you provide invoices for corporate expense claims?",
             answer: ZATCA_READY
-              ? "Yes. We issue ZATCA-compliant e-invoices suitable for company expense and reimbursement claims."
-              : "Yes. We issue itemized invoices suitable for company expense and reimbursement claims.",
+              ? "Yes. Invoices are issued through our licensed Saudi partner operator with a compliant VAT invoice, suitable for company expense and reimbursement claims."
+              : "Yes. Invoices are issued through our licensed Saudi partner operator, suitable for company expense and reimbursement claims.",
           },
           { question: "Are your executive vehicles equipped for working on the move?", answer: "Select vehicles include complimentary Wi-Fi, charging ports, and a quiet cabin so you can work or take calls en route." },
         ];
