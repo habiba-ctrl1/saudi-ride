@@ -1,0 +1,42 @@
+{
+  "crossBorder": [
+    "Aqaba/Jordan ⇄ NEOM/Oxagon",
+    "Aqaba/Jordan ⇄ Tabuk",
+    "Bahrain ⇄ Dhahran",
+    "Bahrain ⇄ Khobar",
+    "Bahrain ⇄ Riyadh",
+    "Dammam ⇄ Doha/Qatar",
+    "Dammam ⇄ Dubai",
+    "Doha/Qatar ⇄ Riyadh",
+    "Dubai ⇄ Riyadh"
+  ],
+  "intercity": [
+    "Abha ⇄ Dammam",
+    "Abha ⇄ Jazan",
+    "Abha ⇄ Rijal Almaa",
+    "Abha ⇄ Riyadh",
+    "Al Qasim ⇄ Riyadh",
+    "Al-Ula ⇄ Madinah",
+    "Dammam ⇄ Madinah",
+    "Dammam ⇄ Riyadh",
+    "Dhahran ⇄ Makkah",
+    "Hail ⇄ Riyadh",
+    "Jazan ⇄ Jeddah",
+    "Jeddah ⇄ Makkah",
+    "Jeddah ⇄ Yanbu",
+    "Madinah ⇄ Makkah",
+    "Madinah ⇄ Riyadh",
+    "Madinah ⇄ Tabuk",
+    "Madinah ⇄ Yanbu",
+    "Makkah ⇄ Riyadh",
+    "NEOM/Oxagon ⇄ Tabuk",
+    "Abha (local / airport transfer)",
+    "Badr Ziyarat",
+    "Jeddah (local / airport transfer)",
+    "Madinah (local / airport transfer)",
+    "Madinah Ziyarat",
+    "Makkah Ziyarat",
+    "Riyadh (local / airport transfer)",
+    "Taif Ziyarat"
+  ]
+}
