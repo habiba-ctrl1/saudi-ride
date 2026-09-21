@@ -79,6 +79,11 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { quote: "Arrived at Madinah airport late evening and the driver was waiting at arrivals. Quick, calm ride to our hotel by the Haram. Exactly the price quoted.", author: "Omar F.", location: "Leicester, UK", trip: "MED Airport → City" },
       { quote: "Took the Ziyarat tour — Quba, Uhud, Qiblatain. Our driver was knowledgeable and patient with the elderly in our family. Felt very well looked after.", author: "Sumaya I.", location: "Cape Town, South Africa", trip: "Madinah Ziyarat" },
       { quote: "Madinah to Makkah in a comfortable SUV with prayer stops along the way. Smooth, safe driving and a fair for the whole family.", author: "Abdullah R.", location: "Madinah", trip: "Madinah → Makkah" }
+    ],
+    relatedLinks: [
+      { href: "/routes/madinah-to-alula", label: "Madinah to AlUla taxi" },
+      { href: "/routes/madinah-to-tabuk", label: "Madinah to Tabuk taxi" },
+      { href: "/routes/medinah-to-amman", label: "Madinah to Amman, Jordan transfer" }
     ]
   },
   riyadh: {
@@ -333,6 +338,8 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { href: "/routes/alula-airport-to-banyan-tree", label: "AlUla Airport to Banyan Tree AlUla — private VIP transfer" },
       { href: "/routes/alula-airport-to-resorts", label: "AlUla Airport to Resorts" },
       { href: "/routes/madinah-to-alula", label: "Madinah to AlUla taxi" },
+      { href: "/routes/alula-to-aqaba", label: "AlUla to Aqaba, Jordan transfer" },
+      { href: "/routes/alula-to-amman", label: "AlUla to Amman, Jordan transfer" },
       { href: "/fleet/mercedes-s-class", label: "Mercedes S-Class — VIP Executive Sedan" }
     ]
   },
@@ -487,6 +494,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { href: "/routes/riyadh-to-neom", label: "Riyadh to NEOM long-distance taxi" },
       { href: "/routes/jeddah-to-neom", label: "Jeddah to NEOM long-distance taxi" },
       { href: "/routes/neom-to-aqaba", label: "NEOM to Aqaba, Jordan — private car with driver" },
+      { href: "/routes/neom-to-amman", label: "NEOM to Amman, Jordan — private car with driver" },
       { href: "/airports/tabuk-regional", label: "Tabuk Regional Airport (TUU)" },
       { href: "/airports/red-sea", label: "Red Sea International Airport (RSI)" },
       { href: "/fleet/gmc-yukon-xl", label: "GMC Yukon XL — Family & Group SUV" },
@@ -566,6 +574,9 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { href: "/locations/neom", label: "NEOM transportation guide" },
       { href: "/routes/tabuk-airport-to-neom", label: "Tabuk Airport to NEOM transfer" },
       { href: "/routes/tabuk-to-aqaba", label: "Tabuk to Aqaba border transfer" },
+      { href: "/routes/tabuk-to-amman", label: "Tabuk to Amman, Jordan transfer" },
+      { href: "/routes/tabuk-to-petra", label: "Tabuk to Petra, Jordan transfer" },
+      { href: "/routes/tabuk-to-wadi-rum", label: "Tabuk to Wadi Rum, Jordan transfer" },
       { href: "/services/business-executive", label: "Private chauffeur & executive transport" }
     ]
   },
