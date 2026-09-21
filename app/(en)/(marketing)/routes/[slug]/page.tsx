@@ -89,6 +89,13 @@ const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup:
     pickup: "Riyadh",
     dropoff: "Dubai, UAE",
   },
+  "dubai-to-riyadh": {
+    heading: "Get your Dubai to Riyadh car-with-driver quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private car with a professional chauffeur from Dubai (UAE) to Riyadh for business or family. Work or rest en route; you carry your own valid documents.",
+    pickup: "Dubai, UAE",
+    dropoff: "Riyadh",
+  },
   "jeddah-to-madinah": {
     heading: "Get your Jeddah to Madinah quote",
     blurb:
@@ -308,6 +315,14 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
     waPrefill: `Salam! Executive car with driver — Riyadh / Dubai (UAE).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Riyadh–Dubai",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for an executive car with driver between Riyadh and Dubai, UAE.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
+  "dubai-to-riyadh": {
+    heading: "Executive car with driver, Dubai to Riyadh?",
+    intro:
+      "For business travellers and delegations arriving from Dubai we provide an executive sedan or SUV with a professional chauffeur — work or rest en route, with planned meeting and rest stops. Cross-border documentation is supported; you carry your own valid papers. Regular company travel can run on one account with a single point of contact.",
+    waPrefill: `Salam! Executive car with driver — Dubai (UAE) / Riyadh.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Dubai–Riyadh",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for an executive car with driver between Dubai, UAE and Riyadh.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
   "riyadh-to-abudhabi": {
     heading: "Executive car with driver, Riyadh to Abu Dhabi?",
@@ -1321,9 +1336,27 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "What documents do I need for the border?", answer: "You need a valid passport and the correct UAE entry visa or eligibility. Share your details in advance so we can advise and prepare for a smooth crossing." },
       { question: "How much is a taxi from Riyadh to Dubai?", answer: "Fares are confirmed on WhatsApp — message us on WhatsApp with your travel date for a clear quote before booking. We arrange comfortable vehicles suited to the long cross-border journey." },
       { question: "Can I get a private car with a driver from Riyadh to Dubai?", answer: "Yes. We arrange a private car with a professional chauffeur for the full Riyadh to Dubai journey — one vehicle and driver reserved exclusively for your party, door-to-door." },
+      { question: "Can I rent a car with a driver from Riyadh to Dubai?", answer: "Yes. This is a chauffeur-driven private car, not a self-drive rental — you get one vehicle and a professional driver reserved exclusively for your party for the full Riyadh to Dubai journey, with the fare confirmed on WhatsApp before booking." },
       { question: "Do you offer an executive or corporate car service from Riyadh to Dubai?", answer: "Yes. For business travellers we provide an executive car with a professional chauffeur from Riyadh to Dubai — a pre-booked private transfer with corporate invoicing on request, comfortable vehicles to work en route, and planned meeting or rest stops. Share your itinerary on WhatsApp for a fare." },
       { question: "Is it better to fly or drive from Riyadh to Dubai?", answer: "Flying is faster, but a private car with driver is popular for business travellers who want to work en route, families with luggage, or anyone who prefers not to navigate two airports and a connecting ride on each end." },
       { question: "Can I stop overnight or make business stops on the way to Dubai?", answer: "Yes. The Riyadh-Dubai route can include planned stops for meetings, meals, or rest — let us know your itinerary when requesting a quote so we can arrange the right vehicle and driver." },
+    ],
+  },
+  "dubai-to-riyadh": {
+    tldr: "A private car with a professional chauffeur from Dubai to Riyadh is about 990 km and takes roughly 9 hours plus the UAE–Saudi border crossing. Fares are confirmed on WhatsApp, with documentation support and a comfortable executive vehicle for business and family cross-border travel.",
+    tldrFacts: [
+      { label: "Distance", value: "~990 km" },
+      { label: "Time", value: "~9 hours + border" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How long is the taxi from Dubai to Riyadh?", answer: "Dubai to Riyadh is about 990 km — roughly a 9-hour drive plus time at the UAE–Saudi border (Al Batha–Ghuwaifat crossing)." },
+      { question: "What documents do I need for the border?", answer: "You need a valid passport and the correct Saudi entry visa or eligibility. Share your details in advance so we can advise and prepare for a smooth crossing." },
+      { question: "How much is a taxi from Dubai to Riyadh?", answer: "Fares are confirmed on WhatsApp — message us on WhatsApp with your travel date for a clear quote before booking. We arrange comfortable vehicles suited to the long cross-border journey." },
+      { question: "Can I get a private car with a driver from Dubai to Riyadh?", answer: "Yes. We arrange a private car with a professional chauffeur for the full Dubai to Riyadh journey — one vehicle and driver reserved exclusively for your party, door-to-door." },
+      { question: "Can I rent a car with a driver from Dubai to Riyadh?", answer: "Yes. This is a chauffeur-driven private car, not a self-drive rental — you get one vehicle and a professional driver reserved exclusively for your party for the full Dubai to Riyadh journey, with the fare confirmed on WhatsApp before booking." },
+      { question: "Do you offer an executive or corporate car service from Dubai to Riyadh?", answer: "Yes. For business travellers we provide an executive car with a professional chauffeur from Dubai to Riyadh — a pre-booked private transfer with corporate invoicing on request, comfortable vehicles to work en route, and planned meeting or rest stops. Share your itinerary on WhatsApp for a fare." },
     ],
   },
   "dammam-to-doha": {
@@ -2001,6 +2034,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "jeddah-to-madinah": "Taxi Jeddah to Madinah (Madina) — Fare Confirmed on WhatsApp",
     "madinah-airport-to-city": "Madinah Airport Taxi & Car Service — Fare on WhatsApp",
     "riyadh-to-dubai": "Private Car with Driver — Riyadh to Dubai — Fare on WhatsApp",
+    "dubai-to-riyadh": "Private Car with Driver — Dubai to Riyadh — Fare on WhatsApp",
     "jeddah-airport-to-swissotel-makkah": "Jeddah Airport to Swissotel Makkah Taxi — Fare & Booking",
     "red-sea-airport-to-neom": "Red Sea Airport (RSI) to NEOM Taxi — Fare & Transfer",
     "dammam-to-abudhabi": "Taxi Dammam to Abu Dhabi, UAE — Cross-Border Fare, Distance & Booking",
@@ -2024,6 +2058,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "jeddah-airport-to-swissotel-makkah": "Taxi from Jeddah Airport (JED) to Swissotel Al Maqam Makkah — ~80 km, about 1 hour. Meet & greet, Miqat stop on request, fare confirmed on WhatsApp. 24/7.",
     "red-sea-airport-to-neom": "Taxi from Red Sea International Airport (RSI) to NEOM — private transfer, meet & greet, professional drivers. Fare confirmed on WhatsApp before booking. 24/7.",
     "riyadh-to-dubai": "Private car with driver, Riyadh to Dubai (UAE) — executive chauffeur for business & family. Cross-border GCC transfer, fare confirmed on WhatsApp before booking, 24/7.",
+    "dubai-to-riyadh": "Private car with driver, Dubai (UAE) to Riyadh — executive chauffeur for business & family. Cross-border GCC transfer, fare confirmed on WhatsApp before booking, 24/7.",
     "manama-to-dammam": "Bahrain to Dammam taxi via King Fahd Causeway — ~70 km, ~1 hr. Airport (DMM) & hotel drop-offs, border support. Fare confirmed on WhatsApp, 24/7.",
     "manama-to-alkhobar": "Bahrain to Al Khobar taxi across the King Fahd Causeway — ~50 km, ~50 min. Ideal for weekend & business returns. Fare confirmed on WhatsApp, 24/7.",
     "manama-to-riyadh": "Bahrain to Riyadh taxi — ~450 km via the King Fahd Causeway. Executive cross-border transfer with documentation support. Fare confirmed on WhatsApp, 24/7.",
