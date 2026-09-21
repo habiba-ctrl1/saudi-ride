@@ -37,10 +37,11 @@ const ROUTES: { href: string; label: string }[] = [
 const CITIES: { href: string; label: string }[] = [
   { href: "/locations/makkah", label: "Makkah taxi service" },
   { href: "/locations/madinah", label: "Madinah taxi service" },
-  { href: "/locations/jeddah", label: "Jeddah taxi service" },
+  { href: "/locations/jeddah", label: "Jeddah chauffeur service" },
   { href: "/locations/riyadh", label: "Riyadh taxi service" },
   { href: "/locations/dammam", label: "Dammam taxi service" },
-  { href: "/locations/taif", label: "Taif taxi service" },
+  { href: "/locations/taif", label: "Taif chauffeur service" },
+  { href: "/locations/tabuk", label: "Tabuk taxi & chauffeur service" },
 ];
 
 function LinkColumn({

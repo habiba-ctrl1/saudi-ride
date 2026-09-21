@@ -491,7 +491,7 @@ export default async function CityLocationPage({ params }: PageProps) {
             <MapPin className="h-3 w-3" /> Location Guide
           </span>
           <h1 className="font-heading text-4xl md:text-6xl font-bold leading-tight">
-            Private Taxi &amp; Car Service in <br />
+            Private Taxi &amp; Chauffeur Service in <br />
             <span className="text-[#16A34A]">{cityData.name}</span>
           </h1>
           <p className="text-[#C9A84C] text-sm tracking-widest uppercase font-bold mt-2 mb-6">{cityData.nameAr} - {cityData.tagline}</p>

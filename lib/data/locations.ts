@@ -29,8 +29,8 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       "For Ziyarat, a half-day car covers Jabal Al-Nour, Mina, Arafat, and Jabal Thawr with waiting time included."
     ],
     faqs: [
-      { question: "How much is a taxi from Makkah to Jeddah airport?", answer: "A private transfer from Makkah to King Abdulaziz International Airport (JED) starts from around SAR 249 for a sedan. It is about 80 km and roughly 1 hour — pre-book and allow buffer time before your flight." },
-      { question: "How far is Makkah from Madinah by taxi?", answer: "Makkah to Madinah is about 430 km — roughly a 4 to 5 hour drive via the Haramain highway. The fare starts from around SAR 499, confirmed on WhatsApp, with prayer and rest stops included." },
+      { question: "How much is a taxi from Makkah to Jeddah airport?", answer: "A private transfer from Makkah to King Abdulaziz International Airport (JED) is about 80 km and roughly 1 hour — fare confirmed on WhatsApp before booking, no surge. Pre-book and allow buffer time before your flight." },
+      { question: "How far is Makkah from Madinah by taxi?", answer: "Makkah to Madinah is about 430 km — roughly a 4 to 5 hour drive via the Haramain highway. Fare confirmed on WhatsApp before booking, with prayer and rest stops included." },
       { question: "Can the taxi drop me at my Makkah hotel near the Haram?", answer: "Yes. We drop you as close to your hotel and Masjid al-Haram as vehicles are permitted. During prayer times some roads close, so the driver uses the nearest allowed checkpoint." },
       { question: "Do you provide Makkah Ziyarat tours by car?", answer: "Yes. A half-day Ziyarat car visits Jabal Al-Nour (Cave of Hira), Jabal Thawr, Mina, and Arafat with a knowledgeable driver and flexible waiting time." },
       { question: "Is taxi available in Makkah 24/7?", answer: "Yes, we operate around the clock in Makkah for hotel transfers, airport returns, intercity trips, and Ziyarat — with your fare confirmed before you book, no surge." }
@@ -69,8 +69,8 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       "For Madinah to Makkah, a private transfer is door-to-door with prayer stops; spacious SUVs suit families and luggage."
     ],
     faqs: [
-      { question: "How much is a taxi from Madinah airport to the city?", answer: "A private transfer from Prince Mohammad Bin Abdulaziz Airport (MED) to central Madinah hotels starts from around SAR 80. It is about 20 km and a 25-minute drive, with meet & greet at arrivals." },
-      { question: "How far is Madinah from Makkah by taxi?", answer: "Madinah to Makkah is about 430 km — roughly a 4 to 5 hour drive via the Haramain highway. The fare starts from around SAR 499, confirmed on WhatsApp, with prayer and rest stops included." },
+      { question: "How much is a taxi from Madinah airport to the city?", answer: "A private transfer from Prince Mohammad Bin Abdulaziz Airport (MED) to central Madinah hotels is about 20 km and a 25-minute drive — fare confirmed on WhatsApp before booking, with meet & greet at arrivals." },
+      { question: "How far is Madinah from Makkah by taxi?", answer: "Madinah to Makkah is about 430 km — roughly a 4 to 5 hour drive via the Haramain highway. Fare confirmed on WhatsApp before booking, with prayer and rest stops included." },
       { question: "Can the taxi drop me at my hotel near Masjid an-Nabawi?", answer: "Yes. We drop you as close to your Central Area (Markazia) hotel and Masjid an-Nabawi as vehicles are permitted, handling any prayer-time road restrictions." },
       { question: "Do you offer Madinah Ziyarat tours by car?", answer: "Yes. A half-day Ziyarat car visits Quba Mosque, Mount Uhud, Qiblatain Mosque, and other sites with a knowledgeable driver and waiting time included." },
       { question: "Is taxi available in Madinah 24/7?", answer: "Yes, we operate around the clock in Madinah for airport transfers, hotel pickups, Ziyarat, and intercity trips — with your fare confirmed before you book, no surge." }
@@ -130,8 +130,8 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     nameAr: "جدة",
     image: "/locations/jeddah-hero.webp",
     tagline: "The Red Sea Gateway to Makkah & Madinah",
-    description: "Book a private transfer in Jeddah for airport pickups from King Abdulaziz International Airport (JED), transfers to Makkah (~80 km, ~1 hour) and Madinah (~420 km, ~4–5 hours), and local rides around the Corniche, Al-Balad, and the city centre. Most Umrah and Hajj pilgrims arrive at Jeddah, making it the Kingdom's main gateway — our drivers handle 24/7 night arrivals, meet & greet, flight tracking, and Miqat stops for Ihram.",
-    tldr: "Taxi Saudi Arabia provides 24/7 taxi and private-car service in Jeddah, including King Abdulaziz International Airport (JED) pickups and transfers to Makkah (~80 km, ~1 hour) and Madinah (~420 km, ~4–5 hours). Meet & greet, flight tracking, and English/Urdu-speaking drivers included.",
+    description: "Book a private chauffeur service in Jeddah for airport pickups from King Abdulaziz International Airport (JED), transfers to Makkah (~80 km, ~1 hour) and Madinah (~420 km, ~4–5 hours), and local rides around the Corniche, Al-Balad, and the city centre. Most Umrah and Hajj pilgrims arrive at Jeddah, making it the Kingdom's main gateway — our drivers handle 24/7 night arrivals, meet & greet, flight tracking, and Miqat stops for Ihram.",
+    tldr: "Taxi Saudi Arabia provides 24/7 private chauffeur and taxi service in Jeddah, including King Abdulaziz International Airport (JED) pickups and transfers to Makkah (~80 km, ~1 hour) and Madinah (~420 km, ~4–5 hours). Meet & greet, flight tracking, and English/Urdu-speaking drivers included.",
     tldrFacts: [
       { label: "To Makkah", value: "~80 km · ~1 hr" },
       { label: "To Madinah", value: "~420 km · ~4–5 hr" },
@@ -153,7 +153,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       "Traffic near the Corniche is heavy on Thursday and Friday evenings. Plan ahead."
     ],
     faqs: [
-      { question: "How much is a taxi in Jeddah?", answer: "Jeddah city rides and airport pickups are with no surge. A Jeddah Airport (JED) to Makkah taxi starts from around SAR 249, and Jeddah to Madinah from around SAR 549. You see the exact fare before you book — tolls and taxes included." },
+      { question: "How much is a taxi in Jeddah?", answer: "Jeddah city rides and airport pickups are quoted with no surge. Jeddah Airport (JED) to Makkah and Jeddah to Madinah are both available as private transfers — you see the exact fare confirmed on WhatsApp before you book, tolls and taxes included." },
       { question: "Is there a taxi at Jeddah airport 24/7?", answer: "Yes. We operate at King Abdulaziz International Airport (JED) around the clock, including late-night and early-morning flights. We track your flight number, so your driver waits with a name sign even if the flight is delayed." },
       { question: "How far is Jeddah from Makkah by taxi?", answer: "Jeddah is about 80 km from Makkah — roughly a 1-hour drive on the Makkah Expressway. From Jeddah Airport (JED) it is a direct transfer, and the driver can stop at the Miqat for Ihram on request." },
       { question: "Can I book a Jeddah taxi in advance?", answer: "Yes, and for airport and Umrah transfers we recommend it. Pre-booking guarantees a vehicle and a clear price confirmed on WhatsApp, with meet & greet at arrivals — especially important during Umrah, Hajj, and Ramadan seasons." },
@@ -168,6 +168,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { href: "/routes/jeddah-to-kaec", label: "Jeddah to KAEC (King Abdullah Economic City) taxi" },
       { href: "/routes/jeddah-airport-to-makkah", label: "Jeddah Airport to Makkah taxi" },
       { href: "/routes/jeddah-to-abudhabi", label: "Jeddah to Abu Dhabi — private car with driver" },
+      { href: "/services/business-executive", label: "Private chauffeur & executive transport in Jeddah" },
       { href: "/services/car-recovery/jeddah", label: "Jeddah car recovery & tow truck (satha)" },
       { href: "/blog/private-driver-cost-saudi-arabia", label: "How much a private driver costs in Saudi Arabia" }
     ]
@@ -200,7 +201,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       "For Aramco and industrial-zone visits, pre-book a corporate sedan or SUV with a professional driver."
     ],
     faqs: [
-      { question: "How much is a taxi from Dammam airport to the city?", answer: "A private transfer from King Fahd International Airport (DMM) to Dammam or Al Khobar starts from around SAR 100 — message us on WhatsApp with your flight time for a clear quote. It is about 35 km and a 40-minute drive, with meet & greet at arrivals." },
+      { question: "How much is a taxi from Dammam airport to the city?", answer: "A private transfer from King Fahd International Airport (DMM) to Dammam or Al Khobar is about 35 km and a 40-minute drive — message us on WhatsApp with your flight time for a clear fare, meet & greet at arrivals." },
       { question: "Can I take a taxi from Dammam to Bahrain?", answer: "Yes. We arrange cross-border transfers to Bahrain via the King Fahd Causeway, roughly a 1-hour drive. Share your passport and visa details in advance so we can prepare the border paperwork." },
       { question: "How far is Dammam from Riyadh by taxi?", answer: "Dammam to Riyadh is about 400 km — roughly a 4-hour drive on Highway 40. We arrange intercity transfers in sedans, SUVs, and vans with rest stops included, quoted on WhatsApp before booking." },
       { question: "Do you serve the whole Dammam–Khobar–Dhahran area?", answer: "Yes — the three cities form one metropolitan area and we cover all of it 24/7, including Aramco, the corniche, business hotels, malls, and the industrial zones. Confirm your exact district when booking." },
@@ -246,7 +247,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       "Dhahran, Al Khobar, Dammam, and Jubail are all served by the same Eastern Province driver network for same-day bookings."
     ],
     faqs: [
-      { question: "How much is a taxi from Dhahran to Dammam airport?", answer: "A taxi from Dhahran to King Fahd International Airport (DMM) starts from around SAR 100 for a sedan, with SUVs and vans available. It's about 25 km — roughly a 25-minute drive." },
+      { question: "How much is a taxi from Dhahran to Dammam airport?", answer: "A taxi from Dhahran to King Fahd International Airport (DMM) is about 25 km — roughly a 25-minute drive. Sedans, SUVs and vans are available, fare confirmed on WhatsApp before booking." },
       { question: "Do you offer corporate accounts for Saudi Aramco contractors?", answer: "Yes. We offer monthly corporate billing for contractors, consultants, and companies working with Saudi Aramco, KFUPM, or based in Dhahran Techno Valley — a dedicated account manager and consolidated invoicing instead of per-trip payment. Contact us via WhatsApp to set one up." },
       { question: "Can you pick up visitors from inside Aramco or KFUPM gates?", answer: "Share your host company, badge type, and gate name when booking so the driver can plan the correct visitor entry point and waiting area — some Aramco facilities have restricted access requiring advance notice." },
       { question: "How far is Dhahran from Al Khobar and Jubail?", answer: "Dhahran is about 15 km from Al Khobar (roughly 15 minutes) and 85 km from Jubail (roughly an hour). We serve all three cities with the same Eastern Province driver network." },
@@ -281,7 +282,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       "Jubail, Dammam, Al Khobar, and Dhahran are all served by the same Eastern Province driver network for same-day bookings."
     ],
     faqs: [
-      { question: "How much is a taxi from Jubail to Dammam airport?", answer: "A taxi from Jubail to King Fahd International Airport (DMM) starts from around SAR 250 for a sedan, with SUVs and vans available for groups. It's about 90 km — roughly a 65-minute drive." },
+      { question: "How much is a taxi from Jubail to Dammam airport?", answer: "A taxi from Jubail to King Fahd International Airport (DMM) is about 90 km — roughly a 65-minute drive. Sedans, SUVs and vans are available for groups, fare confirmed on WhatsApp before booking." },
       { question: "Do you offer corporate accounts for Jubail Industrial City companies?", answer: "Yes. We offer monthly corporate billing for contractors and companies operating in Jubail Industrial City I & II — a dedicated account manager and consolidated invoicing instead of per-trip payment. Contact us via WhatsApp to set one up." },
       { question: "Is taxi available in Jubail 24/7, including night shifts?", answer: "Yes, we run 24/7 in Jubail, including early-morning and night shift-change hours for plant workers and contractors." },
       { question: "How far is Jubail from Al Khobar and Dammam?", answer: "Jubail is about 75 km from Al Khobar and 90 km from Dammam — both roughly an hour's drive. We serve all three cities with the same Eastern Province driver network." },
@@ -340,8 +341,8 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     nameAr: "الطائف",
     image: "/locations/taif-hero.webp",
     tagline: "The City of Roses",
-    description: "Book a private transfer in Taif for day trips from Makkah (~90 km, ~1 hour 10) and Jeddah (~170 km), mountain tours along the scenic Al Hada road, and visits to the famous rose farms. Taif's cool climate makes it a favourite summer escape, and our drivers know the steep, winding Sarawat mountain routes well. We provide airport transfers from Taif Regional Airport (TIF), pilgrim transfers, and full-day car hire for families touring Al Hada, Al Shafa, and the cable car — all with your fare confirmed before you book, no surge.",
-    tldr: "Taxi Saudi Arabia arranges private transfer service in Taif — day trips from Makkah (~90 km, ~1 hr 10) and Jeddah (~170 km), Taif Regional Airport (TIF) transfers, and mountain tours along the Al Hada and Al Shafa roads. Experienced drivers for the winding Sarawat routes.",
+    description: "Book a private chauffeur service in Taif for day trips from Makkah (~90 km, ~1 hour 10) and Jeddah (~170 km), mountain tours along the scenic Al Hada road, and visits to the famous rose farms. Taif's cool climate makes it a favourite summer escape, and our drivers know the steep, winding Sarawat mountain routes well. We provide airport transfers from Taif Regional Airport (TIF), pilgrim transfers, and full-day car hire for families touring Al Hada, Al Shafa, and the cable car — all with your fare confirmed before you book, no surge.",
+    tldr: "Taxi Saudi Arabia arranges private chauffeur and transfer service in Taif — day trips from Makkah (~90 km, ~1 hr 10) and Jeddah (~170 km), Taif Regional Airport (TIF) transfers, and mountain tours along the Al Hada and Al Shafa roads. Experienced drivers for the winding Sarawat routes.",
     tldrFacts: [
       { label: "To Makkah", value: "~90 km · ~1 hr 10" },
       { label: "To Jeddah", value: "~170 km · ~2 hr" },
@@ -363,11 +364,16 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       "Combine a Makkah Ziyarat trip with a cool day out in Taif using a full-day car hire."
     ],
     faqs: [
-      { question: "How much is a taxi from Makkah to Taif?", answer: "A taxi from Makkah to Taif starts from around SAR 180. It is about 90 km — roughly a 1 hour 10 minute drive on the Al Hada mountain road, with an experienced driver for the winding route." },
+      { question: "How much is a taxi from Makkah to Taif?", answer: "A taxi from Makkah to Taif is about 90 km — roughly a 1 hour 10 minute drive on the Al Hada mountain road. Fare confirmed on WhatsApp before booking, with an experienced driver for the winding route." },
       { question: "How far is Taif from Jeddah by taxi?", answer: "Taif is about 170 km from Jeddah — roughly a 2-hour drive. We offer transfers and full-day car hire for sightseeing in the Taif highlands." },
       { question: "Can I do a day trip to Taif from Makkah?", answer: "Yes. A full-day car with a driver lets you visit Al Hada, the cable car, Al Shafa, and the rose farms, then return — a cool, scenic break from the Makkah heat." },
       { question: "Does Taif have an airport?", answer: "Yes, Taif Regional Airport (TIF) is about 25 km from the city. We provide meet & greet transfers from the airport to the city and the mountain resorts." },
       { question: "Is taxi available in Taif 24/7?", answer: "Yes, we operate around the clock in Taif for airport transfers, day trips, and mountain tours — with your fare confirmed on WhatsApp before you book." }
+    ],
+    relatedLinks: [
+      { href: "/services/makkah-ziyarat", label: "Makkah Ziyarat tours (combine with a Taif day trip)" },
+      { href: "/services/business-executive", label: "Private chauffeur & executive transport" },
+      { href: "/locations/makkah", label: "Makkah private transfer & chauffeur service" }
     ]
   },
   alkhobar: {
@@ -399,7 +405,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     ],
     faqs: [
       { question: "Can I take a taxi from Al Khobar to Bahrain?", answer: "Yes. We run cross-border transfers from Al Khobar to Bahrain via the King Fahd Causeway, roughly a 1-hour drive. Share your passport and visa details in advance so we can prepare the border paperwork." },
-      { question: "How much is a taxi from Al Khobar to Dammam airport?", answer: "A taxi from Al Khobar to King Fahd International Airport (DMM) starts from around SAR 100. It is about 30 km and a 35-minute drive, with meet & greet at arrivals." },
+      { question: "How much is a taxi from Al Khobar to Dammam airport?", answer: "A taxi from Al Khobar to King Fahd International Airport (DMM) is about 30 km and a 35-minute drive — fare confirmed on WhatsApp before booking, with meet & greet at arrivals." },
       { question: "Do you provide corporate taxi service in Al Khobar?", answer: "Yes. We offer corporate sedans and SUVs with professional drivers for Aramco, Dhahran, and business travel across the Eastern Province, with hourly and full-day options." },
       { question: "Is Al Khobar part of the same area as Dammam?", answer: "Yes — Al Khobar, Dammam, and Dhahran form one connected metro area. We cover all of it 24/7; just confirm your exact district when booking." },
       { question: "Is taxi available in Al Khobar 24/7?", answer: "Yes, we operate around the clock in Al Khobar for airport transfers, corporate travel, Corniche outings, and cross-border trips — with your fare confirmed before you book, no surge." }
@@ -515,7 +521,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       "Combine Soudah, the cable car, and Habala village in a full-day car hire for the best value."
     ],
     faqs: [
-      { question: "How much is a taxi from Abha airport to the city?", answer: "A taxi from Abha International Airport (AHB) to the city centre starts from around SAR 80. It is about 25 km, with meet & greet at arrivals and experienced mountain drivers." },
+      { question: "How much is a taxi from Abha airport to the city?", answer: "A taxi from Abha International Airport (AHB) to the city centre is about 25 km — fare confirmed on WhatsApp before booking, with meet & greet at arrivals and experienced mountain drivers." },
       { question: "Can I do a Soudah Peak day trip from Abha?", answer: "Yes. A full-day car with a driver takes you to Soudah Peak, the cable car, and the viewpoints, then back — the easiest way to enjoy the highlands without driving the steep roads yourself." },
       { question: "Is an SUV better for Abha's mountain roads?", answer: "Yes. The roads to Soudah and the Asir highlands are steep and winding, so a comfortable SUV with an experienced local driver is recommended, especially for families." },
       { question: "Does the taxi cover Khamis Mushait too?", answer: "Yes — Abha and Khamis Mushait are about 25 km apart and we cover both, along with the Asir heritage villages and viewpoints, 24/7 with your fare confirmed on WhatsApp." },
@@ -527,8 +533,8 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     nameAr: "تبوك",
     image: "/locations/tabuk-hero.webp",
     tagline: "Gateway to NEOM, the Red Sea & the Jordan Border",
-    description: "Book a taxi or executive car in Tabuk for airport transfers, business trips to NEOM, and cross-border journeys to Jordan via the Al Durrah crossing near Haql. Tabuk is the main air and road gateway to the NEOM giga-project, the Red Sea coast, and AlUla, making it a key hub for contractors, investors, and tourists heading north. Our drivers cover Tabuk Regional Airport (TUU), the historic Old Town and Tabuk Castle, Wadi Disah, Tayma, and the coastal towns of Haql and Duba — all with your fare confirmed before you book, no surge, day or night.",
-    tldr: "Taxi Saudi Arabia arranges private transfer and executive-car service in Tabuk — Tabuk Regional Airport (TUU) transfers, business trips to NEOM (~120 km), Red Sea coast runs to Duba and Haql, and cross-border transfers to the Jordan (Aqaba) border.",
+    description: "Book a taxi or executive chauffeur service in Tabuk for airport transfers, business trips to NEOM, and cross-border journeys to Jordan via the Al Durrah crossing near Haql. Tabuk is the main air and road gateway to the NEOM giga-project, the Red Sea coast, and AlUla, making it a key hub for contractors, investors, and tourists heading north. Our drivers cover Tabuk Regional Airport (TUU), the historic Old Town and Tabuk Castle, Wadi Disah, Tayma, and the coastal towns of Haql and Duba — all with your fare confirmed before you book, no surge, day or night.",
+    tldr: "Taxi Saudi Arabia arranges private transfer and executive chauffeur service in Tabuk — Tabuk Regional Airport (TUU) transfers, business trips to NEOM (~120 km), Red Sea coast runs to Duba and Haql, and cross-border transfers to the Jordan (Aqaba) border.",
     tldrFacts: [
       { label: "Airport", value: "TUU" },
       { label: "To NEOM", value: "~120 km" },
@@ -559,7 +565,8 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     relatedLinks: [
       { href: "/locations/neom", label: "NEOM transportation guide" },
       { href: "/routes/tabuk-airport-to-neom", label: "Tabuk Airport to NEOM transfer" },
-      { href: "/routes/tabuk-to-aqaba", label: "Tabuk to Aqaba border transfer" }
+      { href: "/routes/tabuk-to-aqaba", label: "Tabuk to Aqaba border transfer" },
+      { href: "/services/business-executive", label: "Private chauffeur & executive transport" }
     ]
   },
   abudhabi: {
