@@ -1327,7 +1327,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "dammam-to-doha": {
-    tldr: "A private transfer from Dammam to Doha is about 400 km and takes roughly 4 hours plus the Saudi–Qatar border crossing at Salwa. Fares are confirmed on WhatsApp, with documentation support for a smooth crossing.",
+    tldr: "A private chauffeur transfer from Dammam to Doha is about 400 km and takes roughly 4 hours plus the Saudi–Qatar border crossing at Salwa. Fares are confirmed on WhatsApp, with documentation support for a smooth crossing.",
     tldrFacts: [
       { label: "Distance", value: "~400 km" },
       { label: "Time", value: "~4 hours + border" },
@@ -1343,7 +1343,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "riyadh-to-doha": {
-    tldr: "A taxi from Riyadh to Doha is about 580 km and takes roughly 5.5 hours plus the Saudi–Qatar border crossing at Salwa. The fare is fixed, confirmed on WhatsApp with documentation support for the cross-border trip.",
+    tldr: "A taxi or private chauffeur from Riyadh to Doha is about 580 km and takes roughly 5.5 hours plus the Saudi–Qatar border crossing at Salwa. The fare is fixed, confirmed on WhatsApp with documentation support for the cross-border trip.",
     tldrFacts: [
       { label: "Distance", value: "~580 km" },
       { label: "Time", value: "~5.5 hours + border" },
@@ -1357,7 +1357,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "dammam-to-manama": {
-    tldr: "A taxi from Dammam to Manama, Bahrain is about 70 km and takes roughly 1 hour across the King Fahd Causeway. The fare is fixed, confirmed on WhatsApp with border documentation support for a quick, smooth crossing.",
+    tldr: "A taxi or private chauffeur from Dammam to Manama, Bahrain is about 70 km and takes roughly 1 hour across the King Fahd Causeway. The fare is fixed, confirmed on WhatsApp with border documentation support for a quick, smooth crossing.",
     tldrFacts: [
       { label: "Distance", value: "~70 km" },
       { label: "Time", value: "~1 hour" },
@@ -1371,7 +1371,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "alkhobar-to-manama": {
-    tldr: "A taxi from Al Khobar to Manama, Bahrain is about 50 km and takes roughly 50 minutes across the King Fahd Causeway. The fare is fixed, confirmed on WhatsApp with border documentation support for a quick crossing.",
+    tldr: "A taxi or private chauffeur from Al Khobar to Manama, Bahrain is about 50 km and takes roughly 50 minutes across the King Fahd Causeway. The fare is fixed, confirmed on WhatsApp with border documentation support for a quick crossing.",
     tldrFacts: [
       { label: "Distance", value: "~50 km" },
       { label: "Time", value: "~50 min" },
@@ -1385,7 +1385,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "riyadh-to-manama": {
-    tldr: "A taxi from Riyadh to Manama, Bahrain is about 450 km and takes roughly 4.5 hours, crossing the King Fahd Causeway. The fare is fixed, confirmed on WhatsApp with documentation support for the cross-border journey.",
+    tldr: "A taxi or private chauffeur from Riyadh to Manama, Bahrain is about 450 km and takes roughly 4.5 hours, crossing the King Fahd Causeway. The fare is fixed, confirmed on WhatsApp with documentation support for the cross-border journey.",
     tldrFacts: [
       { label: "Distance", value: "~450 km" },
       { label: "Time", value: "~4.5 hours" },
@@ -1400,7 +1400,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "manama-to-dammam": {
-    tldr: "A taxi from Manama, Bahrain to Dammam is about 70 km and takes roughly 1 hour across the King Fahd Causeway. The fare is fixed, confirmed on WhatsApp with airport (DMM) and hotel drop-offs and border documentation support.",
+    tldr: "A taxi or private chauffeur from Manama, Bahrain to Dammam is about 70 km and takes roughly 1 hour across the King Fahd Causeway. The fare is fixed, confirmed on WhatsApp with airport (DMM) and hotel drop-offs and border documentation support.",
     tldrFacts: [
       { label: "Distance", value: "~70 km" },
       { label: "Time", value: "~1 hour" },
@@ -1414,7 +1414,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "manama-to-alkhobar": {
-    tldr: "A taxi from Manama, Bahrain to Al Khobar is about 50 km and takes roughly 50 minutes across the King Fahd Causeway. The fare is fixed, confirmed on WhatsApp — ideal for weekend and business returns to the Eastern Province.",
+    tldr: "A taxi or private chauffeur from Manama, Bahrain to Al Khobar is about 50 km and takes roughly 50 minutes across the King Fahd Causeway. The fare is fixed, confirmed on WhatsApp — ideal for weekend and business returns to the Eastern Province.",
     tldrFacts: [
       { label: "Distance", value: "~50 km" },
       { label: "Time", value: "~50 min" },
@@ -1428,7 +1428,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "manama-to-riyadh": {
-    tldr: "A taxi from Manama, Bahrain to Riyadh is about 450 km and takes roughly 4.5 hours, crossing the King Fahd Causeway into Saudi Arabia. The fare is fixed, confirmed on WhatsApp with documentation support for the cross-border journey.",
+    tldr: "A taxi or private chauffeur from Manama, Bahrain to Riyadh is about 450 km and takes roughly 4.5 hours, crossing the King Fahd Causeway into Saudi Arabia. The fare is fixed, confirmed on WhatsApp with documentation support for the cross-border journey.",
     tldrFacts: [
       { label: "Distance", value: "~450 km" },
       { label: "Time", value: "~4.5 hours" },
@@ -1442,7 +1442,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "doha-to-dammam": {
-    tldr: "A taxi from Doha, Qatar to Dammam is about 400 km and takes roughly 4 hours plus the Qatar–Saudi border crossing at Salwa. The fare is fixed, confirmed on WhatsApp with documentation support for the crossing.",
+    tldr: "A taxi or private chauffeur from Doha, Qatar to Dammam is about 400 km and takes roughly 4 hours plus the Qatar–Saudi border crossing at Salwa. The fare is fixed, confirmed on WhatsApp with documentation support for the crossing.",
     tldrFacts: [
       { label: "Distance", value: "~400 km" },
       { label: "Time", value: "~4 hours" },
@@ -1456,7 +1456,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "doha-to-riyadh": {
-    tldr: "A taxi from Doha, Qatar to Riyadh is about 580 km and takes roughly 5.5 hours plus the Salwa border crossing. The fare is fixed, confirmed on WhatsApp with documentation support for the cross-border journey.",
+    tldr: "A taxi or private chauffeur from Doha, Qatar to Riyadh is about 580 km and takes roughly 5.5 hours plus the Salwa border crossing. The fare is fixed, confirmed on WhatsApp with documentation support for the cross-border journey.",
     tldrFacts: [
       { label: "Distance", value: "~580 km" },
       { label: "Time", value: "~5.5 hours" },
@@ -1508,7 +1508,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "alahsa-to-doha": {
-    tldr: "A taxi from Al Ahsa to Doha, Qatar is about 320 km and takes roughly 3.5 hours via the Salwa border — the shortest Saudi gateway to Qatar. The fare is fixed, confirmed on WhatsApp with documentation support for the crossing.",
+    tldr: "A taxi or private chauffeur from Al Ahsa to Doha, Qatar is about 320 km and takes roughly 3.5 hours via the Salwa border — the shortest Saudi gateway to Qatar. The fare is fixed, confirmed on WhatsApp with documentation support for the crossing.",
     tldrFacts: [
       { label: "Distance", value: "~320 km" },
       { label: "Time", value: "~3.5 hours" },
@@ -1522,7 +1522,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "dammam-to-kuwait": {
-    tldr: "A taxi from Dammam to Kuwait City is about 436 km and takes roughly 4 hours plus the Saudi–Kuwait border crossing at Al Khafji. The fare is fixed, confirmed on WhatsApp with documentation support for the crossing.",
+    tldr: "A taxi or private chauffeur from Dammam to Kuwait City is about 436 km and takes roughly 4 hours plus the Saudi–Kuwait border crossing at Al Khafji. The fare is fixed, confirmed on WhatsApp with documentation support for the crossing.",
     tldrFacts: [
       { label: "Distance", value: "~436 km" },
       { label: "Time", value: "~4 hours + border" },
@@ -1536,7 +1536,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "riyadh-to-abudhabi": {
-    tldr: "A private car from Riyadh to Abu Dhabi is about 850 km and takes roughly 8 hours plus the Saudi–UAE border crossing at Al Batha–Ghuwaifat. The fare is fixed, confirmed on WhatsApp, with documentation support and a comfortable vehicle for the journey. This is a cross-border transfer through our partner driver network, not a local Abu Dhabi taxi service.",
+    tldr: "A private car with a professional chauffeur from Riyadh to Abu Dhabi is about 850 km and takes roughly 8 hours plus the Saudi–UAE border crossing at Al Batha–Ghuwaifat. The fare is fixed, confirmed on WhatsApp, with documentation support and a comfortable vehicle for the journey. This is a cross-border transfer through our partner driver network, not a local Abu Dhabi taxi service.",
     tldrFacts: [
       { label: "Distance", value: "~850 km" },
       { label: "Time", value: "~8 hours + border" },
@@ -1552,7 +1552,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "dammam-to-abudhabi": {
-    tldr: "A private car from Dammam to Abu Dhabi is about 750 km and takes roughly 7.5 hours plus the Saudi–UAE border crossing at Al Batha–Ghuwaifat. The fare is fixed, confirmed on WhatsApp, with a comfortable vehicle for the Gulf-coast route. This is a cross-border transfer through our partner driver network, not a local Dammam or Abu Dhabi taxi service.",
+    tldr: "A private car with a professional chauffeur from Dammam to Abu Dhabi is about 750 km and takes roughly 7.5 hours plus the Saudi–UAE border crossing at Al Batha–Ghuwaifat. The fare is fixed, confirmed on WhatsApp, with a comfortable vehicle for the Gulf-coast route. This is a cross-border transfer through our partner driver network, not a local Dammam or Abu Dhabi taxi service.",
     tldrFacts: [
       { label: "Distance", value: "~750 km" },
       { label: "Time", value: "~7.5 hours + border" },
@@ -1576,13 +1576,13 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
     faqs: [
       { question: "How far is Jeddah from Abu Dhabi by road?", answer: "Jeddah to Abu Dhabi is about 1,750 km via the Saudi interior — typically 18 or more hours including rest stops and the Saudi–UAE border crossing (Al Batha / Ghuwaifat)." },
-      { question: "Is driving from Jeddah to Abu Dhabi practical?", answer: "It's a genuinely long haul — most travellers on this corridor prefer flying and booking a private airport transfer at each end. A private car with a professional driver is available for those who want the full road journey, with planned rest stops along the way." },
+      { question: "Is driving from Jeddah to Abu Dhabi practical?", answer: "It's a genuinely long haul — most travellers on this corridor prefer flying and booking a private airport transfer at each end. A private car with a professional chauffeur is available for those who want the full road journey, with planned rest stops along the way." },
       { question: "What do I need for the UAE border?", answer: "A valid passport and the correct UAE entry visa or eligibility. Share your details in advance so we can advise and prepare for a smooth crossing." },
       { question: "What vehicles are available for the Jeddah to Abu Dhabi trip?", answer: "Executive sedan, full-size SUV, or van, sized for the long journey and luggage — share your group size when requesting a quote." },
     ],
   },
   "riyadh-to-kuwait": {
-    tldr: "A private car from Riyadh to Kuwait City is about 650 km and takes roughly 6 to 7 hours plus the Saudi–Kuwait border crossing at Nuwaiseeb–Al Khafji. The fare is fixed, confirmed on WhatsApp, with documentation support for the crossing.",
+    tldr: "A private car with a professional chauffeur from Riyadh to Kuwait City is about 650 km and takes roughly 6 to 7 hours plus the Saudi–Kuwait border crossing at Nuwaiseeb–Al Khafji. The fare is fixed, confirmed on WhatsApp, with documentation support for the crossing.",
     tldrFacts: [
       { label: "Distance", value: "~650 km" },
       { label: "Time", value: "~6–7 hours + border" },
@@ -1597,7 +1597,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "dammam-to-dubai": {
-    tldr: "A private car from Dammam to Dubai is about 890 km and takes roughly 8.5 hours plus the Saudi–UAE border crossing at Al Batha–Ghuwaifat. The fare is fixed, confirmed on WhatsApp, with a comfortable vehicle for the Gulf-coast route.",
+    tldr: "A private car with a professional chauffeur from Dammam to Dubai is about 890 km and takes roughly 8.5 hours plus the Saudi–UAE border crossing at Al Batha–Ghuwaifat. The fare is fixed, confirmed on WhatsApp, with a comfortable vehicle for the Gulf-coast route.",
     tldrFacts: [
       { label: "Distance", value: "~890 km" },
       { label: "Time", value: "~8.5 hours + border" },
@@ -1816,7 +1816,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "tabuk-to-aqaba": {
-    tldr: "A private car from Tabuk to Aqaba, Jordan is about 130 km and takes roughly 1 hour 40 minutes plus the Saudi–Jordan border crossing at Al Durrah, near Haql. The fare is fixed, confirmed on WhatsApp, with documentation support for the crossing.",
+    tldr: "A private car with a chauffeur from Tabuk to Aqaba, Jordan is about 130 km and takes roughly 1 hour 40 minutes plus the Saudi–Jordan border crossing at Al Durrah, near Haql. The fare is fixed, confirmed on WhatsApp, with documentation support for the crossing.",
     tldrFacts: [
       { label: "Distance", value: "~130 km" },
       { label: "Time", value: "~1 hr 40 + border" },
@@ -1831,7 +1831,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "aqaba-to-tabuk": {
-    tldr: "A private car from Aqaba, Jordan to Tabuk is about 130 km and takes roughly 1 hour 40 minutes plus the Jordan–Saudi border crossing at Al Durrah, near Haql. The fare is fixed, confirmed on WhatsApp, with documentation support for the return crossing.",
+    tldr: "A private car with a chauffeur from Aqaba, Jordan to Tabuk is about 130 km and takes roughly 1 hour 40 minutes plus the Jordan–Saudi border crossing at Al Durrah, near Haql. The fare is fixed, confirmed on WhatsApp, with documentation support for the return crossing.",
     tldrFacts: [
       { label: "Distance", value: "~130 km" },
       { label: "Time", value: "~1 hr 40 + border" },
@@ -1846,7 +1846,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "neom-to-aqaba": {
-    tldr: "A private car from NEOM to Aqaba, Jordan is about 100 km and takes roughly 1 hour 30 minutes plus the Saudi–Jordan border crossing at Al Durrah, near Haql. The fare is fixed, confirmed on WhatsApp, with documentation support for the crossing.",
+    tldr: "A private car with a chauffeur from NEOM to Aqaba, Jordan is about 100 km and takes roughly 1 hour 30 minutes plus the Saudi–Jordan border crossing at Al Durrah, near Haql. The fare is fixed, confirmed on WhatsApp, with documentation support for the crossing.",
     tldrFacts: [
       { label: "Distance", value: "~100 km" },
       { label: "Time", value: "~1 hr 30 + border" },
@@ -1861,7 +1861,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "aqaba-to-neom": {
-    tldr: "A private car from Aqaba, Jordan to NEOM is about 100 km and takes roughly 1 hour 30 minutes plus the Jordan–Saudi border crossing at Al Durrah, near Haql. The fare is fixed, confirmed on WhatsApp, with documentation support for the return crossing.",
+    tldr: "A private car with a chauffeur from Aqaba, Jordan to NEOM is about 100 km and takes roughly 1 hour 30 minutes plus the Jordan–Saudi border crossing at Al Durrah, near Haql. The fare is fixed, confirmed on WhatsApp, with documentation support for the return crossing.",
     tldrFacts: [
       { label: "Distance", value: "~100 km" },
       { label: "Time", value: "~1 hr 30 + border" },
