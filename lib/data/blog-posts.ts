@@ -11,29 +11,29 @@
     content: `
 ## How Much Is a Taxi in Jeddah?
 
-Taxi fares in Jeddah depend on the route, the vehicle, and how you book. With Taxi Saudi Arabia, the price is **fixed and confirmed before you travel** — no meter surprises and no surge pricing. Below are typical 2026 starting fares so you can budget your trip.
+Taxi fares in Jeddah depend on the route, the vehicle, and how you book. With Taxi Saudi Arabia, the price is **fixed and confirmed before you travel** — no meter surprises and no surge pricing. Every fare is quoted per route rather than published as a fixed table, so below are the routes themselves with real distances and drive times, and how to get an exact price for yours.
 
-> **Quick answer:** A taxi from Jeddah Airport (JED) to Makkah starts from **SAR 249**, Jeddah to Madinah from **SAR 549**, and a Jeddah airport-to-city ride from **SAR 80** — all quoted on WhatsApp, 24/7.
+> **Quick answer:** Jeddah taxi fares are quoted per route, not by meter. Jeddah Airport (JED) to Makkah, Jeddah to Madinah, and airport-to-city rides are each priced for your exact trip and confirmed on WhatsApp before you book, 24/7.
 
-### Popular Jeddah Fares (starting fares — sedan)
+### Popular Jeddah Routes — Distance & Time
 
-> **These are _starting_ fares for an executive sedan with 1–3 passengers and light luggage.** Your final price depends on the vehicle, number of passengers and bags, pickup time, season (Umrah / Hajj / Ramadan peaks), and any stops or waiting — a larger vehicle, extra luggage, or night / peak-season travel is higher. Every fare is **confirmed on WhatsApp before you book**, so you know the exact total upfront.
+> Your fare depends on the vehicle, number of passengers and bags, pickup time, season (Umrah / Hajj / Ramadan peaks), and any stops or waiting. Every fare is **confirmed on WhatsApp before you book**, so you know the exact total upfront.
 
-- **Jeddah Airport (JED) → Makkah:** from SAR 249 — ~80 km, ~1 hour
-- **Jeddah City → Makkah:** from SAR 199 — ~85 km, ~1 hr 10 min
-- **Jeddah Airport (JED) → Madinah:** from SAR 549 — ~410 km, ~4–5 hours
-- **Jeddah → Madinah:** from SAR 549 — ~420 km, ~4–5 hours
-- **Jeddah Airport (JED) → City / Corniche / Al-Balad:** from SAR 80 — ~20–35 min
-- **Jeddah → Taif:** from SAR 200 — mountain route
+- **Jeddah Airport (JED) → Makkah:** ~80 km, ~1 hour
+- **Jeddah City → Makkah:** ~85 km, ~1 hr 10 min
+- **Jeddah Airport (JED) → Madinah:** ~410 km, ~4–5 hours
+- **Jeddah → Madinah:** ~420 km, ~4–5 hours
+- **Jeddah Airport (JED) → City / Corniche / Al-Balad:** ~20–35 min
+- **Jeddah → Taif:** mountain route via Al Hada
 
 ### How Vehicle Type Changes the Price
 
-The fares above are for an executive sedan (up to 3 passengers). Larger vehicles cost more because of space and comfort:
+Larger and more premium vehicles cost more than an executive sedan because of the extra space, comfort, and capacity:
 
-- **Executive Sedan** (3 pax, 2 bags): base fare
-- **Family SUV** (6 pax, 5 bags): about 1.5× the sedan fare
-- **Group Van** (7 pax, 7 bags): about 1.35× the sedan fare
-- **Luxury / VIP** (3 pax): about 2.5× the sedan fare
+- **Executive Sedan** (3 pax, 2 bags): the standard rate
+- **Family SUV** (6 pax, 5 bags): higher than the sedan rate, for the extra seats and luggage room
+- **Group Van** (7 pax, 7 bags): higher than the sedan rate, for the larger group capacity
+- **Luxury / VIP** (3 pax): the highest tier, for the premium vehicle class
 
 ### What Affects a Jeddah Taxi Fare?
 
@@ -50,7 +50,7 @@ The fares above are for an executive sedan (up to 3 passengers). Larger vehicles
 
 ### Do You Tip Taxi Drivers in Saudi Arabia?
 
-Tipping is not required and the fare is complete as quoted. Many travellers round up or give a small tip (SAR 10–20) for help with heavy luggage or extra stops, but it is entirely optional.
+Tipping is not required and the fare is complete as quoted. Many travellers round up or give a small discretionary tip for help with heavy luggage or extra stops, but it is entirely optional.
 
 ### Get an Exact Jeddah Fare
 
@@ -69,29 +69,29 @@ Every quote is confirmed before you book, so you always know the total in advanc
     content: `
 ## How Much Is a Taxi in Makkah?
 
-Taxi fares from Makkah depend on the route and vehicle. With Taxi Saudi Arabia the price is **fixed and confirmed before you travel** — no meter and no surge, including departures to Jeddah Airport at any hour. Here are typical 2026 starting fares.
+Taxi fares from Makkah depend on the route and vehicle. With Taxi Saudi Arabia the price is **fixed and confirmed before you travel** — no meter and no surge, including departures to Jeddah Airport at any hour. Every fare is quoted per route rather than published as a fixed table — here are the routes themselves with real distances and drive times.
 
-> **Quick answer:** A taxi from Makkah to Jeddah Airport (JED) starts from **SAR 249**, Makkah to Madinah from **SAR 499**, and Makkah to Taif from **SAR 180** — all quoted on WhatsApp, 24/7.
+> **Quick answer:** Makkah taxi fares are quoted per route, not by meter. Makkah to Jeddah Airport (JED), Makkah to Madinah, and Makkah to Taif are each priced for your exact trip and confirmed on WhatsApp before you book, 24/7.
 
-### Popular Makkah Fares (starting fares — sedan)
+### Popular Makkah Routes — Distance & Time
 
-> **These are _starting_ fares for an executive sedan with 1–3 passengers and light luggage.** Your final price depends on the vehicle, number of passengers and bags, pickup time, season (Umrah / Hajj / Ramadan peaks), and any stops or waiting — a larger vehicle, extra luggage, or night / peak-season travel is higher. Every fare is **confirmed on WhatsApp before you book**, so you know the exact total upfront.
+> Your fare depends on the vehicle, number of passengers and bags, pickup time, season (Umrah / Hajj / Ramadan peaks), and any stops or waiting. Every fare is **confirmed on WhatsApp before you book**, so you know the exact total upfront.
 
-- **Makkah → Jeddah Airport (JED):** from SAR 249 — ~80 km, ~1 hour
-- **Makkah → Jeddah City:** from SAR 150 — ~85 km, ~1 hr 10 min
-- **Makkah → Madinah:** from SAR 499 — ~430 km, ~4–5 hours
-- **Makkah → Madinah Airport:** from SAR 400 — ~450 km
-- **Makkah → Taif:** from SAR 180 — ~90 km, Al Hada road
-- **Makkah Ziyarat (half-day tour):** from SAR 250 — Cave of Hira, Mina, Arafat
+- **Makkah → Jeddah Airport (JED):** ~80 km, ~1 hour
+- **Makkah → Jeddah City:** ~85 km, ~1 hr 10 min
+- **Makkah → Madinah:** ~430 km, ~4–5 hours
+- **Makkah → Madinah Airport:** ~450 km
+- **Makkah → Taif:** ~90 km, Al Hada road
+- **Makkah Ziyarat (half-day tour):** Cave of Hira, Mina, Arafat
 
 ### How Vehicle Type Changes the Price
 
-The fares above are for an executive sedan. Larger vehicles cost more for space and comfort:
+Larger and more premium vehicles cost more than an executive sedan for the extra space and comfort:
 
-- **Executive Sedan** (3 pax, 2 bags): base fare
-- **Family SUV** (6 pax, 5 bags): about 1.5× the sedan fare
-- **Group Van** (7 pax, 7 bags): about 1.35× the sedan fare
-- **Luxury / VIP** (3 pax): about 2.5× the sedan fare
+- **Executive Sedan** (3 pax, 2 bags): the standard rate
+- **Family SUV** (6 pax, 5 bags): higher than the sedan rate, for the extra seats and luggage room
+- **Group Van** (7 pax, 7 bags): higher than the sedan rate, for the larger group capacity
+- **Luxury / VIP** (3 pax): the highest tier, for the premium vehicle class
 
 ### What Affects a Makkah Taxi Fare?
 
@@ -123,29 +123,29 @@ Share your pickup hotel, destination, and vehicle preference and we will confirm
     content: `
 ## How Much Is a Taxi in Madinah?
 
-Taxi fares in Madinah depend on the route and vehicle. With Taxi Saudi Arabia the price is **fixed and confirmed before you travel** — no meter and no surge, including airport arrivals at any hour. Here are typical 2026 starting fares.
+Taxi fares in Madinah depend on the route and vehicle. With Taxi Saudi Arabia the price is **fixed and confirmed before you travel** — no meter and no surge, including airport arrivals at any hour. Every fare is quoted per route rather than published as a fixed table — here are the routes themselves with real distances and drive times.
 
-> **Quick answer:** A taxi from Madinah Airport (MED) to the city starts from **SAR 80**, Madinah to Makkah from **SAR 499**, and a half-day Ziyarat tour from **SAR 250** — all quoted on WhatsApp, 24/7.
+> **Quick answer:** Madinah taxi fares are quoted per route, not by meter. Madinah Airport (MED) to the city, Madinah to Makkah, and a half-day Ziyarat tour are each priced for your exact trip and confirmed on WhatsApp before you book, 24/7.
 
-### Popular Madinah Fares (starting fares — sedan)
+### Popular Madinah Routes — Distance & Time
 
-> **These are _starting_ fares for an executive sedan with 1–3 passengers and light luggage.** Your final price depends on the vehicle, number of passengers and bags, pickup time, season (Umrah / Hajj / Ramadan peaks), and any stops or waiting — a larger vehicle, extra luggage, or night / peak-season travel is higher. Every fare is **confirmed on WhatsApp before you book**, so you know the exact total upfront.
+> Your fare depends on the vehicle, number of passengers and bags, pickup time, season (Umrah / Hajj / Ramadan peaks), and any stops or waiting. Every fare is **confirmed on WhatsApp before you book**, so you know the exact total upfront.
 
-- **Madinah Airport (MED) → City / Markazia hotels:** from SAR 80 — ~20 km, ~25 min
-- **Madinah → Makkah:** from SAR 499 — ~430 km, ~4–5 hours
-- **Madinah Airport (MED) → Makkah:** from SAR 400 — ~450 km
-- **Madinah → Jeddah Airport (JED):** from SAR 380 — ~410 km
-- **Madinah → Jeddah City:** from SAR 350 — ~420 km
-- **Madinah Ziyarat (half-day tour):** from SAR 250 — Quba, Uhud, Qiblatain
+- **Madinah Airport (MED) → City / Markazia hotels:** ~20 km, ~25 min
+- **Madinah → Makkah:** ~430 km, ~4–5 hours
+- **Madinah Airport (MED) → Makkah:** ~450 km
+- **Madinah → Jeddah Airport (JED):** ~410 km
+- **Madinah → Jeddah City:** ~420 km
+- **Madinah Ziyarat (half-day tour):** Quba, Uhud, Qiblatain
 
 ### How Vehicle Type Changes the Price
 
-The fares above are for an executive sedan. Larger vehicles cost more for space and comfort:
+Larger and more premium vehicles cost more than an executive sedan for the extra space and comfort:
 
-- **Executive Sedan** (3 pax, 2 bags): base fare
-- **Family SUV** (6 pax, 5 bags): about 1.5× the sedan fare
-- **Group Van** (7 pax, 7 bags): about 1.35× the sedan fare
-- **Luxury / VIP** (3 pax): about 2.5× the sedan fare
+- **Executive Sedan** (3 pax, 2 bags): the standard rate
+- **Family SUV** (6 pax, 5 bags): higher than the sedan rate, for the extra seats and luggage room
+- **Group Van** (7 pax, 7 bags): higher than the sedan rate, for the larger group capacity
+- **Luxury / VIP** (3 pax): the highest tier, for the premium vehicle class
 
 ### What Affects a Madinah Taxi Fare?
 
@@ -776,7 +776,7 @@ Make your arrival in the capital smooth and stress-free. [Book your Riyadh airpo
 
 If you drive in Saudi Arabia, sooner or later you will hear the word **satha (سطحة)**. It simply means a **flatbed tow truck** — a truck with a flat, hydraulic bed that tilts down so a car can be winched fully on top of it. When your car breaks down, has an accident, or needs to be moved anywhere in the Kingdom, the satha is what comes to rescue it.
 
-> **Quick answer:** A satha (سطحة) is a flatbed recovery truck. Your car rides fully on the truck bed with no wheels touching the road — the safest way to tow any vehicle, especially automatic, AWD, and luxury cars. A within-city satha in Saudi Arabia typically costs **SAR 200–450**.
+> **Quick answer:** A satha (سطحة) is a flatbed recovery truck. Your car rides fully on the truck bed with no wheels touching the road — the safest way to tow any vehicle, especially automatic, AWD, and luxury cars. The price depends on distance and location and is confirmed on WhatsApp before the truck is dispatched.
 
 ### How a Satha Works
 
@@ -800,11 +800,9 @@ A traditional hook-and-chain truck lifts two wheels and drags the other two on t
 
 ### How Much Does a Satha Cost in Saudi Arabia?
 
-- **Within the city (up to ~10 km):** SAR 200–300
-- **Longer city moves (10–30 km):** SAR 250–450
-- **Intercity (e.g. Riyadh → Dammam):** roughly SAR 1,100–1,600
+Satha pricing scales with distance: a short within-city tow costs less than a longer cross-city move, and an intercity transport (e.g. Riyadh → Dammam) is priced separately as a long-distance job. Rather than a fixed table, we confirm your exact price on WhatsApp once we have your pickup point, drop-off, and vehicle type — no surprises on arrival.
 
-Full price breakdown here: [car towing costs in Saudi Arabia](/blog/car-towing-cost-saudi-arabia-2026).
+Full pricing breakdown here: [car towing costs in Saudi Arabia](/blog/car-towing-cost-saudi-arabia-2026).
 
 ### How to Call a Satha Fast
 
@@ -814,7 +812,7 @@ The fastest way is WhatsApp: share your **live location**, your **car model**, a
   {
     title: "How Much Does Car Towing Cost in Saudi Arabia? 2026 Satha Price Guide",
     slug: "car-towing-cost-saudi-arabia-2026",
-    excerpt: "Real 2026 towing prices in Saudi Arabia — within-city satha rates, intercity car transport costs, callout fees, and how to avoid overcharging.",
+    excerpt: "How towing (satha) pricing works in Saudi Arabia in 2026 — what drives the cost of within-city and intercity car transport, and how to avoid overcharging.",
     coverImage: "/blog/car-towing-cost-saudi-arabia-2026.webp",
     category: "Car Recovery",
     author: "Tariq Al-Faisal",
@@ -823,30 +821,27 @@ The fastest way is WhatsApp: share your **live location**, your **car model**, a
     content: `
 ## Towing Prices in Saudi Arabia (2026)
 
-Nobody plans for a breakdown, so most people have no idea what a fair towing price looks like — and that is exactly when overcharging happens. Here are the real 2026 market rates for a **flatbed tow truck (satha سطحة)** across Saudi Arabia.
+Nobody plans for a breakdown, so most people have no idea what a fair towing price looks like — and that is exactly when overcharging happens. Here is how pricing actually works for a **flatbed tow truck (satha سطحة)** across Saudi Arabia, so you know what to expect before you agree to anything.
 
-> **Quick answer:** A within-city flatbed tow starts from **SAR 200**. Cross-city moves run **SAR 250–450**, battery jump starts **SAR 120–200**, and intercity car transport like Riyadh–Dammam costs roughly **SAR 1,100–1,600**.
+> **Quick answer:** Towing (satha) pricing is distance-based — a short within-city tow costs less than a cross-city move, and intercity car transport (like Riyadh–Dammam) is priced as a separate long-distance job. Roadside jobs like a battery jump start or tire change cost less than a full tow. We confirm your exact price on WhatsApp before the truck is dispatched.
 
 ### Within-City Towing Rates
 
-- **Short tow (up to ~10 km):** SAR 200–300
-- **Cross-city tow (10–30 km):** SAR 250–450
-- **Night/remote area pickup:** usually the same with a good company — beware of "night surcharges" invented on arrival
+- **Short tow (up to ~10 km):** the lowest tier — a quick local move
+- **Cross-city tow (10–30 km):** priced higher than a short tow for the extra distance
+- **Night/remote area pickup:** priced the same with a good company — beware of "night surcharges" invented on arrival
 
-Rates are similar in [Riyadh](/services/car-recovery/riyadh), [Jeddah](/services/car-recovery/jeddah), and [Dammam](/services/car-recovery/dammam). In [Makkah](/services/car-recovery/makkah) and [Madinah](/services/car-recovery/madinah) prices start slightly higher (from ~SAR 250) because of central-area access restrictions.
+Pricing follows the same distance-based structure in [Riyadh](/services/car-recovery/riyadh), [Jeddah](/services/car-recovery/jeddah), and [Dammam](/services/car-recovery/dammam). In [Makkah](/services/car-recovery/makkah) and [Madinah](/services/car-recovery/madinah), central-area access restrictions can mean a slightly higher starting point.
 
 ### Roadside Services (No Towing Needed)
 
-- **Battery jump start:** SAR 120–200
-- **Flat tire change (your spare):** SAR 120–200
-- **Fuel delivery:** SAR 120–200 plus the fuel
+- **Battery jump start:** a quick roadside job, priced lower than a full tow
+- **Flat tire change (your spare):** a quick roadside job, priced lower than a full tow
+- **Fuel delivery:** the roadside callout plus the cost of the fuel itself
 
 ### Intercity Car Transport Costs
 
-- **Riyadh ⇄ Dammam (~410 km):** SAR 1,100–1,600
-- **Jeddah ⇄ Makkah (~80 km):** SAR 350–500
-- **Jeddah ⇄ Madinah (~420 km):** SAR 1,100–1,600
-- **Jeddah ⇄ Riyadh (~950 km):** SAR 1,800–2,600
+Intercity transport is priced by route and distance rather than a flat rate — a short corridor like Jeddah–Makkah costs less than a long haul like Jeddah–Riyadh. Share your route and vehicle and we confirm the exact price on WhatsApp before booking.
 
 Moving a car permanently? See our full [guide to transporting a car between Saudi cities](/blog/car-transport-between-saudi-cities).
 
@@ -952,7 +947,7 @@ For everything else — which is almost every car on Saudi roads today — flatb
 
 ### What About My Warranty and Insurance?
 
-Most manufacturer warranties and comprehensive insurance policies expect **manufacturer-approved towing**, which for automatics means flatbed. If a hook tow damages the transmission, that repair fight is yours. One more reason the extra SAR 30–50 a flatbed might cost is the cheapest insurance you'll ever buy.
+Most manufacturer warranties and comprehensive insurance policies expect **manufacturer-approved towing**, which for automatics means flatbed. If a hook tow damages the transmission, that repair fight is yours. Any small difference a flatbed might cost over a hook tow is the cheapest insurance you'll ever buy.
 
 ### The Bottom Line
 
@@ -962,7 +957,7 @@ When you call for recovery, say clearly: **"I need a flatbed — satha."** Our [
   {
     title: "Transporting a Car Between Riyadh, Jeddah & Dammam: 2026 Complete Guide",
     slug: "car-transport-between-saudi-cities",
-    excerpt: "Moving a car between Saudi cities? 2026 costs for Riyadh–Jeddah–Dammam transport, how flatbed intercity transport works, and how to book it fast.",
+    excerpt: "Moving a car between Saudi cities? How Riyadh–Jeddah–Dammam intercity flatbed transport pricing works, what changes the cost, and how to book it fast.",
     coverImage: "/blog/car-transport-between-saudi-cities.webp",
     category: "Car Recovery",
     author: "Tariq Al-Faisal",
@@ -973,17 +968,17 @@ When you call for recovery, say clearly: **"I need a flatbed — satha."** Our [
 
 New job in Riyadh, bought a car from a seller in Dammam, or sending the family car to Jeddah? You don't have to drive it yourself. **Intercity car transport by flatbed (satha)** moves the car door-to-door while you fly, work, or travel separately.
 
-> **Quick answer:** Riyadh ⇄ Dammam car transport costs roughly **SAR 1,100–1,600** and takes ~5–6 hours. Jeddah ⇄ Riyadh runs **SAR 1,800–2,600** (~10–12 hours). Book on WhatsApp with a clear price; the car is delivered the same or next day.
+> **Quick answer:** Riyadh ⇄ Dammam car transport takes about 5–6 hours, and Jeddah ⇄ Riyadh takes about 10–12 hours, delivered the same or next day. Pricing is distance-based and confirmed on WhatsApp before booking.
 
-### 2026 Intercity Transport Rates
+### 2026 Intercity Transport Routes
 
-- **Riyadh ⇄ Dammam (~410 km):** SAR 1,100–1,600 · same day
-- **Jeddah ⇄ Makkah (~80 km):** SAR 350–500 · 2–3 hours
-- **Jeddah ⇄ Madinah (~420 km):** SAR 1,100–1,600 · same day
-- **Riyadh ⇄ Jeddah (~950 km):** SAR 1,800–2,600 · same/next day
-- **Makkah ⇄ Madinah (~430 km):** SAR 1,100–1,600 · same day
+- **Riyadh ⇄ Dammam (~410 km):** same day
+- **Jeddah ⇄ Makkah (~80 km):** 2–3 hours
+- **Jeddah ⇄ Madinah (~420 km):** same day
+- **Riyadh ⇄ Jeddah (~950 km):** same/next day
+- **Makkah ⇄ Madinah (~430 km):** same day
 
-Exact quotes depend on pickup/drop-off points and vehicle size — SUVs cost slightly more, and non-running cars need a winch load (usually no extra charge with us).
+Pricing scales with distance — a short corridor like Jeddah–Makkah costs less than a long haul like Riyadh–Jeddah. Exact quotes also depend on pickup/drop-off points and vehicle size — SUVs cost slightly more, and non-running cars need a winch load (usually no extra charge with us).
 
 ### Who Uses Intercity Car Transport?
 
@@ -1028,14 +1023,14 @@ Ready to move a car? Our [car recovery and transport service](/services/car-reco
 
 A private driver in Saudi Arabia can be booked three ways — by the hour, for a full day, or for a fixed point-to-point trip — and the price depends on which one fits your plans.
 
-> **Quick answer:** Hourly hire starts from **SAR 70/hour** for an executive sedan and **SAR 250/hour** for a luxury VIP sedan (Mercedes S-Class). Fixed point-to-point transfers (airport, intercity) are priced per route, not per hour — see our [pricing page](/pricing) for exact routes.
+> **Quick answer:** Hourly hire is priced by vehicle class, from an executive sedan up to a luxury VIP sedan (Mercedes S-Class) — quoted on WhatsApp before booking. Fixed point-to-point transfers (airport, intercity) are priced per route, not per hour — see our [pricing page](/pricing) for exact routes.
 
 ### Hourly Rates by Vehicle Class
 
-- **Executive Sedan** (Toyota Camry): from SAR 70/hour
-- **Premium SUV** (GMC Yukon XL): from SAR 120/hour
-- **VIP Family Van** (Hyundai Staria): from SAR 140/hour
-- **Luxury VIP Sedan** (Mercedes S-Class): from SAR 250/hour
+- **Executive Sedan** (Toyota Camry): the standard hourly rate
+- **Premium SUV** (GMC Yukon XL): higher than the sedan rate, for the extra space
+- **VIP Family Van** (Hyundai Staria): higher than the sedan rate, for the group capacity
+- **Luxury VIP Sedan** (Mercedes S-Class): the highest tier, for the premium vehicle class
 
 Hourly hire is billed for the vehicle and driver together — waiting time between stops (a business meeting, a shopping trip, a Ziyarat visit) is included, not charged separately.
 
@@ -1049,7 +1044,7 @@ Hourly hire is billed for the vehicle and driver together — waiting time betwe
 
 - **Vehicle class** — sedan, SUV, van, or luxury, as above.
 - **Duration** — hourly rates typically have a minimum booking window (ask when you book).
-- **City** — availability and demand vary slightly by city, though our published rates are fixed nationwide.
+- **City** — availability and demand vary slightly by city, though our pricing approach is consistent nationwide.
 - **What does NOT change it:** time of day, traffic, or "surge." Unlike ride-hailing apps, our prices don't move with demand.
 
 ### Private Driver vs. Ride-Hailing Apps
@@ -1136,12 +1131,12 @@ To be clear, every vehicle we dispatch — sedan, SUV, or van — is **private t
 
 ### Cost Comparison (Priced Per Trip, Not Per-Seat)
 
-Using the Jeddah Airport → Makkah corridor as an example:
+Using the Jeddah Airport → Makkah corridor as an example, both options are priced per trip rather than per seat:
 
-- **Executive Sedan** (up to 3 pax): from SAR 249 total
-- **VIP Family Van** (up to 7 pax): from SAR 349 total
+- **Executive Sedan** (up to 3 pax): one fixed price for the vehicle
+- **VIP Family Van** (up to 7 pax): a higher fixed price for the larger vehicle, but still one trip
 
-For a group of 4, the van works out to roughly SAR 87 per person versus SAR 83–166 per person split across two sedans — similar cost, but everyone travels together in one vehicle.
+For a group of 4, splitting across two sedans usually costs about the same overall as booking one van — with the van, everyone travels together in one vehicle instead of splitting into two cars. Share your group size on WhatsApp for the exact comparison.
 
 ### Both Options Include
 
