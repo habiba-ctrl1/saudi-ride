@@ -23,6 +23,12 @@ function internalLinksFor(post: { title: string; content: string; slug: string }
   const any = (...keys: string[]) => keys.some((k) => t.includes(k));
   const all = (...keys: string[]) => keys.every((k) => t.includes(k));
 
+  // Guides — the two confirmed topic-overlap pairs (2026-09-25 cannibalization
+  // audit). Added first so the 6-link cap below doesn't crowd them out with
+  // generic location/route matches. Scoped to these 2 slugs only.
+  if (post.slug === "buying-sim-cards-jeddah-airport-stc-mobily-zain") add("Quick answer: SIM card guide (price, where to buy)", "/guides/jeddah-airport-sim-card");
+  if (post.slug === "makkah-to-madinah-taxi-journey-expectations") add("Taxi vs train vs bus comparison guide", "/guides/makkah-to-madinah-transport-guide");
+
   // Routes (most specific first)
   if (any("jeddah airport to makkah") || all("jeddah", "makkah", "airport")) add("Jeddah Airport → Makkah taxi", "/routes/jeddah-airport-to-makkah");
   if (all("jeddah", "madinah")) add("Jeddah → Madinah taxi", "/routes/jeddah-to-madinah");

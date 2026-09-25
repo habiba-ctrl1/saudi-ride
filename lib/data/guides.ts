@@ -44,6 +44,7 @@ export const GUIDES: Guide[] = [
       "eSIM: Use the stc or Zain app to activate a digital SIM before landing for seamless arrival connectivity.",
       "Price range: SAR 60–150 depending on data bundle (10GB to Unlimited monthly).",
       "Documents: bring your passport — a local SIM registration is mandatory in Saudi Arabia and takes 2–3 minutes at the counter.",
+      "Fingerprint scan: Saudi law requires a fingerprint scan for every active SIM, alongside your passport — the kiosk staff handle this as part of registration.",
       "Coverage tip: stc has the strongest 5G across Makkah, Madinah, and the Haramain corridor — ideal if you are travelling for Umrah.",
     ],
     tldr: "You can buy a local 5G SIM (stc, Mobily, or Zain) right after baggage claim at Jeddah Airport. Bring your passport for registration, expect to pay SAR 60–150 for a tourist data bundle, or activate an eSIM before you land for instant connectivity.",
@@ -56,7 +57,7 @@ export const GUIDES: Guide[] = [
     faqs: [
       { question: "Where can I buy a SIM card at Jeddah Airport?", answer: "stc, Mobily, and Zain booths are located in the arrivals hall right after baggage claim in Terminal 1. Zain counters near the exit gates are open 24/7 for late-night flights." },
       { question: "How much does a tourist SIM cost in Jeddah?", answer: "A tourist data SIM costs between SAR 60 and SAR 150 depending on the bundle, ranging from 10GB up to unlimited monthly data. Pilgrim 'Hajj & Umrah' bundles are also available." },
-      { question: "Do I need my passport to buy a SIM in Saudi Arabia?", answer: "Yes. SIM registration is mandatory in Saudi Arabia, so bring your passport. The counter staff complete the registration in 2–3 minutes." },
+      { question: "Do I need my passport to buy a SIM in Saudi Arabia?", answer: "Yes. SIM registration is mandatory in Saudi Arabia, so bring your passport — the counter staff will also take a fingerprint scan as part of registration, which is a legal requirement for every active SIM. The whole process takes 2–3 minutes." },
       { question: "Can I use an eSIM instead of a physical SIM?", answer: "Yes. You can activate an stc or Zain eSIM through their app before you land, so you have data the moment you arrive — useful for contacting your pre-booked driver." },
     ],
   },

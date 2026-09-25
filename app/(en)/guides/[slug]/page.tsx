@@ -9,6 +9,21 @@ import { TLDRSummary } from "@/components/seo/TLDRSummary";
 
 export const revalidate = 86400;
 
+// Related-reading links for guides whose topic also has a distinct-angle blog
+// post — /guides pages currently have zero outbound cross-links, so topically
+// overlapping /blog posts were invisible to each other. Scoped to the pairs
+// with confirmed real overlap (2026-09-25 cannibalization audit) — not a
+// blanket related-links system for every guide.
+const RELATED_LINKS: Record<string, { href: string; label: string }[]> = {
+  "jeddah-airport-sim-card": [
+    { href: "/blog/buying-sim-cards-jeddah-airport-stc-mobily-zain", label: "STC vs Mobily vs Zain: a detailed operator comparison" },
+  ],
+  "makkah-to-madinah-transport-guide": [
+    { href: "/blog/makkah-to-madinah-taxi-journey-expectations", label: "What to expect on the Makkah–Madinah road journey" },
+    { href: "/routes/makkah-to-madinah", label: "Book a Makkah to Madinah taxi" },
+  ],
+};
+
 export function generateStaticParams() {
   return GUIDES.map((guide) => ({
     slug: guide.slug,
@@ -142,6 +157,25 @@ export default async function GuideSinglePage({ params }: PageProps) {
                   <h3 className="font-bold text-base mb-2 text-[#1C1C1C]">{faq.question}</h3>
                   <p className="text-sm text-[#6B7280] leading-relaxed">{faq.answer}</p>
                 </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Related reading — cross-links to a topically distinct blog post/route, where one exists */}
+        {RELATED_LINKS[slug] && RELATED_LINKS[slug].length > 0 && (
+          <div className="mt-16">
+            <h2 className="font-heading text-xl font-bold mb-4 text-[#1C1C1C]">Related Reading</h2>
+            <div className="space-y-2">
+              {RELATED_LINKS[slug].map((link, i) => (
+                <Link
+                  key={i}
+                  href={link.href}
+                  className="flex items-center gap-2 text-sm text-[#16A34A] font-medium hover:underline"
+                >
+                  <ChevronRight className="h-3.5 w-3.5 shrink-0" />
+                  {link.label}
+                </Link>
               ))}
             </div>
           </div>
