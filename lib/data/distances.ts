@@ -202,7 +202,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
       { icon: "map", text: "Expect busier traffic near Riyadh and around the Dammam and Khobar exits." },
     ],
     faqs: [
-      { question: "How far is Riyadh from Dammam?", answer: "Riyadh to Dammam is about 390 km by road on Highway 40." },
+      { question: "How far is Riyadh from Dammam?", answer: "Riyadh to Dammam is about 390 km by road (roughly 3.5 hours by car) on Highway 40." },
       { question: "How long does it take to drive from Riyadh to Dammam?", answer: "The drive takes roughly 3.5 hours on the expressway, depending on traffic and stops." },
       { question: "Is there a train between Riyadh and Dammam?", answer: "Yes — the Saudi Railway (SAR) runs a passenger service that takes about 4 hours station to station. A private car is door-to-door and often more convenient with luggage." },
       { question: "Can the taxi continue from Dammam to Al Khobar or Bahrain?", answer: "Yes. The route continues naturally to Al Khobar and Dhahran, and across the King Fahd Causeway to Bahrain — ask for a through booking when you message us." },
