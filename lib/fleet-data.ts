@@ -185,7 +185,7 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
     badge: "Executive Class",
     image: "/fleet/bmw-7-series.webp",
     features: ["Performance", "Luxury Comfort", "Prestige"],
-    description: "Executive luxury sedan with a smooth, powerful ride â€” perfect for business travel.",
+    description: "Executive luxury sedan with a smooth, powerful ride — perfect for business travel.",
   },
   {
     slug: "genesis-g80",
@@ -198,7 +198,7 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
     badge: "Premium Value",
     image: "/fleet/genesis-g80.webp",
     features: ["Silent Cabin", "VIP Rear Seat", "Modern Luxury"],
-    description: "Refined VIP sedan with a silent cabin and comfortable rear seats â€” understated luxury.",
+    description: "Refined VIP sedan with a silent cabin and comfortable rear seats — understated luxury.",
   },
   {
     slug: "ford-taurus",
@@ -250,7 +250,7 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
     badge: "Pilgrim Favorite",
     image: "/fleet/hyundai-starex.webp",
     features: ["Family Hospitality", "Professional Driver", "Airport Specialist"],
-    description: "Family-friendly van with huge luggage space â€” a favourite for airport transfers and Umrah trips.",
+    description: "Family-friendly van with huge luggage space — a favourite for airport transfers and Umrah trips.",
   },
   {
     slug: "toyota-hiace",
@@ -263,7 +263,7 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
     badge: "Reliable Workhorse",
     image: "/fleet/toyota-hiace.webp",
     features: ["Group VIP Transport", "Pilgrim Logistics", "Large Capacity"],
-    description: "Trusted group transport for up to 11 with large luggage capacity â€” ideal for Umrah pilgrim groups.",
+    description: "Trusted group transport for up to 11 with large luggage capacity — ideal for Umrah pilgrim groups.",
   },
   {
     slug: "toyota-coaster",
@@ -276,7 +276,7 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
     badge: "Fleet Standard",
     image: "/fleet/toyota-coaster.webp",
     features: ["Corporate Bus", "Delegate Transport", "Large Groups"],
-    description: "Corporate bus for up to 17 â€” perfect for delegations, large groups, and Umrah operators.",
+    description: "Corporate bus for up to 17 — perfect for delegations, large groups, and Umrah operators.",
   },
   {
     slug: "luxury-bus",

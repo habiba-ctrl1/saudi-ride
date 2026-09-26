@@ -78,15 +78,12 @@ const GALLERY_IMAGES: Record<string, string[]> = {
     "/fleet/lexus-lx-600.webp",
     "/fleet/gallery/lexus-lx-interior.webp",
   ],
-  default: [
-    "/fleet/toyota-camry.webp",
-    "/fleet/gmc-yukon-xl.webp",
-    "/fleet/hyundai-staria.webp",
-  ],
 };
 
 // ─── Extended specs per vehicle type ────────────────────────────────────────
 const EXTENDED_SPECS: Record<string, { wifi: boolean; ac: string; drive: string; year: string }> = {
+  "toyota-veloz":    { wifi: false, ac: "Dual-Zone AC", drive: "FWD", year: "2024" },
+  "executive-vip-van":{ wifi: true, ac: "Multi-Zone AC", drive: "FWD", year: "2023" },
   "toyota-camry":    { wifi: false, ac: "Dual-Zone AC", drive: "FWD", year: "2023" },
   "gmc-yukon-xl":    { wifi: true,  ac: "Tri-Zone AC", drive: "4WD", year: "2024" },
   "hyundai-staria":  { wifi: true,  ac: "Multi-Zone AC", drive: "FWD", year: "2023" },
@@ -98,7 +95,7 @@ const EXTENDED_SPECS: Record<string, { wifi: boolean; ac: string; drive: string;
   "bmw-7-series":    { wifi: true,  ac: "4-Zone AC", drive: "RWD", year: "2024" },
   "genesis-g80":     { wifi: true,  ac: "Dual-Zone AC", drive: "AWD", year: "2023" },
   "ford-taurus":     { wifi: false, ac: "Dual-Zone AC", drive: "FWD", year: "2022" },
-  "mercedes-vito":   { wifi: true,  ac: "Dual-Zone AC", drive: "RWD", year: "2023" },
+  "mercedes-v-class":{ wifi: true,  ac: "4-Zone THERMATIC", drive: "RWD", year: "2023" },
   "mercedes-sprinter":{ wifi: true, ac: "Roof-Mounted AC", drive: "RWD", year: "2023" },
   "hyundai-starex":  { wifi: false, ac: "Dual-Zone AC", drive: "RWD", year: "2023" },
   "toyota-hiace":    { wifi: false, ac: "Roof-Mounted AC", drive: "RWD", year: "2023" },
@@ -117,7 +114,10 @@ export default async function VehicleDetailPage({
   const vehicle = FLEET_VEHICLES.find((v) => v.slug === slug);
   if (!vehicle) notFound();
 
-  const gallery = GALLERY_IMAGES[slug] ?? GALLERY_IMAGES.default;
+  // Vehicles without a dedicated multi-angle gallery show only their own real
+  // hero photo — showing the shared default (Camry/Yukon/Staria) on a bus or
+  // van page would misrepresent which vehicle the page is about.
+  const gallery = GALLERY_IMAGES[slug] ?? [vehicle.image];
   const specs = EXTENDED_SPECS[slug] ?? { wifi: true, ac: "Dual-Zone AC", drive: "AWD", year: "2023" };
 
   // 3 similar vehicles (same category, exclude self)
@@ -291,7 +291,7 @@ export default async function VehicleDetailPage({
                 <div className="flex items-end justify-between">
                   <div>
                     <p className="text-[0.6rem] text-[#6B7280] uppercase font-bold tracking-wider">Starting From</p>
-                    <p className="font-heading text-3xl font-bold text-[#16A34A]">On WhatsApp</p>
+                    <p className="whitespace-nowrap font-heading text-lg font-bold text-[#16A34A]">On WhatsApp</p>
                     <p className="text-[0.6rem] text-[#6B7280]">per transfer · VAT inclusive</p>
                   </div>
                   <div className="flex items-center gap-1 bg-[#C9A84C]/10 border border-[#C9A84C]/25 rounded-full px-3 py-1.5">
@@ -330,7 +330,7 @@ export default async function VehicleDetailPage({
               {/* Trust badges */}
               <div className="rounded-2xl border border-[#C9A84C]/10 bg-white p-5 space-y-3">
                 <p className="text-[0.6rem] font-bold uppercase tracking-wider text-[#6B7280]">Why Book With Us</p>
-                {["Saudi General Transport Authority Licensed", "24/7 English & Arabic Support", "GPS Tracked Every Journey", "Insurance Covered All Routes"].map((b) => (
+                {["Coordinated Through Licensed Partner Operators", "24/7 English & Arabic Support", "Fixed Fare Confirmed Before Booking", "Vetted Professional Chauffeurs"].map((b) => (
                   <div key={b} className="flex items-center gap-2 text-[0.65rem] text-[#6B7280]">
                     <span className="text-[#C9A84C] font-bold">✓</span>
                     <span>{b}</span>

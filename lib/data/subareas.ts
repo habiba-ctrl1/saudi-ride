@@ -56,8 +56,26 @@ export const SUB_AREAS: Record<string, {
       { question: "Can I book a chauffeur for multi-day delegation visits?", answer: "Yes, we arrange dedicated chauffeurs on daily contracts for visiting delegations and official guests in DQ." },
     ],
   },
-  "al-malaz": { city: "riyadh", subarea: "al-malaz", name: "Al Malaz", nameAr: "الملز", description: "Local and intercity taxi bookings from Al Malaz, Riyadh." },
-  "al-murabba": { city: "riyadh", subarea: "al-murabba", name: "Al Murabba", nameAr: "المربع", description: "Historical Al Murabba taxi and private transport services." },
+  "al-malaz": {
+    city: "riyadh", subarea: "al-malaz", name: "Al Malaz", nameAr: "الملز",
+    description: "Local and intercity taxi bookings from Al Malaz, one of Riyadh's older central neighborhoods.",
+    tldr: "A taxi in Al Malaz, Riyadh is quoted on WhatsApp before booking and available 24/7, with fixed fares and no surge pricing for local or intercity trips.",
+    tldrFacts: [{ label: "Pricing", value: "Quoted on WhatsApp" }, { label: "Hours", value: "24/7" }, { label: "Fare", value: "Fixed, no surge" }],
+    faqs: [
+      { question: "Do you provide taxi pickups in Al Malaz, Riyadh?", answer: "Yes. We provide door-to-door pickups across Al Malaz for local trips and intercity transfers, available 24/7." },
+      { question: "How much is a taxi from Al Malaz?", answer: "The fare is confirmed on WhatsApp before booking — a fixed price with no meter and no surge pricing." },
+    ],
+  },
+  "al-murabba": {
+    city: "riyadh", subarea: "al-murabba", name: "Al Murabba", nameAr: "المربع",
+    description: "Historical Al Murabba taxi and private transport services, serving one of Riyadh's older central districts.",
+    tldr: "A taxi in Al Murabba, Riyadh is quoted on WhatsApp before booking and available 24/7, with fixed fares and no surge pricing for local or intercity trips.",
+    tldrFacts: [{ label: "Pricing", value: "Quoted on WhatsApp" }, { label: "Hours", value: "24/7" }, { label: "Fare", value: "Fixed, no surge" }],
+    faqs: [
+      { question: "Do you provide taxi pickups in Al Murabba, Riyadh?", answer: "Yes. We provide door-to-door pickups across Al Murabba for local trips and intercity transfers, available 24/7." },
+      { question: "How much is a taxi from Al Murabba?", answer: "The fare is confirmed on WhatsApp before booking — a fixed price with no meter and no surge pricing." },
+    ],
+  },
   "diriyah": {
     city: "riyadh", subarea: "diriyah", name: "Diriyah", nameAr: "الدرعية",
     description: "Heritage tours and luxury transfers from Riyadh to At-Turaif and Diriyah, about 20 minutes from central Riyadh.",
@@ -402,6 +420,24 @@ export const SUB_AREAS: Record<string, {
       { question: "Can you arrange transport for KFUPM visitors or staff?", answer: "Yes, we provide reliable dedicated-driver transport for KFUPM staff, visitors, and conference guests." },
     ],
   },
-  "half-moon-bay": { city: "dammam", subarea: "half-moon-bay", name: "Half Moon Bay", nameAr: "شاطئ نصف القمر", description: "Resort transfers and private transport to Half Moon Bay." },
-  "qatif": { city: "dammam", subarea: "qatif", name: "Qatif", nameAr: "القطيف", description: "Reliable local taxi and intercity transfers from Qatif." }
+  "half-moon-bay": {
+    city: "dammam", subarea: "half-moon-bay", name: "Half Moon Bay", nameAr: "شاطئ نصف القمر",
+    description: "Resort transfers and private transport to Half Moon Bay, a Gulf coast resort area near Dammam.",
+    tldr: "A private transfer to Half Moon Bay is quoted on WhatsApp before booking and available 24/7, with fixed fares and no surge pricing for resort and beach transfers.",
+    tldrFacts: [{ label: "Pricing", value: "Quoted on WhatsApp" }, { label: "Hours", value: "24/7" }, { label: "Fare", value: "Fixed, no surge" }],
+    faqs: [
+      { question: "Do you provide transfers to Half Moon Bay resorts?", answer: "Yes. We provide door-to-door private transfers to Half Moon Bay resorts and beach areas, available 24/7." },
+      { question: "How much is a taxi to Half Moon Bay?", answer: "The fare is confirmed on WhatsApp before booking — a fixed price with no meter and no surge pricing." },
+    ],
+  },
+  "qatif": {
+    city: "dammam", subarea: "qatif", name: "Qatif", nameAr: "القطيف",
+    description: "Reliable local taxi and intercity transfers from Qatif, a historic Eastern Province city.",
+    tldr: "A taxi in Qatif is quoted on WhatsApp before booking and available 24/7, with fixed fares and no surge pricing for local or intercity trips.",
+    tldrFacts: [{ label: "Pricing", value: "Quoted on WhatsApp" }, { label: "Hours", value: "24/7" }, { label: "Fare", value: "Fixed, no surge" }],
+    faqs: [
+      { question: "Do you provide taxi pickups in Qatif?", answer: "Yes. We provide door-to-door pickups across Qatif for local trips and intercity transfers to Dammam, Al Khobar, and Dhahran, available 24/7." },
+      { question: "How much is a taxi from Qatif?", answer: "The fare is confirmed on WhatsApp before booking — a fixed price with no meter and no surge pricing." },
+    ],
+  },
 };

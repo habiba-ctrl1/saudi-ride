@@ -202,7 +202,7 @@ export default async function SubAreaPage({ params }: PageProps) {
               <Car className="h-5 w-5 text-[#C9A84C]" />
             </div>
             <h3 className="font-heading text-lg font-bold mb-3">Fast Dispatch</h3>
-            <p className="text-xs text-[#6B7280] leading-relaxed">Our vehicles are stationed near {area.name} ensuring rapid pickup times for local and intercity trips.</p>
+            <p className="text-xs text-[#6B7280] leading-relaxed">Our partner network covers {area.name}, connecting you with a nearby available chauffeur for local and intercity trips.</p>
           </div>
           <div className="bg-white border border-[#16A34A]/12 rounded-3xl p-8 text-center hover:border-[#16A34A]/35 transition-colors">
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#C9A84C]/10 border border-[#16A34A]/15 mx-auto mb-6">
@@ -262,7 +262,7 @@ export default async function SubAreaPage({ params }: PageProps) {
             About {area.name}
           </h2>
           <p className="text-sm text-[#6B7280] leading-relaxed mb-8">
-            As a key district in {capitalizedCity}, {area.name} is a frequent starting point for many of our clients. Whether you are traveling for business, Umrah, or leisure, Taxi Saudi Arabia provides the most reliable connection from {area.name} to airports, train stations, and intercity destinations across the Kingdom of Saudi Arabia.
+            As a key district in {capitalizedCity}, {area.name} is a frequent starting point for many of our clients. Whether you are traveling for business, Umrah, or leisure, Taxi Saudi Arabia connects {area.name} to airports, train stations, and intercity destinations across the Kingdom, with a fixed fare confirmed before you book.
           </p>
           <Link
             href={`/locations/${city}`}
