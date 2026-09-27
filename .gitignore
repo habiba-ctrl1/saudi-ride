@@ -35,3 +35,18 @@ next-env.d.ts
 /client-quotations/
 /OFFPAGE-ASSETS.md
 __pycache__/
+
+# Raw unprocessed photo drops — move/crop into public/fleet/real/ or a
+# proper named folder once ready to actually use on the site.
+/public/Partners/
+/public/fleet/new/
+
+# One-off personal/client-admin scripts (not site code, sometimes contain
+# a specific client's name/details).
+/scripts/check_saiqa.js
+/scripts/generate_hayley_quote.py
+/scripts/make_pdf.py
+
+# Internal pricing spreadsheets — business data, not site code.
+/PRICE-BOOK.xlsx
+/PRICE-BOOK-FOR-SHERAZ.xlsx
