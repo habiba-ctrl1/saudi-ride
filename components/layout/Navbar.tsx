@@ -12,12 +12,14 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { contactConfig } from "@/lib/config/contact";
+import { trackEvent } from "@/lib/analytics";
 
 // ── Brand colors ──
 const GREEN = "#16A34A";
 const YELLOW = "#FACC15";
 
-const whatsappLink = `https://wa.me/${contactConfig.whatsappNumber}`;
+const WHATSAPP_TEXT = "Salam! I'd like to book a private taxi with Taxi Saudi Arabia.\n\n• From: \n• To: \n• Date & time: \n• Passengers & luggage: \n• Vehicle (Sedan / SUV / Van): ";
+const whatsappLink = `https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(WHATSAPP_TEXT)}`;
 
 // ── Transportation Services mega-menu ──
 const TRANSPORT_MENU: {
@@ -47,6 +49,7 @@ const TRANSPORT_MENU: {
   },
   { label: "Umrah Taxi Services", icon: Landmark, href: "/services/umrah-transport" },
   { label: "Airport Transfers", icon: Plane, href: "/services/airport-transfers" },
+  { label: "Corporate Accounts", icon: Handshake, href: "/services/corporate" },
   { label: "Intercity Taxi", icon: MapPin, href: "/services/intercity" },
 ];
 
@@ -274,6 +277,14 @@ export function Navbar() {
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() =>
+                trackEvent("whatsapp_click", {
+                  sourceLocation: "navbar_desktop",
+                  phoneUsed: contactConfig.whatsappNumber,
+                  locale: "en",
+                  path: pathname,
+                })
+              }
               className="inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2.5 text-[0.74rem] font-bold text-[#16A34A] whitespace-nowrap transition-transform hover:scale-105"
             >
               <MessageCircle className="h-4 w-4 flex-shrink-0" /> WhatsApp
@@ -364,7 +375,21 @@ export function Navbar() {
                 <Link href={bookHref} style={{ backgroundColor: YELLOW }} className="flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold text-[#0F172A]">
                   Book Your Ride Now <ArrowRight className="h-4 w-4" />
                 </Link>
-                <a href={whatsappLink} target="_blank" rel="noopener noreferrer" style={{ backgroundColor: GREEN }} className="flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold text-white">
+                <a
+                  href={whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() =>
+                    trackEvent("whatsapp_click", {
+                      sourceLocation: "navbar_mobile",
+                      phoneUsed: contactConfig.whatsappNumber,
+                      locale: "en",
+                      path: pathname,
+                    })
+                  }
+                  style={{ backgroundColor: GREEN }}
+                  className="flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold text-white"
+                >
                   <MessageCircle className="h-4 w-4" /> WhatsApp Us
                 </a>
                 <div className="pt-2"><LanguageSwitcher /></div>

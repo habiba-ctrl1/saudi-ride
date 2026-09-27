@@ -80,6 +80,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         },
       },
       openGraph: { title, description, url, siteName: "Taxi Saudi Arabia", type: "website" },
+      // G1 template fix — twitter.title otherwise falls back to the site-wide default.
+      twitter: { card: "summary_large_image", title, description },
     };
   }
 
@@ -113,6 +115,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         : {}),
     },
     openGraph: { title, description, url, siteName: "Taxi Saudi Arabia", type: "website" },
+    // G1 template fix — twitter.title otherwise falls back to the site-wide default.
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 

@@ -8,6 +8,7 @@ type EventName =
   | "whatsapp_click"
   | "quote_generated"
   | "phone_click"
+  | "email_click"
   | "lead_captured";
 
 interface BookingStartedProps {
@@ -44,6 +45,7 @@ interface WhatsappClickProps {
   sourceLocation: string; // e.g., "faq_cta", "contact_card", "footer"
   phoneUsed: string;
   locale: string;
+  path?: string; // page pathname the click originated from, for lead attribution
 }
 
 interface QuoteGeneratedProps {
@@ -58,6 +60,14 @@ interface PhoneClickProps {
   sourceLocation: string;
   phoneUsed: string;
   locale?: string;
+  path?: string;
+}
+
+interface EmailClickProps {
+  sourceLocation: string;
+  emailUsed: string;
+  locale?: string;
+  path?: string;
 }
 
 interface LeadCapturedProps {
@@ -79,6 +89,7 @@ type EventPropsMap = {
   whatsapp_click: WhatsappClickProps;
   quote_generated: QuoteGeneratedProps;
   phone_click: PhoneClickProps;
+  email_click: EmailClickProps;
   lead_captured: LeadCapturedProps;
 };
 

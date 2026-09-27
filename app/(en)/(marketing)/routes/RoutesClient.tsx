@@ -1,15 +1,18 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Clock, Car, ChevronRight, SlidersHorizontal } from "lucide-react";
+import { MapPin, Clock, Car, ChevronRight, SlidersHorizontal, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { Route } from "@prisma/client";
 import { contactConfig } from "@/lib/config/contact";
+import { trackEvent } from "@/lib/analytics";
 
 const fadeUp = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0 } };
 
 export default function RoutesClient({ initialRoutes }: { initialRoutes: Route[] }) {
+  const pathname = usePathname();
   const [departureCity, setDepartureCity] = useState("All");
   const [destinationCity, setDestinationCity] = useState("All");
 
@@ -176,20 +179,29 @@ export default function RoutesClient({ initialRoutes }: { initialRoutes: Route[]
                   </div>
 
                   {/* Price & CTA */}
-                  <div className="mt-8 pt-6 border-t border-[#C9A84C]/10 flex items-end justify-between">
-                    <div>
-                      {route.priceOnRequest ? (
-                        <p className="font-heading text-sm font-bold text-[#16A34A]">Confirm price on WhatsApp</p>
-                      ) : (
-                        <>
-                          <p className="text-[0.6rem] text-[#6B7280] uppercase font-bold tracking-wider">From</p>
-                          <p className="font-heading text-2xl font-bold text-[#16A34A]">On WhatsApp</p>
-                        </>
-                      )}
-                    </div>
+                  <div className="mt-8 pt-6 border-t border-[#C9A84C]/10 flex items-end justify-between gap-3">
+                    <a
+                      href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                        `Salam! I'd like a quote:\n\n• From: ${route.fromCity}\n• To: ${route.toCity}\n• Date & time: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): `
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() =>
+                        trackEvent("whatsapp_click", {
+                          sourceLocation: "routes_hub_card",
+                          phoneUsed: contactConfig.whatsappNumber,
+                          locale: "en",
+                          path: pathname,
+                        })
+                      }
+                      className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-[#16A34A]/10 border border-[#16A34A]/30 px-3 py-1.5 text-[0.62rem] font-bold uppercase tracking-wide text-[#16A34A] hover:bg-[#16A34A] hover:text-white transition-colors"
+                    >
+                      <MessageCircle className="h-3 w-3" />
+                      Request Quote
+                    </a>
                     <Link
                       href={`/routes/${route.slug}`}
-                      className="flex items-center justify-center gap-1.5 rounded-full bg-[#16A34A] px-5 py-2.5 text-[0.65rem] font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all"
+                      className="flex items-center justify-center gap-1.5 rounded-full bg-[#16A34A] px-5 py-2.5 text-[0.65rem] font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all shrink-0"
                     >
                       View <ChevronRight className="h-3 w-3" />
                     </Link>
@@ -209,9 +221,19 @@ export default function RoutesClient({ initialRoutes }: { initialRoutes: Route[]
           </p>
           <div className="flex justify-center pt-2">
             <a
-              href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam, I need a custom route quote.`}
+              href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                "Salam! I need a custom route quote.\n\n• From: \n• To: \n• Date & time: \n• Passengers & luggage: \n• Vehicle (Sedan / SUV / Van): "
+              )}`}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() =>
+                trackEvent("whatsapp_click", {
+                  sourceLocation: "routes_hub_custom_cta",
+                  phoneUsed: contactConfig.whatsappNumber,
+                  locale: "en",
+                  path: pathname,
+                })
+              }
               className="flex items-center gap-2 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
             >
               <Car className="h-4 w-4" />

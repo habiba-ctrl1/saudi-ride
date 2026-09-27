@@ -4,6 +4,7 @@ import { useState } from "react";
 import { MessageCircle, Loader2, CheckCircle2, Phone } from "lucide-react";
 import { recoveryContact } from "@/lib/config/contact";
 import { RECOVERY_SERVICES } from "@/lib/data/recovery";
+import { trackEvent } from "@/lib/analytics";
 
 // Recovery lead form — submits into the existing /api/quotations pipeline so
 // leads appear in the admin dashboard alongside taxi quotes.
@@ -109,6 +110,11 @@ export function RecoveryLeadForm({
       });
       const data = await res.json();
       if (!res.ok || !data.success) throw new Error(data.error);
+      trackEvent("lead_captured", {
+        source: sourceLabel ?? `car_recovery${city ? `_${city}` : ""}`,
+        tripType: form.service,
+        locale: lang,
+      });
       setReference(data.quoteReference ?? null);
       setStatus("done");
     } catch {

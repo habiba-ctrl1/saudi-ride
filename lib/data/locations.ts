@@ -39,6 +39,13 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { quote: "Booked our Makkah to Madinah transfer in a big SUV. Driver was on time at the hotel, stopped for prayers, and the price was exactly as quoted. Very comfortable for the elderly in our group.", author: "Yusuf A.", location: "Manchester, UK", trip: "Makkah → Madinah" },
       { quote: "Return trip from our hotel near the Haram to Jeddah airport. He knew exactly where the roads were closed and got us out smoothly with plenty of time for the flight.", author: "Nadia H.", location: "Sydney, Australia", trip: "Makkah → JED Airport" },
       { quote: "Did the Ziyarat tour — Cave of Hira, Mina, Arafat. The driver explained each site and never rushed us. Fair price as agreed. Highly recommended.", author: "Bilal K.", location: "Makkah", trip: "Makkah Ziyarat" }
+    ],
+    relatedLinks: [
+      { href: "/routes/jeddah-airport-to-makkah", label: "Jeddah Airport to Makkah taxi" },
+      { href: "/routes/makkah-to-madinah", label: "Makkah to Madinah private transfer" },
+      { href: "/distance/makkah-to-madinah", label: "Makkah to Madinah distance & driving time guide" },
+      { href: "/services/umrah-transport", label: "Umrah taxi & transport service" },
+      { href: "/services/makkah-ziyarat", label: "Makkah Ziyarat tour by car" }
     ]
   },
   madinah: {
@@ -81,6 +88,10 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { quote: "Madinah to Makkah in a comfortable SUV with prayer stops along the way. Smooth, safe driving and a fair for the whole family.", author: "Abdullah R.", location: "Madinah", trip: "Madinah → Makkah" }
     ],
     relatedLinks: [
+      { href: "/routes/madinah-to-makkah", label: "Madinah to Makkah private transfer" },
+      { href: "/distance/makkah-to-madinah", label: "Madinah to Makkah distance & driving time guide" },
+      { href: "/services/umrah-transport", label: "Umrah taxi & transport service" },
+      { href: "/services/madinah-ziyarat", label: "Madinah Ziyarat tour by car" },
       { href: "/routes/madinah-to-alula", label: "Madinah to AlUla taxi" },
       { href: "/routes/madinah-to-tabuk", label: "Madinah to Tabuk taxi" },
       { href: "/routes/medinah-to-amman", label: "Madinah to Amman, Jordan transfer" }
@@ -122,8 +133,11 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { question: "Do you offer a private car or executive car service in Riyadh, not just a taxi?", answer: "Yes. Alongside a standard taxi, we provide a pre-booked private car and executive car service in Riyadh — an executive sedan, SUV or van with a professional chauffeur for airport transfers, corporate travel and full-day hire across KAFD, Olaya and the Diplomatic Quarter. Corporate invoicing is available on request; your fare is confirmed on WhatsApp." }
     ],
     relatedLinks: [
+      { href: "/airports/king-khalid-riyadh", label: "King Khalid International Airport (RUH) transfers" },
       { href: "/services/car-recovery/riyadh", label: "Riyadh car recovery & tow truck (satha)" },
       { href: "/locations/riyadh/diriyah", label: "Riyadh to Diriyah taxi & heritage transfer" },
+      { href: "/distance/riyadh-to-dammam", label: "Riyadh to Dammam distance & driving time guide" },
+      { href: "/services/corporate", label: "Corporate & executive chauffeur accounts" },
       { href: "/routes/riyadh-to-dubai", label: "Riyadh to Dubai — private car with driver" },
       { href: "/routes/riyadh-to-abudhabi", label: "Riyadh to Abu Dhabi — private car with driver" },
       { href: "/routes/riyadh-to-kuwait", label: "Riyadh to Kuwait — private car with driver" },
@@ -174,6 +188,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { href: "/routes/jeddah-airport-to-makkah", label: "Jeddah Airport to Makkah taxi" },
       { href: "/routes/jeddah-to-abudhabi", label: "Jeddah to Abu Dhabi — private car with driver" },
       { href: "/services/business-executive", label: "Private chauffeur & executive transport in Jeddah" },
+      { href: "/services/corporate", label: "Corporate & executive chauffeur accounts" },
       { href: "/services/car-recovery/jeddah", label: "Jeddah car recovery & tow truck (satha)" },
       { href: "/blog/private-driver-cost-saudi-arabia", label: "How much a private driver costs in Saudi Arabia" }
     ]
@@ -217,6 +232,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { href: "/locations/dhahran", label: "Dhahran — Saudi Aramco & KFUPM taxi" },
       { href: "/locations/jubail", label: "Jubail — Industrial City taxi & corporate accounts" },
       { href: "/locations/alkhobar", label: "Al Khobar taxi & Bahrain causeway transfers" },
+      { href: "/distance/riyadh-to-dammam", label: "Riyadh to Dammam distance & driving time guide" },
       { href: "/routes/dammam-to-manama", label: "Dammam to Manama, Bahrain taxi" },
       { href: "/routes/dammam-to-doha", label: "Dammam to Doha, Qatar taxi" },
       { href: "/routes/dammam-to-abudhabi", label: "Dammam to Abu Dhabi — private car with driver" },

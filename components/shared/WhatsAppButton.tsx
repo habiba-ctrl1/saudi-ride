@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 
 export function WhatsAppButton() {
+  const pathname = usePathname();
   const [isHovered, setIsHovered] = useState(false);
   const [showBubble, setShowBubble] = useState(false);
   const [hasClosedBubble, setHasClosedBubble] = useState(false);
@@ -102,6 +104,7 @@ export function WhatsAppButton() {
               sourceLocation: "floating_button",
               phoneUsed: formattedNumber,
               locale: "en",
+              path: pathname,
             })
           }
           className="relative flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_8px_30px_rgb(37,211,102,0.4)] transition-all duration-300 hover:scale-110 hover:shadow-[0_12px_40px_rgb(37,211,102,0.6)]"

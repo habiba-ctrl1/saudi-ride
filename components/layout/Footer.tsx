@@ -1,8 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useLanguage } from "@/lib/context/LanguageContext";
+import { contactConfig } from "@/lib/config/contact";
+import { trackEvent } from "@/lib/analytics";
 import { ShieldCheck, Receipt, BadgeCheck, PhoneCall } from "lucide-react";
+
+const FOOTER_WHATSAPP_TEXT = {
+  en: "Salam! I'd like to book a private taxi with Taxi Saudi Arabia.\n\n• From: \n• To: \n• Date & time: \n• Passengers & luggage: \n• Vehicle (Sedan / SUV / Van): ",
+  ar: "السلام عليكم، أرغب بحجز تاكسي خاص مع تاكسي السعودية.\n\n• من: \n• إلى: \n• التاريخ والوقت: \n• الركاب والأمتعة: \n• نوع السيارة (سيدان / SUV / فان): ",
+  ur: "سلام! میں ٹیکسی سعودی عرب کے ساتھ پرائیویٹ ٹیکسی بک کروانا چاہتا ہوں۔\n\n• سے: \n• تک: \n• تاریخ اور وقت: \n• مسافر اور سامان: \n• گاڑی (سیڈان / SUV / وین): ",
+};
 
 const translations = {
   en: {
@@ -46,6 +55,7 @@ const translations = {
 export function Footer() {
   const { language } = useLanguage();
   const t = translations[language];
+  const pathname = usePathname();
 
   // Raw contents in EN, AR, UR
   const content = {
@@ -96,6 +106,7 @@ export function Footer() {
         { label: "Makkah → Madinah", href: "/routes/makkah-to-madinah" },
         { label: "Riyadh → Dubai", href: "/routes/riyadh-to-dubai" },
         { label: "Riyadh → Abu Dhabi", href: "/routes/riyadh-to-abudhabi" },
+        { label: "Tabuk → Amman, Jordan", href: "/routes/tabuk-to-amman" },
         { label: "Dammam → Doha", href: "/routes/dammam-to-doha" },
         { label: "Riyadh → Makkah", href: "/routes/riyadh-to-makkah" },
         { label: "Madinah → Jeddah Airport", href: "/routes/madinah-to-jeddah-airport" },
@@ -355,9 +366,17 @@ export function Footer() {
           
           <div className="flex items-center gap-4">
             <a
-              href="https://wa.me/966539388072"
+              href={`${contactConfig.whatsappLink}?text=${encodeURIComponent(FOOTER_WHATSAPP_TEXT[language])}`}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() =>
+                trackEvent("whatsapp_click", {
+                  sourceLocation: "footer",
+                  phoneUsed: contactConfig.whatsappNumber,
+                  locale: language,
+                  path: pathname,
+                })
+              }
               className="flex h-8 w-8 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white/80 hover:text-[#FACC15] hover:border-[#FACC15] hover:shadow-[0_0_10px_rgba(250,204,21,0.3)] transition-all"
               aria-label="WhatsApp"
             >

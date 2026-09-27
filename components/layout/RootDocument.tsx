@@ -162,84 +162,13 @@ const jsonLd = [
       },
     ]
   }),
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How do I book a taxi in Saudi Arabia?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "You can book a taxi in Saudi Arabia online through our website or via WhatsApp. Share your pickup location, drop-off, date, and time to get a clear price quote confirmed before you book. Our 24/7 taxi service means you can request a quote any time."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How much does a Jeddah Airport to Makkah taxi cost?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "A Jeddah Airport to Makkah taxi is a private, fixed-fare transfer confirmed on WhatsApp before booking, with no hidden charges or surge pricing. Sedans and larger vehicles like the GMC Yukon or Hyundai Staria are available. The journey takes about 1 hour (80 km)."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Do you provide Umrah taxi and Umrah transport service?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. We arrange dedicated Umrah taxi and Umrah transport including Umrah airport transfers from Jeddah Airport to Makkah, Makkah to Madinah taxi, Madinah to Makkah taxi, and Makkah Ziyarat taxi and Madinah Ziyarat taxi services. Drivers stop at Meeqat and plan trips around prayer times."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the taxi fare from Makkah to Madinah?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The Makkah to Madinah taxi is a private transfer with a fixed fare confirmed on WhatsApp before booking. This includes a Meeqat stop and bottled water. The journey covers 430 km and takes approximately 4 hours via the Haramain Highway."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What vehicles are available for airport transfer in Saudi Arabia?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Our Saudi airport transfer options include executive sedans (Toyota Camry), luxury SUV taxis (GMC Yukon Denali XL), family taxis (Hyundai Staria VIP), group transport (Toyota Hiace), and VIP sedans (Mercedes S-Class), arranged through our transportation partners with professional chauffeurs."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Are your taxi prices fixed in Saudi Arabia?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes — once your fare is confirmed in your quotation, it is fixed, with no surge pricing or hidden fees. Final pricing depends on your route, vehicle, date, and passengers, so prices shown on the website are starting estimates; message us on WhatsApp with your trip details for a clear quote before you book."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Do you offer Riyadh Airport taxi and Dammam taxi service?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. We provide Riyadh airport taxi service at King Khalid International Airport (RUH) and Dammam taxi service at King Fahd International Airport (DMM). Both include meet-and-greet, flight tracking, and 60-minute free wait time. We also cover Taif taxi service at Taif Regional Airport."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Can I book a taxi via WhatsApp in Saudi Arabia?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, WhatsApp booking is available 24/7. Simply message us your pickup location, destination, date, and time. Our team will confirm your booking with a fixed taxi price, usually within 1-2 hours. You can also book airport transfers, Umrah taxis, and intercity rides through WhatsApp."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What cities in Saudi Arabia do you cover?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Our taxi service covers all major cities in Saudi Arabia including Riyadh, Jeddah, Makkah, Madinah, Dammam, Taif, AlUla, Abha, Yanbu, and NEOM. We also provide GCC cross-border service to Bahrain, Qatar, UAE, and Kuwait."
-        }
-      },
-    ],
-  },
+  // NOTE: a sitewide generic FAQPage block used to live here and render on
+  // every route regardless of visible content — duplicating /faq's own
+  // page-specific FAQPage schema (G12) and mismatching visible content on
+  // every other page (CLAUDE.md §10: JSON-LD must represent visible page
+  // content). Removed 2026-09-27; the homepage now carries its own accurate
+  // FAQPage schema (app/(en)/page.tsx) matching its visible FAQ section, and
+  // /faq, locations, car-recovery, etc. already emit their own via faqSchema().
 ];
 
 /**

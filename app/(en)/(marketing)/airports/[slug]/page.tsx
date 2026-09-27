@@ -50,15 +50,25 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "king-fahd-dammam": "Dammam Airport (DMM) taxi — King Fahd International Airport to Dammam, Khobar, Dhahran or Jubail. Meet & greet, fare confirmed on WhatsApp, 24/7.",
   };
 
+  const title = TITLE_OVERRIDES[slug] ?? `Taxi from ${airportData.name} (${airportData.code}) | Taxi Saudi Arabia`;
+  const description = DESCRIPTION_OVERRIDES[slug] ?? `Book your airport transfer from ${airportData.name}. Reliable private transfer service, quoted on WhatsApp, with meet & greet included at ${airportData.code} airport.`;
+
   return {
-    title: TITLE_OVERRIDES[slug] ?? `Taxi from ${airportData.name} (${airportData.code}) | Taxi Saudi Arabia`,
-    description: DESCRIPTION_OVERRIDES[slug] ?? `Book your airport transfer from ${airportData.name}. Reliable private transfer service, quoted on WhatsApp, with meet & greet included at ${airportData.code} airport.`,
+    title,
+    description,
     alternates: {
       canonical: `https://taxisaudiarabia.com/airports/${slug}`,
     },
     openGraph: {
       title: `Taxi Service at ${airportData.code} Airport | Taxi Saudi Arabia`,
       description: airportData.description,
+    },
+    // G1 template fix — twitter.title otherwise falls back to the site-wide
+    // default instead of this page's own title.
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
     },
   };
 }
@@ -165,6 +175,24 @@ export default async function AirportLandingPage({ params }: PageProps) {
           {/* Quick Answer (above-the-fold AI/snippet signal) */}
           {airportData.tldr && (
             <TLDRSummary answer={airportData.tldr} facts={airportData.tldrFacts} />
+          )}
+
+          {/* Riyadh Airport (RUH) — on-page lead form, highest-impression airport page site-wide */}
+          {slug === "king-khalid-riyadh" && (
+            <section className="rounded-3xl border border-[#16A34A]/15 bg-white p-6 sm:p-7 shadow-sm">
+              <div className="mb-5 space-y-1.5">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#16A34A]">
+                  <Car className="h-3.5 w-3.5" /> Private Airport Transfer Quote
+                </span>
+                <h2 className="font-heading text-2xl font-bold text-[#1C1C1C]">
+                  Get your Riyadh Airport (RUH) transfer quote
+                </h2>
+                <p className="text-xs sm:text-sm text-[#6B7280] leading-relaxed max-w-xl">
+                  Fill a few details and we confirm your fixed fare on WhatsApp — a pre-booked private transfer from King Khalid International Airport with meet &amp; greet at arrivals and flight tracking.
+                </p>
+              </div>
+              <WhatsAppQuoteForm defaultPickup="Riyadh Airport (RUH)" defaultDropoff="Riyadh hotel" />
+            </section>
           )}
 
           {/* Madinah Airport (MED) — on-page lead form + Umrah group Path B */}

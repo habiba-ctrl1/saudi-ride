@@ -3,9 +3,11 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/context/LanguageContext";
 import { contactConfig } from "@/lib/config/contact";
+import { trackEvent } from "@/lib/analytics";
 import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { ParallaxSection } from "./ParallaxSection";
 import { trustStats } from "@/lib/config/stats";
@@ -772,9 +774,27 @@ function FleetCard({ veh, index, onBook, btnLabel }: {
   );
 }
 
+// Structured, bulleted prefill (same pattern as WhatsAppQuoteForm/WhatsAppButton)
+// so every WhatsApp CTA collects the same trip details up front, regardless
+// of which section of the page it's clicked from.
+const HOME_WHATSAPP_TEXT: Record<"en" | "ar" | "ur", string> = {
+  en: "Salam! I'd like to book a private taxi with Taxi Saudi Arabia.\n\n• From: \n• To: \n• Date & time: \n• Passengers & luggage: \n• Vehicle (Sedan / SUV / Van): ",
+  ar: "السلام عليكم، أرغب بحجز تاكسي خاص مع تاكسي السعودية.\n\n• من: \n• إلى: \n• التاريخ والوقت: \n• الركاب والأمتعة: \n• نوع السيارة (سيدان / SUV / فان): ",
+  ur: "سلام! میں ٹیکسی سعودی عرب کے ساتھ پرائیویٹ ٹیکسی بک کروانا چاہتا ہوں۔\n\n• سے: \n• تک: \n• تاریخ اور وقت: \n• مسافر اور سامان: \n• گاڑی (سیڈان / SUV / وین): ",
+};
+
 export function HomePage() {
   const { language } = useLanguage();
   const t = homeTranslations[language];
+  const pathname = usePathname();
+  const homeWhatsappLink = `${contactConfig.whatsappLink}?text=${encodeURIComponent(HOME_WHATSAPP_TEXT[language])}`;
+  const trackHomeWhatsappClick = (sourceLocation: string) =>
+    trackEvent("whatsapp_click", {
+      sourceLocation,
+      phoneUsed: contactConfig.whatsappNumber,
+      locale: language,
+      path: pathname,
+    });
 
   // Active Direction for RTL Support
   const isRtl = language === "ar";
@@ -901,9 +921,10 @@ export function HomePage() {
                   <ChevronRight className="rtl:-scale-x-100 h-4 w-4" />
                 </a>
                 <a
-                  href={contactConfig.whatsappLink}
+                  href={homeWhatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackHomeWhatsappClick("home_hero")}
                   className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-bold transition-all duration-300 hover:scale-105"
                   style={{ color: "#16A34A" }}
                 >
@@ -1203,9 +1224,10 @@ export function HomePage() {
               {t.whyUs.desc}
             </p>
             <a
-              href={contactConfig.whatsappLink}
+              href={homeWhatsappLink}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackHomeWhatsappClick("home_why_us")}
               className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-xs font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
               style={{ border: "1.5px solid rgba(22,163,74,0.35)" }}
             >
@@ -1291,11 +1313,11 @@ export function HomePage() {
               </div>
 
               <div className="mt-6 pt-5 border-t border-[#C9A84C]/10 flex items-center justify-between">
-                <div>
+                <div className="min-w-0">
                   <p className="text-[0.55rem] uppercase tracking-wider text-[#6B7280]">
                     {t.misc.from}
                   </p>
-                  <p className="font-heading text-lg font-bold text-[#1C1C1C]">
+                  <p className="whitespace-nowrap font-heading text-sm font-bold text-[#1C1C1C]">
                     On WhatsApp
                   </p>
                 </div>
@@ -1426,9 +1448,12 @@ export function HomePage() {
 
             <div className="pt-4">
               <a
-                href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam,%20I%20would%20like%20to%20book%20a%20spiritually-compliant%20VIP%20Umrah%20transfer.`}
+                href={`${contactConfig.whatsappLink}?text=${encodeURIComponent(
+                  "Salam! I'd like to book a private Umrah transfer.\n\n• From: \n• To: \n• Date & time: \n• Passengers & luggage: \n• Vehicle (Sedan / SUV / Van): "
+                )}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackHomeWhatsappClick("home_umrah")}
                 className="inline-flex items-center gap-3 rounded-full bg-[#16A34A] px-8 py-4 text-xs font-bold uppercase tracking-wider text-white shadow-[0_4px_20px_rgba(22,163,74,0.3)] transition-all hover:bg-[#15803D] hover:scale-102"
               >
                 <MessageCircle className="h-5 w-5 fill-white" />
@@ -1708,9 +1733,10 @@ export function HomePage() {
             </a>
             <a
               className="rounded-full border border-[#C9A84C]/45 px-8 py-4 text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all flex items-center gap-2 font-bold"
-              href={contactConfig.whatsappLink}
+              href={homeWhatsappLink}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackHomeWhatsappClick("home_bottom_cta")}
             >
               <MessageCircle className="h-4.5 w-4.5 fill-[#C9A84C]/10 text-[#C9A84C]" />
               <span>{t.cta.btnWhatsApp}</span>

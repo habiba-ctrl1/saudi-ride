@@ -1,12 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 // Corporate account request — /api/contact se email jati hai (admin + auto-reply).
 // Pehle yeh form dead tha (button ka koi handler nahi tha).
 export function CorporateAccountForm() {
+  const pathname = usePathname();
   const [form, setForm] = useState({
     company: "",
     contact: "",
@@ -39,6 +42,11 @@ export function CorporateAccountForm() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Request failed");
+      trackEvent("lead_captured", {
+        source: "corporate_account_form",
+        tripType: form.trips,
+        locale: pathname?.startsWith("/ar") ? "ar" : "en",
+      });
       setDone(true);
       toast.success("Request received! Our B2B team will contact you within 24 hours.");
     } catch (err) {
