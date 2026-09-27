@@ -6,7 +6,8 @@ import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import Link from "next/link";
-import { Map, Clock, Compass, ChevronRight, CheckCircle2 } from "lucide-react";
+import { Map, Clock, Compass, ChevronRight, CheckCircle2, MessageCircle } from "lucide-react";
+import { contactConfig } from "@/lib/config/contact";
 
 const TITLE = "Day Trip Car Hire Saudi Arabia | AlUla, Taif, NEOM & Abha";
 const DESCRIPTION = "Hire a car with driver for day trips in Saudi Arabia — explore AlUla, NEOM, Abha, Taif & Diriyah. Hourly and full-day rates. Book online or on WhatsApp.";
@@ -184,6 +185,7 @@ export default function TourismChartersPage() {
                   <th className="p-6 font-bold">Example Models</th>
                   <th className="p-6 font-bold text-center">Hourly Rate</th>
                   <th className="p-6 font-bold text-center">Daily Rate (10 Hrs)</th>
+                  <th className="p-6 font-bold text-center">Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#C9A84C]/5">
@@ -193,6 +195,18 @@ export default function TourismChartersPage() {
                     <td className="p-6 text-sm text-[#6B7280]">{rate.ex}</td>
                     <td className="p-6 font-bold text-[#16A34A] text-center">{rate.hourly}</td>
                     <td className="p-6 font-bold text-[#16A34A] text-center">{rate.daily}</td>
+                    <td className="p-6 text-center">
+                      <a
+                        href={`${contactConfig.whatsappLink}?text=${encodeURIComponent(
+                          `Salam! I'd like a day-trip charter quote:\n\n• Vehicle: ${rate.class}\n• Hourly or full-day: \n• Destination: \n• Date: \n• Passengers: `
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-[#16A34A] px-3 py-1.5 text-[0.65rem] font-bold uppercase tracking-wide text-white hover:bg-[#15803D] transition-colors"
+                      >
+                        <MessageCircle className="h-3 w-3" /> Request Quote
+                      </a>
+                    </td>
                   </tr>
                 ))}
               </tbody>

@@ -156,13 +156,20 @@ export default function LongDistancePage() {
                 <div>
                   <h3 className="font-bold text-base text-[#1C1C1C]">{route.name}</h3>
                   <p className="text-sm text-[#525252] mt-1">{route.desc}</p>
-                  <div className="flex gap-2 mt-2">
+                  <div className="flex flex-wrap items-center gap-2 mt-2">
                     <span className="text-xs font-semibold text-[#006C35] bg-[#006C35]/10 px-2.5 py-0.5 rounded-full">
                       {route.dist}
                     </span>
-                    <span className="text-xs font-semibold text-[#C9A84C] bg-[#C9A84C]/10 px-2.5 py-0.5 rounded-full">
-                      {route.price}
-                    </span>
+                    <a
+                      href={`${contactConfig.whatsappLink}?text=${encodeURIComponent(
+                        `Salam! I'd like a quote:\n\n• From/To: ${route.name}\n• Date & time: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): `
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-white bg-[#16A34A] hover:bg-[#15803D] px-2.5 py-0.5 rounded-full transition-colors"
+                    >
+                      <MessageCircle className="h-3 w-3" /> Request Quote
+                    </a>
                   </div>
                 </div>
               </div>

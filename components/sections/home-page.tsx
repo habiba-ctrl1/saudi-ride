@@ -1073,12 +1073,19 @@ export function HomePage() {
                       >
                         <Icon className="h-6 w-6 text-[#C9A84C]" />
                       </div>
-                      <span
-                        className="text-[0.62rem] uppercase tracking-widest font-bold px-2.5 py-1 rounded-full"
+                      <a
+                        href={`${contactConfig.whatsappLink}?text=${encodeURIComponent(
+                          `Salam! I'd like a quote for ${service.title}.\n\n• From: \n• To: \n• Date & time: \n• Passengers & luggage: \n• Vehicle (Sedan / SUV / Van): `
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => trackHomeWhatsappClick(`home_services_card_${index}`)}
+                        className="inline-flex items-center gap-1 text-[0.62rem] uppercase tracking-widest font-bold px-2.5 py-1 rounded-full transition-colors hover:text-white hover:bg-[#16A34A]"
                         style={{ color: "#16A34A", backgroundColor: "rgba(22,163,74,0.08)", border: "1px solid rgba(22,163,74,0.2)" }}
                       >
-                        {service.price}
-                      </span>
+                        <MessageCircle className="h-3 w-3" />
+                        Request Quote
+                      </a>
                     </div>
 
                     <h3
@@ -1313,14 +1320,22 @@ export function HomePage() {
               </div>
 
               <div className="mt-6 pt-5 border-t border-[#C9A84C]/10 flex items-center justify-between">
-                <div className="min-w-0">
+                <a
+                  href={`${contactConfig.whatsappLink}?text=${encodeURIComponent(
+                    `Salam! I'd like a quote:\n\n• Route: ${route.nameEn}\n• Date & time: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): `
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackHomeWhatsappClick(`home_route_card_${route.from}`)}
+                  className="min-w-0"
+                >
                   <p className="text-[0.55rem] uppercase tracking-wider text-[#6B7280]">
                     {t.misc.from}
                   </p>
-                  <p className="whitespace-nowrap font-heading text-sm font-bold text-[#1C1C1C]">
-                    On WhatsApp
+                  <p className="whitespace-nowrap font-heading text-sm font-bold text-[#16A34A] hover:underline">
+                    Request Quote
                   </p>
-                </div>
+                </a>
 
                 <button
                   onClick={scrollToBooking}
@@ -1471,8 +1486,8 @@ export function HomePage() {
             <div className="space-y-4">
               {[
                 { rEn: "Jeddah Airport ➔ Makkah Haram", rAr: "مطار جدة ➔ الحرم المكي الشريف", rUr: "جدہ ایئرپورٹ ➔ مکہ مکرمہ", time: "1h 15m", price: "249", slug: "jeddah-airport-to-makkah" },
-                { rEn: "Makkah Haram ➔ Madinah Nabawi", rAr: "الحرم المكي ➔ المسجد النبوي بالمدينة", rUr: "مکہ مکرمہ ➔ مدینہ منورہ", time: "4h 30m", price: "499" },
-                { rEn: "Madinah Nabawi ➔ Jeddah Airport", rAr: "المسجد النبوي ➔ مطار جدة الدولي", rUr: "مدینہ منورہ ➔ جدہ ایئرپورٹ", time: "4h 10m", price: "549" }
+                { rEn: "Makkah Haram ➔ Madinah Nabawi", rAr: "الحرم المكي ➔ المسجد النبوي بالمدينة", rUr: "مکہ مکرمہ ➔ مدینہ منورہ", time: "4h 30m", price: "499", slug: "makkah-to-madinah" },
+                { rEn: "Madinah Nabawi ➔ Jeddah Airport", rAr: "المسجد النبوي ➔ مطار جدة الدولي", rUr: "مدینہ منورہ ➔ جدہ ایئرپورٹ", time: "4h 10m", price: "549", slug: "madinah-to-jeddah-airport" }
               ].map((route, idx) => {
                 const inner = (
                   <>
