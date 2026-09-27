@@ -13,6 +13,7 @@ import {
   type QuotationDetailsInput,
 } from "@/lib/supabase/quotations";
 import { notifyQuotationStatusChange } from "@/lib/notify-quotation-status";
+import { prisma } from "@/lib/prisma";
 
 const STATUSES: QuotationStatus[] = ["new", "quoted", "confirmed", "assigned", "completed", "cancelled"];
 
@@ -89,6 +90,30 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 
   if (error) return NextResponse.json({ error }, { status: 400 });
   await notifyQuotationStatusChange(id, status);
+
+  // Every price an admin actually quotes is a real market data point — record
+  // it into the Pricing Book automatically so the route/vehicle price history
+  // builds itself from real bookings instead of relying only on manual entry.
+  // Tagged source: "booking" so it stays distinguishable from curated "manual" rows.
+  if (row && quotedPrice !== undefined) {
+    try {
+      await prisma.priceBookEntry.create({
+        data: {
+          fromCity: row.pickup_location,
+          toCity: row.drop_location,
+          vehicleType: row.vehicle_type_requested ?? "unspecified",
+          price: quotedPrice,
+          currency: row.currency || "SAR",
+          tripType: row.trip_type.toUpperCase(),
+          notes: `Auto-recorded from booking ${row.quote_reference}`,
+          source: "booking",
+        },
+      });
+    } catch (err) {
+      console.error(`Pricing Book auto-record failed for ${row.quote_reference}:`, err);
+    }
+  }
+
   return NextResponse.json({ success: true, row });
 }
 

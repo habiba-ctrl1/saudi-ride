@@ -102,6 +102,9 @@ export async function sendEmail(
     cc?: string | string[];
     bcc?: string | string[];
     attachments?: Array<{ filename: string; content: Buffer }>;
+    /** Only used to label the row if this send fails — lets notification_failures
+     *  show which flow/booking a failed send belongs to, alongside the real error. */
+    failureContext?: { channel: string; bookingRef?: string | null };
   }
 ) {
   try {
@@ -129,7 +132,17 @@ export async function sendEmail(
       return "simulated_email_id";
     }
   } catch (err) {
-    console.error("❌ [Gmail] Email dispatch failed:", err);
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("❌ [Gmail] Email dispatch failed:", message);
+    if (options?.failureContext) {
+      await recordNotificationFailure({
+        channel: options.failureContext.channel,
+        target: to,
+        bookingRef: options.failureContext.bookingRef ?? null,
+        subject,
+        error: message,
+      });
+    }
     return null;
   }
 }
@@ -198,7 +211,9 @@ export async function sendBookingConfirmation(booking: NotificationBooking) {
   `;
 
   // Trigger Email + SMS to Customer; return results so callers can log failures.
-  const emailId = await sendEmail(booking.customerEmail, subject, html);
+  const emailId = await sendEmail(booking.customerEmail, subject, html, {
+    failureContext: { channel: "customer_email", bookingRef: ref },
+  });
   const smsBody = `Request received! Your Taxi Saudi Arabia transfer on ${new Date(booking.pickupDateTime).toLocaleDateString()} at ${new Date(booking.pickupDateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}. We'll confirm your price on WhatsApp shortly.`;
   const smsId = await sendSMS(booking.customerPhone, smsBody);
   return { email: emailId, sms: smsId };
@@ -358,7 +373,9 @@ export async function sendAdminNotification(booking: NotificationBooking) {
   `;
 
   // Trigger Email to Admin; return the result so callers can log failures.
-  const emailId = await sendEmail(adminEmail, subject, html);
+  const emailId = await sendEmail(adminEmail, subject, html, {
+    failureContext: { channel: "admin_email", bookingRef: ref },
+  });
   return { email: emailId };
 }
 
@@ -508,7 +525,9 @@ export async function sendLeadNotification(lead: NotificationLead) {
     </div>
   `;
 
-  const emailId = await sendEmail(adminEmail, subject, html);
+  const emailId = await sendEmail(adminEmail, subject, html, {
+    failureContext: { channel: "lead_admin_email", bookingRef: lead.id },
+  });
   return { email: emailId };
 }
 
@@ -557,8 +576,7 @@ export async function notifyNewBooking(booking: NotificationBooking): Promise<{
       const r = await sendBookingConfirmation(booking);
       custEmailOk = !!r.email;
       custSmsOk = !!r.sms;
-      if (!r.email)
-        await recordNotificationFailure({ channel: "customer_email", target: booking.customerEmail, bookingRef: ref, subject: "booking confirmation", error: "sendEmail returned null" });
+      // Email failure is already recorded with the real error by sendEmail() itself.
       if (!r.sms)
         await recordNotificationFailure({ channel: "customer_sms", target: booking.customerPhone, bookingRef: ref, error: "sendSMS returned null (Twilio not configured?)" });
     } catch (err) {
@@ -579,8 +597,7 @@ export async function notifyNewBooking(booking: NotificationBooking): Promise<{
   try {
     const r = await sendAdminNotification(booking);
     adminEmailOk = !!r.email;
-    if (!r.email)
-      await recordNotificationFailure({ channel: "admin_email", bookingRef: ref, subject: "new booking", error: "sendEmail returned null" });
+    // Email failure is already recorded with the real error by sendEmail() itself.
   } catch (err) {
     await recordNotificationFailure({ channel: "admin_email", bookingRef: ref, error: String(err) });
   }

@@ -244,51 +244,51 @@ const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup:
     dropoff: "NEOM",
   },
   "tabuk-to-amman": {
-    heading: "Get your Tabuk to Amman car-with-driver quote",
+    heading: "Get your Tabuk to Amman private transfer quote",
     blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked cross-border car with a professional chauffeur, about 460 km via the Al Durrah border near Haql and the Desert Highway. You carry your own valid documents; we support the crossing.",
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private transfer, pre-booked, with a professional chauffeur, about 460 km via the Al Durrah border near Haql and the Desert Highway. You carry your own valid documents; we support the crossing.",
     pickup: "Tabuk",
     dropoff: "Amman, Jordan",
   },
   "alula-to-aqaba": {
-    heading: "Get your AlUla to Aqaba car-with-driver quote",
+    heading: "Get your AlUla to Aqaba private transfer quote",
     blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked cross-border car with a professional chauffeur, about 430 km via Tabuk and the Al Durrah border near Haql. You carry your own valid documents; we support the crossing.",
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private transfer, pre-booked, with a professional chauffeur, about 430 km via Tabuk and the Al Durrah border near Haql. You carry your own valid documents; we support the crossing.",
     pickup: "AlUla",
     dropoff: "Aqaba, Jordan",
   },
   "tabuk-to-petra": {
-    heading: "Get your Tabuk to Petra car-with-driver quote",
+    heading: "Get your Tabuk to Petra private transfer quote",
     blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked cross-border car with a professional chauffeur, about 260 km via the Al Durrah border near Haql. You carry your own valid documents; we support the crossing.",
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private transfer, pre-booked, with a professional chauffeur, about 260 km via the Al Durrah border near Haql. You carry your own valid documents; we support the crossing.",
     pickup: "Tabuk",
     dropoff: "Petra, Jordan",
   },
   "tabuk-to-wadi-rum": {
-    heading: "Get your Tabuk to Wadi Rum car-with-driver quote",
+    heading: "Get your Tabuk to Wadi Rum private transfer quote",
     blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked cross-border car with a professional chauffeur, about 195 km via the Al Durrah border near Haql. You carry your own valid documents; we support the crossing.",
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private transfer, pre-booked, with a professional chauffeur, about 195 km via the Al Durrah border near Haql. You carry your own valid documents; we support the crossing.",
     pickup: "Tabuk",
     dropoff: "Wadi Rum, Jordan",
   },
   "neom-to-amman": {
-    heading: "Get your NEOM to Amman car-with-driver quote",
+    heading: "Get your NEOM to Amman private transfer quote",
     blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked cross-border car with a professional chauffeur, about 430 km via the Al Durrah border near Haql and the Desert Highway. You carry your own valid documents; we support the crossing.",
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private transfer, pre-booked, with a professional chauffeur, about 430 km via the Al Durrah border near Haql and the Desert Highway. You carry your own valid documents; we support the crossing.",
     pickup: "NEOM",
     dropoff: "Amman, Jordan",
   },
   "alula-to-amman": {
-    heading: "Get your AlUla to Amman car-with-driver quote",
+    heading: "Get your AlUla to Amman private transfer quote",
     blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked cross-border car with a professional chauffeur, about 760 km via Tabuk, the Al Durrah border near Haql, and the Desert Highway. You carry your own valid documents; we support the crossing.",
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private transfer, pre-booked, with a professional chauffeur, about 760 km via Tabuk, the Al Durrah border near Haql, and the Desert Highway. You carry your own valid documents; we support the crossing.",
     pickup: "AlUla",
     dropoff: "Amman, Jordan",
   },
   "medinah-to-amman": {
-    heading: "Get your Madinah to Amman car-with-driver quote",
+    heading: "Get your Madinah to Amman private transfer quote",
     blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked cross-border car with a professional chauffeur, about 1,080 km via Tabuk, the Al Durrah border near Haql, and the Desert Highway. You carry your own valid documents; we support the crossing.",
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private transfer, pre-booked, with a professional chauffeur, about 1,080 km via Tabuk, the Al Durrah border near Haql, and the Desert Highway. You carry your own valid documents; we support the crossing.",
     pickup: "Madinah",
     dropoff: "Amman, Jordan",
   },
@@ -2014,7 +2014,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "tabuk-to-amman": {
-    tldr: "A private car with a chauffeur from Tabuk to Amman is about 460 km and takes roughly 5 hours 20 minutes driving, plus the Saudi–Jordan border crossing at Al Durrah, near Haql, and the Desert Highway on to the capital. The fare is fixed, confirmed on WhatsApp, with documentation support for the crossing.",
+    tldr: "A private transfer from Tabuk to Amman is about 460 km and takes roughly 5 hours 20 minutes driving, plus the Saudi–Jordan border crossing at Al Durrah, near Haql, and the Desert Highway on to the capital. The fare is fixed, confirmed on WhatsApp, with documentation support for the crossing.",
     tldrFacts: [
       { label: "Distance", value: "~460 km" },
       { label: "Time", value: "~5 hr 20 + border" },
@@ -2029,7 +2029,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "alula-to-aqaba": {
-    tldr: "A private car with a chauffeur from AlUla to Aqaba, Jordan is about 430 km and takes roughly 4 hours 40 minutes driving via Tabuk, plus the Saudi–Jordan border crossing at Al Durrah, near Haql. The fare is fixed, confirmed on WhatsApp, with documentation support for the crossing.",
+    tldr: "A private transfer from AlUla to Aqaba, Jordan is about 430 km and takes roughly 4 hours 40 minutes driving via Tabuk, plus the Saudi–Jordan border crossing at Al Durrah, near Haql. The fare is fixed, confirmed on WhatsApp, with documentation support for the crossing.",
     tldrFacts: [
       { label: "Distance", value: "~430 km" },
       { label: "Time", value: "~4 hr 40 + border" },
@@ -2044,7 +2044,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "tabuk-to-petra": {
-    tldr: "A private car with a chauffeur from Tabuk to Petra is about 260 km and takes roughly 2 hours 50 minutes driving, plus the Saudi–Jordan border crossing at Al Durrah, near Haql. The fare is fixed, confirmed on WhatsApp, with documentation support for the crossing.",
+    tldr: "A private transfer from Tabuk to Petra is about 260 km and takes roughly 2 hours 50 minutes driving, plus the Saudi–Jordan border crossing at Al Durrah, near Haql. The fare is fixed, confirmed on WhatsApp, with documentation support for the crossing.",
     tldrFacts: [
       { label: "Distance", value: "~260 km" },
       { label: "Time", value: "~2 hr 50 + border" },
@@ -2059,7 +2059,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "tabuk-to-wadi-rum": {
-    tldr: "A private car with a chauffeur from Tabuk to Wadi Rum is about 195 km and takes roughly 2 hours 20 minutes driving, plus the Saudi–Jordan border crossing at Al Durrah, near Haql. The fare is fixed, confirmed on WhatsApp, with documentation support for the crossing.",
+    tldr: "A private transfer from Tabuk to Wadi Rum is about 195 km and takes roughly 2 hours 20 minutes driving, plus the Saudi–Jordan border crossing at Al Durrah, near Haql. The fare is fixed, confirmed on WhatsApp, with documentation support for the crossing.",
     tldrFacts: [
       { label: "Distance", value: "~195 km" },
       { label: "Time", value: "~2 hr 20 + border" },
@@ -2074,7 +2074,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "neom-to-amman": {
-    tldr: "A private car with a chauffeur from NEOM to Amman is about 430 km and takes roughly 5 hours driving, plus the Saudi–Jordan border crossing at Al Durrah, near Haql, and the Desert Highway on to the capital. The fare is fixed, confirmed on WhatsApp, with documentation support for the crossing.",
+    tldr: "A private transfer from NEOM to Amman is about 430 km and takes roughly 5 hours driving, plus the Saudi–Jordan border crossing at Al Durrah, near Haql, and the Desert Highway on to the capital. The fare is fixed, confirmed on WhatsApp, with documentation support for the crossing.",
     tldrFacts: [
       { label: "Distance", value: "~430 km" },
       { label: "Time", value: "~5 hr + border" },
@@ -2089,7 +2089,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "alula-to-amman": {
-    tldr: "A private car with a chauffeur from AlUla to Amman is about 760 km and takes roughly 8 hours 10 minutes driving via Tabuk, plus the Saudi–Jordan border crossing at Al Durrah, near Haql. The fare is fixed, confirmed on WhatsApp, with documentation support for the crossing.",
+    tldr: "A private transfer from AlUla to Amman is about 760 km and takes roughly 8 hours 10 minutes driving via Tabuk, plus the Saudi–Jordan border crossing at Al Durrah, near Haql. The fare is fixed, confirmed on WhatsApp, with documentation support for the crossing.",
     tldrFacts: [
       { label: "Distance", value: "~760 km" },
       { label: "Time", value: "~8 hr 10 + border" },
@@ -2105,7 +2105,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "medinah-to-amman": {
-    tldr: "A private car with a chauffeur from Madinah to Amman is about 1,080 km and takes roughly 11 hours driving via Tabuk, plus the Saudi–Jordan border crossing at Al Durrah, near Haql. The fare is fixed, confirmed on WhatsApp, with documentation support for the crossing.",
+    tldr: "A private transfer from Madinah to Amman is about 1,080 km and takes roughly 11 hours driving via Tabuk, plus the Saudi–Jordan border crossing at Al Durrah, near Haql. The fare is fixed, confirmed on WhatsApp, with documentation support for the crossing.",
     tldrFacts: [
       { label: "Distance", value: "~1,080 km" },
       { label: "Time", value: "~11 hr + border" },
@@ -2273,13 +2273,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "aqaba-to-tabuk": "Taxi Aqaba, Jordan to Tabuk — Cross-Border Fare, Distance & Booking",
     "neom-to-aqaba": "Taxi NEOM to Aqaba, Jordan — Cross-Border Fare, Distance & Booking",
     "aqaba-to-neom": "Taxi Aqaba, Jordan to NEOM — Cross-Border Fare, Distance & Booking",
-    "tabuk-to-amman": "Taxi Tabuk to Amman, Jordan — Cross-Border Fare, Distance & Booking",
-    "alula-to-aqaba": "Taxi AlUla to Aqaba, Jordan — Cross-Border Fare, Distance & Booking",
-    "tabuk-to-petra": "Taxi Tabuk to Petra, Jordan — Cross-Border Fare, Distance & Booking",
-    "tabuk-to-wadi-rum": "Taxi Tabuk to Wadi Rum, Jordan — Cross-Border Fare, Distance & Booking",
-    "neom-to-amman": "Taxi NEOM to Amman, Jordan — Cross-Border Fare, Distance & Booking",
-    "alula-to-amman": "Taxi AlUla to Amman, Jordan — Cross-Border Fare, Distance & Booking",
-    "medinah-to-amman": "Taxi Madinah to Amman, Jordan — Cross-Border Fare, Distance & Booking",
+    "tabuk-to-amman": "Tabuk to Amman Private Transfer, Jordan — Fare, Distance & Booking",
+    "alula-to-aqaba": "AlUla to Aqaba Private Transfer, Jordan — Fare, Distance & Booking",
+    "tabuk-to-petra": "Tabuk to Petra Private Transfer, Jordan — Fare, Distance & Booking",
+    "tabuk-to-wadi-rum": "Tabuk to Wadi Rum Private Transfer, Jordan — Fare, Distance & Booking",
+    "neom-to-amman": "NEOM to Amman Private Transfer, Jordan — Fare, Distance & Booking",
+    "alula-to-amman": "AlUla to Amman Private Transfer, Jordan — Fare, Distance & Booking",
+    "medinah-to-amman": "Madinah to Amman Private Transfer, Jordan — Fare, Distance & Booking",
   };
   const title = TITLE_OVERRIDES[slug] ?? (routeLabel.length > 55 ? routeLabel : `${routeLabel} | Taxi Saudi Arabia`);
   const priceBlurb = "Fare confirmed on WhatsApp";
@@ -2318,13 +2318,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "aqaba-to-tabuk": "Private car with driver, Aqaba, Jordan to Tabuk — ~130 km via the Al Durrah border near Haql. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
     "neom-to-aqaba": "Private car with driver, NEOM to Aqaba, Jordan — ~100 km via the Al Durrah border near Haql. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
     "aqaba-to-neom": "Private car with driver, Aqaba, Jordan to NEOM — ~100 km via the Al Durrah border near Haql. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
-    "tabuk-to-amman": "Private car with driver, Tabuk to Amman, Jordan — ~460 km via the Al Durrah border near Haql and the Desert Highway. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
-    "alula-to-aqaba": "Private car with driver, AlUla to Aqaba, Jordan — ~430 km via Tabuk and the Al Durrah border near Haql. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
-    "tabuk-to-petra": "Private car with driver, Tabuk to Petra, Jordan — ~260 km via the Al Durrah border near Haql. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
-    "tabuk-to-wadi-rum": "Private car with driver, Tabuk to Wadi Rum, Jordan — ~195 km via the Al Durrah border near Haql. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
-    "neom-to-amman": "Private car with driver, NEOM to Amman, Jordan — ~430 km via the Al Durrah border near Haql and the Desert Highway. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
-    "alula-to-amman": "Private car with driver, AlUla to Amman, Jordan — ~760 km via Tabuk, the Al Durrah border near Haql, and the Desert Highway. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
-    "medinah-to-amman": "Private car with driver, Madinah to Amman, Jordan — ~1,080 km via Tabuk, the Al Durrah border near Haql, and the Desert Highway. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
+    "tabuk-to-amman": "Private transfer, Tabuk to Amman, Jordan — ~460 km via the Al Durrah border near Haql and the Desert Highway. Cross-border chauffeur, fare confirmed on WhatsApp before booking, 24/7.",
+    "alula-to-aqaba": "Private transfer, AlUla to Aqaba, Jordan — ~430 km via Tabuk and the Al Durrah border near Haql. Cross-border chauffeur, fare confirmed on WhatsApp before booking, 24/7.",
+    "tabuk-to-petra": "Private transfer, Tabuk to Petra, Jordan — ~260 km via the Al Durrah border near Haql. Cross-border chauffeur, fare confirmed on WhatsApp before booking, 24/7.",
+    "tabuk-to-wadi-rum": "Private transfer, Tabuk to Wadi Rum, Jordan — ~195 km via the Al Durrah border near Haql. Cross-border chauffeur, fare confirmed on WhatsApp before booking, 24/7.",
+    "neom-to-amman": "Private transfer, NEOM to Amman, Jordan — ~430 km via the Al Durrah border near Haql and the Desert Highway. Cross-border chauffeur, fare confirmed on WhatsApp before booking, 24/7.",
+    "alula-to-amman": "Private transfer, AlUla to Amman, Jordan — ~760 km via Tabuk, the Al Durrah border near Haql, and the Desert Highway. Cross-border chauffeur, fare confirmed on WhatsApp before booking, 24/7.",
+    "medinah-to-amman": "Private transfer, Madinah to Amman, Jordan — ~1,080 km via Tabuk, the Al Durrah border near Haql, and the Desert Highway. Cross-border chauffeur, fare confirmed on WhatsApp before booking, 24/7.",
   };
 
   return {
@@ -2823,10 +2823,20 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                             <span className="flex items-center gap-1"><Briefcase className="h-3.5 w-3.5 text-[#C9A84C]" /> {v.luggage} Bags</span>
                           </div>
                         </div>
-                        <div className="text-right shrink-0">
-                          <p className="text-[0.55rem] uppercase tracking-wider text-[#6B7280]">Fare</p>
-                          <p className="font-heading text-xl font-bold text-[#16A34A]">On WhatsApp</p>
-                        </div>
+                        <a
+                          href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                            `Salam! I'd like a quote:\n\n• Vehicle: ${v.name}\n• From: ${route.fromCity}\n• To: ${route.toCity}\n• Date & time: \n• Passengers: `
+                          )}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="shrink-0 flex flex-col items-end gap-1.5"
+                        >
+                          <span className="text-[0.55rem] uppercase tracking-wider text-[#6B7280]">Fare</span>
+                          <span className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-[#16A34A] px-3 py-1.5 text-[0.62rem] font-bold uppercase tracking-wide text-white hover:bg-[#15803D] transition-colors">
+                            <MessageSquare className="h-3 w-3" />
+                            Request Quote
+                          </span>
+                        </a>
                       </div>
                     </div>
                   </div>

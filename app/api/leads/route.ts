@@ -58,14 +58,7 @@ export async function POST(request: Request) {
     try {
       const r = await sendLeadNotification(lead);
       notified = !!r.email;
-      if (!r.email) {
-        await recordNotificationFailure({
-          channel: "lead_admin_email",
-          bookingRef: lead.id,
-          subject: "new lead",
-          error: "sendEmail returned null",
-        });
-      }
+      // Email failure is already recorded with the real error by sendEmail() itself.
     } catch (err) {
       await recordNotificationFailure({
         channel: "lead_admin_email",

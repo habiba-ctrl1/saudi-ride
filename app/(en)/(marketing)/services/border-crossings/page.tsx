@@ -8,7 +8,7 @@ import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { contactConfig } from "@/lib/config/contact";
 import Link from "next/link";
-import { Globe, FileText, Clock, Car, CheckCircle2, AlertTriangle } from "lucide-react";
+import { Globe, FileText, Clock, Car, CheckCircle2, AlertTriangle, MessageCircle } from "lucide-react";
 
 const TITLE = "GCC Cross-Border Taxi | Saudi to Bahrain, UAE, Qatar & Kuwait";
 const DESCRIPTION = "Book a cross-border taxi from Saudi Arabia to Bahrain, UAE, Qatar, or Kuwait. Clear pricing on WhatsApp, experienced drivers, smooth border crossings. Available 24/7.";
@@ -185,10 +185,20 @@ export default function BorderCrossingsPage() {
                     <Globe className="h-4 w-4" /> {border.crossing}
                   </p>
                 </div>
-                <div className="text-right">
-                  <p className="text-[0.6rem] uppercase text-[#6B7280] font-bold tracking-wider">From {border.from}</p>
-                  <p className="text-xl font-bold text-[#16A34A]">On WhatsApp</p>
-                </div>
+                <a
+                  href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                    `Salam! I'd like a quote for the ${border.name} (${border.crossing}) crossing from ${border.from}.\n\n• Date & time: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): `
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shrink-0 flex flex-col items-end gap-1.5 text-right"
+                >
+                  <span className="text-[0.6rem] uppercase text-[#6B7280] font-bold tracking-wider">From {border.from}</span>
+                  <span className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-[#16A34A] px-3 py-1.5 text-[0.62rem] font-bold uppercase tracking-wide text-white hover:bg-[#15803D] transition-colors">
+                    <MessageCircle className="h-3 w-3" />
+                    Request Quote
+                  </span>
+                </a>
               </div>
 
               <div className="space-y-5 flex-1">

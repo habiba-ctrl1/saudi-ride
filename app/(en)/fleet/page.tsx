@@ -175,9 +175,9 @@ export default function FleetPage() {
                       </h2>
                       <p className="mt-1 text-[0.65rem] text-[#6B7280] font-semibold uppercase tracking-wide">{vehicle.subtitle}</p>
                     </div>
-                    <div className="text-right">
+                    <div className="text-right shrink-0">
                       <p className="text-[0.55rem] text-[#6B7280] uppercase font-bold tracking-wider">From</p>
-                      <p className="font-heading text-xl font-bold text-[#16A34A]">On WhatsApp</p>
+                      <p className="whitespace-nowrap text-sm font-heading font-bold text-[#16A34A]">On WhatsApp</p>
                     </div>
                   </div>
 

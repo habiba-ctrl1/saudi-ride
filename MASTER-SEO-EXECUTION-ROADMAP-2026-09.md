@@ -87,6 +87,12 @@ before any content/title work.
 **Validation:** `tsc --noEmit` 0 errors · lint 0 errors (1 pre-existing
 warning) · `next build` exit 0 · rendered-HTML spot checks confirmed.
 
+**Deployed 2026-09-28** — `git push origin main`, commit `9030124`.
+Bundled Batch 0 + Batch 2 into one commit (Batch 0 had not been deployed
+yet either). Only the files actually touched by these two batches were
+staged; a separate set of pre-existing uncommitted changes from other
+work sessions was deliberately left alone in the working tree.
+
 **Next research checkpoint:** pull GSC again in a few weeks to check
 whether `/distance/riyadh-to-dammam`, `/distance/makkah-to-madinah` get
 crawled/indexed, and whether `/services/corporate` /

@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { createQuotation, listQuotations, type QuotationFilters, type TripType } from "@/lib/supabase/quotations";
 import type { DriverVehicleType } from "@/lib/supabase/drivers";
-import { sendEmail } from "@/lib/notifications";
+import { sendEmail, recordNotificationFailure } from "@/lib/notifications";
 import { adminQuotationEmail, clientQuotationEmail } from "@/lib/email/templates";
 
 const adminEmail = process.env.ADMIN_EMAIL || "infotaxisaudiarabia@gmail.com";
@@ -82,12 +82,33 @@ export async function POST(request: Request) {
       passengers: Number.isFinite(passengers) && passengers >= 1 ? passengers : null,
     };
     const adminMail = adminQuotationEmail(emailData);
-    const sends = [sendEmail(adminEmail, adminMail.subject, adminMail.html)];
+    const sends = [
+      sendEmail(adminEmail, adminMail.subject, adminMail.html, {
+        failureContext: { channel: "quotation_admin_email", bookingRef: row.quote_reference },
+      }).then((id) => {
+        if (!id) console.error(`Admin notification email failed to send for ${row.quote_reference}`);
+      }),
+    ];
     if (emailData.customerEmail) {
       const clientMail = clientQuotationEmail(emailData);
-      sends.push(sendEmail(emailData.customerEmail, clientMail.subject, clientMail.html));
+      sends.push(
+        sendEmail(emailData.customerEmail, clientMail.subject, clientMail.html, {
+          failureContext: { channel: "quotation_customer_email", bookingRef: row.quote_reference },
+        }).then((id) => {
+          if (!id) console.error(`Customer confirmation email failed to send for ${row.quote_reference}`);
+        })
+      );
     }
-    await Promise.allSettled(sends);
+    const results = await Promise.allSettled(sends);
+    results.forEach((r) => {
+      if (r.status === "rejected") {
+        recordNotificationFailure({
+          channel: "quotation_email",
+          bookingRef: row.quote_reference,
+          error: String(r.reason),
+        }).catch(() => {});
+      }
+    });
 
     return NextResponse.json(
       { success: true, quoteReference: row.quote_reference, id: row.id },

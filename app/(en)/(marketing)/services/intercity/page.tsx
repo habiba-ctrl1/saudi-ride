@@ -8,7 +8,7 @@ import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { contactConfig } from "@/lib/config/contact";
 import Link from "next/link";
-import { Map, Car, ShieldCheck, Clock, Navigation, CheckCircle2 } from "lucide-react";
+import { Map, Car, ShieldCheck, Clock, Navigation, CheckCircle2, MessageCircle } from "lucide-react";
 
 const TITLE = "Intercity Taxi Saudi Arabia | Long-Distance City Transfers";
 const DESCRIPTION = "Book an intercity taxi in Saudi Arabia for long-distance rides between Riyadh, Jeddah, Makkah, Madinah & Dammam. Clear pricing on WhatsApp, clean cars, 24/7 drivers.";
@@ -185,12 +185,19 @@ export default function IntercityServicePage() {
                   <span className="flex items-center gap-1.5"><Map className="h-3 w-3" /> {route.dist}</span>
                   <span className="flex items-center gap-1.5"><Clock className="h-3 w-3" /> {route.time}</span>
                 </div>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-[0.6rem] uppercase text-[#6B7280] font-bold tracking-wider">Starting at</p>
-                    <p className="text-[#16A34A] font-bold">On WhatsApp</p>
-                  </div>
-                  <Link href={`/book?pickup=${encodeURIComponent(route.from)}&dropoff=${encodeURIComponent(route.to)}`} className="text-xs font-bold uppercase text-[#1C1C1C] hover:text-[#16A34A] transition-colors">
+                <div className="flex items-center justify-between gap-3">
+                  <a
+                    href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                      `Salam! I'd like a quote:\n\n• From: ${route.from}\n• To: ${route.to}\n• Date & time: \n• Passengers: `
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-[#16A34A]/10 border border-[#16A34A]/30 px-3 py-1.5 text-[0.62rem] font-bold uppercase tracking-wide text-[#16A34A] hover:bg-[#16A34A] hover:text-white transition-colors"
+                  >
+                    <MessageCircle className="h-3 w-3" />
+                    Request Quote
+                  </a>
+                  <Link href={`/book?pickup=${encodeURIComponent(route.from)}&dropoff=${encodeURIComponent(route.to)}`} className="shrink-0 text-xs font-bold uppercase text-[#1C1C1C] hover:text-[#16A34A] transition-colors">
                     Book Now
                   </Link>
                 </div>
