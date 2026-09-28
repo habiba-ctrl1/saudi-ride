@@ -783,18 +783,92 @@ export const EVENTS: EventPageData[] = [
       { label: "Availability", value: "24/7" },
     ],
     services: [
-      { title: "International Arrivals Meet & Greet", desc: "Black Hat MEA draws a heavily international audience. We track inbound flights and meet delegates at Riyadh Airport (RUH) arrivals with a name sign, then drive straight to the hotel or Malham — smooth even for first-time visitors to Riyadh." },
+      { title: "International Arrivals Meet & Greet", desc: "Black Hat MEA draws a heavily international audience. Share your flight number when you book and we check it before pickup, meeting delegates at Riyadh Airport (RUH) arrivals with a name sign, then driving straight to the hotel or Malham — smooth even for first-time visitors to Riyadh." },
       { title: "Daily Standby to Malham", desc: "The Exhibition & Convention Centre is out of the city, and a big crowd leaves together each evening. A car on daily standby means your ride is ready at close, at a fare fixed in advance — no scramble for an app car." },
       { title: "Delegation & Team Transport", desc: "SUVs, vans, and coasters for security teams, vendors, and company delegations travelling together, coordinated under one contact with aligned timing across the three days." },
       { title: "Executive & Speaker Chauffeur", desc: "Discreet executive cars for speakers, sponsors, and C-level guests, with bilingual chauffeurs who keep to a tight briefing and session schedule." },
     ],
     faqs: [
-      { question: "I'm flying in internationally for Black Hat MEA — can you meet me at the airport?", answer: "Yes. We track your flight and meet you inside Riyadh Airport (RUH) arrivals with a name sign, 24/7 including late arrivals, then take you directly to your hotel or the venue in Malham — no taxi queue after a long flight." },
+      { question: "I'm flying in internationally for Black Hat MEA — can you meet me at the airport?", answer: "Yes. Share your flight number, date and time when you book — we check it before pickup and meet you inside Riyadh Airport (RUH) arrivals with a name sign, 24/7 including late arrivals, then take you directly to your hotel or the venue in Malham." },
       { question: "Where is Black Hat MEA held and how far is it?", answer: "At the Riyadh Exhibition & Convention Centre in Malham, north-west of Riyadh — about a 30–45 minute drive from the airport and central hotels. Because it's outside the city, a pre-booked car is far more reliable than hailing one at the venue." },
       { question: "Can you coordinate transport for our whole team?", answer: "Yes. Send your headcount and hotels on WhatsApp and we assign vans or a coaster under a single contact, with daily runs to and from Malham timed around the agenda." },
       { question: "Will the fare change during the busy event days?", answer: "No. We confirm a fixed fare before you book and hold it for the event — no surge pricing even when everyone is heading to or from the venue at the same time." },
     ],
     waContext: "Black Hat MEA Riyadh event transportation",
+    waCtaLabel: "Get Black Hat MEA Riyadh Transport Quote on WhatsApp",
+    waPrefill:
+      "Salam! I need transport for Black Hat MEA Riyadh.\n• Arriving (flight / date / time):\n• Hotel:\n• Passengers & bags:\n• Need: airport transfer / daily standby / team vehicle / executive chauffeur:\n• Departure flight:",
+    organiserDesk: {
+      heading: "Coordinating a delegation or sponsor team for Black Hat MEA?",
+      body: "Security vendors, sponsors and corporate teams often need one coordinator, one schedule and one invoice across arrival manifests, daily standby to Malham, and departure transfers. Corporate invoicing can be arranged through our sister company — send your requirements and we'll confirm invoicing details before booking.",
+      waPrefill:
+        "Salam! I need a delegation/sponsor transport quote for Black Hat MEA.\n• Company & your role:\n• Total passengers:\n• Vehicles needed (sedan / SUV / van / coaster):\n• Dates (1–3 Dec 2026, which days):\n• Daily schedule (airport / hotel loops / standby):\n• Invoicing details required:",
+      emailSubject: "Delegation / sponsor transport quote — Black Hat MEA Riyadh",
+      emailBody:
+        "Salam,\n\nWe need a delegation/sponsor transport quote for Black Hat MEA Riyadh:\n\n• Company & your role:\n• Total passengers:\n• Vehicles needed (sedan / SUV / van / coaster):\n• Dates required (event is 1–3 Dec 2026):\n• Daily schedule (airport / hotel loops / standby):\n• Invoicing details required:\n\nThank you.",
+    },
+    about: {
+      eventName: "Black Hat MEA",
+      startDate: "2026-12-01",
+      endDate: "2026-12-03",
+      venueName: "Riyadh Exhibition & Convention Centre, Malham",
+      organizer: "Tahaluf",
+      sameAs: ["https://blackhatmea.com"],
+    },
+  },
+  {
+    slug: "cityscape-global-riyadh-transportation",
+    kind: "event",
+    badge: "Cityscape Global · Riyadh",
+    shortName: "Cityscape Global Transport",
+    h1: "Cityscape Global Riyadh Taxi & Event Transfers",
+    title: "Cityscape Global Riyadh Taxi & Airport Transfer | Taxi Saudi Arabia",
+    description: "Book taxi, airport transfers, hotel transfers and private chauffeur for Cityscape Global 2026 in Riyadh — transport to the Riyadh Exhibition & Convention Centre in Malham for developers, investors and exhibitor teams. Fare confirmed on WhatsApp.",
+    intro: "Cityscape Global brings developers, investors and government stakeholders in real estate and urban development to the Riyadh Exhibition & Convention Centre in Malham. With exhibitor stands, investor meetings and a venue outside the city, pre-arranged transport keeps your schedule moving between the airport, your hotel and the show floor.",
+    city: "Riyadh",
+    edition: { dates: "16 – 19 November 2026", venue: "Riyadh Exhibition & Convention Centre, Malham", note: "Held annually in Riyadh." },
+    airport: RUH,
+    tldrAnswer: "For Cityscape Global in Riyadh we provide private transport — Riyadh Airport (RUH) transfers, hotel-to-venue runs to the Exhibition & Convention Centre in Malham, exhibitor and stand-team vehicles, and executive chauffeur for developers and investors — fare confirmed on WhatsApp.",
+    tldrFacts: [
+      { label: "Venue", value: "RECC, Malham" },
+      { label: "Edition", value: "16 – 19 Nov 2026" },
+      { label: "From", value: "Riyadh Airport (RUH)" },
+      { label: "Availability", value: "24/7" },
+    ],
+    services: [
+      { title: "Airport → Malham Transfers", desc: "Private pickups from Riyadh Airport (RUH) to the Exhibition & Convention Centre in Malham — share your flight number when you book and we check it before pickup, meeting you at arrivals for the drive to the venue or your hotel." },
+      { title: "Exhibitor & Stand-Team Vehicles", desc: "SUVs and vans for exhibitor teams carrying display materials and sample units, plus early build-up and late breakdown runs so your stand is ready before doors open and packed down after close." },
+      { title: "Investor & Developer Chauffeur", desc: "Executive cars for developers, investors and delegation leads moving between Cityscape Global, off-site meetings and hotel appointments, with a discreet, bilingual chauffeur." },
+      { title: "Daily Standby to Malham", desc: "Malham sits outside the city, and rides thin out fast when the halls close. A car on daily standby means your ride is already there, at a fare fixed in advance." },
+    ],
+    faqs: [
+      { question: "How far is Cityscape Global's venue from Riyadh Airport and the city?", answer: "The Riyadh Exhibition & Convention Centre is in Malham, north-west of Riyadh — roughly a 30–45 minute drive from King Khalid Airport (RUH) and the central hotel districts, depending on traffic. Because it's out of town, booking ahead avoids a wait for a ride at the end of the day." },
+      { question: "Can you move an exhibitor team with display materials?", answer: "Yes. Ask for an SUV or van and we allow room for display units, sample cases and marketing materials, plus early-morning build-up and late breakdown runs so your stand crew reaches the halls on schedule." },
+      { question: "Do you provide executive transport for investors and developers?", answer: "Yes. We arrange executive sedans and SUVs with bilingual chauffeurs for developers, investors and delegation leads moving between the venue, off-site meetings and hotel appointments." },
+      { question: "Can I book transport for a company delegation?", answer: "Yes. Send your company name, headcount and hotel on WhatsApp and we coordinate vehicles under one contact, with daily runs to and from Malham timed around your schedule." },
+      { question: "Can you meet me at the airport if I'm flying in for Cityscape Global?", answer: "Yes. Share your flight number, date and time when you book and we meet you at Riyadh Airport (RUH) arrivals, then drive directly to your hotel or the venue in Malham." },
+    ],
+    waContext: "Cityscape Global Riyadh event transportation",
+    waCtaLabel: "Get Cityscape Global Riyadh Transport Quote on WhatsApp",
+    waPrefill:
+      "Salam! I need transport for Cityscape Global Riyadh.\n• Arriving (flight / date / time):\n• Hotel:\n• Passengers & bags:\n• Need: airport transfer / daily standby / exhibitor van / executive chauffeur:\n• Departure flight:",
+    organiserDesk: {
+      heading: "Coordinating an exhibitor stand or investor delegation for Cityscape Global?",
+      body: "Developers, agencies and investment teams often need one coordinator, one schedule and one invoice across arrival manifests, daily venue loops and stand build-up/breakdown. Corporate invoicing can be arranged through our sister company — send your requirements and we'll confirm invoicing details before booking.",
+      waPrefill:
+        "Salam! I need a delegation/exhibitor transport quote for Cityscape Global.\n• Company & your role:\n• Total passengers:\n• Vehicles needed (sedan / SUV / van / coaster):\n• Dates (16–19 Nov 2026, which days):\n• Daily schedule (airport / hotel loops / standby / build-up-breakdown):\n• Invoicing details required:",
+      emailSubject: "Delegation / exhibitor transport quote — Cityscape Global Riyadh",
+      emailBody:
+        "Salam,\n\nWe need a delegation/exhibitor transport quote for Cityscape Global Riyadh:\n\n• Company & your role:\n• Total passengers:\n• Vehicles needed (sedan / SUV / van / coaster):\n• Dates required (event is 16–19 Nov 2026):\n• Daily schedule (airport / hotel loops / standby / build-up-breakdown):\n• Invoicing details required:\n\nThank you.",
+    },
+    about: {
+      eventName: "Cityscape Global",
+      startDate: "2026-11-16",
+      endDate: "2026-11-19",
+      venueName: "Riyadh Exhibition & Convention Centre, Malham",
+      organizer: "Tahaluf",
+      sameAs: ["https://cityscapeglobal.com"],
+    },
   },
   {
     slug: "money20-20-riyadh-transportation",
@@ -1071,8 +1145,8 @@ const HERO_SRC = {
   jeddah: "/gallery/formula-e-jeddah-corniche.webp",
 } as const;
 const HERO_ALT = {
-  vip: "Chauffeur opening the door of a black Mercedes S-Class outside the Riyadh Exhibition & Conference Center at dusk",
-  group: "Business delegation boarding a minibus and executive SUV outside the Riyadh International Convention & Exhibition Center",
+  vip: "Chauffeur opening the door of a black Mercedes S-Class for a guest at dusk",
+  group: "Business delegation boarding a minibus and executive SUV outside an exhibition hall",
   jeddah: "Executive SUV on the floodlit Jeddah Corniche circuit at night",
 } as const;
 
@@ -1080,6 +1154,7 @@ const HERO_BY_SLUG: Record<string, keyof typeof HERO_SRC> = {
   // Exhibitor / group / delegation intent → coaster + SUV shot
   "leap-riyadh-transportation": "group",
   "black-hat-mea-transportation": "group",
+  "cityscape-global-riyadh-transportation": "group",
   "big-5-construct-saudi-transportation": "group",
   "cphi-middle-east-transportation": "group",
   "foodex-saudi-transportation": "group",
