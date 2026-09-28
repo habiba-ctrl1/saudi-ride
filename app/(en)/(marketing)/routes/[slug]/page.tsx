@@ -327,6 +327,27 @@ const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup:
     pickup: "Madinah",
     dropoff: "Tabuk",
   },
+  "doha-to-dammam": {
+    heading: "Get your Doha to Dammam quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked return car with a professional chauffeur across the Salwa border to the Eastern Province, about 400 km. You carry your own valid documents; we support the crossing.",
+    pickup: "Doha, Qatar",
+    dropoff: "Dammam",
+  },
+  "doha-to-riyadh": {
+    heading: "Get your Doha to Riyadh quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked return car with a professional chauffeur across the Salwa border to the Saudi capital, about 580 km. You carry your own valid documents; we support the crossing.",
+    pickup: "Doha, Qatar",
+    dropoff: "Riyadh",
+  },
+  "alahsa-to-doha": {
+    heading: "Get your Al Ahsa to Doha quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked cross-border car with a professional chauffeur, about 320 km via the Salwa border, the shortest Saudi gateway to Qatar. You carry your own valid documents; we support the crossing.",
+    pickup: "Al Ahsa",
+    dropoff: "Doha, Qatar",
+  },
 };
 
 // Corporate (Path B) block config for business-corridor routes. The invoicing
@@ -588,6 +609,30 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
     waPrefill: `Salam! Corporate transfer — Red Sea Airport to NEOM.\n• Company: \n• Flight no. & arrival date: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• NEOM site / gate clearance confirmed?: \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Red Sea Airport–NEOM",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate transfers from Red Sea International Airport to NEOM.\n\n• Company name: \n• Contact name & role: \n• Flight no. & arrival date/time: \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van): \n• NEOM site / gate clearance: \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
+  "doha-to-dammam": {
+    heading: "Executive car with driver, Doha to Dammam?",
+    intro:
+      "For business travellers returning across the Salwa border to the Eastern Province we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. Documentation is supported — you carry your own valid papers. Regular company trips can run on a single account with one point of contact.",
+    waPrefill: `Salam! Executive car with driver — Doha (Qatar) / Dammam.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Doha–Dammam",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Doha, Qatar and Dammam (via the Salwa border).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
+  "doha-to-riyadh": {
+    heading: "Executive car with driver, Doha to Riyadh?",
+    intro:
+      "For business travellers returning to the Saudi capital across the Salwa border we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. Documentation is supported — you carry your own valid papers. Regular company trips can run on a single account with one point of contact.",
+    waPrefill: `Salam! Executive car with driver — Doha (Qatar) / Riyadh.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Doha–Riyadh",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Doha, Qatar and Riyadh (via the Salwa border).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
+  "alahsa-to-doha": {
+    heading: "Executive car with driver, Al Ahsa to Doha?",
+    intro:
+      "For business travellers crossing to Qatar via the Salwa border — the shortest Saudi road gateway to Doha — we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. Documentation is supported — you carry your own valid papers. Regular company trips can run on a single account with one point of contact.",
+    waPrefill: `Salam! Executive car with driver — Al Ahsa / Doha (Qatar).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Al Ahsa–Doha",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Al Ahsa and Doha, Qatar (via the Salwa border).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
 };
 
@@ -2175,6 +2220,23 @@ const MORE_ABU_DHABI_ROUTES: { slug: string; label: string; distance: number }[]
   { slug: "jeddah-to-abudhabi", label: "Jeddah to Abu Dhabi, UAE", distance: 1750 },
 ];
 
+// Cross-links across the Saudi-Qatar cluster — same orphan-page pattern as
+// MORE_ABU_DHABI_ROUTES/MORE_JORDAN_ROUTES above. Verified 2026-09-28:
+// RouteRelatedLinks' generic same-city matching alone does NOT reliably
+// surface all 4 siblings on every page (e.g. doha-to-dammam only got 1 of 4
+// without this) — same crowded-out problem the two arrays above solve. A
+// small overlap with RouteRelatedLinks on some pages is expected/accepted,
+// same tradeoff already live for Abu Dhabi/Jordan. Placed on every route here
+// (Stage 3, 2026-09-28 — see seo/clusters/QATAR-CLUSTER.md §13).
+const MORE_QATAR_ROUTES: { slug: string; label: string; distance: number }[] = [
+  { slug: "riyadh-to-doha", label: "Riyadh to Doha, Qatar", distance: 580 },
+  { slug: "dammam-to-doha", label: "Dammam to Doha, Qatar", distance: 400 },
+  { slug: "alahsa-to-doha", label: "Al Ahsa to Doha, Qatar", distance: 320 },
+  { slug: "doha-to-dammam", label: "Doha, Qatar to Dammam", distance: 400 },
+  { slug: "doha-to-riyadh", label: "Doha, Qatar to Riyadh", distance: 580 },
+];
+
+
 // Cross-links across the whole Saudi-Jordan cluster — same orphan-page risk
 // as the other MORE_*_ROUTES blocks (generic same-city matching in
 // RouteRelatedLinks crowds these out). Placed on every route in this array.
@@ -3505,6 +3567,43 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                     <ArrowRight className="h-4 w-4 text-[#C9A84C] shrink-0 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 ))}
+              </div>
+            </section>
+          )}
+
+          {slug.includes("doha") && (
+            <section className="mt-16 border-t border-[#C9A84C]/10 pt-10">
+              <h2 className="font-heading text-2xl font-bold mb-6">
+                More Saudi Arabia to Qatar Routes
+              </h2>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {MORE_QATAR_ROUTES.filter((r) => r.slug !== slug).map((r) => (
+                  <Link
+                    key={r.slug}
+                    href={`/routes/${r.slug}`}
+                    className="group flex items-center justify-between rounded-2xl border border-[#16A34A]/12 bg-white px-5 py-4 hover:border-[#16A34A]/35 transition-all"
+                  >
+                    <span className="text-sm font-semibold">
+                      {r.label}
+                      <span className="block text-[0.65rem] text-[#6B7280] font-normal mt-0.5">
+                        {r.distance} km · Fare on WhatsApp
+                      </span>
+                    </span>
+                    <ArrowRight className="h-4 w-4 text-[#C9A84C] shrink-0 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                ))}
+                <Link
+                  href="/services/border-crossings"
+                  className="group flex items-center justify-between rounded-2xl border border-[#16A34A]/12 bg-white px-5 py-4 hover:border-[#16A34A]/35 transition-all sm:col-span-2"
+                >
+                  <span className="text-sm font-semibold">
+                    All GCC Cross-Border Transfers
+                    <span className="block text-[0.65rem] text-[#6B7280] font-normal mt-0.5">
+                      Bahrain · UAE · Qatar · Kuwait — border crossing guide
+                    </span>
+                  </span>
+                  <ArrowRight className="h-4 w-4 text-[#C9A84C] shrink-0 group-hover:translate-x-1 transition-transform" />
+                </Link>
               </div>
             </section>
           )}

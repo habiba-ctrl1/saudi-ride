@@ -8,7 +8,7 @@ import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { contactConfig } from "@/lib/config/contact";
 import Link from "next/link";
-import { Globe, FileText, Clock, Car, CheckCircle2, AlertTriangle, MessageCircle } from "lucide-react";
+import { Globe, FileText, Clock, Car, CheckCircle2, AlertTriangle, MessageCircle, Route as RouteIcon } from "lucide-react";
 
 const TITLE = "GCC Cross-Border Taxi | Saudi to Bahrain, UAE, Qatar & Kuwait";
 const DESCRIPTION = "Book a cross-border taxi from Saudi Arabia to Bahrain, UAE, Qatar, or Kuwait. Clear pricing on WhatsApp, experienced drivers, smooth border crossings. Available 24/7.";
@@ -33,12 +33,29 @@ export const metadata: Metadata = {
   },
 };
 
-const BORDERS = [
+// wait/reqs deliberately do not state a specific duration or a specific
+// visa/card requirement — neither is sourced in facts.md or venues.md, and an
+// invented number is a Rule 1 violation (P0, corrected 2026-09-28).
+//
+// `routes` links this hub directly to the actual optimized route pages for a
+// border, instead of only the generic /book flow (Stage 3 fix, 2026-09-28,
+// Qatar cluster only — see seo/clusters/QATAR-CLUSTER.md §13/§27 step 5). Only
+// Qatar is populated for now; Bahrain/UAE/Kuwait are a later cluster's scope.
+const BORDERS: {
+  name: string;
+  crossing: string;
+  wait: string;
+  reqs: string;
+  vehicle: string;
+  price: number;
+  from: string;
+  routes?: { slug: string; label: string }[];
+}[] = [
   {
     name: "Saudi-Bahrain",
     crossing: "King Fahd Causeway",
-    wait: "30 - 60 mins",
-    reqs: "Valid Passport, Bahrain Visa (if applicable), Saudi Exit/Re-entry Visa (for expats).",
+    wait: "Border processing times can vary depending on traffic, immigration, customs and official procedures.",
+    reqs: "Passengers are responsible for carrying the valid travel documents and entry permissions required for their journey.",
     vehicle: "Executive Sedan or SUV",
     price: 200,
     from: "Dammam / Khobar"
@@ -46,8 +63,8 @@ const BORDERS = [
   {
     name: "Saudi-UAE",
     crossing: "Al Batha / Ghuwaifat",
-    wait: "1 - 2 hrs",
-    reqs: "Valid Passport, UAE Visa (check eligibility), Saudi Exit/Re-entry Visa.",
+    wait: "Border processing times can vary depending on traffic, immigration, customs and official procedures.",
+    reqs: "Passengers are responsible for carrying the valid travel documents and entry permissions required for their journey.",
     vehicle: "Luxury SUV (Recommended for long haul)",
     price: 1200,
     from: "Riyadh"
@@ -55,17 +72,24 @@ const BORDERS = [
   {
     name: "Saudi-Qatar",
     crossing: "Salwa Border",
-    wait: "45 - 90 mins",
-    reqs: "Valid Passport, Hayya Card / Qatar Visa.",
+    wait: "Border processing times can vary depending on traffic, immigration, customs and official procedures.",
+    reqs: "Passengers are responsible for carrying the valid travel documents and entry permissions required for their journey.",
     vehicle: "Executive Sedan or SUV",
     price: 500,
-    from: "Dammam / Al-Ahsa"
+    from: "Dammam / Al-Ahsa",
+    routes: [
+      { slug: "riyadh-to-doha", label: "Riyadh to Doha" },
+      { slug: "dammam-to-doha", label: "Dammam to Doha" },
+      { slug: "alahsa-to-doha", label: "Al Ahsa to Doha" },
+      { slug: "doha-to-dammam", label: "Doha to Dammam" },
+      { slug: "doha-to-riyadh", label: "Doha to Riyadh" },
+    ],
   },
   {
     name: "Saudi-Kuwait",
     crossing: "Al Khafji / Nuwaiseeb",
-    wait: "45 - 90 mins",
-    reqs: "Valid Passport, Kuwait Visa.",
+    wait: "Border processing times can vary depending on traffic, immigration, customs and official procedures.",
+    reqs: "Passengers are responsible for carrying the valid travel documents and entry permissions required for their journey.",
     vehicle: "Executive Sedan or SUV",
     price: 600,
     from: "Dammam / Jubail"
@@ -205,7 +229,7 @@ export default function BorderCrossingsPage() {
                 <div className="flex gap-4">
                   <Clock className="h-5 w-5 text-[#6B7280] shrink-0" />
                   <div>
-                    <h4 className="text-xs font-bold text-[#1C1C1C] uppercase tracking-wider mb-1">Est. Border Wait Time</h4>
+                    <h4 className="text-xs font-bold text-[#1C1C1C] uppercase tracking-wider mb-1">Border Processing Time</h4>
                     <p className="text-sm text-[#6B7280]">{border.wait}</p>
                   </div>
                 </div>
@@ -225,6 +249,26 @@ export default function BorderCrossingsPage() {
                     <p className="text-sm text-[#6B7280]">{border.vehicle}</p>
                   </div>
                 </div>
+
+                {border.routes && (
+                  <div className="flex gap-4">
+                    <RouteIcon className="h-5 w-5 text-[#6B7280] shrink-0" />
+                    <div>
+                      <h4 className="text-xs font-bold text-[#1C1C1C] uppercase tracking-wider mb-2">Qatar Route Pages</h4>
+                      <div className="flex flex-col gap-1.5">
+                        {border.routes.map((r) => (
+                          <Link
+                            key={r.slug}
+                            href={`/routes/${r.slug}`}
+                            className="text-sm font-semibold text-[#16A34A] hover:underline"
+                          >
+                            {r.label} &rarr;
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <Link
@@ -240,7 +284,7 @@ export default function BorderCrossingsPage() {
       {(() => {
         const faqs = [
           { question: "Do I need a visa for cross-border trips from Saudi Arabia?", answer: "Yes. You need a valid visa or entry permit for the destination country (Bahrain, UAE, Qatar, or Kuwait). Our drivers handle the vehicle border paperwork, but personal travel documents are your responsibility." },
-          { question: "How long does the King Fahd Causeway crossing to Bahrain take?", answer: "The drive from Dammam or Khobar to Bahrain takes about 1 to 1.5 hours, plus border processing which can range from 30 minutes to 2 hours depending on traffic." },
+          { question: "How long does the King Fahd Causeway crossing to Bahrain take?", answer: "The drive from Dammam or Khobar to Bahrain takes about 1 to 1.5 hours. Border processing time is on top of that and can vary depending on traffic, immigration, customs and official procedures." },
           { question: "Can the same taxi wait and bring me back?", answer: "Yes. We offer round-trip and multi-day cross-border bookings where your driver waits or returns on a scheduled date." },
         ];
         return (
