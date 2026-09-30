@@ -133,6 +133,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { question: "Do you offer a private car or executive car service in Riyadh, not just a taxi?", answer: "Yes. Alongside a standard taxi, we provide a pre-booked private car and executive car service in Riyadh — an executive sedan, SUV or van with a professional chauffeur for airport transfers, corporate travel and full-day hire across KAFD, Olaya and the Diplomatic Quarter. Corporate invoicing is available on request; your fare is confirmed on WhatsApp." }
     ],
     relatedLinks: [
+      { href: "/locations/riyadh/private-driver", label: "Hire a private driver by the hour in Riyadh" },
       { href: "/airports/king-khalid-riyadh", label: "King Khalid International Airport (RUH) transfers" },
       { href: "/services/car-recovery/riyadh", label: "Riyadh car recovery & tow truck (satha)" },
       { href: "/locations/riyadh/diriyah", label: "Riyadh to Diriyah taxi & heritage transfer" },

@@ -19,13 +19,13 @@ const translations = {
       { label: "Professional Drivers", value: "100%" },
       { label: "Routes Covered", value: trustStats.routesCovered },
       { label: "Saudi Cities", value: "11+" },
-      { label: "Languages Spoken", value: "3" }
+      { label: "Languages Spoken", value: "2" }
     ],
 
     // Story
     storyTitle: "Our Story",
     storySubtitle: "Built Around One Idea: A Taxi You Can Actually Trust",
-    storyText1: "Taxi Saudi Arabia was built with one goal: to give people in Saudi Arabia a taxi service they can actually trust. Our fleet covers Riyadh, Jeddah, Makkah, Madinah, Dammam, and beyond — serving pilgrims, business travelers, and families with pre-booked rides, price confirmed on WhatsApp.",
+    storyText1: "Taxi Saudi Arabia was built with one goal: to give people in Saudi Arabia a taxi service they can actually trust. Our partner network covers Riyadh, Jeddah, Makkah, Madinah, Dammam, and beyond — serving pilgrims, business travelers, and families with pre-booked rides, price confirmed on WhatsApp.",
     storyText2: "We focus on being on time, transparent with pricing, and respectful of our customers. We combine real Saudi hospitality with modern booking technology to make every trip simple, safe, and comfortable.",
 
     // Pillars (Mission & Values)
@@ -34,12 +34,12 @@ const translations = {
     pillars: [
       {
         title: "Always On Time",
-        description: "We track your flight live and plan your trip around prayer times — your driver is always ready when you need them.",
+        description: "Share your flight number when you book and we plan your trip around it and around prayer times — your driver is always ready when you need them.",
         icon: ShieldCheck
       },
       {
         title: "Professional, Vetted Drivers",
-        description: "All our drivers are background-checked, hold a valid Saudi driving license, and speak English, Arabic, and Urdu.",
+        description: "All our drivers are vetted partner chauffeurs, hold a valid Saudi driving license, and speak English and Arabic.",
         icon: Sparkles
       },
       {
@@ -80,7 +80,7 @@ const translations = {
   ar: {
     badge: "من نحن",
     title: "بوابتك الآمنة للتنقل الفاخر بالمملكة",
-    description: "يقف الرياض لوكس تاكسي عند نقطة التقاء الضيافة السعودية والرفاهية العالمية في النقل. نحن نقدم خدمات السائقين مسبقة الحجز بأسعار ثابتة ومحددة مصممة خصيصاً للمؤتمرات التنفيذية، والعمرة، والرحلات العائلية الفاخرة.",
+    description: "تقف تاكسي السعودية عند نقطة التقاء الضيافة السعودية والرفاهية العالمية في النقل. نحن نقدم خدمات السائقين مسبقة الحجز بأسعار ثابتة ومحددة مصممة خصيصاً للمؤتمرات التنفيذية، والعمرة، والرحلات العائلية الفاخرة.",
     
     // Stats
     statsTitle: "مسيرتنا في أرقام",
@@ -88,37 +88,39 @@ const translations = {
       { label: "سائقون مرخصون", value: "100%" },
       { label: "مسار مغطى", value: trustStats.routesCovered },
       { label: "مدينة سعودية", value: "+11" },
-      { label: "لغات التحدث", value: "3" }
+      { label: "لغات التحدث", value: "2" }
     ],
 
     // Story
     storyTitle: "قصتنا",
     storySubtitle: "فكرة واحدة: تاكسي يمكنك أن تثق به فعلاً",
-    storyText1: "تأسست تاكسي السعودية بهدف واحد: تقديم خدمة تاكسي يثق بها الجميع في المملكة العربية السعودية. يغطي أسطولنا الرياض وجدة ومكة والمدينة والدمام وغيرها — نخدم الحجاج ورجال الأعمال والعائلات برحلات محجوزة مسبقاً بأسعار ثابتة.",
+    storyText1: "تأسست تاكسي السعودية بهدف واحد: تقديم خدمة تاكسي يثق بها الجميع في المملكة العربية السعودية. تغطي شبكة شركائنا الرياض وجدة ومكة والمدينة والدمام وغيرها — نخدم الحجاج ورجال الأعمال والعائلات برحلات محجوزة مسبقاً بأسعار ثابتة.",
     storyText2: "نركز على الالتزام بالمواعيد والشفافية في الأسعار واحترام عملائنا. نجمع بين الضيافة السعودية الأصيلة وتقنيات الحجز الحديثة لنجعل كل رحلة بسيطة وآمنة ومريحة.",
 
     // Pillars (Mission & Values)
     pillarsTitle: "الرسالة والقيم الأساسية",
-    pillarsSubtitle: "الركائز الأساسية لرياض لوكس",
+    pillarsSubtitle: "الركائز الأساسية لتاكسي السعودية",
     pillars: [
       {
         title: "الالتزام المطلق بالوقت",
-        description: "نلتزم بدقة المواعيد التامة مع تتبع فوري للرحلات والتنسيق مع أوقات الصلوات لراحتك.",
+        description: "شارك رقم رحلتك عند الحجز ونخطط لتوقيت استقبالك بناءً عليه ووفق أوقات الصلاة لراحتك.",
         icon: ShieldCheck
       },
       {
         title: "نخبة من السائقين المحترفين",
-        description: "سائقون محليون مدربون يحملون رخصة قيادة سعودية سارية ويتحدثون لغات متعددة.",
+        description: "سائقون شركاء تم فحصهم، يحملون رخصة قيادة سعودية سارية ويتحدثون العربية والإنجليزية.",
         icon: Sparkles
       },
       {
         title: "أسعار شفافة وموثوقة",
-        description: "كل سائق يحمل رخصة قيادة سارية، والفواتير متوافقة مع هيئة الزكاة والضريبة.",
+        description: hasCredential(credentials.vatNumber)
+          ? "كل سائق يحمل رخصة قيادة سارية، والفواتير متوافقة مع هيئة الزكاة والضريبة."
+          : "كل سائق يحمل رخصة قيادة سارية.",
         icon: CheckCircle2
       },
       {
-        title: "عناية وصيانة فائقة للأسطول",
-        description: "أسطول حديث ومعقم بالكامل مع أفضل الإضافات ووسائل الراحة لتجربة VIP متميزة.",
+        title: "عناية وصيانة فائقة بالمركبات",
+        description: "كل مركبة يتم تنظيفها قبل كل رحلة، وفحصها بانتظام، ومكيفة بالكامل لراحتك.",
         icon: History
       }
     ],
@@ -141,13 +143,13 @@ const translations = {
     ],
 
     // Video Section
-    videoTitle: "شاهد الفخامة داخل أسطولنا",
-    videoText: "قم بجولة افتراضية داخل أسطولنا الفاخر واكتشف التفاصيل الدقيقة التي تجعل الرياض لوكس الخيار الذهبي لكل تنقلاتك."
+    videoTitle: "شاهد الفخامة في رحلتك",
+    videoText: "قم بجولة افتراضية داخل مركباتنا الفاخرة واكتشف التفاصيل الدقيقة التي تجعل تاكسي السعودية الخيار الذهبي لكل تنقلاتك."
   },
   ur: {
     badge: "ہمارے بارے میں",
     title: "وی آئی پی سفر کے لیے آپ کی پہلی پسند",
-    description: "ریاض لوکس ٹیکسی سعودی مہمان نوازی اور عالمی معیار کے لگژری ٹرانسپورٹیشن کا بہترین امتزاج ہے۔ ہم سعودی عرب میں عمرہ زائرین، بزنس ایگزیکٹوز اور خاندانی مسافروں کے لیے پہلے سے بک شدہ پریمیم ڈرائیور سروسز فراہم کرتے ہیں۔",
+    description: "ٹیکسی سعودی عرب سعودی مہمان نوازی اور عالمی معیار کے لگژری ٹرانسپورٹیشن کا بہترین امتزاج ہے۔ ہم سعودی عرب میں عمرہ زائرین، بزنس ایگزیکٹوز اور خاندانی مسافروں کے لیے پہلے سے بک شدہ پریمیم ڈرائیور سروسز فراہم کرتے ہیں۔",
     
     // Stats
     statsTitle: "ہماری کامیابی اعداد و شمار میں",
@@ -155,27 +157,27 @@ const translations = {
       { label: "لائسنس یافتہ ڈرائیورز", value: "100%" },
       { label: "روٹس", value: trustStats.routesCovered },
       { label: "سعودی شہر", value: "+11" },
-      { label: "زبانیں", value: "3" }
+      { label: "زبانیں", value: "2" }
     ],
 
     // Story
     storyTitle: "ہماری کہانی",
     storySubtitle: "ایک مقصد: ایک ایسی ٹیکسی جس پر واقعی بھروسہ کیا جا سکے",
-    storyText1: "ٹیکسی سعودی عرب ایک مقصد کے ساتھ بنائی گئی: سعودی عرب میں لوگوں کو ایک قابلِ اعتماد ٹیکسی سروس دینا۔ ہمارا فلیٹ ریاض، جدہ، مکہ، مدینہ، دمام اور دیگر شہروں کا احاطہ کرتا ہے — حاجیوں، کاروباری مسافروں اور خاندانوں کو پیشگی بک شدہ، فکسڈ قیمت رائیڈز فراہم کرتے ہیں۔",
+    storyText1: "ٹیکسی سعودی عرب ایک مقصد کے ساتھ بنائی گئی: سعودی عرب میں لوگوں کو ایک قابلِ اعتماد ٹیکسی سروس دینا۔ ہمارا پارٹنر نیٹ ورک ریاض، جدہ، مکہ، مدینہ، دمام اور دیگر شہروں کا احاطہ کرتا ہے — حاجیوں، کاروباری مسافروں اور خاندانوں کو پیشگی بک شدہ، فکسڈ قیمت رائیڈز فراہم کرتے ہیں۔",
     storyText2: "ہم وقت کی پابندی، شفاف قیمتوں اور صارفین کے احترام پر توجہ دیتے ہیں۔ ہم اصل سعودی مہمان نوازی کو جدید بکنگ ٹیکنالوجی کے ساتھ ملا کر ہر سفر کو آسان، محفوظ اور آرام دہ بناتے ہیں۔",
 
     // Pillars (Mission & Values)
     pillarsTitle: "مشن اور بنیادی اقدار",
-    pillarsSubtitle: "ریاض لوکس کی بنیادی بنیادیں",
+    pillarsSubtitle: "ٹیکسی سعودی عرب کی بنیادی بنیادیں",
     pillars: [
       {
         title: "مکمل اعتماد",
-        description: "وقت کی سو فیصد پابندی۔ فلائٹ ٹریکنگ اور نماز کے اوقات سے ہم آہنگ سفر کی منصوبہ بندی۔",
+        description: "بکنگ کے وقت اپنا فلائٹ نمبر شیئر کریں — ہم اسی کے مطابق اور نماز کے اوقات سے ہم آہنگ کر کے آپ کے سفر کی منصوبہ بندی کرتے ہیں۔",
         icon: ShieldCheck
       },
       {
         title: "منتخب ڈرائیورز کا دائرہ",
-        description: "انتہائی تربیت یافتہ مقامی ماہرین، جو درست سعودی ڈرائیونگ لائسنس رکھتے ہیں اور متعدد زبانیں بولتے ہیں۔",
+        description: "انتہائی تربیت یافتہ مقامی پارٹنر ڈرائیورز، جو درست سعودی ڈرائیونگ لائسنس رکھتے ہیں اور انگریزی اور عربی بولتے ہیں۔",
         icon: Sparkles
       },
       {
@@ -211,7 +213,7 @@ const translations = {
 
     // Video Section
     videoTitle: "پہیوں پر آرام دہ سفر کا تجربہ",
-    videoText: "ہمارے فلیٹ کے اندر ورچوئل ٹور کریں اور ان باریک تفصیلات کو دریافت کریں جو ریاض لوکس کو سفر کا گولڈ اسٹینڈرڈ بناتی ہیں۔"
+    videoText: "ہماری پریمیم گاڑیوں کے اندر ورچوئل ٹور کریں اور ان باریک تفصیلات کو دریافت کریں جو ٹیکسی سعودی عرب کو سفر کا گولڈ اسٹینڈرڈ بناتی ہیں۔"
   }
 };
 

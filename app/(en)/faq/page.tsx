@@ -125,11 +125,11 @@ const translations: Record<string, {
         faqs: [
           {
             question: "What luxury vehicle categories do you offer?",
-            answer: "Our meticulously maintained fleet includes Executive Sedans (Toyota Camry), Premium SUVs (GMC Yukon XL), Luxury VIP Sedans (Mercedes S-Class), Luxury SUVs (Cadillac Escalade), VIP Multi-Passenger Vans (Hyundai Staria), and Prestige Coaches."
+            answer: "Through our partner network you can book Executive Sedans (Toyota Camry), Premium SUVs (GMC Yukon XL), Luxury VIP Sedans (Mercedes S-Class), Luxury SUVs (Cadillac Escalade), VIP Multi-Passenger Vans (Hyundai Staria), and buses/coasters."
           },
           {
             question: "Do all vehicles have air conditioning and modern amenities?",
-            answer: "Yes, 100% of our fleet features multi-zone climate control, high-speed onboard WiFi connectivity, complimentary bottled mineral water, and mobile charging docks."
+            answer: "All vehicles have air conditioning. Specific amenities like WiFi or bottled water vary by vehicle and partner chauffeur — mention any requirement when you request your quote."
           },
           {
             question: "Can I request child safety seats?",

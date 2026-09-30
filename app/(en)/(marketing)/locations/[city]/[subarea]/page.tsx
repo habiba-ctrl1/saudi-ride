@@ -2,17 +2,25 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { MapPin, ArrowRight, Car, ShieldCheck, Star, Clock, Building2, HelpCircle, PlaneLanding } from "lucide-react";
+import { MapPin, ArrowRight, Car, ShieldCheck, Star, Clock, Building2, HelpCircle, PlaneLanding, CheckCircle2, MessageSquare, ExternalLink } from "lucide-react";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { serviceSchema, faqSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
+import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { SUB_AREAS } from "@/lib/data/subareas";
+import { contactConfig } from "@/lib/config/contact";
 
 export const revalidate = 86400; // revalidate every 24 hours
 
 // Ontology internal-linking targets per city (same-city / same-intent cluster).
 const RELATED_LINKS: Record<string, { name: string; href: string }[]> = {
+  riyadh: [
+    { name: "King Khalid Airport (RUH) transfers", href: "/airports/king-khalid-riyadh" },
+    { name: "Corporate & business travel accounts", href: "/services/corporate" },
+    { name: "VIP transportation Riyadh", href: "/services/vip-transportation" },
+    { name: "Riyadh to Dammam taxi", href: "/routes/riyadh-to-dammam" },
+  ],
   jeddah: [
     { name: "Jeddah Airport → Makkah taxi", href: "/routes/jeddah-airport-to-makkah" },
     { name: "Jeddah → Madinah taxi", href: "/routes/jeddah-to-madinah" },
@@ -56,6 +64,27 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const area = SUB_AREAS[areaKey];
   const capitalizedCity = city.charAt(0).toUpperCase() + city.slice(1);
 
+  // Service-kind pages (e.g. private-driver) carry their own metaTitle/
+  // metaDescription — distinct commercial intent, not a district page.
+  if (area.kind === "service" && area.metaTitle) {
+    return {
+      title: area.metaTitle,
+      description: area.metaDescription ?? area.description,
+      alternates: {
+        canonical: `https://taxisaudiarabia.com/locations/${city}/${subarea}`,
+      },
+      openGraph: {
+        title: area.metaTitle,
+        description: area.metaDescription ?? area.description,
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: area.metaTitle,
+        description: area.metaDescription ?? area.description,
+      },
+    };
+  }
+
   // Diriyah gets a directional title (matches "Riyadh to Diriyah" search
   // intent) instead of the generic "Taxi in X, City" formula every other
   // subarea page uses.
@@ -91,11 +120,11 @@ export default async function SubAreaPage({ params }: PageProps) {
     <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
       <JsonLd
         data={serviceSchema({
-          name: `Taxi Service in ${area.name}, ${capitalizedCity}`,
+          name: area.kind === "service" ? `${area.name} in ${capitalizedCity}` : `Taxi Service in ${area.name}, ${capitalizedCity}`,
           description: area.description,
           path: `/locations/${city}/${subarea}`,
-          serviceType: "Local Taxi & Car Service",
-          areaServed: [area.name, capitalizedCity],
+          serviceType: area.kind === "service" ? "Hourly & Full-Day Chauffeur Hire" : "Local Taxi & Car Service",
+          areaServed: area.kind === "service" ? [capitalizedCity] : [area.name, capitalizedCity],
         })}
       />
       {area.faqs && area.faqs.length > 0 && (
@@ -115,20 +144,25 @@ export default async function SubAreaPage({ params }: PageProps) {
 
         <div className="section-container relative z-10 max-w-4xl text-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#16A34A] mb-6">
-            <MapPin className="h-3 w-3" /> Local Service Area
+            <MapPin className="h-3 w-3" /> {area.kind === "service" ? `${capitalizedCity} Transport Service` : "Local Service Area"}
           </span>
-          <h1 className="font-heading text-4xl font-bold leading-tight md:text-5xl lg:text-6xl mb-6">
-            Taxi Service in <br />
-            <span className="text-[#16A34A]">{area.name}</span>
-          </h1>
+          {area.kind === "service" ? (
+            <h1 className="font-heading text-4xl font-bold leading-tight md:text-5xl lg:text-6xl mb-6">{area.h1 ?? area.name}</h1>
+          ) : (
+            <h1 className="font-heading text-4xl font-bold leading-tight md:text-5xl lg:text-6xl mb-6">
+              Taxi Service in <br />
+              <span className="text-[#16A34A]">{area.name}</span>
+            </h1>
+          )}
           <p className="text-[#C9A84C] font-bold tracking-widest text-lg mb-6">{area.nameAr}</p>
           <p className="max-w-2xl mx-auto text-sm md:text-base leading-relaxed text-[#6B7280]">
-            {area.description} Whether you need an immediate local ride, an airport transfer, or a private chauffeur for the day, Taxi Saudi Arabia offers premium vehicles and professional drivers directly in {area.name}, {capitalizedCity}.
+            {area.description}
+            {area.kind !== "service" && ` Whether you need an immediate local ride, an airport transfer, or a private chauffeur for the day, Taxi Saudi Arabia offers premium vehicles and professional drivers directly in ${area.name}, ${capitalizedCity}.`}
           </p>
-          
+
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <Link
-              href={`/book?pickup=${encodeURIComponent(area.name + ', ' + capitalizedCity)}`}
+              href={`/book?pickup=${encodeURIComponent(area.kind === "service" ? capitalizedCity : area.name + ', ' + capitalizedCity)}`}
               className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-4 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all shadow-[0_4px_14px_rgba(22,163,74,0.2)]"
             >
               Book a Ride Now
@@ -142,6 +176,23 @@ export default async function SubAreaPage({ params }: PageProps) {
       {area.tldr && (
         <section className="section-container max-w-5xl pt-12">
           <TLDRSummary answer={area.tldr} facts={area.tldrFacts} />
+        </section>
+      )}
+
+      {/* ─── USE CASES (service-kind pages only) ────────────────────────── */}
+      {area.kind === "service" && area.useCases && area.useCases.length > 0 && (
+        <section className="section-container max-w-5xl pt-16">
+          <div className="bg-white border border-[#16A34A]/12 rounded-3xl p-8">
+            <h2 className="font-heading text-xl font-bold mb-6">When Hourly Hire Makes Sense</h2>
+            <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-3">
+              {area.useCases.map((u, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm text-[#334155] leading-relaxed">
+                  <CheckCircle2 className="h-4 w-4 text-[#16A34A] shrink-0 mt-0.5" />
+                  <span>{u}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
       )}
 
@@ -202,14 +253,22 @@ export default async function SubAreaPage({ params }: PageProps) {
               <Car className="h-5 w-5 text-[#C9A84C]" />
             </div>
             <h3 className="font-heading text-lg font-bold mb-3">Fast Dispatch</h3>
-            <p className="text-xs text-[#6B7280] leading-relaxed">Our partner network covers {area.name}, connecting you with a nearby available chauffeur for local and intercity trips.</p>
+            <p className="text-xs text-[#6B7280] leading-relaxed">
+              {area.kind === "service"
+                ? `Our partner network covers ${capitalizedCity}, connecting you with a nearby available chauffeur.`
+                : `Our partner network covers ${area.name}, connecting you with a nearby available chauffeur for local and intercity trips.`}
+            </p>
           </div>
           <div className="bg-white border border-[#16A34A]/12 rounded-3xl p-8 text-center hover:border-[#16A34A]/35 transition-colors">
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#C9A84C]/10 border border-[#16A34A]/15 mx-auto mb-6">
               <ShieldCheck className="h-5 w-5 text-[#C9A84C]" />
             </div>
             <h3 className="font-heading text-lg font-bold mb-3">Fixed Fares</h3>
-            <p className="text-xs text-[#6B7280] leading-relaxed">No surge pricing or hidden meters. Get a guaranteed upfront price for your ride from {area.name}.</p>
+            <p className="text-xs text-[#6B7280] leading-relaxed">
+              {area.kind === "service"
+                ? "No surge pricing or hidden meters. Your fare is confirmed before you book."
+                : `No surge pricing or hidden meters. Get a guaranteed upfront price for your ride from ${area.name}.`}
+            </p>
           </div>
           <div className="bg-white border border-[#16A34A]/12 rounded-3xl p-8 text-center hover:border-[#16A34A]/35 transition-colors">
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#C9A84C]/10 border border-[#16A34A]/15 mx-auto mb-6">
@@ -226,7 +285,7 @@ export default async function SubAreaPage({ params }: PageProps) {
         <section className="section-container max-w-4xl pb-8">
           <h2 className="font-heading text-2xl font-bold mb-6 flex items-center gap-3">
             <HelpCircle className="text-[#C9A84C]" />
-            {area.name} Taxi — FAQ
+            {area.kind === "service" ? `${area.name} in ${capitalizedCity} — FAQ` : `${area.name} Taxi — FAQ`}
           </h2>
           <div className="space-y-4">
             {area.faqs.map((faq, i) => (
@@ -239,10 +298,47 @@ export default async function SubAreaPage({ params }: PageProps) {
         </section>
       )}
 
+      {/* ─── QUOTE FORM + PATH B (service-kind pages only) ──────────────── */}
+      {area.kind === "service" && (
+        <section className="section-container max-w-3xl pb-8">
+          <div className="bg-[#F0FDF4] border border-[#16A34A]/20 rounded-3xl p-6 sm:p-8">
+            <div className="text-center mb-6">
+              <h2 className="font-heading text-2xl font-bold text-[#1C1C1C] mb-3">Get your {area.name.toLowerCase()} quote</h2>
+              <p className="text-sm text-[#6B7280] max-w-xl mx-auto leading-relaxed">Fill a few details for a fast WhatsApp quote, or reach out directly for a corporate account.</p>
+            </div>
+            <WhatsAppQuoteForm defaultPickup={capitalizedCity} defaultVehicle="VIP SUV" />
+            <div className="mt-8 rounded-2xl border border-[#16A34A]/15 bg-white p-6">
+              <h3 className="font-heading text-lg font-bold text-[#1C1C1C] mb-2">Corporate accounts for daily drivers</h3>
+              <p className="text-xs sm:text-sm text-[#6B7280] leading-relaxed mb-4">Companies with regular staff movements across Riyadh can set up an account with corporate invoicing on request.</p>
+              <div className="flex flex-wrap items-center gap-3">
+                <a
+                  href={`${contactConfig.whatsappLink}?text=${encodeURIComponent("Salam! Private driver / hourly hire enquiry in Riyadh.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Executive sedan / SUV): \n• Business / personal use?: ")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all"
+                >
+                  <MessageSquare className="h-4 w-4" />
+                  Quote on WhatsApp
+                </a>
+                <a
+                  href={`mailto:${contactConfig.email}?subject=${encodeURIComponent("Corporate driver account — Riyadh")}&body=${encodeURIComponent("Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for a corporate driver account in Riyadh.\n\n• Company / organisation: \n• Contact name & role: \n• Typical hours/days needed: \n• Vehicle preference (Executive sedan / SUV): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.")}`}
+                  className="inline-flex items-center gap-2.5 rounded-full border border-[#16A34A]/30 bg-white px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#16A34A]/10 transition-all"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  Email a written RFQ
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ─── RELATED LINKS (ontology internal linking, city cluster) ───── */}
       {RELATED_LINKS[city] && (
         <section className="section-container max-w-5xl pb-8">
-          <h2 className="font-heading text-xl font-bold mb-5 text-[#1C1C1C]">Popular from {area.name}</h2>
+          <h2 className="font-heading text-xl font-bold mb-5 text-[#1C1C1C]">
+            {area.kind === "service" ? `Related ${capitalizedCity} Services` : `Popular from ${area.name}`}
+          </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {RELATED_LINKS[city].map((l) => (
               <Link key={l.href} href={l.href} className="group flex items-center justify-between gap-3 rounded-xl border border-[#16A34A]/12 bg-white px-4 py-3 hover:border-[#16A34A]/35 transition-colors">
@@ -254,15 +350,17 @@ export default async function SubAreaPage({ params }: PageProps) {
         </section>
       )}
 
-      {/* ─── NEIGHBORHOOD INFO ────────────────────────────────────────── */}
+      {/* ─── NEIGHBORHOOD INFO / CLOSING ─────────────────────────────────── */}
       <section className="border-t border-[#C9A84C]/10 bg-white py-20">
         <div className="section-container max-w-4xl text-center">
           <h2 className="font-heading text-2xl font-bold mb-6 flex items-center justify-center gap-3">
             <MapPin className="text-[#C9A84C]" />
-            About {area.name}
+            {area.kind === "service" ? `${area.name} vs. a Single Ride` : `About ${area.name}`}
           </h2>
           <p className="text-sm text-[#6B7280] leading-relaxed mb-8">
-            As a key district in {capitalizedCity}, {area.name} is a frequent starting point for many of our clients. Whether you are traveling for business, Umrah, or leisure, Taxi Saudi Arabia connects {area.name} to airports, train stations, and intercity destinations across the Kingdom, with a fixed fare confirmed before you book.
+            {area.kind === "service"
+              ? `A single one-way transfer covers one trip. Hourly or full-day hire keeps the same driver and vehicle with you across the day — better value once you need more than two or three stops, and the standard choice for a business day moving between ${capitalizedCity}'s districts.`
+              : `As a key district in ${capitalizedCity}, ${area.name} is a frequent starting point for many of our clients. Whether you are traveling for business, Umrah, or leisure, Taxi Saudi Arabia connects ${area.name} to airports, train stations, and intercity destinations across the Kingdom, with a fixed fare confirmed before you book.`}
           </p>
           <Link
             href={`/locations/${city}`}

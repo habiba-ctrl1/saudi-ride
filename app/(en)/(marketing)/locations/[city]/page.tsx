@@ -5,7 +5,6 @@ export function generateStaticParams() {
 }
 
 // No notFound import
-import { db } from "@/lib/db";
 import { Metadata } from "next";
 import { MapPin, ArrowRight, Car, Building2, CheckCircle2, HelpCircle, Star, Quote, PlaneLanding, ExternalLink, MessageSquare } from "lucide-react";
 import Link from "next/link";
@@ -17,6 +16,7 @@ import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { SUB_AREAS } from "@/lib/data/subareas";
 import { CITY_DETAILS } from "@/lib/data/locations";
+import { ROUTES_DATA } from "@/lib/data/routes";
 import { trustStats } from "@/lib/config/stats";
 import { contactConfig } from "@/lib/config/contact";
 
@@ -412,27 +412,24 @@ export default async function CityLocationPage({ params }: PageProps) {
     tips: []
   };
 
-  const citySubAreas = Object.values(SUB_AREAS).filter((a) => a.city === cityKey);
+  // District-only — service-kind sub-pages (e.g. private-driver) get their
+  // own explicit relatedLinks entry with proper anchor text instead, since
+  // "Taxi in {area.name}" doesn't fit a service page's framing.
+  const citySubAreas = Object.values(SUB_AREAS).filter((a) => a.city === cityKey && a.kind !== "service");
   const cityAirport = CITY_AIRPORT[cityKey];
   const cityLead = CITY_LEAD[cityKey];
   const hourlyHire = HOURLY_HIRE[cityKey];
 
-  // Fetch routes connected to this city (best-effort — a DB hiccup during
-  // build must not fail the static export for every page in the site).
-  let cityRoutes: Awaited<ReturnType<typeof db.route.findMany>> = [];
-  try {
-    cityRoutes = await db.route.findMany({
-      where: {
-        OR: [
-          { fromCity: { contains: cityData.name, mode: 'insensitive' } },
-          { toCity: { contains: cityData.name, mode: 'insensitive' } }
-        ]
-      },
-      take: 10
-    });
-  } catch (error) {
-    console.error(`❌ City routes fetch failed for ${cityKey}. Rendering without related routes.`, error);
-  }
+  // Routes connected to this city — sourced from the same static ROUTES_DATA
+  // that powers every real /routes/[slug] page. Previously queried a separate,
+  // legacy Prisma `Route` table (pre-dates the WhatsApp-only pricing policy)
+  // that isn't guaranteed to be in sync with the actual live route pages.
+  const cityNameLower = cityData.name.toLowerCase();
+  const cityRoutes = ROUTES_DATA.filter(
+    (r) => r.fromCity.toLowerCase().includes(cityNameLower) || r.toCity.toLowerCase().includes(cityNameLower),
+  )
+    .sort((a, b) => Number(b.popular) - Number(a.popular))
+    .slice(0, 10);
 
   return (
     <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
@@ -528,7 +525,7 @@ export default async function CityLocationPage({ params }: PageProps) {
             {cityRoutes.length > 0 ? (
               <div className="grid gap-4">
                 {cityRoutes.map((route) => (
-                  <Link href={`/routes/${route.slug}`} key={route.id} className="group flex flex-col md:flex-row md:items-center justify-between p-5 rounded-2xl bg-white border border-[#16A34A]/12 hover:border-[#16A34A]/35 transition-colors">
+                  <Link href={`/routes/${route.slug}`} key={route.slug} className="group flex flex-col md:flex-row md:items-center justify-between p-5 rounded-2xl bg-white border border-[#16A34A]/12 hover:border-[#16A34A]/35 transition-colors">
                     <div className="flex items-center gap-4 mb-4 md:mb-0">
                       <div className="font-bold">{route.fromCity}</div>
                       <ArrowRight className="h-4 w-4 text-[#C9A84C]" />
@@ -536,14 +533,7 @@ export default async function CityLocationPage({ params }: PageProps) {
                     </div>
                     <div className="flex items-center justify-between md:gap-6">
                       <div className="text-right">
-                        {route.priceOnRequest ? (
-                          <p className="text-[#C9A84C] font-bold text-sm">Confirm on WhatsApp</p>
-                        ) : (
-                          <>
-                            <p className="text-[0.6rem] text-[#6B7280] uppercase font-bold">Starting from</p>
-                            <p className="text-[#C9A84C] font-bold">On WhatsApp</p>
-                          </>
-                        )}
+                        <p className="text-[#C9A84C] font-bold text-sm">Confirm on WhatsApp</p>
                       </div>
                       <div className="bg-[#C9A84C]/10 text-[#C9A84C] rounded-full p-2 group-hover:bg-[#16A34A] group-hover:text-white transition-colors">
                         <ArrowRight className="h-4 w-4" />
@@ -866,7 +856,7 @@ export default async function CityLocationPage({ params }: PageProps) {
               <span className="text-[0.6rem] uppercase tracking-widest text-[#C9A84C] font-bold">Recommended</span>
               <h3 className="font-heading text-xl font-bold mt-1 mb-2">SUV Class</h3>
               <p className="text-xs text-[#6B7280] mb-6 leading-relaxed">
-                For optimal comfort and ample luggage space in {cityData.name}, our premium SUV fleet (GMC Yukon, Chevy Tahoe) is highly recommended.
+                For optimal comfort and ample luggage space in {cityData.name}, a premium SUV (GMC Yukon XL, Cadillac Escalade) is highly recommended.
               </p>
               <Link
                 href={`/book?pickup=${encodeURIComponent(cityData.name)}`}

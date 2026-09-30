@@ -23,33 +23,20 @@ const translations = {
     estNotice: "Final pricing depends on your exact route, vehicle, date, passengers, and any waiting time — message us on WhatsApp for a clear, confirmed quote before you book.",
     bookBtn: "Proceed to Booking",
 
-    // Matrices
-    matrixTitle: "Service Matrix vs Vehicle Tier",
-    matrixSubtitle: "Standard flat rates starting values in SAR",
-    cols: ["Vehicle Class", "Airport Transfer", "Intercity (per KM)", "Hourly (Min 4 hrs)", "Umrah Pilgrim Transit"],
-
-    // Fixed Rates
-    fixedTitle: "Popular Intercity Fixed Rates",
-    fixedSubtitle: "Pre-calculated executive flat rates",
-    routeCol: "Travel Route Corridor",
-    sedanCol: "Executive Sedan (Camry)",
-    suvCol: "Premium SUV (Yukon)",
-    luxuryCol: "VIP Sedan (S-Class)",
-
     // Trust Cards
     trustTitle: "The Taxi Saudi Arabia Price Guarantee",
     trustSubtitle: "Uncompromising premium standard commitments",
     trust: [
       { title: "Surge-Free Guarantee", desc: "No surge pricing during conventions, flight delays, sandstorms, or peak holiday travel.", icon: ShieldCheck },
-      { title: "100% All-Inclusive", desc: "VAT, municipality tax, toll gates (DARB/Salik equivalent), parking, and driver refreshments are included.", icon: Percent },
-      { title: "Fair Cancellation", desc: "Free cancellations or modifications up to 24 hours prior to travel. Immediate full refund.", icon: RefreshCw }
+      { title: "Confirmed Before You Book", desc: "Your fare is quoted and agreed on WhatsApp before booking — no meter, no surprise add-ons.", icon: Percent },
+      { title: "Fair Cancellation", desc: "Free cancellation up to 24 hours before pickup.", icon: RefreshCw }
     ],
 
     // Pricing FAQs
     faqTitle: "Pricing Policies & FAQs",
     faqs: [
-      { q: "Do you charge extra for airport parking or waiting time?", a: "No. All airport transfers include up to 60 minutes of complimentary waiting time and include all airport terminal parking fees." },
-      { q: "How are multi-city or multi-day journeys priced?", a: "Multi-day travel packages are custom-quoted by our VIP desk. Standard long distance intercity transfers follow our flat rates." },
+      { q: "Do you charge extra for airport parking or waiting time?", a: "Waiting time and any airport parking charges are confirmed with you on WhatsApp before booking, along with the rest of your fare — there's no separate hidden fee." },
+      { q: "How are multi-city or multi-day journeys priced?", a: "Multi-day journeys are quoted individually on WhatsApp based on your route and schedule." },
       { q: "Are tips required for drivers?", a: "Tips are completely optional. Our drivers are fairly paid — you are never expected to tip, but it is always appreciated if you choose to." }
     ]
   },
@@ -67,33 +54,20 @@ const translations = {
     estNotice: "يعتمد السعر النهائي على مسارك الدقيق والسيارة والتاريخ وعدد الركاب ووقت الانتظار — راسلنا عبر واتساب للحصول على عرض سعر واضح ومؤكد قبل الحجز.",
     bookBtn: "الانتقال إلى صفحة الحجز",
 
-    // Matrices
-    matrixTitle: "مصفوفة الخدمات مقابل فئة السيارة",
-    matrixSubtitle: "الحد الأدنى لأسعار الخدمات بالريال السعودي (SAR)",
-    cols: ["فئة السيارة", "توصيل المطار", "بين المدن (لكل كم)", "بالساعة (حد أدنى 4 س)", "تنقلات العمرة والزيارة"],
-
-    // Fixed Rates
-    fixedTitle: "أسعار ثابتة للمسارات الشهيرة",
-    fixedSubtitle: "تعرفة ثابتة ومحددة مسبقاً لأكثر الوجهات طلباً",
-    routeCol: "خط سير الرحلة",
-    sedanCol: "سيدان تنفيذي (كامري)",
-    suvCol: "عائلية فاخرة (يوكن XL)",
-    luxuryCol: "VIP سيدان (S-Class)",
-
     // Trust Cards
-    trustTitle: "ضمان الأسعار من رياض لوكس",
+    trustTitle: "ضمان الأسعار من تاكسي السعودية",
     trustSubtitle: "التزامنا التام بالشفافية والرفاهية المطلقة",
     trust: [
       { title: "ضمان عدم الزيادة المفاجئة", desc: "لا توجد أسعار مرنة أو زيادة مفاجئة أثناء المؤتمرات أو تأخر الرحلات الجوية.", icon: ShieldCheck },
-      { title: "أسعار شاملة بنسبة 100%", desc: "تشمل ضريبة القيمة المضافة، ورسوم الطرق، ومواقف المطارات، ومرطبات الركاب.", icon: Percent },
-      { title: "إلغاء مرن وعادل", desc: "إلغاء مجاني بالكامل وتعديل غير محدود حتى 24 ساعة قبل الرحلة مع استرداد فوري.", icon: RefreshCw }
+      { title: "السعر مؤكد قبل الحجز", desc: "يتم تأكيد أجرتك عبر واتساب قبل الحجز — بدون عداد وبدون إضافات مفاجئة.", icon: Percent },
+      { title: "إلغاء عادل", desc: "إلغاء مجاني حتى 24 ساعة قبل موعد الاستقبال.", icon: RefreshCw }
     ],
 
     // Pricing FAQs
     faqTitle: "الأسئلة الشائعة حول الأسعار والتعرفة",
     faqs: [
-      { q: "هل هناك رسوم إضافية على مواقف المطارات أو الانتظار؟", a: "لا. تشمل جميع حجوزات المطارات وقت انتظار مجاني يصل إلى 60 دقيقة وتغطي كافة رسوم مواقف سيارات الصالة." },
-      { q: "كيف يتم حساب أسعار الرحلات لعدة أيام؟", a: "يتم تسعير الرحلات متعددة الأيام بشكل خاص عبر مكتب كونسيرج الخدمة لتوفير أفضل تعرفة اقتصادية فاخرة." }
+      { q: "هل هناك رسوم إضافية على مواقف المطارات أو الانتظار؟", a: "يتم تأكيد وقت الانتظار وأي رسوم مواقف عبر واتساب قبل الحجز مع باقي تفاصيل الأجرة — لا توجد رسوم خفية منفصلة." },
+      { q: "كيف يتم حساب أسعار الرحلات لعدة أيام؟", a: "يتم تسعير الرحلات متعددة الأيام بشكل فردي عبر واتساب حسب مسارك وجدولك." }
     ]
   },
   ur: {
@@ -110,32 +84,19 @@ const translations = {
     estNotice: "حتمی قیمت آپ کے صحیح روٹ، گاڑی، تاریخ، مسافروں اور انتظار کے وقت پر منحصر ہے — بکنگ سے پہلے واضح اور تصدیق شدہ قیمت کے لیے واٹس ایپ پر رابطہ کریں۔",
     bookBtn: "بکنگ کی طرف بڑھیں",
 
-    // Matrices
-    matrixTitle: "گاڑی کی کیٹیگری بمقابلہ سروس ریٹ",
-    matrixSubtitle: "سعودی ریال (SAR) میں شروعاتی ریٹس",
-    cols: ["گاڑی کی فئة", "ایئرپورٹ ٹرانسفر", "انٹرسٹی (فی کلومیٹر)", "فی گھنٹہ (کم از کم 4 گھنٹے)", "عمرہ ٹرانزٹ"],
-
-    // Fixed Rates
-    fixedTitle: "مقبول ترین شہروں کے فکسڈ ریٹس",
-    fixedSubtitle: "پہلے سے طے شدہ پریمیم فلیٹ ریٹس",
-    routeCol: "سفری روٹ",
-    sedanCol: "ایگزیکٹو سیڈان (Camry)",
-    suvCol: "پریمیم ایس یو وی (Yukon)",
-    luxuryCol: "وی آئی پی سیڈان (S-Class)",
-
     // Trust Cards
-    trustTitle: "ریاض لوکس ریٹس گارنٹی",
+    trustTitle: "ٹیکسی سعودی عرب ریٹس گارنٹی",
     trustSubtitle: "شفافیت اور پریمیم سروس کا ہمارا وعدہ",
     trust: [
       { title: "نو سرج پرائسنگ", desc: "کسی بھی فلائٹ تاخیر، طوفان یا چھٹیوں کے مصروف سیزن میں کرائے تبدیل نہیں ہوں گے۔", icon: ShieldCheck },
-      { title: "100٪ ہر چیز شامل ہے", desc: "ٹول گیٹس، پارکنگ، ڈرائیور ریفریشمنٹس اور تمام ٹیکس ریٹس میں شامل ہیں۔", icon: Percent },
-      { title: "آسان منسوخی", desc: "سفر شروع ہونے سے 24 گھنٹے پہلے تک منسوخی پر فوری اور مکمل رقم کی واپسی۔", icon: RefreshCw }
+      { title: "بکنگ سے پہلے قیمت طے", desc: "آپ کا کرایہ بکنگ سے پہلے واٹس ایپ پر طے کیا جاتا ہے — کوئی میٹر یا اچانک اضافی چارج نہیں۔", icon: Percent },
+      { title: "منصفانہ منسوخی", desc: "پک اپ سے 24 گھنٹے پہلے تک مفت منسوخی۔", icon: RefreshCw }
     ],
 
     // Pricing FAQs
     faqTitle: "ریٹس کے متعلق اکثر پوچھے گئے سوالات",
     faqs: [
-      { q: "کیا ایئرپورٹ پارکنگ یا انتظار کا اضافی چارج ہے؟", a: "جی نہیں، ایئرپورٹ بکنگ میں 60 منٹ تک مفت انتظار اور پارکنگ فیس مکمل شامل ہے۔" }
+      { q: "کیا ایئرپورٹ پارکنگ یا انتظار کا اضافی چارج ہے؟", a: "انتظار کا وقت اور کوئی بھی پارکنگ چارج بکنگ سے پہلے باقی کرائے کے ساتھ واٹس ایپ پر طے کیا جاتا ہے — کوئی علیحدہ پوشیدہ فیس نہیں۔" }
     ]
   }
 };

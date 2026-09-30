@@ -41,7 +41,7 @@ const DESTINATIONS = [
 
 const CHARTER_RATES = [
   { class: "Executive Sedan", ex: "Toyota Camry / Ford Taurus", hourly: "On WhatsApp", daily: "On WhatsApp" },
-  { class: "Premium SUV", ex: "GMC Yukon / Chevy Tahoe", hourly: "On WhatsApp", daily: "On WhatsApp" },
+  { class: "Premium SUV", ex: "GMC Yukon XL / Cadillac Escalade", hourly: "On WhatsApp", daily: "On WhatsApp" },
   { class: "Luxury Sedan", ex: "Mercedes S-Class / BMW 7", hourly: "On WhatsApp", daily: "On WhatsApp" },
   { class: "VIP Van", ex: "Mercedes V-Class (7 Pax)", hourly: "On WhatsApp", daily: "On WhatsApp" }
 ];

@@ -60,7 +60,7 @@ export async function PATCH(
         ? sendEmail(
             booking.customerEmail,
             `Trip Completed — ${booking.bookingRef}`,
-            `<p>Your trip <strong>${booking.bookingRef}</strong> has been completed. Thank you for riding with Riyadh Luxe Taxi.</p>
+            `<p>Your trip <strong>${booking.bookingRef}</strong> has been completed. Thank you for riding with Taxi Saudi Arabia.</p>
              <p><a href="${siteUrl}/track-booking?ref=${booking.bookingRef}">Leave a review</a></p>`
           )
         : Promise.resolve(),

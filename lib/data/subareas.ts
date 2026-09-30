@@ -4,6 +4,15 @@ export const SUB_AREAS: Record<string, {
   name: string;
   nameAr: string;
   description: string;
+  // "district" (default, omit the field) = a geographic sub-area page.
+  // "service" = a commercial-intent page (e.g. private driver / hourly hire)
+  // sharing this same [city]/[subarea] route — distinct content shape, no
+  // Travel Times/Landmarks section, its own H1/metadata and a use-cases list.
+  kind?: "district" | "service";
+  h1?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  useCases?: string[];
   // Optional rich fields (populated per city — programmatic Wave 3).
   airportMin?: string;
   makkahMin?: string;
@@ -87,6 +96,37 @@ export const SUB_AREAS: Record<string, {
       { question: "How do I get from Riyadh to Diriyah?", answer: "Book a taxi or private transfer from anywhere in Riyadh to Diriyah — it's about 20 minutes from central Riyadh (Olaya, King Fahd Road) to At-Turaif and Bujairi Terrace, with fixed pricing confirmed before booking and no surge." },
       { question: "How much does a taxi from Riyadh to Diriyah cost?", answer: "Pricing is confirmed on WhatsApp before your trip based on pickup location and vehicle — message us your Riyadh pickup point for an instant quote, including waiting time if you want a round trip." },
       { question: "What is there to see in Diriyah?", answer: "Diriyah is home to At-Turaif, a UNESCO World Heritage Site and birthplace of the first Saudi state, plus the restaurants and cafes of Bujairi Terrace overlooking Wadi Hanifa." },
+    ],
+  },
+  "riyadh-private-driver": {
+    city: "riyadh", subarea: "private-driver", name: "Private Driver", nameAr: "سائق خاص",
+    kind: "service",
+    h1: "Private Driver in Riyadh — Hourly & Full-Day Chauffeur",
+    metaTitle: "Private Driver in Riyadh | Hourly & Full-Day Chauffeur",
+    metaDescription: "Hire a private driver in Riyadh by the hour or for the full day — business meetings across KAFD, Olaya and the Diplomatic Quarter, shopping, or a standby chauffeur. Fare confirmed on WhatsApp.",
+    description: "Keep a private car and professional chauffeur on hourly or full-day hire in Riyadh — the driver waits between stops instead of you booking a new ride each time, which is the difference that matters for a multi-meeting business day or a day with several errands across the city.",
+    tldr: "A private driver in Riyadh can be booked by the hour or for a full day, with the car and chauffeur waiting between stops — common for business travellers moving between KAFD, Olaya and the Diplomatic Quarter, and for shopping or multi-stop days. The fare is confirmed on WhatsApp before booking, with no meter and no surge.",
+    tldrFacts: [
+      { label: "Minimum hire", value: "By the hour" },
+      { label: "Pricing", value: "Confirmed on WhatsApp" },
+      { label: "Drivers", value: "English & Arabic" },
+      { label: "Cancellation", value: "Free up to 24h before pickup" },
+    ],
+    useCases: [
+      "A full business day moving between KAFD, Olaya and the Diplomatic Quarter, with the car waiting outside each meeting",
+      "Multiple stops in one afternoon — bank, office, lunch, another meeting — without re-booking a ride each time",
+      "A shopping day across Riyadh's malls and districts with the driver holding bags and waiting",
+      "Visiting family or friends across several parts of the city in a single trip",
+      "A standby chauffeur for a single event day — arrival, the event itself, and the return — booked as one continuous hire",
+      "Flexibility for delegations or small groups who need the same driver and vehicle available across an entire visit",
+    ],
+    faqs: [
+      { question: "How much does a private driver cost in Riyadh?", answer: "The fare for an hourly or full-day private driver in Riyadh is confirmed on WhatsApp before you book, based on the vehicle class and hours needed — there is no meter and no surge pricing." },
+      { question: "Is there a minimum booking time for an hourly driver in Riyadh?", answer: "Hourly hire is booked in blocks of hours rather than single short trips — message us your date and how many hours you need, and we'll confirm the fare and availability on WhatsApp." },
+      { question: "Can the driver wait while I'm in meetings in KAFD or Olaya?", answer: "Yes. That's the point of hourly hire — your driver and vehicle wait for you between stops, whether that's a meeting in KAFD, a visit to Olaya, or an errand in the Diplomatic Quarter." },
+      { question: "Can I book a private driver for just one day, or does it need to be longer?", answer: "A single full day is a normal booking — many clients use it for one business day, one event day, or one shopping day. Multi-day hire is also available; message us your dates for a quote." },
+      { question: "Do you offer corporate accounts for daily executive drivers in Riyadh?", answer: "Yes. Companies with regular staff movements around Riyadh can set up an account with corporate invoicing on request — message our WhatsApp with your company details to get started." },
+      { question: "What vehicles are available for hourly hire in Riyadh?", answer: "Executive sedans and full-size SUVs are available through our partner network for hourly and full-day hire, confirmed when you book." },
     ],
   },
   // Jeddah (Wave 3 — rich programmatic pages)
