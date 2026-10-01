@@ -142,6 +142,8 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     relatedLinks: [
       { href: "/routes/riyadh-airport-to-city", label: "RUH Airport to Riyadh City" },
       { href: "/routes/riyadh-airport-to-kafd-hotels", label: "RUH to KAFD & Olaya Hotels" },
+      { href: "/locations/riyadh/hotel-transfer", label: "Riyadh hotel transfer guide — Olaya, KAFD & DQ" },
+      { href: "/locations/riyadh/private-driver", label: "Hire a private driver for your Riyadh day" },
       { href: "/routes/riyadh-to-dammam", label: "Riyadh to Dammam taxi" },
       { href: "/routes/riyadh-to-dubai", label: "Riyadh to Dubai — car with driver" },
       { href: "/fleet/mercedes-s-class", label: "Mercedes S-Class — executive sedan" },

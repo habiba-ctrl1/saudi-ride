@@ -129,6 +129,37 @@ export const SUB_AREAS: Record<string, {
       { question: "What vehicles are available for hourly hire in Riyadh?", answer: "Executive sedans and full-size SUVs are available through our partner network for hourly and full-day hire, confirmed when you book." },
     ],
   },
+  "riyadh-hotel-transfer": {
+    city: "riyadh", subarea: "hotel-transfer", name: "Hotel Transfer", nameAr: "نقل الفنادق",
+    kind: "service",
+    h1: "Riyadh Hotel Transfer — Airport, Olaya, KAFD & Diplomatic Quarter",
+    metaTitle: "Riyadh Hotel Transfer | RUH to Olaya, KAFD & DQ Hotels",
+    metaDescription: "Private hotel transfers in Riyadh — King Khalid International Airport (RUH) to your hotel, or hotel-to-hotel and hotel-to-venue across Olaya, KAFD, the Diplomatic Quarter and Diriyah. Fare confirmed on WhatsApp.",
+    description: "Book a private transfer between King Khalid International Airport (RUH) and your Riyadh hotel, or between hotels and venues across the city — Olaya's business hotels, KAFD's corporate towers, the Diplomatic Quarter, and Diriyah's heritage-area resorts each have different drop-off realities, and your chauffeur knows them.",
+    tldr: "A private hotel transfer in Riyadh covers RUH airport to your hotel (about 35–45 minutes depending on the district), plus hotel-to-hotel and hotel-to-venue transfers across Olaya, KAFD, the Diplomatic Quarter and Diriyah. The fare is confirmed on WhatsApp before booking, with meet & greet included for airport pickups.",
+    tldrFacts: [
+      { label: "RUH → Olaya/KAFD", value: "~35–40 min" },
+      { label: "RUH → Diplomatic Quarter", value: "~35–40 min" },
+      { label: "RUH → Diriyah", value: "~45–50 min" },
+      { label: "Pricing", value: "Confirmed on WhatsApp" },
+    ],
+    useCases: [
+      "Airport arrival — RUH to your hotel in Olaya, KAFD, the Diplomatic Quarter, or near Diriyah, with meet & greet at arrivals",
+      "Hotel-to-hotel moves — switching hotels mid-stay, or moving a group between two properties",
+      "Hotel-to-venue transfers — your hotel to a KAFD meeting, a Diriyah dinner, or an event venue, with a return trip arranged",
+      "Late-night or early-morning arrivals — 24/7 pickup regardless of landing time",
+      "Group and family transfers — a full-size SUV or van when travelling with several bags or several people",
+      "Onward airport departure — booked in advance from any Riyadh hotel for your return flight",
+    ],
+    faqs: [
+      { question: "How do I get from Riyadh airport to my Olaya or KAFD hotel?", answer: "Book a private transfer from King Khalid International Airport (RUH) to your hotel in Olaya or KAFD — about 35–40 minutes depending on traffic, with meet & greet at arrivals and the fare confirmed on WhatsApp before booking." },
+      { question: "Can I book a transfer between two hotels in Riyadh?", answer: "Yes. Hotel-to-hotel transfers are a normal booking — useful if you're changing hotels mid-stay or moving a group between two properties. Message your pickup and drop-off hotel names on WhatsApp for a quote." },
+      { question: "Do you transfer guests to hotels in the Diplomatic Quarter?", answer: "Yes. The Diplomatic Quarter is about 35–40 minutes from RUH, and our drivers are familiar with its access procedures for embassy-area hotels and residences." },
+      { question: "Is there a hotel transfer to Diriyah?", answer: "Yes. Diriyah's heritage-area hotels and resorts are about 45–50 minutes from RUH, or around 20 minutes from central Riyadh hotels in Olaya — fare confirmed on WhatsApp." },
+      { question: "What if my flight lands late at night?", answer: "We operate 24/7, so a late-night or early-morning hotel transfer is a normal booking — share your flight number when you book and we check it before pickup." },
+      { question: "Can the driver wait if I have a meeting before going to my hotel?", answer: "Yes — for a multi-stop day (airport, a meeting, then your hotel) hourly hire is usually the better option than a single transfer. See our private driver page for hourly and full-day hire in Riyadh." },
+    ],
+  },
   // Jeddah (Wave 3 — rich programmatic pages)
   "al-balad": {
     city: "jeddah", subarea: "al-balad", name: "Al Balad (Historical Jeddah)", nameAr: "البلد",

@@ -13,6 +13,14 @@ import { contactConfig } from "@/lib/config/contact";
 
 export const revalidate = 86400; // revalidate every 24 hours
 
+// Service-kind pages within the same city cross-link to each other directly
+// (more contextual than the generic city-wide RELATED_LINKS below) — keyed by
+// subarea slug, excludes self automatically since each map only lists siblings.
+const SERVICE_CROSS_LINKS: Record<string, { name: string; href: string }[]> = {
+  "private-driver": [{ name: "Riyadh hotel transfer — Olaya, KAFD & DQ", href: "/locations/riyadh/hotel-transfer" }],
+  "hotel-transfer": [{ name: "Hire a private driver by the hour in Riyadh", href: "/locations/riyadh/private-driver" }],
+};
+
 // Ontology internal-linking targets per city (same-city / same-intent cluster).
 const RELATED_LINKS: Record<string, { name: string; href: string }[]> = {
   riyadh: [
@@ -340,7 +348,7 @@ export default async function SubAreaPage({ params }: PageProps) {
             {area.kind === "service" ? `Related ${capitalizedCity} Services` : `Popular from ${area.name}`}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {RELATED_LINKS[city].map((l) => (
+            {[...(SERVICE_CROSS_LINKS[subarea] ?? []), ...RELATED_LINKS[city]].map((l) => (
               <Link key={l.href} href={l.href} className="group flex items-center justify-between gap-3 rounded-xl border border-[#16A34A]/12 bg-white px-4 py-3 hover:border-[#16A34A]/35 transition-colors">
                 <span className="text-sm font-medium text-[#1C1C1C] group-hover:text-[#16A34A]">{l.name}</span>
                 <ArrowRight className="h-4 w-4 text-[#C9A84C]" />

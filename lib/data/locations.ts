@@ -134,6 +134,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     ],
     relatedLinks: [
       { href: "/locations/riyadh/private-driver", label: "Hire a private driver by the hour in Riyadh" },
+      { href: "/locations/riyadh/hotel-transfer", label: "Riyadh hotel transfer — Olaya, KAFD & Diplomatic Quarter" },
       { href: "/airports/king-khalid-riyadh", label: "King Khalid International Airport (RUH) transfers" },
       { href: "/services/car-recovery/riyadh", label: "Riyadh car recovery & tow truck (satha)" },
       { href: "/locations/riyadh/diriyah", label: "Riyadh to Diriyah taxi & heritage transfer" },

@@ -163,6 +163,13 @@ export default function HotelTransfersPage() {
               </div>
             ))}
           </div>
+          <p className="mt-6 text-sm text-[#525252]">
+            Travelling to Riyadh specifically? See the{" "}
+            <Link href="/locations/riyadh/hotel-transfer" className="font-semibold text-[#006C35] hover:underline">
+              Riyadh hotel transfer guide
+            </Link>{" "}
+            for airport-to-hotel times and hotel-to-hotel transfers across Olaya, KAFD and the Diplomatic Quarter.
+          </p>
         </section>
 
         {/* FAQs */}

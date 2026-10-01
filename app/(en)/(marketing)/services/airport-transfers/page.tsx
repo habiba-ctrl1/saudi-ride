@@ -18,7 +18,7 @@ const waLink = (msg: string) =>
   `https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(msg)}`;
 
 const TITLE = "Airport Taxi & Private Transfer Saudi Arabia | Jeddah, Riyadh, Madinah";
-const DESCRIPTION = "Private airport taxi & transfer in Saudi Arabia — Jeddah, Riyadh, Madinah, Dammam. Meet & greet, flight tracking, chauffeur & family vehicles, fare confirmed on WhatsApp.";
+const DESCRIPTION = "Private airport taxi & transfer in Saudi Arabia — Jeddah, Riyadh, Madinah, Dammam. Meet & greet, chauffeur & family vehicles, fare confirmed on WhatsApp.";
 const OG_IMAGE = "https://taxisaudiarabia.com/services/airport-transfers-hero.webp";
 
 export const metadata: Metadata = {
@@ -41,17 +41,17 @@ export const metadata: Metadata = {
 };
 
 const AIRPORT_ROUTES = [
-  { airport: "Jeddah (JED)", dest: "Makkah", time: "1 hr", price: 249, routeSlug: "jeddah-airport-to-makkah" },
-  { airport: "Jeddah (JED)", dest: "Madinah", time: "4.5 hrs", price: 549, routeSlug: "jeddah-airport-to-madinah" },
-  { airport: "Jeddah (JED)", dest: "Jeddah City", time: "30 mins", price: 80, routeSlug: "jeddah-airport-to-jeddah-city" },
-  { airport: "Riyadh (RUH)", dest: "City Center", time: "40 mins", price: 100, routeSlug: "riyadh-airport-to-city" },
-  { airport: "Madinah (MED)", dest: "Haram Area", time: "25 mins", price: 80, routeSlug: "madinah-airport-to-city" },
+  { airport: "Jeddah (JED)", dest: "Makkah", time: "1 hr", routeSlug: "jeddah-airport-to-makkah" },
+  { airport: "Jeddah (JED)", dest: "Madinah", time: "4.5 hrs", routeSlug: "jeddah-airport-to-madinah" },
+  { airport: "Jeddah (JED)", dest: "Jeddah City", time: "30 mins", routeSlug: "jeddah-airport-to-jeddah-city" },
+  { airport: "Riyadh (RUH)", dest: "City Center", time: "40 mins", routeSlug: "riyadh-airport-to-city" },
+  { airport: "Madinah (MED)", dest: "Haram Area", time: "25 mins", routeSlug: "madinah-airport-to-city" },
 ];
 
 const FAQS = [
   {
     q: "What if my flight is delayed?",
-    a: "We actively track your flight using real-time data. Your driver will automatically adjust their arrival time to match your actual landing. We offer 60 minutes of free waiting time for arrivals."
+    a: "Share your flight number when you book and we check it before pickup, so your driver plans the pickup time around your actual arrival."
   },
   {
     q: "How will I find my driver?",
@@ -63,7 +63,7 @@ const FAQS = [
   },
   {
     q: "Do you offer private airport transfers and chauffeur service across Saudi Arabia?",
-    a: "Yes. Every airport booking is a pre-booked private transfer — your own car with a professional chauffeur, meet & greet at arrivals, and flight tracking. We arrange executive sedans, SUVs and family vehicles at Jeddah, Riyadh, Madinah and Dammam airports, with the fare confirmed on WhatsApp."
+    a: "Yes. Every airport booking is a pre-booked private transfer — your own car with a professional chauffeur and meet & greet at arrivals. We arrange executive sedans, SUVs and family vehicles at Jeddah, Riyadh, Madinah and Dammam airports, with the fare confirmed on WhatsApp."
   }
 ];
 
@@ -75,7 +75,7 @@ export default function AirportTransfersPage() {
           serviceSchema({
             name: "Airport Taxi Service",
             description:
-              "Private airport taxi service in Saudi Arabia with flight tracking and meet & greet at Jeddah (JED), Riyadh (RUH), and Madinah (MED) airports.",
+              "Private airport taxi service in Saudi Arabia with meet & greet at Jeddah (JED), Riyadh (RUH), and Madinah (MED) airports.",
             path: "/services/airport-transfers",
             serviceType: "Airport Transfer",
             areaServed: ["Jeddah", "Riyadh", "Madinah", "Dammam"],
@@ -114,37 +114,29 @@ export default function AirportTransfersPage() {
             <span className="text-[#16A34A]">Transfers Across Saudi Arabia</span>
           </h1>
           <p className="max-w-2xl text-sm md:text-base text-[#6B7280] leading-relaxed mb-8">
-            Arrive relaxed with a pre-booked private airport transfer. We serve King Abdulaziz (JED), King Khalid (RUH), Prince Mohammad Bin Abdulaziz (MED) and King Fahd (DMM) airports — private cars, chauffeur service and family vehicles, with flight tracking and meet & greet.
+            Arrive relaxed with a pre-booked private airport transfer. We serve King Abdulaziz (JED), King Khalid (RUH), Prince Mohammad Bin Abdulaziz (MED) and King Fahd (DMM) airports — private cars, chauffeur service and family vehicles, with meet & greet.
           </p>
           <div className="max-w-2xl mb-10">
             <TLDRSummary
-              answer="Airport taxi and private transfers in Saudi Arabia cover Jeddah (JED), Riyadh (RUH), Madinah (MED) and Dammam (DMM), with a private car or chauffeur, flight tracking, meet & greet, and 60 minutes of free waiting time. Your exact fare is confirmed on WhatsApp before booking."
+              answer="Airport taxi and private transfers in Saudi Arabia cover Jeddah (JED), Riyadh (RUH), Madinah (MED) and Dammam (DMM), with a private car or chauffeur and meet & greet. Share your flight number when you book and we check it before pickup — your exact fare is confirmed on WhatsApp before booking."
               facts={[
                 { label: "JED → Makkah", value: "On WhatsApp" },
                 { label: "RUH → City", value: "On WhatsApp" },
-                { label: "Free waiting", value: "60 minutes" },
+                { label: "Meet & greet", value: "Included" },
                 { label: "Availability", value: "24/7" },
               ]}
             />
           </div>
 
-          {/* Flight Tracker UI (Frontend Only) */}
+          {/* Share-your-flight-number tip card — replaces a non-functional
+              "flight tracker" UI that implied live automated flight tracking,
+              a capability not confirmed in facts.md. */}
           <div className="bg-white/85 backdrop-blur-xl border border-[#16A34A]/15 p-6 rounded-3xl max-w-2xl shadow-2xl">
-            <h3 className="text-sm font-bold text-[#1C1C1C] mb-4 flex items-center gap-2">
-              <Search className="h-4 w-4 text-[#C9A84C]" /> Verify Flight Status
+            <h3 className="text-sm font-bold text-[#1C1C1C] mb-2 flex items-center gap-2">
+              <Search className="h-4 w-4 text-[#C9A84C]" /> Share Your Flight Number
             </h3>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <input 
-                type="text" 
-                placeholder="Enter Flight Number (e.g. SV 112)" 
-                className="flex-1 bg-[#FAFAF7] border border-[#C9A84C]/30 rounded-xl px-4 py-3 text-sm text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors uppercase"
-              />
-              <button className="bg-[#16A34A] text-white font-bold uppercase tracking-wider text-xs px-6 py-3 rounded-xl hover:bg-[#15803D] transition-colors whitespace-nowrap">
-                Track Flight
-              </button>
-            </div>
-            <p className="text-[0.6rem] text-[#6B7280] mt-3 uppercase tracking-wider">
-              *Our dispatch team monitors all entered flights automatically.
+            <p className="text-sm text-[#6B7280] leading-relaxed">
+              Add your flight number when you book (e.g. SV 112) and we check it before pickup, so your driver plans around your actual arrival time.
             </p>
           </div>
 
@@ -173,9 +165,9 @@ export default function AirportTransfersPage() {
         <h2 className="font-heading text-3xl md:text-4xl font-bold mb-10 text-center">Why Pre-Book a Private Airport Taxi in Saudi Arabia</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {[
-            { icon: PlaneLanding, title: "Real-Time Flight Tracking", desc: "We monitor your flight and adjust pickup time for early or delayed arrivals." },
+            { icon: PlaneLanding, title: "Share Your Flight Number", desc: "Add it when you book and we check it before pickup, so the pickup time is planned around your actual arrival." },
             { icon: UserCheck, title: "Meet & Greet at Arrivals", desc: "Driver awaits in the arrivals hall with a personalized name sign and helps with luggage." },
-            { icon: Clock, title: "60 Minutes Free Waiting", desc: "Complimentary waiting time after landing for customs and baggage collection." },
+            { icon: Clock, title: "24/7 Availability", desc: "Early-morning and late-night arrivals are covered — book any hour." },
             { icon: ShieldCheck, title: "Clear Fares Confirmed on WhatsApp", desc: "No hidden surge fees or toll charges. Your quoted price is confirmed before the trip." }
           ].map((feat, i) => (
             <div key={i} className="bg-white border border-[#16A34A]/12 rounded-3xl p-8 hover:border-[#16A34A]/35 transition-colors">
@@ -276,7 +268,7 @@ export default function AirportTransfersPage() {
           <div className="text-center mb-6">
             <h2 className="font-heading text-2xl md:text-3xl font-bold mb-3 text-[#1C1C1C]">Ready for a stress-free arrival?</h2>
             <p className="text-[#6B7280] max-w-lg mx-auto">
-              Fill a few details for a fast WhatsApp quote — meet &amp; greet, flight tracking and a fixed fare confirmed before you book. Companies and groups can request a written quote.
+              Fill a few details for a fast WhatsApp quote — meet &amp; greet and a fixed fare confirmed before you book. Companies and groups can request a written quote.
             </p>
           </div>
 
