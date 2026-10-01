@@ -21,7 +21,6 @@ import { trustStats } from "@/lib/config/stats";
 import { contactConfig } from "@/lib/config/contact";
 import { CityTransferNetwork, type TransferDestination } from "@/components/location/CityTransferNetwork";
 import { TransferJourneySteps } from "@/components/location/TransferJourneySteps";
-import { VehicleFitChooser, type VehicleFitOption } from "@/components/location/VehicleFitChooser";
 import { ServiceSelector, type ServiceTile } from "@/components/location/ServiceSelector";
 import { TouristJourney, type JourneyStop } from "@/components/location/TouristJourney";
 import { VehicleShowcase, type ShowcaseVehicle } from "@/components/location/VehicleShowcase";
@@ -67,6 +66,7 @@ const AIRPORT_JOURNEY: Record<string, { heading: string; steps: { title: string;
 // Hero trust chips — what this city's service actually covers, at a glance.
 const CITY_HERO_HIGHLIGHTS: Record<string, string[]> = {
   jeddah: ["JED Airport", "Jeddah Hotels", "Makkah", "Madinah", "Local Chauffeur"],
+  riyadh: ["RUH Airport", "KAFD & Olaya", "Diplomatic Quarter", "Corporate Accounts", "24/7"],
 };
 
 // "What are you travelling for?" — a navigation grid, not decoration. Each
@@ -82,6 +82,17 @@ const SERVICE_SELECTOR: Record<string, { heading: string; tiles: ServiceTile[] }
       { icon: MapPin, label: "Local Jeddah", desc: "Hotels, Corniche, Al-Balad, malls", href: "#areas-we-serve" },
       { icon: Clock, label: "Hourly Chauffeur", desc: "Multiple stops, business or sightseeing", href: "#hourly-chauffeur" },
       { icon: Users, label: "Family & Group", desc: "SUV or van, extra luggage", href: "#vehicles" },
+    ],
+  },
+  riyadh: {
+    heading: "What are you travelling for?",
+    tiles: [
+      { icon: PlaneLanding, label: "Airport Transfer", desc: "RUH arrivals & departures", href: "/airports/king-khalid-riyadh" },
+      { icon: Clock, label: "Private / Hourly Driver", desc: "By the hour or full day", href: "/locations/riyadh/private-driver" },
+      { icon: MapPin, label: "Hotel Transfer", desc: "Olaya, KAFD, DQ, Diriyah", href: "/locations/riyadh/hotel-transfer" },
+      { icon: Building2, label: "Corporate Travel", desc: "Accounts & invoicing", href: "/services/corporate" },
+      { icon: Users, label: "VIP / Luxury", desc: "Events, weddings, arrivals", href: "/services/vip-transportation" },
+      { icon: Car, label: "Events & Conferences", desc: "Delegate & exhibitor transfer", href: "/events/riyadh-event-transportation" },
     ],
   },
 };
@@ -116,6 +127,15 @@ const VEHICLE_SHOWCASE: Record<string, { heading: string; intro: string; vehicle
       { category: "van", name: "Hyundai Staria VIP", subtitle: "VIP Van", image: "/fleet/real/hyundai-staria-exterior.webp", passengers: 7, luggage: 4, bestFor: "Best for larger groups or families travelling together with extra luggage.", href: "/fleet/hyundai-staria" },
     ],
   },
+  riyadh: {
+    heading: "Choose Your Vehicle",
+    intro: "Every vehicle is available through our partner network, confirmed when you book — built for Riyadh's business and airport traffic.",
+    vehicles: [
+      { category: "sedan", name: "Toyota Camry", subtitle: "Executive Sedan", image: "/fleet/toyota-camry.webp", passengers: 4, luggage: 2, bestFor: "Best for 1–3 passengers — single meetings and point-to-point trips across Olaya or KAFD.", href: "/fleet/toyota-camry" },
+      { category: "suv", name: "GMC Yukon XL", subtitle: "Premium SUV", image: "/fleet/gmc-yukon-xl.webp", passengers: 7, luggage: 5, bestFor: "Family airport transfers and business days where you're carrying bags between stops.", href: "/fleet/gmc-yukon-xl" },
+      { category: "van", name: "Hyundai Staria VIP", subtitle: "VIP Van", image: "/fleet/real/hyundai-staria-exterior.webp", passengers: 7, luggage: 4, bestFor: "Delegations and group airport pickups that need to travel together.", href: "/fleet/hyundai-staria" },
+    ],
+  },
 };
 
 function groupFaqsByCategory<T extends { category?: string }>(items: T[]): { category: string; items: T[] }[] {
@@ -138,19 +158,6 @@ const CITY_H1: Record<string, { line1: string; line2: string; cityWord: string }
 
 // Vehicle-fit chooser per city — real categories from facts.md only, each
 // linking to the page that actually fulfils it. Riyadh-only for now.
-const VEHICLE_FIT: Record<string, { heading: string; intro: string; options: VehicleFitOption[] }> = {
-  riyadh: {
-    heading: "Which Vehicle Fits Your Riyadh Trip?",
-    intro: "Every vehicle is available through our partner network, confirmed when you book — pick the category that matches your trip.",
-    options: [
-      { category: "Executive sedan", capacity: "1–3 passengers", bestFor: "Airport runs, single meetings, and point-to-point city trips across Olaya or KAFD.", href: "/fleet", linkLabel: "View sedan options" },
-      { category: "Full-size SUV", capacity: "4–5 passengers + luggage", bestFor: "Family airport transfers, hotel moves, and business days where you're carrying bags.", href: "/fleet", linkLabel: "View SUV options" },
-      { category: "Van", capacity: "6+ passengers or a group", bestFor: "Delegations, group airport pickups, and event transport that needs to travel together.", href: "/fleet", linkLabel: "View van options" },
-      { category: "Luxury / VIP fleet", capacity: "Executive & event arrivals", bestFor: "A step up for VIP arrivals, weddings and corporate events — Maybach, S-Class, Range Rover and Lexus available.", href: "/services/vip-transportation", linkLabel: "See VIP transportation" },
-    ],
-  },
-};
-
 // Public city-centroid coordinates (not business location data) — lets
 // location pages attach real GeoCoordinates to their Place/areaServed node.
 const CITY_COORDS: Record<string, { lat: number; lng: number }> = {
@@ -697,8 +704,14 @@ export default async function CityLocationPage({ params }: PageProps) {
         </div>
       </section>
 
-      <div className="section-container max-w-5xl mt-16 grid grid-cols-1 lg:grid-cols-3 gap-12">
-        {/* ─── MAIN CONTENT ───────────────────────────────────────── */}
+      {/* Top grid: sidebar (Key Destinations + vehicle card — short content)
+          pairs only with the above-the-fold orientation block. CSS Grid
+          stretches both columns to the tallest row by default, so pairing a
+          short sidebar against the full length of the page (15+ sections)
+          left a permanent blank column running the entire page height on
+          wide viewports. Everything past this point renders full-width
+          below instead — see the matching close/reopen a few sections down. */}
+      <div className="section-container max-w-6xl mt-16 grid grid-cols-1 lg:grid-cols-3 gap-12">
         <div className="lg:col-span-2 space-y-16">
 
           {/* Service selector — "what are you travelling for?" navigation
@@ -718,37 +731,60 @@ export default async function CityLocationPage({ params }: PageProps) {
           {CITY_TRANSFER_NETWORK[cityKey] && (
             <CityTransferNetwork cityName={cityData.name} destinations={CITY_TRANSFER_NETWORK[cityKey]} />
           )}
+        </div>
 
-          {/* Trip-type chooser — routes the visitor to the page that actually
-              owns their specific intent, instead of the hub trying to answer
-              every intent itself. Riyadh-only for now (the child pages this
-              links to — private-driver, hotel-transfer, events pillar — only
-              exist for Riyadh so far; extend this map as other cities gain
-              the same cluster). */}
-          {cityKey === "riyadh" && (
-            <section>
-              <h2 className="font-heading text-2xl font-bold mb-6">Plan Your Riyadh Trip</h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {[
-                  { href: "/airports/king-khalid-riyadh", label: "Airport Transfer", sub: "RUH arrivals & departures" },
-                  { href: "/locations/riyadh/private-driver", label: "Private / Hourly Driver", sub: "By the hour or full day" },
-                  { href: "/locations/riyadh/hotel-transfer", label: "Hotel Transfer", sub: "Olaya, KAFD, DQ, Diriyah" },
-                  { href: "/services/corporate", label: "Corporate Travel", sub: "Accounts & invoicing" },
-                  { href: "/services/vip-transportation", label: "VIP / Luxury", sub: "Events, weddings, arrivals" },
-                  { href: "/events/riyadh-event-transportation", label: "Events & Conferences", sub: "Delegate & exhibitor transfer" },
-                ].map((tile) => (
-                  <Link
-                    key={tile.href}
-                    href={tile.href}
-                    className="group flex flex-col gap-1 rounded-2xl border border-[#16A34A]/12 bg-white p-4 hover:border-[#16A34A]/35 hover:-translate-y-0.5 hover:shadow-md transition-all"
-                  >
-                    <span className="text-sm font-bold text-[#16A34A]">{tile.label}</span>
-                    <span className="text-[0.7rem] text-[#6B7280]">{tile.sub}</span>
-                  </Link>
+        {/* ─── SIDEBAR (sticky — stays visible while this short top row
+            scrolls past, then releases naturally into the full-width
+            content below instead of stretching an empty column) ───────── */}
+        <div className="lg:col-span-1 space-y-8 lg:sticky lg:top-28 lg:self-start">
+
+          {/* Attractions */}
+          {cityData.attractions.length > 0 && (
+            <div className="bg-white border border-[#16A34A]/12 rounded-3xl p-6">
+              <h3 className="font-heading text-xl font-bold mb-6 flex items-center gap-2">
+                <Building2 className="text-[#16A34A] h-5 w-5" /> Key Destinations
+              </h3>
+              <div className="space-y-4">
+                {cityData.attractions.map((attr, idx) => (
+                  <div key={idx} className="flex justify-between items-center border-b border-[#16A34A]/10 pb-4 last:border-0 last:pb-0">
+                    <span className="text-sm font-bold text-[#1C1C1C]">{attr.name}</span>
+                    <span className="text-[0.65rem] uppercase tracking-wider text-[#16A34A] bg-[#16A34A]/10 px-2 py-1 rounded-md">{attr.dist}</span>
+                  </div>
                 ))}
               </div>
-            </section>
+            </div>
           )}
+
+          {/* Vehicle Recommendation fallback — only for cities that don't yet
+              have the richer VehicleShowcase + VehicleRecommender below
+              (avoids showing two different vehicle-recommendation widgets
+              on the same page for Jeddah/Riyadh). */}
+          {!VEHICLE_SHOWCASE[cityKey] && (
+            <div className="bg-white border border-[#16A34A]/15 shadow-lg rounded-3xl p-6 relative overflow-hidden">
+              <div className="absolute -right-4 -top-4 opacity-10 text-[#16A34A]">
+                <Car className="h-32 w-32" />
+              </div>
+              <div className="relative z-10">
+                <span className="text-[0.6rem] uppercase tracking-widest text-[#16A34A] font-bold">Recommended</span>
+                <h3 className="font-heading text-xl font-bold mt-1 mb-2">SUV Class</h3>
+                <p className="text-xs text-[#6B7280] mb-6 leading-relaxed">
+                  For optimal comfort and ample luggage space in {cityData.name}, a premium SUV (GMC Yukon XL, Cadillac Escalade) is highly recommended.
+                </p>
+                <Link
+                  href={`/book?pickup=${encodeURIComponent(cityData.name)}`}
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#16A34A] py-3 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
+                >
+                  Reserve Vehicle
+                </Link>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* ─── FULL-WIDTH CONTENT — everything past the above-the-fold row.
+          No sidebar column here, so no structural empty space is possible. ── */}
+      <div className="section-container max-w-6xl mt-16 space-y-16">
 
           {/* Available Routes — the intercity "ladder": every corridor with
               its real distance/duration from the same ROUTES_DATA source the
@@ -759,8 +795,9 @@ export default async function CityLocationPage({ params }: PageProps) {
             {cityRoutes.length > 0 ? (
               <div className="grid gap-4">
                 {cityRoutes.map((route) => (
-                  <Link href={`/routes/${route.slug}`} key={route.slug} className="group flex flex-col md:flex-row md:items-center justify-between p-5 rounded-2xl bg-white border border-[#16A34A]/12 hover:border-[#16A34A]/35 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-                    <div className="flex items-center gap-4 mb-4 md:mb-0">
+                  <div key={route.slug} className="group relative flex flex-col md:flex-row md:items-center justify-between p-5 rounded-2xl bg-white border border-[#16A34A]/12 hover:border-[#16A34A]/35 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+                    <Link href={`/routes/${route.slug}`} className="absolute inset-0 z-0 rounded-2xl" aria-label={`${route.fromCity} to ${route.toCity} route details`} />
+                    <div className="relative flex items-center gap-4 mb-4 md:mb-0 pointer-events-none">
                       <div className="font-bold">{route.fromCity}</div>
                       <ArrowRight className="h-4 w-4 text-[#16A34A]" />
                       <div className="font-bold">{route.toCity}</div>
@@ -768,15 +805,20 @@ export default async function CityLocationPage({ params }: PageProps) {
                         {route.distance} km · ~{Math.round(route.duration / 60)} hr
                       </span>
                     </div>
-                    <div className="flex items-center justify-between md:gap-6">
-                      <div className="text-right">
-                        <p className="text-[#16A34A] font-bold text-sm">Confirm on WhatsApp</p>
-                      </div>
-                      <div className="bg-[#16A34A]/10 text-[#16A34A] rounded-full p-2 group-hover:bg-[#16A34A] group-hover:text-white transition-colors">
-                        <ArrowRight className="h-4 w-4" />
-                      </div>
+                    <div className="relative z-10 flex items-center justify-between md:gap-6">
+                      <a
+                        href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                          `Salam! Quote request.\n• From: ${route.fromCity}\n• To: ${route.toCity}\n• Date & time: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): `,
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 rounded-full bg-[#16A34A]/10 text-[#16A34A] hover:bg-[#16A34A] hover:text-white px-4 py-2 text-xs font-bold uppercase tracking-wide transition-colors"
+                      >
+                        <MessageSquare className="h-3.5 w-3.5" />
+                        Get Your Quote
+                      </a>
                     </div>
-                  </Link>
+                  </div>
                 ))}
               </div>
             ) : (
@@ -818,16 +860,6 @@ export default async function CityLocationPage({ params }: PageProps) {
                 See hourly & full-day hire details &rarr;
               </Link>
             </section>
-          )}
-
-          {/* Vehicle-fit chooser — structured, extraction-friendly block
-              answering "which vehicle do I need" (CLAUDE.md §15/§18). */}
-          {VEHICLE_FIT[cityKey] && (
-            <VehicleFitChooser
-              heading={VEHICLE_FIT[cityKey].heading}
-              intro={VEHICLE_FIT[cityKey].intro}
-              options={VEHICLE_FIT[cityKey].options}
-            />
           )}
 
           {/* Vehicle showcase + interactive recommender — real fleet vehicles
@@ -1181,49 +1213,6 @@ export default async function CityLocationPage({ params }: PageProps) {
             </section>
           )}
 
-        </div>
-
-        {/* ─── SIDEBAR ────────────────────────────────────────────── */}
-        <div className="lg:col-span-1 space-y-8">
-          
-          {/* Attractions */}
-          {cityData.attractions.length > 0 && (
-            <div className="bg-white border border-[#16A34A]/12 rounded-3xl p-6">
-              <h3 className="font-heading text-xl font-bold mb-6 flex items-center gap-2">
-                <Building2 className="text-[#16A34A] h-5 w-5" /> Key Destinations
-              </h3>
-              <div className="space-y-4">
-                {cityData.attractions.map((attr, idx) => (
-                  <div key={idx} className="flex justify-between items-center border-b border-[#16A34A]/10 pb-4 last:border-0 last:pb-0">
-                    <span className="text-sm font-bold text-[#1C1C1C]">{attr.name}</span>
-                    <span className="text-[0.65rem] uppercase tracking-wider text-[#16A34A] bg-[#16A34A]/10 px-2 py-1 rounded-md">{attr.dist}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Vehicle Recommendation */}
-          <div className="bg-white border border-[#16A34A]/15 shadow-lg rounded-3xl p-6 relative overflow-hidden">
-            <div className="absolute -right-4 -top-4 opacity-10 text-[#16A34A]">
-              <Car className="h-32 w-32" />
-            </div>
-            <div className="relative z-10">
-              <span className="text-[0.6rem] uppercase tracking-widest text-[#16A34A] font-bold">Recommended</span>
-              <h3 className="font-heading text-xl font-bold mt-1 mb-2">SUV Class</h3>
-              <p className="text-xs text-[#6B7280] mb-6 leading-relaxed">
-                For optimal comfort and ample luggage space in {cityData.name}, a premium SUV (GMC Yukon XL, Cadillac Escalade) is highly recommended.
-              </p>
-              <Link
-                href={`/book?pickup=${encodeURIComponent(cityData.name)}`}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#16A34A] py-3 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
-              >
-                Reserve Vehicle
-              </Link>
-            </div>
-          </div>
-
-        </div>
       </div>
     </div>
   );
