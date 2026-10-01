@@ -1,6 +1,6 @@
 // Static content for city location pages — single source of truth for
 // app/(marketing)/locations/[city]/page.tsx AND app/sitemap.ts (LOCATIONS).
-export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image: string, tagline: string, description: string, attractions: { name: string, dist: string }[], tips: string[], tldr?: string, tldrFacts?: { label: string, value: string }[], faqs?: { question: string, answer: string }[], testimonials?: { quote: string, author: string, location: string, trip: string }[], relatedLinks?: { href: string, label: string }[] }> = {
+export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image: string, tagline: string, description: string, attractions: { name: string, dist: string }[], tips: string[], tldr?: string, tldrFacts?: { label: string, value: string }[], faqs?: { question: string, answer: string }[], testimonials?: { quote: string, author: string, location: string, trip: string }[], assurances?: { title: string, desc: string }[], relatedLinks?: { href: string, label: string }[] }> = {
   makkah: {
     name: "Makkah",
     nameAr: "مكة المكرمة",
@@ -130,7 +130,9 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { question: "How far is Riyadh from Dammam by taxi?", answer: "Riyadh to Dammam is about 400 km — roughly a 4-hour drive on Highway 40. We arrange intercity transfers in sedans, SUVs, and vans with rest stops included, quoted on WhatsApp before booking." },
       { question: "Do you cover all Riyadh business districts?", answer: "Yes — KAFD, Olaya, the Diplomatic Quarter, Granada, and Diriyah are all covered 24/7. Share your exact district when booking so the driver plans the best route." },
       { question: "Is taxi available in Riyadh 24/7?", answer: "Yes, we operate around the clock in Riyadh for airport transfers, business travel, shopping, and intercity trips — with your fare confirmed before you book." },
-      { question: "Do you offer a private car or executive car service in Riyadh, not just a taxi?", answer: "Yes. Alongside a standard taxi, we provide a pre-booked private car and executive car service in Riyadh — an executive sedan, SUV or van with a professional chauffeur for airport transfers, corporate travel and full-day hire across KAFD, Olaya and the Diplomatic Quarter. Corporate invoicing is available on request; your fare is confirmed on WhatsApp." }
+      { question: "Do you offer a private car or executive car service in Riyadh, not just a taxi?", answer: "Yes. Alongside a standard taxi, we provide a pre-booked private car and executive car service in Riyadh — an executive sedan, SUV or van with a professional chauffeur for airport transfers, corporate travel and full-day hire across KAFD, Olaya and the Diplomatic Quarter. Corporate invoicing is available on request; your fare is confirmed on WhatsApp." },
+      { question: "Is there a VIP or luxury chauffeur service in Riyadh?", answer: "Yes. For weddings, corporate VIP arrivals and events we run a luxury fleet (Mercedes-Maybach, S-Class, Range Rover, Lexus) through our VIP transportation service — a step above the standard executive sedan/SUV booking, with tailored quotes on request." },
+      { question: "What car transportation services are available in Riyadh?", answer: "Airport transfers, point-to-point taxi, hourly and full-day private driver hire, hotel transfers, corporate accounts, and VIP/luxury chauffeur service are all available in Riyadh — each with its own dedicated page linked from this one, or just message us on WhatsApp and we'll point you to the right option." }
     ],
     relatedLinks: [
       { href: "/locations/riyadh/private-driver", label: "Hire a private driver by the hour in Riyadh" },
@@ -151,8 +153,8 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     nameAr: "جدة",
     image: "/locations/jeddah-hero.webp",
     tagline: "The Red Sea Gateway to Makkah & Madinah",
-    description: "Book a private chauffeur service in Jeddah for airport pickups from King Abdulaziz International Airport (JED), transfers to Makkah (~80 km, ~1 hour) and Madinah (~420 km, ~4–5 hours), and local rides around the Corniche, Al-Balad, and the city centre. Most Umrah and Hajj pilgrims arrive at Jeddah, making it the Kingdom's main gateway — our drivers handle 24/7 night arrivals, meet & greet, flight tracking, and Miqat stops for Ihram.",
-    tldr: "Taxi Saudi Arabia provides 24/7 private chauffeur and taxi service in Jeddah, including King Abdulaziz International Airport (JED) pickups and transfers to Makkah (~80 km, ~1 hour) and Madinah (~420 km, ~4–5 hours). Meet & greet, flight tracking, and English/Urdu-speaking drivers included.",
+    description: "Book a private chauffeur service in Jeddah for airport pickups from King Abdulaziz International Airport (JED), transfers to Makkah (~80 km, ~1 hour) and Madinah (~420 km, ~4–5 hours), and local rides around the Corniche, Al-Balad, and the city centre. Most Umrah and Hajj pilgrims arrive at Jeddah, making it the Kingdom's main gateway — our drivers handle 24/7 night arrivals, meet & greet, and Miqat stops for Ihram. Share your flight number when you book and we check it before pickup.",
+    tldr: "Taxi Saudi Arabia provides 24/7 private chauffeur and taxi service in Jeddah, including King Abdulaziz International Airport (JED) pickups and transfers to Makkah (~80 km, ~1 hour) and Madinah (~420 km, ~4–5 hours). Meet & greet included, your flight checked before pickup, and English- and Arabic-speaking drivers.",
     tldrFacts: [
       { label: "To Makkah", value: "~80 km · ~1 hr" },
       { label: "To Madinah", value: "~420 km · ~4–5 hr" },
@@ -175,23 +177,32 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     ],
     faqs: [
       { question: "How much is a taxi in Jeddah?", answer: "Jeddah city rides and airport pickups are quoted with no surge. Jeddah Airport (JED) to Makkah and Jeddah to Madinah are both available as private transfers — you see the exact fare confirmed on WhatsApp before you book, tolls and taxes included." },
-      { question: "Is there a taxi at Jeddah airport 24/7?", answer: "Yes. We operate at King Abdulaziz International Airport (JED) around the clock, including late-night and early-morning flights. We track your flight number, so your driver waits with a name sign even if the flight is delayed." },
+      { question: "Is there a taxi at Jeddah airport 24/7?", answer: "Yes. We operate at King Abdulaziz International Airport (JED) around the clock, including late-night and early-morning flights. Share your flight number when you book and we check it before pickup, so your driver is waiting with a name sign even if the flight is delayed." },
       { question: "How far is Jeddah from Makkah by taxi?", answer: "Jeddah is about 80 km from Makkah — roughly a 1-hour drive on the Makkah Expressway. From Jeddah Airport (JED) it is a direct transfer, and the driver can stop at the Miqat for Ihram on request." },
       { question: "Can I book a Jeddah taxi in advance?", answer: "Yes, and for airport and Umrah transfers we recommend it. Pre-booking guarantees a vehicle and a clear price confirmed on WhatsApp, with meet & greet at arrivals — especially important during Umrah, Hajj, and Ramadan seasons." },
-      { question: "Do the drivers speak English or Urdu?", answer: "Most of our Jeddah drivers speak English and Arabic, and many also speak Urdu — helpful for pilgrims from South Asia. You can request an Urdu-speaking driver when booking." }
+      { question: "Do the drivers speak English or Arabic?", answer: "Yes — our Jeddah drivers speak English and Arabic, which covers the vast majority of international arrivals and local requests. Let us know your language preference when booking." },
+      { question: "Is there a private car or executive chauffeur service in Jeddah, not just a taxi?", answer: "Yes. Alongside a standard taxi, we provide a pre-booked private car and executive chauffeur service in Jeddah — an executive sedan, SUV or van for airport transfers, Umrah groups, and business travel. Corporate invoicing can be arranged through our sister company, and your fare is confirmed on WhatsApp before booking." },
+      { question: "Can I get a taxi from Jeddah to Taif or Yanbu?", answer: "Yes. Jeddah to Taif is about 170 km — roughly a 2-hour drive via the Al Hada road — and Jeddah to Yanbu is about 330 km, roughly 3 hours. Both are available as private transfers with the fare confirmed on WhatsApp before you book." },
+      { question: "What's the difference between a Jeddah airport pickup and a Jeddah city taxi?", answer: "An airport pickup means your driver waits in the arrivals hall at King Abdulaziz International Airport (JED) with a name sign and helps with luggage. A city taxi is a point-to-point ride within Jeddah. Both are quoted and confirmed on WhatsApp before you book." }
     ],
-    testimonials: [
-      { quote: "Landed at Jeddah at 2 AM and the driver was waiting with my name sign. Stopped at the Miqat so we could enter Ihram, then straight to our Makkah hotel. Stress-free start to Umrah.", author: "Imran S.", location: "Birmingham, UK", trip: "JED → Makkah" },
-      { quote: "Booked an SUV from the airport to Madinah for my parents and all the luggage. Comfortable, exactly the price we agreed on WhatsApp, and the driver took rest stops for prayer without us asking. Highly recommend.", author: "Aisha R.", location: "Toronto, Canada", trip: "JED → Madinah" },
-      { quote: "Used them for a Corniche and Al-Balad day tour. The driver knew every spot and waited while we explored. Fair price as agreed, very polite. Will use again next visit.", author: "Khalid M.", location: "Jeddah", trip: "Jeddah City Tour" },
+    assurances: [
+      { title: "Fixed fare, confirmed on WhatsApp", desc: "Your Jeddah fare is agreed before you book — no meter, no surge pricing, tolls included." },
+      { title: "24/7 JED airport coverage", desc: "Pickups day and night at King Abdulaziz International Airport, including late and early flights." },
+      { title: "English & Arabic-speaking drivers", desc: "Clear communication for international arrivals, Umrah groups, and local business travel." },
+      { title: "Miqat stop for Ihram on request", desc: "Tell your driver in advance and they'll stop on the Jeddah–Makkah road before continuing to the Haram." }
     ],
     relatedLinks: [
+      { href: "/routes/jeddah-to-madinah", label: "Jeddah to Madinah taxi" },
       { href: "/routes/jeddah-to-kaec", label: "Jeddah to KAEC (King Abdullah Economic City) taxi" },
       { href: "/routes/jeddah-airport-to-makkah", label: "Jeddah Airport to Makkah taxi" },
       { href: "/routes/jeddah-to-abudhabi", label: "Jeddah to Abu Dhabi — private car with driver" },
       { href: "/services/business-executive", label: "Private chauffeur & executive transport in Jeddah" },
       { href: "/services/corporate", label: "Corporate & executive chauffeur accounts" },
       { href: "/services/car-recovery/jeddah", label: "Jeddah car recovery & tow truck (satha)" },
+      { href: "/guides/jeddah-airport-guide", label: "Jeddah Airport (JED) arrivals — full terminal walk-through" },
+      { href: "/guides/miqat-jeddah-makkah", label: "Miqat & Ihram when arriving via Jeddah" },
+      { href: "/guides/jeddah-airport-to-makkah-guide", label: "Jeddah Airport to Makkah — taxi, train & bus compared" },
+      { href: "/guides/jeddah-airport-sim-card", label: "Buying a SIM card at Jeddah Airport" },
       { href: "/blog/private-driver-cost-saudi-arabia", label: "How much a private driver costs in Saudi Arabia" }
     ]
   },

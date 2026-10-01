@@ -19,6 +19,35 @@ import { CITY_DETAILS } from "@/lib/data/locations";
 import { ROUTES_DATA } from "@/lib/data/routes";
 import { trustStats } from "@/lib/config/stats";
 import { contactConfig } from "@/lib/config/contact";
+import { CityTransferNetwork, type TransferDestination } from "@/components/location/CityTransferNetwork";
+import { TransferJourneySteps } from "@/components/location/TransferJourneySteps";
+
+// Real distances/times pulled from the same ROUTES_DATA source the route
+// pages read from (CLAUDE.md single-source-of-truth rule) — a compact
+// "at a glance" overview above the detailed route-ladder list, covering a
+// broader destination set than the TLDR facts chips do. Jeddah-only for now;
+// extend this map as other cities get the same cluster of verified routes.
+const CITY_TRANSFER_NETWORK: Record<string, TransferDestination[]> = {
+  jeddah: [
+    { label: "Makkah", km: 85, duration: "1 hr 10 min", href: "/routes/jeddah-to-makkah" },
+    { label: "Madinah", km: 420, duration: "4 hr", href: "/routes/jeddah-to-madinah" },
+    { label: "Taif", km: 170, duration: "2 hr", href: "/routes/jeddah-to-taif" },
+    { label: "Yanbu", km: 330, duration: "3 hr", href: "/routes/jeddah-to-yanbu" },
+    { label: "KAEC", km: 120, duration: "1 hr 20 min", href: "/routes/jeddah-to-kaec" },
+  ],
+};
+
+const AIRPORT_JOURNEY: Record<string, { heading: string; steps: { title: string; desc: string }[] }> = {
+  jeddah: {
+    heading: "Your JED Airport Transfer, Step by Step",
+    steps: [
+      { title: "Flight lands at JED", desc: "King Abdulaziz International Airport, Terminal 1, North Terminal, or the Hajj Terminal." },
+      { title: "Share your flight number", desc: "Add it when you book so we check it before pickup, even if the flight is delayed." },
+      { title: "Meet & greet at arrivals", desc: "Your driver waits with a name sign and helps with luggage." },
+      { title: "Private vehicle to your destination", desc: "Straight to your Jeddah hotel, or on to Makkah or Madinah, with a Miqat stop on request." },
+    ],
+  },
+};
 
 // Public city-centroid coordinates (not business location data) — lets
 // location pages attach real GeoCoordinates to their Place/areaServed node.
@@ -519,7 +548,47 @@ export default async function CityLocationPage({ params }: PageProps) {
             <TLDRSummary answer={cityData.tldr} facts={cityData.tldrFacts} />
           )}
 
-          {/* Available Routes */}
+          {/* Transfer network overview — broader destination set than the
+              TLDR chips, visual spatial summary ahead of the full route list. */}
+          {CITY_TRANSFER_NETWORK[cityKey] && (
+            <CityTransferNetwork cityName={cityData.name} destinations={CITY_TRANSFER_NETWORK[cityKey]} />
+          )}
+
+          {/* Trip-type chooser — routes the visitor to the page that actually
+              owns their specific intent, instead of the hub trying to answer
+              every intent itself. Riyadh-only for now (the child pages this
+              links to — private-driver, hotel-transfer, events pillar — only
+              exist for Riyadh so far; extend this map as other cities gain
+              the same cluster). */}
+          {cityKey === "riyadh" && (
+            <section>
+              <h2 className="font-heading text-2xl font-bold mb-6">Plan Your Riyadh Trip</h2>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {[
+                  { href: "/airports/king-khalid-riyadh", label: "Airport Transfer", sub: "RUH arrivals & departures" },
+                  { href: "/locations/riyadh/private-driver", label: "Private / Hourly Driver", sub: "By the hour or full day" },
+                  { href: "/locations/riyadh/hotel-transfer", label: "Hotel Transfer", sub: "Olaya, KAFD, DQ, Diriyah" },
+                  { href: "/services/corporate", label: "Corporate Travel", sub: "Accounts & invoicing" },
+                  { href: "/services/vip-transportation", label: "VIP / Luxury", sub: "Events, weddings, arrivals" },
+                  { href: "/events/riyadh-event-transportation", label: "Events & Conferences", sub: "Delegate & exhibitor transfer" },
+                ].map((tile) => (
+                  <Link
+                    key={tile.href}
+                    href={tile.href}
+                    className="group flex flex-col gap-1 rounded-2xl border border-[#16A34A]/12 bg-white p-4 hover:border-[#16A34A]/35 transition-colors"
+                  >
+                    <span className="text-sm font-bold text-[#1C1C1C] group-hover:text-[#16A34A]">{tile.label}</span>
+                    <span className="text-[0.7rem] text-[#6B7280]">{tile.sub}</span>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Available Routes — the intercity "ladder": every corridor with
+              its real distance/duration from the same ROUTES_DATA source the
+              route pages themselves read from, so the hub and the route page
+              never disagree. */}
           <section>
             <h2 className="font-heading text-3xl font-bold mb-8">Popular Routes from/to {cityData.name}</h2>
             {cityRoutes.length > 0 ? (
@@ -530,6 +599,9 @@ export default async function CityLocationPage({ params }: PageProps) {
                       <div className="font-bold">{route.fromCity}</div>
                       <ArrowRight className="h-4 w-4 text-[#C9A84C]" />
                       <div className="font-bold">{route.toCity}</div>
+                      <span className="text-[0.65rem] text-[#6B7280] uppercase tracking-wider">
+                        {route.distance} km · ~{Math.round(route.duration / 60)} hr
+                      </span>
                     </div>
                     <div className="flex items-center justify-between md:gap-6">
                       <div className="text-right">
@@ -549,6 +621,39 @@ export default async function CityLocationPage({ params }: PageProps) {
               <Link href="/routes" className="text-[#C9A84C] text-sm font-bold hover:underline">View all {trustStats.routesCovered} Kingdom-wide routes &rarr;</Link>
             </div>
           </section>
+
+          {/* Transfer vs. hourly hire — an honest trade-off section (AI/AIO
+              retrieval benefits from even-handed comparisons), Riyadh-only
+              since it links to the private-driver page. */}
+          {cityKey === "riyadh" && (
+            <section className="bg-white border border-[#16A34A]/12 rounded-3xl p-8">
+              <h2 className="font-heading text-2xl font-bold mb-4">One-Way Transfer or Hourly Driver?</h2>
+              <p className="text-sm text-[#6B7280] leading-relaxed mb-6 max-w-2xl">
+                A single transfer (airport, hotel, or point-to-point) covers one trip and is the cheaper choice if that&apos;s all you need. Hourly or full-day hire keeps the same driver and vehicle with you across the day — it&apos;s the better value once you have more than two or three stops, which is the normal pattern for a business day moving between KAFD, Olaya and the Diplomatic Quarter.
+              </p>
+              <div className="grid sm:grid-cols-2 gap-4 mb-6">
+                <div className="rounded-2xl border border-[#16A34A]/10 p-5">
+                  <h3 className="font-bold text-sm mb-2">Choose a single transfer if:</h3>
+                  <ul className="space-y-2 text-sm text-[#6B7280]">
+                    <li>— You have one pickup and one drop-off</li>
+                    <li>— It&apos;s an airport arrival or departure only</li>
+                    <li>— You don&apos;t need the car to wait</li>
+                  </ul>
+                </div>
+                <div className="rounded-2xl border border-[#16A34A]/10 p-5">
+                  <h3 className="font-bold text-sm mb-2">Choose hourly/full-day hire if:</h3>
+                  <ul className="space-y-2 text-sm text-[#6B7280]">
+                    <li>— You have 3+ stops in one day</li>
+                    <li>— The car needs to wait between meetings</li>
+                    <li>— You&apos;re hosting a delegation or group for the day</li>
+                  </ul>
+                </div>
+              </div>
+              <Link href="/locations/riyadh/private-driver" className="text-[#16A34A] text-sm font-bold hover:underline">
+                See hourly & full-day hire details &rarr;
+              </Link>
+            </section>
+          )}
 
           {/* Areas within this city + nearest airport (internal linking to sub-area pages) */}
           {(citySubAreas.length > 0 || cityAirport) && (
@@ -592,6 +697,12 @@ export default async function CityLocationPage({ params }: PageProps) {
             </section>
           )}
 
+          {/* Airport transfer journey — generic 4-step timeline, wording
+              stays within the approved facts.md capability claims. */}
+          {AIRPORT_JOURNEY[cityKey] && (
+            <TransferJourneySteps heading={AIRPORT_JOURNEY[cityKey].heading} steps={AIRPORT_JOURNEY[cityKey].steps} />
+          )}
+
           {/* Local Tips */}
           {cityData.tips.length > 0 && (
             <section className="bg-white border border-[#16A34A]/12 rounded-3xl p-8">
@@ -629,6 +740,7 @@ export default async function CityLocationPage({ params }: PageProps) {
               svc = [
                 { href: "/services/corporate", label: "Corporate & business travel" },
                 { href: "/services/vip-transportation", label: "VIP transportation Riyadh" },
+                ...(key.includes("riyadh") ? [{ href: "/events/riyadh-event-transportation", label: "Event & conference transportation" }] : []),
               ];
             } else {
               svc = [
@@ -692,6 +804,31 @@ export default async function CityLocationPage({ params }: PageProps) {
                   <div key={idx} className="border border-[#16A34A]/12 rounded-2xl p-6 bg-white">
                     <h3 className="font-bold text-base mb-2 text-[#1C1C1C]">{faq.question}</h3>
                     <p className="text-sm text-[#6B7280] leading-relaxed">{faq.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Honest assurances band — used instead of testimonials when no
+              genuine, attributable reviews exist for this city yet (see
+              CLAUDE.md §31 and the home-page.tsx note on the sitewide
+              2026-08-31 fake-reviews cleanup). Built only from claims already
+              stated elsewhere on this page — no fabricated names/quotes. */}
+          {(!cityData.testimonials || cityData.testimonials.length === 0) && cityData.assurances && cityData.assurances.length > 0 && (
+            <section>
+              <h2 className="font-heading text-3xl font-bold mb-8 flex items-center gap-3">
+                <CheckCircle2 className="text-[#C9A84C] h-7 w-7" />
+                {cityData.name} Service Standards
+              </h2>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {cityData.assurances.map((a, idx) => (
+                  <div key={idx} className="border border-[#16A34A]/12 rounded-2xl p-6 bg-white flex gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-[#16A34A] shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-sm font-bold text-[#1C1C1C]">{a.title}</p>
+                      <p className="text-[0.8rem] text-[#6B7280] mt-1 leading-relaxed">{a.desc}</p>
+                    </div>
                   </div>
                 ))}
               </div>

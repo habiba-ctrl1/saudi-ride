@@ -10,7 +10,7 @@ import { useLanguage } from "@/lib/context/LanguageContext";
 import { contactConfig } from "@/lib/config/contact";
 import { trackEvent } from "@/lib/analytics";
 import { getUtm } from "@/lib/utm";
-import { MapPin, Calendar, Car, MessageCircle, Users, Phone, User, Mail } from "lucide-react";
+import { MapPin, Calendar, Car, MessageCircle, Users, Phone, User, Mail, Plane, Clock } from "lucide-react";
 
 const PHONE_RE = /^\+?[0-9\s-]{8,20}$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -30,6 +30,7 @@ const TRIP_TYPES = [
 ];
 
 const PASSENGERS = ["1", "2", "3", "4", "5-6", "7+"];
+const HOURS_NEEDED = ["2", "3", "4", "6", "8", "12", "Full day"];
 
 function InputRow({ icon, children }: { icon: React.ReactNode; children: React.ReactNode }) {
   return (
@@ -68,6 +69,9 @@ export default function WhatsAppQuoteForm({
   const [pickup, setPickup] = useState(defaultPickup);
   const [dropoff, setDropoff] = useState(defaultDropoff);
   const [dateTime, setDateTime] = useState("");
+  const [returnDateTime, setReturnDateTime] = useState("");
+  const [hoursNeeded, setHoursNeeded] = useState("");
+  const [flightNumber, setFlightNumber] = useState("");
   const [passengers, setPassengers] = useState("");
   const [vehicle, setVehicle] = useState(defaultVehicle);
   const [name, setName] = useState("");
@@ -76,6 +80,11 @@ export default function WhatsAppQuoteForm({
   const [nameError, setNameError] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
   const [emailError, setEmailError] = useState(false);
+
+  // Smart conditional fields — shown only when relevant, never required.
+  const isRoundTrip = tripType === "Round Trip";
+  const isHourly = tripType === "By the Hour";
+  const isAirportTrip = /airport/i.test(`${pickup} ${dropoff}`);
 
   const handleSubmit = () => {
     const nameInvalid = name.trim().length < 2;
@@ -86,7 +95,7 @@ export default function WhatsAppQuoteForm({
     setEmailError(emailInvalid);
     if (nameInvalid || phoneInvalid || emailInvalid) return;
 
-    trackEvent("lead_captured", { source: "whatsapp_quote_form", fromCity: pickup, toCity: dropoff, vehicleClass: vehicle, tripType, passengers, locale: language });
+    trackEvent("lead_captured", { source: "whatsapp_quote_form", fromCity: pickup, toCity: dropoff, vehicleClass: vehicle, tripType, passengers, locale: language, flightNumber: flightNumber || undefined, returnDateTime: returnDateTime || undefined, hoursNeeded: hoursNeeded || undefined });
 
     // Non-blocking lead capture — never delays or blocks the WhatsApp open.
     try {
@@ -122,6 +131,9 @@ export default function WhatsAppQuoteForm({
           `• من: ${pickup || "—"}`,
           `• إلى: ${dropoff || "—"}`,
           `• التاريخ والوقت: ${dateTime || "—"}`,
+          ...(isRoundTrip ? [`• تاريخ العودة: ${returnDateTime || "—"}`] : []),
+          ...(isHourly ? [`• عدد الساعات: ${hoursNeeded || "—"}`] : []),
+          ...(isAirportTrip ? [`• رقم الرحلة: ${flightNumber || "—"}`] : []),
           `• نوع السيارة: ${VEHICLES.find((v) => v.key === vehicle)?.ar ?? vehicle}`,
           `• عدد الركاب: ${passengers || "—"}`,
           `• الأمتعة: `,
@@ -134,6 +146,9 @@ export default function WhatsAppQuoteForm({
           `• From: ${pickup || "—"}`,
           `• To: ${dropoff || "—"}`,
           `• Date & time: ${dateTime || "—"}`,
+          ...(isRoundTrip ? [`• Return date & time: ${returnDateTime || "—"}`] : []),
+          ...(isHourly ? [`• Hours needed: ${hoursNeeded || "—"}`] : []),
+          ...(isAirportTrip ? [`• Flight number: ${flightNumber || "—"}`] : []),
           `• Vehicle: ${vehicle}`,
           `• Passengers: ${passengers || "—"}`,
           `• Luggage: `,
@@ -213,6 +228,48 @@ export default function WhatsAppQuoteForm({
           </select>
         </InputRow>
       </div>
+
+      {/* Conditional fields — only shown when relevant to the selected trip
+          type / detected airport pickup, never required for submission. */}
+      {isRoundTrip && (
+        <InputRow icon={<Calendar className="h-4 w-4" />}>
+          <input
+            type="datetime-local"
+            value={returnDateTime}
+            onChange={(e) => setReturnDateTime(e.target.value)}
+            aria-label={isRtl ? "تاريخ العودة" : "Return date & time"}
+            className="w-full bg-transparent text-sm outline-none text-[#1C1C1C]"
+          />
+        </InputRow>
+      )}
+      {isHourly && (
+        <InputRow icon={<Clock className="h-4 w-4" />}>
+          <select
+            value={hoursNeeded}
+            onChange={(e) => setHoursNeeded(e.target.value)}
+            aria-label={isRtl ? "عدد الساعات" : "Hours needed"}
+            className="w-full bg-transparent text-sm outline-none text-[#1C1C1C]"
+          >
+            <option value="">{isRtl ? "عدد الساعات المطلوبة" : "Hours needed"}</option>
+            {HOURS_NEEDED.map((h) => (
+              <option key={h} value={h}>
+                {h}
+              </option>
+            ))}
+          </select>
+        </InputRow>
+      )}
+      {isAirportTrip && (
+        <InputRow icon={<Plane className="h-4 w-4" />}>
+          <input
+            value={flightNumber}
+            onChange={(e) => setFlightNumber(e.target.value)}
+            placeholder={isRtl ? "رقم الرحلة (اختياري)" : "Flight number (optional)"}
+            className="w-full bg-transparent text-sm outline-none placeholder:text-[#9CA3AF]"
+          />
+        </InputRow>
+      )}
+
       <InputRow icon={<Car className="h-4 w-4" />}>
         <select
           value={vehicle}

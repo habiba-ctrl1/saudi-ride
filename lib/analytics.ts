@@ -79,6 +79,9 @@ interface LeadCapturedProps {
   passengers?: string;
   estimatedPriceSar?: number;
   locale?: string;
+  flightNumber?: string;
+  returnDateTime?: string;
+  hoursNeeded?: string;
 }
 
 type EventPropsMap = {
