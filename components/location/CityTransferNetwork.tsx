@@ -35,7 +35,7 @@ export function CityTransferNetwork({ cityName, destinations }: CityTransferNetw
           <Link key={d.href} href={d.href} className="group relative flex items-center justify-between gap-3 pb-5 last:pb-0">
             <span className="absolute -start-6 flex h-3 w-3 items-center justify-center rounded-full border-2 border-[#16A34A] bg-white" />
             <span>
-              <span className="block text-sm font-bold text-[#1C1C1C] group-hover:text-[#16A34A]">{d.label}</span>
+              <span className="block text-sm font-bold text-[#16A34A]">{d.label}</span>
               <span className="block text-[0.7rem] text-[#6B7280]">{d.km} km · ~{d.duration}</span>
             </span>
             <ArrowRight className="h-4 w-4 text-[#16A34A] shrink-0" />
@@ -54,12 +54,12 @@ export function CityTransferNetwork({ cityName, destinations }: CityTransferNetw
             <Link
               key={d.href}
               href={d.href}
-              className="group relative flex flex-col rounded-2xl border border-[#16A34A]/10 p-4 hover:border-[#16A34A]/35 hover:shadow-md transition-all"
+              className="group relative flex flex-col rounded-2xl border border-[#16A34A]/10 p-4 hover:border-[#16A34A]/35 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
             >
-              <span className="absolute -top-[21px] start-1/2 -translate-x-1/2 h-3 w-3 rounded-full border-2 border-[#16A34A] bg-white hidden md:block" />
-              <span className="text-sm font-bold text-[#1C1C1C]">{d.label}</span>
+              <span className="absolute -top-[21px] start-1/2 -translate-x-1/2 h-3 w-3 rounded-full border-2 border-[#16A34A] bg-white hidden md:block group-hover:scale-125 transition-transform" />
+              <span className="text-sm font-bold text-[#16A34A]">{d.label}</span>
               <span className="text-[0.7rem] text-[#6B7280] mt-1">{d.km} km · ~{d.duration}</span>
-              <span className="mt-3 text-[0.65rem] font-bold text-[#16A34A] inline-flex items-center gap-1">
+              <span className="mt-3 text-[0.65rem] font-bold text-[#16A34A] inline-flex items-center gap-1 group-hover:gap-2 transition-all">
                 View route <ArrowRight className="h-3 w-3" />
               </span>
             </Link>

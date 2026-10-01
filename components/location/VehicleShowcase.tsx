@@ -32,26 +32,26 @@ export function VehicleShowcase({ heading, intro, vehicles }: VehicleShowcasePro
           <Link
             key={v.href}
             href={v.href}
-            className="group flex flex-col overflow-hidden rounded-2xl border border-[#16A34A]/12 bg-white hover:border-[#16A34A]/35 hover:shadow-md transition-all"
+            className="group flex flex-col overflow-hidden rounded-2xl border border-[#16A34A]/12 bg-white hover:border-[#16A34A]/35 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300"
           >
-            <div className="relative h-40 w-full bg-[#FAFAF7]">
+            <div className="relative h-40 w-full overflow-hidden bg-[#FAFAF7]">
               <Image
                 src={v.image}
                 alt={`${v.name} — ${v.subtitle}`}
                 fill
                 sizes="(max-width: 640px) 100vw, 33vw"
-                className="object-cover"
+                className="object-cover transition-transform duration-500 group-hover:scale-110"
                 loading="lazy"
               />
             </div>
-            <div className="flex flex-1 flex-col p-4">
+            <div className="flex flex-1 flex-col p-5">
               <span className="text-sm font-bold text-[#1C1C1C]">{v.name}</span>
-              <span className="text-[0.7rem] uppercase tracking-wider text-[#16A34A] mt-0.5">{v.subtitle}</span>
-              <span className="text-[0.75rem] text-[#6B7280] mt-2">
+              <span className="text-[0.7rem] uppercase tracking-wider text-[#16A34A] font-bold mt-0.5">{v.subtitle}</span>
+              <span className="text-[0.75rem] text-[#6B7280] mt-2.5">
                 {v.passengers} passengers · {v.luggage} bags
               </span>
               <p className="text-[0.75rem] text-[#6B7280] mt-2 leading-relaxed flex-1">{v.bestFor}</p>
-              <span className="mt-3 inline-flex items-center gap-1 text-[0.7rem] font-bold text-[#16A34A]">
+              <span className="mt-4 inline-flex items-center gap-1 text-[0.7rem] font-bold text-[#16A34A] group-hover:gap-2 transition-all">
                 View vehicle <ArrowRight className="h-3.5 w-3.5" />
               </span>
             </div>

@@ -34,7 +34,7 @@ export function TouristJourney({ heading, intro, stops }: TouristJourneyProps) {
       </div>
 
       {/* Desktop: horizontal wrapping flow */}
-      <div className="hidden sm:flex flex-wrap items-center gap-2">
+      <div className="hidden sm:flex flex-wrap items-center gap-3">
         {stops.map((stop, idx) => (
           <div key={idx} className="flex items-center gap-2">
             <StopCard stop={stop} />
@@ -47,17 +47,21 @@ export function TouristJourney({ heading, intro, stops }: TouristJourneyProps) {
 }
 
 function StopCard({ stop }: { stop: JourneyStop }) {
-  const inner = (
-    <>
-      <span className="block text-sm font-bold text-[#1C1C1C]">{stop.label}</span>
-      <span className="block text-[0.7rem] text-[#6B7280] mt-0.5 max-w-[11rem]">{stop.desc}</span>
-    </>
-  );
-  const className = "rounded-xl border border-[#16A34A]/12 bg-[#FAFAF7] px-4 py-3";
-  if (!stop.href) return <div className={className}>{inner}</div>;
+  if (!stop.href) {
+    return (
+      <div className="rounded-xl border border-dashed border-[#16A34A]/20 bg-[#FAFAF7] px-4 py-3">
+        <span className="block text-sm font-bold text-[#6B7280]">{stop.label}</span>
+        <span className="block text-[0.7rem] text-[#6B7280] mt-0.5 max-w-[11rem]">{stop.desc}</span>
+      </div>
+    );
+  }
   return (
-    <Link href={stop.href} className={`${className} group hover:border-[#16A34A]/40 hover:bg-white transition-colors`}>
-      {inner}
+    <Link
+      href={stop.href}
+      className="group block rounded-xl border border-[#16A34A]/15 bg-white px-4 py-3 hover:border-[#16A34A]/40 hover:shadow-md hover:-translate-y-1 transition-all duration-300"
+    >
+      <span className="block text-sm font-bold text-[#16A34A]">{stop.label}</span>
+      <span className="block text-[0.7rem] text-[#6B7280] mt-0.5 max-w-[11rem]">{stop.desc}</span>
     </Link>
   );
 }

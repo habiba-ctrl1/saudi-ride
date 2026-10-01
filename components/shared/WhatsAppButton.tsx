@@ -13,15 +13,26 @@ export function WhatsAppButton() {
   const [hasClosedBubble, setHasClosedBubble] = useState(false);
   const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+966539388072";
 
-  // Show speech bubble after 4 seconds of page load (unless user explicitly closed it)
+  // Show speech bubble after 4 seconds of page load (unless user explicitly
+  // closed it), then auto-dismiss it after 8 seconds. Without the auto-dismiss
+  // the bubble is `position: fixed` and persists indefinitely — on pages with
+  // a long hero (e.g. /locations/riyadh) it can sit on top of the on-page
+  // quote form's submit button or hero body text at common scroll positions,
+  // which reads as a broken/overlapping UI rather than a transient prompt.
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const showTimer = setTimeout(() => {
       if (!hasClosedBubble) {
         setShowBubble(true);
       }
     }, 4000);
-    return () => clearTimeout(timer);
+    return () => clearTimeout(showTimer);
   }, [hasClosedBubble]);
+
+  useEffect(() => {
+    if (!showBubble) return;
+    const hideTimer = setTimeout(() => setShowBubble(false), 8000);
+    return () => clearTimeout(hideTimer);
+  }, [showBubble]);
 
   const formattedNumber = whatsappNumber.replace(/[^0-9]/g, "");
   const encodedText = encodeURIComponent(

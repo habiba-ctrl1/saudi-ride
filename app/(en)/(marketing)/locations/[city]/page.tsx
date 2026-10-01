@@ -689,7 +689,7 @@ export default async function CityLocationPage({ params }: PageProps) {
                 sitewide (WhatsAppQuoteForm), just given hero-level visual
                 weight instead of floating a bare form over the image. */}
             <div className="lg:col-span-2 lg:pt-2">
-              <div className="rounded-3xl bg-white/95 backdrop-blur-sm shadow-[0_20px_60px_rgba(15,23,42,0.12)] border border-[#16A34A]/10 p-1">
+              <div className="rounded-[2rem] bg-white shadow-[0_20px_60px_rgba(15,23,42,0.15)] border border-[#16A34A]/10 p-3">
                 <WhatsAppQuoteForm defaultDropoff={cityData.name} />
               </div>
             </div>
@@ -740,9 +740,9 @@ export default async function CityLocationPage({ params }: PageProps) {
                   <Link
                     key={tile.href}
                     href={tile.href}
-                    className="group flex flex-col gap-1 rounded-2xl border border-[#16A34A]/12 bg-white p-4 hover:border-[#16A34A]/35 transition-colors"
+                    className="group flex flex-col gap-1 rounded-2xl border border-[#16A34A]/12 bg-white p-4 hover:border-[#16A34A]/35 hover:-translate-y-0.5 hover:shadow-md transition-all"
                   >
-                    <span className="text-sm font-bold text-[#1C1C1C] group-hover:text-[#16A34A]">{tile.label}</span>
+                    <span className="text-sm font-bold text-[#16A34A]">{tile.label}</span>
                     <span className="text-[0.7rem] text-[#6B7280]">{tile.sub}</span>
                   </Link>
                 ))}
@@ -759,7 +759,7 @@ export default async function CityLocationPage({ params }: PageProps) {
             {cityRoutes.length > 0 ? (
               <div className="grid gap-4">
                 {cityRoutes.map((route) => (
-                  <Link href={`/routes/${route.slug}`} key={route.slug} className="group flex flex-col md:flex-row md:items-center justify-between p-5 rounded-2xl bg-white border border-[#16A34A]/12 hover:border-[#16A34A]/35 transition-colors">
+                  <Link href={`/routes/${route.slug}`} key={route.slug} className="group flex flex-col md:flex-row md:items-center justify-between p-5 rounded-2xl bg-white border border-[#16A34A]/12 hover:border-[#16A34A]/35 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
                     <div className="flex items-center gap-4 mb-4 md:mb-0">
                       <div className="font-bold">{route.fromCity}</div>
                       <ArrowRight className="h-4 w-4 text-[#16A34A]" />
@@ -854,34 +854,34 @@ export default async function CityLocationPage({ params }: PageProps) {
                 {cityAirport && (
                   <Link
                     href={`/airports/${cityAirport.slug}`}
-                    className="group flex items-center justify-between gap-3 rounded-xl border border-[#16A34A]/12 bg-white px-4 py-3 hover:border-[#16A34A]/35 transition-colors"
+                    className="group flex items-center justify-between gap-3 rounded-xl border border-[#16A34A]/12 bg-white px-4 py-3 hover:border-[#16A34A]/35 hover:-translate-y-0.5 hover:shadow-sm transition-all"
                   >
-                    <span className="flex items-center gap-2 text-sm font-medium text-[#1C1C1C] group-hover:text-[#16A34A]">
+                    <span className="flex items-center gap-2 text-sm font-semibold text-[#15803D]">
                       <PlaneLanding className="h-4 w-4 text-[#16A34A]" /> {cityAirport.name}
                     </span>
-                    <ArrowRight className="h-4 w-4 text-[#16A34A]" />
+                    <ArrowRight className="h-4 w-4 text-[#16A34A] group-hover:translate-x-0.5 transition-transform" />
                   </Link>
                 )}
                 {CITY_AIRPORTS_EXTRA[cityKey]?.map((ap) => (
                   <Link
                     key={ap.slug}
                     href={`/airports/${ap.slug}`}
-                    className="group flex items-center justify-between gap-3 rounded-xl border border-[#16A34A]/12 bg-white px-4 py-3 hover:border-[#16A34A]/35 transition-colors"
+                    className="group flex items-center justify-between gap-3 rounded-xl border border-[#16A34A]/12 bg-white px-4 py-3 hover:border-[#16A34A]/35 hover:-translate-y-0.5 hover:shadow-sm transition-all"
                   >
-                    <span className="flex items-center gap-2 text-sm font-medium text-[#1C1C1C] group-hover:text-[#16A34A]">
+                    <span className="flex items-center gap-2 text-sm font-semibold text-[#15803D]">
                       <PlaneLanding className="h-4 w-4 text-[#16A34A]" /> {ap.name}
                     </span>
-                    <ArrowRight className="h-4 w-4 text-[#16A34A]" />
+                    <ArrowRight className="h-4 w-4 text-[#16A34A] group-hover:translate-x-0.5 transition-transform" />
                   </Link>
                 ))}
                 {citySubAreas.map((area) => (
                   <Link
                     key={area.subarea}
                     href={`/locations/${cityKey}/${area.subarea}`}
-                    className="group flex items-center justify-between gap-3 rounded-xl border border-[#16A34A]/12 bg-white px-4 py-3 hover:border-[#16A34A]/35 transition-colors"
+                    className="group flex items-center justify-between gap-3 rounded-xl border border-[#16A34A]/12 bg-white px-4 py-3 hover:border-[#16A34A]/35 hover:-translate-y-0.5 hover:shadow-sm transition-all"
                   >
-                    <span className="text-sm font-medium text-[#1C1C1C] group-hover:text-[#16A34A]">Taxi in {area.name}</span>
-                    <ArrowRight className="h-4 w-4 text-[#16A34A]" />
+                    <span className="text-sm font-semibold text-[#15803D]">Taxi in {area.name}</span>
+                    <ArrowRight className="h-4 w-4 text-[#16A34A] group-hover:translate-x-0.5 transition-transform" />
                   </Link>
                 ))}
               </div>
@@ -1014,7 +1014,7 @@ export default async function CityLocationPage({ params }: PageProps) {
                     <Accordion multiple className="rounded-2xl border border-[#16A34A]/12 bg-white divide-y divide-[#16A34A]/10 px-6">
                       {group.items.map((faq, idx) => (
                         <AccordionItem key={idx} value={`${group.category}-${idx}`}>
-                          <AccordionTrigger className="py-4 text-sm font-bold text-[#1C1C1C] hover:no-underline">
+                          <AccordionTrigger className="py-4 text-sm font-bold text-[#1C1C1C] hover:text-[#16A34A] hover:no-underline transition-colors">
                             {faq.question}
                           </AccordionTrigger>
                           <AccordionContent className="pb-4 text-sm text-[#6B7280] leading-relaxed">
@@ -1095,9 +1095,9 @@ export default async function CityLocationPage({ params }: PageProps) {
                   <Link
                     key={idx}
                     href={link.href}
-                    className="group flex items-center gap-2 text-sm text-[#6B7280] hover:text-[#16A34A] transition-colors p-2 rounded-lg hover:bg-[#F0FDF4]"
+                    className="group flex items-center gap-2 text-sm font-semibold text-[#15803D] hover:text-[#16A34A] transition-all p-2 rounded-lg hover:bg-[#F0FDF4] hover:translate-x-0.5"
                   >
-                    <ArrowRight className="h-3.5 w-3.5 shrink-0 text-[#16A34A]/60 group-hover:text-[#16A34A] transition-colors" />
+                    <ArrowRight className="h-3.5 w-3.5 shrink-0 text-[#16A34A] group-hover:translate-x-0.5 transition-transform" />
                     {link.label}
                   </Link>
                 ))}
