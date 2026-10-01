@@ -82,6 +82,7 @@ interface LeadCapturedProps {
   flightNumber?: string;
   returnDateTime?: string;
   hoursNeeded?: string;
+  luggage?: string;
 }
 
 type EventPropsMap = {

@@ -381,6 +381,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
       { href: "/distance/riyadh-to-madinah", label: "Riyadh to Madinah distance guide", img: "/locations/madinah-hero.webp" },
       { href: "/distance/jeddah-to-makkah", label: "Jeddah to Makkah distance guide", img: "/locations/makkah-hero.webp" },
       { href: "/services/umrah-transport", label: "Umrah transport service", img: "/gallery/umrah-family.webp" },
+      { href: "/distance/riyadh-to-taif", label: "Riyadh to Taif distance guide", img: "/locations/taif-hero.webp" },
     ],
     routeSlug: "riyadh-to-makkah",
   },
@@ -822,6 +823,61 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
       { href: "/services/umrah-transport", label: "Umrah transport services", img: "/locations/makkah-hero.webp" },
     ],
     routeSlug: "neom-to-makkah",
+  },
+  {
+    // Added 2026-10-01 — distances mirror routes.ts (riyadh-to-taif: 785 km / 470 min).
+    slug: "riyadh-to-taif",
+    fromCity: "Riyadh",
+    toCity: "Taif",
+    km: 785,
+    driveMinutes: 470,
+    driveLabel: "about 8 hours",
+    highway: "Highway 40",
+    stops: ["Al Quway'iyah", "Highway 40 rest areas"],
+    heroImage: "/locations/taif-hero.webp",
+    fromImage: "/locations/riyadh-hero.webp",
+    toImage: "/locations/taif-hero.webp",
+    routeStripImage: "/gallery/highway-travel.webp",
+    valueProp:
+      "From the capital to the mountains — about 785 km from Riyadh to Taif on Highway 40, roughly 8 hours of driving. A private car carries the whole family and the summer luggage for one fare.",
+    whoBooks: [
+      "Riyadh families head west to Taif in summer for the cooler mountain air, gardens and rose farms. A private car turns a long drive into a door-to-door trip with stops whenever the children need them, and room for a stay's worth of luggage.",
+      "Taif is also a staging point for the west: about 90 km from Makkah, it lets travellers break a Riyadh–Makkah journey, or spend a few days in the mountains before Umrah.",
+    ],
+    whyCards: [
+      { img: "/gallery/umrah-family.webp", title: "One fare for the family", body: "One car, one agreed price for everyone travelling — not a ticket per person." },
+      { img: "/gallery/highway-travel.webp", title: "Stops on your schedule", body: "Prayer, meals and rest stops along Highway 40 whenever you ask." },
+      { img: "/gallery/luggage-assist.webp", title: "Room for a summer stay", body: "SUVs and vans fit the cases a week in the mountains needs." },
+    ],
+    routeIntro:
+      "The drive leaves Riyadh westward on Highway 40 past Al Quway'iyah, crossing the Najd plateau for most of the day before reaching Taif on its mountain plateau, east of Makkah.",
+    vehicleFits: ["1–3 passengers · normal luggage", "4–7 · family with luggage", "up to 7 · group or extra bags"],
+    compare: [
+      { mode: "Private transfer", best: true, detail: "Door to door in about 8 hours of driving, one fare for the whole car, all luggage included — the usual choice for families and longer stays." },
+      { mode: "Flight", detail: "Faster in the air from RUH to Taif Regional Airport (TIF) where flights operate, but per-person tickets and a transfer at each end." },
+      { mode: "Train", detail: "No passenger rail line serves Taif; road or air are the options." },
+    ],
+    tips: [
+      { icon: "sunrise", text: "Leave Riyadh early to clear city traffic and arrive in Taif before evening." },
+      { icon: "prayer", text: "Tell the driver your preferred prayer and meal stops at the start of the trip." },
+      { icon: "luggage", text: "Taif evenings are cooler than Riyadh — keep a light layer in the cabin bag." },
+      { icon: "route", text: "Continuing to Makkah later? Taif to Makkah is about 90 km — plan it as a separate leg." },
+    ],
+    faqs: [
+      { question: "How far is Riyadh from Taif?", answer: "About 785 km by road, mostly on Highway 40." },
+      { question: "How long is the drive from Riyadh to Taif?", answer: "Roughly 7 hours 50 minutes of driving — plan for 8 to 9 hours with prayer, meal and rest stops." },
+      { question: "Which road goes from Riyadh to Taif?", answer: "Highway 40, heading west from Riyadh past Al Quway'iyah towards Taif and Makkah." },
+      { question: "Is there a train from Riyadh to Taif?", answer: "No. There is no passenger rail line to Taif, so travellers drive or fly." },
+      { question: "Is it worth driving instead of flying to Taif?", answer: "For one person travelling light, flying is quicker. For a family or a group with luggage, a private car is door to door with one fare for the whole car." },
+      { question: "How much is a private car from Riyadh to Taif?", answer: "It depends on the vehicle and date. We confirm one fixed fare on WhatsApp before booking." },
+    ],
+    related: [
+      { href: "/routes/riyadh-to-taif", label: "Riyadh to Taif private car (book this route)", img: "/locations/taif-hero.webp" },
+      { href: "/distance/riyadh-to-makkah", label: "Riyadh to Makkah distance guide", img: "/locations/makkah-hero.webp" },
+      { href: "/distance/makkah-to-taif", label: "Makkah to Taif distance guide", img: "/locations/taif-hero.webp" },
+      { href: "/locations/riyadh", label: "Private transport in Riyadh", img: "/locations/riyadh-hero.webp" },
+    ],
+    routeSlug: "riyadh-to-taif",
   },
 ];
 

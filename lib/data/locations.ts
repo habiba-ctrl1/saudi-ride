@@ -422,7 +422,8 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     relatedLinks: [
       { href: "/services/makkah-ziyarat", label: "Makkah Ziyarat tours (combine with a Taif day trip)" },
       { href: "/services/business-executive", label: "Private chauffeur & executive transport" },
-      { href: "/locations/makkah", label: "Makkah private transfer & chauffeur service" }
+      { href: "/locations/makkah", label: "Makkah private transfer & chauffeur service" },
+      { href: "/routes/riyadh-to-taif", label: "Riyadh to Taif private car (~785 km)" }
     ]
   },
   alkhobar: {

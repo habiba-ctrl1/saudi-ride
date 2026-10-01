@@ -10,6 +10,8 @@ import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { SUB_AREAS } from "@/lib/data/subareas";
 import { contactConfig } from "@/lib/config/contact";
+import { RIYADH_PAGES } from "@/lib/data/riyadh-cluster";
+import { RiyadhChildPage } from "@/components/location/riyadh/RiyadhChildPage";
 
 export const revalidate = 86400; // revalidate every 24 hours
 
@@ -72,6 +74,21 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const area = SUB_AREAS[areaKey];
   const capitalizedCity = city.charAt(0).toUpperCase() + city.slice(1);
 
+  // Riyadh cluster pages (rebuilt 2026-10-01) carry their own metadata in
+  // lib/data/riyadh-cluster.ts. Canonical pattern unchanged.
+  const rp = city === "riyadh" ? RIYADH_PAGES[subarea] : undefined;
+  if (rp) {
+    const url = `https://taxisaudiarabia.com/locations/riyadh/${subarea}`;
+    const img = `https://taxisaudiarabia.com${rp.heroImage}`;
+    return {
+      title: { absolute: rp.title },
+      description: rp.metaDescription,
+      alternates: { canonical: url },
+      openGraph: { title: rp.title, description: rp.metaDescription, type: "website", url, images: [{ url: img, alt: rp.heroAlt }] },
+      twitter: { card: "summary_large_image", title: rp.title, description: rp.metaDescription, images: [img] },
+    };
+  }
+
   // Service-kind pages (e.g. private-driver) carry their own metaTitle/
   // metaDescription — distinct commercial intent, not a district page.
   if (area.kind === "service" && area.metaTitle) {
@@ -123,6 +140,9 @@ export default async function SubAreaPage({ params }: PageProps) {
 
   const area = SUB_AREAS[areaKey];
   const capitalizedCity = city.charAt(0).toUpperCase() + city.slice(1);
+
+  const riyadhPage = city === "riyadh" ? RIYADH_PAGES[subarea] : undefined;
+  if (riyadhPage) return <RiyadhChildPage page={riyadhPage} />;
 
   return (
     <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">

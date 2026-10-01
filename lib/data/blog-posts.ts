@@ -1232,7 +1232,7 @@ A half-day or full-day private car hire lets you pair Diriyah with other Riyadh 
 
 ### Book Your Riyadh Transport
 
-See our [taxi service in Riyadh](/locations/riyadh) for airport transfers and city rides, or ask about hourly private car hire to build a custom Diriyah-and-Riyadh itinerary.
+See our [Riyadh to Diriyah transfer page](/locations/riyadh/diriyah) for return trips to At-Turaif, our [taxi service in Riyadh](/locations/riyadh) for airport transfers and city rides, or [hourly private driver hire](/locations/riyadh/private-driver) to build a custom Diriyah-and-Riyadh itinerary.
 `
   },
   {
@@ -1270,7 +1270,7 @@ Families and groups attending Season events together often find a van more pract
 
 ### Book Your Season Transport
 
-Whether you're flying in for Riyadh Season or already staying in the city, see our [taxi service in Riyadh](/locations/riyadh) for airport transfers and point-to-point rides, with your fare confirmed on WhatsApp before you travel.
+Whether you're flying in for Riyadh Season or already staying in the city, see our [Boulevard City and Boulevard World transport page](/locations/riyadh/boulevard) for drop-offs and late pickups, or our [taxi service in Riyadh](/locations/riyadh) for airport transfers and point-to-point rides, with your fare confirmed on WhatsApp before you travel.
 `
   },
   {

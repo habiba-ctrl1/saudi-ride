@@ -8,7 +8,7 @@ export const SUB_AREAS: Record<string, {
   // "service" = a commercial-intent page (e.g. private driver / hourly hire)
   // sharing this same [city]/[subarea] route — distinct content shape, no
   // Travel Times/Landmarks section, its own H1/metadata and a use-cases list.
-  kind?: "district" | "service";
+  kind?: "district" | "service" | "attraction";
   h1?: string;
   metaTitle?: string;
   metaDescription?: string;
@@ -159,6 +159,18 @@ export const SUB_AREAS: Record<string, {
       { question: "What if my flight lands late at night?", answer: "We operate 24/7, so a late-night or early-morning hotel transfer is a normal booking — share your flight number when you book and we check it before pickup." },
       { question: "Can the driver wait if I have a meeting before going to my hotel?", answer: "Yes — for a multi-stop day (airport, a meeting, then your hotel) hourly hire is usually the better option than a single transfer. See our private driver page for hourly and full-day hire in Riyadh." },
     ],
+  },
+  // Riyadh — added 2026-10-01 (approved Tier-1, seo/riyadh-keyword-map.md).
+  // Page content lives in lib/data/riyadh-cluster.ts; these entries register
+  // the URLs for generateStaticParams + the sitemap.
+  "riyadh-boulevard": {
+    city: "riyadh", subarea: "boulevard", name: "Boulevard (Hittin)", nameAr: "البوليفارد",
+    kind: "attraction",
+    description: "Private transport to Boulevard City and Boulevard World in Hittin, Riyadh — Riyadh Season drop-offs and late-night pickups.",
+  },
+  "riyadh-front": {
+    city: "riyadh", subarea: "riyadh-front", name: "Riyadh Front", nameAr: "واجهة روشن",
+    description: "Private transfers to Riyadh Front (ROSHN Front) and the Riyadh Front Exhibition & Conference Center (RFECC) on Airport Road.",
   },
   // Jeddah (Wave 3 — rich programmatic pages)
   "al-balad": {

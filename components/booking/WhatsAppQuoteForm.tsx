@@ -10,7 +10,7 @@ import { useLanguage } from "@/lib/context/LanguageContext";
 import { contactConfig } from "@/lib/config/contact";
 import { trackEvent } from "@/lib/analytics";
 import { getUtm } from "@/lib/utm";
-import { MapPin, Calendar, Car, MessageCircle, Users, Phone, User, Mail, Plane, Clock } from "lucide-react";
+import { MapPin, Calendar, Car, MessageCircle, Users, Phone, User, Mail, Plane, Clock, Luggage } from "lucide-react";
 
 const PHONE_RE = /^\+?[0-9\s-]{8,20}$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -30,6 +30,7 @@ const TRIP_TYPES = [
 ];
 
 const PASSENGERS = ["1", "2", "3", "4", "5-6", "7+"];
+const LUGGAGE = ["0", "1", "2", "3", "4", "5-6", "7+"];
 const HOURS_NEEDED = ["2", "3", "4", "6", "8", "12", "Full day"];
 
 function InputRow({ icon, children }: { icon: React.ReactNode; children: React.ReactNode }) {
@@ -54,6 +55,10 @@ export interface WhatsAppQuoteFormProps {
   /** Force the form's language regardless of context — used on the Arabic route
    *  pages so the form always renders RTL/Arabic even outside a language switch. */
   forceLocale?: "en" | "ar";
+  /** Pre-select the trip type (e.g. "By the Hour" on a private-driver page). */
+  defaultTripType?: "One Way" | "Round Trip" | "By the Hour";
+  /** Contextual submit label (English only); Arabic keeps the default. */
+  submitLabel?: string;
 }
 
 export default function WhatsAppQuoteForm({
@@ -61,11 +66,13 @@ export default function WhatsAppQuoteForm({
   defaultDropoff = "",
   defaultVehicle = "VIP SUV",
   forceLocale,
+  defaultTripType = "One Way",
+  submitLabel,
 }: WhatsAppQuoteFormProps = {}) {
   const { language } = useLanguage();
   const isRtl = (forceLocale ?? language) === "ar";
 
-  const [tripType, setTripType] = useState("One Way");
+  const [tripType, setTripType] = useState<string>(defaultTripType);
   const [pickup, setPickup] = useState(defaultPickup);
   const [dropoff, setDropoff] = useState(defaultDropoff);
   const [dateTime, setDateTime] = useState("");
@@ -73,6 +80,7 @@ export default function WhatsAppQuoteForm({
   const [hoursNeeded, setHoursNeeded] = useState("");
   const [flightNumber, setFlightNumber] = useState("");
   const [passengers, setPassengers] = useState("");
+  const [luggage, setLuggage] = useState("");
   const [vehicle, setVehicle] = useState(defaultVehicle);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -95,7 +103,7 @@ export default function WhatsAppQuoteForm({
     setEmailError(emailInvalid);
     if (nameInvalid || phoneInvalid || emailInvalid) return;
 
-    trackEvent("lead_captured", { source: "whatsapp_quote_form", fromCity: pickup, toCity: dropoff, vehicleClass: vehicle, tripType, passengers, locale: language, flightNumber: flightNumber || undefined, returnDateTime: returnDateTime || undefined, hoursNeeded: hoursNeeded || undefined });
+    trackEvent("lead_captured", { source: "whatsapp_quote_form", fromCity: pickup, toCity: dropoff, vehicleClass: vehicle, tripType, passengers, locale: language, flightNumber: flightNumber || undefined, returnDateTime: returnDateTime || undefined, hoursNeeded: hoursNeeded || undefined, luggage: luggage || undefined });
 
     // Non-blocking lead capture — never delays or blocks the WhatsApp open.
     try {
@@ -136,7 +144,7 @@ export default function WhatsAppQuoteForm({
           ...(isAirportTrip ? [`• رقم الرحلة: ${flightNumber || "—"}`] : []),
           `• نوع السيارة: ${VEHICLES.find((v) => v.key === vehicle)?.ar ?? vehicle}`,
           `• عدد الركاب: ${passengers || "—"}`,
-          `• الأمتعة: `,
+          `• الأمتعة: ${luggage || "—"}`,
         ]
       : [
           "Salam! I'd like a quote for a private transfer.",
@@ -151,7 +159,7 @@ export default function WhatsAppQuoteForm({
           ...(isAirportTrip ? [`• Flight number: ${flightNumber || "—"}`] : []),
           `• Vehicle: ${vehicle}`,
           `• Passengers: ${passengers || "—"}`,
-          `• Luggage: `,
+          `• Luggage (large bags): ${luggage || "—"}`,
         ];
 
     const url = `${contactConfig.whatsappLink}?text=${encodeURIComponent(lines.join("\n"))}`;
@@ -191,6 +199,7 @@ export default function WhatsAppQuoteForm({
         <input
           value={pickup}
           onChange={(e) => setPickup(e.target.value)}
+          aria-label={isRtl ? "نقطة الانطلاق" : "Pickup location"}
           placeholder={isRtl ? "نقطة الانطلاق (مثال: مطار جدة)" : "Pickup location (e.g. Jeddah Airport)"}
           className="w-full bg-transparent text-sm outline-none placeholder:text-[#9CA3AF]"
         />
@@ -199,6 +208,7 @@ export default function WhatsAppQuoteForm({
         <input
           value={dropoff}
           onChange={(e) => setDropoff(e.target.value)}
+          aria-label={isRtl ? "الوجهة" : "Destination"}
           placeholder={isRtl ? "الوجهة (مثال: مكة المكرمة)" : "Destination (e.g. Makkah)"}
           className="w-full bg-transparent text-sm outline-none placeholder:text-[#9CA3AF]"
         />
@@ -209,6 +219,7 @@ export default function WhatsAppQuoteForm({
             type="datetime-local"
             value={dateTime}
             onChange={(e) => setDateTime(e.target.value)}
+            aria-label={isRtl ? "التاريخ والوقت" : "Pickup date & time"}
             className="w-full bg-transparent text-sm outline-none text-[#1C1C1C]"
           />
         </InputRow>
@@ -264,12 +275,29 @@ export default function WhatsAppQuoteForm({
           <input
             value={flightNumber}
             onChange={(e) => setFlightNumber(e.target.value)}
+            aria-label={isRtl ? "رقم الرحلة" : "Flight number"}
             placeholder={isRtl ? "رقم الرحلة (اختياري)" : "Flight number (optional)"}
             className="w-full bg-transparent text-sm outline-none placeholder:text-[#9CA3AF]"
           />
         </InputRow>
       )}
 
+      <div className="grid gap-4 sm:grid-cols-2">
+      <InputRow icon={<Luggage className="h-4 w-4" />}>
+        <select
+          value={luggage}
+          onChange={(e) => setLuggage(e.target.value)}
+          aria-label={isRtl ? "عدد الحقائب الكبيرة" : "Large bags"}
+          className="w-full bg-transparent text-sm outline-none text-[#1C1C1C]"
+        >
+          <option value="">{isRtl ? "عدد الحقائب" : "Large bags"}</option>
+          {LUGGAGE.map((l) => (
+            <option key={l} value={l}>
+              {l}
+            </option>
+          ))}
+        </select>
+      </InputRow>
       <InputRow icon={<Car className="h-4 w-4" />}>
         <select
           value={vehicle}
@@ -284,6 +312,7 @@ export default function WhatsAppQuoteForm({
           ))}
         </select>
       </InputRow>
+      </div>
       <InputRow icon={<User className="h-4 w-4" />}>
         <input
           type="text"
@@ -293,11 +322,14 @@ export default function WhatsAppQuoteForm({
             if (nameError) setNameError(false);
           }}
           placeholder={isRtl ? "الاسم الكامل" : "Full name"}
+          aria-label={isRtl ? "الاسم الكامل" : "Full name"}
+          aria-invalid={nameError}
+          autoComplete="name"
           className="w-full bg-transparent text-sm outline-none placeholder:text-[#9CA3AF]"
         />
       </InputRow>
       {nameError && (
-        <p className="text-xs font-semibold text-red-600">
+        <p role="alert" className="text-xs font-semibold text-red-600">
           {isRtl ? "الرجاء إدخال اسمك." : "Please enter your name."}
         </p>
       )}
@@ -310,11 +342,14 @@ export default function WhatsAppQuoteForm({
             if (phoneError) setPhoneError(false);
           }}
           placeholder={isRtl ? "رقم الجوال (مثال: +966501234567)" : "Phone number (e.g. +966501234567)"}
+          aria-label={isRtl ? "رقم الجوال" : "Phone number"}
+          aria-invalid={phoneError}
+          autoComplete="tel"
           className="w-full bg-transparent text-sm outline-none placeholder:text-[#9CA3AF]"
         />
       </InputRow>
       {phoneError && (
-        <p className="text-xs font-semibold text-red-600">
+        <p role="alert" className="text-xs font-semibold text-red-600">
           {isRtl ? "الرجاء إدخال رقم جوال صحيح للمتابعة." : "Please enter a valid phone number so we can follow up."}
         </p>
       )}
@@ -327,21 +362,25 @@ export default function WhatsAppQuoteForm({
             if (emailError) setEmailError(false);
           }}
           placeholder={isRtl ? "البريد الإلكتروني" : "Email address"}
+          aria-label={isRtl ? "البريد الإلكتروني" : "Email address"}
+          aria-invalid={emailError}
+          autoComplete="email"
           className="w-full bg-transparent text-sm outline-none placeholder:text-[#9CA3AF]"
         />
       </InputRow>
       {emailError && (
-        <p className="text-xs font-semibold text-red-600">
+        <p role="alert" className="text-xs font-semibold text-red-600">
           {isRtl ? "الرجاء إدخال بريد إلكتروني صحيح." : "Please enter a valid email address so we can send your confirmation."}
         </p>
       )}
 
       <button
+        type="button"
         onClick={handleSubmit}
         className="flex w-full items-center justify-center gap-2 rounded-full bg-[#16A34A] py-4 text-sm font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all"
       >
         <MessageCircle className="h-4 w-4 fill-current" />
-        {isRtl ? "احصل على عرض سعر النقل الخاص عبر واتساب" : "Get My Private Transfer Quote"}
+        {isRtl ? "احصل على عرض سعر النقل الخاص عبر واتساب" : submitLabel ?? "Get My Private Transfer Quote"}
       </button>
       <p className="text-center text-[0.65rem] text-[#6B7280]">
         {isRtl

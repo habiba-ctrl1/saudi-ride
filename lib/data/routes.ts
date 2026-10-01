@@ -361,6 +361,23 @@ export const ROUTES_DATA = [
     descriptionAr: "نقل المسار الشمالي إلى مدينة حائل.",
     slug: "riyadh-to-hail",
   },
+  {
+    // Added 2026-10-01 (approved Tier-1, seo/riyadh-keyword-map.md).
+    // ~785 km / ~7 hr 50 min via Highway 40 — trippy.com, rome2rio, himmera
+    // (785–797 km, 7.5–8.5 h). basePrice is not displayed anywhere on route
+    // pages (fares are confirmed on WhatsApp); 0 = no internal estimate.
+    fromCity: "Riyadh",
+    toCity: "Taif",
+    fromCityAr: "الرياض",
+    toCityAr: "الطائف",
+    distance: 785,
+    duration: 470,
+    basePrice: 0,
+    popular: false,
+    description: "Private long-distance car from Riyadh to Taif on Highway 40 — door to door to the mountain city, with rest and prayer stops on request.",
+    descriptionAr: "سيارة خاصة من الرياض إلى الطائف عبر الطريق السريع 40 من الباب إلى الباب.",
+    slug: "riyadh-to-taif",
+  },
 
   // --- FROM MADINAH (10 routes) ---
   {

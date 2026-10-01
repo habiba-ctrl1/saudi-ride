@@ -47,6 +47,13 @@ const DEFAULT_FAQS = [
 // is affected. Path B (corporate vs heritage) is handled by separate per-slug
 // blocks in the body since the buyer differs by route.
 const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup: string; dropoff: string }> = {
+  "riyadh-to-taif": {
+    heading: "Get a Riyadh-to-Taif quote",
+    blurb:
+      "Send your Riyadh pickup address, date and passengers — we confirm one fixed fare for the whole car on WhatsApp. Door to door, about 785 km, with rest and prayer stops when you ask.",
+    pickup: "Riyadh",
+    dropoff: "Taif",
+  },
   "riyadh-to-dammam": {
     heading: "Get your Riyadh to Dammam quote",
     blurb:
@@ -1313,6 +1320,22 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "Is Al Ahsa worth visiting?", answer: "Yes. Al Ahsa is a UNESCO World Heritage oasis with vast palm groves, springs, and heritage sites. A full-day car lets you explore the highlights comfortably." },
     ],
   },
+  "riyadh-to-taif": {
+    tldr: "A private car from Riyadh to Taif is about 785 km on Highway 40 — roughly 7 hours 50 minutes of driving, longer with rest and prayer stops. It is door to door, one fixed fare for the whole car agreed on WhatsApp before booking, and popular with families heading to Taif's cooler mountain climate in summer.",
+    tldrFacts: [
+      { label: "Distance", value: "~785 km" },
+      { label: "Driving time", value: "~7 hr 50 min" },
+      { label: "Road", value: "Highway 40" },
+      { label: "Fare", value: "Agreed on WhatsApp" },
+    ],
+    faqs: [
+      { question: "How far is Taif from Riyadh by road?", answer: "About 785 km, mostly on Highway 40 heading west — roughly 7 hours 50 minutes of driving before stops." },
+      { question: "Is it better to drive or fly from Riyadh to Taif?", answer: "Flying is faster in the air, but involves airport transfers at both ends and per-person tickets. A private car is door to door with one fare for the whole family and all the luggage — the usual choice for groups and summer stays." },
+      { question: "Can we stop on the way to Taif?", answer: "Yes. Tell the driver when you want to stop for prayer, food or rest — Al Quway'iyah is a common first stop out of Riyadh." },
+      { question: "Can the trip continue to Makkah or Jeddah?", answer: "Yes. Taif is about 90 km from Makkah; you can book Riyadh to Taif and continue later, or plan a multi-stop trip — tell us the itinerary for a quote." },
+      { question: "How much is a car from Riyadh to Taif?", answer: "It depends on the vehicle and the date. Send your pickup address, date and passengers and we agree one fixed fare before booking — no meter, no surge." },
+    ],
+  },
   "riyadh-to-hail": {
     tldr: "A taxi from Riyadh to Hail is about 600 km and takes roughly 5.5 hours on the northern highway. The fare is fixed, confirmed on WhatsApp door-to-door, with rest stops included for the long-distance journey.",
     tldrFacts: [
@@ -2207,6 +2230,7 @@ const MORE_RIYADH_ROUTES: { slug: string; label: string; distance: number; price
   { slug: "riyadh-to-madinah", label: "Riyadh to Madinah", distance: 840, price: 550 },
   { slug: "riyadh-to-alahsa", label: "Riyadh to Al Ahsa", distance: 330, price: 280 },
   { slug: "riyadh-to-hail", label: "Riyadh to Hail", distance: 600, price: 450 },
+  { slug: "riyadh-to-taif", label: "Riyadh to Taif", distance: 785, price: 0 },
   { slug: "riyadh-to-abudhabi", label: "Riyadh to Abu Dhabi, UAE", distance: 850, price: 1100 },
 ];
 
@@ -2304,6 +2328,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // only, no price or content claims changed. Formula below still covers
   // every other route.
   const TITLE_OVERRIDES: Record<string, string> = {
+    "riyadh-to-taif": "Riyadh to Taif Private Car | 785 km Door-to-Door Transfer",
     "jeddah-airport-to-makkah": "Taxi Jeddah Airport to Makkah — Fare, Distance & Booking",
     "makkah-to-madinah": "Taxi Makkah to Madinah — Fare on WhatsApp",
     "riyadh-to-dammam": "Riyadh to Dammam Taxi | Private Car & Chauffeur",
@@ -2349,6 +2374,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // Per-slug description overrides — same CTR-fix rationale as TITLE_OVERRIDES,
   // for pages with confirmed impressions/position but zero clicks.
   const DESCRIPTION_OVERRIDES: Record<string, string> = {
+    "riyadh-to-taif": "Private car from Riyadh to Taif — about 785 km on Highway 40, roughly 8 hours, door to door with rest stops. One fixed fare agreed on WhatsApp before booking.",
     "riyadh-to-dammam": "Private transfer from Riyadh to Dammam — approx 390 km, around 3.5 hours, door-to-door by sedan, SUV or van. Fare confirmed on WhatsApp before booking, 24/7.",
     "jeddah-to-kaec": "Jeddah to KAEC (King Abdullah Economic City) taxi — 120 km, about 1 hr 20 min. Get your exact fare confirmed on WhatsApp before booking. Corporate sedans, 24/7.",
     "riyadh-to-alula": "Riyadh to AlUla taxi — 1,050 km, about 10 hours. Get your exact fare confirmed on WhatsApp before booking. Premium long-distance transfer, rest stops included.",

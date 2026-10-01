@@ -114,7 +114,7 @@ export function Footer() {
       ],
       company: [
         { label: "About Us", href: "/about" },
-        { label: "Our Fleet", href: "/fleet" },
+        { label: "Vehicle Categories", href: "/fleet" },
         { label: "Pricing", href: "/pricing" },
         { label: "FAQ", href: "/faq" },
         { label: "Contact Us", href: "/contact" },
@@ -168,7 +168,7 @@ export function Footer() {
       ],
       company: [
         { label: "من نحن", href: "/about" },
-        { label: "أسطول سياراتنا", href: "/fleet" },
+        { label: "فئات السيارات", href: "/fleet" },
         { label: "الأسعار", href: "/pricing" },
         { label: "الأسئلة الشائعة", href: "/faq" },
         { label: "اتصل بنا", href: "/contact" },
@@ -221,7 +221,7 @@ export function Footer() {
       ],
       company: [
         { label: "ہمارے بارے میں", href: "/about" },
-        { label: "ہمارا فلیٹ", href: "/fleet" },
+        { label: "گاڑیوں کی اقسام", href: "/fleet" },
         { label: "قیمتیں", href: "/pricing" },
         { label: "عمومی سوالات", href: "/faq" },
         { label: "رابطہ کریں", href: "/contact" },
