@@ -6,12 +6,12 @@ export function generateStaticParams() {
 
 // No notFound import
 import { Metadata } from "next";
-import { MapPin, ArrowRight, Car, Building2, CheckCircle2, HelpCircle, Star, Quote, PlaneLanding, ExternalLink, MessageSquare } from "lucide-react";
+import { MapPin, ArrowRight, Car, Building2, CheckCircle2, HelpCircle, Star, Quote, PlaneLanding, ExternalLink, MessageSquare, Clock, Users, Luggage, UserCheck } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
+import { serviceSchema, faqSchema, speakableSchema, howToSchema, itemListSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { SUB_AREAS } from "@/lib/data/subareas";
@@ -21,6 +21,12 @@ import { trustStats } from "@/lib/config/stats";
 import { contactConfig } from "@/lib/config/contact";
 import { CityTransferNetwork, type TransferDestination } from "@/components/location/CityTransferNetwork";
 import { TransferJourneySteps } from "@/components/location/TransferJourneySteps";
+import { VehicleFitChooser, type VehicleFitOption } from "@/components/location/VehicleFitChooser";
+import { ServiceSelector, type ServiceTile } from "@/components/location/ServiceSelector";
+import { TouristJourney, type JourneyStop } from "@/components/location/TouristJourney";
+import { VehicleShowcase, type ShowcaseVehicle } from "@/components/location/VehicleShowcase";
+import { VehicleRecommender } from "@/components/location/VehicleRecommender";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 
 // Real distances/times pulled from the same ROUTES_DATA source the route
 // pages read from (CLAUDE.md single-source-of-truth rule) — a compact
@@ -37,14 +43,110 @@ const CITY_TRANSFER_NETWORK: Record<string, TransferDestination[]> = {
   ],
 };
 
-const AIRPORT_JOURNEY: Record<string, { heading: string; steps: { title: string; desc: string }[] }> = {
+const AIRPORT_JOURNEY: Record<string, { heading: string; steps: { title: string; desc: string; icon?: typeof PlaneLanding }[] }> = {
   jeddah: {
     heading: "Your JED Airport Transfer, Step by Step",
     steps: [
-      { title: "Flight lands at JED", desc: "King Abdulaziz International Airport, Terminal 1, North Terminal, or the Hajj Terminal." },
-      { title: "Share your flight number", desc: "Add it when you book so we check it before pickup, even if the flight is delayed." },
-      { title: "Meet & greet at arrivals", desc: "Your driver waits with a name sign and helps with luggage." },
-      { title: "Private vehicle to your destination", desc: "Straight to your Jeddah hotel, or on to Makkah or Madinah, with a Miqat stop on request." },
+      { title: "Flight lands at JED", desc: "King Abdulaziz International Airport, Terminal 1, North Terminal, or the Hajj Terminal.", icon: PlaneLanding },
+      { title: "Share your flight number", desc: "Add it when you book so we check it before pickup, even if the flight is delayed.", icon: Luggage },
+      { title: "Meet & greet at arrivals", desc: "Your driver waits with a name sign and helps with luggage.", icon: UserCheck },
+      { title: "Private vehicle to your destination", desc: "Straight to your Jeddah hotel, or on to Makkah or Madinah, with a Miqat stop on request.", icon: Car },
+    ],
+  },
+  riyadh: {
+    heading: "Your RUH Airport Transfer, Step by Step",
+    steps: [
+      { title: "Flight lands at RUH", desc: "King Khalid International Airport, about 35 km north of central Riyadh.", icon: PlaneLanding },
+      { title: "Share your flight number", desc: "Add it when you book so we check it before pickup, even if the flight is delayed.", icon: Luggage },
+      { title: "Meet & greet at arrivals", desc: "Your driver waits with a name sign and helps with luggage.", icon: UserCheck },
+      { title: "Private vehicle to your destination", desc: "Straight to your Olaya, KAFD or Diplomatic Quarter hotel, a business meeting, or on to Dammam.", icon: Car },
+    ],
+  },
+};
+
+// Hero trust chips — what this city's service actually covers, at a glance.
+const CITY_HERO_HIGHLIGHTS: Record<string, string[]> = {
+  jeddah: ["JED Airport", "Jeddah Hotels", "Makkah", "Madinah", "Local Chauffeur"],
+};
+
+// "What are you travelling for?" — a navigation grid, not decoration. Each
+// tile routes to the page or on-page section that owns that specific intent.
+// Jeddah-only for now; extend as other cities get the same section coverage.
+const SERVICE_SELECTOR: Record<string, { heading: string; tiles: ServiceTile[] }> = {
+  jeddah: {
+    heading: "What are you travelling for?",
+    tiles: [
+      { icon: PlaneLanding, label: "Airport Transfer", desc: "JED ↔ Jeddah hotels or the city", href: "/airports/king-abdulaziz-jeddah" },
+      { icon: Car, label: "Makkah Transfer", desc: "Jeddah ↔ Makkah, ~85 km", href: "/routes/jeddah-to-makkah" },
+      { icon: Car, label: "Madinah Transfer", desc: "Jeddah ↔ Madinah, ~420 km", href: "/routes/jeddah-to-madinah" },
+      { icon: MapPin, label: "Local Jeddah", desc: "Hotels, Corniche, Al-Balad, malls", href: "#areas-we-serve" },
+      { icon: Clock, label: "Hourly Chauffeur", desc: "Multiple stops, business or sightseeing", href: "#hourly-chauffeur" },
+      { icon: Users, label: "Family & Group", desc: "SUV or van, extra luggage", href: "#vehicles" },
+    ],
+  },
+};
+
+// Sample one-day itinerary, Jeddah-only — shows the service covers a full
+// day out, not just an airport ride. Every stop with an href is a real,
+// existing page (subarea pages in lib/data/subareas.ts).
+const TOURIST_JOURNEY: Record<string, { heading: string; intro: string; stops: JourneyStop[] }> = {
+  jeddah: {
+    heading: "Explore Jeddah With a Private Driver",
+    intro: "Jeddah is more than an airport-to-Makkah corridor — book the same driver for a full day around the city, with the car waiting between stops.",
+    stops: [
+      { label: "Hotel", desc: "Pickup point" },
+      { label: "Al-Balad", desc: "Historic Jeddah, UNESCO site", href: "/locations/jeddah/al-balad" },
+      { label: "Corniche", desc: "Waterfront & King Fahd's Fountain", href: "/locations/jeddah/corniche" },
+      { label: "Al Salamah", desc: "Shopping near Salama Mall", href: "/locations/jeddah/al-salamah" },
+      { label: "Hotel", desc: "Drop-off, or straight to JED" },
+    ],
+  },
+};
+
+// Vehicle showcase — real fleet vehicles (lib/fleet-data.ts) with real
+// images. Jeddah-only for now; the GMC Yukon XL's Jeddah-Makkah framing is
+// the real, already-published fact from fleet-data.ts, not invented here.
+const VEHICLE_SHOWCASE: Record<string, { heading: string; intro: string; vehicles: ShowcaseVehicle[] }> = {
+  jeddah: {
+    heading: "Choose Your Vehicle",
+    intro: "Every vehicle is available through our partner network, confirmed when you book.",
+    vehicles: [
+      { category: "sedan", name: "Toyota Camry", subtitle: "Executive Sedan", image: "/fleet/toyota-camry.webp", passengers: 4, luggage: 2, bestFor: "Best for 1–3 passengers with normal luggage — airport runs and city rides.", href: "/fleet/toyota-camry" },
+      { category: "suv", name: "GMC Yukon XL", subtitle: "Premium SUV", image: "/fleet/gmc-yukon-xl.webp", passengers: 7, luggage: 5, bestFor: "The most-requested vehicle for the JED Airport to Makkah corridor — families and Umrah groups with luggage.", href: "/fleet/gmc-yukon-xl" },
+      { category: "van", name: "Hyundai Staria VIP", subtitle: "VIP Van", image: "/fleet/real/hyundai-staria-exterior.webp", passengers: 7, luggage: 4, bestFor: "Best for larger groups or families travelling together with extra luggage.", href: "/fleet/hyundai-staria" },
+    ],
+  },
+};
+
+function groupFaqsByCategory<T extends { category?: string }>(items: T[]): { category: string; items: T[] }[] {
+  const map = new Map<string, T[]>();
+  for (const item of items) {
+    const key = item.category ?? "General";
+    if (!map.has(key)) map.set(key, []);
+    map.get(key)!.push(item);
+  }
+  return Array.from(map.entries()).map(([category, items]) => ({ category, items }));
+}
+
+// Per-city H1 override — only add a city here once its generic templated H1
+// has been explicitly approved for replacement (CLAUDE.md rule 3: never touch
+// an H1 on a page with ranking history without explicit sign-off). All other
+// cities keep the original "Private Taxi & Chauffeur Service in {City}" H1.
+const CITY_H1: Record<string, { line1: string; line2: string; cityWord: string }> = {
+  riyadh: { line1: "Private Transfers, Taxis &", line2: "Chauffeur Services in", cityWord: "Riyadh" },
+};
+
+// Vehicle-fit chooser per city — real categories from facts.md only, each
+// linking to the page that actually fulfils it. Riyadh-only for now.
+const VEHICLE_FIT: Record<string, { heading: string; intro: string; options: VehicleFitOption[] }> = {
+  riyadh: {
+    heading: "Which Vehicle Fits Your Riyadh Trip?",
+    intro: "Every vehicle is available through our partner network, confirmed when you book — pick the category that matches your trip.",
+    options: [
+      { category: "Executive sedan", capacity: "1–3 passengers", bestFor: "Airport runs, single meetings, and point-to-point city trips across Olaya or KAFD.", href: "/fleet", linkLabel: "View sedan options" },
+      { category: "Full-size SUV", capacity: "4–5 passengers + luggage", bestFor: "Family airport transfers, hotel moves, and business days where you're carrying bags.", href: "/fleet", linkLabel: "View SUV options" },
+      { category: "Van", capacity: "6+ passengers or a group", bestFor: "Delegations, group airport pickups, and event transport that needs to travel together.", href: "/fleet", linkLabel: "View van options" },
+      { category: "Luxury / VIP fleet", capacity: "Executive & event arrivals", bestFor: "A step up for VIP arrivals, weddings and corporate events — Maybach, S-Class, Range Rover and Lexus available.", href: "/services/vip-transportation", linkLabel: "See VIP transportation" },
     ],
   },
 };
@@ -476,10 +578,22 @@ export default async function CityLocationPage({ params }: PageProps) {
             ],
           }),
           speakableSchema({ path: `/locations/${cityKey}` }),
+          ...(cityRoutes.length > 0
+            ? [itemListSchema(cityRoutes.map((r) => ({ name: `${r.fromCity} to ${r.toCity}`, href: `/routes/${r.slug}` })))]
+            : []),
         ]}
       />
       {cityData.faqs && cityData.faqs.length > 0 && (
         <JsonLd data={faqSchema(cityData.faqs)} />
+      )}
+      {AIRPORT_JOURNEY[cityKey] && (
+        <JsonLd
+          data={howToSchema({
+            name: AIRPORT_JOURNEY[cityKey].heading,
+            description: `Step-by-step private airport transfer process in ${cityData.name}.`,
+            steps: AIRPORT_JOURNEY[cityKey].steps.map((s) => ({ name: s.title, text: s.desc })),
+          })}
+        />
       )}
       <Breadcrumbs
         items={[
@@ -489,7 +603,7 @@ export default async function CityLocationPage({ params }: PageProps) {
         ]}
       />
       {/* ─── HERO ─────────────────────────────────────────────────── */}
-      <section className="relative pt-32 pb-20 overflow-hidden border-b border-[#C9A84C]/10">
+      <section className="relative pt-32 pb-20 overflow-hidden border-b border-[#16A34A]/10">
         <div className="absolute inset-0 z-0">
           <Image
             src={cityData.image}
@@ -514,27 +628,71 @@ export default async function CityLocationPage({ params }: PageProps) {
           />
         </div>
 
-        <div className="section-container relative z-10 max-w-5xl">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/20 backdrop-blur-sm px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#16A34A] mb-6">
-            <MapPin className="h-3 w-3" /> Location Guide
-          </span>
-          <h1 className="font-heading text-4xl md:text-6xl font-bold leading-tight">
-            Private Taxi &amp; Chauffeur Service in <br />
-            <span className="text-[#16A34A]">{cityData.name}</span>
-          </h1>
-          <p className="text-[#C9A84C] text-sm tracking-widest uppercase font-bold mt-2 mb-6">{cityData.nameAr} - {cityData.tagline}</p>
-          <p className="max-w-2xl text-sm md:text-base text-[#6B7280] leading-relaxed">
-            {cityData.description}
-          </p>
+        <div className="section-container relative z-10 max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-8 items-start">
+            {/* Left: identity + copy + trust chips + CTAs */}
+            <div className="lg:col-span-3">
+              <span className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/30 bg-[#16A34A]/20 backdrop-blur-sm px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#16A34A] mb-6">
+                <MapPin className="h-3 w-3" /> Location Guide
+              </span>
+              <h1 className="font-heading text-4xl md:text-6xl font-bold leading-tight">
+                {CITY_H1[cityKey] ? (
+                  <>
+                    {CITY_H1[cityKey].line1} <br />
+                    {CITY_H1[cityKey].line2} <span className="text-[#16A34A]">{CITY_H1[cityKey].cityWord}</span>
+                  </>
+                ) : (
+                  <>
+                    Private Taxi &amp; Chauffeur Service in <br />
+                    <span className="text-[#16A34A]">{cityData.name}</span>
+                  </>
+                )}
+              </h1>
+              <p className="text-[#16A34A] text-sm tracking-widest uppercase font-bold mt-2 mb-6">{cityData.nameAr} - {cityData.tagline}</p>
+              <p className="max-w-xl text-sm md:text-base text-[#6B7280] leading-relaxed">
+                {cityData.description}
+              </p>
 
-          <div className="mt-8 flex gap-4">
-            <Link
-              href={`/book?pickup=${encodeURIComponent(cityData.name)}`}
-              className="flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
-            >
-              <Car className="h-4 w-4" />
-              Book a Taxi Now
-            </Link>
+              {CITY_HERO_HIGHLIGHTS[cityKey] && (
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {CITY_HERO_HIGHLIGHTS[cityKey].map((h) => (
+                    <span key={h} className="rounded-full border border-[#16A34A]/20 bg-white/80 backdrop-blur-sm px-3 py-1.5 text-[0.7rem] font-semibold text-[#15803D]">
+                      {h}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              <div className="mt-8 flex flex-wrap gap-4">
+                <Link
+                  href={`/book?pickup=${encodeURIComponent(cityData.name)}`}
+                  className="flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
+                >
+                  <Car className="h-4 w-4" />
+                  Book a Taxi Now
+                </Link>
+                {cityLead && (
+                  <a
+                    href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(cityLead.waPrefill)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 rounded-full border border-[#16A34A]/40 bg-white/90 backdrop-blur-sm px-8 py-3.5 text-xs font-bold uppercase text-[#16A34A] hover:bg-[#16A34A]/10 transition-all"
+                  >
+                    <MessageSquare className="h-4 w-4" />
+                    Quick Quote on WhatsApp
+                  </a>
+                )}
+              </div>
+            </div>
+
+            {/* Right: the booking product itself — same form/backend used
+                sitewide (WhatsAppQuoteForm), just given hero-level visual
+                weight instead of floating a bare form over the image. */}
+            <div className="lg:col-span-2 lg:pt-2">
+              <div className="rounded-3xl bg-white/95 backdrop-blur-sm shadow-[0_20px_60px_rgba(15,23,42,0.12)] border border-[#16A34A]/10 p-1">
+                <WhatsAppQuoteForm defaultDropoff={cityData.name} />
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -542,6 +700,13 @@ export default async function CityLocationPage({ params }: PageProps) {
       <div className="section-container max-w-5xl mt-16 grid grid-cols-1 lg:grid-cols-3 gap-12">
         {/* ─── MAIN CONTENT ───────────────────────────────────────── */}
         <div className="lg:col-span-2 space-y-16">
+
+          {/* Service selector — "what are you travelling for?" navigation
+              grid, immediately after the hero so every trip type is
+              discoverable before the user starts reading prose. */}
+          {SERVICE_SELECTOR[cityKey] && (
+            <ServiceSelector heading={SERVICE_SELECTOR[cityKey].heading} tiles={SERVICE_SELECTOR[cityKey].tiles} />
+          )}
 
           {/* Quick Answer (above-the-fold AI/snippet signal) */}
           {cityData.tldr && (
@@ -597,7 +762,7 @@ export default async function CityLocationPage({ params }: PageProps) {
                   <Link href={`/routes/${route.slug}`} key={route.slug} className="group flex flex-col md:flex-row md:items-center justify-between p-5 rounded-2xl bg-white border border-[#16A34A]/12 hover:border-[#16A34A]/35 transition-colors">
                     <div className="flex items-center gap-4 mb-4 md:mb-0">
                       <div className="font-bold">{route.fromCity}</div>
-                      <ArrowRight className="h-4 w-4 text-[#C9A84C]" />
+                      <ArrowRight className="h-4 w-4 text-[#16A34A]" />
                       <div className="font-bold">{route.toCity}</div>
                       <span className="text-[0.65rem] text-[#6B7280] uppercase tracking-wider">
                         {route.distance} km · ~{Math.round(route.duration / 60)} hr
@@ -605,9 +770,9 @@ export default async function CityLocationPage({ params }: PageProps) {
                     </div>
                     <div className="flex items-center justify-between md:gap-6">
                       <div className="text-right">
-                        <p className="text-[#C9A84C] font-bold text-sm">Confirm on WhatsApp</p>
+                        <p className="text-[#16A34A] font-bold text-sm">Confirm on WhatsApp</p>
                       </div>
-                      <div className="bg-[#C9A84C]/10 text-[#C9A84C] rounded-full p-2 group-hover:bg-[#16A34A] group-hover:text-white transition-colors">
+                      <div className="bg-[#16A34A]/10 text-[#16A34A] rounded-full p-2 group-hover:bg-[#16A34A] group-hover:text-white transition-colors">
                         <ArrowRight className="h-4 w-4" />
                       </div>
                     </div>
@@ -618,7 +783,7 @@ export default async function CityLocationPage({ params }: PageProps) {
               <p className="text-[#6B7280]">Currently mapping custom routes for this city. Please contact us for a quote.</p>
             )}
             <div className="mt-6">
-              <Link href="/routes" className="text-[#C9A84C] text-sm font-bold hover:underline">View all {trustStats.routesCovered} Kingdom-wide routes &rarr;</Link>
+              <Link href="/routes" className="text-[#16A34A] text-sm font-bold hover:underline">View all {trustStats.routesCovered} Kingdom-wide routes &rarr;</Link>
             </div>
           </section>
 
@@ -655,9 +820,35 @@ export default async function CityLocationPage({ params }: PageProps) {
             </section>
           )}
 
+          {/* Vehicle-fit chooser — structured, extraction-friendly block
+              answering "which vehicle do I need" (CLAUDE.md §15/§18). */}
+          {VEHICLE_FIT[cityKey] && (
+            <VehicleFitChooser
+              heading={VEHICLE_FIT[cityKey].heading}
+              intro={VEHICLE_FIT[cityKey].intro}
+              options={VEHICLE_FIT[cityKey].options}
+            />
+          )}
+
+          {/* Vehicle showcase + interactive recommender — real fleet vehicles
+              with real images (CLAUDE.md §9/§20), plus a deterministic
+              "not sure which vehicle" selector that never submits anything. */}
+          {VEHICLE_SHOWCASE[cityKey] && (
+            <div id="vehicles" className="space-y-6 scroll-mt-24">
+              <VehicleShowcase
+                heading={VEHICLE_SHOWCASE[cityKey].heading}
+                intro={VEHICLE_SHOWCASE[cityKey].intro}
+                vehicles={VEHICLE_SHOWCASE[cityKey].vehicles}
+              />
+              <VehicleRecommender
+                options={VEHICLE_SHOWCASE[cityKey].vehicles.map((v) => ({ category: v.category, name: v.name, href: v.href }))}
+              />
+            </div>
+          )}
+
           {/* Areas within this city + nearest airport (internal linking to sub-area pages) */}
           {(citySubAreas.length > 0 || cityAirport) && (
-            <section>
+            <section id="areas-we-serve" className="scroll-mt-24">
               <h2 className="font-heading text-3xl font-bold mb-8">Areas We Serve in {cityData.name}</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {cityAirport && (
@@ -666,9 +857,9 @@ export default async function CityLocationPage({ params }: PageProps) {
                     className="group flex items-center justify-between gap-3 rounded-xl border border-[#16A34A]/12 bg-white px-4 py-3 hover:border-[#16A34A]/35 transition-colors"
                   >
                     <span className="flex items-center gap-2 text-sm font-medium text-[#1C1C1C] group-hover:text-[#16A34A]">
-                      <PlaneLanding className="h-4 w-4 text-[#C9A84C]" /> {cityAirport.name}
+                      <PlaneLanding className="h-4 w-4 text-[#16A34A]" /> {cityAirport.name}
                     </span>
-                    <ArrowRight className="h-4 w-4 text-[#C9A84C]" />
+                    <ArrowRight className="h-4 w-4 text-[#16A34A]" />
                   </Link>
                 )}
                 {CITY_AIRPORTS_EXTRA[cityKey]?.map((ap) => (
@@ -678,9 +869,9 @@ export default async function CityLocationPage({ params }: PageProps) {
                     className="group flex items-center justify-between gap-3 rounded-xl border border-[#16A34A]/12 bg-white px-4 py-3 hover:border-[#16A34A]/35 transition-colors"
                   >
                     <span className="flex items-center gap-2 text-sm font-medium text-[#1C1C1C] group-hover:text-[#16A34A]">
-                      <PlaneLanding className="h-4 w-4 text-[#C9A84C]" /> {ap.name}
+                      <PlaneLanding className="h-4 w-4 text-[#16A34A]" /> {ap.name}
                     </span>
-                    <ArrowRight className="h-4 w-4 text-[#C9A84C]" />
+                    <ArrowRight className="h-4 w-4 text-[#16A34A]" />
                   </Link>
                 ))}
                 {citySubAreas.map((area) => (
@@ -690,7 +881,7 @@ export default async function CityLocationPage({ params }: PageProps) {
                     className="group flex items-center justify-between gap-3 rounded-xl border border-[#16A34A]/12 bg-white px-4 py-3 hover:border-[#16A34A]/35 transition-colors"
                   >
                     <span className="text-sm font-medium text-[#1C1C1C] group-hover:text-[#16A34A]">Taxi in {area.name}</span>
-                    <ArrowRight className="h-4 w-4 text-[#C9A84C]" />
+                    <ArrowRight className="h-4 w-4 text-[#16A34A]" />
                   </Link>
                 ))}
               </div>
@@ -710,7 +901,7 @@ export default async function CityLocationPage({ params }: PageProps) {
               <ul className="space-y-4">
                 {cityData.tips.map((tip, idx) => (
                   <li key={idx} className="flex gap-4">
-                    <CheckCircle2 className="h-5 w-5 text-[#C9A84C] shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-5 w-5 text-[#16A34A] shrink-0 mt-0.5" />
                     <p className="text-sm text-[#6B7280]">{tip}</p>
                   </li>
                 ))}
@@ -756,7 +947,7 @@ export default async function CityLocationPage({ params }: PageProps) {
                     <Link
                       key={s.href}
                       href={s.href}
-                      className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
+                      className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#16A34A]/10 transition-all"
                     >
                       <ArrowRight className="h-3.5 w-3.5" />
                       {s.label}
@@ -767,9 +958,19 @@ export default async function CityLocationPage({ params }: PageProps) {
             );
           })()}
 
+          {/* Tourist journey — sample one-day itinerary as a visual flow,
+              answering "can I use this for a whole day out?" */}
+          {TOURIST_JOURNEY[cityKey] && (
+            <TouristJourney
+              heading={TOURIST_JOURNEY[cityKey].heading}
+              intro={TOURIST_JOURNEY[cityKey].intro}
+              stops={TOURIST_JOURNEY[cityKey].stops}
+            />
+          )}
+
           {/* Hourly / full-day car hire (high commercial intent) */}
           {hourlyHire && (
-            <section className="rounded-3xl border border-[#16A34A]/15 bg-white p-6 sm:p-8">
+            <section id="hourly-chauffeur" className="scroll-mt-24 rounded-3xl border border-[#16A34A]/15 bg-white p-6 sm:p-8">
               <h2 className="font-heading text-2xl md:text-3xl font-bold mb-3 text-[#1C1C1C]">{hourlyHire.heading}</h2>
               <p className="text-sm text-[#6B7280] leading-relaxed mb-5 max-w-2xl">{hourlyHire.intro}</p>
               <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2.5 mb-6">
@@ -792,18 +993,36 @@ export default async function CityLocationPage({ params }: PageProps) {
             </section>
           )}
 
-          {/* FAQs (FAQPage schema injected above) */}
+          {/* FAQs (FAQPage schema injected above) — grouped by category with
+              a collapsible accordion instead of a wall of open text. Cities
+              without a `category` on their FAQs fall back to one "General"
+              group, so this is backward compatible for every other city. */}
           {cityData.faqs && cityData.faqs.length > 0 && (
             <section>
               <h2 className="font-heading text-3xl font-bold mb-8 flex items-center gap-3">
-                <HelpCircle className="text-[#C9A84C] h-7 w-7" />
+                <HelpCircle className="text-[#16A34A] h-7 w-7" />
                 Frequently Asked Questions
               </h2>
-              <div className="space-y-4">
-                {cityData.faqs.map((faq, idx) => (
-                  <div key={idx} className="border border-[#16A34A]/12 rounded-2xl p-6 bg-white">
-                    <h3 className="font-bold text-base mb-2 text-[#1C1C1C]">{faq.question}</h3>
-                    <p className="text-sm text-[#6B7280] leading-relaxed">{faq.answer}</p>
+              <div className="space-y-6">
+                {groupFaqsByCategory(cityData.faqs).map((group) => (
+                  <div key={group.category}>
+                    {group.category !== "General" && (
+                      <span className="block text-[0.7rem] font-bold uppercase tracking-wider text-[#16A34A] mb-2">
+                        {group.category}
+                      </span>
+                    )}
+                    <Accordion multiple className="rounded-2xl border border-[#16A34A]/12 bg-white divide-y divide-[#16A34A]/10 px-6">
+                      {group.items.map((faq, idx) => (
+                        <AccordionItem key={idx} value={`${group.category}-${idx}`}>
+                          <AccordionTrigger className="py-4 text-sm font-bold text-[#1C1C1C] hover:no-underline">
+                            {faq.question}
+                          </AccordionTrigger>
+                          <AccordionContent className="pb-4 text-sm text-[#6B7280] leading-relaxed">
+                            {faq.answer}
+                          </AccordionContent>
+                        </AccordionItem>
+                      ))}
+                    </Accordion>
                   </div>
                 ))}
               </div>
@@ -818,7 +1037,7 @@ export default async function CityLocationPage({ params }: PageProps) {
           {(!cityData.testimonials || cityData.testimonials.length === 0) && cityData.assurances && cityData.assurances.length > 0 && (
             <section>
               <h2 className="font-heading text-3xl font-bold mb-8 flex items-center gap-3">
-                <CheckCircle2 className="text-[#C9A84C] h-7 w-7" />
+                <CheckCircle2 className="text-[#16A34A] h-7 w-7" />
                 {cityData.name} Service Standards
               </h2>
               <div className="grid sm:grid-cols-2 gap-4">
@@ -840,7 +1059,7 @@ export default async function CityLocationPage({ params }: PageProps) {
             <section>
               <div className="flex items-center justify-between mb-8 flex-wrap gap-3">
                 <h2 className="font-heading text-3xl font-bold flex items-center gap-3">
-                  <Star className="text-[#C9A84C] h-7 w-7 fill-[#C9A84C]" />
+                  <Star className="text-[#16A34A] h-7 w-7 fill-[#16A34A]" />
                   What {cityData.name} Travellers Say
                 </h2>
                 {/* Numeric rating removed — show a rating only when backed by
@@ -849,14 +1068,14 @@ export default async function CityLocationPage({ params }: PageProps) {
               <div className="grid sm:grid-cols-2 gap-4">
                 {cityData.testimonials.map((t, idx) => (
                   <div key={idx} className="border border-[#16A34A]/12 rounded-2xl p-6 bg-white relative">
-                    <Quote className="h-6 w-6 text-[#C9A84C]/30 mb-3" />
+                    <Quote className="h-6 w-6 text-[#16A34A]/30 mb-3" />
                     <p className="text-sm text-[#6B7280] leading-relaxed italic mb-4">&quot;{t.quote}&quot;</p>
-                    <div className="flex items-center justify-between border-t border-[#C9A84C]/10 pt-3">
+                    <div className="flex items-center justify-between border-t border-[#16A34A]/10 pt-3">
                       <div>
                         <p className="text-sm font-bold text-[#1C1C1C]">{t.author}</p>
                         <p className="text-[0.7rem] text-[#6B7280]">{t.location}</p>
                       </div>
-                      <span className="text-[0.6rem] uppercase tracking-wider text-[#16A34A] bg-[#C9A84C]/10 px-2 py-1 rounded-md">{t.trip}</span>
+                      <span className="text-[0.6rem] uppercase tracking-wider text-[#16A34A] bg-[#16A34A]/10 px-2 py-1 rounded-md">{t.trip}</span>
                     </div>
                   </div>
                 ))}
@@ -868,7 +1087,7 @@ export default async function CityLocationPage({ params }: PageProps) {
           {cityData.relatedLinks && cityData.relatedLinks.length > 0 && (
             <section className="bg-white border border-[#16A34A]/12 rounded-3xl p-8">
               <h2 className="font-heading text-2xl font-bold mb-6 flex items-center gap-3">
-                <ExternalLink className="text-[#C9A84C] h-5 w-5" />
+                <ExternalLink className="text-[#16A34A] h-5 w-5" />
                 Related Routes & Vehicles
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -878,7 +1097,7 @@ export default async function CityLocationPage({ params }: PageProps) {
                     href={link.href}
                     className="group flex items-center gap-2 text-sm text-[#6B7280] hover:text-[#16A34A] transition-colors p-2 rounded-lg hover:bg-[#F0FDF4]"
                   >
-                    <ArrowRight className="h-3.5 w-3.5 shrink-0 text-[#C9A84C]/60 group-hover:text-[#16A34A] transition-colors" />
+                    <ArrowRight className="h-3.5 w-3.5 shrink-0 text-[#16A34A]/60 group-hover:text-[#16A34A] transition-colors" />
                     {link.label}
                   </Link>
                 ))}
@@ -971,13 +1190,13 @@ export default async function CityLocationPage({ params }: PageProps) {
           {cityData.attractions.length > 0 && (
             <div className="bg-white border border-[#16A34A]/12 rounded-3xl p-6">
               <h3 className="font-heading text-xl font-bold mb-6 flex items-center gap-2">
-                <Building2 className="text-[#C9A84C] h-5 w-5" /> Key Destinations
+                <Building2 className="text-[#16A34A] h-5 w-5" /> Key Destinations
               </h3>
               <div className="space-y-4">
                 {cityData.attractions.map((attr, idx) => (
-                  <div key={idx} className="flex justify-between items-center border-b border-[#C9A84C]/10 pb-4 last:border-0 last:pb-0">
+                  <div key={idx} className="flex justify-between items-center border-b border-[#16A34A]/10 pb-4 last:border-0 last:pb-0">
                     <span className="text-sm font-bold text-[#1C1C1C]">{attr.name}</span>
-                    <span className="text-[0.65rem] uppercase tracking-wider text-[#16A34A] bg-[#C9A84C]/10 px-2 py-1 rounded-md">{attr.dist}</span>
+                    <span className="text-[0.65rem] uppercase tracking-wider text-[#16A34A] bg-[#16A34A]/10 px-2 py-1 rounded-md">{attr.dist}</span>
                   </div>
                 ))}
               </div>
@@ -986,11 +1205,11 @@ export default async function CityLocationPage({ params }: PageProps) {
 
           {/* Vehicle Recommendation */}
           <div className="bg-white border border-[#16A34A]/15 shadow-lg rounded-3xl p-6 relative overflow-hidden">
-            <div className="absolute -right-4 -top-4 opacity-10 text-[#C9A84C]">
+            <div className="absolute -right-4 -top-4 opacity-10 text-[#16A34A]">
               <Car className="h-32 w-32" />
             </div>
             <div className="relative z-10">
-              <span className="text-[0.6rem] uppercase tracking-widest text-[#C9A84C] font-bold">Recommended</span>
+              <span className="text-[0.6rem] uppercase tracking-widest text-[#16A34A] font-bold">Recommended</span>
               <h3 className="font-heading text-xl font-bold mt-1 mb-2">SUV Class</h3>
               <p className="text-xs text-[#6B7280] mb-6 leading-relaxed">
                 For optimal comfort and ample luggage space in {cityData.name}, a premium SUV (GMC Yukon XL, Cadillac Escalade) is highly recommended.
