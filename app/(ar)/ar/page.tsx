@@ -24,6 +24,12 @@ export const metadata: Metadata = {
     locale: "ar_SA",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "تاكسي السعودية — حجز توصيل المطار وسيارات العمرة",
+    description:
+      "احجز تاكسي في السعودية بأسعار ثابتة. توصيل المطار، تنقل العمرة، ورحلات بين المدن. حجز عبر واتساب على مدار الساعة.",
+  },
 };
 
 // Matches the FAQ section actually rendered in homeTranslations.ar.faq.items

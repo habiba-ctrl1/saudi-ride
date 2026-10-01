@@ -133,7 +133,7 @@ export default function VIPTransportationPage() {
       {/* ─── HERO ──────────────────────────────────────────────────── */}
       <section className="relative pt-32 pb-20 overflow-hidden border-b border-[#C9A84C]/10">
         <div className="absolute inset-0 z-0">
-          <Image src="/services/vip-luxury-hero.webp" alt="VIP transportation in Riyadh" fill className="object-cover opacity-80" />
+          <Image src="/services/vip-luxury-hero.webp" alt="VIP transportation in Riyadh" fill priority sizes="100vw" className="object-cover opacity-80" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/55 to-[#FAFAF7]/15" />
         </div>
 

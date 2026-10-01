@@ -86,8 +86,9 @@ export default function CorporateBahrainTransportPage() {
             src="/services/border-crossings-hero.webp"
             alt="Corporate transport Saudi Arabia to Bahrain"
             fill
-            className="object-cover opacity-80"
             priority
+            sizes="100vw"
+            className="object-cover opacity-80"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/50 to-[#FAFAF7]/15" />
         </div>

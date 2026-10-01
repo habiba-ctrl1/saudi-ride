@@ -52,6 +52,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: `${guide.title} | Taxi Saudi Arabia`,
       description: guide.summary,
     },
+    twitter: {
+      card: "summary_large_image",
+      title: `${guide.title} | Taxi Saudi Arabia`,
+      description: guide.summary,
+    },
   };
 }
 

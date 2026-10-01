@@ -10,6 +10,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { faqSchema, airportTaxiServiceSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
+import { ProcessTimeline } from "@/components/visual/ProcessTimeline";
 import { AIRPORT_DETAILS } from "@/lib/data/airports";
 
 export const revalidate = 86400;
@@ -127,6 +128,8 @@ export default async function AirportLandingPage({ params }: PageProps) {
             src={airportData.image}
             alt={airportData.name}
             fill
+            priority
+            sizes="100vw"
             className="object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/50 to-[#FAFAF7]/15" />
@@ -320,6 +323,20 @@ export default async function AirportLandingPage({ params }: PageProps) {
               </section>
             </>
           )}
+
+          {/* How your airport transfer works */}
+          <section className="surface-tint rounded-3xl p-6 sm:p-8 border border-[#16A34A]/10">
+            <ProcessTimeline
+              heading={`How your ${airportData.code} airport transfer works`}
+              intro="A pre-booked private transfer from the moment you land — no taxi queue, no haggling, a fixed fare agreed before you travel."
+              steps={[
+                { title: "Book & share your flight", desc: "Send your arrival details and flight number when you book — we check it before pickup so your driver is there even if your flight shifts.", icon: PlaneLanding },
+                { title: "Meet on arrival", desc: "Your English- and Arabic-speaking driver meets you after the arrivals hall and helps with your luggage to the vehicle.", icon: CheckCircle2 },
+                { title: "Settle into your vehicle", desc: "Travel in a clean, well-maintained sedan, SUV or van matched to your group and luggage.", icon: Car },
+                { title: "Door-to-door transfer", desc: "Go straight to your hotel or destination at a fixed fare agreed in advance — no meter, no surge.", icon: MapPin },
+              ]}
+            />
+          </section>
 
           {/* Available Routes */}
           <section>

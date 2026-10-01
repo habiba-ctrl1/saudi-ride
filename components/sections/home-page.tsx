@@ -10,6 +10,7 @@ import { contactConfig } from "@/lib/config/contact";
 import { trackEvent } from "@/lib/analytics";
 import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { ParallaxSection } from "./ParallaxSection";
+import { ProcessTimeline } from "@/components/visual/ProcessTimeline";
 import { trustStats } from "@/lib/config/stats";
 import { ROUTES_DATA } from "@/lib/data/routes";
 import { credentials, hasCredential } from "@/lib/config/credentials";
@@ -1021,6 +1022,35 @@ export function HomePage() {
           </p>
         </div>
         <WhatsAppQuoteForm />
+      </section>
+
+      {/* SECTION 3b — HOW IT WORKS (booking process) */}
+      <section className="py-20 md:py-24 border-t border-[#16A34A]/10 relative z-10 surface-tint">
+        <div className="section-container">
+          <ProcessTimeline
+            heading={language === "ar" ? "كيف تعمل الخدمة" : "How booking your transfer works"}
+            intro={
+              language === "ar"
+                ? "أربع خطوات بسيطة من طلب السعر حتى وصولك بكل راحة."
+                : "Four simple steps from your first message to arriving in comfort — no app, no account, no surge pricing."
+            }
+            steps={
+              language === "ar"
+                ? [
+                    { title: "أخبرنا برحلتك", desc: "شارك نقطة الانطلاق والوجهة والموعد وعدد الركاب عبر واتساب أو النموذج.", icon: Calendar },
+                    { title: "استلم عرض السعر", desc: "نرد بسعر ثابت وواضح عبر واتساب، عادةً خلال ساعة إلى ساعتين — بدون رسوم مخفية.", icon: MessageCircle },
+                    { title: "أكّد الحجز", desc: "وافق على السعر وسنؤكد السيارة والسائق وتفاصيل الاستلام.", icon: CheckCircle },
+                    { title: "استمتع برحلتك", desc: "يصل سائقك المحترف في الموعد وتسافر براحة من الباب إلى الباب.", icon: Car },
+                  ]
+                : [
+                    { title: "Tell us your journey", desc: "Share your pickup, destination, date and passengers — on WhatsApp or the quote form. Takes under a minute.", icon: Calendar },
+                    { title: "Get your quote", desc: "We reply with a clear, fixed fare on WhatsApp, usually within 1–2 hours. No meter, no surge, no hidden fees.", icon: MessageCircle },
+                    { title: "Confirm your transfer", desc: "Approve the fare and we confirm your vehicle, professional driver and pickup details in writing.", icon: CheckCircle },
+                    { title: "Travel comfortably", desc: "Your driver arrives on time and you travel door-to-door in a clean, well-maintained vehicle.", icon: Car },
+                  ]
+            }
+          />
+        </div>
       </section>
 
       {/* SECTION 4 — SERVICES */}

@@ -18,7 +18,7 @@ import { trackEvent } from "@/lib/analytics";
 const GREEN = "#16A34A";
 const YELLOW = "#FACC15";
 
-const WHATSAPP_TEXT = "Salam! I'd like to book a private taxi with Taxi Saudi Arabia.\n\n• From: \n• To: \n• Date & time: \n• Passengers & luggage: \n• Vehicle (Sedan / SUV / Van): ";
+const WHATSAPP_TEXT = "Salam! I'd like to book a private transfer with Taxi Saudi Arabia.\n\n• From: \n• To: \n• Date & time: \n• Passengers & luggage: \n• Vehicle (Sedan / SUV / Van): ";
 const whatsappLink = `https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(WHATSAPP_TEXT)}`;
 
 // ── Transportation Services mega-menu ──

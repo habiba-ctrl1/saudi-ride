@@ -5,10 +5,10 @@ import { usePathname } from "next/navigation";
 import { useLanguage } from "@/lib/context/LanguageContext";
 import { contactConfig } from "@/lib/config/contact";
 import { trackEvent } from "@/lib/analytics";
-import { ShieldCheck, Receipt, BadgeCheck, PhoneCall } from "lucide-react";
+import { ShieldCheck, Receipt, BadgeCheck, PhoneCall, Phone, Mail, MessageCircle } from "lucide-react";
 
 const FOOTER_WHATSAPP_TEXT = {
-  en: "Salam! I'd like to book a private taxi with Taxi Saudi Arabia.\n\n• From: \n• To: \n• Date & time: \n• Passengers & luggage: \n• Vehicle (Sedan / SUV / Van): ",
+  en: "Salam! I'd like to book a private transfer with Taxi Saudi Arabia.\n\n• From: \n• To: \n• Date & time: \n• Passengers & luggage: \n• Vehicle (Sedan / SUV / Van): ",
   ar: "السلام عليكم، أرغب بحجز تاكسي خاص مع تاكسي السعودية.\n\n• من: \n• إلى: \n• التاريخ والوقت: \n• الركاب والأمتعة: \n• نوع السيارة (سيدان / SUV / فان): ",
   ur: "سلام! میں ٹیکسی سعودی عرب کے ساتھ پرائیویٹ ٹیکسی بک کروانا چاہتا ہوں۔\n\n• سے: \n• تک: \n• تاریخ اور وقت: \n• مسافر اور سامان: \n• گاڑی (سیڈان / SUV / وین): ",
 };
@@ -269,6 +269,45 @@ export function Footer() {
             <p className="text-sm leading-relaxed max-w-sm" style={{ color: "rgba(255,255,255,0.85)" }}>
               {t.tagline}
             </p>
+
+            {/* Direct contact — real details from contactConfig */}
+            <ul className="space-y-2.5 pt-1">
+              <li>
+                <a
+                  href={`${contactConfig.whatsappLink}?text=${encodeURIComponent(FOOTER_WHATSAPP_TEXT[language])}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-2.5 text-sm font-semibold text-white transition-colors hover:text-[#FACC15]"
+                >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 group-hover:bg-white/20 transition-colors">
+                    <MessageCircle className="h-4 w-4" />
+                  </span>
+                  {contactConfig.primaryPhoneDisplay}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={contactConfig.primaryPhoneLink}
+                  className="group inline-flex items-center gap-2.5 text-sm font-semibold text-white transition-colors hover:text-[#FACC15]"
+                >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 group-hover:bg-white/20 transition-colors">
+                    <Phone className="h-4 w-4" />
+                  </span>
+                  {language === "ar" ? "اتصل بنا" : "Call us"}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={contactConfig.emailLink}
+                  className="group inline-flex items-center gap-2.5 text-sm font-semibold text-white transition-colors hover:text-[#FACC15]"
+                >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 group-hover:bg-white/20 transition-colors">
+                    <Mail className="h-4 w-4" />
+                  </span>
+                  {contactConfig.email}
+                </a>
+              </li>
+            </ul>
           </div>
 
           {/* Destinations Column */}

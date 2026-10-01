@@ -6,7 +6,7 @@ import { contactConfig } from "@/lib/config/contact";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
-import { serviceSchema, speakableSchema, breadcrumbSchema } from "@/lib/schema";
+import { serviceSchema, speakableSchema } from "@/lib/schema";
 import { EVENTS, EVENTS_HUB_HERO } from "@/lib/data/events";
 
 const TITLE = "Event & Conference Transportation in Saudi Arabia | Riyadh";
@@ -22,6 +22,12 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://taxisaudiarabia.com/events",
     images: [{ url: `https://taxisaudiarabia.com${EVENTS_HUB_HERO.src}`, width: 1376, height: 768, alt: EVENTS_HUB_HERO.alt }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [`https://taxisaudiarabia.com${EVENTS_HUB_HERO.src}`],
   },
 };
 
@@ -44,10 +50,8 @@ export default function EventsHubPage() {
             areaServed: ["Riyadh", "Jeddah", "Dammam", "Saudi Arabia"],
           }),
           speakableSchema({ path: "/events" }),
-          breadcrumbSchema([
-            { name: "Home", href: "/" },
-            { name: "Events", href: "/events" },
-          ]),
+          // BreadcrumbList JSON-LD is emitted by the <Breadcrumbs> component
+          // below — don't duplicate it here (G7 fix).
         ]}
       />
       <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Events", href: "/events" }]} />

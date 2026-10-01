@@ -7,7 +7,7 @@ import { contactConfig } from "@/lib/config/contact";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
-import { serviceSchema, faqSchema, speakableSchema, breadcrumbSchema } from "@/lib/schema";
+import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { EVENTS, EVENT_SLUGS, getEvent } from "@/lib/data/events";
 
 export const revalidate = 86400;
@@ -127,11 +127,8 @@ export default async function EventPage({ params }: PageProps) {
           ...(venueListSchema ? [venueListSchema] : []),
           faqSchema(ev.faqs),
           speakableSchema({ path: `/events/${slug}` }),
-          breadcrumbSchema([
-            { name: "Home", href: "/" },
-            { name: "Events", href: "/events" },
-            { name: ev.shortName, href: `/events/${slug}` },
-          ]),
+          // BreadcrumbList JSON-LD is emitted by the <Breadcrumbs> component
+          // below — don't duplicate it here (G7 fix).
         ]}
       />
       <Breadcrumbs

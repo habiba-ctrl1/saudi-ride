@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: { canonical: "https://taxisaudiarabia.com/distance" },
   openGraph: { title: TITLE, description: DESCRIPTION, type: "website", url: "https://taxisaudiarabia.com/distance" },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
 };
 
 export default function DistanceHubPage() {
