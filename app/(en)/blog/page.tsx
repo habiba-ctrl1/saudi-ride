@@ -53,50 +53,66 @@ export default function BlogIndexPage() {
       </section>
 
       {/* ─── BLOG GRID ──────────────────────────────────────────────────── */}
-      <section className="section-container max-w-5xl py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {publishedPosts.map((post) => (
-            <article key={post.slug} className="group rounded-3xl border border-[#C9A84C]/12 bg-white overflow-hidden hover:border-[#C9A84C]/30 transition-all duration-300 flex flex-col">
-              <Link href={`/blog/${post.slug}`} className="relative h-48 overflow-hidden">
-                <Image
-                  src={post.coverImage}
-                  alt={post.title}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute top-4 left-4">
-                  <span className="rounded-full border border-[#C9A84C]/30 bg-black/60 backdrop-blur-md px-3 py-1 text-[0.6rem] font-bold uppercase tracking-wider text-[#16A34A]">
+      {/* Editorial layout: newest post as a wide featured story, the rest as
+          a card grid. Same links, same order. */}
+      <section className="section-container max-w-6xl py-14 md:py-20">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {publishedPosts.map((post, i) => {
+            const featured = i === 0;
+            return (
+              <article
+                key={post.slug}
+                className={`card card-hover group flex overflow-hidden ${featured ? "flex-col md:col-span-2 lg:col-span-3 lg:flex-row" : "flex-col"}`}
+              >
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className={`card-media no-lift relative block shrink-0 overflow-hidden ${featured ? "aspect-[16/9] lg:aspect-auto lg:w-[58%] lg:min-h-[22rem]" : "aspect-[16/10]"}`}
+                >
+                  <Image
+                    src={post.coverImage}
+                    alt={post.title}
+                    fill
+                    sizes={featured ? "(max-width: 1024px) 100vw, 60vw" : "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"}
+                    priority={featured}
+                    className="object-cover"
+                  />
+                  <span className="absolute start-4 top-4 rounded-full bg-white/95 px-3 py-1 text-[0.68rem] font-bold uppercase tracking-[0.12em] text-[#15803D] shadow-sm backdrop-blur">
                     {post.category}
                   </span>
-                </div>
-              </Link>
-              <div className="p-6 flex flex-col flex-1">
-                <Link href={`/blog/${post.slug}`} className="block flex-1">
-                  <h2 className="font-heading text-lg font-bold text-[#1C1C1C] leading-snug mb-3 group-hover:text-[#16A34A] transition-colors">
-                    {post.title}
-                  </h2>
-                  <p className="text-xs text-[#6B7280] leading-relaxed line-clamp-3 mb-6">
-                    {post.excerpt}
-                  </p>
                 </Link>
-                <div className="flex items-center justify-between pt-4 border-t border-[#C9A84C]/10 mt-auto">
-                  <div className="flex flex-col gap-1.5 text-[0.6rem] text-[#6B7280] font-medium uppercase tracking-wider">
-                    <div className="flex items-center gap-1.5">
-                      <User className="h-3 w-3 text-[#C9A84C]" />
-                      <span>{post.author}</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <Calendar className="h-3 w-3 text-[#C9A84C]" />
-                      <span>{post.publishedAt.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</span>
-                    </div>
-                  </div>
-                  <Link href={`/blog/${post.slug}`} className="flex h-8 w-8 items-center justify-center rounded-full bg-[#C9A84C]/10 text-[#C9A84C] group-hover:bg-[#16A34A] group-hover:text-white transition-colors">
-                    <ChevronRight className="h-4 w-4" />
+                <div className={`flex flex-1 flex-col ${featured ? "p-6 md:p-8 lg:p-10 lg:justify-center" : "p-6"}`}>
+                  {featured && <span className="t-eyebrow mb-3">Latest guide</span>}
+                  <Link href={`/blog/${post.slug}`} className="block flex-1">
+                    <h2 className={`font-heading font-bold leading-snug text-[#0F172A] transition-colors group-hover:text-[#15803D] ${featured ? "text-[clamp(1.4rem,2.4vw,2rem)] mb-4" : "text-lg mb-3"}`}>
+                      {post.title}
+                    </h2>
+                    <p className={`leading-relaxed text-[#64748B] ${featured ? "text-[0.98rem] line-clamp-4 mb-6" : "text-sm line-clamp-3 mb-6"}`}>
+                      {post.excerpt}
+                    </p>
                   </Link>
+                  <div className="mt-auto flex items-center justify-between border-t border-[#0F172A]/[0.06] pt-4">
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs font-medium text-[#64748B]">
+                      <span className="inline-flex items-center gap-1.5">
+                        <User className="h-3.5 w-3.5 text-[#16A34A]" />
+                        {post.author}
+                      </span>
+                      <span className="inline-flex items-center gap-1.5">
+                        <Calendar className="h-3.5 w-3.5 text-[#16A34A]" />
+                        {post.publishedAt.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                      </span>
+                    </div>
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      aria-label={`Read: ${post.title}`}
+                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#F0FDF4] text-[#16A34A] transition-colors group-hover:bg-[#16A34A] group-hover:text-[#FFFFFF]"
+                    >
+                      <ChevronRight className="h-4 w-4 rtl:-scale-x-100" />
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </div>
       </section>
     </div>

@@ -185,7 +185,7 @@ export default async function VehicleDetailPage({
 
         {/* Hero Title Overlay */}
         <div className="absolute bottom-10 left-0 right-0 section-container">
-          <span className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#16A34A]">{vehicle.subtitle}</span>
+          <span className="t-eyebrow">{vehicle.subtitle}</span>
           <h1 className="mt-2 font-heading text-3xl font-bold md:text-5xl text-[#1C1C1C]">{vehicle.name}</h1>
           <div className="mt-3 flex items-center gap-3 flex-wrap">
             <span className="rounded-full bg-[#16A34A] px-3 py-0.5 text-[0.6rem] font-bold text-white uppercase tracking-wider">{vehicle.badge}</span>
@@ -317,7 +317,7 @@ export default async function VehicleDetailPage({
 
                 <Link
                   href={`/book?vehicle=${vehicle.slug}`}
-                  className="flex items-center justify-center gap-2 w-full rounded-full bg-[#16A34A] py-4 text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-[#15803D] shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
+                  className="btn btn-primary btn-lg btn-block"
                 >
                   Book This Vehicle
                 </Link>

@@ -22,8 +22,8 @@ export function CorporateAccountForm() {
   const [done, setDone] = useState(false);
 
   const inputCls =
-    "w-full bg-[#FAFAF7] border border-[#16A34A]/15 rounded-xl px-4 py-3 text-sm focus:border-[#C9A84C] outline-none transition-colors";
-  const labelCls = "text-xs font-bold text-[#6B7280] uppercase tracking-wider";
+    "input";
+  const labelCls = "field-label block";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -106,7 +106,7 @@ export function CorporateAccountForm() {
       <button
         type="submit"
         disabled={submitting}
-        className="w-full bg-[#16A34A] text-white font-bold uppercase tracking-wider text-xs py-4 rounded-xl hover:bg-[#15803D] disabled:opacity-60 transition-colors mt-4 flex items-center justify-center gap-2"
+        className="btn btn-primary btn-lg btn-block mt-4"
       >
         {submitting && <Loader2 className="h-4 w-4 animate-spin" />}
         Submit Application

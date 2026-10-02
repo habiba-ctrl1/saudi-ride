@@ -869,7 +869,7 @@ export function HomePage() {
                 <p className="font-heading text-lg md:text-2xl font-extrabold text-white uppercase tracking-tight leading-tight drop-shadow-md">
                   {language === "ar" ? "سافر براحة مع تاكسي السعودية" : "Travel in Comfort with Taxi Saudi Arabia"}
                 </p>
-                <p key={currentCar.name} className="mt-2 text-xs md:text-sm font-bold text-[#16A34A] uppercase tracking-widest animate-fade-in">
+                <p key={currentCar.name} className="t-eyebrow mt-2">
                   {language === "ar" ? currentCar.nameAr : currentCar.name}
                 </p>
               </div>
@@ -1054,23 +1054,63 @@ export function HomePage() {
       </section>
 
       {/* SECTION 4 — SERVICES */}
-      <section className="py-24 border-t border-[#C9A84C]/10 relative z-10" style={{ backgroundColor: "#F8FAFC" }}>
+      <section className="py-20 md:py-28 border-t border-[#0F172A]/[0.05] relative z-10" style={{ backgroundColor: "#F8FAFC" }}>
         <div className="section-container">
-          <div className="text-center space-y-3 mb-14">
-            <span className="text-[0.65rem] uppercase tracking-[0.25em] text-[#C9A84C] font-bold">
-              {t.services.badge}
-            </span>
-            <h2
-              className="font-heading font-bold"
-              style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", letterSpacing: "-0.02em", color: "#0F172A" }}
-            >
-              {t.services.title}
-            </h2>
+          <div className="section-head is-center mb-12 md:mb-14">
+            <span className="t-eyebrow">{t.services.badge}</span>
+            <h2 className="t-h2">{t.services.title}</h2>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-3">
+          {/* Featured + supporting layout: the lead service gets a 2×2 brand
+              panel; the rest sit beside/below it as compact cards. */}
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {t.services.cards.map((service, index) => {
               const Icon = service.icon;
+              const waHref = `${contactConfig.whatsappLink}?text=${encodeURIComponent(
+                `Salam! I'd like a quote for ${service.title}.\n\n• From: \n• To: \n• Date & time: \n• Passengers & luggage: \n• Vehicle (Sedan / SUV / Van): `
+              )}`;
+
+              if (index === 0) {
+                return (
+                  <motion.article
+                    key={service.title}
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ once: true, amount: 0.15 }}
+                    variants={fadeUp}
+                    transition={{ duration: 0.5 }}
+                    className="on-dark group relative flex flex-col justify-between overflow-hidden rounded-[28px] p-8 md:col-span-2 lg:row-span-2 md:p-10 band-brand shadow-[0_30px_60px_-30px_rgba(22,163,74,0.8)]"
+                  >
+                    <span aria-hidden className="pointer-events-none absolute -end-24 -top-24 h-72 w-72 rounded-full bg-[#FACC15]/20 blur-3xl transition-transform duration-700 group-hover:scale-110" />
+                    <span aria-hidden className="pointer-events-none absolute -bottom-16 -start-10 h-56 w-56 rounded-full border-[28px] border-white/[0.06]" />
+                    <div className="relative">
+                      <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15 text-[#FACC15] ring-1 ring-white/25 backdrop-blur-sm">
+                        <Icon className="h-7 w-7" />
+                      </span>
+                      <span className="mt-8 block text-[0.72rem] font-bold uppercase tracking-[0.18em] text-[#FEF08A]">Most requested</span>
+                      <h3 className="mt-3 max-w-md font-heading text-[clamp(1.6rem,2.6vw,2.2rem)] font-extrabold leading-[1.12] tracking-tight !text-[#FFFFFF]">
+                        {service.title}
+                      </h3>
+                      <p className="mt-4 max-w-lg text-[0.98rem] leading-relaxed text-white/85">{service.desc}</p>
+                    </div>
+                    <div className="relative mt-10 flex flex-wrap gap-3">
+                      <a href="#booking-console" className="btn btn-accent btn-lg">
+                        {t.misc.bookNow} <ArrowRight className="rtl:-scale-x-100" />
+                      </a>
+                      <a
+                        href={waHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => trackHomeWhatsappClick(`home_services_card_${index}`)}
+                        className="btn btn-glass btn-lg"
+                      >
+                        <MessageCircle /> Request Quote
+                      </a>
+                    </div>
+                  </motion.article>
+                );
+              }
+
               return (
                 <motion.article
                   key={service.title}
@@ -1078,70 +1118,35 @@ export function HomePage() {
                   whileInView="show"
                   viewport={{ once: true, amount: 0.15 }}
                   variants={fadeUp}
-                  transition={{ duration: 0.45, delay: index * 0.07 }}
-                  whileHover={{ y: -6, boxShadow: "0 20px 56px rgba(22,163,74,0.13)" }}
-                  className="group relative flex flex-col justify-between rounded-2xl p-7 bg-white transition-all duration-350"
-                  style={{
-                    border: "1.5px solid rgba(22,163,74,0.12)",
-                    boxShadow: "0 4px 24px rgba(0,0,0,0.04)",
-                  }}
+                  transition={{ duration: 0.45, delay: index * 0.06 }}
+                  className="card card-hover group relative flex flex-col p-6 md:p-7"
                 >
-                  {/* Gold accent line — grows on hover */}
-                  <span
-                    className="block h-[3px] rounded-full mb-6 transition-all duration-400"
-                    style={{
-                      width: "40px",
-                      background: "linear-gradient(90deg, #16A34A, #86EFAC)",
-                    }}
-                  />
-
-                  <div className="flex-1">
-                    <div className="flex items-start justify-between mb-5">
-                      <div
-                        className="rounded-xl p-3 transition-transform duration-300 group-hover:scale-110"
-                        style={{ backgroundColor: "rgba(22,163,74,0.1)" }}
-                      >
-                        <Icon className="h-6 w-6 text-[#C9A84C]" />
-                      </div>
-                      <a
-                        href={`${contactConfig.whatsappLink}?text=${encodeURIComponent(
-                          `Salam! I'd like a quote for ${service.title}.\n\n• From: \n• To: \n• Date & time: \n• Passengers & luggage: \n• Vehicle (Sedan / SUV / Van): `
-                        )}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => trackHomeWhatsappClick(`home_services_card_${index}`)}
-                        className="inline-flex items-center gap-1 text-[0.62rem] uppercase tracking-widest font-bold px-2.5 py-1 rounded-full transition-colors hover:text-white hover:bg-[#16A34A]"
-                        style={{ color: "#16A34A", backgroundColor: "rgba(22,163,74,0.08)", border: "1px solid rgba(22,163,74,0.2)" }}
-                      >
-                        <MessageCircle className="h-3 w-3" />
-                        Request Quote
-                      </a>
-                    </div>
-
-                    <h3
-                      className="font-heading font-bold text-[#1C1C1C] group-hover:text-[#16A34A] transition-colors duration-300 mb-3"
-                      style={{ fontSize: "1.2rem", letterSpacing: "-0.01em" }}
-                    >
-                      {service.title}
-                    </h3>
-
-                    <p className="text-sm leading-relaxed text-[#6B7280]">
-                      {service.desc}
-                    </p>
-                  </div>
-
-                  <div
-                    className="mt-6 pt-5 flex items-center justify-between"
-                    style={{ borderTop: "1px solid rgba(22,163,74,0.1)" }}
-                  >
+                  <div className="flex items-start justify-between gap-3">
+                    <span className="icon-tile">
+                      <Icon />
+                    </span>
                     <a
-                      href="#booking-console"
-                      className="inline-flex items-center gap-1.5 text-[0.72rem] font-bold uppercase tracking-wider text-[#C9A84C] hover:gap-3 transition-all"
+                      href={waHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackHomeWhatsappClick(`home_services_card_${index}`)}
+                      className="inline-flex min-h-9 items-center gap-1.5 rounded-full border border-[#16A34A]/20 bg-[#F0FDF4] px-3 text-[0.72rem] font-bold text-[#15803D] transition-colors hover:border-[#16A34A] hover:bg-[#16A34A] hover:text-[#FFFFFF]"
                     >
-                      <span>{t.misc.bookNow}</span>
-                      <ArrowRight className="rtl:-scale-x-100 h-3.5 w-3.5" />
+                      <MessageCircle className="h-3.5 w-3.5" />
+                      Request Quote
                     </a>
                   </div>
+
+                  <h3 className="t-h3 mt-5 transition-colors duration-300 group-hover:!text-[#15803D]">{service.title}</h3>
+                  <p className="mt-2.5 flex-1 text-sm leading-relaxed text-[#64748B]">{service.desc}</p>
+
+                  <a
+                    href="#booking-console"
+                    className="mt-6 inline-flex items-center gap-1.5 border-t border-[#0F172A]/[0.06] pt-4 text-sm font-bold text-[#15803D]"
+                  >
+                    {t.misc.bookNow}
+                    <ArrowRight className="rtl:-scale-x-100 h-4 w-4" />
+                  </a>
                 </motion.article>
               );
             })}
@@ -1179,7 +1184,7 @@ export function HomePage() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="space-y-6"
             >
-              <span className="text-[0.65rem] uppercase tracking-[0.25em] text-[#C9A84C] font-bold">
+              <span className="t-eyebrow">
                 {language === "ar" ? "من نحن" : "About Taxi Saudi Arabia"}
               </span>
               <h2 className="font-heading font-bold" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", letterSpacing: "-0.02em", color: "#0F172A" }}>
@@ -1223,7 +1228,7 @@ export function HomePage() {
                 </Link>
                 <a
                   href="#booking-console"
-                  className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/30 px-6 py-3 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#F0FDF4] transition-colors"
+                  className="btn btn-secondary"
                 >
                   {language === "ar" ? "احجز الآن" : "Book a Ride"}
                 </a>
@@ -1314,76 +1319,83 @@ export function HomePage() {
 
       {/* SECTION 6 — POPULAR ROUTES */}
       <section className="section-container py-24 border-t border-[#C9A84C]/10 relative z-10">
-        <div className="mb-14 flex flex-wrap items-end justify-between gap-6">
-          <div className="space-y-4">
-            <span className="text-xs uppercase tracking-[0.2em] text-[#C9A84C] font-semibold">
-              {t.routes.badge}
-            </span>
-            <h2 className="font-heading text-3xl font-bold md:text-4.5xl" style={{ color: "#0F172A" }}>
-              {t.routes.title}
-            </h2>
+        <div className="mb-12 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <div className="section-head">
+            <span className="t-eyebrow">{t.routes.badge}</span>
+            <h2 className="t-h2">{t.routes.title}</h2>
           </div>
-          <Link
-            href="/routes"
-            className="text-xs uppercase font-bold tracking-widest text-[#C9A84C] hover:underline"
-          >
-            {t.misc.viewAllRoutes}
+          <Link href="/routes" className="btn btn-secondary btn-sm shrink-0 self-start md:self-auto">
+            {t.misc.viewAllRoutes} <ArrowRight className="rtl:-scale-x-100" />
           </Link>
         </div>
 
-        {/* Scrollable / Responsive Route Grid */}
-        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-4">
-          {topRoutesList.map((route, index) => (
-            <div
-              key={index}
-              className="group rounded-3xl border border-[#16A34A]/12 bg-white p-6 flex flex-col justify-between hover:border-[#16A34A]/35 transition-all duration-300 shadow-sm hover:shadow-lg"
-            >
-              <div>
-                <h3 className="font-heading text-base font-bold text-[#1C1C1C] group-hover:text-[#16A34A] transition-colors leading-tight">
-                  {route[`name${language === 'ar' ? 'Ar' : 'En'}` as const]}
-                </h3>
-
-                <div className="mt-4 flex items-center justify-between text-[0.65rem] text-[#6B7280] font-bold">
-                  <span>{route.dist}</span>
-                  <span>{route.dur}</span>
+        {/* Route cards — mini origin→destination rail, real distance/time
+            chips, quote action. 5-up on desktop so 10 routes fill 2 rows. */}
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          {topRoutesList.map((route, index) => {
+            const name = route[`name${language === 'ar' ? 'Ar' : 'En'}` as const];
+            return (
+              <motion.div
+                key={index}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={fadeUp}
+                transition={{ duration: 0.45, delay: (index % 5) * 0.06 }}
+                className="card card-hover group flex flex-col p-5"
+              >
+                <div className="flex gap-3">
+                  <span aria-hidden className="flex flex-col items-center gap-1 pt-1.5">
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#16A34A] ring-4 ring-[#16A34A]/15" />
+                    <span className="w-0 flex-1 border-s-2 border-dotted border-[#16A34A]/35" />
+                    <span className="h-2.5 w-2.5 rounded-full border-2 border-[#16A34A] bg-white" />
+                  </span>
+                  <h3 className="font-heading text-[0.98rem] font-bold leading-snug text-[#0F172A] transition-colors group-hover:text-[#15803D]">
+                    {name}
+                  </h3>
                 </div>
-              </div>
 
-              <div className="mt-6 pt-5 border-t border-[#C9A84C]/10 flex items-center justify-between">
-                <a
-                  href={`${contactConfig.whatsappLink}?text=${encodeURIComponent(
-                    `Salam! I'd like a quote:\n\n• Route: ${route.nameEn}\n• Date & time: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): `
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => trackHomeWhatsappClick(`home_route_card_${route.from}`)}
-                  className="min-w-0"
-                >
-                  <p className="text-[0.55rem] uppercase tracking-wider text-[#6B7280]">
-                    {t.misc.from}
-                  </p>
-                  <p className="whitespace-nowrap font-heading text-sm font-bold text-[#16A34A] hover:underline">
+                <div className="mt-4 mb-5 flex flex-wrap gap-1.5">
+                  <span className="rounded-full bg-[#F1F5F9] px-2.5 py-1 text-[0.72rem] font-semibold text-[#475569]">{route.dist}</span>
+                  <span className="rounded-full bg-[#F1F5F9] px-2.5 py-1 text-[0.72rem] font-semibold text-[#475569]">{route.dur}</span>
+                </div>
+
+                <div className="mt-auto flex items-center justify-between gap-2 border-t border-[#0F172A]/[0.06] pt-4">
+                  <a
+                    href={`${contactConfig.whatsappLink}?text=${encodeURIComponent(
+                      `Salam! I'd like a quote:
+
+• Route: ${route.nameEn}
+• Date & time: 
+• Passengers: 
+• Vehicle (Sedan / SUV / Van): `
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackHomeWhatsappClick(`home_route_card_${route.from}`)}
+                    className="inline-flex min-h-9 items-center gap-1.5 text-[0.82rem] font-bold text-[#15803D] hover:underline"
+                  >
+                    <MessageCircle className="h-4 w-4" />
                     Request Quote
-                  </p>
-                </a>
-
-                <button
-                  onClick={scrollToBooking}
-                  aria-label={`${t.routes.btnBook}: ${route[`name${language === 'ar' ? 'Ar' : 'En'}` as const]}`}
-                  className="rounded-full bg-[#16A34A]/10 group-hover:bg-[#16A34A] p-2 text-[#16A34A] group-hover:text-white transition-all"
-                >
-                  <ArrowRight className="rtl:-scale-x-100 h-4 w-4" />
-                </button>
-              </div>
-            </div>
-          ))}
+                  </a>
+                  <button
+                    onClick={scrollToBooking}
+                    aria-label={`${t.routes.btnBook}: ${name}`}
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-[#F0FDF4] text-[#16A34A] transition-all group-hover:bg-[#16A34A] group-hover:text-[#FFFFFF]"
+                  >
+                    <ArrowRight className="rtl:-scale-x-100 h-4 w-4" />
+                  </button>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </section>
 
       {/* SECTION 7 — FLEET PREVIEW */}
       <section id="fleet-showcase" className="section-container py-24 border-t border-[#C9A84C]/10 relative z-10">
         <div className="text-center space-y-4 mb-16">
-          <span className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-[#C9A84C] font-bold">
+          <span className="t-eyebrow inline-flex">
             <span className="h-1.5 w-1.5 rounded-full bg-[#16A34A]" />
             {t.fleet.badge}
           </span>
@@ -1412,7 +1424,7 @@ export function HomePage() {
         <div className="text-center mt-12">
           <Link
             href="/fleet"
-            className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/35 px-8 py-3.5 text-sm font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all hover:border-[#16A34A]"
+            className="btn btn-secondary btn-lg"
           >
             <span>{t.fleet.btnMore}</span>
             <ArrowRight className="rtl:-scale-x-100 h-4 w-4" />
@@ -1471,7 +1483,7 @@ export function HomePage() {
         <div className="section-container relative z-10 grid gap-16 md:grid-cols-2 items-center">
           
           <div className="space-y-6">
-            <span className="text-xs uppercase tracking-[0.25em] text-[#C9A84C] font-semibold flex items-center gap-1.5">
+            <span className="t-eyebrow">
               <Sparkles className="h-4.5 w-4.5 text-[#C9A84C]" />
               <span>{t.misc.umrahBadge}</span>
             </span>
@@ -1499,7 +1511,7 @@ export function HomePage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackHomeWhatsappClick("home_umrah")}
-                className="inline-flex items-center gap-3 rounded-full bg-[#16A34A] px-8 py-4 text-xs font-bold uppercase tracking-wider text-white shadow-[0_4px_20px_rgba(22,163,74,0.3)] transition-all hover:bg-[#15803D] hover:scale-102"
+                className="btn btn-primary btn-lg"
               >
                 <MessageCircle className="h-5 w-5 fill-white" />
                 <span>{t.umrah.btnWhatsApp}</span>
@@ -1652,7 +1664,7 @@ export function HomePage() {
       <section className="section-container py-24 border-t border-[#C9A84C]/10 relative z-10">
         <div className="mb-14 flex flex-wrap items-end justify-between gap-6">
           <div className="space-y-4">
-            <span className="text-xs uppercase tracking-[0.2em] text-[#C9A84C] font-semibold">
+            <span className="t-eyebrow">
               {t.blog.badge}
             </span>
             <h2 className="font-heading text-3xl font-bold md:text-4.5xl" style={{ color: "#0F172A" }}>
@@ -1706,7 +1718,7 @@ export function HomePage() {
       <section className="section-container py-24 border-t border-[#C9A84C]/10 relative z-10 bg-white">
         <div className="max-w-4xl mx-auto">
           <div className="text-center space-y-3 mb-12">
-            <span className="text-[0.65rem] uppercase tracking-[0.25em] font-bold text-[#16A34A]">
+            <span className="t-eyebrow">
               {t.faq?.badge || "Frequently Asked Questions"}
             </span>
             <h2
@@ -1771,13 +1783,13 @@ export function HomePage() {
           
           <div className="mt-10 flex flex-wrap justify-center gap-4 text-xs font-semibold uppercase tracking-wider">
             <a
-              className="rounded-full bg-[#16A34A] px-8 py-4 text-white hover:bg-[#15803D] transition-all duration-300 hover:scale-102 font-bold shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
+              className="btn btn-primary btn-lg"
               href="#booking-console"
             >
               {t.cta.btnBook}
             </a>
             <a
-              className="rounded-full border border-[#C9A84C]/45 px-8 py-4 text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all flex items-center gap-2 font-bold"
+              className="btn btn-secondary btn-lg"
               href={homeWhatsappLink}
               target="_blank"
               rel="noopener noreferrer"

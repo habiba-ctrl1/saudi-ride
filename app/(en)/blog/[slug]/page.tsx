@@ -195,7 +195,7 @@ export default async function BlogPostPage({ params }: PageProps) {
       <section className="section-container max-w-4xl py-16">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12">
           
-          <div className="prose prose-p:leading-relaxed prose-p:text-[#6B7280] prose-headings:font-heading prose-headings:text-[#1C1C1C] prose-a:text-[#C9A84C] prose-strong:text-[#1C1C1C] prose-ul:text-[#6B7280] prose-ol:text-[#6B7280] prose-li:marker:text-[#C9A84C] prose-blockquote:text-[#1C1C1C] prose-blockquote:border-l-[#C9A84C] prose-blockquote:bg-[#C9A84C]/8 prose-blockquote:rounded-r-xl prose-blockquote:py-2 prose-blockquote:pr-4 prose-th:text-[#1C1C1C] prose-td:text-[#6B7280] max-w-none">
+          <div className="tsa-prose prose prose-lg mx-auto max-w-[70ch] prose-p:leading-[1.8] prose-p:text-[#475569] prose-headings:font-heading prose-headings:tracking-tight prose-headings:text-[#0F172A] prose-h2:mt-12 prose-a:text-[#15803D] prose-strong:text-[#0F172A] prose-ul:text-[#475569] prose-ol:text-[#475569] prose-li:marker:text-[#16A34A] prose-blockquote:not-italic prose-blockquote:text-[#1E293B] prose-blockquote:border-s-[#16A34A] prose-blockquote:bg-[#F0FDF4] prose-blockquote:rounded-e-xl prose-blockquote:py-2 prose-blockquote:pe-4 prose-th:text-[#0F172A] prose-td:text-[#475569] prose-img:rounded-2xl">
             <ReactMarkdown>{post.content}</ReactMarkdown>
 
             {/* Contextual internal links (topical cluster) */}
@@ -225,7 +225,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               </p>
               <Link
                 href="/book"
-                className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
+                className="btn btn-primary btn-lg"
               >
                 Book Your Ride
                 <ChevronRight className="h-4 w-4" />

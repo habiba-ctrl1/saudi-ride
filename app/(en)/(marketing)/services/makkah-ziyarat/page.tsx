@@ -118,7 +118,7 @@ export default function MakkahZiyaratPage() {
             href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent("Salam, I'd like to book a Makkah Ziyarat tour. My hotel and preferred date are:")}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
+            className="btn btn-primary btn-lg"
           >
             Book Ziyarat Tour on WhatsApp
           </a>
@@ -196,7 +196,7 @@ export default function MakkahZiyaratPage() {
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
+              className="btn btn-primary btn-lg"
             >
               <MessageCircle className="h-4 w-4" /> Book Ziyarat on WhatsApp
             </a>

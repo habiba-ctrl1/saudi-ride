@@ -48,26 +48,41 @@ function LinkColumn({
   title,
   icon: Icon,
   links,
+  accent = false,
 }: {
   title: string;
   icon: typeof Car;
   links: { href: string; label: string }[];
+  accent?: boolean;
 }) {
   return (
-    <div className="bg-white border border-[#16A34A]/12 rounded-3xl p-7">
-      <h3 className="font-heading text-lg font-bold text-[#1C1C1C] mb-5 flex items-center gap-2.5">
-        <Icon className="h-5 w-5 text-[#C9A84C]" />
+    <div
+      className={`relative overflow-hidden rounded-3xl p-6 sm:p-7 ${
+        accent
+          ? "bg-gradient-to-br from-[#16A34A] to-[#166534] text-[#FFFFFF] shadow-[0_20px_44px_-24px_rgba(22,163,74,0.9)]"
+          : "border border-[#0F172A]/[0.07] bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
+      }`}
+    >
+      {accent && <span aria-hidden className="absolute -end-12 -top-12 h-40 w-40 rounded-full bg-[#FACC15]/20 blur-2xl" />}
+      <h3 className={`relative mb-4 flex items-center gap-3 font-heading text-lg font-bold ${accent ? "!text-[#FFFFFF]" : "text-[#0F172A]"}`}>
+        <span className={`flex h-10 w-10 items-center justify-center rounded-xl ${accent ? "bg-white/15 text-[#FACC15]" : "bg-[#F0FDF4] text-[#16A34A]"}`}>
+          <Icon className="h-5 w-5" />
+        </span>
         {title}
       </h3>
-      <ul className="space-y-3">
+      <ul className="relative">
         {links.map((l) => (
-          <li key={l.href}>
+          <li key={l.href} className={`border-t first:border-t-0 ${accent ? "border-white/15" : "border-[#0F172A]/[0.06]"}`}>
             <Link
               href={l.href}
-              className="group inline-flex items-start gap-2 text-sm text-[#6B7280] hover:text-[#16A34A] transition-colors"
+              className={`group flex items-center justify-between gap-3 py-2.5 text-sm font-medium transition-colors ${
+                accent ? "text-white/85 hover:text-[#FACC15]" : "text-[#334155] hover:text-[#15803D]"
+              }`}
             >
-              <ArrowRight className="rtl:-scale-x-100 h-3.5 w-3.5 mt-0.5 shrink-0 text-[#C9A84C]/60 group-hover:text-[#16A34A] transition-colors" />
-              {l.label}
+              <span>{l.label}</span>
+              <ArrowRight
+                className={`h-3.5 w-3.5 shrink-0 opacity-50 transition-all group-hover:opacity-100 rtl:-scale-x-100 ${accent ? "" : "text-[#16A34A]"}`}
+              />
             </Link>
           </li>
         ))}
@@ -80,27 +95,25 @@ export function ServiceRelatedLinks({ currentPath }: { currentPath?: string }) {
   const services = SERVICES.filter((s) => s.href !== currentPath).slice(0, 8);
 
   return (
-    <section className="section-container max-w-7xl py-20 border-t border-[#C9A84C]/10">
-      <div className="text-center mb-14">
-        <h2 className="font-heading text-3xl font-bold mb-3 text-[#1C1C1C]">Explore More Taxi Services</h2>
-        <p className="text-[#6B7280] text-sm max-w-2xl mx-auto">
+    <section className="section-container max-w-7xl py-16 md:py-24">
+      <div className="section-head is-center mb-10 md:mb-12">
+        <span className="t-eyebrow">Keep exploring</span>
+        <h2 className="t-h2">Explore More Taxi Services</h2>
+        <p className="t-lead">
           Discover related services, popular routes, and city taxi pages across Saudi Arabia — or{" "}
-          <Link href="/book" className="text-[#16A34A] hover:underline">book your transfer now</Link>.
+          <Link href="/book" className="font-semibold text-[#15803D] underline decoration-[#16A34A]/30 underline-offset-4 hover:decoration-[#16A34A]">book your transfer now</Link>.
         </p>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className="grid gap-5 md:grid-cols-3" data-stagger>
         <LinkColumn title="Related Services" icon={Car} links={services} />
-        <LinkColumn title="Popular Routes" icon={RouteIcon} links={ROUTES} />
+        <LinkColumn title="Popular Routes" icon={RouteIcon} links={ROUTES} accent />
         <LinkColumn title="Taxi by City" icon={MapPin} links={CITIES} />
       </div>
 
       <div className="mt-10 text-center">
-        <Link
-          href="/contact"
-          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#6B7280] hover:text-[#16A34A] transition-colors"
-        >
-          Need help planning? Contact our team <ArrowRight className="rtl:-scale-x-100 h-4 w-4" />
+        <Link href="/contact" className="btn btn-ghost btn-sm">
+          Need help planning? Contact our team <ArrowRight className="rtl:-scale-x-100" />
         </Link>
       </div>
     </section>

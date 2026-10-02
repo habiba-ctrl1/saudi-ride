@@ -148,7 +148,7 @@ export function RiyadhHub({ name, nameAr }: { name: string; nameAr: string }) {
       <section aria-labelledby="answer-heading" className="section-container relative z-10 -mt-8 max-w-6xl">
         <div className="rounded-[2rem] border border-[#16A34A]/15 bg-white p-6 shadow-[0_30px_70px_-45px_rgba(15,23,42,0.5)] md:p-9">
           <div className="grid gap-6 md:grid-cols-[auto_1fr] md:gap-8">
-            <p id="answer-heading" className="text-[0.7rem] font-bold uppercase tracking-[0.2em] text-[#16A34A] md:w-32 md:pt-1">The short answer</p>
+            <p id="answer-heading" className="t-eyebrow">The short answer</p>
             <p id="speakable-summary" className="text-[1.05rem] leading-relaxed text-[#1F2937] md:text-lg">
               Taxi Saudi Arabia arranges pre-booked private transport across Riyadh through a vetted partner network: airport transfers from King Khalid International Airport (RUH, about {RUH_CITY.km} km from the centre), hotel transfers, private drivers by the hour or day, corporate transportation, and intercity or cross-border cars to cities like Dammam, Makkah, Jeddah and Bahrain. Send your trip on WhatsApp or the form below and the fare is agreed before you book.
             </p>
@@ -407,7 +407,7 @@ export function RiyadhHub({ name, nameAr }: { name: string; nameAr: string }) {
         {/* ─── EVENTS (links into the existing events cluster) ──── */}
         <section aria-labelledby="events-heading" className="grid gap-6 rounded-3xl border border-[#E5E7EB] bg-white p-6 md:grid-cols-[1fr_auto] md:items-center md:p-8">
           <div>
-            <p className="flex items-center gap-2 text-[0.7rem] font-bold uppercase tracking-[0.2em] text-[#16A34A]"><CalendarDays className="h-4 w-4" aria-hidden="true" /> Events in Riyadh</p>
+            <p className="t-eyebrow"><CalendarDays className="h-4 w-4" aria-hidden="true" /> Events in Riyadh</p>
             <h2 id="events-heading" className="mt-2 font-heading text-xl font-bold md:text-2xl">Attending an exhibition, conference or Riyadh Season?</h2>
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[#4B5563]">
               Exhibitions at RECC in Malham, RICEC and KAICC, and the Riyadh Season zones in Hittin, each need planned arrivals and a fixed pickup point. Our event pages cover delegate, speaker and exhibitor transport.

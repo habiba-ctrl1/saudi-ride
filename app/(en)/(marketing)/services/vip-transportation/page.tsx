@@ -164,7 +164,7 @@ export default function VIPTransportationPage() {
           <div className="flex flex-col sm:flex-row justify-center gap-3">
             <a
               href="#plan"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
+              className="btn btn-primary btn-lg"
             >
               <ClipboardList className="h-4 w-4" /> Request a VIP Transportation Plan
             </a>
@@ -172,7 +172,7 @@ export default function VIPTransportationPage() {
               href={waLink("Salam, I'd like to arrange VIP transportation in Riyadh. My date, itinerary and vehicle preference are:")}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-[#C9A84C]/40 px-8 py-3.5 text-xs font-bold uppercase text-[#16A34A] hover:bg-[#C9A84C]/10 transition-all"
+              className="btn btn-secondary btn-lg"
             >
               <MessageCircle className="h-4 w-4" /> WhatsApp Our Transport Team
             </a>
@@ -359,7 +359,7 @@ export default function VIPTransportationPage() {
       <section id="plan" className="section-container max-w-4xl py-20 border-b border-[#C9A84C]/10 scroll-mt-24">
         <div className="rounded-3xl border border-[#16A34A]/15 bg-white p-8 md:p-12 shadow-2xl">
           <div className="text-center mb-8">
-            <span className="text-[0.65rem] uppercase tracking-[0.2em] text-[#16A34A] font-bold">No fixed online pricing</span>
+            <span className="t-eyebrow">No fixed online pricing</span>
             <h2 className="font-heading text-3xl font-bold mt-2 mb-3 text-[#1C1C1C]">Request a VIP Transportation Plan</h2>
             <p className="text-sm text-[#6B7280] max-w-lg mx-auto">
               Tell us your itinerary and we&apos;ll reply with a tailored quote — the right vehicle, chauffeur, and standby plan for your event.

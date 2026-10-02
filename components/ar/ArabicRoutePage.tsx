@@ -206,13 +206,13 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
             href={`${contactConfig.whatsappLink}?text=${waMessage}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold text-white hover:bg-[#15803D] transition-all"
+            className="btn btn-primary btn-lg"
           >
             احجز عبر واتساب
           </a>
           <Link
             href="/book"
-            className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/40 px-8 py-3.5 text-xs font-bold text-[#16A34A] hover:bg-[#C9A84C]/10 transition-all"
+            className="btn btn-secondary btn-lg"
           >
             احجز الآن أونلاين
           </Link>
@@ -280,7 +280,7 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
                   href={`${contactConfig.whatsappLink}?text=${encodeURIComponent(arUmrah.waPrefill)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-6 py-3 text-xs font-bold text-white hover:bg-[#15803D] transition-all"
+                  className="btn btn-primary"
                 >
                   نقل المجموعة عبر واتساب
                 </a>
@@ -318,7 +318,7 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-6 py-3 text-xs font-bold text-white hover:bg-[#15803D] transition-all"
+                  className="btn btn-primary"
                 >
                   خطّط ليوم العلا عبر واتساب
                 </a>
@@ -356,7 +356,7 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
                   href={`${contactConfig.whatsappLink}?text=${encodeURIComponent(arCorporate.waPrefill)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-6 py-3 text-xs font-bold text-white hover:bg-[#15803D] transition-all"
+                  className="btn btn-primary"
                 >
                   عرض سعر الشركات عبر واتساب
                 </a>

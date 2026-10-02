@@ -118,7 +118,7 @@ function CityViewAr({ city }: { city: NonNullable<ReturnType<typeof getRecoveryC
               href={`https://wa.me/${BUSINESS_WA}?text=${encodeURIComponent(waText)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold text-white hover:bg-[#15803D] transition-all"
+              className="btn btn-primary btn-lg"
             >
               <MessageCircle className="h-4 w-4" /> اطلب السعر عبر واتساب
             </a>
@@ -283,7 +283,7 @@ function RouteViewAr({ route }: { route: (typeof RECOVERY_ROUTES)[number] }) {
               href={`https://wa.me/${BUSINESS_WA}?text=${encodeURIComponent(waText)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold text-white hover:bg-[#15803D] transition-all"
+              className="btn btn-primary btn-lg"
             >
               <MessageCircle className="h-4 w-4" /> اطلب السعر عبر واتساب
             </a>

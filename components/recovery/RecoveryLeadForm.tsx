@@ -156,7 +156,7 @@ export function RecoveryLeadForm({
           value={form.name}
           onChange={set("name")}
           placeholder={t.name}
-          className="w-full rounded-xl border border-[#1C1C1C]/10 bg-[#FAFAF7] px-4 py-3 text-sm outline-none focus:border-[#16A34A]"
+          className="input"
         />
         <input
           required
@@ -164,21 +164,21 @@ export function RecoveryLeadForm({
           value={form.phone}
           onChange={set("phone")}
           placeholder={t.phone}
-          className="w-full rounded-xl border border-[#1C1C1C]/10 bg-[#FAFAF7] px-4 py-3 text-sm outline-none focus:border-[#16A34A]"
+          className="input"
         />
         <input
           type="email"
           value={form.email}
           onChange={set("email")}
           placeholder={t.email}
-          className="w-full rounded-xl border border-[#1C1C1C]/10 bg-[#FAFAF7] px-4 py-3 text-sm outline-none focus:border-[#16A34A]"
+          className="input"
         />
       </div>
       <div className="grid sm:grid-cols-2 gap-4">
         <select
           value={form.service}
           onChange={set("service")}
-          className="w-full rounded-xl border border-[#1C1C1C]/10 bg-[#FAFAF7] px-4 py-3 text-sm outline-none focus:border-[#16A34A]"
+          className="input"
         >
           {RECOVERY_SERVICES.map((s) => (
             <option key={s.key} value={s.name}>
@@ -190,7 +190,7 @@ export function RecoveryLeadForm({
           value={form.car}
           onChange={set("car")}
           placeholder={t.car}
-          className="w-full rounded-xl border border-[#1C1C1C]/10 bg-[#FAFAF7] px-4 py-3 text-sm outline-none focus:border-[#16A34A]"
+          className="input"
         />
       </div>
       <input
@@ -198,13 +198,13 @@ export function RecoveryLeadForm({
         value={form.location}
         onChange={set("location")}
         placeholder={t.location}
-        className="w-full rounded-xl border border-[#1C1C1C]/10 bg-[#FAFAF7] px-4 py-3 text-sm outline-none focus:border-[#16A34A]"
+        className="input"
       />
       <input
         value={form.destination}
         onChange={set("destination")}
         placeholder={t.destination}
-        className="w-full rounded-xl border border-[#1C1C1C]/10 bg-[#FAFAF7] px-4 py-3 text-sm outline-none focus:border-[#16A34A]"
+        className="input"
       />
 
       {status === "error" && <p className="text-xs text-red-600">{t.error}</p>}
@@ -213,7 +213,7 @@ export function RecoveryLeadForm({
         <button
           type="submit"
           disabled={status === "sending"}
-          className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-[#16A34A] px-6 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all disabled:opacity-60"
+          className="btn btn-primary flex-1"
         >
           {status === "sending" ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
           {t.submit}
@@ -228,7 +228,7 @@ export function RecoveryLeadForm({
         </a>
         <a
           href={recoveryContact.phoneLink}
-          className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-[#16A34A] px-6 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all shadow-md"
+          className="btn btn-primary btn-lg flex-1"
         >
           <Phone className="h-4 w-4" /> {t.call}
         </a>

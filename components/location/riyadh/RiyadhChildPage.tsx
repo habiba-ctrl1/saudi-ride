@@ -125,7 +125,7 @@ function BlockView({ block, index }: { block: Block; index: number }) {
       return (
         <section aria-labelledby={id} className="grid grid-cols-1 gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
           <div>
-            <p className="mb-3 text-[0.7rem] font-bold uppercase tracking-[0.2em] text-[#16A34A]">An example plan</p>
+            <p className="t-eyebrow mb-3">An example plan</p>
             <h2 id={id} className="font-heading text-[1.6rem] font-bold leading-tight md:text-[2rem]">{block.heading}</h2>
             {block.intro && <p className="mt-3 text-sm leading-relaxed text-[#6B7280]">{block.intro}</p>}
           </div>

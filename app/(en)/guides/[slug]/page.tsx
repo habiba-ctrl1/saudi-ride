@@ -134,7 +134,7 @@ export default async function GuideSinglePage({ params }: PageProps) {
         {guide.tldr && (
           <TLDRSummary answer={guide.tldr} facts={guide.tldrFacts} className="mb-12" />
         )}
-        <div className="prose prose-invert prose-p:leading-relaxed prose-p:text-[#6B7280] prose-li:text-[#6B7280] prose-headings:font-heading prose-headings:text-[#1C1C1C] prose-a:text-[#C9A84C] max-w-none">
+        <div className="tsa-prose prose prose-lg mx-auto max-w-[70ch] prose-p:leading-[1.8] prose-p:text-[#475569] prose-li:text-[#475569] prose-li:marker:text-[#16A34A] prose-headings:font-heading prose-headings:tracking-tight prose-headings:text-[#0F172A] prose-strong:text-[#0F172A] prose-a:text-[#15803D] prose-td:text-[#475569] prose-th:text-[#0F172A]">
           <p className="text-sm font-bold uppercase tracking-widest text-[#C9A84C] mb-8">Key Insights</p>
           
           <ul className="space-y-8 list-none pl-0">
@@ -195,7 +195,7 @@ export default async function GuideSinglePage({ params }: PageProps) {
           </p>
           <Link
             href="/book"
-            className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
+            className="btn btn-primary btn-lg"
           >
             Book a Transfer
             <ChevronRight className="h-4 w-4" />

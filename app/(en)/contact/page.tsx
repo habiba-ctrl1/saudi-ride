@@ -239,7 +239,7 @@ export default function ContactPage() {
           transition={{ duration: 0.6 }}
           className="max-w-3xl"
         >
-          <span className="text-xs uppercase tracking-[0.2em] text-[#16A34A] font-semibold">
+          <span className="t-eyebrow">
             {t.badge}
           </span>
           <h1 className="mt-4 font-heading text-4xl font-bold leading-tight md:text-5.5xl text-[#1C1C1C]">
@@ -373,52 +373,52 @@ export default function ContactPage() {
               <div className="grid gap-6 sm:grid-cols-2">
                 
                 {/* Name */}
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelName}</label>
+                <label className="field">
+                  <span className="field-label">{t.labelName}</span>
                   <input
                     type="text"
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                    className="input"
                   />
-                </div>
+                </label>
 
                 {/* Email */}
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelEmail}</label>
+                <label className="field">
+                  <span className="field-label">{t.labelEmail}</span>
                   <input
                     type="email"
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                    className="input"
                   />
-                </div>
+                </label>
 
               </div>
 
               <div className="grid gap-6 sm:grid-cols-2">
                 
                 {/* Phone */}
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelPhone}</label>
+                <label className="field">
+                  <span className="field-label">{t.labelPhone}</span>
                   <input
                     type="tel"
                     required
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                    className="input"
                   />
-                </div>
+                </label>
 
                 {/* Service Category */}
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelService}</label>
+                <label className="field">
+                  <span className="field-label">{t.labelService}</span>
                   <select
                     value={formData.serviceType}
                     onChange={(e) => setFormData({ ...formData, serviceType: e.target.value })}
-                    className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                    className="input"
                   >
                     {t.services.map((opt) => (
                       <option key={opt.value} value={opt.value} className="bg-white text-[#1C1C1C]">
@@ -426,28 +426,28 @@ export default function ContactPage() {
                       </option>
                     ))}
                   </select>
-                </div>
+                </label>
 
               </div>
 
               {/* Message */}
-              <div className="space-y-2">
-                <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelMessage}</label>
+              <label className="field">
+                <span className="field-label">{t.labelMessage}</span>
                 <textarea
                   required
                   rows={5}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder={t.placeholderMessage}
-                  className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors resize-none placeholder:text-[#555]"
+                  className="input"
                 />
-              </div>
+              </label>
 
               {/* Submit Button */}
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full rounded-xl bg-[#16A34A] py-4 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] disabled:bg-[#C9A84C]/50 transition-colors flex items-center justify-center gap-2 shadow-[0_4px_15px_rgba(22,163,74,0.2)]"
+                className="btn btn-primary btn-lg btn-block"
               >
                 {isSubmitting ? (
                   <>

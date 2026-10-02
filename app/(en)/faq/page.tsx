@@ -417,7 +417,7 @@ export default function FaqPage() {
           transition={{ duration: 0.6 }}
           className="max-w-3xl text-center md:text-left md:mx-0"
         >
-          <span className="text-xs uppercase tracking-[0.2em] text-[#16A34A] font-semibold">
+          <span className="t-eyebrow">
             {t.badge}
           </span>
           <h1 className="mt-4 font-heading text-4xl font-bold leading-tight md:text-5.5xl text-[#1C1C1C]">
@@ -559,7 +559,7 @@ export default function FaqPage() {
                 locale: language
               });
             }}
-            className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-4 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all shadow-[0_4px_20px_rgba(22,163,74,0.35)]"
+            className="btn btn-primary btn-lg"
           >
             <MessageSquare className="h-4 w-4 fill-current" />
             <span>{t.ctaBtn}</span>

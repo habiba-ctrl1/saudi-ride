@@ -146,7 +146,7 @@ export default function UmrahTransportPage() {
               href={waLink("Salam, I'd like to arrange Umrah transport (Jeddah Airport / Makkah / Madinah). My dates and group size are:")}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
+              className="btn btn-primary btn-lg"
             >
               <MessageCircle className="h-4 w-4" /> Get Umrah Fare on WhatsApp
             </a>
@@ -214,7 +214,7 @@ export default function UmrahTransportPage() {
       {/* ─── UMRAH FROM JEDDAH (journey + internal linking) ───────── */}
       <section className="section-container max-w-5xl py-20 border-b border-[#C9A84C]/10">
         <div className="mb-12">
-          <span className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#16A34A]">The Gateway</span>
+          <span className="t-eyebrow">The Gateway</span>
           <h2 className="font-heading text-3xl font-bold mt-2 mb-4">Your Umrah Journey from Jeddah, Step by Step</h2>
           <p className="text-[#6B7280] leading-relaxed max-w-2xl">
             Most pilgrims begin Umrah by landing at King Abdulaziz International Airport (JED) in Jeddah — the Kingdom&apos;s main gateway. Here is the full transport chain we handle for you, from arrival to your return flight.
@@ -317,7 +317,7 @@ export default function UmrahTransportPage() {
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
+              className="btn btn-primary btn-lg"
             >
               <MessageCircle className="h-4 w-4" /> Plan Umrah transport on WhatsApp
             </a>

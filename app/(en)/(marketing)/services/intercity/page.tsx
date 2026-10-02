@@ -117,7 +117,7 @@ export default function IntercityServicePage() {
           <div className="flex justify-center gap-4">
             <Link
               href="/routes"
-              className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
+              className="btn btn-primary btn-lg"
             >
               View All Routes
             </Link>
@@ -249,8 +249,8 @@ export default function IntercityServicePage() {
           </div>
           <WhatsAppQuoteForm />
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-            <a href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent("Salam! Intercity transfer enquiry.\n• From city: \n• To city: \n• Date & time: \n• Passengers & bags: \n• Vehicle (Sedan / SUV / Van): \n• One-way or round trip?: ")}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all">Get intercity quote on WhatsApp</a>
-            <a href={`mailto:${contactConfig.email}?subject=${encodeURIComponent("Corporate / group intercity transfer RFQ")}&body=${encodeURIComponent("Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for intercity transfers in Saudi Arabia.\n\n• Company / group name: \n• Contact name: \n• Route(s) (from → to): \n• Dates: \n• Passengers per trip: \n• Vehicle(s) needed (Sedan / SUV / Van): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.")}`} className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/30 bg-white px-7 py-3.5 text-xs font-bold uppercase text-[#16A34A] hover:bg-[#16A34A]/10 transition-all">Email a corporate / group RFQ</a>
+            <a href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent("Salam! Intercity transfer enquiry.\n• From city: \n• To city: \n• Date & time: \n• Passengers & bags: \n• Vehicle (Sedan / SUV / Van): \n• One-way or round trip?: ")}`} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">Get intercity quote on WhatsApp</a>
+            <a href={`mailto:${contactConfig.email}?subject=${encodeURIComponent("Corporate / group intercity transfer RFQ")}&body=${encodeURIComponent("Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for intercity transfers in Saudi Arabia.\n\n• Company / group name: \n• Contact name: \n• Route(s) (from → to): \n• Dates: \n• Passengers per trip: \n• Vehicle(s) needed (Sedan / SUV / Van): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.")}`} className="btn btn-secondary btn-lg">Email a corporate / group RFQ</a>
           </div>
         </div>
       </section>

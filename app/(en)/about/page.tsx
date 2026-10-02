@@ -245,7 +245,7 @@ export default function AboutPage() {
           transition={{ duration: 0.6 }}
           className="max-w-3xl"
         >
-          <span className="text-xs uppercase tracking-[0.2em] text-[#16A34A] font-semibold">
+          <span className="t-eyebrow">
             {t.badge}
           </span>
           <h1 className="mt-4 font-heading text-4xl font-bold leading-tight md:text-5.5xl text-[#1C1C1C]">
@@ -259,7 +259,7 @@ export default function AboutPage() {
 
       {/* Stats Row */}
       <section className="section-container mt-14">
-        <h2 className="text-xs uppercase tracking-widest text-[#C9A84C] font-bold mb-6 text-center md:text-left">{t.statsTitle}</h2>
+        <h2 className="t-eyebrow mb-6">{t.statsTitle}</h2>
         <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-4">
           {statsList.map((item, idx) => (
             <motion.div
@@ -289,7 +289,7 @@ export default function AboutPage() {
             transition={{ duration: 0.6 }}
             className="space-y-6"
           >
-            <span className="text-xs uppercase tracking-[0.2em] text-[#16A34A] font-semibold">{t.storySubtitle}</span>
+            <span className="t-eyebrow">{t.storySubtitle}</span>
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-[#1C1C1C]">{t.storyTitle}</h2>
             <p className="text-sm text-[#6B7280] leading-relaxed">{t.storyText1}</p>
             <p className="text-sm text-[#6B7280] leading-relaxed">{t.storyText2}</p>
@@ -318,7 +318,7 @@ export default function AboutPage() {
       {/* Core Pillars Section (Mission & Values) */}
       <section className="section-container mt-24">
         <div className="max-w-3xl mb-12">
-          <span className="text-xs uppercase tracking-[0.2em] text-[#16A34A] font-semibold">{t.pillarsSubtitle}</span>
+          <span className="t-eyebrow">{t.pillarsSubtitle}</span>
           <h2 className="mt-2 font-heading text-3xl md:text-4xl font-bold text-[#1C1C1C]">{t.pillarsTitle}</h2>
         </div>
 
@@ -357,7 +357,7 @@ export default function AboutPage() {
       {/* Government & Compliance Certifications */}
       <section className="section-container mt-24">
         <div className="max-w-3xl mb-12 text-center md:text-left">
-          <span className="text-xs uppercase tracking-[0.2em] text-[#16A34A] font-semibold">{t.certSubtitle}</span>
+          <span className="t-eyebrow">{t.certSubtitle}</span>
           <h2 className="mt-2 font-heading text-3xl md:text-4xl font-bold text-[#1C1C1C]">{t.certTitle}</h2>
         </div>
 
@@ -392,7 +392,7 @@ export default function AboutPage() {
       {/* Elite Leadership Team Section */}
       <section className="section-container mt-24 mb-12">
         <div className="max-w-3xl mb-12 text-center md:text-left">
-          <span className="text-xs uppercase tracking-[0.2em] text-[#16A34A] font-semibold">{t.teamSubtitle}</span>
+          <span className="t-eyebrow">{t.teamSubtitle}</span>
           <h2 className="mt-2 font-heading text-3xl md:text-4xl font-bold text-[#1C1C1C]">{t.teamTitle}</h2>
         </div>
 

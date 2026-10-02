@@ -8,11 +8,13 @@ export interface ProcessStep {
 }
 
 /**
- * Numbered "how it works" timeline — big index numerals, connecting line,
- * staggered reveal. Desktop: horizontal 4-up with a line through the number
- * badges. Mobile: vertical rail. Distinct from <TransferJourneySteps> (which
- * is the location-page journey graphic) — this is the generic booking/process
- * explainer any page type can drop in.
+ * Numbered "how it works" journey — icon nodes on a connecting rail.
+ *
+ * Desktop: horizontal; each node sits on a single rail that fills with brand
+ * colour from start to end as the band enters view (CSS, reduced-motion safe).
+ * Mobile: vertical rail on the inline-start edge with the copy beside it.
+ * Distinct from <TransferJourneySteps> (the location-page journey graphic) —
+ * this is the generic booking/process explainer any page type can drop in.
  */
 export function ProcessTimeline({
   heading,
@@ -26,54 +28,57 @@ export function ProcessTimeline({
   tone?: "onLight" | "onDark";
 }) {
   const onDark = tone === "onDark";
-  const numberCls = onDark
-    ? "text-white/15"
-    : "text-[#16A34A]/15";
-  const titleCls = onDark ? "text-white" : "text-[#0F172A]";
-  const descCls = onDark ? "text-white/70" : "text-[#6B7280]";
-  const lineCls = onDark ? "bg-white/15" : "bg-[#16A34A]/20";
+  const cols =
+    steps.length >= 5 ? "lg:grid-cols-5" : steps.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4";
 
   return (
-    <div>
+    <div className={onDark ? "on-dark" : ""}>
       {heading && (
-        <Reveal className="mb-10 max-w-2xl">
-          <h2 className={`text-section-title ${titleCls}`}>{heading}</h2>
-          {intro && <p className={`mt-3 text-body-lg ${descCls}`}>{intro}</p>}
+        <Reveal className="section-head mb-10 md:mb-14">
+          <h2 className={`t-h2 ${onDark ? "!text-[#FFFFFF]" : ""}`}>{heading}</h2>
+          {intro && <p className={`t-lead ${onDark ? "!text-white/75" : ""}`}>{intro}</p>}
         </Reveal>
       )}
-      <RevealGroup className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
-        {/* connecting line — desktop horizontal, mobile vertical rail */}
-        <div className={`absolute hidden lg:block top-7 start-[10%] end-[10%] h-px ${lineCls}`} />
-        {steps.map((step, i) => {
-          const Icon = step.icon;
-          return (
-            <RevealItem key={i} className="relative flex gap-4 lg:flex-col lg:gap-4">
-              <div className="flex shrink-0 flex-col items-center lg:items-start">
-                <span className="relative z-10 flex items-baseline gap-1">
-                  <span className={`font-heading text-5xl font-extrabold leading-none ${numberCls}`}>
-                    {String(i + 1).padStart(2, "0")}
+
+      <div className="tsa-steps relative">
+        {/* Desktop rail: track + animated fill */}
+        <div aria-hidden className="absolute inset-x-[calc(100%/var(--n)/2)] top-7 hidden h-[3px] rounded-full lg:block" style={{ ["--n" as string]: steps.length, background: onDark ? "rgba(255,255,255,0.15)" : "rgba(22,163,74,0.14)" }}>
+          <div className="tsa-steps-fill h-full rounded-full bg-gradient-to-r from-[#16A34A] to-[#FACC15] rtl:bg-gradient-to-l" />
+        </div>
+
+        <RevealGroup className={`relative grid grid-cols-1 gap-0 lg:gap-6 ${cols}`}>
+          {steps.map((step, i) => {
+            const Icon = step.icon;
+            const last = i === steps.length - 1;
+            return (
+              <RevealItem key={i} className="relative flex gap-5 pb-8 last:pb-0 lg:flex-col lg:items-center lg:gap-5 lg:pb-0 lg:text-center">
+                {/* Mobile rail segment */}
+                {!last && (
+                  <span aria-hidden className={`absolute start-7 top-14 bottom-0 w-[2px] -translate-x-1/2 rtl:translate-x-1/2 lg:hidden ${onDark ? "bg-white/15" : "bg-[#16A34A]/20"}`} />
+                )}
+                <span
+                  className={`relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl shadow-[0_8px_20px_-6px_rgba(22,163,74,0.45)] ring-4 ${
+                    onDark ? "bg-[#FACC15] text-[#14532D] ring-[#15803D]" : "bg-[#16A34A] text-[#FFFFFF] ring-[#FAFAF7]"
+                  }`}
+                >
+                  {Icon ? <Icon className="h-6 w-6" aria-hidden /> : <span className="font-heading text-lg font-extrabold">{i + 1}</span>}
+                  <span
+                    className={`absolute -end-2 -top-2 flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-[0.7rem] font-extrabold ring-2 ${
+                      onDark ? "bg-white text-[#14532D] ring-[#15803D]" : "bg-[#FACC15] text-[#14532D] ring-white"
+                    }`}
+                  >
+                    {i + 1}
                   </span>
                 </span>
-              </div>
-              <div className="pt-1">
-                <div className="mb-2 flex items-center gap-2">
-                  {Icon && (
-                    <span
-                      className={`flex h-8 w-8 items-center justify-center rounded-full ${
-                        onDark ? "bg-white/10 text-[#FACC15]" : "bg-[#16A34A]/10 text-[#16A34A]"
-                      }`}
-                    >
-                      <Icon className="h-4 w-4" />
-                    </span>
-                  )}
-                  <h3 className={`font-heading text-base font-bold ${titleCls}`}>{step.title}</h3>
+                <div className="min-w-0 pt-1 lg:pt-0">
+                  <h3 className={`font-heading text-[1.05rem] font-bold leading-snug ${onDark ? "!text-[#FFFFFF]" : "text-[#0F172A]"}`}>{step.title}</h3>
+                  <p className={`mt-1.5 text-sm leading-relaxed lg:mx-auto lg:max-w-[16rem] ${onDark ? "text-white/75" : "text-[#64748B]"}`}>{step.desc}</p>
                 </div>
-                <p className={`text-sm leading-relaxed ${descCls}`}>{step.desc}</p>
-              </div>
-            </RevealItem>
-          );
-        })}
-      </RevealGroup>
+              </RevealItem>
+            );
+          })}
+        </RevealGroup>
+      </div>
     </div>
   );
 }

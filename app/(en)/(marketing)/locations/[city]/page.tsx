@@ -630,7 +630,7 @@ export default async function CityLocationPage({ params }: PageProps) {
       />
       {/* ─── HERO ─────────────────────────────────────────────────── */}
       <section className="relative pt-32 pb-20 overflow-hidden border-b border-[#16A34A]/10">
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0" data-parallax="0.08">
           <Image
             src={cityData.image}
             alt={
@@ -645,13 +645,10 @@ export default async function CityLocationPage({ params }: PageProps) {
             blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
             className="object-cover"
           />
-          <div
-            className={`absolute inset-0 bg-gradient-to-t ${
-              cityKey === "neom"
-                ? "from-[#FAFAF7] via-[#FAFAF7]/50 to-[#FAFAF7]/15"
-                : "from-[#FAFAF7] via-[#FAFAF7]/50 to-[#FAFAF7]/15"
-            }`}
-          />
+          {/* Copy side stays solid for legibility; the photo breathes on the
+              form side and fades into the page at the bottom. */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#FAFAF7] via-[#FAFAF7]/88 to-[#FAFAF7]/25 rtl:bg-gradient-to-l" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-transparent to-[#FAFAF7]/40" />
         </div>
 
         <div className="section-container relative z-10 max-w-6xl">
@@ -692,7 +689,7 @@ export default async function CityLocationPage({ params }: PageProps) {
               <div className="mt-8 flex flex-wrap gap-4">
                 <Link
                   href={`/book?pickup=${encodeURIComponent(cityData.name)}`}
-                  className="flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
+                  className="btn btn-primary btn-lg"
                 >
                   <Car className="h-4 w-4" />
                   Book a Taxi Now
@@ -702,7 +699,7 @@ export default async function CityLocationPage({ params }: PageProps) {
                     href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(cityLead.waPrefill)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 rounded-full border border-[#16A34A]/40 bg-white/90 backdrop-blur-sm px-8 py-3.5 text-xs font-bold uppercase text-[#16A34A] hover:bg-[#16A34A]/10 transition-all"
+                    className="btn btn-secondary btn-lg"
                   >
                     <MessageSquare className="h-4 w-4" />
                     Quick Quote on WhatsApp
@@ -715,7 +712,7 @@ export default async function CityLocationPage({ params }: PageProps) {
                 sitewide (WhatsAppQuoteForm), just given hero-level visual
                 weight instead of floating a bare form over the image. */}
             <div className="lg:col-span-2 lg:pt-2">
-              <div className="rounded-[2rem] bg-white shadow-[0_20px_60px_rgba(15,23,42,0.15)] border border-[#16A34A]/10 p-3">
+              <div>
                 <WhatsAppQuoteForm defaultDropoff={cityData.name} />
               </div>
             </div>
@@ -1036,7 +1033,7 @@ export default async function CityLocationPage({ params }: PageProps) {
                 href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(hourlyHire.waPrefill)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all"
+                className="btn btn-primary btn-lg"
               >
                 <MessageSquare className="h-4 w-4" />
                 Request an hourly chauffeur quote
@@ -1177,7 +1174,7 @@ export default async function CityLocationPage({ params }: PageProps) {
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
+                  className="btn btn-primary btn-lg"
                 >
                   <MessageSquare className="h-4 w-4" />
                   Executive quote on WhatsApp
@@ -1188,7 +1185,7 @@ export default async function CityLocationPage({ params }: PageProps) {
                   )}&body=${encodeURIComponent(
                     `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transport in NEOM.\n\n• Company / organisation: \n• Contact name & role: \n• Dates: \n• Route or zone (Red Sea Airport / Sindalah / Oxagon / Trojena / The Line / NEOM Bay): \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
                   )}`}
-                  className="inline-flex items-center gap-2.5 rounded-full border border-[#16A34A]/30 bg-white px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#16A34A]/10 transition-all"
+                  className="btn btn-secondary btn-lg"
                 >
                   <ExternalLink className="h-4 w-4" />
                   Email our corporate desk
@@ -1215,14 +1212,14 @@ export default async function CityLocationPage({ params }: PageProps) {
                     href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(cityLead.waPrefill)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2.5 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all"
+                    className="btn btn-primary btn-lg"
                   >
                     <MessageSquare className="h-4 w-4" />
                     Quote on WhatsApp
                   </a>
                   <a
                     href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(cityLead.emailSubject)}&body=${encodeURIComponent(cityLead.emailBody)}`}
-                    className="inline-flex items-center gap-2.5 rounded-full border border-[#16A34A]/30 bg-white px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#16A34A]/10 transition-all"
+                    className="btn btn-secondary btn-lg"
                   >
                     <ExternalLink className="h-4 w-4" />
                     Email a written RFQ

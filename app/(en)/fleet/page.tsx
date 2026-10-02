@@ -247,7 +247,7 @@ export default function FleetPage() {
       <section className="section-container max-w-3xl text-center pb-24">
         <div className="rounded-3xl border border-[#16A34A]/15 bg-white p-10 space-y-5 shadow-2xl relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-[#C9A84C]/4 to-transparent pointer-events-none rounded-3xl" />
-          <span className="text-[0.65rem] uppercase tracking-[0.2em] text-[#16A34A] font-bold">Group & Corporate Bookings</span>
+          <span className="t-eyebrow">Group & Corporate Bookings</span>
           <h2 className="font-heading text-2xl font-bold text-[#1C1C1C]">
             Need a specific car type<br />or a long-term booking?
           </h2>
@@ -259,14 +259,14 @@ export default function FleetPage() {
               href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam, I would like a price quote for a car.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-[#15803D] shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
+              className="btn btn-primary btn-lg"
             >
               <MessageCircle className="h-4 w-4 fill-current" />
               Get a Price on WhatsApp
             </a>
             <Link
               href="/contact"
-              className="flex items-center gap-2 rounded-full border border-[#C9A84C]/30 px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-[#16A34A] transition-all hover:bg-[#C9A84C]/10"
+              className="btn btn-secondary btn-lg"
             >
               Send Inquiry Form
             </Link>

@@ -268,7 +268,7 @@ export default function GalleryPage() {
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/book"
-              className="flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-4 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
+              className="btn btn-primary btn-lg"
             >
               <Car className="h-4 w-4" />
               Book Your Transfer
@@ -277,7 +277,7 @@ export default function GalleryPage() {
               href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam, I would like to inquire about your luxury fleet services.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full border border-[#C9A84C]/30 px-8 py-4 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#C9A84C]/10 transition-all"
+              className="btn btn-secondary btn-lg"
             >
               <MessageCircle className="h-4 w-4 fill-current" />
               Inquire via WhatsApp

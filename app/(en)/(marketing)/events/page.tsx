@@ -92,7 +92,7 @@ export default function EventsHubPage() {
           href={waLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-4 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
+          className="btn btn-primary btn-lg"
         >
           <MessageCircle className="h-4 w-4" /> Plan Event Transport on WhatsApp
         </a>

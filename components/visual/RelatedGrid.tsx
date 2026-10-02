@@ -48,9 +48,9 @@ export function RelatedGrid({
   return (
     <div>
       {heading && (
-        <Reveal className="mb-8 max-w-2xl">
-          <h2 className="text-section-title text-[#0F172A]">{heading}</h2>
-          {intro && <p className="mt-3 text-body-lg text-[#6B7280]">{intro}</p>}
+        <Reveal className="section-head mb-8">
+          <h2 className="t-h2">{heading}</h2>
+          {intro && <p className="t-lead">{intro}</p>}
         </Reveal>
       )}
       <RevealGroup className={`grid grid-cols-1 gap-4 ${colCls}`}>
@@ -73,7 +73,7 @@ function LinkCard({ item, isRoute }: { item: RelatedItem; isRoute: boolean }) {
   return (
     <Link
       href={item.href}
-      className="group flex h-full items-center gap-4 rounded-2xl border border-[#16A34A]/12 bg-white p-5 transition-all duration-200 hover:-translate-y-1 hover:border-[#16A34A]/35 hover:shadow-[0_14px_40px_rgba(22,163,74,0.1)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#16A34A]/20"
+      className="no-lift group flex h-full items-center gap-4 rounded-2xl border border-[#16A34A]/12 bg-white p-5 transition-all duration-200 hover:-translate-y-1 hover:border-[#16A34A]/35 hover:shadow-[0_14px_40px_rgba(22,163,74,0.1)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#16A34A]/20"
     >
       {Icon && (
         <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#16A34A]/10 text-[#16A34A] transition-colors group-hover:bg-[#16A34A] group-hover:text-white">
@@ -95,7 +95,7 @@ function DestinationCard({ item }: { item: RelatedItem }) {
   return (
     <Link
       href={item.href}
-      className="group relative block aspect-[4/3] overflow-hidden rounded-2xl border border-[#16A34A]/12 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#16A34A]/20"
+      className="tsa-on-media no-lift group relative block aspect-[4/3] overflow-hidden rounded-2xl border border-[#16A34A]/12 shadow-sm transition-shadow hover:shadow-[0_18px_40px_-16px_rgba(15,23,42,0.45)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#16A34A]/20"
     >
       {item.image && (
         <Image

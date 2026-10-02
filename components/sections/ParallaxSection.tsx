@@ -53,7 +53,7 @@ export function ParallaxSection({ image, title, text, buttonLabel, buttonHref }:
         </p>
         <Link
           href={buttonHref}
-          className="group mt-8 inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-4 text-sm font-bold uppercase tracking-wider text-white shadow-[0_8px_30px_rgba(22,163,74,0.45)] transition-all duration-300 hover:bg-[#15803D] hover:scale-105 hover:shadow-[0_10px_38px_rgba(22,163,74,0.6)]"
+          className="btn btn-primary btn-lg mt-8"
         >
           {buttonLabel}
           <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />

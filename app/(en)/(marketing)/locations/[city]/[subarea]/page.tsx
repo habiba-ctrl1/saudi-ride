@@ -191,7 +191,7 @@ export default async function SubAreaPage({ params }: PageProps) {
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <Link
               href={`/book?pickup=${encodeURIComponent(area.kind === "service" ? capitalizedCity : area.name + ', ' + capitalizedCity)}`}
-              className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-4 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all shadow-[0_4px_14px_rgba(22,163,74,0.2)]"
+              className="btn btn-primary btn-lg"
             >
               Book a Ride Now
               <ArrowRight className="h-4 w-4" />
@@ -343,14 +343,14 @@ export default async function SubAreaPage({ params }: PageProps) {
                   href={`${contactConfig.whatsappLink}?text=${encodeURIComponent("Salam! Private driver / hourly hire enquiry in Riyadh.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Executive sedan / SUV): \n• Business / personal use?: ")}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all"
+                  className="btn btn-primary btn-lg"
                 >
                   <MessageSquare className="h-4 w-4" />
                   Quote on WhatsApp
                 </a>
                 <a
                   href={`mailto:${contactConfig.email}?subject=${encodeURIComponent("Corporate driver account — Riyadh")}&body=${encodeURIComponent("Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for a corporate driver account in Riyadh.\n\n• Company / organisation: \n• Contact name & role: \n• Typical hours/days needed: \n• Vehicle preference (Executive sedan / SUV): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.")}`}
-                  className="inline-flex items-center gap-2.5 rounded-full border border-[#16A34A]/30 bg-white px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#16A34A]/10 transition-all"
+                  className="btn btn-secondary btn-lg"
                 >
                   <ExternalLink className="h-4 w-4" />
                   Email a written RFQ

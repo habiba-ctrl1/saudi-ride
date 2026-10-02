@@ -155,14 +155,14 @@ export default async function AirportLandingPage({ params }: PageProps) {
               href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(`Salam, I need an airport taxi from ${airportData.name} (${airportData.code}). My destination and arrival time are:`)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
+              className="btn btn-primary btn-lg"
             >
               <MessageCircle className="h-4 w-4" />
               Get Fare on WhatsApp
             </a>
             <Link
               href={`/book?pickup=${encodeURIComponent(airportData.name)}`}
-              className="flex items-center justify-center gap-2 rounded-full border border-[#C9A84C]/40 px-8 py-3.5 text-xs font-bold uppercase text-[#16A34A] hover:bg-[#C9A84C]/10 transition-all"
+              className="btn btn-secondary btn-lg"
             >
               <Car className="h-4 w-4" />
               Book Airport Pickup
@@ -235,7 +235,7 @@ export default async function AirportLandingPage({ params }: PageProps) {
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-6 py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all shadow-sm"
+                      className="btn btn-primary"
                     >
                       <MessageCircle className="h-4 w-4 text-[#FACC15]" />
                       Group transfer on WhatsApp
@@ -297,7 +297,7 @@ export default async function AirportLandingPage({ params }: PageProps) {
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-6 py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all shadow-sm"
+                      className="btn btn-primary"
                     >
                       <MessageCircle className="h-4 w-4 text-[#FACC15]" />
                       Corporate quote on WhatsApp

@@ -104,7 +104,7 @@ export default function GroupTransportPage() {
           <div className="flex justify-center gap-4">
             <Link
               href="/book"
-              className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
+              className="btn btn-primary btn-lg"
             >
               Book Group Transport
             </Link>
@@ -165,13 +165,13 @@ export default function GroupTransportPage() {
               href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent("Salam! Group transport enquiry.\n• From / to: \n• Date & time: \n• Group size: \n• Luggage: \n• Vehicle (Van / Coaster / Coach): \n• Umrah group / event / family?: ")}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
+              className="btn btn-primary btn-lg"
             >
               Group quote on WhatsApp
             </a>
             <a
               href={`mailto:${contactConfig.email}?subject=${encodeURIComponent("Group / delegation transport RFQ")}&body=${encodeURIComponent("Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for group transport.\n\n• Agency / company / group name: \n• Contact name: \n• Route(s): \n• Dates: \n• Group size (per vehicle): \n• Luggage: \n• Vehicle(s) needed (Van / Coaster / Coach): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.")}`}
-              className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/30 bg-white px-7 py-3.5 text-xs font-bold uppercase text-[#16A34A] hover:bg-[#16A34A]/10 transition-all"
+              className="btn btn-secondary btn-lg"
             >
               Email a group / delegation RFQ
             </a>

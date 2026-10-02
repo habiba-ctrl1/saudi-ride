@@ -109,13 +109,13 @@ export default function BusinessExecutivePage() {
               href={waLink("Salam, I need executive transport in Saudi Arabia (Riyadh / Jeddah / Dammam). My date, pickup and schedule are:")}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
+              className="btn btn-primary btn-lg"
             >
               <MessageCircle className="h-4 w-4" /> Book on WhatsApp
             </a>
             <a
               href={contactConfig.primaryPhoneLink}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-[#C9A84C]/40 px-8 py-3.5 text-xs font-bold uppercase text-[#16A34A] hover:bg-[#C9A84C]/10 transition-all"
+              className="btn btn-secondary btn-lg"
             >
               Call {contactConfig.primaryPhoneDisplay}
             </a>
@@ -175,7 +175,7 @@ export default function BusinessExecutivePage() {
               href={waLink("Salam! Business / executive transport enquiry.\n• From / to: \n• Date & time: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Luxury): \n• Airport / meeting standby / roadshow?: ")}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
+              className="btn btn-primary btn-lg"
             >
               <MessageCircle className="h-4 w-4" /> Executive quote on WhatsApp
             </a>

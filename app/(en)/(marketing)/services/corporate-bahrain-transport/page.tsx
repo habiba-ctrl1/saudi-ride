@@ -118,7 +118,7 @@ export default function CorporateBahrainTransportPage() {
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="#enquiry"
-              className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
+              className="btn btn-primary btn-lg"
             >
               Request a Corporate Quote
             </Link>

@@ -349,12 +349,12 @@ export default function BookPage() {
         {/* PROGRESS STEP INDICATOR (1-6) */}
         <div className="relative">
           <div className="flex items-center justify-between text-[0.55rem] font-bold uppercase tracking-wider text-[#6B7280]">
-            <span className={step >= 1 ? "text-[#C9A84C]" : ""}>{isRtl ? "Ù¡. Ø§Ù„ØªÙØ§ØµÙŠÙ„" : "1. Journey"}</span>
-            <span className={step >= 2 ? "text-[#C9A84C]" : ""}>{isRtl ? "Ù¢. Ø§Ù„Ø³ÙŠØ§Ø±Ø©" : "2. Vehicle"}</span>
-            <span className={step >= 3 ? "text-[#C9A84C]" : ""}>{isRtl ? "Ù£. Ø§Ù„Ø¥Ø¶Ø§ÙØ§Øª" : "3. Extras"}</span>
-            <span className={step >= 4 ? "text-[#C9A84C]" : ""}>{isRtl ? "Ù¤. Ø§Ù„Ø¹Ù…ÙŠÙ„" : "4. Contact"}</span>
-            <span className={step >= 5 ? "text-[#C9A84C]" : ""}>{isRtl ? "Ù¥. Ø§Ù„Ø¯ÙØ¹" : "5. Summary"}</span>
-            <span className={step >= 6 ? "text-[#C9A84C]" : ""}>{isRtl ? "Ù¦. ØªØ£ÙƒÙŠØ¯" : "6. Done"}</span>
+            <span className={step >= 1 ? "text-[#C9A84C]" : ""}>{isRtl ? "١. التفاصيل" : "1. Journey"}</span>
+            <span className={step >= 2 ? "text-[#C9A84C]" : ""}>{isRtl ? "٢. السيارة" : "2. Vehicle"}</span>
+            <span className={step >= 3 ? "text-[#C9A84C]" : ""}>{isRtl ? "٣. الإضافات" : "3. Extras"}</span>
+            <span className={step >= 4 ? "text-[#C9A84C]" : ""}>{isRtl ? "٤. العميل" : "4. Contact"}</span>
+            <span className={step >= 5 ? "text-[#C9A84C]" : ""}>{isRtl ? "٥. الدفع" : "5. Summary"}</span>
+            <span className={step >= 6 ? "text-[#C9A84C]" : ""}>{isRtl ? "٦. تأكيد" : "6. Done"}</span>
           </div>
 
           <div className="mt-3 h-1 w-full bg-[#E5E7EB] rounded-full overflow-hidden border border-[#C9A84C]/10">
@@ -380,7 +380,7 @@ export default function BookPage() {
               className="space-y-6"
             >
               <div className="space-y-1">
-                <h2 className="font-heading text-2xl font-bold">{isRtl ? "ØªÙØ§ØµÙŠÙ„ Ø±Ø­Ù„ØªÙƒ Ø§Ù„ÙØ§Ø®Ø±Ø©" : "Enter Journey Coordinates"}</h2>
+                <h2 className="font-heading text-2xl font-bold">{isRtl ? "تفاصيل رحلتك الفاخرة" : "Enter Journey Coordinates"}</h2>
                 <p className="text-xs text-[#6B7280]">{isRtl ? "حدد نقاط النقل، وتفاصيل الجدول الزمني، وحجم السيارة." : "Specify transfer points, schedule details, and vehicle sizing."}</p>
               </div>
 
@@ -394,33 +394,33 @@ export default function BookPage() {
                     <button
                       type="button"
                       onClick={() => { setTripType("oneway"); }}
-                      className={`rounded-full py-2 text-[0.65rem] font-bold uppercase transition-all ${tripType === "oneway" ? "bg-[#16A34A] text-white" : "text-[#6B7280] hover:text-[#1C1C1C]"}`}
+                      className={`rounded-full min-h-10 py-2 text-[0.78rem] font-bold transition-all ${tripType === "oneway" ? "bg-[#16A34A] text-white" : "text-[#6B7280] hover:text-[#1C1C1C]"}`}
                     >
-                      {isRtl ? "Ø§ØªØ¬Ø§Ù‡ ÙˆØ§Ø­Ø¯" : "One-Way"}
+                      {isRtl ? "اتجاه واحد" : "One-Way"}
                     </button>
                     <button
                       type="button"
                       onClick={() => { setTripType("roundtrip"); }}
-                      className={`rounded-full py-2 text-[0.65rem] font-bold uppercase transition-all ${tripType === "roundtrip" ? "bg-[#16A34A] text-white" : "text-[#6B7280] hover:text-[#1C1C1C]"}`}
+                      className={`rounded-full min-h-10 py-2 text-[0.78rem] font-bold transition-all ${tripType === "roundtrip" ? "bg-[#16A34A] text-white" : "text-[#6B7280] hover:text-[#1C1C1C]"}`}
                     >
-                      {isRtl ? "Ø°Ù‡Ø§Ø¨ ÙˆØ¹ÙˆØ¯Ø©" : "Round-Trip"}
+                      {isRtl ? "ذهاب وعودة" : "Round-Trip"}
                     </button>
                     <button
                       type="button"
                       onClick={() => { setTripType("hourly"); }}
-                      className={`rounded-full py-2 text-[0.65rem] font-bold uppercase transition-all ${tripType === "hourly" ? "bg-[#16A34A] text-white" : "text-[#6B7280] hover:text-[#1C1C1C]"}`}
+                      className={`rounded-full min-h-10 py-2 text-[0.78rem] font-bold transition-all ${tripType === "hourly" ? "bg-[#16A34A] text-white" : "text-[#6B7280] hover:text-[#1C1C1C]"}`}
                     >
-                      {isRtl ? "Ø­Ø¬Ø² Ø¨Ø§Ù„Ø³Ø§Ø¹Ø§Øª" : "Hourly Charter"}
+                      {isRtl ? "حجز بالساعات" : "Hourly Charter"}
                     </button>
                   </div>
 
                   {/* Pickup */}
                   <div className="relative">
-                    <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-1 font-bold">
-                      {isRtl ? "Ù…ÙˆÙ‚Ø¹ Ø§Ù„Ø±ÙƒÙˆØ¨" : "Pick-up Location"}
+                    <label className="field-label mb-1.5 block">
+                      {isRtl ? "موقع الركوب" : "Pick-up Location"}
                     </label>
                     <div className="relative">
-                      <MapPin className="absolute left-3 top-3.5 h-4 w-4 text-[#C9A84C]" />
+                      <MapPin className="input-icon" />
                       <input
                         id="pickup-location"
                         type="text"
@@ -429,8 +429,8 @@ export default function BookPage() {
                         onChange={(e) => handlePickupChange(e.target.value)}
                         onFocus={() => setShowPickupList(true)}
                         onBlur={() => setTimeout(() => setShowPickupList(false), 250)}
-                        placeholder={isRtl ? "Ø§Ø¨Ø­Ø« Ø¹Ù† Ù…Ø·Ø§Ø±ØŒ Ù…Ø¹Ù„Ù… Ø£Ùˆ ÙÙ†Ø¯Ù‚..." : "Search Airport, hotel, landmark..."}
-                        className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 pl-9 pr-4 py-3 text-xs text-[#1C1C1C] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
+                        placeholder={isRtl ? "ابحث عن مطار، معلم أو فندق..." : "Search Airport, hotel, landmark..."}
+                        className="input has-icon"
                       />
                     </div>
 
@@ -453,11 +453,11 @@ export default function BookPage() {
                   {/* Drop-off */}
                   {tripType !== "hourly" && (
                     <div className="relative">
-                      <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-1 font-bold">
-                        {isRtl ? "Ø§Ù„ÙˆØ¬Ù‡Ø©" : "Drop-off Destination"}
+                      <label className="field-label mb-1.5 block">
+                        {isRtl ? "الوجهة" : "Drop-off Destination"}
                       </label>
                       <div className="relative">
-                        <MapPin className="absolute left-3 top-3.5 h-4 w-4 text-[#C9A84C]" />
+                        <MapPin className="input-icon" />
                         <input
                           id="dropoff-location"
                           type="text"
@@ -466,8 +466,8 @@ export default function BookPage() {
                           onChange={(e) => handleDropoffChange(e.target.value)}
                           onFocus={() => setShowDropoffList(true)}
                           onBlur={() => setTimeout(() => setShowDropoffList(false), 250)}
-                          placeholder={isRtl ? "Ø§Ø¨Ø­Ø« Ø¹Ù† ÙˆØ¬Ù‡Ø© Ø§Ù„Ø­Ø¬Ø²..." : "Search drop-off landmark..."}
-                          className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 pl-9 pr-4 py-3 text-xs text-[#1C1C1C] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
+                          placeholder={isRtl ? "ابحث عن وجهة الحجز..." : "Search drop-off landmark..."}
+                          className="input has-icon"
                         />
                       </div>
 
@@ -491,8 +491,8 @@ export default function BookPage() {
                   {/* Hourly Charter Sizing */}
                   {tripType === "hourly" && (
                     <div>
-                      <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-2 font-bold">
-                        {isRtl ? "Ù…Ø¯Ø© Ø§Ù„Ø®Ø¯Ù…Ø© Ø§Ù„Ù…Ø·Ù„ÙˆØ¨Ø©" : "Charter Sizing (Hours)"}
+                      <label className="field-label mb-1.5 block">
+                        {isRtl ? "مدة الخدمة المطلوبة" : "Charter Sizing (Hours)"}
                       </label>
                       <select
                         value={hours}
@@ -500,7 +500,7 @@ export default function BookPage() {
                           setHours(Number(e.target.value));
                           setDropoff(`Riyadh Hourly Charter (${e.target.value} Hours)`);
                         }}
-                        className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 px-3 py-3 text-xs text-[#1C1C1C] outline-none focus:border-[#C9A84C]"
+                        className="input"
                       >
                         <option value="4">4 Hours Charter (Half Day)</option>
                         <option value="8">8 Hours Charter (Full Day)</option>
@@ -513,34 +513,34 @@ export default function BookPage() {
                   {/* Date Picker */}
                   <div className="grid gap-4 grid-cols-2">
                     <div>
-                      <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-1 font-bold">
-                        {isRtl ? "Ø§Ù„ØªØ§Ø±ÙŠØ® ÙˆØ§Ù„ÙˆÙ‚Øª" : "Pick-up DateTime"}
+                      <label className="field-label mb-1.5 block">
+                        {isRtl ? "التاريخ والوقت" : "Pick-up DateTime"}
                       </label>
                       <div className="relative">
-                        <Calendar className="absolute left-3 top-3.5 h-4 w-4 text-[#C9A84C]/75 pointer-events-none" />
+                        <Calendar className="input-icon" />
                         <input
                           type="datetime-local"
                           required
                           value={dateTime}
                           suppressHydrationWarning
                           onChange={(e) => setDateTime(e.target.value)}
-                          className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 pl-9 pr-3 py-3 text-xs text-[#1C1C1C] outline-none focus:border-[#C9A84C]"
+                          className="input has-icon"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-1 font-bold">
-                        {isRtl ? "Ø¹Ø¯Ø¯ Ø§Ù„Ù…Ø³Ø§ÙØ±ÙŠÙ†" : "Passengers"}
+                      <label className="field-label mb-1.5 block">
+                        {isRtl ? "عدد المسافرين" : "Passengers"}
                       </label>
                       <select
                         value={passengers}
                         onChange={(e) => setPassengers(Number(e.target.value))}
-                        className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 px-3 py-3 text-xs text-[#1C1C1C] outline-none focus:border-[#C9A84C]"
+                        className="input"
                       >
                         {[...Array(18)].map((_, i) => (
                           <option key={i + 1} value={i + 1}>
-                            {i + 1} {i + 1 === 1 ? (isRtl ? "Ù…Ø³Ø§ÙØ±" : "Passenger") : (isRtl ? "Ù…Ø³Ø§ÙØ±ÙŠÙ†" : "Passengers")}
+                            {i + 1} {i + 1 === 1 ? (isRtl ? "مسافر" : "Passenger") : (isRtl ? "مسافرين" : "Passengers")}
                           </option>
                         ))}
                       </select>
@@ -558,18 +558,18 @@ export default function BookPage() {
                         transition={{ duration: 0.3 }}
                         className="overflow-hidden space-y-1"
                       >
-                        <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-1 font-bold">
-                          {isRtl ? "ØªØ§Ø±ÙŠØ® ÙˆÙˆÙ‚Øª Ø§Ù„Ø¹ÙˆØ¯Ø©" : "Return DateTime"}
+                        <label className="field-label mb-1.5 block">
+                          {isRtl ? "تاريخ ووقت العودة" : "Return DateTime"}
                         </label>
                         <div className="relative">
-                          <Calendar className="absolute left-3 top-3.5 h-4 w-4 text-[#C9A84C]/75 pointer-events-none" />
+                          <Calendar className="input-icon" />
                           <input
                             type="datetime-local"
                             required={tripType === "roundtrip"}
                             value={returnDateTime}
                             suppressHydrationWarning
                             onChange={(e) => setReturnDateTime(e.target.value)}
-                            className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 pl-9 pr-3 py-3 text-xs text-[#1C1C1C] outline-none focus:border-[#C9A84C]"
+                            className="input has-icon"
                           />
                         </div>
                       </motion.div>
@@ -579,28 +579,28 @@ export default function BookPage() {
                   {/* Optional flight details & notes */}
                   <div className="grid gap-4 grid-cols-2">
                     <div>
-                      <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-1 font-bold">
-                        {isRtl ? "Ø±Ù‚Ù… Ø§Ù„Ø±Ø­Ù„Ø© (Ø§Ø®ØªÙŠØ§Ø±ÙŠ)" : "Flight Number (Opt)"}
+                      <label className="field-label mb-1.5 block">
+                        {isRtl ? "رقم الرحلة (اختياري)" : "Flight Number (Opt)"}
                       </label>
                       <input
                         type="text"
                         placeholder="e.g. SV-120"
                         value={flightNumber}
                         onChange={(e) => setFlightNumber(e.target.value)}
-                        className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 px-3 py-3 text-xs text-[#1C1C1C] outline-none focus:border-[#C9A84C]"
+                        className="input"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-1 font-bold">
-                        {isRtl ? "Ù…Ù„Ø§Ø­Ø¸Ø§Øª Ø¥Ø¶Ø§ÙÙŠØ©" : "Special Notes"}
+                      <label className="field-label mb-1.5 block">
+                        {isRtl ? "ملاحظات إضافية" : "Special Notes"}
                       </label>
                       <input
                         type="text"
                         placeholder="e.g. Need extra luggage room"
                         value={specialNotes}
                         onChange={(e) => setSpecialNotes(e.target.value)}
-                        className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 px-3 py-3 text-xs text-[#1C1C1C] outline-none focus:border-[#C9A84C]"
+                        className="input"
                       />
                     </div>
                   </div>
@@ -613,7 +613,7 @@ export default function BookPage() {
 
                   <div className="space-y-1">
                     <span className="text-[0.65rem] uppercase tracking-wider text-[#16A34A] font-bold">
-                      {isRtl ? "Ù…Ø¹Ø§ÙŠÙ†Ø© Ø¥Ø­Ø¯Ø§Ø«ÙŠØ§Øª Ø§Ù„Ù…Ø³Ø§Ø±" : "Transfer Coordinates Preview"}
+                      {isRtl ? "معاينة إحداثيات المسار" : "Transfer Coordinates Preview"}
                     </span>
                     <h3 className="font-heading text-lg font-bold">Taxi Saudi Arabia Dispatch GPS</h3>
                   </div>
@@ -642,9 +642,9 @@ export default function BookPage() {
 
                   <button
                     onClick={handleNextStep}
-                    className="flex items-center justify-center gap-2 w-full rounded-full bg-[#16A34A] py-4 text-xs font-bold uppercase tracking-wider text-white shadow-[0_4px_20px_rgba(22,163,74,0.3)] transition-all hover:bg-[#15803D]"
+                    className="btn btn-primary btn-lg btn-block"
                   >
-                    <span>{isRtl ? "Ø¹Ø±Ø¶ Ø§Ù„Ø³ÙŠØ§Ø±Ø§Øª Ø§Ù„Ù…ØªØ§Ø­Ø©" : "View Available Fleet"}</span>
+                    <span>{isRtl ? "عرض السيارات المتاحة" : "View Available Fleet"}</span>
                     <ArrowRight className="h-4 w-4" />
                   </button>
 
@@ -665,8 +665,8 @@ export default function BookPage() {
             >
               <div className="flex items-center justify-between border-b border-[#C9A84C]/10 pb-4">
                 <div>
-                  <h2 className="font-heading text-2xl font-bold">{isRtl ? "Ø§Ø®ØªØ± Ø³ÙŠØ§Ø±ØªÙƒ Ø§Ù„ÙØ§Ø®Ø±Ø©" : "Select Reserved Class"}</h2>
-                  <p className="text-xs text-[#6B7280]">{isRtl ? "Ù…Ù‚Ø§Ø±Ù†Ø© Ø§Ù„Ø£Ø³Ø¹Ø§Ø± Ø§Ù„Ø«Ø§Ø¨ØªØ© Ø§Ù„Ø´Ø§Ù…Ù„Ø© Ù„Ù„Ø¶Ø±ÙŠØ¨Ø© Ù„Ø¬Ù…ÙŠØ¹ ÙØ¦Ø§Øª Ø£Ø³Ø·ÙˆÙ„Ù†Ø§." : "Choose the vehicle class that fits your journey — final pricing is confirmed on WhatsApp."}</p>
+                  <h2 className="font-heading text-2xl font-bold">{isRtl ? "اختر سيارتك الفاخرة" : "Select Reserved Class"}</h2>
+                  <p className="text-xs text-[#6B7280]">{isRtl ? "مقارنة الأسعار الثابتة الشاملة للضريبة لجميع فئات أسطولنا." : "Choose the vehicle class that fits your journey — final pricing is confirmed on WhatsApp."}</p>
                 </div>
 
                 <button
@@ -674,7 +674,7 @@ export default function BookPage() {
                   className="inline-flex items-center gap-1.5 text-xs text-[#16A34A] hover:underline"
                 >
                   <ChevronLeft className="h-4 w-4" />
-                  <span>{isRtl ? "ØªØ¹Ø¯ÙŠÙ„ Ø§Ù„Ù…Ø³Ø§Ø±" : "Adjust Journey"}</span>
+                  <span>{isRtl ? "تعديل المسار" : "Adjust Journey"}</span>
                 </button>
               </div>
 
@@ -754,9 +754,9 @@ export default function BookPage() {
               <div className="flex justify-end pt-4">
                 <button
                   onClick={handleNextStep}
-                  className="flex items-center justify-center gap-2 rounded-full bg-[#16A34A] px-8 py-4 text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-[#15803D] shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
+                  className="btn btn-primary btn-lg"
                 >
-                  <span>{isRtl ? "Ø§Ù„Ù…ØªØ§Ø¨Ø¹Ø© Ù„Ù„Ø¥Ø¶Ø§ÙØ§Øª" : "Continue to Extras"}</span>
+                  <span>{isRtl ? "المتابعة للإضافات" : "Continue to Extras"}</span>
                   <ChevronRight className="h-4.5 w-4.5" />
                 </button>
               </div>
@@ -775,8 +775,8 @@ export default function BookPage() {
             >
               <div className="flex items-center justify-between border-b border-[#C9A84C]/10 pb-4">
                 <div>
-                  <h2 className="font-heading text-2xl font-bold">{isRtl ? "Ø§Ù„Ø¥Ø¶Ø§ÙØ§Øª ÙˆØ§Ù„Ø®Ø¯Ù…Ø§Øª Ø§Ù„Ø®Ø§ØµØ©" : "Tailor Your VIP Experience"}</h2>
-                  <p className="text-xs text-[#6B7280]">{isRtl ? "Ø®ÙŠØ§Ø±Ø§Øª Ø¯Ø±Ø¨Ø§Ù† Ù…Ø®ØµØµØ© Ù„ØªØ£Ù…ÙŠÙ† Ø£Ù‚ØµÙ‰ Ø³Ø¨Ù„ Ø§Ù„Ø±Ø§Ø­Ø© ÙˆØ§Ù„ØªØ±Ø­ÙŠØ¨ Ø¨Ø¶ÙŠÙˆÙÙƒÙ…." : "Premium amenities to enhance pilgrim comfort or executive hospitality."}</p>
+                  <h2 className="font-heading text-2xl font-bold">{isRtl ? "الإضافات والخدمات الخاصة" : "Tailor Your VIP Experience"}</h2>
+                  <p className="text-xs text-[#6B7280]">{isRtl ? "خيارات دربان مخصصة لتأمين أقصى سبل الراحة والترحيب بضيوفكم." : "Premium amenities to enhance pilgrim comfort or executive hospitality."}</p>
                 </div>
 
                 <button
@@ -784,7 +784,7 @@ export default function BookPage() {
                   className="inline-flex items-center gap-1.5 text-xs text-[#16A34A] hover:underline"
                 >
                   <ChevronLeft className="h-4 w-4" />
-                  <span>{isRtl ? "ØªØºÙŠÙŠØ± Ø§Ù„Ø³ÙŠØ§Ø±Ø©" : "Change Vehicle"}</span>
+                  <span>{isRtl ? "تغيير السيارة" : "Change Vehicle"}</span>
                 </button>
               </div>
 
@@ -797,7 +797,7 @@ export default function BookPage() {
                   className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.childSeat ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-white hover:border-[#C9A84C]/30"}`}
                 >
                   <div className="space-y-1.5 max-w-[200px]">
-                    <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "ÙƒØ±Ø³ÙŠ Ø£Ø·ÙØ§Ù„ Ø¢Ù…Ù†" : "Child Safety Seat"}</h4>
+                    <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "كرسي أطفال آمن" : "Child Safety Seat"}</h4>
                     <p className="text-[0.6rem] text-[#6B7280] leading-relaxed">Required for babies and toddlers under 4 years old in KSA.</p>
                   </div>
                   <span className="text-xs font-bold text-[#6B7280]">Optional</span>
@@ -809,7 +809,7 @@ export default function BookPage() {
                   className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.meetAndGreet ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-white hover:border-[#C9A84C]/30"}`}
                 >
                   <div className="space-y-1.5 max-w-[200px]">
-                    <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "Ø§Ù„Ø§Ø³ØªÙ‚Ø¨Ø§Ù„ ÙˆØ§Ù„ØªØ±Ø­ÙŠØ¨ Ø¨Ø§Ù„Ù…Ø·Ø§Ø±" : "Airport Meet & Greet"}</h4>
+                    <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "الاستقبال والترحيب بالمطار" : "Airport Meet & Greet"}</h4>
                     <p className="text-[0.6rem] text-[#6B7280] leading-relaxed">driver greets you at arrivals holding a luxury VIP sign.</p>
                   </div>
                   <span className="text-xs font-bold text-[#6B7280]">Optional</span>
@@ -821,7 +821,7 @@ export default function BookPage() {
                   className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.extraWaiting ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-white hover:border-[#C9A84C]/30"}`}
                 >
                   <div className="space-y-1.5 max-w-[200px]">
-                    <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "ÙˆÙ‚Øª Ø§Ù†ØªØ¸Ø§Ø± Ø¥Ø¶Ø§ÙÙŠ (Ù£Ù  Ø¯Ù‚ÙŠÙ‚Ø©)" : "Extra Waiting Time"}</h4>
+                    <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "وقت انتظار إضافي (٣٠ دقيقة)" : "Extra Waiting Time"}</h4>
                     <p className="text-[0.6rem] text-[#6B7280] leading-relaxed">Extend driver standby window at your coordinates.</p>
                   </div>
                   <span className="text-xs font-bold text-[#6B7280]">Optional</span>
@@ -833,7 +833,7 @@ export default function BookPage() {
                   className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.waterBottles ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-white hover:border-[#C9A84C]/30"}`}
                 >
                   <div className="space-y-1.5 max-w-[200px]">
-                    <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "Ù…ÙŠØ§Ù‡ Ø¨Ø§Ø±Ø¯Ø© ÙØ§Ø®Ø±Ø©" : "Premium Chilled Water"}</h4>
+                    <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "مياه باردة فاخرة" : "Premium Chilled Water"}</h4>
                     <p className="text-[0.6rem] text-[#6B7280] leading-relaxed">Bottled premium chilled water stocked in vehicle.</p>
                   </div>
                   <span className="text-xs font-bold text-[#6B7280]">Optional</span>
@@ -845,7 +845,7 @@ export default function BookPage() {
                   className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.prayerMat ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-white hover:border-[#C9A84C]/30"}`}
                 >
                   <div className="space-y-1.5 max-w-[200px]">
-                    <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "Ø³Ø¬Ø§Ø¯Ø© ØµÙ„Ø§Ø© Ù…Ø¹Ù‚Ù…Ø©" : "Sterilized Prayer Mat"}</h4>
+                    <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "سجادة صلاة معقمة" : "Sterilized Prayer Mat"}</h4>
                     <p className="text-[0.6rem] text-[#6B7280] leading-relaxed">Sterilized pilgrim prayer mat loaded in back cabin.</p>
                   </div>
                   <span className="text-xs font-bold text-green-400">Complimentary</span>
@@ -857,7 +857,7 @@ export default function BookPage() {
                   className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.wheelchairFilter ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-white hover:border-[#C9A84C]/30"}`}
                 >
                   <div className="space-y-1.5 max-w-[200px]">
-                    <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "Ù…Ø±ÙƒØ¨Ø© Ù…Ù‡ÙŠØ¦Ø© Ù„Ù„ÙƒØ±Ø§Ø³ÙŠ" : "Wheelchair Facility"}</h4>
+                    <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "مركبة مهيئة للكراسي" : "Wheelchair Facility"}</h4>
                     <p className="text-[0.6rem] text-[#6B7280] leading-relaxed">Lock a vehicle that supports folding wheelchair loading.</p>
                   </div>
                   <span className="text-xs font-bold text-green-400">Filter Applied</span>
@@ -869,7 +869,7 @@ export default function BookPage() {
               <div className="flex justify-between pt-4 border-t border-[#C9A84C]/10">
                 <button
                   onClick={() => setStep(2)}
-                  className="flex items-center justify-center gap-1.5 rounded-full border border-[#C9A84C]/25 bg-white px-6 py-4 text-xs font-bold text-[#16A34A] hover:bg-[#C9A84C]/10 transition-all"
+                  className="btn btn-secondary btn-lg"
                 >
                   <ChevronLeft className="h-4.5 w-4.5" />
                   <span>Back</span>
@@ -877,9 +877,9 @@ export default function BookPage() {
 
                 <button
                   onClick={handleNextStep}
-                  className="flex items-center justify-center gap-2 rounded-full bg-[#16A34A] px-8 py-4 text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-[#15803D] shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
+                  className="btn btn-primary btn-lg"
                 >
-                  <span>{isRtl ? "Ø§Ù„Ù…ØªØ§Ø¨Ø¹Ø© Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ø§ØªØµØ§Ù„" : "Continue to Contact"}</span>
+                  <span>{isRtl ? "المتابعة لبيانات الاتصال" : "Continue to Contact"}</span>
                   <ChevronRight className="h-4.5 w-4.5" />
                 </button>
               </div>
@@ -898,8 +898,8 @@ export default function BookPage() {
             >
               <div className="flex items-center justify-between border-b border-[#C9A84C]/10 pb-4">
                 <div>
-                  <h2 className="font-heading text-2xl font-bold">{isRtl ? "Ù…Ø¹Ù„ÙˆÙ…Ø§Øª Ø§Ù„Ø§ØªØµØ§Ù„ ÙˆØ§Ù„Ù…Ø³Ø§ÙØ±" : "VIP Passenger Registry"}</h2>
-                  <p className="text-xs text-[#6B7280]">{isRtl ? "Ø£Ø¯Ø®Ù„ ØªÙØ§ØµÙŠÙ„ Ø§Ù„Ø§ØªØµØ§Ù„ Ù„Ø¥Ø±Ø³Ø§Ù„ Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ø³Ø§Ø¦Ù‚ ÙˆØ±Ù‚Ù… Ø§Ù„Ù„ÙˆØ­Ø© ÙÙˆØ±Ø§." : "Specify target contacts to receive dispatch verification alerts."}</p>
+                  <h2 className="font-heading text-2xl font-bold">{isRtl ? "معلومات الاتصال والمسافر" : "VIP Passenger Registry"}</h2>
+                  <p className="text-xs text-[#6B7280]">{isRtl ? "أدخل تفاصيل الاتصال لإرسال بيانات السائق ورقم اللوحة فورا." : "Specify target contacts to receive dispatch verification alerts."}</p>
                 </div>
 
                 <button
@@ -907,7 +907,7 @@ export default function BookPage() {
                   className="inline-flex items-center gap-1.5 text-xs text-[#16A34A] hover:underline"
                 >
                   <ChevronLeft className="h-4 w-4" />
-                  <span>{isRtl ? "ØªØ¹Ø¯ÙŠÙ„ Ø§Ù„Ø¥Ø¶Ø§ÙØ§Øª" : "Edit Amenities"}</span>
+                  <span>{isRtl ? "تعديل الإضافات" : "Edit Amenities"}</span>
                 </button>
               </div>
 
@@ -916,11 +916,11 @@ export default function BookPage() {
                 <ShieldCheck className="h-6 w-6 text-[#C9A84C] shrink-0 mt-0.5" />
                 <div>
                   <h4 className="text-xs font-bold text-[#1C1C1C]">
-                    {isRtl ? "Ù‡Ù„ ØªØ±ØºØ¨ ÙÙŠ ÙƒØ³Ø¨ Ù¡Ù¥Ù  Ù†Ù‚Ø·Ø© ÙˆÙ„Ø§Ø¡ ÙØ§Ø®Ø±Ø©ØŸ" : "Unlock 150 VIP Points Today"}
+                    {isRtl ? "هل ترغب في كسب ١٥٠ نقطة ولاء فاخرة؟" : "Unlock 150 VIP Points Today"}
                   </h4>
                   <p className="text-[0.6rem] text-[#6B7280] leading-relaxed mt-1">
                     {isRtl
-                      ? "Ù‚Ù… Ø¨ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ Ø£Ùˆ Ø¥Ù†Ø´Ø§Ø¡ Ø­Ø³Ø§Ø¨ Ø§Ù„Ø¢Ù† Ù„Ø­ÙØ¸ ØªÙØ§ØµÙŠÙ„ Ù‡Ø°Ø§ Ø§Ù„Ø­Ø¬Ø²ØŒ ÙˆØ§Ù„Ø§Ø³ØªÙØ§Ø¯Ø© Ù…Ù† Ø®ØµÙˆÙ…Ø§Øª Ø±Ø­Ù„ØªÙƒ Ø§Ù„Ù‚Ø§Ø¯Ù…Ø©."
+                      ? "قم بتسجيل الدخول أو إنشاء حساب الآن لحفظ تفاصيل هذا الحجز، والاستفادة من خصومات رحلتك القادمة."
                       : "Sign in or create an account to lock this dispatch into your client dashboard and trigger loyalty program rewards."}
                   </p>
                   <div className="mt-3 flex gap-2">
@@ -939,18 +939,18 @@ export default function BookPage() {
                 
                 {/* Full name */}
                 <div>
-                  <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-1.5 font-bold">
-                    {isRtl ? "Ø§Ù„Ø§Ø³Ù… Ø§Ù„ÙƒØ§Ù…Ù„ Ù„Ù„Ù…Ø³Ø§ÙØ±" : "Passenger Full Name"}
+                  <label className="field-label mb-1.5 block">
+                    {isRtl ? "الاسم الكامل للمسافر" : "Passenger Full Name"}
                   </label>
                   <div className="relative">
-                    <User className="absolute left-3 top-3.5 h-4 w-4 text-[#C9A84C]/75" />
+                    <User className="input-icon" />
                     <input
                       type="text"
                       required
                       value={custName}
                       onChange={(e) => setCustName(e.target.value)}
                       placeholder="e.g. Muhammad Al-Ghamdi"
-                      className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 pl-9 pr-4 py-3.5 text-xs text-[#1C1C1C] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
+                      className="input has-icon"
                     />
                   </div>
                 </div>
@@ -958,13 +958,13 @@ export default function BookPage() {
                 {/* Contact phone with code */}
                 <div className="grid gap-4 grid-cols-[0.3fr_0.7fr]">
                   <div>
-                    <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-1.5 font-bold">
+                    <label className="field-label mb-1.5 block">
                       Code
                     </label>
                     <select
                       value={phoneCode}
                       onChange={(e) => setPhoneCode(e.target.value)}
-                      className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 px-2 py-3.5 text-xs text-[#1C1C1C] outline-none focus:border-[#C9A84C]"
+                      className="input"
                     >
                       <option value="+966">KSA (+966)</option>
                       <option value="+971">UAE (+971)</option>
@@ -978,18 +978,18 @@ export default function BookPage() {
                   </div>
 
                   <div>
-                    <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-1.5 font-bold">
-                      {isRtl ? "Ø±Ù‚Ù… Ø§Ù„Ù‡Ø§ØªÙ ÙˆØ§Ù„ÙˆØ§ØªØ³Ø§Ø¨" : "WhatsApp Phone Number"}
+                    <label className="field-label mb-1.5 block">
+                      {isRtl ? "رقم الهاتف والواتساب" : "WhatsApp Phone Number"}
                     </label>
                     <div className="relative">
-                      <Phone className="absolute left-3 top-3.5 h-4 w-4 text-[#C9A84C]/75" />
+                      <Phone className="input-icon" />
                       <input
                         type="text"
                         required
                         value={custPhone}
                         onChange={(e) => setCustPhone(e.target.value)}
                         placeholder="e.g. 500123456"
-                        className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 pl-9 pr-4 py-3.5 text-xs text-[#1C1C1C] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
+                        className="input has-icon"
                       />
                     </div>
                   </div>
@@ -998,34 +998,34 @@ export default function BookPage() {
                 {/* Email and nationality */}
                 <div className="grid gap-4 grid-cols-2">
                   <div>
-                    <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-1.5 font-bold">
-                      {isRtl ? "Ø§Ù„Ø¨Ø±ÙŠØ¯ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ" : "Email Address"}
+                    <label className="field-label mb-1.5 block">
+                      {isRtl ? "البريد الإلكتروني" : "Email Address"}
                     </label>
                     <div className="relative">
-                      <Mail className="absolute left-3 top-3.5 h-4 w-4 text-[#C9A84C]/75" />
+                      <Mail className="input-icon" />
                       <input
                         type="email"
                         required
                         value={custEmail}
                         onChange={(e) => setCustEmail(e.target.value)}
                         placeholder="e.g. client@taxisaudiarabia.com"
-                        className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 pl-9 pr-4 py-3.5 text-xs text-[#1C1C1C] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
+                        className="input has-icon"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-1.5 font-bold">
-                      {isRtl ? "Ø§Ù„Ø¬Ù†Ø³ÙŠØ© / Ø§Ù„Ø¨Ù„Ø¯" : "Nationality / Country"}
+                    <label className="field-label mb-1.5 block">
+                      {isRtl ? "الجنسية / البلد" : "Nationality / Country"}
                     </label>
                     <div className="relative">
-                      <Globe className="absolute left-3 top-3.5 h-4 w-4 text-[#C9A84C]/75" />
+                      <Globe className="input-icon" />
                       <input
                         type="text"
                         value={nationality}
                         onChange={(e) => setNationality(e.target.value)}
                         placeholder="e.g. Saudi Arabia"
-                        className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 pl-9 pr-4 py-3.5 text-xs text-[#1C1C1C] placeholder-[#7C8088] outline-none focus:border-[#C9A84C]"
+                        className="input has-icon"
                       />
                     </div>
                   </div>
@@ -1033,19 +1033,19 @@ export default function BookPage() {
 
                 {/* Language Select */}
                 <div>
-                  <label className="block text-[0.6rem] uppercase tracking-wider text-[#6B7280] mb-1.5 font-bold">
-                    {isRtl ? "Ù„ØºØ© Ø§Ù„Ø³Ø§Ø¦Ù‚ Ø§Ù„Ù…ÙØ¶Ù„Ø©" : "Preferred Communication Language"}
+                  <label className="field-label mb-1.5 block">
+                    {isRtl ? "لغة السائق المفضلة" : "Preferred Communication Language"}
                   </label>
                   <div className="relative">
-                    <Languages className="absolute left-3 top-3.5 h-4 w-4 text-[#C9A84C]/75" />
+                    <Languages className="input-icon" />
                     <select
                       value={preferredLang}
                       onChange={(e) => setPreferredLang(e.target.value as "en" | "ar" | "ur")}
-                      className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 pl-9 pr-3 py-3.5 text-xs text-[#1C1C1C] outline-none focus:border-[#C9A84C]"
+                      className="input has-icon"
                     >
                       <option value="en">English (driver Standard)</option>
-                      <option value="ar">Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© (Ø³Ø§Ø¦Ù‚ ÙŠØªØ­Ø¯Ø« Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©)</option>
-                      <option value="ur">Ø§Ø±Ø¯Ùˆ (Ø³Ø§Ø¦Ù‚ Ø§Ø±Ø¯Ùˆ Ø¨ÙˆÙ„Ù†Û’ ÙˆØ§Ù„Ø§)</option>
+                      <option value="ar">العربية (سائق يتحدث العربية)</option>
+                      <option value="ur">اردو (سائق اردو بولنے والا)</option>
                     </select>
                   </div>
                 </div>
@@ -1056,7 +1056,7 @@ export default function BookPage() {
               <div className="flex justify-between pt-4 border-t border-[#C9A84C]/10">
                 <button
                   onClick={() => setStep(3)}
-                  className="flex items-center justify-center gap-1.5 rounded-full border border-[#C9A84C]/25 bg-white px-6 py-4 text-xs font-bold text-[#16A34A] hover:bg-[#C9A84C]/10 transition-all"
+                  className="btn btn-secondary btn-lg"
                 >
                   <ChevronLeft className="h-4.5 w-4.5" />
                   <span>Back</span>
@@ -1064,9 +1064,9 @@ export default function BookPage() {
 
                 <button
                   onClick={handleNextStep}
-                  className="flex items-center justify-center gap-2 rounded-full bg-[#16A34A] px-8 py-4 text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-[#15803D] shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
+                  className="btn btn-primary btn-lg"
                 >
-                  <span>{isRtl ? "Ù…Ø±Ø§Ø¬Ø¹Ø© ÙˆØ­Ø³Ø§Ø¨ Ø§Ù„ÙØ§ØªÙˆØ±Ø©" : "Review Summary & Pay"}</span>
+                  <span>{isRtl ? "مراجعة وحساب الفاتورة" : "Review Summary & Pay"}</span>
                   <ChevronRight className="h-4.5 w-4.5" />
                 </button>
               </div>
@@ -1094,7 +1094,7 @@ export default function BookPage() {
                   className="inline-flex items-center gap-1.5 text-xs text-[#16A34A] hover:underline"
                 >
                   <ChevronLeft className="h-4 w-4" />
-                  <span>{isRtl ? "ØªØ¹Ø¯ÙŠÙ„ Ù…Ø¹Ù„ÙˆÙ…Ø§ØªÙŠ" : "Edit Customer Info"}</span>
+                  <span>{isRtl ? "تعديل معلوماتي" : "Edit Customer Info"}</span>
                 </button>
               </div>
 
@@ -1126,7 +1126,7 @@ export default function BookPage() {
                       placeholder="PROMO CODE (optional)"
                       value={promoCode}
                       onChange={(e) => setPromoCode(e.target.value)}
-                      className="w-full rounded-xl bg-[#FAFAF7] border border-[#16A34A]/15 px-3 py-2.5 text-xs text-[#1C1C1C] placeholder-[#7C8088] outline-none"
+                      className="input"
                     />
                     <p className="text-[0.6rem] text-[#6B7280]">
                       {isRtl ? "سنطبق أي كود صالح يدويًا عند تأكيد السعر." : "We'll apply any valid code manually when confirming your price."}
@@ -1193,7 +1193,7 @@ export default function BookPage() {
                     <button
                       onClick={handleFinalizeBooking}
                       disabled={!termsAgreed || creatingBooking}
-                      className="flex items-center justify-center gap-2 w-full rounded-full bg-[#16A34A] py-4 text-xs font-bold uppercase tracking-wider text-white shadow-[0_4px_20px_rgba(22,163,74,0.3)] transition-all hover:bg-[#15803D] disabled:opacity-50"
+                      className="btn btn-primary btn-lg btn-block"
                     >
                       {creatingBooking ? (
                         <span className="h-4.5 w-4.5 animate-spin rounded-full border-2 border-[#0A0A0A] border-t-transparent" />
@@ -1228,16 +1228,16 @@ export default function BookPage() {
                   transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
                   className="text-[#C9A84C] text-2xl font-bold"
                 >
-                  âœ“
+                  ✓
                 </motion.span>
               </div>
 
               <div className="space-y-2">
                 <span className="text-[0.6rem] uppercase tracking-[0.25em] text-[#C9A84C] font-bold">
-                  {isRtl ? "ØªÙ… ØªØ£ÙƒÙŠØ¯ Ø­Ø¬Ø² Ø§Ù„Ø³Ø§Ø¦Ù‚" : "VIP Booking Certified"}
+                  {isRtl ? "تم تأكيد حجز السائق" : "VIP Booking Certified"}
                 </span>
                 <h2 className="font-heading text-2xl font-bold text-[#1C1C1C]">
-                  {isRtl ? "Ø±Ø­Ù„Ø© Ù…Ø¨Ø§Ø±ÙƒØ© Ø¨Ø¶ÙŠØ§ÙØ© ÙØ§Ø®Ø±Ø©" : "Welcome Aboard, Guest"}
+                  {isRtl ? "رحلة مباركة بضيافة فاخرة" : "Welcome Aboard, Guest"}
                 </h2>
                 <p className="text-xs text-[#6B7280] max-w-sm mx-auto leading-relaxed">
                   Your driver is registered in our centralized administrative system. Check details or verify GPS updates below.

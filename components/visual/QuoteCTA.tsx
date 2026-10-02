@@ -42,10 +42,7 @@ export function QuoteCTA({
   const pathname = usePathname();
   const waUrl = buildWhatsAppUrl(prefill);
 
-  const secondaryCls =
-    tone === "onDark"
-      ? "border border-white/25 bg-white/10 text-white hover:bg-white/20"
-      : "border border-[#16A34A]/25 bg-white text-[#15803D] hover:bg-[#F0FDF4] hover:border-[#16A34A]/50";
+  const secondaryCls = tone === "onDark" ? "btn-glass" : "btn-secondary";
 
   return (
     <div
@@ -53,10 +50,10 @@ export function QuoteCTA({
     >
       <Link
         href={primaryHref}
-        className="group inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#16A34A] px-7 text-sm font-bold text-white shadow-[0_8px_24px_rgba(22,163,74,0.32)] transition-all duration-200 hover:bg-[#15803D] hover:shadow-[0_10px_30px_rgba(22,163,74,0.45)] active:translate-y-px focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#16A34A]/30"
+        className={`btn btn-lg ${tone === "onDark" ? "btn-accent" : "btn-primary"}`}
       >
         {primaryLabel}
-        <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1" />
+        <ArrowRight className="rtl:rotate-180" />
       </Link>
       <a
         href={waUrl}
@@ -70,9 +67,9 @@ export function QuoteCTA({
             path: pathname,
           })
         }
-        className={`group inline-flex h-12 items-center justify-center gap-2 rounded-full px-7 text-sm font-bold transition-all duration-200 active:translate-y-px focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#16A34A]/30 ${secondaryCls}`}
+        className={`btn btn-lg ${secondaryCls}`}
       >
-        <MessageCircle className="h-4 w-4" />
+        <MessageCircle />
         {secondaryLabel}
       </a>
     </div>

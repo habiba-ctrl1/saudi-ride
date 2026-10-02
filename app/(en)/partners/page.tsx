@@ -199,7 +199,7 @@ export default function PartnersPage() {
           transition={{ duration: 0.6 }}
           className="max-w-3xl"
         >
-          <span className="text-xs uppercase tracking-[0.2em] text-[#16A34A] font-semibold">
+          <span className="t-eyebrow">
             {t.badge}
           </span>
           <h1 className="mt-4 font-heading text-4xl font-bold leading-tight md:text-5.5xl text-[#1C1C1C]">
@@ -214,7 +214,7 @@ export default function PartnersPage() {
       {/* Sector benefits grid */}
       <section className="section-container mt-16">
         <div className="max-w-3xl mb-12">
-          <span className="text-xs uppercase tracking-[0.2em] text-[#16A34A] font-semibold">{t.partnerSubtitle}</span>
+          <span className="t-eyebrow">{t.partnerSubtitle}</span>
           <h2 className="mt-2 font-heading text-3xl font-bold text-[#1C1C1C]">{t.partnerTitle}</h2>
         </div>
 
@@ -303,63 +303,63 @@ export default function PartnersPage() {
               
               <div className="grid gap-6 sm:grid-cols-2">
                 {/* Company Name */}
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelCompany}</label>
+                <label className="field">
+                  <span className="field-label">{t.labelCompany}</span>
                   <input
                     type="text"
                     required
                     value={formData.companyName}
                     onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                    className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                    className="input"
                   />
-                </div>
+                </label>
 
                 {/* Contact Person */}
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelContact}</label>
+                <label className="field">
+                  <span className="field-label">{t.labelContact}</span>
                   <input
                     type="text"
                     required
                     value={formData.contactPerson}
                     onChange={(e) => setFormData({ ...formData, contactPerson: e.target.value })}
-                    className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                    className="input"
                   />
-                </div>
+                </label>
               </div>
 
               <div className="grid gap-6 sm:grid-cols-2">
                 {/* Work Email */}
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelEmail}</label>
+                <label className="field">
+                  <span className="field-label">{t.labelEmail}</span>
                   <input
                     type="email"
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                    className="input"
                   />
-                </div>
+                </label>
 
                 {/* Direct Number */}
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelPhone}</label>
+                <label className="field">
+                  <span className="field-label">{t.labelPhone}</span>
                   <input
                     type="tel"
                     required
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                    className="input"
                   />
-                </div>
+                </label>
               </div>
 
               {/* Partnership Category */}
-              <div className="space-y-2">
-                <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelType}</label>
+              <label className="field">
+                <span className="field-label">{t.labelType}</span>
                 <select
                   value={formData.partnerType}
                   onChange={(e) => setFormData({ ...formData, partnerType: e.target.value })}
-                  className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                  className="input"
                 >
                   {t.partnerTypes.map((opt) => (
                     <option key={opt.value} value={opt.value} className="bg-white">
@@ -367,26 +367,26 @@ export default function PartnersPage() {
                     </option>
                   ))}
                 </select>
-              </div>
+              </label>
 
               {/* Requirements text */}
-              <div className="space-y-2">
-                <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelDetails}</label>
+              <label className="field">
+                <span className="field-label">{t.labelDetails}</span>
                 <textarea
                   required
                   rows={4}
                   value={formData.details}
                   onChange={(e) => setFormData({ ...formData, details: e.target.value })}
                   placeholder={t.placeholderDetails}
-                  className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors resize-none placeholder:text-[#555]"
+                  className="input"
                 />
-              </div>
+              </label>
 
               {/* Submit */}
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full rounded-xl bg-[#16A34A] py-4 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] disabled:bg-[#C9A84C]/50 transition-colors flex items-center justify-center gap-2 shadow-[0_4px_15px_rgba(22,163,74,0.2)]"
+                className="btn btn-primary btn-lg btn-block"
               >
                 {isSubmitting ? (
                   <>

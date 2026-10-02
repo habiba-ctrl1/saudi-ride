@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Manrope, Geist, Cairo, Playfair_Display } from "next/font/google";
 import "@/app/globals.css";
+import "@/app/design-system.css";
 import { cn } from "@/lib/utils";
 import { Providers } from "@/components/providers";
 import { SiteShell } from "@/components/layout/SiteShell";

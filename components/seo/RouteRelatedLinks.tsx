@@ -165,73 +165,63 @@ export function RouteRelatedLinks({ slug, fromCity, toCity }: Props) {
   )
     return null;
 
+  const chipGroups = [
+    { label: "Cities", items: citySlugs.map((c) => ({ key: c, href: `/locations/${c}`, icon: MapPin, text: `Taxi service in ${c.charAt(0).toUpperCase() + c.slice(1)}` })) },
+    { label: "Airports", items: airportLinks.map((a) => ({ key: a.slug, href: `/airports/${a.slug}`, icon: Plane, text: `${a.label} taxi` })) },
+    { label: "Services", items: serviceLinks.map((sv) => ({ key: sv.href, href: sv.href, icon: ArrowRight, text: sv.label })) },
+    { label: "Travel guides", items: guideLinks.map((g) => ({ key: g.slug, href: `/guides/${g.slug}`, icon: BookOpen, text: g.label })) },
+  ].filter((g) => g.items.length > 0);
+
   return (
-    <section className="mt-16 border-t border-[#C9A84C]/10 pt-10">
-      <h2 className="font-heading text-2xl font-bold mb-6">
+    <section className="mt-16 border-t border-[#0F172A]/[0.07] pt-12">
+      <span className="t-eyebrow">Plan the next leg</span>
+      <h2 className="t-h2 mt-3 mb-7 !text-[clamp(1.4rem,2.4vw,1.9rem)]">
         Related Taxi Routes &amp; City Guides
       </h2>
 
       {routeLinks.length > 0 && (
-        <div className="grid gap-3 sm:grid-cols-2 mb-8">
+        <div className="mb-8 grid gap-3 sm:grid-cols-2" data-stagger>
           {routeLinks.map((r) => (
             <Link
               key={r.slug}
               href={`/routes/${r.slug}`}
-              className="group flex items-center justify-between rounded-2xl border border-[#16A34A]/12 bg-white px-5 py-4 hover:border-[#16A34A]/35 transition-all"
+              className="no-lift group flex items-center gap-4 rounded-2xl border border-[#0F172A]/[0.08] bg-white px-4 py-4 shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#16A34A]/40 hover:shadow-[0_14px_30px_-18px_rgba(22,163,74,0.6)] sm:px-5"
             >
-              <span className="text-sm font-semibold">
-                Taxi {r.fromCity} to {r.toCity}
-                <span className="block text-[0.65rem] text-[#6B7280] font-normal mt-0.5">
+              <span aria-hidden className="flex flex-col items-center gap-1 self-stretch py-1">
+                <span className="h-2.5 w-2.5 rounded-full bg-[#16A34A]" />
+                <span className="w-px flex-1 border-s-2 border-dotted border-[#16A34A]/35" />
+                <span className="h-2.5 w-2.5 rounded-full border-2 border-[#16A34A] bg-white" />
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-sm font-bold text-[#0F172A] transition-colors group-hover:text-[#15803D]">
+                  Taxi {r.fromCity} to {r.toCity}
+                </span>
+                <span className="mt-0.5 block text-xs text-[#64748B]">
                   {r.distance} km · fare on WhatsApp
                 </span>
               </span>
-              <ArrowRight className="rtl:-scale-x-100 h-4 w-4 text-[#C9A84C] shrink-0 group-hover:translate-x-1 transition-transform" />
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F0FDF4] text-[#16A34A] transition-colors group-hover:bg-[#16A34A] group-hover:text-[#FFFFFF]">
+                <ArrowRight className="rtl:-scale-x-100 h-4 w-4" />
+              </span>
             </Link>
           ))}
         </div>
       )}
 
-      {(citySlugs.length > 0 || airportLinks.length > 0 || serviceLinks.length > 0 || guideLinks.length > 0) && (
-        <div className="flex flex-wrap gap-3">
-          {citySlugs.map((c) => (
-            <Link
-              key={c}
-              href={`/locations/${c}`}
-              className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
-            >
-              <MapPin className="h-3.5 w-3.5" />
-              Taxi service in {c.charAt(0).toUpperCase() + c.slice(1)}
-            </Link>
-          ))}
-          {airportLinks.map((a) => (
-            <Link
-              key={a.slug}
-              href={`/airports/${a.slug}`}
-              className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#16A34A]/10 transition-all"
-            >
-              <Plane className="h-3.5 w-3.5" />
-              {a.label} taxi
-            </Link>
-          ))}
-          {serviceLinks.map((s) => (
-            <Link
-              key={s.href}
-              href={s.href}
-              className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
-            >
-              <ArrowRight className="rtl:-scale-x-100 h-3.5 w-3.5" />
-              {s.label}
-            </Link>
-          ))}
-          {guideLinks.map((g) => (
-            <Link
-              key={g.slug}
-              href={`/guides/${g.slug}`}
-              className="inline-flex items-center gap-2 rounded-full border border-[#6B7280]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#6B7280] hover:bg-[#6B7280]/10 transition-all"
-            >
-              <BookOpen className="h-3.5 w-3.5" />
-              {g.label}
-            </Link>
+      {chipGroups.length > 0 && (
+        <div className="grid gap-5 rounded-3xl border border-[#16A34A]/12 bg-[#F6FAF6] p-5 sm:p-6 md:grid-cols-2">
+          {chipGroups.map((g) => (
+            <div key={g.label}>
+              <p className="t-meta mb-2.5 uppercase tracking-[0.14em]">{g.label}</p>
+              <div className="flex flex-wrap gap-2">
+                {g.items.map(({ key, href, icon: Icon, text }) => (
+                  <Link key={key} href={href} className="chip">
+                    <Icon className="rtl:-scale-x-100" />
+                    {text}
+                  </Link>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
       )}

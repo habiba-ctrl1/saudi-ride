@@ -214,7 +214,7 @@ export default function RoutesClient({ initialRoutes }: { initialRoutes: Route[]
 
         {/* Custom Route CTA */}
         <div className="mt-14 rounded-3xl border border-[#16A34A]/15 bg-white p-8 text-center space-y-4">
-          <span className="text-[0.65rem] uppercase tracking-[0.2em] text-[#16A34A] font-bold">Custom Route</span>
+          <span className="t-eyebrow">Custom Route</span>
           <h2 className="font-heading text-2xl font-bold">Need a specific transfer?</h2>
           <p className="text-sm text-[#6B7280] max-w-lg mx-auto">
             We cover all of Saudi Arabia and GCC. Contact our concierge for a customized VIP transfer quote.
@@ -234,7 +234,7 @@ export default function RoutesClient({ initialRoutes }: { initialRoutes: Route[]
                   path: pathname,
                 })
               }
-              className="flex items-center gap-2 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
+              className="btn btn-primary btn-lg"
             >
               <Car className="h-4 w-4" />
               Contact Concierge

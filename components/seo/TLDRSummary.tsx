@@ -25,23 +25,26 @@ export function TLDRSummary({
 }) {
   return (
     <div
-      className={`rounded-2xl border border-[#16A34A]/30 bg-[#86EFAC]/25 p-5 sm:p-6 ${className}`}
+      className={`relative overflow-hidden rounded-3xl border border-[#16A34A]/15 bg-white p-5 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_16px_40px_-28px_rgba(22,163,74,0.6)] sm:p-7 ${className}`}
     >
-      <div className="flex items-center gap-2 mb-2">
-        <Zap className="h-4 w-4 text-[#C9A84C]" />
-        <span className="text-xs font-semibold uppercase tracking-wide text-[#C9A84C]">
+      <span aria-hidden className="absolute inset-y-0 start-0 w-1 bg-gradient-to-b from-[#16A34A] to-[#FACC15]" />
+      <div className="mb-3 flex items-center gap-2">
+        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#FACC15]/25 text-[#A16207]">
+          <Zap className="h-4 w-4" aria-hidden />
+        </span>
+        <span className="text-[0.72rem] font-bold uppercase tracking-[0.16em] text-[#15803D]">
           {label}
         </span>
       </div>
-      <p id={id} className="text-[15px] sm:text-base leading-relaxed text-[#1C1C1C] font-medium">
+      <p id={id} className="max-w-[70ch] text-[1rem] font-medium leading-relaxed text-[#1E293B] sm:text-[1.06rem]">
         {answer}
       </p>
       {facts && facts.length > 0 && (
-        <dl className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <dl className="mt-5 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
           {facts.map((f) => (
-            <div key={f.label} className="rounded-xl bg-white/70 px-3 py-2 border border-black/5">
-              <dt className="text-[11px] uppercase tracking-wide text-[#6B7280]">{f.label}</dt>
-              <dd className="text-sm font-semibold text-[#006C35]">{f.value}</dd>
+            <div key={f.label} className="min-w-0 rounded-2xl border border-[#16A34A]/10 bg-[#F4FAF5] px-3.5 py-3">
+              <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[#64748B]">{f.label}</dt>
+              <dd className="mt-1 break-words text-sm font-bold text-[#15803D]">{f.value}</dd>
             </div>
           ))}
         </dl>

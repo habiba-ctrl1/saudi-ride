@@ -1,0 +1,578 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   TSA DESIGN SYSTEM v2 — frontend foundation (2026-10)
+   ───────────────────────────────────────────────────────────────────────────
+   Imported AFTER globals.css (see RootDocument). Rules here:
+   • Additive. The legacy light-theme `!important` compatibility layer in
+     globals.css is left intact; the only places this file needs !important
+     are the documented counter-rules below that undo a legacy rule for a
+     specific, safe case (white text on brand-green surfaces, bare inputs
+     inside designed field shells).
+   • Public-site behaviour is scoped to `.tsa-public` (SiteShell <main>),
+     so admin/dashboard screens are untouched.
+   • Brand palette unchanged: green #16A34A · yellow #FACC15 · white.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Ink & text */
+  --ink: #0F172A;
+  --ink-2: #1E293B;
+  --text-body: #475569;
+  --text-muted: #64748B;
+  --text-faint: #94A3B8;
+
+  /* Brand */
+  --brand: #16A34A;
+  --brand-600: #15803D;
+  --brand-700: #166534;
+  --brand-900: #0B3B21;
+  --brand-50: #F0FDF4;
+  --brand-100: #DCFCE7;
+  --sun: #FACC15;
+  --sun-600: #EAB308;
+  --sun-50: #FEFCE8;
+  --wa: #25D366;
+  --wa-600: #1EBE5B;
+
+  /* Surfaces & lines */
+  --canvas: #FAFAF7;
+  --surface: #FFFFFF;
+  --surface-2: #F6F8F6;
+  --line: rgba(15, 23, 42, 0.08);
+  --line-strong: rgba(15, 23, 42, 0.14);
+  --line-brand: rgba(22, 163, 74, 0.16);
+
+  /* Status */
+  --danger: #DC2626;
+  --danger-50: #FEF2F2;
+  --warn: #B45309;
+  --focus: rgba(22, 163, 74, 0.28);
+
+  /* Radius */
+  --r-xs: 8px;
+  --r-sm: 12px;
+  --r-md: 16px;
+  --r-lg: 22px;
+  --r-xl: 28px;
+
+  /* Elevation */
+  --sh-1: 0 1px 2px rgba(15, 23, 42, 0.05), 0 1px 1px rgba(15, 23, 42, 0.03);
+  --sh-2: 0 2px 6px rgba(15, 23, 42, 0.05), 0 8px 24px rgba(15, 23, 42, 0.06);
+  --sh-3: 0 10px 30px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.04);
+  --sh-brand: 0 10px 28px rgba(22, 163, 74, 0.28);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-1: 160ms;
+  --dur-2: 260ms;
+  --dur-3: 600ms;
+
+  /* Layout */
+  --header-h: 76px;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+}
+
+/* ─── Global hygiene ──────────────────────────────────────────────────────── */
+html { scroll-padding-top: calc(var(--header-h) + 16px); }
+body { overflow-x: clip; }
+::selection { background: rgba(250, 204, 21, 0.45); color: var(--ink); }
+
+.tsa-public :is(h1, h2, h3, h4) { text-wrap: balance; }
+.tsa-public :is(p, li, dd, blockquote) { text-wrap: pretty; }
+.tsa-public img { max-width: 100%; }
+
+/* One focus language everywhere on the public site. Uses outline so it
+   never shifts layout and follows border-radius in modern browsers. */
+.tsa-public :is(a, button, summary, [role="button"], [tabindex]):focus-visible,
+.tsa-header :is(a, button):focus-visible,
+.tsa-footer :is(a, button, summary):focus-visible {
+  outline: 2.5px solid var(--brand);
+  outline-offset: 3px;
+}
+.tsa-header :is(a, button):focus-visible,
+.tsa-footer :is(a, button, summary):focus-visible { outline-color: var(--sun); }
+
+/* Legacy fix: the light-theme layer forces `.text-white` to dark ink outside
+   .premium-dark-section, which turned the label on every solid green / dark
+   button into black-on-green. Restore white ONLY when the element itself (or
+   an ancestor) is a solid brand-green / WhatsApp / ink surface. Specificity is
+   raised with :not() to beat the legacy (0,3,0) selector. */
+:is(
+  [class~="bg-[#16A34A]"], [class~="bg-[#15803D]"], [class~="bg-[#166534]"],
+  [class~="bg-[#14532D]"], [class~="bg-[#25D366]"], [class~="bg-[#1EBE5B]"],
+  [class~="bg-[#0F172A]"], [class~="bg-primary"], [class~="bg-green-600"],
+  [class~="bg-green-700"], [class~="from-[#16A34A]"], .on-dark, .tsa-on-media
+).text-white:not(.x-0):not(.x-1),
+:is(
+  [class~="bg-[#16A34A]"], [class~="bg-[#15803D]"], [class~="bg-[#166534]"],
+  [class~="bg-[#14532D]"], [class~="bg-[#25D366]"], [class~="bg-[#1EBE5B]"],
+  [class~="bg-[#0F172A]"], [class~="bg-primary"], [class~="bg-green-600"],
+  [class~="bg-green-700"], [class~="from-[#16A34A]"], .on-dark, .tsa-on-media
+) .text-white:not(.x-0):not(.x-1) {
+  color: #FFFFFF !important;
+}
+
+/* ─── Typography scale ────────────────────────────────────────────────────── */
+.t-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--brand-600);
+}
+.t-eyebrow::before {
+  content: "";
+  width: 1.25rem;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--brand), var(--sun));
+}
+.t-eyebrow.is-plain::before { display: none; }
+.on-dark .t-eyebrow, .t-eyebrow.on-dark { color: var(--sun); }
+
+.t-display {
+  font-family: var(--font-heading), system-ui, sans-serif;
+  font-size: clamp(2.25rem, 5.2vw, 4rem);
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+  font-weight: 800;
+  color: var(--ink);
+}
+.t-h2 {
+  font-family: var(--font-heading), system-ui, sans-serif;
+  font-size: clamp(1.75rem, 3.4vw, 2.6rem);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  font-weight: 800;
+  color: var(--ink);
+}
+.t-h3 {
+  font-family: var(--font-heading), system-ui, sans-serif;
+  font-size: clamp(1.125rem, 1.6vw, 1.3rem);
+  line-height: 1.3;
+  letter-spacing: -0.012em;
+  font-weight: 700;
+  color: var(--ink);
+}
+.t-lead {
+  font-size: clamp(1rem, 1.25vw, 1.15rem);
+  line-height: 1.7;
+  color: var(--text-body);
+  max-width: 62ch;
+}
+.t-body { font-size: 0.975rem; line-height: 1.7; color: var(--text-body); }
+.t-small { font-size: 0.875rem; line-height: 1.6; color: var(--text-muted); }
+.t-meta {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+}
+.measure { max-width: 65ch; }
+.measure-narrow { max-width: 48ch; }
+
+/* Section header block: eyebrow → title → lead, fixed rhythm. */
+.section-head { display: flex; flex-direction: column; gap: 0.875rem; max-width: 46rem; }
+.section-head.is-center { align-items: center; text-align: center; margin-inline: auto; }
+.section-head + * { margin-top: clamp(2rem, 4vw, 3rem); }
+
+/* ─── Layout & rhythm ─────────────────────────────────────────────────────── */
+.wrap {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.wrap-wide { max-width: 87.5rem; }
+.band { padding-block: clamp(3.5rem, 7vw, 6rem); }
+.band-sm { padding-block: clamp(2.5rem, 5vw, 4rem); }
+.band-tint { background: linear-gradient(180deg, #F3F8F3 0%, #FAFAF7 100%); }
+.band-brand {
+  background:
+    radial-gradient(120% 140% at 100% 0%, rgba(250, 204, 21, 0.16) 0%, transparent 45%),
+    linear-gradient(135deg, #16A34A 0%, #15803D 55%, #166534 100%);
+  color: #fff;
+}
+
+/* ─── Buttons ─────────────────────────────────────────────────────────────── */
+.btn {
+  --btn-h: 3rem;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: var(--btn-h);
+  padding-inline: 1.5rem;
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.005em;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color var(--dur-1) ease,
+    border-color var(--dur-1) ease,
+    color var(--dur-1) ease,
+    box-shadow var(--dur-2) var(--ease-out),
+    translate var(--dur-1) ease;
+}
+.btn svg { width: 1.05rem; height: 1.05rem; flex-shrink: 0; }
+.btn:active { translate: 0 1px; }
+.btn:disabled, .btn[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; box-shadow: none; translate: none; }
+.btn[data-loading="true"] { color: transparent !important; pointer-events: none; }
+.btn[data-loading="true"]::after {
+  content: "";
+  position: absolute;
+  width: 1.1rem; height: 1.1rem;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-top-color: #fff;
+  animation: tsa-spin 0.7s linear infinite;
+}
+@keyframes tsa-spin { to { transform: rotate(360deg); } }
+
+.btn-sm { --btn-h: 2.5rem; padding-inline: 1.1rem; font-size: 0.82rem; }
+.btn-lg { --btn-h: 3.5rem; padding-inline: 1.9rem; font-size: 0.95rem; }
+.btn-block { width: 100%; white-space: normal; text-align: center; }
+
+.btn-primary { background: var(--brand); color: #fff !important; box-shadow: 0 6px 18px rgba(22, 163, 74, 0.24); }
+.btn-primary:hover { background: var(--brand-600); box-shadow: var(--sh-brand); }
+
+.btn-accent { background: var(--sun); color: var(--ink) !important; box-shadow: 0 6px 18px rgba(234, 179, 8, 0.28); }
+.btn-accent:hover { background: #FDE047; box-shadow: 0 10px 26px rgba(234, 179, 8, 0.36); }
+
+.btn-secondary { background: #fff; color: var(--brand-600) !important; border-color: rgba(22, 163, 74, 0.3); }
+.btn-secondary:hover { background: var(--brand-50); border-color: var(--brand); }
+
+.btn-ghost { background: transparent; color: var(--ink) !important; border-color: var(--line-strong); }
+.btn-ghost:hover { background: rgba(15, 23, 42, 0.04); border-color: rgba(15, 23, 42, 0.28); }
+
+.btn-whatsapp { background: var(--wa); color: #fff !important; box-shadow: 0 6px 18px rgba(37, 211, 102, 0.26); }
+.btn-whatsapp:hover { background: var(--wa-600); box-shadow: 0 10px 26px rgba(37, 211, 102, 0.34); }
+
+/* On green / dark surfaces */
+.btn-glass { background: rgba(255, 255, 255, 0.12); color: #fff !important; border-color: rgba(255, 255, 255, 0.35); backdrop-filter: blur(6px); }
+.btn-glass:hover { background: rgba(255, 255, 255, 0.22); border-color: rgba(255, 255, 255, 0.6); }
+.btn-white { background: #fff; color: var(--brand-700) !important; }
+.btn-white:hover { background: var(--brand-50); }
+
+.btn-link {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-weight: 700; font-size: 0.9rem; color: var(--brand-600);
+  text-underline-offset: 4px;
+}
+.btn-link:hover { text-decoration: underline; text-decoration-thickness: 1.5px; }
+
+/* Arrow micro-interaction — any lucide arrow inside an interactive element
+   nudges in reading direction on hover. Uses the `translate` property so it
+   composes with Tailwind's `rotate`/`-scale-x` RTL flips. */
+.tsa-public :is(a, button):hover > svg.lucide-arrow-right,
+.tsa-public :is(a, button):hover .tsa-arrow,
+.tsa-public .group:hover svg.lucide-arrow-right,
+.tsa-public .group:hover svg.lucide-arrow-up-right,
+.tsa-header a:hover svg.lucide-arrow-right,
+.tsa-footer a:hover svg.lucide-arrow-right { translate: 3px 0; }
+[dir="rtl"] .tsa-public :is(a, button):hover > svg.lucide-arrow-right,
+[dir="rtl"] .tsa-public .group:hover svg.lucide-arrow-right,
+[dir="rtl"] .tsa-footer a:hover svg.lucide-arrow-right { translate: -3px 0; }
+.tsa-public :is(a, button) svg.lucide-arrow-right,
+.tsa-public svg.lucide-arrow-up-right,
+.tsa-header svg.lucide-arrow-right,
+.tsa-footer svg.lucide-arrow-right,
+.tsa-arrow { transition: translate var(--dur-2) var(--ease-out); }
+
+/* ─── Form fields ─────────────────────────────────────────────────────────── */
+.tsa-public :is(input, select, textarea) { min-width: 0; max-width: 100%; }
+.tsa-public :is(input, textarea)::placeholder { color: var(--text-faint); opacity: 1; }
+.tsa-public select { text-overflow: ellipsis; }
+
+.field { display: flex; flex-direction: column; gap: 0.4rem; min-width: 0; }
+.field-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--ink-2);
+}
+.field-label .opt { font-weight: 500; color: var(--text-faint); margin-inline-start: 0.25rem; }
+.field-help { font-size: 0.75rem; line-height: 1.45; color: var(--text-muted); }
+.field-error {
+  display: flex; align-items: center; gap: 0.35rem;
+  font-size: 0.75rem; font-weight: 600; line-height: 1.4; color: var(--danger);
+}
+
+/* The designed shell: icon + bare control. The shell owns border/focus. */
+.field-shell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-height: 3.25rem;
+  padding-inline: 0.95rem;
+  border-radius: var(--r-sm);
+  background: #fff;
+  border: 1.5px solid #DCE3DE;
+  transition: border-color var(--dur-1) ease, box-shadow var(--dur-2) var(--ease-out), background-color var(--dur-1) ease;
+}
+.field-shell:hover { border-color: #B9C7BE; }
+.field-shell:focus-within { border-color: var(--brand); box-shadow: 0 0 0 4px var(--focus); }
+.field-shell > svg, .field-shell .field-icon {
+  width: 1.05rem; height: 1.05rem; flex-shrink: 0;
+  color: var(--text-faint);
+  transition: color var(--dur-1) ease;
+}
+.field-shell:focus-within > svg, .field-shell:focus-within .field-icon { color: var(--brand); }
+.field-shell.is-invalid { border-color: var(--danger); background: var(--danger-50); }
+.field-shell.is-invalid:focus-within { box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.15); }
+.field-shell.is-textarea { align-items: flex-start; padding-block: 0.8rem; }
+.field-shell.is-textarea > svg { margin-top: 0.15rem; }
+
+/* Bare control inside a shell — neutralises the legacy global input rule
+   (border + white bg + focus ring !important) so we never get a box inside
+   a box. Text stays inside: full width, min-width 0, ellipsis on selects. */
+.field-shell :is(input, select, textarea),
+.field-shell :is(input, select, textarea):focus {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  min-height: 3rem;
+  padding: 0 !important;
+  margin: 0;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  color: var(--ink) !important;
+  font-size: 0.95rem; /* ≥16px on iOS is set below to stop zoom */
+  font-weight: 500;
+  line-height: 1.4;
+  font-family: inherit;
+}
+.field-shell textarea { min-height: 5.5rem; resize: vertical; }
+.field-shell select {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  padding-inline-end: 1.6rem !important;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 0 center !important;
+  background-size: 1rem !important;
+}
+[dir="rtl"] .field-shell select { background-position: left 0 center !important; }
+.field-shell select:invalid, .field-shell select.is-placeholder { color: var(--text-faint) !important; }
+.field-shell input[type="datetime-local"],
+.field-shell input[type="date"],
+.field-shell input[type="time"] { cursor: pointer; }
+.field-shell input::-webkit-calendar-picker-indicator { opacity: 0.55; cursor: pointer; }
+@media (max-width: 640px) {
+  .field-shell :is(input, select, textarea) { font-size: 16px; }
+}
+
+/* Segmented control (trip type etc.) */
+.segmented {
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  gap: 0.25rem;
+  padding: 0.3rem;
+  border-radius: 999px;
+  background: #EEF3EF;
+  border: 1px solid var(--line);
+}
+.segmented > button {
+  min-height: 2.6rem;
+  padding-inline: 0.5rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-body);
+  transition: background-color var(--dur-2) var(--ease-out), color var(--dur-1) ease, box-shadow var(--dur-2) var(--ease-out);
+  white-space: nowrap;
+}
+.segmented > button:hover { color: var(--ink); }
+.segmented > button[aria-pressed="true"] {
+  background: #fff;
+  color: var(--brand-700);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08), 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+/* ─── Cards ───────────────────────────────────────────────────────────────── */
+.card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-1);
+}
+.card-pad { padding: clamp(1.25rem, 2.4vw, 1.75rem); }
+.card-hover {
+  transition: translate var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out), border-color var(--dur-2) ease;
+}
+.card-hover:hover { translate: 0 -4px; box-shadow: var(--sh-3); border-color: rgba(22, 163, 74, 0.32); }
+.card-media { position: relative; overflow: hidden; }
+.card-media img { transition: transform 700ms var(--ease-out); }
+.card-hover:hover .card-media img, .group:hover > .card-media img { transform: scale(1.05); }
+.card-tint { background: linear-gradient(180deg, #F4FAF5 0%, #FFFFFF 100%); border-color: var(--line-brand); }
+
+.icon-tile {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.75rem; height: 2.75rem; flex-shrink: 0;
+  border-radius: 14px;
+  background: var(--brand-50);
+  color: var(--brand);
+  border: 1px solid rgba(22, 163, 74, 0.14);
+  transition: background-color var(--dur-2) ease, color var(--dur-2) ease, transform var(--dur-2) var(--ease-out);
+}
+.icon-tile svg { width: 1.25rem; height: 1.25rem; }
+.group:hover .icon-tile { background: var(--brand); color: #fff; transform: rotate(-4deg) scale(1.04); }
+
+/* Legacy link-cards (rounded + bordered <a>) across older templates get the
+   same hover language as the new cards without editing every page. */
+.tsa-public a[class*="rounded-"][class*="border"]:not([class*="rounded-full"]):not(.btn):not(.no-lift) {
+  transition: translate var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out), border-color var(--dur-2) ease, background-color var(--dur-2) ease;
+}
+.tsa-public a[class*="rounded-2xl"][class*="border"]:not(.no-lift):hover,
+.tsa-public a[class*="rounded-3xl"][class*="border"]:not(.no-lift):hover {
+  translate: 0 -3px;
+  box-shadow: var(--sh-3);
+}
+
+/* Chips */
+.chip {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  min-height: 2.25rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  font-size: 0.8rem; font-weight: 600; color: var(--ink-2);
+  transition: border-color var(--dur-1) ease, background-color var(--dur-1) ease, color var(--dur-1) ease;
+}
+a.chip:hover { border-color: var(--brand); background: var(--brand-50); color: var(--brand-700); }
+.chip svg { width: 0.9rem; height: 0.9rem; color: var(--brand); }
+
+/* ─── Scroll reveal (progressive enhancement) ─────────────────────────────── */
+/* Content is only hidden once JS has marked <html class="rv-ready">, so
+   no-JS / crawlers always see everything. */
+.rv-ready .rv:not(.rv-in) { opacity: 0; translate: 0 18px; }
+.rv-ready .rv {
+  transition: opacity 550ms var(--ease-out), translate 550ms var(--ease-out);
+  transition-delay: var(--rv-delay, 0ms);
+}
+.rv-ready .rv-stagger > * { --rv-delay: 0ms; }
+
+/* Parallax layers — transform written by RevealObserver via --py. */
+[data-parallax] { will-change: transform; transform: translate3d(0, var(--py, 0px), 0) scale(var(--ps, 1)); }
+
+@keyframes tsa-route-dash { to { stroke-dashoffset: -24; } }
+@keyframes tsa-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -4px; } }
+@keyframes tsa-pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.45); }
+  70% { box-shadow: 0 0 0 10px rgba(22, 163, 74, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
+}
+.anim-dash { animation: tsa-route-dash 1.4s linear infinite; }
+.anim-pulse { animation: tsa-pulse-ring 2.4s var(--ease-out) infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rv-ready .rv:not(.rv-in) { opacity: 1; translate: none; }
+  .rv-ready .rv { transition: none; }
+  [data-parallax] { transform: none !important; }
+  .anim-dash, .anim-pulse { animation: none; }
+  .tsa-public *, .tsa-public *::before, .tsa-public *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .card-hover:hover, .tsa-public a[class*="rounded-"][class*="border"]:hover { translate: none !important; }
+}
+
+/* ─── Prose (blog / guides) ───────────────────────────────────────────────── */
+.tsa-prose { color: var(--text-body); font-size: 1.05rem; line-height: 1.8; }
+.tsa-prose :is(h2, h3) { color: var(--ink); scroll-margin-top: calc(var(--header-h) + 24px); }
+.tsa-prose a { color: var(--brand-600); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.tsa-prose a:hover { text-decoration-thickness: 2px; }
+
+/* Standalone input (no shell) — for forms that position their own icon.
+   Beats the legacy global `input[type=…]` rule via .tsa-public scope. */
+.tsa-public .input,
+.tsa-public .input:focus {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 3.25rem;
+  padding: 0.8rem 1rem;
+  border-radius: var(--r-sm) !important;
+  background-color: #fff !important;
+  border: 1.5px solid #DCE3DE !important;
+  color: var(--ink) !important;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.4;
+  outline: none;
+  transition: border-color var(--dur-1) ease, box-shadow var(--dur-2) var(--ease-out);
+}
+.tsa-public .input:hover { border-color: #B9C7BE !important; }
+.tsa-public .input:focus { border-color: var(--brand) !important; box-shadow: 0 0 0 4px var(--focus) !important; }
+.tsa-public .input.has-icon { padding-inline-start: 2.6rem; }
+.tsa-public textarea.input { min-height: 7rem; resize: vertical; }
+.tsa-public select.input {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-inline-end: 2.5rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 0.9rem center !important;
+  background-size: 1rem !important;
+  text-overflow: ellipsis;
+}
+[dir="rtl"] .tsa-public select.input { background-position: left 0.9rem center !important; }
+.tsa-public .input[aria-invalid="true"] { border-color: var(--danger) !important; background-color: var(--danger-50) !important; }
+.input-icon {
+  position: absolute;
+  inset-inline-start: 0.95rem;
+  top: 50%;
+  translate: 0 -50%;
+  width: 1.05rem; height: 1.05rem;
+  color: var(--text-faint);
+  pointer-events: none;
+}
+@media (max-width: 640px) { .tsa-public .input { font-size: 16px; } }
+
+/* ProcessTimeline rail fill — full by default (no-JS), animates once in view. */
+.tsa-steps-fill { width: 100%; }
+.rv-ready .tsa-steps-fill { width: 0; transition: width 1.4s var(--ease-in-out) 200ms; }
+.rv-ready .rv-in .tsa-steps-fill, .rv-ready .tsa-steps.rv-in .tsa-steps-fill { width: 100%; }
+@media (prefers-reduced-motion: reduce) { .rv-ready .tsa-steps-fill { width: 100%; transition: none; } }
+
+/* RouteJourney: the route line draws itself once in view. */
+.tsa-route-draw { stroke-dasharray: 1; stroke-dashoffset: 0; }
+.rv-ready .tsa-route .tsa-route-draw { stroke-dashoffset: 1; transition: stroke-dashoffset 1.6s var(--ease-in-out) 150ms; }
+.rv-ready .tsa-route.rv-in .tsa-route-draw { stroke-dashoffset: 0; }
+@media (prefers-reduced-motion: reduce) { .rv-ready .tsa-route .tsa-route-draw { stroke-dashoffset: 0; transition: none; } }
+
+.premium-dark-section .t-eyebrow { color: var(--sun) !important; }
+.tsa-public :is(h1, h2).font-heading { letter-spacing: -0.022em; }
+.tsa-public h3.font-heading { letter-spacing: -0.01em; }
+
+/* Buttons never push past their container on small screens. */
+.btn { max-width: 100%; }
+@media (max-width: 520px) {
+  .btn { white-space: normal; text-align: center; line-height: 1.25; padding-block: 0.6rem; }
+}

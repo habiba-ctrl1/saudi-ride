@@ -101,7 +101,7 @@ export default function MadinahZiyaratPage() {
               href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent("Salam, I'd like to book a Madinah Ziyarat tour. My hotel and preferred date are:")}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
+              className="btn btn-primary btn-lg"
             >
               Book Ziyarat Tour on WhatsApp
             </a>
@@ -152,8 +152,8 @@ export default function MadinahZiyaratPage() {
           </div>
           <WhatsAppQuoteForm defaultPickup="Madinah hotel" defaultDropoff="Madinah Ziyarat tour" />
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-            <a href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent("Salam! Madinah Ziyarat tour enquiry.\n• Madinah hotel: \n• Date: \n• Passengers: \n• Half-day or full-day?: \n• Sites (Quba / Uhud / Qiblatain / Seven Mosques): ")}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all">Book Ziyarat on WhatsApp</a>
-            <a href={`mailto:${contactConfig.email}?subject=${encodeURIComponent("Madinah Ziyarat tour enquiry")}&body=${encodeURIComponent("Hello Taxi Saudi Arabia team,\n\nWe'd like a private Madinah Ziyarat tour.\n\n• Group / family name: \n• Contact name: \n• Madinah hotel: \n• Date: \n• Number of passengers: \n• Half-day or full-day?: \n• Sites of interest (Quba / Uhud / Qiblatain / Seven Mosques): \n\nPlease confirm a fixed fare before booking.\n\nThank you.")}`} className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/30 bg-white px-7 py-3.5 text-xs font-bold uppercase text-[#16A34A] hover:bg-[#16A34A]/10 transition-all">Email a group enquiry</a>
+            <a href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent("Salam! Madinah Ziyarat tour enquiry.\n• Madinah hotel: \n• Date: \n• Passengers: \n• Half-day or full-day?: \n• Sites (Quba / Uhud / Qiblatain / Seven Mosques): ")}`} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">Book Ziyarat on WhatsApp</a>
+            <a href={`mailto:${contactConfig.email}?subject=${encodeURIComponent("Madinah Ziyarat tour enquiry")}&body=${encodeURIComponent("Hello Taxi Saudi Arabia team,\n\nWe'd like a private Madinah Ziyarat tour.\n\n• Group / family name: \n• Contact name: \n• Madinah hotel: \n• Date: \n• Number of passengers: \n• Half-day or full-day?: \n• Sites of interest (Quba / Uhud / Qiblatain / Seven Mosques): \n\nPlease confirm a fixed fare before booking.\n\nThank you.")}`} className="btn btn-secondary btn-lg">Email a group enquiry</a>
           </div>
         </div>
       </section>

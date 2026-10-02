@@ -9,7 +9,8 @@ import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import Link from "next/link";
 import { contactConfig } from "@/lib/config/contact";
-import { Plane, Clock, UserCheck, CheckCircle2, ShieldCheck, Search, PlaneLanding, MapPin, MessageCircle } from "lucide-react";
+import { Plane, Clock, UserCheck, CheckCircle2, ShieldCheck, Search, PlaneLanding, MapPin, MessageCircle, Luggage, Car } from "lucide-react";
+import { JourneyFlow } from "@/components/visual/JourneyFlow";
 
 // WhatsApp is the proven conversion path for this business, so the primary
 // airport-transfer CTAs go straight to a prefilled WhatsApp chat (matching the
@@ -146,13 +147,13 @@ export default function AirportTransfersPage() {
               href={waLink("Salam, I'd like an airport taxi in Saudi Arabia. My flight/airport and destination are:")}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#16A34A] px-8 py-4 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
+              className="btn btn-primary btn-lg"
             >
               <MessageCircle className="h-4 w-4" /> Get Airport Fare on WhatsApp
             </a>
             <a
               href={contactConfig.primaryPhoneLink}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-[#C9A84C]/40 px-8 py-4 text-xs font-bold uppercase text-[#16A34A] hover:bg-[#C9A84C]/10 transition-all"
+              className="btn btn-secondary btn-lg"
             >
               Call {contactConfig.primaryPhoneDisplay}
             </a>
@@ -162,7 +163,7 @@ export default function AirportTransfersPage() {
 
       {/* ─── FEATURES ─────────────────────────────────────────────── */}
       <section className="section-container max-w-7xl py-20 border-b border-[#C9A84C]/10">
-        <h2 className="font-heading text-3xl md:text-4xl font-bold mb-10 text-center">Why Pre-Book a Private Airport Taxi in Saudi Arabia</h2>
+        <h2 className="t-h2 mb-10 text-center">Why Pre-Book a Private Airport Taxi in Saudi Arabia</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {[
             { icon: PlaneLanding, title: "Share Your Flight Number", desc: "Add it when you book and we check it before pickup, so the pickup time is planned around your actual arrival." },
@@ -170,13 +171,26 @@ export default function AirportTransfersPage() {
             { icon: Clock, title: "24/7 Availability", desc: "Early-morning and late-night arrivals are covered — book any hour." },
             { icon: ShieldCheck, title: "Clear Fares Confirmed on WhatsApp", desc: "No hidden surge fees or toll charges. Your quoted price is confirmed before the trip." }
           ].map((feat, i) => (
-            <div key={i} className="bg-white border border-[#16A34A]/12 rounded-3xl p-8 hover:border-[#16A34A]/35 transition-colors">
-              <feat.icon className="h-8 w-8 text-[#C9A84C] mb-6" />
-              <h3 className="font-heading text-lg font-bold mb-3">{feat.title}</h3>
-              <p className="text-sm text-[#6B7280] leading-relaxed">{feat.desc}</p>
+            <div key={i} className="card card-hover group p-7">
+              <span className="icon-tile mb-5"><feat.icon /></span>
+              <h3 className="t-h3 mb-2.5">{feat.title}</h3>
+              <p className="text-sm text-[#64748B] leading-relaxed">{feat.desc}</p>
             </div>
           ))}
         </div>
+
+        {/* Arrival flow — restates the meet & greet / luggage help described above. */}
+        <JourneyFlow
+          className="mt-12"
+          title="Your arrival, step by step"
+          stages={[
+            { icon: PlaneLanding, label: "Land & clear arrivals", note: "Shared flight number checked before pickup" },
+            { icon: UserCheck, label: "Meet your driver", note: "Name sign in the arrivals hall" },
+            { icon: Luggage, label: "Luggage to the car", note: "Your driver helps with bags" },
+            { icon: Car, label: "Private ride", note: "Your own car — no sharing" },
+            { icon: MapPin, label: "Hotel or destination", note: "Door-to-door drop-off" },
+          ]}
+        />
       </section>
 
       {/* ─── AIRPORT HUB LINKS ──────────────────────────────────── */}
@@ -281,7 +295,7 @@ export default function AirportTransfersPage() {
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-7 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
+              className="btn btn-primary btn-lg"
             >
               <MessageCircle className="h-4 w-4" /> Book airport taxi on WhatsApp
             </a>

@@ -107,7 +107,7 @@ export default function TourismChartersPage() {
           <div className="flex justify-center gap-4">
             <Link
               href="/book?type=charter"
-              className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
+              className="btn btn-primary btn-lg"
             >
               Book a Charter
             </Link>

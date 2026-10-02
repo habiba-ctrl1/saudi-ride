@@ -339,7 +339,7 @@ export default function ServicesPage() {
         <div className="mt-16 rounded-3xl border border-[#16A34A]/12 bg-white p-8 md:p-12">
           <div className="grid gap-8 md:grid-cols-2 items-center">
             <div className="space-y-4">
-              <span className="text-[0.65rem] uppercase tracking-[0.2em] text-[#16A34A] font-bold">Why Taxi Saudi Arabia?</span>
+              <span className="t-eyebrow">Why Taxi Saudi Arabia?</span>
               <h2 className="font-heading text-2xl md:text-3xl font-bold">
                 Saudi Arabia&apos;s Most Trusted<br />Taxi & Car Service
               </h2>

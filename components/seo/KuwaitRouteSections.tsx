@@ -49,7 +49,7 @@ export function KuwaitRouteSections({ fromCity, toCity, whatsappNumber, config }
       {/* How the journey works */}
       <section className="bg-white border border-[#16A34A]/15 rounded-3xl p-8 shadow-sm">
         <div className="mb-8">
-          <span className="text-[0.65rem] uppercase tracking-[0.2em] text-[#C9A84C] font-bold">Cross-Border Journey</span>
+          <span className="t-eyebrow">Cross-Border Journey</span>
           <h2 className="font-heading text-2xl font-bold mt-1 text-[#1C1C1C]">
             How the Kuwait to {config.destination} Journey Works
           </h2>

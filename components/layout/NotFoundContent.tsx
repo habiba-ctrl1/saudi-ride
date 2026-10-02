@@ -55,7 +55,7 @@ export default function NotFound() {
         <div className="pt-6">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
+            className="btn btn-primary btn-lg"
           >
             <MoveLeft className="h-4 w-4" />
             <span>Return to Homepage</span>

@@ -5,12 +5,12 @@
 // waiting time all affect the final price), so this form collects trip
 // details and hands off to WhatsApp for a real quote from a person — no
 // estimated/fake price is shown or implied anywhere in this component.
-import { useState } from "react";
+import { useId, useState } from "react";
 import { useLanguage } from "@/lib/context/LanguageContext";
 import { contactConfig } from "@/lib/config/contact";
 import { trackEvent } from "@/lib/analytics";
 import { getUtm } from "@/lib/utm";
-import { MapPin, Calendar, Car, MessageCircle, Users, Phone, User, Mail, Plane, Clock, Luggage } from "lucide-react";
+import { Calendar, Car, MessageCircle, Users, Phone, User, Mail, Plane, Clock, Luggage, ShieldCheck } from "lucide-react";
 
 const PHONE_RE = /^\+?[0-9\s-]{8,20}$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -32,18 +32,6 @@ const TRIP_TYPES = [
 const PASSENGERS = ["1", "2", "3", "4", "5-6", "7+"];
 const LUGGAGE = ["0", "1", "2", "3", "4", "5-6", "7+"];
 const HOURS_NEEDED = ["2", "3", "4", "6", "8", "12", "Full day"];
-
-function InputRow({ icon, children }: { icon: React.ReactNode; children: React.ReactNode }) {
-  return (
-    <div
-      className="flex items-center gap-3 rounded-xl px-4 py-3.5 transition-all duration-200 focus-within:shadow-[0_0_0_2px_rgba(22,163,74,0.25)]"
-      style={{ border: "1.5px solid rgba(22,163,74,0.25)", backgroundColor: "#FFFFFF" }}
-    >
-      <span className="shrink-0 text-[#16A34A]">{icon}</span>
-      {children}
-    </div>
-  );
-}
 
 export interface WhatsAppQuoteFormProps {
   /** Pre-fill the pickup field (e.g. a route page passing its origin city). */
@@ -71,6 +59,7 @@ export default function WhatsAppQuoteForm({
 }: WhatsAppQuoteFormProps = {}) {
   const { language } = useLanguage();
   const isRtl = (forceLocale ?? language) === "ar";
+  const uid = useId();
 
   const [tripType, setTripType] = useState<string>(defaultTripType);
   const [pickup, setPickup] = useState(defaultPickup);
@@ -166,239 +155,258 @@ export default function WhatsAppQuoteForm({
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
+  const L = (en: string, ar: string) => (isRtl ? ar : en);
+  const fid = (k: string) => `${uid}-${k}`;
+
   return (
     <div
       dir={isRtl ? "rtl" : "ltr"}
-      className="mx-auto max-w-2xl rounded-3xl p-6 md:p-8 space-y-5"
-      style={{ border: "1.5px solid rgba(22,163,74,0.25)", backgroundColor: "#FAFAF7" }}
+      className="relative mx-auto w-full max-w-2xl overflow-hidden rounded-[28px] border border-[#0F172A]/[0.07] bg-white text-start shadow-[0_2px_6px_rgba(15,23,42,0.04),0_24px_60px_-20px_rgba(15,23,42,0.18)]"
     >
-      {/* Trip type — qualifies the enquiry up front */}
-      <div className="grid grid-cols-3 gap-2">
-        {TRIP_TYPES.map((tt) => {
-          const active = tripType === tt.key;
-          return (
-            <button
-              key={tt.key}
-              type="button"
-              onClick={() => setTripType(tt.key)}
-              aria-pressed={active}
-              className="rounded-xl py-2.5 text-xs font-bold transition-all"
-              style={{
-                border: active ? "1.5px solid #16A34A" : "1.5px solid rgba(22,163,74,0.25)",
-                backgroundColor: active ? "#16A34A" : "#FFFFFF",
-                color: active ? "#FFFFFF" : "#15803D",
-              }}
-            >
-              {isRtl ? tt.ar : tt.en}
-            </button>
-          );
-        })}
-      </div>
+      {/* Brand hairline */}
+      <div aria-hidden className="h-1 w-full bg-gradient-to-r from-[#16A34A] via-[#22C55E] to-[#FACC15]" />
 
-      <InputRow icon={<MapPin className="h-4 w-4" />}>
-        <input
-          value={pickup}
-          onChange={(e) => setPickup(e.target.value)}
-          aria-label={isRtl ? "نقطة الانطلاق" : "Pickup location"}
-          placeholder={isRtl ? "نقطة الانطلاق (مثال: مطار جدة)" : "Pickup location (e.g. Jeddah Airport)"}
-          className="w-full bg-transparent text-sm outline-none placeholder:text-[#9CA3AF]"
-        />
-      </InputRow>
-      <InputRow icon={<MapPin className="h-4 w-4" />}>
-        <input
-          value={dropoff}
-          onChange={(e) => setDropoff(e.target.value)}
-          aria-label={isRtl ? "الوجهة" : "Destination"}
-          placeholder={isRtl ? "الوجهة (مثال: مكة المكرمة)" : "Destination (e.g. Makkah)"}
-          className="w-full bg-transparent text-sm outline-none placeholder:text-[#9CA3AF]"
-        />
-      </InputRow>
-      <div className="grid gap-4 sm:grid-cols-2">
-        <InputRow icon={<Calendar className="h-4 w-4" />}>
-          <input
-            type="datetime-local"
-            value={dateTime}
-            onChange={(e) => setDateTime(e.target.value)}
-            aria-label={isRtl ? "التاريخ والوقت" : "Pickup date & time"}
-            className="w-full bg-transparent text-sm outline-none text-[#1C1C1C]"
-          />
-        </InputRow>
-        <InputRow icon={<Users className="h-4 w-4" />}>
-          <select
-            value={passengers}
-            onChange={(e) => setPassengers(e.target.value)}
-            aria-label={isRtl ? "عدد الركاب" : "Passengers"}
-            className="w-full bg-transparent text-sm outline-none text-[#1C1C1C]"
-          >
-            <option value="">{isRtl ? "عدد الركاب" : "Passengers"}</option>
-            {PASSENGERS.map((p) => (
-              <option key={p} value={p}>
-                {p}
-              </option>
+      <div className="space-y-6 p-5 sm:p-7 md:p-8">
+        {/* Trip type — qualifies the enquiry up front */}
+        <div>
+          <p className="field-label mb-2">{L("Trip type", "نوع الرحلة")}</p>
+          <div className="segmented" role="group" aria-label={L("Trip type", "نوع الرحلة")}>
+            {TRIP_TYPES.map((tt) => (
+              <button key={tt.key} type="button" onClick={() => setTripType(tt.key)} aria-pressed={tripType === tt.key}>
+                {isRtl ? tt.ar : tt.en}
+              </button>
             ))}
-          </select>
-        </InputRow>
+          </div>
+        </div>
+
+        {/* Route — origin/destination joined by a mini route rail */}
+        <fieldset className="relative">
+          <legend className="field-label mb-2">{L("Route", "المسار")}</legend>
+          <div className="relative grid gap-2.5">
+            <span aria-hidden className="pointer-events-none absolute z-[2] start-[1.38rem] top-[1.95rem] bottom-[1.95rem] w-0 border-s-2 border-dashed border-[#16A34A]/30" />
+            <label className="field-shell" htmlFor={fid("pickup")}>
+              <span aria-hidden className="relative z-[1] flex h-3 w-3 shrink-0 items-center justify-center rounded-full bg-[#16A34A] ring-4 ring-[#16A34A]/15" />
+              <span className="sr-only">{L("Pickup location", "نقطة الانطلاق")}</span>
+              <input
+                id={fid("pickup")}
+                value={pickup}
+                onChange={(e) => setPickup(e.target.value)}
+                placeholder={L("Pickup — e.g. Jeddah Airport", "نقطة الانطلاق (مثال: مطار جدة)")}
+                autoComplete="off"
+              />
+            </label>
+            <label className="field-shell" htmlFor={fid("dropoff")}>
+              <span aria-hidden className="relative z-[1] flex h-3 w-3 shrink-0 items-center justify-center rounded-full border-[3px] border-[#16A34A] bg-white" />
+              <span className="sr-only">{L("Destination", "الوجهة")}</span>
+              <input
+                id={fid("dropoff")}
+                value={dropoff}
+                onChange={(e) => setDropoff(e.target.value)}
+                placeholder={L("Destination — e.g. Makkah hotel", "الوجهة (مثال: مكة المكرمة)")}
+                autoComplete="off"
+              />
+            </label>
+          </div>
+        </fieldset>
+
+        {/* When & who */}
+        <div className="grid grid-cols-2 gap-x-3 gap-y-4">
+          <div className="field col-span-2">
+            <label className="field-label" htmlFor={fid("date")}>{L("Pickup date & time", "التاريخ والوقت")}</label>
+            <div className="field-shell">
+              <Calendar aria-hidden />
+              <input id={fid("date")} type="datetime-local" value={dateTime} onChange={(e) => setDateTime(e.target.value)} />
+            </div>
+          </div>
+
+          {isRoundTrip && (
+            <div className="field col-span-2">
+              <label className="field-label" htmlFor={fid("return")}>
+                {L("Return date & time", "تاريخ العودة")}<span className="opt">{L("optional", "اختياري")}</span>
+              </label>
+              <div className="field-shell">
+                <Calendar aria-hidden />
+                <input id={fid("return")} type="datetime-local" value={returnDateTime} onChange={(e) => setReturnDateTime(e.target.value)} />
+              </div>
+            </div>
+          )}
+
+          {isHourly && (
+            <div className="field col-span-2">
+              <label className="field-label" htmlFor={fid("hours")}>{L("Hours needed", "عدد الساعات المطلوبة")}</label>
+              <div className="field-shell">
+                <Clock aria-hidden />
+                <select id={fid("hours")} value={hoursNeeded} onChange={(e) => setHoursNeeded(e.target.value)} className={hoursNeeded ? "" : "is-placeholder"}>
+                  <option value="">{L("Select hours", "اختر عدد الساعات")}</option>
+                  {HOURS_NEEDED.map((h) => (
+                    <option key={h} value={h}>{h}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          )}
+
+          {isAirportTrip && (
+            <div className="field col-span-2">
+              <label className="field-label" htmlFor={fid("flight")}>
+                {L("Flight number", "رقم الرحلة")}<span className="opt">{L("optional", "اختياري")}</span>
+              </label>
+              <div className="field-shell">
+                <Plane aria-hidden />
+                <input id={fid("flight")} value={flightNumber} onChange={(e) => setFlightNumber(e.target.value)} placeholder={L("e.g. SV 123", "مثال: SV 123")} autoComplete="off" />
+              </div>
+            </div>
+          )}
+
+          <div className="field">
+            <label className="field-label" htmlFor={fid("pax")}>{L("Passengers", "عدد الركاب")}</label>
+            <div className="field-shell">
+              <Users aria-hidden />
+              <select id={fid("pax")} value={passengers} onChange={(e) => setPassengers(e.target.value)} className={passengers ? "" : "is-placeholder"}>
+                <option value="">{L("Select", "اختر")}</option>
+                {PASSENGERS.map((p) => (
+                  <option key={p} value={p}>{p}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="field">
+            <label className="field-label" htmlFor={fid("bags")}>{L("Large bags", "الحقائب الكبيرة")}</label>
+            <div className="field-shell">
+              <Luggage aria-hidden />
+              <select id={fid("bags")} value={luggage} onChange={(e) => setLuggage(e.target.value)} className={luggage ? "" : "is-placeholder"}>
+                <option value="">{L("Select", "اختر")}</option>
+                {LUGGAGE.map((l) => (
+                  <option key={l} value={l}>{l}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="field col-span-2">
+            <label className="field-label" htmlFor={fid("vehicle")}>{L("Vehicle class", "نوع السيارة")}</label>
+            <div className="field-shell">
+              <Car aria-hidden />
+              <select id={fid("vehicle")} value={vehicle} onChange={(e) => setVehicle(e.target.value)}>
+                {VEHICLES.map((v) => (
+                  <option key={v.key} value={v.key}>{isRtl ? v.ar : v.en}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Contact */}
+        <div className="border-t border-dashed border-[#0F172A]/10 pt-5">
+          <p className="mb-3 text-sm font-bold text-[#0F172A]">{L("Where should we send your quote?", "أين نرسل عرض السعر؟")}</p>
+          <div className="grid gap-x-3 gap-y-4 sm:grid-cols-2">
+            <div className="field sm:col-span-2">
+              <label className="field-label" htmlFor={fid("name")}>{L("Full name", "الاسم الكامل")}</label>
+              <div className={`field-shell ${nameError ? "is-invalid" : ""}`}>
+                <User aria-hidden />
+                <input
+                  id={fid("name")}
+                  type="text"
+                  value={name}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                    if (nameError) setNameError(false);
+                  }}
+                  placeholder={L("Your name", "اسمك")}
+                  aria-invalid={nameError}
+                  aria-describedby={nameError ? fid("name-err") : undefined}
+                  autoComplete="name"
+                />
+              </div>
+              {nameError && (
+                <p id={fid("name-err")} role="alert" className="field-error">
+                  {L("Please enter your name.", "الرجاء إدخال اسمك.")}
+                </p>
+              )}
+            </div>
+
+            <div className="field">
+              <label className="field-label" htmlFor={fid("phone")}>{L("Phone / WhatsApp", "رقم الجوال")}</label>
+              <div className={`field-shell ${phoneError ? "is-invalid" : ""}`}>
+                <Phone aria-hidden />
+                <input
+                  id={fid("phone")}
+                  type="tel"
+                  inputMode="tel"
+                  value={phone}
+                  onChange={(e) => {
+                    setPhone(e.target.value);
+                    if (phoneError) setPhoneError(false);
+                  }}
+                  placeholder="+966 50 123 4567"
+                  aria-invalid={phoneError}
+                  aria-describedby={phoneError ? fid("phone-err") : undefined}
+                  autoComplete="tel"
+                  dir="ltr"
+                />
+              </div>
+              {phoneError && (
+                <p id={fid("phone-err")} role="alert" className="field-error">
+                  {L("Please enter a valid phone number so we can follow up.", "الرجاء إدخال رقم جوال صحيح للمتابعة.")}
+                </p>
+              )}
+            </div>
+
+            <div className="field">
+              <label className="field-label" htmlFor={fid("email")}>{L("Email", "البريد الإلكتروني")}</label>
+              <div className={`field-shell ${emailError ? "is-invalid" : ""}`}>
+                <Mail aria-hidden />
+                <input
+                  id={fid("email")}
+                  type="email"
+                  inputMode="email"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    if (emailError) setEmailError(false);
+                  }}
+                  placeholder="you@example.com"
+                  aria-invalid={emailError}
+                  aria-describedby={emailError ? fid("email-err") : undefined}
+                  autoComplete="email"
+                  dir="ltr"
+                />
+              </div>
+              {emailError && (
+                <p id={fid("email-err")} role="alert" className="field-error">
+                  {L("Please enter a valid email address so we can send your confirmation.", "الرجاء إدخال بريد إلكتروني صحيح.")}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Submit */}
+        <div className="space-y-3">
+          <button type="button" onClick={handleSubmit} className="btn btn-primary btn-lg btn-block">
+            <MessageCircle aria-hidden />
+            {isRtl ? "احصل على عرض سعر النقل الخاص عبر واتساب" : submitLabel ?? "Get My Private Transfer Quote"}
+          </button>
+          <p className="text-center text-xs leading-relaxed text-[#64748B]">
+            {L(
+              "Final pricing depends on route, vehicle, date, and passengers — confirmed with you directly before booking.",
+              "السعر النهائي يعتمد على المسار والسيارة والتاريخ وعدد الركاب — يتم تأكيده معك مباشرة قبل الحجز.",
+            )}
+          </p>
+        </div>
       </div>
 
-      {/* Conditional fields — only shown when relevant to the selected trip
-          type / detected airport pickup, never required for submission. */}
-      {isRoundTrip && (
-        <InputRow icon={<Calendar className="h-4 w-4" />}>
-          <input
-            type="datetime-local"
-            value={returnDateTime}
-            onChange={(e) => setReturnDateTime(e.target.value)}
-            aria-label={isRtl ? "تاريخ العودة" : "Return date & time"}
-            className="w-full bg-transparent text-sm outline-none text-[#1C1C1C]"
-          />
-        </InputRow>
-      )}
-      {isHourly && (
-        <InputRow icon={<Clock className="h-4 w-4" />}>
-          <select
-            value={hoursNeeded}
-            onChange={(e) => setHoursNeeded(e.target.value)}
-            aria-label={isRtl ? "عدد الساعات" : "Hours needed"}
-            className="w-full bg-transparent text-sm outline-none text-[#1C1C1C]"
-          >
-            <option value="">{isRtl ? "عدد الساعات المطلوبة" : "Hours needed"}</option>
-            {HOURS_NEEDED.map((h) => (
-              <option key={h} value={h}>
-                {h}
-              </option>
-            ))}
-          </select>
-        </InputRow>
-      )}
-      {isAirportTrip && (
-        <InputRow icon={<Plane className="h-4 w-4" />}>
-          <input
-            value={flightNumber}
-            onChange={(e) => setFlightNumber(e.target.value)}
-            aria-label={isRtl ? "رقم الرحلة" : "Flight number"}
-            placeholder={isRtl ? "رقم الرحلة (اختياري)" : "Flight number (optional)"}
-            className="w-full bg-transparent text-sm outline-none placeholder:text-[#9CA3AF]"
-          />
-        </InputRow>
-      )}
-
-      <div className="grid gap-4 sm:grid-cols-2">
-      <InputRow icon={<Luggage className="h-4 w-4" />}>
-        <select
-          value={luggage}
-          onChange={(e) => setLuggage(e.target.value)}
-          aria-label={isRtl ? "عدد الحقائب الكبيرة" : "Large bags"}
-          className="w-full bg-transparent text-sm outline-none text-[#1C1C1C]"
-        >
-          <option value="">{isRtl ? "عدد الحقائب" : "Large bags"}</option>
-          {LUGGAGE.map((l) => (
-            <option key={l} value={l}>
-              {l}
-            </option>
-          ))}
-        </select>
-      </InputRow>
-      <InputRow icon={<Car className="h-4 w-4" />}>
-        <select
-          value={vehicle}
-          onChange={(e) => setVehicle(e.target.value)}
-          aria-label={isRtl ? "نوع السيارة" : "Vehicle"}
-          className="w-full bg-transparent text-sm outline-none text-[#1C1C1C]"
-        >
-          {VEHICLES.map((v) => (
-            <option key={v.key} value={v.key}>
-              {isRtl ? v.ar : v.en}
-            </option>
-          ))}
-        </select>
-      </InputRow>
-      </div>
-      <InputRow icon={<User className="h-4 w-4" />}>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => {
-            setName(e.target.value);
-            if (nameError) setNameError(false);
-          }}
-          placeholder={isRtl ? "الاسم الكامل" : "Full name"}
-          aria-label={isRtl ? "الاسم الكامل" : "Full name"}
-          aria-invalid={nameError}
-          autoComplete="name"
-          className="w-full bg-transparent text-sm outline-none placeholder:text-[#9CA3AF]"
-        />
-      </InputRow>
-      {nameError && (
-        <p role="alert" className="text-xs font-semibold text-red-600">
-          {isRtl ? "الرجاء إدخال اسمك." : "Please enter your name."}
-        </p>
-      )}
-      <InputRow icon={<Phone className="h-4 w-4" />}>
-        <input
-          type="tel"
-          value={phone}
-          onChange={(e) => {
-            setPhone(e.target.value);
-            if (phoneError) setPhoneError(false);
-          }}
-          placeholder={isRtl ? "رقم الجوال (مثال: +966501234567)" : "Phone number (e.g. +966501234567)"}
-          aria-label={isRtl ? "رقم الجوال" : "Phone number"}
-          aria-invalid={phoneError}
-          autoComplete="tel"
-          className="w-full bg-transparent text-sm outline-none placeholder:text-[#9CA3AF]"
-        />
-      </InputRow>
-      {phoneError && (
-        <p role="alert" className="text-xs font-semibold text-red-600">
-          {isRtl ? "الرجاء إدخال رقم جوال صحيح للمتابعة." : "Please enter a valid phone number so we can follow up."}
-        </p>
-      )}
-      <InputRow icon={<Mail className="h-4 w-4" />}>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-            if (emailError) setEmailError(false);
-          }}
-          placeholder={isRtl ? "البريد الإلكتروني" : "Email address"}
-          aria-label={isRtl ? "البريد الإلكتروني" : "Email address"}
-          aria-invalid={emailError}
-          autoComplete="email"
-          className="w-full bg-transparent text-sm outline-none placeholder:text-[#9CA3AF]"
-        />
-      </InputRow>
-      {emailError && (
-        <p role="alert" className="text-xs font-semibold text-red-600">
-          {isRtl ? "الرجاء إدخال بريد إلكتروني صحيح." : "Please enter a valid email address so we can send your confirmation."}
-        </p>
-      )}
-
-      <button
-        type="button"
-        onClick={handleSubmit}
-        className="flex w-full items-center justify-center gap-2 rounded-full bg-[#16A34A] py-4 text-sm font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all"
-      >
-        <MessageCircle className="h-4 w-4 fill-current" />
-        {isRtl ? "احصل على عرض سعر النقل الخاص عبر واتساب" : submitLabel ?? "Get My Private Transfer Quote"}
-      </button>
-      <p className="text-center text-[0.65rem] text-[#6B7280]">
-        {isRtl
-          ? "السعر النهائي يعتمد على المسار والسيارة والتاريخ وعدد الركاب — يتم تأكيده معك مباشرة قبل الحجز."
-          : "Final pricing depends on route, vehicle, date, and passengers — confirmed with you directly before booking."}
-      </p>
-
-      <div
-        className="rounded-xl px-4 py-3 text-center"
-        style={{ border: "1px solid rgba(22,163,74,0.2)", backgroundColor: "rgba(22,163,74,0.05)" }}
-      >
-        <p className="text-xs font-semibold text-[#15803D]">
-          {isRtl ? "نقل خاص فقط" : "Private Transportation Only"}
-        </p>
-        <p className="mt-1 text-[0.7rem] text-[#4B5563]">
-          {isRtl
-            ? "كل حجز يشمل سيارتك وسائقك بشكل خاص — سيارة خاصة وسائق محترف."
-            : "Every booking is your own private vehicle and professional chauffeur."}
+      {/* Assurance footer */}
+      <div className="flex items-start gap-3 border-t border-[#16A34A]/10 bg-[#F4FAF5] px-5 py-4 sm:px-8">
+        <ShieldCheck aria-hidden className="mt-0.5 h-5 w-5 shrink-0 text-[#16A34A]" />
+        <p className="text-xs leading-relaxed text-[#475569]">
+          <span className="font-bold text-[#15803D]">{L("Private Transportation Only", "نقل خاص فقط")}</span>
+          <span className="mx-1.5 text-[#94A3B8]">·</span>
+          {L(
+            "Every booking is your own private vehicle and professional chauffeur.",
+            "كل حجز يشمل سيارتك وسائقك بشكل خاص — سيارة خاصة وسائق محترف.",
+          )}
         </p>
       </div>
     </div>

@@ -240,7 +240,7 @@ export default function DriverRegistrationPage() {
           transition={{ duration: 0.6 }}
           className="max-w-3xl"
         >
-          <span className="text-xs uppercase tracking-[0.2em] text-[#16A34A] font-semibold">
+          <span className="t-eyebrow">
             {t.badge}
           </span>
           <h1 className="mt-4 font-heading text-4xl font-bold leading-tight md:text-5.5xl text-[#1C1C1C]">
@@ -313,77 +313,77 @@ export default function DriverRegistrationPage() {
             <form onSubmit={handleSubmit} className="space-y-6">
               
               {/* Full Name */}
-              <div className="space-y-2">
-                <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelName}</label>
+              <label className="field">
+                <span className="field-label">{t.labelName}</span>
                 <input
                   type="text"
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3.5 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                  className="input"
                 />
-              </div>
+              </label>
 
               <div className="grid gap-6 sm:grid-cols-2">
                 {/* Phone */}
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelPhone}</label>
+                <label className="field">
+                  <span className="field-label">{t.labelPhone}</span>
                   <input
                     type="tel"
                     required
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3.5 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                    className="input"
                   />
-                </div>
+                </label>
 
                 {/* Saudi License Number */}
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelLicense}</label>
+                <label className="field">
+                  <span className="field-label">{t.labelLicense}</span>
                   <input
                     type="text"
                     required
                     value={formData.licenseNumber}
                     onChange={(e) => setFormData({ ...formData, licenseNumber: e.target.value })}
-                    className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3.5 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                    className="input"
                   />
-                </div>
+                </label>
               </div>
 
               <div className="grid gap-6 sm:grid-cols-2">
                 {/* Home City */}
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelCity}</label>
+                <label className="field">
+                  <span className="field-label">{t.labelCity}</span>
                   <input
                     type="text"
                     required
                     value={formData.city}
                     onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                     placeholder="e.g. Riyadh"
-                    className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3.5 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                    className="input"
                   />
-                </div>
+                </label>
 
                 {/* Iqama Number */}
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelIqama}</label>
+                <label className="field">
+                  <span className="field-label">{t.labelIqama}</span>
                   <input
                     type="text"
                     required
                     value={formData.iqamaNumber}
                     onChange={(e) => setFormData({ ...formData, iqamaNumber: e.target.value })}
-                    className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3.5 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                    className="input"
                   />
-                </div>
+                </label>
               </div>
 
               {/* Vehicle Category */}
-              <div className="space-y-2">
-                <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelVehicleType}</label>
+              <label className="field">
+                <span className="field-label">{t.labelVehicleType}</span>
                 <select
                   value={formData.vehicleType}
                   onChange={(e) => setFormData({ ...formData, vehicleType: e.target.value })}
-                  className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3.5 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                  className="input"
                 >
                   {t.vehicleTypeOptions.map((opt) => (
                     <option key={opt.value} value={opt.value} className="bg-white">
@@ -391,29 +391,29 @@ export default function DriverRegistrationPage() {
                     </option>
                   ))}
                 </select>
-              </div>
+              </label>
 
               <div className="grid gap-6 sm:grid-cols-2">
                 {/* Vehicle Specs */}
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelVehicle}</label>
+                <label className="field">
+                  <span className="field-label">{t.labelVehicle}</span>
                   <input
                     type="text"
                     required
                     value={formData.vehicleDetails}
                     onChange={(e) => setFormData({ ...formData, vehicleDetails: e.target.value })}
                     placeholder="e.g. 2022 Toyota Camry"
-                    className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3.5 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                    className="input"
                   />
-                </div>
+                </label>
 
                 {/* Experience */}
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">{t.labelExp}</label>
+                <label className="field">
+                  <span className="field-label">{t.labelExp}</span>
                   <select
                     value={formData.experience}
                     onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
-                    className="w-full rounded-xl border border-[#16A34A]/12 bg-[#F0FDF4] px-4 py-3.5 text-xs text-[#1C1C1C] focus:border-[#C9A84C] focus:outline-none transition-colors"
+                    className="input"
                   >
                     {t.expOptions.map((opt) => (
                       <option key={opt.value} value={opt.value} className="bg-white">
@@ -421,7 +421,7 @@ export default function DriverRegistrationPage() {
                       </option>
                     ))}
                   </select>
-                </div>
+                </label>
               </div>
 
               {/* Terms */}
@@ -440,7 +440,7 @@ export default function DriverRegistrationPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full rounded-xl bg-[#16A34A] py-4 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] disabled:bg-[#C9A84C]/50 transition-colors flex items-center justify-center gap-2 shadow-[0_4px_15px_rgba(22,163,74,0.2)]"
+                className="btn btn-primary btn-lg btn-block"
               >
                 {isSubmitting ? (
                   <>

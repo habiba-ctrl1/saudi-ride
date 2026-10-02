@@ -40,8 +40,8 @@ const DURATIONS = [
 ];
 
 const field =
-  "w-full rounded-xl border border-[#C9A84C]/25 bg-white px-4 py-3 text-sm text-[#1C1C1C] placeholder:text-[#9CA3AF] focus:border-[#16A34A] focus:outline-none focus:ring-2 focus:ring-[#16A34A]/20 transition";
-const labelCls = "block text-[0.7rem] font-bold uppercase tracking-wider text-[#6B7280] mb-1.5";
+  "input";
+const labelCls = "field-label mb-1.5 block";
 
 export function VIPPlanForm() {
   const [form, setForm] = useState({
@@ -197,7 +197,7 @@ export function VIPPlanForm() {
       <div className="sm:col-span-2">
         <button
           type="submit"
-          className="flex w-full items-center justify-center gap-2 rounded-full bg-[#16A34A] py-4 text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-[#15803D] shadow-[0_4px_20px_rgba(22,163,74,0.3)]"
+          className="btn btn-primary btn-lg btn-block"
         >
           <MessageCircle className="h-4 w-4 fill-current" /> Send my VIP Transportation Plan
         </button>
