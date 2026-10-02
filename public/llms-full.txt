@@ -21,7 +21,7 @@
 ## 2. Core Service Offerings
 
 ### 2.1 Airport Transfers (Private Pickups & Drop-offs)
-- **Features**: Flight tracking (automatic adjustment for delays), airport terminal meet-and-greet with name signboard, 60 minutes free waiting time after flight landing, luggage assistance.
+- **Features**: Flight tracking (automatic adjustment for delays), airport terminal meet-and-greet with name signboard, 15–30 minutes free waiting time after flight landing, luggage assistance.
 - **Airports Covered**:
   - Jeddah — King Abdulaziz International Airport (JED) [Terminal 1, North Terminal, Royal Terminal]
   - Riyadh — King Khalid International Airport (RUH) [Terminals 1, 2, 3, 4, 5]

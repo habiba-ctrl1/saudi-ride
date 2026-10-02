@@ -69,7 +69,7 @@ const homeTranslations = {
       cards: [
         {
           title: "Airport Transfer Saudi Arabia",
-          desc: "Book an airport transfer at Jeddah (JED), Riyadh (RUH), Madinah (MED), and Dammam (DMM). We track your flight in real time — your professional chauffeur waits 60 minutes free if your flight is delayed. Meet-and-greet included.",
+          desc: "Book an airport transfer at Jeddah (JED), Riyadh (RUH), Madinah (MED), and Dammam (DMM). We track your flight in real time — your professional chauffeur waits 15–30 minutes free if your flight is delayed. Meet-and-greet included.",
           price: "On WhatsApp",
           icon: Globe
         },
@@ -113,7 +113,7 @@ const homeTranslations = {
         { title: "Professional Drivers", desc: "Experienced drivers arranged through our transportation partners — reliable and courteous." },
         { title: "Clear Pricing — No Surprises", desc: "No surge pricing, no hidden fees, no meter tricks. Your exact fare is confirmed with you on WhatsApp before booking." },
         { title: "WhatsApp Booking Available 24/7", desc: "Book your taxi via WhatsApp booking anytime — day or night. Our team typically confirms your price within 1–2 hours." },
-        { title: "Live Flight Tracking", desc: "We track your flight in real time for every Saudi airport transfer. Your professional chauffeur waits 60 minutes free if your flight is delayed." },
+        { title: "Live Flight Tracking", desc: "We track your flight in real time for every Saudi airport transfer. Your professional chauffeur waits 15–30 minutes free if your flight is delayed." },
         { title: "English, Arabic & Urdu Drivers", desc: "Our professional chauffeurs speak English, Arabic, and Urdu — ensuring clear communication for international pilgrims and business travelers." },
         { title: "Free Cancellation — 24 Hours", desc: "Cancel your booking up to 24 hours before your trip for a full refund — no questions asked. Flexibility you can count on." },
         { title: "Airport Meet & Greet Service", desc: "For every airport transfer in Saudi Arabia, your driver meets you inside the arrivals terminal with a name sign and helps carry your luggage to the car." },

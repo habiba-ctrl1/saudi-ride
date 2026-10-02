@@ -155,6 +155,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { href: "/services/corporate", label: "Corporate & executive chauffeur accounts" },
       { href: "/routes/riyadh-to-dubai", label: "Riyadh to Dubai — private car with driver" },
       { href: "/routes/riyadh-to-abudhabi", label: "Riyadh to Abu Dhabi — private car with driver" },
+      { href: "/cross-border/saudi-to-uae", label: "Saudi Arabia to the UAE by car — all routes" },
       { href: "/routes/riyadh-to-kuwait", label: "Riyadh to Kuwait — private car with driver" },
       { href: "/blog/private-driver-cost-saudi-arabia", label: "How much a private driver costs in Saudi Arabia" },
       { href: "/fleet", label: "Executive sedans, SUVs & vans available in Riyadh" },
@@ -248,7 +249,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     ],
     faqs: [
       { question: "How much is a taxi from Dammam airport to the city?", answer: "A private transfer from King Fahd International Airport (DMM) to Dammam or Al Khobar is about 35 km and a 40-minute drive — message us on WhatsApp with your flight time for a clear fare, meet & greet at arrivals." },
-      { question: "Can I take a taxi from Dammam to Bahrain?", answer: "Yes. We arrange cross-border transfers to Bahrain via the King Fahd Causeway, roughly a 1-hour drive. Share your passport and visa details in advance so we can prepare the border paperwork." },
+      { question: "Can I take a taxi from Dammam to Bahrain?", answer: "Yes. We arrange cross-border transfers to Bahrain via the King Fahd Causeway, roughly a 1-hour drive. Each passenger carries their own valid passport and entry documents and completes the border checks in person." },
       { question: "How far is Dammam from Riyadh by taxi?", answer: "Dammam to Riyadh is about 400 km — roughly a 4-hour drive on Highway 40. We arrange intercity transfers in sedans, SUVs, and vans with rest stops included, quoted on WhatsApp before booking." },
       { question: "Do you serve the whole Dammam–Khobar–Dhahran area?", answer: "Yes — the three cities form one metropolitan area and we cover all of it 24/7, including Aramco, the corniche, business hotels, malls, and the industrial zones. Confirm your exact district when booking." },
       { question: "Is taxi available in Dammam 24/7?", answer: "Yes, we operate around the clock in the Eastern Province for airport transfers, corporate travel, hotel transfers, cross-border trips, and intercity journeys — with your fare confirmed before you book." },
@@ -257,6 +258,8 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     relatedLinks: [
       { href: "/locations/dhahran", label: "Dhahran — Saudi Aramco & KFUPM taxi" },
       { href: "/locations/jubail", label: "Jubail — Industrial City taxi & corporate accounts" },
+      { href: "/cross-border/saudi-to-bahrain", label: "Dammam to Bahrain and other causeway transfers" },
+      { href: "/cross-border/saudi-to-qatar", label: "Eastern Province to Doha, Qatar by car" },
       { href: "/locations/alkhobar", label: "Al Khobar taxi & Bahrain causeway transfers" },
       { href: "/distance/riyadh-to-dammam", label: "Riyadh to Dammam distance & driving time guide" },
       { href: "/routes/dammam-to-manama", label: "Dammam to Manama, Bahrain taxi" },
@@ -338,6 +341,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     relatedLinks: [
       { href: "/locations/dhahran", label: "Dhahran — Saudi Aramco & KFUPM taxi" },
       { href: "/locations/dammam", label: "Dammam taxi & King Fahd Airport transfers" },
+      { href: "/cross-border/saudi-to-kuwait", label: "Jubail and Eastern Province to Kuwait by car" },
       { href: "/routes/dammam-airport-to-jubail", label: "Dammam Airport to Jubail transfer" },
       { href: "/services/car-recovery/jubail", label: "Jubail car recovery & tow truck (satha)" }
     ]
@@ -379,6 +383,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     relatedLinks: [
       { href: "/routes/alula-airport-to-banyan-tree", label: "AlUla Airport to Banyan Tree AlUla — private VIP transfer" },
       { href: "/routes/alula-airport-to-resorts", label: "AlUla Airport to Resorts" },
+      { href: "/cross-border/saudi-to-jordan", label: "AlUla to Petra, Aqaba & Amman — Jordan transfers" },
       { href: "/routes/madinah-to-alula", label: "Madinah to AlUla taxi" },
       { href: "/routes/alula-to-aqaba", label: "AlUla to Aqaba, Jordan transfer" },
       { href: "/routes/alula-to-amman", label: "AlUla to Amman, Jordan transfer" },
@@ -454,12 +459,17 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       "The Khobar Corniche is busy on Thursday and Friday evenings — allow extra time."
     ],
     faqs: [
-      { question: "Can I take a taxi from Al Khobar to Bahrain?", answer: "Yes. We run cross-border transfers from Al Khobar to Bahrain via the King Fahd Causeway, roughly a 1-hour drive. Share your passport and visa details in advance so we can prepare the border paperwork." },
+      { question: "Can I take a taxi from Al Khobar to Bahrain?", answer: "Yes. We run cross-border transfers from Al Khobar to Bahrain via the King Fahd Causeway, roughly a 1-hour drive. Each passenger carries their own valid passport and entry documents and completes the border checks in person." },
       { question: "How much is a taxi from Al Khobar to Dammam airport?", answer: "A taxi from Al Khobar to King Fahd International Airport (DMM) is about 30 km and a 35-minute drive — fare confirmed on WhatsApp before booking, with meet & greet at arrivals." },
       { question: "Do you provide corporate taxi service in Al Khobar?", answer: "Yes. We offer corporate sedans and SUVs with professional drivers for Aramco, Dhahran, and business travel across the Eastern Province, with hourly and full-day options." },
       { question: "Is Al Khobar part of the same area as Dammam?", answer: "Yes — Al Khobar, Dammam, and Dhahran form one connected metro area. We cover all of it 24/7; just confirm your exact district when booking." },
       { question: "Is taxi available in Al Khobar 24/7?", answer: "Yes, we operate around the clock in Al Khobar for airport transfers, corporate travel, Corniche outings, and cross-border trips — with your fare confirmed before you book, no surge." }
-    ]
+    ],
+    relatedLinks: [
+      { href: "/cross-border/saudi-to-bahrain", label: "Al Khobar to Bahrain over the King Fahd Causeway" },
+      { href: "/routes/alkhobar-to-manama", label: "Al Khobar to Manama private car" },
+      { href: "/locations/dammam", label: "Dammam taxi & King Fahd Airport transfers" },
+    ],
   },
   yanbu: {
     name: "Yanbu",
@@ -534,6 +544,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     relatedLinks: [
       { href: "/routes/tabuk-airport-to-neom", label: "Tabuk Airport to NEOM transfer" },
       { href: "/routes/red-sea-airport-to-neom", label: "Red Sea Airport to NEOM transfer" },
+      { href: "/cross-border/saudi-to-jordan", label: "NEOM to Aqaba & Amman cross-border transfers" },
       { href: "/routes/riyadh-to-neom", label: "Riyadh to NEOM long-distance taxi" },
       { href: "/routes/jeddah-to-neom", label: "Jeddah to NEOM long-distance taxi" },
       { href: "/routes/neom-to-aqaba", label: "NEOM to Aqaba, Jordan — private car with driver" },
@@ -584,31 +595,31 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     nameAr: "تبوك",
     image: "/locations/tabuk-hero.webp",
     tagline: "Gateway to NEOM, the Red Sea & the Jordan Border",
-    description: "Book a taxi or executive chauffeur service in Tabuk for airport transfers, business trips to NEOM, and cross-border journeys to Jordan via the Al Durrah crossing near Haql. Tabuk is the main air and road gateway to the NEOM giga-project, the Red Sea coast, and AlUla, making it a key hub for contractors, investors, and tourists heading north. Our drivers cover Tabuk Regional Airport (TUU), the historic Old Town and Tabuk Castle, Wadi Disah, Tayma, and the coastal towns of Haql and Duba — all with your fare confirmed before you book, no surge, day or night.",
+    description: "Book a taxi or executive chauffeur service in Tabuk for airport transfers, business trips to NEOM, and cross-border journeys to Jordan via the Halat Ammar or Al Durrah crossing. Tabuk is the main air and road gateway to the NEOM giga-project, the Red Sea coast, and AlUla, making it a key hub for contractors, investors, and tourists heading north. Our drivers cover Tabuk Regional Airport (TUU), the historic Old Town and Tabuk Castle, Wadi Disah, Tayma, and the coastal towns of Haql and Duba — all with your fare confirmed before you book, no surge, day or night.",
     tldr: "Taxi Saudi Arabia arranges private transfer and executive chauffeur service in Tabuk — Tabuk Regional Airport (TUU) transfers, business trips to NEOM (~120 km), Red Sea coast runs to Duba and Haql, and cross-border transfers to the Jordan (Aqaba) border.",
     tldrFacts: [
       { label: "Airport", value: "TUU" },
       { label: "To NEOM", value: "~120 km" },
-      { label: "To Jordan border", value: "~130 km" },
+      { label: "To Aqaba, Jordan", value: "~270 km" },
       { label: "Pricing", value: "Quoted on WhatsApp" }
     ],
     attractions: [
       { name: "Tabuk Castle & Old Town", dist: "City Center" },
       { name: "Wadi Disah (Disah Valley)", dist: "~85 km" },
       { name: "Tayma Oasis", dist: "~90 km" },
-      { name: "Haql & Gulf of Aqaba Coast", dist: "~130 km" },
+      { name: "Haql & Gulf of Aqaba Coast", dist: "~230 km" },
       { name: "Tabuk Regional Airport (TUU)", dist: "~7 km" },
       { name: "NEOM Bay", dist: "~120 km" }
     ],
     tips: [
       "Tabuk Regional Airport (TUU) is the main air gateway for NEOM and the northern Red Sea coast — pre-book your meet & greet transfer.",
-      "Cross-border trips to Jordan via the Al Durrah/Haql crossing need valid travel documents — confirm details when booking.",
+      "Jordan trips use the shorter crossing: Halat Ammar (~110 km north) for Amman, Petra and Wadi Rum; Al Durrah near Haql for Aqaba. Each passenger needs valid travel documents.",
       "Wadi Disah and Tayma are full-day trips — an executive SUV is the most comfortable option for the desert roads.",
       "Business and NEOM site visits are common — share your exact site or gate access details in advance."
     ],
     faqs: [
       { question: "How do I get from Tabuk Airport to NEOM?", answer: "We run transfers from Tabuk Regional Airport (TUU) directly to NEOM and NEOM Bay, about 120 km away — the main route used by contractors, investors, and visitors reaching the project." },
-      { question: "Can I cross the border to Jordan from Tabuk?", answer: "Yes, we offer cross-border transfers from Tabuk to the Jordan border near Haql (Al Durrah crossing) and onward toward Aqaba, about 130 km from Tabuk city. Valid travel documents are required." },
+      { question: "Can I cross the border to Jordan from Tabuk?", answer: "Yes, we offer cross-border transfers from Tabuk to the Jordan border near Haql (Al Durrah crossing) and onward toward Aqaba, with Aqaba about 270 km from Tabuk city by road. Valid travel documents are required." },
       { question: "Is Tabuk a good base for visiting the Red Sea and AlUla?", answer: "Yes — Tabuk is the closest major airport hub to the Red Sea coast (Duba, Haql) and within reach of AlUla, making it a common stop for premium tourism and NEOM-related travel." },
       { question: "How much is a taxi from Tabuk Airport to the city?", answer: "A taxi from Tabuk Regional Airport (TUU) to the city centre is about 7 km, with meet & greet at arrivals and no surge pricing." },
       { question: "Is executive transport available in Tabuk 24/7?", answer: "Yes, we provide round-the-clock taxi and executive car service in Tabuk for airport transfers, NEOM business trips, and cross-border journeys — with your fare confirmed on WhatsApp before you book." }
@@ -616,6 +627,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     relatedLinks: [
       { href: "/locations/neom", label: "NEOM transportation guide" },
       { href: "/routes/tabuk-airport-to-neom", label: "Tabuk Airport to NEOM transfer" },
+      { href: "/cross-border/saudi-to-jordan", label: "Tabuk to Jordan — Al Durrah border transfers" },
       { href: "/routes/tabuk-to-aqaba", label: "Tabuk to Aqaba border transfer" },
       { href: "/routes/tabuk-to-amman", label: "Tabuk to Amman, Jordan transfer" },
       { href: "/routes/tabuk-to-petra", label: "Tabuk to Petra, Jordan transfer" },

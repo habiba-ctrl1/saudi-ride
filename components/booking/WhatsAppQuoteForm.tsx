@@ -47,6 +47,14 @@ export interface WhatsAppQuoteFormProps {
   defaultTripType?: "One Way" | "Round Trip" | "By the Hour";
   /** Contextual submit label (English only); Arabic keeps the default. */
   submitLabel?: string;
+  /** Route-aware placeholders (English only), e.g. "Pickup address in Riyadh". */
+  pickupPlaceholder?: string;
+  dropoffPlaceholder?: string;
+  /** Replaces the first line of the English WhatsApp message (e.g. a
+   *  cross-border route sentence) and adds a closing availability line. */
+  messageIntro?: string;
+  /** Show an optional "Special requirements" field (included in the message). */
+  showNotes?: boolean;
 }
 
 export default function WhatsAppQuoteForm({
@@ -56,6 +64,10 @@ export default function WhatsAppQuoteForm({
   forceLocale,
   defaultTripType = "One Way",
   submitLabel,
+  pickupPlaceholder,
+  dropoffPlaceholder,
+  messageIntro,
+  showNotes = false,
 }: WhatsAppQuoteFormProps = {}) {
   const { language } = useLanguage();
   const isRtl = (forceLocale ?? language) === "ar";
@@ -74,6 +86,7 @@ export default function WhatsAppQuoteForm({
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [notes, setNotes] = useState("");
   const [nameError, setNameError] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
   const [emailError, setEmailError] = useState(false);
@@ -134,9 +147,10 @@ export default function WhatsAppQuoteForm({
           `• نوع السيارة: ${VEHICLES.find((v) => v.key === vehicle)?.ar ?? vehicle}`,
           `• عدد الركاب: ${passengers || "—"}`,
           `• الأمتعة: ${luggage || "—"}`,
+          ...(showNotes && notes.trim() ? [`• ملاحظات: ${notes.trim()}`] : []),
         ]
       : [
-          "Salam! I'd like a quote for a private transfer.",
+          messageIntro ?? "Salam! I'd like a quote for a private transfer.",
           "",
           `• Name: ${name}`,
           `• Trip type: ${tripLabel?.en ?? tripType}`,
@@ -149,6 +163,8 @@ export default function WhatsAppQuoteForm({
           `• Vehicle: ${vehicle}`,
           `• Passengers: ${passengers || "—"}`,
           `• Luggage (large bags): ${luggage || "—"}`,
+          ...(showNotes && notes.trim() ? [`• Special requirements: ${notes.trim()}`] : []),
+          ...(messageIntro ? ["", "Please confirm availability and the total fare."] : []),
         ];
 
     const url = `${contactConfig.whatsappLink}?text=${encodeURIComponent(lines.join("\n"))}`;
@@ -191,7 +207,7 @@ export default function WhatsAppQuoteForm({
                 id={fid("pickup")}
                 value={pickup}
                 onChange={(e) => setPickup(e.target.value)}
-                placeholder={L("Pickup — e.g. Jeddah Airport", "نقطة الانطلاق (مثال: مطار جدة)")}
+                placeholder={isRtl ? "نقطة الانطلاق (مثال: مطار جدة)" : pickupPlaceholder ?? "Pickup — e.g. Jeddah Airport"}
                 autoComplete="off"
               />
             </label>
@@ -202,7 +218,7 @@ export default function WhatsAppQuoteForm({
                 id={fid("dropoff")}
                 value={dropoff}
                 onChange={(e) => setDropoff(e.target.value)}
-                placeholder={L("Destination — e.g. Makkah hotel", "الوجهة (مثال: مكة المكرمة)")}
+                placeholder={isRtl ? "الوجهة (مثال: مكة المكرمة)" : dropoffPlaceholder ?? "Destination — e.g. Makkah hotel"}
                 autoComplete="off"
               />
             </label>
@@ -296,6 +312,24 @@ export default function WhatsAppQuoteForm({
             </div>
           </div>
         </div>
+
+        {showNotes && (
+          <div className="field">
+            <label className="field-label" htmlFor={fid("notes")}>
+              {L("Special requirements", "ملاحظات خاصة")}<span className="opt">{L("optional", "اختياري")}</span>
+            </label>
+            <div className="field-shell">
+              <textarea
+                id={fid("notes")}
+                value={notes}
+                onChange={(e) => setNotes(e.target.value.slice(0, 500))}
+                rows={2}
+                placeholder={L("Child seats, extra stops, driver waiting, flight time…", "مقاعد أطفال، توقفات إضافية، انتظار السائق…")}
+                className="w-full resize-y bg-transparent py-2 outline-none"
+              />
+            </div>
+          </div>
+        )}
 
         {/* Contact */}
         <div className="border-t border-dashed border-[#0F172A]/10 pt-5">

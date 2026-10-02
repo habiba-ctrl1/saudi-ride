@@ -11,6 +11,7 @@ import { AIRPORT_DETAILS } from "@/lib/data/airports";
 import { AR_ROUTE_SLUGS } from "@/lib/config/i18n";
 import { EVENT_SLUGS } from "@/lib/data/events";
 import { DISTANCE_GUIDES } from "@/lib/data/distances";
+import { CORRIDOR_SLUGS } from "@/lib/data/cross-border";
 
 const DOMAIN = "https://taxisaudiarabia.com";
 
@@ -114,6 +115,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
+  // Cross-border corridor hubs (/cross-border/[corridor]) — from lib/data/cross-border.ts.
+  const corridorItems = CORRIDOR_SLUGS.map((slug) => ({
+    url: `${DOMAIN}/cross-border/${slug}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
+
   const routeItems = ROUTES_DATA.map((route) => ({
     url: `${DOMAIN}/routes/${route.slug}`,
     lastModified: now,
@@ -192,6 +201,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...locationItems,
     ...subAreaItems,
     ...airportItems,
+    ...corridorItems,
     ...routeItems,
     ...distanceItems,
     ...fleetItems,

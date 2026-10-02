@@ -16,7 +16,7 @@
 ## Services
 
 ### Airport Transfers
-Private airport pickup and drop-off at all major Saudi airports with meet-and-greet, flight tracking, and 60-minute free waiting time for delays.
+Private airport pickup and drop-off at all major Saudi airports with meet-and-greet, flight tracking, and 15–30 minutes of free waiting time for delays.
 - Jeddah King Abdulaziz (JED)
 - Riyadh King Khalid (RUH)
 - Madinah Prince Mohammad (MED)
@@ -72,7 +72,7 @@ All fares are fixed and confirmed before booking — no surge pricing, no hidden
 - Licensed professional drivers with valid Saudi transport licenses
 - Multilingual drivers (English, Arabic, Urdu)
 - Real-time flight tracking for airport transfers
-- 60-minute free waiting time at airports
+- 15–30 minutes of free waiting time at airports
 - Free cancellation up to 24 hours before trip
 - ZATCA-compliant e-invoicing for corporate bookings
 - Prayer-time aware trip planning for pilgrims

@@ -178,13 +178,16 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     priorityRoutes: ["dammam-to-doha", "dammam-to-manama"],
     faqs: [
       { question: "How much is a taxi from Dammam airport to Al Khobar?", answer: "A taxi from King Fahd International Airport (DMM) to Al Khobar is a 30–40 minute drive. The exact fare is confirmed before you book — no surge or hidden fees." },
-      { question: "Can I get a taxi from DMM airport to Bahrain?", answer: "Yes. We offer cross-border transfers from DMM to Bahrain via the King Fahd Causeway. Please provide your passport details 24 hours in advance so we can prepare the border crossing documentation." },
+      { question: "Can I get a taxi from DMM airport to Bahrain?", answer: "Yes. We offer cross-border transfers from DMM to Bahrain via the King Fahd Causeway. Each passenger completes their own border checks on the causeway and carries their own valid documents. Our Dammam Airport to Bahrain route page has the full details." },
       { question: "Where do I meet my driver at Dammam airport?", answer: "Your driver meets you in the arrivals hall holding a sign with your name. Meet & greet is included with every booking." },
       { question: "What happens if my flight is delayed?", answer: "Share your flight number when you book and we check it before pickup, so the pickup time is planned around your actual arrival." }
     ],
     relatedLinks: [
       { href: "/routes/dammam-to-doha", label: "DMM to Doha, Qatar — cross-border" },
       { href: "/routes/dammam-to-manama", label: "DMM to Manama, Bahrain" },
+      { href: "/routes/dammam-airport-to-bahrain", label: "Dammam Airport to Bahrain — direct private transfer" },
+      { href: "/routes/bahrain-to-dammam-airport", label: "Bahrain to Dammam Airport for your flight" },
+      { href: "/cross-border/saudi-to-bahrain", label: "All Saudi–Bahrain causeway transfers" },
       { href: "/fleet/gmc-yukon-xl", label: "GMC Yukon XL — spacious SUV" },
       { href: "/fleet/toyota-camry", label: "Toyota Camry — Executive Sedan" },
     ]

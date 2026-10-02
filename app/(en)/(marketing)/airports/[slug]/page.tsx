@@ -456,7 +456,7 @@ export default async function AirportLandingPage({ params }: PageProps) {
               <span className="text-[0.6rem] uppercase tracking-widest text-[#C9A84C] font-bold">Included</span>
               <h3 className="font-heading text-xl font-bold mt-1 mb-2">Meet & Greet</h3>
               <p className="text-xs text-[#6B7280] mb-6 leading-relaxed">
-                Your driver will be waiting in the arrivals hall with a name sign. We track your flight for delays. 60 minutes of free waiting time included.
+                Your driver will be waiting in the arrivals hall with a name sign. We track your flight for delays. 15–30 minutes of free waiting time included.
               </p>
             </div>
           </div>

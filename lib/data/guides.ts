@@ -77,7 +77,7 @@ export const GUIDES: Guide[] = [
       "A private transfer from Riyadh to Manama covers about 450 km and takes roughly 4.5 hours including the Causeway crossing, fare confirmed on WhatsApp, with a professional driver who handles the route door-to-door from your Riyadh address to your Manama hotel or destination.",
       "Flying is faster in the air, but by the time you add airport check-in, security, and transfer time on both ends, a private transfer is often comparable door-to-door for a Riyadh city departure — without needing to route through King Khalid International Airport specifically.",
       "A public intercity bus is typically the lowest-cost option but runs on a fixed schedule, makes stops, and doesn't offer door-to-door pickup — a private transfer is the better choice if you're travelling with family, colleagues, or heavy luggage and want a departure time that suits you.",
-      "For business travellers and corporate accounts, a private transfer also allows working during the journey and crossing the Causeway with pre-arranged documentation support — something neither a bus nor a flight can offer.",
+      "For business travellers and corporate accounts, a private transfer also allows working during the journey and crossing the Causeway without changing vehicles — something neither a bus nor a flight can offer.",
     ],
     tldr: "There is currently no train between Riyadh and Bahrain — the Gulf Railway connecting GCC states hasn't been completed on this route. The practical options are a private transfer via the King Fahd Causeway (about 4.5 hours door-to-door, fare confirmed on WhatsApp), a short flight, or a public bus. A private transfer is the most comfortable and flexible choice for families, business travellers, and anyone crossing with luggage.",
     tldrFacts: [
@@ -89,7 +89,7 @@ export const GUIDES: Guide[] = [
     faqs: [
       { question: "Is there a train from Riyadh to Bahrain?", answer: "No. There is currently no operational train line between Riyadh and Bahrain. The GCC's planned Gulf Railway network has not been completed on this route. The practical options today are a private transfer, flight, or public bus, with all road travel crossing via the King Fahd Causeway." },
       { question: "How long does it take to drive from Riyadh to Bahrain?", answer: "A private transfer from Riyadh to Manama, Bahrain takes about 4.5 hours covering roughly 450 km, including the King Fahd Causeway crossing and border formalities." },
-      { question: "How much does a taxi from Riyadh to Bahrain cost?", answer: "A private transfer from Riyadh to Manama has its fare confirmed on WhatsApp before booking, with documentation support for a smooth Causeway crossing." },
+      { question: "How much does a taxi from Riyadh to Bahrain cost?", answer: "A private transfer from Riyadh to Manama has its fare confirmed on WhatsApp before booking, with time for the Causeway crossing planned into the pickup." },
       { question: "What documents do I need to cross into Bahrain from Saudi Arabia?", answer: "A valid passport and the correct Bahrain entry eligibility or visa. Share your details in advance when booking so we can help prepare for a smooth crossing at the King Fahd Causeway." },
       { question: "Is a taxi or flight better for Riyadh to Bahrain?", answer: "A private transfer is often more convenient for door-to-door travel, especially with family or luggage, since it avoids airport check-in and transfer time. A flight is faster in the air but adds airport time on both ends." },
     ],

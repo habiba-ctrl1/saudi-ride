@@ -476,7 +476,7 @@ const CITY_META_DESCRIPTION: Record<string, string> = {
   yanbu: "Taxi in Yanbu — Red Sea diving trips, and intercity rides to Madinah (~240 km) or Jeddah (~330 km). Industrial City covered.",
   neom: "Executive taxi across NEOM & Tabuk — Tabuk (TUU) and NEOM Bay (NUM) airport transfers, site access trips, and Gulf of Aqaba coast rides.",
   abha: "Taxi in Abha — Soudah Peak & cable car trips, AHB airport transfers (~25 km), and rides across the misty Asir mountains.",
-  tabuk: "Taxi in Tabuk — TUU airport transfers, NEOM business trips (~120 km), and cross-border rides to Jordan via Haql (~130 km).",
+  tabuk: "Taxi in Tabuk — TUU airport transfers, NEOM business trips (~120 km), and cross-border rides to Aqaba, Jordan via Haql (~270 km).",
   abudhabi: "Private, pre-booked car between Saudi Arabia and Abu Dhabi — Riyadh corridor (~850 km), executive sedan/SUV/van, fare confirmed on WhatsApp. Not a local UAE taxi.",
 };
 
