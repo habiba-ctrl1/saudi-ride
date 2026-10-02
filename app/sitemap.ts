@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import { ROUTES_DATA } from "@/lib/data/routes";
 import { FLEET_VEHICLES } from "@/lib/fleet-data";
-import { BLOG_POSTS_DATA } from "@/lib/data/blog-posts";
+import { BLOG_POSTS, BLOG_POSTS_AR, lastModified as blogLastModified } from "@/lib/data/blog";
 import { GUIDES } from "@/lib/data/guides";
 import { RECOVERY_INDEXABLE_CITIES, RECOVERY_AR_CITIES } from "@/lib/data/recovery";
 import { RECOVERY_ROUTES } from "@/lib/data/recovery-routes";
@@ -138,12 +138,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  const blogItems = BLOG_POSTS_DATA.filter((post) => post.published).map((post) => ({
-    url: `${DOMAIN}/blog/${post.slug}`,
-    lastModified: post.publishedAt,
-    changeFrequency: "weekly" as const,
-    priority: 0.7,
-  }));
+  // Blog: fixed publish/update dates (never "now"), Arabic articles listed
+  // separately — each pair also cross-references via hreflang on the page.
+  const blogItems = [
+    ...BLOG_POSTS.map((post) => ({
+      url: `${DOMAIN}/blog/${post.slug}`,
+      lastModified: new Date(blogLastModified(post)),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+    ...(BLOG_POSTS_AR.length ? [{ url: `${DOMAIN}/ar/blog`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.6 }] : []),
+    ...BLOG_POSTS_AR.map((post) => ({
+      url: `${DOMAIN}/ar/blog/${post.slug}`,
+      lastModified: new Date(blogLastModified(post)),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
+  ];
 
   const recoveryItems = RECOVERY_INDEXABLE_CITIES.map((c) => ({
     url: `${DOMAIN}/services/car-recovery/${c.slug}`,

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { generateMetadata as seo } from "@/lib/seo";
+import { RelatedGuides } from "@/components/blog/RelatedGuides";
 
 export const metadata: Metadata = seo({
   title: "Taxi Fares & Clear Prices in Saudi Arabia 2026",
@@ -10,5 +11,10 @@ export const metadata: Metadata = seo({
 });
 
 export default function PricingLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <>
+      {children}
+      <RelatedGuides />
+    </>
+  );
 }

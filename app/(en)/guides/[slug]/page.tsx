@@ -19,7 +19,9 @@ const RELATED_LINKS: Record<string, { href: string; label: string }[]> = {
     { href: "/blog/buying-sim-cards-jeddah-airport-stc-mobily-zain", label: "STC vs Mobily vs Zain: a detailed operator comparison" },
   ],
   "makkah-to-madinah-transport-guide": [
-    { href: "/blog/makkah-to-madinah-taxi-journey-expectations", label: "What to expect on the Makkah–Madinah road journey" },
+    // Was /blog/makkah-to-madinah-taxi-journey-expectations — merged into this
+    // guide (301, 2026-10-02); point at the reverse-direction route article instead.
+    { href: "/blog/madinah-to-makkah-taxi-price-distance-time", label: "Madinah to Makkah by car: distance, time & Miqat stop" },
     { href: "/routes/makkah-to-madinah", label: "Book a Makkah to Madinah taxi" },
   ],
 };

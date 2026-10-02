@@ -257,26 +257,35 @@ interface ArticleSchemaInput {
   description: string;
   path: string;
   image?: string;
-  /** ISO date string, e.g. new Date().toISOString(). */
+  /** ISO date string, e.g. "2026-10-02". */
   datePublished?: string;
+  /** Last genuine content change; defaults to datePublished. */
+  dateModified?: string;
   author?: string;
   type?: "Article" | "BlogPosting";
+  /** Category / section label, e.g. "Airport Transfers". */
+  section?: string;
+  inLanguage?: "en" | "ar";
 }
 
 /** Article / BlogPosting — eligible for the article rich result. */
-export function articleSchema({ headline, description, path, image, datePublished, author, type = "Article" }: ArticleSchemaInput) {
+export function articleSchema({ headline, description, path, image, datePublished, dateModified, author, type = "Article", section, inLanguage }: ArticleSchemaInput) {
   return {
     "@context": "https://schema.org",
     "@type": type,
     headline,
     description,
     url: abs(path),
-    mainEntityOfPage: abs(path),
-    ...(image ? { image } : {}),
-    ...(datePublished ? { datePublished, dateModified: datePublished } : {}),
-    author: { "@type": "Organization", name: author ?? SITE.name },
+    mainEntityOfPage: { "@type": "WebPage", "@id": abs(path) },
+    ...(image ? { image: abs(image) } : {}),
+    ...(datePublished ? { datePublished, dateModified: dateModified ?? datePublished } : {}),
+    ...(section ? { articleSection: section } : {}),
+    ...(inLanguage ? { inLanguage } : {}),
+    // Authored by the organisation's editorial team — never an invented person.
+    author: { "@type": "Organization", name: author ?? SITE.name, url: abs("/about") },
     publisher: {
       "@type": "Organization",
+      "@id": SITE.businessId,
       name: SITE.name,
       logo: { "@type": "ImageObject", url: SITE.logo },
     },

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { generateMetadata as seo } from "@/lib/seo";
+import { RelatedGuides } from "@/components/blog/RelatedGuides";
 
 export const metadata: Metadata = seo({
   title: "Taxi Fleet for Hire — Sedans, SUVs, Vans & Buses",
@@ -9,5 +10,10 @@ export const metadata: Metadata = seo({
 });
 
 export default function FleetLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <>
+      {children}
+      <RelatedGuides />
+    </>
+  );
 }

@@ -1029,20 +1029,27 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "madinah-airport-to-makkah": {
-    tldr: "A taxi from Madinah Airport (MED) to Makkah is about 450 km and takes roughly 4.5 to 5 hours. The fare is fixed, confirmed on WhatsApp with a Miqat stop at Dhul Hulaifah for Ihram and rest stops on request.",
+    // Strengthened 2026-10-02 (replaces the proposed blog article "Madinah Airport
+    // to Makkah", which would have cannibalised this page). Time corrected to
+    // routes.ts (450 km / 260 min); removed "track your flight" + "tolls included".
+    tldr: "A private transfer from Madinah Airport (MED) to Makkah is about 450 km and takes roughly 4 hours 20 minutes of driving, plus a stop at the Dhul Hulaifah (Abyar Ali) Miqat to enter Ihram. The fare is fixed and confirmed on WhatsApp before booking; share your flight number and we check it before pickup.",
     tldrFacts: [
       { label: "Distance", value: "~450 km" },
-      { label: "Time", value: "~4.5–5 hours" },
-      { label: "Fare", value: "On WhatsApp" },
+      { label: "Drive", value: "~4 hr 20 min + Miqat stop" },
+      { label: "Miqat", value: "Abyar Ali (Dhul Hulaifah)" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
-      { question: "How long is Madinah airport to Makkah by taxi?", answer: "It is about 450 km and roughly a 4.5 to 5 hour direct drive from Prince Mohammad Bin Abdulaziz Airport (MED) to Makkah." },
-      { question: "How much is the Madinah airport to Makkah taxi?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans for families and luggage. The price is confirmed before booking, tolls included." },
-      { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Coming from Madinah, the Miqat is Dhul Hulaifah (Abyar Ali). Your driver can stop there so you enter Ihram before continuing to Makkah." },
-      { question: "Is this a good option after a late flight into Madinah?", answer: "Yes. We operate 24/7 and track your flight, so a direct comfortable transfer to Makkah is available even after a late arrival at MED." },
+      { question: "How long is Madinah airport to Makkah by car?", answer: "About 450 km — roughly 4 hours 20 minutes of driving from Prince Mohammad bin Abdulaziz Airport (MED), plus time at the Miqat and any rest stop." },
+      { question: "How much is the Madinah airport to Makkah transfer?", answer: "The fare is fixed and confirmed on WhatsApp before booking. It depends on the vehicle (sedan, SUV or van) and any stops — not on traffic or the time you land." },
+      { question: "Where do we enter Ihram on the way?", answer: "Travelling from Madinah to Makkah for Umrah, the Miqat is Dhul Hulaifah (Abyar Ali), on the southern edge of Madinah — early in the journey. Many pilgrims change at the airport or at the mosque, pray, make their intention and continue. Tell us you need the stop when you book." },
+      { question: "Should we go straight to Makkah after landing, or stay in Madinah first?", answer: "Both are common. Going straight works if you are rested; after a long overnight flight, many families spend a night or more in Madinah first and travel to Makkah later, still passing Abyar Ali." },
+      { question: "Is the Haramain train an alternative?", answer: "Yes, from Madinah station — but the station is not at the airport or the Haram, and Makkah station is not beside the Haram either, so you need a car at both ends. With luggage or children, a direct car is usually simpler." },
+      { question: "Which vehicle should a family choose?", answer: "For four hours with Umrah luggage, most families take a full-size SUV (up to 7 passengers) or a van, which has more luggage space and is easier for older relatives." },
+      { question: "Is this a good option after a late flight into Madinah?", answer: "Yes. Bookings run 24/7; share your flight number and we check it before pickup so the transfer is planned around your actual arrival." },
     ],
   },
+
   "madinah-to-jeddah-airport": {
     tldr: "A taxi from Madinah to Jeddah Airport (JED) is about 410 km and takes roughly 4 to 5 hours via the Haramain highway. The fare is confirmed on WhatsApp before booking, door-to-door from your Madinah hotel, with rest stops on request.",
     tldrFacts: [
@@ -1238,19 +1245,25 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "riyadh-to-alula": {
-    tldr: "A taxi from Riyadh to AlUla is about 1050 km and takes roughly 10 hours. The fare is fixed, confirmed on WhatsApp for this premium long-distance heritage transfer, with rest stops and comfortable vehicles for the desert journey.",
+    // Strengthened 2026-10-02 (replaces the proposed blog article "Riyadh to
+    // AlUla", which would have collided with this page + /distance/riyadh-to-alula).
+    tldr: "Riyadh to AlUla is about 1,050 km by road — roughly 10 hours of driving, so it is a full day. A private car with a driver is door to door at a fixed fare confirmed on WhatsApp before booking, with rest and prayer stops. Many travellers fly to AlUla (ULH) instead and book a car on arrival; the road suits families, groups, luggage and travellers who want to stop on the way.",
     tldrFacts: [
-      { label: "Distance", value: "~1050 km" },
-      { label: "Time", value: "~10 hours" },
-      { label: "Fare", value: "On WhatsApp" },
+      { label: "Distance", value: "~1,050 km" },
+      { label: "Drive", value: "~10 hours" },
+      { label: "Alternative", value: "Fly to ULH + transfer" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
-      { question: "How long is the drive from Riyadh to AlUla?", answer: "Riyadh to AlUla is about 1050 km — roughly a 10-hour drive. Many travellers prefer to fly, but we offer a comfortable premium road transfer with rest stops." },
-      { question: "How much is a taxi from Riyadh to AlUla?", answer: "The fare is fixed, confirmed on WhatsApp for this long-distance heritage transfer, confirmed before booking. SUVs are recommended for comfort over the long journey." },
-      { question: "Is it better to fly or drive to AlUla?", answer: "Flying to AlUla (ULH) is faster, but a private car is door-to-door and lets you stop along the way. For comfort on the road, we recommend an SUV." },
+      { question: "How long is the drive from Riyadh to AlUla?", answer: "Riyadh to AlUla is about 1,050 km — roughly 10 hours of driving, plus rest and prayer stops. Plan for a full day." },
+      { question: "How much is a private car from Riyadh to AlUla?", answer: "The fare is fixed and confirmed on WhatsApp before booking, based on the vehicle and any stops. A full-size SUV is the usual choice for comfort on a drive this long." },
+      { question: "Is it better to fly or drive to AlUla?", answer: "For one or two people, flying to AlUla International Airport (ULH) is faster — then a ~30 km transfer to the resort area. Driving makes sense for families and groups with luggage, people who prefer not to fly, or trips with stops on the way." },
+      { question: "Can we break the journey?", answer: "Yes. Some travellers stop overnight on the way, or route via Madinah (Madinah to AlUla is about 330 km). Tell us your plan when you book so the quote reflects it." },
+      { question: "Can we keep the car in AlUla?", answer: "AlUla's sites are spread across the valley, so many visitors book a driver for their sightseeing days as well. Ask for both together." },
+      { question: "When is the best time to drive to AlUla?", answer: "The main season is October to March. In summer, early starts avoid the hottest part of the day." },
     ],
   },
+
   "riyadh-to-buraydah": {
     tldr: "A taxi from Riyadh to Buraydah, the Qassim capital, is about 350 km and takes roughly 3 hours 10 minutes. The fare is fixed, confirmed on WhatsApp door-to-door, with rest stops on request.",
     tldrFacts: [
@@ -1821,19 +1834,25 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
 
   // ─── Tourism routes ───
   "alula-airport-to-resorts": {
-    tldr: "A taxi from AlUla Airport (ULH) to the resorts is about 30 km and takes around 30 minutes. The fare is fixed, confirmed on WhatsApp with meet & greet at arrivals and a smooth transfer to AlUla's luxury desert hotels.",
+    // Strengthened 2026-10-02 (replaces the proposed blog article "AlUla Airport
+    // to Hotels & Resorts"). Removed "meet & greet" as a guaranteed inclusion.
+    tldr: "A private transfer from AlUla International Airport (ULH) to the main resort area is about 30 km and takes around 30 minutes. On-demand taxis at ULH are limited, so pre-book: share your flight number and resort name, and the fare is fixed and confirmed on WhatsApp before booking.",
     tldrFacts: [
       { label: "Distance", value: "~30 km" },
       { label: "Time", value: "~30 min" },
-      { label: "Fare", value: "On WhatsApp" },
+      { label: "Taxis at ULH", value: "Limited — pre-book" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
-      { question: "How far is AlUla airport from the resorts?", answer: "AlUla International Airport (ULH) is about 30 km from the main resort area — roughly a 30-minute transfer." },
-      { question: "How much is a taxi from AlUla airport to my resort?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with meet & greet at arrivals and SUVs available for luggage." },
-      { question: "Can you arrange sightseeing after my transfer?", answer: "Yes. We offer onward trips to Hegra, Dadan, Elephant Rock, and the Old Town with a driver and flexible waiting time." },
+      { question: "How far is AlUla airport from the resorts?", answer: "AlUla International Airport (ULH) is about 30 km from the main resort area — roughly a 30-minute transfer. Resorts are spread across the valley and canyons, so share your resort's name for an exact plan." },
+      { question: "How much is a transfer from AlUla airport to my resort?", answer: "The fare is fixed and confirmed on WhatsApp before booking, depending on the vehicle and the resort's location." },
+      { question: "Are there taxis at AlUla airport?", answer: "On-demand taxis at ULH are limited. Pre-booking is strongly recommended, especially on peak-season weekends." },
+      { question: "Can the driver take us to Hegra or the Old Town after check-in?", answer: "Yes — book a driver by the hour or for a full day. Hegra is visited on official ticketed tours, so the driver takes you to and from your tour's departure point." },
+      { question: "Which vehicle for a family with luggage?", answer: "A full-size SUV suits most families; a van for larger groups or lots of luggage." },
+      { question: "Can we book the return to the airport now too?", answer: "Yes — send your departure flight and we will plan the pickup time from your resort." },
     ],
   },
+
   "alula-airport-to-banyan-tree": {
     tldr: "A private VIP taxi from AlUla Airport (ULH) to Banyan Tree AlUla is about 35 km and takes around 35 minutes. The fare is fixed, confirmed on WhatsApp in a luxury SUV or VIP sedan, with meet & greet at arrivals for the resort's guests.",
     tldrFacts: [
@@ -2008,20 +2027,28 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "riyadh-airport-to-kafd-hotels": {
-    tldr: "A taxi from Riyadh Airport (RUH) to KAFD and Olaya business-district hotels is about 40 km and takes roughly 35 minutes. The fare is fixed, confirmed on WhatsApp available 24/7, with meet & greet for executive and business arrivals.",
+    // Strengthened 2026-10-02 (replaces the proposed blog article "Riyadh Airport
+    // to KAFD"). P0: removed "60 minutes of free waiting", "flight tracking",
+    // "name sign" and "tolls included" (not confirmed in seo/facts.md). Metro
+    // Line 4 fact from seo/venues.md.
+    tldr: "Riyadh Airport (RUH) to KAFD and the Olaya business-district hotels is about 40 km — roughly 35 minutes off-peak, longer at weekday commuter peaks. A private transfer goes straight to your hotel or office entrance at a fixed fare confirmed on WhatsApp; the Riyadh Metro's Yellow Line also links the airport with KAFD for light travellers.",
     tldrFacts: [
       { label: "Distance", value: "~40 km" },
-      { label: "Time", value: "~35 min" },
-      { label: "Fare", value: "On WhatsApp" },
+      { label: "Time", value: "~35 min off-peak" },
+      { label: "Metro", value: "Yellow Line to KAFD" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
-      { question: "How far is KAFD from Riyadh airport?", answer: "About 40 km — roughly a 35-minute drive from King Khalid International Airport (RUH) to the King Abdullah Financial District (KAFD) and the Olaya business district." },
-      { question: "How much is a taxi from Riyadh airport to KAFD hotels?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with executive SUVs and luxury sedans available for business travelers. Confirmed before booking, no surge, tolls included." },
-      { question: "Do you offer executive vehicles for business travel?", answer: "Yes. A Mercedes S-Class or premium SUV can be booked for corporate and VIP arrivals, with a professional chauffeur and flight tracking included." },
-      { question: "Is meet & greet included for business arrivals?", answer: "Yes — your driver waits inside the arrivals hall with a name sign, tracks your flight for delays, and includes 60 minutes of free waiting time, the same as every other airport transfer." },
+      { question: "How far is KAFD from Riyadh airport?", answer: "About 40 km — roughly 35 minutes from King Khalid International Airport (RUH) to the King Abdullah Financial District (KAFD) and Olaya with clear roads. Morning and late-afternoon peaks can add significantly to that." },
+      { question: "How much is a transfer from Riyadh airport to KAFD?", answer: "The fare is fixed and confirmed on WhatsApp before booking — executive sedans, SUVs and luxury sedans are available. No meter and no surge." },
+      { question: "Car or metro from RUH to KAFD?", answer: "The Riyadh Metro's Line 4 (Yellow) runs between the airport (Terminals 1–2) and KAFD — good if you travel light and your destination is near a station. With luggage, a team, or a hotel or office entrance to reach, a car is simpler." },
+      { question: "Can I go straight to a meeting?", answer: "Yes. Book the airport transfer with hours added so the same car takes you to the meeting and then the hotel." },
+      { question: "Do you offer executive vehicles?", answer: "Yes — a luxury sedan such as a Mercedes S-Class or a full-size SUV can be booked through our partner network for corporate and VIP arrivals." },
+      { question: "What if my flight is delayed?", answer: "Share your flight number when you book and we check it before pickup, so the pickup is planned around your actual arrival." },
+      { question: "Can my company get an invoice?", answer: "Yes. Company invoices are available on request; corporate invoicing can be arranged through our sister company." },
     ],
   },
+
   "tabuk-to-aqaba": {
     tldr: "A private car with a chauffeur from Tabuk to Aqaba, Jordan is about 130 km and takes roughly 1 hour 40 minutes plus the Saudi–Jordan border crossing at Al Durrah, near Haql. The fare is fixed, confirmed on WhatsApp, with documentation support for the crossing.",
     tldrFacts: [

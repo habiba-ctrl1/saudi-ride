@@ -81,7 +81,23 @@ const nextConfig: NextConfig = {
       },
     ];
 
-    return [...guideRedirects, ...dedupeRedirects, ...jobCityRedirects, ...jobHubRedirects, ...vipRedirect];
+    // Blog consolidation (approved 2026-10-02): two thin blog posts duplicated
+    // the deeper guides on the same intent (cannibalization). Their unique
+    // points were folded into the guides before redirecting.
+    const blogMergeRedirects = [
+      {
+        source: "/blog/jeddah-airport-to-makkah-complete-taxi-guide-2025",
+        destination: "/guides/jeddah-airport-to-makkah-guide",
+        permanent: true,
+      },
+      {
+        source: "/blog/makkah-to-madinah-taxi-journey-expectations",
+        destination: "/guides/makkah-to-madinah-transport-guide",
+        permanent: true,
+      },
+    ];
+
+    return [...guideRedirects, ...dedupeRedirects, ...jobCityRedirects, ...jobHubRedirects, ...vipRedirect, ...blogMergeRedirects];
   },
   images: {
     remotePatterns: [

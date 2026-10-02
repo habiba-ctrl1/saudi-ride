@@ -1,6 +1,7 @@
 import { RECOVERY_AR_CITIES } from "@/lib/data/recovery";
 import { RECOVERY_ROUTES } from "@/lib/data/recovery-routes";
 import { AR_ROUTE_CONTENT_SLUGS } from "@/lib/data/routes-content-ar";
+import { AR_BLOG_SLUG_LIST } from "@/lib/data/blog/ar-slugs";
 
 // Recovery/transport paths that have real Arabic SSR pages under
 // app/ar/services/car-recovery/*. Generated from data so a new Eastern-Province
@@ -30,6 +31,9 @@ export const AR_REAL_ROUTES = [
   "/partners",
   ...AR_ROUTE_SLUGS.map((s) => `/routes/${s}`),
   ...RECOVERY_AR_PATHS,
+  // Arabic blog (app/ar/blog/*) — only slugs with a real localized article.
+  "/blog",
+  ...AR_BLOG_SLUG_LIST.map((s) => `/blog/${s}`),
 ];
 
 // Noindex utility pages that still switch to Arabic client-side (via

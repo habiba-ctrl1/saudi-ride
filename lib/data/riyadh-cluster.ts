@@ -446,6 +446,7 @@ export const HUB_GUIDES = [
   { href: "/blog/riyadh-season-taxi-transport-guide", label: "Riyadh Season transport tips" },
   { href: "/blog/riyadh-business-events-executive-transfer-guide", label: "Business events: executive transfer planning" },
   { href: "/blog/private-driver-cost-saudi-arabia", label: "What affects private driver pricing in Saudi Arabia" },
+  { href: "/blog/saudi-arabia-business-travel-transportation-guide", label: "Business travel transport guide for executives" },
   { href: "/fleet", label: "Vehicle categories in the partner network" },
 ];
 

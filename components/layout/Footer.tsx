@@ -200,7 +200,7 @@ export function Footer() {
         { label: "الأسعار", href: "/pricing" },
         { label: "الأسئلة الشائعة", href: "/faq" },
         { label: "اتصل بنا", href: "/contact" },
-        { label: "المدونة", href: "/blog" },
+        { label: "المدونة", href: "/ar/blog" },
         { label: "معرض الصور الفاخرة", href: "/gallery" },
         { label: "تتبع الحجز", href: "/track-booking" },
         { label: "سياسة الخصوصية", href: "/privacy-policy" },
