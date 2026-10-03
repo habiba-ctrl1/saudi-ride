@@ -205,10 +205,10 @@ export const CORRIDORS: Record<CorridorSlug, Corridor> = {
       { label: "Kuwait entry", title: "Al Nuwaiseeb border post", desc: "Kuwait entry checks on the Kuwaiti side of the crossing.", kind: "border" },
       { label: "Drop-off", title: "Your address in Kuwait", desc: "Kuwait City hotels, homes, offices or the airport area.", kind: "destination" },
     ],
-    outbound: ["dammam-to-kuwait", "riyadh-to-kuwait"],
+    outbound: ["dammam-to-kuwait", "jubail-to-kuwait", "riyadh-to-kuwait"],
     inbound: ["kuwait-to-dammam", "kuwait-to-riyadh"],
     practical: [
-      { title: "Pickups along the coast", desc: "Jubail and Al Khobar pickups use the same coastal road as Dammam — ask for a quote on the Dammam route with your exact address." },
+      { title: "Pickups along the coast", desc: "Jubail has its own, shorter Kuwait route; Al Khobar and Dhahran pickups use the Dammam route with your exact address." },
       { title: "Busy evenings at the crossing", desc: "The crossing can be slow on weekend evenings and holiday eves. Morning departures are usually easier to plan around." },
       { title: "Routing from Riyadh", desc: "From Riyadh the routing to the border is confirmed with you when we quote, based on your pickup point and timing." },
       { title: "Vehicle confirmed per booking", desc: "The car and driver for your trip are confirmed as eligible to cross before we send the fare." },
@@ -260,7 +260,7 @@ export const CORRIDORS: Record<CorridorSlug, Corridor> = {
       { label: "Drop-off", title: "Abu Dhabi or Dubai", desc: "Hotel, home, office or airport — Abu Dhabi first, Dubai further along the coast.", kind: "destination" },
     ],
     outbound: ["riyadh-to-dubai", "riyadh-to-abudhabi", "dammam-to-dubai", "dammam-to-abudhabi", "jeddah-to-abudhabi"],
-    inbound: ["dubai-to-riyadh"],
+    inbound: ["dubai-to-riyadh", "abudhabi-to-riyadh"],
     practical: [
       { title: "It is a full day", desc: "Expect a full day on the road plus the border. Rest, meal and prayer stops are planned with you; overnight stops can be quoted for families." },
       { title: "Early starts help", desc: "An early departure means more of the drive is done in daylight and you arrive in the UAE at a sensible hour." },

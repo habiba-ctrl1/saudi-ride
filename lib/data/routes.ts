@@ -975,6 +975,38 @@ export const ROUTES_DATA = [
     descriptionAr: "أقصر رحلة من السعودية إلى الأردن: من حقل عبر معبر الدرة إلى عنوانك في العقبة.",
     slug: "haql-to-aqaba",
   },
+  // Abu Dhabi → Riyadh: reverse of riyadh-to-abudhabi (same 850 km / 480 min).
+  {
+    fromCity: "Abu Dhabi, UAE",
+    toCity: "Riyadh",
+    fromCityAr: "أبوظبي، الإمارات",
+    toCityAr: "الرياض",
+    distance: 850,
+    duration: 480,
+    basePrice: 0,
+    priceOnRequest: true,
+    popular: false,
+    description: "Private car with driver from Abu Dhabi west along the E11 to the Ghuwaifat–Al Batha crossing and across Saudi Arabia to Riyadh.",
+    descriptionAr: "سيارة خاصة مع سائق من أبوظبي عبر منفذ الغويفات – البطحاء إلى الرياض.",
+    slug: "abudhabi-to-riyadh",
+  },
+  // Jubail → Kuwait City: Dammam → Kuwait is 436 km / 250 min in ROUTES_DATA;
+  // OSRM via Khafji is 62 km / 37 min shorter from Jubail (357 vs 419 km),
+  // 2026-10-03 → 375 km / 215 min. Lead evidence: client-quotations log.
+  {
+    fromCity: "Jubail",
+    toCity: "Kuwait City",
+    fromCityAr: "الجبيل",
+    toCityAr: "مدينة الكويت",
+    distance: 375,
+    duration: 215,
+    basePrice: 0,
+    priceOnRequest: true,
+    popular: false,
+    description: "Private car with driver from Jubail Industrial City up the Gulf coast to the Al Khafji–Nuwaiseeb crossing and on to Kuwait City.",
+    descriptionAr: "سيارة خاصة مع سائق من مدينة الجبيل الصناعية عبر منفذ الخفجي – النويصيب إلى مدينة الكويت.",
+    slug: "jubail-to-kuwait",
+  },
   {
     fromCity: "Doha, Qatar",
     toCity: "Dammam",

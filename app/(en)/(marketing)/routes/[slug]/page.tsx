@@ -54,20 +54,6 @@ const DEFAULT_FAQS = [
 const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup: string; dropoff: string }> = {
   // Dammam Airport ↔ Bahrain (added 2026-10-03 — GSC 10-01 demand, see
   // seo/page-log.md). Distance from ROUTES_DATA (OSRM-measured).
-  "dammam-airport-to-bahrain": {
-    heading: "Get your Dammam Airport to Bahrain transfer quote",
-    blurb:
-      "Land at King Fahd International Airport (DMM), meet your driver and go straight across the King Fahd Causeway to your address in Bahrain — about 105 km in one private car. Share your flight number when you book and we check it before pickup.",
-    pickup: "Dammam Airport (DMM)",
-    dropoff: "Bahrain",
-  },
-  "bahrain-to-dammam-airport": {
-    heading: "Get your Bahrain to Dammam Airport transfer quote",
-    blurb:
-      "Tell us your flight time at King Fahd International Airport (DMM) and we set a pickup from your home or hotel in Bahrain with margin for the King Fahd Causeway and check-in — about 105 km in one private car.",
-    pickup: "Bahrain",
-    dropoff: "Dammam Airport (DMM)",
-  },
   "riyadh-to-taif": {
     heading: "Get a Riyadh-to-Taif quote",
     blurb:
@@ -103,20 +89,6 @@ const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup:
     pickup: "Jeddah Airport (JED)",
     dropoff: "Swissotel Al Maqam Makkah",
   },
-  "riyadh-to-dubai": {
-    heading: "Get your Riyadh to Dubai car-with-driver quote",
-    blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private car with a professional chauffeur to Dubai (UAE) for business or family. Work or rest en route; you carry your own valid documents.",
-    pickup: "Riyadh",
-    dropoff: "Dubai, UAE",
-  },
-  "dubai-to-riyadh": {
-    heading: "Get your Dubai to Riyadh car-with-driver quote",
-    blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private car with a professional chauffeur from Dubai (UAE) to Riyadh for business or family. Work or rest en route; you carry your own valid documents.",
-    pickup: "Dubai, UAE",
-    dropoff: "Riyadh",
-  },
   "jeddah-to-madinah": {
     heading: "Get your Jeddah to Madinah quote",
     blurb:
@@ -144,90 +116,6 @@ const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup:
       "Fill a few details and we confirm your fixed fare on WhatsApp — a private transfer from Jeddah Airport (JED) to Makkah with meet & greet at arrivals, flight tracking, and a Miqat stop for Ihram on request.",
     pickup: "Jeddah Airport (JED)",
     dropoff: "Makkah",
-  },
-  "riyadh-to-abudhabi": {
-    heading: "Get your Riyadh to Abu Dhabi car-with-driver quote",
-    blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked cross-border car with a professional chauffeur, about 850 km via the Al Batha–Ghuwaifat border. You carry your own valid documents; we support the crossing.",
-    pickup: "Riyadh",
-    dropoff: "Abu Dhabi, UAE",
-  },
-  "dammam-to-abudhabi": {
-    heading: "Get your Dammam to Abu Dhabi car-with-driver quote",
-    blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked cross-border car with a professional chauffeur down the Gulf coast, about 750 km via the Al Batha–Ghuwaifat border. You carry your own valid documents; we support the crossing.",
-    pickup: "Dammam",
-    dropoff: "Abu Dhabi, UAE",
-  },
-  "jeddah-to-abudhabi": {
-    heading: "Get your Jeddah to Abu Dhabi car-with-driver quote",
-    blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked long-distance car with a professional chauffeur, about 1,750 km via the Al Batha–Ghuwaifat border. Ask about a fly + private-transfer alternative if you'd rather skip the full road journey.",
-    pickup: "Jeddah",
-    dropoff: "Abu Dhabi, UAE",
-  },
-  "riyadh-to-manama": {
-    heading: "Get your Riyadh to Bahrain car-with-driver quote",
-    blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked car with a professional chauffeur, about 450 km to Manama via the King Fahd Causeway. You carry your own valid documents; we support the crossing.",
-    pickup: "Riyadh",
-    dropoff: "Manama, Bahrain",
-  },
-  "dammam-to-kuwait": {
-    heading: "Get your Dammam to Kuwait car-with-driver quote",
-    blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked cross-border car with a professional chauffeur, about 436 km via the Al Khafji border. You carry your own valid documents; we support the crossing.",
-    pickup: "Dammam",
-    dropoff: "Kuwait City",
-  },
-  "dammam-to-manama": {
-    heading: "Get your Dammam to Bahrain car-with-driver quote",
-    blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked car with a professional chauffeur, a quick 70 km hop across the King Fahd Causeway to Manama. You carry your own valid documents; we support the crossing.",
-    pickup: "Dammam",
-    dropoff: "Manama, Bahrain",
-  },
-  "riyadh-to-kuwait": {
-    heading: "Get your Riyadh to Kuwait car-with-driver quote",
-    blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked cross-border car with a professional chauffeur, about 650 km via the Nuwaiseeb–Al Khafji border. You carry your own valid documents; we support the crossing.",
-    pickup: "Riyadh",
-    dropoff: "Kuwait City",
-  },
-  "dammam-to-dubai": {
-    heading: "Get your Dammam to Dubai car-with-driver quote",
-    blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked cross-border car with a professional chauffeur down the Gulf coast, about 890 km via the Al Batha–Ghuwaifat border. You carry your own valid documents; we support the crossing.",
-    pickup: "Dammam",
-    dropoff: "Dubai, UAE",
-  },
-  "alkhobar-to-manama": {
-    heading: "Get your Al Khobar to Bahrain car-with-driver quote",
-    blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked car with a professional chauffeur, a quick 50 km hop across the King Fahd Causeway to Manama. You carry your own valid documents; we support the crossing.",
-    pickup: "Al Khobar",
-    dropoff: "Manama, Bahrain",
-  },
-  "manama-to-dammam": {
-    heading: "Get your Bahrain to Dammam car-with-driver quote",
-    blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked return car with a professional chauffeur across the King Fahd Causeway to Dammam, about 70 km. You carry your own valid documents; we support the crossing.",
-    pickup: "Manama, Bahrain",
-    dropoff: "Dammam",
-  },
-  "manama-to-alkhobar": {
-    heading: "Get your Bahrain to Al Khobar car-with-driver quote",
-    blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked return car with a professional chauffeur across the King Fahd Causeway to Al Khobar, a quick 50 km hop. You carry your own valid documents; we support the crossing.",
-    pickup: "Manama, Bahrain",
-    dropoff: "Al Khobar",
-  },
-  "manama-to-riyadh": {
-    heading: "Get your Bahrain to Riyadh car-with-driver quote",
-    blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked return car with a professional chauffeur, about 450 km from Manama to the Saudi capital via the King Fahd Causeway. You carry your own valid documents; we support the crossing.",
-    pickup: "Manama, Bahrain",
-    dropoff: "Riyadh",
   },
   "riyadh-to-jeddah": {
     heading: "Get your Riyadh to Jeddah quote",
@@ -270,22 +158,6 @@ const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup:
 // paragraph, button labels and /services/corporate link are shared in the JSX;
 // only the heading, intro and prefills differ per route.
 const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefill: string; emailSubject: string; emailBody: string }> = {
-  "dammam-airport-to-bahrain": {
-    heading: "Staff or guests landing at DMM for Bahrain?",
-    intro:
-      "Companies flying visitors, contractors or delegations into King Fahd International Airport for work in Bahrain can book executive sedans, SUVs or vans for each arrival on one written quote. Passengers carry their own valid documents. Corporate invoicing can be arranged through our sister company.",
-    waPrefill: `Hello, corporate airport transfers — Dammam Airport (DMM) to Bahrain.\n• Company: \n• Arrival dates & flight numbers: \n• Passengers per arrival: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
-    emailSubject: "Corporate RFQ — Dammam Airport (DMM) to Bahrain transfers",
-    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for airport transfers from King Fahd International Airport (DMM) to Bahrain via the King Fahd Causeway.\n\n• Company name: \n• Contact name & role: \n• Arrival dates & flight numbers: \n• Passengers per arrival: \n• Drop-off address(es) in Bahrain: \n• Vehicle preference (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)?: \n\nOur travellers carry their own valid documents. Please confirm a fixed fare before booking.\n\nThank you.`,
-  },
-  "bahrain-to-dammam-airport": {
-    heading: "Regular DMM departures for your Bahrain team?",
-    intro:
-      "For companies sending staff from Bahrain to flights at King Fahd International Airport, we quote recurring or one-off airport runs in executive sedans, SUVs or vans on a single written quote. Passengers carry their own valid documents. Corporate invoicing can be arranged through our sister company.",
-    waPrefill: `Hello, corporate airport transfers — Bahrain to Dammam Airport (DMM).\n• Company: \n• Departure dates & flight times: \n• Pickup address(es) in Bahrain: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): `,
-    emailSubject: "Corporate RFQ — Bahrain to Dammam Airport (DMM) transfers",
-    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers from Bahrain to King Fahd International Airport (DMM) via the King Fahd Causeway.\n\n• Company name: \n• Contact name & role: \n• Departure dates & flight times: \n• Pickup address(es) in Bahrain: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• Invoicing needed (VAT / PO)?: \n\nOur travellers carry their own valid documents. Please confirm a fixed fare before booking.\n\nThank you.`,
-  },
   "riyadh-to-dammam": {
     heading: "Moving a team between Riyadh and the Eastern Province?",
     intro:
@@ -301,118 +173,6 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
     waPrefill: `Salam! Corporate transfer enquiry — Jeddah / KAEC (King Abdullah Economic City).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Jeddah–KAEC",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate transfers between Jeddah and King Abdullah Economic City (KAEC).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
-  },
-  "riyadh-to-dubai": {
-    heading: "Executive car with driver, Riyadh to Dubai?",
-    intro:
-      "For business travellers crossing to the UAE we provide an executive sedan or SUV with a professional chauffeur — work or rest en route, with planned meeting and rest stops. You carry your own valid passport and entry papers; the vehicle for your date is confirmed as eligible to cross. Regular company travel can run on one account with a single point of contact.",
-    waPrefill: `Salam! Executive car with driver — Riyadh / Dubai (UAE).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
-    emailSubject: "Corporate transfer RFQ — Riyadh–Dubai",
-    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for an executive car with driver between Riyadh and Dubai, UAE.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
-  },
-  "dubai-to-riyadh": {
-    heading: "Executive car with driver, Dubai to Riyadh?",
-    intro:
-      "For business travellers and delegations arriving from Dubai we provide an executive sedan or SUV with a professional chauffeur — work or rest en route, with planned meeting and rest stops. You carry your own valid passport and entry papers; the vehicle for your date is confirmed as eligible to cross. Regular company travel can run on one account with a single point of contact.",
-    waPrefill: `Salam! Executive car with driver — Dubai (UAE) / Riyadh.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
-    emailSubject: "Corporate transfer RFQ — Dubai–Riyadh",
-    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for an executive car with driver between Dubai, UAE and Riyadh.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
-  },
-  "riyadh-to-abudhabi": {
-    heading: "Executive car with driver, Riyadh to Abu Dhabi?",
-    intro:
-      "For business travellers and delegations crossing to Abu Dhabi we provide an executive sedan or full-size SUV with a professional chauffeur — work or rest en route, with planned meeting and rest stops. You carry your own valid passport and entry papers; the vehicle for your date is confirmed as eligible to cross. Regular company travel can run on one account with a single point of contact.",
-    waPrefill: `Salam! Executive car with driver — Riyadh / Abu Dhabi (UAE).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
-    emailSubject: "Corporate transfer RFQ — Riyadh–Abu Dhabi",
-    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for an executive car with driver between Riyadh and Abu Dhabi, UAE.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
-  },
-  "dammam-to-abudhabi": {
-    heading: "Executive car with driver, Dammam to Abu Dhabi?",
-    intro:
-      "For business travellers and delegations from the Eastern Province crossing to Abu Dhabi we provide an executive sedan or full-size SUV with a professional chauffeur down the Gulf coast. You carry your own valid passport and entry papers; the vehicle for your date is confirmed as eligible to cross. Regular company travel can run on one account with a single point of contact.",
-    waPrefill: `Salam! Executive car with driver — Dammam / Abu Dhabi (UAE).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
-    emailSubject: "Corporate transfer RFQ — Dammam–Abu Dhabi",
-    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for an executive car with driver between Dammam and Abu Dhabi, UAE.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
-  },
-  "jeddah-to-abudhabi": {
-    heading: "Executive car with driver, Jeddah to Abu Dhabi?",
-    intro:
-      "For business travellers and delegations covering the long Jeddah–Abu Dhabi corridor we provide an executive sedan or full-size SUV with a professional chauffeur, with planned rest stops along the way. You carry your own valid passport and entry papers; the vehicle for your date is confirmed as eligible to cross. Ask us about a fly + private-transfer alternative for time-sensitive trips.",
-    waPrefill: `Salam! Executive car with driver — Jeddah / Abu Dhabi (UAE).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
-    emailSubject: "Corporate transfer RFQ — Jeddah–Abu Dhabi",
-    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for an executive car with driver between Jeddah and Abu Dhabi, UAE.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
-  },
-  "riyadh-to-manama": {
-    heading: "Executive car with driver, Riyadh to Bahrain?",
-    intro:
-      "For business travellers crossing the King Fahd Causeway to Manama we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. You carry your own valid passport and entry papers; the vehicle for your date is confirmed as eligible to cross. Regular company trips can run on a single account with one point of contact.",
-    waPrefill: `Salam! Executive car with driver — Riyadh / Manama (Bahrain).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
-    emailSubject: "Corporate transfer RFQ — Riyadh–Bahrain",
-    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Riyadh and Manama, Bahrain (via the King Fahd Causeway).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
-  },
-  "dammam-to-kuwait": {
-    heading: "Executive car with driver, Dammam to Kuwait?",
-    intro:
-      "For business travellers crossing to Kuwait via the Al Khafji border we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. You carry your own valid passport and entry papers; the vehicle for your date is confirmed as eligible to cross. Regular company trips can run on a single account with one point of contact.",
-    waPrefill: `Salam! Executive car with driver — Dammam / Kuwait City.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
-    emailSubject: "Corporate transfer RFQ — Dammam–Kuwait",
-    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Dammam and Kuwait City (via the Al Khafji border).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
-  },
-  "dammam-to-manama": {
-    heading: "Executive car with driver, Dammam to Bahrain?",
-    intro:
-      "For business travellers making the quick Causeway crossing to Manama we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. You carry your own valid passport and entry papers; the vehicle for your date is confirmed as eligible to cross. Regular company trips can run on a single account with one point of contact.",
-    waPrefill: `Salam! Executive car with driver — Dammam / Manama (Bahrain).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
-    emailSubject: "Corporate transfer RFQ — Dammam–Bahrain",
-    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Dammam and Manama, Bahrain (via the King Fahd Causeway).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
-  },
-  "riyadh-to-kuwait": {
-    heading: "Executive car with driver, Riyadh to Kuwait?",
-    intro:
-      "For business travellers crossing to Kuwait via the Al Khafji border we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. You carry your own valid passport and entry papers; the vehicle for your date is confirmed as eligible to cross. Regular company trips can run on a single account with one point of contact.",
-    waPrefill: `Salam! Executive car with driver — Riyadh / Kuwait City.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
-    emailSubject: "Corporate transfer RFQ — Riyadh–Kuwait",
-    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Riyadh and Kuwait City (via the Al Khafji border).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
-  },
-  "dammam-to-dubai": {
-    heading: "Executive car with driver, Dammam to Dubai?",
-    intro:
-      "For business travellers and delegations from the Eastern Province crossing to Dubai we provide an executive sedan or full-size SUV with a professional chauffeur down the Gulf coast. You carry your own valid passport and entry papers; the vehicle for your date is confirmed as eligible to cross. Regular company travel can run on one account with a single point of contact.",
-    waPrefill: `Salam! Executive car with driver — Dammam / Dubai (UAE).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
-    emailSubject: "Corporate transfer RFQ — Dammam–Dubai",
-    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for an executive car with driver between Dammam and Dubai, UAE.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
-  },
-  "alkhobar-to-manama": {
-    heading: "Executive car with driver, Al Khobar to Bahrain?",
-    intro:
-      "For business travellers making the quick Causeway crossing to Manama we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. You carry your own valid passport and entry papers; the vehicle for your date is confirmed as eligible to cross. Regular company trips can run on a single account with one point of contact.",
-    waPrefill: `Salam! Executive car with driver — Al Khobar / Manama (Bahrain).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
-    emailSubject: "Corporate transfer RFQ — Al Khobar–Bahrain",
-    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Al Khobar and Manama, Bahrain (via the King Fahd Causeway).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
-  },
-  "manama-to-dammam": {
-    heading: "Executive car with driver, Bahrain to Dammam?",
-    intro:
-      "For business travellers returning across the King Fahd Causeway to Dammam we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. You carry your own valid passport and entry papers; the vehicle for your date is confirmed as eligible to cross. Regular company trips can run on a single account with one point of contact.",
-    waPrefill: `Salam! Executive car with driver — Manama (Bahrain) / Dammam.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
-    emailSubject: "Corporate transfer RFQ — Bahrain–Dammam",
-    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Manama, Bahrain and Dammam (via the King Fahd Causeway).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
-  },
-  "manama-to-alkhobar": {
-    heading: "Executive car with driver, Bahrain to Al Khobar?",
-    intro:
-      "For business travellers making the quick Causeway return to Al Khobar we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. You carry your own valid passport and entry papers; the vehicle for your date is confirmed as eligible to cross. Regular company trips can run on a single account with one point of contact.",
-    waPrefill: `Salam! Executive car with driver — Manama (Bahrain) / Al Khobar.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
-    emailSubject: "Corporate transfer RFQ — Bahrain–Al Khobar",
-    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Manama, Bahrain and Al Khobar (via the King Fahd Causeway).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
-  },
-  "manama-to-riyadh": {
-    heading: "Executive car with driver, Bahrain to Riyadh?",
-    intro:
-      "For business travellers returning to Riyadh across the King Fahd Causeway we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. You carry your own valid passport and entry papers; the vehicle for your date is confirmed as eligible to cross. Regular company trips can run on a single account with one point of contact.",
-    waPrefill: `Salam! Executive car with driver — Manama (Bahrain) / Riyadh.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
-    emailSubject: "Corporate transfer RFQ — Bahrain–Riyadh",
-    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Manama, Bahrain and Riyadh (via the King Fahd Causeway).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
   "riyadh-to-jeddah": {
     heading: "Business travel between Riyadh and Jeddah?",
@@ -489,95 +249,11 @@ const UMRAH_GROUP_CONFIG: Record<string, { heading: string; intro: string; waPre
 // KuwaitRouteSections component. Add a slug here to give a Kuwait → Saudi route
 // the full journey / coverage / border / why-book / CTA treatment. Facts only.
 const KUWAIT_ROUTE_SECTIONS: Record<string, KuwaitRouteConfig> = {
-  "kuwait-to-dammam": {
-    destination: "Dammam",
-    dropoffRegionLabel: "the Eastern Province",
-    distanceLabel: "~436 km",
-    drivePhrase: "roughly 4-hour drive",
-    journeySteps: [
-      { title: "Kuwait Pickup", desc: "Your driver collects you door-to-door from any address in Kuwait City or Greater Kuwait.", icon: "MapPin" },
-      { title: "Highway 95 South", desc: "A comfortable drive south on Highway 95 towards the Saudi border.", icon: "Navigation" },
-      { title: "Nuwaiseeb–Khafji Border", desc: "You clear immigration and customs in person; crossing time varies with traffic and checks.", icon: "ShieldCheck" },
-      { title: "Dammam Drop-Off", desc: "Direct drop-off at your Dammam, Al Khobar or Dhahran address.", icon: "MapPin" },
-    ],
-    pickupAreas: ["Kuwait City", "Salmiya", "Hawalli", "Farwaniya", "Fahaheel", "Ahmadi"],
-    dropoffAreas: ["Dammam city & hotels", "Al Khobar", "Dhahran", "King Fahd International Airport (DMM)", "Business & residential addresses"],
-    whyBook: [
-      { title: "Clear, Confirmed Fare", desc: "Fixed price confirmed on WhatsApp before booking. No meter, no surge." },
-      { title: "Private Door-to-Door", desc: "Your vehicle only, from your Kuwait address to your Dammam destination." },
-      { title: "Professional Chauffeur", desc: "Experienced with the Nuwaiseeb–Khafji crossing and the Highway 95 route." },
-      { title: "Documentation Support", desc: "We advise on the crossing and prepare your trip; you carry your own valid documents." },
-      { title: "Comfortable for the Distance", desc: "Sedan, SUV or Staria van with space for luggage on the ~436 km drive." },
-      { title: "24/7 Booking", desc: "Book any time and travel day or night." },
-    ],
-    borderLinks: [
-      { href: "/services/border-crossings", label: "GCC cross-border transfer service" },
-      { href: "/routes/dammam-to-kuwait", label: "Return: Dammam to Kuwait" },
-    ],
-  },
-  "kuwait-to-riyadh": {
-    destination: "Riyadh",
-    dropoffRegionLabel: "Riyadh",
-    distanceLabel: "~650 km",
-    drivePhrase: "roughly 6 to 7 hour drive",
-    journeySteps: [
-      { title: "Kuwait Pickup", desc: "Your chauffeur collects you door-to-door from any address in Kuwait City or Greater Kuwait.", icon: "MapPin" },
-      { title: "Nuwaiseeb–Khafji Border", desc: "You clear immigration and customs in person; crossing time varies with traffic and checks.", icon: "ShieldCheck" },
-      { title: "Inland to Riyadh", desc: "A long-distance drive inland to the capital, with rest and prayer stops on request.", icon: "Navigation" },
-      { title: "Riyadh Drop-Off", desc: "Direct drop-off at your Riyadh district, hotel or King Khalid Airport (RUH).", icon: "MapPin" },
-    ],
-    pickupAreas: ["Kuwait City", "Salmiya", "Hawalli", "Farwaniya", "Fahaheel", "Ahmadi"],
-    dropoffAreas: ["Olaya & central Riyadh", "KAFD (financial district)", "Diplomatic Quarter (DQ)", "King Khalid International Airport (RUH)", "Business & residential addresses"],
-    whyBook: [
-      { title: "Clear, Confirmed Fare", desc: "Fixed price confirmed on WhatsApp before booking. No meter, no surge." },
-      { title: "Private Door-to-Door", desc: "Your vehicle only, from your Kuwait address to your Riyadh destination." },
-      { title: "Professional Chauffeur", desc: "Experienced with the Nuwaiseeb–Khafji crossing and the long inland highway to Riyadh." },
-      { title: "Corporate & Business Travel", desc: "Executive sedans and SUVs; company bookings can be invoiced through our licensed Saudi partner operator." },
-      { title: "Comfortable for the Distance", desc: "SUV or Staria van with luggage space and rest stops on the ~650 km drive." },
-      { title: "24/7 Booking", desc: "Book any time and travel day or night." },
-    ],
-    borderLinks: [
-      { href: "/services/border-crossings", label: "GCC cross-border transfer service" },
-      { href: "/services/corporate", label: "Corporate & business travel" },
-    ],
-  },
 };
 
 // Route-specific, entity-rich content for the highest-value Jeddah corridors.
 // Keyed by slug → above-the-fold answer + featured-snippet facts + bespoke FAQs.
 const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; value: string }[]; faqs: { question: string; answer: string }[] }> = {
-  "dammam-airport-to-bahrain": {
-    tldr: "A Dammam Airport to Bahrain taxi with Taxi Saudi Arabia is a pre-booked private car with a driver from King Fahd International Airport (DMM) across the King Fahd Causeway to your hotel or home in Bahrain. It is about 105 km and roughly 1 hour 20 minutes of driving, plus border time on the causeway. One fixed fare is confirmed on WhatsApp before you book.",
-    tldrFacts: [
-      { label: "Distance", value: "~105 km" },
-      { label: "Drive", value: "~1h 20m + border" },
-      { label: "Border", value: "King Fahd Causeway" },
-      { label: "Fare", value: "Fixed, in writing" },
-    ],
-    faqs: [
-      { question: "How far is Dammam Airport from Bahrain?", answer: "King Fahd International Airport (DMM) to Manama is about 105 km by road — roughly 1 hour 20 minutes of driving across the King Fahd Causeway, plus time for the Saudi exit and Bahrain entry checks on the causeway." },
-      { question: "Can I get a taxi from Dammam Airport straight to Bahrain?", answer: "Yes, as a pre-booked private car. Your driver collects you at DMM and drives you over the causeway to your address in Bahrain without changing vehicles. Book in advance so the car is confirmed as eligible to cross." },
-      { question: "What happens if my flight into DMM is delayed?", answer: "Share your flight number when you book and we check it before pickup, so the pickup time is planned around your actual arrival." },
-      { question: "Can you drop me at Bahrain International Airport (BAH)?", answer: "Yes. Drop-offs anywhere in Bahrain are quoted on this route, including Bahrain International Airport in Muharraq, Manama, Seef and Juffair." },
-      { question: "What documents do I need to enter Bahrain from DMM?", answer: "Each passenger needs a valid passport or accepted ID and the right to enter Bahrain, and completes the border checks in person. Entry rules depend on nationality and change, so confirm with official sources before travel — we do not arrange visas." },
-    ],
-  },
-  "bahrain-to-dammam-airport": {
-    tldr: "A Bahrain to Dammam Airport taxi with Taxi Saudi Arabia is a pre-booked private car with a driver from your home or hotel in Bahrain across the King Fahd Causeway to King Fahd International Airport (DMM). It is about 105 km and roughly 1 hour 20 minutes of driving plus border time, so pickup is set with margin before your check-in. One fixed fare is confirmed on WhatsApp.",
-    tldrFacts: [
-      { label: "Distance", value: "~105 km" },
-      { label: "Drive", value: "~1h 20m + border" },
-      { label: "Border", value: "King Fahd Causeway" },
-      { label: "Fare", value: "Fixed, in writing" },
-    ],
-    faqs: [
-      { question: "How early should I leave Bahrain for a flight at Dammam Airport?", answer: "Work back from your check-in time: about 1 hour 20 minutes of driving, plus causeway time that varies with traffic and checks, plus a safety margin. Tell us your flight time and we suggest a pickup time; around weekends and holidays we add more margin." },
-      { question: "Where in Bahrain can you pick me up?", answer: "Anywhere on the island — hotels and homes in Manama, Seef, Juffair, Muharraq, Riffa and elsewhere. Give us the exact address when you book." },
-      { question: "Is there a taxi from Bahrain to Dammam Airport?", answer: "Yes, as a pre-booked private car with a professional driver that takes you door to door from Bahrain to DMM departures, crossing the King Fahd Causeway in the same vehicle." },
-      { question: "What documents do I need to cross into Saudi Arabia for my flight?", answer: "Each passenger needs a valid passport or accepted ID and the right to enter Saudi Arabia, and completes the border checks in person. Requirements depend on nationality and change, so confirm with official sources before travel — we do not arrange visas." },
-      { question: "Can I book a van for a family with a lot of luggage?", answer: "Yes. Choose a full-size SUV or a van for families and heavy luggage, and tell us the number of large bags so the right vehicle is confirmed in your quote." },
-    ],
-  },
   "jeddah-airport-to-makkah": {
     tldr: "A private transfer from Jeddah Airport (JED) to Makkah (Mecca) is about 80 km and takes roughly 1 hour. Fares are confirmed on WhatsApp before booking, available 24/7, with a Miqat stop on request so you can enter Ihram before reaching Makkah.",
     tldrFacts: [
@@ -1338,255 +1014,6 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
   },
 
   // ─── GCC border crossings ───
-  "riyadh-to-dubai": {
-    tldr: "A private car with a professional chauffeur from Riyadh to Dubai is about 990 km and takes roughly 9 hours plus the Saudi–UAE border crossing. Fares are confirmed on WhatsApp, with time for the border planned in and a comfortable executive vehicle for business and family cross-border travel.",
-    tldrFacts: [
-      { label: "Distance", value: "~990 km" },
-      { label: "Time", value: "~9 hours + border" },
-      { label: "Fare", value: "On WhatsApp" },
-      { label: "Hours", value: "24/7" },
-    ],
-    faqs: [
-      { question: "How long is the taxi from Riyadh to Dubai?", answer: "Riyadh to Dubai is about 990 km — roughly a 9-hour drive plus time at the Saudi–UAE border (Al Batha crossing)." },
-      { question: "What documents do I need for the border?", answer: "You need a valid passport and the correct UAE entry visa or eligibility. Entry rules depend on nationality and change, so confirm current requirements with official sources before travel — we do not arrange visas." },
-      { question: "How much is a taxi from Riyadh to Dubai?", answer: "Fares are confirmed on WhatsApp — message us on WhatsApp with your travel date for a clear quote before booking. We arrange comfortable vehicles suited to the long cross-border journey." },
-      { question: "Can I get a private car with a driver from Riyadh to Dubai?", answer: "Yes. We arrange a private car with a professional chauffeur for the full Riyadh to Dubai journey — one vehicle and driver reserved exclusively for your party, door-to-door." },
-      { question: "Can I rent a car with a driver from Riyadh to Dubai?", answer: "Yes. This is a chauffeur-driven private car, not a self-drive rental — you get one vehicle and a professional driver reserved exclusively for your party for the full Riyadh to Dubai journey, with the fare confirmed on WhatsApp before booking." },
-      { question: "Do you offer an executive or corporate car service from Riyadh to Dubai?", answer: "Yes. For business travellers we provide an executive car with a professional chauffeur from Riyadh to Dubai — a pre-booked private transfer with corporate invoicing on request, comfortable vehicles to work en route, and planned meeting or rest stops. Share your itinerary on WhatsApp for a fare." },
-      { question: "Is it better to fly or drive from Riyadh to Dubai?", answer: "Flying is faster, but a private car with driver is popular for business travellers who want to work en route, families with luggage, or anyone who prefers not to navigate two airports and a connecting ride on each end." },
-      { question: "Can I stop overnight or make business stops on the way to Dubai?", answer: "Yes. The Riyadh-Dubai route can include planned stops for meetings, meals, or rest — let us know your itinerary when requesting a quote so we can arrange the right vehicle and driver." },
-    ],
-  },
-  "dubai-to-riyadh": {
-    tldr: "A private car with a professional chauffeur from Dubai to Riyadh is about 990 km and takes roughly 9 hours plus the UAE–Saudi border crossing. Fares are confirmed on WhatsApp, with time for the border planned in and a comfortable executive vehicle for business and family cross-border travel.",
-    tldrFacts: [
-      { label: "Distance", value: "~990 km" },
-      { label: "Time", value: "~9 hours + border" },
-      { label: "Fare", value: "On WhatsApp" },
-      { label: "Hours", value: "24/7" },
-    ],
-    faqs: [
-      { question: "How long is the taxi from Dubai to Riyadh?", answer: "Dubai to Riyadh is about 990 km — roughly a 9-hour drive plus time at the UAE–Saudi border (Al Batha–Ghuwaifat crossing)." },
-      { question: "What documents do I need for the border?", answer: "You need a valid passport and the correct Saudi entry visa or eligibility. Entry rules depend on nationality and change, so confirm current requirements with official sources before travel — we do not arrange visas." },
-      { question: "How much is a taxi from Dubai to Riyadh?", answer: "Fares are confirmed on WhatsApp — message us on WhatsApp with your travel date for a clear quote before booking. We arrange comfortable vehicles suited to the long cross-border journey." },
-      { question: "Can I get a private car with a driver from Dubai to Riyadh?", answer: "Yes. We arrange a private car with a professional chauffeur for the full Dubai to Riyadh journey — one vehicle and driver reserved exclusively for your party, door-to-door." },
-      { question: "Can I rent a car with a driver from Dubai to Riyadh?", answer: "Yes. This is a chauffeur-driven private car, not a self-drive rental — you get one vehicle and a professional driver reserved exclusively for your party for the full Dubai to Riyadh journey, with the fare confirmed on WhatsApp before booking." },
-      { question: "Do you offer an executive or corporate car service from Dubai to Riyadh?", answer: "Yes. For business travellers we provide an executive car with a professional chauffeur from Dubai to Riyadh — a pre-booked private transfer with corporate invoicing on request, comfortable vehicles to work en route, and planned meeting or rest stops. Share your itinerary on WhatsApp for a fare." },
-    ],
-  },
-  "dammam-to-manama": {
-    tldr: "A taxi or private chauffeur from Dammam to Manama, Bahrain is about 70 km and takes roughly 1 hour across the King Fahd Causeway. The fare is fixed, confirmed on WhatsApp with time for the border crossing planned into your pickup.",
-    tldrFacts: [
-      { label: "Distance", value: "~70 km" },
-      { label: "Time", value: "~1 hour" },
-      { label: "Fare", value: "On WhatsApp" },
-      { label: "Hours", value: "24/7" },
-    ],
-    faqs: [
-      { question: "How long is the taxi from Dammam to Bahrain?", answer: "Dammam to Manama is about 70 km — roughly a 1-hour drive across the King Fahd Causeway, plus border formalities." },
-      { question: "What do I need to cross the Causeway?", answer: "A valid passport and the correct Bahrain entry eligibility or visa. Entry rules depend on nationality and change, so confirm current requirements with official sources before travel — we do not arrange visas." },
-      { question: "How much is a taxi from Dammam to Manama?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles and the causeway toll included." },
-    ],
-  },
-  "alkhobar-to-manama": {
-    tldr: "A taxi or private chauffeur from Al Khobar to Manama, Bahrain is about 50 km and takes roughly 50 minutes across the King Fahd Causeway. The fare is fixed, confirmed on WhatsApp with time for the border crossing planned into your pickup.",
-    tldrFacts: [
-      { label: "Distance", value: "~50 km" },
-      { label: "Time", value: "~50 min" },
-      { label: "Fare", value: "On WhatsApp" },
-      { label: "Hours", value: "24/7" },
-    ],
-    faqs: [
-      { question: "How far is Al Khobar from Bahrain?", answer: "Al Khobar to Manama is about 50 km — roughly a 50-minute drive across the King Fahd Causeway, plus border formalities." },
-      { question: "What documents do I need for Bahrain?", answer: "A valid passport and the correct Bahrain entry eligibility or visa. Entry rules depend on nationality and change, so confirm current requirements with official sources before travel — we do not arrange visas." },
-      { question: "How much is a taxi from Al Khobar to Manama?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles and the causeway toll included." },
-    ],
-  },
-  "riyadh-to-manama": {
-    tldr: "A taxi or private chauffeur from Riyadh to Manama, Bahrain is about 450 km and takes roughly 4.5 hours, crossing the King Fahd Causeway. The fare is fixed, confirmed on WhatsApp with time for the border crossing planned in.",
-    tldrFacts: [
-      { label: "Distance", value: "~450 km" },
-      { label: "Time", value: "~4.5 hours" },
-      { label: "Fare", value: "On WhatsApp" },
-      { label: "Hours", value: "24/7" },
-    ],
-    faqs: [
-      { question: "How far is Riyadh from Bahrain?", answer: "Riyadh to Manama is about 450 km — roughly a 4.5-hour drive, crossing into Bahrain via the King Fahd Causeway." },
-      { question: "What do I need to enter Bahrain?", answer: "A valid passport and the correct Bahrain entry eligibility or visa. Entry rules depend on nationality and change, so confirm current requirements with official sources before travel — we do not arrange visas." },
-      { question: "How much is a taxi from Riyadh to Manama?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles for the long cross-border journey." },
-      { question: "Is there a train from Riyadh to Bahrain?", answer: "No — there is currently no operational train between Riyadh and Bahrain; the GCC's planned Gulf Railway hasn't been completed on this route. A private transfer via the King Fahd Causeway is the most comfortable door-to-door option." },
-    ],
-  },
-  "manama-to-dammam": {
-    tldr: "A taxi or private chauffeur from Manama, Bahrain to Dammam is about 70 km and takes roughly 1 hour across the King Fahd Causeway. The fare is fixed, confirmed on WhatsApp with airport (DMM) and hotel drop-offs and time for the border planned in.",
-    tldrFacts: [
-      { label: "Distance", value: "~70 km" },
-      { label: "Time", value: "~1 hour" },
-      { label: "Fare", value: "On WhatsApp" },
-      { label: "Hours", value: "24/7" },
-    ],
-    faqs: [
-      { question: "How long is the taxi from Bahrain to Dammam?", answer: "Manama to Dammam is about 70 km — roughly a 1-hour drive across the King Fahd Causeway, plus border formalities." },
-      { question: "Can you pick me up in Bahrain and drop at Dammam Airport?", answer: "Yes. We arrange pickup from your Bahrain hotel or address and drop you at King Fahd International Airport (DMM) or any Dammam address, with time buffer for the causeway." },
-      { question: "How much is a taxi from Manama to Dammam?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles and the causeway toll included." },
-    ],
-  },
-  "manama-to-alkhobar": {
-    tldr: "A taxi or private chauffeur from Manama, Bahrain to Al Khobar is about 50 km and takes roughly 50 minutes across the King Fahd Causeway. The fare is fixed, confirmed on WhatsApp — ideal for weekend and business returns to the Eastern Province.",
-    tldrFacts: [
-      { label: "Distance", value: "~50 km" },
-      { label: "Time", value: "~50 min" },
-      { label: "Fare", value: "On WhatsApp" },
-      { label: "Hours", value: "24/7" },
-    ],
-    faqs: [
-      { question: "How far is Bahrain from Al Khobar by taxi?", answer: "Manama to Al Khobar is about 50 km — roughly a 50-minute drive across the King Fahd Causeway, plus border formalities." },
-      { question: "Is this good for a weekend return trip?", answer: "Yes — it is our most popular return crossing for weekend and business travellers heading back from Bahrain to Khobar, Dammam, and Dhahran." },
-      { question: "How much is a taxi from Manama to Al Khobar?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with the causeway toll included." },
-    ],
-  },
-  "manama-to-riyadh": {
-    tldr: "A taxi or private chauffeur from Manama, Bahrain to Riyadh is about 450 km and takes roughly 4.5 hours, crossing the King Fahd Causeway into Saudi Arabia. The fare is fixed, confirmed on WhatsApp with time for the border crossing planned in.",
-    tldrFacts: [
-      { label: "Distance", value: "~450 km" },
-      { label: "Time", value: "~4.5 hours" },
-      { label: "Fare", value: "On WhatsApp" },
-      { label: "Hours", value: "24/7" },
-    ],
-    faqs: [
-      { question: "How far is Bahrain from Riyadh?", answer: "Manama to Riyadh is about 450 km — roughly a 4.5-hour drive, crossing into Saudi Arabia via the King Fahd Causeway." },
-      { question: "How does the return border crossing work?", answer: "Each passenger completes their own border checks in person. A valid passport and the correct Saudi entry eligibility or visa are required. Entry rules depend on nationality and change, so confirm current requirements with official sources before travel — we do not arrange visas." },
-      { question: "How much is a taxi from Manama to Riyadh?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles for the long cross-border journey." },
-    ],
-  },
-  "kuwait-to-dammam": {
-    tldr: "A private transfer from Kuwait City to Dammam covers about 436 km (roughly 270 miles) and takes around 4 hours of driving, plus border-crossing time at the Nuwaiseeb–Al Khafji crossing between Kuwait and Saudi Arabia, which varies with traffic and checks. Travel door-to-door by private sedan, SUV or van with a private chauffeur, available 24/7 — your fare is confirmed on WhatsApp before booking, with time for the border crossing planned in.",
-    tldrFacts: [
-      { label: "Distance", value: "~436 km" },
-      { label: "Driving time", value: "~4 hrs + border" },
-      { label: "Border", value: "Nuwaiseeb–Khafji" },
-      { label: "Fare", value: "On WhatsApp" },
-    ],
-    faqs: [
-      { question: "Can I book a private transfer from Kuwait to Dammam?", answer: "Yes. Taxi Saudi Arabia arranges a private, door-to-door transfer from Kuwait City to Dammam with a professional driver — an executive sedan, SUV or van reserved just for you and your group. Share your pickup address in Kuwait, travel date and passenger count on WhatsApp and we confirm the fare before booking." },
-      { question: "How long is the taxi from Kuwait to Dammam?", answer: "Kuwait City to Dammam is about 436 km — roughly 4 hours of driving via the Nuwaiseeb–Al Khafji border. Border-crossing time is separate from the drive and varies with traffic and document checks; it can be longer on weekends and public holidays." },
-      { question: "How does the Kuwait–Saudi border crossing work?", answer: "You cross at Nuwaiseeb on the Kuwaiti side and Al Khafji on the Saudi side. Every traveller clears immigration and customs in person with their own passport and documents. Your driver knows the crossing and assists with the process, but each passenger is responsible for their own visa and entry eligibility — check the official Saudi and Kuwaiti government requirements before you travel." },
-      { question: "What documents should I check before travelling?", answer: "A valid passport and the correct Saudi entry visa or eligibility, plus any Kuwaiti exit requirements. Rules depend on your nationality and can change, so confirm current requirements with the official Saudi (visa.mofa.gov.sa) and Kuwaiti government sources in advance. Send your details when booking so we can prepare for a smoother crossing." },
-      { question: "How is the fare calculated and confirmed?", answer: "There is no meter and no surge. We quote a fixed fare for your chosen vehicle based on the route and passenger count, and confirm it with you on WhatsApp before you book. Tolls are included; any border or visa fees paid to the authorities are separate." },
-      { question: "Can I travel with luggage?", answer: "Yes. A sedan suits 1–3 passengers with a couple of bags; for families or extra luggage choose an SUV or a Staria van with more space. Tell us your passenger and bag count when booking so we assign the right vehicle." },
-      { question: "Can I book from Kuwait City or other areas in Kuwait?", answer: "Yes. We collect you door-to-door from any address across Kuwait — including Kuwait City, Salmiya, Hawalli, Farwaniya, Fahaheel and Ahmadi. Share your exact pickup point when booking." },
-      { question: "Can I book a one-way or return trip?", answer: "Both. Book Kuwait to Dammam one-way, or a return in the Dammam to Kuwait direction — the same private, door-to-door service either way. Tell us your dates and we confirm the fare for each leg." },
-    ],
-  },
-  "kuwait-to-riyadh": {
-    tldr: "A private transfer from Kuwait City to Riyadh runs inland across the Kuwait–Saudi border and, depending on the exact route, covers roughly 630–720 km — around 6 to 7 hours of driving plus border-crossing time, which varies. Travel door-to-door by private sedan, SUV or van with a private chauffeur, available 24/7. Your fare is confirmed on WhatsApp before booking, with time for the border planned in and corporate invoicing available for business trips.",
-    tldrFacts: [
-      { label: "Distance", value: "~630–720 km" },
-      { label: "Driving time", value: "~6–7 hrs + border" },
-      { label: "Border", value: "Nuwaiseeb–Khafji" },
-      { label: "Fare", value: "On WhatsApp" },
-    ],
-    faqs: [
-      { question: "Can I book a private transfer from Kuwait to Riyadh?", answer: "Yes. Taxi Saudi Arabia arranges a private, door-to-door transfer from Kuwait City to Riyadh with a professional chauffeur — an executive sedan, SUV or van reserved just for you and your group. Share your pickup address in Kuwait, travel date and passenger count on WhatsApp and we confirm the fare before booking." },
-      { question: "How long does Kuwait to Riyadh take by taxi?", answer: "Kuwait City to Riyadh is roughly 6 to 7 hours of driving, depending on the exact route and traffic. Border-crossing time at the Nuwaiseeb–Al Khafji crossing is separate from the drive and varies; it can be longer on weekends and public holidays. Rest and prayer stops are included on request." },
-      { question: "How far is Kuwait from Riyadh by road?", answer: "Estimates vary by route — roughly 630 to 720 km. The journey crosses into Saudi Arabia at the Nuwaiseeb–Al Khafji border and then continues inland to the capital. We plan the most practical route for your pickup and drop-off points." },
-      { question: "How is the fare calculated and confirmed?", answer: "There is no meter and no surge. We quote a fixed fare for your chosen vehicle based on the route and passenger count, and confirm it with you on WhatsApp before you book. Tolls are included; any border or visa fees paid to the authorities are separate." },
-      { question: "Can I get a corporate booking with a VAT invoice?", answer: "Corporate bookings are invoiced through our licensed Saudi partner operator, so you receive a compliant VAT invoice. Send your company name, VAT number and PO reference with your enquiry and we'll confirm invoicing details before the booking is finalised." },
-      { question: "What documents should I check before travelling?", answer: "A valid passport and the correct Saudi entry visa or eligibility, plus any Kuwaiti exit requirements. Rules depend on your nationality and can change, so confirm current requirements with the official Saudi (visa.mofa.gov.sa) and Kuwaiti government sources in advance. Each passenger is responsible for their own eligibility and documents." },
-      { question: "Can I travel with luggage?", answer: "Yes. A sedan suits 1–3 passengers with a couple of bags; for families, teams or extra luggage on this long-distance route choose an SUV or a Staria van with more space. Tell us your passenger and bag count when booking." },
-      { question: "Can I book a one-way or return trip?", answer: "Both. Book Kuwait to Riyadh one-way, or a return in the Riyadh to Kuwait direction — the same private, door-to-door service either way. Tell us your dates and we confirm the fare for each leg." },
-    ],
-  },
-  "dammam-to-kuwait": {
-    tldr: "A taxi or private chauffeur from Dammam to Kuwait City is about 436 km and takes roughly 4 hours plus the Saudi–Kuwait border crossing at Al Khafji. The fare is fixed, confirmed on WhatsApp with time for the border crossing planned in.",
-    tldrFacts: [
-      { label: "Distance", value: "~436 km" },
-      { label: "Time", value: "~4 hours + border" },
-      { label: "Fare", value: "On WhatsApp" },
-      { label: "Hours", value: "24/7" },
-    ],
-    faqs: [
-      { question: "How far is Dammam from Kuwait City?", answer: "Dammam to Kuwait City is about 436 km — roughly a 4-hour drive plus time at the Saudi–Kuwait border crossing at Al Khafji." },
-      { question: "What documents are needed for Kuwait?", answer: "A valid passport and the correct Kuwait visa or entry permit. Entry rules depend on nationality and change, so confirm current requirements with official sources before travel — we do not arrange visas." },
-      { question: "How much is a taxi from Dammam to Kuwait?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles for the cross-border journey." },
-    ],
-  },
-  "riyadh-to-abudhabi": {
-    tldr: "A private car with a professional chauffeur from Riyadh to Abu Dhabi is about 850 km and takes roughly 8 hours plus the Saudi–UAE border crossing at Al Batha–Ghuwaifat. The fare is fixed, confirmed on WhatsApp, with time for the border planned in and a comfortable vehicle for the journey. This is a cross-border transfer through our partner driver network, not a local Abu Dhabi taxi service.",
-    tldrFacts: [
-      { label: "Distance", value: "~850 km" },
-      { label: "Time", value: "~8 hours + border" },
-      { label: "Fare", value: "On WhatsApp" },
-      { label: "Hours", value: "24/7" },
-    ],
-    faqs: [
-      { question: "How far is Riyadh from Abu Dhabi?", answer: "Riyadh to Abu Dhabi is about 850 km — roughly an 8-hour drive plus time at the Saudi–UAE border (Al Batha crossing on the Saudi side, Ghuwaifat on the UAE side)." },
-      { question: "What do I need for the UAE border?", answer: "A valid passport and the correct UAE entry visa or eligibility. Entry rules depend on nationality and change, so confirm current requirements with official sources before travel — we do not arrange visas." },
-      { question: "How much is a taxi from Riyadh to Abu Dhabi?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles for the long cross-border journey." },
-      { question: "Is this a local Abu Dhabi taxi service?", answer: "No. We arrange a pre-booked, private cross-border car from Riyadh to Abu Dhabi through our partner driver network. We are not a licensed local UAE taxi operator." },
-      { question: "What vehicles are available for the Riyadh to Abu Dhabi trip?", answer: "Executive sedan, full-size SUV, or van, depending on passengers and luggage — share your group size when requesting a quote." },
-    ],
-  },
-  "dammam-to-abudhabi": {
-    tldr: "A private car with a professional chauffeur from Dammam to Abu Dhabi is about 750 km and takes roughly 7.5 hours plus the Saudi–UAE border crossing at Al Batha–Ghuwaifat. The fare is fixed, confirmed on WhatsApp, with a comfortable vehicle for the Gulf-coast route. This is a cross-border transfer through our partner driver network, not a local Dammam or Abu Dhabi taxi service.",
-    tldrFacts: [
-      { label: "Distance", value: "~750 km" },
-      { label: "Time", value: "~7.5 hours + border" },
-      { label: "Fare", value: "On WhatsApp" },
-      { label: "Hours", value: "24/7" },
-    ],
-    faqs: [
-      { question: "How far is Dammam from Abu Dhabi?", answer: "Dammam to Abu Dhabi is about 750 km — roughly a 7.5-hour drive down the Gulf coast, plus time at the Saudi–UAE border (Al Batha crossing on the Saudi side, Ghuwaifat on the UAE side)." },
-      { question: "What do I need for the UAE border from Dammam?", answer: "A valid passport and the correct UAE entry visa or eligibility. Entry rules depend on nationality and change, so confirm current requirements with official sources before travel — we do not arrange visas." },
-      { question: "Is this a local Dammam or Abu Dhabi taxi service?", answer: "No. We arrange a pre-booked, private cross-border car between Dammam and Abu Dhabi through our partner driver network. We are not a licensed local UAE taxi operator." },
-      { question: "What vehicles are available for the Dammam to Abu Dhabi trip?", answer: "Executive sedan, full-size SUV, or van, depending on passengers and luggage — share your group size when requesting a quote." },
-    ],
-  },
-  "jeddah-to-abudhabi": {
-    tldr: "A private car from Jeddah to Abu Dhabi is a long-distance drive of about 1,750 km — typically 18+ hours including rest stops and the Saudi–UAE border crossing at Al Batha–Ghuwaifat. Given the distance, many travellers combine a flight with a private airport-to-hotel transfer instead; ask us about both options when requesting a quote.",
-    tldrFacts: [
-      { label: "Distance", value: "~1,750 km" },
-      { label: "Time", value: "~18+ hours" },
-      { label: "Fare", value: "On WhatsApp" },
-      { label: "Alternative", value: "Fly + private transfer" },
-    ],
-    faqs: [
-      { question: "How far is Jeddah from Abu Dhabi by road?", answer: "Jeddah to Abu Dhabi is about 1,750 km via the Saudi interior — typically 18 or more hours including rest stops and the Saudi–UAE border crossing (Al Batha / Ghuwaifat)." },
-      { question: "Is driving from Jeddah to Abu Dhabi practical?", answer: "It's a genuinely long haul — most travellers on this corridor prefer flying and booking a private airport transfer at each end. A private car with a professional chauffeur is available for those who want the full road journey, with planned rest stops along the way." },
-      { question: "What do I need for the UAE border?", answer: "A valid passport and the correct UAE entry visa or eligibility. Entry rules depend on nationality and change, so confirm current requirements with official sources before travel — we do not arrange visas." },
-      { question: "What vehicles are available for the Jeddah to Abu Dhabi trip?", answer: "Executive sedan, full-size SUV, or van, sized for the long journey and luggage — share your group size when requesting a quote." },
-    ],
-  },
-  "riyadh-to-kuwait": {
-    tldr: "A private car with a professional chauffeur from Riyadh to Kuwait City is about 650 km and takes roughly 6 to 7 hours plus the Saudi–Kuwait border crossing at Nuwaiseeb–Al Khafji. The fare is fixed, confirmed on WhatsApp, with time for the border crossing planned in.",
-    tldrFacts: [
-      { label: "Distance", value: "~650 km" },
-      { label: "Time", value: "~6–7 hours + border" },
-      { label: "Fare", value: "On WhatsApp" },
-      { label: "Hours", value: "24/7" },
-    ],
-    faqs: [
-      { question: "How far is Riyadh from Kuwait City?", answer: "Riyadh to Kuwait City is about 650 km — roughly a 6 to 7 hour drive plus time at the Saudi–Kuwait border (Nuwaiseeb on the Kuwaiti side, Al Khafji on the Saudi side)." },
-      { question: "What documents are needed for Kuwait?", answer: "A valid passport and the correct Kuwait visa or entry permit. Entry rules depend on nationality and change, so confirm current requirements with official sources before travel — we do not arrange visas." },
-      { question: "How much is a taxi from Riyadh to Kuwait?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles for the long cross-border journey." },
-      { question: "What vehicles are available for the Riyadh to Kuwait trip?", answer: "Executive sedan, full-size SUV, or van, depending on passengers and luggage — share your group size when requesting a quote." },
-    ],
-  },
-  "dammam-to-dubai": {
-    tldr: "A private car with a professional chauffeur from Dammam to Dubai is about 890 km and takes roughly 8.5 hours plus the Saudi–UAE border crossing at Al Batha–Ghuwaifat. The fare is fixed, confirmed on WhatsApp, with a comfortable vehicle for the Gulf-coast route.",
-    tldrFacts: [
-      { label: "Distance", value: "~890 km" },
-      { label: "Time", value: "~8.5 hours + border" },
-      { label: "Fare", value: "On WhatsApp" },
-      { label: "Hours", value: "24/7" },
-    ],
-    faqs: [
-      { question: "How far is Dammam from Dubai?", answer: "Dammam to Dubai is about 890 km — roughly an 8.5-hour drive down the Gulf coast, plus time at the Saudi–UAE border (Al Batha crossing on the Saudi side, Ghuwaifat on the UAE side)." },
-      { question: "What do I need for the UAE border from Dammam?", answer: "A valid passport and the correct UAE entry visa or eligibility. Entry rules depend on nationality and change, so confirm current requirements with official sources before travel — we do not arrange visas." },
-      { question: "Is this a local Dammam or Dubai taxi service?", answer: "No. We arrange a pre-booked, private cross-border car between Dammam and Dubai through our partner driver network. We are not a licensed local UAE taxi operator." },
-      { question: "What vehicles are available for the Dammam to Dubai trip?", answer: "Executive sedan, full-size SUV, or van, depending on passengers and luggage — share your group size when requesting a quote." },
-    ],
-  },
 
   // ─── Tourism routes ───
   "alula-airport-to-resorts": {
@@ -1855,11 +1282,6 @@ const MORE_RIYADH_ROUTES: { slug: string; label: string; distance: number; price
 // RouteRelatedLinks' generic same-city substring match gets crowded out here
 // (Riyadh/Dammam/Jeddah each appear in dozens of unrelated routes), so without
 // this the 3 pages would rarely link to each other. Rendered on all 3.
-const MORE_ABU_DHABI_ROUTES: { slug: string; label: string; distance: number }[] = [
-  { slug: "riyadh-to-abudhabi", label: "Riyadh to Abu Dhabi, UAE", distance: 850 },
-  { slug: "dammam-to-abudhabi", label: "Dammam to Abu Dhabi, UAE", distance: 750 },
-  { slug: "jeddah-to-abudhabi", label: "Jeddah to Abu Dhabi, UAE", distance: 1750 },
-];
 
 
 
@@ -1914,6 +1336,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // only, no price or content claims changed. Formula below still covers
   // every other route.
   const TITLE_OVERRIDES: Record<string, string> = {
+    "abudhabi-to-riyadh": "Abu Dhabi to Riyadh Private Car with Driver | UAE to Saudi",
+    "jubail-to-kuwait": "Jubail to Kuwait City Private Transfer | Khafji Border",
     "dammam-airport-to-doha": "Dammam Airport to Doha Private Transfer | DMM to Qatar",
     "alkhobar-to-doha": "Al Khobar to Doha Private Transfer | Khobar to Qatar by Car",
     "doha-to-alahsa": "Doha to Al Ahsa Private Transfer | Qatar to Hofuf by Car",
@@ -1966,8 +1390,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // Per-slug description overrides — same CTR-fix rationale as TITLE_OVERRIDES,
   // for pages with confirmed impressions/position but zero clicks.
   const DESCRIPTION_OVERRIDES: Record<string, string> = {
-    "dammam-airport-to-bahrain": "Dammam Airport to Bahrain taxi — private car from King Fahd International Airport (DMM) over the King Fahd Causeway to your Bahrain hotel, ~105 km. Fixed fare on WhatsApp, 24/7.",
-    "bahrain-to-dammam-airport": "Bahrain to Dammam Airport taxi — private car from your Bahrain hotel or home over the King Fahd Causeway to DMM, ~105 km, timed for check-in. Fixed fare on WhatsApp.",
+    "dammam-airport-to-bahrain": "Dammam Airport to Bahrain taxi — private car from King Fahd International Airport (DMM) over the causeway to your Bahrain hotel, ~105 km. Toll included.",
+    "bahrain-to-dammam-airport": "Bahrain to Dammam Airport taxi — private car over the King Fahd Causeway to DMM departures, ~105 km, timed for check-in. Causeway toll included.",
     "riyadh-to-taif": "Private car from Riyadh to Taif — about 785 km on Highway 40, roughly 8 hours, door to door with rest stops. One fixed fare agreed on WhatsApp before booking.",
     "riyadh-to-dammam": "Private transfer from Riyadh to Dammam — approx 390 km, around 3.5 hours, door-to-door by sedan, SUV or van. Fare confirmed on WhatsApp before booking, 24/7.",
     "jeddah-to-kaec": "Jeddah to KAEC (King Abdullah Economic City) taxi — 120 km, about 1 hr 20 min. Get your exact fare confirmed on WhatsApp before booking. Corporate sedans, 24/7.",
@@ -1975,27 +1399,27 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "madinah-to-alula": "Madinah to AlUla taxi — 330 km, about 3 hours. Get your exact fare confirmed on WhatsApp before booking. Heritage transfer, rest stops included.",
     "jeddah-airport-to-swissotel-makkah": "Taxi from Jeddah Airport (JED) to Swissotel Al Maqam Makkah — ~80 km, about 1 hour. Meet & greet, Miqat stop on request, fare confirmed on WhatsApp. 24/7.",
     "red-sea-airport-to-neom": "Taxi from Red Sea International Airport (RSI) to NEOM — private transfer, meet & greet, professional drivers. Fare confirmed on WhatsApp before booking. 24/7.",
-    "riyadh-to-dubai": "Private car with driver, Riyadh to Dubai (UAE) — executive chauffeur for business & family. Cross-border GCC transfer, fare confirmed on WhatsApp before booking, 24/7.",
-    "dubai-to-riyadh": "Private car with driver, Dubai (UAE) to Riyadh — executive chauffeur for business & family. Cross-border GCC transfer, fare confirmed on WhatsApp before booking, 24/7.",
-    "manama-to-dammam": "Bahrain to Dammam taxi via King Fahd Causeway — ~70 km, ~1 hr. Airport (DMM) & hotel drop-offs, private car. Fare confirmed on WhatsApp, 24/7.",
-    "manama-to-alkhobar": "Bahrain to Al Khobar taxi across the King Fahd Causeway — ~50 km, ~50 min. Ideal for weekend & business returns. Fare confirmed on WhatsApp, 24/7.",
-    "manama-to-riyadh": "Bahrain to Riyadh taxi — ~450 km via the King Fahd Causeway. Executive cross-border car with a professional driver. Fare confirmed on WhatsApp, 24/7.",
-    "alkhobar-to-manama": "Al Khobar to Bahrain taxi across the King Fahd Causeway — ~50 km, ~50 min. Ideal for weekend & business trips. Fare confirmed on WhatsApp, 24/7.",
+    "riyadh-to-dubai": "Private car with driver, Riyadh to Dubai (UAE) — ~990 km via Al Batha–Ghuwaifat, door to door in one day. Fixed fare, border fees included, 24/7.",
+    "dubai-to-riyadh": "Private car with driver, Dubai (UAE) to Riyadh — ~990 km via Ghuwaifat–Al Batha, door to door. Fixed fare in writing, border fees included, 24/7.",
+    "manama-to-dammam": "Bahrain to Dammam private car via the King Fahd Causeway — ~70 km, about 1 hr, to your home, hotel or the train station. Causeway toll included.",
+    "manama-to-alkhobar": "Bahrain to Al Khobar private car across the King Fahd Causeway — ~50 km, about 50 min. Ideal weekend return. Causeway toll included, 24/7.",
+    "manama-to-riyadh": "Bahrain to Riyadh private car — ~450 km via the King Fahd Causeway, to your Riyadh address or RUH airport. Causeway toll included, 24/7.",
+    "alkhobar-to-manama": "Al Khobar to Bahrain private car across the King Fahd Causeway — ~50 km, about 50 min. Pickups in Khobar & Dhahran. Causeway toll included, 24/7.",
     "doha-to-dammam": "Doha to Dammam private car via Abu Samra and Salwa — ~400 km, home, compound or DMM airport drop-off. Fixed fare, border fees included.",
     "doha-to-riyadh": "Doha to Riyadh private car via Abu Samra and Salwa — ~580 km, door to door or to RUH airport. Fixed fare in writing, border fees included.",
-    "kuwait-to-dammam": "Kuwait to Dammam taxi via the Nuwaiseeb–Al Khafji border — ~436 km, about 4 hrs driving plus border. Private door-to-door transfer, fare confirmed on WhatsApp.",
-    "kuwait-to-riyadh": "Kuwait to Riyadh taxi — private cross-border car & chauffeur via the Nuwaiseeb–Al Khafji border, ~6–7 hrs driving. Corporate invoicing, fare confirmed on WhatsApp.",
+    "kuwait-to-dammam": "Kuwait to Dammam private car — ~436 km via Nuwaiseeb–Al Khafji to Dammam, Khobar, Dhahran or DMM airport. Fixed fare, border fees included.",
+    "kuwait-to-riyadh": "Kuwait to Riyadh private car with driver — ~650 km via Nuwaiseeb–Al Khafji to KAFD, Olaya or RUH. Corporate invoicing, border fees included.",
     "alahsa-to-doha": "Al Ahsa to Doha private car — ~265 km via Salwa, the shortest Saudi road into Qatar. Fixed fare in writing, border fees included, 24/7.",
-    "riyadh-to-abudhabi": "Private car with driver, Riyadh to Abu Dhabi (UAE) — ~850 km via the Al Batha–Ghuwaifat border. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
-    "dammam-to-abudhabi": "Private car with driver, Dammam to Abu Dhabi (UAE) — ~750 km via the Al Batha–Ghuwaifat border. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
-    "jeddah-to-abudhabi": "Private car with driver, Jeddah to Abu Dhabi (UAE) — ~1,750 km long-distance cross-border transfer via Al Batha–Ghuwaifat. Fare confirmed on WhatsApp, 24/7.",
+    "riyadh-to-abudhabi": "Private car with driver, Riyadh to Abu Dhabi (UAE) — ~850 km via the Al Batha–Ghuwaifat border and the E11. Fixed fare, border fees included.",
+    "dammam-to-abudhabi": "Private car with driver, Dammam to Abu Dhabi (UAE) — ~750 km via the Al Batha–Ghuwaifat border; Khobar & Dhahran pickups. Border fees included.",
+    "jeddah-to-abudhabi": "Jeddah to Abu Dhabi by private car — ~1,750 km, best as a two-day trip; honest fly-vs-drive advice. Fixed fare, border fees included.",
     "riyadh-to-doha": "Private car with driver, Riyadh to Doha (Qatar) — ~580 km via Al Ahsa and the Salwa border. Fixed fare in writing, border fees included, 24/7.",
-    "riyadh-to-manama": "Private car with driver, Riyadh to Manama (Bahrain) — ~450 km via the King Fahd Causeway. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
-    "dammam-to-kuwait": "Private car with driver, Dammam to Kuwait City — ~436 km via the Al Khafji border. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
-    "dammam-to-manama": "Private car with driver, Dammam to Manama (Bahrain) — a quick ~70 km hop across the King Fahd Causeway. Fare confirmed on WhatsApp before booking, 24/7.",
+    "riyadh-to-manama": "Private car with driver, Riyadh to Manama (Bahrain) — ~450 km via the King Fahd Causeway, door to door, no train change. Causeway toll included.",
+    "dammam-to-kuwait": "Private car with driver, Dammam to Kuwait City — ~436 km along the coast via Al Khafji–Nuwaiseeb. Fixed fare in writing, border fees included.",
+    "dammam-to-manama": "Private car with driver, Dammam to Manama (Bahrain) — ~70 km across the King Fahd Causeway, from home, hotel or the station. Causeway toll included, 24/7.",
     "dammam-to-doha": "Private car with driver, Dammam to Doha (Qatar) — ~400 km via Al Ahsa and the Salwa border. Fixed fare in writing, border fees included, 24/7.",
-    "riyadh-to-kuwait": "Private car with driver, Riyadh to Kuwait City — ~650 km via the Nuwaiseeb–Al Khafji border. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
-    "dammam-to-dubai": "Private car with driver, Dammam to Dubai (UAE) — ~890 km via the Al Batha–Ghuwaifat border. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
+    "riyadh-to-kuwait": "Private car with driver, Riyadh to Kuwait City — ~650 km via Al Khafji–Nuwaiseeb, the shortest crossing. Fixed fare, border fees included.",
+    "dammam-to-dubai": "Private car with driver, Dammam to Dubai (UAE) — ~890 km via Al Batha–Ghuwaifat and past Abu Dhabi. Fixed fare in writing, border fees included.",
     "tabuk-to-aqaba": "Private transfer, Tabuk to Aqaba, Jordan — ~270 km via Haql and the Al Durrah crossing. Fixed fare in writing, border fees included, 24/7.",
     "aqaba-to-tabuk": "Private transfer, Aqaba, Jordan to Tabuk — ~270 km via the Al Durrah crossing and Haql. Fixed fare in writing, border fees included, 24/7.",
     "neom-to-aqaba": "Private transfer, NEOM to Aqaba, Jordan — up the Gulf of Aqaba coast via Haql and Al Durrah (~235 km from Sharma). Fixed fare, border fees included.",
@@ -3197,30 +2621,6 @@ export default async function RouteDetailsPage({ params }: PageProps) {
             </section>
           )}
 
-          {slug.includes("abudhabi") && (
-            <section className="mt-16 border-t border-[#C9A84C]/10 pt-10">
-              <h2 className="font-heading text-2xl font-bold mb-6">
-                More Saudi Arabia to Abu Dhabi Routes
-              </h2>
-              <div className="grid gap-3 sm:grid-cols-2">
-                {MORE_ABU_DHABI_ROUTES.filter((r) => r.slug !== slug).map((r) => (
-                  <Link
-                    key={r.slug}
-                    href={`/routes/${r.slug}`}
-                    className="group flex items-center justify-between rounded-2xl border border-[#16A34A]/12 bg-white px-5 py-4 hover:border-[#16A34A]/35 transition-all"
-                  >
-                    <span className="text-sm font-semibold">
-                      {r.label}
-                      <span className="block text-[0.65rem] text-[#6B7280] font-normal mt-0.5">
-                        {r.distance} km · Fare on WhatsApp
-                      </span>
-                    </span>
-                    <ArrowRight className="h-4 w-4 text-[#C9A84C] shrink-0 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                ))}
-              </div>
-            </section>
-          )}
 
 
 

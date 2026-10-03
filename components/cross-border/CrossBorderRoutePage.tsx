@@ -118,6 +118,7 @@ export function CrossBorderRoutePage({ data }: { data: CrossBorderRoutePageData 
             </span>
             <h1 className="font-heading max-w-3xl text-3xl font-extrabold leading-tight tracking-tight text-[#FFFFFF] sm:text-5xl">
               {from} <span className="text-[#FACC15]">to</span> {to}
+              {data.h1Suffix ?? ""}
             </h1>
             <p className="max-w-2xl text-sm leading-relaxed text-[#FFFFFF]/85 sm:text-base">{data.lead}</p>
 
@@ -156,7 +157,7 @@ export function CrossBorderRoutePage({ data }: { data: CrossBorderRoutePageData 
           facts={[
             { label: "Distance", value: `~${route.distance.toLocaleString("en-US")} km` },
             { label: "Driving", value: `~${formatDrive(route.duration)}` },
-            { label: "Crossing", value: `${data.crossing.saudiSide} – ${data.crossing.otherSide}` },
+            { label: "Crossing", value: data.crossing.name },
             { label: "Best for", value: data.bestFor },
           ]}
         />

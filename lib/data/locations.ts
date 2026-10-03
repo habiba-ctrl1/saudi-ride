@@ -156,6 +156,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { href: "/routes/riyadh-to-dubai", label: "Riyadh to Dubai — private car with driver" },
       { href: "/routes/riyadh-to-abudhabi", label: "Riyadh to Abu Dhabi — private car with driver" },
       { href: "/cross-border/saudi-to-uae", label: "Saudi Arabia to the UAE by car — all routes" },
+      { href: "/routes/abudhabi-to-riyadh", label: "Abu Dhabi to Riyadh by private car" },
       { href: "/routes/riyadh-to-kuwait", label: "Riyadh to Kuwait — private car with driver" },
       { href: "/blog/private-driver-cost-saudi-arabia", label: "How much a private driver costs in Saudi Arabia" },
       { href: "/fleet", label: "Executive sedans, SUVs & vans available in Riyadh" },
@@ -342,6 +343,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { href: "/locations/dhahran", label: "Dhahran — Saudi Aramco & KFUPM taxi" },
       { href: "/locations/dammam", label: "Dammam taxi & King Fahd Airport transfers" },
       { href: "/cross-border/saudi-to-kuwait", label: "Jubail and Eastern Province to Kuwait by car" },
+      { href: "/routes/jubail-to-kuwait", label: "Jubail to Kuwait City private transfer" },
       { href: "/routes/dammam-airport-to-jubail", label: "Dammam Airport to Jubail transfer" },
       { href: "/services/car-recovery/jubail", label: "Jubail car recovery & tow truck (satha)" }
     ]

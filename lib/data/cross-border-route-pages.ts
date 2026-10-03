@@ -44,6 +44,8 @@ export interface CrossBorderRoutePageData {
   related: { href: string; label: string }[];
   /** Distance by pickup point, where the origin is a large area (NEOM). Measured, OSRM. */
   pickupPoints?: { heading: string; intro: string; rows: { name: string; km: number; drive: string }[] };
+  /** Text appended to the H1 — only to keep a ranking H1 identical to the old template (rule 3). */
+  h1Suffix?: string;
   /** Hub this route belongs to. */
   corridorSlug: CorridorSlug;
 }
@@ -83,6 +85,55 @@ const NEOM_TO_AQABA_POINTS = {
     { name: "Magna (northern NEOM coast)", km: 165, drive: "2h 10m" },
     { name: "NEOM Bay Airport (NUM) / Sharma", km: 235, drive: "3h" },
     { name: "Oxagon (near Duba)", km: 300, drive: "3h 35m" },
+  ],
+};
+
+const CAUSEWAY = { name: "King Fahd Causeway", saudiSide: "Saudi checks", otherSide: "Bahrain checks" };
+
+const BAHRAIN_DROPOFFS = {
+  heading: "Where we drop off in Bahrain",
+  intro: "The causeway lands on the west side of the island. Give us the exact address when you book.",
+  points: [
+    { name: "Manama", desc: "Seef, Juffair, the Diplomatic Area and Bahrain Financial Harbour — hotels, homes and offices." },
+    { name: "West of the island", desc: "Janabiya and Budaiya, close to where the causeway arrives." },
+    { name: "Muharraq & Bahrain International Airport (BAH)", desc: "For flights, share your departure time." },
+    { name: "Riffa and the south", desc: "Homes and compounds further south on the island." },
+  ],
+};
+
+const BATHA = { name: "Al Batha – Ghuwaifat crossing", saudiSide: "Al Batha", otherSide: "Ghuwaifat" };
+const KHAFJI = { name: "Al Khafji – Nuwaiseeb crossing", saudiSide: "Al Khafji", otherSide: "Al Nuwaiseeb" };
+
+const DUBAI_DROPOFFS = {
+  heading: "Where we drop off in Dubai",
+  intro: "Dubai is about 140 km past Abu Dhabi on the E11. Give us the exact address.",
+  points: [
+    { name: "Downtown, DIFC & Business Bay", desc: "Hotels, offices and residences in the centre." },
+    { name: "Dubai Marina & JBR", desc: "Further along the coast towards Abu Dhabi — reached first." },
+    { name: "Palm Jumeirah", desc: "Hotels and residences on the Palm." },
+    { name: "Dubai International Airport (DXB)", desc: "For onward flights — share your departure time." },
+  ],
+};
+
+const ABU_DHABI_DROPOFFS = {
+  heading: "Where we drop off in Abu Dhabi",
+  intro: "Give us the exact address — the city and islands are spread out.",
+  points: [
+    { name: "Corniche & city centre", desc: "Hotels, offices and homes downtown." },
+    { name: "Saadiyat & Yas Island", desc: "Resorts, museums district and Yas." },
+    { name: "Al Maryah Island", desc: "Business and financial district." },
+    { name: "Zayed International Airport (AUH)", desc: "For onward flights." },
+  ],
+};
+
+const KUWAIT_DROPOFFS = {
+  heading: "Where we drop off in Kuwait",
+  intro: "Coming from the south, Ahmadi and Fahaheel are first, then the city.",
+  points: [
+    { name: "Fahaheel & Ahmadi", desc: "South of the city, first on the route." },
+    { name: "Salmiya & Hawalli", desc: "Residential and hotel areas." },
+    { name: "Kuwait City centre", desc: "Offices and hotels." },
+    { name: "Kuwait International Airport", desc: "For onward flights — share your departure time." },
   ],
 };
 
@@ -1015,6 +1066,863 @@ export const CROSS_BORDER_ROUTE_PAGES: Record<string, CrossBorderRoutePageData> 
     related: [
       { href: "/routes/riyadh-to-doha", label: "Outbound: Riyadh to Doha" },
       { href: "/routes/doha-to-dammam", label: "Doha to Dammam" },
+      { href: "/locations/riyadh", label: "Riyadh chauffeur service" },
+    ],
+  },
+  // ─────────────────────────── Bahrain (bespoke, 2026-10-03) ───────────────────────────
+  // King Fahd Causeway: the only road link Saudi Arabia–Bahrain, ~25 km long;
+  // Saudi exit + Bahrain entry both on the causeway (venues.md). Causeway toll
+  // for the vehicle is included in the fare (facts.md). No border drop-off on
+  // this corridor (corridor.borderDrop = false). Distances from ROUTES_DATA.
+  "alkhobar-to-manama": {
+    slug: "alkhobar-to-manama",
+    corridorSlug: "saudi-to-bahrain",
+    eyebrow: "Saudi Arabia → Bahrain · King Fahd Causeway",
+    lead: "Al Khobar is the closest Saudi city to Bahrain. From the Corniche, a Dhahran compound or your hotel, it is a short drive onto the King Fahd Causeway and into Manama.",
+    quickAnswer:
+      "A private car from Al Khobar to Manama is about 50 km and roughly 50 minutes of driving, plus time for the Saudi exit and Bahrain entry checks on the King Fahd Causeway. It is the shortest trip between the two countries. The driver collects you anywhere in Al Khobar or Dhahran, and the causeway toll for the vehicle is included in the fixed fare.",
+    crossing: CAUSEWAY,
+    bestFor: "Weekend trips, Khobar–Manama business, families",
+    stages: [
+      { label: "Pickup", title: "Al Khobar / Dhahran", desc: "The Corniche, hotels, homes and residential compounds.", km: 0, kind: "origin" },
+      { label: "Causeway", title: "Onto the King Fahd Causeway", desc: "The causeway starts just outside Al Khobar and runs about 25 km across the sea.", kind: "road" },
+      { label: "Border", title: "Saudi exit & Bahrain entry", desc: "Both checks are on the causeway. Each passenger completes them in person.", kind: "border" },
+      { label: "Drop-off", title: "Manama", desc: "Seef, Juffair, the Diplomatic Area, Bahrain Financial Harbour or any address.", km: 50, kind: "destination" },
+    ],
+    dropoffs: BAHRAIN_DROPOFFS,
+    whoBooks: [
+      { title: "Khobar residents on a weekend", desc: "Out on Thursday or Friday, back on the day you choose, with no parking or rental car to sort out." },
+      { title: "Dhahran professionals with meetings in Manama", desc: "Executive sedan, with the driver waiting for a same-day return if needed." },
+      { title: "Families", desc: "SUV or van with room for children and shopping bags on the way back." },
+    ],
+    tips: [
+      { title: "Weekend timing", desc: "Causeway traffic is usually heaviest at the start and end of weekends. Leave earlier if you have a reservation in Bahrain." },
+      { title: "Same-day return", desc: "Book it as a return with waiting, and the waiting time is included in the fixed fare." },
+    ],
+    faqs: [
+      { question: "How far is Al Khobar from Bahrain?", answer: "Al Khobar to Manama is about 50 km — roughly 50 minutes of driving across the King Fahd Causeway, plus time for the border checks on the causeway." },
+      { question: "Is the causeway toll included in the fare?", answer: "Yes. The King Fahd Causeway toll for the vehicle is included in the fixed fare you agree before booking." },
+      { question: "Can you pick me up from a Dhahran compound?", answer: "Yes. Tell us the compound and the gate, and the driver will be waiting at that entrance." },
+      { question: "What documents do I need for Bahrain?", answer: "A valid passport or accepted ID and the right to enter Bahrain for every passenger; Saudi residents generally also need a valid exit and re-entry visa. Check official sources before travel — we do not arrange visas." },
+      { question: "Can the driver wait and bring me back the same day?", answer: "Yes. Book a return with waiting. 15–30 minutes of free waiting is always included, and longer waiting is priced into the fixed fare." },
+    ],
+    related: [
+      { href: "/routes/dammam-to-manama", label: "Dammam to Manama" },
+      { href: "/routes/alkhobar-to-doha", label: "Al Khobar to Doha, Qatar" },
+      { href: "/services/corporate-bahrain-transport", label: "Corporate Saudi–Bahrain transport" },
+      { href: "/locations/alkhobar", label: "Al Khobar chauffeur service" },
+    ],
+  },
+
+  "dammam-to-manama": {
+    slug: "dammam-to-manama",
+    corridorSlug: "saudi-to-bahrain",
+    eyebrow: "Saudi Arabia → Bahrain · King Fahd Causeway",
+    lead: "From Dammam south through the metro area to the King Fahd Causeway, across the sea and into Manama. The same car takes you all the way to your Bahrain address.",
+    quickAnswer:
+      "A private car from Dammam to Manama, Bahrain is about 70 km and roughly 1 hour of driving, plus border time on the King Fahd Causeway. The driver collects you anywhere in Dammam, drives through the Al Khobar side to the causeway and drops you at your hotel or home in Bahrain. The causeway toll for the vehicle is included in the fixed fare.",
+    crossing: CAUSEWAY,
+    bestFor: "Dammam residents, visitors from the train station, shoppers",
+    stages: [
+      { label: "Pickup", title: "Dammam", desc: "Home, hotel, office or the Dammam railway station.", km: 0, kind: "origin" },
+      { label: "South", title: "Through the Al Khobar side", desc: "Across the metro area to the causeway entrance.", km: 25, kind: "road" },
+      { label: "Border", title: "King Fahd Causeway checks", desc: "Saudi exit and Bahrain entry, both on the causeway, in person.", kind: "border" },
+      { label: "Drop-off", title: "Bahrain", desc: "Manama, Janabiya, Seef, Juffair, Muharraq or Bahrain International Airport (BAH).", km: 70, kind: "destination" },
+    ],
+    dropoffs: BAHRAIN_DROPOFFS,
+    whoBooks: [
+      { title: "Arriving in Dammam by train?", desc: "Go straight from the Dammam station to your Bahrain address without a second taxi." },
+      { title: "Dammam families", desc: "Weekend visits with an SUV or van, door to door." },
+      { title: "Business visitors", desc: "Executive sedan with a written quote and corporate invoicing on request." },
+    ],
+    tips: [
+      { title: "Coming from the station or airport?", desc: "Tell us your arrival time. For King Fahd International Airport there is a dedicated Dammam Airport to Bahrain page." },
+      { title: "Going to the west of the island?", desc: "Janabiya and Budaiya on the west side are close to the causeway exit — give us the exact address." },
+    ],
+    faqs: [
+      { question: "How long does the drive from Dammam to Bahrain take?", answer: "About 1 hour of driving for roughly 70 km across the King Fahd Causeway, plus time for the border checks on the causeway, which varies." },
+      { question: "Can I get a car from Dammam station to Bahrain?", answer: "Yes. The driver can meet you at the Dammam railway station and drive you straight to your address in Bahrain." },
+      { question: "Is the causeway toll included?", answer: "Yes. The causeway toll for the vehicle is included in the fixed fare." },
+      { question: "What do I need to cross the causeway?", answer: "Every passenger needs a valid passport or accepted ID and the right to enter Bahrain, and completes the checks in person. Check official sources before travel — we do not arrange visas." },
+      { question: "Do you drop at Bahrain International Airport?", answer: "Yes. BAH is in Muharraq — tell us your flight time so we plan the pickup with margin for the causeway." },
+    ],
+    related: [
+      { href: "/routes/manama-to-dammam", label: "Return: Bahrain to Dammam" },
+      { href: "/routes/dammam-airport-to-bahrain", label: "From Dammam Airport (DMM)" },
+      { href: "/routes/dammam-to-doha", label: "Dammam to Doha instead?" },
+      { href: "/locations/dammam", label: "Dammam private car service" },
+    ],
+  },
+
+  "riyadh-to-manama": {
+    slug: "riyadh-to-manama",
+    corridorSlug: "saudi-to-bahrain",
+    eyebrow: "Saudi Arabia → Bahrain · King Fahd Causeway",
+    lead: "From Riyadh east along the highway to the Eastern Province, onto the King Fahd Causeway and into Manama, without changing at Dammam.",
+    quickAnswer:
+      "A private car from Riyadh to Manama, Bahrain is about 450 km and roughly 4 hours 20 minutes of driving, plus border time on the King Fahd Causeway. The road runs east to the Dammam–Al Khobar area, then across the causeway into Bahrain. There is no train all the way to Bahrain, so a private car is the only door-to-door option. The causeway toll for the vehicle is included in the fixed fare.",
+    crossing: CAUSEWAY,
+    bestFor: "Families, executives, groups with luggage",
+    stages: [
+      { label: "Pickup", title: "Riyadh", desc: "KAFD, Olaya, the Diplomatic Quarter, your home or hotel.", km: 0, kind: "origin" },
+      { label: "East", title: "Highway to the Eastern Province", desc: "The long leg east towards Dammam and Al Khobar.", km: 400, kind: "road" },
+      { label: "Border", title: "King Fahd Causeway checks", desc: "Saudi exit and Bahrain entry on the causeway.", kind: "border" },
+      { label: "Drop-off", title: "Manama", desc: "Hotels, homes, offices or Bahrain International Airport (BAH).", km: 450, kind: "destination" },
+    ],
+    dropoffs: BAHRAIN_DROPOFFS,
+    whoBooks: [
+      { title: "Families from Riyadh", desc: "Weekend or holiday trips with luggage, one car from your door." },
+      { title: "Executives", desc: "Work on the road in an executive sedan instead of a train plus taxi." },
+    ],
+    tips: [
+      { title: "Train or car?", desc: "The Riyadh–Dammam train suits solo travellers, but you still need a car from Dammam across the causeway. For groups and luggage, one car from Riyadh is simpler." },
+      { title: "Start early on weekends", desc: "Arriving at the causeway mid-afternoon on a weekend can mean a longer queue." },
+    ],
+    tradeOff: {
+      heading: "Riyadh to Bahrain: train plus taxi, or one private car?",
+      body: [
+        "The train runs from Riyadh to Dammam only. From there you need a car for the last 70 km across the causeway, so train plus taxi suits a solo traveller with light luggage.",
+        "A private car from Riyadh avoids the station change and the luggage handling, and leaves from your door. That matters most for families, groups and anyone working on the way.",
+      ],
+    },
+    faqs: [
+      { question: "How far is Riyadh from Bahrain by car?", answer: "About 450 km — roughly 4 hours 20 minutes of driving to Manama via the Eastern Province and the King Fahd Causeway, plus border time." },
+      { question: "Is there a train from Riyadh to Bahrain?", answer: "No. There is no train between Riyadh and Bahrain. The train goes from Riyadh to Dammam, and the last leg across the causeway is by road." },
+      { question: "Is the causeway toll included?", answer: "Yes, the King Fahd Causeway toll for the vehicle is included in the fixed fare." },
+      { question: "What do I need to enter Bahrain?", answer: "A valid passport or accepted ID and the right to enter Bahrain for every passenger; Saudi residents generally also need a valid exit and re-entry visa. Check official sources before travel." },
+      { question: "Can I stop in Dammam or Al Khobar on the way?", answer: "Yes. Tell us when you book and a stop is planned into the trip." },
+    ],
+    related: [
+      { href: "/guides/riyadh-to-bahrain-taxi-vs-train", label: "Riyadh to Bahrain: taxi vs train" },
+      { href: "/routes/manama-to-riyadh", label: "Return: Bahrain to Riyadh" },
+      { href: "/routes/riyadh-to-doha", label: "Riyadh to Doha" },
+      { href: "/locations/riyadh", label: "Riyadh chauffeur service" },
+    ],
+  },
+
+  "dammam-airport-to-bahrain": {
+    slug: "dammam-airport-to-bahrain",
+    corridorSlug: "saudi-to-bahrain",
+    eyebrow: "Airport → Bahrain · King Fahd Causeway",
+    lead: "Land at King Fahd International Airport (DMM), meet your driver and go straight across the King Fahd Causeway to your hotel or home in Bahrain.",
+    quickAnswer:
+      "A private transfer from Dammam Airport (DMM) to Bahrain is about 105 km and roughly 1 hour 20 minutes of driving, plus border time on the King Fahd Causeway. Your driver meets you at King Fahd International Airport and drives you to your address in Bahrain without a change of car. We track your flight, 15–30 minutes of free waiting is included, and the causeway toll is part of the fixed fare.",
+    crossing: CAUSEWAY,
+    bestFor: "Arrivals at DMM heading to Bahrain",
+    stages: [
+      { label: "Pickup", title: "King Fahd International Airport (DMM)", desc: "Pickup timed to your landing. We track your flight.", km: 0, kind: "origin" },
+      { label: "South", title: "Past Dammam and Al Khobar", desc: "From the airport, north-west of the city, through the metro area to the causeway.", km: 80, kind: "road" },
+      { label: "Border", title: "King Fahd Causeway checks", desc: "Saudi exit and Bahrain entry on the causeway, in person.", kind: "border" },
+      { label: "Drop-off", title: "Bahrain", desc: "Your hotel, home or Bahrain International Airport (BAH).", km: 105, kind: "destination" },
+    ],
+    dropoffs: BAHRAIN_DROPOFFS,
+    whoBooks: [
+      { title: "Travellers who fly into DMM for Bahrain", desc: "When the Dammam flight works better than flying into Bahrain." },
+      { title: "Business arrivals", desc: "Straight from arrivals to a Manama meeting in an executive sedan." },
+      { title: "Visiting staff", desc: "Companies booking every arrival on one written quote." },
+    ],
+    tips: [
+      { title: "Share your flight number", desc: "We track your flight and plan the pickup around your actual landing time." },
+      { title: "Check your Bahrain entry before you fly", desc: "Every passenger needs the right to enter Bahrain by road." },
+    ],
+    faqs: [
+      { question: "How far is Dammam Airport from Bahrain?", answer: "King Fahd International Airport (DMM) to Manama is about 105 km by road — roughly 1 hour 20 minutes of driving, plus time for the border checks on the causeway." },
+      { question: "Can I get a taxi from Dammam Airport straight to Bahrain?", answer: "Yes, as a pre-booked private car. Your driver collects you at DMM and drives you over the causeway to your address in Bahrain without changing vehicles." },
+      { question: "What if my flight into DMM is delayed?", answer: "We track your flight, so the pickup follows your actual arrival. 15–30 minutes of free waiting after landing is included." },
+      { question: "Is the causeway toll included?", answer: "Yes, the causeway toll for the vehicle is included in the fixed fare." },
+      { question: "What documents do I need?", answer: "A valid passport or accepted ID and the right to enter Bahrain for every passenger. Check official sources before travel — we do not arrange visas." },
+    ],
+    related: [
+      { href: "/routes/bahrain-to-dammam-airport", label: "Return: Bahrain to Dammam Airport" },
+      { href: "/routes/dammam-airport-to-doha", label: "DMM to Doha, Qatar" },
+      { href: "/airports/king-fahd-dammam", label: "Dammam Airport (DMM) transfers" },
+    ],
+  },
+
+  "manama-to-alkhobar": {
+    slug: "manama-to-alkhobar",
+    corridorSlug: "saudi-to-bahrain",
+    eyebrow: "Bahrain → Saudi Arabia · King Fahd Causeway",
+    lead: "From your Manama hotel or home back across the King Fahd Causeway to Al Khobar or Dhahran. This is the shortest return between the two countries.",
+    quickAnswer:
+      "A private car from Manama to Al Khobar is about 50 km and roughly 50 minutes of driving, plus border time on the King Fahd Causeway. The driver collects you anywhere in Bahrain and drops you at your Al Khobar or Dhahran address. The causeway toll for the vehicle is included in the fixed fare.",
+    crossing: CAUSEWAY,
+    bestFor: "Weekend returns, Bahrain residents working in Khobar",
+    stages: [
+      { label: "Pickup", title: "Manama", desc: "Hotel, home or office anywhere in Bahrain.", km: 0, kind: "origin" },
+      { label: "Border", title: "King Fahd Causeway checks", desc: "Bahrain exit and Saudi entry on the causeway, in person.", kind: "border" },
+      { label: "Drop-off", title: "Al Khobar / Dhahran", desc: "Home, compound, hotel or office.", km: 50, kind: "destination" },
+    ],
+    dropoffs: {
+      heading: "Where we drop off on the Saudi side",
+      intro: "Al Khobar and Dhahran are right at the Saudi end of the causeway.",
+      points: [
+        { name: "Al Khobar Corniche & hotels", desc: "Hotels and apartments along the waterfront." },
+        { name: "Dhahran & compounds", desc: "Tell us the gate you need." },
+        { name: "Dammam & DMM airport", desc: "Further on — see the Bahrain to Dammam Airport route." },
+      ],
+    },
+    whoBooks: [
+      { title: "End-of-weekend returns", desc: "The return leg of a Khobar–Bahrain weekend." },
+      { title: "Bahrain residents with work in Khobar", desc: "Regular trips can be quoted together for companies." },
+    ],
+    tips: [
+      { title: "End-of-weekend queues", desc: "The return towards Saudi Arabia can be slow at the end of a weekend. Allow margin if you have a meeting." },
+    ],
+    faqs: [
+      { question: "How far is Bahrain from Al Khobar by car?", answer: "About 50 km — roughly 50 minutes of driving across the King Fahd Causeway, plus time for the border checks." },
+      { question: "Is this good for a weekend return trip?", answer: "Yes. Book both legs together; the return is confirmed in the same quote, and 15–30 minutes of free waiting is included at pickup." },
+      { question: "Is the causeway toll included?", answer: "Yes, the causeway toll for the vehicle is included in the fixed fare." },
+      { question: "What do I need to enter Saudi Arabia?", answer: "A valid passport or accepted ID and the right to enter Saudi Arabia for every passenger. Check official sources before travel." },
+    ],
+    related: [
+      { href: "/routes/alkhobar-to-manama", label: "Outbound: Al Khobar to Manama" },
+      { href: "/routes/manama-to-dammam", label: "Bahrain to Dammam" },
+      { href: "/locations/alkhobar", label: "Getting around Al Khobar" },
+    ],
+  },
+
+  "manama-to-dammam": {
+    slug: "manama-to-dammam",
+    corridorSlug: "saudi-to-bahrain",
+    eyebrow: "Bahrain → Saudi Arabia · King Fahd Causeway",
+    lead: "From Manama across the King Fahd Causeway and north through Al Khobar to your address in Dammam, or on to the railway station for the train to Riyadh.",
+    quickAnswer:
+      "A private car from Manama to Dammam is about 70 km and roughly 1 hour of driving, plus border time on the King Fahd Causeway. The driver collects you in Bahrain and drops you at your home, hotel or the Dammam railway station. For flights from King Fahd International Airport there is a separate Bahrain to Dammam Airport route. The causeway toll is included in the fixed fare.",
+    crossing: CAUSEWAY,
+    bestFor: "Dammam-bound visitors, train connections to Riyadh",
+    stages: [
+      { label: "Pickup", title: "Manama", desc: "Hotel, home or office in Bahrain.", km: 0, kind: "origin" },
+      { label: "Border", title: "King Fahd Causeway checks", desc: "Bahrain exit and Saudi entry, in person.", kind: "border" },
+      { label: "North", title: "Through Al Khobar", desc: "Up through the metro area.", km: 45, kind: "road" },
+      { label: "Drop-off", title: "Dammam", desc: "Home, hotel, office or Dammam railway station.", km: 70, kind: "destination" },
+    ],
+    dropoffs: {
+      heading: "Where we drop off in Dammam",
+      intro: "Anywhere in the city, or the station.",
+      points: [
+        { name: "Dammam homes & hotels", desc: "Give us the address or a pin." },
+        { name: "Dammam railway station", desc: "For the train to Riyadh. Tell us the departure time." },
+        { name: "King Fahd International Airport", desc: "Use the dedicated Bahrain to Dammam Airport route." },
+      ],
+    },
+    whoBooks: [
+      { title: "Bahrain residents travelling on to Riyadh by train", desc: "Car to the Dammam station, timed for your departure." },
+      { title: "Visitors staying in Dammam", desc: "Door to door from your Bahrain hotel." },
+    ],
+    tips: [
+      { title: "Catching the train?", desc: "Share the departure time. We add margin for the causeway checks." },
+    ],
+    faqs: [
+      { question: "How long is the drive from Bahrain to Dammam?", answer: "About 1 hour of driving for roughly 70 km across the King Fahd Causeway, plus border time." },
+      { question: "Can you drop me at the Dammam train station?", answer: "Yes. Tell us your train time and we plan the pickup in Bahrain with margin for the causeway." },
+      { question: "Is the causeway toll included?", answer: "Yes, the causeway toll for the vehicle is included in the fixed fare." },
+      { question: "What do I need to enter Saudi Arabia?", answer: "A valid passport or accepted ID and the right to enter Saudi Arabia for every passenger. Check official sources before travel." },
+    ],
+    related: [
+      { href: "/routes/dammam-to-manama", label: "Outbound: Dammam to Manama" },
+      { href: "/routes/bahrain-to-dammam-airport", label: "Bahrain to Dammam Airport" },
+      { href: "/routes/manama-to-riyadh", label: "Bahrain to Riyadh" },
+    ],
+  },
+
+  "bahrain-to-dammam-airport": {
+    slug: "bahrain-to-dammam-airport",
+    corridorSlug: "saudi-to-bahrain",
+    eyebrow: "Bahrain → Airport · King Fahd Causeway",
+    lead: "From your Bahrain home or hotel to departures at King Fahd International Airport (DMM). The pickup time is worked back from your flight, with margin for the causeway.",
+    quickAnswer:
+      "A private transfer from Bahrain to Dammam Airport (DMM) is about 105 km and roughly 1 hour 20 minutes of driving, plus border time on the King Fahd Causeway. Pickup is set from your departure time, allowing for the drive, causeway checks and check-in. The causeway toll is included in the fixed fare.",
+    crossing: CAUSEWAY,
+    bestFor: "Bahrain residents flying from DMM",
+    stages: [
+      { label: "Pickup", title: "Bahrain", desc: "Manama, Seef, Juffair, Riffa, Muharraq or any address.", km: 0, kind: "origin" },
+      { label: "Border", title: "King Fahd Causeway checks", desc: "Bahrain exit and Saudi entry, in person.", kind: "border" },
+      { label: "North-west", title: "Past Al Khobar and Dammam", desc: "Through the metro area to the airport.", km: 50, kind: "road" },
+      { label: "Drop-off", title: "King Fahd International Airport (DMM)", desc: "Departures.", km: 105, kind: "destination" },
+    ],
+    dropoffs: {
+      heading: "Drop-off at DMM",
+      intro: "Straight to departures at King Fahd International Airport.",
+      points: [
+        { name: "Departures", desc: "Tell us your airline and flight time." },
+        { name: "Group check-in", desc: "Van for families or groups with a lot of luggage." },
+      ],
+    },
+    whoBooks: [
+      { title: "Bahrain residents flying from DMM", desc: "When the Dammam flight suits your route or schedule better." },
+      { title: "Families with heavy luggage", desc: "SUV or van, one car from home to departures." },
+    ],
+    tips: [
+      { title: "Work back from check-in", desc: "Drive time, plus causeway time that varies, plus check-in, plus a safety margin. We suggest a pickup time when you book." },
+    ],
+    faqs: [
+      { question: "How early should I leave Bahrain for a flight at Dammam Airport?", answer: "Work back from your check-in time: about 1 hour 20 minutes of driving, plus causeway time that varies with traffic, plus a safety margin. Tell us your flight time and we suggest a pickup time." },
+      { question: "Where in Bahrain can you pick me up?", answer: "Anywhere on the island — Manama, Seef, Juffair, Muharraq, Riffa and elsewhere." },
+      { question: "Is the causeway toll included?", answer: "Yes, the causeway toll for the vehicle is included in the fixed fare." },
+      { question: "What documents do I need to cross into Saudi Arabia?", answer: "A valid passport or accepted ID and the right to enter Saudi Arabia for every passenger. Check official sources before travel." },
+    ],
+    related: [
+      { href: "/routes/dammam-airport-to-bahrain", label: "Arriving: Dammam Airport to Bahrain" },
+      { href: "/routes/manama-to-dammam", label: "Bahrain to Dammam city" },
+      { href: "/airports/king-fahd-dammam", label: "Dammam Airport (DMM)" },
+    ],
+  },
+
+  "manama-to-riyadh": {
+    slug: "manama-to-riyadh",
+    corridorSlug: "saudi-to-bahrain",
+    eyebrow: "Bahrain → Saudi Arabia · King Fahd Causeway",
+    lead: "From Manama across the King Fahd Causeway and west along the highway to your Riyadh address or a flight at King Khalid International Airport.",
+    quickAnswer:
+      "A private car from Manama to Riyadh is about 450 km and roughly 4 hours 20 minutes of driving, plus border time on the King Fahd Causeway. The driver collects you in Bahrain, crosses into Saudi Arabia and drives west to your Riyadh home, hotel, office or King Khalid International Airport (RUH). The causeway toll is included in the fixed fare.",
+    crossing: CAUSEWAY,
+    bestFor: "Business in Riyadh, families relocating",
+    stages: [
+      { label: "Pickup", title: "Manama", desc: "Hotel, home or office in Bahrain.", km: 0, kind: "origin" },
+      { label: "Border", title: "King Fahd Causeway checks", desc: "Bahrain exit and Saudi entry, in person.", kind: "border" },
+      { label: "West", title: "Highway to Riyadh", desc: "From the Eastern Province across to the capital.", km: 50, kind: "road" },
+      { label: "Drop-off", title: "Riyadh", desc: "Home, hotel, office or King Khalid International Airport (RUH).", km: 450, kind: "destination" },
+    ],
+    dropoffs: {
+      heading: "Arriving in Riyadh from Bahrain",
+      intro: "You reach Riyadh from the east, so eastern districts come first and the airport is north of the city.",
+      points: [
+        { name: "Eastern & central Riyadh", desc: "The first districts you reach on the highway from the Eastern Province." },
+        { name: "KAFD and Olaya", desc: "The business core, further into the city, so allow time for city traffic." },
+        { name: "RUH departures", desc: "King Khalid International Airport is north of the centre. Share your flight time." },
+      ],
+    },
+    whoBooks: [
+      { title: "Bahrain-based executives", desc: "Riyadh meetings without two airports. Executive sedan with a written quote." },
+      { title: "Families and groups", desc: "SUV or van with luggage, door to door." },
+    ],
+    tips: [
+      { title: "Riyadh arrival time", desc: "Arriving in the evening rush adds time inside the city — tell us your plans." },
+    ],
+    faqs: [
+      { question: "How far is Bahrain from Riyadh by road?", answer: "About 450 km — roughly 4 hours 20 minutes of driving from Manama across the King Fahd Causeway, plus border time." },
+      { question: "Can you take me from Bahrain to King Khalid airport?", answer: "Yes. RUH is north of Riyadh; share your departure time and we set the Bahrain pickup with margin for the causeway and the drive." },
+      { question: "Is the causeway toll included?", answer: "Yes, the causeway toll for the vehicle is included in the fixed fare." },
+      { question: "Can I break the trip in the Eastern Province?", answer: "Yes. A stop in Al Khobar or Dammam for a meal or a meeting can be planned into the booking. Tell us how long you need." },
+    ],
+    related: [
+      { href: "/routes/riyadh-to-manama", label: "Outbound: Riyadh to Manama" },
+      { href: "/routes/manama-to-dammam", label: "Bahrain to Dammam" },
+      { href: "/locations/riyadh", label: "Riyadh chauffeur service" },
+    ],
+  },
+  // ─────────────────────────── UAE (bespoke, 2026-10-03) ───────────────────────────
+  // Al Batha (SA) – Ghuwaifat (AE); Ghuwaifat is the west end of the UAE E11
+  // road (Wikipedia "E 11 road"). Abu Dhabi → Dubai ≈ 140 km (OSRM). Distances
+  // from ROUTES_DATA (Riyadh–Abu Dhabi 850 km agrees with external ~880 km).
+  "riyadh-to-dubai": {
+    slug: "riyadh-to-dubai",
+    corridorSlug: "saudi-to-uae",
+    eyebrow: "Saudi Arabia → UAE · Al Batha – Ghuwaifat crossing",
+    lead: "A car with a driver from your Riyadh door to your Dubai address in one long day, crossing at Al Batha–Ghuwaifat and following the UAE coast road past Abu Dhabi.",
+    quickAnswer:
+      "A private car with driver from Riyadh to Dubai is about 990 km and roughly 9 hours of driving, plus border time and rest stops. The road runs south-east from Riyadh to the Al Batha–Ghuwaifat crossing, then east along the UAE's E11 coastal highway past Abu Dhabi to Dubai. One driver covers the whole trip, and the fixed fare includes border crossing fees for the vehicle.",
+    crossing: BATHA,
+    bestFor: "Relocation, families, executives, heavy luggage",
+    stages: [
+      { label: "Pickup", title: "Riyadh", desc: "Home, hotel, compound or office anywhere in Riyadh.", km: 0, kind: "origin" },
+      { label: "South-east", title: "Across the desert to the border", desc: "The long Saudi leg towards Al Batha, with rest and prayer stops on the way.", kind: "road" },
+      { label: "Border", title: "Al Batha → Ghuwaifat", desc: "Saudi exit and UAE entry, each passenger in person.", kind: "border" },
+      { label: "Coast road", title: "E11 past Abu Dhabi", desc: "Along the UAE coast; Abu Dhabi comes first, Dubai about 140 km further.", kind: "road" },
+      { label: "Drop-off", title: "Dubai", desc: "Downtown, Dubai Marina, Business Bay, Palm Jumeirah or DXB.", km: 990, kind: "destination" },
+    ],
+    dropoffs: DUBAI_DROPOFFS,
+    whoBooks: [
+      { title: "People relocating to Dubai", desc: "Suitcases and boxes in an SUV or van, with no baggage limits and one fare." },
+      { title: "Families", desc: "Children, grandparents and luggage in one car, door to door, with stops when you need them." },
+      { title: "Executives", desc: "A working day on the road in an executive sedan, with a written quote for the company." },
+    ],
+    tips: [
+      { title: "Start early", desc: "A morning departure means most of the drive is in daylight and you reach Dubai at a reasonable hour." },
+      { title: "Two days instead of one?", desc: "Families often prefer an overnight stop. Ask for a two-day quote; the driver's stay is included." },
+      { title: "Light luggage, solo?", desc: "A flight is usually quicker. We will say so honestly." },
+    ],
+    tradeOff: {
+      heading: "Riyadh to Dubai: fly or drive?",
+      body: [
+        "For one traveller with a small bag, flying is faster even after airport time on both ends.",
+        "Driving wins when there are several of you, a lot of luggage, children or elderly relatives, or a move to make. You leave from your door, arrive at your door and keep everything in one car.",
+      ],
+    },
+    faqs: [
+      { question: "How many hours is Riyadh to Dubai by car?", answer: "About 9 hours of driving for roughly 990 km, plus time at the Al Batha–Ghuwaifat border and rest stops. Plan it as a full day." },
+      { question: "Can I rent a car with a driver from Riyadh to Dubai?", answer: "Yes — that is exactly this service: a private car with a professional driver from your Riyadh address to your Dubai address, at one fixed fare agreed before you travel." },
+      { question: "What is the Riyadh to Dubai distance by road?", answer: "About 990 km, via the Al Batha–Ghuwaifat crossing and the UAE's E11 coastal highway past Abu Dhabi." },
+      { question: "Are border crossing fees included?", answer: "Yes. Border crossing fees for the vehicle are included in the fixed fare. Personal visa or entry fees are the passenger's own." },
+      { question: "Is there a cheaper option?", answer: "Yes — border drop-off. We drive you to the Saudi side of Al Batha at a lower fare, and you arrange your own onward transport into the UAE." },
+      { question: "What documents do I need to drive into the UAE?", answer: "A valid passport or accepted ID and the right to enter the UAE for every passenger; Saudi residents generally also need a valid exit and re-entry visa. Check official sources before travel — we do not arrange visas." },
+    ],
+    related: [
+      { href: "/routes/dubai-to-riyadh", label: "Return: Dubai to Riyadh" },
+      { href: "/routes/riyadh-to-abudhabi", label: "Stop in Abu Dhabi instead" },
+      { href: "/blog/riyadh-to-dubai-taxi-gcc-road-trip", label: "Riyadh to Dubai by road: trip guide" },
+      { href: "/locations/riyadh", label: "Riyadh chauffeur service" },
+    ],
+  },
+
+  "dubai-to-riyadh": {
+    slug: "dubai-to-riyadh",
+    corridorSlug: "saudi-to-uae",
+    eyebrow: "UAE → Saudi Arabia · Ghuwaifat – Al Batha crossing",
+    lead: "Collected from your Dubai home or hotel, west along the coast past Abu Dhabi to Ghuwaifat, into Saudi Arabia at Al Batha and on to Riyadh.",
+    quickAnswer:
+      "A private car with driver from Dubai to Riyadh is about 990 km and roughly 9 hours of driving, plus border time and stops. The driver collects you in Dubai, follows the E11 west past Abu Dhabi to the Ghuwaifat–Al Batha crossing and continues across Saudi Arabia to your Riyadh address. The fixed fare includes vehicle border crossing fees.",
+    crossing: { name: "Ghuwaifat – Al Batha crossing", saudiSide: "Al Batha", otherSide: "Ghuwaifat" },
+    bestFor: "Moves to Riyadh, families, business travellers",
+    stages: [
+      { label: "Pickup", title: "Dubai", desc: "Home, hotel or office anywhere in Dubai.", km: 0, kind: "origin" },
+      { label: "West", title: "E11 past Abu Dhabi", desc: "Abu Dhabi is about 140 km in; the road continues west to the border.", kind: "road" },
+      { label: "Border", title: "Ghuwaifat → Al Batha", desc: "UAE exit and Saudi entry, in person.", kind: "border" },
+      { label: "Saudi leg", title: "Across to Riyadh", desc: "The long desert drive north-west to the capital.", kind: "road" },
+      { label: "Drop-off", title: "Riyadh", desc: "Home, hotel, office or King Khalid International Airport (RUH).", km: 990, kind: "destination" },
+    ],
+    dropoffs: {
+      heading: "Where we drop off in Riyadh",
+      intro: "You arrive from the south-east; give us the exact address or your flight time.",
+      points: [
+        { name: "Homes and compounds", desc: "Anywhere in Riyadh — share a pin." },
+        { name: "KAFD, Olaya & the Diplomatic Quarter", desc: "Offices and business hotels." },
+        { name: "King Khalid International Airport (RUH)", desc: "North of the city — allow for city traffic." },
+      ],
+    },
+    whoBooks: [
+      { title: "Relocating from Dubai to Riyadh", desc: "Van or SUV for luggage and boxes, one fare." },
+      { title: "Families visiting Saudi Arabia", desc: "Door to door, with stops planned with you." },
+    ],
+    tips: [
+      { title: "Have your Saudi entry ready", desc: "Every passenger needs the right to enter Saudi Arabia before setting off." },
+      { title: "Plan the arrival time", desc: "Reaching Riyadh in the evening rush adds time inside the city." },
+    ],
+    faqs: [
+      { question: "How long is the drive from Dubai to Riyadh?", answer: "About 9 hours of driving for roughly 990 km, plus border time at Ghuwaifat–Al Batha and stops." },
+      { question: "Can I rent a car with a driver from Dubai to Riyadh?", answer: "Yes. A private car with a professional driver collects you in Dubai and drives you to your Riyadh address at one fixed fare." },
+      { question: "Are border crossing fees included?", answer: "Yes, vehicle border crossing fees are included in the fixed fare." },
+      { question: "What do I need to enter Saudi Arabia by road?", answer: "A valid passport or accepted ID and the right to enter Saudi Arabia for every passenger. Check official sources before travel — we do not arrange visas." },
+      { question: "Can a company book and get a written quote?", answer: "Yes. Email an RFQ; corporate invoicing can be arranged through our sister company." },
+    ],
+    related: [
+      { href: "/routes/riyadh-to-dubai", label: "Outbound: Riyadh to Dubai" },
+      { href: "/routes/abudhabi-to-riyadh", label: "From Abu Dhabi instead" },
+      { href: "/locations/riyadh", label: "Riyadh chauffeur service" },
+    ],
+  },
+
+  "riyadh-to-abudhabi": {
+    slug: "riyadh-to-abudhabi",
+    corridorSlug: "saudi-to-uae",
+    eyebrow: "Saudi Arabia → UAE · Al Batha – Ghuwaifat crossing",
+    lead: "From Riyadh to the UAE capital: south-east to the Al Batha border, then along the E11 to Abu Dhabi. It is about 140 km shorter than going on to Dubai.",
+    quickAnswer:
+      "A private car with driver from Riyadh to Abu Dhabi is about 850 km and roughly 8 hours of driving, plus border time. The car crosses at Al Batha (Saudi side) and Ghuwaifat (UAE side) and follows the E11 coastal highway to Abu Dhabi. The fixed fare includes vehicle border crossing fees; each passenger carries their own documents.",
+    crossing: BATHA,
+    bestFor: "Government & business visits, families",
+    stages: [
+      { label: "Pickup", title: "Riyadh", desc: "Your Riyadh address.", km: 0, kind: "origin" },
+      { label: "South-east", title: "To the Al Batha border", desc: "The long Saudi leg, with rest stops.", kind: "road" },
+      { label: "Border", title: "Al Batha → Ghuwaifat", desc: "Saudi exit and UAE entry, in person.", kind: "border" },
+      { label: "Coast road", title: "E11 east to Abu Dhabi", desc: "Along the coast of the Al Dhafra region.", kind: "road" },
+      { label: "Drop-off", title: "Abu Dhabi", desc: "Corniche, Saadiyat, Yas, Al Maryah Island or Zayed International Airport (AUH).", km: 850, kind: "destination" },
+    ],
+    dropoffs: ABU_DHABI_DROPOFFS,
+    whoBooks: [
+      { title: "Business between the two capitals", desc: "Executive sedan with a written quote and invoicing on request." },
+      { title: "Families visiting Abu Dhabi", desc: "SUV or van with luggage, door to door." },
+    ],
+    tips: [
+      { title: "Going on to Dubai?", desc: "Dubai is about 140 km further along the same road. See our Riyadh to Dubai route." },
+      { title: "Plan a full day", desc: "8 hours of driving plus the border. Start in the morning." },
+    ],
+    faqs: [
+      { question: "How far is Riyadh from Abu Dhabi by road?", answer: "About 850 km — roughly 8 hours of driving via the Al Batha–Ghuwaifat crossing and the E11, plus border time." },
+      { question: "Which border is used from Riyadh to Abu Dhabi?", answer: "Al Batha on the Saudi side and Ghuwaifat on the UAE side, at the western end of the E11 highway." },
+      { question: "Is this a local Abu Dhabi taxi service?", answer: "No. It is a pre-booked private car with a professional driver from your Riyadh address to your Abu Dhabi address." },
+      { question: "Are border crossing fees included?", answer: "Yes, vehicle border crossing fees are included in the fixed fare." },
+      { question: "What do I need for the UAE border?", answer: "A valid passport or accepted ID and the right to enter the UAE; Saudi residents generally also need a valid exit and re-entry visa. Check official sources before travel." },
+    ],
+    related: [
+      { href: "/routes/abudhabi-to-riyadh", label: "Return: Abu Dhabi to Riyadh" },
+      { href: "/routes/riyadh-to-dubai", label: "Riyadh to Dubai" },
+      { href: "/locations/abudhabi", label: "Abu Dhabi cross-border car service" },
+    ],
+  },
+
+  "abudhabi-to-riyadh": {
+    slug: "abudhabi-to-riyadh",
+    corridorSlug: "saudi-to-uae",
+    eyebrow: "UAE → Saudi Arabia · Ghuwaifat – Al Batha crossing",
+    lead: "From Abu Dhabi west along the E11 to Ghuwaifat, into Saudi Arabia at Al Batha and across the desert to Riyadh, with one driver and one car.",
+    quickAnswer:
+      "A private car with driver from Abu Dhabi to Riyadh is about 850 km and roughly 8 hours of driving, plus border time. The driver collects you anywhere in Abu Dhabi, follows the E11 west to the Ghuwaifat–Al Batha crossing and continues to your Riyadh address. Vehicle border crossing fees are included in the fixed fare.",
+    crossing: { name: "Ghuwaifat – Al Batha crossing", saudiSide: "Al Batha", otherSide: "Ghuwaifat" },
+    bestFor: "Abu Dhabi residents with Riyadh business, families",
+    stages: [
+      { label: "Pickup", title: "Abu Dhabi", desc: "Corniche, Saadiyat, Yas, Khalifa City or your home.", km: 0, kind: "origin" },
+      { label: "West", title: "E11 through Al Dhafra", desc: "The coastal highway to the Saudi border.", kind: "road" },
+      { label: "Border", title: "Ghuwaifat → Al Batha", desc: "UAE exit and Saudi entry, in person.", kind: "border" },
+      { label: "Saudi leg", title: "Across to Riyadh", desc: "North-west across the desert.", kind: "road" },
+      { label: "Drop-off", title: "Riyadh", desc: "Home, hotel, office or King Khalid International Airport (RUH).", km: 850, kind: "destination" },
+    ],
+    dropoffs: {
+      heading: "Arriving in Riyadh from Abu Dhabi",
+      intro: "Give us the exact address, or your flight time if you are heading to RUH.",
+      points: [
+        { name: "Business districts", desc: "KAFD, Olaya and the Diplomatic Quarter." },
+        { name: "Homes and compounds", desc: "Anywhere in Riyadh." },
+        { name: "RUH airport", desc: "For onward flights." },
+      ],
+    },
+    whoBooks: [
+      { title: "Government and business visitors", desc: "Executive sedan between the two capitals with a written quote." },
+      { title: "Families with luggage", desc: "One SUV or van instead of two airports." },
+    ],
+    tips: [
+      { title: "Prefer to fly?", desc: "For one traveller with light luggage, flying is faster. The car suits groups and luggage." },
+    ],
+    faqs: [
+      { question: "How long is the drive from Abu Dhabi to Riyadh?", answer: "About 8 hours of driving for roughly 850 km via Ghuwaifat–Al Batha, plus border time and stops." },
+      { question: "Can you pick me up anywhere in Abu Dhabi?", answer: "Yes — the Corniche, Saadiyat, Yas Island, Khalifa City or any address in the city." },
+      { question: "Are border crossing fees included?", answer: "Yes, vehicle border crossing fees are included in the fixed fare." },
+      { question: "What do I need to enter Saudi Arabia?", answer: "A valid passport or accepted ID and the right to enter Saudi Arabia for every passenger. Check official sources before travel — we do not arrange visas." },
+    ],
+    related: [
+      { href: "/routes/riyadh-to-abudhabi", label: "Outbound: Riyadh to Abu Dhabi" },
+      { href: "/routes/dubai-to-riyadh", label: "From Dubai instead" },
+      { href: "/locations/abudhabi", label: "Abu Dhabi cross-border car service" },
+    ],
+  },
+
+  "dammam-to-abudhabi": {
+    slug: "dammam-to-abudhabi",
+    corridorSlug: "saudi-to-uae",
+    eyebrow: "Saudi Arabia → UAE · Al Batha – Ghuwaifat crossing",
+    lead: "From the Eastern Province south along the Gulf side to the Al Batha border, then the E11 to Abu Dhabi. It is a shorter run to the UAE than starting from Riyadh.",
+    quickAnswer:
+      "A private car with driver from Dammam to Abu Dhabi is about 750 km and roughly 7 hours 30 minutes of driving, plus border time. The car heads south through the Eastern Province to the Al Batha–Ghuwaifat crossing and follows the E11 coastal highway to Abu Dhabi. Pickups in Al Khobar and Dhahran can be booked on this route. Vehicle border crossing fees are included.",
+    crossing: BATHA,
+    bestFor: "Eastern Province families & oil-sector staff",
+    stages: [
+      { label: "Pickup", title: "Dammam / Al Khobar / Dhahran", desc: "Home, compound, hotel or office.", km: 0, kind: "origin" },
+      { label: "South", title: "Down the Eastern Province", desc: "Towards the Al Batha border.", kind: "road" },
+      { label: "Border", title: "Al Batha → Ghuwaifat", desc: "Saudi exit and UAE entry, in person.", kind: "border" },
+      { label: "Coast road", title: "E11 to Abu Dhabi", desc: "Along the UAE coast.", kind: "road" },
+      { label: "Drop-off", title: "Abu Dhabi", desc: "Your hotel, home or Zayed International Airport (AUH).", km: 750, kind: "destination" },
+    ],
+    dropoffs: { ...ABU_DHABI_DROPOFFS, intro: "Eastern Province travellers reach Abu Dhabi along the E11 after Ghuwaifat. Give us the exact island or district." },
+    whoBooks: [
+      { title: "Oil and gas professionals", desc: "Eastern Province to Abu Dhabi for work, with a written company quote." },
+      { title: "Families from Khobar and Dhahran", desc: "Holiday trips by SUV or van." },
+    ],
+    tips: [
+      { title: "Khobar or Dhahran pickup", desc: "Book on this route with your exact address — it is the same road south." },
+      { title: "Going to Dubai?", desc: "See Dammam to Dubai — about 140 km further." },
+    ],
+    faqs: [
+      { question: "How far is Dammam from Abu Dhabi?", answer: "About 750 km — roughly 7 hours 30 minutes of driving via the Al Batha–Ghuwaifat crossing, plus border time." },
+      { question: "Can you collect me from Al Khobar or Dhahran?", answer: "Yes. Pickups anywhere in the Dammam–Al Khobar–Dhahran area are booked on this route." },
+      { question: "Is there a cheaper option?", answer: "Yes — border drop-off: we drive you to the Saudi side of Al Batha at a lower fare and you arrange your own onward transport." },
+      { question: "Do I pay anything extra at the border?", answer: "Not for the car: vehicle border crossing fees are part of the fixed fare. Personal visa or entry fees, where they apply, are each passenger's own." },
+      { question: "How much closer is Abu Dhabi from Dammam than from Riyadh?", answer: "About 100 km — roughly 750 km from Dammam against 850 km from Riyadh, both through the Al Batha–Ghuwaifat crossing." },
+    ],
+    related: [
+      { href: "/routes/dammam-to-dubai", label: "Dammam to Dubai" },
+      { href: "/routes/dammam-to-doha", label: "Dammam to Doha" },
+      { href: "/locations/dammam", label: "Dammam private car service" },
+    ],
+  },
+
+  "dammam-to-dubai": {
+    slug: "dammam-to-dubai",
+    corridorSlug: "saudi-to-uae",
+    eyebrow: "Saudi Arabia → UAE · Al Batha – Ghuwaifat crossing",
+    lead: "From Dammam or Al Khobar to Dubai: south to the Al Batha border, along the UAE coast past Abu Dhabi and into Dubai, door to door.",
+    quickAnswer:
+      "A private car with driver from Dammam to Dubai is about 890 km and roughly 8 hours 30 minutes of driving, plus border time. The route runs south to the Al Batha–Ghuwaifat crossing, then along the E11 past Abu Dhabi to Dubai. One driver, one fixed fare with vehicle border fees included.",
+    crossing: BATHA,
+    bestFor: "Relocation, holidays, Eastern Province families",
+    stages: [
+      { label: "Pickup", title: "Dammam / Al Khobar", desc: "Your Eastern Province address.", km: 0, kind: "origin" },
+      { label: "South", title: "To the Al Batha border", desc: "Down the Eastern Province.", kind: "road" },
+      { label: "Border", title: "Al Batha → Ghuwaifat", desc: "Saudi exit and UAE entry, in person.", kind: "border" },
+      { label: "Coast road", title: "E11 past Abu Dhabi", desc: "Dubai is about 140 km beyond Abu Dhabi.", kind: "road" },
+      { label: "Drop-off", title: "Dubai", desc: "Hotel, home, office or DXB.", km: 890, kind: "destination" },
+    ],
+    dropoffs: { ...DUBAI_DROPOFFS, intro: "From the Eastern Province you enter the UAE at Ghuwaifat and pass Abu Dhabi first. These are the usual Dubai drop-offs." },
+    whoBooks: [
+      { title: "Holidays in Dubai", desc: "Families with luggage in one SUV or van." },
+      { title: "Moving to the UAE", desc: "Room for boxes and suitcases; one fare." },
+    ],
+    tips: [
+      { title: "Overnight in Abu Dhabi?", desc: "Breaking the trip is easy — ask for a two-day quote." },
+    ],
+    faqs: [
+      { question: "How far is Dammam from Dubai?", answer: "About 890 km — roughly 8 hours 30 minutes of driving via the Al Batha–Ghuwaifat crossing and the E11, plus border time." },
+      { question: "Can I stop in Abu Dhabi on the way?", answer: "Yes. Abu Dhabi is on the route; a stop or an overnight can be planned into the booking." },
+      { question: "Who pays the border fees?", answer: "The vehicle border crossing fees are already in your fixed fare. Only personal visa or entry fees, where they apply, are paid by each passenger." },
+      { question: "Is Dammam to Dubai shorter than Riyadh to Dubai?", answer: "Yes, by about 100 km — roughly 890 km from Dammam against 990 km from Riyadh, both via the Al Batha–Ghuwaifat crossing." },
+    ],
+    related: [
+      { href: "/routes/dammam-to-abudhabi", label: "Dammam to Abu Dhabi" },
+      { href: "/routes/riyadh-to-dubai", label: "Riyadh to Dubai" },
+      { href: "/locations/alkhobar", label: "Al Khobar chauffeur service" },
+    ],
+  },
+
+  "jeddah-to-abudhabi": {
+    slug: "jeddah-to-abudhabi",
+    corridorSlug: "saudi-to-uae",
+    eyebrow: "Saudi Arabia → UAE · coast to coast",
+    lead: "Red Sea to Arabian Gulf: from Jeddah across Saudi Arabia via Riyadh to the Al Batha border and on to Abu Dhabi. It is a two-day journey, and we will tell you honestly when flying makes more sense.",
+    quickAnswer:
+      "A private car from Jeddah to Abu Dhabi is about 1,750 km and roughly 18 hours of driving, plus border time — realistically a two-day trip. The road crosses Saudi Arabia via Riyadh to the Al Batha–Ghuwaifat crossing and the E11 to Abu Dhabi. For most travellers, flying with a private car at each end is faster; the drive makes sense for relocation, heavy luggage or a multi-stop journey.",
+    crossing: BATHA,
+    bestFor: "Relocation with belongings, multi-stop journeys",
+    stages: [
+      { label: "Pickup", title: "Jeddah", desc: "Home, hotel or office.", km: 0, kind: "origin" },
+      { label: "Day 1", title: "Across Saudi Arabia to Riyadh", desc: "A natural overnight point.", kind: "road" },
+      { label: "Border", title: "Al Batha → Ghuwaifat", desc: "Saudi exit and UAE entry, in person.", kind: "border" },
+      { label: "Day 2", title: "E11 to Abu Dhabi", desc: "Along the UAE coast.", kind: "road" },
+      { label: "Drop-off", title: "Abu Dhabi", desc: "Your Abu Dhabi address.", km: 1750, kind: "destination" },
+    ],
+    dropoffs: ABU_DHABI_DROPOFFS,
+    whoBooks: [
+      { title: "Families relocating", desc: "When everything needs to come with you in one vehicle." },
+      { title: "Multi-stop trips", desc: "Riyadh, the Eastern Province and the UAE in one journey." },
+    ],
+    tips: [
+      { title: "Two days, not one", desc: "We quote it with an overnight stop; the driver's stay is included." },
+      { title: "Fly + car alternative", desc: "Fly Jeddah to Abu Dhabi and book a private car on each end. Faster for most people." },
+    ],
+    tradeOff: {
+      heading: "Is driving from Jeddah to Abu Dhabi worth it?",
+      body: [
+        "For most travellers, no. A flight is far faster, and a private car on each end covers the door-to-door part.",
+        "The drive is worth it when you are moving belongings, travelling as a large family with a lot of luggage, or want to stop in Riyadh or the Eastern Province on the way.",
+      ],
+    },
+    faqs: [
+      { question: "How far is Jeddah from Abu Dhabi by road?", answer: "About 1,750 km — roughly 18 hours of driving plus border time. We recommend two days with an overnight stop." },
+      { question: "Is driving from Jeddah to Abu Dhabi practical?", answer: "Only in specific cases such as relocation or multi-stop trips. Otherwise flying plus a private car on each end is the better plan." },
+      { question: "Are border fees included?", answer: "Yes, vehicle border crossing fees are included in the fixed fare." },
+      { question: "What do I need for the UAE border?", answer: "A valid passport or accepted ID and the right to enter the UAE for every passenger. Check official sources before travel." },
+    ],
+    related: [
+      { href: "/routes/riyadh-to-abudhabi", label: "Riyadh to Abu Dhabi" },
+      { href: "/locations/jeddah", label: "Jeddah chauffeur service" },
+      { href: "/locations/abudhabi", label: "Abu Dhabi cross-border car service" },
+    ],
+  },
+
+  // ─────────────────────────── Kuwait (bespoke, 2026-10-03) ───────────────────────────
+  // Al Khafji (SA) – Al Nuwaiseeb (KW), the main direct crossing (venues.md).
+  // OSRM 2026-10-03: shortest from Riyadh is also via Khafji (722 km vs 826 km
+  // via Al Salmi). Khafji → Kuwait City ≈ 124 km. Distances from ROUTES_DATA.
+  "dammam-to-kuwait": {
+    slug: "dammam-to-kuwait",
+    corridorSlug: "saudi-to-kuwait",
+    eyebrow: "Saudi Arabia → Kuwait · Al Khafji – Nuwaiseeb crossing",
+    lead: "North from Dammam along the Gulf coast, past Jubail to Al Khafji, across into Kuwait at Nuwaiseeb and up to Kuwait City.",
+    quickAnswer:
+      "A private car with driver from Dammam to Kuwait City is about 436 km and roughly 4 hours 10 minutes of driving, plus border time. The coastal road runs north past Jubail to Al Khafji, crosses at Nuwaiseeb and continues about 125 km to Kuwait City. Vehicle border crossing fees are included in the fixed fare, and pickups in Al Khobar and Dhahran use the same road.",
+    crossing: KHAFJI,
+    bestFor: "Family visits, business, Eastern Province residents",
+    stages: [
+      { label: "Pickup", title: "Dammam / Al Khobar", desc: "Home, compound, hotel or office.", km: 0, kind: "origin" },
+      { label: "North", title: "Coast road past Jubail", desc: "Up the Gulf coast towards the border.", kind: "road" },
+      { label: "Border", title: "Al Khafji → Nuwaiseeb", desc: "Saudi exit and Kuwait entry, in person.", kind: "border" },
+      { label: "Kuwait", title: "North past Fahaheel", desc: "About 125 km from the crossing to the city.", kind: "road" },
+      { label: "Drop-off", title: "Kuwait City", desc: "Salmiya, Kuwait City centre, Hawalli or Kuwait International Airport.", km: 436, kind: "destination" },
+    ],
+    dropoffs: { ...KUWAIT_DROPOFFS, intro: "From Dammam you enter Kuwait at Nuwaiseeb and reach Fahaheel and Ahmadi first, then the city." },
+    whoBooks: [
+      { title: "Families visiting Kuwait", desc: "SUV or van with luggage, door to door." },
+      { title: "Business travellers", desc: "Executive sedan, written quote for companies." },
+      { title: "Round trips", desc: "Book both legs together; the driver can wait or return on a set date." },
+    ],
+    tips: [
+      { title: "Busy evenings at Khafji", desc: "Weekend evenings and holiday eves are usually busiest. A morning start is easier." },
+      { title: "Coming from Jubail?", desc: "Jubail has its own shorter route to Kuwait." },
+    ],
+    faqs: [
+      { question: "How far is Dammam from Kuwait City?", answer: "About 436 km — roughly 4 hours 10 minutes of driving along the coast via Al Khafji–Nuwaiseeb, plus border time." },
+      { question: "Which border do you use to Kuwait?", answer: "Al Khafji on the Saudi side and Al Nuwaiseeb on the Kuwaiti side — the main, most direct crossing." },
+      { question: "Is there a cheaper option?", answer: "Yes — border drop-off at the Saudi side of Al Khafji at a lower fare; you arrange your own onward transport." },
+      { question: "What is included in the fare?", answer: "The car, the driver, vehicle border crossing fees and 15–30 minutes of free waiting. Personal visa fees are not included." },
+      { question: "Can I travel from Al Khobar or Dhahran to Kuwait?", answer: "Yes. Pickups in Al Khobar and Dhahran are booked on this route with your exact address; the road north is the same." },
+    ],
+    related: [
+      { href: "/routes/kuwait-to-dammam", label: "Return: Kuwait to Dammam" },
+      { href: "/routes/jubail-to-kuwait", label: "Jubail to Kuwait" },
+      { href: "/locations/dammam", label: "Dammam private car service" },
+    ],
+  },
+
+  "jubail-to-kuwait": {
+    slug: "jubail-to-kuwait",
+    corridorSlug: "saudi-to-kuwait",
+    eyebrow: "Saudi Arabia → Kuwait · Al Khafji – Nuwaiseeb crossing",
+    lead: "From Jubail Industrial City straight up the coast to the Al Khafji border and into Kuwait City. It is the shortest Kuwait run from a major Eastern Province city.",
+    quickAnswer:
+      "A private car with driver from Jubail to Kuwait City is about 375 km and roughly 3 hours 35 minutes of driving, plus border time. The coast road runs north from Jubail to Al Khafji, crosses at Nuwaiseeb and continues about 125 km into Kuwait City. Vehicle border crossing fees are included in the fixed fare.",
+    crossing: KHAFJI,
+    bestFor: "Industrial City professionals, contractors",
+    stages: [
+      { label: "Pickup", title: "Jubail", desc: "Jubail Industrial City, camps, compounds or Jubail town.", km: 0, kind: "origin" },
+      { label: "North", title: "Coast road to Al Khafji", desc: "Straight up the Gulf coast.", kind: "road" },
+      { label: "Border", title: "Al Khafji → Nuwaiseeb", desc: "Saudi exit and Kuwait entry, in person.", kind: "border" },
+      { label: "Drop-off", title: "Kuwait City", desc: "Your hotel, home, office or the airport.", km: 375, kind: "destination" },
+    ],
+    dropoffs: KUWAIT_DROPOFFS,
+    whoBooks: [
+      { title: "Industrial City engineers and contractors", desc: "Leave and weekend trips home or to Kuwait; written quotes for employers." },
+      { title: "Companies moving staff", desc: "Regular runs on one quote with corporate invoicing." },
+    ],
+    tips: [
+      { title: "Site and camp pickups", desc: "Tell us the gate or camp so the driver is at the right entrance." },
+    ],
+    faqs: [
+      { question: "How far is Jubail from Kuwait City?", answer: "About 375 km — roughly 3 hours 35 minutes of driving via Al Khafji–Nuwaiseeb, plus border time." },
+      { question: "Can you pick up from Jubail Industrial City?", answer: "Yes — industrial sites, camps, compounds and Jubail town." },
+      { question: "Can my employer book and get an invoice?", answer: "Yes. Email an RFQ for a written quote. Corporate invoicing can be arranged through our sister company." },
+      { question: "Are border fees included?", answer: "Yes, vehicle border crossing fees are included in the fixed fare." },
+    ],
+    related: [
+      { href: "/routes/dammam-to-kuwait", label: "Dammam to Kuwait" },
+      { href: "/locations/jubail", label: "Jubail private car service" },
+      { href: "/routes/kuwait-to-dammam", label: "Kuwait to Dammam" },
+    ],
+  },
+
+  "riyadh-to-kuwait": {
+    slug: "riyadh-to-kuwait",
+    corridorSlug: "saudi-to-kuwait",
+    eyebrow: "Saudi Arabia → Kuwait · Al Khafji – Nuwaiseeb crossing",
+    lead: "From Riyadh north-east to the Gulf coast at Al Khafji, across at Nuwaiseeb and into Kuwait City. Measured, this is shorter than the inland Al Salmi crossing.",
+    quickAnswer:
+      "A private car with driver from Riyadh to Kuwait City is about 650 km and roughly 6 hours 30 minutes of driving, plus border time. The shortest road reaches the coast at Al Khafji, crosses at Nuwaiseeb and continues about 125 km to Kuwait City. The fixed fare includes vehicle border crossing fees.",
+    crossing: KHAFJI,
+    bestFor: "Business between capitals, families, groups",
+    stages: [
+      { label: "Pickup", title: "Riyadh", desc: "Home, hotel or office.", km: 0, kind: "origin" },
+      { label: "North-east", title: "Towards the Gulf coast", desc: "The long Saudi leg to Al Khafji.", kind: "road" },
+      { label: "Border", title: "Al Khafji → Nuwaiseeb", desc: "Saudi exit and Kuwait entry, in person.", kind: "border" },
+      { label: "Drop-off", title: "Kuwait City", desc: "Hotel, home, office or the airport.", km: 650, kind: "destination" },
+    ],
+    dropoffs: KUWAIT_DROPOFFS,
+    whoBooks: [
+      { title: "Executives", desc: "A working day in the car instead of two airports." },
+      { title: "Families and groups", desc: "SUV or van with all the luggage." },
+    ],
+    tips: [
+      { title: "Why Khafji and not Al Salmi?", desc: "We measured both. Via Khafji is about 100 km shorter from Riyadh, and it is the main crossing." },
+      { title: "Fly or drive?", desc: "Solo with light luggage, flying is quicker. Groups and luggage favour the car." },
+    ],
+    faqs: [
+      { question: "How far is Riyadh from Kuwait City by road?", answer: "About 650 km — roughly 6 hours 30 minutes of driving via the Al Khafji–Nuwaiseeb crossing, plus border time." },
+      { question: "Which border is used from Riyadh to Kuwait?", answer: "Al Khafji–Nuwaiseeb on the coast. It is shorter from Riyadh than the inland Al Salmi crossing." },
+      { question: "Are border fees included?", answer: "Yes, vehicle border crossing fees are included in the fixed fare." },
+      { question: "What vehicles are available?", answer: "Executive sedan, full-size SUV or van, depending on passengers and luggage." },
+      { question: "What documents are needed for Kuwait?", answer: "A valid passport or accepted ID and the right to enter Kuwait; Saudi residents generally also need a valid exit and re-entry visa. Check official sources before travel." },
+    ],
+    related: [
+      { href: "/routes/kuwait-to-riyadh", label: "Return: Kuwait to Riyadh" },
+      { href: "/routes/riyadh-to-manama", label: "Riyadh to Bahrain" },
+      { href: "/locations/riyadh", label: "Riyadh chauffeur service" },
+    ],
+  },
+
+  "kuwait-to-dammam": {
+    slug: "kuwait-to-dammam",
+    h1Suffix: " Taxi",
+    corridorSlug: "saudi-to-kuwait",
+    eyebrow: "Kuwait → Saudi Arabia · Nuwaiseeb – Al Khafji crossing",
+    lead: "Collected anywhere in Kuwait — Salmiya, Hawalli, Farwaniya, Fahaheel or Ahmadi — south across Nuwaiseeb into Saudi Arabia and down the coast to Dammam.",
+    quickAnswer:
+      "A private car with driver from Kuwait City to Dammam is about 436 km and roughly 4 hours 10 minutes of driving, plus border time. The driver collects you anywhere in Kuwait, crosses at Nuwaiseeb–Al Khafji and drives down the coast past Jubail to Dammam, Al Khobar, Dhahran or King Fahd International Airport. Vehicle border crossing fees are included in the fixed fare.",
+    crossing: { name: "Nuwaiseeb – Al Khafji crossing", saudiSide: "Al Khafji", otherSide: "Al Nuwaiseeb" },
+    bestFor: "Kuwait residents travelling to the Eastern Province",
+    stages: [
+      { label: "Pickup", title: "Kuwait", desc: "Kuwait City, Salmiya, Hawalli, Farwaniya, Fahaheel or Ahmadi.", km: 0, kind: "origin" },
+      { label: "Border", title: "Nuwaiseeb → Al Khafji", desc: "About 125 km south of Kuwait City. Kuwait exit and Saudi entry, in person.", kind: "border" },
+      { label: "South", title: "Coast road past Jubail", desc: "Down the Saudi Gulf coast.", kind: "road" },
+      { label: "Drop-off", title: "Dammam", desc: "Dammam, Al Khobar, Dhahran or King Fahd International Airport (DMM).", km: 436, kind: "destination" },
+    ],
+    dropoffs: {
+      heading: "Where we drop off in the Eastern Province",
+      intro: "Dammam, Al Khobar and Dhahran are one metro area.",
+      points: [
+        { name: "Dammam city & hotels", desc: "Homes, hotels and offices." },
+        { name: "Al Khobar & Dhahran", desc: "Compounds, the Corniche and offices." },
+        { name: "King Fahd International Airport (DMM)", desc: "For onward flights — share the departure time." },
+      ],
+    },
+    whoBooks: [
+      { title: "Kuwait residents visiting family", desc: "Door to door with luggage." },
+      { title: "Flights from DMM", desc: "Timed with border and check-in margin." },
+    ],
+    tips: [
+      { title: "Have your Saudi entry ready", desc: "Every passenger needs the right to enter Saudi Arabia." },
+    ],
+    faqs: [
+      { question: "How long is the taxi from Kuwait to Dammam?", answer: "About 4 hours 10 minutes of driving for roughly 436 km via Nuwaiseeb–Al Khafji, plus border time." },
+      { question: "Can I book from anywhere in Kuwait?", answer: "Yes — Kuwait City, Salmiya, Hawalli, Farwaniya, Fahaheel, Ahmadi and other areas." },
+      { question: "How does the Kuwait–Saudi border crossing work?", answer: "You cross at Nuwaiseeb (Kuwait) and Al Khafji (Saudi Arabia). Every passenger completes the exit and entry checks in person; time varies with traffic." },
+      { question: "Are border fees included?", answer: "Yes, vehicle border crossing fees are included in the fixed fare." },
+      { question: "Can I book a return trip?", answer: "Yes. Book both legs together and the return is confirmed in the same quote." },
+    ],
+    related: [
+      { href: "/routes/dammam-to-kuwait", label: "Outbound: Dammam to Kuwait" },
+      { href: "/routes/kuwait-to-riyadh", label: "Kuwait to Riyadh" },
+      { href: "/airports/king-fahd-dammam", label: "Dammam Airport (DMM)" },
+    ],
+  },
+
+  "kuwait-to-riyadh": {
+    slug: "kuwait-to-riyadh",
+    h1Suffix: " Taxi",
+    corridorSlug: "saudi-to-kuwait",
+    eyebrow: "Kuwait → Saudi Arabia · Nuwaiseeb – Al Khafji crossing",
+    lead: "From your Kuwait address south to Nuwaiseeb, into Saudi Arabia at Al Khafji and inland to Riyadh: one driver and one fixed fare.",
+    quickAnswer:
+      "A private car with driver from Kuwait City to Riyadh is about 650 km and roughly 6 hours 30 minutes of driving, plus border time. The shortest road crosses at Nuwaiseeb–Al Khafji on the coast and then heads inland to Riyadh. Drop-offs include KAFD, Olaya, the Diplomatic Quarter and King Khalid International Airport. Vehicle border crossing fees are included.",
+    crossing: { name: "Nuwaiseeb – Al Khafji crossing", saudiSide: "Al Khafji", otherSide: "Al Nuwaiseeb" },
+    bestFor: "Corporate travel, families moving to Riyadh",
+    stages: [
+      { label: "Pickup", title: "Kuwait", desc: "Kuwait City, Salmiya, Hawalli, Farwaniya, Fahaheel or Ahmadi.", km: 0, kind: "origin" },
+      { label: "Border", title: "Nuwaiseeb → Al Khafji", desc: "Kuwait exit and Saudi entry, in person.", kind: "border" },
+      { label: "Inland", title: "South-west to Riyadh", desc: "The long Saudi leg to the capital.", kind: "road" },
+      { label: "Drop-off", title: "Riyadh", desc: "KAFD, Olaya, the Diplomatic Quarter, homes or RUH airport.", km: 650, kind: "destination" },
+    ],
+    dropoffs: {
+      heading: "Where we drop off in Riyadh",
+      intro: "Business districts, homes or the airport.",
+      points: [
+        { name: "Olaya & central Riyadh", desc: "Offices and hotels." },
+        { name: "KAFD & the Diplomatic Quarter", desc: "Financial district and embassies area." },
+        { name: "King Khalid International Airport (RUH)", desc: "For onward flights." },
+      ],
+    },
+    whoBooks: [
+      { title: "Corporate travellers", desc: "Written quote; corporate invoicing through our sister company." },
+      { title: "Families moving to Riyadh", desc: "SUV or van with luggage." },
+    ],
+    tips: [
+      { title: "Plan the Riyadh arrival", desc: "Arriving at rush hour adds time inside the city." },
+    ],
+    faqs: [
+      { question: "How far is Kuwait from Riyadh by road?", answer: "About 650 km — roughly 6 hours 30 minutes of driving via Nuwaiseeb–Al Khafji, plus border time." },
+      { question: "Can I get a corporate booking with an invoice?", answer: "Yes. Email an RFQ for a written quote. Corporate invoicing can be arranged through our sister company." },
+      { question: "Are border fees included?", answer: "Yes, vehicle border crossing fees are included in the fixed fare." },
+      { question: "What documents should I check before travelling?", answer: "Every passenger needs a valid passport or accepted ID and the right to enter Saudi Arabia. Rules depend on nationality and change — check official sources. We do not arrange visas." },
+    ],
+    related: [
+      { href: "/routes/riyadh-to-kuwait", label: "Outbound: Riyadh to Kuwait" },
+      { href: "/routes/kuwait-to-dammam", label: "Kuwait to Dammam" },
       { href: "/locations/riyadh", label: "Riyadh chauffeur service" },
     ],
   },
