@@ -15,6 +15,8 @@
 // - No visa rules, border times, permits or prices. H1 text stays
 //   "<from> to <to>" (unchanged from the template — CLAUDE.md rule 3).
 
+import type { CorridorSlug } from "./cross-border";
+
 export interface RouteStage {
   /** Short label, e.g. "Saudi exit". */
   label: string;
@@ -40,8 +42,10 @@ export interface CrossBorderRoutePageData {
   tradeOff?: { heading: string; body: string[] };
   faqs: { question: string; answer: string }[];
   related: { href: string; label: string }[];
+  /** Distance by pickup point, where the origin is a large area (NEOM). Measured, OSRM. */
+  pickupPoints?: { heading: string; intro: string; rows: { name: string; km: number; drive: string }[] };
   /** Hub this route belongs to. */
-  corridorSlug: "saudi-to-jordan";
+  corridorSlug: CorridorSlug;
 }
 
 const DURRAH = { name: "Al Durrah crossing", saudiSide: "Al Durrah, near Haql", otherSide: "Durra crossing, Aqaba" };
@@ -55,6 +59,30 @@ const AQABA_DROPOFFS = {
     { name: "South Beach & Tala Bay", desc: "Resorts and dive hotels on the coast south of the city, which is the side the border is on." },
     { name: "Ayla", desc: "The marina and residential development north of the centre." },
     { name: "King Hussein International Airport (AQJ)", desc: "For travellers flying on from Aqaba. Tell us your flight time." },
+  ],
+};
+
+const SALWA = { name: "Salwa – Abu Samra crossing", saudiSide: "Salwa", otherSide: "Abu Samra" };
+
+const DOHA_DROPOFFS = {
+  heading: "Where we drop off in Doha",
+  intro: "Abu Samra is about 90 km from Doha, so the last stretch is inside Qatar. Give us the exact address when you book.",
+  points: [
+    { name: "West Bay", desc: "Hotels, towers and offices on the Corniche." },
+    { name: "The Pearl & Lusail", desc: "Residences, hotels and marinas north of the centre." },
+    { name: "Msheireb & central Doha", desc: "Downtown hotels, Souq Waqif area and homes across the city." },
+    { name: "Hamad International Airport (DOH)", desc: "For onward flights. Tell us your departure time." },
+  ],
+};
+
+// NEOM is a large region — measured road distances by pickup point (OSRM 2026-10-03).
+const NEOM_TO_AQABA_POINTS = {
+  heading: "Distance by NEOM pickup point",
+  intro: "NEOM covers a long stretch of coast, so the distance to Aqaba depends on where we collect you.",
+  rows: [
+    { name: "Magna (northern NEOM coast)", km: 165, drive: "2h 10m" },
+    { name: "NEOM Bay Airport (NUM) / Sharma", km: 235, drive: "3h" },
+    { name: "Oxagon (near Duba)", km: 300, drive: "3h 35m" },
   ],
 };
 
@@ -151,6 +179,7 @@ export const CROSS_BORDER_ROUTE_PAGES: Record<string, CrossBorderRoutePageData> 
 
   "neom-to-aqaba": {
     slug: "neom-to-aqaba",
+    pickupPoints: NEOM_TO_AQABA_POINTS,
     corridorSlug: "saudi-to-jordan",
     eyebrow: "Saudi Arabia → Jordan · Gulf of Aqaba coast",
     lead: "Up the Gulf of Aqaba coast from NEOM through Haql, across the Al Durrah crossing and into Aqaba, with the sea alongside most of the way.",
@@ -191,6 +220,7 @@ export const CROSS_BORDER_ROUTE_PAGES: Record<string, CrossBorderRoutePageData> 
 
   "aqaba-to-neom": {
     slug: "aqaba-to-neom",
+    pickupPoints: { ...NEOM_TO_AQABA_POINTS, heading: "Distance by NEOM drop-off point", intro: "NEOM covers a long stretch of coast, so the distance from Aqaba depends on where we drop you." },
     corridorSlug: "saudi-to-jordan",
     eyebrow: "Jordan → Saudi Arabia · Gulf of Aqaba coast",
     lead: "From Aqaba south to the Al Durrah crossing, through Haql and down the Saudi coast road to your site, housing or hotel in NEOM.",
@@ -387,6 +417,15 @@ export const CROSS_BORDER_ROUTE_PAGES: Record<string, CrossBorderRoutePageData> 
 
   "neom-to-amman": {
     slug: "neom-to-amman",
+    pickupPoints: {
+      heading: "Distance by NEOM pickup point",
+      intro: "All three run via Haql, Al Durrah, Aqaba and the Desert Highway; only the Saudi leg changes.",
+      rows: [
+        { name: "Magna (northern NEOM coast)", km: 480, drive: "5h 55m" },
+        { name: "NEOM Bay Airport (NUM) / Sharma", km: 550, drive: "6h 40m" },
+        { name: "Oxagon (near Duba)", km: 620, drive: "7h 20m" },
+      ],
+    },
     corridorSlug: "saudi-to-jordan",
     eyebrow: "Saudi Arabia → Jordan · Al Durrah crossing",
     lead: "From NEOM up the Gulf of Aqaba coast, across the Al Durrah crossing to Aqaba, then the whole length of Jordan's Desert Highway to Amman.",
@@ -581,6 +620,402 @@ export const CROSS_BORDER_ROUTE_PAGES: Record<string, CrossBorderRoutePageData> 
       { href: "/routes/tabuk-to-amman", label: "Shorter: Tabuk to Amman" },
       { href: "/routes/madinah-to-tabuk", label: "Madinah to Tabuk" },
       { href: "/locations/madinah", label: "Madinah chauffeur service" },
+    ],
+  },
+  // ─────────────────────────── Jordan: Haql (added 2026-10-03) ───────────────────────────
+  "haql-to-aqaba": {
+    slug: "haql-to-aqaba",
+    corridorSlug: "saudi-to-jordan",
+    eyebrow: "Saudi Arabia → Jordan · Al Durrah crossing",
+    lead: "The shortest way from Saudi Arabia into Jordan: from Haql on the Gulf of Aqaba, across the Al Durrah crossing to your address in Aqaba, about 40 km door to door.",
+    quickAnswer:
+      "A private transfer from Haql to Aqaba is about 40 km and roughly 35 minutes of driving, plus time at the Al Durrah crossing between the two towns. It is the shortest road link between Saudi Arabia and Jordan. Your driver collects you in Haql and drops you at your hotel or address in Aqaba; border crossing fees for the vehicle are included in the fixed fare.",
+    crossing: DURRAH,
+    bestFor: "Short hops, day trips, onward flights from Aqaba",
+    stages: [
+      { label: "Pickup", title: "Haql", desc: "Your hotel, home or chalet in Haql, or a pickup point along the Haql coast.", km: 0, kind: "origin" },
+      { label: "Saudi exit", title: "Al Durrah", desc: "Saudi exit checks just north of Haql, completed by each passenger in person.", kind: "border" },
+      { label: "Jordan entry", title: "Durra crossing", desc: "Jordan entry checks on the coast road.", kind: "border" },
+      { label: "Drop-off", title: "Aqaba", desc: "City hotel, South Beach or Tala Bay resort, Ayla, or King Hussein International Airport (AQJ).", km: 40, kind: "destination" },
+    ],
+    dropoffs: {
+      heading: "Haql to Aqaba: where you can go",
+      intro: "From Haql the border is close, so most of the trip is the crossing itself. These are the usual destinations.",
+      points: [
+        { name: "South coast resorts", desc: "The dive and beach hotels south of Aqaba are the first stops after the crossing." },
+        { name: "Aqaba city", desc: "Central hotels, apartments and the waterfront." },
+        { name: "Flights from AQJ", desc: "King Hussein International Airport — tell us your departure time." },
+        { name: "Further into Jordan", desc: "Going on to Wadi Rum or Petra? Ask and we quote the longer trip." },
+      ],
+    },
+    whoBooks: [
+      { title: "Visitors staying on the Haql coast", desc: "A day or two in Aqaba with a return booked, without driving yourself across." },
+      { title: "Travellers flying out of Aqaba", desc: "Haql to King Hussein International Airport, timed with a margin for the border." },
+      { title: "Northern NEOM residents", desc: "If you are already near Haql, this is the quickest way into Jordan." },
+    ],
+    tips: [
+      { title: "Most of the time is the border", desc: "The drive is short. Time at Al Durrah is the part that varies, so leave margin for flights." },
+      { title: "Book the return together", desc: "Coming back the same day or later? Book both legs in one quote." },
+    ],
+    faqs: [
+      { question: "How far is Haql from Aqaba?", answer: "About 40 km by road — roughly 35 minutes of driving, plus time at the Al Durrah crossing between Haql and Aqaba." },
+      { question: "Can you take me from Haql all the way into Aqaba?", answer: "Yes. It is a door-to-door transfer: the driver collects you in Haql and drops you at your address in Aqaba, crossing at Al Durrah." },
+      { question: "Is there a cheaper option?", answer: "Yes — border drop-off. We take you to the Saudi side of Al Durrah at a lower fare and you arrange your own onward transport in Jordan." },
+      { question: "Are border fees included?", answer: "Yes. Border crossing fees for the vehicle are included in the fixed fare. Personal visa or entry fees are the passenger's own." },
+      { question: "What documents do I need?", answer: "A valid passport and the right to enter Jordan for every passenger; Saudi residents generally also need a valid exit and re-entry visa. Check official sources before travel — we do not arrange visas." },
+    ],
+    related: [
+      { href: "/routes/tabuk-to-aqaba", label: "Tabuk to Aqaba" },
+      { href: "/routes/neom-to-aqaba", label: "NEOM to Aqaba" },
+      { href: "/locations/neom", label: "NEOM private transfers" },
+    ],
+  },
+
+  // ─────────────────────────── Qatar (bespoke, 2026-10-03) ───────────────────────────
+  // Distances from ROUTES_DATA (Dammam → Doha 400 km via Al Ahsa/Hofuf; OSRM
+  // Dammam → Hofuf → Doha 413 km). Abu Samra ~90 km from Doha (venues.md).
+  "dammam-to-doha": {
+    slug: "dammam-to-doha",
+    corridorSlug: "saudi-to-qatar",
+    eyebrow: "Saudi Arabia → Qatar · Salwa – Abu Samra crossing",
+    lead: "From your door in Dammam south through Al Ahsa to the Salwa border, into Qatar at Abu Samra and on to your address in Doha. One private car, no change of vehicle.",
+    quickAnswer:
+      "A private transfer from Dammam to Doha is about 400 km and roughly 4 hours of driving, plus time at the border. The car runs south through the Al Ahsa (Hofuf) area to Salwa, the only land crossing into Qatar, then from Abu Samra about 90 km into Doha. Border crossing fees for the vehicle are included in the fixed fare, and each passenger carries their own valid documents.",
+    crossing: SALWA,
+    bestFor: "Business trips, family visits, weekend in Doha",
+    stages: [
+      { label: "Pickup", title: "Dammam", desc: "Home, hotel, compound or office anywhere in Dammam.", km: 0, kind: "origin" },
+      { label: "South", title: "Al Ahsa (Hofuf) area", desc: "The road south through the Eastern Province towards Al Ahsa.", km: 150, kind: "road" },
+      { label: "Saudi exit", title: "Salwa", desc: "Saudi exit checks, completed by each passenger in person.", km: 300, kind: "border" },
+      { label: "Qatar entry", title: "Abu Samra", desc: "Qatar entry checks, about 90 km from Doha.", kind: "border" },
+      { label: "Drop-off", title: "Doha", desc: "Hotel, home, office or Hamad International Airport (DOH).", km: 400, kind: "destination" },
+    ],
+    dropoffs: DOHA_DROPOFFS,
+    whoBooks: [
+      { title: "Engineers and business travellers", desc: "Executive sedan between Dammam offices and Doha meetings, with a written quote for the company." },
+      { title: "Families visiting relatives", desc: "SUV or van with luggage, door to door, with rest stops when you want them." },
+      { title: "Weekend in Doha", desc: "Book a return and the driver brings you back on the day you choose." },
+    ],
+    tips: [
+      { title: "Travelling with family and bags?", desc: "Pick an SUV or van. The extra space matters on a 4-hour drive plus the border." },
+      { title: "Weekend traffic", desc: "Border traffic is usually heavier around weekends and holidays. Leave early if you have plans in Doha." },
+      { title: "Flying out of Doha?", desc: "Give us your Hamad International Airport flight time and we set the pickup with border margin." },
+    ],
+    faqs: [
+      { question: "How far is Dammam from Doha by car?", answer: "About 400 km — roughly 4 hours of driving via Al Ahsa and the Salwa–Abu Samra crossing, plus time at the border, which varies." },
+      { question: "Which border is used from Dammam to Qatar?", answer: "Salwa on the Saudi side and Abu Samra on the Qatari side. It is the only land crossing between Saudi Arabia and Qatar." },
+      { question: "Is there a bus from Dammam to Qatar?", answer: "We don't run buses. If you're comparing options, a private car takes you from your door in Dammam to your address in Doha with no transfers, and the fare covers the whole group, not each seat." },
+      { question: "Can you pick up in Al Khobar or from Dammam airport?", answer: "Yes. Al Khobar and King Fahd International Airport (DMM) each have their own Doha route page, and pickups anywhere in the Dammam metro area can be booked." },
+      { question: "Are the border crossing fees included in the fare?", answer: "Yes. Vehicle border crossing fees are included in the fixed fare. Personal visa or entry fees, where they apply, are paid by each passenger." },
+      { question: "What documents do I need to enter Qatar by road?", answer: "A valid passport or accepted ID and the right to enter Qatar for every passenger; Saudi residents generally also need a valid exit and re-entry visa. Rules change, so check official sources before travel. We do not arrange visas." },
+    ],
+    related: [
+      { href: "/routes/doha-to-dammam", label: "Return trip: Doha to Dammam" },
+      { href: "/routes/alkhobar-to-doha", label: "Al Khobar to Doha" },
+      { href: "/routes/dammam-airport-to-doha", label: "Dammam Airport (DMM) to Doha" },
+      { href: "/locations/dammam", label: "Dammam private car service" },
+    ],
+  },
+
+  "alkhobar-to-doha": {
+    slug: "alkhobar-to-doha",
+    corridorSlug: "saudi-to-qatar",
+    eyebrow: "Saudi Arabia → Qatar · Salwa – Abu Samra crossing",
+    lead: "Collected from your Al Khobar or Dhahran home, compound or Corniche hotel, and driven to Doha via Al Ahsa and the Salwa border.",
+    quickAnswer:
+      "A private transfer from Al Khobar to Doha is about 400 km and roughly 4 hours of driving, plus border time. The driver collects you anywhere in Al Khobar or Dhahran, heads south through Al Ahsa to the Salwa crossing and continues from Abu Samra into Doha. One fixed fare covers the car with border crossing fees included.",
+    crossing: SALWA,
+    bestFor: "Dhahran and Khobar professionals, compound residents",
+    stages: [
+      { label: "Pickup", title: "Al Khobar / Dhahran", desc: "Homes, residential compounds, the Corniche hotels and Dhahran offices.", km: 0, kind: "origin" },
+      { label: "South", title: "Al Ahsa (Hofuf) area", desc: "Inland towards Al Ahsa.", km: 150, kind: "road" },
+      { label: "Saudi exit", title: "Salwa", desc: "Saudi exit checks, in person.", km: 300, kind: "border" },
+      { label: "Qatar entry", title: "Abu Samra", desc: "About 90 km from Doha.", kind: "border" },
+      { label: "Drop-off", title: "Doha", desc: "West Bay, The Pearl, Lusail, Msheireb or Hamad International Airport (DOH).", km: 400, kind: "destination" },
+    ],
+    dropoffs: DOHA_DROPOFFS,
+    whoBooks: [
+      { title: "Dhahran-based professionals", desc: "Business trips to Doha in an executive sedan, with a written quote and corporate invoicing on request." },
+      { title: "Compound families", desc: "Pickup at the compound gate, SUV or van, luggage and children's seats on request." },
+      { title: "Corniche hotel guests", desc: "Visitors staying in Al Khobar who continue to Qatar." },
+    ],
+    tips: [
+      { title: "Compound gate pickups", desc: "Tell us the gate and any access rules so the driver is waiting at the right entrance." },
+      { title: "Round trip from Khobar", desc: "Book both legs together and the return is confirmed in the same quote." },
+    ],
+    faqs: [
+      { question: "How long does it take from Al Khobar to Doha by car?", answer: "About 4 hours of driving for roughly 400 km via Al Ahsa and the Salwa–Abu Samra crossing, plus border time." },
+      { question: "Do you pick up from Dhahran and residential compounds?", answer: "Yes. Pickups anywhere in Al Khobar and Dhahran, including compound gates and the Corniche hotels." },
+      { question: "Is Al Khobar to Doha the same as Dammam to Doha?", answer: "It is the same road south via Al Ahsa and Salwa, and a similar distance. The difference is where you are collected." },
+      { question: "Can a company book and get an invoice?", answer: "Yes. Email an RFQ for a written quote. Corporate invoicing can be arranged through our sister company." },
+      { question: "Are border crossing fees included?", answer: "Yes, vehicle border crossing fees are included in the fixed fare." },
+    ],
+    related: [
+      { href: "/routes/dammam-to-doha", label: "Dammam to Doha" },
+      { href: "/routes/alkhobar-to-manama", label: "Al Khobar to Bahrain instead?" },
+      { href: "/locations/alkhobar", label: "Al Khobar chauffeur service" },
+      { href: "/locations/dhahran", label: "Dhahran private car service" },
+    ],
+  },
+
+  "dammam-airport-to-doha": {
+    slug: "dammam-airport-to-doha",
+    corridorSlug: "saudi-to-qatar",
+    eyebrow: "Airport → Qatar · Salwa – Abu Samra crossing",
+    lead: "Land at King Fahd International Airport (DMM), meet your driver and go straight to Doha, with no night in Dammam and no second transfer.",
+    quickAnswer:
+      "A private transfer from Dammam Airport (DMM) to Doha is about 420 km and roughly 4 hours 10 minutes of driving, plus border time. Your driver meets you at King Fahd International Airport, drives south via Al Ahsa to the Salwa crossing and on from Abu Samra into Doha. Share your flight number when you book; border crossing fees are included in the fixed fare.",
+    crossing: SALWA,
+    bestFor: "Travellers connecting from a DMM flight to Qatar",
+    stages: [
+      { label: "Pickup", title: "King Fahd International Airport (DMM)", desc: "Pickup timed to your arrival. Share your flight number when you book.", km: 0, kind: "origin" },
+      { label: "South", title: "Al Ahsa (Hofuf) area", desc: "From the airport south towards Al Ahsa.", km: 170, kind: "road" },
+      { label: "Saudi exit", title: "Salwa", desc: "Saudi exit checks, in person.", km: 320, kind: "border" },
+      { label: "Qatar entry", title: "Abu Samra", desc: "About 90 km from Doha.", kind: "border" },
+      { label: "Drop-off", title: "Doha", desc: "Your hotel, home or Hamad International Airport (DOH).", km: 420, kind: "destination" },
+    ],
+    dropoffs: DOHA_DROPOFFS,
+    whoBooks: [
+      { title: "Flying in via Dammam for Qatar", desc: "When the DMM fare or schedule suits better than a direct flight to Doha." },
+      { title: "Business arrivals", desc: "Executive sedan straight from arrivals to a Doha meeting or hotel." },
+      { title: "Families with luggage", desc: "SUV or van so everyone and every bag goes in one car." },
+    ],
+    tips: [
+      { title: "Long day after a flight", desc: "With a 4-hour drive plus the border, rest stops are planned with you. Tell us if you'd rather overnight in Dammam." },
+      { title: "Check your Qatar entry before you fly", desc: "Make sure every passenger can enter Qatar by road before the trip." },
+    ],
+    faqs: [
+      { question: "Can I go straight from Dammam airport to Doha by car?", answer: "Yes. The driver meets you at King Fahd International Airport (DMM) and drives you to your address in Doha — about 420 km via Al Ahsa and the Salwa–Abu Samra crossing." },
+      { question: "What if my flight into DMM is delayed?", answer: "Share your flight number when you book and we check it before pickup, so the pickup is planned around your actual arrival. 15–30 minutes of free waiting is included." },
+      { question: "How long is the drive from DMM to Doha?", answer: "Roughly 4 hours 10 minutes of driving plus border time." },
+      { question: "Are border fees included?", answer: "Yes, vehicle border crossing fees are included in the fixed fare." },
+      { question: "What documents do I need?", answer: "A valid passport or accepted ID and the right to enter Qatar for every passenger. Check official sources before travel — we do not arrange visas." },
+    ],
+    related: [
+      { href: "/routes/dammam-airport-to-bahrain", label: "Dammam Airport to Bahrain" },
+      { href: "/routes/dammam-to-doha", label: "Dammam city to Doha" },
+      { href: "/airports/king-fahd-dammam", label: "Dammam Airport (DMM) transfers" },
+    ],
+  },
+
+  "alahsa-to-doha": {
+    slug: "alahsa-to-doha",
+    corridorSlug: "saudi-to-qatar",
+    eyebrow: "Saudi Arabia → Qatar · Salwa – Abu Samra crossing",
+    lead: "The shortest Saudi road into Qatar: from Hofuf and Al Ahsa straight to the Salwa border and on to Doha.",
+    quickAnswer:
+      "A private transfer from Al Ahsa (Hofuf) to Doha is about 265 km and roughly 3 hours of driving, plus border time. It is the shortest road route from a major Saudi city into Qatar. The driver heads east from Hofuf to the Salwa crossing, enters Qatar at Abu Samra and continues about 90 km to Doha. Border crossing fees are included in the fixed fare.",
+    crossing: SALWA,
+    bestFor: "Shortest Saudi–Qatar trip, families, Al Ahsa residents",
+    stages: [
+      { label: "Pickup", title: "Al Ahsa (Hofuf)", desc: "Home, hotel or Al-Ahsa International Airport (HOF).", km: 0, kind: "origin" },
+      { label: "Saudi exit", title: "Salwa", desc: "Saudi exit checks, in person.", km: 160, kind: "border" },
+      { label: "Qatar entry", title: "Abu Samra", desc: "Qatar entry checks.", kind: "border" },
+      { label: "Drop-off", title: "Doha", desc: "Your hotel, home or Hamad International Airport (DOH).", km: 265, kind: "destination" },
+    ],
+    dropoffs: DOHA_DROPOFFS,
+    whoBooks: [
+      { title: "Al Ahsa families", desc: "The shortest trip into Qatar for visiting relatives. SUV or van with luggage." },
+      { title: "Short business visits", desc: "Out in the morning, meetings in Doha, back the same evening with the driver waiting." },
+    ],
+    tips: [
+      { title: "Same-day return is realistic", desc: "At about 3 hours each way, a day trip with the driver waiting is possible. Book it as a return." },
+      { title: "Heading to Doha airport?", desc: "Tell us your flight time at Hamad International Airport so we add border margin." },
+    ],
+    faqs: [
+      { question: "How far is Al Ahsa from Doha?", answer: "About 265 km — roughly 3 hours of driving via the Salwa–Abu Samra crossing, plus time at the border." },
+      { question: "Is Al Ahsa the closest Saudi city to Qatar?", answer: "Of the major cities, yes. Hofuf is the closest large city to the Salwa border, so this is the shortest of our Saudi–Qatar routes." },
+      { question: "Can the driver wait in Doha and bring me back the same day?", answer: "Yes. Book a return with waiting; the waiting time is included in the written fixed fare." },
+      { question: "Are border fees included?", answer: "Yes, vehicle border crossing fees are included in the fixed fare." },
+      { question: "What documents do I need?", answer: "A valid passport or accepted ID and the right to enter Qatar; Saudi residents generally also need a valid exit and re-entry visa. Check official sources before travel." },
+    ],
+    related: [
+      { href: "/routes/doha-to-alahsa", label: "Return trip: Doha to Al Ahsa" },
+      { href: "/routes/dammam-to-doha", label: "Dammam to Doha" },
+      { href: "/routes/riyadh-to-doha", label: "Riyadh to Doha" },
+    ],
+  },
+
+  "riyadh-to-doha": {
+    slug: "riyadh-to-doha",
+    corridorSlug: "saudi-to-qatar",
+    eyebrow: "Saudi Arabia → Qatar · Salwa – Abu Samra crossing",
+    lead: "From Riyadh east across the desert to Al Ahsa, through the Salwa border and into Doha: a full private day on the road instead of two airports.",
+    quickAnswer:
+      "A private transfer from Riyadh to Doha is about 580 km and roughly 5 hours 30 minutes of driving, plus border time. The road runs east to the Al Ahsa (Hofuf) area, then to the Salwa crossing and from Abu Samra into Doha. One car and driver take you from your Riyadh address to your Doha address; border crossing fees are included in the fixed fare.",
+    crossing: SALWA,
+    bestFor: "Executives, families with luggage, group travel",
+    stages: [
+      { label: "Pickup", title: "Riyadh", desc: "Home, hotel or office — KAFD, Olaya, Diplomatic Quarter, anywhere in the city.", km: 0, kind: "origin" },
+      { label: "East", title: "Across to Al Ahsa (Hofuf)", desc: "The long desert stretch east from Riyadh.", km: 330, kind: "road" },
+      { label: "Saudi exit", title: "Salwa", desc: "Saudi exit checks, in person.", km: 480, kind: "border" },
+      { label: "Qatar entry", title: "Abu Samra", desc: "About 90 km from Doha.", kind: "border" },
+      { label: "Drop-off", title: "Doha", desc: "Hotel, home, office or Hamad International Airport (DOH).", km: 580, kind: "destination" },
+    ],
+    dropoffs: DOHA_DROPOFFS,
+    whoBooks: [
+      { title: "Executives between the two capitals", desc: "Work on the road in an executive sedan instead of airport queues, with a written quote for the company." },
+      { title: "Families and groups", desc: "One SUV or van for everyone and their luggage, door to door." },
+    ],
+    tips: [
+      { title: "Fly or drive?", desc: "One person with a small bag is usually quicker by air. Families, groups and heavy luggage tend to be simpler by car." },
+      { title: "Start early", desc: "A morning departure gets you into Doha in daylight even with a border queue." },
+    ],
+    tradeOff: {
+      heading: "Riyadh to Doha: fly or drive?",
+      body: [
+        "Flying is faster for a solo traveller with light luggage, once you count airport time on both ends.",
+        "A private car makes more sense for three or more people, heavy luggage, or travellers who want to leave from their door and arrive at their door without check-in and baggage limits.",
+      ],
+    },
+    faqs: [
+      { question: "How far is Riyadh from Doha by road?", answer: "About 580 km — roughly 5 hours 30 minutes of driving via Al Ahsa and the Salwa–Abu Samra crossing, plus border time." },
+      { question: "Do you stop on the way from Riyadh to Doha?", answer: "Yes. On a 5.5-hour drive the driver plans rest, meal and prayer stops with you — usually in the Al Ahsa area before the border." },
+      { question: "Is driving better than flying from Riyadh to Doha?", answer: "Flying is quicker for one person travelling light. For families, groups or lots of luggage, a door-to-door private car is often simpler." },
+      { question: "Are border crossing fees included?", answer: "Yes. Vehicle border crossing fees are included in the fixed fare." },
+      { question: "Who handles the passports at Salwa?", answer: "Each passenger presents their own passport and Qatar entry approval at the crossing; we do not arrange visas or immigration. Residents of Saudi Arabia usually also need an exit and re-entry visa — check the current rules before you travel." },
+    ],
+    related: [
+      { href: "/routes/doha-to-riyadh", label: "Return trip: Doha to Riyadh" },
+      { href: "/routes/riyadh-to-manama", label: "Riyadh to Bahrain" },
+      { href: "/locations/riyadh", label: "Riyadh chauffeur service" },
+    ],
+  },
+
+  "doha-to-dammam": {
+    slug: "doha-to-dammam",
+    corridorSlug: "saudi-to-qatar",
+    eyebrow: "Qatar → Saudi Arabia · Abu Samra – Salwa crossing",
+    lead: "Pickup at your Doha hotel or home, out through Abu Samra and Salwa, north via Al Ahsa to Dammam or a flight at King Fahd International Airport.",
+    quickAnswer:
+      "A private transfer from Doha to Dammam is about 400 km and roughly 4 hours of driving, plus border time. The driver collects you in Doha, crosses at Abu Samra and Salwa and drives north through Al Ahsa to your address in Dammam or to King Fahd International Airport (DMM). Border crossing fees are included in the fixed fare.",
+    crossing: { name: "Abu Samra – Salwa crossing", saudiSide: "Salwa", otherSide: "Abu Samra" },
+    bestFor: "Return trips, DMM flights, Eastern Province residents",
+    stages: [
+      { label: "Pickup", title: "Doha", desc: "Hotel, home or office anywhere in Doha.", km: 0, kind: "origin" },
+      { label: "Qatar exit", title: "Abu Samra", desc: "About 90 km from Doha. Each passenger completes the exit in person.", km: 90, kind: "border" },
+      { label: "Saudi entry", title: "Salwa", desc: "Saudi entry checks.", kind: "border" },
+      { label: "North", title: "Al Ahsa (Hofuf) area", desc: "Up through Al Ahsa towards the coast.", km: 250, kind: "road" },
+      { label: "Drop-off", title: "Dammam", desc: "Home, hotel, compound or King Fahd International Airport (DMM).", km: 400, kind: "destination" },
+    ],
+    dropoffs: {
+      heading: "Where we drop off in the Eastern Province",
+      intro: "Dammam, Al Khobar, Dhahran or the airport — give us the exact address.",
+      points: [
+        { name: "Dammam city", desc: "Homes, hotels and offices." },
+        { name: "Al Khobar & Dhahran", desc: "Compounds, the Corniche and Dhahran offices." },
+        { name: "King Fahd International Airport (DMM)", desc: "For an onward flight — tell us the departure time." },
+      ],
+    },
+    whoBooks: [
+      { title: "Eastern Province residents returning home", desc: "The return half of a Doha trip." },
+      { title: "Qatar residents catching DMM flights", desc: "Door to departures with margin for the border and check-in." },
+    ],
+    tips: [
+      { title: "Catching a flight at DMM?", desc: "Share the departure time. We work back the drive, a border margin and check-in." },
+      { title: "Have your Saudi entry ready", desc: "Every passenger needs the right to enter Saudi Arabia." },
+    ],
+    faqs: [
+      { question: "How long is the drive from Doha to Dammam?", answer: "About 4 hours of driving for roughly 400 km via the Abu Samra–Salwa crossing and Al Ahsa, plus border time." },
+      { question: "Can you take me from Doha to Dammam airport?", answer: "Yes. Drop-off at King Fahd International Airport (DMM) can be booked; tell us the flight time so pickup in Doha includes border margin." },
+      { question: "Are border crossing fees included?", answer: "Yes, vehicle border crossing fees are included in the fixed fare." },
+      { question: "What do I need to enter Saudi Arabia by road?", answer: "A valid passport or accepted ID and the right to enter Saudi Arabia for every passenger. Check official sources before travel — we do not arrange visas." },
+      { question: "Does the driver wait if I'm running late?", answer: "Yes — 15–30 minutes of free waiting is included on every trip." },
+    ],
+    related: [
+      { href: "/routes/dammam-to-doha", label: "Outbound: Dammam to Doha" },
+      { href: "/routes/doha-to-alahsa", label: "Doha to Al Ahsa" },
+      { href: "/airports/king-fahd-dammam", label: "Dammam Airport (DMM)" },
+    ],
+  },
+
+  "doha-to-alahsa": {
+    slug: "doha-to-alahsa",
+    corridorSlug: "saudi-to-qatar",
+    eyebrow: "Qatar → Saudi Arabia · Abu Samra – Salwa crossing",
+    lead: "The shortest drive from Qatar into Saudi Arabia: from Doha through Abu Samra and Salwa to Hofuf and the Al Ahsa oasis.",
+    quickAnswer:
+      "A private transfer from Doha to Al Ahsa is about 265 km and roughly 3 hours of driving, plus border time — the shortest road trip from Qatar to a major Saudi city. The driver collects you in Doha, crosses at Abu Samra and Salwa and drops you in Hofuf or anywhere in Al Ahsa. Border crossing fees are included in the fixed fare.",
+    crossing: { name: "Abu Samra – Salwa crossing", saudiSide: "Salwa", otherSide: "Abu Samra" },
+    bestFor: "Family visits, Al Ahsa Oasis trips, HOF flights",
+    stages: [
+      { label: "Pickup", title: "Doha", desc: "Hotel, home or office.", km: 0, kind: "origin" },
+      { label: "Qatar exit", title: "Abu Samra", desc: "About 90 km from Doha.", km: 90, kind: "border" },
+      { label: "Saudi entry", title: "Salwa", desc: "Saudi entry checks, in person.", kind: "border" },
+      { label: "Drop-off", title: "Al Ahsa (Hofuf)", desc: "Home, hotel, the oasis area or Al-Ahsa International Airport (HOF).", km: 265, kind: "destination" },
+    ],
+    dropoffs: {
+      heading: "Where we drop off in Al Ahsa",
+      intro: "Anywhere in Hofuf, Mubarraz and the Al Ahsa oasis area.",
+      points: [
+        { name: "Hofuf & Mubarraz", desc: "Homes, hotels and offices." },
+        { name: "Al Ahsa Oasis sights", desc: "Drop at your hotel or the site you are visiting." },
+        { name: "Al-Ahsa International Airport (HOF)", desc: "For onward domestic flights." },
+      ],
+    },
+    whoBooks: [
+      { title: "Families from Qatar visiting Al Ahsa", desc: "The shortest cross-border family trip, in an SUV or van." },
+      { title: "Visitors to the Al Ahsa Oasis", desc: "A UNESCO-listed oasis about three hours from Doha by road." },
+    ],
+    tips: [
+      { title: "Make it a return", desc: "Short enough for a weekend; book the return leg in the same quote." },
+    ],
+    faqs: [
+      { question: "How far is Doha from Al Ahsa?", answer: "About 265 km — roughly 3 hours of driving via the Abu Samra–Salwa crossing, plus border time." },
+      { question: "Is this the shortest road trip from Qatar to Saudi Arabia?", answer: "To a major Saudi city, yes. Hofuf is the closest large city to the Salwa border." },
+      { question: "Are border fees included?", answer: "Yes, vehicle border crossing fees are included in the fixed fare." },
+      { question: "What do I need to enter Saudi Arabia?", answer: "A valid passport or accepted ID and the right to enter Saudi Arabia for every passenger. Check official sources before travel." },
+    ],
+    related: [
+      { href: "/routes/alahsa-to-doha", label: "Outbound: Al Ahsa to Doha" },
+      { href: "/routes/doha-to-dammam", label: "Doha to Dammam" },
+      { href: "/routes/doha-to-riyadh", label: "Doha to Riyadh" },
+    ],
+  },
+
+  "doha-to-riyadh": {
+    slug: "doha-to-riyadh",
+    corridorSlug: "saudi-to-qatar",
+    eyebrow: "Qatar → Saudi Arabia · Abu Samra – Salwa crossing",
+    lead: "From Doha through Abu Samra and Salwa, west across Al Ahsa and the desert to your address in Riyadh.",
+    quickAnswer:
+      "A private transfer from Doha to Riyadh is about 580 km and roughly 5 hours 30 minutes of driving, plus border time. The car leaves your Doha address, crosses at Abu Samra and Salwa, passes the Al Ahsa (Hofuf) area and continues west to Riyadh. Border crossing fees are included in the fixed fare; 15–30 minutes of free waiting is included.",
+    crossing: { name: "Abu Samra – Salwa crossing", saudiSide: "Salwa", otherSide: "Abu Samra" },
+    bestFor: "Business trips to Riyadh, families relocating",
+    stages: [
+      { label: "Pickup", title: "Doha", desc: "Hotel, home or office.", km: 0, kind: "origin" },
+      { label: "Qatar exit", title: "Abu Samra", desc: "About 90 km from Doha.", km: 90, kind: "border" },
+      { label: "Saudi entry", title: "Salwa", desc: "Saudi entry checks, in person.", kind: "border" },
+      { label: "West", title: "Past Al Ahsa (Hofuf)", desc: "Then the long desert stretch to the capital.", km: 250, kind: "road" },
+      { label: "Drop-off", title: "Riyadh", desc: "Hotel, home, office or King Khalid International Airport (RUH).", km: 580, kind: "destination" },
+    ],
+    dropoffs: {
+      heading: "Where we drop off in Riyadh",
+      intro: "Anywhere in Riyadh, or at the airport.",
+      points: [
+        { name: "KAFD, Olaya & the Diplomatic Quarter", desc: "Business districts and hotels." },
+        { name: "Homes across Riyadh", desc: "Give us the address or a pin." },
+        { name: "King Khalid International Airport (RUH)", desc: "For onward flights." },
+      ],
+    },
+    whoBooks: [
+      { title: "Qatar-based executives with Riyadh meetings", desc: "Executive sedan with a written quote for the company." },
+      { title: "Families moving with luggage", desc: "SUV or van; one fare for everyone." },
+    ],
+    tips: [
+      { title: "Plan it as a day", desc: "With the border and stops it fills most of a day." },
+      { title: "Riyadh traffic at arrival", desc: "Arriving at rush hour adds time inside the city. Tell us your plans and we time the departure." },
+    ],
+    faqs: [
+      { question: "How long is the drive from Doha to Riyadh?", answer: "About 5 hours 30 minutes of driving for roughly 580 km via the Abu Samra–Salwa crossing and Al Ahsa, plus border time." },
+      { question: "Can you drop me at Riyadh airport?", answer: "Yes. Drop-off at King Khalid International Airport (RUH) can be booked; share your flight time." },
+      { question: "Are border fees included?", answer: "Yes, vehicle border crossing fees are included in the fixed fare." },
+      { question: "What do I need to enter Saudi Arabia by road?", answer: "A valid passport or accepted ID and the right to enter Saudi Arabia for every passenger. Check official sources before travel — we do not arrange visas." },
+    ],
+    related: [
+      { href: "/routes/riyadh-to-doha", label: "Outbound: Riyadh to Doha" },
+      { href: "/routes/doha-to-dammam", label: "Doha to Dammam" },
+      { href: "/locations/riyadh", label: "Riyadh chauffeur service" },
     ],
   },
 };

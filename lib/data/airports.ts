@@ -183,7 +183,8 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
       { question: "What happens if my flight is delayed?", answer: "Share your flight number when you book and we check it before pickup, so the pickup time is planned around your actual arrival." }
     ],
     relatedLinks: [
-      { href: "/routes/dammam-to-doha", label: "DMM to Doha, Qatar — cross-border" },
+      { href: "/routes/dammam-airport-to-doha", label: "DMM straight to Doha, Qatar" },
+      { href: "/routes/dammam-to-doha", label: "Dammam city to Doha" },
       { href: "/routes/dammam-to-manama", label: "DMM to Manama, Bahrain" },
       { href: "/routes/dammam-airport-to-bahrain", label: "Dammam Airport to Bahrain — direct private transfer" },
       { href: "/routes/bahrain-to-dammam-airport", label: "Bahrain to Dammam Airport for your flight" },

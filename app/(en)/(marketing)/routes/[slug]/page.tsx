@@ -103,13 +103,6 @@ const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup:
     pickup: "Jeddah Airport (JED)",
     dropoff: "Swissotel Al Maqam Makkah",
   },
-  "dammam-to-doha": {
-    heading: "Get your Dammam to Doha quote",
-    blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, door-to-door cross-border transfer to Qatar with a professional chauffeur. You carry your own valid documents; we support the crossing.",
-    pickup: "Dammam",
-    dropoff: "Doha, Qatar",
-  },
   "riyadh-to-dubai": {
     heading: "Get your Riyadh to Dubai car-with-driver quote",
     blurb:
@@ -172,13 +165,6 @@ const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup:
       "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked long-distance car with a professional chauffeur, about 1,750 km via the Al Batha–Ghuwaifat border. Ask about a fly + private-transfer alternative if you'd rather skip the full road journey.",
     pickup: "Jeddah",
     dropoff: "Abu Dhabi, UAE",
-  },
-  "riyadh-to-doha": {
-    heading: "Get your Riyadh to Doha car-with-driver quote",
-    blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked cross-border car with a professional chauffeur, about 580 km via the Salwa border. You carry your own valid documents; we support the crossing.",
-    pickup: "Riyadh",
-    dropoff: "Doha, Qatar",
   },
   "riyadh-to-manama": {
     heading: "Get your Riyadh to Bahrain car-with-driver quote",
@@ -278,27 +264,6 @@ const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup:
     pickup: "Madinah",
     dropoff: "Tabuk",
   },
-  "doha-to-dammam": {
-    heading: "Get your Doha to Dammam quote",
-    blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked return car with a professional chauffeur across the Salwa border to the Eastern Province, about 400 km. You carry your own valid documents; we support the crossing.",
-    pickup: "Doha, Qatar",
-    dropoff: "Dammam",
-  },
-  "doha-to-riyadh": {
-    heading: "Get your Doha to Riyadh quote",
-    blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked return car with a professional chauffeur across the Salwa border to the Saudi capital, about 580 km. You carry your own valid documents; we support the crossing.",
-    pickup: "Doha, Qatar",
-    dropoff: "Riyadh",
-  },
-  "alahsa-to-doha": {
-    heading: "Get your Al Ahsa to Doha quote",
-    blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, pre-booked cross-border car with a professional chauffeur, about 320 km via the Salwa border, the shortest Saudi gateway to Qatar. You carry your own valid documents; we support the crossing.",
-    pickup: "Al Ahsa",
-    dropoff: "Doha, Qatar",
-  },
 };
 
 // Corporate (Path B) block config for business-corridor routes. The invoicing
@@ -336,14 +301,6 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
     waPrefill: `Salam! Corporate transfer enquiry — Jeddah / KAEC (King Abdullah Economic City).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Jeddah–KAEC",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate transfers between Jeddah and King Abdullah Economic City (KAEC).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
-  },
-  "dammam-to-doha": {
-    heading: "Cross-border business travel, Dammam to Doha?",
-    intro:
-      "For business travel across the Salwa border to Qatar we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. You carry your own valid passport and entry papers; the vehicle for your date is confirmed as eligible to cross. Regular company trips can run on a single account with one point of contact.",
-    waPrefill: `Salam! Corporate cross-border transfer — Dammam / Doha (Qatar).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
-    emailSubject: "Corporate transfer RFQ — Dammam–Doha",
-    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Dammam and Doha, Qatar (via the Salwa border).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
   "riyadh-to-dubai": {
     heading: "Executive car with driver, Riyadh to Dubai?",
@@ -384,14 +341,6 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
     waPrefill: `Salam! Executive car with driver — Jeddah / Abu Dhabi (UAE).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Jeddah–Abu Dhabi",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for an executive car with driver between Jeddah and Abu Dhabi, UAE.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
-  },
-  "riyadh-to-doha": {
-    heading: "Executive car with driver, Riyadh to Doha?",
-    intro:
-      "For business travellers crossing to Qatar via the Salwa border we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. You carry your own valid passport and entry papers; the vehicle for your date is confirmed as eligible to cross. Regular company trips can run on a single account with one point of contact.",
-    waPrefill: `Salam! Executive car with driver — Riyadh / Doha (Qatar).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
-    emailSubject: "Corporate transfer RFQ — Riyadh–Doha",
-    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Riyadh and Doha, Qatar (via the Salwa border).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
   "riyadh-to-manama": {
     heading: "Executive car with driver, Riyadh to Bahrain?",
@@ -488,30 +437,6 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
     waPrefill: `Salam! Corporate transfer — Red Sea Airport to NEOM.\n• Company: \n• Flight no. & arrival date: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• NEOM site / gate clearance confirmed?: \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Red Sea Airport–NEOM",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate transfers from Red Sea International Airport to NEOM.\n\n• Company name: \n• Contact name & role: \n• Flight no. & arrival date/time: \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van): \n• NEOM site / gate clearance: \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
-  },
-  "doha-to-dammam": {
-    heading: "Executive car with driver, Doha to Dammam?",
-    intro:
-      "For business travellers returning across the Salwa border to the Eastern Province we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. You carry your own valid passport and entry papers; the vehicle for your date is confirmed as eligible to cross. Regular company trips can run on a single account with one point of contact.",
-    waPrefill: `Salam! Executive car with driver — Doha (Qatar) / Dammam.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
-    emailSubject: "Corporate transfer RFQ — Doha–Dammam",
-    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Doha, Qatar and Dammam (via the Salwa border).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
-  },
-  "doha-to-riyadh": {
-    heading: "Executive car with driver, Doha to Riyadh?",
-    intro:
-      "For business travellers returning to the Saudi capital across the Salwa border we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. You carry your own valid passport and entry papers; the vehicle for your date is confirmed as eligible to cross. Regular company trips can run on a single account with one point of contact.",
-    waPrefill: `Salam! Executive car with driver — Doha (Qatar) / Riyadh.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
-    emailSubject: "Corporate transfer RFQ — Doha–Riyadh",
-    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Doha, Qatar and Riyadh (via the Salwa border).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
-  },
-  "alahsa-to-doha": {
-    heading: "Executive car with driver, Al Ahsa to Doha?",
-    intro:
-      "For business travellers crossing to Qatar via the Salwa border — the shortest Saudi road gateway to Doha — we provide executive sedans and full-size SUVs with professional chauffeurs experienced on the crossing. You carry your own valid passport and entry papers; the vehicle for your date is confirmed as eligible to cross. Regular company trips can run on a single account with one point of contact.",
-    waPrefill: `Salam! Executive car with driver — Al Ahsa / Doha (Qatar).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
-    emailSubject: "Corporate transfer RFQ — Al Ahsa–Doha",
-    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate cross-border transfers between Al Ahsa and Doha, Qatar (via the Salwa border).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
 };
 
@@ -1449,36 +1374,6 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "Do you offer an executive or corporate car service from Dubai to Riyadh?", answer: "Yes. For business travellers we provide an executive car with a professional chauffeur from Dubai to Riyadh — a pre-booked private transfer with corporate invoicing on request, comfortable vehicles to work en route, and planned meeting or rest stops. Share your itinerary on WhatsApp for a fare." },
     ],
   },
-  "dammam-to-doha": {
-    tldr: "A private chauffeur transfer from Dammam to Doha is about 400 km and takes roughly 4 hours plus the Saudi–Qatar border crossing at Salwa. Fares are confirmed on WhatsApp, with time for the border crossing planned in.",
-    tldrFacts: [
-      { label: "Distance", value: "~400 km" },
-      { label: "Time", value: "~4 hours + border" },
-      { label: "Fare", value: "On WhatsApp" },
-      { label: "Hours", value: "24/7" },
-    ],
-    faqs: [
-      { question: "How far is Dammam from Doha?", answer: "Dammam to Doha is about 400 km — roughly a 4-hour drive plus time at the Saudi–Qatar border crossing at Salwa." },
-      { question: "What do I need to cross into Qatar?", answer: "A valid passport and the correct Qatar entry permit or visa. Entry rules depend on nationality and change, so confirm current requirements with official sources before travel — we do not arrange visas." },
-      { question: "How much is a taxi from Dammam to Doha?", answer: "Fares are confirmed on WhatsApp — message us on WhatsApp with your travel date and passenger count for a clear quote before booking, with comfortable vehicles for the cross-border journey." },
-      { question: "Is there a taxi from Khobar to Doha?", answer: "Yes — Al Khobar and Dammam are twin cities about 15 km apart, so this same Dammam–Doha service picks up from Khobar hotels and addresses with the same border-crossing support." },
-      { question: "How long does the Salwa border crossing usually take?", answer: "Crossing time varies with traffic and document checks, typically adding 30-60 minutes to the drive. Our drivers know the Salwa crossing well and can advise on typically busier or quieter times." },
-    ],
-  },
-  "riyadh-to-doha": {
-    tldr: "A taxi or private chauffeur from Riyadh to Doha is about 580 km and takes roughly 5.5 hours plus the Saudi–Qatar border crossing at Salwa. The fare is fixed, confirmed on WhatsApp with time for the border crossing planned in.",
-    tldrFacts: [
-      { label: "Distance", value: "~580 km" },
-      { label: "Time", value: "~5.5 hours + border" },
-      { label: "Fare", value: "On WhatsApp" },
-      { label: "Hours", value: "24/7" },
-    ],
-    faqs: [
-      { question: "How far is Riyadh from Doha?", answer: "Riyadh to Doha is about 580 km — roughly a 5.5-hour drive plus time at the Salwa border crossing into Qatar." },
-      { question: "What documents are needed for Qatar?", answer: "A valid passport and the correct Qatar visa or entry permit. Entry rules depend on nationality and change, so confirm current requirements with official sources before travel — we do not arrange visas." },
-      { question: "How much is a taxi from Riyadh to Doha?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles for the long cross-border journey." },
-    ],
-  },
   "dammam-to-manama": {
     tldr: "A taxi or private chauffeur from Dammam to Manama, Bahrain is about 70 km and takes roughly 1 hour across the King Fahd Causeway. The fare is fixed, confirmed on WhatsApp with time for the border crossing planned into your pickup.",
     tldrFacts: [
@@ -1564,34 +1459,6 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "How much is a taxi from Manama to Riyadh?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles for the long cross-border journey." },
     ],
   },
-  "doha-to-dammam": {
-    tldr: "A taxi or private chauffeur from Doha, Qatar to Dammam is about 400 km and takes roughly 4 hours plus the Qatar–Saudi border crossing at Salwa. The fare is fixed, confirmed on WhatsApp with time for the border crossing planned in.",
-    tldrFacts: [
-      { label: "Distance", value: "~400 km" },
-      { label: "Time", value: "~4 hours" },
-      { label: "Fare", value: "On WhatsApp" },
-      { label: "Hours", value: "24/7" },
-    ],
-    faqs: [
-      { question: "How long is the taxi from Doha to Dammam?", answer: "Doha to Dammam is about 400 km — roughly a 4-hour drive via the Salwa border, plus crossing formalities." },
-      { question: "What do I need to cross from Qatar into Saudi Arabia?", answer: "A valid passport and the correct Saudi entry eligibility or visa. Entry rules depend on nationality and change, so confirm current requirements with official sources before travel — we do not arrange visas." },
-      { question: "How much is a taxi from Doha to Dammam?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles for the cross-border journey." },
-    ],
-  },
-  "doha-to-riyadh": {
-    tldr: "A taxi or private chauffeur from Doha, Qatar to Riyadh is about 580 km and takes roughly 5.5 hours plus the Salwa border crossing. The fare is fixed, confirmed on WhatsApp with time for the border crossing planned in.",
-    tldrFacts: [
-      { label: "Distance", value: "~580 km" },
-      { label: "Time", value: "~5.5 hours" },
-      { label: "Fare", value: "On WhatsApp" },
-      { label: "Hours", value: "24/7" },
-    ],
-    faqs: [
-      { question: "How far is Doha from Riyadh by road?", answer: "Doha to Riyadh is about 580 km — roughly a 5.5-hour drive via the Salwa border, plus crossing formalities." },
-      { question: "How does the Salwa border crossing work?", answer: "Each passenger completes their own border checks in person. A valid passport and the correct Saudi entry eligibility or visa are required. Entry rules depend on nationality and change, so confirm current requirements with official sources before travel — we do not arrange visas." },
-      { question: "How much is a taxi from Doha to Riyadh?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles for the long cross-border journey." },
-    ],
-  },
   "kuwait-to-dammam": {
     tldr: "A private transfer from Kuwait City to Dammam covers about 436 km (roughly 270 miles) and takes around 4 hours of driving, plus border-crossing time at the Nuwaiseeb–Al Khafji crossing between Kuwait and Saudi Arabia, which varies with traffic and checks. Travel door-to-door by private sedan, SUV or van with a private chauffeur, available 24/7 — your fare is confirmed on WhatsApp before booking, with time for the border crossing planned in.",
     tldrFacts: [
@@ -1628,20 +1495,6 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "What documents should I check before travelling?", answer: "A valid passport and the correct Saudi entry visa or eligibility, plus any Kuwaiti exit requirements. Rules depend on your nationality and can change, so confirm current requirements with the official Saudi (visa.mofa.gov.sa) and Kuwaiti government sources in advance. Each passenger is responsible for their own eligibility and documents." },
       { question: "Can I travel with luggage?", answer: "Yes. A sedan suits 1–3 passengers with a couple of bags; for families, teams or extra luggage on this long-distance route choose an SUV or a Staria van with more space. Tell us your passenger and bag count when booking." },
       { question: "Can I book a one-way or return trip?", answer: "Both. Book Kuwait to Riyadh one-way, or a return in the Riyadh to Kuwait direction — the same private, door-to-door service either way. Tell us your dates and we confirm the fare for each leg." },
-    ],
-  },
-  "alahsa-to-doha": {
-    tldr: "A taxi or private chauffeur from Al Ahsa to Doha, Qatar is about 320 km and takes roughly 3.5 hours via the Salwa border — the shortest Saudi gateway to Qatar. The fare is fixed, confirmed on WhatsApp with time for the border crossing planned in.",
-    tldrFacts: [
-      { label: "Distance", value: "~320 km" },
-      { label: "Time", value: "~3.5 hours" },
-      { label: "Fare", value: "On WhatsApp" },
-      { label: "Hours", value: "24/7" },
-    ],
-    faqs: [
-      { question: "How far is Al Ahsa from Doha?", answer: "Al Ahsa to Doha is about 320 km — roughly a 3.5-hour drive via the Salwa border, making it the shortest Saudi road gateway to Qatar." },
-      { question: "What do I need to cross into Qatar?", answer: "A valid passport and the correct Qatar entry visa or eligibility. Entry rules depend on nationality and change, so confirm current requirements with official sources before travel — we do not arrange visas." },
-      { question: "How much is a taxi from Al Ahsa to Doha?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with comfortable vehicles for the cross-border journey." },
     ],
   },
   "dammam-to-kuwait": {
@@ -2008,21 +1861,6 @@ const MORE_ABU_DHABI_ROUTES: { slug: string; label: string; distance: number }[]
   { slug: "jeddah-to-abudhabi", label: "Jeddah to Abu Dhabi, UAE", distance: 1750 },
 ];
 
-// Cross-links across the Saudi-Qatar cluster — same orphan-page pattern as
-// MORE_ABU_DHABI_ROUTES/MORE_JORDAN_ROUTES above. Verified 2026-09-28:
-// RouteRelatedLinks' generic same-city matching alone does NOT reliably
-// surface all 4 siblings on every page (e.g. doha-to-dammam only got 1 of 4
-// without this) — same crowded-out problem the two arrays above solve. A
-// small overlap with RouteRelatedLinks on some pages is expected/accepted,
-// same tradeoff already live for Abu Dhabi/Jordan. Placed on every route here
-// (Stage 3, 2026-09-28 — see seo/clusters/QATAR-CLUSTER.md §13).
-const MORE_QATAR_ROUTES: { slug: string; label: string; distance: number }[] = [
-  { slug: "riyadh-to-doha", label: "Riyadh to Doha, Qatar", distance: 580 },
-  { slug: "dammam-to-doha", label: "Dammam to Doha, Qatar", distance: 400 },
-  { slug: "alahsa-to-doha", label: "Al Ahsa to Doha, Qatar", distance: 320 },
-  { slug: "doha-to-dammam", label: "Doha, Qatar to Dammam", distance: 400 },
-  { slug: "doha-to-riyadh", label: "Doha, Qatar to Riyadh", distance: 580 },
-];
 
 
 
@@ -2076,6 +1914,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // only, no price or content claims changed. Formula below still covers
   // every other route.
   const TITLE_OVERRIDES: Record<string, string> = {
+    "dammam-airport-to-doha": "Dammam Airport to Doha Private Transfer | DMM to Qatar",
+    "alkhobar-to-doha": "Al Khobar to Doha Private Transfer | Khobar to Qatar by Car",
+    "doha-to-alahsa": "Doha to Al Ahsa Private Transfer | Qatar to Hofuf by Car",
+    "haql-to-aqaba": "Haql to Aqaba Private Transfer | Saudi Arabia to Jordan",
     "dammam-airport-to-bahrain": "Dammam Airport to Bahrain Taxi & Private Transfer | DMM",
     "bahrain-to-dammam-airport": "Bahrain to Dammam Airport Taxi & Private Transfer | DMM",
     "riyadh-to-taif": "Riyadh to Taif Private Car | 785 km Door-to-Door Transfer",
@@ -2139,19 +1981,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "manama-to-alkhobar": "Bahrain to Al Khobar taxi across the King Fahd Causeway — ~50 km, ~50 min. Ideal for weekend & business returns. Fare confirmed on WhatsApp, 24/7.",
     "manama-to-riyadh": "Bahrain to Riyadh taxi — ~450 km via the King Fahd Causeway. Executive cross-border car with a professional driver. Fare confirmed on WhatsApp, 24/7.",
     "alkhobar-to-manama": "Al Khobar to Bahrain taxi across the King Fahd Causeway — ~50 km, ~50 min. Ideal for weekend & business trips. Fare confirmed on WhatsApp, 24/7.",
-    "doha-to-dammam": "Doha to Dammam taxi via the Salwa border — ~400 km, ~4 hrs. Private cross-border car with a professional driver. Fare confirmed on WhatsApp, 24/7.",
-    "doha-to-riyadh": "Doha to Riyadh taxi via the Salwa border — ~580 km. Executive cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
+    "doha-to-dammam": "Doha to Dammam private car via Abu Samra and Salwa — ~400 km, home, compound or DMM airport drop-off. Fixed fare, border fees included.",
+    "doha-to-riyadh": "Doha to Riyadh private car via Abu Samra and Salwa — ~580 km, door to door or to RUH airport. Fixed fare in writing, border fees included.",
     "kuwait-to-dammam": "Kuwait to Dammam taxi via the Nuwaiseeb–Al Khafji border — ~436 km, about 4 hrs driving plus border. Private door-to-door transfer, fare confirmed on WhatsApp.",
     "kuwait-to-riyadh": "Kuwait to Riyadh taxi — private cross-border car & chauffeur via the Nuwaiseeb–Al Khafji border, ~6–7 hrs driving. Corporate invoicing, fare confirmed on WhatsApp.",
-    "alahsa-to-doha": "Al Ahsa to Doha taxi — ~320 km via Salwa, the shortest Saudi road gateway to Qatar. Private car with driver, fare confirmed on WhatsApp, 24/7.",
+    "alahsa-to-doha": "Al Ahsa to Doha private car — ~265 km via Salwa, the shortest Saudi road into Qatar. Fixed fare in writing, border fees included, 24/7.",
     "riyadh-to-abudhabi": "Private car with driver, Riyadh to Abu Dhabi (UAE) — ~850 km via the Al Batha–Ghuwaifat border. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
     "dammam-to-abudhabi": "Private car with driver, Dammam to Abu Dhabi (UAE) — ~750 km via the Al Batha–Ghuwaifat border. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
     "jeddah-to-abudhabi": "Private car with driver, Jeddah to Abu Dhabi (UAE) — ~1,750 km long-distance cross-border transfer via Al Batha–Ghuwaifat. Fare confirmed on WhatsApp, 24/7.",
-    "riyadh-to-doha": "Private car with driver, Riyadh to Doha (Qatar) — ~580 km via the Salwa border. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
+    "riyadh-to-doha": "Private car with driver, Riyadh to Doha (Qatar) — ~580 km via Al Ahsa and the Salwa border. Fixed fare in writing, border fees included, 24/7.",
     "riyadh-to-manama": "Private car with driver, Riyadh to Manama (Bahrain) — ~450 km via the King Fahd Causeway. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
     "dammam-to-kuwait": "Private car with driver, Dammam to Kuwait City — ~436 km via the Al Khafji border. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
     "dammam-to-manama": "Private car with driver, Dammam to Manama (Bahrain) — a quick ~70 km hop across the King Fahd Causeway. Fare confirmed on WhatsApp before booking, 24/7.",
-    "dammam-to-doha": "Private car with driver, Dammam to Doha (Qatar) — ~400 km via the Salwa border. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
+    "dammam-to-doha": "Private car with driver, Dammam to Doha (Qatar) — ~400 km via Al Ahsa and the Salwa border. Fixed fare in writing, border fees included, 24/7.",
     "riyadh-to-kuwait": "Private car with driver, Riyadh to Kuwait City — ~650 km via the Nuwaiseeb–Al Khafji border. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
     "dammam-to-dubai": "Private car with driver, Dammam to Dubai (UAE) — ~890 km via the Al Batha–Ghuwaifat border. Cross-border transfer, fare confirmed on WhatsApp before booking, 24/7.",
     "tabuk-to-aqaba": "Private transfer, Tabuk to Aqaba, Jordan — ~270 km via Haql and the Al Durrah crossing. Fixed fare in writing, border fees included, 24/7.",
@@ -3381,42 +3223,6 @@ export default async function RouteDetailsPage({ params }: PageProps) {
           )}
 
 
-          {slug.includes("doha") && (
-            <section className="mt-16 border-t border-[#C9A84C]/10 pt-10">
-              <h2 className="font-heading text-2xl font-bold mb-6">
-                More Saudi Arabia to Qatar Routes
-              </h2>
-              <div className="grid gap-3 sm:grid-cols-2">
-                {MORE_QATAR_ROUTES.filter((r) => r.slug !== slug).map((r) => (
-                  <Link
-                    key={r.slug}
-                    href={`/routes/${r.slug}`}
-                    className="group flex items-center justify-between rounded-2xl border border-[#16A34A]/12 bg-white px-5 py-4 hover:border-[#16A34A]/35 transition-all"
-                  >
-                    <span className="text-sm font-semibold">
-                      {r.label}
-                      <span className="block text-[0.65rem] text-[#6B7280] font-normal mt-0.5">
-                        {r.distance} km · Fare on WhatsApp
-                      </span>
-                    </span>
-                    <ArrowRight className="h-4 w-4 text-[#C9A84C] shrink-0 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                ))}
-                <Link
-                  href="/services/border-crossings"
-                  className="group flex items-center justify-between rounded-2xl border border-[#16A34A]/12 bg-white px-5 py-4 hover:border-[#16A34A]/35 transition-all sm:col-span-2"
-                >
-                  <span className="text-sm font-semibold">
-                    All GCC Cross-Border Transfers
-                    <span className="block text-[0.65rem] text-[#6B7280] font-normal mt-0.5">
-                      Bahrain · UAE · Qatar · Kuwait — border crossing guide
-                    </span>
-                  </span>
-                  <ArrowRight className="h-4 w-4 text-[#C9A84C] shrink-0 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </div>
-            </section>
-          )}
 
           <RouteRelatedLinks slug={slug} fromCity={route.fromCity} toCity={route.toCity} />
 

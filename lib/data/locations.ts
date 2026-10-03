@@ -468,6 +468,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     relatedLinks: [
       { href: "/cross-border/saudi-to-bahrain", label: "Al Khobar to Bahrain over the King Fahd Causeway" },
       { href: "/routes/alkhobar-to-manama", label: "Al Khobar to Manama private car" },
+      { href: "/routes/alkhobar-to-doha", label: "Al Khobar to Doha via Salwa" },
       { href: "/locations/dammam", label: "Dammam taxi & King Fahd Airport transfers" },
     ],
   },
@@ -544,6 +545,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     relatedLinks: [
       { href: "/routes/tabuk-airport-to-neom", label: "Tabuk Airport to NEOM transfer" },
       { href: "/routes/red-sea-airport-to-neom", label: "Red Sea Airport to NEOM transfer" },
+      { href: "/routes/haql-to-aqaba", label: "Haql to Aqaba — the shortest way into Jordan" },
       { href: "/cross-border/saudi-to-jordan", label: "NEOM to Aqaba & Amman cross-border transfers" },
       { href: "/routes/riyadh-to-neom", label: "Riyadh to NEOM long-distance taxi" },
       { href: "/routes/jeddah-to-neom", label: "Jeddah to NEOM long-distance taxi" },

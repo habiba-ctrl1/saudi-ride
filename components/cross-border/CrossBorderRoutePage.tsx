@@ -8,10 +8,11 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { formatDrive } from "@/components/cross-border/CorridorRouteCards";
+import { TripModes } from "@/components/cross-border/TripModes";
 import { contactConfig } from "@/lib/config/contact";
 import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { ROUTES_DATA } from "@/lib/data/routes";
-import { CORRIDORS, CROSS_BORDER_DOCUMENTS, crossBorderWhatsAppText, corridorRfqMailto, placeWithCountry } from "@/lib/data/cross-border";
+import { CORRIDORS, CROSS_BORDER_DOCUMENTS, crossBorderWhatsAppText, corridorRfqMailto, placeWithCountry, isSaudiSide } from "@/lib/data/cross-border";
 import type { CrossBorderRoutePageData, RouteStage } from "@/lib/data/cross-border-route-pages";
 
 // Bespoke cross-border route page. Content per route lives in
@@ -196,6 +197,34 @@ export function CrossBorderRoutePage({ data }: { data: CrossBorderRoutePageData 
             Every passenger completes their own exit and entry checks at {data.crossing.name}. Border processing time varies and is never guaranteed, so we build margin into the pickup time.
           </p>
         </section>
+
+        {data.pickupPoints && (
+          <section aria-labelledby="rt-pickups" className="rounded-3xl border border-[#16A34A]/15 bg-white p-6 sm:p-8">
+            <h2 id="rt-pickups" className="font-heading text-2xl font-bold">{data.pickupPoints.heading}</h2>
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[#6B7280]">{data.pickupPoints.intro}</p>
+            <div className="mt-4 overflow-hidden rounded-2xl border border-[#16A34A]/12">
+              <table className="w-full text-left text-sm">
+                <thead className="bg-[#F0FDF4] text-xs uppercase tracking-wider text-[#15803D]">
+                  <tr><th scope="col" className="px-4 py-3">Pickup point</th><th scope="col" className="px-4 py-3">Distance</th><th scope="col" className="px-4 py-3">Driving</th></tr>
+                </thead>
+                <tbody>
+                  {data.pickupPoints.rows.map((r) => (
+                    <tr key={r.name} className="border-t border-[#16A34A]/10">
+                      <th scope="row" className="px-4 py-3 font-semibold">{r.name}</th>
+                      <td className="px-4 py-3">~{r.km.toLocaleString("en-US")} km</td>
+                      <td className="px-4 py-3">~{r.drive}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-3 text-xs text-[#6B7280]">Driving time only; border time is extra. Measured road distances — your quote uses your exact pickup address.</p>
+          </section>
+        )}
+
+        {corridor.borderDrop && isSaudiSide(from, corridor) && (
+          <TripModes destination={to} crossing={data.crossing.name} />
+        )}
 
         {/* ─── DROP-OFFS ─── */}
         <section aria-labelledby="rt-dropoffs">

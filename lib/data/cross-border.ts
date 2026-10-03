@@ -48,6 +48,9 @@ export interface Corridor {
   inbound: string[];
   practical: { title: string; desc: string }[];
   useCases: { title: string; desc: string }[];
+  /** Border drop-off (lower fare) offered on this corridor — owner-confirmed
+   *  2026-10-03. Off for Bahrain: the causeway has no way to continue on foot. */
+  borderDrop: boolean;
   /** Honest trade-off section (§15 AIO). */
   tradeOff?: { heading: string; body: string[] };
   faqs: { question: string; answer: string }[];
@@ -57,6 +60,7 @@ export interface Corridor {
 export const CORRIDORS: Record<CorridorSlug, Corridor> = {
   "saudi-to-bahrain": {
     slug: "saudi-to-bahrain",
+    borderDrop: false,
     country: "Bahrain",
     pairLabel: "Saudi Arabia ↔ Bahrain",
     title: "Saudi to Bahrain Taxi & Private Car | King Fahd Causeway",
@@ -120,6 +124,7 @@ export const CORRIDORS: Record<CorridorSlug, Corridor> = {
 
   "saudi-to-qatar": {
     slug: "saudi-to-qatar",
+    borderDrop: true,
     country: "Qatar",
     pairLabel: "Saudi Arabia ↔ Qatar",
     title: "Saudi to Qatar Private Transfer by Car | Salwa Border",
@@ -133,7 +138,7 @@ export const CORRIDORS: Record<CorridorSlug, Corridor> = {
     crossingNote:
       "Salwa on the Saudi side and Abu Samra on the Qatari side form the only land crossing between Saudi Arabia and Qatar. Abu Samra is roughly 90 km from Doha.",
     quickAnswer:
-      "A Saudi to Qatar private transfer is a pre-booked car with a professional driver from your door in Saudi Arabia to your address in Doha, crossing at Salwa (Saudi side) and Abu Samra (Qatar side) — the only land border between the two countries. Al Ahsa is the closest major Saudi city, Dammam the most booked origin and Riyadh about 580 km away. Border time is extra and each passenger carries their own documents.",
+      "A Saudi to Qatar private transfer is a pre-booked car with a professional driver from your door in Saudi Arabia to your address in Doha, crossing at Salwa (Saudi side) and Abu Samra (Qatar side) — the only land border between the two countries. Al Ahsa is the closest major Saudi city (about 265 km to Doha), Dammam and Al Khobar about 400 km, Riyadh about 580 km. Border crossing fees are included in the fixed fare; each passenger carries their own documents.",
     overview: [
       "Three Saudi cities feed this corridor. Al Ahsa (Hofuf) is the shortest gateway; Dammam, Al Khobar and Dhahran are the busiest origins; Riyadh suits business travellers who want to skip a flight connection and work on the way.",
       "In Qatar we drop at hotels, homes and offices across Doha — West Bay, The Pearl, Msheireb, Lusail — or at Hamad International Airport (DOH). Return trips from Doha to the Eastern Province and Riyadh run the same way in reverse.",
@@ -144,10 +149,10 @@ export const CORRIDORS: Record<CorridorSlug, Corridor> = {
       { label: "Qatar entry", title: "Abu Samra border post", desc: "Qatar entry checks at Abu Samra, about 90 km from Doha.", kind: "border" },
       { label: "Drop-off", title: "Your address in Doha", desc: "West Bay, The Pearl, Lusail, Msheireb, Hamad International Airport or any address.", kind: "destination" },
     ],
-    outbound: ["dammam-to-doha", "alahsa-to-doha", "riyadh-to-doha"],
-    inbound: ["doha-to-dammam", "doha-to-riyadh"],
+    outbound: ["dammam-to-doha", "alkhobar-to-doha", "dammam-airport-to-doha", "alahsa-to-doha", "riyadh-to-doha"],
+    inbound: ["doha-to-dammam", "doha-to-alahsa", "doha-to-riyadh"],
     practical: [
-      { title: "Pickup in Al Khobar or Dhahran", desc: "There is no separate Khobar–Doha page: pickups in Al Khobar and Dhahran are quoted on the Dammam to Doha route, on the same road to Salwa." },
+      { title: "Landing at Dammam airport?", desc: "Go straight from King Fahd International Airport (DMM) to Doha — no night in Dammam needed. Share your flight number when you book." },
       { title: "Qatar-side vehicle requirements", desc: "Qatar applies its own rules to vehicles entering at Abu Samra. Whether the car for your date meets them is confirmed before we send your fare." },
       { title: "Long stretch without towns", desc: "The road between Al Ahsa and Salwa is long and open. Rest and prayer stops are planned with you — mention children, elderly passengers or medical needs." },
       { title: "Flying out of Doha?", desc: "Tell us your flight time at Hamad International Airport and we plan the pickup with border time and check-in in mind." },
@@ -175,6 +180,7 @@ export const CORRIDORS: Record<CorridorSlug, Corridor> = {
 
   "saudi-to-kuwait": {
     slug: "saudi-to-kuwait",
+    borderDrop: true,
     country: "Kuwait",
     pairLabel: "Saudi Arabia ↔ Kuwait",
     title: "Saudi to Kuwait Private Transfer by Car | Khafji Border",
@@ -228,6 +234,7 @@ export const CORRIDORS: Record<CorridorSlug, Corridor> = {
 
   "saudi-to-uae": {
     slug: "saudi-to-uae",
+    borderDrop: true,
     country: "UAE",
     pairLabel: "Saudi Arabia ↔ UAE",
     title: "Saudi to UAE by Car — Private Transfer to Dubai & Abu Dhabi",
@@ -289,6 +296,7 @@ export const CORRIDORS: Record<CorridorSlug, Corridor> = {
 
   "saudi-to-jordan": {
     slug: "saudi-to-jordan",
+    borderDrop: true,
     country: "Jordan",
     pairLabel: "Saudi Arabia ↔ Jordan",
     title: "Saudi to Jordan Private Transfer | Tabuk, NEOM to Aqaba & Amman",
@@ -313,7 +321,7 @@ export const CORRIDORS: Record<CorridorSlug, Corridor> = {
       { label: "Jordan entry", title: "Al Mudawwara or Durra", desc: "Al Mudawwara leads on to Ma'an and the Desert Highway; Durra is about 30 km from Aqaba.", kind: "border" },
       { label: "Onward in Jordan", title: "Aqaba, Wadi Rum, Petra, Amman", desc: "Drop-off at your hotel, camp or address.", kind: "destination" },
     ],
-    outbound: ["tabuk-to-aqaba", "neom-to-aqaba", "alula-to-aqaba", "tabuk-to-wadi-rum", "tabuk-to-petra", "tabuk-to-amman", "neom-to-amman", "alula-to-amman", "medinah-to-amman"],
+    outbound: ["haql-to-aqaba", "tabuk-to-aqaba", "neom-to-aqaba", "alula-to-aqaba", "tabuk-to-wadi-rum", "tabuk-to-petra", "tabuk-to-amman", "neom-to-amman", "alula-to-amman", "medinah-to-amman"],
     inbound: ["aqaba-to-tabuk", "aqaba-to-neom"],
     practical: [
       { title: "Shortest road, every time", desc: "From Tabuk, Amman is about 130 km shorter through Halat Ammar than via Aqaba. We use whichever crossing is shorter for your trip." },
@@ -379,7 +387,9 @@ export function isSaudiSide(city: string, corridor: Corridor): boolean {
 export function crossBorderWhatsAppText(fromCity: string, toCity: string, corridor: Corridor): string {
   return (
     `Hello, I'd like a quote for a private cross-border transfer from ${placeWithCountry(fromCity, corridor)} to ${placeWithCountry(toCity, corridor)}.\n\n` +
-    `• Pickup address: \n• Drop-off address: \n• Date & time: \n• Passengers & large bags: \n• Vehicle (Sedan / SUV / Van): \n• Trip type (one-way / return): \n\n` +
+    `• Pickup address: \n• Drop-off address: \n• Date & time: \n• Passengers & large bags: \n• Vehicle (Sedan / SUV / Van): \n• Trip type (one-way / return): \n` +
+    (corridor.borderDrop && isSaudiSide(fromCity, corridor) ? `• Service (door-to-door / border drop-off): \n` : "") +
+    `\n` +
     `Please confirm availability and the total fare.`
   );
 }

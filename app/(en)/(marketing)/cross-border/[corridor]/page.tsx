@@ -10,6 +10,7 @@ import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { BorderJourney } from "@/components/cross-border/BorderJourney";
 import { CorridorRouteCards } from "@/components/cross-border/CorridorRouteCards";
 import { CrossBorderEssentials } from "@/components/cross-border/CrossBorderEssentials";
+import { TripModes } from "@/components/cross-border/TripModes";
 import { contactConfig } from "@/lib/config/contact";
 import { serviceSchema, faqSchema, itemListSchema, speakableSchema } from "@/lib/schema";
 import {
@@ -209,6 +210,8 @@ export default async function CorridorPage({ params }: Props) {
             </div>
           </section>
         )}
+
+        {c.borderDrop && <TripModes destination={c.country} crossing="the border" />}
 
         <CrossBorderEssentials />
 

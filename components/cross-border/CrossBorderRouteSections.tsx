@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowLeftRight, ArrowRight, FileCheck2, Repeat, Globe } from "lucide-react";
 import { BorderJourney, type JourneyStage } from "./BorderJourney";
+import { TripModes } from "./TripModes";
 import { ROUTES_DATA } from "@/lib/data/routes";
 import { CROSS_BORDER_DOCUMENTS, isSaudiSide, type Corridor } from "@/lib/data/cross-border";
 
@@ -56,6 +57,8 @@ export function CrossBorderRouteSections({ slug, fromCity, toCity, corridor, sho
       {showJourney && (
         <BorderJourney eyebrow="Cross-border journey" heading={`What happens between ${fromCity} and ${toCity}`} stages={stages} />
       )}
+
+      {corridor.borderDrop && outbound && <TripModes destination={toCity} crossing={corridor.crossingName.replace(/^the /, "")} />}
 
       <section aria-label="Border documents and trip options" className="grid gap-5 sm:grid-cols-2">
         <div className="rounded-3xl border border-[#16A34A]/15 bg-white p-6">
