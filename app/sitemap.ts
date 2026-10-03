@@ -116,6 +116,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // Cross-border corridor hubs (/cross-border/[corridor]) — from lib/data/cross-border.ts.
+  const arCorridorItems = CORRIDOR_SLUGS.map((slug) => ({
+    url: `${DOMAIN}/ar/cross-border/${slug}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.7,
+  }));
+
   const corridorItems = CORRIDOR_SLUGS.map((slug) => ({
     url: `${DOMAIN}/cross-border/${slug}`,
     lastModified: now,
@@ -202,6 +209,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...subAreaItems,
     ...airportItems,
     ...corridorItems,
+    ...arCorridorItems,
     ...routeItems,
     ...distanceItems,
     ...fleetItems,

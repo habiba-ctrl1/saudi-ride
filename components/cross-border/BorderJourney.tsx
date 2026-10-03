@@ -25,7 +25,7 @@ export function BorderJourney({ stages, heading, eyebrow = "Journey" }: { stages
             <li key={i} className="relative flex gap-3 md:flex-col md:gap-2">
               {/* connector */}
               {i < stages.length - 1 && (
-                <span aria-hidden className="absolute left-[1.15rem] top-10 bottom-[-1rem] w-0 border-l-2 border-dashed border-[#16A34A]/30 md:left-10 md:right-[-0.75rem] md:top-[1.15rem] md:bottom-auto md:h-0 md:w-auto md:border-l-0 md:border-t-2" />
+                <span aria-hidden className="absolute start-[1.15rem] top-10 bottom-[-1rem] w-0 border-s-2 border-dashed border-[#16A34A]/30 md:start-10 md:end-[-0.75rem] md:top-[1.15rem] md:bottom-auto md:h-0 md:w-auto md:border-s-0 md:border-t-2" />
               )}
               <span
                 className={`relative z-[1] flex h-9 w-9 shrink-0 items-center justify-center rounded-full ${

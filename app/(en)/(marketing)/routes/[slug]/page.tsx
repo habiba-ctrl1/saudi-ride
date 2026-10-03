@@ -1335,7 +1335,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // pages that already get impressions but zero clicks — title/CTR fixes
   // only, no price or content claims changed. Formula below still covers
   // every other route.
+  // 2026-10-03 (owner-approved title tests): CTR fixes on UAE/Bahrain pages with
+  // impressions but ~0 clicks — titles now mirror GSC queries ("by road",
+  // "car with driver", "riyadh to bahrain") + the distance.
   const TITLE_OVERRIDES: Record<string, string> = {
+    "riyadh-to-manama": "Riyadh to Bahrain by Car — Private Driver to Manama, 450 km",
+    "riyadh-to-abudhabi": "Riyadh to Abu Dhabi by Road — Private Car with Driver, 850 km",
     "abudhabi-to-riyadh": "Abu Dhabi to Riyadh Private Car with Driver | UAE to Saudi",
     "jubail-to-kuwait": "Jubail to Kuwait City Private Transfer | Khafji Border",
     "dammam-airport-to-doha": "Dammam Airport to Doha Private Transfer | DMM to Qatar",
@@ -1365,12 +1370,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "madinah-to-jeddah-airport": "Taxi Madinah to Jeddah Airport — Fare Confirmed on WhatsApp",
     "jeddah-to-madinah": "Taxi Jeddah to Madinah (Madina) — Fare Confirmed on WhatsApp",
     "madinah-airport-to-city": "Madinah Airport Taxi & Car Service — Fare on WhatsApp",
-    "riyadh-to-dubai": "Private Car with Driver — Riyadh to Dubai — Fare on WhatsApp",
+    "riyadh-to-dubai": "Riyadh to Dubai Car with Driver — 990 km by Road, Door to Door",
     "dubai-to-riyadh": "Private Car with Driver — Dubai to Riyadh — Fare on WhatsApp",
     "jeddah-airport-to-swissotel-makkah": "Jeddah Airport to Swissotel Makkah Taxi — Fare & Booking",
     "red-sea-airport-to-neom": "Red Sea Airport (RSI) to NEOM Taxi — Fare & Transfer",
-    "dammam-to-abudhabi": "Taxi Dammam to Abu Dhabi, UAE — Cross-Border Fare, Distance & Booking",
-    "jeddah-to-abudhabi": "Taxi Jeddah to Abu Dhabi, UAE — Cross-Border Fare, Distance & Booking",
+    "dammam-to-abudhabi": "Dammam to Abu Dhabi by Road — Private Car with Driver, 750 km",
+    "jeddah-to-abudhabi": "Jeddah to Abu Dhabi by Road — 1,750 km Private Car Transfer",
     "riyadh-to-kuwait": "Riyadh to Kuwait Taxi — Private Cross-Border Car & Chauffeur",
     "dammam-to-dubai": "Taxi Dammam to Dubai, UAE — Cross-Border Fare, Distance & Booking",
     "aqaba-to-tabuk": "Taxi Aqaba, Jordan to Tabuk — Cross-Border Fare, Distance & Booking",

@@ -32,25 +32,11 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   // pages, where the lazy initializer above doesn't re-run).
   useEffect(() => {
     if (pathname) {
-      if (isArabicPath(pathname)) {
-        setLanguageState("ar");
-      } else {
-        // Fall back to saved / cookie language
-        const savedLang = localStorage.getItem("language") as Language;
-        if (savedLang && ["en", "ar"].includes(savedLang)) {
-          setLanguageState(savedLang);
-        } else {
-          // Check cookies
-          const cookies = document.cookie.split(";");
-          const langCookie = cookies.find((c) => c.trim().startsWith("language="));
-          if (langCookie) {
-            const val = langCookie.split("=")[1] as Language;
-            if (["en", "ar"].includes(val)) {
-              setLanguageState(val);
-            }
-          }
-        }
-      }
+      // The URL decides the language. Fixed 2026-10-03: a saved/cookie "ar"
+      // preference (middleware sets the cookie on every /ar visit) used to be
+      // applied to English URLs too, flipping English pages to RTL/lang=ar.
+      // Arabic content only exists under /ar, so English paths are always "en".
+      setLanguageState(isArabicPath(pathname) ? "ar" : "en");
     }
   }, [pathname]);
 

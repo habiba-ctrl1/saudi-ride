@@ -12,6 +12,7 @@ import { CorridorRouteCards } from "@/components/cross-border/CorridorRouteCards
 import { CrossBorderEssentials } from "@/components/cross-border/CrossBorderEssentials";
 import { TripModes } from "@/components/cross-border/TripModes";
 import { contactConfig } from "@/lib/config/contact";
+import { CORRIDOR_HERO } from "@/lib/data/cross-border-images";
 import { serviceSchema, faqSchema, itemListSchema, speakableSchema } from "@/lib/schema";
 import {
   CORRIDORS,
@@ -39,12 +40,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const c = CORRIDORS[corridor as CorridorSlug];
   if (!c) return {};
   const url = `${BASE}/cross-border/${c.slug}`;
-  const image = `${BASE}/gallery/highway-travel.webp`;
+  const hero = CORRIDOR_HERO[c.slug];
+  const image = `${BASE}${hero.src}`;
   return {
     title: c.title,
     description: c.description,
-    alternates: { canonical: url },
-    openGraph: { title: c.title, description: c.description, url, type: "website", images: [{ url: image, alt: "Private car with driver on a long-distance highway" }] },
+    alternates: { canonical: url, languages: { en: url, ar: `${BASE}/ar/cross-border/${c.slug}`, "x-default": url } },
+    openGraph: { title: c.title, description: c.description, url, type: "website", images: [{ url: image, alt: hero.alt }] },
     twitter: { card: "summary_large_image", title: c.title, description: c.description, images: [image] },
   };
 }
@@ -89,7 +91,7 @@ export default async function CorridorPage({ params }: Props) {
       <section className="section-container max-w-5xl pt-4">
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#16A34A] via-[#15803D] to-[#116B32] p-7 sm:p-10">
           <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 sm:block">
-            <Image src="/gallery/highway-travel.webp" alt="Private car with driver on a long-distance highway" fill priority sizes="(max-width: 640px) 0vw, 50vw" className="object-cover" />
+            <Image src={CORRIDOR_HERO[c.slug].src} alt={CORRIDOR_HERO[c.slug].alt} fill priority sizes="(max-width: 640px) 0vw, 50vw" className="object-cover" />
             <div className="absolute inset-0 bg-gradient-to-r from-[#16A34A] via-[#16A34A]/70 to-transparent" />
           </div>
           <div className="relative z-10 max-w-xl space-y-5">

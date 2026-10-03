@@ -1,6 +1,8 @@
 import { RECOVERY_AR_CITIES } from "@/lib/data/recovery";
 import { RECOVERY_ROUTES } from "@/lib/data/recovery-routes";
 import { AR_ROUTE_CONTENT_SLUGS } from "@/lib/data/routes-content-ar";
+// cross-border-ar has no runtime imports (types only), so middleware stays lean.
+import { AR_XB_ROUTE_SLUGS, AR_CORRIDORS } from "@/lib/data/cross-border-ar";
 import { AR_BLOG_SLUG_LIST } from "@/lib/data/blog/ar-slugs";
 
 // Recovery/transport paths that have real Arabic SSR pages under
@@ -19,7 +21,11 @@ const RECOVERY_AR_PATHS = [
 // AR_REAL_ROUTES) to allow the /ar URL, and the English routes/[slug] page uses
 // it to emit bidirectional hreflang. Add a slug by adding its AR_ROUTE_CONTENT
 // entry — no need to touch this file.
-export const AR_ROUTE_SLUGS = AR_ROUTE_CONTENT_SLUGS;
+// Includes the bespoke Arabic cross-border routes (lib/data/cross-border-ar.ts).
+export const AR_ROUTE_SLUGS = [...AR_ROUTE_CONTENT_SLUGS, ...AR_XB_ROUTE_SLUGS];
+
+// Arabic cross-border corridor hubs (app/(ar)/ar/cross-border/[corridor]).
+export const AR_CROSS_BORDER_PATHS = Object.keys(AR_CORRIDORS).map((c) => `/cross-border/${c}`);
 
 // Pages that have real Arabic translations and their own SSR route under app/ar/*.
 export const AR_REAL_ROUTES = [
@@ -30,6 +36,7 @@ export const AR_REAL_ROUTES = [
   "/pricing",
   "/partners",
   ...AR_ROUTE_SLUGS.map((s) => `/routes/${s}`),
+  ...AR_CROSS_BORDER_PATHS,
   ...RECOVERY_AR_PATHS,
   // Arabic blog (app/ar/blog/*) — only slugs with a real localized article.
   "/blog",

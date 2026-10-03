@@ -22,7 +22,8 @@ import { CORRIDORS, CORRIDOR_SLUGS, corridorRoutes, corridorWhatsAppText } from 
 //   every live cross-border route (data from lib/data/cross-border.ts).
 // TITLE and the H1 wording are unchanged on purpose (page ranks ~pos 18 —
 // CLAUDE.md rule 3); a better title is proposed in seo/page-log.md.
-const TITLE = "GCC Cross-Border Taxi | Saudi to Bahrain, UAE, Qatar & Kuwait";
+// Title + H1 changed 2026-10-03 (owner-approved): adds Jordan and "private car".
+const TITLE = "GCC & Jordan Cross-Border Taxi from Saudi Arabia | Private Car";
 const DESCRIPTION =
   "Private cross-border transfers from Saudi Arabia to Bahrain, Qatar, Kuwait, the UAE and Jordan — pre-booked car with a professional driver, fixed fare confirmed on WhatsApp, 24/7.";
 const OG_IMAGE = "https://taxisaudiarabia.com/services/border-crossings-hero.webp";
@@ -92,7 +93,7 @@ export default function BorderCrossingsPage() {
             <Globe className="h-3 w-3" aria-hidden /> Saudi Arabia · GCC · Jordan
           </span>
           <h1 className="font-heading mb-5 text-4xl font-bold leading-tight md:text-5xl">
-            Seamless GCC <span className="text-[#16A34A]">Border Crossings</span>
+            GCC &amp; Jordan cross-border taxi <span className="text-[#16A34A]">from Saudi Arabia</span>
           </h1>
           <p className="mx-auto mb-7 max-w-2xl text-sm leading-relaxed text-[#475569] md:text-base">
             A pre-booked private car with a professional driver, from your door in Saudi Arabia to Bahrain, Qatar, Kuwait, the UAE or Jordan — and back. One fixed fare in writing before you book.
