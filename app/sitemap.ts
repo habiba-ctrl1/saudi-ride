@@ -88,6 +88,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
+  // Arabic AlUla cluster (hub + children) — hreflang pairs of /locations/alula/*.
+  const arAlulaItems = ["", "/private-driver", "/hegra", "/maraya", "/elephant-rock"].map((sub) => ({
+    url: `${DOMAIN}/ar/locations/alula${sub}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: sub === "" ? 0.8 : 0.7,
+  }));
+
   // Event/exhibition transport hub + curated event pages.
   const eventItems = [
     { url: `${DOMAIN}/events`, priority: 0.8 },
@@ -204,6 +212,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...staticItems,
     ...arItems,
     ...arRouteItems,
+    ...arAlulaItems,
     ...eventItems,
     ...locationItems,
     ...subAreaItems,

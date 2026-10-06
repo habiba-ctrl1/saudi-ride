@@ -1,4 +1,5 @@
 import type { ArabicRouteContent } from "@/components/ar/ArabicRoutePage";
+import { AR_ALULA_ROUTE_CONTENT } from "@/lib/data/routes-content-ar-alula";
 
 // Arabic bespoke content for route pages, mirroring the English ROUTE_CONTENT
 // map in app/(marketing)/routes/[slug]/page.tsx. Single source for the dynamic
@@ -15,6 +16,7 @@ export interface ArRouteEntry extends Omit<ArabicRouteContent, "slug"> {
 }
 
 export const AR_ROUTE_CONTENT: Record<string, ArRouteEntry> = {
+  ...AR_ALULA_ROUTE_CONTENT,
   "jeddah-airport-to-makkah": {
     metaTitle: "تاكسي من مطار جدة إلى مكة المكرمة — سعر ثابت يُؤكد عبر واتساب",
     metaDescription:

@@ -93,7 +93,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {
       title: { absolute: rp.title },
       description: rp.metaDescription,
-      alternates: { canonical: url },
+      alternates: {
+        canonical: url,
+        ...(city === "alula"
+          ? { languages: { en: url, ar: `https://taxisaudiarabia.com/ar/locations/alula/${subarea}`, "x-default": url } }
+          : {}),
+      },
       openGraph: { title: rp.title, description: rp.metaDescription, type: "website", url, images: [{ url: img, alt: rp.heroAlt ?? rp.h1 }] },
       twitter: { card: "summary_large_image", title: rp.title, description: rp.metaDescription, images: [img] },
     };

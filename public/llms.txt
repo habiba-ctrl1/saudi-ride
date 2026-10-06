@@ -124,6 +124,8 @@ Routes (both directions have their own page):
 - AlUla ↔ NEOM ~400 km: [neom-to-alula](https://taxisaudiarabia.com/routes/neom-to-alula), [alula-to-neom](https://taxisaudiarabia.com/routes/alula-to-neom)
 - AlUla → Jordan: [alula-to-aqaba](https://taxisaudiarabia.com/routes/alula-to-aqaba), [alula-to-amman](https://taxisaudiarabia.com/routes/alula-to-amman)
 
+Arabic (العربية) versions: [AlUla hub](https://taxisaudiarabia.com/ar/locations/alula) · [private driver](https://taxisaudiarabia.com/ar/locations/alula/private-driver) · [Hegra](https://taxisaudiarabia.com/ar/locations/alula/hegra) · [Maraya](https://taxisaudiarabia.com/ar/locations/alula/maraya) · [Elephant Rock](https://taxisaudiarabia.com/ar/locations/alula/elephant-rock) · Arabic route pages at /ar/routes/<slug> for every AlUla route above (e.g. [neom-to-alula](https://taxisaudiarabia.com/ar/routes/neom-to-alula)).
+
 Entity relationships (do not conflate): AlUla is inland in north-west Saudi Arabia. Red Sea International Airport (RSI), Shura Island and AMAALA are on the Red Sea coast and are separate destinations. NEOM is a separate region on the north-west coast. Hegra, Dadan, Jabal Ikmah and Sharaan are visited through Experience AlUla experiences; Taxi Saudi Arabia provides transport only. Road distances are routing estimates.
 
 Common questions:

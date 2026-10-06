@@ -518,7 +518,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {
       title: t,
       description: d,
-      alternates: { canonical: `https://taxisaudiarabia.com/locations/${cityKeyLower}` },
+      alternates: {
+        canonical: `https://taxisaudiarabia.com/locations/${cityKeyLower}`,
+        ...(cityKeyLower === "alula"
+          ? { languages: { en: "https://taxisaudiarabia.com/locations/alula", ar: "https://taxisaudiarabia.com/ar/locations/alula", "x-default": "https://taxisaudiarabia.com/locations/alula" } }
+          : {}),
+      },
       openGraph: { title: t, description: d, type: "website", url: `https://taxisaudiarabia.com/locations/${cityKeyLower}`, images: [{ url: img, width: 1200, height: 630, alt: cityKeyLower === "riyadh" ? "Riyadh skyline with Kingdom Centre and Al Faisaliah Tower" : cityKeyLower === "alula" ? "Private transport in AlUla, Saudi Arabia" : "The Jeddah Corniche on the Red Sea" }] },
       twitter: { card: "summary_large_image", title: t, description: d, images: [img] },
     };

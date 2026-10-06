@@ -36,6 +36,10 @@ export const AR_REAL_ROUTES = [
   "/pricing",
   "/partners",
   ...AR_ROUTE_SLUGS.map((s) => `/routes/${s}`),
+  // Arabic AlUla cluster (app/(ar)/ar/locations/alula/*) — hub + children.
+  "/locations/alula",
+  // Kept as a literal list (not imported from the data module) so middleware stays lean.
+  ...["private-driver", "hegra", "maraya", "elephant-rock"].map((s) => `/locations/alula/${s}`),
   ...AR_CROSS_BORDER_PATHS,
   ...RECOVERY_AR_PATHS,
   // Arabic blog (app/ar/blog/*) — only slugs with a real localized article.
