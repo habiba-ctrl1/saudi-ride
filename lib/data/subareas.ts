@@ -336,6 +336,27 @@ export const SUB_AREAS: Record<string, {
     kind: "service",
     description: "Hire a private driver in Jeddah by the hour or for a full day.",
   },
+  // AlUla — added 2026-10-07. Content: lib/data/alula-cluster.ts.
+  "alula-private-driver": {
+    city: "alula", subarea: "private-driver", name: "Private Driver", nameAr: "سائق خاص",
+    kind: "service",
+    description: "Hire a private driver in AlUla for a multi-stop sightseeing day.",
+  },
+  "alula-hegra": {
+    city: "alula", subarea: "hegra", name: "Hegra", nameAr: "الحجر (مدائن صالح)",
+    kind: "attraction",
+    description: "Private transport from AlUla hotels to the Hegra Visitor Centre.",
+  },
+  "alula-maraya": {
+    city: "alula", subarea: "maraya", name: "Maraya", nameAr: "مرايا",
+    kind: "attraction",
+    description: "Private transport to Maraya concert hall and event pickups.",
+  },
+  "alula-elephant-rock": {
+    city: "alula", subarea: "elephant-rock", name: "Elephant Rock", nameAr: "جبل الفيل",
+    kind: "attraction",
+    description: "Private transport to Elephant Rock (Jabal AlFil) for sunset.",
+  },
   // Makkah (rich programmatic pages)
   "aziziyah": {
     city: "makkah", subarea: "aziziyah", name: "Aziziyah", nameAr: "العزيزية",

@@ -21,6 +21,7 @@ import { getCorridorForRoute, crossBorderWhatsAppText, placeWithCountry } from "
 import { CrossBorderRouteSections } from "@/components/cross-border/CrossBorderRouteSections";
 import { CrossBorderRoutePage } from "@/components/cross-border/CrossBorderRoutePage";
 import { CROSS_BORDER_ROUTE_PAGES } from "@/lib/data/cross-border-route-pages";
+import { RedSeaAlulaRouteSection, AlulaRouteNav } from "@/components/location/cluster/CrossDestination";
 
 interface PageProps {
   params: Promise<{
@@ -51,6 +52,8 @@ const DEFAULT_FAQS = [
 // mobile sticky CTA. Add a slug + its copy here to enable it — no other route
 // is affected. Path B (corporate vs heritage) is handled by separate per-slug
 // blocks in the body since the buyer differs by route.
+const ALULA_NAV_SLUGS = ["alula-to-madinah","madinah-to-alula","alula-to-riyadh","riyadh-to-alula","alula-to-jeddah","jeddah-to-alula","alula-to-neom","neom-to-alula","alula-to-amaala","amaala-to-alula","alula-to-red-sea-airport","red-sea-airport-to-alula"];
+
 const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup: string; dropoff: string }> = {
   // Dammam Airport ↔ Bahrain (added 2026-10-03 — GSC 10-01 demand, see
   // seo/page-log.md). Distance from ROUTES_DATA (OSRM-measured).
@@ -131,6 +134,69 @@ const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup:
     pickup: "Riyadh",
     dropoff: "AlUla",
   },
+  "alula-to-madinah": {
+    heading: "Get your AlUla to Madinah quote",
+    blurb:
+      "Send your AlUla hotel, your Madinah hotel or MED flight, and passengers — we confirm one fixed fare for the whole car on WhatsApp. About 330 km, door to door, with prayer and rest stops when you ask.",
+    pickup: "AlUla",
+    dropoff: "Madinah",
+  },
+  "alula-to-riyadh": {
+    heading: "Get your AlUla to Riyadh quote",
+    blurb:
+      "Send your AlUla pickup, Riyadh drop-off and passengers — one fixed fare for the whole car, confirmed on WhatsApp. About 1,050 km, a full day by road with rest and prayer stops.",
+    pickup: "AlUla",
+    dropoff: "Riyadh",
+  },
+  "alula-to-jeddah": {
+    heading: "Get your AlUla to Jeddah quote",
+    blurb:
+      "Send your AlUla pickup, Jeddah hotel or JED flight time, and passengers — one fixed fare for the whole car, confirmed on WhatsApp. About 700 km across the Kingdom.",
+    pickup: "AlUla",
+    dropoff: "Jeddah",
+  },
+  "amaala-to-alula": {
+    heading: "Get your AMAALA to AlUla quote",
+    blurb:
+      "Send your AMAALA resort, your AlUla hotel and passengers — we confirm one fixed fare on WhatsApp. A long planned leg between two separate destinations, about 295 km as a planning estimate.",
+    pickup: "AMAALA",
+    dropoff: "AlUla",
+  },
+  "alula-to-amaala": {
+    heading: "Get your AlUla to AMAALA quote",
+    blurb:
+      "Send your AlUla hotel, your AMAALA resort and passengers — we confirm one fixed fare on WhatsApp. A long planned leg between two separate destinations, about 295 km as a planning estimate.",
+    pickup: "AlUla",
+    dropoff: "AMAALA",
+  },
+  "neom-to-alula": {
+    heading: "Get your NEOM to AlUla quote",
+    blurb:
+      "Send your NEOM pickup (NEOM Bay Airport, Sharma, Magna, Oxagon), your AlUla hotel and passengers — one fixed fare confirmed on WhatsApp. About 400 km across north-west Saudi Arabia.",
+    pickup: "NEOM",
+    dropoff: "AlUla",
+  },
+  "alula-to-neom": {
+    heading: "Get your AlUla to NEOM quote",
+    blurb:
+      "Send your AlUla hotel, your NEOM drop-off and passengers — one fixed fare confirmed on WhatsApp. About 400 km across north-west Saudi Arabia; some NEOM sites need access clearance.",
+    pickup: "AlUla",
+    dropoff: "NEOM",
+  },
+  "red-sea-airport-to-alula": {
+    heading: "Get your Red Sea Airport to AlUla quote",
+    blurb:
+      "Send your flight number, your AlUla hotel and passengers — we confirm one fixed fare for the whole car on WhatsApp. A private inter-destination transfer from Red Sea International Airport (RSI) to AlUla, about 260 km by road.",
+    pickup: "Red Sea International Airport",
+    dropoff: "AlUla",
+  },
+  "alula-to-red-sea-airport": {
+    heading: "Get your AlUla to Red Sea Airport quote",
+    blurb:
+      "Send your AlUla hotel, your flight time at RSI (or your Red Sea resort) and passengers — we work the pickup back from your timing and confirm one fixed fare on WhatsApp. About 260 km by road.",
+    pickup: "AlUla",
+    dropoff: "Red Sea International Airport",
+  },
   "red-sea-airport-to-amaala": {
     heading: "Get your Red Sea Airport to AMAALA quote",
     blurb:
@@ -158,6 +224,116 @@ const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup:
 // paragraph, button labels and /services/corporate link are shared in the JSX;
 // only the heading, intro and prefills differ per route.
 const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefill: string; emailSubject: string; emailBody: string }> = {
+  "amaala-to-alula": {
+    heading: "Delegation, incentive group or project team on this route?",
+    intro:
+      "Groups can be quoted in writing by email — vehicles from executive sedans to coasters through our partner network, one point of contact, and a fixed fare before booking. Corporate invoicing can be arranged through our sister company.",
+    waPrefill: `Salam! Group transfer — AMAALA to AlUla.\n• Company / group: \n• Date & flight no.: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van / Coaster): \n• Email (for written quote): \n• Invoice needed?: `,
+    emailSubject: "Group transfer RFQ — AMAALA to AlUla",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for a group transfer from AMAALA to AlUla.\n\n• Company / organisation: \n• Contact name & role: \n• Date & flight no./time: \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van / Coaster): \n• Invoice needed?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+  },
+  "alula-to-amaala": {
+    heading: "Delegation, incentive group or project team on this route?",
+    intro:
+      "Groups can be quoted in writing by email — vehicles from executive sedans to coasters through our partner network, one point of contact, and a fixed fare before booking. Corporate invoicing can be arranged through our sister company.",
+    waPrefill: `Salam! Group transfer — AlUla to AMAALA.\n• Company / group: \n• Date & flight no.: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van / Coaster): \n• Email (for written quote): \n• Invoice needed?: `,
+    emailSubject: "Group transfer RFQ — AlUla to AMAALA",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for a group transfer from AlUla to AMAALA.\n\n• Company / organisation: \n• Contact name & role: \n• Date & flight no./time: \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van / Coaster): \n• Invoice needed?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+  },
+  "neom-to-alula": {
+    heading: "Delegation, incentive group or project team on this route?",
+    intro:
+      "Groups can be quoted in writing by email — vehicles from executive sedans to coasters through our partner network, one point of contact, and a fixed fare before booking. Corporate invoicing can be arranged through our sister company.",
+    waPrefill: `Salam! Group transfer — NEOM to AlUla.\n• Company / group: \n• Date & flight no.: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van / Coaster): \n• Email (for written quote): \n• Invoice needed?: `,
+    emailSubject: "Group transfer RFQ — NEOM to AlUla",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for a group transfer from NEOM to AlUla.\n\n• Company / organisation: \n• Contact name & role: \n• Date & flight no./time: \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van / Coaster): \n• Invoice needed?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+  },
+  "alula-to-neom": {
+    heading: "Delegation, incentive group or project team on this route?",
+    intro:
+      "Groups can be quoted in writing by email — vehicles from executive sedans to coasters through our partner network, one point of contact, and a fixed fare before booking. Corporate invoicing can be arranged through our sister company.",
+    waPrefill: `Salam! Group transfer — AlUla to NEOM.\n• Company / group: \n• Date & flight no.: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van / Coaster): \n• Email (for written quote): \n• Invoice needed?: `,
+    emailSubject: "Group transfer RFQ — AlUla to NEOM",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for a group transfer from AlUla to NEOM.\n\n• Company / organisation: \n• Contact name & role: \n• Date & flight no./time: \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van / Coaster): \n• Invoice needed?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+  },
+  "alula-to-riyadh": {
+    heading: "Delegation, incentive group or project team on this route?",
+    intro:
+      "Groups can be quoted in writing by email — vehicles from executive sedans to coasters through our partner network, one point of contact, and a fixed fare before booking. Corporate invoicing can be arranged through our sister company.",
+    waPrefill: `Salam! Group transfer — AlUla to Riyadh.\n• Company / group: \n• Date & flight no.: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van / Coaster): \n• Email (for written quote): \n• Invoice needed?: `,
+    emailSubject: "Group transfer RFQ — AlUla to Riyadh",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for a group transfer from AlUla to Riyadh.\n\n• Company / organisation: \n• Contact name & role: \n• Date & flight no./time: \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van / Coaster): \n• Invoice needed?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+  },
+  "alula-to-jeddah": {
+    heading: "Delegation, incentive group or project team on this route?",
+    intro:
+      "Groups can be quoted in writing by email — vehicles from executive sedans to coasters through our partner network, one point of contact, and a fixed fare before booking. Corporate invoicing can be arranged through our sister company.",
+    waPrefill: `Salam! Group transfer — AlUla to Jeddah.\n• Company / group: \n• Date & flight no.: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van / Coaster): \n• Email (for written quote): \n• Invoice needed?: `,
+    emailSubject: "Group transfer RFQ — AlUla to Jeddah",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for a group transfer from AlUla to Jeddah.\n\n• Company / organisation: \n• Contact name & role: \n• Date & flight no./time: \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van / Coaster): \n• Invoice needed?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+  },
+  "alula-to-madinah": {
+    heading: "Delegation, incentive group or project team on this route?",
+    intro:
+      "Groups can be quoted in writing by email — vehicles from executive sedans to coasters through our partner network, one point of contact, and a fixed fare before booking. Corporate invoicing can be arranged through our sister company.",
+    waPrefill: `Salam! Group transfer — AlUla to Madinah.\n• Company / group: \n• Date & flight no.: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van / Coaster): \n• Email (for written quote): \n• Invoice needed?: `,
+    emailSubject: "Group transfer RFQ — AlUla to Madinah",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for a group transfer from AlUla to Madinah.\n\n• Company / organisation: \n• Contact name & role: \n• Date & flight no./time: \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van / Coaster): \n• Invoice needed?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+  },
+  "red-sea-airport-to-alula": {
+    heading: "Delegation or incentive group moving between the Red Sea and AlUla?",
+    intro:
+      "Groups combining the Red Sea resorts with AlUla can be quoted in writing by email — vehicles from executive sedans to coasters through our partner network, one point of contact, and a fixed fare before booking. Corporate invoicing can be arranged through our sister company.",
+    waPrefill: `Salam! Group transfer — Red Sea Airport (RSI) to AlUla.
+• Company / group: 
+• Date & flight no.: 
+• Passengers: 
+• Vehicle (Executive sedan / SUV / Van / Coaster): 
+• Email (for written quote): 
+• Invoice needed?: `,
+    emailSubject: "Group transfer RFQ — Red Sea Airport (RSI) to AlUla",
+    emailBody: `Hello Taxi Saudi Arabia team,
+
+We'd like a written quote for a group transfer from Red Sea Airport (RSI) to AlUla.
+
+• Company / organisation: 
+• Contact name & role: 
+• Date & flight no./time: 
+• Passengers: 
+• Vehicle preference (Executive sedan / SUV / Van / Coaster): 
+• Invoice needed?: 
+
+Please confirm a fixed fare before booking.
+
+Thank you.`,
+  },
+  "alula-to-red-sea-airport": {
+    heading: "Delegation or incentive group moving between the Red Sea and AlUla?",
+    intro:
+      "Groups combining the Red Sea resorts with AlUla can be quoted in writing by email — vehicles from executive sedans to coasters through our partner network, one point of contact, and a fixed fare before booking. Corporate invoicing can be arranged through our sister company.",
+    waPrefill: `Salam! Group transfer — AlUla to Red Sea Airport (RSI).
+• Company / group: 
+• Date & flight no.: 
+• Passengers: 
+• Vehicle (Executive sedan / SUV / Van / Coaster): 
+• Email (for written quote): 
+• Invoice needed?: `,
+    emailSubject: "Group transfer RFQ — AlUla to Red Sea Airport (RSI)",
+    emailBody: `Hello Taxi Saudi Arabia team,
+
+We'd like a written quote for a group transfer from AlUla to Red Sea Airport (RSI).
+
+• Company / organisation: 
+• Contact name & role: 
+• Date & flight no./time: 
+• Passengers: 
+• Vehicle preference (Executive sedan / SUV / Van / Coaster): 
+• Invoice needed?: 
+
+Please confirm a fixed fare before booking.
+
+Thank you.`,
+  },
   "riyadh-to-dammam": {
     heading: "Moving a team between Riyadh and the Eastern Province?",
     intro:
@@ -185,7 +361,7 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
   "red-sea-airport-to-amaala": {
     heading: "VIP or delegation arrival for AMAALA?",
     intro:
-      "For executive arrivals, event organisers and travel coordinators booking AMAALA we run executive sedans and full-size SUVs with professional chauffeurs, meet & greet at Red Sea International Airport, and flight tracking. Multi-vehicle delegation movements can run on one account with a single point of contact.",
+      "For executive arrivals, event organisers and travel coordinators booking AMAALA we arrange executive sedans and full-size SUVs through our partner network, with meet & greet at Red Sea International Airport and flight tracking. Multi-vehicle delegation movements can run on one account with a single point of contact.",
     waPrefill: `Salam! VIP / delegation transfer — Red Sea Airport to AMAALA.\n• Company / event: \n• Flight no. & arrival date: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate/VIP transfer RFQ — Red Sea Airport–AMAALA",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for VIP or delegation transfers from Red Sea International Airport to AMAALA.\n\n• Company / organisation: \n• Contact name & role: \n• Flight no. & arrival date/time: \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
@@ -193,7 +369,7 @@ const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefi
   "red-sea-airport-to-neom": {
     heading: "Business travel to NEOM?",
     intro:
-      "For business visitors and contractors arriving for NEOM project work we run executive sedans and full-size SUVs with professional chauffeurs, meet & greet at Red Sea International Airport, and flight tracking on to NEOM and NEOM Bay. Some NEOM gates require access clearance — confirm your permit in advance. Regular staff travel can run on one account with a single point of contact.",
+      "For business visitors and contractors arriving for NEOM project work we arrange executive sedans and full-size SUVs through our partner network, with meet & greet at Red Sea International Airport and flight tracking on to NEOM and NEOM Bay. Some NEOM gates require access clearance — confirm your permit in advance. Regular staff travel can run on one account with a single point of contact.",
     waPrefill: `Salam! Corporate transfer — Red Sea Airport to NEOM.\n• Company: \n• Flight no. & arrival date: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• NEOM site / gate clearance confirmed?: \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Red Sea Airport–NEOM",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate transfers from Red Sea International Airport to NEOM.\n\n• Company name: \n• Contact name & role: \n• Flight no. & arrival date/time: \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van): \n• NEOM site / gate clearance: \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
@@ -254,6 +430,160 @@ const KUWAIT_ROUTE_SECTIONS: Record<string, KuwaitRouteConfig> = {
 // Route-specific, entity-rich content for the highest-value Jeddah corridors.
 // Keyed by slug → above-the-fold answer + featured-snippet facts + bespoke FAQs.
 const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; value: string }[]; faqs: { question: string; answer: string }[] }> = {
+  "alula-to-madinah": {
+    tldr: "AlUla to Madinah is about 330 km — roughly 3 hours of driving. A private car collects you from your AlUla hotel and drops you at your Madinah hotel or Madinah Airport (MED) at a fixed fare confirmed on WhatsApp before booking. It is the natural next leg after a heritage stay, and for many travellers the start of Ziyarat. We track your flight if you are connecting at MED.",
+    tldrFacts: [
+      { label: "Distance", value: "~330 km" },
+      { label: "Drive time", value: "~3 hr" },
+      { label: "Ends at", value: "Madinah hotel or MED" },
+      { label: "Fare", value: "Agreed before booking" },
+    ],
+    faqs: [
+      { question: "How far is AlUla from Madinah by road?", answer: "About 330 km, roughly 3 hours of driving, plus any prayer or rest stops you ask for." },
+      { question: "Can you take me from my AlUla hotel straight to my Madinah hotel?", answer: "Yes. The car collects you at the hotel and drops you as close to your Madinah hotel as vehicles are permitted, with all luggage in one vehicle." },
+      { question: "Can I go to Madinah Airport (MED) instead?", answer: "Yes. Send your flight time and we work the pickup back from it, leaving a margin for the drive. We track the flight if you are arriving rather than departing." },
+      { question: "Is it better to book this together with Madinah to AlUla?", answer: "Many visitors book both legs so the same arrangement runs the whole trip. Tell us the dates for each leg and we quote them together." },
+      { question: "Can we stop on the way?", answer: "Yes — prayer, meal and photo stops. Tell us when you book so the quote reflects them." },
+      { question: "Can I travel with a lot of luggage?", answer: "Yes. Give us the number of large cases and passengers; a full-size SUV or van is the usual choice." },
+    ],
+  },
+  "alula-to-riyadh": {
+    tldr: "AlUla to Riyadh is about 1,050 km by road — roughly 10 hours of driving, so it is a full day. A private car goes door to door at a fixed fare confirmed on WhatsApp before booking, with rest and prayer stops. Many travellers fly from AlUla International Airport (ULH) instead and use a car at each end; the road suits families, groups, heavy luggage and travellers who want to stop on the way.",
+    tldrFacts: [
+      { label: "Distance", value: "~1,050 km" },
+      { label: "Drive time", value: "~10 hr" },
+      { label: "Format", value: "Full day, door to door" },
+      { label: "Fare", value: "Agreed before booking" },
+    ],
+    faqs: [
+      { question: "How long is the drive from AlUla to Riyadh?", answer: "About 1,050 km and roughly 10 hours of driving, plus rest and prayer stops. Plan for a full day and an early start." },
+      { question: "Should I drive or fly from AlUla to Riyadh?", answer: "For one or two light travellers, flying from ULH is faster, with a car at each end. Driving makes sense for families, groups, heavy luggage, or when you want to stop on the way. Check which airlines currently serve ULH before deciding." },
+      { question: "Can we break the journey overnight?", answer: "Yes. Ask for a two-day quote with an overnight stop and we include it." },
+      { question: "Which vehicle is best for 10 hours on the road?", answer: "A full-size SUV is the usual choice for comfort; vans suit larger groups. Tell us passengers and luggage and the vehicle is confirmed with the fare." },
+      { question: "Can the driver collect us from an AlUla resort?", answer: "Yes — hotel or resort entrance, or AlUla Airport. Give us the property name when you request the quote." },
+      { question: "Can a company be invoiced?", answer: "Yes. Corporate invoicing can be arranged through our sister company. Email your trip details for a written quote." },
+    ],
+  },
+  "alula-to-jeddah": {
+    tldr: "AlUla to Jeddah is about 700 km — roughly 6 hours 40 minutes of driving. A private car takes you from your AlUla hotel to your Jeddah hotel or King Abdulaziz International Airport (JED) at a fixed fare confirmed on WhatsApp before booking. It suits families and groups continuing to the Red Sea coast or on to Makkah, and travellers who prefer one vehicle to a flight connection.",
+    tldrFacts: [
+      { label: "Distance", value: "~700 km" },
+      { label: "Drive time", value: "~6 hr 40 min" },
+      { label: "Ends at", value: "Jeddah hotel or JED" },
+      { label: "Fare", value: "Agreed before booking" },
+    ],
+    faqs: [
+      { question: "How far is AlUla from Jeddah?", answer: "About 700 km by road, roughly 6 hours 40 minutes of driving plus stops." },
+      { question: "Can you drop us at Jeddah airport for a flight?", answer: "Yes. Send your JED flight time and we set the pickup from AlUla so you arrive with a comfortable margin." },
+      { question: "Can we continue to Makkah after Jeddah?", answer: "Yes. Ask for the extra leg when you request the quote and we price the journey as one booking or two." },
+      { question: "Is the drive comfortable with children?", answer: "Yes, with planned rest stops. Tell us the children's ages and we choose a vehicle with room for seats and bags." },
+      { question: "Do you also run Jeddah to AlUla?", answer: "Yes. The same arrangement runs in the opposite direction; see the Jeddah to AlUla route." },
+      { question: "How is the fare set?", answer: "One fixed fare for the whole car, agreed on WhatsApp before booking — no meter, no surge." },
+    ],
+  },
+  "amaala-to-alula": {
+    tldr: "AMAALA and AlUla are separate destinations: AMAALA is on the Red Sea coast, AlUla is inland. A private transfer between them is a long planned leg of about 295 km as a planning estimate — roughly 35 km from the Red Sea International Airport gateway plus about 260 km on to AlUla. We collect you from your AMAALA resort (or RSI) and take you to your AlUla hotel, with the fare agreed before booking.",
+    tldrFacts: [
+      { label: "Distance", value: "~295 km (planning estimate)" },
+      { label: "Starts", value: "AMAALA resort or RSI" },
+      { label: "Ends", value: "Your AlUla hotel" },
+      { label: "Fare", value: "Agreed before booking" },
+    ],
+    faqs: [
+      { question: "Is AMAALA near AlUla?", answer: "No. AMAALA is on the Red Sea coast and AlUla is inland in north-west Saudi Arabia. They are separate destinations, linked by a long road transfer." },
+      { question: "How far is AMAALA from AlUla by road?", answer: "About 295 km as a planning estimate: roughly 35 km from the Red Sea International Airport gateway, then about 260 km to AlUla. The driver confirms timing for your day." },
+      { question: "Can you collect us from Four Seasons Resort and Residences AMAALA?", answer: "Yes — give us the resort name when you request the quote. We are independent of the resort and have no partnership with it." },
+      { question: "Should we fly into RSI or AlUla first?", answer: "Either order works. Many guests land at Red Sea International Airport for AMAALA and transfer to AlUla by road afterwards; the same transfer runs in reverse." },
+      { question: "Can you handle a group or delegation?", answer: "Yes. Vehicles from executive sedans to coasters are available through our partner network; email for a written quote." },
+      { question: "Do you track my flight?", answer: "Yes. Share your RSI flight number and a delay moves your pickup." },
+    ],
+  },
+  "alula-to-amaala": {
+    tldr: "AlUla to AMAALA is a planned inter-destination transfer from the inland heritage oasis to the Red Sea coast — about 295 km as a planning estimate. A private car collects you from your AlUla hotel and takes you to your AMAALA resort or to Red Sea International Airport (RSI) for your flight, with the fare agreed on WhatsApp before booking. AlUla and AMAALA are separate destinations.",
+    tldrFacts: [
+      { label: "Distance", value: "~295 km (planning estimate)" },
+      { label: "Starts", value: "Your AlUla hotel" },
+      { label: "Ends", value: "AMAALA resort or RSI" },
+      { label: "Fare", value: "Agreed before booking" },
+    ],
+    faqs: [
+      { question: "How long does AlUla to AMAALA take?", answer: "Roughly 5 hours as a planning estimate, depending on the exact resort and stops. The driver confirms the timing for your day." },
+      { question: "Can you drop us at the airport rather than the resort?", answer: "Yes. For an RSI flight we work the pickup back from your departure time and add a safety margin." },
+      { question: "Is it worth driving rather than flying?", answer: "Driving is door to door with all luggage and a time you choose. Flying can be quicker for light travellers when a suitable flight exists; check current schedules and remember a car is still needed at each end." },
+      { question: "Can we stop on the way?", answer: "Yes — rest, prayer or photo stops. Tell us when you book." },
+      { question: "Can we add Shura Island afterwards?", answer: "Yes. Shura Island is another Red Sea destination near RSI; we can quote the onward leg." },
+      { question: "How do I pay?", answer: "Cash to the driver or bank transfer, with an electronic receipt on request." },
+    ],
+  },
+  "neom-to-alula": {
+    tldr: "NEOM to AlUla is about 400 km by road — roughly 6 hours 45 minutes of driving from the NEOM Bay Airport area. A private car collects you at NEOM (NEOM Bay Airport, Sharma, Magna or Oxagon) and takes you to your AlUla hotel at a fixed fare confirmed on WhatsApp before booking. It suits NEOM visitors adding AlUla's heritage, and AlUla guests heading to NEOM for business. Some NEOM sites need access clearance, which you arrange in advance.",
+    tldrFacts: [
+      { label: "Distance", value: "~400 km" },
+      { label: "Drive time", value: "~6 hr 45 min" },
+      { label: "Starts", value: "NEOM Bay Airport area" },
+      { label: "Fare", value: "Agreed before booking" },
+    ],
+    faqs: [
+      { question: "How far is NEOM from AlUla?", answer: "About 400 km by road, roughly 6 hours 45 minutes from the NEOM Bay Airport area; other NEOM sites differ, so tell us your exact pickup." },
+      { question: "Which NEOM pickup points do you cover?", answer: "NEOM Bay Airport, Sharma, Magna and Oxagon. Give us the exact location when you request the quote." },
+      { question: "Do I need clearance to be collected inside NEOM?", answer: "Some NEOM gates and sites require access clearance. Confirm yours before the day; we cannot arrange it for you." },
+      { question: "Is it better to drive or to fly via Tabuk?", answer: "Driving is door to door in one vehicle. Flights can shorten the day for light travellers if schedules suit; a car is still needed at each end." },
+      { question: "Can we stop in Tabuk on the way?", answer: "Yes. Tell us and we include the stop in the quote." },
+      { question: "Can a business team be invoiced?", answer: "Yes. Corporate invoicing can be arranged through our sister company. Email your trip details for a written quote." },
+    ],
+  },
+  "alula-to-neom": {
+    tldr: "AlUla to NEOM is about 400 km by road — roughly 6 hours 45 minutes of driving to the NEOM Bay Airport area. A private car collects you from your AlUla hotel and drops you at NEOM (NEOM Bay Airport, Sharma, Magna or Oxagon) at a fixed fare confirmed on WhatsApp before booking. Some NEOM sites need access clearance, arranged in advance; we provide the transport only.",
+    tldrFacts: [
+      { label: "Distance", value: "~400 km" },
+      { label: "Drive time", value: "~6 hr 45 min" },
+      { label: "Ends at", value: "NEOM Bay Airport area" },
+      { label: "Fare", value: "Agreed before booking" },
+    ],
+    faqs: [
+      { question: "How long is the drive from AlUla to NEOM?", answer: "About 400 km, roughly 6 hours 45 minutes to the NEOM Bay Airport area, plus stops." },
+      { question: "Can you drop me at NEOM Bay Airport for a flight?", answer: "Yes. Send your flight time and we set the pickup from AlUla with a comfortable margin." },
+      { question: "Do I need a permit to enter NEOM sites?", answer: "Some NEOM gates require access clearance. Confirm yours in advance; it is not something we arrange." },
+      { question: "Can we break the journey?", answer: "Yes. Ask for a stop on the way or an overnight and we quote it." },
+      { question: "Which vehicle should we pick for 400 km?", answer: "A full-size SUV for comfort, or a van for groups. Tell us passengers and luggage and we confirm the vehicle with the fare." },
+      { question: "Can I book the return NEOM to AlUla too?", answer: "Yes, and quoting both legs together is common." },
+    ],
+  },
+  "red-sea-airport-to-alula": {
+    tldr: "Red Sea International Airport (RSI) and AlUla are separate destinations about 260 km apart by road — roughly 4 hours 25 minutes of driving. A private car takes you from RSI, or from a Red Sea resort, to your AlUla hotel at a fixed fare confirmed on WhatsApp before booking. We track your flight, and 15–30 minutes of waiting after landing is free. Distances are road-routing estimates; the driver confirms the timing for your day.",
+    tldrFacts: [
+      { label: "Distance", value: "~260 km" },
+      { label: "Drive time", value: "~4 hr 25 min" },
+      { label: "Flights", value: "We track your flight" },
+      { label: "Fare", value: "Agreed before booking" },
+    ],
+    faqs: [
+      { question: "How far is Red Sea International Airport from AlUla?", answer: "About 260 km by road, roughly 4 hours 25 minutes. It is a road-routing estimate; the driver confirms timing for your day and you can ask for rest and prayer stops." },
+      { question: "Is AlUla near the Red Sea resorts?", answer: "No. AlUla is inland in north-west Saudi Arabia; Shura Island, AMAALA and Red Sea International Airport are on the Red Sea coast. They are separate destinations that travellers combine, which is why a private inter-destination transfer is useful." },
+      { question: "Can I book a transfer from Shura Island or AMAALA to AlUla?", answer: "Yes. Most Red Sea resort guests fly in via RSI; we collect you from RSI or from your resort and drive to your AlUla hotel. Tell us the resort name when you request the quote." },
+      { question: "Is it better to drive or fly between the Red Sea and AlUla?", answer: "Driving is door to door in one vehicle with all luggage and a departure time you choose. Flying can be faster for light, solo travellers when a suitable flight exists; check which airlines currently connect the two airports, and remember you still need a car at each end." },
+      { question: "Do you track my flight into RSI?", answer: "Yes. Share your flight number when you book and we track the flight, so a delay moves your pickup. 15–30 minutes of waiting after landing is free." },
+      { question: "Can we stop on the way?", answer: "Yes. Tell us your rest, prayer or photo stops when you book so the quote reflects them." },
+      { question: "Can companies be invoiced?", answer: "Yes. Corporate invoicing can be arranged through our sister company. Email your trip details for a written quote." },
+    ],
+  },
+  "alula-to-red-sea-airport": {
+    tldr: "AlUla to Red Sea International Airport (RSI) is about 260 km by road — roughly 4 hours 25 minutes. A private car collects you from your AlUla hotel and takes you to RSI or on to a Red Sea resort at a fixed fare confirmed on WhatsApp before booking. We work the pickup back from your flight time, and we track your flight. AlUla and the Red Sea coast are separate destinations; distances are road-routing estimates.",
+    tldrFacts: [
+      { label: "Distance", value: "~260 km" },
+      { label: "Drive time", value: "~4 hr 25 min" },
+      { label: "Pickup", value: "Worked back from your flight" },
+      { label: "Fare", value: "Agreed before booking" },
+    ],
+    faqs: [
+      { question: "How long does it take to drive from AlUla to Red Sea International Airport?", answer: "About 4 hours 25 minutes for roughly 260 km, as a road-routing estimate. We set your pickup time from your flight and add a safety margin." },
+      { question: "Can you take us to Shura Island or AMAALA instead of the airport?", answer: "Yes. Say which resort you are staying at and we quote the drop-off there. Shura Island and AMAALA are separate Red Sea destinations, and the final leg from RSI is short." },
+      { question: "What time should the car leave AlUla for an afternoon flight?", answer: "We work it back from your departure time and the drive. Send the flight time and your AlUla hotel and we suggest the pickup." },
+      { question: "Can we add a stop on the way?", answer: "Yes — rest and prayer stops, or a photo stop. Tell us when you book so the quote reflects it." },
+      { question: "How is the fare agreed?", answer: "One fixed fare for the whole car, confirmed on WhatsApp before booking — no meter and no surge." },
+      { question: "Can I cancel?", answer: "Cancellation is free up to 24 hours before pickup." },
+    ],
+  },
   "jeddah-airport-to-makkah": {
     tldr: "A private transfer from Jeddah Airport (JED) to Makkah (Mecca) is about 80 km and takes roughly 1 hour. Fares are confirmed on WhatsApp before booking, available 24/7, with a Miqat stop on request so you can enter Ihram before reaching Makkah.",
     tldrFacts: [
@@ -1339,6 +1669,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // impressions but ~0 clicks — titles now mirror GSC queries ("by road",
   // "car with driver", "riyadh to bahrain") + the distance.
   const TITLE_OVERRIDES: Record<string, string> = {
+    "red-sea-airport-to-alula": "Red Sea Airport (RSI) to AlUla Private Transfer | ~260 km",
+    "alula-to-madinah": "AlUla to Madinah Private Transfer | ~330 km, Door to Door",
+    "alula-to-riyadh": "AlUla to Riyadh by Road — Private Car with Driver, 1,050 km",
+    "alula-to-jeddah": "AlUla to Jeddah Private Transfer | ~700 km by Road",
+    "amaala-to-alula": "AMAALA to AlUla Private Transfer | Red Sea to AlUla",
+    "alula-to-amaala": "AlUla to AMAALA Private Transfer | AlUla to the Red Sea",
+    "neom-to-alula": "NEOM to AlUla Private Transfer | ~400 km",
+    "alula-to-neom": "AlUla to NEOM Private Transfer | ~400 km",
+    "alula-to-red-sea-airport": "AlUla to Red Sea Airport (RSI) Private Transfer | ~260 km",
     "riyadh-to-manama": "Riyadh to Bahrain by Car — Private Driver to Manama, 450 km",
     "riyadh-to-abudhabi": "Riyadh to Abu Dhabi by Road — Private Car with Driver, 850 km",
     "abudhabi-to-riyadh": "Abu Dhabi to Riyadh Private Car with Driver | UAE to Saudi",
@@ -1395,6 +1734,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // Per-slug description overrides — same CTR-fix rationale as TITLE_OVERRIDES,
   // for pages with confirmed impressions/position but zero clicks.
   const DESCRIPTION_OVERRIDES: Record<string, string> = {
+    "alula-to-madinah": "Private car from AlUla to Madinah — about 330 km, roughly 3 hours, to your hotel or Madinah Airport. One fixed fare agreed on WhatsApp before booking.",
+    "alula-to-riyadh": "Private car from AlUla to Riyadh — about 1,050 km, a full day on the road, door to door with rest and prayer stops. Fare agreed before booking.",
+    "alula-to-jeddah": "Private car from AlUla to Jeddah — about 700 km, to your hotel or JED airport. One fixed fare agreed on WhatsApp before booking.",
+    "amaala-to-alula": "Private transfer from your AMAALA resort to AlUla — a long planned leg between two separate destinations. Fare agreed before booking.",
+    "alula-to-amaala": "Private transfer from AlUla to AMAALA or Red Sea Airport — a planned leg between two separate destinations. Fare agreed before booking.",
+    "neom-to-alula": "Private transfer from NEOM to AlUla — about 400 km across north-west Saudi Arabia, door to door. Fare agreed on WhatsApp before booking.",
+    "alula-to-neom": "Private transfer from AlUla to NEOM — about 400 km, to NEOM Bay Airport, Sharma, Magna or Oxagon. Fare agreed before booking.",
+    "red-sea-airport-to-alula": "Private transfer from Red Sea International Airport (RSI) or a Red Sea resort to your AlUla hotel — about 260 km, door to door. Fare agreed before booking; we track your flight.",
+    "alula-to-red-sea-airport": "Private transfer from your AlUla hotel to Red Sea International Airport (RSI) or a Red Sea resort — about 260 km, pickup worked back from your flight. Fare agreed first.",
     "dammam-airport-to-bahrain": "Dammam Airport to Bahrain taxi — private car from King Fahd International Airport (DMM) over the causeway to your Bahrain hotel, ~105 km. Toll included.",
     "bahrain-to-dammam-airport": "Bahrain to Dammam Airport taxi — private car over the King Fahd Causeway to DMM departures, ~105 km, timed for check-in. Causeway toll included.",
     "riyadh-to-taif": "Private car from Riyadh to Taif — about 785 km on Highway 40, roughly 8 hours, door to door with rest stops. One fixed fare agreed on WhatsApp before booking.",
@@ -2416,6 +2764,9 @@ export default async function RouteDetailsPage({ params }: PageProps) {
           )}
 
           {/* ─── HERITAGE DAY-CHARTER (Path B) — AlUla private tour ────────── */}
+          {ALULA_NAV_SLUGS.includes(slug) && <AlulaRouteNav slug={slug} />}
+          {(slug === "red-sea-airport-to-alula" || slug === "alula-to-red-sea-airport" || slug === "amaala-to-alula" || slug === "alula-to-amaala") && <RedSeaAlulaRouteSection />}
+
           {slug === "madinah-to-alula" && (
             <section className="rounded-3xl border border-[#16A34A]/15 bg-[#0F172A] p-8 text-white shadow-sm">
               <div className="max-w-2xl space-y-4">

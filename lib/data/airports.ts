@@ -256,25 +256,29 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     nameAr: "مطار العلا الدولي",
     image: "/airports/alula-airport.webp",
     tagline: "Arrival at the Ancient Oasis",
-    description: "Exclusive airport transfers from AlUla Airport (ULH) to your desert resort or Hegra. Luxury vehicles tailored for a premium tourist experience.",
+    description: "Private airport transfers from AlUla International Airport (ULH) to your desert resort, hotel or onward sights such as Hegra. Pre-booked, fare agreed before you travel; we track your flight.",
     terminals: [
       { name: "Main Terminal", desc: "Boutique airport terminal serving the heritage site." }
     ],
     tips: [
       "Ensure you book your transfer in advance as on-demand taxis are extremely limited at ULH.",
-      "Our luxury fleet (Cadillac Escalade, Mercedes S-Class) perfectly matches AlUla's premium resorts."
+      "Executive sedans, full-size SUVs and vans are available through our partner network — share your passenger and luggage count and we choose the right one."
     ],
-    priorityRoutes: ["alula-airport-to-resorts", "alula-to-medina"],
+    priorityRoutes: ["alula-airport-to-resorts", "madinah-to-alula"],
     faqs: [
       { question: "Are taxis available at AlUla airport?", answer: "On-demand taxis are extremely limited at AlUla Airport (ULH). Pre-booking your transfer in advance is strongly recommended." },
-      { question: "How far is AlUla airport from Hegra?", answer: "AlUla Airport is about 30 km from Hegra and the main resort area. The transfer takes roughly 30 minutes." },
-      { question: "What vehicles are available at AlUla?", answer: "We provide luxury vehicles suited to AlUla's premium tourism experience, including the Cadillac Escalade and Mercedes S-Class." }
+      { question: "How far is AlUla airport from the resorts?", answer: "About 30 km to the main resort area, roughly 30 minutes. Hegra is a further drive out of AlUla town; the driver confirms timing for your plan." },
+      { question: "What vehicles are available at AlUla?", answer: "Executive sedans, full-size SUVs and vans through our partner network. Tell us your passengers and luggage and the vehicle is confirmed with the fare before you book." },
+      { question: "Do you track my flight into ULH?", answer: "Yes. Share your flight number and a delay moves your pickup; 15–30 minutes of waiting after landing is free." },
+      { question: "Is meet & greet included at AlUla airport?", answer: "Yes. Meet & greet is provided at arrivals, and driver details are sent on WhatsApp before pickup." }
     ],
     relatedLinks: [
       { href: "/routes/alula-airport-to-resorts", label: "AlUla Airport to desert resorts" },
       { href: "/routes/madinah-to-alula", label: "Madinah to AlUla transfer" },
-      { href: "/fleet/cadillac-escalade", label: "Cadillac Escalade — elite SUV" },
-      { href: "/fleet/mercedes-s-class", label: "Mercedes S-Class — luxury sedan" },
+      { href: "/locations/alula", label: "All AlUla private transport" },
+      { href: "/locations/alula/private-driver", label: "Private driver for an AlUla day" },
+      { href: "/locations/alula/hegra", label: "Transport to Hegra" },
+      { href: "/routes/alula-to-red-sea-airport", label: "AlUla to Red Sea Airport (RSI)" },
     ]
   },
   "red-sea": {
@@ -296,16 +300,17 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     ],
     tips: [
       "This is a remote-resort airport — there are no on-demand taxis waiting outside, so pre-book your transfer before you fly.",
-      "Our executive fleet (Mercedes S-Class, GMC Yukon, Cadillac Escalade) matches the standard expected by AMAALA and Red Sea Global resort guests.",
+      "Executive sedans and full-size SUVs are available through our partner network, suited to AMAALA and Red Sea Global resort guests — tell us your passengers and luggage and we confirm the vehicle with the fare.",
       "Share your resort name (e.g. AMAALA, Sindalah, St. Regis Red Sea Resort, Six Senses Southern Dunes, Shebara) when booking so your driver knows the exact drop-off point.",
       "Meet & greet is included — share your flight number when you book so we check it before pickup."
     ],
-    priorityRoutes: ["red-sea-airport-to-amaala", "red-sea-airport-to-neom"],
+    priorityRoutes: ["red-sea-airport-to-amaala", "red-sea-airport-to-neom", "red-sea-airport-to-alula"],
     faqs: [
       { question: "How do I get from Red Sea International Airport to AMAALA?", answer: "A private VIP transfer from Red Sea International Airport (RSI) to AMAALA is about 35 km, roughly a 30-minute drive, in an executive vehicle — the fare is confirmed on WhatsApp before booking." },
       { question: "Is there a taxi rank at Red Sea International Airport?", answer: "No — this is a boutique airport built for the Red Sea Global resorts, with no walk-up taxi rank. Pre-booking your transfer in advance is strongly recommended." },
       { question: "Can I get a transfer from Red Sea International Airport to NEOM?", answer: "Yes. It's approximately 300 km, about a 3.5-hour drive, in an executive vehicle with the fare confirmed on WhatsApp — ideal for investors, contractors, and visitors connecting between the two giga-projects." },
-      { question: "What kind of vehicles are available at RSI?", answer: "Executive sedans and SUVs (Mercedes S-Class, GMC Yukon, Cadillac Escalade) suited to the premium standard of AMAALA and the Red Sea resorts, all with professional, English-speaking chauffeurs." },
+      { question: "What kind of vehicles are available at RSI?", answer: "Executive sedans and full-size SUVs through our partner network, suited to AMAALA and the Red Sea resorts, with English- and Arabic-speaking drivers. The vehicle is confirmed with the fare before you book." },
+      { question: "Can I travel from Red Sea International Airport to AlUla?", answer: "Yes. AlUla is a separate destination about 260 km away by road (roughly 4 hours 25 minutes). We arrange a private inter-destination transfer from RSI or your Red Sea resort to your AlUla hotel, with the fare agreed before booking." },
       { question: "Which resorts do you serve from Red Sea International Airport?", answer: "We provide transfers to AMAALA, Sindalah Island, and the Red Sea Global resorts including St. Regis Red Sea Resort, Six Senses Southern Dunes, Desert Rock Resort, and Shebara — tell us your resort name when booking." }
     ]
   },

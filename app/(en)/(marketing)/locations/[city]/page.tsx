@@ -28,6 +28,7 @@ import { VehicleRecommender } from "@/components/location/VehicleRecommender";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { RiyadhHub } from "@/components/location/cluster/RiyadhHub";
 import { JeddahHub } from "@/components/location/cluster/JeddahHub";
+import { AlulaHub } from "@/components/location/cluster/AlulaHub";
 
 // Real distances/times pulled from the same ROUTES_DATA source the route
 // pages read from (CLAUDE.md single-source-of-truth rule) — a compact
@@ -471,7 +472,7 @@ const CITY_META_DESCRIPTION: Record<string, string> = {
   riyadh: "Private transfers & chauffeurs in Riyadh — RUH airport (~35 km), hotel transfers, hourly drivers, KAFD business travel, intercity & GCC cars. Fare agreed first.",
   jeddah: "Private taxi & chauffeur in Jeddah — JED airport transfers with flight tracking, Makkah (~80 km) and Madinah (~420 km) trips, hotel transfers, 24/7.",
   dammam: "Taxi in Dammam — DMM airport transfers (~35 km), Khobar–Dhahran rides, and cross-border trips to Bahrain via the Causeway.",
-  alula: "Taxi & full-day car hire in AlUla — Hegra (UNESCO), Elephant Rock, Maraya, and ULH airport transfers. Best visited October–March.",
+  alula: "Private transfers and chauffeur service in AlUla — ULH airport, hotels, Hegra, Maraya, a private driver for multi-stop days, and Madinah or Red Sea transfers. Fare agreed first.",
   taif: "Taxi in Taif — day trips from Makkah (~90 km) via Al Hada, rose farm visits, and TIF airport transfers. Cool mountain escape.",
   alkhobar: "Taxi in Al Khobar — Corniche rides, DMM airport transfers (~30 km), and cross-border trips to Bahrain via the Causeway.",
   yanbu: "Taxi in Yanbu — Red Sea diving trips, and intercity rides to Madinah (~240 km) or Jeddah (~330 km). Industrial City covered.",
@@ -510,7 +511,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   // Riyadh hub (rebuilt 2026-10-01): title unchanged (rule 3), OG/Twitter
   // now mirror the real title instead of the generic "Taxi Service in" line.
-  if (cityKeyLower === "riyadh" || cityKeyLower === "jeddah") {
+  if (cityKeyLower === "riyadh" || cityKeyLower === "jeddah" || cityKeyLower === "alula") {
     const t = CITY_META_TITLE[cityKeyLower];
     const d = CITY_META_DESCRIPTION[cityKeyLower];
     const img = `https://taxisaudiarabia.com/locations/${cityKeyLower}-og.webp`;
@@ -518,7 +519,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: t,
       description: d,
       alternates: { canonical: `https://taxisaudiarabia.com/locations/${cityKeyLower}` },
-      openGraph: { title: t, description: d, type: "website", url: `https://taxisaudiarabia.com/locations/${cityKeyLower}`, images: [{ url: img, width: 1200, height: 630, alt: cityKeyLower === "riyadh" ? "Riyadh skyline with Kingdom Centre and Al Faisaliah Tower" : "The Jeddah Corniche on the Red Sea" }] },
+      openGraph: { title: t, description: d, type: "website", url: `https://taxisaudiarabia.com/locations/${cityKeyLower}`, images: [{ url: img, width: 1200, height: 630, alt: cityKeyLower === "riyadh" ? "Riyadh skyline with Kingdom Centre and Al Faisaliah Tower" : cityKeyLower === "alula" ? "Private transport in AlUla, Saudi Arabia" : "The Jeddah Corniche on the Red Sea" }] },
       twitter: { card: "summary_large_image", title: t, description: d, images: [img] },
     };
   }
@@ -557,6 +558,9 @@ export default async function CityLocationPage({ params }: PageProps) {
   const cityKey = city.toLowerCase();
   if (cityKey === "riyadh" && CITY_DETAILS.riyadh) {
     return <RiyadhHub name={CITY_DETAILS.riyadh.name} nameAr={CITY_DETAILS.riyadh.nameAr} />;
+  }
+  if (cityKey === "alula" && CITY_DETAILS.alula) {
+    return <AlulaHub name={CITY_DETAILS.alula.name} nameAr={CITY_DETAILS.alula.nameAr} />;
   }
   if (cityKey === "jeddah" && CITY_DETAILS.jeddah) {
     return <JeddahHub name={CITY_DETAILS.jeddah.name} nameAr={CITY_DETAILS.jeddah.nameAr} />;
