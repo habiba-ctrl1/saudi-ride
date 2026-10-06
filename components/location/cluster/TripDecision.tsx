@@ -11,17 +11,17 @@ const QUESTIONS = [
   { id: "stops", q: "Will you have three or more stops, or need the car to wait?" },
 ] as const;
 
-const RESULTS = {
+const resultsFor = (city: string, transferHref?: string) => ({
   transfer: {
     title: "A single private transfer",
     body: "One pickup, one drop-off, a fixed fare. Right for airport runs, hotel moves and point-to-point trips.",
-    href: "/locations/riyadh/hotel-transfer",
+    href: transferHref ?? `/locations/${city}/hotel-transfer`,
     cta: "Plan a transfer",
   },
   hourly: {
     title: "A private driver by the hour",
     body: "The same car and driver stay with you and wait between stops — better value once a day has three or more stops.",
-    href: "/locations/riyadh/private-driver",
+    href: `/locations/${city}/private-driver`,
     cta: "See hourly hire",
   },
   corporate: {
@@ -30,12 +30,13 @@ const RESULTS = {
     href: "/services/corporate",
     cta: "Corporate transportation",
   },
-};
+});
 
 // Two-question decision helper. Deterministic, submits nothing; the static
 // comparison table that follows it on the page carries the same logic as
 // plain text for readers and crawlers.
-export function TripDecision() {
+export function TripDecision({ city = "riyadh", transferHref }: { city?: string; transferHref?: string }) {
+  const RESULTS = resultsFor(city, transferHref);
   const [answers, setAnswers] = useState<Record<string, Answer>>({ recurring: null, stops: null });
   const result =
     answers.recurring === "yes" ? RESULTS.corporate : answers.stops === "yes" ? RESULTS.hourly : answers.stops === "no" ? RESULTS.transfer : null;

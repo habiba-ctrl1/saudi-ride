@@ -12,6 +12,8 @@ export interface ExplorerItem {
   time: string;
   distanceSlug: string | null;
   reverseSlug: string | null;
+  /** Override the origin label (e.g. "JED Airport"). */
+  from?: string;
 }
 
 export interface ExplorerGroup {
@@ -21,10 +23,10 @@ export interface ExplorerGroup {
   items: ExplorerItem[];
 }
 
-// Destination "ladder" — every corridor out of Riyadh, ordered by distance,
+// Destination "ladder" — every corridor out of a city, ordered by distance,
 // with a bar scaled to the longest trip in the group. All numbers arrive as
 // props computed server-side from ROUTES_DATA (single source of truth).
-export function DestinationExplorer({ groups }: { groups: ExplorerGroup[] }) {
+export function DestinationExplorer({ groups, fromLabel = "Riyadh" }: { groups: ExplorerGroup[]; fromLabel?: string }) {
   const [active, setActive] = useState(groups[0]?.id);
   const group = groups.find((g) => g.id === active) ?? groups[0];
 
@@ -64,7 +66,7 @@ export function DestinationExplorer({ groups }: { groups: ExplorerGroup[] }) {
               <div className="grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-2.5 p-4 sm:flex sm:gap-5">
                 <div className="min-w-0 sm:w-56">
                   <Link href={`/routes/${d.slug}`} className="font-heading text-base font-bold text-[#1C1C1C] after:absolute after:inset-0 after:rounded-2xl focus-visible:outline-none">
-                    Riyadh → {d.name}
+                    {d.from ?? fromLabel} → {d.name}
                   </Link>
                   <p className="text-[0.75rem] text-[#6B7280]">{d.purpose}</p>
                 </div>

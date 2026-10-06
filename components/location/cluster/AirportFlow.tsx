@@ -8,10 +8,10 @@ type Step = { title: string; desc: string };
 const ARRIVAL_ICONS = [CalendarCheck, PlaneLanding, UserCheck, Luggage, Car, Building2];
 const DEPARTURE_ICONS = [CalendarCheck, Hotel, TrafficCone, PlaneTakeoff];
 
-// Connected journey diagram for RUH. Horizontal rail with numbered nodes on
+// Connected journey diagram for a city airport (RUH, JED, …). Horizontal rail with numbered nodes on
 // desktop, vertical rail on mobile — same ordered list either way, so the
 // text equivalent is the markup itself (no image, no canvas).
-export function AirportFlow({ arrival, departure }: { arrival: Step[]; departure: Step[] }) {
+export function AirportFlow({ arrival, departure, code = "RUH" }: { arrival: Step[]; departure: Step[]; code?: string }) {
   const [mode, setMode] = useState<"arrival" | "departure">("arrival");
   const steps = mode === "arrival" ? arrival : departure;
   const icons = mode === "arrival" ? ARRIVAL_ICONS : DEPARTURE_ICONS;
@@ -30,7 +30,7 @@ export function AirportFlow({ arrival, departure }: { arrival: Step[]; departure
               mode === m ? "bg-[#FACC15] text-[#0B1F14]" : "text-white/75 hover:text-white"
             }`}
           >
-            {m === "arrival" ? "Arriving at RUH" : "Departing from RUH"}
+            {m === "arrival" ? `Arriving at ${code}` : `Departing from ${code}`}
           </button>
         ))}
       </div>

@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import Link from "next/link";
 import { Plane, Hotel, Clock, Briefcase, Route, Landmark, Ticket, Crown, ArrowRight, MessageCircle, Check } from "lucide-react";
-import type { TripType, TripIcon } from "@/lib/data/riyadh-cluster";
+import type { TripType, TripIcon } from "@/lib/data/cluster";
 
 const ICONS: Record<TripIcon, typeof Plane> = {
   plane: Plane,

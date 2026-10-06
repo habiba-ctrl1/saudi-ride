@@ -264,7 +264,7 @@ export function RiyadhHub({ name, nameAr }: { name: string; nameAr: string }) {
         <section aria-labelledby="decide-heading">
           <SectionHeader id="decide-heading" eyebrow="Choose the right booking" title="One transfer, a driver by the hour, or a corporate arrangement?" intro="Two questions decide it. The table underneath gives the same answer in plain terms." />
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_1.1fr]">
-            <TripDecision />
+            <TripDecision city="riyadh" />
             <div className="overflow-hidden rounded-3xl border border-[#E5E7EB] bg-white">
               <table className="w-full text-left text-sm">
                 <caption className="sr-only">Comparison of single transfers, hourly hire and corporate arrangements in Riyadh</caption>

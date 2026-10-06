@@ -26,7 +26,8 @@ import { TouristJourney, type JourneyStop } from "@/components/location/TouristJ
 import { VehicleShowcase, type ShowcaseVehicle } from "@/components/location/VehicleShowcase";
 import { VehicleRecommender } from "@/components/location/VehicleRecommender";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
-import { RiyadhHub } from "@/components/location/riyadh/RiyadhHub";
+import { RiyadhHub } from "@/components/location/cluster/RiyadhHub";
+import { JeddahHub } from "@/components/location/cluster/JeddahHub";
 
 // Real distances/times pulled from the same ROUTES_DATA source the route
 // pages read from (CLAUDE.md single-source-of-truth rule) — a compact
@@ -468,7 +469,7 @@ const CITY_META_DESCRIPTION: Record<string, string> = {
   makkah: "Taxi in Makkah — Haram hotel drop-offs, Ziyarat tours, and transfers to Jeddah Airport (~80 km) or Madinah (~430 km). No surge, 24/7.",
   madinah: "Taxi in Madinah — Masjid an-Nabawi drop-offs, Ziyarat tours, and MED airport transfers (~20 km). Onward trips to Makkah available.",
   riyadh: "Private transfers & chauffeurs in Riyadh — RUH airport (~35 km), hotel transfers, hourly drivers, KAFD business travel, intercity & GCC cars. Fare agreed first.",
-  jeddah: "Taxi in Jeddah — JED airport pickups, Miqat stops for Ihram, and transfers to Makkah (~80 km) or Madinah (~420 km). 24/7.",
+  jeddah: "Private taxi & chauffeur in Jeddah — JED airport transfers with flight tracking, Makkah (~80 km) and Madinah (~420 km) trips, hotel transfers, 24/7.",
   dammam: "Taxi in Dammam — DMM airport transfers (~35 km), Khobar–Dhahran rides, and cross-border trips to Bahrain via the Causeway.",
   alula: "Taxi & full-day car hire in AlUla — Hegra (UNESCO), Elephant Rock, Maraya, and ULH airport transfers. Best visited October–March.",
   taif: "Taxi in Taif — day trips from Makkah (~90 km) via Al Hada, rose farm visits, and TIF airport transfers. Cool mountain escape.",
@@ -509,15 +510,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   // Riyadh hub (rebuilt 2026-10-01): title unchanged (rule 3), OG/Twitter
   // now mirror the real title instead of the generic "Taxi Service in" line.
-  if (cityKeyLower === "riyadh") {
-    const t = CITY_META_TITLE.riyadh;
-    const d = CITY_META_DESCRIPTION.riyadh;
-    const img = "https://taxisaudiarabia.com/locations/riyadh-og.webp";
+  if (cityKeyLower === "riyadh" || cityKeyLower === "jeddah") {
+    const t = CITY_META_TITLE[cityKeyLower];
+    const d = CITY_META_DESCRIPTION[cityKeyLower];
+    const img = `https://taxisaudiarabia.com/locations/${cityKeyLower}-og.webp`;
     return {
       title: t,
       description: d,
-      alternates: { canonical: "https://taxisaudiarabia.com/locations/riyadh" },
-      openGraph: { title: t, description: d, type: "website", url: "https://taxisaudiarabia.com/locations/riyadh", images: [{ url: img, width: 1200, height: 630, alt: "Riyadh skyline with Kingdom Centre and Al Faisaliah Tower" }] },
+      alternates: { canonical: `https://taxisaudiarabia.com/locations/${cityKeyLower}` },
+      openGraph: { title: t, description: d, type: "website", url: `https://taxisaudiarabia.com/locations/${cityKeyLower}`, images: [{ url: img, width: 1200, height: 630, alt: cityKeyLower === "riyadh" ? "Riyadh skyline with Kingdom Centre and Al Faisaliah Tower" : "The Jeddah Corniche on the Red Sea" }] },
       twitter: { card: "summary_large_image", title: t, description: d, images: [img] },
     };
   }
@@ -556,6 +557,9 @@ export default async function CityLocationPage({ params }: PageProps) {
   const cityKey = city.toLowerCase();
   if (cityKey === "riyadh" && CITY_DETAILS.riyadh) {
     return <RiyadhHub name={CITY_DETAILS.riyadh.name} nameAr={CITY_DETAILS.riyadh.nameAr} />;
+  }
+  if (cityKey === "jeddah" && CITY_DETAILS.jeddah) {
+    return <JeddahHub name={CITY_DETAILS.jeddah.name} nameAr={CITY_DETAILS.jeddah.nameAr} />;
   }
   
   // Default fallback if city not strictly defined

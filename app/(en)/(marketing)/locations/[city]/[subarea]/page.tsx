@@ -10,8 +10,16 @@ import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { SUB_AREAS } from "@/lib/data/subareas";
 import { contactConfig } from "@/lib/config/contact";
-import { RIYADH_PAGES } from "@/lib/data/riyadh-cluster";
-import { RiyadhChildPage } from "@/components/location/riyadh/RiyadhChildPage";
+import { RIYADH_PAGES, RIYADH_CITY } from "@/lib/data/riyadh-cluster";
+import { JEDDAH_PAGES, JEDDAH_CITY } from "@/lib/data/jeddah-cluster";
+import type { ClusterPage, ClusterCity } from "@/lib/data/cluster";
+
+// Cities whose children render through the shared cluster system.
+const CLUSTERS: Record<string, { pages: Record<string, ClusterPage>; city: ClusterCity }> = {
+  riyadh: { pages: RIYADH_PAGES, city: RIYADH_CITY },
+  jeddah: { pages: JEDDAH_PAGES, city: JEDDAH_CITY },
+};
+import { ClusterChildPage } from "@/components/location/cluster/ClusterChildPage";
 
 export const revalidate = 86400; // revalidate every 24 hours
 
@@ -76,15 +84,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   // Riyadh cluster pages (rebuilt 2026-10-01) carry their own metadata in
   // lib/data/riyadh-cluster.ts. Canonical pattern unchanged.
-  const rp = city === "riyadh" ? RIYADH_PAGES[subarea] : undefined;
+  const rp = CLUSTERS[city]?.pages[subarea];
   if (rp) {
-    const url = `https://taxisaudiarabia.com/locations/riyadh/${subarea}`;
-    const img = `https://taxisaudiarabia.com${rp.heroImage}`;
+    const url = `https://taxisaudiarabia.com/locations/${city}/${subarea}`;
+    const img = rp.heroImage ? `https://taxisaudiarabia.com${rp.heroImage}` : `https://taxisaudiarabia.com/locations/${city}-og.webp`;
     return {
       title: { absolute: rp.title },
       description: rp.metaDescription,
       alternates: { canonical: url },
-      openGraph: { title: rp.title, description: rp.metaDescription, type: "website", url, images: [{ url: img, alt: rp.heroAlt }] },
+      openGraph: { title: rp.title, description: rp.metaDescription, type: "website", url, images: [{ url: img, alt: rp.heroAlt ?? rp.h1 }] },
       twitter: { card: "summary_large_image", title: rp.title, description: rp.metaDescription, images: [img] },
     };
   }
@@ -141,8 +149,9 @@ export default async function SubAreaPage({ params }: PageProps) {
   const area = SUB_AREAS[areaKey];
   const capitalizedCity = city.charAt(0).toUpperCase() + city.slice(1);
 
-  const riyadhPage = city === "riyadh" ? RIYADH_PAGES[subarea] : undefined;
-  if (riyadhPage) return <RiyadhChildPage page={riyadhPage} />;
+  const cluster = CLUSTERS[city];
+  const clusterPage = cluster?.pages[subarea];
+  if (cluster && clusterPage) return <ClusterChildPage page={clusterPage} city={cluster.city} />;
 
   return (
     <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">

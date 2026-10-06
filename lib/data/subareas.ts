@@ -329,6 +329,13 @@ export const SUB_AREAS: Record<string, {
       { question: "Can the Jeddah tour start from my hotel or the airport?", answer: "Yes. The tour can start from any Jeddah hotel or directly from King Abdulaziz International Airport (JED), and we tailor the route to your interests." },
     ],
   },
+  // Jeddah — added 2026-10-06 (GSC: "jeddah chauffeur service" + variants
+  // ~118 impr/6mo, no dedicated page). Content: lib/data/jeddah-cluster.ts.
+  "jeddah-private-driver": {
+    city: "jeddah", subarea: "private-driver", name: "Private Driver", nameAr: "سائق خاص",
+    kind: "service",
+    description: "Hire a private driver in Jeddah by the hour or for a full day.",
+  },
   // Makkah (rich programmatic pages)
   "aziziyah": {
     city: "makkah", subarea: "aziziyah", name: "Aziziyah", nameAr: "العزيزية",

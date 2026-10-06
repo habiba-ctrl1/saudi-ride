@@ -357,7 +357,7 @@ export const GUIDES: Guide[] = [
       { question: "How far is Jeddah airport from Makkah?", answer: "King Abdulaziz International Airport (JED) is about 80 km from Makkah — roughly a 1-hour drive on the Makkah Expressway." },
       { question: "What is the cheapest way from Jeddah airport to Makkah?", answer: "Buses are the cheapest but slowest. For most pilgrims with luggage, a pre-booked private transfer is the best value because it is direct, door-to-door, and available 24/7 with no surge pricing — fare confirmed on WhatsApp before booking." },
       { question: "Can I take the Haramain train from Jeddah airport to Makkah?", answer: "Yes — the Haramain high-speed railway has a station at King Abdulaziz International Airport. Makkah station is not beside the Haram, though, so you still need a taxi from the station to your hotel, and luggage limits apply. Families with several large bags often find a direct car simpler." },
-      { question: "Do I need to be in Ihram before reaching Makkah?", answer: "Yes. If you intend Umrah, you must enter Ihram before crossing the Miqat boundary. On the flight the crew announces the Miqat; if you land without Ihram, your taxi can stop at the Miqat (Al-Juhfah near Rabigh) on the way to Makkah." },
+      { question: "Do I need to be in Ihram before reaching Makkah?", answer: "Yes. If you intend Umrah, you must enter Ihram before crossing the Miqat boundary. On the flight the crew announces the Miqat; if you land without Ihram, a taxi can take you to the Miqat at Al-Juhfah (near Rabigh, north of Jeddah) first, before driving to Makkah." },
     ],
   },
   {
@@ -370,7 +370,7 @@ export const GUIDES: Guide[] = [
     date: "June 25, 2026",
     readTime: "6 min",
     tags: ["Umrah", "Miqat", "Ihram", "Jeddah"],
-    tldr: "If you fly into Jeddah for Umrah, you must enter Ihram before crossing the Miqat — the aircraft crew announces it so you can make your intention on board. If you land without Ihram, the relevant Miqat is Al-Juhfah (near Rabigh), and a taxi can stop there on the way to Makkah.",
+    tldr: "If you fly into Jeddah for Umrah, you must enter Ihram before crossing the Miqat — the aircraft crew announces it so you can make your intention on board. If you land without Ihram, the relevant Miqat is Al-Juhfah (near Rabigh, north of Jeddah), and a taxi can take you there first before driving to Makkah.",
     tldrFacts: [
       { label: "By air", value: "Ihram on the plane" },
       { label: "Road Miqat", value: "Al-Juhfah (Rabigh)" },
@@ -382,7 +382,7 @@ export const GUIDES: Guide[] = [
       "Arriving by air into Jeddah: most international flights cross the Miqat boundary before landing, so you enter Ihram on the aircraft. The crew or captain announces when the Miqat is approaching — change into Ihram and make your intention (niyyah) before that point.",
       "Jeddah is NOT a Miqat: the city of Jeddah lies inside the Miqat boundary, so you cannot wait until you land to enter Ihram if your flight has already crossed it.",
       "If you land without Ihram: the designated land Miqat for those coming from the Jeddah/Rabigh direction is Al-Juhfah (near Rabigh), north of Jeddah. Scholars differ on the ruling for those who pass the air Miqat without Ihram, so many pilgrims choose to travel out to Al-Juhfah to enter Ihram to be safe.",
-      "Practical option from Jeddah Airport: ask your taxi driver in advance for a Miqat stop. On the Jeddah Airport to Makkah route the driver can stop so you assume Ihram and pray before continuing to the Haram.",
+      "Practical option from Jeddah Airport: there is no Miqat on the road from the airport to Makkah. If you landed without Ihram and choose to go to Al-Juhfah, book the car with that stop in advance — it lies north of Jeddah, the opposite direction from Makkah, so it is a long detour that is quoted separately.",
       "Ihram essentials: wear the two white seamless garments (men), keep a clean backup set, and avoid prohibited acts (perfume, cutting hair/nails) once in Ihram.",
       "After Ihram: continue to Makkah (~80 km, ~1 hour), check into your hotel, then proceed to Masjid al-Haram to perform Tawaf and Sa'i.",
     ],

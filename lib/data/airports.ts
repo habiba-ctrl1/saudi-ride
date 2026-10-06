@@ -8,8 +8,8 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     h1Name: "Jeddah Airport (JED)",
     image: "/airports/jed-hero.webp",
     tagline: "The Main Gateway for Umrah & Hajj",
-    description: "Pre-book a private transfer from King Abdulaziz International Airport (JED) to Makkah (~1 hour), Madinah, or your Jeddah hotel. Meet & greet at arrivals with a name sign, no surge pricing, and 24/7 service — including late-night and early-morning pilgrim flights. Drivers can stop at the Miqat so you enter Ihram before reaching Makkah.",
-    tldr: "A taxi from Jeddah Airport (JED) to Makkah takes about 1 hour, with the fare confirmed on WhatsApp. Share your flight number when you book and your driver meets you at arrivals with a name sign, 24/7 — including late-night flights — and can stop at the Miqat for Ihram on the way to Makkah.",
+    description: "Pre-book a private transfer from King Abdulaziz International Airport (JED) to Makkah (~1 hour), Madinah, or your Jeddah hotel. Meet & greet at arrivals with a name sign, no surge pricing, and 24/7 service — including late-night and early-morning pilgrim flights. Jeddah lies inside the Miqat boundary, so pilgrims arriving by air usually enter Ihram on the plane before landing.",
+    tldr: "A taxi from Jeddah Airport (JED) to Makkah takes about 1 hour, with the fare confirmed on WhatsApp. Share your flight number when you book and your driver meets you at arrivals with a name sign, 24/7 — including late-night flights — and we track your flight, so a delay simply moves the pickup.",
     tldrFacts: [
       { label: "JED → Makkah", value: "~1 hr · fare on WhatsApp" },
       { label: "JED → Madinah", value: "~4–5 hr" },
@@ -23,7 +23,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     ],
     tips: [
       "Share your flight number when you book so we check it before pickup and plan around any delay.",
-      "For Umrah, tell us if you need a Miqat stop so you can enter Ihram before reaching Makkah.",
+      "Jeddah is inside the Miqat boundary — most Umrah pilgrims enter Ihram on the plane before landing. If you need to travel to the Al-Juhfah Miqat near Rabigh first, tell us when you book and we quote it as a separate trip.",
       "Meet & greet is included — your driver waits in the arrivals hall holding a sign with your name.",
       "Confirm your terminal (Terminal 1, North, or Hajj) when booking so your driver meets you at the right arrivals exit."
     ],
@@ -32,12 +32,16 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
       { question: "How much is a taxi from Jeddah airport to Makkah?", answer: "The fare from King Abdulaziz International Airport (JED) to Makkah is confirmed on WhatsApp for a sedan, with larger SUVs and vans available — confirmed before you book, no surge, tolls included." },
       { question: "Is there a taxi at Jeddah airport at night?", answer: "Yes. We operate 24/7 at JED, including late-night and early-morning arrivals. Share your flight number when you book so your driver is waiting with a name sign even on 2–4 AM landings." },
       { question: "Where do I meet my driver at Jeddah airport?", answer: "Your driver meets you inside the arrivals hall of your terminal (Terminal 1, North Terminal, or the Hajj Terminal) holding a sign with your name. Confirm your terminal when booking so we meet you at the right exit." },
-      { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. On the Jeddah Airport to Makkah route, simply ask and the driver will stop at the Miqat so you can change into Ihram and make your intention before entering the Haram boundary." },
-      { question: "What happens if my flight is delayed?", answer: "Share your flight number when you book and we check it before pickup, so your driver plans the pickup time around your actual arrival." },
+      { question: "Is there a Miqat on the way from Jeddah Airport to Makkah?", answer: "No. Jeddah lies inside the Miqat boundary, so pilgrims arriving by air usually enter Ihram on the plane before landing. If you need to go to the Al-Juhfah Miqat near Rabigh first, tell us when booking and we quote that trip separately — see our Miqat guide for the details." },
+      { question: "What happens if my flight is delayed?", answer: "Share your flight number when you book — we track your flight, so a delay simply moves the pickup to your actual landing time, and 15–30 minutes of waiting after landing is free." },
       { question: "Is there a taxi service at the Hajj Terminal?", answer: "Yes. During Hajj and Umrah seasons we serve the dedicated Hajj Terminal. Pre-book and share your flight details so your driver meets you at the correct terminal." }
     ],
     relatedLinks: [
       { href: "/routes/jeddah-airport-to-makkah", label: "Jeddah Airport to Makkah taxi" },
+      { href: "/locations/jeddah", label: "Private transfers across Jeddah" },
+      { href: "/locations/jeddah/private-driver", label: "Private driver in Jeddah by the hour" },
+      { href: "/locations/jeddah/obhur", label: "Obhur resort transfers (near the airport)" },
+      { href: "/locations/jeddah/al-hamra", label: "Al Hamra Corniche hotel transfers" },
       { href: "/routes/jeddah-airport-to-madinah", label: "Jeddah Airport to Madinah transfer" },
       { href: "/routes/jeddah-airport-to-jeddah-city", label: "JED Airport to Jeddah City" },
       { href: "/routes/jeddah-airport-to-taif", label: "JED Airport to Taif" },

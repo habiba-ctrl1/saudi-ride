@@ -4,7 +4,7 @@ import { ArrowRight, MessageCircle, MapPin, Check, ArrowLeft } from "lucide-reac
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { faqSchema, speakableSchema } from "@/lib/schema";
-import { RIYADH_CHILD_NAV, type Block, type RiyadhPage } from "@/lib/data/riyadh-cluster";
+import { routeFact, distanceGuideFor, type Block, type ClusterPage, type ClusterCity } from "@/lib/data/cluster";
 import { SectionHeader, FactsStrip, FaqList, LinkCards, QuoteSection, wa } from "./ui";
 
 const SITE = "https://taxisaudiarabia.com";
@@ -24,7 +24,7 @@ function BlockView({ block, index }: { block: Block; index: number }) {
     case "cards":
       return (
         <section aria-labelledby={id}>
-          <SectionHeader id={id} eyebrow="Who it's for" title={block.heading} intro={block.intro} />
+          <SectionHeader id={id} eyebrow={block.eyebrow ?? "Who it's for"} title={block.heading} intro={block.intro} />
           <div className="grid gap-4 md:grid-cols-3">
             {block.items.map((c, i) => (
               <article key={c.title} className="rounded-3xl border border-[#E5E7EB] bg-white p-6">
@@ -54,7 +54,7 @@ function BlockView({ block, index }: { block: Block; index: number }) {
     case "steps":
       return (
         <section aria-labelledby={id}>
-          <SectionHeader id={id} eyebrow="Step by step" title={block.heading} intro={block.intro} />
+          <SectionHeader id={id} eyebrow={block.eyebrow ?? "Step by step"} title={block.heading} intro={block.intro} />
           <ol className="relative grid gap-6 md:grid-cols-4 md:gap-4">
             <span aria-hidden="true" className="absolute left-[12%] right-[12%] top-5 hidden h-px bg-[#16A34A]/25 md:block" />
             {block.items.map((s, i) => (
@@ -72,7 +72,7 @@ function BlockView({ block, index }: { block: Block; index: number }) {
     case "table":
       return (
         <section aria-labelledby={id}>
-          <SectionHeader id={id} eyebrow="At a glance" title={block.heading} intro={block.intro} />
+          <SectionHeader id={id} eyebrow={block.eyebrow ?? "At a glance"} title={block.heading} intro={block.intro} />
           <div className="overflow-hidden rounded-3xl border border-[#E5E7EB] bg-white">
             {/* Stacked rows on mobile, a real table from sm up — no horizontal scroll at 320px. */}
             <table className="w-full text-left text-sm">
@@ -102,7 +102,7 @@ function BlockView({ block, index }: { block: Block; index: number }) {
     case "compare":
       return (
         <section aria-labelledby={id}>
-          <SectionHeader id={id} eyebrow="Honest comparison" title={block.heading} intro={block.intro} />
+          <SectionHeader id={id} eyebrow={block.eyebrow ?? "Honest comparison"} title={block.heading} intro={block.intro} />
           <div className="grid gap-4 md:grid-cols-2">
             {block.options.map((o) => (
               <div key={o.title} className={`rounded-3xl p-6 md:p-7 ${o.tone === "green" ? "bg-[#16A34A] text-[#FFFFFF]" : "border border-[#E5E7EB] bg-white"}`}>
@@ -121,11 +121,43 @@ function BlockView({ block, index }: { block: Block; index: number }) {
           </div>
         </section>
       );
+    case "routes":
+      return (
+        <section aria-labelledby={id}>
+          <SectionHeader id={id} eyebrow={block.eyebrow ?? "Onward journeys"} title={block.heading} intro={block.intro} />
+          <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {block.items.map((it) => {
+              const f = routeFact(it.slug);
+              if (!f) return null;
+              const guide = distanceGuideFor(it.slug);
+              return (
+                <li key={it.slug} className="group relative flex flex-col rounded-2xl border border-[#E5E7EB] bg-white p-5 transition-all duration-200 hover:-translate-y-0.5 hover:border-[#16A34A]/40 hover:shadow-[0_14px_30px_-20px_rgba(15,23,42,0.45)] focus-within:border-[#16A34A]">
+                  <div className="flex items-start justify-between gap-3">
+                    <Link href={`/routes/${it.slug}`} className="font-heading text-base font-bold text-[#1C1C1C] after:absolute after:inset-0 after:rounded-2xl focus-visible:outline-none">
+                      {f.from} → {f.to}
+                    </Link>
+                    <span className="shrink-0 text-right text-[0.8rem] font-semibold tabular-nums text-[#1C1C1C]">
+                      {f.km.toLocaleString("en-US")} km
+                      <span className="block text-[0.7rem] font-normal text-[#6B7280]">{f.time}</span>
+                    </span>
+                  </div>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-[#4B5563]">{it.note}</p>
+                  {guide && (
+                    <Link href={`/distance/${guide}`} className="relative z-10 mt-3 inline-flex min-h-[32px] w-fit items-center rounded-full bg-[#F0FDF4] px-3 text-[0.7rem] font-semibold text-[#15803D] hover:bg-[#DCFCE7]">
+                      Distance &amp; drive-time guide
+                    </Link>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      );
     case "timeline":
       return (
         <section aria-labelledby={id} className="grid grid-cols-1 gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
           <div>
-            <p className="t-eyebrow mb-3">An example plan</p>
+            <p className="t-eyebrow mb-3">{block.eyebrow ?? "An example plan"}</p>
             <h2 id={id} className="font-heading text-[1.6rem] font-bold leading-tight md:text-[2rem]">{block.heading}</h2>
             {block.intro && <p className="mt-3 text-sm leading-relaxed text-[#6B7280]">{block.intro}</p>}
           </div>
@@ -144,7 +176,13 @@ function BlockView({ block, index }: { block: Block; index: number }) {
   }
 }
 
-function Hero({ page }: { page: RiyadhPage }) {
+// Subtle dot grid for photo-less heroes.
+const PATTERN: React.CSSProperties = {
+  backgroundImage: "radial-gradient(rgba(250,204,21,0.14) 1px, transparent 1px), radial-gradient(circle at 85% 20%, rgba(22,163,74,0.35), transparent 55%)",
+  backgroundSize: "22px 22px, 100% 100%",
+};
+
+function Hero({ page, city }: { page: ClusterPage; city: ClusterCity }) {
   const ctas = (
     <div className="mt-8 flex flex-col gap-3 sm:flex-row">
       <a href="#quote" className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full bg-[#FACC15] px-7 text-sm font-bold uppercase tracking-wider text-[#0B1F14] hover:bg-[#FDE047] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
@@ -166,8 +204,8 @@ function Hero({ page }: { page: RiyadhPage }) {
       items={[
         { name: "Home", href: "/" },
         { name: "Locations", href: "/locations" },
-        { name: "Riyadh", href: "/locations/riyadh" },
-        { name: page.name, href: `/locations/riyadh/${page.slug}` },
+        { name: city.name, href: `/locations/${city.slug}` },
+        { name: page.name, href: `/locations/${city.slug}/${page.slug}` },
       ]}
     />
   );
@@ -181,12 +219,29 @@ function Hero({ page }: { page: RiyadhPage }) {
           <div>
             {eyebrow}
             <h1 className="mt-5 font-heading text-[2.1rem] font-bold leading-[1.1] text-[#FFFFFF] sm:text-[2.75rem] md:text-5xl">{page.h1}</h1>
+            {page.tagline && <p className="mt-3 max-w-xl text-base leading-relaxed text-white/80">{page.tagline}</p>}
             <p className="mt-3 font-heading text-lg text-[#FACC15]/80" lang="ar">{page.nameAr}</p>
             {ctas}
           </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] border border-white/10 shadow-2xl">
-            <Image src={page.heroImage} alt={page.heroAlt} fill priority sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
-          </div>
+          {page.heroImage ? (
+            <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] border border-white/10 shadow-2xl">
+              <Image src={page.heroImage} alt={page.heroAlt ?? ""} fill priority sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
+            </div>
+          ) : (
+            // No verified photo of this area yet — an honest typographic panel
+            // (Arabic name + key facts) instead of an unrelated stock image.
+            <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#0F2A1C] p-7 shadow-2xl md:p-9" style={PATTERN}>
+              <p className="font-heading text-5xl font-bold leading-none text-[#FACC15] md:text-6xl" lang="ar" aria-hidden="true">{page.nameAr}</p>
+              <dl className="mt-8 grid gap-4">
+                {page.facts.slice(0, 3).map((f) => (
+                  <div key={f.label} className="border-t border-white/10 pt-3">
+                    <dt className="text-[0.65rem] font-bold uppercase tracking-[0.16em] text-white/50">{f.label}</dt>
+                    <dd className="mt-1 text-sm font-semibold text-[#FFFFFF]">{f.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          )}
         </div>
       </section>
     );
@@ -194,10 +249,14 @@ function Hero({ page }: { page: RiyadhPage }) {
 
   // Service and attraction: full-bleed photo; attraction text sits low over
   // the image, service text sits high with a stronger side gradient.
-  const attraction = page.kind === "attraction";
+  const attraction = page.kind === "attraction" && !!page.heroImage;
   return (
     <section className={`relative isolate overflow-hidden bg-[#0B1F14] ${attraction ? "min-h-[560px] md:min-h-[620px]" : ""}`}>
-      <Image src={page.heroImage} alt={page.heroAlt} fill priority sizes="100vw" className="-z-10 object-cover" />
+      {page.heroImage ? (
+        <Image src={page.heroImage} alt={page.heroAlt ?? ""} fill priority sizes="100vw" className="-z-10 object-cover" />
+      ) : (
+        <div aria-hidden="true" className="absolute inset-0 -z-10" style={PATTERN} />
+      )}
       <div
         aria-hidden="true"
         className={`absolute inset-0 -z-10 ${attraction ? "bg-gradient-to-t from-[#0B1F14] via-[#0B1F14]/60 to-[#0B1F14]/30" : "bg-gradient-to-r from-[#0B1F14] via-[#0B1F14]/85 to-[#0B1F14]/30"}`}
@@ -207,7 +266,8 @@ function Hero({ page }: { page: RiyadhPage }) {
         <div className="max-w-2xl">
           {eyebrow}
           <h1 className="mt-5 font-heading text-[2.1rem] font-bold leading-[1.1] text-[#FFFFFF] sm:text-[2.75rem] md:text-5xl">{page.h1}</h1>
-          <p className="mt-3 font-heading text-lg text-[#FACC15]/80" lang="ar">{page.nameAr}</p>
+          {page.tagline && <p className="mt-3 max-w-xl text-base leading-relaxed text-white/80">{page.tagline}</p>}
+            <p className="mt-3 font-heading text-lg text-[#FACC15]/80" lang="ar">{page.nameAr}</p>
           {ctas}
         </div>
       </div>
@@ -215,8 +275,8 @@ function Hero({ page }: { page: RiyadhPage }) {
   );
 }
 
-export function RiyadhChildPage({ page }: { page: RiyadhPage }) {
-  const path = `/locations/riyadh/${page.slug}`;
+export function ClusterChildPage({ page, city }: { page: ClusterPage; city: ClusterCity }) {
+  const path = `/locations/${city.slug}/${page.slug}`;
   const service: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": page.kind === "service" ? "Service" : "TaxiService",
@@ -226,18 +286,18 @@ export function RiyadhChildPage({ page }: { page: RiyadhPage }) {
     description: page.metaDescription,
     url: `${SITE}${path}`,
     provider: { "@type": "Organization", name: "Taxi Saudi Arabia", url: SITE },
-    areaServed: { "@type": "City", name: "Riyadh" },
+    areaServed: { "@type": "City", name: city.name },
     availableLanguage: ["English", "Arabic"],
   };
   if (page.schema.place) {
-    service.about = { "@type": page.schema.place.type, name: page.schema.place.name, description: page.schema.place.description, address: { "@type": "PostalAddress", addressLocality: "Riyadh", addressCountry: "SA" } };
+    service.about = { "@type": page.schema.place.type, name: page.schema.place.name, description: page.schema.place.description, address: { "@type": "PostalAddress", addressLocality: city.name, addressCountry: "SA" } };
   }
-  const siblings = RIYADH_CHILD_NAV.filter((n) => n.slug !== page.slug);
+  const siblings = city.nav.filter((n) => n.slug !== page.slug);
 
   return (
     <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C]">
       <JsonLd data={[service, speakableSchema({ path }), faqSchema(page.faqs)]} />
-      <Hero page={page} />
+      <Hero page={page} city={city} />
 
       <section className="section-container relative z-10 -mt-8 max-w-6xl" aria-label="Summary">
         <div className="rounded-[2rem] border border-[#16A34A]/15 bg-white p-6 shadow-[0_30px_70px_-45px_rgba(15,23,42,0.5)] md:p-9">
@@ -257,19 +317,19 @@ export function RiyadhChildPage({ page }: { page: RiyadhPage }) {
         </section>
 
         <section aria-labelledby="related-heading">
-          <h2 id="related-heading" className="mb-5 font-heading text-xl font-bold">Related in Riyadh</h2>
+          <h2 id="related-heading" className="mb-5 font-heading text-xl font-bold">Related in {city.name}</h2>
           <LinkCards links={page.related} />
         </section>
 
-        <nav aria-label="More Riyadh pages" className="rounded-3xl border border-[#E5E7EB] bg-white p-6">
+        <nav aria-label={`More ${city.name} pages`} className="rounded-3xl border border-[#E5E7EB] bg-white p-6">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <Link href="/locations/riyadh" className="group inline-flex min-h-[44px] items-center gap-2 text-sm font-bold text-[#15803D] hover:text-[#16A34A]">
-              <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" aria-hidden="true" /> All Riyadh transport options
+            <Link href={`/locations/${city.slug}`} className="group inline-flex min-h-[44px] items-center gap-2 text-sm font-bold text-[#15803D] hover:text-[#16A34A]">
+              <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" aria-hidden="true" /> All {city.name} transport options
             </Link>
             <ul className="flex flex-wrap gap-2">
               {siblings.map((n) => (
                 <li key={n.slug}>
-                  <Link href={`/locations/riyadh/${n.slug}`} className="inline-flex min-h-[36px] items-center rounded-full border border-[#E5E7EB] px-3.5 text-xs font-semibold text-[#374151] transition-colors hover:border-[#16A34A]/40 hover:text-[#15803D]">
+                  <Link href={`/locations/${city.slug}/${n.slug}`} className="inline-flex min-h-[36px] items-center rounded-full border border-[#E5E7EB] px-3.5 text-xs font-semibold text-[#374151] transition-colors hover:border-[#16A34A]/40 hover:text-[#15803D]">
                     {n.label}
                   </Link>
                 </li>

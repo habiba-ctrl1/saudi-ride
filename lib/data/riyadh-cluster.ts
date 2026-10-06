@@ -11,51 +11,17 @@
 // - Venue names only from seo/venues.md (Boulevard World / Boulevard City /
 //   RFECC / RICEC / KAICC). Landmark facts verified 2026-10-01 and cited inline.
 // - No flight tracking, no free-waiting claims, no response-time promises.
-import { ROUTES_DATA } from "@/lib/data/routes";
-import { DISTANCE_GUIDES } from "@/lib/data/distances";
+import { routeFact, reverseSlug, distanceGuideFor, fmtDuration, CORPORATE_INVOICE_LINE, corpEmail, type ClusterPage, type TripType, type ClusterCity } from "@/lib/data/cluster";
+
+export { routeFact, reverseSlug, distanceGuideFor, fmtDuration, CORPORATE_INVOICE_LINE };
+export type RiyadhPage = ClusterPage;
 
 /* ─── shared helpers ─────────────────────────────────────────────────── */
 
-export function fmtDuration(min: number): string {
-  if (min < 60) return `~${min} min`;
-  const h = Math.floor(min / 60);
-  const m = min % 60;
-  if (m === 0) return `~${h} hr`;
-  if (m === 30) return `~${h}.5 hr`;
-  return `~${h} hr ${m} min`;
-}
-
-export interface RouteFact {
-  slug: string;
-  from: string;
-  to: string;
-  km: number;
-  minutes: number;
-  time: string;
-}
-
-export function routeFact(slug: string): RouteFact | null {
-  const r = ROUTES_DATA.find((x) => x.slug === slug);
-  if (!r) return null;
-  return { slug, from: r.fromCity, to: r.toCity, km: r.distance, minutes: r.duration, time: fmtDuration(r.duration) };
-}
-
-/** Reverse route slug if a real page exists (e.g. riyadh-to-dubai → dubai-to-riyadh). */
-export function reverseSlug(slug: string): string | null {
-  const m = slug.match(/^(.+)-to-(.+)$/);
-  if (!m) return null;
-  const rev = `${m[2]}-to-${m[1]}`;
-  return ROUTES_DATA.some((r) => r.slug === rev) ? rev : null;
-}
-
-export function distanceGuideFor(routeSlug: string): string | null {
-  return DISTANCE_GUIDES.find((d) => d.routeSlug === routeSlug)?.slug ?? null;
-}
 
 export const RUH_CITY = routeFact("riyadh-airport-to-city")!; // 35 km · 30 min
 export const RUH_KAFD = routeFact("riyadh-airport-to-kafd-hotels")!; // 40 km · 35 min
 
-export const CORPORATE_INVOICE_LINE = "Corporate invoicing can be arranged through our sister company.";
 
 /** The confirmed sitewide facts, worded once and reused (facts.md 2026-10-01). */
 export const RIYADH_FACTS: { label: string; value: string }[] = [
@@ -71,19 +37,7 @@ export const RIYADH_FACTS: { label: string; value: string }[] = [
 
 /* ─── Hub: trip-type selector ────────────────────────────────────────── */
 
-export type TripIcon = "plane" | "hotel" | "clock" | "briefcase" | "route" | "landmark" | "ticket" | "crown";
 
-export interface TripType {
-  id: string;
-  icon: TripIcon;
-  label: string;
-  short: string;
-  answer: string;
-  send: string[];
-  href: string;
-  linkLabel: string;
-  waPrefill: string;
-}
 
 export const TRIP_TYPES: TripType[] = [
   {
@@ -452,42 +406,7 @@ export const HUB_GUIDES = [
 
 /* ─── Child pages ────────────────────────────────────────────────────── */
 
-export type Block =
-  | { type: "prose"; heading: string; paragraphs: string[] }
-  | { type: "cards"; heading: string; intro?: string; items: { title: string; body: string }[] }
-  | { type: "checklist"; heading: string; intro?: string; items: string[] }
-  | { type: "steps"; heading: string; intro?: string; items: { title: string; desc: string }[] }
-  | { type: "table"; heading: string; intro?: string; columns: string[]; rows: string[][] }
-  | { type: "compare"; heading: string; intro?: string; options: { title: string; when: string[]; tone: "green" | "ink" }[] }
-  | { type: "timeline"; heading: string; intro?: string; items: { time: string; title: string; desc: string }[] };
 
-export interface RiyadhPage {
-  slug: string;
-  kind: "district" | "service" | "attraction";
-  name: string;
-  nameAr: string;
-  title: string;
-  metaDescription: string;
-  h1: string;
-  eyebrow: string;
-  heroImage: string;
-  heroAlt: string;
-  intro: string;
-  facts: { label: string; value: string }[];
-  blocks: Block[];
-  ctaHeading: string;
-  ctaBody: string;
-  ctaLabel: string;
-  waPrefill: string;
-  form: { pickup?: string; dropoff?: string; vehicle?: string; tripType?: "One Way" | "Round Trip" | "By the Hour" };
-  pathB?: { heading: string; body: string; emailSubject: string; emailBody: string };
-  faqs: { question: string; answer: string }[];
-  related: { href: string; label: string; desc: string }[];
-  schema: { serviceType: string; place?: { name: string; type: "Place" | "TouristAttraction"; description: string } };
-}
-
-const corpEmail = (topic: string) =>
-  `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for ${topic}.\n\n• Company / organisation: \n• Contact name & role: \n• Dates: \n• Trips / addresses: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• Invoice needed?: \n\nPlease confirm the fixed fare before booking.\n\nThank you.`;
 
 export const RIYADH_PAGES: Record<string, RiyadhPage> = {
   /* KAFD — finance-district business intent */
@@ -1149,7 +1068,7 @@ export const RIYADH_PAGES: Record<string, RiyadhPage> = {
 };
 
 /** Sibling list shown on every Riyadh child page (anchors vary per page). */
-export const RIYADH_CHILD_NAV: { slug: string; label: string }[] = [
+export const RIYADH_CHILD_NAV: ClusterCity["nav"] = [
   { slug: "private-driver", label: "Private driver" },
   { slug: "hotel-transfer", label: "Hotel transfer" },
   { slug: "kafd", label: "KAFD" },
@@ -1161,3 +1080,5 @@ export const RIYADH_CHILD_NAV: { slug: string; label: string }[] = [
   { slug: "al-murabba", label: "Al Murabba" },
   { slug: "al-malaz", label: "Al Malaz" },
 ];
+
+export const RIYADH_CITY: ClusterCity = { slug: "riyadh", name: "Riyadh", nav: RIYADH_CHILD_NAV };

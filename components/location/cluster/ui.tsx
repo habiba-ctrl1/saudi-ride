@@ -3,7 +3,7 @@ import { ArrowRight, ChevronDown, MessageCircle, Mail, ShieldCheck } from "lucid
 import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { contactConfig } from "@/lib/config/contact";
 
-// Shared building blocks for the Riyadh hub and its child pages. Server
+// Shared building blocks for the city cluster hubs and its child pages. Server
 // components only — interactive pieces live in their own client files.
 
 export const wa = (text: string) => `${contactConfig.whatsappLink}?text=${encodeURIComponent(text)}`;
