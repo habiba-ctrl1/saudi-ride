@@ -7,7 +7,7 @@ import { contactConfig } from "@/lib/config/contact";
 const GREEN = "#16A34A";
 const YELLOW = "#FACC15";
 
-function wrapper(title: string, body: string, footerNote: string) {
+export function wrapper(title: string, body: string, footerNote: string) {
   return `
   <div style="background:#f1f6f2;padding:24px 12px;font-family:Arial,Helvetica,sans-serif;">
     <div style="max-width:600px;margin:0 auto;background:#ffffff;border-radius:14px;overflow:hidden;border:1px solid #e4ede7;">
@@ -28,18 +28,18 @@ function wrapper(title: string, body: string, footerNote: string) {
   </div>`;
 }
 
-function row(label: string, value: string) {
+export function row(label: string, value: string) {
   return `<tr>
     <td style="padding:7px 0;font-weight:bold;color:#49505a;width:150px;vertical-align:top;font-size:13px;">${label}</td>
     <td style="padding:7px 0;color:#121417;font-size:13px;">${value}</td>
   </tr>`;
 }
 
-function table(rows: string) {
+export function table(rows: string) {
   return `<table style="width:100%;border-collapse:collapse;background:#eaf6ee;border-radius:10px;padding:6px;">${rows}</table>`;
 }
 
-function esc(s: unknown): string {
+export function esc(s: unknown): string {
   return String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 

@@ -455,6 +455,13 @@ model RoutePriceApproval {
   pricingStatus      String   @default("NEEDS_CONFIRMATION") @map("pricing_status")
   finalApprovedPrice Float?   @map("final_approved_price")
   approvalNotes      String?  @map("approval_notes")
+  // Phase B (migration 0020): finalApprovedPrice = RECOMMENDED selling price.
+  category           String?
+  rangeLow           Float?   @map("range_low")
+  rangeHigh          Float?   @map("range_high")
+  priceMin           Float?   @map("price_min")
+  estCost            Float?   @map("est_cost")
+  borderFee          Float?   @map("border_fee")
   createdAt          DateTime @default(now()) @map("created_at")
   updatedAt          DateTime @updatedAt @map("updated_at")
 

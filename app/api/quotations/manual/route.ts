@@ -53,7 +53,8 @@ export async function POST(request: Request) {
 
   // A price typed in at creation time takes the row straight to 'quoted' —
   // send the same quotation email + PDF as the normal "set price" flow.
-  if (row.status === "quoted") {
+  // Opt-in only (ops rule 2026-10-06): never auto-send a price to a customer.
+  if (row.status === "quoted" && body.notify === true) {
     await notifyQuotationStatusChange(row.id, "quoted");
   }
 

@@ -50,3 +50,6 @@ __pycache__/
 # Internal pricing spreadsheets — business data, not site code.
 /PRICE-BOOK.xlsx
 /PRICE-BOOK-FOR-SHERAZ.xlsx
+
+# customer-data backups/exports (never commit)
+/exports/

@@ -4,6 +4,7 @@ import type { DriverRow, DriverVehicleType } from "./drivers";
 export type QuotationStatus = "new" | "quoted" | "confirmed" | "assigned" | "completed" | "cancelled";
 export type QuotationPaymentStatus = "unpaid" | "partial" | "paid";
 export type TripType = "one_way" | "round_trip" | "event" | "multi_day" | "airport_transfer" | "hourly";
+export type QuoteStage = "draft" | "ready" | "sent" | "follow_up" | "accepted" | "rejected" | "expired";
 export type LeadSource = "website" | "whatsapp" | "referral" | "event_management";
 
 export type QuotationRow = {
@@ -39,6 +40,25 @@ export type QuotationRow = {
   review_invited_at: string | null;
   actual_amount_paid: number | null;
   payment_method_used: string | null;
+  // Ops backend (migrations 0019/0021)
+  client_id?: string | null;
+  quote_stage?: QuoteStage;
+  sent_at?: string | null;
+  sent_via?: string | null;
+  valid_until?: string | null;
+  followup_at?: string | null;
+  est_driver_cost?: number | null;
+  pricing_rule_id?: string | null;
+  driver_cost?: number | null;
+  extra_cost?: number;
+  partner_id?: string | null;
+  partner_share_pct?: number | null;
+  financial_status?: "n/a" | "required" | "confirmed";
+  financial_note?: string | null;
+  driver_name?: string | null;
+  driver_phone?: string | null;
+  vehicle_plate?: string | null;
+  vehicle_detail?: string | null;
   /** Only present when fetched via getQuotationWithDriver (embedded select) —
    *  plain getQuotationById/listQuotations rows leave this undefined. */
   drivers?: QuotationDriverJoin | null;

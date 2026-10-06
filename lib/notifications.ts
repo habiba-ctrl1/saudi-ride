@@ -147,6 +147,38 @@ export async function sendEmail(
   }
 }
 
+export type StrictEmailResult =
+  | { ok: true; messageId: string }
+  | { ok: false; error: string };
+
+/**
+ * Operator-triggered email with an HONEST result (ops quotation workflow). Unlike sendEmail():
+ * no automatic admin CC, the real error text is returned, and a missing Gmail config is a
+ * failure — never a silent "simulated" success. The caller records the outcome.
+ */
+export async function sendEmailStrict(
+  to: string,
+  subject: string,
+  html: string,
+  options?: { bcc?: string | string[]; attachments?: Array<{ filename: string; content: Buffer }> },
+): Promise<StrictEmailResult> {
+  if (!gmailTransporter) return { ok: false, error: "Email is not configured (GMAIL_USER / GMAIL_APP_PASSWORD missing)" };
+  try {
+    const bcc = (Array.isArray(options?.bcc) ? options.bcc : options?.bcc ? [options.bcc] : []).filter((b) => b && b.toLowerCase() !== to.toLowerCase());
+    const info = await gmailTransporter.sendMail({
+      from: `Taxi Saudi Arabia <${gmailUser}>`,
+      to,
+      ...(bcc.length ? { bcc } : {}),
+      ...(options?.attachments?.length ? { attachments: options.attachments } : {}),
+      subject,
+      html,
+    });
+    return { ok: true, messageId: info.messageId };
+  } catch (err) {
+    return { ok: false, error: err instanceof Error ? err.message : String(err) };
+  }
+}
+
 /**
  * 1. Booking Confirmation Email & SMS
  */

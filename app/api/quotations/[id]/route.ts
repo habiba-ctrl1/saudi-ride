@@ -89,7 +89,9 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   });
 
   if (error) return NextResponse.json({ error }, { status: 400 });
-  await notifyQuotationStatusChange(id, status);
+  // Ops rule (2026-10-06): nothing is emailed to a customer unless the operator explicitly asks
+  // (body.notify === true). Use the Send buttons on the quotation detail page for the normal flow.
+  if (body.notify === true) await notifyQuotationStatusChange(id, status);
 
   // Every price an admin actually quotes is a real market data point — record
   // it into the Pricing Book automatically so the route/vehicle price history
