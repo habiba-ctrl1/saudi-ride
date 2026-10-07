@@ -18,7 +18,7 @@ import {
 } from "@/lib/data/alula-cluster-ar";
 
 const SITE = "https://taxisaudiarabia.com";
-const wa = (t: string) => `${contactConfig.whatsappLink}?text=${encodeURIComponent(t)}`;
+export const wa = (t: string) => `${contactConfig.whatsappLink}?text=${encodeURIComponent(t)}`;
 const HUB_PATH = "/ar/locations/alula";
 const HUB_WA = "السلام عليكم، استفسار عن النقل في العلا.\n• من (مطار العلا / الفندق / مطار البحر الأحمر): \n• إلى: \n• التاريخ والوقت: \n• عدد الركاب والحقائب: \n• رقم الرحلة (لرحلات المطار): ";
 const GROUP_IMAGES: Record<string, (typeof ALULA_IMG)[keyof typeof ALULA_IMG][]> = {
@@ -33,13 +33,13 @@ const CHILD_IMAGE: Record<string, (typeof ALULA_IMG)[keyof typeof ALULA_IMG]> = 
   "elephant-rock": ALULA_IMG.elephantRock,
 };
 const ICONS = { heritage: Landmark, architecture: Building2, nature: Mountain } as const;
-const BTN_PRIMARY = "inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full bg-[#FACC15] px-7 text-sm font-bold text-[#0B1F14] transition-colors hover:bg-[#FDE047] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B1F14]";
-const BTN_GHOST = "inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full border border-white/30 bg-white/5 px-7 text-sm font-bold text-[#FFFFFF] backdrop-blur transition-colors hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white";
+export const BTN_PRIMARY = "inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full bg-[#FACC15] px-7 text-sm font-bold text-[#0B1F14] transition-colors hover:bg-[#FDE047] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B1F14]";
+export const BTN_GHOST = "inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full border border-white/30 bg-white/5 px-7 text-sm font-bold text-[#FFFFFF] backdrop-blur transition-colors hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white";
 
 function Eyebrow({ children, dark }: { children: React.ReactNode; dark?: boolean }) {
   return <p className={`mb-3 text-xs font-bold ${dark ? "text-[#FACC15]" : "text-[#16A34A]"}`}>{children}</p>;
 }
-function Head({ eyebrow, title, intro, id, dark }: { eyebrow: string; title: string; intro?: string; id?: string; dark?: boolean }) {
+export function Head({ eyebrow, title, intro, id, dark }: { eyebrow: string; title: string; intro?: string; id?: string; dark?: boolean }) {
   return (
     <div className="mb-8 max-w-3xl md:mb-10">
       <Eyebrow dark={dark}>{eyebrow}</Eyebrow>
@@ -48,7 +48,7 @@ function Head({ eyebrow, title, intro, id, dark }: { eyebrow: string; title: str
     </div>
   );
 }
-function Facts({ facts }: { facts: { label: string; value: string }[] }) {
+export function Facts({ facts }: { facts: { label: string; value: string }[] }) {
   return (
     <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-[#16A34A]/15 bg-[#16A34A]/15 md:grid-cols-4">
       {facts.map((f) => (
@@ -60,7 +60,7 @@ function Facts({ facts }: { facts: { label: string; value: string }[] }) {
     </dl>
   );
 }
-function Faqs({ faqs }: { faqs: { question: string; answer: string }[] }) {
+export function Faqs({ faqs }: { faqs: { question: string; answer: string }[] }) {
   return (
     <div className="divide-y divide-[#E5E7EB] overflow-hidden rounded-3xl border border-[#E5E7EB] bg-white">
       {faqs.map((f, i) => (
@@ -75,7 +75,7 @@ function Faqs({ faqs }: { faqs: { question: string; answer: string }[] }) {
     </div>
   );
 }
-function Quote({ heading, body, label, waPrefill, pickup, dropoff, pathB }: { heading: string; body: string; label: string; waPrefill: string; pickup?: string; dropoff?: string; pathB?: { heading: string; body: string; emailSubject: string; emailBody: string } }) {
+export function Quote({ heading, body, label, waPrefill, pickup, dropoff, pathB }: { heading: string; body: string; label: string; waPrefill: string; pickup?: string; dropoff?: string; pathB?: { heading: string; body: string; emailSubject: string; emailBody: string } }) {
   return (
     <section id="quote" aria-labelledby="quote-heading" className="scroll-mt-24">
       <div className="overflow-hidden rounded-[2rem] border border-[#16A34A]/15 bg-white shadow-[0_30px_80px_-40px_rgba(15,23,42,0.35)]">

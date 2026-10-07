@@ -13,6 +13,7 @@ import { contactConfig } from "@/lib/config/contact";
 import { RIYADH_PAGES, RIYADH_CITY } from "@/lib/data/riyadh-cluster";
 import { JEDDAH_PAGES, JEDDAH_CITY } from "@/lib/data/jeddah-cluster";
 import { ALULA_PAGES, ALULA_CITY } from "@/lib/data/alula-cluster";
+import { MAKKAH_PAGES, MAKKAH_CITY } from "@/lib/data/makkah-cluster";
 import type { ClusterPage, ClusterCity } from "@/lib/data/cluster";
 
 // Cities whose children render through the shared cluster system.
@@ -20,6 +21,7 @@ const CLUSTERS: Record<string, { pages: Record<string, ClusterPage>; city: Clust
   riyadh: { pages: RIYADH_PAGES, city: RIYADH_CITY },
   jeddah: { pages: JEDDAH_PAGES, city: JEDDAH_CITY },
   alula: { pages: ALULA_PAGES, city: ALULA_CITY },
+  makkah: { pages: MAKKAH_PAGES, city: MAKKAH_CITY },
 };
 import { ClusterChildPage } from "@/components/location/cluster/ClusterChildPage";
 
@@ -48,9 +50,11 @@ const RELATED_LINKS: Record<string, { name: string; href: string }[]> = {
     { name: "Umrah taxi from Jeddah", href: "/services/umrah-transport" },
   ],
   makkah: [
-    { name: "Makkah → Madinah taxi", href: "/routes/makkah-to-madinah" },
+    { name: "Private transportation in Makkah", href: "/locations/makkah" },
+    { name: "Makkah to Madinah private transfer", href: "/routes/makkah-to-madinah" },
     { name: "Makkah → Jeddah Airport taxi", href: "/routes/makkah-to-jeddah-airport" },
-    { name: "Makkah Ziyarat tour", href: "/services/makkah-ziyarat" },
+    { name: "Makkah Ziyarat transportation", href: "/services/makkah-ziyarat" },
+    { name: "Hire a private driver in Makkah", href: "/locations/makkah/private-driver" },
     { name: "Umrah taxi service", href: "/services/umrah-transport" },
   ],
   madinah: [

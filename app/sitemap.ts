@@ -96,6 +96,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: sub === "" ? 0.8 : 0.7,
   }));
 
+  // Arabic Makkah hub + Ziyarat (hreflang pairs of the English pages).
+  const arMakkahItems = ["/ar/locations/makkah", "/ar/services/makkah-ziyarat"].map((p) => ({
+    url: `${DOMAIN}${p}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
+
   // Event/exhibition transport hub + curated event pages.
   const eventItems = [
     { url: `${DOMAIN}/events`, priority: 0.8 },
@@ -213,6 +221,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...arItems,
     ...arRouteItems,
     ...arAlulaItems,
+    ...arMakkahItems,
     ...eventItems,
     ...locationItems,
     ...subAreaItems,

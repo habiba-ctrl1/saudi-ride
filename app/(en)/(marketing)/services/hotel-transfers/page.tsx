@@ -50,7 +50,7 @@ const FEATURES = [
 
 const FAQS = [
   { question: "How do hotel pickups work in Makkah during busy prayer times?", answer: "Our drivers coordinate via phone/WhatsApp and park as close to your hotel lobby or designated assembly point as permitted by traffic authorities." },
-  { question: "Can I book a transfer from my Makkah hotel to a Madinah hotel?", answer: "Yes! We specialize in inter-hotel transfers between Makkah and Madinah with Meeqat stops included." },
+  { question: "Can I book a transfer from my Makkah hotel to a Madinah hotel?", answer: "Yes! We specialize in inter-hotel transfers between Makkah and Madinah with prayer and rest stops on request." },
   { question: "Do you offer executive vehicles for hotel guests?", answer: "Yes. We provide Mercedes-Benz S-Class, V-Class VIP, GMC Yukon Denali, and Cadillac Escalade for hotel VIP transfers." },
   { question: "What if my flight is early in the morning?", answer: "We operate 24/7/365. You can schedule your hotel pickup for any hour of the day or night." },
 ];

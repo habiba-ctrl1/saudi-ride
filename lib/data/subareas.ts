@@ -331,6 +331,11 @@ export const SUB_AREAS: Record<string, {
   },
   // Jeddah — added 2026-10-06 (GSC: "jeddah chauffeur service" + variants
   // ~118 impr/6mo, no dedicated page). Content: lib/data/jeddah-cluster.ts.
+  "makkah-private-driver": {
+    city: "makkah", subarea: "private-driver", name: "Private Driver", nameAr: "سيارة مع سائق",
+    kind: "service",
+    description: "Hire a private driver in Makkah by the hour or for a full day. Content: lib/data/makkah-cluster.ts.",
+  },
   "jeddah-private-driver": {
     city: "jeddah", subarea: "private-driver", name: "Private Driver", nameAr: "سائق خاص",
     kind: "service",

@@ -6,7 +6,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     nameAr: "مكة المكرمة",
     image: "/locations/makkah-hero.webp",
     tagline: "The Holiest City on Earth",
-    description: "Book a private transfer in Makkah for Umrah, Hajj, Ziyarat, or onward travel. Our professional drivers provide Masjid Al-Haram drop-offs, return transfers to Jeddah Airport (~80 km, ~1 hour), and Makkah to Madinah journeys (~430 km, ~4–5 hours). Prayer-time and rest stops are always included, and drivers know the road-closure points around the Haram during Salah.",
+    description: "Book a private transfer in Makkah for Umrah, Hajj, Ziyarat, or onward travel. We arrange Masjid Al-Haram drop-offs through our partner network, return transfers to Jeddah Airport (about 80 km, around 1 hour), and Makkah to Madinah journeys (~430 km, ~4–5 hours). Prayer-time and rest stops are always included, and drivers know the road-closure points around the Haram during Salah.",
     tldr: "Taxi Saudi Arabia arranges 24/7 private transfer service in Makkah — Masjid al-Haram hotel drop-offs, return transfers to Jeddah Airport (~80 km, ~1 hour), and Makkah to Madinah journeys (~430 km, ~4–5 hours). Prayer stops and luggage help included.",
     tldrFacts: [
       { label: "To Jeddah Airport", value: "~80 km · ~1 hr" },
@@ -33,12 +33,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { question: "How far is Makkah from Madinah by taxi?", answer: "Makkah to Madinah is about 430 km — roughly a 4 to 5 hour drive via the Haramain highway. Fare confirmed on WhatsApp before booking, with prayer and rest stops included." },
       { question: "Can the taxi drop me at my Makkah hotel near the Haram?", answer: "Yes. We drop you as close to your hotel and Masjid al-Haram as vehicles are permitted. During prayer times some roads close, so the driver uses the nearest allowed checkpoint." },
       { question: "Do you provide Makkah Ziyarat tours by car?", answer: "Yes. A half-day Ziyarat car visits Jabal Al-Nour (Cave of Hira), Jabal Thawr, Mina, and Arafat with a knowledgeable driver and flexible waiting time." },
-      { question: "Is taxi available in Makkah 24/7?", answer: "Yes, we operate around the clock in Makkah for hotel transfers, airport returns, intercity trips, and Ziyarat — with your fare confirmed before you book, no surge." }
-    ],
-    testimonials: [
-      { quote: "Booked our Makkah to Madinah transfer in a big SUV. Driver was on time at the hotel, stopped for prayers, and the price was exactly as quoted. Very comfortable for the elderly in our group.", author: "Yusuf A.", location: "Manchester, UK", trip: "Makkah → Madinah" },
-      { quote: "Return trip from our hotel near the Haram to Jeddah airport. He knew exactly where the roads were closed and got us out smoothly with plenty of time for the flight.", author: "Nadia H.", location: "Sydney, Australia", trip: "Makkah → JED Airport" },
-      { quote: "Did the Ziyarat tour — Cave of Hira, Mina, Arafat. The driver explained each site and never rushed us. Fair price as agreed. Highly recommended.", author: "Bilal K.", location: "Makkah", trip: "Makkah Ziyarat" }
+      { question: "Is taxi available in Makkah 24/7?", answer: "Yes, transfers in Makkah are available around the clock for hotel transfers, airport returns, intercity trips, and Ziyarat — with your fare confirmed before you book, no surge." }
     ],
     relatedLinks: [
       { href: "/routes/jeddah-airport-to-makkah", label: "Jeddah Airport to Makkah taxi" },
@@ -428,6 +423,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     ],
     relatedLinks: [
       { href: "/services/makkah-ziyarat", label: "Makkah Ziyarat tours (combine with a Taif day trip)" },
+      { href: "/routes/taif-to-makkah", label: "Taif to Makkah private car" },
       { href: "/services/business-executive", label: "Private chauffeur & executive transport" },
       { href: "/locations/makkah", label: "Makkah private transfer & chauffeur service" },
       { href: "/routes/riyadh-to-taif", label: "Riyadh to Taif private car (~785 km)" }

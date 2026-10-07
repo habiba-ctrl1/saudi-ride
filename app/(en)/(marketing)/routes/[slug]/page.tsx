@@ -22,6 +22,10 @@ import { CrossBorderRouteSections } from "@/components/cross-border/CrossBorderR
 import { CrossBorderRoutePage } from "@/components/cross-border/CrossBorderRoutePage";
 import { CROSS_BORDER_ROUTE_PAGES } from "@/lib/data/cross-border-route-pages";
 import { RedSeaAlulaRouteSection, AlulaRouteNav } from "@/components/location/cluster/CrossDestination";
+import { MAKKAH_ROUTE_META, MAKKAH_CLUSTER_ROUTE_SLUGS } from "@/lib/data/makkah-cluster";
+import { MAKKAH_ROUTE_CONTENT } from "@/lib/data/makkah-route-content";
+import { MakkahRouteDetails } from "@/components/location/cluster/MakkahRouteLinks";
+import { MakkahRouteLinks } from "@/components/location/cluster/MakkahRouteLinks";
 
 interface PageProps {
   params: Promise<{
@@ -88,7 +92,7 @@ const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup:
   "jeddah-airport-to-swissotel-makkah": {
     heading: "Get your airport-to-hotel transfer quote",
     blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private transfer from Jeddah Airport (JED) straight to Swissotel Al Maqam Makkah, with meet & greet at arrivals and a Miqat stop on request.",
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private transfer from Jeddah Airport (JED) straight to Swissotel Al Maqam Makkah, with meet & greet at arrivals and prayer or rest stops on request.",
     pickup: "Jeddah Airport (JED)",
     dropoff: "Swissotel Al Maqam Makkah",
   },
@@ -109,14 +113,14 @@ const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup:
   "riyadh-to-makkah": {
     heading: "Get your Riyadh to Makkah quote",
     blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, door-to-door transfer to Makkah with a professional chauffeur, prayer and rest stops, and a Miqat stop for Ihram on request.",
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, door-to-door transfer to Makkah with a professional chauffeur, and prayer and rest stops on request.",
     pickup: "Riyadh",
     dropoff: "Makkah",
   },
   "jeddah-airport-to-makkah": {
     heading: "Get your Jeddah Airport to Makkah quote",
     blurb:
-      "Fill a few details and we confirm your fixed fare on WhatsApp — a private transfer from Jeddah Airport (JED) to Makkah with meet & greet at arrivals, flight tracking, and a Miqat stop for Ihram on request.",
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private transfer from Jeddah Airport (JED) to Makkah with meet & greet at arrivals, flight tracking, and prayer or rest stops on request.",
     pickup: "Jeddah Airport (JED)",
     dropoff: "Makkah",
   },
@@ -382,10 +386,10 @@ const UMRAH_GROUP_CONFIG: Record<string, { heading: string; intro: string; waPre
   "jeddah-airport-to-swissotel-makkah": {
     heading: "Travelling as a family or Umrah group?",
     intro:
-      "For families and groups we arrange a full-size SUV or van so everyone travels together with their luggage — one vehicle and one chauffeur from Jeddah Airport straight to Swissotel Al Maqam Makkah. Meet & greet at arrivals with a name sign, a Miqat stop for Ihram on request, and help with bags at the hotel.",
-    waPrefill: `Salam! Umrah transfer — Jeddah Airport to Swissotel Makkah.\n• Flight no. & arrival time: \n• Passengers (adults / children): \n• Luggage: \n• Vehicle (Sedan / SUV / Van): \n• Miqat stop for Ihram? : `,
+      "For families and groups we arrange a full-size SUV or van so everyone travels together with their luggage — one vehicle and one chauffeur from Jeddah Airport straight to Swissotel Al Maqam Makkah. Meet & greet at arrivals with a name sign, prayer and rest stops on request, and help with bags at the hotel.",
+    waPrefill: `Salam! Umrah transfer — Jeddah Airport to Swissotel Makkah.\n• Flight no. & arrival time: \n• Passengers (adults / children): \n• Luggage: \n• Vehicle (Sedan / SUV / Van): \n• Prayer / rest stops needed? : `,
     emailSubject: "Umrah group transfer RFQ — Jeddah Airport to Makkah",
-    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for Umrah airport transfers from Jeddah Airport (JED) to Makkah.\n\n• Agency / group name: \n• Contact name: \n• Arrival date & flight number: \n• Number of pilgrims (adults / children): \n• Luggage: \n• Vehicle(s) needed (SUV / Van): \n• Hotel in Makkah: \n• Miqat stop for Ihram?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for Umrah airport transfers from Jeddah Airport (JED) to Makkah.\n\n• Agency / group name: \n• Contact name: \n• Arrival date & flight number: \n• Number of pilgrims (adults / children): \n• Luggage: \n• Vehicle(s) needed (SUV / Van): \n• Hotel in Makkah: \n• Prayer / rest stops needed?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
   },
   "jeddah-to-madinah": {
     heading: "Travelling to Madinah as a family or group?",
@@ -398,7 +402,7 @@ const UMRAH_GROUP_CONFIG: Record<string, { heading: string; intro: string; waPre
   "makkah-to-madinah": {
     heading: "Umrah group between the Holy Cities?",
     intro:
-      "For families and Umrah groups we arrange a full-size SUV or van so everyone travels together with their luggage — one vehicle and one chauffeur from Makkah to your Madinah hotel, with a Miqat stop at Dhul Hulaifah on request and prayer and rest stops along the way.",
+      "For families and Umrah groups we arrange a full-size SUV or van so everyone travels together with their luggage — one vehicle and one chauffeur from Makkah to your Madinah hotel, with prayer and rest stops along the way.",
     waPrefill: `Salam! Umrah transfer — Makkah to Madinah.\n• Date & time: \n• Passengers (adults / children): \n• Luggage: \n• Vehicle (Sedan / SUV / Van): \n• Madinah hotel: `,
     emailSubject: "Umrah group transfer RFQ — Makkah to Madinah",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for Umrah transfers between Makkah and Madinah.\n\n• Agency / group name: \n• Contact name: \n• Travel date: \n• Number of pilgrims (adults / children): \n• Luggage: \n• Vehicle(s) needed (SUV / Van): \n• Madinah hotel: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
@@ -414,10 +418,10 @@ const UMRAH_GROUP_CONFIG: Record<string, { heading: string; intro: string; waPre
   "jeddah-airport-to-makkah": {
     heading: "Arriving for Umrah — family or group?",
     intro:
-      "For families and groups we arrange a full-size SUV or van so everyone travels together with their luggage — one vehicle and one chauffeur from Jeddah Airport (JED) to Makkah. Meet & greet in the arrivals hall with a name sign, flight tracking, and a Miqat stop for Ihram on request.",
-    waPrefill: `Salam! Umrah transfer — Jeddah Airport to Makkah.\n• Flight no. & arrival time: \n• Passengers (adults / children): \n• Luggage: \n• Vehicle (Sedan / SUV / Van): \n• Miqat stop for Ihram? : `,
+      "For families and groups we arrange a full-size SUV or van so everyone travels together with their luggage — one vehicle and one chauffeur from Jeddah Airport (JED) to Makkah. Meet & greet in the arrivals hall with a name sign, flight tracking, and prayer or rest stops on request.",
+    waPrefill: `Salam! Umrah transfer — Jeddah Airport to Makkah.\n• Flight no. & arrival time: \n• Passengers (adults / children): \n• Luggage: \n• Vehicle (Sedan / SUV / Van): \n• Prayer / rest stops needed? : `,
     emailSubject: "Umrah group transfer RFQ — Jeddah Airport to Makkah",
-    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for Umrah airport transfers from Jeddah Airport (JED) to Makkah.\n\n• Agency / group name: \n• Contact name: \n• Arrival date & flight number: \n• Number of pilgrims (adults / children): \n• Luggage: \n• Vehicle(s) needed (SUV / Van): \n• Miqat stop for Ihram?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for Umrah airport transfers from Jeddah Airport (JED) to Makkah.\n\n• Agency / group name: \n• Contact name: \n• Arrival date & flight number: \n• Number of pilgrims (adults / children): \n• Luggage: \n• Vehicle(s) needed (SUV / Van): \n• Prayer / rest stops needed?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
   },
 };
 
@@ -585,7 +589,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "jeddah-airport-to-makkah": {
-    tldr: "A private transfer from Jeddah Airport (JED) to Makkah (Mecca) is about 80 km and takes roughly 1 hour. Fares are confirmed on WhatsApp before booking, available 24/7, with a Miqat stop on request so you can enter Ihram before reaching Makkah.",
+    tldr: "A private transfer from Jeddah Airport (JED) to Makkah (Mecca) is about 80 km and takes roughly 1 hour. Fares are confirmed on WhatsApp before booking, available 24/7, with prayer and rest stops on request.",
     tldrFacts: [
       { label: "Distance", value: "~80 km" },
       { label: "Time", value: "~1 hour" },
@@ -595,9 +599,9 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     faqs: [
       { question: "How far is Jeddah airport from Makkah?", answer: "King Abdulaziz International Airport (JED) is about 80 km from Makkah — roughly a 1-hour drive on the Makkah Expressway, traffic permitting." },
       { question: "How much is a taxi from Jeddah airport to Makkah?", answer: "Fares are confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Message us on WhatsApp with your flight time and passenger count for a clear quote before booking — no surge, tolls included." },
-      { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Just tell us in advance and the driver will stop at the Miqat on the way so you can change into Ihram and make your intention before entering the Haram boundary." },
+      { question: "Does a Jeddah pickup involve a Miqat stop?", answer: "A pickup in Jeddah does not by itself involve a Miqat stop. Whether a Miqat matters for you depends on where you travelled from and on your own religious circumstances, which we cannot advise on. If your plans include a stop, tell us when you book and we will plan it." },
       { question: "Is the Jeddah airport to Makkah taxi available at night?", answer: "Yes, we operate 24/7. We track your flight number, so the driver is waiting at arrivals with a name sign even for late-night or delayed flights." },
-      { question: "Which is better — taxi or the Haramain train?", answer: "A private transfer is door-to-door from the airport to your Makkah hotel with luggage help and a Miqat stop. The Haramain high-speed train is fast but requires transfers to and from the stations. For pilgrims with luggage, the direct taxi is usually more convenient." },
+      { question: "Which is better — taxi or the Haramain train?", answer: "A private transfer is door-to-door from the airport to your Makkah hotel with luggage help and no station transfers. The Haramain high-speed train is fast but requires transfers to and from the stations. For pilgrims with luggage, the direct taxi is usually more convenient." },
       { question: "Where do I meet my driver at Jeddah airport?", answer: "Your driver waits in the arrivals hall with a name sign at your terminal (Terminal 1 for most international airlines, the Hajj Terminal during Hajj/Umrah peak season). We track your flight, so pickup timing adjusts automatically if you land early or late." },
       { question: "Is a private transfer cheaper than Uber or Careem from Jeddah to Makkah?", answer: "A private, pre-booked taxi gives you a confirmed vehicle and driver waiting at arrivals with no surge pricing during peak Umrah season — unlike ride-hailing apps, which can be scarce or surge-priced right after international flights land. Message us on WhatsApp to compare your options for a quote." },
       { question: "Do you provide a taxi service from Jeddah to Mecca for groups?", answer: "Yes. Alongside sedans, we arrange SUVs and vans for Umrah groups and families travelling together from Jeddah Airport to Mecca, with one driver and vehicle for the whole party." },
@@ -614,7 +618,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     faqs: [
       { question: "How far is the Fairmont Makkah Clock Royal Tower from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. The hotel sits directly in the Abraj Al Bait complex, overlooking Masjid al-Haram." },
       { question: "How much is a taxi from Jeddah airport to the Fairmont Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
-      { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Let us know in advance and the driver will stop at the Miqat so you can enter Ihram before continuing to the hotel." },
+      { question: "Does a Jeddah pickup involve a Miqat stop?", answer: "A pickup in Jeddah does not by itself involve a Miqat stop. Whether a Miqat matters for you depends on where you travelled from and on your own religious circumstances, which we cannot advise on. If your plans include a stop, tell us when you book and we will plan it." },
       { question: "Will the driver drop me at the hotel entrance?", answer: "Yes, as close to the Fairmont's entrance as vehicle access allows — during peak prayer times the driver uses the nearest permitted drop-off point, just a short walk from the lobby." },
     ],
   },
@@ -629,7 +633,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     faqs: [
       { question: "How far is Swissotel Al Maqam Makkah from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. The hotel is in the Abraj Al Bait towers, a short walk from Masjid al-Haram." },
       { question: "How much is a taxi from Jeddah airport to Swissotel Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
-      { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Let us know in advance and the driver will stop at the Miqat so you can enter Ihram before continuing to the hotel." },
+      { question: "Does a Jeddah pickup involve a Miqat stop?", answer: "A pickup in Jeddah does not by itself involve a Miqat stop. Whether a Miqat matters for you depends on where you travelled from and on your own religious circumstances, which we cannot advise on. If your plans include a stop, tell us when you book and we will plan it." },
       { question: "Is the transfer available for late-night flight arrivals?", answer: "Yes, we operate 24/7. We track your flight number so the driver is waiting with a name sign even for delayed or late-night arrivals." },
     ],
   },
@@ -644,8 +648,8 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     faqs: [
       { question: "How far is Pullman Zamzam Makkah from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. It's one of the closest hotels to Masjid al-Haram." },
       { question: "How much is a taxi from Jeddah airport to Pullman Zamzam Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
-      { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Let us know in advance and the driver will stop at the Miqat so you can enter Ihram before continuing to the hotel." },
-      { question: "Will the driver help with luggage at the hotel?", answer: "Yes, our drivers assist with luggage from the vehicle to the hotel entrance, especially useful for families and larger groups." },
+      { question: "Does a Jeddah pickup involve a Miqat stop?", answer: "A pickup in Jeddah does not by itself involve a Miqat stop. Whether a Miqat matters for you depends on where you travelled from and on your own religious circumstances, which we cannot advise on. If your plans include a stop, tell us when you book and we will plan it." },
+      { question: "Will the driver help with luggage at the hotel?", answer: "Yes, the driver assists with luggage from the vehicle to the hotel entrance, especially useful for families and larger groups." },
     ],
   },
   "jeddah-airport-to-conrad-makkah": {
@@ -659,7 +663,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     faqs: [
       { question: "How far is Conrad Makkah from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. The hotel is a short walk from Masjid al-Haram via King Abdulaziz Gate." },
       { question: "How much is a taxi from Jeddah airport to Conrad Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
-      { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Let us know in advance and the driver will stop at the Miqat so you can enter Ihram before continuing to the hotel." },
+      { question: "Does a Jeddah pickup involve a Miqat stop?", answer: "A pickup in Jeddah does not by itself involve a Miqat stop. Whether a Miqat matters for you depends on where you travelled from and on your own religious circumstances, which we cannot advise on. If your plans include a stop, tell us when you book and we will plan it." },
       { question: "Is this transfer available 24/7?", answer: "Yes, we operate around the clock with flight tracking, so your driver is waiting even for late-night or delayed arrivals." },
     ],
   },
@@ -674,7 +678,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     faqs: [
       { question: "How far is Hilton Suites Makkah from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. The hotel is in the Jabal Omar development, adjacent to Masjid al-Haram." },
       { question: "How much is a taxi from Jeddah airport to Hilton Suites Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
-      { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Let us know in advance and the driver will stop at the Miqat so you can enter Ihram before continuing to the hotel." },
+      { question: "Does a Jeddah pickup involve a Miqat stop?", answer: "A pickup in Jeddah does not by itself involve a Miqat stop. Whether a Miqat matters for you depends on where you travelled from and on your own religious circumstances, which we cannot advise on. If your plans include a stop, tell us when you book and we will plan it." },
       { question: "Is the vehicle suitable for families with luggage?", answer: "Yes, SUVs and vans are available with ample luggage space, ideal for families travelling to Hilton Suites Makkah." },
     ],
   },
@@ -689,7 +693,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     faqs: [
       { question: "How far is Movenpick Hajar Tower Makkah from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. The hotel overlooks Masjid al-Haram." },
       { question: "How much is a taxi from Jeddah airport to Movenpick Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
-      { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Let us know in advance and the driver will stop at the Miqat so you can enter Ihram before continuing to the hotel." },
+      { question: "Does a Jeddah pickup involve a Miqat stop?", answer: "A pickup in Jeddah does not by itself involve a Miqat stop. Whether a Miqat matters for you depends on where you travelled from and on your own religious circumstances, which we cannot advise on. If your plans include a stop, tell us when you book and we will plan it." },
       { question: "Is the taxi available for early-morning or late-night flights?", answer: "Yes, we operate 24/7 with flight tracking, so your driver is waiting with a name sign regardless of arrival time." },
     ],
   },
@@ -705,8 +709,8 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "How far is Jeddah from Makkah?", answer: "Jeddah city centre is about 85 km from Makkah — roughly a 1 hour 10 minute drive on the Makkah Expressway." },
       { question: "How much is a taxi from Jeddah to Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan. SUVs and vans are available for families and extra luggage. The price is confirmed before booking, with tolls included and no surge." },
       { question: "Can you pick me up from my Jeddah hotel?", answer: "Yes. We offer door-to-door pickup from any hotel, residence, or address in Jeddah and drop you directly at your Makkah hotel or close to Masjid al-Haram." },
-      { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes — let us know when booking and the driver will stop at the Miqat so you can enter Ihram before reaching Makkah." },
-      { question: "Do you offer a taxi service from Jeddah to Mecca?", answer: "Yes, Taxi Saudi Arabia arranges private transfers from Jeddah to Makkah (Mecca) 24/7, with door-to-door pickup and Miqat stops for Umrah pilgrims." },
+      { question: "Does a Jeddah pickup involve a Miqat stop?", answer: "A pickup in Jeddah does not by itself involve a Miqat stop. Whether a Miqat matters for you depends on where you travelled from and on your own religious circumstances, which we cannot advise on. If your plans include a stop, tell us when you book and we will plan it." },
+      { question: "Do you offer a taxi service from Jeddah to Mecca?", answer: "Yes, Taxi Saudi Arabia arranges private transfers from Jeddah to Makkah (Mecca) 24/7, with door-to-door pickup and prayer or rest stops on request." },
     ],
   },
   "jeddah-airport-to-jeddah-city": {
@@ -736,7 +740,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "Where is the Haramain station in Jeddah?", answer: "The Haramain High-Speed Railway serves Jeddah, with a station at King Abdulaziz International Airport (JED). A taxi from central Jeddah takes about 25 minutes door-to-door." },
       { question: "How much is a taxi to the Haramain station in Jeddah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with help for your luggage so you make your train comfortably." },
       { question: "Can you get me to the station in time for my train?", answer: "Yes. We recommend booking with a buffer before departure; we track timing and provide door-to-door pickup so you reach the Haramain station with time to spare." },
-      { question: "Should I take the train or a direct taxi to Makkah?", answer: "The Haramain train is fast between stations, but a direct taxi from Jeddah to Makkah is door-to-door with a Miqat stop and no transfers. For pilgrims with luggage, the direct taxi is often more convenient." },
+      { question: "Should I take the train or a direct taxi to Makkah?", answer: "The Haramain train is fast between stations, but a direct taxi from Jeddah to Makkah is door-to-door with no station transfers. For pilgrims with luggage, the direct taxi is often more convenient." },
     ],
   },
   "jeddah-airport-to-madinah": {
@@ -827,7 +831,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     faqs: [
       { question: "How far is Makkah from Taif?", answer: "Makkah to Taif is about 90 km — roughly a 1 hour 10 minute drive, often via the scenic Al Hada mountain road." },
       { question: "How much is a taxi from Makkah to Taif?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs available for families. Tolls are included." },
-      { question: "Is the Al Hada mountain road safe by taxi?", answer: "Yes. Our drivers are experienced on the steep, winding Al Hada route. You can also request the longer, gentler Al Sail road if preferred." },
+      { question: "Is the Al Hada mountain road safe by taxi?", answer: "Al Hada is a steep, winding climb; you can also request the longer, gentler Al Sail road if you prefer." },
       { question: "Can I do a Taif day trip from Makkah?", answer: "Yes. We offer round-trip and hourly hire so you can visit Taif's rose farms, Al Hada, and cable car with waiting time included." },
     ],
   },
@@ -1490,7 +1494,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     faqs: [
       { question: "How far is the Makkah Clock Tower from Jeddah airport?", answer: "About 85 km — roughly a 65-minute drive on the Makkah Expressway from King Abdulaziz International Airport (JED) to the Clock Tower hotel complex (Abraj Al Bait), which includes the Fairmont, Pullman Zamzam, and other Haram-adjacent hotels." },
       { question: "How much is a taxi from Jeddah airport to the Clock Tower hotels?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
-      { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Let us know in advance and the driver will stop at the Miqat so you can enter Ihram before continuing to your hotel." },
+      { question: "Does a Jeddah pickup involve a Miqat stop?", answer: "A pickup in Jeddah does not by itself involve a Miqat stop. Whether a Miqat matters for you depends on where you travelled from and on your own religious circumstances, which we cannot advise on. If your plans include a stop, tell us when you book and we will plan it." },
       { question: "Which hotels are in the Clock Tower complex?", answer: "The Abraj Al Bait complex includes the Fairmont Makkah Clock Royal Tower, Pullman Zamzam Makkah, and several other towers — all directly overlooking Masjid al-Haram. Tell us your specific hotel when booking." },
     ],
   },
@@ -1510,17 +1514,17 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "makkah-clock-tower-to-madinah-markaziyah": {
-    tldr: "A taxi from the Makkah Clock Tower hotels to Madinah Central Markaziyah is about 430 km and takes roughly 4 hours 10 minutes via the Haramain Highway. The fare is fixed, confirmed on WhatsApp with a Meeqat stop included for pilgrims continuing to Umrah.",
+    tldr: "A taxi from the Makkah Clock Tower hotels to Madinah Central Markaziyah is about 430 km and takes roughly 4 hours 10 minutes via the Haramain Highway. The fare is fixed, confirmed on WhatsApp with prayer and rest stops on request.",
     tldrFacts: [
       { label: "Distance", value: "~430 km" },
       { label: "Time", value: "~4h 10m" },
       { label: "Fare", value: "On WhatsApp" },
-      { label: "Meeqat stop", value: "Included" },
+      { label: "Stops", value: "Prayer & rest on request" },
     ],
     faqs: [
       { question: "How far is it from Makkah Clock Tower hotels to Madinah?", answer: "About 430 km — roughly a 4 hour 10 minute drive via the Haramain Highway, direct from the Clock Tower hotel complex to the Central Markaziyah hotels around the Prophet's Mosque." },
       { question: "How much is a taxi from Makkah Clock Tower to Madinah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
-      { question: "Is there a Meeqat stop on this route?", answer: "Yes. Dhul Hulaifah (Abyar Ali) is on the route from Makkah to Madinah, and the driver will stop there so you can enter Ihram if you're continuing on to Umrah." },
+      { question: "Can we stop for prayer on the way to Madinah?", answer: "Yes. Tell us when you book and the driver plans prayer and rest stops along the Haramain Highway." },
       { question: "Are rest stops included on the drive?", answer: "Yes, brief stops for prayer or refreshments along the highway are included at no extra charge — just let the driver know." },
     ],
   },
@@ -1728,7 +1732,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "alula-to-amman": "AlUla to Amman Private Transfer, Jordan — Fare, Distance & Booking",
     "medinah-to-amman": "Madinah to Amman Private Transfer, Jordan — Fare, Distance & Booking",
   };
-  const title = TITLE_OVERRIDES[slug] ?? (routeLabel.length > 55 ? routeLabel : `${routeLabel} | Taxi Saudi Arabia`);
+  const mkMeta = MAKKAH_ROUTE_META[slug];
+  const title = mkMeta?.title ?? TITLE_OVERRIDES[slug] ?? (routeLabel.length > 55 ? routeLabel : `${routeLabel} | Taxi Saudi Arabia`);
   const priceBlurb = "Fare confirmed on WhatsApp";
 
   // Per-slug description overrides — same CTR-fix rationale as TITLE_OVERRIDES,
@@ -1750,7 +1755,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "jeddah-to-kaec": "Jeddah to KAEC (King Abdullah Economic City) taxi — 120 km, about 1 hr 20 min. Get your exact fare confirmed on WhatsApp before booking. Corporate sedans, 24/7.",
     "riyadh-to-alula": "Riyadh to AlUla taxi — 1,050 km, about 10 hours. Get your exact fare confirmed on WhatsApp before booking. Premium long-distance transfer, rest stops included.",
     "madinah-to-alula": "Madinah to AlUla taxi — 330 km, about 3 hours. Get your exact fare confirmed on WhatsApp before booking. Heritage transfer, rest stops included.",
-    "jeddah-airport-to-swissotel-makkah": "Taxi from Jeddah Airport (JED) to Swissotel Al Maqam Makkah — ~80 km, about 1 hour. Meet & greet, Miqat stop on request, fare confirmed on WhatsApp. 24/7.",
+    "jeddah-airport-to-swissotel-makkah": "Taxi from Jeddah Airport (JED) to Swissotel Al Maqam Makkah — ~80 km, about 1 hour. Meet & greet, prayer and rest stops on request, fare confirmed on WhatsApp. 24/7.",
     "red-sea-airport-to-neom": "Taxi from Red Sea International Airport (RSI) to NEOM — private transfer, meet & greet, professional drivers. Fare confirmed on WhatsApp before booking. 24/7.",
     "riyadh-to-dubai": "Private car with driver, Riyadh to Dubai (UAE) — ~990 km via Al Batha–Ghuwaifat, door to door in one day. Fixed fare, border fees included, 24/7.",
     "dubai-to-riyadh": "Private car with driver, Dubai (UAE) to Riyadh — ~990 km via Ghuwaifat–Al Batha, door to door. Fixed fare in writing, border fees included, 24/7.",
@@ -1788,7 +1793,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title,
-    description: DESCRIPTION_OVERRIDES[slug] ?? `Private transfer from ${route.fromCity} to ${route.toCity} — ${route.distance} km, approx ${Math.round(route.duration / 60)}h. ${priceBlurb}, 24/7, professional drivers, no surge.`.slice(0, 160),
+    description: mkMeta?.description ?? DESCRIPTION_OVERRIDES[slug] ?? `Private transfer from ${route.fromCity} to ${route.toCity} — ${route.distance} km, approx ${Math.round(route.duration / 60)}h. ${priceBlurb}, 24/7, professional drivers, no surge.`.slice(0, 160),
     alternates: {
       canonical: `https://taxisaudiarabia.com/routes/${slug}`,
       ...(AR_ROUTE_SLUGS.includes(slug)
@@ -1802,8 +1807,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         : {}),
     },
     openGraph: {
-      title: `Taxi from ${route.fromCity} to ${route.toCity}`,
-      description: route.description || `Book a taxi from ${route.fromCity} to ${route.toCity} with a clear price confirmed on WhatsApp. No surge, no hidden fees.`,
+      title: mkMeta?.title ?? `Taxi from ${route.fromCity} to ${route.toCity}`,
+      description: mkMeta?.description ?? (route.description || `Book a taxi from ${route.fromCity} to ${route.toCity} with a clear price confirmed on WhatsApp. No surge, no hidden fees.`),
       type: "website",
     },
     // Explicit twitter card so twitter.title uses THIS page's title instead of
@@ -1812,7 +1817,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     twitter: {
       card: "summary_large_image",
       title,
-      description: DESCRIPTION_OVERRIDES[slug] ?? `Private transfer from ${route.fromCity} to ${route.toCity} — fare confirmed on WhatsApp, 24/7.`,
+      description: mkMeta?.description ?? DESCRIPTION_OVERRIDES[slug] ?? `Private transfer from ${route.fromCity} to ${route.toCity} — fare confirmed on WhatsApp, 24/7.`,
     },
   };
 }
@@ -1847,7 +1852,9 @@ export default async function RouteDetailsPage({ params }: PageProps) {
 
   // Route-specific content (TLDR + bespoke FAQs) for priority corridors;
   // falls back to generic FAQs for all other routes.
-  const content = ROUTE_CONTENT[slug];
+  const mkContent = MAKKAH_ROUTE_CONTENT[slug];
+  const content = mkContent ?? ROUTE_CONTENT[slug];
+  const isMk = MAKKAH_CLUSTER_ROUTE_SLUGS.includes(slug);
   const faqs = content?.faqs ?? DEFAULT_FAQS;
 
   const distanceGuide = DISTANCE_GUIDES.find((d) => d.routeSlug === slug);
@@ -1999,7 +2006,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                   </span>
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 px-3.5 py-1 text-[0.65rem] font-bold uppercase tracking-widest text-white/90">
                     <ShieldCheck className="h-3.5 w-3.5 text-[#16A34A]" />
-                    Pilgrim-Friendly (Miqat Stop Available)
+                    Pilgrim-Friendly · Prayer & Rest Stops
                   </span>
                 </div>
 
@@ -2142,7 +2149,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
 
                 <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight tracking-tight text-white">
                   {route.fromCity} <span className="text-[#FACC15]">to</span> {route.toCity}
-                  {slug === "riyadh-to-dammam" || slug === "kuwait-to-dammam" || slug === "kuwait-to-riyadh" ? " Taxi" : ""}
+                  {slug === "riyadh-to-dammam" || slug === "kuwait-to-dammam" || slug === "kuwait-to-riyadh" ? " Taxi" : MAKKAH_ROUTE_META[slug] ? " Private Transfer" : ""}
                 </h1>
 
                 <p className="text-sm sm:text-base text-white/85 leading-relaxed font-normal max-w-lg">
@@ -2303,7 +2310,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
           <section>
             <h2 className="font-heading text-2xl font-bold mb-6 flex items-center gap-3">
               <Car className="text-[#C9A84C]" />
-              Vehicle Options for {route.fromCity} to {route.toCity}
+              {isMk ? "Choose the Right Vehicle for Your Group" : <>Vehicle Options for {route.fromCity} to {route.toCity}</>}
             </h2>
             <p className="text-[0.7rem] text-[#6B7280] mb-6">* All fares are fixed with zero surge pricing — confirmed on WhatsApp or email prior to dispatch.</p>
             <div className="grid sm:grid-cols-2 gap-5">
@@ -2394,7 +2401,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                 {[
                   { step: "1", title: "Flight Tracked", desc: "We monitor your flight status in real time for delays.", icon: Plane },
                   { step: "2", title: "Meet Your Driver", desc: "Meet your driver at the agreed airport pickup point.", icon: UserCheck },
-                  { step: "3", title: "Optional Miqat Stop", desc: "Request a Miqat stop in advance if required for Ihram.", icon: Compass },
+                  { step: "3", title: "Prayer or Rest Stop", desc: "Request a prayer or rest stop in advance if you need one.", icon: Compass },
                   { step: "4", title: "Makkah Hotel Drop-Off", desc: "Direct drop-off at your requested Makkah destination.", icon: MapPin },
                 ].map((s, idx) => {
                   const Icon = s.icon;
@@ -2468,7 +2475,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                   { title: "Real-Time Flight Tracking", desc: "We track your landing time automatically." },
                   { title: "15–30 Mins Free Waiting", desc: "Time for baggage collection and customs." },
                   { title: "Direct Hotel Drop-Off", desc: "Door-to-door service at your Makkah hotel." },
-                  { title: "Miqat Stop Available", desc: "Complimentary stop on request for assuming Ihram." },
+                  { title: "Prayer & Rest Stops", desc: "Available on request along the way." },
                 ].map((item, idx) => (
                   <div key={idx} className="flex gap-3 bg-white p-4 rounded-2xl border border-[#16A34A]/12 shadow-2xs">
                     <CheckCircle2 className="h-5 w-5 text-[#16A34A] shrink-0 mt-0.5" />
@@ -2521,7 +2528,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                   Jeddah Airport to Makkah for Umrah Travelers
                 </h2>
                 <p className="text-xs sm:text-sm text-[#6B7280] leading-relaxed">
-                  Arriving at King Abdulaziz International Airport (JED) for Umrah? Whether your flight lands late at night or early in the morning, our 24/7 private chauffeurs ensure a seamless journey. We provide spacious vehicles for family luggage, direct drop-off at your requested Makkah destination, and a planned Miqat stop for Ihram.
+                  Arriving at King Abdulaziz International Airport (JED) for Umrah? Whether your flight lands late at night or early in the morning, 24/7 pre-booked private transfers make the journey seamless. We provide spacious vehicles for family luggage, direct drop-off at your requested Makkah destination, and prayer or rest stops on request.
                 </p>
                 <div className="flex flex-wrap items-center gap-4 pt-2 text-xs font-bold">
                   <Link href="/services/umrah-transport" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
@@ -2570,7 +2577,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
           <section className="bg-white border border-[#16A34A]/12 rounded-3xl p-8">
             <h2 className="font-heading text-2xl font-bold mb-6 flex items-center gap-3">
               <AlertTriangle className="text-[#C9A84C]" />
-              Route Tips &amp; Information
+              {isMk ? <>{route.fromCity} to {route.toCity}: Route Details &amp; Tips</> : <>Route Tips &amp; Information</>}
             </h2>
             <ul className="space-y-4">
               <li className="flex gap-4">
@@ -2590,11 +2597,11 @@ export default async function RouteDetailsPage({ params }: PageProps) {
               <li className="flex gap-4">
                 <ShieldCheck className="h-5 w-5 text-[#C9A84C] shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="font-bold text-sm">Professional &amp; Licensed</h4>
+                  <h4 className="font-bold text-sm">English &amp; Arabic-Speaking Drivers</h4>
                   <p className="text-xs text-[#6B7280] mt-1">
                     {hasCredential(credentials.motLicenseNumber)
-                      ? `All drivers are fully licensed by the Saudi Ministry of Transport (Licence ${credentials.motLicenseNumber}), speak English and Arabic, and are trained for professional service.`
-                      : "All drivers hold a valid Saudi driving licence, speak English and Arabic, and are trained for professional service."}
+                      ? `Drivers in our partner network speak English and Arabic (Licence ${credentials.motLicenseNumber}).`
+                      : "Drivers in our partner network speak English and Arabic, and trips run 24 hours a day."}
                   </p>
                 </div>
               </li>
@@ -2862,7 +2869,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
           <section>
             <h2 className="font-heading text-2xl font-bold mb-6 flex items-center gap-3">
               <HelpCircle className="text-[#C9A84C]" />
-              Frequently Asked Questions
+              {isMk ? <>{route.fromCity} to {route.toCity} FAQs</> : <>Frequently Asked Questions</>}
             </h2>
             <div className="space-y-4">
               {faqs.map((faq, idx) => (
@@ -2980,6 +2987,8 @@ export default async function RouteDetailsPage({ params }: PageProps) {
 
 
 
+          {mkContent && <MakkahRouteDetails details={mkContent.details} />}
+          {isMk && <MakkahRouteLinks slug={slug} fromCity={route.fromCity} toCity={route.toCity} />}
           <RouteRelatedLinks slug={slug} fromCity={route.fromCity} toCity={route.toCity} />
 
         </div>

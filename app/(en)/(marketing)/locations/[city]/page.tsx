@@ -29,6 +29,7 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/
 import { RiyadhHub } from "@/components/location/cluster/RiyadhHub";
 import { JeddahHub } from "@/components/location/cluster/JeddahHub";
 import { AlulaHub } from "@/components/location/cluster/AlulaHub";
+import { MakkahHub } from "@/components/location/cluster/MakkahHub";
 
 // Real distances/times pulled from the same ROUTES_DATA source the route
 // pages read from (CLAUDE.md single-source-of-truth rule) — a compact
@@ -467,7 +468,7 @@ interface PageProps {
 // a local route) instead of the old "Book a fixed-price taxi in {city}..."
 // template that was byte-identical across all 11 pages except the city name.
 const CITY_META_DESCRIPTION: Record<string, string> = {
-  makkah: "Taxi in Makkah — Haram hotel drop-offs, Ziyarat tours, and transfers to Jeddah Airport (~80 km) or Madinah (~430 km). No surge, 24/7.",
+  makkah: "Book a private taxi or transfer in Makkah — Jeddah Airport, Madinah, Taif, hotel and Ziyarat trips, plus a chauffeur by the hour. Fare agreed first, 24/7.",
   madinah: "Taxi in Madinah — Masjid an-Nabawi drop-offs, Ziyarat tours, and MED airport transfers (~20 km). Onward trips to Makkah available.",
   riyadh: "Private transfers & chauffeurs in Riyadh — RUH airport (~35 km), hotel transfers, hourly drivers, KAFD business travel, intercity & GCC cars. Fare agreed first.",
   jeddah: "Private taxi & chauffeur in Jeddah — JED airport transfers with flight tracking, Makkah (~80 km) and Madinah (~420 km) trips, hotel transfers, 24/7.",
@@ -489,7 +490,7 @@ const CITY_META_DESCRIPTION: Record<string, string> = {
 const CITY_META_TITLE: Record<string, string> = {
   riyadh: "Riyadh Taxi & Chauffeur Service | Airport, KAFD & Intercity",
   neom: "NEOM Taxi & Executive Transfer | Tabuk & NEOM Bay Airports",
-  makkah: "Makkah Taxi & Private Transfers | Umrah, Hotels & JED Airport",
+  makkah: "Makkah Private Taxi & Transfers | Airport, Madinah & Ziyarat",
   madinah: "Madinah Taxi & Private Transfers | Ziyarat, MED Airport & Hotels",
   jeddah: "Jeddah Taxi & Private Transfers | JED Airport, Makkah & Chauffeur",
   dammam: "Dammam Taxi & Private Transfers | DMM Airport, Khobar & Bahrain",
@@ -511,7 +512,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   // Riyadh hub (rebuilt 2026-10-01): title unchanged (rule 3), OG/Twitter
   // now mirror the real title instead of the generic "Taxi Service in" line.
-  if (cityKeyLower === "riyadh" || cityKeyLower === "jeddah" || cityKeyLower === "alula") {
+  if (cityKeyLower === "riyadh" || cityKeyLower === "jeddah" || cityKeyLower === "alula" || cityKeyLower === "makkah") {
     const t = CITY_META_TITLE[cityKeyLower];
     const d = CITY_META_DESCRIPTION[cityKeyLower];
     const img = cityKeyLower === "alula" ? "https://taxisaudiarabia.com/locations/alula/alula-og-sandstone-road.webp" : `https://taxisaudiarabia.com/locations/${cityKeyLower}-og.webp`;
@@ -520,11 +521,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: d,
       alternates: {
         canonical: `https://taxisaudiarabia.com/locations/${cityKeyLower}`,
-        ...(cityKeyLower === "alula"
-          ? { languages: { en: "https://taxisaudiarabia.com/locations/alula", ar: "https://taxisaudiarabia.com/ar/locations/alula", "x-default": "https://taxisaudiarabia.com/locations/alula" } }
+        ...(cityKeyLower === "alula" || cityKeyLower === "makkah"
+          ? { languages: { en: `https://taxisaudiarabia.com/locations/${cityKeyLower}`, ar: `https://taxisaudiarabia.com/ar/locations/${cityKeyLower}`, "x-default": `https://taxisaudiarabia.com/locations/${cityKeyLower}` } }
           : {}),
       },
-      openGraph: { title: t, description: d, type: "website", url: `https://taxisaudiarabia.com/locations/${cityKeyLower}`, images: [{ url: img, width: 1200, height: 630, alt: cityKeyLower === "riyadh" ? "Riyadh skyline with Kingdom Centre and Al Faisaliah Tower" : cityKeyLower === "alula" ? "Private transport in AlUla, Saudi Arabia" : "The Jeddah Corniche on the Red Sea" }] },
+      openGraph: { title: t, description: d, type: "website", url: `https://taxisaudiarabia.com/locations/${cityKeyLower}`, images: [{ url: img, width: 1200, height: 630, alt: cityKeyLower === "riyadh" ? "Riyadh skyline with Kingdom Centre and Al Faisaliah Tower" : cityKeyLower === "alula" ? "Private transport in AlUla, Saudi Arabia" : cityKeyLower === "makkah" ? "Minarets of the Haram complex in Makkah at sunset" : "The Jeddah Corniche on the Red Sea" }] },
       twitter: { card: "summary_large_image", title: t, description: d, images: [img] },
     };
   }
@@ -566,6 +567,9 @@ export default async function CityLocationPage({ params }: PageProps) {
   }
   if (cityKey === "alula" && CITY_DETAILS.alula) {
     return <AlulaHub name={CITY_DETAILS.alula.name} nameAr={CITY_DETAILS.alula.nameAr} />;
+  }
+  if (cityKey === "makkah" && CITY_DETAILS.makkah) {
+    return <MakkahHub name={CITY_DETAILS.makkah.name} nameAr={CITY_DETAILS.makkah.nameAr} />;
   }
   if (cityKey === "jeddah" && CITY_DETAILS.jeddah) {
     return <JeddahHub name={CITY_DETAILS.jeddah.name} nameAr={CITY_DETAILS.jeddah.nameAr} />;
@@ -831,7 +835,7 @@ export default async function CityLocationPage({ params }: PageProps) {
                       <ArrowRight className="h-4 w-4 text-[#16A34A]" />
                       <div className="font-bold">{route.toCity}</div>
                       <span className="text-[0.65rem] text-[#6B7280] uppercase tracking-wider">
-                        {route.distance} km · ~{Math.round(route.duration / 60)} hr
+                        {route.distance > 0 ? `${route.distance} km · ~${Math.round(route.duration / 60)} hr` : "Private transfer"}
                       </span>
                     </div>
                     <div className="relative z-10 flex items-center justify-between md:gap-6">

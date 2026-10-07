@@ -15,7 +15,7 @@ const waLink = (msg: string) =>
   `https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(msg)}`;
 
 const TITLE = "Umrah Taxi Service | Jeddah to Makkah & Madinah Transfers";
-const DESCRIPTION = "Umrah taxi service in Saudi Arabia — airport to Makkah, Makkah to Madinah, Ziyarat tours & Meeqat stops. English, Arabic & Urdu drivers. Clear pricing on WhatsApp, 24/7.";
+const DESCRIPTION = "Umrah taxi service in Saudi Arabia — airport to Makkah, Makkah to Madinah, Ziyarat tours & prayer stops. English- & Arabic-speaking drivers. Clear pricing on WhatsApp, 24/7.";
 const OG_IMAGE = "https://taxisaudiarabia.com/services/umrah-transport-hero.webp";
 
 export const metadata: Metadata = {
@@ -65,19 +65,19 @@ const FAQS = [
   },
   {
     q: "What languages do your drivers speak?",
-    a: "We understand pilgrims come from all over the world. Our drivers speak fluent Arabic, English, Urdu, and Hindi. You can request a specific language during booking."
+    a: "We understand pilgrims come from all over the world. Drivers in our partner network speak English and Arabic. Please tell us your preferred language when you book."
   },
   {
-    q: "Can you take us to the Miqat if we forgot to enter Ihram?",
-    a: "Yes. If you land in Jeddah and need to assume Ihram, we can arrange a dedicated trip to the nearest Miqat (Al-Juhfah) before heading to Makkah."
+    q: "Can you arrange a trip to a Miqat before Makkah?",
+    a: "If your plans include a visit to a Miqat such as Al-Juhfah before Makkah, tell us when you book and we quote it as a separate trip. We provide transport only and cannot advise on religious matters."
   },
   {
     q: "Is Jeddah a Miqat for Umrah?",
-    a: "No. Jeddah lies inside the Miqat boundary, so you must enter Ihram before crossing the Miqat — usually announced on your flight before landing. If you arrive without it, we can stop at Al-Juhfah on the way to Makkah."
+    a: "Jeddah lies inside the Miqat boundary, so a pickup at Jeddah Airport does not by itself involve a Miqat stop. What applies to you depends on your route and your own religious circumstances, which we cannot advise on — see our Miqat guide, and tell us if you want a separate trip planned."
   },
   {
     q: "How far is Jeddah Airport from Makkah for Umrah?",
-    a: "King Abdulaziz International Airport (JED) is about 80 km from Makkah — roughly a 1-hour direct transfer, with an optional Miqat stop for Ihram."
+    a: "King Abdulaziz International Airport (JED) is about 80 km from Makkah — roughly a 1-hour direct transfer, with prayer and rest stops on request."
   }
 ];
 
@@ -89,7 +89,7 @@ export default function UmrahTransportPage() {
           serviceSchema({
             name: "Umrah Taxi Service",
             description:
-              "Dedicated Umrah taxi service in Saudi Arabia — Jeddah Airport to Makkah transfers, Makkah to Madinah rides, Ziyarat tours, and Meeqat stops with multilingual drivers.",
+              "Dedicated Umrah taxi service in Saudi Arabia — Jeddah Airport to Makkah transfers, Makkah to Madinah rides, Ziyarat tours, and prayer stops with English- and Arabic-speaking drivers.",
             path: "/services/umrah-transport",
             serviceType: "Umrah Transport",
             areaServed: ["Makkah", "Madinah", "Jeddah"],
@@ -132,7 +132,7 @@ export default function UmrahTransportPage() {
           </p>
           <div className="max-w-2xl mx-auto mb-10 text-left">
             <TLDRSummary
-              answer="Umrah taxi transfers in Saudi Arabia cover Jeddah Airport to Makkah (~1 hour), Makkah to Madinah, and Ziyarat tours, with multilingual drivers and 24/7 availability. Your fare is confirmed on WhatsApp before booking."
+              answer="Umrah taxi transfers in Saudi Arabia cover Jeddah Airport to Makkah (~1 hour), Makkah to Madinah, and Ziyarat tours, with English- and Arabic-speaking drivers and 24/7 availability. Your fare is confirmed on WhatsApp before booking."
               facts={[
                 { label: "Airport → Makkah", value: "On WhatsApp" },
                 { label: "Duration", value: "~1 hour" },
@@ -161,7 +161,7 @@ export default function UmrahTransportPage() {
             <div>
               <h2 className="font-heading text-3xl font-bold mb-4">Dedicated to Pilgrims</h2>
               <p className="text-[#6B7280] leading-relaxed">
-                We understand that Umrah is a profoundly physical and spiritual undertaking. Our drivers are trained specifically in the logistics of Makkah and Madinah to ensure you face zero transport stress.
+                We understand that Umrah is a profoundly physical and spiritual undertaking. We plan the transport around it: pre-booked pickups, vehicles sized to your luggage, and drop-offs at the nearest permitted point to your hotel.
               </p>
             </div>
             
@@ -171,8 +171,8 @@ export default function UmrahTransportPage() {
                   <Languages className="h-6 w-6 text-[#C9A84C]" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-[#1C1C1C] mb-1">English, Arabic & Urdu Drivers</h4>
-                  <p className="text-sm text-[#6B7280]">Our team includes drivers fluent in Arabic, English, and Urdu to ensure perfect communication with you and your family.</p>
+                  <h4 className="font-bold text-[#1C1C1C] mb-1">English & Arabic Drivers</h4>
+                  <p className="text-sm text-[#6B7280]">Drivers in our partner network speak English and Arabic, so you can communicate easily with them and your family can too.</p>
                 </div>
               </div>
               
@@ -204,7 +204,7 @@ export default function UmrahTransportPage() {
             <div className="absolute bottom-8 left-8 right-8">
               <div className="bg-white/90 backdrop-blur-md p-6 rounded-2xl border border-[#C9A84C]/30">
                 <p className="text-xs text-[#C9A84C] font-bold uppercase tracking-wider mb-2">Ziyarat Guidance</p>
-                <p className="text-sm text-[#1C1C1C]">Our drivers can guide you to all historical sites including Jabal Uhud, Quba Mosque, and Jabal Al-Nour with dedicated waiting time.</p>
+                <p className="text-sm text-[#1C1C1C]">Your driver takes you to sites such as Jabal Uhud, Quba Mosque and Jabal Al-Nour and waits at each stop. Transport only — no religious guidance.</p>
               </div>
             </div>
           </div>
@@ -223,9 +223,9 @@ export default function UmrahTransportPage() {
         <ol className="space-y-4">
           {[
             { n: 1, title: "Arrive at Jeddah Airport (JED)", desc: "Meet & greet at arrivals with a name sign, 24/7 — even on late-night flights. We track your flight for delays.", href: "/airports/king-abdulaziz-jeddah", cta: "Jeddah Airport taxi" },
-            { n: 2, title: "Enter Ihram at the Miqat", desc: "Enter Ihram on the plane, or ask the driver to stop at the Miqat (Al-Juhfah) if you land without it.", href: "/guides/miqat-jeddah-makkah", cta: "Miqat & Ihram guide" },
+            { n: 2, title: "Plan any stops", desc: "Tell us if you want a prayer, meal or rest stop on the way. See the guide for Miqat information.", href: "/guides/miqat-jeddah-makkah", cta: "Miqat & Ihram guide" },
             { n: 3, title: "Transfer to Makkah (~80 km, ~1 hr)", desc: "Direct, private ride from the airport to your Makkah hotel, as close to the Haram as vehicles are permitted.", href: "/routes/jeddah-airport-to-makkah", cta: "JED → Makkah route" },
-            { n: 4, title: "Makkah Ziyarat", desc: "Visit Jabal Al-Nour, Mina, Arafat and other sites with a knowledgeable driver and flexible waiting time.", href: "/services/makkah-ziyarat", cta: "Makkah Ziyarat tour" },
+            { n: 4, title: "Makkah Ziyarat", desc: "Visit Jabal Al-Nour, Mina, Arafat and other sites by private car, with flexible waiting time at each stop.", href: "/services/makkah-ziyarat", cta: "Makkah Ziyarat tour" },
             { n: 5, title: "Travel to Madinah (~420 km)", desc: "Comfortable long-distance transfer via the Haramain highway, with prayer and rest stops on request.", href: "/routes/jeddah-to-madinah", cta: "Jeddah → Madinah route" },
             { n: 6, title: "Madinah Ziyarat & return", desc: "Visit Masjid an-Nabawi, Quba, and Uhud, then a smooth transfer back to the airport for your flight home.", href: "/services/madinah-ziyarat", cta: "Madinah Ziyarat tour" },
           ].map((step) => (
