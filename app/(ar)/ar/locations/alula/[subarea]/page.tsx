@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ subarea: 
     description: page.metaDescription,
     path: `/ar/locations/alula/${subarea}`,
     locale: "ar",
-    image: "https://taxisaudiarabia.com/locations/alula-og.webp",
+    image: "https://taxisaudiarabia.com/locations/alula/alula-og-sandstone-road.webp",
     hreflangPaths: { en: `/locations/alula/${subarea}`, ar: `/ar/locations/alula/${subarea}` },
   });
 }

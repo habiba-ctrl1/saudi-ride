@@ -9,6 +9,7 @@ import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { routeFact } from "@/lib/data/cluster";
 import { AR_ROUTE_CONTENT_SLUGS } from "@/lib/data/routes-content-ar";
 import { ALULA_AIRPORT_RESORTS } from "@/lib/data/alula-cluster";
+import { ALULA_IMG } from "@/lib/data/alula-images";
 import { JourneyPlannerAr } from "./JourneyPlannerAr";
 import {
   AR_ALULA_FACTS, AR_ALULA_TRIPS, AR_ALULA_FLOW, AR_ALULA_ATTRACTIONS, AR_ALULA_STAYS, AR_ALULA_HOTEL_LEGS,
@@ -20,6 +21,17 @@ const SITE = "https://taxisaudiarabia.com";
 const wa = (t: string) => `${contactConfig.whatsappLink}?text=${encodeURIComponent(t)}`;
 const HUB_PATH = "/ar/locations/alula";
 const HUB_WA = "السلام عليكم، استفسار عن النقل في العلا.\n• من (مطار العلا / الفندق / مطار البحر الأحمر): \n• إلى: \n• التاريخ والوقت: \n• عدد الركاب والحقائب: \n• رقم الرحلة (لرحلات المطار): ";
+const GROUP_IMAGES: Record<string, (typeof ALULA_IMG)[keyof typeof ALULA_IMG][]> = {
+  heritage: [ALULA_IMG.hegra, ALULA_IMG.oldTown],
+  architecture: [ALULA_IMG.maraya],
+  nature: [ALULA_IMG.elephantRock],
+};
+const CHILD_IMAGE: Record<string, (typeof ALULA_IMG)[keyof typeof ALULA_IMG]> = {
+  "private-driver": ALULA_IMG.privateDriver,
+  hegra: ALULA_IMG.hegra,
+  maraya: ALULA_IMG.maraya,
+  "elephant-rock": ALULA_IMG.elephantRock,
+};
 const ICONS = { heritage: Landmark, architecture: Building2, nature: Mountain } as const;
 const BTN_PRIMARY = "inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full bg-[#FACC15] px-7 text-sm font-bold text-[#0B1F14] transition-colors hover:bg-[#FDE047] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B1F14]";
 const BTN_GHOST = "inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full border border-white/30 bg-white/5 px-7 text-sm font-bold text-[#FFFFFF] backdrop-blur transition-colors hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white";
@@ -123,7 +135,7 @@ export function AlulaHubAr() {
     <div dir="rtl" lang="ar" className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C]">
       <JsonLd data={schema} />
       <section className="relative isolate overflow-hidden bg-[#0B1F14]">
-        <Image src="/locations/alula-hero.webp" alt="صورة توضيحية: مائدة عشاء مضاءة بالشموع في وادٍ صحراوي من الصخر الرملي وخلفها مبنى مغطى بالمرايا" fill priority sizes="100vw" className="-z-10 object-cover object-[40%_50%]" />
+        <Image src={ALULA_IMG.hubHero.src} alt={ALULA_IMG.hubHero.altAr} fill priority sizes="100vw" className="-z-10 object-cover object-[40%_55%]" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-l from-[#0B1F14] via-[#0B1F14]/80 to-[#0B1F14]/10" aria-hidden="true" />
         <div className="absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-[#0B1F14] to-transparent" aria-hidden="true" />
         <Breadcrumbs className="relative [&_a]:text-white/70 [&_a:hover]:text-white [&_span]:text-[#FACC15]" items={[{ name: "الرئيسية", href: "/ar" }, { name: "العلا", href: HUB_PATH }]} />
@@ -183,6 +195,9 @@ export function AlulaHubAr() {
       <section id="airport" aria-labelledby="airport-heading" className="relative scroll-mt-20 overflow-hidden bg-[#0B1F14] py-20 md:py-24">
         <div className="section-container relative max-w-6xl">
           <Head dark id="airport-heading" eyebrow="مطار العلا الدولي (ULH)" title="رحلتك من مطار العلا خطوة بخطوة" intro={`ULH مطار إقليمي صغير يبعد نحو ${ALULA_AIRPORT_RESORTS.km} كم عن منطقة المنتجعات، والسيارات عند الطلب فيه محدودة — لذلك يحجز معظم الزوار مسبقاً.`} />
+          <figure className="mb-10 overflow-hidden rounded-3xl border border-white/10">
+            <Image src={ALULA_IMG.airport.src} alt={ALULA_IMG.airport.altAr} width={ALULA_IMG.airport.w} height={ALULA_IMG.airport.h} sizes="(min-width: 1152px) 1100px, 100vw" className="h-[220px] w-full object-cover sm:h-[300px]" loading="lazy" />
+          </figure>
           <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr]">
             <div>
               <h3 className="mb-4 font-heading text-lg font-bold text-[#FACC15]">الوصول</h3>
@@ -216,6 +231,7 @@ export function AlulaHubAr() {
           <Head id="hotels-heading" eyebrow="توصيل الفنادق والمنتجعات" title="كل مشوار بين إقامتك في العلا والأماكن التي جئت من أجلها" intro="مشاوير مفردة تحجزها حسب الحاجة. اضغط على المشوار لإرسال طلب واتساب معبأ مسبقاً." />
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_1.1fr]">
             <div className="rounded-3xl border border-[#E5E7EB] bg-white p-6 md:p-7">
+              <Image src={ALULA_IMG.stay.src} alt={ALULA_IMG.stay.altAr} width={ALULA_IMG.stay.w} height={ALULA_IMG.stay.h} sizes="(min-width: 1024px) 480px, 100vw" className="-mx-6 -mt-6 mb-5 h-44 w-[calc(100%+3rem)] max-w-none rounded-t-3xl object-cover md:-mx-7 md:-mt-7 md:w-[calc(100%+3.5rem)]" loading="lazy" />
               <p className="text-xs font-bold text-[#16A34A]">أين يقيم الزوار</p>
               <ul className="mt-4 divide-y divide-[#E5E7EB]">
                 {AR_ALULA_STAYS.map((s) => <li key={s.name} className="py-3 first:pt-0 last:pb-0"><p className="font-heading text-[0.95rem] font-bold">{s.name}</p><p className="text-[0.8rem] text-[#6B7280]">{s.area} · {s.note}</p></li>)}
@@ -243,7 +259,13 @@ export function AlulaHubAr() {
             {AR_ALULA_ATTRACTIONS.map((g) => {
               const Icon = ICONS[g.id as keyof typeof ICONS];
               return (
-                <article key={g.id} className="flex flex-col rounded-3xl border border-[#E5E7EB] bg-white p-6">
+                <article key={g.id} className="flex flex-col overflow-hidden rounded-3xl border border-[#E5E7EB] bg-white">
+                  <div className={`grid ${g.id === "heritage" ? "grid-cols-2" : "grid-cols-1"} gap-px bg-[#E5E7EB]`}>
+                    {(GROUP_IMAGES[g.id] ?? []).map((im) => (
+                      <Image key={im.src} src={im.src} alt={im.altAr} width={im.w} height={im.h} sizes="(min-width: 1024px) 380px, 100vw" className="h-40 w-full object-cover" loading="lazy" />
+                    ))}
+                  </div>
+                  <div className="flex flex-1 flex-col p-6">
                   <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#F0FDF4] text-[#16A34A]"><Icon className="h-5 w-5" aria-hidden="true" /></span>
                   <h3 className="mt-4 font-heading text-lg font-bold">{g.label}</h3>
                   <p className="mt-1 text-sm leading-relaxed text-[#6B7280]">{g.intro}</p>
@@ -255,6 +277,7 @@ export function AlulaHubAr() {
                       </li>
                     ))}
                   </ul>
+                  </div>
                 </article>
               );
             })}
@@ -284,6 +307,14 @@ export function AlulaHubAr() {
 
         <section id="red-sea" aria-labelledby="red-sea-heading" className="scroll-mt-20">
           <Head id="red-sea-heading" eyebrow="العلا مع البحر الأحمر" title="الجمع بين العلا وجزيرة شورى وأمالا ومطار البحر الأحمر الدولي" intro="هذه وجهات منفصلة. يبعد مطار البحر الأحمر الدولي عن العلا نحو 260 كم بالطريق (قرابة 4 ساعات و25 دقيقة)، لذلك يكون النقل الخاص بين الوجهتين مرحلة مخططة من الرحلة." />
+          <figure className="mb-8 grid gap-4 sm:grid-cols-2">
+            {[ALULA_IMG.redSea, ALULA_IMG.road].map((im) => (
+              <div key={im.src} className="overflow-hidden rounded-3xl border border-[#E5E7EB] bg-white">
+                <Image src={im.src} alt={im.altAr} width={im.w} height={im.h} sizes="(min-width: 640px) 560px, 100vw" className="h-52 w-full object-cover" loading="lazy" />
+                <figcaption className="px-4 py-3 text-xs leading-relaxed text-[#6B7280]">{im.captionAr}</figcaption>
+              </div>
+            ))}
+          </figure>
           <ol className="grid gap-4 lg:grid-cols-3">
             {AR_RED_SEA_NODES.map((n) => (
               <li key={n.id}>
@@ -491,7 +522,14 @@ export function AlulaChildPageAr({ page }: { page: ArChildPage }) {
     <div dir="rtl" lang="ar" className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C]">
       <JsonLd data={[service, speakableSchema({ path }), faqSchema(page.faqs)]} />
       <section className="relative isolate overflow-hidden bg-[#0B1F14]">
-        <div aria-hidden="true" className="absolute inset-0 -z-10" style={{ backgroundImage: "radial-gradient(rgba(250,204,21,0.14) 1px, transparent 1px), radial-gradient(circle at 15% 20%, rgba(22,163,74,0.35), transparent 55%)", backgroundSize: "22px 22px, 100% 100%" }} />
+        {CHILD_IMAGE[page.slug] ? (
+          <>
+            <Image src={CHILD_IMAGE[page.slug].src} alt={CHILD_IMAGE[page.slug].altAr} fill priority sizes="100vw" className="-z-10 object-cover" />
+            <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-l from-[#0B1F14] via-[#0B1F14]/85 to-[#0B1F14]/30" />
+          </>
+        ) : (
+          <div aria-hidden="true" className="absolute inset-0 -z-10" style={{ backgroundImage: "radial-gradient(rgba(250,204,21,0.14) 1px, transparent 1px), radial-gradient(circle at 15% 20%, rgba(22,163,74,0.35), transparent 55%)", backgroundSize: "22px 22px, 100% 100%" }} />
+        )}
         <Breadcrumbs className="relative [&_a]:text-white/70 [&_a:hover]:text-white [&_span]:text-[#FACC15]" items={[{ name: "الرئيسية", href: "/ar" }, { name: "العلا", href: HUB_PATH }, { name: page.name, href: path }]} />
         <div className="section-container max-w-6xl pb-16 pt-6 md:pb-20 md:pt-10">
           <div className="max-w-2xl">

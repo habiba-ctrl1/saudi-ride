@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import { ALULA_IMG } from "@/lib/data/alula-images";
 import { ArrowRight } from "lucide-react";
 import { RED_SEA_NODES, RED_SEA_COMPARE, RSI_ALULA } from "@/lib/data/alula-cluster";
 import { routeFact, reverseSlug } from "@/lib/data/cluster";
@@ -82,6 +84,10 @@ export function RedSeaAlulaRouteSection() {
           AlUla is inland; Red Sea International Airport, Shura Island and AMAALA are on the coast. Travellers who stay at both need one planned leg between them — a private car runs it door to door.
         </p>
       </div>
+      <figure className="overflow-hidden rounded-3xl border border-[#E5E7EB] bg-white">
+        <Image src={ALULA_IMG.road.src} alt={ALULA_IMG.road.alt} width={ALULA_IMG.road.w} height={ALULA_IMG.road.h} sizes="(min-width: 1024px) 1000px, 100vw" className="h-56 w-full object-cover sm:h-72" loading="lazy" />
+        <figcaption className="px-4 py-3 text-xs text-[#6B7280]">{ALULA_IMG.road.caption}</figcaption>
+      </figure>
       <CrossDestinationDiagram />
       <div>
         <h3 className="mb-3 font-heading text-lg font-bold">Drive or fly between them?</h3>

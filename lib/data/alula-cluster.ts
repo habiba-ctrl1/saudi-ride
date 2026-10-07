@@ -28,6 +28,7 @@
 //     Bay opened June 2026; Red Sea International Airport (RSI) is ~25 min
 //     drive from Shura Island (Euronews 2026-06-17, Travel Tomorrow).
 //   * Shura Island, AMAALA and RSI are SEPARATE destinations from AlUla.
+import { ALULA_IMG } from "@/lib/data/alula-images";
 import { routeFact, corpEmail, CORPORATE_INVOICE_LINE, type ClusterPage, type ClusterCity, type TripType } from "@/lib/data/cluster";
 
 export const ALULA_AIRPORT_RESORTS = routeFact("alula-airport-to-resorts")!; // 30 km · 30 min
@@ -363,8 +364,8 @@ export const ALULA_PAGES: Record<string, ClusterPage> = {
     metaDescription: "Hire a private driver in AlUla for Hegra, the Old Town, Maraya and Elephant Rock in one day. One car waits at every stop; fare agreed before booking.",
     h1: "Private Driver in AlUla — Hegra, Old Town, Maraya & More in One Day",
     eyebrow: "Car with driver · AlUla",
-    heroImage: "/locations/alula-hero.webp",
-    heroAlt: "Illustrative image: a candle-lit dinner table set in a sandstone desert valley with a mirrored structure behind it",
+    heroImage: ALULA_IMG.privateDriver.src,
+    heroAlt: ALULA_IMG.privateDriver.alt,
     intro: "A private driver in AlUla is one car and driver booked for a block of hours or a whole day. AlUla's sites sit well apart across the valley, and on-demand taxis are limited, so the car that waits outside each stop does the job a series of separate rides cannot. We confirm the vehicle and one fare before you book, and you can change the order of stops on the day.",
     facts: [
       { label: "Booked as", value: "Hours or a full day" },
@@ -445,6 +446,8 @@ export const ALULA_PAGES: Record<string, ClusterPage> = {
     metaDescription: "Private car from your AlUla hotel to the Hegra Visitor Centre and back, timed to your Experience AlUla tour. Transport only; fare agreed before booking.",
     h1: "Private Transport to Hegra from Your AlUla Hotel",
     eyebrow: "Hegra · UNESCO World Heritage Site",
+    heroImage: ALULA_IMG.hegra.src,
+    heroAlt: ALULA_IMG.hegra.alt,
     intro: "Hegra is Saudi Arabia's first UNESCO World Heritage Site, a short drive from AlUla town. Visits run as Experience AlUla tours that meet or depart at the Hegra Visitor Centre — you book the tour with them, and we arrange the car there and back, timed to your slot. We provide transport only; the tour is operated by Experience AlUla.",
     facts: [
       { label: "From AlUla town", value: "About 22 km" },
@@ -517,6 +520,8 @@ export const ALULA_PAGES: Record<string, ClusterPage> = {
     metaDescription: "Private car from your AlUla hotel to Maraya concert hall and a pre-agreed pickup after the event. Transport only; fare confirmed before booking.",
     h1: "Getting to Maraya, AlUla, by Private Car",
     eyebrow: "Maraya · Wadi Ashar",
+    heroImage: ALULA_IMG.maraya.src,
+    heroAlt: ALULA_IMG.maraya.alt,
     intro: "Maraya is the mirrored concert hall set in Wadi Ashar, recognised by Guinness World Records as the largest mirrored building in the world. It hosts seasonal concerts and events, and the transport problem is almost always the same: arriving relaxed, then getting out when thousands leave together. A pre-arranged car, with a pickup point and time agreed in advance, solves it. We provide transport only; tickets come from the event organiser.",
     facts: [
       { label: "Location", value: "Wadi Ashar, AlUla" },
@@ -578,6 +583,8 @@ export const ALULA_PAGES: Record<string, ClusterPage> = {
     metaDescription: "Private car from your AlUla hotel to Elephant Rock (Jabal AlFil) for sunset, with the return after dark. Transport only; fare agreed before booking.",
     h1: "Getting to Elephant Rock, AlUla, by Private Car",
     eyebrow: "Elephant Rock · Jabal AlFil",
+    heroImage: ALULA_IMG.elephantRock.src,
+    heroAlt: ALULA_IMG.elephantRock.alt,
     intro: "Elephant Rock (Jabal AlFil) is a freestanding sandstone formation near AlUla and one of the most popular sunset stops. Most visitors go in the late afternoon, which is exactly when cars are hardest to find. Book a pickup from your hotel and the car waits for the return after dark. We provide transport only; confirm current access and any facilities with Experience AlUla.",
     facts: [
       { label: "Best for", value: "Sunset and photography" },

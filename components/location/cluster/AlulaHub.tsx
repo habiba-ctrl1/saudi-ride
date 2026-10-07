@@ -22,6 +22,7 @@ import {
   RSI_ALULA,
   FREE_WAIT,
 } from "@/lib/data/alula-cluster";
+import { ALULA_IMG } from "@/lib/data/alula-images";
 import { TripTypeSelector } from "./TripTypeSelector";
 import { AirportFlow } from "./AirportFlow";
 import { TripDecision } from "./TripDecision";
@@ -32,6 +33,11 @@ import { SectionHeader, FactsStrip, FaqList, QuoteSection, wa } from "./ui";
 const SITE = "https://taxisaudiarabia.com";
 const PATH = "/locations/alula";
 const HUB_WA = "Salam! AlUla transport enquiry.\n• From (ULH airport / hotel / RSI): \n• To: \n• Date & time: \n• Passengers & bags: \n• Flight number (if airport): ";
+const GROUP_IMAGES: Record<string, (typeof ALULA_IMG)[keyof typeof ALULA_IMG][]> = {
+  heritage: [ALULA_IMG.hegra, ALULA_IMG.oldTown],
+  architecture: [ALULA_IMG.maraya],
+  nature: [ALULA_IMG.elephantRock],
+};
 const GROUP_ICON = { heritage: Landmark, architecture: Building2, nature: Mountain } as const;
 
 // AlUla hub — rebuilt 2026-10-07 around the real visitor journeys: the ULH
@@ -75,12 +81,12 @@ export function AlulaHub({ name, nameAr }: { name: string; nameAr: string }) {
       {/* ─── HERO ─────────────────────────────────────────────────── */}
       <section className="relative isolate overflow-hidden bg-[#0B1F14]">
         <Image
-          src="/locations/alula-hero.webp"
-          alt="Illustrative image: a candle-lit dinner table set in a sandstone desert valley, with a mirrored structure standing behind it"
+          src={ALULA_IMG.hubHero.src}
+          alt={ALULA_IMG.hubHero.alt}
           fill
           priority
           sizes="100vw"
-          className="-z-10 object-cover object-[60%_50%]"
+          className="-z-10 object-cover object-[60%_55%]"
         />
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#0B1F14] via-[#0B1F14]/80 to-[#0B1F14]/10" aria-hidden="true" />
         <div className="absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-[#0B1F14] to-transparent" aria-hidden="true" />
@@ -162,6 +168,9 @@ export function AlulaHub({ name, nameAr }: { name: string; nameAr: string }) {
             title="Your AlUla airport transfer, step by step"
             intro={`ULH is a small regional airport about ${ALULA_AIRPORT_RESORTS.km} km from the resort area, and on-demand cars there are limited — so most visitors pre-book.`}
           />
+          <figure className="mb-10 overflow-hidden rounded-3xl border border-white/10">
+            <Image src={ALULA_IMG.airport.src} alt={ALULA_IMG.airport.alt} width={ALULA_IMG.airport.w} height={ALULA_IMG.airport.h} sizes="(min-width: 1152px) 1100px, 100vw" className="h-[220px] w-full object-cover sm:h-[300px]" loading="lazy" />
+          </figure>
           <AirportFlow arrival={ALULA_FLOW.arrival} departure={ALULA_FLOW.departure} code="ULH" />
           <div className="mt-10 flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 md:flex-row md:items-center md:justify-between">
             <p className="text-sm leading-relaxed text-white/80">
@@ -183,6 +192,7 @@ export function AlulaHub({ name, nameAr }: { name: string; nameAr: string }) {
           <SectionHeader id="hotels-heading" eyebrow="Hotel & resort transfers" title="Every leg between your AlUla stay and the places you came for" intro="Single legs, booked as you need them. Tap a leg to send a pre-filled WhatsApp request." />
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_1.1fr]">
             <div className="rounded-3xl border border-[#E5E7EB] bg-white p-6 md:p-7">
+              <Image src={ALULA_IMG.stay.src} alt={ALULA_IMG.stay.alt} width={ALULA_IMG.stay.w} height={ALULA_IMG.stay.h} sizes="(min-width: 1024px) 480px, 100vw" className="-mx-6 -mt-6 mb-5 h-44 w-[calc(100%+3rem)] max-w-none rounded-t-3xl object-cover md:-mx-7 md:-mt-7 md:w-[calc(100%+3.5rem)]" loading="lazy" />
               <p className="text-[0.7rem] font-bold uppercase tracking-[0.2em] text-[#16A34A]">Where visitors stay</p>
               <ul className="mt-4 divide-y divide-[#E5E7EB]">
                 {ALULA_STAYS.map((s) => (
@@ -227,7 +237,13 @@ export function AlulaHub({ name, nameAr }: { name: string; nameAr: string }) {
             {ALULA_ATTRACTION_GROUPS.map((g) => {
               const Icon = GROUP_ICON[g.id as keyof typeof GROUP_ICON];
               return (
-                <article key={g.id} className="flex flex-col rounded-3xl border border-[#E5E7EB] bg-white p-6">
+                <article key={g.id} className="flex flex-col overflow-hidden rounded-3xl border border-[#E5E7EB] bg-white">
+                  <div className={`grid ${g.id === "heritage" ? "grid-cols-2" : "grid-cols-1"} gap-px bg-[#E5E7EB]`}>
+                    {(GROUP_IMAGES[g.id] ?? []).map((im) => (
+                      <Image key={im.src} src={im.src} alt={im.alt} width={im.w} height={im.h} sizes="(min-width: 1024px) 380px, 100vw" className="h-40 w-full object-cover" loading="lazy" />
+                    ))}
+                  </div>
+                  <div className="flex flex-1 flex-col p-6">
                   <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#F0FDF4] text-[#16A34A]"><Icon className="h-5 w-5" aria-hidden="true" /></span>
                   <h3 className="mt-4 font-heading text-lg font-bold">{g.label}</h3>
                   <p className="mt-1 text-sm leading-relaxed text-[#6B7280]">{g.intro}</p>
@@ -245,6 +261,7 @@ export function AlulaHub({ name, nameAr }: { name: string; nameAr: string }) {
                       </li>
                     ))}
                   </ul>
+                  </div>
                 </article>
               );
             })}
@@ -294,6 +311,14 @@ export function AlulaHub({ name, nameAr }: { name: string; nameAr: string }) {
         {/* ─── RED SEA COMBINATION ──────────────────────────────── */}
         <section id="red-sea" aria-labelledby="red-sea-heading" className="scroll-mt-20">
           <SectionHeader id="red-sea-heading" eyebrow="AlUla with the Red Sea" title="Combining AlUla with Shura Island, AMAALA and Red Sea International Airport" intro={`These are separate destinations. Red Sea International Airport is about ${RSI_ALULA.km} km from AlUla by road (${RSI_ALULA.time}), so a private inter-destination transfer is usually a planned leg of the trip.`} />
+          <figure className="mb-8 grid gap-4 sm:grid-cols-2">
+            {[ALULA_IMG.redSea, ALULA_IMG.road].map((im) => (
+              <div key={im.src} className="overflow-hidden rounded-3xl border border-[#E5E7EB] bg-white">
+                <Image src={im.src} alt={im.alt} width={im.w} height={im.h} sizes="(min-width: 640px) 560px, 100vw" className="h-52 w-full object-cover" loading="lazy" />
+                <figcaption className="px-4 py-3 text-xs leading-relaxed text-[#6B7280]">{im.caption}</figcaption>
+              </div>
+            ))}
+          </figure>
           <CrossDestinationDiagram />
           <div className="mt-8 grid gap-6 lg:grid-cols-[1.2fr_1fr]">
             <DriveVsFlyTable />

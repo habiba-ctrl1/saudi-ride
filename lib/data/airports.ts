@@ -254,7 +254,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     name: "AlUla International Airport",
     code: "ULH",
     nameAr: "مطار العلا الدولي",
-    image: "/airports/alula-airport.webp",
+    image: "/locations/alula/alula-airport-terminal-aerial.webp",
     tagline: "Arrival at the Ancient Oasis",
     description: "Private airport transfers from AlUla International Airport (ULH) to your desert resort, hotel or onward sights such as Hegra. Pre-booked, fare agreed before you travel; we track your flight.",
     terminals: [

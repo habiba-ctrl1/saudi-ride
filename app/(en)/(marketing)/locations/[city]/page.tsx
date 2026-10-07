@@ -514,7 +514,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (cityKeyLower === "riyadh" || cityKeyLower === "jeddah" || cityKeyLower === "alula") {
     const t = CITY_META_TITLE[cityKeyLower];
     const d = CITY_META_DESCRIPTION[cityKeyLower];
-    const img = `https://taxisaudiarabia.com/locations/${cityKeyLower}-og.webp`;
+    const img = cityKeyLower === "alula" ? "https://taxisaudiarabia.com/locations/alula/alula-og-sandstone-road.webp" : `https://taxisaudiarabia.com/locations/${cityKeyLower}-og.webp`;
     return {
       title: t,
       description: d,

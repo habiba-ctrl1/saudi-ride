@@ -10,7 +10,7 @@ export const metadata: Metadata = seo({
   description: AR_ALULA_HUB.metaDescription,
   path: "/ar/locations/alula",
   locale: "ar",
-  image: "https://taxisaudiarabia.com/locations/alula-og.webp",
+  image: "https://taxisaudiarabia.com/locations/alula/alula-og-sandstone-road.webp",
   hreflangPaths: { en: "/locations/alula", ar: "/ar/locations/alula" },
 });
 
