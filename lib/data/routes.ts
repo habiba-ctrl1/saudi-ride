@@ -1390,6 +1390,65 @@ export const ROUTES_DATA = [
     descriptionAr: "نقل كبار الشخصيات من مطار البحر الأحمر الدولي إلى وجهة أمالا الساحلية الفاخرة.",
     slug: "red-sea-airport-to-amaala",
   },
+  // Added 2026-10-08 (RSI cluster). Bespoke pages rendered from
+  // lib/data/red-sea-cluster.ts (RSI_ROUTE_PAGES). distance/duration = 0 means
+  // "not published": no verified drive time or km exists for these legs, and
+  // every listing that prints distance skips it when it is 0. basePrice 0 is
+  // never displayed; the approved SAR rates live only in red-sea-cluster.ts.
+  // The Ar* fields repeat the English names on purpose: no Arabic RSI page
+  // exists and Arabic destination spellings are unverified.
+  {
+    fromCity: "Red Sea International Airport",
+    toCity: "Turtle Bay",
+    fromCityAr: "مطار البحر الأحمر الدولي",
+    toCityAr: "Turtle Bay",
+    distance: 0,
+    duration: 0,
+    basePrice: 0,
+    popular: false,
+    description: "Private land transfer from Red Sea International Airport (RSI) to Turtle Bay, the arrival point for Red Sea island resorts.",
+    descriptionAr: "نقل بري خاص من مطار البحر الأحمر الدولي إلى Turtle Bay.",
+    slug: "red-sea-airport-to-turtle-bay",
+  },
+  {
+    fromCity: "Red Sea International Airport",
+    toCity: "Shura Island",
+    fromCityAr: "مطار البحر الأحمر الدولي",
+    toCityAr: "Shura Island",
+    distance: 0,
+    duration: 0,
+    basePrice: 0,
+    popular: false,
+    description: "Private transfer from Red Sea International Airport (RSI) to the Shura Island access point; the final leg is the property's electric transfer.",
+    descriptionAr: "نقل خاص من مطار البحر الأحمر الدولي إلى Shura Island.",
+    slug: "red-sea-airport-to-shura-island",
+  },
+  {
+    fromCity: "Red Sea International Airport",
+    toCity: "Nujuma",
+    fromCityAr: "مطار البحر الأحمر الدولي",
+    toCityAr: "Nujuma",
+    distance: 0,
+    duration: 0,
+    basePrice: 0,
+    popular: false,
+    description: "Private land transfer from Red Sea International Airport (RSI) to the Nujuma transfer point at Turtle Bay; boat or seaplane onward is separate.",
+    descriptionAr: "نقل بري خاص من مطار البحر الأحمر الدولي إلى نقطة نقل Nujuma.",
+    slug: "red-sea-airport-to-nujuma",
+  },
+  {
+    fromCity: "Red Sea International Airport",
+    toCity: "Shebara",
+    fromCityAr: "مطار البحر الأحمر الدولي",
+    toCityAr: "Shebara",
+    distance: 0,
+    duration: 0,
+    basePrice: 0,
+    popular: false,
+    description: "Private land transfer from Red Sea International Airport (RSI) to Turtle Bay for Shebara; boat or seaplane onward is separate.",
+    descriptionAr: "نقل بري خاص من مطار البحر الأحمر الدولي إلى Turtle Bay لـ Shebara.",
+    slug: "red-sea-airport-to-shebara",
+  },
   // Added 2026-10-07 (AlUla cluster). Distances: OSRM 2026-10-07, Red Sea
   // International Airport (25.63N 37.09E) → AlUla Old Town = 259.8 km /
   // 264 min. basePrice is a placeholder never displayed (pricing is

@@ -285,9 +285,12 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     name: "Red Sea International Airport",
     code: "RSI",
     nameAr: "مطار البحر الأحمر الدولي",
-    image: "/locations/neom-hero.webp",
-    tagline: "Gateway to AMAALA & the Red Sea Resorts",
-    description: "Book a private VIP airport transfer from Red Sea International Airport (RSI) to AMAALA, Sindalah, or your luxury Red Sea resort. A boutique gateway serving the Red Sea Global destinations, with executive vehicles suited to a premium, remote-resort arrival — clear pricing on WhatsApp, no surge, professional English-speaking chauffeurs.",
+    // 2026-10-08: the live page is rendered by components/location/cluster/RedSeaHub.tsx
+    // from lib/data/red-sea-cluster.ts; the NEOM hero was removed (wrong destination).
+    // This entry still feeds the sitemap and the generic fallbacks.
+    image: "/red-sea/rsi-og.png",
+    tagline: "Private transfers to Shura Island, Turtle Bay & the Red Sea resorts",
+    description: "Book a private transfer from Red Sea International Airport (RSI) to Shura Island, Turtle Bay, Nujuma, Shebara, AMAALA or your Red Sea resort. Sedan and SUV options, meet & greet at arrivals, fare confirmed on WhatsApp.",
     tldr: "A private transfer from Red Sea International Airport (RSI) to AMAALA is about 35 km (~30 min), and to NEOM about 300 km (~3.5 hr) — both with the fare confirmed on WhatsApp. These are VIP transfers with an executive vehicle and English-speaking chauffeur — pre-booking is strongly recommended as on-demand taxis are extremely limited this far from any city.",
     tldrFacts: [
       { label: "RSI → AMAALA", value: "~30 min · fare on WhatsApp" },
@@ -301,7 +304,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     tips: [
       "This is a remote-resort airport — there are no on-demand taxis waiting outside, so pre-book your transfer before you fly.",
       "Executive sedans and full-size SUVs are available through our partner network, suited to AMAALA and Red Sea Global resort guests — tell us your passengers and luggage and we confirm the vehicle with the fare.",
-      "Share your resort name (e.g. AMAALA, Sindalah, St. Regis Red Sea Resort, Six Senses Southern Dunes, Shebara) when booking so your driver knows the exact drop-off point.",
+      "Share your resort name (e.g. AMAALA, St. Regis Red Sea Resort, Six Senses Southern Dunes, Shebara) when booking so your driver knows the exact drop-off point.",
       "Meet & greet is included — share your flight number when you book so we check it before pickup."
     ],
     priorityRoutes: ["red-sea-airport-to-amaala", "red-sea-airport-to-neom", "red-sea-airport-to-alula"],
@@ -311,7 +314,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
       { question: "Can I get a transfer from Red Sea International Airport to NEOM?", answer: "Yes. It's approximately 300 km, about a 3.5-hour drive, in an executive vehicle with the fare confirmed on WhatsApp — ideal for investors, contractors, and visitors connecting between the two giga-projects." },
       { question: "What kind of vehicles are available at RSI?", answer: "Executive sedans and full-size SUVs through our partner network, suited to AMAALA and the Red Sea resorts, with English- and Arabic-speaking drivers. The vehicle is confirmed with the fare before you book." },
       { question: "Can I travel from Red Sea International Airport to AlUla?", answer: "Yes. AlUla is a separate destination about 260 km away by road (roughly 4 hours 25 minutes). We arrange a private inter-destination transfer from RSI or your Red Sea resort to your AlUla hotel, with the fare agreed before booking." },
-      { question: "Which resorts do you serve from Red Sea International Airport?", answer: "We provide transfers to AMAALA, Sindalah Island, and the Red Sea Global resorts including St. Regis Red Sea Resort, Six Senses Southern Dunes, Desert Rock Resort, and Shebara — tell us your resort name when booking." }
+      { question: "Which resorts do you serve from Red Sea International Airport?", answer: "We provide private land transfers to AMAALA, Shura Island, Turtle Bay and the Red Sea Global resorts, including Six Senses Southern Dunes and Desert Rock. Island resorts such as Shebara, Nujuma and St. Regis Red Sea need a boat or seaplane after the land leg, which is arranged separately — tell us your resort name when booking." }
     ]
   },
   "abha-regional": {

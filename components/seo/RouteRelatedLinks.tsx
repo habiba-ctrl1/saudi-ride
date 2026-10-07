@@ -197,7 +197,7 @@ export function RouteRelatedLinks({ slug, fromCity, toCity }: Props) {
                   Taxi {r.fromCity} to {r.toCity}
                 </span>
                 <span className="mt-0.5 block text-xs text-[#64748B]">
-                  {r.distance} km · fare on WhatsApp
+                  {r.distance > 0 ? `${r.distance} km · fare on WhatsApp` : "fare on WhatsApp"}
                 </span>
               </span>
               <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F0FDF4] text-[#16A34A] transition-colors group-hover:bg-[#16A34A] group-hover:text-[#FFFFFF]">

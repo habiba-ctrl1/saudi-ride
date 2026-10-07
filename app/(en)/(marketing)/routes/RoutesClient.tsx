@@ -142,7 +142,7 @@ export default function RoutesClient({ initialRoutes }: { initialRoutes: Route[]
                     {/* Tags */}
                     <div className="flex items-center justify-between">
                       <span className="rounded-full bg-[#F0FDF4] px-3 py-1 text-[0.55rem] font-bold uppercase tracking-wider text-[#16A34A] border border-[#C9A84C]/10">
-                        {route.distance} km
+                        {route.distance > 0 ? `${route.distance} km` : "Private transfer"}
                       </span>
                       {route.popular && (
                         <span className="rounded-full bg-[#C9A84C]/10 px-3 py-1 text-[0.55rem] font-bold uppercase tracking-wider text-[#16A34A]">

@@ -12,6 +12,8 @@ import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { ProcessTimeline } from "@/components/visual/ProcessTimeline";
 import { AIRPORT_DETAILS } from "@/lib/data/airports";
+import RedSeaHub from "@/components/location/cluster/RedSeaHub";
+import { RSI_HUB } from "@/lib/data/red-sea-cluster";
 
 export const revalidate = 86400;
 
@@ -30,6 +32,24 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const airportData = AIRPORT_DETAILS[slug.toLowerCase()];
 
   if (!airportData) return { title: "Airport Not Found" };
+
+  // RSI hub (2026-10-08, owner-approved title). Own metadata from red-sea-cluster.ts.
+  if (slug === "red-sea") {
+    const url = "https://taxisaudiarabia.com/airports/red-sea";
+    return {
+      title: RSI_HUB.title,
+      description: RSI_HUB.description,
+      alternates: { canonical: url },
+      openGraph: {
+        title: RSI_HUB.ogTitle,
+        description: RSI_HUB.ogDescription,
+        type: "website",
+        url,
+        images: [{ url: "/red-sea/rsi-og.png", width: 1200, height: 630, alt: "Illustration of a private SUV transfer from Red Sea International Airport to the Red Sea coast" }],
+      },
+      twitter: { card: "summary_large_image", title: RSI_HUB.title, description: RSI_HUB.description, images: ["/red-sea/rsi-og.png"] },
+    };
+  }
 
   // Evidenced CTR fix (GSC 7-day, 2026-08-28): MED had 121 impressions / 0
   // clicks at pos ~26; RUH's premium terminal queries ("ruh terminal 4 car
@@ -82,6 +102,9 @@ export default async function AirportLandingPage({ params }: PageProps) {
   if (!airportData) {
     notFound();
   }
+
+  // RSI hub renders its own bespoke layout (lib/data/red-sea-cluster.ts).
+  if (airportKey === "red-sea") return <RedSeaHub />;
 
   // Fetch routes connected to this airport (best-effort — a DB hiccup during
   // build must not fail the static export for every page in the site).

@@ -26,6 +26,8 @@ import { MAKKAH_ROUTE_META, MAKKAH_CLUSTER_ROUTE_SLUGS } from "@/lib/data/makkah
 import { MAKKAH_ROUTE_CONTENT } from "@/lib/data/makkah-route-content";
 import { MakkahRouteDetails } from "@/components/location/cluster/MakkahRouteLinks";
 import { MakkahRouteLinks } from "@/components/location/cluster/MakkahRouteLinks";
+import RedSeaRoutePage from "@/components/location/cluster/RedSeaRoutePage";
+import { RSI_ROUTE_PAGES } from "@/lib/data/red-sea-cluster";
 
 interface PageProps {
   params: Promise<{
@@ -1647,6 +1649,23 @@ function staticRouteFallback(slug: string): DbRoute | null {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
+  // RSI cluster (2026-10-08): bespoke pages, metadata lives with the page data.
+  const rsi = RSI_ROUTE_PAGES[slug];
+  if (rsi) {
+    return {
+      title: rsi.metaTitle,
+      description: rsi.metaDescription,
+      alternates: { canonical: `https://taxisaudiarabia.com/routes/${slug}` },
+      openGraph: {
+        title: rsi.ogTitle,
+        description: rsi.ogDescription,
+        type: "website",
+        url: `https://taxisaudiarabia.com/routes/${slug}`,
+        images: [{ url: "/red-sea/rsi-og.png", width: 1200, height: 630, alt: "Illustration of a private transfer from Red Sea International Airport to the Red Sea coast" }],
+      },
+      twitter: { card: "summary_large_image", title: rsi.metaTitle, description: rsi.metaDescription, images: ["/red-sea/rsi-og.png"] },
+    };
+  }
   // A transient DB hiccup here must not fail metadata for this one page,
   // let alone abort the static build for every page on the site (this is
   // the same class of bug fixed in airports/[slug] and locations/[city] —
@@ -1838,6 +1857,8 @@ export default async function RouteDetailsPage({ params }: PageProps) {
   // own unique layout + content from lib/data/cross-border-route-pages.ts.
   const bespoke = CROSS_BORDER_ROUTE_PAGES[slug];
   if (bespoke) return <CrossBorderRoutePage data={bespoke} />;
+  const rsiPage = RSI_ROUTE_PAGES[slug];
+  if (rsiPage) return <RedSeaRoutePage data={rsiPage} />;
   let route: Awaited<ReturnType<typeof db.route.findUnique>> = null;
   try {
     route = await db.route.findUnique({ where: { slug } });

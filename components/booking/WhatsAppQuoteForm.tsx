@@ -55,6 +55,18 @@ export interface WhatsAppQuoteFormProps {
   messageIntro?: string;
   /** Show an optional "Special requirements" field (included in the message). */
   showNotes?: boolean;
+  /** Make the pickup field read-only (e.g. a fixed airport origin). */
+  lockPickup?: boolean;
+  /** Replace the free-text destination with a dropdown of these values. */
+  dropoffOptions?: string[];
+  /** Helper text shown under the destination, keyed by selected option. */
+  dropoffHints?: Record<string, string>;
+  /** Restrict the vehicle dropdown to these keys (e.g. ["Sedan","VIP SUV","Van"]). */
+  vehicleKeys?: string[];
+  /** Override the label of the "VIP SUV" option (English only). */
+  suvLabel?: string;
+  /** Replaces the default fare-disclaimer line under the submit button (English only). */
+  footnote?: string;
 }
 
 export default function WhatsAppQuoteForm({
@@ -68,6 +80,12 @@ export default function WhatsAppQuoteForm({
   dropoffPlaceholder,
   messageIntro,
   showNotes = false,
+  lockPickup = false,
+  dropoffOptions,
+  dropoffHints,
+  vehicleKeys,
+  suvLabel,
+  footnote,
 }: WhatsAppQuoteFormProps = {}) {
   const { language } = useLanguage();
   const isRtl = (forceLocale ?? language) === "ar";
@@ -160,7 +178,7 @@ export default function WhatsAppQuoteForm({
           ...(isRoundTrip ? [`• Return date & time: ${returnDateTime || "—"}`] : []),
           ...(isHourly ? [`• Hours needed: ${hoursNeeded || "—"}`] : []),
           ...(isAirportTrip ? [`• Flight number: ${flightNumber || "—"}`] : []),
-          `• Vehicle: ${vehicle}`,
+          `• Vehicle: ${vehicle === "VIP SUV" && suvLabel ? suvLabel : vehicle}`,
           `• Passengers: ${passengers || "—"}`,
           `• Luggage (large bags): ${luggage || "—"}`,
           ...(showNotes && notes.trim() ? [`• Special requirements: ${notes.trim()}`] : []),
@@ -209,20 +227,39 @@ export default function WhatsAppQuoteForm({
                 onChange={(e) => setPickup(e.target.value)}
                 placeholder={isRtl ? "نقطة الانطلاق (مثال: مطار جدة)" : pickupPlaceholder ?? "Pickup — e.g. Jeddah Airport"}
                 autoComplete="off"
+                readOnly={lockPickup}
+                aria-readonly={lockPickup || undefined}
               />
             </label>
             <label className="field-shell" htmlFor={fid("dropoff")}>
               <span aria-hidden className="relative z-[1] flex h-3 w-3 shrink-0 items-center justify-center rounded-full border-[3px] border-[#16A34A] bg-white" />
               <span className="sr-only">{L("Destination", "الوجهة")}</span>
-              <input
-                id={fid("dropoff")}
-                value={dropoff}
-                onChange={(e) => setDropoff(e.target.value)}
-                placeholder={isRtl ? "الوجهة (مثال: مكة المكرمة)" : dropoffPlaceholder ?? "Destination — e.g. Makkah hotel"}
-                autoComplete="off"
-              />
+              {dropoffOptions ? (
+                <select
+                  id={fid("dropoff")}
+                  value={dropoff}
+                  onChange={(e) => setDropoff(e.target.value)}
+                  className={dropoff ? "" : "is-placeholder"}
+                >
+                  <option value="">{dropoffPlaceholder ?? "Select destination"}</option>
+                  {dropoffOptions.map((o) => (
+                    <option key={o} value={o}>{o}</option>
+                  ))}
+                </select>
+              ) : (
+                <input
+                  id={fid("dropoff")}
+                  value={dropoff}
+                  onChange={(e) => setDropoff(e.target.value)}
+                  placeholder={isRtl ? "الوجهة (مثال: مكة المكرمة)" : dropoffPlaceholder ?? "Destination — e.g. Makkah hotel"}
+                  autoComplete="off"
+                />
+              )}
             </label>
           </div>
+          {dropoffHints && dropoff && dropoffHints[dropoff] && (
+            <p role="status" className="mt-2 text-xs leading-relaxed text-[#475569]">{dropoffHints[dropoff]}</p>
+          )}
         </fieldset>
 
         {/* When & who */}
@@ -305,8 +342,8 @@ export default function WhatsAppQuoteForm({
             <div className="field-shell">
               <Car aria-hidden />
               <select id={fid("vehicle")} value={vehicle} onChange={(e) => setVehicle(e.target.value)}>
-                {VEHICLES.map((v) => (
-                  <option key={v.key} value={v.key}>{isRtl ? v.ar : v.en}</option>
+                {VEHICLES.filter((v) => !vehicleKeys || vehicleKeys.includes(v.key)).map((v) => (
+                  <option key={v.key} value={v.key}>{isRtl ? v.ar : v.key === "VIP SUV" && suvLabel ? suvLabel : v.en}</option>
                 ))}
               </select>
             </div>
@@ -423,7 +460,7 @@ export default function WhatsAppQuoteForm({
             {isRtl ? "احصل على عرض سعر النقل الخاص عبر واتساب" : submitLabel ?? "Get My Private Transfer Quote"}
           </button>
           <p className="text-center text-xs leading-relaxed text-[#64748B]">
-            {L(
+            {footnote && !isRtl ? footnote : L(
               "Final pricing depends on route, vehicle, date, and passengers — confirmed with you directly before booking.",
               "السعر النهائي يعتمد على المسار والسيارة والتاريخ وعدد الركاب — يتم تأكيده معك مباشرة قبل الحجز.",
             )}
