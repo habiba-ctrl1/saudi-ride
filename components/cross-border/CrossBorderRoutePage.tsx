@@ -17,6 +17,8 @@ import { ROUTES_DATA } from "@/lib/data/routes";
 import { CORRIDORS, CROSS_BORDER_DOCUMENTS, crossBorderWhatsAppText, corridorRfqMailto, placeWithCountry, isSaudiSide } from "@/lib/data/cross-border";
 import { AR_CORRIDORS, AR_DOCUMENTS, AR_XB_ROUTE_SLUGS, arDrive, arPlace, arWhatsAppText } from "@/lib/data/cross-border-ar";
 import { AR_ROUTE_CONTENT_SLUGS } from "@/lib/data/routes-content-ar";
+import { AirportTransferSection } from "@/components/seo/AirportTransferSection";
+import { airportView } from "@/lib/data/riyadh-airport-view";
 import type { CrossBorderRoutePageData, RouteStage } from "@/lib/data/cross-border-route-pages";
 
 // Bespoke cross-border route page (EN + AR). Content per route lives in
@@ -138,6 +140,9 @@ export function CrossBorderRoutePage({ data, locale = "en" }: { data: CrossBorde
     .slice(0, 4) as typeof ROUTES_DATA;
   const docs = ar ? AR_DOCUMENTS : CROSS_BORDER_DOCUMENTS;
   const hero = routeHeroImage(route.fromCity, route.toCity);
+  // Airport-intent section (EN + AR) for Riyadh → DOH / KWI / BAH — added 2026-10-09.
+  const airport = airportView(data.slug, locale);
+  const faqs = [...data.faqs, ...(airport?.faqs ?? [])];
 
   return (
     <div className="min-h-screen bg-[#FAFAF7] pb-28 text-[#1C1C1C] lg:pb-16">
@@ -150,7 +155,7 @@ export function CrossBorderRoutePage({ data, locale = "en" }: { data: CrossBorde
             serviceType: ar ? "نقل خاص عبر الحدود" : "Private cross-border transfer",
             areaServed: ["Saudi Arabia", corridor.country],
           }),
-          faqSchema(data.faqs),
+          faqSchema(faqs),
           speakableSchema({ path }),
         ]}
       />
@@ -384,6 +389,8 @@ export function CrossBorderRoutePage({ data, locale = "en" }: { data: CrossBorde
           </section>
         )}
 
+        {airport && <AirportTransferSection data={airport} path={path} quoteAnchor="#route-quote" locale={locale} />}
+
         {/* ─── DOCUMENTS ─── */}
         <section aria-labelledby="rt-docs" className="rounded-3xl border border-[#FACC15]/40 bg-[#FEFCE8] p-6">
           <h2 id="rt-docs" className="font-heading flex items-center gap-2 text-xl font-bold">
@@ -402,7 +409,7 @@ export function CrossBorderRoutePage({ data, locale = "en" }: { data: CrossBorde
         <section aria-labelledby="rt-faq">
           <h2 id="rt-faq" className="font-heading text-2xl font-bold sm:text-3xl">{t.faqH(label)}</h2>
           <div className="mt-5 space-y-3">
-            {data.faqs.map((f) => (
+            {faqs.map((f) => (
               <details key={f.question} className="rounded-2xl border border-[#16A34A]/12 bg-white p-5 open:border-[#16A34A]/35">
                 <summary className="cursor-pointer list-none font-semibold marker:hidden">
                   <h3 className="inline">{f.question}</h3>

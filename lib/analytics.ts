@@ -46,6 +46,7 @@ interface WhatsappClickProps {
   phoneUsed: string;
   locale: string;
   path?: string; // page pathname the click originated from, for lead attribution
+  routeId?: string; // e.g. "riyadh_dammam_airport" — route identifier only, never personal data
 }
 
 interface QuoteGeneratedProps {

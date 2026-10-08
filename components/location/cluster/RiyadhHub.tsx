@@ -24,6 +24,7 @@ import {
   reverseSlug,
   distanceGuideFor,
 } from "@/lib/data/riyadh-cluster";
+import { RiyadhAirportTransferLinks } from "@/components/seo/RiyadhAirportTransferLinks";
 import { TripTypeSelector } from "./TripTypeSelector";
 import { AirportFlow } from "./AirportFlow";
 import { TripDecision } from "./TripDecision";
@@ -298,6 +299,8 @@ export function RiyadhHub({ name, nameAr }: { name: string; nameAr: string }) {
           <SectionHeader id="dest-heading" eyebrow="Where you can go from Riyadh" title="Intercity, cross-border and airport routes" intro="Every route below has its own page with details and a quote form. Distances and drive times are approximate and come from the same route data the route pages use." />
           <DestinationExplorer groups={groups} />
         </section>
+
+        <RiyadhAirportTransferLinks variant="hub" />
 
         {/* ─── DISTRICTS ────────────────────────────────────────── */}
         <section aria-labelledby="districts-heading">

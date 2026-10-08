@@ -20,6 +20,8 @@ import { AR_ROUTE_SLUGS } from "@/lib/config/i18n";
 import { getCorridorForRoute, crossBorderWhatsAppText, placeWithCountry } from "@/lib/data/cross-border";
 import { CrossBorderRouteSections } from "@/components/cross-border/CrossBorderRouteSections";
 import { CrossBorderRoutePage } from "@/components/cross-border/CrossBorderRoutePage";
+import { AirportTransferSection } from "@/components/seo/AirportTransferSection";
+import { airportView } from "@/lib/data/riyadh-airport-view";
 import { CROSS_BORDER_ROUTE_PAGES } from "@/lib/data/cross-border-route-pages";
 import { RedSeaAlulaRouteSection, AlulaRouteNav } from "@/components/location/cluster/CrossDestination";
 import { MAKKAH_ROUTE_META, MAKKAH_CLUSTER_ROUTE_SLUGS } from "@/lib/data/makkah-cluster";
@@ -1876,7 +1878,8 @@ export default async function RouteDetailsPage({ params }: PageProps) {
   const mkContent = MAKKAH_ROUTE_CONTENT[slug];
   const content = mkContent ?? ROUTE_CONTENT[slug];
   const isMk = MAKKAH_CLUSTER_ROUTE_SLUGS.includes(slug);
-  const faqs = content?.faqs ?? DEFAULT_FAQS;
+  const airportIntent = slug === "riyadh-to-dammam" ? airportView(slug, "en") : undefined;
+  const faqs = [...(content?.faqs ?? DEFAULT_FAQS), ...(airportIntent?.faqs ?? [])];
 
   const distanceGuide = DISTANCE_GUIDES.find((d) => d.routeSlug === slug);
 
@@ -2885,6 +2888,8 @@ export default async function RouteDetailsPage({ params }: PageProps) {
               </div>
             </section>
           )}
+
+          {airportIntent && <AirportTransferSection data={airportIntent} path={`/routes/${slug}`} quoteAnchor="#route-quote" />}
 
           {/* FAQs */}
           <section>

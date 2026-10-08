@@ -7,6 +7,8 @@ import { contactConfig } from "@/lib/config/contact";
 import { ROUTES_DATA } from "@/lib/data/routes";
 import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { AR_ALULA_CORPORATE, AR_ALULA_ROUTE_SLUGS } from "@/lib/data/routes-content-ar-alula";
+import { AirportTransferSection } from "@/components/seo/AirportTransferSection";
+import { airportView } from "@/lib/data/riyadh-airport-view";
 import { AlulaRouteNavAr } from "@/components/ar/AlulaRouteNavAr";
 
 export interface ArabicRouteContent {
@@ -160,6 +162,10 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
     `السلام عليكم، أرغب بحجز تاكسي من ${route.fromCityAr} إلى ${route.toCityAr}.\n\n• التاريخ والوقت: \n• عدد الركاب والأمتعة: \n• نوع السيارة: `,
   );
 
+  // Airport-intent section + FAQs (Riyadh → DOH / DMM), added 2026-10-09.
+  const airport = airportView(content.slug, "ar");
+  const faqs = [...content.faqs, ...(airport?.faqs ?? [])];
+
   return (
     <div dir="rtl" className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24" lang="ar">
       <JsonLd
@@ -176,7 +182,7 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
             { name: "الرحلات", href: "/routes" },
             { name: h1, href: arPath },
           ]),
-          faqSchema(content.faqs),
+          faqSchema(faqs),
           speakableSchema({ path: arPath }),
         ]}
       />
@@ -374,11 +380,17 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
         </section>
       )}
 
+      {airport && (
+        <div className="section-container max-w-4xl py-8">
+          <AirportTransferSection data={airport} path={arPath} locale="ar" />
+        </div>
+      )}
+
       {/* FAQ */}
       <section className="section-container max-w-4xl py-16 border-t border-[#C9A84C]/10">
         <h2 className="font-heading text-2xl font-bold mb-10 text-center">الأسئلة الشائعة</h2>
         <div className="space-y-4">
-          {content.faqs.map((f) => (
+          {faqs.map((f) => (
             <div key={f.question} className="bg-white border border-[#16A34A]/12 rounded-2xl p-6">
               <h3 className="font-bold text-sm mb-2">{f.question}</h3>
               <p className="text-xs text-[#6B7280] leading-relaxed">{f.answer}</p>

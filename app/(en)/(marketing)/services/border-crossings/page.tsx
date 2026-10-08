@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Globe, ArrowRight, MessageCircle, Mail, CheckCircle2, UserCheck, Info } from "lucide-react";
+import { RiyadhAirportTransferLinks } from "@/components/seo/RiyadhAirportTransferLinks";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
@@ -199,6 +200,8 @@ export default function BorderCrossingsPage() {
         </section>
 
         <CrossBorderEssentials />
+
+        <RiyadhAirportTransferLinks variant="border" />
 
         {/* ─── FAQ ─── */}
         <section aria-labelledby="bc-faq">

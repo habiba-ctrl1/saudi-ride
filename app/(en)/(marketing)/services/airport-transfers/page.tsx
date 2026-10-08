@@ -8,6 +8,7 @@ import { AIRPORT_DETAILS } from "@/lib/data/airports";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import Link from "next/link";
+import { RiyadhAirportTransferLinks } from "@/components/seo/RiyadhAirportTransferLinks";
 import { contactConfig } from "@/lib/config/contact";
 import { Plane, Clock, UserCheck, CheckCircle2, ShieldCheck, Search, PlaneLanding, MapPin, MessageCircle, Luggage, Car } from "lucide-react";
 import { JourneyFlow } from "@/components/visual/JourneyFlow";
@@ -217,6 +218,10 @@ export default function AirportTransfersPage() {
           ))}
         </div>
       </section>
+
+      <div className="section-container max-w-5xl py-10">
+        <RiyadhAirportTransferLinks variant="service" />
+      </div>
 
       {/* ─── PRICING TABLE ────────────────────────────────────────── */}
       <section className="section-container max-w-5xl py-20">
