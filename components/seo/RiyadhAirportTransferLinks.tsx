@@ -34,6 +34,9 @@ export function RiyadhAirportTransferLinks({ variant = "hub", className = "" }: 
           </li>
         ))}
       </ul>
+      <p className="mt-4 text-sm text-[#475569]">
+        Not sure which airport suits your trip? <Link href="/riyadh-alternative-airports#compare" className="font-semibold text-[#166534] underline-offset-2 hover:underline">Compare the airports reachable from Riyadh by road</Link>.
+      </p>
       {variant !== "border" && (
         <p className="mt-4 text-sm text-[#475569]">
           Crossing a border? See how <Link href="/services/border-crossings" className="font-semibold text-[#166534] underline-offset-2 hover:underline">cross-border private transfers</Link> work.
