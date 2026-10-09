@@ -48,11 +48,11 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     nameAr: "المدينة المنورة",
     image: "/locations/madinah-hero.webp",
     tagline: "City of the Prophet ﷺ",
-    description: "Book a private transfer in Madinah for airport transfers from Prince Mohammad Bin Abdulaziz Airport (MED) (~20 km, ~25 min), Masjid an-Nabawi hotel drop-offs, Ziyarat tours, and onward journeys to Makkah (~430 km, ~4–5 hours). Our drivers serve pilgrims arriving at MED and travellers heading to or from Makkah and Jeddah, with prayer stops and luggage help included.",
-    tldr: "Taxi Saudi Arabia arranges 24/7 private transfer service in Madinah — Prince Mohammad Bin Abdulaziz Airport (MED) transfers (~20 km, ~25 min), Masjid an-Nabawi hotel drop-offs, Ziyarat tours, and Madinah to Makkah journeys (~430 km, ~4–5 hours).",
+    description: "Book a private transfer in Madinah for airport transfers from Prince Mohammad Bin Abdulaziz Airport (MED) (~20 km, ~25 min), Masjid an-Nabawi hotel drop-offs, Ziyarat tours, and onward journeys to Makkah (~430 km, ~4 hours). Drivers in our partner network serve pilgrims arriving at MED and travellers heading to or from Makkah and Jeddah, with prayer and rest stops on request.",
+    tldr: "Taxi Saudi Arabia arranges 24/7 private transfer service in Madinah — Prince Mohammad Bin Abdulaziz Airport (MED) transfers (~20 km, ~25 min), Masjid an-Nabawi hotel drop-offs, Ziyarat tours, and Madinah to Makkah journeys (~430 km, ~4 hours).",
     tldrFacts: [
       { label: "Airport (MED)", value: "~20 km · ~25 min" },
-      { label: "To Makkah", value: "~430 km · ~4–5 hr" },
+      { label: "To Makkah", value: "~430 km · ~4 hr" },
       { label: "To Jeddah Airport", value: "~410 km" },
       { label: "Pricing", value: "Quoted on WhatsApp" }
     ],
@@ -65,22 +65,17 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { name: "Makkah (Masjid al-Haram)", dist: "~430 km" }
     ],
     tips: [
-      "Prince Mohammad Bin Abdulaziz Airport (MED) is about 20–25 minutes from the Central Area (Markazia) hotels — pre-book your arrival transfer with meet & greet.",
+      "Prince Mohammad Bin Abdulaziz Airport (MED) is about 20–25 minutes from the Central Area (Markazia) hotels — pre-book your arrival transfer — meet & greet at arrivals.",
       "Ziyarat tours of the holy sites usually take 3–4 hours — book a half-day or full-day car for the best value.",
       "Traffic around Masjid an-Nabawi is heavy after Friday prayers — allow extra time.",
-      "For Madinah to Makkah, a private transfer is door-to-door with prayer stops; spacious SUVs suit families and luggage."
+      "For Madinah to Makkah, a private transfer is door-to-door with prayer stops on request; spacious SUVs suit families and luggage."
     ],
     faqs: [
       { question: "How much is a taxi from Madinah airport to the city?", answer: "A private transfer from Prince Mohammad Bin Abdulaziz Airport (MED) to central Madinah hotels is about 20 km and a 25-minute drive — fare confirmed on WhatsApp before booking, with meet & greet at arrivals." },
-      { question: "How far is Madinah from Makkah by taxi?", answer: "Madinah to Makkah is about 430 km — roughly a 4 to 5 hour drive via the Haramain highway. Fare confirmed on WhatsApp before booking, with prayer and rest stops included." },
+      { question: "How far is Madinah from Makkah by taxi?", answer: "Madinah to Makkah is about 430 km — roughly a 4 hour drive via the Makkah–Madinah highway. Fare confirmed on WhatsApp before booking, with prayer and rest stops on request." },
       { question: "Can the taxi drop me at my hotel near Masjid an-Nabawi?", answer: "Yes. We drop you as close to your Central Area (Markazia) hotel and Masjid an-Nabawi as vehicles are permitted, handling any prayer-time road restrictions." },
-      { question: "Do you offer Madinah Ziyarat tours by car?", answer: "Yes. A half-day Ziyarat car visits Quba Mosque, Mount Uhud, Qiblatain Mosque, and other sites with a knowledgeable driver and waiting time included." },
-      { question: "Is taxi available in Madinah 24/7?", answer: "Yes, we operate around the clock in Madinah for airport transfers, hotel pickups, Ziyarat, and intercity trips — with your fare confirmed before you book, no surge." }
-    ],
-    testimonials: [
-      { quote: "Arrived at Madinah airport late evening and the driver was waiting at arrivals. Quick, calm ride to our hotel by the Haram. Exactly the price quoted.", author: "Omar F.", location: "Leicester, UK", trip: "MED Airport → City" },
-      { quote: "Took the Ziyarat tour — Quba, Uhud, Qiblatain. Our driver was knowledgeable and patient with the elderly in our family. Felt very well looked after.", author: "Sumaya I.", location: "Cape Town, South Africa", trip: "Madinah Ziyarat" },
-      { quote: "Madinah to Makkah in a comfortable SUV with prayer stops along the way. Smooth, safe driving and a fair for the whole family.", author: "Abdullah R.", location: "Madinah", trip: "Madinah → Makkah" }
+      { question: "Do you offer Madinah Ziyarat tours by car?", answer: "Yes. A half-day Ziyarat car visits Quba Mosque, Mount Uhud, Qiblatain Mosque, and other sites with the car waiting at each stop (transport only — no guide)." },
+      { question: "Is taxi available in Madinah 24/7?", answer: "Yes, trips run around the clock in Madinah for airport transfers, hotel pickups, Ziyarat, and intercity trips — with your fare confirmed before you book, no surge." }
     ],
     relatedLinks: [
       { href: "/routes/madinah-to-makkah", label: "Madinah to Makkah private transfer" },
@@ -475,10 +470,10 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     nameAr: "ينبع",
     image: "/locations/yanbu-hero.webp",
     tagline: "Red Sea Diving & Industrial Hub",
-    description: "Book a private transfer in Yanbu for airport transfers, Red Sea diving and beach trips, and intercity rides to Madinah (~240 km, ~2.5 hours) and Jeddah (~330 km). Yanbu is both a popular pilgrim gateway and a major industrial hub, so our professional drivers serve Yanbu Al-Bahr (the city), Yanbu Industrial City, and the resorts along the coast. Whether you are a pilgrim heading to Madinah, a diver visiting Sharm Yanbu, or a contractor working in the industrial zone, fares are fixed in advance with no surge pricing.",
-    tldr: "Taxi Saudi Arabia arranges private transfer service in Yanbu — airport transfers, Red Sea diving and beach trips, and intercity rides to Madinah (~240 km, ~2.5 hours) and Jeddah (~330 km). Drivers cover both Yanbu Al-Bahr and the Industrial City.",
+    description: "Book a private transfer in Yanbu for airport transfers, Red Sea diving and beach trips, and intercity rides to Madinah (~240 km, ~2 hr 50 min) and Jeddah (~330 km). Yanbu is both a popular pilgrim gateway and a major industrial hub, so our professional drivers serve Yanbu Al-Bahr (the city), Yanbu Industrial City, and the resorts along the coast. Whether you are a pilgrim heading to Madinah, a diver visiting Sharm Yanbu, or a contractor working in the industrial zone, fares are fixed in advance with no surge pricing.",
+    tldr: "Taxi Saudi Arabia arranges private transfer service in Yanbu — airport transfers, Red Sea diving and beach trips, and intercity rides to Madinah (~240 km, ~2 hr 50 min) and Jeddah (~330 km). Drivers cover both Yanbu Al-Bahr and the Industrial City.",
     tldrFacts: [
-      { label: "To Madinah", value: "~240 km · ~2.5 hr" },
+      { label: "To Madinah", value: "~240 km · ~2 hr 50 min" },
       { label: "To Jeddah", value: "~330 km · ~3.5 hr" },
       { label: "Airport", value: "YNB" },
       { label: "Pricing", value: "Quoted on WhatsApp" }
@@ -492,13 +487,13 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { name: "Madinah (Masjid an-Nabawi)", dist: "~240 km" }
     ],
     tips: [
-      "Yanbu to Madinah is a popular pilgrim route (about 240 km, ~2.5 hours).",
+      "Yanbu to Madinah is a popular pilgrim route (about 240 km, ~2 hr 50 min).",
       "Confirm whether you need Yanbu Al-Bahr (city) or the Industrial City — they are far apart.",
       "For diving trips, book a vehicle with luggage room for equipment.",
       "Pre-book your Madinah transfer in advance during Umrah and Hajj seasons."
     ],
     faqs: [
-      { question: "How far is Yanbu from Madinah by taxi?", answer: "Yanbu to Madinah is about 240 km — roughly a 2.5-hour drive. It is a popular pilgrim route, and we offer transfers in sedans, SUVs, and vans with prayer and rest stops." },
+      { question: "How far is Yanbu from Madinah by taxi?", answer: "Yanbu to Madinah is about 240 km — roughly a 2 hour 50 minute drive. It is a popular pilgrim route, and we offer transfers in sedans, SUVs, and vans with prayer and rest stops." },
       { question: "Can I get a taxi from Yanbu to Jeddah?", answer: "Yes. Yanbu to Jeddah is about 330 km, roughly a 3.5-hour drive along the Red Sea coast. We provide intercity transfers with comfortable vehicles for the journey." },
       { question: "Do you serve both Yanbu city and the Industrial City?", answer: "Yes — we cover Yanbu Al-Bahr (the city), Yanbu Industrial City, and the coastal resorts. The two areas are far apart, so confirm your exact location when booking." },
       { question: "Is there a taxi for Yanbu diving and beach trips?", answer: "Yes. We provide day trips to Sharm Yanbu and the coastal diving and beach spots, with vehicles that have room for diving equipment and luggage." },

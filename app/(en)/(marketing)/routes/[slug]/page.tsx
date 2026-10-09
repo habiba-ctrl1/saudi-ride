@@ -28,6 +28,8 @@ import { MAKKAH_ROUTE_META, MAKKAH_CLUSTER_ROUTE_SLUGS } from "@/lib/data/makkah
 import { MAKKAH_ROUTE_CONTENT } from "@/lib/data/makkah-route-content";
 import { MakkahRouteDetails } from "@/components/location/cluster/MakkahRouteLinks";
 import { MakkahRouteLinks } from "@/components/location/cluster/MakkahRouteLinks";
+import { MadinahRouteLinks, MadinahRouteJourney } from "@/components/location/cluster/MadinahRouteLinks";
+import { MADINAH_CLUSTER_ROUTE_SLUGS } from "@/lib/data/madinah-cluster";
 import RedSeaRoutePage from "@/components/location/cluster/RedSeaRoutePage";
 import { RSI_ROUTE_PAGES } from "@/lib/data/red-sea-cluster";
 
@@ -1223,15 +1225,15 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "madinah-to-yanbu": {
-    tldr: "A taxi from Madinah to Yanbu is about 220 km and takes roughly 2 hours 10 minutes. The fare is fixed, confirmed on WhatsApp door-to-door, popular for onward Red Sea coastal travel and diving trips.",
+    tldr: "A taxi from Madinah to Yanbu is about 240 km and takes roughly 2 hours 50 minutes. The fare is fixed, confirmed on WhatsApp door-to-door, popular for onward Red Sea coastal travel and diving trips.",
     tldrFacts: [
-      { label: "Distance", value: "~220 km" },
-      { label: "Time", value: "~2 hr 10 min" },
+      { label: "Distance", value: "~240 km" },
+      { label: "Time", value: "~2 hr 50 min" },
       { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
-      { question: "How far is Madinah from Yanbu?", answer: "Madinah to Yanbu is about 220 km — roughly a 2 hour 10 minute drive towards the Red Sea coast." },
+      { question: "How far is Madinah from Yanbu?", answer: "Madinah to Yanbu is about 240 km — roughly a 2 hour 50 minute drive towards the Red Sea coast." },
       { question: "How much is a taxi from Madinah to Yanbu?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs and vans available." },
       { question: "Do you serve Yanbu Industrial City too?", answer: "Yes. Tell us whether you need Yanbu Al-Bahr or the Industrial City, as the two are far apart, and the driver will take you directly." },
     ],
@@ -1604,7 +1606,7 @@ const MORE_JEDDAH_MAKKAH_ROUTES: { slug: string; label: string; distance: number
 const MORE_MADINAH_ROUTES: { slug: string; label: string; distance: number; price: number }[] = [
   { slug: "madinah-airport-to-madinah-markaziyah", label: "Madinah Airport to Markaziyah Hotels", distance: 22, price: 120 },
   { slug: "makkah-clock-tower-to-madinah-markaziyah", label: "Makkah Clock Tower to Madinah Markaziyah Hotels", distance: 430, price: 499 },
-  { slug: "madinah-to-yanbu", label: "Madinah to Yanbu", distance: 220, price: 200 },
+  { slug: "madinah-to-yanbu", label: "Madinah to Yanbu", distance: 240, price: 200 },
 ];
 
 const MORE_RIYADH_ROUTES: { slug: string; label: string; distance: number; price: number }[] = [
@@ -1878,6 +1880,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
   const mkContent = MAKKAH_ROUTE_CONTENT[slug];
   const content = mkContent ?? ROUTE_CONTENT[slug];
   const isMk = MAKKAH_CLUSTER_ROUTE_SLUGS.includes(slug);
+  const isMd = MADINAH_CLUSTER_ROUTE_SLUGS.includes(slug);
   const airportIntent = slug === "riyadh-to-dammam" ? airportView(slug, "en") : undefined;
   const faqs = [...(content?.faqs ?? DEFAULT_FAQS), ...(airportIntent?.faqs ?? [])];
 
@@ -3015,6 +3018,8 @@ export default async function RouteDetailsPage({ params }: PageProps) {
 
           {mkContent && <MakkahRouteDetails details={mkContent.details} />}
           {isMk && <MakkahRouteLinks slug={slug} fromCity={route.fromCity} toCity={route.toCity} />}
+          {isMd && <MadinahRouteJourney slug={slug} />}
+          {isMd && <MadinahRouteLinks slug={slug} fromCity={route.fromCity} toCity={route.toCity} />}
           <RouteRelatedLinks slug={slug} fromCity={route.fromCity} toCity={route.toCity} />
 
         </div>

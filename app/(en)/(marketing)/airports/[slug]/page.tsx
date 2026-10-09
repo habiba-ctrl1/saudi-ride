@@ -14,6 +14,7 @@ import { ProcessTimeline } from "@/components/visual/ProcessTimeline";
 import { AIRPORT_DETAILS } from "@/lib/data/airports";
 import RedSeaHub from "@/components/location/cluster/RedSeaHub";
 import { RSI_HUB } from "@/lib/data/red-sea-cluster";
+import { MedAirportExtras } from "@/components/location/cluster/MedAirportExtras";
 
 export const revalidate = 86400;
 
@@ -149,7 +150,7 @@ export default async function AirportLandingPage({ params }: PageProps) {
         <div className="absolute inset-0 z-0">
           <Image
             src={airportData.image}
-            alt={airportData.name}
+            alt={slug === "prince-mohammad-madinah" ? "Illustration of private cars collecting passengers outside an airport terminal at sunset" : airportData.name}
             fill
             priority
             sizes="100vw"
@@ -246,7 +247,7 @@ export default async function AirportLandingPage({ params }: PageProps) {
                   </span>
                   <h2 className="font-heading text-2xl font-bold">Arriving at MED as a family or Umrah group?</h2>
                   <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
-                    For families and groups we arrange a full-size SUV or van so everyone travels together with their luggage — one vehicle and one chauffeur from Madinah Airport (MED) to your hotel near Masjid an-Nabawi. Meet &amp; greet in the arrivals hall with a name sign, flight tracking, and help with bags.
+                    For families and groups we arrange a full-size SUV or van so everyone travels together with their luggage — one vehicle and one chauffeur from Madinah Airport (MED) to your hotel near Masjid an-Nabawi. Meet &amp; greet at arrivals, flight tracking, and help with bags.
                   </p>
                   <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
                     Organising for an Umrah group or through a travel agency? Send your arrival details and party size and we&apos;ll put together the transfers with one point of contact and a written quote.
@@ -279,6 +280,8 @@ export default async function AirportLandingPage({ params }: PageProps) {
               </section>
             </>
           )}
+
+          {slug === "prince-mohammad-madinah" && <MedAirportExtras />}
 
           {/* Riyadh Airport (RUH) — on-page lead form + corporate/delegation Path B.
               GSC (2026-09-19): 585 impressions / 2 clicks / pos 17.5 across a 12-query
@@ -479,7 +482,7 @@ export default async function AirportLandingPage({ params }: PageProps) {
               <span className="text-[0.6rem] uppercase tracking-widest text-[#C9A84C] font-bold">Included</span>
               <h3 className="font-heading text-xl font-bold mt-1 mb-2">Meet & Greet</h3>
               <p className="text-xs text-[#6B7280] mb-6 leading-relaxed">
-                Your driver will be waiting in the arrivals hall with a name sign. We track your flight for delays. 15–30 minutes of free waiting time included.
+                Your driver meets you at arrivals. We track your flight for delays. 15–30 minutes of free waiting time included.
               </p>
             </div>
           </div>

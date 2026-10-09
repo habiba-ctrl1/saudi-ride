@@ -10,8 +10,8 @@ import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 
 const TITLE = "Badr Battlefield Ziyarat Tour | Madinah to Ghazwa Badr";
-const DESCRIPTION = "Private Ghazwa Badr Ziyarat tour from Madinah (~150 km) — Shuhada Badr Cemetery, Masjid Al-Areesh & Jabal Al-Mala'ikah with knowledgeable drivers.";
-const OG_IMAGE = "https://taxisaudiarabia.com/services/badr-ziyarat-hero.webp";
+const DESCRIPTION = "Private car from Madinah to the Badr sites (~150 km) — Shuhada Badr Cemetery, Masjid Al-Areesh & Jabal Al-Mala'ikah, with the car waiting at each stop. Transport only; fare agreed before booking.";
+const OG_IMAGE = "https://taxisaudiarabia.com/locations/madinah-og.webp";
 
 export const metadata: Metadata = {
   alternates: { canonical: "https://taxisaudiarabia.com/services/badr-ziyarat" },
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     type: "website",
     url: "https://taxisaudiarabia.com/services/badr-ziyarat",
-    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Ghazwa Badr Ziyarat taxi tour" }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Sunlit umbrella canopies in the courtyard of Al-Masjid an-Nabawi in Madinah" }],
   },
   twitter: {
     card: "summary_large_image",
@@ -42,16 +42,16 @@ const SITES = [
 
 const FEATURES = [
   { icon: MapPin, title: "Madinah Hotel Pickup", desc: "Convenient pickup directly from your hotel in Markaziyah or any district in Madinah." },
-  { icon: Landmark, title: "Rich Quranic & Seerah History", desc: "Explore the exact sites mentioned in Surah Al-Anfal with respectful, experienced drivers." },
-  { icon: Clock, title: "Half-Day Tour (~4-5 Hours)", desc: "Smooth highway drive (~150 km / 1.5 hrs each way) with plenty of time to pray and reflect." },
-  { icon: ShieldCheck, title: "Fixed All-Inclusive Fares", desc: "Clear upfront pricing with no hidden charges. Book in seconds via WhatsApp." },
+  { icon: Landmark, title: "Rich Quranic & Seerah History", desc: "Visit the historic battlefield sites at your own pace. Transport only: we do not provide a guide or religious guidance." },
+  { icon: Clock, title: "Half-Day Trip", desc: "About 150 km each way by road (roughly 1 hr 45 min without traffic), with time at the sites to pray and reflect. Allow most of a day if you add stops." },
+  { icon: ShieldCheck, title: "Fare Agreed First", desc: "We confirm one fixed fare on WhatsApp before booking — no meter, no surge." },
 ];
 
 const FAQS = [
-  { question: "How far is Badr from Madinah?", answer: "Badr is located approximately 150 km southwest of Madinah along the Red Sea highway (~1.5 hours drive)." },
-  { question: "How long does the Badr Ziyarat tour take?", answer: "The entire round trip tour usually takes 4 to 5 hours, including drive time and stops at Shuhada Badr and Masjid Al-Areesh." },
-  { question: "Which sites are included in the Badr tour?", answer: "The tour includes Shuhada Badr (Martyrs Cemetery), Masjid Al-Areesh, Jabal Al-Mala'ikah, and the battlefield perimeter." },
-  { question: "Can we combine the Badr tour with Yanbu or Jeddah?", answer: "Yes! Since Badr is on the way to Yanbu and Jeddah, we can customize your trip to include Yanbu coastal tour or Jeddah drop-off." },
+  { question: "How far is Badr from Madinah?", answer: "Badr is about 150 km south-west of Madinah by road, roughly 1 hour 45 minutes without traffic each way." },
+  { question: "How long does the Badr Ziyarat trip take?", answer: "Plan most of a day. The drive alone is around 3 hours 30 minutes there and back, plus the time you spend at each site and prayer stops. Tell us your pace and we plan the hours with you." },
+  { question: "Which sites can the car take me to at Badr?", answer: "The usual stops are Shuhada Badr (Martyrs Cemetery), Masjid Al-Areesh, Jabal Al-Mala'ikah and the battlefield area. We provide the transport and wait at each stop; we do not provide a guide." },
+  { question: "Can we combine Badr with Yanbu?", answer: "Yes. Tell us the plan and we can arrange a Madinah to Badr to Yanbu trip as one booking, with the fare confirmed first. For Jeddah or Makkah, book a separate transfer." },
 ];
 
 export default function BadrZiyaratPage() {
@@ -101,7 +101,7 @@ export default function BadrZiyaratPage() {
                 href="/book"
                 className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/20"
               >
-                Calculate Tour Fare
+                Request a Quote
               </Link>
             </div>
           </div>
@@ -122,10 +122,10 @@ export default function BadrZiyaratPage() {
       {/* Main Content Container */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
         <TLDRSummary
-          answer="Badr Ziyarat is a 4-5 hour round trip from Madinah (~150 km). Key stops include Shuhada Badr (14 Martyrs cemetery), Masjid Al-Areesh, Jabal Al-Mala'ikah, and the historical battlefield."
+          answer="Badr is about 150 km from Madinah, roughly 1 hour 45 minutes each way, so the trip takes most of a half-day or more. A private car takes you to Shuhada Badr, Masjid Al-Areesh, Jabal Al-Mala'ikah and the battlefield area and waits at each stop. Transport only — no guide."
           facts={[
             { label: "Distance", value: "150 km from Madinah" },
-            { label: "Duration", value: "4–5 Hours" },
+            { label: "Duration", value: "Most of a day, depending on stops" },
             { label: "Pickup", value: "Madinah Hotel Pickup" },
             { label: "Vehicle Options", value: "Sedan, SUV, VIP Van" },
           ]}
@@ -148,7 +148,7 @@ export default function BadrZiyaratPage() {
 
         {/* Sites Covered Table */}
         <section className="mb-16 bg-white rounded-2xl p-8 border border-[#E5E5E5] shadow-sm">
-          <h2 className="text-2xl font-bold mb-6">Historical Battlefield Sites Visited</h2>
+          <h2 className="text-2xl font-bold mb-6">Historical Battlefield Sites the Car Can Take You To</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {SITES.map((site, index) => (
               <div key={index} className="flex gap-4 p-4 rounded-xl bg-[#FAFAF7] border border-[#E5E5E5]">
@@ -178,6 +178,9 @@ export default function BadrZiyaratPage() {
           </div>
         </section>
 
+        <p className="mb-10 text-sm text-[#525252]">
+          Staying in Madinah? See <Link href="/services/madinah-ziyarat" className="font-semibold text-[#006C35] hover:underline">Madinah Ziyarat by private car</Link>, <Link href="/locations/madinah/private-driver" className="font-semibold text-[#006C35] hover:underline">a private driver by the hour</Link> and <Link href="/locations/madinah" className="font-semibold text-[#006C35] hover:underline">all Madinah transfers</Link>.
+        </p>
         <ServiceRelatedLinks currentPath="/services/badr-ziyarat" />
       </div>
     </div>

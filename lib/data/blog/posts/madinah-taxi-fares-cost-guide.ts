@@ -43,7 +43,7 @@ Madinah is calmer than Makkah, and its rides are simpler. Most visitors need jus
 | [Madinah → Makkah](/routes/madinah-to-makkah) | ~430 km | ~4 hr + Miqat stop |
 | [Madinah Airport (MED) → Makkah](/routes/madinah-airport-to-makkah) | ~450 km | ~4 hr 20 min + Miqat stop |
 | [Madinah → Jeddah Airport (JED)](/routes/madinah-to-jeddah-airport) | ~410 km | ~3 hr 50 min |
-| [Madinah → Yanbu](/routes/madinah-to-yanbu) | ~220 km | ~2 hr 10 min |
+| [Madinah → Yanbu](/routes/madinah-to-yanbu) | ~240 km | ~2 hr 50 min |
 | [Madinah → AlUla](/routes/madinah-to-alula) | ~330 km | ~3 hr |
 | [Madinah → Tabuk](/routes/madinah-to-tabuk) | ~620 km | ~5 hr 40 min |
 

@@ -51,7 +51,7 @@ const post: BlogPost = {
 | Makkah → Taif | ~90 km | ~1 hr 10 min | [Route](/routes/makkah-to-taif) · [Distance](/distance/makkah-to-taif) |
 | Jeddah → Taif | ~170 km | ~2 hr | [Route](/routes/jeddah-to-taif) · [Distance](/distance/jeddah-to-taif) |
 | Jeddah → KAEC | ~120 km | ~1 hr 20 min | [Route](/routes/jeddah-to-kaec) |
-| Madinah → Yanbu | ~220 km | ~2 hr 10 min | [Route](/routes/madinah-to-yanbu) |
+| Madinah → Yanbu | ~240 km | ~2 hr 50 min | [Route](/routes/madinah-to-yanbu) |
 
 ### To AlUla and the north-west
 

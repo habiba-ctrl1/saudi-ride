@@ -36,7 +36,7 @@ const post: BlogPostAr = {
 | [المدينة ← مكة](/routes/madinah-to-makkah) | نحو 430 كم | نحو 4 ساعات + الميقات |
 | [مطار المدينة ← مكة](/routes/madinah-airport-to-makkah) | نحو 450 كم | نحو 4 ساعات و20 دقيقة + الميقات |
 | [المدينة ← مطار جدة](/routes/madinah-to-jeddah-airport) | نحو 410 كم | نحو 3 ساعات و50 دقيقة |
-| [المدينة ← ينبع](/routes/madinah-to-yanbu) | نحو 220 كم | نحو ساعتين و10 دقائق |
+| [المدينة ← ينبع](/routes/madinah-to-yanbu) | نحو 240 كم | نحو ساعتين و50 دقيقة |
 | [المدينة ← العُلا](/routes/madinah-to-alula) | نحو 330 كم | نحو 3 ساعات |
 | [المدينة ← تبوك](/routes/madinah-to-tabuk) | نحو 620 كم | نحو 5 ساعات و40 دقيقة |
 

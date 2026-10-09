@@ -41,6 +41,8 @@ export const AR_REAL_ROUTES = [
   // Arabic Makkah hub + Ziyarat (app/(ar)/ar/locations/makkah, app/(ar)/ar/services/makkah-ziyarat).
   "/locations/makkah",
   "/services/makkah-ziyarat",
+  // Arabic Madinah hub (app/(ar)/ar/locations/madinah).
+  "/locations/madinah",
   // Kept as a literal list (not imported from the data module) so middleware stays lean.
   ...["private-driver", "hegra", "maraya", "elephant-rock"].map((s) => `/locations/alula/${s}`),
   ...AR_CROSS_BORDER_PATHS,

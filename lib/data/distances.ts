@@ -317,7 +317,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
       { question: "How far is Jeddah from Madinah?", answer: "Jeddah to Madinah is about 420 km by road via Highway 5/15." },
       { question: "How long is the drive from Jeddah to Madinah?", answer: "The drive takes roughly 4 hours, with fuel and prayer stops along the way." },
       { question: "Is there a train from Jeddah to Madinah?", answer: "Yes — the Haramain High-Speed Railway connects Jeddah and Madinah in about 2 hours, though you still transfer to and from the stations with luggage. A private transfer is door-to-door." },
-      { question: "Do you pick up from Jeddah Airport (JED)?", answer: "Yes. We track your flight and the driver meets you at arrivals with a name sign and helps with luggage before the drive to Madinah." },
+      { question: "Do you pick up from Jeddah Airport (JED)?", answer: "Yes. We track your flight and the driver meets you at arrivals and helps with luggage before the drive to Madinah." },
       { question: "Can the taxi drop me near Masjid an-Nabawi?", answer: "Yes — we drop you as close to your Madinah hotel and the Prophet's Mosque as vehicle access allows." },
       { question: "How much is a taxi from Jeddah to Madinah?", answer: "The fare depends on your vehicle and group size. We confirm one fixed price on WhatsApp before booking — no surge, tolls included." },
     ],

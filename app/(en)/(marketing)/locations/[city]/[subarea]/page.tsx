@@ -14,6 +14,7 @@ import { RIYADH_PAGES, RIYADH_CITY } from "@/lib/data/riyadh-cluster";
 import { JEDDAH_PAGES, JEDDAH_CITY } from "@/lib/data/jeddah-cluster";
 import { ALULA_PAGES, ALULA_CITY } from "@/lib/data/alula-cluster";
 import { MAKKAH_PAGES, MAKKAH_CITY } from "@/lib/data/makkah-cluster";
+import { MADINAH_PAGES, MADINAH_CITY } from "@/lib/data/madinah-cluster";
 import type { ClusterPage, ClusterCity } from "@/lib/data/cluster";
 
 // Cities whose children render through the shared cluster system.
@@ -22,6 +23,7 @@ const CLUSTERS: Record<string, { pages: Record<string, ClusterPage>; city: Clust
   jeddah: { pages: JEDDAH_PAGES, city: JEDDAH_CITY },
   alula: { pages: ALULA_PAGES, city: ALULA_CITY },
   makkah: { pages: MAKKAH_PAGES, city: MAKKAH_CITY },
+  madinah: { pages: MADINAH_PAGES, city: MADINAH_CITY },
 };
 import { ClusterChildPage } from "@/components/location/cluster/ClusterChildPage";
 

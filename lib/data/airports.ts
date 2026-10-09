@@ -64,45 +64,50 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     h1Name: "Madinah Airport (MED)",
     image: "/airports/med-hero.webp",
     tagline: "Gateway to the Prophet's City",
-    description: "Pre-book a private transfer or private car with chauffeur from Prince Mohammad Bin Abdulaziz Airport (MED) — Madinah (Medina) — to your hotel near Masjid an-Nabawi (~20 km, ~25 min), or a long-distance transfer to Makkah. This is a pre-booked private airport transfer in your own vehicle: meet & greet at arrivals with a name sign, spacious family vans, and 24/7 service for pilgrims and families.",
-    tldr: "A taxi or private car from Prince Mohammad Bin Abdulaziz Airport (MED) to central Madinah hotels takes about 25 minutes — get the current fare on WhatsApp. Every booking is a pre-booked private transfer in your own vehicle, with meet & greet, 24/7. Share your flight number when you book and we check it before pickup.",
+    // Rewritten 2026-10-09: removed "award-winning terminal", the Hajj-pavilion claim and
+    // the "name sign" procedure (not in seo/facts.md). Meet & greet (generic), flight
+    // tracking and 15-30 min free waiting are owner-confirmed (facts.md).
+    description: "Pre-book a private transfer or private car with chauffeur from Prince Mohammad Bin Abdulaziz Airport (MED) — Madinah (Medina) — to your hotel near Masjid an-Nabawi (~20 km, ~25 min), or a long-distance transfer to Makkah. This is a pre-booked private airport transfer in your own vehicle: meet & greet at arrivals, flight tracking, spacious family vans, and 24/7 service for pilgrims and families.",
+    tldr: "A taxi or private car from Prince Mohammad Bin Abdulaziz Airport (MED) to central Madinah hotels takes about 25 minutes — get the current fare on WhatsApp. Every booking is a pre-booked private transfer in your own vehicle, with meet & greet at arrivals, 24/7. Share your flight number when you book and we track your flight.",
     tldrFacts: [
-      { label: "MED → City", value: "~25 min · fare on WhatsApp" },
-      { label: "MED → Makkah", value: "~4.5–5 hr" },
-      { label: "Meet & greet", value: "Included" },
+      { label: "MED → City", value: "~20 km · ~25 min" },
+      { label: "MED → Makkah", value: "~450 km · ~4 hr 20 min" },
+      { label: "Meet & greet", value: "At arrivals" },
       { label: "Hours", value: "24/7" }
     ],
     terminals: [
-      { name: "Main Terminal", desc: "Award-winning terminal handling all international and domestic passenger flights. Pre-booked drivers meet you in the arrivals hall." },
-      { name: "Hajj Pavilion", desc: "Dedicated facility opened for Hajj and peak Umrah charter flights." }
+      { name: "Arrivals", desc: "Pre-booked drivers meet you at arrivals (meet & greet). Send your flight number when you book so we can track it and move the pickup if your flight is delayed." }
     ],
     tips: [
-      "The airport is about 20–25 minutes from the Central Area (Markazia) hotels near Masjid an-Nabawi.",
-      "Share your flight number when you book — meet & greet is included and your driver waits with a name sign, even for delayed or late-night arrivals.",
-      "We provide spacious vans (Hyundai Staria, Mercedes Sprinter) for large families with luggage.",
-      "Travelling onward to Makkah? Book a direct MED to Makkah transfer (~450 km) with prayer and rest stops."
+      "The airport is about 20–25 minutes from the Central Area (Markaziyah) hotels near Masjid an-Nabawi; prayer-time and Friday traffic near the mosque can add to that.",
+      "Share your flight number when you book — we track your flight, meet & greet is provided at arrivals, and the first 15–30 minutes of waiting are free, even for delayed or late-night arrivals.",
+      "For large families with luggage we can arrange a van (such as the Hyundai Staria) through our partner network; tell us your passengers and large bags.",
+      "Near Masjid an-Nabawi vehicle access is restricted: the driver takes you to the nearest permitted drop-off point to your hotel, so give us the exact hotel name.",
+      "Travelling onward to Makkah? Book a direct MED to Makkah transfer (~450 km) with prayer and rest stops on request."
     ],
     priorityRoutes: ["madinah-airport-to-makkah", "madinah-airport-to-city"],
     faqs: [
-      { question: "How much is a taxi from Madinah airport to the city?", answer: "A private transfer from Prince Mohammad Bin Abdulaziz Airport (MED) — Madinah (Medina) — to central Madinah hotels is about 20 km and a 25-minute drive. It is a pre-booked private transfer in your own vehicle with meet & greet at arrivals; get the current fare on WhatsApp before you book." },
-      { question: "Do you offer a private car service from Madinah Airport (MED)?", answer: "Yes. Beyond a standard taxi, we offer a pre-booked private car service from Madinah Airport (MED) — an executive sedan, SUV or VIP van with a professional chauffeur and meet & greet at arrivals. Every booking is your own vehicle, quoted on WhatsApp before you travel." },
-      { question: "Is there a taxi at Madinah airport at night?", answer: "Yes. We operate 24/7 at MED, including late-night and early-morning arrivals. Share your flight number when you book so your driver waits with a name sign even if the flight is delayed." },
-      { question: "Where do I meet my driver at Madinah airport?", answer: "Your driver meets you in the arrivals hall of the main terminal holding a sign with your name, and helps with your luggage to the vehicle." },
-      { question: "Can I travel directly from Madinah airport to Makkah?", answer: "Yes. We offer a direct MED to Makkah transfer (about 450 km, ~4.5–5 hours) with prayer and rest stops, ideal for pilgrims connecting between the Holy Cities." },
-      { question: "Do you have vehicles for large families with luggage?", answer: "Yes. We provide spacious vans such as the Hyundai Staria and Mercedes Sprinter, plus SUVs, for families with extra luggage arriving at MED." },
-      { question: "Do you offer a Madinah airport hotel transfer with meet and greet?", answer: "Yes. We provide a pre-booked private hotel transfer from Madinah Airport (MED) to your accommodation in the Central Area (Markaziyah) near Masjid an-Nabawi. Your chauffeur meets you in the arrivals hall with a name sign, helps with your luggage, and takes you door-to-door in your own private vehicle." },
-      { question: "Is there an airport cab or pickup service at Madinah Airport (MED)?", answer: "Yes. We arrange a pre-booked private airport pickup at Prince Mohammad Bin Abdulaziz Airport (MED) — book on WhatsApp before you fly and your chauffeur is already waiting in the arrivals hall with a name sign, so there's no queuing for a cab on arrival." }
+      { question: "How much is a taxi from Madinah airport to the city?", answer: "A private transfer from Prince Mohammad Bin Abdulaziz Airport (MED) to central Madinah hotels is about 20 km and a 25-minute drive. It is a pre-booked private transfer in your own vehicle with meet & greet at arrivals. We do not publish a fixed price list; the fare is confirmed on WhatsApp before you book, with no meter and no surge." },
+      { question: "Do you offer a private car service from Madinah Airport (MED)?", answer: "Yes. Beyond a standard taxi, we offer a pre-booked private car service from Madinah Airport (MED) — an executive sedan, SUV or van through our partner network, with a professional driver and meet & greet at arrivals. Every booking is your own vehicle, quoted on WhatsApp before you travel." },
+      { question: "Is there a taxi at Madinah airport at night?", answer: "Yes. Transfers run 24/7 at MED, including late-night and early-morning arrivals. Share your flight number when you book; we track your flight, so the pickup moves with a delay, and the first 15–30 minutes of waiting after landing are free." },
+      { question: "Where do I meet my driver at Madinah airport?", answer: "Your driver meets you at arrivals and helps with your luggage to the vehicle. Driver details reach you on WhatsApp before you land; if anything about the meeting point changes we message you there." },
+      { question: "Can I travel directly from Madinah airport to Makkah?", answer: "Yes. We offer a direct MED to Makkah transfer — about 450 km, roughly 4 hours 20 minutes of driving — with prayer and rest stops on request. It suits pilgrims connecting between the Holy Cities, and Makkah to MED is available for the flight home." },
+      { question: "Do you have vehicles for large families with luggage?", answer: "Yes. Vans such as the Hyundai Staria, plus SUVs, are available through our partner network for families with extra luggage arriving at MED. Tell us the number of passengers and large bags and we confirm the right vehicle when we quote." },
+      { question: "Can the driver take me to the door of my hotel near Masjid an-Nabawi?", answer: "The driver takes you to the nearest permitted drop-off point to your hotel. Vehicle access around Al-Masjid an-Nabawi and the Central Area (Markaziyah) is restricted and changes around prayer times, so please give us the exact hotel name and tell us about heavy bags or mobility needs." },
+      { question: "Is a private transfer better than the airport bus or a regular taxi?", answer: "It depends on who is travelling. A private transfer suits families, elderly passengers, heavy luggage and late arrivals because it is one vehicle, hotel-bound, with your flight tracked. A solo traveller with light bags may prefer public transport or a regular taxi. We only offer pre-booked private transfers." }
     ],
     relatedLinks: [
       { href: "/routes/madinah-airport-to-city", label: "MED Airport to Madinah City" },
       { href: "/routes/madinah-airport-to-makkah", label: "MED Airport to Makkah direct" },
       { href: "/routes/madinah-airport-to-madinah-markaziyah", label: "MED to Markaziyah Hotels" },
+      { href: "/services/madinah-ziyarat", label: "Madinah Ziyarat by private car" },
+      { href: "/locations/madinah/private-driver", label: "Private driver in Madinah by the hour" },
       { href: "/fleet/toyota-camry", label: "Toyota Camry — executive sedan" },
       { href: "/fleet/hyundai-staria", label: "Hyundai Staria — VIP Van" },
       { href: "/fleet/gmc-yukon-xl", label: "GMC Yukon XL — Premium SUV" },
       { href: "/services/airport-transfers", label: "Private airport transfers across Saudi Arabia" },
       { href: "/locations/madinah", label: "Madinah private transport & chauffeur service" },
-      { href: "/routes/jeddah-to-madinah", label: "Jeddah to Madinah taxi" },
+      { href: "/routes/jeddah-airport-to-madinah", label: "Jeddah Airport to Madinah taxi" },
       { href: "/routes/makkah-to-madinah", label: "Makkah to Madinah taxi" },
       { href: "/routes/madinah-to-alula", label: "Madinah to AlUla heritage transfer" },
     ]
