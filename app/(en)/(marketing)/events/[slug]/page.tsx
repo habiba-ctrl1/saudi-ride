@@ -5,10 +5,11 @@ import { notFound } from "next/navigation";
 import { Calendar, MapPin, Building2, CheckCircle2, MessageCircle, CalendarDays, ArrowRight } from "lucide-react";
 import { contactConfig } from "@/lib/config/contact";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { TrackedLink } from "@/components/analytics/TrackedLink";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
-import { EVENTS, EVENT_SLUGS, getEvent } from "@/lib/data/events";
+import { EVENTS, EVENT_SLUGS, getEvent, getEventStatus } from "@/lib/data/events";
 
 export const revalidate = 86400;
 
@@ -107,6 +108,9 @@ export default async function EventPage({ params }: PageProps) {
       }
     : null;
 
+  const status = getEventStatus(ev);
+  const ended = status === "completed" || status === "archived";
+
   // Related event pages — prefer the same city, then fill from the rest.
   const others = EVENTS.filter((e) => e.slug !== slug);
   const sameCity = others.filter((e) => e.city === ev.city);
@@ -179,25 +183,31 @@ export default async function EventPage({ params }: PageProps) {
           </div>
         )}
 
+        {ended && (
+          <p className="max-w-2xl mb-8 rounded-2xl border border-[#C9A84C]/30 bg-[#FFFBEB] p-4 text-sm text-[#1C1C1C]">
+            This edition has ended. The event is held annually — message us on WhatsApp and we&apos;ll confirm transport for the next edition once its dates are published by the organiser.
+          </p>
+        )}
+
         <div className="max-w-2xl mb-10">
           <TLDRSummary answer={ev.tldrAnswer} facts={ev.tldrFacts} />
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3">
-          <a
-            href={waLink}
+          <TrackedLink
+            kind="whatsapp" sourceLocation="event_hero_wa" contactUsed={contactConfig.whatsappNumber} path={`/events/${slug}`} routeId={slug} href={waLink}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-primary btn-lg"
           >
             <MessageCircle className="h-4 w-4" /> {ev.waCtaLabel ?? "Get Event Transport on WhatsApp"}
-          </a>
-          <a
-            href={contactConfig.primaryPhoneLink}
+          </TrackedLink>
+          <TrackedLink
+            kind="phone" sourceLocation="event_hero_call" contactUsed={contactConfig.primaryPhoneDisplay} path={`/events/${slug}`} routeId={slug} href={contactConfig.primaryPhoneLink}
             className="btn btn-secondary btn-lg"
           >
             Call {contactConfig.primaryPhoneDisplay}
-          </a>
+          </TrackedLink>
         </div>
       </section>
 
@@ -225,20 +235,20 @@ export default async function EventPage({ params }: PageProps) {
             <h2 className="font-heading text-xl md:text-2xl font-bold mb-3">{ev.organiserDesk.heading}</h2>
             <p className="max-w-2xl text-sm text-[#6B7280] leading-relaxed mb-5">{ev.organiserDesk.body}</p>
             <div className="flex flex-col sm:flex-row gap-3">
-              <a
-                href={organiserWaLink}
+              <TrackedLink
+                kind="whatsapp" sourceLocation="event_organiser_desk_wa" contactUsed={contactConfig.whatsappNumber} path={`/events/${slug}`} routeId={slug} href={organiserWaLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-primary btn-lg"
               >
                 <MessageCircle className="h-4 w-4" /> Request a delegation quote on WhatsApp
-              </a>
-              <a
-                href={organiserMailto}
+              </TrackedLink>
+              <TrackedLink
+                kind="email" sourceLocation="event_organiser_desk_email" contactUsed={contactConfig.email} path={`/events/${slug}`} routeId={slug} href={organiserMailto}
                 className="btn btn-secondary btn-lg"
               >
                 Email our organiser desk
-              </a>
+              </TrackedLink>
             </div>
           </div>
         </section>
@@ -265,14 +275,14 @@ export default async function EventPage({ params }: PageProps) {
                 />
               </figure>
             )}
-            <a
-              href={departureWaLink}
+            <TrackedLink
+              kind="whatsapp" sourceLocation="event_departure_callout" contactUsed={contactConfig.whatsappNumber} path={`/events/${slug}`} routeId={slug} href={departureWaLink}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-primary btn-lg"
             >
               <MessageCircle className="h-4 w-4" /> Book my departure transfer
-            </a>
+            </TrackedLink>
           </div>
         </section>
       )}
@@ -399,9 +409,9 @@ export default async function EventPage({ params }: PageProps) {
                         <p className="text-xs text-[#6B7280] leading-relaxed mb-2"><span className="font-semibold text-[#1C1C1C]">Why private transfer:</span> {e.whyPrivate}</p>
                         <p className="text-xs text-[#6B7280] leading-relaxed mb-4"><span className="font-semibold text-[#1C1C1C]">Nearest airport:</span> {e.airportLabel}</p>
                         <div className="mt-auto flex flex-wrap items-center gap-3">
-                          <a href={evWa} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-5 py-2.5 text-[0.7rem] font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all">
+                          <TrackedLink kind="whatsapp" sourceLocation="event_calendar_card" contactUsed={contactConfig.whatsappNumber} path={`/events/${slug}`} routeId={slug} href={evWa} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#16A34A] px-5 py-2.5 text-[0.7rem] font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all">
                             <MessageCircle className="h-3.5 w-3.5" /> Request transfer
-                          </a>
+                          </TrackedLink>
                           {e.transferHref && e.transferLabel && (
                             <Link href={e.transferHref} className="inline-flex items-center gap-1 text-[0.7rem] font-bold uppercase tracking-wider text-[#16A34A] hover:underline">
                               {e.transferLabel} <ArrowRight className="h-3.5 w-3.5" />
@@ -467,20 +477,20 @@ export default async function EventPage({ params }: PageProps) {
           )}
           {/* Mid-page CTA */}
           <div className="mt-8 flex flex-col sm:flex-row justify-center gap-3">
-            <a
-              href={waLink}
+            <TrackedLink
+              kind="whatsapp" sourceLocation="event_mid_wa" contactUsed={contactConfig.whatsappNumber} path={`/events/${slug}`} routeId={slug} href={waLink}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-primary btn-lg"
             >
               <MessageCircle className="h-4 w-4" /> {ev.waCtaLabel ?? "Get Event Transport on WhatsApp"}
-            </a>
-            <a
-              href={contactConfig.primaryPhoneLink}
+            </TrackedLink>
+            <TrackedLink
+              kind="phone" sourceLocation="event_mid_call" contactUsed={contactConfig.primaryPhoneDisplay} path={`/events/${slug}`} routeId={slug} href={contactConfig.primaryPhoneLink}
               className="btn btn-secondary btn-lg"
             >
               Call {contactConfig.primaryPhoneDisplay}
-            </a>
+            </TrackedLink>
           </div>
         </section>
       )}

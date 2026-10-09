@@ -16,6 +16,8 @@ export interface EventService {
   desc: string;
 }
 
+export type EventStatus = "upcoming" | "active" | "completed" | "archived";
+
 export interface EventFaq {
   question: string;
   answer: string;
@@ -153,6 +155,8 @@ export interface EventPageData {
     organizer?: string;
     sameAs?: string[];
   };
+  /** Manual lifecycle override. When omitted, status is derived from `about` dates (see getEventStatus). */
+  status?: EventStatus;
   /** Hero image (assigned below by slug group). */
   heroImage?: string;
   heroAlt?: string;
@@ -201,7 +205,7 @@ export const EVENTS: EventPageData[] = [
     ],
     faqs: [
       { question: "How do I book a private transfer for an event in Saudi Arabia?", answer: "Send your event, city, venue, dates and passenger count on WhatsApp. We confirm a fixed fare in writing before you book — for a single airport transfer or a full multi-day delegation schedule." },
-      { question: "Can I book an airport-to-exhibition or airport-to-conference transfer?", answer: "Yes. We meet you at arrivals with a name sign and drive you directly to the exhibition or conference venue — RECC Malham, RICEC, RFECC, KAICC in Riyadh, or venues in Jeddah, Dammam and beyond. Flight tracking is included." },
+      { question: "Can I book an airport-to-exhibition or airport-to-conference transfer?", answer: "Yes. We meet you at arrivals and drive you directly to the exhibition or conference venue — RECC Malham, RICEC, RFECC, KAICC in Riyadh, or venues in Jeddah, Dammam and beyond. Flight tracking is included." },
       { question: "Can you pick me up from my hotel and take me to the event?", answer: "Yes. Hotel-to-venue transfers are a core part of event transport, either per trip or with a car on daily standby so you are never waiting for a ride between sessions." },
       { question: "Do you provide corporate event transportation with invoicing?", answer: "Yes. Corporate invoicing is available on request for company and delegation bookings, with a written quote before you commit. Share your company details on WhatsApp or by email and we'll set it up." },
       { question: "Can I book an SUV or van for an event?", answer: "Yes. Choose a full-size SUV for a small team with luggage, a 7-seat van for a group, or a coaster for a larger delegation — and an executive sedan or limousine for VIP guests." },
@@ -557,7 +561,7 @@ export const EVENTS: EventPageData[] = [
     ],
     services: STD_SERVICES("the conference venue"),
     faqs: [
-      { question: "Can you meet speakers arriving on separate flights?", answer: "Yes. We track each flight and meet speakers at Riyadh Airport (RUH) arrivals with a name sign, then run them straight to the conference hotel — even for red-eye or delayed arrivals." },
+      { question: "Can you meet speakers arriving on separate flights?", answer: "Yes. We track each flight and meet speakers at Riyadh Airport (RUH) arrivals, then run them straight to the conference hotel — even for red-eye or delayed arrivals." },
       { question: "Do you run a shuttle between the hotel and the venue?", answer: "Yes. For conferences where delegates stay in one hotel cluster we run repeating hotel-to-venue loops with vans or coasters, timed to the session agenda so no one misses a keynote." },
       { question: "Can sponsors and VIP guests have a dedicated car?", answer: "Yes. Book an executive S-Class or Escalade-class chauffeur on standby for sponsors and C-level guests, with a discreet, bilingual driver who keeps to a high-profile schedule." },
       { question: "How far ahead should we book?", answer: "For a multi-speaker conference, a week or more ahead lets us reserve the right vehicles and drivers. Send your programme on WhatsApp and we confirm a fixed fare for the whole run." },
@@ -586,7 +590,7 @@ export const EVENTS: EventPageData[] = [
     faqs: [
       { question: "Which Jeddah venues and areas do you cover?", answer: "The Corniche and Jeddah Corniche Circuit, the Superdome, Jeddah Centre for Forums & Events, and hotels along the waterfront and downtown. Share your venue on WhatsApp and we plan pickups and standby around it." },
       { question: "Do you handle late-night and evening events?", answer: "Yes. Many Jeddah events — sporting fixtures, concerts, and dinners — run into the night. We operate 24/7, so your return from the venue to the hotel is booked in advance rather than left to a scarce late-night ride." },
-      { question: "Can you meet guests at Jeddah Airport?", answer: "Yes. We track your flight and meet you inside King Abdulaziz Airport (JED) arrivals with a name sign, then drive straight to your hotel or venue — including the busy Umrah-season and event-week peaks." },
+      { question: "Can you meet guests at Jeddah Airport?", answer: "Yes. We track your flight and meet you inside King Abdulaziz Airport (JED) arrivals, then drive straight to your hotel or venue — including the busy Umrah-season and event-week peaks." },
       { question: "How is the fare set?", answer: "Send your dates, venue, vehicle type, and passenger count on WhatsApp and we confirm a fixed fare before you book — no surge and no hidden fees during event weeks." },
     ],
     waContext: "event transportation in Jeddah",
@@ -783,13 +787,13 @@ export const EVENTS: EventPageData[] = [
       { label: "Availability", value: "24/7" },
     ],
     services: [
-      { title: "International Arrivals Meet & Greet", desc: "Black Hat MEA draws a heavily international audience. Share your flight number when you book and we check it before pickup, meeting delegates at Riyadh Airport (RUH) arrivals with a name sign, then driving straight to the hotel or Malham — smooth even for first-time visitors to Riyadh." },
+      { title: "International Arrivals Meet & Greet", desc: "Black Hat MEA draws a heavily international audience. Share your flight number when you book and we check it before pickup, meeting delegates at Riyadh Airport (RUH) arrivals, then driving straight to the hotel or Malham — smooth even for first-time visitors to Riyadh." },
       { title: "Daily Standby to Malham", desc: "The Exhibition & Convention Centre is out of the city, and a big crowd leaves together each evening. A car on daily standby means your ride is ready at close, at a fare fixed in advance — no scramble for an app car." },
       { title: "Delegation & Team Transport", desc: "SUVs, vans, and coasters for security teams, vendors, and company delegations travelling together, coordinated under one contact with aligned timing across the three days." },
       { title: "Executive & Speaker Chauffeur", desc: "Discreet executive cars for speakers, sponsors, and C-level guests, with bilingual chauffeurs who keep to a tight briefing and session schedule." },
     ],
     faqs: [
-      { question: "I'm flying in internationally for Black Hat MEA — can you meet me at the airport?", answer: "Yes. Share your flight number, date and time when you book — we check it before pickup and meet you inside Riyadh Airport (RUH) arrivals with a name sign, 24/7 including late arrivals, then take you directly to your hotel or the venue in Malham." },
+      { question: "I'm flying in internationally for Black Hat MEA — can you meet me at the airport?", answer: "Yes. Share your flight number, date and time when you book — we check it before pickup and meet you inside Riyadh Airport (RUH) arrivals, 24/7 including late arrivals, then take you directly to your hotel or the venue in Malham." },
       { question: "Where is Black Hat MEA held and how far is it?", answer: "At the Riyadh Exhibition & Convention Centre in Malham, north-west of Riyadh — about a 30–45 minute drive from the airport and central hotels. Because it's outside the city, a pre-booked car is far more reliable than hailing one at the venue." },
       { question: "Can you coordinate transport for our whole team?", answer: "Yes. Send your headcount and hotels on WhatsApp and we assign vans or a coaster under a single contact, with daily runs to and from Malham timed around the agenda." },
       { question: "Will the fare change during the busy event days?", answer: "No. We confirm a fixed fare before you book and hold it for the event — no surge pricing even when everyone is heading to or from the venue at the same time." },
@@ -1030,7 +1034,7 @@ export const EVENTS: EventPageData[] = [
     faqs: [
       { question: "Where is CPHI Middle East held and how far is it?", answer: "At the Riyadh Exhibition & Convention Centre in Malham, north-west of Riyadh — roughly 30–45 minutes from the airport and central hotels. Because it's outside the city, a pre-booked car is more reliable than hailing one at the venue. Message us to confirm the current edition dates." },
       { question: "Can a car stay with me for supplier meetings?", answer: "Yes. Book hourly or daily standby and a car stays on call, so you move between the halls, hotel meeting rooms, and business dinners across the day without rebooking — well suited to CPHI's meeting-heavy format." },
-      { question: "Do you meet international delegates at the airport?", answer: "Yes. We track your flight and meet you at Riyadh Airport (RUH) arrivals with a name sign, 24/7, then take you straight to your hotel or the venue — no taxi queue after a long flight." },
+      { question: "Do you meet international delegates at the airport?", answer: "Yes. We track your flight and meet you at Riyadh Airport (RUH) arrivals, 24/7, then take you straight to your hotel or the venue — no taxi queue after a long flight." },
       { question: "How do you set the fare during the event?", answer: "Send your dates, pickup points, and vehicle type on WhatsApp and we confirm a fixed fare before you book — no surge pricing even on busy show days." },
     ],
     waContext: "CPHI Middle East Riyadh event transportation",
@@ -1352,3 +1356,22 @@ export const EVENTS_HUB_HERO = { src: HERO_SRC.vip, alt: HERO_ALT.vip };
 
 export const EVENT_SLUGS = EVENTS.map((e) => e.slug);
 export const getEvent = (slug: string) => EVENTS.find((e) => e.slug === slug);
+
+const DAY_MS = 86_400_000;
+/** Days after the end date before a finished event is treated as archived. */
+const ARCHIVE_AFTER_DAYS = 90;
+
+/**
+ * Lifecycle status for an event page. Manual `status` wins; otherwise derived
+ * from the verified `about` dates. Pages without dates (pillars) are "active".
+ * Pages are never removed — a finished edition keeps its URL (CLAUDE.md §16).
+ */
+export function getEventStatus(ev: EventPageData, now: number = Date.now()): EventStatus {
+  if (ev.status) return ev.status;
+  if (!ev.about) return "active";
+  const start = Date.parse(ev.about.startDate);
+  const end = Date.parse(ev.about.endDate) + DAY_MS; // inclusive of the last day
+  if (now < start) return "upcoming";
+  if (now < end) return "active";
+  return now < end + ARCHIVE_AFTER_DAYS * DAY_MS ? "completed" : "archived";
+}
