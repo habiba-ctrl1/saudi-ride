@@ -14,6 +14,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Hit the review-requests endpoint
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
         run: |
-          curl -sS -f -X GET "${{ vars.SITE_URL }}/api/cron/review-requests" \
-            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"
+          if [ -z "$SITE_URL" ]; then
+            echo "::error::Repo variable SITE_URL is not set (Settings > Secrets and variables > Actions > Variables). Use e.g. https://www.taxisaudiarabia.com"
+            exit 1
+          fi
+          if [ -z "$CRON_SECRET" ]; then
+            echo "::error::Repo secret CRON_SECRET is not set (Settings > Secrets and variables > Actions > Secrets). It must equal CRON_SECRET in Vercel env."
+            exit 1
+          fi
+          status=$(curl -sS -o response.txt -w "%{http_code}" -X GET "${SITE_URL%/}/api/cron/review-requests" \
+            -H "Authorization: Bearer ${CRON_SECRET}")
+          echo "HTTP $status"
+          cat response.txt
+          if [ "$status" = "401" ]; then
+            echo "::error::401 Unauthorized - CRON_SECRET in GitHub does not match CRON_SECRET in Vercel (or Vercel was not redeployed after adding it)."
+            exit 1
+          fi
+          [ "$status" -ge 200 ] && [ "$status" -lt 300 ]
