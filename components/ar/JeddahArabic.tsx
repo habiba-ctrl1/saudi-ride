@@ -86,7 +86,7 @@ export function JeddahHubAr() {
       <div className="section-container max-w-6xl space-y-20 py-20 md:space-y-28 md:py-28">
         <section aria-labelledby="trip-heading">
           <Head id="trip-heading" eyebrow="ابدأ من هنا" title="ما نوع رحلتك في جدة؟" intro="اختر الأقرب لحاجتك. كل خيار يوضح ما ترسله لطلب عرض السعر ويفتح الصفحة التي تغطيه." />
-          <div className="grid gap-4 md:grid-cols-2">
+          <div data-stagger className="grid gap-4 md:grid-cols-2">
             {AR_JEDDAH_TRIPS.map((t) => (
               <article key={t.id} className="flex flex-col rounded-3xl border border-[#E5E7EB] bg-white p-6">
                 <h3 className="font-heading text-lg font-bold">{t.label} <span className="text-sm font-normal text-[#6B7280]">· {t.short}</span></h3>
@@ -106,7 +106,7 @@ export function JeddahHubAr() {
 
         <section id="routes" aria-labelledby="routes-heading" className="scroll-mt-24">
           <Head id="routes-heading" eyebrow="أشهر المسارات" title="نقل خاص من جدة وإليها" intro="لكل مسار صفحته ونموذج عرض السعر. المسافات والأوقات تقريبية ومصدرها بيانات المسارات نفسها." />
-          <ol className="grid grid-cols-1 gap-3 md:grid-cols-2">
+          <ol data-stagger className="grid grid-cols-1 gap-3 md:grid-cols-2">
             {corridors.map((c) => (
               <li key={c.slug} className="group relative overflow-hidden rounded-2xl border border-[#E5E7EB] bg-white p-5 transition-colors hover:border-[#16A34A]/40 focus-within:border-[#16A34A]">
                 <div className="flex items-center justify-between gap-3">
@@ -123,7 +123,7 @@ export function JeddahHubAr() {
       <section id="airport" aria-labelledby="airport-heading" className="relative scroll-mt-20 overflow-hidden bg-[#0B1F14] py-20 md:py-24">
         <div className="section-container relative max-w-6xl">
           <Head dark id="airport-heading" eyebrow="مطار الملك عبدالعزيز (JED)" title="من مطار جدة إلى فندقك والعكس" intro="يضم المطار الصالة 1 والصالة الشمالية وصالة الحج. أرسل رقم رحلتك ونتولى الباقي." />
-          <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <ol data-stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {AR_JEDDAH_FLOW.map((s, i) => (
               <li key={s.title} className="rounded-2xl border border-white/10 bg-white/5 p-5">
                 <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#FACC15] text-sm font-bold text-[#0B1F14]">{i + 1}</span>
@@ -139,7 +139,7 @@ export function JeddahHubAr() {
       <div className="section-container max-w-6xl space-y-20 py-20 md:space-y-28 md:py-28">
         <section id="areas" aria-labelledby="areas-heading" className="scroll-mt-24">
           <Head id="areas-heading" eyebrow="نقل الفنادق والأحياء" title="من وإلى فندقك في جدة" intro="الاستلام والتوصيل عند فندقك المؤكد، ولا ندّعي شراكة مع أي فندق. صفحات الأحياء التالية متوفرة بالإنجليزية حالياً:" />
-          <ul className="grid gap-2 sm:grid-cols-2">
+          <ul data-stagger className="grid gap-2 sm:grid-cols-2">
             {AR_JEDDAH_AREAS.map((a) => (
               <li key={a.slug}>
                 <Link href={`/locations/jeddah/${a.slug}`} className="group flex min-h-[60px] items-center justify-between gap-3 rounded-xl border border-[#E5E7EB] bg-white px-4 py-3 hover:border-[#16A34A]/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16A34A]">
@@ -163,7 +163,7 @@ export function JeddahHubAr() {
 
         <section aria-labelledby="vehicle-heading">
           <Head id="vehicle-heading" eyebrow="المركبات" title="أي مركبة تناسب مجموعتك وحقائبك؟" intro="تُؤكد المركبة وسعتها حسب تاريخ رحلتك ومسارها وعدد الركاب والحقائب عند إرسال عرض السعر. الحافلات الأكبر تُرتب عند الطلب." />
-          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          <ul data-stagger className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
             {AR_JEDDAH_VEHICLES.map((v) => (
               <li key={v.href} className="rounded-2xl border border-[#E5E7EB] bg-white p-4">
                 <p className="font-heading text-base font-bold">{v.label}</p>
@@ -177,14 +177,14 @@ export function JeddahHubAr() {
 
         <section aria-labelledby="timing-heading">
           <Head id="timing-heading" eyebrow="خطّط لوقتك" title="ما الذي يغيّر مدة الرحلة في جدة" />
-          <div className="grid grid-cols-1 gap-px overflow-hidden rounded-3xl border border-[#E5E7EB] bg-[#E5E7EB] sm:grid-cols-2 lg:grid-cols-3">
+          <div data-stagger className="grid grid-cols-1 gap-px overflow-hidden rounded-3xl border border-[#E5E7EB] bg-[#E5E7EB] sm:grid-cols-2 lg:grid-cols-3">
             {AR_JEDDAH_TIMING.map((t, i) => (
               <div key={t.title} className="bg-white p-6"><span className="font-heading text-sm font-bold text-[#16A34A]">{String(i + 1).padStart(2, "0")}</span><h3 className="mt-2 font-heading text-base font-bold">{t.title}</h3><p className="mt-2 text-sm leading-relaxed text-[#4B5563]">{t.body}</p></div>
             ))}
           </div>
           <div className="mt-12 rounded-3xl border border-[#16A34A]/15 bg-[#F0FDF4] p-6 md:p-8">
             <h3 className="font-heading text-lg font-bold">كيف يتم الحجز</h3>
-            <ol className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <ol data-stagger className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {AR_JEDDAH_STEPS.map((s, i) => (
                 <li key={s.title}><span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#16A34A] text-sm font-bold text-[#FFFFFF]">{i + 1}</span><p className="mt-3 font-bold">{s.title}</p><p className="mt-1 text-sm leading-relaxed text-[#4B5563]">{s.desc}</p></li>
               ))}

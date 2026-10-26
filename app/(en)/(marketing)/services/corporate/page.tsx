@@ -20,7 +20,10 @@ const DESCRIPTION = ZATCA_READY
 const OG_IMAGE = "https://taxisaudiarabia.com/services/corporate-hero.webp";
 
 export const metadata: Metadata = {
-  alternates: { canonical: "https://taxisaudiarabia.com/services/corporate" },
+  alternates: {
+    canonical: "https://taxisaudiarabia.com/services/corporate",
+    languages: { en: "https://taxisaudiarabia.com/services/corporate", ar: "https://taxisaudiarabia.com/ar/services/corporate", "x-default": "https://taxisaudiarabia.com/services/corporate" },
+  },
   title: TITLE,
   description: DESCRIPTION,
   openGraph: {

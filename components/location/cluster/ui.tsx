@@ -50,7 +50,7 @@ export function FaqList({ faqs }: { faqs: { question: string; answer: string }[]
 
 export function LinkCards({ links }: { links: { href: string; label: string; desc: string }[] }) {
   return (
-    <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+    <ul data-stagger className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
       {links.map((l) => (
         <li key={l.href}>
           <Link href={l.href} className="group flex h-full flex-col rounded-2xl border border-[#E5E7EB] bg-white p-5 transition-all duration-200 hover:-translate-y-0.5 hover:border-[#16A34A]/40 hover:shadow-[0_14px_30px_-20px_rgba(15,23,42,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16A34A] focus-visible:ring-offset-2">

@@ -204,7 +204,7 @@ export function JeddahHub({ name, nameAr }: { name: string; nameAr: string }) {
         {/* ─── MAKKAH & MADINAH CORRIDOR BOARD ──────────────────── */}
         <section aria-labelledby="corridor-heading">
           <SectionHeader id="corridor-heading" eyebrow="Makkah & Madinah" title="The two corridors most Jeddah visitors book" intro="Real distances and drive times from our route data. Each card opens the route page with its own quote form." />
-          <ol className="grid grid-cols-1 gap-3 md:grid-cols-2">
+          <ol data-stagger className="grid grid-cols-1 gap-3 md:grid-cols-2">
             {corridors.map((c) => (
               <li key={c.slug} className="group relative overflow-hidden rounded-2xl border border-[#E5E7EB] bg-white p-5 transition-all duration-200 hover:-translate-y-0.5 hover:border-[#16A34A]/40 hover:shadow-[0_14px_30px_-20px_rgba(15,23,42,0.45)] focus-within:border-[#16A34A]">
                 <div className="flex items-center justify-between gap-3">
@@ -401,7 +401,7 @@ export function JeddahHub({ name, nameAr }: { name: string; nameAr: string }) {
         {/* ─── TIMING ───────────────────────────────────────────── */}
         <section aria-labelledby="timing-heading">
           <SectionHeader id="timing-heading" eyebrow="Plan your timing" title="What changes journey times in Jeddah" intro="Drive times shift with the season, the hour and the day of the week. These are the things that move them." />
-          <div className="grid grid-cols-1 gap-px overflow-hidden rounded-3xl border border-[#E5E7EB] bg-[#E5E7EB] sm:grid-cols-2 lg:grid-cols-3">
+          <div data-stagger className="grid grid-cols-1 gap-px overflow-hidden rounded-3xl border border-[#E5E7EB] bg-[#E5E7EB] sm:grid-cols-2 lg:grid-cols-3">
             {JEDDAH_TIMING.map((t, i) => (
               <div key={t.title} className="bg-white p-6">
                 <span className="font-heading text-sm font-bold tabular-nums text-[#16A34A]">{String(i + 1).padStart(2, "0")}</span>

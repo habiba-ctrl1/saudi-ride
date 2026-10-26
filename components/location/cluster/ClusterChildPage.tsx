@@ -25,7 +25,7 @@ function BlockView({ block, index }: { block: Block; index: number }) {
       return (
         <section aria-labelledby={id}>
           <SectionHeader id={id} eyebrow={block.eyebrow ?? "Who it's for"} title={block.heading} intro={block.intro} />
-          <div className="grid gap-4 md:grid-cols-3">
+          <div data-stagger className="grid gap-4 md:grid-cols-3">
             {block.items.map((c, i) => (
               <article key={c.title} className="rounded-3xl border border-[#E5E7EB] bg-white p-6">
                 <span className="font-heading text-sm font-bold tabular-nums text-[#16A34A]">{String(i + 1).padStart(2, "0")}</span>
@@ -103,7 +103,7 @@ function BlockView({ block, index }: { block: Block; index: number }) {
       return (
         <section aria-labelledby={id}>
           <SectionHeader id={id} eyebrow={block.eyebrow ?? "Honest comparison"} title={block.heading} intro={block.intro} />
-          <div className="grid gap-4 md:grid-cols-2">
+          <div data-stagger className="grid gap-4 md:grid-cols-2">
             {block.options.map((o) => (
               <div key={o.title} className={`rounded-3xl p-6 md:p-7 ${o.tone === "green" ? "bg-[#16A34A] text-[#FFFFFF]" : "border border-[#E5E7EB] bg-white"}`}>
                 <h3 className="font-heading text-lg font-bold">{o.title}</h3>
@@ -125,7 +125,7 @@ function BlockView({ block, index }: { block: Block; index: number }) {
       return (
         <section aria-labelledby={id}>
           <SectionHeader id={id} eyebrow={block.eyebrow ?? "Onward journeys"} title={block.heading} intro={block.intro} />
-          <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <ul data-stagger className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {block.items.map((it) => {
               const f = routeFact(it.slug);
               if (!f) return null;

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { breadcrumbSchema, faqSchema, speakableSchema, serviceSchema } from "@/lib/schema";
+import { faqSchema, speakableSchema, serviceSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
@@ -177,11 +177,6 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
             serviceType: "Taxi Service",
             areaServed: [route.fromCityAr, route.toCityAr],
           }),
-          breadcrumbSchema([
-            { name: "الرئيسية", href: "/ar" },
-            { name: "الرحلات", href: "/routes" },
-            { name: h1, href: arPath },
-          ]),
           faqSchema(faqs),
           speakableSchema({ path: arPath }),
         ]}
