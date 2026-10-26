@@ -757,7 +757,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
       { question: "How long is the drive from Jeddah to KAEC?", answer: "The drive takes around 1 hour 20 minutes door-to-door, depending on Jeddah city traffic on the way out. It passes Thuwal (KAUST) before reaching KAEC." },
       { question: "Is there a train from Jeddah to KAEC?", answer: "Yes — the Haramain high-speed railway stops at KAEC. But you still need transport to the Jeddah station and from the KAEC station to your final destination, so a private car is often simpler and faster door-to-door for business visits." },
       { question: "What is at KAEC?", answer: "King Abdullah Economic City is home to King Abdullah Port (one of the region's largest container ports), the Industrial Valley, business and residential districts, and the Bay La Sun marina. KAUST is just south at Thuwal." },
-      { question: "Do you offer corporate accounts for KAEC and King Abdullah Port?", answer: "Yes. Companies with regular travel to KAEC, King Abdullah Port, or the Industrial Valley can be invoiced through our licensed Saudi partner operator with a compliant VAT invoice. Message us on WhatsApp to set up an account." },
+      { question: "Do you offer corporate accounts for KAEC and King Abdullah Port?", answer: "Yes. Companies with regular travel to KAEC, King Abdullah Port, or the Industrial Valley can have corporate invoicing arranged through our sister company. Message us on WhatsApp to set up an account." },
       { question: "How much is a taxi from Jeddah to KAEC?", answer: "The fare depends on your vehicle and whether you need waiting time. We confirm one fixed price on WhatsApp before booking — no surge, no hidden fees." },
     ],
     related: [

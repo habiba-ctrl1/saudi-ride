@@ -9,6 +9,8 @@ import { routeFact } from "@/lib/data/cluster";
 import { FLEET_VEHICLES } from "@/lib/fleet-data";
 import { AR_ROUTE_CONTENT_SLUGS } from "@/lib/data/routes-content-ar";
 import { MakkahRouteMap } from "@/components/location/cluster/MakkahRouteMap";
+import { GmcSectionAr } from "@/components/ar/GmcSectionAr";
+import { CorporateRfqFormAr } from "@/components/ar/CorporateRfqFormAr";
 import { Head, Facts, Faqs, Quote, wa, BTN_PRIMARY, BTN_GHOST } from "@/components/ar/AlulaArabic";
 import {
   AR_MAKKAH_HUB, AR_MAKKAH_FACTS, AR_MAKKAH_TRIPS, AR_MAKKAH_FLOW, AR_MAKKAH_CORRIDORS, AR_MAKKAH_HOTELS,
@@ -235,6 +237,9 @@ export function MakkahHubAr() {
             <a href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(CORP_EMAIL.emailSubject)}&body=${encodeURIComponent(CORP_EMAIL.emailBody)}`} className="inline-flex min-h-[48px] items-center gap-2 rounded-full bg-[#FACC15] px-6 text-xs font-bold text-[#0B1F14] hover:bg-[#FDE047]"><Mail className="h-4 w-4" aria-hidden="true" /> اطلب عرضاً مكتوباً للشركات</a>
           </div>
         </section>
+
+        <GmcSectionAr city="makkah" />
+        <CorporateRfqFormAr city="مكة المكرمة" path="/ar/locations/makkah" />
 
         <Quote heading="اطلب عرض سعر لرحلتك في مكة" body="أخبرنا برحلتك: نقطة الاستلام والوجهة والتاريخ والركاب والحقائب ورقم الرحلة للمطار. نرد على واتساب بالمركبة وسعر واحد ثابت قبل أي حجز." label="اطلب عرض سعر" waPrefill={HUB_WA} pickup="مكة" pathB={CORP_EMAIL} />
 

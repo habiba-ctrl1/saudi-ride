@@ -75,11 +75,11 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
     popularRoute: {
       routeSlug: "jeddah-airport-to-makkah",
       title: "GMC Yukon Chauffeur — Jeddah Airport to Makkah",
-      description: "The GMC Yukon XL is the most requested vehicle for the Jeddah Airport to Makkah corridor — spacious enough for a full family or Umrah group with luggage, arranged with a professional chauffeur door-to-door from King Abdulaziz International Airport to your Makkah hotel or the Haram, with a stop at the Miqat on request.",
+      description: "The GMC Yukon XL / Denali is a full-size SUV option for the Jeddah Airport to Makkah corridor — suited to families and small Umrah groups travelling with luggage, subject to availability, arranged with a professional chauffeur door-to-door from King Abdulaziz International Airport to your Makkah hotel or the Haram, with a stop at the Miqat on request.",
       faqs: [
-        { question: "How much does a GMC Yukon cost from Jeddah Airport to Makkah?", answer: "The GMC Yukon on this route is arranged from around SAR 374, confirmed on WhatsApp based on your exact pickup time, passenger count, and luggage — message us for a clear quote before booking." },
+        { question: "How much does a GMC Yukon cost from Jeddah Airport to Makkah?", answer: "The fare is quoted individually on WhatsApp based on your exact pickup time, passenger count and luggage, and agreed before you book — message us for a clear quote." },
         { question: "Is the GMC Yukon a private vehicle or shared?", answer: "Private — one GMC Yukon and one chauffeur exclusively for your party, not a shared shuttle, for the full Jeddah Airport to Makkah journey." },
-        { question: "How many passengers and bags fit in the Yukon for this route?", answer: "Up to 7 passengers and 5 large suitcases, making it the practical choice for families or small Umrah groups travelling together with luggage." },
+        { question: "How many passengers and bags fit in the Yukon for this route?", answer: "Seating and luggage space are confirmed against your party when we quote. Tell us how many passengers and large suitcases you have and we confirm whether one GMC fits, or recommend a van or a second vehicle." },
       ],
     },
   },
@@ -308,4 +308,11 @@ const SHOWCASE_SLUGS = new Set([
 
 export function fleetShowcaseImage(v: FleetVehicle): string {
   return SHOWCASE_SLUGS.has(v.slug) ? `/fleet/showcase/${v.slug}.webp` : v.image;
+}
+
+/** Single source for passenger/luggage capacity — pages must read this, never hardcode. */
+export function fleetCapacity(slug: string): { passengers: number; luggage: number } {
+  const v = FLEET_VEHICLES.find((x) => x.slug === slug);
+  if (!v) throw new Error(`fleetCapacity: unknown fleet slug "${slug}"`);
+  return { passengers: v.passengers, luggage: v.luggage };
 }

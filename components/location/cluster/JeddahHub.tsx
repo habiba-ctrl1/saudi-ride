@@ -33,6 +33,8 @@ import { AirportFlow } from "./AirportFlow";
 import { TripDecision } from "./TripDecision";
 import { DestinationExplorer, type ExplorerGroup } from "./DestinationExplorer";
 import { VehicleFitTool, type FitOption } from "./VehicleFitTool";
+import { GmcSection } from "./GmcSection";
+import { CorporateRfqForm } from "./CorporateRfqForm";
 import { SectionHeader, FactsStrip, FaqList, QuoteSection, wa } from "./ui";
 
 const SITE = "https://taxisaudiarabia.com";
@@ -351,6 +353,9 @@ export function JeddahHub({ name, nameAr }: { name: string; nameAr: string }) {
         {/* ─── TRANSFER vs HOURLY vs CORPORATE ──────────────────── */}
         <section aria-labelledby="decide-heading">
           <SectionHeader id="decide-heading" eyebrow="Choose the right booking" title="One transfer, a driver by the hour, or a corporate arrangement?" />
+          <p className="mb-6 max-w-3xl text-sm leading-relaxed text-[#4B5563]">
+            A single transfer ends at the destination; a chauffeur booked for the day waits outside every stop. For meetings across the city, a visitor to host or an Al-Balad and Corniche day, see the <Link href="/locations/jeddah/private-driver" className="font-semibold text-[#15803D] hover:underline">chauffeur service in Jeddah by the hour or day</Link>.
+          </p>
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_1.1fr]">
             <TripDecision city="jeddah" transferHref="#hotels" />
             <div className="overflow-hidden rounded-3xl border border-[#E5E7EB] bg-white">
@@ -465,6 +470,10 @@ export function JeddahHub({ name, nameAr }: { name: string; nameAr: string }) {
             </Link>
           </div>
         </section>
+
+        {/* ─── GMC + CORPORATE RFQ ──────────────────────────────── */}
+        <GmcSection city="jeddah" />
+        <CorporateRfqForm city="Jeddah" path="/locations/jeddah" />
 
         {/* ─── QUOTE ────────────────────────────────────────────── */}
         <QuoteSection

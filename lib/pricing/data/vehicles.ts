@@ -22,7 +22,7 @@ export interface VehicleClass {
 export const VEHICLES: readonly VehicleClass[] = [
   { slug: "sedan",  displayName: "Sedan (Toyota Camry class)",   seats: 3,  luggage: 2,  perKmRate: 3.0, minimumFare: 90,  consumptionPer100km: 9,  provisional: true },
   { slug: "van",    displayName: "Van (Hyundai Staria class)",   seats: 7,  luggage: 7,  perKmRate: 4.0, minimumFare: 130, consumptionPer100km: 12, provisional: true },
-  { slug: "suv",    displayName: "SUV (GMC Yukon class)",        seats: 6,  luggage: 5,  perKmRate: 4.6, minimumFare: 150, consumptionPer100km: 15, provisional: true },
+  { slug: "suv",    displayName: "SUV (GMC Yukon class)",        seats: 7,  luggage: 5,  perKmRate: 4.6, minimumFare: 150, consumptionPer100km: 15, provisional: true },
   { slug: "luxury", displayName: "Luxury (Mercedes S-Class)",    seats: 3,  luggage: 3,  perKmRate: 8.0, minimumFare: 250, consumptionPer100km: 13, provisional: true },
   { slug: "bus",    displayName: "Bus / Coaster",                seats: 18, luggage: 15, perKmRate: 6.5, minimumFare: 350, consumptionPer100km: 22, provisional: true },
 ] as const;

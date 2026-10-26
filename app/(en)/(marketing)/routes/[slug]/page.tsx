@@ -14,6 +14,7 @@ import { breadcrumbSchema, faqSchema, speakableSchema, SITE } from "@/lib/schema
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
 import { RouteRelatedLinks } from "@/components/seo/RouteRelatedLinks";
 import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
+import { fleetCapacity } from "@/lib/fleet-data";
 import { KuwaitRouteSections, type KuwaitRouteConfig } from "@/components/seo/KuwaitRouteSections";
 import { credentials, hasCredential } from "@/lib/config/credentials";
 import { AR_ROUTE_SLUGS } from "@/lib/config/i18n";
@@ -344,6 +345,174 @@ Please confirm a fixed fare before booking.
 
 Thank you.`,
   },
+  "jeddah-airport-to-jeddah-city": {
+    heading: "Executive arrival or staff transfer at King Abdulaziz Airport?",
+    intro:
+      "Executives, visiting teams and recurring staff movements from King Abdulaziz International Airport (JED) to Jeddah hotels and offices can be quoted in writing: executive sedans and full-size SUVs with professional chauffeurs through our partner network, with one point of contact for repeat travel.",
+    waPrefill: `Salam! Corporate transfer enquiry — Jeddah Airport (JED) to Jeddah.
+• Company: 
+• Trip(s) & dates: 
+• Passengers per trip: 
+• Vehicle (Executive sedan / SUV / Van): 
+• Email (for written quote): 
+• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Jeddah Airport (JED) to Jeddah",
+    emailBody: `Hello Taxi Saudi Arabia team,
+
+We'd like a written quote for corporate transfers: Jeddah Airport (JED) to Jeddah.
+
+• Company name: 
+• Contact name & role: 
+• Trip(s) & dates: 
+• Passengers per trip: 
+• Vehicle preference (Executive sedan / SUV / Van): 
+• VAT number: 
+• PO reference: 
+
+Please confirm invoicing details and a fixed fare before booking.
+
+Thank you.`,
+  },
+  "jeddah-airport-to-kaec": {
+    heading: "Business visit to King Abdullah Economic City?",
+    intro:
+      "For KAEC — King Abdullah Port, the Industrial Valley and business visits — arriving at King Abdulaziz International Airport (JED), we arrange executive sedans and full-size SUVs with professional chauffeurs through our partner network. Written quotes are available for single trips and recurring company travel.",
+    waPrefill: `Salam! Corporate transfer enquiry — Jeddah Airport (JED) to KAEC.
+• Company: 
+• Trip(s) & dates: 
+• Passengers per trip: 
+• Vehicle (Executive sedan / SUV / Van): 
+• Email (for written quote): 
+• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Jeddah Airport (JED) to KAEC",
+    emailBody: `Hello Taxi Saudi Arabia team,
+
+We'd like a written quote for corporate transfers: Jeddah Airport (JED) to KAEC.
+
+• Company name: 
+• Contact name & role: 
+• Trip(s) & dates: 
+• Passengers per trip: 
+• Vehicle preference (Executive sedan / SUV / Van): 
+• VAT number: 
+• PO reference: 
+
+Please confirm invoicing details and a fixed fare before booking.
+
+Thank you.`,
+  },
+  "jeddah-airport-to-taif": {
+    heading: "Business or delegation travel to Taif?",
+    intro:
+      "For executives and delegations travelling from King Abdulaziz International Airport (JED) up to Taif, we arrange executive sedans and full-size SUVs with professional chauffeurs through our partner network, with a written quote and one point of contact.",
+    waPrefill: `Salam! Corporate transfer enquiry — Jeddah Airport (JED) to Taif.
+• Company: 
+• Trip(s) & dates: 
+• Passengers per trip: 
+• Vehicle (Executive sedan / SUV / Van): 
+• Email (for written quote): 
+• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Jeddah Airport (JED) to Taif",
+    emailBody: `Hello Taxi Saudi Arabia team,
+
+We'd like a written quote for corporate transfers: Jeddah Airport (JED) to Taif.
+
+• Company name: 
+• Contact name & role: 
+• Trip(s) & dates: 
+• Passengers per trip: 
+• Vehicle preference (Executive sedan / SUV / Van): 
+• VAT number: 
+• PO reference: 
+
+Please confirm invoicing details and a fixed fare before booking.
+
+Thank you.`,
+  },
+  "jeddah-to-taif": {
+    heading: "Business or delegation travel to Taif?",
+    intro:
+      "For executives and teams travelling between Jeddah and Taif we arrange executive sedans and full-size SUVs with professional chauffeurs through our partner network. Written quotes are available for single trips and recurring travel.",
+    waPrefill: `Salam! Corporate transfer enquiry — Jeddah to Taif.
+• Company: 
+• Trip(s) & dates: 
+• Passengers per trip: 
+• Vehicle (Executive sedan / SUV / Van): 
+• Email (for written quote): 
+• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Jeddah to Taif",
+    emailBody: `Hello Taxi Saudi Arabia team,
+
+We'd like a written quote for corporate transfers: Jeddah to Taif.
+
+• Company name: 
+• Contact name & role: 
+• Trip(s) & dates: 
+• Passengers per trip: 
+• Vehicle preference (Executive sedan / SUV / Van): 
+• VAT number: 
+• PO reference: 
+
+Please confirm invoicing details and a fixed fare before booking.
+
+Thank you.`,
+  },
+  "jeddah-to-yanbu": {
+    heading: "Business travel between Jeddah and Yanbu?",
+    intro:
+      "For company travel between Jeddah and Yanbu we arrange executive sedans and full-size SUVs with professional chauffeurs through our partner network. Written quotes are available for single trips, project teams and recurring staff movements.",
+    waPrefill: `Salam! Corporate transfer enquiry — Jeddah to Yanbu.
+• Company: 
+• Trip(s) & dates: 
+• Passengers per trip: 
+• Vehicle (Executive sedan / SUV / Van): 
+• Email (for written quote): 
+• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Jeddah to Yanbu",
+    emailBody: `Hello Taxi Saudi Arabia team,
+
+We'd like a written quote for corporate transfers: Jeddah to Yanbu.
+
+• Company name: 
+• Contact name & role: 
+• Trip(s) & dates: 
+• Passengers per trip: 
+• Vehicle preference (Executive sedan / SUV / Van): 
+• VAT number: 
+• PO reference: 
+
+Please confirm invoicing details and a fixed fare before booking.
+
+Thank you.`,
+  },
+  "jeddah-to-riyadh": {
+    heading: "Business travel between Jeddah and Riyadh?",
+    intro:
+      "For executives and delegations moving between the Red Sea coast and the capital we arrange executive sedans and full-size SUVs with professional chauffeurs through our partner network. Regular company travel can run on one account with a single point of contact.",
+    waPrefill: `Salam! Corporate transfer enquiry — Jeddah to Riyadh.
+• Company: 
+• Trip(s) & dates: 
+• Passengers per trip: 
+• Vehicle (Executive sedan / SUV / Van): 
+• Email (for written quote): 
+• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Jeddah to Riyadh",
+    emailBody: `Hello Taxi Saudi Arabia team,
+
+We'd like a written quote for corporate transfers: Jeddah to Riyadh.
+
+• Company name: 
+• Contact name & role: 
+• Trip(s) & dates: 
+• Passengers per trip: 
+• Vehicle preference (Executive sedan / SUV / Van): 
+• VAT number: 
+• PO reference: 
+
+Please confirm invoicing details and a fixed fare before booking.
+
+Thank you.`,
+  },
   "riyadh-to-dammam": {
     heading: "Moving a team between Riyadh and the Eastern Province?",
     intro:
@@ -404,6 +573,58 @@ const UMRAH_GROUP_CONFIG: Record<string, { heading: string; intro: string; waPre
     waPrefill: `Salam! Umrah transfer — Jeddah to Madinah.\n• Date & time: \n• Passengers (adults / children): \n• Luggage: \n• Vehicle (Sedan / SUV / Van): \n• Madinah hotel: `,
     emailSubject: "Umrah group transfer RFQ — Jeddah to Madinah",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for Umrah transfers from Jeddah to Madinah.\n\n• Agency / group name: \n• Contact name: \n• Travel date: \n• Number of pilgrims (adults / children): \n• Luggage: \n• Vehicle(s) needed (SUV / Van): \n• Madinah hotel: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+  },
+  "jeddah-airport-to-madinah": {
+    heading: "Arriving for Umrah or Ziyarat — family or group?",
+    intro:
+      "For families and groups we arrange a full-size SUV or van so everyone travels together with their luggage — one vehicle and one chauffeur from King Abdulaziz International Airport (JED) to your Madinah hotel, with prayer and rest stops on request.",
+    waPrefill: `Salam! Umrah transfer — Jeddah Airport (JED) to Madinah.
+• Date & time: 
+• Flight no. (if arriving): 
+• Passengers (adults / children): 
+• Luggage: 
+• Vehicle (Sedan / SUV / Van): `,
+    emailSubject: "Umrah group transfer RFQ — Jeddah Airport (JED) to Madinah",
+    emailBody: `Hello Taxi Saudi Arabia team,
+
+We'd like a written quote for an Umrah group transfer: Jeddah Airport (JED) to Madinah.
+
+• Agency / group name: 
+• Contact name: 
+• Travel date: 
+• Number of passengers: 
+• Luggage: 
+• Vehicle preference (SUV / Van / Coaster): 
+
+Please confirm a fixed fare before booking.
+
+Thank you.`,
+  },
+  "jeddah-to-makkah": {
+    heading: "Travelling to Makkah for Umrah — family or group?",
+    intro:
+      "For families and Umrah groups we arrange a full-size SUV or van so everyone travels together with their luggage — one vehicle and one chauffeur from Jeddah to your Makkah hotel, with prayer and rest stops on request.",
+    waPrefill: `Salam! Umrah transfer — Jeddah to Makkah.
+• Date & time: 
+• Flight no. (if arriving): 
+• Passengers (adults / children): 
+• Luggage: 
+• Vehicle (Sedan / SUV / Van): `,
+    emailSubject: "Umrah group transfer RFQ — Jeddah to Makkah",
+    emailBody: `Hello Taxi Saudi Arabia team,
+
+We'd like a written quote for an Umrah group transfer: Jeddah to Makkah.
+
+• Agency / group name: 
+• Contact name: 
+• Travel date: 
+• Number of passengers: 
+• Luggage: 
+• Vehicle preference (SUV / Van / Coaster): 
+
+Please confirm a fixed fare before booking.
+
+Thank you.`,
   },
   "makkah-to-madinah": {
     heading: "Umrah group between the Holy Cities?",
@@ -606,7 +827,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "How far is Jeddah airport from Makkah?", answer: "King Abdulaziz International Airport (JED) is about 80 km from Makkah — roughly a 1-hour drive on the Makkah Expressway, traffic permitting." },
       { question: "How much is a taxi from Jeddah airport to Makkah?", answer: "Fares are confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Message us on WhatsApp with your flight time and passenger count for a clear quote before booking — no surge, tolls included." },
       { question: "Does a Jeddah pickup involve a Miqat stop?", answer: "A pickup in Jeddah does not by itself involve a Miqat stop. Whether a Miqat matters for you depends on where you travelled from and on your own religious circumstances, which we cannot advise on. If your plans include a stop, tell us when you book and we will plan it." },
-      { question: "Is the Jeddah airport to Makkah taxi available at night?", answer: "Yes, we operate 24/7. We track your flight number, so the driver is waiting at arrivals with a name sign even for late-night or delayed flights." },
+      { question: "Is the Jeddah airport to Makkah taxi available at night?", answer: "Yes, we are available 24/7. We track your flight number, so the driver is waiting at arrivals with a name sign even for late-night or delayed flights." },
       { question: "Which is better — taxi or the Haramain train?", answer: "A private transfer is door-to-door from the airport to your Makkah hotel with luggage help and no station transfers. The Haramain high-speed train is fast but requires transfers to and from the stations. For pilgrims with luggage, the direct taxi is usually more convenient." },
       { question: "Where do I meet my driver at Jeddah airport?", answer: "Your driver waits in the arrivals hall with a name sign at your terminal (Terminal 1 for most international airlines, the Hajj Terminal during Hajj/Umrah peak season). We track your flight, so pickup timing adjusts automatically if you land early or late." },
       { question: "Is a private transfer cheaper than Uber or Careem from Jeddah to Makkah?", answer: "A private, pre-booked taxi gives you a confirmed vehicle and driver waiting at arrivals with no surge pricing during peak Umrah season — unlike ride-hailing apps, which can be scarce or surge-priced right after international flights land. Message us on WhatsApp to compare your options for a quote." },
@@ -640,7 +861,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "How far is Swissotel Al Maqam Makkah from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. The hotel is in the Abraj Al Bait towers, a short walk from Masjid al-Haram." },
       { question: "How much is a taxi from Jeddah airport to Swissotel Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
       { question: "Does a Jeddah pickup involve a Miqat stop?", answer: "A pickup in Jeddah does not by itself involve a Miqat stop. Whether a Miqat matters for you depends on where you travelled from and on your own religious circumstances, which we cannot advise on. If your plans include a stop, tell us when you book and we will plan it." },
-      { question: "Is the transfer available for late-night flight arrivals?", answer: "Yes, we operate 24/7. We track your flight number so the driver is waiting with a name sign even for delayed or late-night arrivals." },
+      { question: "Is the transfer available for late-night flight arrivals?", answer: "Yes, we are available 24/7. We track your flight number so the driver is waiting with a name sign even for delayed or late-night arrivals." },
     ],
   },
   "jeddah-airport-to-pullman-zamzam-makkah": {
@@ -700,7 +921,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "How far is Movenpick Hajar Tower Makkah from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. The hotel overlooks Masjid al-Haram." },
       { question: "How much is a taxi from Jeddah airport to Movenpick Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
       { question: "Does a Jeddah pickup involve a Miqat stop?", answer: "A pickup in Jeddah does not by itself involve a Miqat stop. Whether a Miqat matters for you depends on where you travelled from and on your own religious circumstances, which we cannot advise on. If your plans include a stop, tell us when you book and we will plan it." },
-      { question: "Is the taxi available for early-morning or late-night flights?", answer: "Yes, we operate 24/7 with flight tracking, so your driver is waiting with a name sign regardless of arrival time." },
+      { question: "Is the taxi available for early-morning or late-night flights?", answer: "Yes, we are available 24/7 with flight tracking, so your driver is waiting with a name sign regardless of arrival time." },
     ],
   },
   "jeddah-to-makkah": {
@@ -731,7 +952,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "How far is Jeddah airport from the city centre?", answer: "King Abdulaziz International Airport (JED) is about 20 km from central Jeddah — roughly a 20–35 minute drive depending on whether you are heading to the Corniche, Al-Balad, or a business district." },
       { question: "How much is a taxi from Jeddah airport to the city?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before you book, with no surge and tolls included. Larger vehicles are available for families and extra luggage." },
       { question: "Do you drop off at any Jeddah hotel?", answer: "Yes. We provide door-to-door drop-off at any hotel or address in Jeddah, including the Corniche, Al-Balad, Al-Hamra, and Obhur, with meet & greet at arrivals." },
-      { question: "Is the airport taxi available for late-night arrivals?", answer: "Yes, we operate 24/7 and track your flight, so your driver is waiting at arrivals with a name sign even for late-night or early-morning landings." },
+      { question: "Is the airport taxi available for late-night arrivals?", answer: "Yes, we are available 24/7 and track your flight, so your driver is waiting at arrivals with a name sign even for late-night or early-morning landings." },
     ],
   },
   "jeddah-to-haramain-station": {
@@ -791,7 +1012,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "How much is a taxi from Makkah to Jeddah airport?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with larger SUVs and vans available for families and luggage. Tolls are included and there is no surge." },
       { question: "How long does Makkah to Jeddah airport take?", answer: "It is about 80 km and roughly a 1-hour drive. For departures we recommend leaving with extra buffer time, especially during Umrah, Hajj, and Ramadan seasons." },
       { question: "Can you pick up from my Makkah hotel near the Haram?", answer: "Yes. We collect you from your hotel as close to Masjid al-Haram as vehicles are permitted; during prayer-time road closures we use the nearest allowed checkpoint." },
-      { question: "Is the airport transfer available late at night?", answer: "Yes, we operate 24/7. Pre-book your departure transfer so a driver is ready at your hotel at the agreed time, even for early-morning flights." },
+      { question: "Is the airport transfer available late at night?", answer: "Yes, we are available 24/7. Pre-book your departure transfer so a driver is ready at your hotel at the agreed time, even for early-morning flights." },
     ],
   },
   "makkah-to-madinah": {
@@ -853,7 +1074,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "How far is Madinah airport from the city centre?", answer: "Prince Mohammad Bin Abdulaziz Airport (MED) is about 20 km from the Central Area (Markazia) hotels — roughly a 25-minute drive." },
       { question: "How much is a taxi from Madinah airport to my hotel?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with meet & greet at arrivals and larger vehicles for families." },
       { question: "Will the driver meet me at arrivals?", answer: "Yes. We track your flight and your driver waits in the arrivals hall with a name sign, then helps with your luggage to the car." },
-      { question: "Is the airport transfer available for late-night flights?", answer: "Yes, we operate 24/7, so your driver is ready even for late-night or early-morning arrivals at MED." },
+      { question: "Is the airport transfer available for late-night flights?", answer: "Yes, we are available 24/7, so your driver is ready even for late-night or early-morning arrivals at MED." },
       { question: "Is there a car service or cab from Madinah airport?", answer: "Yes — our licensed car service (cab) meets you at Prince Mohammad Bin Abdulaziz Airport (MED) arrivals and drives you directly to your Madinah hotel, fixed confirmed on WhatsApp." },
     ],
   },
@@ -1888,7 +2109,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
 
   const vehicles = [
     { name: "Executive Sedan", note: "Latest Toyota Camry / Ford — 2025–26 models", key: "SEDAN", pax: 3, luggage: 2, img: "/fleet/toyota-camry.webp" },
-    { name: "Family SUV", note: "GMC Yukon / Suburban — spacious & premium", key: "SUV", pax: 6, luggage: 5, img: "/fleet/gmc-yukon-xl.webp" },
+    { name: "Family SUV", note: "GMC Yukon / Suburban — spacious & premium", key: "SUV", pax: fleetCapacity("gmc-yukon-xl").passengers, luggage: fleetCapacity("gmc-yukon-xl").luggage, img: "/fleet/gmc-yukon-xl.webp" },
     { name: "Luxury VIP", note: "Mercedes S-Class / Lexus — subject to route", key: "LUXURY", pax: 3, luggage: 3, img: "/fleet/mercedes-s-class.webp" },
     { name: "Group Van", note: "Hyundai Staria — comfortable for groups", key: "VAN", pax: 7, luggage: 7, img: "/fleet/hyundai-staria.webp" },
   ];
@@ -2768,7 +2989,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                   {corporate.intro}
                 </p>
                 <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
-                  Corporate bookings are invoiced through our licensed Saudi partner operator, so you receive a compliant VAT invoice. Send your company name, VAT number and PO reference with your enquiry and we&apos;ll confirm invoicing details before the booking is finalised.
+                  Corporate invoicing can be arranged through our sister company. Send your company name, VAT number and PO reference with your enquiry and we&apos;ll confirm invoicing details before the booking is finalised.
                 </p>
                 <div className="flex flex-wrap items-center gap-3 pt-1">
                   <a

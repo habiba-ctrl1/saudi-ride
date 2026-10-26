@@ -9,6 +9,8 @@ import { routeFact } from "@/lib/data/cluster";
 import { FLEET_VEHICLES } from "@/lib/fleet-data";
 import { AR_ROUTE_CONTENT_SLUGS } from "@/lib/data/routes-content-ar";
 import { MadinahRouteMap } from "@/components/location/cluster/MadinahRouteMap";
+import { GmcSectionAr } from "@/components/ar/GmcSectionAr";
+import { CorporateRfqFormAr } from "@/components/ar/CorporateRfqFormAr";
 import { Head, Facts, Faqs, Quote, wa, BTN_PRIMARY, BTN_GHOST } from "@/components/ar/AlulaArabic";
 import {
   AR_MADINAH_HUB, AR_MADINAH_FACTS, AR_MADINAH_TRIPS, AR_MED_FLOW, AR_MADINAH_CORRIDORS, AR_ZIYARAT_STOPS,
@@ -234,6 +236,9 @@ export function MadinahHubAr() {
             <a href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(CORP_EMAIL.emailSubject)}&body=${encodeURIComponent(CORP_EMAIL.emailBody)}`} className="inline-flex min-h-[48px] items-center gap-2 rounded-full bg-[#FACC15] px-6 text-xs font-bold text-[#0B1F14] hover:bg-[#FDE047]"><Mail className="h-4 w-4" aria-hidden="true" /> اطلب عرض سعر مكتوب</a>
           </div>
         </section>
+
+        <GmcSectionAr city="madinah" />
+        <CorporateRfqFormAr city="المدينة المنورة" path="/ar/locations/madinah" />
 
         <Quote heading="اطلب عرض سعر لرحلتك في المدينة المنورة" body="أخبرنا برحلتك: نقطة الاستلام والوجهة والتاريخ والركاب والحقائب ورقم الرحلة للمطار. نرد على واتساب بالمركبة وسعر واحد ثابت قبل أي حجز." label="اطلب عرض سعر" waPrefill={HUB_WA} pickup="المدينة المنورة" pathB={CORP_EMAIL} />
 

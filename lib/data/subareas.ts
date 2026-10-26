@@ -195,7 +195,7 @@ export const SUB_AREAS: Record<string, {
     tldrFacts: [{ label: "To JED", value: "~25 min" }, { label: "To Makkah", value: "~1 hr 10 min" }, { label: "Pricing", value: "Quoted on WhatsApp" }, { label: "Hours", value: "24/7" }],
     faqs: [
       { question: "How far is the Jeddah Corniche from the airport?", answer: "The Corniche is about 25 minutes from King Abdulaziz International Airport (JED) by taxi, depending on traffic and which section of the waterfront you need." },
-      { question: "Can you pick up along the Corniche at night?", answer: "Yes, we operate 24/7 with quick pickups and a clear price on WhatsApp anywhere along the Jeddah Corniche and waterfront." },
+      { question: "Can you pick up along the Corniche at night?", answer: "Yes, we are available 24/7 with quick pickups and a clear price on WhatsApp anywhere along the Jeddah Corniche and waterfront." },
       { question: "Do you offer Corniche sightseeing rides?", answer: "Yes, we provide hourly hire and city-tour rides covering King Fahd's Fountain, the Floating Mosque, and the waterfront promenade." },
     ],
   },

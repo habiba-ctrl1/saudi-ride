@@ -35,6 +35,8 @@ import { VehicleFitTool, type FitOption } from "./VehicleFitTool";
 import { MadinahRouteMap } from "./MadinahRouteMap";
 import { AirportFlow } from "./AirportFlow";
 import { ZiyaratPlanner } from "./ZiyaratPlanner";
+import { GmcSection } from "./GmcSection";
+import { CorporateRfqForm } from "./CorporateRfqForm";
 import { SectionHeader, FactsStrip, FaqList, QuoteSection, wa } from "./ui";
 
 const SITE = "https://taxisaudiarabia.com";
@@ -427,6 +429,10 @@ export function MadinahHub({ name, nameAr }: { name: string; nameAr: string }) {
             <Link href="/services/umrah-transport" className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-white/25 px-6 text-xs font-bold uppercase tracking-wider text-[#FFFFFF] hover:bg-white/10">Umrah transport <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
           </div>
         </section>
+
+        {/* ─── GMC + CORPORATE RFQ ──────────────────────────────── */}
+        <GmcSection city="madinah" />
+        <CorporateRfqForm city="Madinah" path="/locations/madinah" />
 
         {/* ─── QUOTE ────────────────────────────────────────────── */}
         <QuoteSection

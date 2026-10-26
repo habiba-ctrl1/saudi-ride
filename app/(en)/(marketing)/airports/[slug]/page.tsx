@@ -314,7 +314,7 @@ export default async function AirportLandingPage({ params }: PageProps) {
                     For executives and delegations arriving at RUH we run executive sedans and full-size SUVs with professional chauffeurs — meet &amp; greet at your terminal, flight tracking, and a direct transfer to KAFD, Olaya or the Diplomatic Quarter. Regular staff arrivals can run on a single account with one point of contact.
                   </p>
                   <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
-                    Corporate bookings are invoiced through our licensed Saudi partner operator, so you receive a compliant VAT invoice. Send your company name, VAT number and PO reference with your enquiry and we&apos;ll confirm invoicing details before the booking is finalised.
+                    Corporate invoicing can be arranged through our sister company. Send your company name, VAT number and PO reference with your enquiry and we&apos;ll confirm invoicing details before the booking is finalised.
                   </p>
                   <div className="flex flex-wrap items-center gap-3 pt-1">
                     <a

@@ -31,6 +31,8 @@ import {
 import { TripTypeSelector } from "./TripTypeSelector";
 import { VehicleFitTool, type FitOption } from "./VehicleFitTool";
 import { MakkahRouteMap } from "./MakkahRouteMap";
+import { GmcSection } from "./GmcSection";
+import { CorporateRfqForm } from "./CorporateRfqForm";
 import { SectionHeader, FactsStrip, FaqList, QuoteSection, wa } from "./ui";
 
 const SITE = "https://taxisaudiarabia.com";
@@ -394,6 +396,10 @@ export function MakkahHub({ name, nameAr }: { name: string; nameAr: string }) {
             <Link href="/services/vip-transportation" className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-white/25 px-6 text-xs font-bold uppercase tracking-wider text-[#FFFFFF] hover:bg-white/10">VIP transportation <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
           </div>
         </section>
+
+        {/* ─── GMC + CORPORATE RFQ ──────────────────────────────── */}
+        <GmcSection city="makkah" />
+        <CorporateRfqForm city="Makkah" path="/locations/makkah" />
 
         {/* ─── QUOTE ────────────────────────────────────────────── */}
         <QuoteSection

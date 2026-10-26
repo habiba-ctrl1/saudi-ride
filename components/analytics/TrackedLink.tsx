@@ -13,19 +13,20 @@ interface TrackedLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   contactUsed: string;
   path: string;
   routeId?: string;
+  locale?: string;
 }
 
-export function TrackedLink({ kind, sourceLocation, contactUsed, path, routeId, onClick, ...rest }: TrackedLinkProps) {
+export function TrackedLink({ kind, sourceLocation, contactUsed, path, routeId, locale = "en", onClick, ...rest }: TrackedLinkProps) {
   return (
     <a
       {...rest}
       onClick={(e) => {
         if (kind === "whatsapp") {
-          trackEvent("whatsapp_click", { sourceLocation, phoneUsed: contactUsed, locale: "en", path, routeId });
+          trackEvent("whatsapp_click", { sourceLocation, phoneUsed: contactUsed, locale, path, routeId });
         } else if (kind === "phone") {
-          trackEvent("phone_click", { sourceLocation, phoneUsed: contactUsed, locale: "en", path });
+          trackEvent("phone_click", { sourceLocation, phoneUsed: contactUsed, locale, path });
         } else {
-          trackEvent("email_click", { sourceLocation, emailUsed: contactUsed, locale: "en", path });
+          trackEvent("email_click", { sourceLocation, emailUsed: contactUsed, locale, path });
         }
         onClick?.(e);
       }}

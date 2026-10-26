@@ -522,7 +522,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: d,
       alternates: {
         canonical: `https://taxisaudiarabia.com/locations/${cityKeyLower}`,
-        ...(cityKeyLower === "alula" || cityKeyLower === "makkah" || cityKeyLower === "madinah"
+        ...(cityKeyLower === "alula" || cityKeyLower === "jeddah" || cityKeyLower === "makkah" || cityKeyLower === "madinah"
           ? { languages: { en: `https://taxisaudiarabia.com/locations/${cityKeyLower}`, ar: `https://taxisaudiarabia.com/ar/locations/${cityKeyLower}`, "x-default": `https://taxisaudiarabia.com/locations/${cityKeyLower}` } }
           : {}),
       },

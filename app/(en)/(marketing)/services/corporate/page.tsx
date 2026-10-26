@@ -1,5 +1,6 @@
 ﻿import { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
@@ -14,8 +15,8 @@ const ZATCA_READY = hasCredential(credentials.vatNumber);
 
 const TITLE = "Corporate Taxi & Executive Chauffeur | Saudi Arabia";
 const DESCRIPTION = ZATCA_READY
-  ? "Corporate taxi & executive chauffeur accounts in Saudi Arabia. Monthly invoicing through our licensed Saudi partner operator with compliant VAT invoices, dedicated account managers."
-  : "Corporate taxi & executive chauffeur accounts in Saudi Arabia. Monthly invoicing through our licensed Saudi partner operator, dedicated account managers.";
+  ? "Corporate taxi & executive chauffeur accounts in Saudi Arabia. Written quotes by email, fixed fares agreed before booking, and corporate invoicing arranged through our sister company."
+  : "Corporate taxi & executive chauffeur accounts in Saudi Arabia. Written quotes by email, fixed fares agreed before booking, and corporate invoicing arranged through our sister company.";
 const OG_IMAGE = "https://taxisaudiarabia.com/services/corporate-hero.webp";
 
 export const metadata: Metadata = {
@@ -40,12 +41,12 @@ export const metadata: Metadata = {
 const FEATURES = [
   {
     icon: ReceiptText,
-    title: "Monthly Invoicing",
+    title: "Corporate Invoicing",
     desc: ZATCA_READY
-      ? "Consolidated billing at the end of the month, invoiced through our licensed Saudi partner operator with a compliant VAT invoice."
-      : "Consolidated billing at the end of the month, invoiced through our licensed Saudi partner operator for easy accounting.",
+      ? "Corporate invoicing can be arranged through our sister company."
+      : "Corporate invoicing can be arranged through our sister company.",
   },
-  { icon: UserCheck, title: "Dedicated Manager", desc: "A single point of contact for all your executive transport logistics and complex bookings." },
+  { icon: UserCheck, title: "Written Quotes", desc: "Email your routes, dates and passenger numbers and receive a written quote for your trips before anything is booked." },
   { icon: ShieldCheck, title: "Fixed-Fare Quotes", desc: "Every corporate trip is quoted and agreed before booking — no meter, no surge, so costs stay predictable for approvals and reporting." },
   { icon: Building2, title: "Executive Vehicle Access", desc: "Executive sedans and luxury SUVs available through our partner network for visiting executives and board members, subject to availability." },
 ];
@@ -58,8 +59,8 @@ export default function CorporateAccountsPage() {
           serviceSchema({
             name: "Corporate Taxi Accounts & B2B Transport",
             description: ZATCA_READY
-              ? "Corporate taxi accounts and B2B transport solutions in Saudi Arabia with monthly invoicing through a licensed Saudi partner operator, compliant VAT invoices, and dedicated account managers."
-              : "Corporate taxi accounts and B2B transport solutions in Saudi Arabia with monthly invoicing through a licensed Saudi partner operator and dedicated account managers.",
+              ? "Corporate taxi accounts and B2B transport solutions in Saudi Arabia with written quotes, fixed fares agreed before booking, and corporate invoicing arranged through our sister company."
+              : "Corporate taxi accounts and B2B transport solutions in Saudi Arabia with written quotes, fixed fares agreed before booking, and corporate invoicing arranged through our sister company.",
             path: "/services/corporate",
             serviceType: "Corporate Transport",
             areaServed: ["Saudi Arabia"],
@@ -97,18 +98,18 @@ export default function CorporateAccountsPage() {
             <span className="text-[#16A34A]">for Modern Business</span>
           </h1>
           <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-8">
-            Streamline your company&apos;s travel logistics with our dedicated corporate accounts. Enjoy monthly billing through our licensed Saudi partner operator{ZATCA_READY ? " with compliant VAT invoices" : ""}, and access to executive-standard vehicles through our partner network across the Kingdom.
+            Streamline your company&apos;s travel logistics with our dedicated corporate accounts. Corporate invoicing can be arranged through our sister company, and access to executive-standard vehicles through our partner network across the Kingdom.
           </p>
           <div className="max-w-2xl mx-auto mb-10 text-left">
             <TLDRSummary
               answer={
                 ZATCA_READY
-                  ? "Corporate taxi accounts in Saudi Arabia include monthly invoicing through our licensed Saudi partner operator with compliant VAT invoices, a dedicated account manager, and access to executive vehicles through our partner network."
-                  : "Corporate taxi accounts in Saudi Arabia include monthly invoicing through our licensed Saudi partner operator, a dedicated account manager, and access to executive vehicles through our partner network."
+                  ? "Corporate transport in Saudi Arabia through Taxi Saudi Arabia means a written quote by email, a fixed fare agreed before booking, corporate invoicing arranged through our sister company, and vehicles from executive sedans to coasters through our partner network."
+                  : "Corporate transport in Saudi Arabia through Taxi Saudi Arabia means a written quote by email, a fixed fare agreed before booking, corporate invoicing arranged through our sister company, and vehicles from executive sedans to coasters through our partner network."
               }
               facts={[
-                { label: "Billing", value: ZATCA_READY ? "Monthly, partner VAT invoice" : "Monthly invoicing" },
-                { label: "Support", value: "Dedicated manager" },
+                { label: "Invoicing", value: "Via our sister company" },
+                { label: "Quotes", value: "Written, by email" },
                 { label: "Vehicles", value: "Executive / VIP network" },
               ]}
             />
@@ -158,7 +159,7 @@ export default function CorporateAccountsPage() {
       <section className="section-container max-w-5xl py-20">
         <div className="text-center mb-16">
           <h2 className="font-heading text-3xl font-bold mb-4">Corporate vs Consumer Booking</h2>
-          <p className="text-[#6B7280]">Why your organization should upgrade to a B2B account.</p>
+          <p className="text-[#6B7280]">What changes when a company books instead of an individual traveller.</p>
         </div>
 
         <div className="bg-white rounded-3xl border border-[#16A34A]/12 overflow-hidden">
@@ -166,31 +167,48 @@ export default function CorporateAccountsPage() {
             <thead>
               <tr className="bg-[#F0FDF4] border-b border-[#C9A84C]/10">
                 <th className="p-6 font-bold text-sm text-[#6B7280]">Feature</th>
-                <th className="p-6 font-bold text-sm text-[#6B7280] text-center border-l border-[#C9A84C]/10 w-1/3">Standard Account</th>
-                <th className="p-6 font-bold text-sm text-[#C9A84C] text-center bg-[#C9A84C]/5 border-l border-[#C9A84C]/10 w-1/3">Corporate Account</th>
+                <th className="p-6 font-bold text-sm text-[#6B7280] text-center border-l border-[#C9A84C]/10 w-1/3">Individual booking</th>
+                <th className="p-6 font-bold text-sm text-[#C9A84C] text-center bg-[#C9A84C]/5 border-l border-[#C9A84C]/10 w-1/3">Company booking</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#C9A84C]/5">
               {[
-                ...(ZATCA_READY ? [["ZATCA Compliant E-Invoicing", false, true]] : []),
-                ["Monthly Post-Paid Billing", false, true],
-                ["Dedicated Account Manager", false, true],
-                ["Fixed-Fare Quotes Before Booking", false, true],
-                ["Custom SLA Agreements", false, true],
-                ["Volume Booking Discounts", false, true],
+                ["Quote", "WhatsApp quote", "WhatsApp or written quote by email"],
+                ["Fixed fare agreed before booking", "Yes", "Yes"],
+                ["Invoicing", "Electronic receipt on request", "Corporate invoicing via our sister company"],
+                ["Payment", "Cash to the driver or bank transfer", "Cash to the driver or bank transfer"],
+                ["Vehicles", "Sedan, SUV, van, coaster", "Sedan, SUV, van, coaster"],
               ].map((row, i) => (
                 <tr key={i}>
                   <td className="p-6 text-sm text-[#1C1C1C] font-medium">{row[0]}</td>
-                  <td className="p-6 text-center border-l border-[#C9A84C]/10">
-                    {row[1] ? <Check className="h-5 w-5 text-[#6B7280] mx-auto" /> : <span className="text-[#6B7280]">—</span>}
-                  </td>
-                  <td className="p-6 text-center bg-[#C9A84C]/5 border-l border-[#C9A84C]/10">
-                    {row[2] ? <Check className="h-5 w-5 text-[#C9A84C] mx-auto" /> : <span className="text-[#6B7280]">—</span>}
-                  </td>
+                  <td className="p-6 text-center text-sm text-[#6B7280] border-l border-[#C9A84C]/10">{row[1]}</td>
+                  <td className="p-6 text-center text-sm font-medium text-[#1C1C1C] bg-[#C9A84C]/5 border-l border-[#C9A84C]/10">{row[2]}</td>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+      </section>
+
+      {/* ─── CORPORATE QUESTIONS (answer-first, AEO) ─────────────── */}
+      <section className="section-container max-w-4xl pb-4">
+        <div className="space-y-10">
+          <div>
+            <h2 className="font-heading text-2xl font-bold mb-3">What is a corporate chauffeur service in Saudi Arabia?</h2>
+            <p className="text-sm md:text-base text-[#4B5563] leading-relaxed">It is a pre-booked private car with a professional chauffeur for company travel: airport pickups, hotel-to-meeting days, intercity trips and hourly hire, arranged through our partner network with the fare agreed before booking. Executives travelling between cities can start from the <Link href="/services/business-executive" className="font-semibold text-[#15803D] hover:underline">executive chauffeur service</Link>.</p>
+          </div>
+          <div>
+            <h2 className="font-heading text-2xl font-bold mb-3">Can you arrange staff transfers for a company?</h2>
+            <p className="text-sm md:text-base text-[#4B5563] leading-relaxed">Yes — email the routes, dates and passenger numbers and we reply with a written quote for the whole programme, using vehicles from executive sedans to coasters through the partner network. Check the <Link href="/fleet" className="font-semibold text-[#15803D] hover:underline">vehicle categories</Link> to match group size and luggage.</p>
+          </div>
+          <div>
+            <h2 className="font-heading text-2xl font-bold mb-3">How do you handle delegation and event transport?</h2>
+            <p className="text-sm md:text-base text-[#4B5563] leading-relaxed">Send flight numbers, passenger counts and the venue, and we agree the vehicle mix and fare before booking; arrivals are tracked so pickups follow the flight. Event-specific guidance is on the <Link href="/events" className="font-semibold text-[#15803D] hover:underline">events transport hub</Link>.</p>
+          </div>
+          <div>
+            <h2 className="font-heading text-2xl font-bold mb-3">Book per trip, or request one quote for a programme?</h2>
+            <p className="text-sm md:text-base text-[#4B5563] leading-relaxed">A single trip is fastest on WhatsApp, while several trips, several travellers or an invoice requirement suit one written quote by email. If you are unsure, send the details on WhatsApp and we will say which fits; see also <Link href="/pricing" className="font-semibold text-[#15803D] hover:underline">how fares are quoted</Link> or <Link href="/contact" className="font-semibold text-[#15803D] hover:underline">contact us</Link>.</p>
+          </div>
         </div>
       </section>
 
@@ -199,12 +217,12 @@ export default function CorporateAccountsPage() {
         <div className="bg-white border border-[#16A34A]/15 shadow-lg rounded-3xl p-8 md:p-12">
           <div className="text-center mb-10">
             <h2 className="font-heading text-3xl font-bold mb-3 text-[#1C1C1C]">Request a Corporate Account</h2>
-            <p className="text-sm text-[#6B7280]">Fill out the details below and our B2B team will contact you within 24 hours.</p>
+            <p className="text-sm text-[#6B7280]">Fill out the details below and we will reply with a written quote.</p>
           </div>
 
           <CorporateAccountForm />
           <div className="mt-6 pt-6 border-t border-[#16A34A]/10 text-center">
-            <p className="text-xs text-[#6B7280] mb-3">Prefer email? Send your requirements and our B2B team will reply with a written quote and invoicing terms.</p>
+            <p className="text-xs text-[#6B7280] mb-3">Prefer email? Send your requirements and we will reply with a written quote; invoicing details are confirmed before the booking is finalised.</p>
             <a
               href={`mailto:${contactConfig.email}?subject=${encodeURIComponent("Corporate account / transport RFQ")}&body=${encodeURIComponent("Hello Taxi Saudi Arabia team,\n\nWe'd like to set up a corporate transport account / request a written quote.\n\n• Company: \n• Contact name & role: \n• City / cities: \n• Estimated monthly trips or routes: \n• Vehicle types needed (Executive sedan / SUV / Van / Luxury): \n• Invoicing (VAT / PO) & payment terms: \n\nThank you.")}`}
               className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C] px-7 py-3 text-xs font-bold uppercase text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
@@ -217,12 +235,13 @@ export default function CorporateAccountsPage() {
       {(() => {
         const faqs = [
           {
-            question: "How does monthly corporate billing work?",
+            question: "How does corporate invoicing work?",
             answer:
-              "Corporate bookings are invoiced through our licensed Saudi partner operator, so you receive a compliant VAT invoice. Send your company name, VAT number and PO reference with your enquiry and we'll confirm invoicing details before the booking is finalised. Your company then receives a consolidated statement at month-end covering all rides, instead of paying per trip.",
+              "Corporate invoicing can be arranged through our sister company. Send your company name, VAT number and PO reference with your enquiry and we'll confirm invoicing details before the booking is finalised.",
           },
-          { question: "Can multiple employees book under one account?", answer: "Yes. Corporate accounts support multiple authorized bookers and travelers under a single billing profile with a dedicated account manager." },
-          { question: "Do corporate accounts get priority during peak times?", answer: "Yes. Corporate bookings receive priority vehicle allocation during rush hours and major events." },
+          { question: "Can one company book trips for several employees?", answer: "Yes. Send the travellers, routes, dates and passenger numbers by email or WhatsApp and we reply with one quote covering them, with the fare agreed before booking." },
+          { question: "Is the fare fixed for corporate trips?", answer: "Yes. Every trip is quoted and agreed before booking — no meter and no surge — so the cost is known for approvals and expense reports." },
+          { question: "Can we pay by bank transfer?", answer: "Payment is by cash to the driver or bank transfer, and electronic receipts are available on request." },
         ];
         return (
           <>

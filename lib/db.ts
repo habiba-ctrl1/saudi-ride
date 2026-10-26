@@ -29,7 +29,7 @@ export async function ensureVehiclesSeeded() {
         nameAr: "جي إم سي يوكون دينالي إكس إل",
         nameUr: "جی ایم سی یوکون ڈینالی",
         type: VehicleType.SUV,
-        capacity: 6,
+        capacity: 7,
         luggage: 5,
         pricePerKm: 5.0,
         basePrice: 50.0,

@@ -22,6 +22,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { contactConfig } from "@/lib/config/contact";
+import { fleetCapacity } from "@/lib/fleet-data";
 
 type VehicleKey = 'SEDAN' | 'SUV' | 'VAN' | 'LUXURY' | 'BUS';
 
@@ -41,7 +42,7 @@ const defaultSuggestions = [
 
 const vehicleList = [
   { key: 'SEDAN' as VehicleKey, name: 'Premium Sedan', desc: 'Toyota Camry or equivalent', cap: 3, luggage: 2, badge: "Best Value", image: "/fleet/toyota-camry.webp" },
-  { key: 'SUV' as VehicleKey, name: 'VIP SUV', desc: 'GMC Yukon Denali XL', cap: 6, luggage: 5, badge: "Most Popular", image: "/fleet/gmc-yukon-xl.webp" },
+  { key: 'SUV' as VehicleKey, name: 'VIP SUV', desc: 'GMC Yukon Denali XL', cap: fleetCapacity('gmc-yukon-xl').passengers, luggage: fleetCapacity('gmc-yukon-xl').luggage, badge: "Most Popular", image: "/fleet/gmc-yukon-xl.webp" },
   { key: 'VAN' as VehicleKey, name: 'Luxury Cabin Van', desc: 'Hyundai Staria or equivalent', cap: 7, luggage: 7, badge: "Family Pick", image: "/fleet/hyundai-staria.webp" },
   { key: 'LUXURY' as VehicleKey, name: 'Ultra Elite', desc: 'Mercedes S-Class or equivalent', cap: 3, luggage: 3, badge: "VIP Choice", image: "/fleet/mercedes-s-class.webp" },
   { key: 'BUS' as VehicleKey, name: 'Coaster/Bus', desc: 'VIP Pilgrim Bus', cap: 18, luggage: 15, badge: "Pilgrims Hub", image: "/fleet/toyota-coaster.webp" },
