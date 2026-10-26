@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import nodemailer from "nodemailer";
 import twilio from "twilio";
 import { prisma } from "@/lib/prisma";
@@ -86,6 +88,21 @@ export async function sendSMS(to: string, body: string) {
   }
 }
 
+export type EmailAttachment = { filename: string; content: Buffer; cid?: string; contentType?: string };
+
+/** Adds the TSA logo as an inline (cid) attachment when the HTML references it. Mail clients block remote and data-URI logos. */
+function withInlineLogo(html: string, attachments?: EmailAttachment[]): EmailAttachment[] {
+  const list = [...(attachments ?? [])];
+  if (html.includes("cid:tsa-logo") && !list.some((a) => a.cid === "tsa-logo")) {
+    try {
+      list.push({ filename: "tsa-logo.png", content: readFileSync(path.join(process.cwd(), "lib/pdf/tsa-logo-green.png")), cid: "tsa-logo", contentType: "image/png" });
+    } catch (e) {
+      console.error("inline logo not attached:", e instanceof Error ? e.message : e);
+    }
+  }
+  return list;
+}
+
 /**
  * Dispatches an Email alert using Gmail SMTP (with dynamic fallback logging).
  * Any email NOT addressed to the admin inbox is automatically CC'd to the
@@ -101,7 +118,7 @@ export async function sendEmail(
   options?: {
     cc?: string | string[];
     bcc?: string | string[];
-    attachments?: Array<{ filename: string; content: Buffer }>;
+    attachments?: EmailAttachment[];
     /** Only used to label the row if this send fails — lets notification_failures
      *  show which flow/booking a failed send belongs to, alongside the real error. */
     failureContext?: { channel: string; bookingRef?: string | null };
@@ -121,7 +138,7 @@ export async function sendEmail(
         to,
         ...(cc.length ? { cc } : {}),
         ...(bcc.length ? { bcc } : {}),
-        ...(options?.attachments?.length ? { attachments: options.attachments } : {}),
+        ...(withInlineLogo(html, options?.attachments).length ? { attachments: withInlineLogo(html, options?.attachments) } : {}),
         subject,
         html
       });
@@ -160,7 +177,7 @@ export async function sendEmailStrict(
   to: string,
   subject: string,
   html: string,
-  options?: { bcc?: string | string[]; attachments?: Array<{ filename: string; content: Buffer }> },
+  options?: { bcc?: string | string[]; attachments?: EmailAttachment[] },
 ): Promise<StrictEmailResult> {
   if (!gmailTransporter) return { ok: false, error: "Email is not configured (GMAIL_USER / GMAIL_APP_PASSWORD missing)" };
   try {
@@ -169,7 +186,7 @@ export async function sendEmailStrict(
       from: `Taxi Saudi Arabia <${gmailUser}>`,
       to,
       ...(bcc.length ? { bcc } : {}),
-      ...(options?.attachments?.length ? { attachments: options.attachments } : {}),
+      ...(withInlineLogo(html, options?.attachments).length ? { attachments: withInlineLogo(html, options?.attachments) } : {}),
       subject,
       html,
     });

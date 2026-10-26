@@ -60,6 +60,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
         quoteReference: row.quote_reference, customerName: row.customer_name, pickup: row.pickup_location, dropoff: row.drop_location,
         tripDate: row.trip_date, tripTime: row.trip_time, amountPaid: info.amount, currency: row.currency, paymentMethod: info.method,
         partial: info.fullyPaid ? null : { balance: info.balance },
+        running: { total: info.total, paidToDate: info.paidToDate, paymentNo: info.paymentNo },
         driverName: driver?.full_name ?? null, driverPhone: driver?.phone ?? null,
         vehicleLabel: driver ? [driver.vehicle_model, driver.vehicle_type.toUpperCase()].filter(Boolean).join(" — ") : null,
         vehiclePlate: driver?.vehicle_plate_number ?? null, reviewUrl: reviewUrlFor(row.quote_reference),
