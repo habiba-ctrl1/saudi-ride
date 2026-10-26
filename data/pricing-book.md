@@ -38,6 +38,7 @@ client, per `CLAUDE.md` rule 1.
 | 2026-09-20 | Al Jubail | Ar-Ruqi Border (outside border) | Unspecified | One-way | 900 | Alternative border option, not chosen |
 | 2026-09-20 | Al Jubail | Kuwait (driver crosses border) | Unspecified | One-way | 1300 | Incl. driver's border fees + return; client declined |
 | 2026-09-20 | Ras Tanura (Aden Restaurant) | Safwa (Al Rajhi/Riyadh Bank) | Recovery/Tow Truck | One-way | 300 | Car towing job, not a taxi ride; client found competitor at 70 SAR and cancelled |
+| 2026-09-29 | AlUla International Airport | Banyan Tree AlUla | Sedan | One-way | 300 | Client confirmed via WhatsApp; 2 pax, 2 large + 1 small luggage; trip 2026-09-29 5:10pm; TSA-2026-0017 |
 | 2026-09-20 | Hanak | Tabuk Airport (round trip) | Unspecified | Round-trip | 1840 | Bank transfer incl. 15% VAT (1,600+240), official invoice via partner Eagle Eyes; 29 Aug 01:30 out / 30 Aug 09:15 back |
 | 2026-09-20 | Hanak | Tabuk Airport (round trip) | Unspecified | Round-trip | 1600 | Cash option, no invoice, half/half payment; same trip as 1,840 SAR quote |
 | 2026-09-20 | Riyadh | Dammam | Sedan | One-way | 750 | 1 pax, no luggage; trip 2026-08-30 9:30pm; initial quote |
@@ -93,3 +94,4 @@ client, per `CLAUDE.md` rule 1.
 | 2026-09-20 | Riyadh | Doha (Qatar) | Sedan (Ford Taurus) | One-way | 1350 | Final best price, same negotiation |
 | 2026-09-20 | Oxagon (NEOM) | Aqaba (Jordan, round trip) | SUV (Chevrolet Tahoe) | Round-trip | 2200 | Final best price; same price for 1 or 5 pax (full-distance + border fees); client considered NEOM airport as cheaper alt |
 | 2026-09-20 | Dammam | Qatar | Sedan | One-way | 1500 | Additional price point for this route/vehicle |
+| 2026-10-26 | Dammam | Bahrain International Airport | Sedan | One-way | 450 | 1 pax, 2 luggage; trip 29 Oct 7pm; causeway fee incl.; cash on pickup; TSA-2026-0059 Omar Siam |

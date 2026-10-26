@@ -75,7 +75,7 @@ const homeTranslations = {
         },
         {
           title: "Umrah Taxi & Umrah Transport",
-          desc: "Dedicated Umrah taxi and Umrah transport for pilgrims. Umrah airport transfer from Jeddah to Makkah, Makkah Ziyarat taxi, and Madinah Ziyarat taxi with Meeqat stops, prayer-time awareness, and multilingual drivers.",
+          desc: "Dedicated Umrah taxi and Umrah transport for pilgrims. Umrah airport transfer from Jeddah to Makkah, Makkah Ziyarat taxi, and Madinah Ziyarat taxi with prayer and rest stops on request, prayer-time awareness, and English- and Arabic-speaking drivers.",
           price: "On WhatsApp",
           icon: Sparkles
         },
@@ -114,7 +114,7 @@ const homeTranslations = {
         { title: "Clear Pricing — No Surprises", desc: "No surge pricing, no hidden fees, no meter tricks. Your exact fare is confirmed with you on WhatsApp before booking." },
         { title: "WhatsApp Booking Available 24/7", desc: "Book your taxi via WhatsApp booking anytime — day or night. Our team typically confirms your price within 1–2 hours." },
         { title: "Live Flight Tracking", desc: "We track your flight in real time for every Saudi airport transfer. Your professional chauffeur waits 15–30 minutes free if your flight is delayed." },
-        { title: "English, Arabic & Urdu Drivers", desc: "Our professional chauffeurs speak English, Arabic, and Urdu — ensuring clear communication for international pilgrims and business travelers." },
+        { title: "English & Arabic Drivers", desc: "Drivers in our partner network speak English and Arabic — clear communication for international pilgrims and business travelers." },
         { title: "Free Cancellation — 24 Hours", desc: "Cancel your booking up to 24 hours before your trip for a full refund — no questions asked. Flexibility you can count on." },
         { title: "Airport Meet & Greet Service", desc: "For every airport transfer in Saudi Arabia, your driver meets you inside the arrivals terminal with a name sign and helps carry your luggage to the car." },
         { title: "ZATCA-Compliant E-Invoice", desc: "VAT-compliant e-invoices via ZATCA available on request for corporate and business bookings — clean paperwork for your company accounts." }
@@ -158,7 +158,7 @@ const homeTranslations = {
       title: "Umrah Taxi Service — Makkah & Madinah Transfers for Pilgrims",
       desc: "We provide dedicated Umrah transport and Umrah taxi service for pilgrims. Our Umrah airport transfer covers Jeddah Airport to Makkah, Makkah Ziyarat taxi tours, and Madinah Ziyarat taxi tours. Our drivers understand the holy journey and make every trip smooth, comfortable, and spiritually respectful.",
       point1: "Trips planned around prayer times and Salah stops",
-      point2: "Meeqat stop for Ihram — no extra charge, no rush",
+      point2: "Prayer and rest stops on request — no rush",
       point3: "Drop-off at the closest permitted point to Masjid Al-Haram and Masjid An-Nabawi",
       point4: "Professional chauffeurs trained to respect pilgrims and support the full Umrah journey",
       btnWhatsApp: "Reserve Your Private Umrah Chauffeur on WhatsApp"
@@ -169,7 +169,7 @@ const homeTranslations = {
       items: [
         { title: "Fixed price, agreed on WhatsApp", desc: "Your exact fare is confirmed with you on WhatsApp before you book — no surge, no meter, no hidden charges." },
         { title: "24/7 WhatsApp booking", desc: "Message us any time, day or night. Our team typically confirms your ride within 1–2 hours." },
-        { title: "Drivers speak English, Arabic & Urdu", desc: "Clear communication for pilgrims, families, and business travellers across the Kingdom." },
+        { title: "Drivers speak English & Arabic", desc: "Clear communication for pilgrims, families, and business travellers across the Kingdom." },
         { title: "Airport meet & greet", desc: "Your driver meets you in the arrivals hall with a name sign and helps carry your luggage to the car." }
       ]
     },
@@ -199,11 +199,11 @@ const homeTranslations = {
         },
         {
           q: "Do you offer Umrah transport from Madinah?",
-          a: "Yes, our Umrah transport covers the Makkah to Madinah taxi route, Madinah to Makkah taxi route, and Madinah Ziyarat taxi services. All Umrah taxi rides include stops at Meeqat and are driven by professional chauffeurs."
+          a: "Yes, our Umrah transport covers the Makkah to Madinah taxi route, Madinah to Makkah taxi route, and Madinah Ziyarat taxi services. Prayer and rest stops can be arranged on request, and trips are driven by professional chauffeurs in our partner network."
         },
         {
           q: "Are the taxi drivers licensed and professional?",
-          a: "Absolutely. All our professional chauffeurs hold valid Saudi driving licenses. They speak English, Arabic, and Urdu, ensuring a smooth Saudi airport transfer and intercity experience."
+          a: "Absolutely. Drivers in our partner network speak English and Arabic, and trips run 24 hours a day, ensuring a smooth Saudi airport transfer and intercity experience."
         },
         {
           q: "Do you have vehicles for large families or groups?",
@@ -1203,7 +1203,7 @@ export function HomePage() {
                     en: hasCredential(credentials.vatNumber) ? "Licensed drivers & ZATCA-compliant" : "Professional, experienced drivers",
                     ar: hasCredential(credentials.vatNumber) ? "سائقون مرخصون ومتوافق مع هيئة الزكاة" : "سائقون محترفون وذوو خبرة",
                   },
-                  { icon: ShieldCheck, en: "Vetted, multilingual professional drivers", ar: "سائقون محترفون موثوقون ومتعددو اللغات" },
+                  { icon: ShieldCheck, en: "Professional drivers speaking English & Arabic", ar: "سائقون محترفون يتحدثون العربية والإنجليزية" },
                   { icon: Sparkles, en: "Clean, air-conditioned, maintained cars", ar: "سيارات نظيفة ومكيفة وبصيانة دورية" },
                   { icon: Award, en: "Professional drivers · clear pricing 24/7", ar: "سائقون محترفون · أسعار واضحة على مدار الساعة" },
                 ].map((p) => {

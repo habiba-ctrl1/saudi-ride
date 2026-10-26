@@ -114,7 +114,7 @@ const translations: Record<string, {
           },
           {
             question: "Are drivers trained in pilgrim route protocols?",
-            answer: "Our drivers are experienced local professionals who know all Haram access points, Meeqat locations, and prayer time schedules. They are trained to support pilgrims throughout the full Umrah journey."
+            answer: "Drivers in our partner network are local professionals who know the Haram access points and plan around prayer times. Tell us if you want prayer, meal or rest stops on the way."
           }
         ]
       },

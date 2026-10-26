@@ -28,11 +28,11 @@ const HOME_FAQS = [
   },
   {
     question: "Do you offer Umrah transport from Madinah?",
-    answer: "Yes, our Umrah transport covers the Makkah to Madinah taxi route, Madinah to Makkah taxi route, and Madinah Ziyarat taxi services. All Umrah taxi rides include stops at Meeqat and are driven by professional chauffeurs.",
+    answer: "Yes, our Umrah transport covers the Makkah to Madinah taxi route, Madinah to Makkah taxi route, and Madinah Ziyarat taxi services. Prayer and rest stops can be arranged on request, and trips are driven by professional chauffeurs in our partner network.",
   },
   {
     question: "Are the taxi drivers licensed and professional?",
-    answer: "Absolutely. All our professional chauffeurs hold valid Saudi driving licenses. They speak English, Arabic, and Urdu, ensuring a smooth Saudi airport transfer and intercity experience.",
+    answer: "Absolutely. Drivers in our partner network speak English and Arabic, and trips run 24 hours a day, ensuring a smooth Saudi airport transfer and intercity experience.",
   },
   {
     question: "Do you have vehicles for large families or groups?",

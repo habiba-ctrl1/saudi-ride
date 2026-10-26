@@ -52,7 +52,7 @@ const FAQS = [
   { question: "How far is Taif from Makkah and how long does the tour take?", answer: "Taif is approximately 85 km from Makkah via the Al-Hada mountain road (~1 hour drive). A full day trip usually takes 6 to 8 hours." },
   { question: "Which sites are included in the Taif Ziyarat tour?", answer: "Our standard tour includes Masjid Abdullah Ibn Abbas, Wadi Mitna (Addas garden), Al-Hada cable car area, Shubra Palace, and a Taif rose factory." },
   { question: "Can we get picked up from Makkah or Jeddah?", answer: "Yes! We provide hotel pickup and drop-off from any hotel in Makkah, Jeddah, or Taif." },
-  { question: "Can we stop at the Meeqat on the return to Makkah?", answer: "Yes. On the return journey to Makkah, your driver will stop at Qarn al-Manazil (Al-Sail Al-Kabeer) or Wadi Maharim Meeqat for Ihram." },
+  { question: "Can we add a stop on the return to Makkah?", answer: "Yes. Prayer, meal and rest stops can be added on request. Whether a Miqat stop applies to you depends on your own religious circumstances, which we cannot advise on — tell us when you book if you want one." },
 ];
 
 export default function TaifZiyaratPage() {
@@ -123,12 +123,12 @@ export default function TaifZiyaratPage() {
       {/* Main Content Container */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
         <TLDRSummary
-          answer="Taif Ziyarat is a popular day tour from Makkah (~85 km, 1 hour). Highlights include Masjid Abdullah Ibn Abbas, Wadi Mitna, Al-Hada mountain pass, and local rose farms. Includes Meeqat stop on return."
+          answer="Taif Ziyarat is a popular day tour from Makkah (~85 km, 1 hour). Highlights include Masjid Abdullah Ibn Abbas, Wadi Mitna, Al-Hada mountain pass, and local rose farms. Prayer and rest stops on request."
           facts={[
             { label: "Distance", value: "85 km from Makkah" },
             { label: "Duration", value: "6–8 Hours" },
             { label: "Pickup", value: "Hotel Door-to-Door" },
-            { label: "Meeqat", value: "Qarn Al-Manazil Included" },
+            { label: "Stops", value: "Prayer & rest on request" },
           ]}
           className="mb-12"
         />

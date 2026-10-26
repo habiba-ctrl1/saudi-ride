@@ -81,7 +81,7 @@ const jsonLd = [
         "url": "https://wa.me/966539388072",
         "contactType": "reservations",
         "name": "WhatsApp booking",
-        "availableLanguage": ["English", "Arabic", "Urdu"],
+        "availableLanguage": ["English", "Arabic"],
         "areaServed": ["SA", "BH", "QA", "AE", "KW", "Worldwide"],
         "hoursAvailable": {
           "@type": "OpeningHoursSpecification",
@@ -117,7 +117,7 @@ const jsonLd = [
       "name": "Taxi Services in Saudi Arabia",
       "itemListElement": [
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Airport Transfer Saudi Arabia", "description": "Saudi airport transfer with meet-and-greet at Jeddah (JED), Riyadh (RUH), Madinah (MED), and Dammam (DMM). Flight tracking and 15–30 minutes of free waiting time included." } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Umrah Taxi & Transport", "description": "Umrah airport transfer and Umrah transport for pilgrims. Jeddah Airport to Makkah taxi, Makkah to Madinah taxi, Makkah Ziyarat taxi, and Madinah Ziyarat taxi with Meeqat stops." } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Umrah Taxi & Transport", "description": "Umrah airport transfer and Umrah transport for pilgrims. Jeddah Airport to Makkah taxi, Makkah to Madinah taxi, Makkah Ziyarat taxi, and Madinah Ziyarat taxi with prayer and rest stops on request." } },
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Private Taxi Saudi Arabia", "description": "Private taxi and VIP taxi service between Riyadh, Jeddah, Makkah, Madinah, Taif, and Dammam. Clear pricing on WhatsApp, professional chauffeurs." } },
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Family & Luxury SUV Taxi", "description": "Family taxi in GMC Yukon, Hyundai Staria, and Toyota Hiace. Luxury SUV taxi for groups, families, and VIP travelers across Saudi Arabia." } },
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "GCC Cross-Border Taxi", "description": "Cross-border car service from Saudi Arabia to Bahrain, Qatar, UAE, and Kuwait with professional chauffeurs." } },
