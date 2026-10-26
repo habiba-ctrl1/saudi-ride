@@ -1,106 +1,11 @@
-import { Document, Page, Text, View, StyleSheet, Font, renderToBuffer } from "@react-pdf/renderer";
-import path from "path";
-import { contactConfig } from "@/lib/config/contact";
+import { Document, Page, Text, View, renderToBuffer } from "@react-pdf/renderer";
 import { EAGLE_EYES } from "@/lib/pdf/eagle-eyes";
 import type { QuotationRow } from "@/lib/supabase/quotations";
 import type { ReceiptInfo } from "@/lib/ops/payments";
+import { C, Foot, Header, ItemsTable, KV, Party, PayCard, Strip, Terms, Totals, VehicleCard, fmtDate, fmtDow, money, px, s, type Item } from "@/lib/pdf/tsa-design";
 
-const GREEN = "#16A34A";
-const YELLOW = "#FACC15";
-const GRAY = "#49505a";
-const INK = "#121417";
-
-Font.register({
-  family: "Amiri",
-  fonts: [
-    { src: path.join(process.cwd(), "lib/pdf/fonts/Amiri-Regular.ttf") },
-    { src: path.join(process.cwd(), "lib/pdf/fonts/Amiri-Bold.ttf"), fontWeight: 700 },
-  ],
-});
-
-const styles = StyleSheet.create({
-  page: { padding: 36, fontSize: 10, color: INK, fontFamily: "Helvetica" },
-  header: { backgroundColor: GREEN, padding: 20, marginBottom: 24, flexDirection: "row", justifyContent: "space-between" },
-  brand: { color: YELLOW, fontSize: 16, fontWeight: 700, letterSpacing: 2 },
-  brandSub: { color: "#d9f5d7", fontSize: 8, marginTop: 4, letterSpacing: 1 },
-  brandSubAr: { color: "#d9f5d7", fontSize: 9, marginTop: 2, fontFamily: "Amiri", textAlign: "left" },
-  invoiceTitle: { color: "#fff", fontSize: 13, textAlign: "right" },
-  invoiceTitleAr: { color: YELLOW, fontSize: 11, textAlign: "right", fontFamily: "Amiri", marginTop: 2 },
-  invoiceRef: { color: YELLOW, fontSize: 11, textAlign: "right", marginTop: 4 },
-  invoicePurpose: { color: "#d9f5d7", fontSize: 8, textAlign: "right", marginTop: 3 },
-  section: { marginBottom: 16 },
-  sectionTitleRow: { flexDirection: "row", justifyContent: "space-between", marginBottom: 6, borderBottomWidth: 1, borderBottomColor: "#eee5d0", paddingBottom: 3 },
-  sectionTitle: { fontSize: 9, color: GREEN, textTransform: "uppercase", letterSpacing: 1, fontWeight: 700 },
-  sectionTitleAr: { fontSize: 10, color: GRAY, fontFamily: "Amiri" },
-  fieldRow: { marginBottom: 6 },
-  labelRow: { flexDirection: "row", justifyContent: "space-between" },
-  labelEn: { fontSize: 8, color: GRAY, textTransform: "uppercase", letterSpacing: 0.5 },
-  labelAr: { fontSize: 9, color: GRAY, fontFamily: "Amiri" },
-  value: { fontSize: 10.5, marginTop: 2, color: "#121417" },
-  table: { borderWidth: 1, borderColor: "#e5ddc9", borderRadius: 4 },
-  tableRow: { flexDirection: "row", justifyContent: "space-between", borderBottomWidth: 1, borderBottomColor: "#eee5d0", paddingVertical: 8, paddingHorizontal: 10 },
-  tableRowLast: { borderBottomWidth: 0 },
-  tableLabelEn: { fontSize: 10 },
-  tableLabelAr: { fontSize: 10, fontFamily: "Amiri" },
-  tableValue: { fontSize: 10, fontWeight: 700 },
-  totalRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", backgroundColor: GREEN, paddingVertical: 10, paddingHorizontal: 10, marginTop: 8, borderRadius: 4 },
-  totalLabelEn: { fontWeight: 700, fontSize: 12, color: "#fff" },
-  totalLabelAr: { fontFamily: "Amiri", fontSize: 12, marginTop: 1, color: "#fff" },
-  totalValue: { fontWeight: 700, fontSize: 12, color: "#fff" },
-  note: { fontSize: 8.5, color: GRAY, marginTop: 4 },
-  noteAr: { fontSize: 9, color: GRAY, fontFamily: "Amiri", marginTop: 1 },
-  highlightNote: { fontSize: 9, color: INK, marginTop: 8, padding: 8, backgroundColor: "#FFF9E6", borderRadius: 4, borderWidth: 1, borderColor: YELLOW, lineHeight: 1.4 },
-  bulletLine: { fontSize: 9.5, color: INK, marginBottom: 4, lineHeight: 1.4 },
-  closingBlock: { marginTop: 4, marginBottom: 16, padding: 12, backgroundColor: "#faf7f0", borderRadius: 6, textAlign: "center" },
-  closingText: { fontSize: 9.5, color: GRAY, marginBottom: 4 },
-  closingContact: { fontSize: 11, color: GREEN, fontWeight: 700 },
-  termsBlock: { marginTop: 4 },
-  termLineEn: { fontSize: 8.5, color: GRAY, marginBottom: 4, lineHeight: 1.4 },
-  termLineAr: { fontSize: 9.5, color: GRAY, fontFamily: "Amiri", textAlign: "right", marginBottom: 5, lineHeight: 1.6 },
-  stampWrap: { position: "relative", minHeight: 46, marginBottom: 4 },
-  stampBox: { position: "absolute", right: 6, top: 4, paddingVertical: 3, paddingHorizontal: 16, borderWidth: 3, borderRadius: 10, alignItems: "center", transform: "rotate(-6deg)", opacity: 0.88 },
-  stampMain: { fontSize: 22, fontWeight: 700, letterSpacing: 6 },
-  stampSub: { fontSize: 9, fontWeight: 700, letterSpacing: 1, marginTop: 1 },
-  receiptNote: { maxWidth: "62%" },
-  footer: { position: "absolute", bottom: 24, left: 36, right: 36, borderTopWidth: 1, borderTopColor: "#eee5d0", paddingTop: 10, fontSize: 8, color: "#8a8577" },
-});
-
-function fmt(n: number, currency: string) {
-  return `${n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${currency}`;
-}
-
-// Receipts render slightly tighter so the stamp + closing block stay on page 1. Set at the start of each render (synchronous).
-let COMPACT = false;
-function Field({ labelEn, labelAr, value }: { labelEn: string; labelAr: string; value: string }) {
-  return (
-    <View style={[styles.fieldRow, COMPACT ? { marginBottom: 2 } : {}]}>
-      <View style={styles.labelRow}>
-        <Text style={styles.labelEn}>{labelEn}</Text>
-        <Text style={styles.labelAr}>{labelAr}</Text>
-      </View>
-      <Text style={[styles.value, COMPACT ? { marginTop: 0 } : {}]}>{value}</Text>
-    </View>
-  );
-}
-
-function SectionTitle({ en, ar }: { en: string; ar: string }) {
-  return (
-    <View style={styles.sectionTitleRow}>
-      <Text style={styles.sectionTitle}>{en}</Text>
-      <Text style={styles.sectionTitleAr}>{ar}</Text>
-    </View>
-  );
-}
-
-function BulletList({ items }: { items: string[] }) {
-  return (
-    <View>
-      {items.map((item, i) => (
-        <Text key={i} style={styles.bulletLine}>• {item}</Text>
-      ))}
-    </View>
-  );
-}
+// Quotation + receipt documents, in the approved client-PDF design (see lib/pdf/tsa-design.tsx).
+// Quotation = what the customer is being offered; receipt = proof of ONE recorded payment (PAID stamp only if the fare is settled).
 
 type TripExtras = {
   vehicleLabel?: string;
@@ -132,323 +37,170 @@ const LIST_MARKERS = {
 } as const;
 
 /**
- * luggage_notes is a plain free-text column shared by every quotation type
- * (airport transfers, car recovery, day tours, ...). Multi-stop tour quotes
- * (like a Jeddah–Taif day trip) additionally encode a structured block of
- * plain "MARKER: value" / "MARKER:" + bullet-list lines inside it so this
- * one template can render dedicated sections for them and an admin can type
- * a fully custom Terms & Conditions per quotation — no schema change, and
- * any quotation without these markers renders exactly as before (plain
- * "Notes" field with the default bilingual terms).
+ * luggage_notes is a plain free-text column shared by every quotation type. Multi-stop tour quotes additionally encode a
+ * structured block of "MARKER: value" / "MARKER:" + bullet lines inside it (itinerary, exclusions, custom terms, validity,
+ * payment method) — no schema change; a quotation without markers simply shows its text as notes.
  */
 function parseTripExtras(luggageNotes: string | null): TripExtras {
   if (!luggageNotes) return {};
   const allMarkers = [...Object.keys(SINGLE_LINE_MARKERS), ...Object.keys(LIST_MARKERS)];
-  if (!allMarkers.some((h) => luggageNotes.includes(h))) {
-    return { notes: luggageNotes };
-  }
+  if (!allMarkers.some((h) => luggageNotes.includes(h))) return { notes: luggageNotes };
 
-  const lines = luggageNotes.split("\n");
   const extras: TripExtras = {};
   let current: (typeof LIST_MARKERS)[keyof typeof LIST_MARKERS] | null = null;
   const leftover: string[] = [];
-
-  for (const rawLine of lines) {
+  for (const rawLine of luggageNotes.split("\n")) {
     const line = rawLine.trim();
     if (!line) continue;
-
-    const singleMatch = (Object.keys(SINGLE_LINE_MARKERS) as Array<keyof typeof SINGLE_LINE_MARKERS>)
-      .find((marker) => line.startsWith(marker));
-    if (singleMatch) {
-      extras[SINGLE_LINE_MARKERS[singleMatch]] = line.slice(singleMatch.length).trim();
-      current = null;
-      continue;
-    }
-
-    const listMatch = (Object.keys(LIST_MARKERS) as Array<keyof typeof LIST_MARKERS>)
-      .find((marker) => line.startsWith(marker));
-    if (listMatch) {
-      current = LIST_MARKERS[listMatch];
-      extras[current] = extras[current] ?? [];
-      continue;
-    }
-
+    const singleMatch = (Object.keys(SINGLE_LINE_MARKERS) as Array<keyof typeof SINGLE_LINE_MARKERS>).find((m) => line.startsWith(m));
+    if (singleMatch) { extras[SINGLE_LINE_MARKERS[singleMatch]] = line.slice(singleMatch.length).trim(); current = null; continue; }
+    const listMatch = (Object.keys(LIST_MARKERS) as Array<keyof typeof LIST_MARKERS>).find((m) => line.startsWith(m));
+    if (listMatch) { current = LIST_MARKERS[listMatch]; extras[current] = extras[current] ?? []; continue; }
     const bullet = line.replace(/^[-•\d.]+\s*/, "");
-    if (current) extras[current]!.push(bullet);
-    else leftover.push(line);
+    if (current) extras[current]!.push(bullet); else leftover.push(line);
   }
-
   if (leftover.length) extras.notes = leftover.join(" ");
   return extras;
 }
 
-function buildTerms(validUntilStr: string): Array<{ en: string; ar: string }> {
-  return [
-    {
-      en: "This price includes the driver and fuel for the trip specified above.",
-      ar: "يشمل هذا السعر السائق والوقود للرحلة المحددة أعلاه.",
-    },
-    {
-      en: "Any changes made after confirmation (pickup point, terminal, date, time, route, or vehicle) may result in additional charges, which will be calculated and communicated separately.",
-      ar: "أي تغييرات تُطلب بعد تأكيد الحجز (نقطة الانطلاق، الصالة، التاريخ، الوقت، المسار، أو نوع المركبة) قد تترتب عليها رسوم إضافية تُحتسب وتُبلَّغ بشكل منفصل.",
-    },
-    {
-      en: `This quotation is valid until ${validUntilStr}.`,
-      ar: `هذا العرض صالح حتى ${validUntilStr}.`,
-    },
-    {
-      en: "Price does not cover extra stops, waiting time beyond 30 minutes, or additional passengers/luggage not listed above.",
-      ar: "لا يشمل السعر التوقفات الإضافية، أو وقت الانتظار الذي يتجاوز 30 دقيقة، أو ركاباً/أمتعة إضافية غير مذكورة أعلاه.",
-    },
-    {
-      en: "Cancellations should be made at least 24 hours before the scheduled trip.",
-      ar: "يُرجى إلغاء الحجز قبل 24 ساعة على الأقل من موعد الرحلة المحدد.",
-    },
-  ];
-}
+const VEH: Record<string, string> = { sedan: "Executive sedan", suv: "Full-size SUV", van: "Van", bus: "Coach", limousine: "Limousine / VIP" };
+const TRIP: Record<string, string> = { one_way: "one way", round_trip: "round trip", airport_transfer: "airport transfer", hourly: "hourly hire", multi_day: "multi-day", event: "event transfer" };
+
+const addDays = (d: string, n: number) => { const t = new Date(`${d.slice(0, 10)}T12:00:00`); t.setDate(t.getDate() + n); return t; };
 
 export function InvoiceDocument({ q, mode = "quotation", receipt }: { q: QuotationRow; mode?: "quotation" | "receipt"; receipt?: ReceiptInfo | null }) {
   const isReceipt = mode === "receipt";
-  COMPACT = isReceipt;
-  const sec = isReceipt ? { ...styles.section, marginBottom: 8 } : styles.section;
-  const total = q.quoted_price ?? 0;
-  // Receipt facts come from the payments ledger (ReceiptInfo). Older receipts (frozen snapshots without it) fall back to the
-  // booking's own recorded totals. The PAID stamp is only ever printed when the record shows the fare settled.
+  const cur = q.currency || "SAR";
+  const fare = q.quoted_price ?? 0;
+  const extras = parseTripExtras(q.luggage_notes);
+
+  // Receipt facts come from the payments ledger (ReceiptInfo). Older frozen receipts fall back to the booking's own totals.
   const paidSoFar = q.actual_amount_paid ?? 0;
   const ri: ReceiptInfo = receipt ?? {
-    paymentId: null, amount: paidSoFar, currency: q.currency, method: q.payment_method_used ?? "Not specified", reference: null, paidAt: null,
+    paymentId: null, amount: paidSoFar, currency: cur, method: q.payment_method_used ?? "Not specified", reference: null, paidAt: null,
     paidToDate: paidSoFar, total: q.quoted_price, fullyPaid: q.payment_status === "paid" && paidSoFar > 0,
     balance: q.payment_status === "paid" ? 0 : q.quoted_price != null ? Math.max(q.quoted_price - paidSoFar, 0) : null, paymentNo: 1,
   };
-  const amountPaid = ri.amount;
-  const paymentMethod = ri.method;
-  const driver = q.drivers ?? null;
-  const issuedAt = new Date(isReceipt && ri.paidAt ? `${ri.paidAt}T00:00:00` : (q.updated_at ?? q.created_at));
-  const tripDate = new Date(`${q.trip_date}T00:00:00`);
-  // Valid through the day after the trip itself — a fixed short window (e.g.
-  // 7 days from issue) made no sense for trips booked well in advance, since
-  // it would expire the quote long before the customer's actual travel date.
-  const fmtDate = (d: Date) => d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
-  const extras = parseTripExtras(q.luggage_notes);
-  // An admin-typed "VALID UNTIL: YYYY-MM-DD" marker overrides the default
-  // (trip date + 1 day) — useful for multi-day trips where the quote should
-  // stay valid past the first leg's date.
-  const validUntil = extras.validUntil
-    ? new Date(`${extras.validUntil}T00:00:00`)
-    : new Date(tripDate.getTime() + 24 * 60 * 60 * 1000);
-  // A per-quotation TERMS: block (admin-typed, English) replaces the default
-  // bilingual boilerplate entirely — the admin is curating exactly what this
-  // specific quotation should say, not appending to a generic template.
+
+  const veh = extras.vehicleLabel || (q.vehicle_type_requested ? VEH[q.vehicle_type_requested] : null);
+  const pax = q.passengers_count;
+  const tripWord = TRIP[q.trip_type] ?? "one way";
+  const issueDate = isReceipt && ri.paidAt ? fmtDate(ri.paidAt) : fmtDate(q.updated_at ?? q.created_at);
+  const validUntil = q.valid_until ? fmtDate(q.valid_until) : extras.validUntil ? fmtDate(extras.validUntil) : fmtDate(addDays(q.trip_date, 7));
+  const isBank = !isReceipt && (extras.paymentMethod ?? "").toLowerCase().includes("bank");
+  const confirmed = q.status === "confirmed" || q.status === "assigned";
+
+  const dates = `${fmtDow(q.trip_date)}${q.trip_time ? ` — ${q.trip_time.slice(0, 5)}` : ""}${q.return_date ? ` · return ${fmtDate(q.return_date)}` : ""}`;
+  const service = `Private ${q.trip_type === "airport_transfer" ? "airport transfer" : "transfer"}${q.trip_type === "airport_transfer" ? "" : ` — ${tripWord}`}`;
+
+  const subParts = [
+    `Pickup ${fmtDate(q.trip_date)}${q.trip_time ? `, ${q.trip_time.slice(0, 5)}` : ""}`,
+    pax ? `${pax} passenger${pax > 1 ? "s" : ""}${extras.notes ? ` + ${extras.notes}` : ""}` : extras.notes ?? null,
+    tripWord,
+    veh,
+    extras.itinerary?.length ? `Itinerary: ${extras.itinerary.join(" · ")}` : null,
+    extras.excluded?.length ? `Not included: ${extras.excluded.join(", ")}` : null,
+  ].filter(Boolean) as string[];
+  const items: Item[] = [{
+    desc: extras.itinerary?.length && extras.vehicleLabel ? `${extras.vehicleLabel} — full-day private service` : `Private transfer — ${q.pickup_location} to ${q.drop_location}`,
+    sub: subParts.join(" · "), rate: money(fare), qty: "1", amount: money(fare),
+  }];
+
+  const vehName = veh ?? "Private vehicle";
+  const assigned = q.vehicle_detail ? ` Assigned vehicle: ${q.vehicle_detail}.` : "";
+  const vehDesc = `${vehName}${pax ? ` for ${pax} passenger${pax > 1 ? "s" : ""}` : ""} — private transfer, driver included.${assigned}`;
+
+  // ── header text ──
+  const title = isReceipt ? "RECEIPT" : "QUOTATION";
+  const titleAr = isReceipt ? "إيصال دفع — تم استلام المبلغ" : confirmed ? "عرض سعر / تأكيد حجز" : "عرض سعر";
+  const badge = isReceipt
+    ? ri.fullyPaid ? "Payment Received" : "Part Payment Received"
+    : q.status === "cancelled" ? "Cancelled" : q.status === "completed" ? "Completed" : confirmed ? `Booking Confirmed${q.payment_status === "paid" ? "" : " — Pending Payment"}` : "Quotation — Awaiting Your Confirmation";
+
+  const partyRows: [string, string][] = isReceipt
+    ? [["Receipt No.", q.quote_reference + (ri.paymentNo > 1 ? `-P${ri.paymentNo}` : "")], ["Date", issueDate], ["Status", ri.fullyPaid ? "Paid in Full" : "Part Payment"]]
+    : [["Quotation No.", q.quote_reference], ["Date", issueDate], ["Valid Until", validUntil]];
+  const clientRows: [string, string][] = [["Phone", q.customer_phone]];
+  if (q.customer_email) clientRows.push(["Email", q.customer_email]);
+
   const terms = extras.customTerms?.length
-    ? extras.customTerms.map((en) => ({ en, ar: null as string | null }))
-    : buildTerms(fmtDate(validUntil)).map((t) => ({ ...t, ar: t.ar as string | null }));
-  const fareLabel = extras.vehicleLabel && extras.itinerary?.length
-    ? `${extras.vehicleLabel} — Full-Day Private Service`
-    : extras.excluded?.length ? "Transportation fare (see exclusions below)" : "Trip fare (all-inclusive)";
-  // A "PAYMENT: bank transfer" marker on the quotation (never on a receipt,
-  // where payment already happened) swaps the default cash instruction for
-  // Eagle Eyes' verified bank details so the customer can pay in advance.
-  const isBankTransfer = !isReceipt && (extras.paymentMethod ?? "").toLowerCase().includes("bank");
-  const fareLabelAr = extras.excluded?.length ? "أجرة النقل (راجع الاستثناءات أدناه)" : "إجمالي أجرة الرحلة (شامل)";
+    ? extras.customTerms
+    : isReceipt
+      ? ["Price is all inclusive; payment method shown above.", "Trip scheduled for the date and route above.", "Thank you for traveling with Taxi Saudi Arabia."]
+      : [
+          "This price includes the driver and fuel for the trip described above.",
+          "Any change in date, time, route, pickup point or vehicle may adjust the price.",
+          "Free cancellation up to 24 hours before pickup.",
+          "Extra stops, waiting beyond 30 minutes, or additional passengers/luggage not listed above may be charged separately.",
+        ];
+
+  const stampColor = ri.fullyPaid ? C.green : C.amber;
+  const mt = isReceipt ? px(22) : px(12);
 
   return (
     <Document title={`${isReceipt ? "Receipt" : "Quotation"} ${q.quote_reference}`}>
-      <Page size="A4" style={styles.page}>
-        <View style={[styles.header, isReceipt ? { marginBottom: 12, padding: 14 } : {}]}>
-          <View>
-            <Text style={styles.brand}>TAXI SAUDI ARABIA</Text>
-            <Text style={styles.brandSub}>PRIVATE TRANSPORTATION SERVICES</Text>
-            <Text style={styles.brandSubAr}>خدمات النقل الخاص</Text>
+      <Page size="A4" style={s.page}>
+        <Header title={title} titleAr={titleAr} badge={badge} tick={isReceipt && ri.fullyPaid} />
+        <View style={s.body}>
+          <View style={s.parties}>
+            <Party title="Service Provider" name="Taxi Saudi Arabia (TSA)" nameAr="تاكسي السعودية — إدارة وتنظيم النقل" rows={partyRows} />
+            <View style={s.partyGap} />
+            <Party title="Client" name={q.customer_name} rows={clientRows} />
           </View>
-          <View>
-            <Text style={styles.invoiceTitle}>{isReceipt ? "RECEIPT" : "QUOTATION"}</Text>
-            <Text style={styles.invoiceTitleAr}>{isReceipt ? "إيصال دفع" : "عرض سعر"}</Text>
-            <Text style={styles.invoiceRef}>{q.quote_reference}</Text>
-            {isReceipt ? (
-              <Text style={styles.invoicePurpose}>{ri.fullyPaid ? "Payment Received — Paid in Full" : "Payment Received — Part Payment"}</Text>
-            ) : extras.purpose ? (
-              <Text style={styles.invoicePurpose}>For {extras.purpose}</Text>
-            ) : null}
-          </View>
-        </View>
 
-        <View style={sec}>
-          <SectionTitle en="Billed To" ar="بيانات العميل" />
-          <Field labelEn="Name" labelAr="الاسم" value={q.customer_name} />
-          <Field labelEn="Phone" labelAr="رقم الهاتف" value={q.customer_phone} />
-          {q.customer_email ? <Field labelEn="Email" labelAr="البريد الإلكتروني" value={q.customer_email} /> : null}
-          <Field labelEn={isReceipt ? "Payment Date" : "Issue Date"} labelAr={isReceipt ? "تاريخ الدفع" : "تاريخ الإصدار"} value={isReceipt && !ri.paidAt ? "Not recorded" : fmtDate(issuedAt)} />
-          {!isReceipt ? <Field labelEn="Valid Until" labelAr="صالح حتى" value={fmtDate(validUntil)} /> : null}
-        </View>
+          <Strip service={service} dates={dates} route={[q.pickup_location, q.drop_location]} />
+          <VehicleCard name={vehName} desc={vehDesc} plate={q.vehicle_plate} marginTop={mt} />
+          <ItemsTable items={items} marginTop={mt} />
 
-        <View style={sec}>
-          <SectionTitle en="Trip Details" ar="تفاصيل الرحلة" />
-          <Field labelEn="Pick-up" labelAr="نقطة الانطلاق" value={q.pickup_location} />
-          <Field labelEn="Drop-off" labelAr="نقطة الوصول" value={q.drop_location} />
-          <Field
-            labelEn="Date & Time"
-            labelAr="التاريخ والوقت"
-            value={`${q.trip_date}${q.trip_time ? ` — ${q.trip_time.slice(0, 5)}` : ""}`}
-          />
-          <Field labelEn="Passengers" labelAr="عدد الركاب" value={String(q.passengers_count ?? "-")} />
-          {extras.notes ? <Field labelEn="Notes" labelAr="ملاحظات" value={extras.notes} /> : null}
-        </View>
-
-        {(extras.vehicleLabel || q.vehicle_type_requested) ? (
-          <View style={sec}>
-            <SectionTitle en="Vehicle & Service" ar="المركبة والخدمة" />
-            <Field
-              labelEn="Vehicle"
-              labelAr="المركبة"
-              value={extras.vehicleLabel || q.vehicle_type_requested!.toUpperCase()}
-            />
-            {extras.serviceHours ? <Field labelEn="Service Hours" labelAr="ساعات الخدمة" value={extras.serviceHours} /> : null}
-          </View>
-        ) : null}
-
-        {isReceipt && driver ? (
-          <View style={sec}>
-            <SectionTitle en="Driver & Vehicle" ar="السائق والمركبة" />
-            <Field labelEn="Driver" labelAr="السائق" value={driver.full_name} />
-            <Field labelEn="Driver Phone" labelAr="هاتف السائق" value={driver.phone} />
-            <Field
-              labelEn="Vehicle"
-              labelAr="المركبة"
-              value={[driver.vehicle_model, driver.vehicle_type.toUpperCase()].filter(Boolean).join(" — ")}
-            />
-            {driver.vehicle_plate_number ? (
-              <Field labelEn="Plate Number" labelAr="رقم اللوحة" value={driver.vehicle_plate_number} />
-            ) : null}
-          </View>
-        ) : null}
-
-        {extras.itinerary?.length ? (
-          <View style={sec}>
-            <SectionTitle en="Itinerary" ar="خط سير الرحلة" />
-            <BulletList items={extras.itinerary} />
-            {extras.itineraryNote ? <Text style={styles.note}>{extras.itineraryNote}</Text> : null}
-          </View>
-        ) : null}
-
-        {extras.included?.length ? (
-          <View style={sec}>
-            <SectionTitle en="What's Included" ar="يشمل السعر" />
-            <BulletList items={extras.included} />
-          </View>
-        ) : null}
-
-        {extras.excluded?.length ? (
-          <View style={sec}>
-            <SectionTitle en="What's Not Included" ar="لا يشمل السعر" />
-            <BulletList items={extras.excluded} />
-          </View>
-        ) : null}
-
-        <View style={sec}>
-          <SectionTitle en="Price Summary" ar="ملخص السعر" />
-          <View style={styles.table}>
-            <View style={[styles.tableRow, styles.tableRowLast, isReceipt ? { paddingVertical: 4 } : {}]}>
-              <Text style={styles.tableLabelEn}>{fareLabel}</Text>
-              <Text style={styles.tableLabelAr}>{fareLabelAr}</Text>
-              <Text style={styles.tableValue}>{fmt(total, q.currency)}</Text>
-            </View>
-            {isReceipt && (!ri.fullyPaid || ri.paymentNo > 1) ? (
-              <>
-                <View style={[styles.tableRow, isReceipt ? { paddingVertical: 4 } : {}]}><Text style={styles.tableLabelEn}>Received to date (incl. this payment)</Text><Text style={styles.tableValue}>{fmt(ri.paidToDate, q.currency)}</Text></View>
-                <View style={[styles.tableRow, styles.tableRowLast, isReceipt ? { paddingVertical: 4 } : {}]}><Text style={[styles.tableLabelEn, { fontWeight: 700 }]}>Balance remaining</Text><Text style={[styles.tableValue, { color: "#B45309" }]}>{ri.balance == null ? "Fare not yet set" : fmt(ri.balance, q.currency)}</Text></View>
-              </>
-            ) : null}
-          </View>
-          <View style={styles.totalRow}>
-            <View>
-              <Text style={styles.totalLabelEn}>{isReceipt ? (ri.fullyPaid && ri.paymentNo === 1 ? "Amount Paid" : "Amount Received (this payment)") : isBankTransfer ? "Total — Bank Transfer" : "Total — Cash"}</Text>
-              <Text style={styles.totalLabelAr}>{isReceipt ? (ri.fullyPaid && ri.paymentNo === 1 ? "المبلغ المدفوع" : "المبلغ المستلم (هذه الدفعة)") : isBankTransfer ? "الإجمالي - تحويل بنكي" : "الإجمالي - نقداً"}</Text>
-            </View>
-            <Text style={styles.totalValue}>{fmt(isReceipt ? amountPaid : total, q.currency)}</Text>
-          </View>
           {isReceipt ? (
-            <View style={styles.stampWrap} wrap={false}>
-              <View style={styles.receiptNote}>
-                <Text style={styles.note}>Payment method: {paymentMethod}{ri.reference ? ` — ref ${ri.reference}` : ""}.</Text>
-                <Text style={styles.noteAr}>طريقة الدفع: {paymentMethod}</Text>
-                <Text style={styles.note}>{ri.fullyPaid ? "Received in full — no balance outstanding." : ri.balance == null ? "Part payment received." : `Part payment received — balance of ${fmt(ri.balance, q.currency)} remains payable.`}</Text>
-              </View>
-              {ri.fullyPaid ? (
-                <View style={[styles.stampBox, { borderColor: GREEN }]}>
-                  <Text style={[styles.stampMain, { color: GREEN }]}>PAID</Text>
-                  <Text style={[styles.stampSub, { color: GREEN }]}>RECEIVED IN FULL</Text>
-                </View>
-              ) : (
-                <View style={[styles.stampBox, { borderColor: "#B45309" }]}>
-                  <Text style={[styles.stampMain, { color: "#B45309", fontSize: 15, letterSpacing: 3 }]}>PART PAYMENT</Text>
-                  <Text style={[styles.stampSub, { color: "#B45309" }]}>{ri.balance == null ? "BALANCE OPEN" : `BALANCE ${fmt(ri.balance, q.currency)}`}</Text>
-                </View>
-              )}
-            </View>
-          ) : isBankTransfer ? (
-            <>
-              <Text style={styles.note}>Please transfer the total above and share the payment confirmation on WhatsApp.</Text>
-              <Text style={styles.noteAr}>يُرجى تحويل المبلغ الإجمالي ومشاركة إثبات الدفع عبر واتساب.</Text>
-            </>
+            <Totals
+              marginTop={px(16)}
+              rows={!ri.fullyPaid || ri.paymentNo > 1 ? [["Trip total", `${cur} ${money(fare)}`], ["Received to date", `${cur} ${money(ri.paidToDate)}`], ["Balance remaining", ri.balance == null ? "Fare not set" : `${cur} ${money(ri.balance)}`]] : undefined}
+              grandLabel={ri.fullyPaid && ri.paymentNo === 1 ? "Amount Paid" : "Amount Received"} grandValue={`${cur} ${money(ri.amount)}`}
+            />
           ) : (
-            <>
-              <Text style={styles.note}>Payable in cash to the driver.</Text>
-              <Text style={styles.noteAr}>يُدفع نقداً للسائق.</Text>
-            </>
+            <Totals marginTop={px(10)} grandLabel={isBank ? "Total (bank transfer)" : "Total (cash)"} grandValue={`${cur} ${money(fare)}`} />
           )}
-          {isBankTransfer ? (
-            <View style={{ marginTop: 10 }}>
-              <Field labelEn="Account Name" labelAr="اسم الحساب" value={EAGLE_EYES.accountName} />
-              <Field labelEn="Bank" labelAr="البنك" value={`${EAGLE_EYES.bankName} / ${EAGLE_EYES.bankNameAr}`} />
-              <Field labelEn="IBAN" labelAr="آيبان" value={EAGLE_EYES.iban} />
-              <Field labelEn="Account No." labelAr="رقم الحساب" value={EAGLE_EYES.accountNo} />
-              <Field labelEn="SWIFT/BIC" labelAr="سويفت" value={EAGLE_EYES.swift} />
-            </View>
-          ) : null}
-          {extras.excluded?.length ? (
-            <Text style={styles.highlightNote}>
-              This rate covers transportation only. It does not include: {extras.excluded.join(", ")}.
-            </Text>
-          ) : null}
+
+          {isReceipt ? (
+            <PayCard
+              marginTop={px(24)} padV={px(14)}
+              rows={[["Method", `${ri.method}${ri.reference ? ` — ref ${ri.reference}` : ""}`], ["Status", ri.fullyPaid ? "Received in full" : "Part payment"]]}
+              after={ri.fullyPaid ? "Payment for this transfer has been received in full. No balance is due." : ri.balance == null ? "Part payment received." : `Part payment received — a balance of ${cur} ${money(ri.balance)} remains payable.`}
+            />
+          ) : isBank ? (
+            <PayCard
+              marginTop={px(14)}
+              rows={[["Method", "Bank transfer"], ["Account name", EAGLE_EYES.accountName], ["Bank", EAGLE_EYES.bankName], ["IBAN", EAGLE_EYES.iban], ["SWIFT/BIC", EAGLE_EYES.swift]]}
+              after="Please transfer the total above and share the payment confirmation on WhatsApp."
+            />
+          ) : (
+            <PayCard marginTop={px(14)} rows={[["Method", "Cash on pickup, paid directly to the driver"]]} />
+          )}
+
+          <Terms items={terms} marginTop={isReceipt ? px(20) : px(12)} />
+          <Foot
+            marginTop={isReceipt ? px(14) : px(8)}
+            en={isReceipt
+              ? "This receipt confirms payment received by Taxi Saudi Arabia (TSA) for the private transfer described above."
+              : "This quotation is issued by Taxi Saudi Arabia (TSA) for the private transfer described above."}
+            ar={isReceipt ? "هذا الإيصال يؤكد استلام الدفع من تاكسي السعودية مقابل النقل الخاص الموضح أعلاه" : "عرض سعر صادر من تاكسي السعودية للنقل الخاص الموضح أعلاه"}
+          />
         </View>
 
-        {!isReceipt ? (
-          <View style={sec}>
-            <SectionTitle en="Terms & Conditions" ar="الشروط والأحكام" />
-            <View style={styles.termsBlock}>
-              {terms.map((t, i) => (
-                <Text key={`en-${i}`} style={styles.termLineEn}>{i + 1}. {t.en}</Text>
-              ))}
-            </View>
-            {terms.some((t) => t.ar) ? (
-              <View style={styles.termsBlock}>
-                {terms.map((t, i) => (
-                  t.ar ? <Text key={`ar-${i}`} style={styles.termLineAr}>{t.ar} .{i + 1}</Text> : null
-                ))}
-              </View>
-            ) : null}
+        {isReceipt ? (
+          <View style={[s.stamp, { borderColor: stampColor }]}>
+            <Text style={[s.stampMain, { color: stampColor }, ri.fullyPaid ? {} : { fontSize: px(22), letterSpacing: px(3) }]}>{ri.fullyPaid ? "PAID" : "PART PAYMENT"}</Text>
+            <Text style={[s.stampSub, { color: stampColor }]}>{ri.fullyPaid ? "RECEIVED IN FULL" : ri.balance == null ? "BALANCE OPEN" : `BALANCE ${cur} ${money(ri.balance)}`}</Text>
           </View>
         ) : null}
-
-        <View style={[styles.closingBlock, isReceipt ? { marginTop: 0, marginBottom: 6, padding: 6 } : {}]} wrap={false}>
-          <Text style={styles.closingText}>
-            {isReceipt
-              ? "Thank you for traveling with Taxi Saudi Arabia. We hope to welcome you again soon."
-              : "Thank you for choosing Taxi Saudi Arabia. We look forward to providing you with a comfortable and memorable journey."}
-          </Text>
-          <Text style={styles.closingText}>
-            {isReceipt ? "Questions about this trip? Reach our concierge desk directly." : "Questions or ready to confirm? Reach our concierge desk directly."}
-          </Text>
-          <Text style={styles.closingContact}>WhatsApp {contactConfig.primaryPhoneDisplay}</Text>
-        </View>
-
-        <View style={styles.footer}>
-          <Text>Taxi Saudi Arabia — Private Transportation Services — {contactConfig.primaryPhoneDisplay} — {contactConfig.email}</Text>
-        </View>
       </Page>
     </Document>
   );
 }
+
+// Re-exported for convenience: KV is used by the invoice document.
+export { KV };
 
 export async function renderInvoicePdf(q: QuotationRow, mode: "quotation" | "receipt" = "quotation", receipt?: ReceiptInfo | null): Promise<Buffer> {
   return renderToBuffer(<InvoiceDocument q={q} mode={mode} receipt={receipt} />);

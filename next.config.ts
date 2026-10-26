@@ -6,7 +6,10 @@ const nextConfig: NextConfig = {
   // rather than importing them, so Next's file tracer needs an explicit hint to bundle
   // them into the serverless function — otherwise it 404/ENOENTs on Vercel.
   outputFileTracingIncludes: {
-    "/api/quotations/[id]/invoice": ["./lib/pdf/fonts/**"],
+    "/api/quotations/[id]/invoice": ["./lib/pdf/fonts/**", "./lib/pdf/*.png"],
+    // Every route that renders a PDF (send email, receipt/invoice/version download) reads the fonts + TSA logo at runtime.
+    "/api/admin/**": ["./lib/pdf/fonts/**", "./lib/pdf/*.png"],
+    "/api/quotations/**": ["./lib/pdf/fonts/**", "./lib/pdf/*.png"],
   },
   async redirects() {
     // Purane /guides?id= duplicate URLs -> asli guide pages (301)
