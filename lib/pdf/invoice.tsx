@@ -352,7 +352,7 @@ export function InvoiceDocument({ q, mode = "quotation", receipt }: { q: Quotati
               <Text style={styles.tableLabelAr}>{fareLabelAr}</Text>
               <Text style={styles.tableValue}>{fmt(total, q.currency)}</Text>
             </View>
-            {isReceipt && !ri.fullyPaid ? (
+            {isReceipt && (!ri.fullyPaid || ri.paymentNo > 1) ? (
               <>
                 <View style={[styles.tableRow, isReceipt ? { paddingVertical: 4 } : {}]}><Text style={styles.tableLabelEn}>Received to date (incl. this payment)</Text><Text style={styles.tableValue}>{fmt(ri.paidToDate, q.currency)}</Text></View>
                 <View style={[styles.tableRow, styles.tableRowLast, isReceipt ? { paddingVertical: 4 } : {}]}><Text style={[styles.tableLabelEn, { fontWeight: 700 }]}>Balance remaining</Text><Text style={[styles.tableValue, { color: "#B45309" }]}>{ri.balance == null ? "Fare not yet set" : fmt(ri.balance, q.currency)}</Text></View>

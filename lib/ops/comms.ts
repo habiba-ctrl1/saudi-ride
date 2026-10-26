@@ -7,6 +7,7 @@ import { renderInvoicePdf } from "@/lib/pdf/invoice";
 import { opsEmail, type OpsTemplate } from "@/lib/email/ops-templates";
 import { issueReceipt, latestPaymentId, type ReceiptInfo } from "@/lib/ops/payments";
 import { captureVersionSafe } from "@/lib/ops/versions";
+import { logLeadActivity } from "@/lib/ops/leads";
 
 /** Internal record copy of every client email. */
 export const INTERNAL_BCC = process.env.QUOTE_BCC_EMAIL || "info@taxisaudiarabia.com";
@@ -45,6 +46,11 @@ async function markSent(quotationId: string, template: OpsTemplate, via: "email"
       `UPDATE quotations SET sent_at=COALESCE(sent_at, now()), sent_via=$2,
          quote_stage = CASE WHEN quote_stage IN ('draft','ready','expired') THEN 'sent' ELSE quote_stage END
        WHERE id=$1::uuid`, quotationId, via);
+    // The linked lead moves to "Quotation sent" (never to confirmed — that needs the customer's acceptance).
+    const moved = await prisma.$queryRawUnsafe<{ id: string }[]>(
+      `UPDATE lead_inbox SET status='quotation_sent', updated_at=now()
+        WHERE quotation_id=$1::uuid AND status IN ('new','unreviewed','contacted','awaiting_info','quotation_in_prep','follow_up') RETURNING id::text`, quotationId);
+    for (const l of moved) await logLeadActivity(l.id, "status_changed", `Quotation sent by ${via} → status Quotation sent`, "system");
   } else if (template === "receipt") {
     await prisma.$executeRawUnsafe(`UPDATE quotations SET receipt_sent_at=now(), review_invited_at=COALESCE(review_invited_at, CASE WHEN $2='email' THEN now() END) WHERE id=$1::uuid`, quotationId, via);
   } else if (template === "followup") {
