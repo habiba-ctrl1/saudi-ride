@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth/requireAdmin";
 import { prisma } from "@/lib/prisma";
 import { logEvent } from "@/lib/ops/events";
+import { captureVersionSafe } from "@/lib/ops/versions";
 
 // PATCH /api/admin/quotations/[id]/price { quoted_price?, est_driver_cost?, valid_until? }
 // Only before the ride is completed/cancelled. Never emails the client.
@@ -30,5 +31,6 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   sets.push("updated_at=now()");
   await prisma.$executeRawUnsafe(`UPDATE quotations SET ${sets.join(", ")} WHERE id=$1::uuid`, ...vals);
   if (b.quoted_price !== undefined) await logEvent(id, "price_set", b.quoted_price == null ? "price cleared" : `SAR ${b.quoted_price}${cur[0].quoted_price != null && cur[0].quoted_price !== b.quoted_price ? ` (was ${cur[0].quoted_price})` : ""}`);
+  await captureVersionSafe(id, "price_changed", auth.email);
   return NextResponse.json({ success: true });
 }

@@ -2,7 +2,7 @@
 // communication_log (emails / WhatsApp), documents (receipts). Read-only view; writers call logEvent().
 import { prisma } from "@/lib/prisma";
 
-export type EventKind = "driver_assigned" | "payment_recorded" | "costs_saved" | "stage_changed" | "receipt_generated" | "details_edited" | "price_set";
+export type EventKind = "driver_assigned" | "payment_recorded" | "costs_saved" | "stage_changed" | "receipt_generated" | "details_edited" | "price_set" | "review_resolved" | "invoice_issued";
 
 export async function logEvent(quotationId: string, kind: EventKind, detail?: string | null) {
   try {
@@ -19,7 +19,7 @@ const STATUS_LABEL: Record<string, string> = {
 };
 const EVENT_LABEL: Record<EventKind, string> = {
   driver_assigned: "Driver assigned", payment_recorded: "Payment recorded", costs_saved: "Driver cost / margin recorded", stage_changed: "Quote stage changed",
-  receipt_generated: "Receipt generated", details_edited: "Details edited", price_set: "Price updated",
+  receipt_generated: "Receipt generated", details_edited: "Details edited", price_set: "Price updated", review_resolved: "Review decision", invoice_issued: "Invoice",
 };
 const TEMPLATE_LABEL: Record<string, string> = {
   quotation: "Quotation", followup: "Follow-up", confirmation: "Booking confirmation", pickup: "Driver / pickup details", thankyou: "Thank-you", receipt: "Receipt",

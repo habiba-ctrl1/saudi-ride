@@ -143,6 +143,8 @@ export function adminDriverEmail(d: DriverEmailData) {
 // ── Receipt ───────────────────────────────────────────────────────────────────
 
 export type ReceiptEmailData = {
+  /** Set when the payment does not settle the fare: shows "amount received" and the remaining balance instead of "paid". */
+  partial?: { balance: number | null } | null;
   quoteReference: string;
   customerName: string;
   pickup: string;
@@ -167,10 +169,10 @@ export function receiptEmail(d: ReceiptEmailData) {
     <p style="color:#49505a;font-size:14px;line-height:1.7;">
       Dear <strong>${esc(d.customerName)}</strong>,<br/><br/>
       Thank you for traveling with Taxi Saudi Arabia. Please find your receipt attached,
-      confirming payment received for your completed trip.
+      ${d.partial ? "confirming the part payment we received for your booking." : "confirming payment received for your completed trip."}
     </p>
     <div style="background:${GREEN};border-radius:10px;padding:16px 20px;margin:18px 0;text-align:center;">
-      <div style="color:#d9f5d7;font-size:11px;letter-spacing:1px;">AMOUNT PAID</div>
+      <div style="color:#d9f5d7;font-size:11px;letter-spacing:1px;">${d.partial ? "AMOUNT RECEIVED" : "AMOUNT PAID"}</div>
       <div style="color:${YELLOW};font-size:24px;font-weight:bold;letter-spacing:1px;margin-top:4px;">
         ${d.amountPaid.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${esc(d.currency)}
       </div>
@@ -181,6 +183,7 @@ export function receiptEmail(d: ReceiptEmailData) {
       row("Drop-off", esc(d.dropoff)) +
       row("Date", esc(d.tripDate) + (d.tripTime ? ` at ${esc(d.tripTime)}` : "")) +
       row("Payment Method", esc(d.paymentMethod)) +
+      (d.partial?.balance != null ? row("Balance remaining", `<strong>${d.partial.balance.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${esc(d.currency)}</strong>`) : "") +
       (d.driverName ? row("Driver", esc(d.driverName) + (d.driverPhone ? ` — ${esc(d.driverPhone)}` : "")) : "") +
       (d.vehicleLabel ? row("Vehicle", esc(d.vehicleLabel) + (d.vehiclePlate ? ` — ${esc(d.vehiclePlate)}` : "")) : "")
     )}

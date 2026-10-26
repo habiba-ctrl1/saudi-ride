@@ -1,5 +1,6 @@
 // Ops quotation creation: Client → Quotation. Clients are matched by normalised phone (never auto-merged by name).
 import { prisma } from "@/lib/prisma";
+import { captureVersionSafe } from "@/lib/ops/versions";
 
 export const normPhone = (p: string) => p.replace(/[^0-9+]/g, "");
 
@@ -75,5 +76,6 @@ export async function createOpsQuotation(i: NewQuotationInput): Promise<{ id: st
     i.trip_date, i.trip_time || null, i.return_date || null, i.passengers_count ?? null, i.luggage_notes || null, i.vehicle_type_requested || null,
     i.quoted_price ?? null, i.est_driver_cost ?? null, i.pricing_rule_id ?? null, i.price_notes || null, i.valid_until || null, i.source ?? "whatsapp", i.stage,
   );
+  if (i.quoted_price != null) await captureVersionSafe(rows[0].id, "created", "system");
   return { ...rows[0], client_id: clientId };
 }

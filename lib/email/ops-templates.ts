@@ -3,22 +3,16 @@
 // pickup, cash to driver or bank transfer, electronic receipt on request). No model names unless a
 // driver/vehicle was actually assigned on the record.
 import { wrapper, row, table, esc, receiptEmail } from "@/lib/email/templates";
+import type { ReceiptInfo } from "@/lib/ops/payments";
+import { reviewUrlFor } from "@/lib/reviews";
 import { contactConfig } from "@/lib/config/contact";
 import type { QuotationRow } from "@/lib/supabase/quotations";
 
 const GREEN = "#16A34A";
 const YELLOW = "#FACC15";
 
-export type OpsTemplate = "quotation" | "followup" | "confirmation" | "pickup" | "thankyou" | "receipt";
-
-export const OPS_TEMPLATE_LABEL: Record<OpsTemplate, string> = {
-  quotation: "New Quotation",
-  followup: "Quotation Follow-up",
-  confirmation: "Booking Confirmation",
-  pickup: "Driver / Pickup Details",
-  thankyou: "Ride Completion / Thank You",
-  receipt: "Payment / Receipt",
-};
+import type { OpsTemplate } from "@/lib/email/ops-template-labels";
+export { OPS_TEMPLATE_LABEL, type OpsTemplate } from "@/lib/email/ops-template-labels";
 
 const VEHICLE_LABEL: Record<string, string> = {
   sedan: "Executive sedan",
@@ -61,7 +55,7 @@ const ASK = `
     <a href="${contactConfig.whatsappLink}" style="color:${GREEN};font-weight:bold;">WhatsApp ${contactConfig.primaryPhoneDisplay}</a>.
   </p>`;
 
-export function opsEmail(template: OpsTemplate, q: QuotationRow): { subject: string; html: string; attachQuotationPdf: boolean } {
+export function opsEmail(template: OpsTemplate, q: QuotationRow, receipt?: ReceiptInfo | null): { subject: string; html: string; attachQuotationPdf: boolean } {
   const name = esc(q.customer_name.trim());
   const cur = q.currency || "SAR";
   const ref = q.quote_reference;
@@ -136,10 +130,11 @@ export function opsEmail(template: OpsTemplate, q: QuotationRow): { subject: str
   if (template === "receipt") {
     const r = receiptEmail({
       quoteReference: ref, customerName: q.customer_name, pickup: q.pickup_location, dropoff: q.drop_location, tripDate: q.trip_date, tripTime: q.trip_time,
-      amountPaid: q.actual_amount_paid ?? 0, currency: cur, paymentMethod: q.payment_method_used ?? "Cash",
+      amountPaid: receipt?.amount ?? q.actual_amount_paid ?? 0, currency: cur, paymentMethod: receipt?.method ?? q.payment_method_used ?? "Not specified",
+      partial: receipt && !receipt.fullyPaid ? { balance: receipt.balance } : null,
       driverName: q.driver_name ?? q.drivers?.full_name ?? null, driverPhone: q.driver_phone ?? q.drivers?.phone ?? null,
       vehicleLabel: q.vehicle_detail ?? null, vehiclePlate: q.vehicle_plate ?? null,
-      reviewUrl: process.env.NEXT_PUBLIC_TRUSTPILOT_URL || "https://www.trustpilot.com/review/taxisaudiarabia.com",
+      reviewUrl: reviewUrlFor(ref),
     });
     return { ...r, attachQuotationPdf: false };
   }

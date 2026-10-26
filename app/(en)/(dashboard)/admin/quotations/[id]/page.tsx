@@ -4,6 +4,9 @@ import { getQuotationWithDriver } from "@/lib/supabase/quotations";
 import { listComms } from "@/lib/ops/comms";
 import { listAssignable } from "@/lib/ops/drivers";
 import { getPkrRate } from "@/lib/ops/money";
+import { listPayments } from "@/lib/ops/payments";
+import { listVersions } from "@/lib/ops/versions";
+import { listInvoices } from "@/lib/ops/invoices";
 import { getTimeline, lifecycleState } from "@/lib/ops/events";
 import { isConvertedToBooking } from "@/lib/ops/quote-stage";
 import { prisma } from "@/lib/prisma";
@@ -18,14 +21,15 @@ export default async function QuotationDetailPage({ params }: { params: Promise<
   const { row, error } = await getQuotationWithDriver(id);
   if (error || !row) notFound();
 
-  const [comms, drivers, pkrRate, docs, timeline] = await Promise.all([
+  // Two waves: the DB pool is small (9) and the pooler is slow, so 7+ queries in parallel can time out waiting for a connection.
+  const [comms, drivers, pkrRate, docs] = await Promise.all([
     listComms(id),
     listAssignable(),
     getPkrRate(),
     prisma.$queryRawUnsafe<{ id: string; kind: string; number: string; amount: number | null; created_at: string }[]>(
       `SELECT id::text, kind, number, amount::float, created_at::text FROM documents WHERE quotation_id=$1::uuid ORDER BY created_at DESC`, id),
-    getTimeline(id, row.created_at),
   ]);
+  const [timeline, payments, versions, invoices] = await Promise.all([getTimeline(id, row.created_at), listPayments(id), listVersions(id), listInvoices(id)]);
 
   const converted = isConvertedToBooking(row.status);
   const completed = row.status === "completed";
@@ -42,5 +46,5 @@ export default async function QuotationDetailPage({ params }: { params: Promise<
     financialsClosed: completed && paid && row.financial_status === "confirmed",
   });
 
-  return <QuotationDetailClient q={row} comms={comms} drivers={drivers} pkrRate={pkrRate} docs={docs} timeline={timeline} lifecycle={lifecycle} />;
+  return <QuotationDetailClient q={row} comms={comms} drivers={drivers} pkrRate={pkrRate} docs={docs} timeline={timeline} lifecycle={lifecycle} payments={payments} versions={versions} invoices={invoices} />;
 }

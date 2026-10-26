@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth/requireAdmin";
 import { createOpsQuotation, type NewQuotationInput } from "@/lib/ops/quotations";
+import { linkLeadToQuotation } from "@/lib/ops/leads";
 
 // POST /api/admin/quotations — create a quotation as Draft or Ready. Never emails or messages the client.
 export async function POST(request: Request) {
@@ -22,6 +23,8 @@ export async function POST(request: Request) {
       quoted_price: price, est_driver_cost: est, passengers_count: pax,
       stage: b.stage === "ready" ? "ready" : "draft",
     });
+    const leadId = (b as { lead_id?: string }).lead_id;
+    if (leadId && /^[0-9a-f-]{36}$/i.test(leadId)) await linkLeadToQuotation(leadId, created.id, created.client_id, auth.email).catch((e) => console.error("lead link failed (non-fatal):", e));
     return NextResponse.json({ success: true, ...created });
   } catch (e) {
     return NextResponse.json({ error: e instanceof Error ? e.message : "Could not create quotation" }, { status: 400 });

@@ -90,7 +90,7 @@ async function main() {
     if (!messageId) throw new Error("Email send failed — check GMAIL_USER/GMAIL_APP_PASSWORD");
 
     // 6. Same DB update the route makes.
-    const { error: updateErr } = await setQuotationReceiptSent(inserted.id, { amountPaid: 350, paymentMethod: "Cash" });
+    const { error: updateErr } = await setQuotationReceiptSent(inserted.id);
     if (updateErr) throw new Error(`setQuotationReceiptSent failed: ${updateErr}`);
     console.log("✔ receipt_sent_at / actual_amount_paid / payment_method_used persisted");
 

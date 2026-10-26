@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth/requireAdmin";
 import { prisma } from "@/lib/prisma";
 import { logEvent } from "@/lib/ops/events";
+import { recordPayment } from "@/lib/ops/payments";
 
 type Body = {
   partner_id?: string | null;
@@ -40,6 +41,34 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   const cur = await prisma.$queryRawUnsafe<{ id: string }[]>(`SELECT id::text FROM quotations WHERE id=$1::uuid`, id);
   if (!cur.length) return NextResponse.json({ error: "Quotation not found" }, { status: 404 });
 
+  // Money received goes through the payments ledger (never a bare overwrite). `actual_amount_paid` here means
+  // "total received so far": the difference to the ledger becomes a new payment. Reducing it requires voiding a payment.
+  if (b.payment_status && b.actual_amount_paid === undefined) {
+    return NextResponse.json({ error: "Payment status is derived from recorded payments — record a payment instead" }, { status: 400 });
+  }
+  const paymentTouched = b.actual_amount_paid !== undefined && b.actual_amount_paid !== null;
+  if (paymentTouched) {
+    const ledger = await prisma.$queryRawUnsafe<{ sum: number; n: number }[]>(
+      `SELECT COALESCE(SUM(amount) FILTER (WHERE voided_at IS NULL),0)::float sum, count(*)::int n FROM payments WHERE quotation_id=$1::uuid`, id);
+    const have = ledger[0].sum;
+    const want = b.actual_amount_paid as number;
+    if (want > have + 0.005) {
+      try {
+        await recordPayment(id, { amount: Math.round((want - have) * 100) / 100, method: b.payment_method_used, closes_balance: b.payment_status === "paid" }, auth.email);
+      } catch (e) {
+        return NextResponse.json({ error: e instanceof Error ? e.message : "Could not record payment" }, { status: 400 });
+      }
+    } else if (want < have - 0.005) {
+      return NextResponse.json({ error: `SAR ${have} is already recorded as received. To correct it, void the wrong payment in the Payments list.` }, { status: 400 });
+    } else if (want === 0 && ledger[0].n === 0) {
+      // Settled write-off (ride done, nothing collected, costs confirmed) — the only case where 0 is stored directly.
+      await prisma.$executeRawUnsafe(`UPDATE quotations SET actual_amount_paid=0, updated_at=now() WHERE id=$1::uuid`, id);
+    }
+  }
+  delete b.actual_amount_paid;
+  delete b.payment_method_used;
+  delete b.payment_status;
+
   // Assigning a driver from the directory fills name/phone and the default share unless overridden.
   let driverName = b.driver_name, driverPhone = b.driver_phone, share = b.partner_share_pct;
   if (b.partner_id) {
@@ -60,16 +89,12 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   if (share !== undefined) add("partner_share_pct", share, "::numeric");
   if (b.vehicle_plate !== undefined) add("vehicle_plate", b.vehicle_plate || null);
   if (b.vehicle_detail !== undefined) add("vehicle_detail", b.vehicle_detail || null);
-  if (b.actual_amount_paid !== undefined) add("actual_amount_paid", b.actual_amount_paid, "::numeric");
-  if (b.payment_method_used !== undefined) add("payment_method_used", b.payment_method_used || null);
   if (b.extra_cost !== undefined) add("extra_cost", b.extra_cost ?? 0, "::numeric");
   if (b.driver_cost !== undefined) {
     add("driver_cost", b.driver_cost, "::numeric");
     sets.push(`financial_status='${b.driver_cost == null ? "required" : "confirmed"}'`);
   }
-  const status = b.payment_status ?? (b.actual_amount_paid != null && b.actual_amount_paid > 0 ? "paid" : undefined);
-  if (status) add("payment_status", status, "::quotation_payment_status");
-  if (!sets.length) return NextResponse.json({ error: "Nothing to update" }, { status: 400 });
+  if (!sets.length) return paymentTouched ? NextResponse.json({ success: true }) : NextResponse.json({ error: "Nothing to update" }, { status: 400 });
 
   sets.push("updated_at=now()");
   await prisma.$executeRawUnsafe(`UPDATE quotations SET ${sets.join(", ")} WHERE id=$1::uuid`, ...vals);
@@ -77,7 +102,6 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   await prisma.$executeRawUnsafe(
     `UPDATE quotations SET profit = CASE WHEN driver_cost IS NOT NULL THEN COALESCE(actual_amount_paid,0)-driver_cost-extra_cost END WHERE id=$1::uuid`, id);
   if (b.partner_id !== undefined) await logEvent(id, "driver_assigned", driverName ?? null);
-  if (b.actual_amount_paid !== undefined) await logEvent(id, "payment_recorded", `SAR ${b.actual_amount_paid ?? 0}${b.payment_method_used ? ` (${b.payment_method_used})` : ""}`);
   if (b.driver_cost !== undefined) await logEvent(id, "costs_saved", b.driver_cost == null ? "cost cleared" : `driver cost SAR ${b.driver_cost}${b.extra_cost ? `, extra SAR ${b.extra_cost}` : ""}`);
   return NextResponse.json({ success: true });
 }

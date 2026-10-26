@@ -15,23 +15,30 @@ import {
   Newspaper,
   BookOpen,
   Inbox,
+  AlertTriangle,
 } from "lucide-react";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { openReviewCount } from "@/lib/ops/review";
 
 // Core operations nav (6 items). Everything else is still reachable under "More tools" — nothing was removed.
 const NAV_ITEMS = [
   { name: "Dashboard",         href: "/admin",             icon: LayoutDashboard },
-  { name: "Enquiries",         href: "/admin/enquiries",   icon: Inbox },
+  { name: "Lead Inbox",        href: "/admin/leads",       icon: Inbox },
   { name: "Quotes & Bookings", href: "/admin/quotations",  icon: FileText },
+  { name: "Calendar",          href: "/admin/calendar",    icon: CalendarDays },
+  { name: "Needs Review",      href: "/admin/review",      icon: AlertTriangle },
+  { name: "Ride Register",     href: "/admin/ride-register", icon: Receipt },
   { name: "Clients",           href: "/admin/clients",     icon: Users },
+  { name: "Reviews",           href: "/admin/reviews",     icon: Newspaper },
   { name: "Drivers",           href: "/admin/drivers",     icon: UserCheck },
   { name: "Pricing Book",      href: "/admin/pricing-book", icon: BookOpen },
   { name: "Reports",           href: "/admin/reports",     icon: BarChart3 },
 ];
 
 const MORE_ITEMS = [
+  { name: "Enquiry history",     href: "/admin/enquiries",         icon: Inbox },
   { name: "Schedule",            href: "/admin/schedule",          icon: CalendarDays },
   { name: "Corporate Invoice",   href: "/admin/corporate-invoice", icon: Receipt },
   { name: "Bookings (legacy)",   href: "/admin/bookings",          icon: CalendarClock },
@@ -54,6 +61,8 @@ export default async function DashboardLayout({
     redirect("/admin/login");
   }
 
+  const reviewCount = await openReviewCount();
+  const navItems = NAV_ITEMS.map((i) => (i.href === "/admin/review" && reviewCount > 0 ? { ...i, name: `Needs Review (${reviewCount})` } : i));
   const adminName  = session.user?.name  || "Admin";
   const adminEmail = session.user?.email || "";
   const initials   = adminName.charAt(0).toUpperCase();
@@ -76,7 +85,7 @@ export default async function DashboardLayout({
 
         {/* Nav */}
         <nav className="flex-1 overflow-y-auto py-5 px-3 space-y-0.5">
-          {NAV_ITEMS.map((item) => (
+          {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
@@ -133,7 +142,7 @@ export default async function DashboardLayout({
             <details className="group">
               <summary className="list-none cursor-pointer rounded-lg border border-white/20 px-3 py-1.5 text-xs font-bold text-white select-none">Menu</summary>
               <nav className="absolute right-3 top-14 w-60 max-h-[75vh] overflow-y-auto rounded-xl border border-gray-200 bg-white p-2 shadow-xl">
-                {[...NAV_ITEMS, ...MORE_ITEMS].map((item) => (
+                {[...navItems, ...MORE_ITEMS].map((item) => (
                   <Link key={item.href} href={item.href} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100">
                     <item.icon className="h-4 w-4 shrink-0" />
                     {item.name}

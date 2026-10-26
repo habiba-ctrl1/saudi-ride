@@ -3,6 +3,7 @@ import path from "path";
 import { contactConfig } from "@/lib/config/contact";
 import { EAGLE_EYES } from "@/lib/pdf/eagle-eyes";
 import type { QuotationRow } from "@/lib/supabase/quotations";
+import type { ReceiptInfo } from "@/lib/ops/payments";
 
 const GREEN = "#16A34A";
 const YELLOW = "#FACC15";
@@ -56,6 +57,11 @@ const styles = StyleSheet.create({
   termsBlock: { marginTop: 4 },
   termLineEn: { fontSize: 8.5, color: GRAY, marginBottom: 4, lineHeight: 1.4 },
   termLineAr: { fontSize: 9.5, color: GRAY, fontFamily: "Amiri", textAlign: "right", marginBottom: 5, lineHeight: 1.6 },
+  stampWrap: { position: "relative", minHeight: 46, marginBottom: 4 },
+  stampBox: { position: "absolute", right: 6, top: 4, paddingVertical: 3, paddingHorizontal: 16, borderWidth: 3, borderRadius: 10, alignItems: "center", transform: "rotate(-6deg)", opacity: 0.88 },
+  stampMain: { fontSize: 22, fontWeight: 700, letterSpacing: 6 },
+  stampSub: { fontSize: 9, fontWeight: 700, letterSpacing: 1, marginTop: 1 },
+  receiptNote: { maxWidth: "62%" },
   footer: { position: "absolute", bottom: 24, left: 36, right: 36, borderTopWidth: 1, borderTopColor: "#eee5d0", paddingTop: 10, fontSize: 8, color: "#8a8577" },
 });
 
@@ -63,14 +69,16 @@ function fmt(n: number, currency: string) {
   return `${n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${currency}`;
 }
 
+// Receipts render slightly tighter so the stamp + closing block stay on page 1. Set at the start of each render (synchronous).
+let COMPACT = false;
 function Field({ labelEn, labelAr, value }: { labelEn: string; labelAr: string; value: string }) {
   return (
-    <View style={styles.fieldRow}>
+    <View style={[styles.fieldRow, COMPACT ? { marginBottom: 2 } : {}]}>
       <View style={styles.labelRow}>
         <Text style={styles.labelEn}>{labelEn}</Text>
         <Text style={styles.labelAr}>{labelAr}</Text>
       </View>
-      <Text style={styles.value}>{value}</Text>
+      <Text style={[styles.value, COMPACT ? { marginTop: 0 } : {}]}>{value}</Text>
     </View>
   );
 }
@@ -199,13 +207,23 @@ function buildTerms(validUntilStr: string): Array<{ en: string; ar: string }> {
   ];
 }
 
-export function InvoiceDocument({ q, mode = "quotation" }: { q: QuotationRow; mode?: "quotation" | "receipt" }) {
+export function InvoiceDocument({ q, mode = "quotation", receipt }: { q: QuotationRow; mode?: "quotation" | "receipt"; receipt?: ReceiptInfo | null }) {
   const isReceipt = mode === "receipt";
+  COMPACT = isReceipt;
+  const sec = isReceipt ? { ...styles.section, marginBottom: 8 } : styles.section;
   const total = q.quoted_price ?? 0;
-  const amountPaid = q.actual_amount_paid ?? total;
-  const paymentMethod = q.payment_method_used ?? "Cash";
+  // Receipt facts come from the payments ledger (ReceiptInfo). Older receipts (frozen snapshots without it) fall back to the
+  // booking's own recorded totals. The PAID stamp is only ever printed when the record shows the fare settled.
+  const paidSoFar = q.actual_amount_paid ?? 0;
+  const ri: ReceiptInfo = receipt ?? {
+    paymentId: null, amount: paidSoFar, currency: q.currency, method: q.payment_method_used ?? "Not specified", reference: null, paidAt: null,
+    paidToDate: paidSoFar, total: q.quoted_price, fullyPaid: q.payment_status === "paid" && paidSoFar > 0,
+    balance: q.payment_status === "paid" ? 0 : q.quoted_price != null ? Math.max(q.quoted_price - paidSoFar, 0) : null, paymentNo: 1,
+  };
+  const amountPaid = ri.amount;
+  const paymentMethod = ri.method;
   const driver = q.drivers ?? null;
-  const issuedAt = new Date(q.updated_at ?? q.created_at);
+  const issuedAt = new Date(isReceipt && ri.paidAt ? `${ri.paidAt}T00:00:00` : (q.updated_at ?? q.created_at));
   const tripDate = new Date(`${q.trip_date}T00:00:00`);
   // Valid through the day after the trip itself — a fixed short window (e.g.
   // 7 days from issue) made no sense for trips booked well in advance, since
@@ -236,7 +254,7 @@ export function InvoiceDocument({ q, mode = "quotation" }: { q: QuotationRow; mo
   return (
     <Document title={`${isReceipt ? "Receipt" : "Quotation"} ${q.quote_reference}`}>
       <Page size="A4" style={styles.page}>
-        <View style={styles.header}>
+        <View style={[styles.header, isReceipt ? { marginBottom: 12, padding: 14 } : {}]}>
           <View>
             <Text style={styles.brand}>TAXI SAUDI ARABIA</Text>
             <Text style={styles.brandSub}>PRIVATE TRANSPORTATION SERVICES</Text>
@@ -247,23 +265,23 @@ export function InvoiceDocument({ q, mode = "quotation" }: { q: QuotationRow; mo
             <Text style={styles.invoiceTitleAr}>{isReceipt ? "إيصال دفع" : "عرض سعر"}</Text>
             <Text style={styles.invoiceRef}>{q.quote_reference}</Text>
             {isReceipt ? (
-              <Text style={styles.invoicePurpose}>Payment Received — Trip Completed</Text>
+              <Text style={styles.invoicePurpose}>{ri.fullyPaid ? "Payment Received — Paid in Full" : "Payment Received — Part Payment"}</Text>
             ) : extras.purpose ? (
               <Text style={styles.invoicePurpose}>For {extras.purpose}</Text>
             ) : null}
           </View>
         </View>
 
-        <View style={styles.section}>
+        <View style={sec}>
           <SectionTitle en="Billed To" ar="بيانات العميل" />
           <Field labelEn="Name" labelAr="الاسم" value={q.customer_name} />
           <Field labelEn="Phone" labelAr="رقم الهاتف" value={q.customer_phone} />
           {q.customer_email ? <Field labelEn="Email" labelAr="البريد الإلكتروني" value={q.customer_email} /> : null}
-          <Field labelEn={isReceipt ? "Payment Date" : "Issue Date"} labelAr={isReceipt ? "تاريخ الدفع" : "تاريخ الإصدار"} value={fmtDate(issuedAt)} />
+          <Field labelEn={isReceipt ? "Payment Date" : "Issue Date"} labelAr={isReceipt ? "تاريخ الدفع" : "تاريخ الإصدار"} value={isReceipt && !ri.paidAt ? "Not recorded" : fmtDate(issuedAt)} />
           {!isReceipt ? <Field labelEn="Valid Until" labelAr="صالح حتى" value={fmtDate(validUntil)} /> : null}
         </View>
 
-        <View style={styles.section}>
+        <View style={sec}>
           <SectionTitle en="Trip Details" ar="تفاصيل الرحلة" />
           <Field labelEn="Pick-up" labelAr="نقطة الانطلاق" value={q.pickup_location} />
           <Field labelEn="Drop-off" labelAr="نقطة الوصول" value={q.drop_location} />
@@ -277,7 +295,7 @@ export function InvoiceDocument({ q, mode = "quotation" }: { q: QuotationRow; mo
         </View>
 
         {(extras.vehicleLabel || q.vehicle_type_requested) ? (
-          <View style={styles.section}>
+          <View style={sec}>
             <SectionTitle en="Vehicle & Service" ar="المركبة والخدمة" />
             <Field
               labelEn="Vehicle"
@@ -289,7 +307,7 @@ export function InvoiceDocument({ q, mode = "quotation" }: { q: QuotationRow; mo
         ) : null}
 
         {isReceipt && driver ? (
-          <View style={styles.section}>
+          <View style={sec}>
             <SectionTitle en="Driver & Vehicle" ar="السائق والمركبة" />
             <Field labelEn="Driver" labelAr="السائق" value={driver.full_name} />
             <Field labelEn="Driver Phone" labelAr="هاتف السائق" value={driver.phone} />
@@ -305,7 +323,7 @@ export function InvoiceDocument({ q, mode = "quotation" }: { q: QuotationRow; mo
         ) : null}
 
         {extras.itinerary?.length ? (
-          <View style={styles.section}>
+          <View style={sec}>
             <SectionTitle en="Itinerary" ar="خط سير الرحلة" />
             <BulletList items={extras.itinerary} />
             {extras.itineraryNote ? <Text style={styles.note}>{extras.itineraryNote}</Text> : null}
@@ -313,40 +331,60 @@ export function InvoiceDocument({ q, mode = "quotation" }: { q: QuotationRow; mo
         ) : null}
 
         {extras.included?.length ? (
-          <View style={styles.section}>
+          <View style={sec}>
             <SectionTitle en="What's Included" ar="يشمل السعر" />
             <BulletList items={extras.included} />
           </View>
         ) : null}
 
         {extras.excluded?.length ? (
-          <View style={styles.section}>
+          <View style={sec}>
             <SectionTitle en="What's Not Included" ar="لا يشمل السعر" />
             <BulletList items={extras.excluded} />
           </View>
         ) : null}
 
-        <View style={styles.section}>
+        <View style={sec}>
           <SectionTitle en="Price Summary" ar="ملخص السعر" />
           <View style={styles.table}>
-            <View style={[styles.tableRow, styles.tableRowLast]}>
+            <View style={[styles.tableRow, styles.tableRowLast, isReceipt ? { paddingVertical: 4 } : {}]}>
               <Text style={styles.tableLabelEn}>{fareLabel}</Text>
               <Text style={styles.tableLabelAr}>{fareLabelAr}</Text>
               <Text style={styles.tableValue}>{fmt(total, q.currency)}</Text>
             </View>
+            {isReceipt && !ri.fullyPaid ? (
+              <>
+                <View style={[styles.tableRow, isReceipt ? { paddingVertical: 4 } : {}]}><Text style={styles.tableLabelEn}>Received to date (incl. this payment)</Text><Text style={styles.tableValue}>{fmt(ri.paidToDate, q.currency)}</Text></View>
+                <View style={[styles.tableRow, styles.tableRowLast, isReceipt ? { paddingVertical: 4 } : {}]}><Text style={[styles.tableLabelEn, { fontWeight: 700 }]}>Balance remaining</Text><Text style={[styles.tableValue, { color: "#B45309" }]}>{ri.balance == null ? "Fare not yet set" : fmt(ri.balance, q.currency)}</Text></View>
+              </>
+            ) : null}
           </View>
           <View style={styles.totalRow}>
             <View>
-              <Text style={styles.totalLabelEn}>{isReceipt ? "Amount Paid" : isBankTransfer ? "Total — Bank Transfer" : "Total — Cash"}</Text>
-              <Text style={styles.totalLabelAr}>{isReceipt ? "المبلغ المدفوع" : isBankTransfer ? "الإجمالي - تحويل بنكي" : "الإجمالي - نقداً"}</Text>
+              <Text style={styles.totalLabelEn}>{isReceipt ? (ri.fullyPaid && ri.paymentNo === 1 ? "Amount Paid" : "Amount Received (this payment)") : isBankTransfer ? "Total — Bank Transfer" : "Total — Cash"}</Text>
+              <Text style={styles.totalLabelAr}>{isReceipt ? (ri.fullyPaid && ri.paymentNo === 1 ? "المبلغ المدفوع" : "المبلغ المستلم (هذه الدفعة)") : isBankTransfer ? "الإجمالي - تحويل بنكي" : "الإجمالي - نقداً"}</Text>
             </View>
             <Text style={styles.totalValue}>{fmt(isReceipt ? amountPaid : total, q.currency)}</Text>
           </View>
           {isReceipt ? (
-            <>
-              <Text style={styles.note}>Payment method: {paymentMethod} — received in full.</Text>
-              <Text style={styles.noteAr}>طريقة الدفع: {paymentMethod} — تم الاستلام بالكامل.</Text>
-            </>
+            <View style={styles.stampWrap} wrap={false}>
+              <View style={styles.receiptNote}>
+                <Text style={styles.note}>Payment method: {paymentMethod}{ri.reference ? ` — ref ${ri.reference}` : ""}.</Text>
+                <Text style={styles.noteAr}>طريقة الدفع: {paymentMethod}</Text>
+                <Text style={styles.note}>{ri.fullyPaid ? "Received in full — no balance outstanding." : ri.balance == null ? "Part payment received." : `Part payment received — balance of ${fmt(ri.balance, q.currency)} remains payable.`}</Text>
+              </View>
+              {ri.fullyPaid ? (
+                <View style={[styles.stampBox, { borderColor: GREEN }]}>
+                  <Text style={[styles.stampMain, { color: GREEN }]}>PAID</Text>
+                  <Text style={[styles.stampSub, { color: GREEN }]}>RECEIVED IN FULL</Text>
+                </View>
+              ) : (
+                <View style={[styles.stampBox, { borderColor: "#B45309" }]}>
+                  <Text style={[styles.stampMain, { color: "#B45309", fontSize: 15, letterSpacing: 3 }]}>PART PAYMENT</Text>
+                  <Text style={[styles.stampSub, { color: "#B45309" }]}>{ri.balance == null ? "BALANCE OPEN" : `BALANCE ${fmt(ri.balance, q.currency)}`}</Text>
+                </View>
+              )}
+            </View>
           ) : isBankTransfer ? (
             <>
               <Text style={styles.note}>Please transfer the total above and share the payment confirmation on WhatsApp.</Text>
@@ -375,7 +413,7 @@ export function InvoiceDocument({ q, mode = "quotation" }: { q: QuotationRow; mo
         </View>
 
         {!isReceipt ? (
-          <View style={styles.section}>
+          <View style={sec}>
             <SectionTitle en="Terms & Conditions" ar="الشروط والأحكام" />
             <View style={styles.termsBlock}>
               {terms.map((t, i) => (
@@ -392,7 +430,7 @@ export function InvoiceDocument({ q, mode = "quotation" }: { q: QuotationRow; mo
           </View>
         ) : null}
 
-        <View style={styles.closingBlock}>
+        <View style={[styles.closingBlock, isReceipt ? { marginTop: 0, marginBottom: 6, padding: 6 } : {}]} wrap={false}>
           <Text style={styles.closingText}>
             {isReceipt
               ? "Thank you for traveling with Taxi Saudi Arabia. We hope to welcome you again soon."
@@ -412,6 +450,6 @@ export function InvoiceDocument({ q, mode = "quotation" }: { q: QuotationRow; mo
   );
 }
 
-export async function renderInvoicePdf(q: QuotationRow, mode: "quotation" | "receipt" = "quotation"): Promise<Buffer> {
-  return renderToBuffer(<InvoiceDocument q={q} mode={mode} />);
+export async function renderInvoicePdf(q: QuotationRow, mode: "quotation" | "receipt" = "quotation", receipt?: ReceiptInfo | null): Promise<Buffer> {
+  return renderToBuffer(<InvoiceDocument q={q} mode={mode} receipt={receipt} />);
 }

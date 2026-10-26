@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { captureVersionSafe } from "@/lib/ops/versions";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import {
@@ -68,6 +69,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 
     const { row, error } = await updateQuotationDetails(id, user.email ?? "admin", details);
     if (error) return NextResponse.json({ error }, { status: 400 });
+    await captureVersionSafe(id, "details_changed", user.email ?? "admin");
     return NextResponse.json({ success: true, row });
   }
 
@@ -89,6 +91,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   });
 
   if (error) return NextResponse.json({ error }, { status: 400 });
+  if (quotedPrice !== undefined) await captureVersionSafe(id, "price_changed", user.email ?? "admin");
   // Ops rule (2026-10-06): nothing is emailed to a customer unless the operator explicitly asks
   // (body.notify === true). Use the Send buttons on the quotation detail page for the normal flow.
   if (body.notify === true) await notifyQuotationStatusChange(id, status);

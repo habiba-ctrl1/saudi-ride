@@ -1,10 +1,12 @@
 // Operator-triggered communications. Every attempt (sent OR failed) is written to communication_log,
 // so the UI can show "Sent ✓" or "Email failed — Retry" and nothing fails silently.
 import { prisma } from "@/lib/prisma";
-import { getQuotationWithDriver, type QuotationRow } from "@/lib/supabase/quotations";
+import { getQuotationWithDriver } from "@/lib/supabase/quotations";
 import { sendEmailStrict } from "@/lib/notifications";
 import { renderInvoicePdf } from "@/lib/pdf/invoice";
 import { opsEmail, type OpsTemplate } from "@/lib/email/ops-templates";
+import { issueReceipt, latestPaymentId, type ReceiptInfo } from "@/lib/ops/payments";
+import { captureVersionSafe } from "@/lib/ops/versions";
 
 /** Internal record copy of every client email. */
 export const INTERNAL_BCC = process.env.QUOTE_BCC_EMAIL || "info@taxisaudiarabia.com";
@@ -29,10 +31,10 @@ export async function listComms(quotationId: string): Promise<CommRow[]> {
   );
 }
 
-async function log(quotationId: string, e: { channel: string; template: string; recipient: string | null; bcc?: string | null; subject?: string | null; status: "sent" | "failed"; error?: string | null }) {
+async function log(quotationId: string, e: { versionId?: string | null; channel: string; template: string; recipient: string | null; bcc?: string | null; subject?: string | null; status: "sent" | "failed"; error?: string | null }) {
   await prisma.$executeRawUnsafe(
-    `INSERT INTO communication_log (quotation_id, channel, template, recipient, bcc, subject, status, error) VALUES ($1::uuid,$2,$3,$4,$5,$6,$7,$8)`,
-    quotationId, e.channel, e.template, e.recipient, e.bcc ?? null, e.subject ?? null, e.status, e.error ?? null,
+    `INSERT INTO communication_log (quotation_id, channel, template, recipient, bcc, subject, status, error, quotation_version_id) VALUES ($1::uuid,$2,$3,$4,$5,$6,$7,$8,$9::uuid)`,
+    quotationId, e.channel, e.template, e.recipient, e.bcc ?? null, e.subject ?? null, e.status, e.error ?? null, e.versionId ?? null,
   );
 }
 
@@ -63,36 +65,41 @@ export async function sendOpsEmail(quotationId: string, template: OpsTemplate): 
     return { ok: false, error: "Set a price before sending a quotation" };
   }
 
-  if (template === "receipt" && (row.status !== "completed" || row.actual_amount_paid == null)) {
-    return { ok: false, error: "Complete the ride and record the amount paid before sending a receipt" };
+  let receiptInfo: ReceiptInfo | null = null;
+  let receiptSnap: Awaited<ReturnType<typeof issueReceipt>>["snapshot"] | null = null;
+  if (template === "receipt") {
+    if (!(await latestPaymentId(quotationId))) return { ok: false, error: "Record a payment first — a receipt can only be sent for a payment that was actually received" };
+    try {
+      // Reuse the issued (frozen) receipt for the latest payment; otherwise issue it now so what is emailed is what is saved.
+      const issued = await issueReceipt(quotationId, null, { reuse: true });
+      receiptInfo = issued.info;
+      receiptSnap = issued.snapshot;
+    } catch (e) {
+      return { ok: false, error: e instanceof Error ? e.message : "Could not prepare the receipt" };
+    }
   }
-  const { subject, html, attachQuotationPdf } = opsEmail(template, row);
+  // The quotation the customer is about to receive is frozen as a version first, so this send can be traced to it.
+  const versionId = template === "quotation" || template === "followup" ? (await captureVersionSafe(quotationId, "sent", "operator"))?.id ?? null : null;
+  const { subject, html, attachQuotationPdf } = opsEmail(template, row, receiptInfo);
   let attachments: { filename: string; content: Buffer }[] | undefined;
   try {
     if (attachQuotationPdf) attachments = [{ filename: `quotation-${row.quote_reference}.pdf`, content: await renderInvoicePdf(row, "quotation") }];
-    if (template === "receipt") {
-      // Use the issued (frozen) receipt if one exists; otherwise issue one now so what is emailed is what is saved.
-      let snap = (await prisma.$queryRawUnsafe<{ snapshot: QuotationRow }[]>(`SELECT snapshot FROM documents WHERE quotation_id=$1::uuid AND kind='receipt' ORDER BY created_at DESC LIMIT 1`, quotationId))[0]?.snapshot;
-      if (!snap) {
-        await prisma.$executeRawUnsafe(`INSERT INTO documents (quotation_id, kind, number, amount, snapshot) VALUES ($1::uuid,'receipt',$2,$3::numeric,$4::jsonb)`,
-          quotationId, row.quote_reference, row.actual_amount_paid, JSON.stringify(row));
-        snap = row;
-      }
-      attachments = [{ filename: `receipt-${row.quote_reference}.pdf`, content: await renderInvoicePdf(snap, "receipt") }];
+    if (template === "receipt" && receiptSnap) {
+      attachments = [{ filename: `receipt-${row.quote_reference}.pdf`, content: await renderInvoicePdf(receiptSnap, "receipt", receiptInfo) }];
     }
   } catch (e) {
     const msg = `PDF generation failed: ${e instanceof Error ? e.message : String(e)}`;
-    await log(quotationId, { channel: "email", template, recipient: row.customer_email, bcc: INTERNAL_BCC, subject, status: "failed", error: msg });
+    await log(quotationId, { versionId, channel: "email", template, recipient: row.customer_email, bcc: INTERNAL_BCC, subject, status: "failed", error: msg });
     return { ok: false, error: msg };
   }
 
   const bccList = template === "receipt" && process.env.TRUSTPILOT_INVITE_EMAIL ? [INTERNAL_BCC, process.env.TRUSTPILOT_INVITE_EMAIL] : [INTERNAL_BCC];
   const res = await sendEmailStrict(row.customer_email, subject, html, { bcc: bccList, attachments });
   if (!res.ok) {
-    await log(quotationId, { channel: "email", template, recipient: row.customer_email, bcc: INTERNAL_BCC, subject, status: "failed", error: res.error });
+    await log(quotationId, { versionId, channel: "email", template, recipient: row.customer_email, bcc: INTERNAL_BCC, subject, status: "failed", error: res.error });
     return { ok: false, error: res.error };
   }
-  await log(quotationId, { channel: "email", template, recipient: row.customer_email, bcc: bccList.join(", "), subject, status: "sent" });
+  await log(quotationId, { versionId, channel: "email", template, recipient: row.customer_email, bcc: bccList.join(", "), subject, status: "sent" });
   await markSent(quotationId, template, "email");
   return { ok: true, recipient: row.customer_email, bcc: INTERNAL_BCC };
 }
@@ -101,7 +108,8 @@ export async function sendOpsEmail(quotationId: string, template: OpsTemplate): 
 export async function recordWhatsAppSent(quotationId: string, template: OpsTemplate): Promise<{ ok: boolean; error?: string }> {
   const { row, error } = await getQuotationWithDriver(quotationId);
   if (error || !row) return { ok: false, error: error ?? "Quotation not found" };
-  await log(quotationId, { channel: "whatsapp", template, recipient: row.customer_phone, status: "sent", subject: "Marked as sent manually on WhatsApp" });
+  const versionId = template === "quotation" || template === "followup" ? (await captureVersionSafe(quotationId, "sent", "operator"))?.id ?? null : null;
+  await log(quotationId, { versionId, channel: "whatsapp", template, recipient: row.customer_phone, status: "sent", subject: "Marked as sent manually on WhatsApp" });
   await markSent(quotationId, template, "whatsapp");
   return { ok: true };
 }

@@ -21,9 +21,9 @@ export function NewQuotationClient() {
     return x.includes("suv") || x.includes("gmc") ? "suv" : x.includes("van") || x.includes("staria") ? "van" : x.includes("lux") || x.includes("vip") ? "limousine" : x.includes("bus") || x.includes("coach") ? "bus" : "sedan";
   };
   const [f, setF] = useState({
-    name: sp.get("name") ?? "", phone: sp.get("phone") ?? "", email: "", source: sp.get("name") || sp.get("phone") ? "website" : "whatsapp",
-    pickup: sp.get("pickup") ?? "", drop: sp.get("drop") ?? "", tripType: "one_way", date: sp.get("date") ?? "", time: sp.get("time") ?? "", returnDate: "",
-    pax: "", luggage: "", vehicle: vehicleFromLead(sp.get("vehicle")), price: "", estCost: "", validUntil: "", notes: "",
+    name: sp.get("name") ?? "", phone: sp.get("phone") ?? "", email: sp.get("email") ?? "", source: sp.get("src") ?? (sp.get("lead") ? "whatsapp" : sp.get("name") || sp.get("phone") ? "website" : "whatsapp"),
+    pickup: sp.get("pickup") ?? "", drop: sp.get("drop") ?? "", tripType: sp.get("tripType") ?? "one_way", date: sp.get("date") ?? "", time: sp.get("time") ?? "", returnDate: "",
+    pax: sp.get("pax") ?? "", luggage: sp.get("luggage") ?? "", vehicle: vehicleFromLead(sp.get("vehicle")), price: "", estCost: "", validUntil: "", notes: "",
   });
   const set = (k: keyof typeof f, v: string) => setF((x) => ({ ...x, [k]: v }));
 
@@ -79,7 +79,7 @@ export function NewQuotationClient() {
           pickup_location: f.pickup, drop_location: f.drop, trip_type: f.tripType, trip_date: f.date, trip_time: f.time || null,
           return_date: f.returnDate || null, passengers_count: f.pax || null, luggage_notes: f.luggage || null, vehicle_type_requested: f.vehicle,
           quoted_price: f.price, est_driver_cost: f.estCost, pricing_rule_id: rule?.id ?? null, valid_until: f.validUntil || null,
-          price_notes: f.notes || null, stage,
+          price_notes: f.notes || null, stage, lead_id: sp.get("lead") || null,
         }),
       });
       const data = await res.json();
