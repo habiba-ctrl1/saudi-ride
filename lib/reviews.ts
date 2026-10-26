@@ -26,3 +26,6 @@ export function reviewUrlFor(ref: string): string {
 
 /** Optional Google Business Profile review link (set NEXT_PUBLIC_GOOGLE_REVIEW_URL once the owner has it). */
 export const googleReviewUrl = process.env.NEXT_PUBLIC_GOOGLE_REVIEW_URL || "";
+
+/** Where customers leave their review: the Trustpilot "evaluate" page (override with NEXT_PUBLIC_TRUSTPILOT_URL if it ever changes). */
+export const TRUSTPILOT_REVIEW_URL = process.env.NEXT_PUBLIC_TRUSTPILOT_URL || "https://www.trustpilot.com/evaluate/taxisaudiarabia.com";

@@ -1,45 +1,51 @@
-# TSA Operations Backend — Roz ka istemal (Roman Urdu)
+# TSA Operations — Roz ka istemal (Roman Urdu)
 
-Sidebar: **Dashboard · Enquiries · Quotes & Bookings · Clients · Drivers · Pricing Book · Reports** (baqi purane pages "More tools" mein).
+Sidebar: **Dashboard · Lead Inbox · Quotes & Bookings · Calendar · Needs Review · Ride Register · Clients · Reviews · Drivers · Pricing Book · Reports** (baqi purane pages "More tools" mein).
 
-## 1. Subah (2 minute)
-`Dashboard` kholein:
-- **Outstanding actions** — jo kaam baqi hai (driver nahi, purani ride open, cost missing, follow-up due…). Har item par click = seedha record.
-- **Today / Tomorrow / Upcoming** — rides, driver ke saath. "unassigned" peela = driver assign karein.
-- **Website enquiries** — "Quote" dabayein, form pehle se bhar jata hai.
+## Naya client aaye to — poora flow (10 qadam)
 
-## 2. Nayi enquiry → quotation
-1. `Quotes & Bookings → New Quotation` (ya dashboard/enquiries se "Quote").
-2. Client search karein (phone se pehchan hoti hai) ya naya likhein.
-3. Pickup + drop + vehicle likhte hi **Pricing Book** khud check hota hai: range, recommended, minimum, cost, margin, purani asli rides.
-4. Final price + expected driver cost likhein — margin/LOSS live dikhta hai.
-5. **Save as Draft** ya **Save as Ready**. *Save karne se client ko kuch nahi jata.*
+1. **Enquiry andar lein**
+   - Website form / contact form: khud `Lead Inbox` mein aa jati hai (status *New*). Aap ko `[TSA] Lead …` email bhi aati hai.
+   - WhatsApp par aayi: `Lead Inbox → Paste New Enquiry` → poori chat paste → **Extract details** → jo khali/ghalat hai theek karein (email zaroor) → **Save to Lead Inbox**. Agar wohi phone pehle se hai to system warning deta hai.
+2. **Lead kholein** (naam par click): status "Contacted" karein, follow-up date lagayein. Har tabdeeli *Activity* mein likhi jati hai.
+3. **Create quotation** dabayein — form lead ke data se bhara aata hai. Pricing Book route ka rate + purani rides dikhata hai. **Final price** aur **driver cost** likhein (margin live dikhta hai) → **Save as Ready to Send**. *Save se customer ko kuch nahi jata.*
+4. Booking page par **New Quotation → Email** dabayein. Customer ko hari/peeli design wali email + PDF jati hai. Aap ke office inbox (`info@`) mein alag se **`[TSA copy] Quotation · TSA-… · Naam`** email aati hai — wohi cheez jo customer ne payi (record ke liye). Lead khud "Quotation sent" ho jati hai.
+5. Client haan kahe → **Accepted**, phir **Convert to Booking**. Phir **Booking Confirmation → Email**.
+6. **Driver** chunein (+ share %, plate) → **Save driver**. **Driver / Pickup Details → Email** (customer ko driver ka naam, phone, gaari, plate).
+7. Ride ho jaye → **Driver cost** likh kar **Save costs** → **Mark ride Completed**.
+8. **Payments** card mein jo paisa asal mein mila woh **Record payment** karein (cash/bank, tareekh, reference). Aadha mila to "Partial", poora mila to "Paid" khud ho jata hai. Galat entry ho to **Void** (delete nahi hoti).
+9. Har payment ke saath **Issue receipt** → **Payment / Receipt → Email**. Poora paisa ho to receipt par **PAID** stamp, warna **PART PAYMENT** + balance. Receipt email mein **Trustpilot review button** hota hai (`trustpilot.com/evaluate/taxisaudiarabia.com`).
+10. **Ride Completion / Thank You → Email**. Company ko chahiye to **Create invoice** (VAT none / included / on top) — invoice par outstanding balance likha hota hai.
 
-## 3. Bhejna
-Booking record (`TSA-…` par click) → **Quote & communication**:
-- **Email** — PDF ke saath jati hai, office (`info@taxisaudiarabia.com`) ko BCC. Screen par "Sent ✓" ya "Email Failed — Retry" (asli error ke saath).
-- **WhatsApp** — message khulta hai, aap khud bhejti hain, phir "Mark sent on WhatsApp" dabayein.
-- Templates: Quotation, Follow-up, Booking confirmation, Driver/pickup details, Receipt, Thank-you.
+> Koi email apne aap nahi jati — sirf aap ke dabane par. Har email ka natija "Sent ✓" ya "Email Failed — Retry" booking par dikhta hai.
 
-## 4. Booking → ride → paisa
-1. **Convert to Booking** (client ne haan kaha).
-2. **Ride, payment & receipt** card: driver chunein (Naimat/Sheraz/Bilal/Ajmal/Faisal ya local), share %, plate.
-3. Ride ke baad: **Customer paid**, **Driver cost**, **Extra cost** likhein → margin khud banta hai (nuqsan = laal "LOSS").
-4. **Mark ride Completed** → **Generate Receipt** → Email/WhatsApp se bhejein.
-5. Lifecycle bar (10 steps) khud tick hoti hai.
+## Roz subah (2 minute)
+- `Dashboard`: Outstanding actions (driver nahi, purani ride open, cost missing, payment baqi…), Today/Tomorrow rides.
+- `Needs Review`: jin records ka status data se saabit nahi (tareekh guzar gayi par open, completed par payment nahi…). Har ek par faisla karein — system khud kuch badalta nahi.
+- `Calendar`: mahine ki rides; laal "no driver" = driver lagayein.
 
-## 5. Drivers aur hisaab
-`Drivers`: Main drivers ka ledger — rides, margin, aap ka hissa, mila, baqi (PKR ke saath). Paise milen to **Record payment**.
+## Email ko saaf rakhna (Gmail labels)
+System ki har internal email ka subject ek hi tarz ka hai, taake Gmail khud label laga de:
 
-## 6. Pricing Book
-`Pricing Book`: har route × vehicle ka recommended / minimum / est. cost / range yahan ek baar set karein. Conflict wale routes laal hain — confirm karke price set karein. Kuch bhi khud-ba-khud customer ko nahi jata.
+| Subject shuru hota hai | Matlab | Label |
+|---|---|---|
+| `[TSA] Lead · …` | Website se nayi enquiry | TSA/Alerts/Leads |
+| `[TSA] Contact · …` | Contact form | TSA/Alerts/Contact |
+| `[TSA] Driver application · …` | Driver ki application | TSA/Alerts/Drivers |
+| `[TSA] Booking · …` | Nayi booking | TSA/Alerts/Bookings |
+| `[TSA] URGENT · …` | Bina price ke pickup nazdeek | TSA/Alerts/URGENT (star) |
+| `[TSA copy] Quotation · …` | Customer ko gayi quotation ki copy | TSA/Records/Quotations |
+| `[TSA copy] Follow-up / Booking confirmation / Pickup details / Receipt / Thank-you · …` | Baqi copies | TSA/Records/… |
 
-## 7. Reports
-`Reports`: mahina/90 din/saal/custom — rides, revenue, driver cost, margin, aap ka hissa, funnel (enquiry → quote → booking → complete), routes, vehicles, clients, drivers, source. **Export bookings CSV** accounting ke liye.
+**Ek baar setup:** Gmail → ⚙ Settings → *See all settings* → **Filters and Blocked Addresses** → **Import filters** → file `docs/gmail-filters.xml` chunein → *Apply new filters to existing conversations* tick karke **Create filters**. Records wali emails Inbox se hat kar sirf label mein jati hain (parhne ke liye label kholein); Alerts Inbox mein rehti hain.
+
+## Paisa aur hisaab
+- `Drivers`: har driver ka ledger (rides, margin, aap ka hissa, mila, baqi, PKR).
+- `Reports`: mahina/saal/custom, funnel, routes, vehicles, clients; **Export CSV** accounting ke liye.
+- Margin haath se nahi likhte: *mila hua paisa − driver cost − extra*.
 
 ## Qaide jo system khud nibhata hai
-- Koi email/price customer ko khud nahi jata — sirf aap ke button se.
-- Purani ride/cost kabhi delete nahi hoti; completed ride ki trip details lock hoti hain (sirf phone/email theek ho sakta hai).
-- Margin kabhi haath se nahi likhte: paid − driver cost − extra.
-- PKR sirf paisay wale figures ke saath; rate `app_settings.sar_to_pkr_rate` (abhi 73).
-- Test record: record ke neeche "Mark as test" → dashboard/reports se chhup jata hai; sirf test record delete ho sakta hai.
+- Customer ko email/price sirf aap ke button se.
+- Payment, receipt, invoice, quotation ki purani versions kabhi overwrite/delete nahi hoti (sirf Void / nayi version).
+- Lead "Quotation sent" tak khud jati hai, "Confirmed" kabhi khud nahi.
+- Test record: booking ke neeche **Mark as test** → reports se chhup jata hai.

@@ -31,7 +31,7 @@ export async function getTimeline(quotationId: string, createdAt: string): Promi
       `SELECT old_value, new_value, actor, created_at::text FROM audit_logs WHERE entity_type='quotations' AND entity_id=$1 AND action='status_change'`, quotationId),
     prisma.$queryRawUnsafe<{ kind: EventKind; detail: string | null; created_at: string }[]>(`SELECT kind, detail, created_at::text FROM booking_events WHERE quotation_id=$1::uuid`, quotationId),
     prisma.$queryRawUnsafe<{ channel: string; template: string; recipient: string | null; status: string; error: string | null; created_at: string }[]>(
-      `SELECT channel, template, recipient, status, error, created_at::text FROM communication_log WHERE quotation_id=$1::uuid`, quotationId),
+      `SELECT channel, template, recipient, status, error, created_at::text FROM communication_log WHERE quotation_id=$1::uuid AND channel <> 'email_copy'`, quotationId),
     prisma.$queryRawUnsafe<{ kind: string; created_at: string }[]>(`SELECT kind, created_at::text FROM documents WHERE quotation_id=$1::uuid`, quotationId),
   ]);
 

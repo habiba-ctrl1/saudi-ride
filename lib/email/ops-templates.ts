@@ -5,7 +5,7 @@
 // Look: same as the customer PDFs (logo header band, grey cards, green total box, yellow payment card).
 import { wrapper, row, table, strip, totalBox, payCard, termsList, cta, para, esc, receiptEmail } from "@/lib/email/templates";
 import type { ReceiptInfo } from "@/lib/ops/payments";
-import { reviewUrlFor } from "@/lib/reviews";
+import { TRUSTPILOT_REVIEW_URL } from "@/lib/reviews";
 import { contactConfig } from "@/lib/config/contact";
 import type { QuotationRow } from "@/lib/supabase/quotations";
 
@@ -135,7 +135,7 @@ export function opsEmail(template: OpsTemplate, q: QuotationRow, receipt?: Recei
       running: receipt ? { total: receipt.total, paidToDate: receipt.paidToDate, paymentNo: receipt.paymentNo } : null,
       driverName: q.driver_name ?? q.drivers?.full_name ?? null, driverPhone: q.driver_phone ?? q.drivers?.phone ?? null,
       vehicleLabel: q.vehicle_detail ?? null, vehiclePlate: q.vehicle_plate ?? null,
-      reviewUrl: reviewUrlFor(ref),
+      reviewUrl: TRUSTPILOT_REVIEW_URL,
     });
     return { ...r, attachQuotationPdf: false };
   }

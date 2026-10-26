@@ -61,7 +61,7 @@ export function BookingsTable({ rows, total, counts, view, filters, filterDriver
   const json = (method: string, body: unknown) => ({ method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
   const sendTpl = (r: ListRow, t: "quotation" | "followup" | "pickup") => {
     if (!r.customer_email) return setMsg({ ok: false, text: `${r.quote_reference}: no email on file — open the record to send on WhatsApp.` });
-    if (!window.confirm(`Email ${t === "quotation" ? "the quotation" : t === "followup" ? "a follow-up" : "the pickup details"} to ${r.customer_email}?\n(An internal copy is BCC'd to the office.)`)) return;
+    if (!window.confirm(`Email ${t === "quotation" ? "the quotation" : t === "followup" ? "a follow-up" : "the pickup details"} to ${r.customer_email}?\n(A record copy is also sent to the office inbox.)`)) return;
     run(`${r.id}-send`, () => fetch(`/api/admin/quotations/${r.id}/send`, json("POST", { template: t })), `Emailed ${r.customer_email}.`);
   };
   const convert = (r: ListRow) => run(`${r.id}-convert`, async () => {

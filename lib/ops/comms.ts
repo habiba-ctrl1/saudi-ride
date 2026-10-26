@@ -8,6 +8,7 @@ import { opsEmail, type OpsTemplate } from "@/lib/email/ops-templates";
 import { issueReceipt, latestPaymentId, type ReceiptInfo } from "@/lib/ops/payments";
 import { captureVersionSafe } from "@/lib/ops/versions";
 import { logLeadActivity } from "@/lib/ops/leads";
+import { copySubject } from "@/lib/email/subjects";
 
 /** Internal record copy of every client email. */
 export const INTERNAL_BCC = process.env.QUOTE_BCC_EMAIL || "info@taxisaudiarabia.com";
@@ -27,7 +28,7 @@ export type CommRow = {
 export async function listComms(quotationId: string): Promise<CommRow[]> {
   return prisma.$queryRawUnsafe<CommRow[]>(
     `SELECT id::text, channel, template, recipient, bcc, subject, status, error, created_at::text
-       FROM communication_log WHERE quotation_id=$1::uuid ORDER BY created_at DESC LIMIT 50`,
+       FROM communication_log WHERE quotation_id=$1::uuid AND channel <> 'email_copy' ORDER BY created_at DESC LIMIT 50`,
     quotationId,
   );
 }
@@ -95,19 +96,38 @@ export async function sendOpsEmail(quotationId: string, template: OpsTemplate): 
     }
   } catch (e) {
     const msg = `PDF generation failed: ${e instanceof Error ? e.message : String(e)}`;
-    await log(quotationId, { versionId, channel: "email", template, recipient: row.customer_email, bcc: INTERNAL_BCC, subject, status: "failed", error: msg });
+    await log(quotationId, { versionId, channel: "email", template, recipient: row.customer_email, subject, status: "failed", error: msg });
     return { ok: false, error: msg };
   }
 
-  const bccList = template === "receipt" && process.env.TRUSTPILOT_INVITE_EMAIL ? [INTERNAL_BCC, process.env.TRUSTPILOT_INVITE_EMAIL] : [INTERNAL_BCC];
+  // The customer's email is clean: only the Trustpilot invite address (receipts, when configured) is BCC'd.
+  // The owner's record copy is a SEPARATE email with a "[TSA copy]" subject, so Gmail can label it automatically.
+  const bccList = template === "receipt" && process.env.TRUSTPILOT_INVITE_EMAIL ? [process.env.TRUSTPILOT_INVITE_EMAIL] : [];
   const res = await sendEmailStrict(row.customer_email, subject, html, { bcc: bccList, attachments });
   if (!res.ok) {
-    await log(quotationId, { versionId, channel: "email", template, recipient: row.customer_email, bcc: INTERNAL_BCC, subject, status: "failed", error: res.error });
+    await log(quotationId, { versionId, channel: "email", template, recipient: row.customer_email, subject, status: "failed", error: res.error });
     return { ok: false, error: res.error };
   }
-  await log(quotationId, { versionId, channel: "email", template, recipient: row.customer_email, bcc: bccList.join(", "), subject, status: "sent" });
+  await log(quotationId, { versionId, channel: "email", template, recipient: row.customer_email, bcc: bccList.join(", ") || null, subject, status: "sent" });
   await markSent(quotationId, template, "email");
+  await sendRecordCopy(quotationId, template, row.customer_name, row.quote_reference, row.customer_email, subject, html, attachments);
   return { ok: true, recipient: row.customer_email, bcc: INTERNAL_BCC };
+}
+
+const COPY_LABEL: Record<OpsTemplate, string> = {
+  quotation: "Quotation", followup: "Follow-up", confirmation: "Booking confirmation", pickup: "Pickup details", receipt: "Receipt", thankyou: "Thank-you",
+};
+
+/** Owner's record copy: the exact email (and attachments) the customer received, with a one-line banner. Never blocks or fails the customer send. */
+async function sendRecordCopy(
+  quotationId: string, template: OpsTemplate, customerName: string, ref: string, to: string, customerSubject: string, html: string, attachments?: { filename: string; content: Buffer }[],
+) {
+  const when = new Date().toLocaleString("en-GB", { timeZone: "Asia/Riyadh", day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
+  const banner = `<div style="font-family:Arial,sans-serif;font-size:12px;color:#374151;background:#FFFBEB;border:1px solid #FDE68A;border-radius:8px;padding:10px 14px;max-width:640px;margin:10px auto;">
+    <b>RECORD COPY</b> — ${COPY_LABEL[template]} sent to <b>${to}</b> on ${when} KSA · ${ref}<br/>Customer subject: ${customerSubject.replace(/</g, "&lt;")}</div>`;
+  const subject = copySubject(COPY_LABEL[template], ref, customerName);
+  const r = await sendEmailStrict(INTERNAL_BCC, subject, banner + html, { attachments });
+  await log(quotationId, { channel: "email_copy", template, recipient: INTERNAL_BCC, subject, status: r.ok ? "sent" : "failed", error: r.ok ? null : r.error }).catch(() => {});
 }
 
 /** Operator sent it themselves through WhatsApp — record it (we cannot see WhatsApp, so this is operator-attested). */

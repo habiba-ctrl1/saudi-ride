@@ -6,7 +6,7 @@ import { OPS_TEMPLATE_LABEL, type OpsTemplate } from "@/lib/email/ops-templates"
 export const runtime = "nodejs";
 
 // POST /api/admin/quotations/[id]/send { template } — the ONLY way a client email goes out from the ops workflow.
-// Operator-triggered; BCCs the internal record address; the outcome (sent / failed + error) is logged.
+// Operator-triggered; sends a separate "[TSA copy]" record email to the office inbox; the outcome (sent / failed + error) is logged.
 export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
   const auth = await requireAdmin();
   if (!auth.ok) return NextResponse.json({ error: auth.error }, { status: auth.status });

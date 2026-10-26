@@ -4,7 +4,7 @@ import { getQuotationWithDriver, setQuotationReceiptSent, setQuotationReviewInvi
 import { renderInvoicePdf } from "@/lib/pdf/invoice";
 import { sendEmail, recordNotificationFailure } from "@/lib/notifications";
 import { receiptEmail } from "@/lib/email/templates";
-import { reviewUrlFor } from "@/lib/reviews";
+import { TRUSTPILOT_REVIEW_URL } from "@/lib/reviews";
 import { buildReceiptInfo, latestPaymentId, recordPayment, listPayments } from "@/lib/ops/payments";
 
 export const runtime = "nodejs";
@@ -63,7 +63,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
         running: { total: info.total, paidToDate: info.paidToDate, paymentNo: info.paymentNo },
         driverName: driver?.full_name ?? null, driverPhone: driver?.phone ?? null,
         vehicleLabel: driver ? [driver.vehicle_model, driver.vehicle_type.toUpperCase()].filter(Boolean).join(" — ") : null,
-        vehiclePlate: driver?.vehicle_plate_number ?? null, reviewUrl: reviewUrlFor(row.quote_reference),
+        vehiclePlate: driver?.vehicle_plate_number ?? null, reviewUrl: TRUSTPILOT_REVIEW_URL,
       });
       const messageId = await sendEmail(row.customer_email, subject, html, {
         bcc: process.env.TRUSTPILOT_INVITE_EMAIL,

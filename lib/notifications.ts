@@ -3,6 +3,7 @@ import path from "node:path";
 import nodemailer from "nodemailer";
 import twilio from "twilio";
 import { prisma } from "@/lib/prisma";
+import { alertSubject } from "@/lib/email/subjects";
 
 // Initialize Resend
 interface NotificationBooking {
@@ -376,7 +377,7 @@ export async function sendBookingReminder(booking: NotificationBooking) {
  */
 export async function sendAdminNotification(booking: NotificationBooking) {
   const ref = normalizeRef(booking.bookingRef);
-  const subject = `🆕 New Booking — ${ref} — ${booking.customerName}`;
+  const subject = alertSubject("Booking", "New booking", ref, booking.customerName);
   const adminPanelLink = `${siteUrl}/admin/bookings`;
 
   const html = `
@@ -441,7 +442,7 @@ export async function sendUrgentBookingAlert(booking: NotificationBooking & { ho
   const timeLabel = overdue
     ? `${Math.abs(Math.round(booking.hoursUntilPickup))}h OVERDUE`
     : `in ${Math.round(booking.hoursUntilPickup)}h`;
-  const subject = `🚨 URGENT — ${ref} still has no price, pickup ${timeLabel}`;
+  const subject = alertSubject("URGENT", ref, "still no price", `pickup ${timeLabel}`);
   const adminPanelLink = `${siteUrl}/admin/bookings`;
 
   const html = `
@@ -468,7 +469,7 @@ export async function sendUrgentBookingAlert(booking: NotificationBooking & { ho
 }
 
 const trustpilotInviteEmail = process.env.TRUSTPILOT_INVITE_EMAIL;
-const trustpilotReviewUrl = process.env.NEXT_PUBLIC_TRUSTPILOT_URL || "https://www.trustpilot.com/review/taxisaudiarabia.com";
+const trustpilotReviewUrl = process.env.NEXT_PUBLIC_TRUSTPILOT_URL || "https://www.trustpilot.com/evaluate/taxisaudiarabia.com";
 
 /**
  * 4c. Review Request Email — sent by /api/cron/review-requests a few hours
@@ -550,7 +551,7 @@ export interface NotificationLead {
  * sendAdminNotification() above, with the same honest not-a-lie return shape.
  */
 export async function sendLeadNotification(lead: NotificationLead) {
-  const subject = `🆕 New Website Lead — ${lead.origin} → ${lead.destination}`;
+  const subject = alertSubject("Lead", "Website calculator", `${lead.origin} → ${lead.destination}`);
   const adminPanelLink = `${siteUrl}/admin`;
 
   const rows = [

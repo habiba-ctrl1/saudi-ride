@@ -257,7 +257,7 @@ export function QuotationDetailClient({ q, comms, drivers, pkrRate, docs, timeli
   };
 
   // ── Send / lifecycle ──
-  const sendEmail = (t: OpsTemplate) => call(`mail-${t}`, `/api/admin/quotations/${q.id}/send`, "POST", { template: t }, `${OPS_TEMPLATE_LABEL[t]} emailed to ${q.customer_email} (internal copy BCC'd).`);
+  const sendEmail = (t: OpsTemplate) => call(`mail-${t}`, `/api/admin/quotations/${q.id}/send`, "POST", { template: t }, `${OPS_TEMPLATE_LABEL[t]} emailed to ${q.customer_email}. A record copy went to info@taxisaudiarabia.com.`);
   const markWa = (t: OpsTemplate) => call(`wa-${t}`, `/api/admin/quotations/${q.id}/whatsapp-sent`, "POST", { template: t }, "Recorded as sent on WhatsApp.");
   const setStage = (s: string) => call(`stage-${s}`, `/api/admin/quotations/${q.id}/stage`, "PATCH", { stage: s }, `Marked ${STAGE_LABEL[s as keyof typeof STAGE_LABEL]}.`);
   const convert = async () => {
@@ -456,13 +456,13 @@ export function QuotationDetailClient({ q, comms, drivers, pkrRate, docs, timeli
             {lastQuoteEmail?.status === "failed" && <p className="mb-2 flex items-center gap-2 text-sm font-bold text-red-400"><XCircle className="h-4 w-4" /> Email Failed — Retry ({lastQuoteEmail.error})</p>}
             {lastQuoteEmail?.status === "sent" && <p className="mb-2 flex items-center gap-2 text-sm font-bold text-green-500"><CheckCircle2 className="h-4 w-4" /> Quotation Sent ✓ to {lastQuoteEmail.recipient}</p>}
             {!hasPrice && <p className="mb-2 flex items-center gap-2 text-xs text-yellow-500"><AlertTriangle className="h-4 w-4" /> Set a price before sending a quotation.</p>}
-            <SendRow t="quotation" disabled={!hasPrice} hint="PDF attached; internal copy BCC to info@taxisaudiarabia.com" />
+            <SendRow t="quotation" disabled={!hasPrice} hint="PDF attached; a separate record copy goes to info@taxisaudiarabia.com" />
             <SendRow t="followup" disabled={!hasPrice} />
             <SendRow t="confirmation" disabled={!converted} hint={!converted ? "Convert to booking first" : undefined} />
             <SendRow t="pickup" disabled={!converted} hint={!converted ? "Convert to booking first" : undefined} />
             <SendRow t="receipt" disabled={!completed || !q.actual_amount_paid} hint={!completed ? "Available once the ride is completed and paid" : undefined} />
             <SendRow t="thankyou" disabled={!completed} hint={!completed ? "Available once the ride is completed" : undefined} />
-            <p className="mt-1 text-[0.7rem] text-[#7C8088]">Emails go only when you press the button, BCC the internal record address, and show Sent ✓ / Failed. WhatsApp opens a prefilled message you send yourself, then mark it sent. &quot;Viewed&quot; is not tracked (unreliable).</p>
+            <p className="mt-1 text-[0.7rem] text-[#7C8088]">Emails go only when you press the button, a separate &quot;[TSA copy]&quot; record copy goes to the office inbox, and show Sent ✓ / Failed. WhatsApp opens a prefilled message you send yourself, then mark it sent. &quot;Viewed&quot; is not tracked (unreliable).</p>
           </Card>
         </div>
 

@@ -5,6 +5,7 @@
 // inline (cid:tsa-logo) whenever the HTML references it — mail clients block remote/data-URI logos.
 
 import { contactConfig } from "@/lib/config/contact";
+import { alertSubject } from "@/lib/email/subjects";
 
 const GREEN = "#16A34A";
 const YELLOW = "#FACC15";
@@ -195,7 +196,7 @@ export function adminQuotationEmail(d: QuotationEmailData) {
     )}
     <p style="color:#8a8577;font-size:12px;margin-top:16px;">Action: send the price on WhatsApp, then mark it <strong>quoted</strong> in the admin panel.</p>`;
   return {
-    subject: `💰 New Quote Request ${d.quoteReference} — ${d.pickup} → ${d.dropoff}`,
+    subject: alertSubject("Lead", "Website quote", d.quoteReference, `${d.pickup} → ${d.dropoff}`),
     html: wrapper("New Quotation Request", body, "Internal notification — Taxi Saudi Arabia operations."),
   };
 }
@@ -228,7 +229,7 @@ export function adminDriverEmail(d: DriverEmailData) {
     )}
     <p style="color:#8a8577;font-size:12px;margin-top:16px;">Action: verify documents, then approve or reject in the admin panel.</p>`;
   return {
-    subject: `🚕 New Driver Applicant: ${d.name} (${d.city})`,
+    subject: alertSubject("Driver application", d.name, d.city),
     html: wrapper("New Driver Application", body, "Internal notification — Taxi Saudi Arabia operations."),
   };
 }
@@ -376,7 +377,7 @@ export function adminContactEmail(d: ContactEmailData) {
       ${esc(d.message).replace(/\n/g, "<br/>")}
     </div>`;
   return {
-    subject: `📥 Contact: ${d.name}${d.service ? ` — ${d.service}` : ""}`,
+    subject: alertSubject("Contact", d.name, d.service),
     html: wrapper("New Contact Message", body, "Internal notification — Taxi Saudi Arabia operations."),
   };
 }
