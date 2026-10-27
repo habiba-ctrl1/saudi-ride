@@ -333,12 +333,12 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
       { name: "Main Terminal", desc: "Serves domestic and regional flights across the GCC." }
     ],
     tips: [
-      "Mountain roads require experienced drivers, which our team guarantees.",
-      "The airport is just 18km from the center of Abha."
+      "The roads into the Aseer highlands are steep and winding — tell us your group size and luggage so the right vehicle is quoted.",
+      "The airport is about 20 km from the centre of Abha (road distance measured with OSRM, 2026-10-27)."
     ],
     priorityRoutes: ["abha-airport-to-soudah"],
     faqs: [
-      { question: "How far is Abha airport from the city center?", answer: "Abha International Airport (AHB) is about 18 km from the center of Abha, approximately a 20–25 minute drive." },
+      { question: "How far is Abha airport from the city center?", answer: "Abha International Airport (AHB) is about 20 km from the centre of Abha by road, roughly a 20–25 minute drive depending on traffic." },
       { question: "Can I get a taxi from Abha airport to Soudah?", answer: "Yes. We provide transfers from AHB to Soudah Peak and the surrounding Aseer mountain attractions. The drive takes about 50 minutes." },
       { question: "What happens if my flight is delayed?", answer: "Share your flight number when you book and we check it before pickup, so the pickup time is planned around your actual arrival." }
     ],

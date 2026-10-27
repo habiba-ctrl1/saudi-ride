@@ -214,7 +214,7 @@ export default function IntercityServicePage() {
          <div className="bg-white border border-[#16A34A]/15 shadow-lg rounded-3xl p-8 text-center">
             <h3 className="font-heading text-2xl font-bold mb-3 text-[#1C1C1C]">Don&apos;t see your route?</h3>
             <p className="text-[#6B7280] mb-6 max-w-lg mx-auto text-sm">
-              We cover all regions of Saudi Arabia, from Tabuk to Najran. Use our booking engine to get an instant quote for any custom intercity route.
+              Tell us your route and we&apos;ll confirm availability and a fixed fare on WhatsApp before you book. Routes outside the list above are arranged on request.
             </p>
             <Link
               href="/book"

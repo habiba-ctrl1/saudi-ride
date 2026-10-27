@@ -559,30 +559,30 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     tldr: "Taxi Saudi Arabia arranges private transfer service in Abha — Abha International Airport (AHB) transfers, Soudah Peak and cable-car trips, and rides across the Asir region including Khamis Mushait. Experienced drivers for the cool, misty high-altitude mountain roads.",
     tldrFacts: [
       { label: "Airport", value: "AHB" },
-      { label: "Soudah Peak", value: "~25 km" },
+      { label: "Soudah Peak (from city centre)", value: "~25 km" },
       { label: "To Khamis Mushait", value: "~25 km" },
       { label: "Pricing", value: "Quoted on WhatsApp" }
     ],
     attractions: [
-      { name: "Soudah Peak & Cable Car", dist: "25 km" },
+      { name: "Soudah Peak & Cable Car", dist: "~25 km from city centre" },
       { name: "Abha Dam Lake", dist: "City Center" },
-      { name: "Green Mountain (Al Jabal Al Akhdar)", dist: "5 km" },
-      { name: "Habala Heritage Village", dist: "50 km" },
-      { name: "Abha International Airport (AHB)", dist: "~25 km" },
+      { name: "Green Mountain (Al Jabal Al Akhdar)", dist: "Near Abha" },
+      { name: "Habala Heritage Village", dist: "Aseer highlands" },
+      { name: "Abha International Airport (AHB)", dist: "~20 km" },
       { name: "Khamis Mushait", dist: "~25 km" }
     ],
     tips: [
       "Abha is cool and misty year-round — very popular in summer, so book ahead during the Asir season.",
       "Mountain roads to Soudah are steep; an SUV is the most comfortable choice.",
-      "Abha International Airport (AHB) is about 25 km from the city — pre-book your meet & greet transfer.",
+      "Abha International Airport (AHB) is about 20 km from the city — pre-book your meet & greet transfer.",
       "Combine Soudah, the cable car, and Habala village in a full-day car hire for the best value."
     ],
     faqs: [
-      { question: "How much is a taxi from Abha airport to the city?", answer: "A taxi from Abha International Airport (AHB) to the city centre is about 25 km — fare confirmed on WhatsApp before booking, with meet & greet at arrivals and experienced mountain drivers." },
+      { question: "How much is a taxi from Abha airport to the city?", answer: "A taxi from Abha International Airport (AHB) to the city centre is about 20 km — fare confirmed on WhatsApp before booking, with meet & greet at arrivals." },
       { question: "Can I do a Soudah Peak day trip from Abha?", answer: "Yes. A full-day car with a driver takes you to Soudah Peak, the cable car, and the viewpoints, then back — the easiest way to enjoy the highlands without driving the steep roads yourself." },
       { question: "Is an SUV better for Abha's mountain roads?", answer: "Yes. The roads to Soudah and the Asir highlands are steep and winding, so a comfortable SUV with an experienced local driver is recommended, especially for families." },
-      { question: "Does the taxi cover Khamis Mushait too?", answer: "Yes — Abha and Khamis Mushait are about 25 km apart and we cover both, along with the Asir heritage villages and viewpoints, 24/7 with your fare confirmed on WhatsApp." },
-      { question: "Is taxi available in Abha 24/7?", answer: "Yes, we operate around the clock in Abha for airport transfers, mountain tours, and rides across the Asir region — with your fare confirmed on WhatsApp before you book." }
+      { question: "Does the taxi cover Khamis Mushait too?", answer: "Yes — Abha and Khamis Mushait are about 25 km apart and transfers can be arranged to both, along with the Asir heritage villages and viewpoints, with your fare confirmed on WhatsApp before you book." },
+      { question: "Is taxi available in Abha 24/7?", answer: "Yes — transfers can be booked 24/7 for airport arrivals, mountain tours, and rides across the Asir region, with your fare confirmed on WhatsApp before you book." }
     ]
   },
   tabuk: {

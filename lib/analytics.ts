@@ -9,7 +9,10 @@ type EventName =
   | "quote_generated"
   | "phone_click"
   | "email_click"
-  | "lead_captured";
+  | "lead_captured"
+  | "quote_form_started"
+  | "quote_form_validation_error"
+  | "lead_submit_failed";
 
 interface BookingStartedProps {
   fromCity?: string;
@@ -86,6 +89,19 @@ interface LeadCapturedProps {
   luggage?: string;
 }
 
+interface QuoteFormEventProps {
+  /** Page pathname — never personal data. */
+  path?: string;
+  fromCity?: string;
+  toCity?: string;
+  tripType?: string;
+  /** validation errors only: which fields failed (names, never values) */
+  fields?: string;
+  /** submit failures only: HTTP status or "timeout"/"network" */
+  reason?: string;
+  locale?: string;
+}
+
 type EventPropsMap = {
   booking_started: BookingStartedProps;
   booking_completed: BookingCompletedProps;
@@ -96,6 +112,9 @@ type EventPropsMap = {
   phone_click: PhoneClickProps;
   email_click: EmailClickProps;
   lead_captured: LeadCapturedProps;
+  quote_form_started: QuoteFormEventProps;
+  quote_form_validation_error: QuoteFormEventProps;
+  lead_submit_failed: QuoteFormEventProps;
 };
 
 /**

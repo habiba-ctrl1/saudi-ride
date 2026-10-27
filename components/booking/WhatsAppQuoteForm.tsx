@@ -5,7 +5,7 @@
 // waiting time all affect the final price), so this form collects trip
 // details and hands off to WhatsApp for a real quote from a person — no
 // estimated/fake price is shown or implied anywhere in this component.
-import { useId, useState } from "react";
+import { useId, useRef, useState } from "react";
 import { useLanguage } from "@/lib/context/LanguageContext";
 import { contactConfig } from "@/lib/config/contact";
 import { trackEvent } from "@/lib/analytics";
@@ -114,40 +114,37 @@ export default function WhatsAppQuoteForm({
   const isHourly = tripType === "By the Hour";
   const isAirportTrip = /airport/i.test(`${pickup} ${dropoff}`);
 
-  const handleSubmit = () => {
+  // submit lifecycle: a lead only counts once /api/leads answers 2xx.
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [waUrl, setWaUrl] = useState("");
+  const [honeypot, setHoneypot] = useState("");
+  const startedRef = useRef(false);
+  const submittingRef = useRef(false);
+  const path = typeof window !== "undefined" ? window.location.pathname : undefined;
+
+  const handleStarted = () => {
+    if (startedRef.current) return;
+    startedRef.current = true;
+    trackEvent("quote_form_started", { path, fromCity: pickup || undefined, toCity: dropoff || undefined, tripType, locale: language });
+  };
+
+  const openWhatsApp = (viaFallback: boolean) => {
+    trackEvent("whatsapp_click", { sourceLocation: viaFallback ? "quote_form_fallback" : "quote_form_confirmation", phoneUsed: contactConfig.whatsappLink, locale: language, path });
+    window.open(waUrl, "_blank", "noopener,noreferrer");
+  };
+
+  const handleSubmit = async () => {
+    if (submittingRef.current || status === "success") return; // duplicate-submit guard
     const nameInvalid = name.trim().length < 2;
     const phoneInvalid = !PHONE_RE.test(phone.trim());
-    const emailInvalid = !EMAIL_RE.test(email.trim());
+    const emailInvalid = email.trim() !== "" && !EMAIL_RE.test(email.trim()); // email is optional
     setNameError(nameInvalid);
     setPhoneError(phoneInvalid);
     setEmailError(emailInvalid);
-    if (nameInvalid || phoneInvalid || emailInvalid) return;
-
-    trackEvent("lead_captured", { source: "whatsapp_quote_form", fromCity: pickup, toCity: dropoff, vehicleClass: vehicle, tripType, passengers, locale: language, flightNumber: flightNumber || undefined, returnDateTime: returnDateTime || undefined, hoursNeeded: hoursNeeded || undefined, luggage: luggage || undefined });
-
-    // Non-blocking lead capture — never delays or blocks the WhatsApp open.
-    try {
-      fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        keepalive: true,
-        body: JSON.stringify({
-          origin: pickup || "Not specified",
-          destination: dropoff || "Not specified",
-          tripDate: dateTime || null,
-          vehicleType: vehicle,
-          tripType,
-          passengers: passengers || null,
-          customerName: name.trim(),
-          customerPhone: phone.trim(),
-          customerEmail: email.trim(),
-          locale: language,
-          pageUrl: typeof window !== "undefined" ? window.location.href : null,
-          utm: getUtm(),
-          source: "whatsapp_quote_form",
-        }),
-      }).catch(() => {});
-    } catch {}
+    if (nameInvalid || phoneInvalid || emailInvalid) {
+      trackEvent("quote_form_validation_error", { path, fields: [nameInvalid && "name", phoneInvalid && "phone", emailInvalid && "email"].filter(Boolean).join(","), locale: language });
+      return;
+    }
 
     const tripLabel = TRIP_TYPES.find((tt) => tt.key === tripType);
     const lines = isRtl
@@ -186,7 +183,50 @@ export default function WhatsAppQuoteForm({
         ];
 
     const url = `${contactConfig.whatsappLink}?text=${encodeURIComponent(lines.join("\n"))}`;
-    window.open(url, "_blank", "noopener,noreferrer");
+    setWaUrl(url);
+
+    submittingRef.current = true;
+    setStatus("submitting");
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 10000);
+    try {
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        signal: ctrl.signal,
+        body: JSON.stringify({
+          origin: pickup || "Not specified",
+          destination: dropoff || "Not specified",
+          tripDate: dateTime || null,
+          vehicleType: vehicle,
+          tripType,
+          passengers: passengers || null,
+          luggage: luggage || null,
+          flightNumber: isAirportTrip ? flightNumber || null : null,
+          returnDateTime: isRoundTrip ? returnDateTime || null : null,
+          hoursNeeded: isHourly ? hoursNeeded || null : null,
+          notes: showNotes ? notes.trim() || null : null,
+          customerName: name.trim(),
+          customerPhone: phone.trim(),
+          customerEmail: email.trim() || null,
+          website: honeypot,
+          locale: language,
+          pageUrl: typeof window !== "undefined" ? window.location.href : null,
+          utm: getUtm(),
+          source: "whatsapp_quote_form",
+        }),
+      });
+      if (!res.ok) throw new Error(`status ${res.status}`);
+      trackEvent("lead_captured", { source: "whatsapp_quote_form", fromCity: pickup, toCity: dropoff, vehicleClass: vehicle, tripType, passengers, locale: language, flightNumber: flightNumber || undefined, returnDateTime: returnDateTime || undefined, hoursNeeded: hoursNeeded || undefined, luggage: luggage || undefined });
+      setStatus("success");
+    } catch (err) {
+      const reason = ctrl.signal.aborted ? "timeout" : err instanceof Error && err.message.startsWith("status") ? err.message : "network";
+      trackEvent("lead_submit_failed", { path, fromCity: pickup, toCity: dropoff, tripType, reason, locale: language });
+      setStatus("error");
+    } finally {
+      clearTimeout(timer);
+      submittingRef.current = false;
+    }
   };
 
   const L = (en: string, ar: string) => (isRtl ? ar : en);
@@ -195,6 +235,7 @@ export default function WhatsAppQuoteForm({
   return (
     <div
       dir={isRtl ? "rtl" : "ltr"}
+      onFocusCapture={handleStarted}
       className="relative mx-auto w-full max-w-2xl overflow-hidden rounded-[28px] border border-[#0F172A]/[0.07] bg-white text-start shadow-[0_2px_6px_rgba(15,23,42,0.04),0_24px_60px_-20px_rgba(15,23,42,0.18)]"
     >
       {/* Brand hairline */}
@@ -425,7 +466,7 @@ export default function WhatsAppQuoteForm({
             </div>
 
             <div className="field">
-              <label className="field-label" htmlFor={fid("email")}>{L("Email", "البريد الإلكتروني")}</label>
+              <label className="field-label" htmlFor={fid("email")}>{L("Email (optional)", "البريد الإلكتروني (اختياري)")}</label>
               <div className={`field-shell ${emailError ? "is-invalid" : ""}`}>
                 <Mail aria-hidden />
                 <input
@@ -446,26 +487,74 @@ export default function WhatsAppQuoteForm({
               </div>
               {emailError && (
                 <p id={fid("email-err")} role="alert" className="field-error">
-                  {L("Please enter a valid email address so we can send your confirmation.", "الرجاء إدخال بريد إلكتروني صحيح.")}
+                  {L("That email address looks incomplete — fix it or leave the field empty.", "البريد الإلكتروني غير صحيح — صحّحه أو اتركه فارغاً.")}
                 </p>
               )}
             </div>
           </div>
         </div>
 
-        {/* Submit */}
-        <div className="space-y-3">
-          <button type="button" onClick={handleSubmit} className="btn btn-primary btn-lg btn-block">
-            <MessageCircle aria-hidden />
-            {isRtl ? "احصل على عرض سعر النقل الخاص عبر واتساب" : submitLabel ?? "Get My Private Transfer Quote"}
-          </button>
-          <p className="text-center text-xs leading-relaxed text-[#64748B]">
-            {footnote && !isRtl ? footnote : L(
-              "Final pricing depends on route, vehicle, date, and passengers — confirmed with you directly before booking.",
-              "السعر النهائي يعتمد على المسار والسيارة والتاريخ وعدد الركاب — يتم تأكيده معك مباشرة قبل الحجز.",
+        {/* Honeypot — hidden from people and assistive tech; bots fill it */}
+        <input
+          type="text"
+          name="website"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          className="absolute -left-[9999px] h-0 w-0 opacity-0"
+        />
+
+        {/* Submit / confirmation */}
+        {status === "success" ? (
+          <div role="status" className="space-y-3 rounded-2xl border border-[#16A34A]/25 bg-[#F4FAF5] p-5 text-center">
+            <p className="font-heading text-lg font-bold text-[#15803D]">{L("Request received", "تم استلام طلبك")}</p>
+            <p className="text-sm leading-relaxed text-[#475569]">
+              {L(
+                "Your trip details are saved. Send them on WhatsApp now to speed up your quote — the fare is confirmed with you before you book.",
+                "تم حفظ تفاصيل رحلتك. أرسلها عبر واتساب الآن لتسريع عرض السعر — يتم تأكيد السعر معك قبل الحجز.",
+              )}
+            </p>
+            <button type="button" onClick={() => openWhatsApp(false)} className="btn btn-primary btn-lg btn-block">
+              <MessageCircle aria-hidden />
+              {L("Continue on WhatsApp", "تابع عبر واتساب")}
+            </button>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {status === "error" && (
+              <div role="alert" className="rounded-2xl border border-[#DC2626]/30 bg-[#FEF2F2] p-4 text-sm leading-relaxed text-[#7F1D1D]">
+                <p className="font-semibold">{L("We couldn't save your request just now.", "تعذّر حفظ طلبك الآن.")}</p>
+                <p className="mt-1">
+                  {L("Try again, or send your details straight to us on WhatsApp.", "حاول مرة أخرى، أو أرسل تفاصيلك إلينا مباشرة عبر واتساب.")}
+                </p>
+                <button type="button" onClick={() => openWhatsApp(true)} className="btn btn-lg btn-block mt-3">
+                  <MessageCircle aria-hidden />
+                  {L("Send on WhatsApp instead", "أرسل عبر واتساب بدلاً من ذلك")}
+                </button>
+              </div>
             )}
-          </p>
-        </div>
+            <button
+              type="button"
+              onClick={handleSubmit}
+              disabled={status === "submitting"}
+              aria-busy={status === "submitting"}
+              className="btn btn-primary btn-lg btn-block disabled:opacity-70"
+            >
+              <MessageCircle aria-hidden />
+              {status === "submitting"
+                ? L("Sending…", "جارٍ الإرسال…")
+                : isRtl ? "احصل على عرض سعر النقل الخاص عبر واتساب" : submitLabel ?? "Get My Private Transfer Quote"}
+            </button>
+            <p className="text-center text-xs leading-relaxed text-[#64748B]">
+              {footnote && !isRtl ? footnote : L(
+                "Final pricing depends on route, vehicle, date, and passengers — confirmed with you directly before booking.",
+                "السعر النهائي يعتمد على المسار والسيارة والتاريخ وعدد الركاب — يتم تأكيده معك مباشرة قبل الحجز.",
+              )}
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Assurance footer */}

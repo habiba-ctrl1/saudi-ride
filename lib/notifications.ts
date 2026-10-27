@@ -542,6 +542,13 @@ export interface NotificationLead {
   customerName?: string | null;
   customerPhone?: string | null;
   customerEmail?: string | null;
+  tripType?: string | null;
+  passengers?: string | null;
+  luggage?: string | null;
+  flightNumber?: string | null;
+  returnDateTime?: string | null;
+  hoursNeeded?: string | null;
+  notes?: string | null;
 }
 
 /**
@@ -561,6 +568,13 @@ export async function sendLeadNotification(lead: NotificationLead) {
     lead.customerName ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Name:</td><td style="padding: 8px 0; color: #111;">${escapeHtml(lead.customerName)}</td></tr>` : "",
     lead.customerPhone ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Phone:</td><td style="padding: 8px 0; color: #111;"><a href="tel:${encodeURIComponent(lead.customerPhone)}">${escapeHtml(lead.customerPhone)}</a></td></tr>` : "",
     lead.customerEmail ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Email:</td><td style="padding: 8px 0; color: #111;"><a href="mailto:${encodeURIComponent(lead.customerEmail)}">${escapeHtml(lead.customerEmail)}</a></td></tr>` : "",
+    lead.tripType ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Trip type:</td><td style="padding: 8px 0; color: #111;">${escapeHtml(lead.tripType)}</td></tr>` : "",
+    lead.returnDateTime ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Return:</td><td style="padding: 8px 0; color: #111;">${escapeHtml(lead.returnDateTime)}</td></tr>` : "",
+    lead.hoursNeeded ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Hours:</td><td style="padding: 8px 0; color: #111;">${escapeHtml(lead.hoursNeeded)}</td></tr>` : "",
+    lead.passengers ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Passengers:</td><td style="padding: 8px 0; color: #111;">${escapeHtml(lead.passengers)}</td></tr>` : "",
+    lead.luggage ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Luggage:</td><td style="padding: 8px 0; color: #111;">${escapeHtml(lead.luggage)}</td></tr>` : "",
+    lead.flightNumber ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Flight:</td><td style="padding: 8px 0; color: #111;">${escapeHtml(lead.flightNumber)}</td></tr>` : "",
+    lead.notes ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Notes:</td><td style="padding: 8px 0; color: #111;">${escapeHtml(lead.notes)}</td></tr>` : "",
     `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Source:</td><td style="padding: 8px 0; color: #111;">${escapeHtml(lead.source || "website")}</td></tr>`,
   ].join("");
 

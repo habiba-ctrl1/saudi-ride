@@ -360,6 +360,13 @@ model Lead {
   customerName  String?  @map("customer_name")
   customerPhone String?  @map("customer_phone")
   customerEmail String?  @map("customer_email")
+  tripType      String?  @map("trip_type")
+  passengers    String?
+  luggage       String?
+  flightNumber  String?  @map("flight_number")
+  returnDateTime String? @map("return_date_time")
+  hoursNeeded   String?  @map("hours_needed")
+  notes         String?
   createdAt     DateTime @default(now()) @map("created_at")
 
   @@index([createdAt])
