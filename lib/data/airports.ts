@@ -346,6 +346,53 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
       { href: "/routes/abha-airport-to-soudah", label: "Abha Airport to Soudah Peak" },
       { href: "/routes/jeddah-to-abha", label: "Jeddah to Abha transfer" },
       { href: "/fleet/gmc-yukon-xl", label: "GMC Yukon XL — SUV for mountain roads" },
+      { href: "/routes/abha-to-jizan", label: "Abha to Jizan private transfer" },
+      { href: "/routes/najran-to-abha", label: "Najran to Abha private transfer" },
+      { href: "/locations/jizan", label: "Private transfers in Jizan" },
+    ]
+  },
+  // Added 2026-10-27. Jizan coverage confirmed by the owner. Airport name per
+  // Saudipedia/GACA wording (sources vary: "Jizan Regional Airport" on
+  // Wikipedia) — re-confirm before adding Arabic pages. Distances are OSRM road
+  // distances measured 2026-10-27. Hero is the shared generic airport
+  // illustration; replace with a real GIZ photo when one exists.
+  "jizan-regional": {
+    name: "King Abdullah bin Abdulaziz Airport",
+    code: "GIZ",
+    nameAr: "مطار الملك عبدالله بن عبدالعزيز (جازان)",
+    h1Name: "Jizan Airport (GIZ)",
+    image: "/airports/med-hero.webp",
+    tagline: "Gateway to Jizan and the Red Sea South",
+    description: "Pre-book a private transfer from Jizan Airport (GIZ) to your hotel in Jizan city, or onward up to Abha and the Asir highlands. Meet & greet at arrivals, a driver who tracks your flight, and one fixed fare agreed before you fly. GIZ is Jizan's airport — not Jeddah's JED, which is about 700 km away.",
+    tldr: "A taxi from Jizan Airport (GIZ) to central Jizan is about 5 km, a short drive. For Abha it is about 200 km by road, roughly 2.5 hours. The fare is fixed and confirmed on WhatsApp before you book, with meet & greet at arrivals, and we track your flight, so a delay simply moves the pickup.",
+    tldrFacts: [
+      { label: "GIZ → Jizan city", value: "~5 km · short drive" },
+      { label: "GIZ → Abha", value: "~200 km · ~2.5 hr" },
+      { label: "Meet & greet", value: "Included" },
+      { label: "Hours", value: "24/7" }
+    ],
+    terminals: [
+      { name: "Arrivals", desc: "Share your flight number when you book and we confirm exactly where your driver meets you." }
+    ],
+    tips: [
+      "GIZ is Jizan's airport. Do not confuse it with JED (Jeddah), which is a very long drive away — check the code on your ticket.",
+      "Going on to Abha? The road climbs the mountain escarpment, so tell us your group size and luggage and we quote the right vehicle.",
+      "Share your flight number when you book: we track your flight, and 15–30 minutes of free waiting after landing is included.",
+      "Jizan is hot, especially in summer. A pre-booked car means you are not waiting outside for a ride."
+    ],
+    priorityRoutes: ["abha-to-jizan"],
+    faqs: [
+      { question: "How far is Jizan airport from the city?", answer: "Jizan Airport (GIZ) is about 5 km from central Jizan by road — a short drive. The fare is fixed and confirmed on WhatsApp before you book." },
+      { question: "Is GIZ the same as Jeddah airport?", answer: "No. GIZ is Jizan's airport in the south-west. Jeddah's airport is JED, roughly 700 km away. Check the three-letter code on your booking and tell us which one you are flying into." },
+      { question: "Can I get a transfer from Jizan airport to Abha?", answer: "Yes. It is about 200 km by road, roughly 2.5 hours, climbing from the coast into the Asir highlands. We confirm one fixed fare and recommend an SUV for families with luggage." },
+      { question: "What happens if my flight to Jizan is delayed?", answer: "Share your flight number when you book. We track your flight, so a delay moves the pickup to your actual landing time, and 15–30 minutes of waiting after landing is free." },
+      { question: "Is a Jizan airport transfer available at night?", answer: "Yes. Transfers can be booked 24/7, including late-night and early-morning arrivals. Include your flight number so your driver is planned around your landing." }
+    ],
+    relatedLinks: [
+      { href: "/routes/abha-to-jizan", label: "Abha to Jizan private transfer" },
+      { href: "/locations/jizan", label: "Private driver and transfers in Jizan" },
+      { href: "/airports/abha-regional", label: "Abha airport (AHB) pickups" },
+      { href: "/fleet", label: "Vehicle categories" },
     ]
   }
 };

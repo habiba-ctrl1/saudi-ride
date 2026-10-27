@@ -1193,6 +1193,36 @@ export const ROUTES_DATA = [
     descriptionAr: "رحلة من البحر الأحمر إلى جبال عسير.",
     slug: "jeddah-to-abha",
   },
+  // --- SOUTHERN CORRIDOR (2026-10-27) — OSRM road distance measured 2026-10-27;
+  // duration rounded up from OSRM (2h25 / 3h14) for mountain sections. basePrice
+  // is internal only (prices are never shown — quotes are on WhatsApp). Bespoke
+  // pages: lib/data/southern-cluster.ts.
+  {
+    fromCity: "Abha",
+    toCity: "Jizan",
+    fromCityAr: "أبها",
+    toCityAr: "جازان",
+    distance: 200,
+    duration: 150,
+    basePrice: 0,
+    popular: false,
+    description: "Private transfer from the Asir highlands down to the Red Sea coast of Jizan.",
+    descriptionAr: "نقل خاص من مرتفعات عسير إلى ساحل البحر الأحمر في جازان.",
+    slug: "abha-to-jizan",
+  },
+  {
+    fromCity: "Najran",
+    toCity: "Abha",
+    fromCityAr: "نجران",
+    toCityAr: "أبها",
+    distance: 247,
+    duration: 200,
+    basePrice: 0,
+    popular: false,
+    description: "Private transfer from Najran to Abha and the Asir highlands.",
+    descriptionAr: "نقل خاص من نجران إلى أبها ومرتفعات عسير.",
+    slug: "najran-to-abha",
+  },
   {
     fromCity: "Taif",
     toCity: "Al Baha",

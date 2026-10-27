@@ -582,7 +582,56 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { question: "Can I do a Soudah Peak day trip from Abha?", answer: "Yes. A full-day car with a driver takes you to Soudah Peak, the cable car, and the viewpoints, then back — the easiest way to enjoy the highlands without driving the steep roads yourself." },
       { question: "Is an SUV better for Abha's mountain roads?", answer: "Yes. The roads to Soudah and the Asir highlands are steep and winding, so a comfortable SUV with an experienced local driver is recommended, especially for families." },
       { question: "Does the taxi cover Khamis Mushait too?", answer: "Yes — Abha and Khamis Mushait are about 25 km apart and transfers can be arranged to both, along with the Asir heritage villages and viewpoints, with your fare confirmed on WhatsApp before you book." },
-      { question: "Is taxi available in Abha 24/7?", answer: "Yes — transfers can be booked 24/7 for airport arrivals, mountain tours, and rides across the Asir region, with your fare confirmed on WhatsApp before you book." }
+      { question: "Is taxi available in Abha 24/7?", answer: "Yes — transfers can be booked 24/7 for airport arrivals, mountain tours, and rides across the Asir region, with your fare confirmed on WhatsApp before you book." },
+      { question: "Can I travel from Abha to Jizan or Najran by private car?", answer: "Yes. Abha to Jizan is about 200 km by road and Najran to Abha about 247 km. Each is a fixed-fare private transfer confirmed on WhatsApp before you book." }
+    ],
+    relatedLinks: [
+      { href: "/airports/abha-regional", label: "Abha airport (AHB) pickups" },
+      { href: "/routes/abha-to-jizan", label: "Abha to Jizan private transfer" },
+      { href: "/routes/najran-to-abha", label: "Najran to Abha private transfer" },
+      { href: "/locations/jizan", label: "Private transfers in Jizan" }
+    ]
+  },
+  // Added 2026-10-27. Jizan coverage confirmed by the owner. Distances are OSRM
+  // road distances measured 2026-10-27. No hotel, ferry-time or attraction
+  // distance claims — none verified. Hero is the shared generic illustration.
+  jizan: {
+    name: "Jizan",
+    nameAr: "جازان",
+    image: "/airports/med-hero.webp",
+    tagline: "The Red Sea South, Below the Asir Mountains",
+    description: "Book a private driver or transfer in Jizan for airport pickups from Jizan Airport (GIZ), hotel and business trips in the city, and the road up to Abha and the Asir highlands. Jizan sits on the hot Red Sea coastal plain, so a pre-booked car with a driver is the easy way to move between the airport, your hotel and onward destinations. Transfers can be booked 24/7 and the fare is confirmed on WhatsApp before you book.",
+    tldr: "Taxi Saudi Arabia arranges private transfers in Jizan — Jizan Airport (GIZ) pickups about 5 km from the centre, hotel and business rides across the city, and long-distance transfers to Abha (~200 km, about 2.5 hours). Fixed fare confirmed on WhatsApp before you book.",
+    tldrFacts: [
+      { label: "Airport", value: "GIZ (~5 km from centre)" },
+      { label: "To Abha", value: "~200 km · ~2.5 hr" },
+      { label: "Hours", value: "24/7 booking" },
+      { label: "Pricing", value: "Quoted on WhatsApp" }
+    ],
+    attractions: [
+      { name: "Jizan Airport (GIZ)", dist: "~5 km from the centre" },
+      { name: "Abha and the Asir highlands", dist: "~200 km by road" },
+      { name: "Najran", dist: "Long-distance transfer on request" },
+      { name: "Farasan Islands", dist: "Offshore, ferry connection from Jizan" }
+    ],
+    tips: [
+      "Jizan is hot, especially in summer — a pre-booked air-conditioned car beats waiting outside the airport.",
+      "GIZ is Jizan's airport. Do not confuse it with JED, which is Jeddah's, a very long drive away.",
+      "Heading up to Abha? The road climbs the mountain escarpment — tell us your group size and luggage so we quote the right vehicle.",
+      "Going to the Farasan Islands? We arrange the road leg in Jizan; the ferry is separate and booked on your own."
+    ],
+    faqs: [
+      { question: "How do I get a taxi from Jizan airport to my hotel?", answer: "Pre-book a private transfer. Jizan Airport (GIZ) is about 5 km from central Jizan. Send your flight number on WhatsApp and we confirm one fixed fare and meet you at arrivals." },
+      { question: "Can I hire a private driver in Jizan for the day?", answer: "Yes. Tell us the date, hours and places you need to visit and we confirm a fixed fare on WhatsApp before you book." },
+      { question: "How far is Jizan from Abha?", answer: "About 200 km by road, roughly 2.5 hours of driving as the road descends from the Asir highlands to the coast. A private transfer is fixed-fare and door to door." },
+      { question: "Is there a Jizan airport taxi at night?", answer: "Transfers can be booked 24/7, including late arrivals. Share your flight number and we plan the pickup around your landing." },
+      { question: "Can a company book transfers in Jizan with an invoice?", answer: "Yes. Email an RFQ for a written quote. Corporate invoicing can be arranged through our sister company." }
+    ],
+    relatedLinks: [
+      { href: "/airports/jizan-regional", label: "Jizan airport (GIZ) transfers" },
+      { href: "/routes/abha-to-jizan", label: "Abha to Jizan private transfer" },
+      { href: "/locations/abha", label: "Abha city transfers and mountain tours" },
+      { href: "/fleet", label: "Vehicle categories" }
     ]
   },
   tabuk: {

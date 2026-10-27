@@ -150,7 +150,7 @@ export default async function AirportLandingPage({ params }: PageProps) {
         <div className="absolute inset-0 z-0">
           <Image
             src={airportData.image}
-            alt={slug === "prince-mohammad-madinah" ? "Illustration of private cars collecting passengers outside an airport terminal at sunset" : airportData.name}
+            alt={slug === "prince-mohammad-madinah" || slug === "jizan-regional" ? "Illustration of private cars collecting passengers outside an airport terminal at sunset" : airportData.name}
             fill
             priority
             sizes="100vw"

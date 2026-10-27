@@ -33,6 +33,8 @@ import { MadinahRouteLinks, MadinahRouteJourney } from "@/components/location/cl
 import { MADINAH_CLUSTER_ROUTE_SLUGS } from "@/lib/data/madinah-cluster";
 import RedSeaRoutePage from "@/components/location/cluster/RedSeaRoutePage";
 import { RSI_ROUTE_PAGES } from "@/lib/data/red-sea-cluster";
+import { SOUTHERN_ROUTE_PAGES } from "@/lib/data/southern-cluster";
+import SouthernRoutePage from "@/components/location/cluster/SouthernRoutePage";
 
 interface PageProps {
   params: Promise<{
@@ -1891,6 +1893,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       twitter: { card: "summary_large_image", title: rsi.metaTitle, description: rsi.metaDescription, images: ["/red-sea/rsi-og.png"] },
     };
   }
+  // Southern corridor (2026-10-27): bespoke pages, metadata lives with the page data.
+  const south = SOUTHERN_ROUTE_PAGES[slug];
+  if (south) {
+    return {
+      title: south.metaTitle,
+      description: south.metaDescription,
+      alternates: { canonical: `https://taxisaudiarabia.com/routes/${slug}` },
+      openGraph: { title: south.metaTitle, description: south.metaDescription, type: "website", url: `https://taxisaudiarabia.com/routes/${slug}` },
+      twitter: { card: "summary_large_image", title: south.metaTitle, description: south.metaDescription },
+    };
+  }
   // A transient DB hiccup here must not fail metadata for this one page,
   // let alone abort the static build for every page on the site (this is
   // the same class of bug fixed in airports/[slug] and locations/[city] —
@@ -2084,6 +2097,8 @@ export default async function RouteDetailsPage({ params }: PageProps) {
   if (bespoke) return <CrossBorderRoutePage data={bespoke} />;
   const rsiPage = RSI_ROUTE_PAGES[slug];
   if (rsiPage) return <RedSeaRoutePage data={rsiPage} />;
+  const southPage = SOUTHERN_ROUTE_PAGES[slug];
+  if (southPage) return <SouthernRoutePage data={southPage} />;
   let route: Awaited<ReturnType<typeof db.route.findUnique>> = null;
   try {
     route = await db.route.findUnique({ where: { slug } });
