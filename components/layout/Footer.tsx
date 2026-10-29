@@ -22,6 +22,7 @@ const translations = {
     popularRoutes: "Popular Routes",
     company: "Company",
     copyright: "© 2026 Taxi Saudi Arabia. All rights reserved.",
+    reviewUs: "Review us on Trustpilot",
     motLicensed: "Professional Chauffeurs",
     zatcaCompliant: "Corporate Invoicing",
     tgaCertified: "Clear Quotes",
@@ -43,6 +44,7 @@ const translations = {
     popularRoutes: "أشهر المسارات",
     company: "الشركة",
     copyright: "© 2026 تاكسي السعودية. جميع الحقوق محفوظة.",
+    reviewUs: "قيّمنا على Trustpilot",
     motLicensed: "سائقون محترفون",
     zatcaCompliant: "فوترة للشركات",
     tgaCertified: "عروض أسعار واضحة",
@@ -64,6 +66,7 @@ const translations = {
     popularRoutes: "مشہور روٹس",
     company: "کمپنی",
     copyright: "© 2026 ٹیکسی سعودی عرب۔ جملہ حقوق محفوظ ہیں۔",
+    reviewUs: "Trustpilot پر ہمیں ریویو دیں",
     motLicensed: "پیشہ ور ڈرائیورز",
     zatcaCompliant: "کارپوریٹ انوائسنگ",
     tgaCertified: "واضح قیمت",
@@ -398,6 +401,14 @@ export function Footer() {
         {/* ── Bottom bar ── */}
         <div className="flex flex-col-reverse items-center justify-between gap-5 py-8 pb-24 text-xs md:flex-row md:pb-8">
           <p className="text-center text-white/75 md:text-start">{t.copyright}</p>
+          <a
+            href="https://www.trustpilot.com/evaluate/taxisaudiarabia.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-[#FACC15] underline-offset-4 hover:underline"
+          >
+            ★ {t.reviewUs}
+          </a>
           <div className="flex items-center gap-2">
             {SOCIALS.map((s) => (
               <a
