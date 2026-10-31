@@ -145,8 +145,9 @@ export function opsEmail(template: OpsTemplate, q: QuotationRow, receipt?: Recei
     para(`Dear <strong>${name}</strong>,`) +
     para(`Thank you for travelling with Taxi Saudi Arabia. We hope your journey from ${esc(q.pickup_location)} to ${esc(q.drop_location)} was comfortable.`) +
     para("If you need a transfer again, or would like a receipt for this trip, just reply to this email.") +
-    para("We would be grateful to hear how it went.") +
-    `<p style="margin:18px 0 4px;">${cta("Message us on WhatsApp", waLink(`Hello, about my trip ${ref}:`))}</p>`;
+    para("If you were happy with the trip, we would be grateful for an honest review — it takes a minute.") +
+    `<p style="margin:18px 0 4px;">${cta("Leave a review on Trustpilot", TRUSTPILOT_REVIEW_URL)}</p>` +
+    `<p style="margin:12px 0 4px;">${cta("Message us on WhatsApp", waLink(`Hello, about my trip ${ref}:`))}</p>`;
   return {
     subject: `Thank you for travelling with us — ${ref}`,
     html: wrapper("Thank you for riding with us", body, "You are receiving this email because you completed a trip with Taxi Saudi Arabia.", { docTitle: "THANK YOU", docTitleAr: "شكراً لك", badge: "Trip Completed" }),

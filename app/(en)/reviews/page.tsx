@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { getSupabaseServerClient } from "@/lib/supabase/server";
+import Image from "next/image";
 import { generateMetadata as seo } from "@/lib/seo";
+import { WHATSAPP_REVIEWS } from "@/lib/data/whatsapp-reviews";
 
 export const dynamic = "force-dynamic";
 
@@ -20,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: "Client Reviews",
     description: "Feedback from travellers who completed a trip with Taxi Saudi Arabia. Every review comes from a verified completed ride.",
     path: "/reviews",
-    noIndex: rows.length === 0,
+    noIndex: rows.length === 0 && WHATSAPP_REVIEWS.length === 0,
   });
 }
 
@@ -36,10 +38,23 @@ export default async function ReviewsPage() {
     <main className="mx-auto max-w-3xl px-4 py-16 sm:py-24">
       <h1 className="text-3xl font-bold text-gray-900">Client reviews</h1>
       <p className="mt-3 text-gray-600">
-        Every review below was left by a traveller through the link sent with their trip receipt, so each one is tied to a completed ride. We publish them after a manual check and do not edit them.
+        Feedback from travellers who completed a trip with us. Written reviews are left through the link sent with the trip receipt; WhatsApp messages are shown exactly as received, with phone numbers hidden. We do not edit either.
       </p>
+      {WHATSAPP_REVIEWS.length > 0 && (
+        <section className="mt-10" aria-labelledby="whatsapp-feedback">
+          <h2 id="whatsapp-feedback" className="text-xl font-semibold text-gray-900">Client messages on WhatsApp</h2>
+          <ul className="mt-4 space-y-5">
+            {WHATSAPP_REVIEWS.map((w) => (
+              <li key={w.id} className="overflow-hidden rounded-xl border border-gray-200 bg-white">
+                <Image src={w.image} alt={w.alt} width={w.width} height={w.height} sizes="(min-width: 768px) 768px, 100vw" className="h-auto w-full" />
+                <p className="px-5 py-3 text-xs text-gray-500">{w.label} · {w.month} · phone number hidden</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
       {rows.length === 0 ? (
-        <p className="mt-10 text-gray-500">Reviews will appear here as clients complete their trips.</p>
+        WHATSAPP_REVIEWS.length === 0 && <p className="mt-10 text-gray-500">Reviews will appear here as clients complete their trips.</p>
       ) : (
         <ul className="mt-10 space-y-5">
           {rows.map((r) => (

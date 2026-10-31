@@ -31,7 +31,7 @@ export function waText(t: OpsTemplate, q: QuotationRow): string {
     case "receipt":
       return `Hello ${first}, thank you for travelling with Taxi Saudi Arabia. Payment received${q.actual_amount_paid != null ? `: ${q.currency || "SAR"} ${q.actual_amount_paid.toLocaleString("en-US")}` : ""} for booking ${q.quote_reference} (${q.pickup_location} to ${q.drop_location}). Your receipt is attached.`;
     default:
-      return `Hello ${first}, thank you for travelling with Taxi Saudi Arabia (${q.quote_reference}). We hope the trip went well — see you next time.`;
+      return `Hello ${first}, thank you for travelling with Taxi Saudi Arabia (${q.quote_reference}). We hope the trip went well. If you were happy, we would be grateful for an honest review: https://www.trustpilot.com/evaluate/taxisaudiarabia.com`;
   }
 }
 

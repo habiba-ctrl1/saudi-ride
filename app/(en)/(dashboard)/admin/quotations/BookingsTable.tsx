@@ -4,15 +4,16 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { CheckCircle2, ChevronLeft, ChevronRight, FileText, Loader2, MessageCircle, Plus, Search, User, XCircle } from "lucide-react";
-import { PAGE_SIZE, VIEWS, VIEW_LABEL, type ListFilters, type ListRow, type View } from "@/lib/ops/list-shared";
+import { PAGE_SIZE, VIEW_GROUPS, VIEW_LABEL, type ListFilters, type ListRow, type View } from "@/lib/ops/list-shared";
 import { nextAction } from "@/lib/ops/next-action";
-import { STAGE_CLASS, STAGE_LABEL, effectiveStage } from "@/lib/ops/quote-stage";
+import { STAGE_LABEL, effectiveStage } from "@/lib/ops/quote-stage";
 import type { QuoteStage } from "@/lib/supabase/quotations";
 
 type Assignable = { id: string; name: string; phone: string | null; kind: "main" | "local"; default_share_pct: number };
 
-const input = "rounded-lg border border-[#333] bg-black/40 px-2.5 py-1.5 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]";
+const input = "h-10 rounded-lg border border-slate-200 bg-white px-3 text-sm text-slate-800 outline-none focus:border-emerald-500";
 const sar = (n: number | null | undefined) => (n == null ? "—" : n.toLocaleString("en-US", { maximumFractionDigits: 0 }));
+const QUOTE_TONE: Record<string, string> = { draft: "bg-slate-100 text-slate-600", ready: "bg-sky-50 text-sky-700", sent: "bg-amber-50 text-amber-700", follow_up: "bg-orange-50 text-orange-700", accepted: "bg-emerald-50 text-emerald-700", rejected: "bg-rose-50 text-rose-700", expired: "bg-slate-100 text-slate-500" };
 const VEH: Record<string, string> = { sedan: "Sedan", suv: "SUV", van: "Van", bus: "Coach", limousine: "VIP" };
 
 export function BookingsTable({ rows, total, counts, view, filters, filterDrivers, assignable, pkrRate, today }: {
@@ -73,11 +74,11 @@ export function BookingsTable({ rows, total, counts, view, filters, filterDriver
   function Action({ r }: { r: ListRow }) {
     const a = nextAction(r, today);
     const b = busy?.startsWith(r.id);
-    const cls = `inline-flex items-center gap-1 rounded-lg border px-2.5 py-1 text-[0.7rem] font-bold whitespace-nowrap disabled:opacity-40 ${a.urgent ? "border-yellow-500/50 bg-yellow-500/10 text-yellow-500" : "border-[#C9A84C]/40 text-[#C9A84C] hover:bg-[#C9A84C]/10"}`;
+    const cls = `inline-flex h-9 items-center gap-1 rounded-lg px-3 text-sm font-semibold whitespace-nowrap disabled:opacity-40 ${a.urgent ? "bg-amber-500 text-white hover:bg-amber-600" : "bg-emerald-600 text-white hover:bg-emerald-700"}`;
     const spin = b ? <Loader2 className="h-3 w-3 animate-spin" /> : null;
     switch (a.key) {
-      case "none": return <span className="text-[#555]">—</span>;
-      case "await": return <span className="text-[0.7rem] text-[#7C8088]">{a.label}</span>;
+      case "none": return <span className="text-slate-300">—</span>;
+      case "await": return <span className="text-sm text-slate-400">{a.label}</span>;
       case "send_quote": return <button className={cls} disabled={!!b} onClick={() => sendTpl(r, "quotation")}>{spin}{a.label}</button>;
       case "follow_up": return <button className={cls} disabled={!!b} onClick={() => sendTpl(r, "followup")}>{spin}{a.label}</button>;
       case "send_pickup": return <button className={cls} disabled={!!b} onClick={() => sendTpl(r, "pickup")}>{spin}{a.label}</button>;
@@ -99,121 +100,134 @@ export function BookingsTable({ rows, total, counts, view, filters, filterDriver
           <span className="inline-flex items-center gap-1">
             <input autoFocus type="number" min={0} placeholder="SAR" className={`${input} w-20`} value={cost} onChange={(e) => setCost(e.target.value)} />
             <button className={cls} disabled={!cost || !!b} onClick={() => { const v = Number(cost); setCostFor(null); setCost(""); run(`${r.id}-cost`, () => fetch(`/api/admin/quotations/${r.id}/finance`, json("PATCH", { driver_cost: v })), "Driver cost saved.") }}>{spin}Save</button>
-            <button className="text-[#7C8088]" onClick={() => setCostFor(null)}>✕</button>
+            <button className="px-1 text-slate-400" aria-label="Cancel" onClick={() => setCostFor(null)}>✕</button>
           </span>
         ) : <button className={cls} onClick={() => { setCostFor(r.id); setCost(""); }}>{a.label}</button>;
       default: return <Link className={cls} href={`/admin/quotations/${r.id}`}>{a.label}</Link>;
     }
   }
 
+  const anyFilter = filters.q || filters.preset || filters.from || filters.to || filters.vehicle || filters.driver || filters.sort || view !== "all";
+  const tone = (state: string, stage: QuoteStage) =>
+    state === "completed" ? "bg-emerald-50 text-emerald-700" : state === "cancelled" ? "bg-rose-50 text-rose-700" : state === "booking" ? "bg-sky-50 text-sky-700" : (QUOTE_TONE[stage] ?? "bg-slate-100 text-slate-600");
+  const stateText = (state: string, stage: QuoteStage) => (state === "quote" ? STAGE_LABEL[stage] : state === "booking" ? "Confirmed" : state === "completed" ? "Completed" : "Cancelled");
+
   return (
-    <div className="space-y-3">
+    <div className="mx-auto max-w-7xl space-y-5 pb-10">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-baseline gap-3">
-          <h1 className="text-xl font-bold text-[#F5F0E8]">Quotes &amp; Bookings</h1>
-          <span className="text-xs text-[#7C8088]">{total} shown</span>
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900">Quotes &amp; Bookings</h1>
+          <p className="text-sm text-slate-500">Showing {total} in &ldquo;{VIEW_LABEL[view]}&rdquo;. Tap a folder to switch.</p>
         </div>
-        <Link href="/admin/quotations/new" className="inline-flex items-center gap-1.5 rounded-lg bg-[#C9A84C] px-3.5 py-2 text-xs font-bold text-black hover:bg-[#dcb85e]"><Plus className="h-3.5 w-3.5" /> New Quotation</Link>
+        <Link href="/admin/quotations/new" className="inline-flex h-11 items-center gap-2 rounded-xl bg-emerald-600 px-5 text-sm font-semibold text-white shadow-sm hover:bg-emerald-700"><Plus className="h-4 w-4" /> New Quotation</Link>
       </div>
 
-      {/* view chips */}
-      <div className="flex flex-wrap gap-1.5">
-        {VIEWS.map((v) => (
-          <button key={v} onClick={() => setParam("view", v === "all" ? null : v)}
-            className={`rounded-full border px-3 py-1 text-xs font-medium transition ${view === v ? "border-[#C9A84C] bg-[#C9A84C]/15 text-[#C9A84C]" : "border-[#333] text-[#A1A1A6] hover:border-[#C9A84C]/40"} ${v === "loss" && counts[v] > 0 ? "!text-red-400" : ""}`}>
-            {VIEW_LABEL[v]} <span className="opacity-60">{counts[v]}</span>
-          </button>
+      {/* folders */}
+      <div className="grid gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm md:grid-cols-3">
+        {VIEW_GROUPS.map((g) => (
+          <div key={g.title}>
+            <div className="mb-1.5 text-xs font-semibold uppercase tracking-wider text-slate-400">{g.title}</div>
+            <div className="flex flex-wrap gap-1.5">
+              {g.views.map((v) => (
+                <button key={v} onClick={() => setParam("view", v === "all" ? null : v)} aria-pressed={view === v}
+                  className={`h-9 whitespace-nowrap rounded-full border px-3.5 text-sm font-medium transition ${view === v ? "border-emerald-600 bg-emerald-600 text-white" : v === "loss" && counts[v] > 0 ? "border-rose-200 bg-rose-50 text-rose-700 hover:border-rose-300" : "border-slate-200 text-slate-600 hover:border-emerald-300 hover:text-emerald-700"}`}>
+                  {VIEW_LABEL[v]} <span className={view === v ? "text-white/80" : "text-slate-400"}>{counts[v]}</span>
+                </button>
+              ))}
+            </div>
+          </div>
         ))}
       </div>
 
       {/* filters */}
       <div className="flex flex-wrap items-center gap-2">
-        <div className="relative w-full sm:w-72">
-          <Search className="absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[#7C8088]" />
-          <input className={`${input} w-full pl-8`} placeholder="Name, phone, email, TSA-2026-…, route, date…" value={q} onChange={(e) => setQ(e.target.value)} />
+        <div className="relative w-full sm:w-80">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+          <input className={`${input} w-full pl-9`} placeholder="Search name, phone, email, TSA-2026-…" value={q} onChange={(e) => setQ(e.target.value)} />
         </div>
         {(["today", "tomorrow", "week"] as const).map((p) => (
-          <button key={p} onClick={() => setParam("preset", filters.preset === p ? null : p)} className={`rounded-lg border px-2.5 py-1.5 text-xs ${filters.preset === p ? "border-[#C9A84C] bg-[#C9A84C]/15 text-[#C9A84C]" : "border-[#333] text-[#A1A1A6]"}`}>{p === "week" ? "Next 7 days" : p[0].toUpperCase() + p.slice(1)}</button>
+          <button key={p} onClick={() => setParam("preset", filters.preset === p ? null : p)} className={`h-10 rounded-lg border px-3 text-sm font-medium ${filters.preset === p ? "border-emerald-600 bg-emerald-50 text-emerald-700" : "border-slate-200 bg-white text-slate-600 hover:border-emerald-300"}`}>{p === "week" ? "Next 7 days" : p[0].toUpperCase() + p.slice(1)}</button>
         ))}
-        <input type="date" className={input} value={filters.from ?? ""} onChange={(e) => setParam("from", e.target.value || null)} title="Trip date from" />
-        <span className="text-xs text-[#7C8088]">to</span>
-        <input type="date" className={input} value={filters.to ?? ""} onChange={(e) => setParam("to", e.target.value || null)} title="Trip date to" />
-        <select className={input} value={filters.vehicle ?? ""} onChange={(e) => setParam("vehicle", e.target.value || null)}>
+        <input type="date" className={input} value={filters.from ?? ""} onChange={(e) => setParam("from", e.target.value || null)} title="Trip date from" aria-label="Trip date from" />
+        <span className="text-sm text-slate-400">to</span>
+        <input type="date" className={input} value={filters.to ?? ""} onChange={(e) => setParam("to", e.target.value || null)} title="Trip date to" aria-label="Trip date to" />
+        <select className={input} value={filters.vehicle ?? ""} onChange={(e) => setParam("vehicle", e.target.value || null)} aria-label="Vehicle">
           <option value="">All vehicles</option>{Object.entries(VEH).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
         </select>
-        <select className={input} value={filters.driver ?? ""} onChange={(e) => setParam("driver", e.target.value || null)}>
+        <select className={input} value={filters.driver ?? ""} onChange={(e) => setParam("driver", e.target.value || null)} aria-label="Driver">
           <option value="">All drivers</option>{filterDrivers.map((d) => <option key={d.id} value={d.id}>{d.name}</option>)}
         </select>
-        <select className={input} value={filters.sort ?? ""} onChange={(e) => setParam("sort", e.target.value || null)}>
-          <option value="">Default order</option><option value="date_desc">Trip date — newest</option><option value="date_asc">Trip date — soonest</option><option value="created">Recently created</option><option value="margin">Worst margin first</option>
+        <select className={input} value={filters.sort ?? ""} onChange={(e) => setParam("sort", e.target.value || null)} aria-label="Sort">
+          <option value="">Default order</option><option value="date_desc">Trip date — newest</option><option value="date_asc">Trip date — soonest</option><option value="created">Recently created</option><option value="margin">Worst profit first</option>
         </select>
-        {(filters.q || filters.preset || filters.from || filters.to || filters.vehicle || filters.driver || filters.sort || view !== "all") && (
-          <button className="text-xs text-[#C9A84C] underline" onClick={() => { setQ(""); router.replace(pathname); }}>Clear</button>
-        )}
+        {anyFilter && <button className="h-10 px-2 text-sm font-semibold text-emerald-700 hover:underline" onClick={() => { setQ(""); router.replace(pathname); }}>Clear filters</button>}
       </div>
 
       {msg && (
-        <div className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-xs ${msg.ok ? "border-green-500/30 bg-green-500/10 text-green-500" : "border-red-500/30 bg-red-500/10 text-red-400"}`}>
+        <div className={`flex items-center gap-2 rounded-xl border px-4 py-3 text-sm ${msg.ok ? "border-emerald-200 bg-emerald-50 text-emerald-700" : "border-rose-200 bg-rose-50 text-rose-700"}`}>
           {msg.ok ? <CheckCircle2 className="h-4 w-4" /> : <XCircle className="h-4 w-4" />} {msg.text}
         </div>
       )}
 
-      <div className="overflow-x-auto rounded-2xl border border-[#333] bg-[#111]">
-        <table className="w-full text-left text-xs">
-          <thead className="bg-[#1A1A1A] text-[0.6rem] uppercase tracking-widest text-[#7C8088]">
-            <tr>
-              <th className="px-3 py-2.5">Booking</th><th className="px-2 py-2.5">Trip</th><th className="px-2 py-2.5">When</th><th className="px-2 py-2.5">Status</th>
-              <th className="px-2 py-2.5 text-right">Quoted</th><th className="px-2 py-2.5 text-right">Paid</th><th className="px-2 py-2.5 text-right">Result</th><th className="px-2 py-2.5">Driver</th><th className="px-2 py-2.5">Next action</th><th className="px-3 py-2.5" />
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-[#222] text-[#A1A1A6]">
-            {rows.length === 0 && <tr><td colSpan={10} className="p-10 text-center">No bookings match these filters.</td></tr>}
-            {rows.map((r) => {
-              const stage = effectiveStage(r.quote_stage as QuoteStage, r.valid_until);
-              const loss = r.margin != null && r.margin < 0;
-              const state = r.status === "completed" ? "completed" : r.status === "cancelled" ? "cancelled" : r.status === "confirmed" || r.status === "assigned" ? "booking" : "quote";
-              return (
-                <tr key={r.id} className={`align-top hover:bg-[#1A1A1A]/60 ${loss ? "bg-red-500/5" : ""}`}>
-                  <td className="px-3 py-2">
-                    <Link href={`/admin/quotations/${r.id}`} className="font-mono font-bold text-[#C9A84C] hover:underline">{r.quote_reference}</Link>
-                    <div className="text-[#F5F0E8]">{r.customer_name}</div>
-                    <div className="text-[0.65rem] text-[#7C8088]">{r.customer_phone}</div>
-                  </td>
-                  <td className="max-w-[240px] px-2 py-2">{r.pickup_location} → {r.drop_location}<div className="text-[0.65rem] text-[#7C8088]">{r.vehicle ? VEH[r.vehicle] ?? r.vehicle : ""}</div></td>
-                  <td className="whitespace-nowrap px-2 py-2 text-[#F5F0E8]">{r.trip_date}<div className="text-[0.65rem] text-[#7C8088]">{r.trip_time?.slice(0, 5) ?? ""}</div></td>
-                  <td className="px-2 py-2">
-                    <span className={`rounded border px-1.5 py-0.5 text-[0.6rem] font-bold uppercase ${state === "completed" ? "border-green-500/30 text-green-500" : state === "cancelled" ? "border-red-500/30 text-red-400" : state === "booking" ? "border-blue-500/30 text-blue-400" : STAGE_CLASS[stage]}`}>
-                      {state === "quote" ? STAGE_LABEL[stage] : state}
-                    </span>
-                    {loss && <span className="ml-1 rounded border border-red-500/40 bg-red-500/10 px-1.5 py-0.5 text-[0.6rem] font-bold uppercase text-red-400">Loss</span>}
-                    <div className={`mt-0.5 text-[0.65rem] ${r.payment_status === "paid" ? "text-green-500" : "text-[#7C8088]"}`}>{r.status === "cancelled" ? "" : r.payment_status}</div>
-                  </td>
-                  <td className="px-2 py-2 text-right font-mono">{sar(r.quoted_price)}</td>
-                  <td className="px-2 py-2 text-right font-mono">{r.actual_amount_paid != null ? sar(r.actual_amount_paid) : "—"}</td>
-                  <td className={`px-2 py-2 text-right font-mono ${loss ? "font-bold text-red-400" : r.margin != null ? "text-green-500" : ""}`}>
-                    {r.status === "completed" && r.margin == null ? <span className="font-sans text-yellow-500">cost needed</span> : r.margin == null ? "—" : loss ? `−${sar(Math.abs(r.margin))}` : sar(r.margin)}
-                    {r.margin != null && pkrRate && <div className="text-[0.6rem] font-normal text-[#7C8088]">PKR {Math.round(r.margin * pkrRate).toLocaleString("en-US")}</div>}
-                  </td>
-                  <td className={`px-2 py-2 ${r.driver_name ? "text-[#F5F0E8]" : "text-[#555]"}`}>{r.driver_name ?? "—"}</td>
-                  <td className="px-2 py-2"><Action r={r} /></td>
-                  <td className="whitespace-nowrap px-3 py-2 text-right">
-                    <a href={`https://wa.me/${r.customer_phone.replace(/[^0-9]/g, "")}`} target="_blank" rel="noreferrer" title="WhatsApp client" className="mr-2 inline-block text-[#A1A1A6] hover:text-green-500"><MessageCircle className="h-4 w-4" /></a>
-                    {r.client_id && <Link href={`/admin/clients/${r.client_id}`} title="Client history" className="mr-2 inline-block text-[#A1A1A6] hover:text-[#C9A84C]"><User className="h-4 w-4" /></Link>}
-                    {r.quoted_price != null && <a href={`/api/quotations/${r.id}/invoice`} title="Quotation PDF" className="inline-block text-[#A1A1A6] hover:text-[#C9A84C]"><FileText className="h-4 w-4" /></a>}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+      <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+        {rows.length === 0 && <p className="p-12 text-center text-sm text-slate-400">No rides match these filters.</p>}
+        <ul className="divide-y divide-slate-100">
+          {rows.map((r) => {
+            const stage = effectiveStage(r.quote_stage as QuoteStage, r.valid_until);
+            const loss = r.margin != null && r.margin < 0;
+            const state = r.status === "completed" ? "completed" : r.status === "cancelled" ? "cancelled" : r.status === "confirmed" || r.status === "assigned" ? "booking" : "quote";
+            return (
+              <li key={r.id} className={`flex flex-wrap items-center gap-x-5 gap-y-3 px-5 py-4 hover:bg-slate-50 ${loss ? "bg-rose-50/50" : ""}`}>
+                <div className="w-24 shrink-0">
+                  <div className="text-base font-bold text-slate-900">{new Date(`${r.trip_date.slice(0, 10)}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" })}</div>
+                  <div className="text-xs text-slate-400">{r.trip_date.slice(0, 4)}{r.trip_time ? ` · ${r.trip_time.slice(0, 5)}` : ""}</div>
+                </div>
+                <div className="min-w-0 flex-1 basis-64">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Link href={`/admin/quotations/${r.id}`} className="font-semibold text-slate-900 hover:text-emerald-700 hover:underline">{r.customer_name}</Link>
+                    <span className="font-mono text-xs text-slate-400">{r.quote_reference}</span>
+                  </div>
+                  <div className="truncate text-sm text-slate-500">{r.pickup_location} → {r.drop_location}</div>
+                  <div className="text-xs text-slate-400">{r.vehicle ? VEH[r.vehicle] ?? r.vehicle : ""}{r.vehicle && r.customer_phone ? " · " : ""}{r.customer_phone}</div>
+                </div>
+                <div className="flex w-40 shrink-0 flex-col items-start gap-1">
+                  <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${tone(state, stage)}`}>{stateText(state, stage)}</span>
+                  {state !== "cancelled" && (
+                    <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${r.payment_status === "paid" ? "bg-emerald-50 text-emerald-700" : "bg-slate-100 text-slate-500"}`}>{r.payment_status === "paid" ? "Paid" : "Not paid yet"}</span>
+                  )}
+                  {loss && <span className="rounded-full bg-rose-100 px-2.5 py-0.5 text-xs font-semibold text-rose-700">Lost money</span>}
+                </div>
+                <div className="w-36 shrink-0 text-sm">
+                  <div className="text-slate-400">Quoted / received</div>
+                  <div className="font-semibold text-slate-900">{r.currency !== "SAR" && <span className="mr-1 rounded bg-amber-50 px-1 text-xs font-bold text-amber-700">{r.currency}</span>}{sar(r.quoted_price)} <span className="font-normal text-slate-400">/</span> {r.actual_amount_paid != null ? sar(r.actual_amount_paid) : "—"}</div>
+                  <div className={`text-xs ${loss ? "font-semibold text-rose-600" : "text-slate-500"}`}>
+                    {r.status === "completed" && r.margin == null ? <span className="text-amber-600">driver cost missing</span> : r.margin == null ? "" : `Profit ${loss ? "−" : ""}${sar(Math.abs(r.margin))}`}
+                  </div>
+                  {r.margin != null && pkrRate && <div className="text-xs text-slate-400">PKR {Math.round(r.margin * pkrRate).toLocaleString("en-US")}</div>}
+                </div>
+                <div className="w-28 shrink-0 text-sm">
+                  <div className="text-slate-400">Driver</div>
+                  <div className={r.driver_name ? "font-medium text-slate-800" : "text-slate-300"}>{r.driver_name ?? "—"}</div>
+                </div>
+                <div className="flex shrink-0 items-center gap-2 lg:ml-auto">
+                  <Action r={r} />
+                  <a href={`https://wa.me/${r.customer_phone.replace(/[^0-9]/g, "")}`} target="_blank" rel="noreferrer" title="WhatsApp client" aria-label={`WhatsApp ${r.customer_name}`} className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-500 hover:border-emerald-300 hover:text-emerald-600"><MessageCircle className="h-4 w-4" /></a>
+                  {r.client_id && <Link href={`/admin/clients/${r.client_id}`} title="Client history" aria-label="Client history" className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-500 hover:border-emerald-300 hover:text-emerald-600"><User className="h-4 w-4" /></Link>}
+                  {r.quoted_price != null && <a href={`/api/quotations/${r.id}/invoice`} title="Quotation PDF" aria-label="Quotation PDF" className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-500 hover:border-emerald-300 hover:text-emerald-600"><FileText className="h-4 w-4" /></a>}
+                  <Link href={`/admin/quotations/${r.id}`} className="inline-flex h-9 items-center rounded-lg border border-slate-200 px-3 text-sm font-semibold text-slate-700 hover:border-emerald-300">Open</Link>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
       </div>
 
       {pages > 1 && (
-        <div className="flex items-center justify-between text-xs text-[#A1A1A6]">
+        <div className="flex items-center justify-between text-sm text-slate-500">
           <span>Page {page} of {pages}</span>
           <div className="flex gap-2">
-            <button disabled={page <= 1} onClick={() => setParam("page", String(page - 1), false)} className="rounded-lg border border-[#333] p-1.5 disabled:opacity-30"><ChevronLeft className="h-4 w-4" /></button>
-            <button disabled={page >= pages} onClick={() => setParam("page", String(page + 1), false)} className="rounded-lg border border-[#333] p-1.5 disabled:opacity-30"><ChevronRight className="h-4 w-4" /></button>
+            <button disabled={page <= 1} onClick={() => setParam("page", String(page - 1), false)} aria-label="Previous page" className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white disabled:opacity-30"><ChevronLeft className="h-4 w-4" /></button>
+            <button disabled={page >= pages} onClick={() => setParam("page", String(page + 1), false)} aria-label="Next page" className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white disabled:opacity-30"><ChevronRight className="h-4 w-4" /></button>
           </div>
         </div>
       )}

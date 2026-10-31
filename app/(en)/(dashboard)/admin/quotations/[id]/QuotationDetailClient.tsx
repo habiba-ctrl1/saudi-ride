@@ -14,18 +14,18 @@ import type { TimelineItem } from "@/lib/ops/events";
 import { LIFECYCLE } from "@/lib/ops/events";
 import type { OpsTemplate } from "@/lib/email/ops-template-labels";
 import { OPS_TEMPLATE_LABEL } from "@/lib/email/ops-template-labels";
-import { STAGE_CLASS, STAGE_LABEL, effectiveStage, isConvertedToBooking } from "@/lib/ops/quote-stage";
+import { STAGE_LABEL, effectiveStage, isConvertedToBooking } from "@/lib/ops/quote-stage";
 import { waLink, waText } from "@/lib/ops/wa-text";
 
 type Assignable = { id: string; name: string; phone: string | null; kind: "main" | "local"; default_share_pct: number };
 type Doc = { id: string; kind: string; number: string; amount: number | null; created_at: string };
 type Lifecycle = { done: boolean[]; currentIndex: number };
 
-const btn = "inline-flex items-center gap-1.5 rounded-lg border px-3 py-2 text-xs font-bold disabled:opacity-40 transition";
-const gold = `${btn} border-[#C9A84C]/40 text-[#C9A84C] hover:bg-[#C9A84C]/10`;
-const solid = `${btn} border-transparent bg-[#C9A84C] text-black hover:bg-[#dcb85e]`;
-const field = "mt-1 w-full rounded-lg border border-[#333] bg-black/40 px-2 py-1.5 text-sm text-[#F5F0E8] outline-none focus:border-[#C9A84C]";
-const lbl = "text-[0.65rem] text-[#7C8088]";
+const btn = "inline-flex min-h-10 items-center gap-1.5 rounded-lg border px-4 py-2 text-sm font-semibold disabled:opacity-40 transition";
+const gold = `${btn} border-emerald-200 bg-white text-emerald-700 hover:bg-emerald-50`;
+const solid = `${btn} border-transparent bg-emerald-600 text-white hover:bg-emerald-700`;
+const field = "mt-1 h-10 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm text-slate-900 outline-none focus:border-emerald-500 disabled:bg-slate-50 disabled:text-slate-400";
+const lbl = "text-xs font-medium text-slate-500";
 const sar = (n: number | null | undefined) => (n == null ? "—" : `SAR ${n.toLocaleString("en-US", { maximumFractionDigits: 2 })}`);
 const ksa = (s: string) => {
   const d = new Date(s.replace(" ", "T").replace(/([+-]\d{2})$/, "$1:00"));
@@ -34,9 +34,9 @@ const ksa = (s: string) => {
 
 function Card({ title, right, children }: { title: string; right?: React.ReactNode; children: React.ReactNode }) {
   return (
-    <section className="rounded-2xl border border-[#333] bg-[#111] p-4">
-      <div className="mb-2 flex items-center justify-between gap-2">
-        <h2 className="text-[0.65rem] font-bold uppercase tracking-widest text-[#7C8088]">{title}</h2>
+    <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+      <div className="mb-3 flex items-center justify-between gap-2">
+        <h2 className="text-base font-semibold text-slate-900">{title}</h2>
         {right}
       </div>
       {children}
@@ -44,12 +44,17 @@ function Card({ title, right, children }: { title: string; right?: React.ReactNo
   );
 }
 const KV = ({ k, v }: { k: string; v: React.ReactNode }) => (
-  <div className="flex justify-between gap-4 border-b border-[#222] py-1 text-xs last:border-0">
-    <span className="shrink-0 text-[#7C8088]">{k}</span>
-    <span className="text-right text-[#F5F0E8]">{v}</span>
+  <div className="flex justify-between gap-4 border-b border-slate-100 py-2 text-sm last:border-0">
+    <span className="shrink-0 text-slate-500">{k}</span>
+    <span className="min-w-0 break-words text-right text-slate-900">{v}</span>
   </div>
 );
 
+const NEXT_TEXT: Record<string, string> = {
+  Quotation: "Set a price and send the quotation", Accepted: "Wait for the customer to accept", Confirmed: "Convert the quote to a booking",
+  "Driver assigned": "Assign a driver", "Pickup details sent": "Send pickup details to the customer", "Ride completed": "Mark the ride completed",
+  "Payment completed": "Record the customer's payment", "Receipt generated": "Generate the receipt", "Financials closed": "Enter the driver cost to close the books",
+};
 const PAY_METHODS = ["Cash", "Bank transfer", "Card", "Other"];
 const today = () => new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Riyadh" });
 
@@ -87,31 +92,31 @@ function PaymentsPanel({ q, payments, busy, setBusy, setMsg, refresh }: {
   };
 
   return (
-    <div className="mt-4 space-y-3 border-t border-[#222] pt-3">
+    <div id="payment-card" className="mt-5 scroll-mt-6 space-y-3 border-t border-slate-100 pt-4">
       <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-xs">
-        <h3 className="text-xs font-bold text-[#F5F0E8]">Payments</h3>
-        <span className="text-[#7C8088]">Agreed fare <b className="text-[#F5F0E8]">{sar(fare)}</b></span>
-        <span className="text-[#7C8088]">Received <b className="text-green-500">{sar(received)}</b></span>
-        <span className="text-[#7C8088]">Balance <b className={settled || balance === 0 ? "text-green-500" : "text-orange-400"}>{settled ? "SAR 0 (settled)" : sar(balance)}</b></span>
-        <span className={`rounded border px-1.5 py-0.5 text-[0.6rem] font-bold uppercase ${settled ? "border-green-500/40 text-green-500" : q.payment_status === "partial" ? "border-orange-500/40 text-orange-400" : "border-[#333] text-[#7C8088]"}`}>{q.payment_status}</span>
+        <h3 className="text-sm font-semibold text-slate-900">Customer payments</h3>
+        <span className="text-slate-500">Agreed fare <b className="text-slate-900">{sar(fare)}</b></span>
+        <span className="text-slate-500">Received <b className="text-emerald-600">{sar(received)}</b></span>
+        <span className="text-slate-500">Balance <b className={settled || balance === 0 ? "text-emerald-600" : "text-amber-600"}>{settled ? "SAR 0 (settled)" : sar(balance)}</b></span>
+        <span className={`rounded border px-1.5 py-0.5 text-xs font-bold uppercase ${settled ? "border-emerald-200 bg-emerald-50 text-emerald-700" : q.payment_status === "partial" ? "border-amber-200 bg-amber-50 text-amber-700" : "border-slate-200 text-slate-500"}`}>{q.payment_status}</span>
       </div>
 
       {payments.length > 0 && (
-        <div className="overflow-x-auto rounded-lg border border-[#222]">
-          <table className="w-full text-left text-xs">
-            <thead className="bg-[#1A1A1A] text-[0.6rem] uppercase tracking-widest text-[#7C8088]"><tr><th className="p-2">Date</th><th className="p-2">Amount</th><th className="p-2">Method</th><th className="p-2">Reference</th><th className="p-2" /></tr></thead>
-            <tbody className="divide-y divide-[#222] text-[#A1A1A6]">
+        <div className="overflow-x-auto rounded-lg border border-slate-100">
+          <table className="w-full text-left text-sm">
+            <thead className="bg-slate-50 text-xs uppercase tracking-widest text-slate-500"><tr><th className="p-2">Date</th><th className="p-2">Amount</th><th className="p-2">Method</th><th className="p-2">Reference</th><th className="p-2" /></tr></thead>
+            <tbody className="divide-y divide-slate-100 text-slate-600">
               {payments.map((p) => (
                 <tr key={p.id} className={p.voided_at ? "opacity-50" : ""}>
-                  <td className="p-2 whitespace-nowrap">{p.paid_at ?? <span className="text-[#7C8088]" title="Date was not recorded">not recorded</span>}</td>
-                  <td className={`p-2 font-mono ${p.voided_at ? "line-through" : ""}`}>{sar(p.amount)}{p.closes_balance && !p.voided_at ? <span className="ml-1 text-[0.6rem] text-green-500" title="Closed the balance">settles</span> : null}</td>
+                  <td className="p-2 whitespace-nowrap">{p.paid_at ?? <span className="text-slate-500" title="Date was not recorded">not recorded</span>}</td>
+                  <td className={`p-2 font-mono ${p.voided_at ? "line-through" : ""}`}>{sar(p.amount)}{p.closes_balance && !p.voided_at ? <span className="ml-1 text-xs text-emerald-600" title="Closed the balance">settles</span> : null}</td>
                   <td className="p-2">{p.method ?? "—"}</td>
-                  <td className="p-2">{p.reference ?? "—"}{p.voided_at ? <div className="text-red-400">Voided: {p.void_reason}</div> : null}</td>
+                  <td className="p-2">{p.reference ?? "—"}{p.voided_at ? <div className="text-rose-600">Voided: {p.void_reason}</div> : null}</td>
                   <td className="p-2 whitespace-nowrap text-right">
                     {!p.voided_at && (p.receipt_doc_id
-                      ? <a className="font-bold text-[#C9A84C] hover:underline" href={`/api/admin/documents/${p.receipt_doc_id}`} target="_blank" rel="noreferrer">Open receipt</a>
-                      : <button className="font-bold text-[#C9A84C] hover:underline disabled:opacity-40" disabled={busy !== null} onClick={() => api(`rc-${p.id}`, "POST", { payment_id: p.id }, "")}>{busy === `rc-${p.id}` ? "…" : "Issue receipt"}</button>)}
-                    {!p.voided_at && <button className="ml-3 text-red-400 hover:underline disabled:opacity-40" disabled={busy !== null} onClick={() => voidIt(p)}>Void</button>}
+                      ? <a className="font-bold text-emerald-700 hover:underline" href={`/api/admin/documents/${p.receipt_doc_id}`} target="_blank" rel="noreferrer">Open receipt</a>
+                      : <button className="font-bold text-emerald-700 hover:underline disabled:opacity-40" disabled={busy !== null} onClick={() => api(`rc-${p.id}`, "POST", { payment_id: p.id }, "")}>{busy === `rc-${p.id}` ? "…" : "Issue receipt"}</button>)}
+                    {!p.voided_at && <button className="ml-3 text-rose-600 hover:underline disabled:opacity-40" disabled={busy !== null} onClick={() => voidIt(p)}>Void</button>}
                   </td>
                 </tr>
               ))}
@@ -119,10 +124,10 @@ function PaymentsPanel({ q, payments, busy, setBusy, setMsg, refresh }: {
           </table>
         </div>
       )}
-      {payments.length === 0 && <p className="text-xs text-[#7C8088]">No payment recorded yet. Receipts can only be issued for a payment that was actually received.</p>}
+      {payments.length === 0 && <p className="text-xs text-slate-500">No payment recorded yet. Receipts can only be issued for a payment that was actually received.</p>}
 
       {q.status !== "cancelled" && (
-        <div className="rounded-lg border border-[#222] p-3">
+        <div className="rounded-lg border border-slate-100 p-3">
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
             <label className={lbl}>Amount received (SAR)<input type="number" min={0} step="0.01" className={field} value={f.amount} placeholder={balance ? String(balance) : ""} onChange={(e) => set("amount", e.target.value)} /></label>
             <label className={lbl}>Method<select className={field} value={f.method} onChange={(e) => set("method", e.target.value)}>{PAY_METHODS.map((m) => <option key={m}>{m}</option>)}</select></label>
@@ -132,9 +137,9 @@ function PaymentsPanel({ q, payments, busy, setBusy, setMsg, refresh }: {
           <div className="mt-2 flex flex-wrap items-center gap-3">
             <button className={solid} disabled={busy !== null} onClick={record}>{busy === "pay" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "Record payment"}</button>
             {balance != null && balance > 0 && <button className={gold} type="button" onClick={() => set("amount", String(balance))}>Fill balance {sar(balance)}</button>}
-            <label className="flex items-center gap-1.5 text-[0.7rem] text-[#7C8088]"><input type="checkbox" checked={f.closes} onChange={(e) => set("closes", e.target.checked)} /> Final payment — accept as settled even if below the fare</label>
+            <label className="flex items-center gap-1.5 text-xs text-slate-500"><input type="checkbox" checked={f.closes} onChange={(e) => set("closes", e.target.checked)} /> Final payment — accept as settled even if below the fare</label>
           </div>
-          <p className="mt-2 text-[0.65rem] text-[#7C8088]">Recording does not email anyone and does not issue a receipt. Status becomes Paid only when payments reach the fare (or you tick the box above).</p>
+          <p className="mt-2 text-xs text-slate-500">Recording does not email anyone and does not issue a receipt. Status becomes Paid only when payments reach the fare (or you tick the box above).</p>
         </div>
       )}
     </div>
@@ -276,15 +281,15 @@ export function QuotationDetailClient({ q, comms, drivers, pkrRate, docs, timeli
     const last = comms.find((c) => c.template === t);
     return (
       <div className="flex flex-wrap items-center gap-2 py-1.5">
-        <span className="w-44 text-xs font-bold text-[#F5F0E8]">
+        <span className="w-48 text-sm font-semibold text-slate-900">
           {OPS_TEMPLATE_LABEL[t]}
-          {last && <span className={`ml-1 font-normal ${last.status === "sent" ? "text-green-500" : "text-red-400"}`}>{last.status === "sent" ? "✓ sent" : "✗ failed"}</span>}
+          {last && <span className={`ml-1 font-normal ${last.status === "sent" ? "text-emerald-600" : "text-rose-600"}`}>{last.status === "sent" ? "✓ sent" : "✗ failed"}</span>}
         </span>
         <button className={gold} disabled={disabled || !hasEmail || busy !== null} title={!hasEmail ? "No email on file" : hint} onClick={() => sendEmail(t)}>
           {busy === `mail-${t}` ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Mail className="h-3.5 w-3.5" />} {last?.status === "failed" ? "Retry email" : "Email"}
         </button>
         <a className={gold} href={link} target="_blank" rel="noreferrer"><MessageCircle className="h-3.5 w-3.5" /> WhatsApp</a>
-        <button className={`${btn} border-[#333] text-[#A1A1A6] hover:text-[#F5F0E8]`} disabled={busy !== null} onClick={() => markWa(t)}>
+        <button className={`${btn} border-slate-200 text-slate-600 hover:text-slate-900`} disabled={busy !== null} onClick={() => markWa(t)}>
           {busy === `wa-${t}` ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "Mark sent on WhatsApp"}
         </button>
       </div>
@@ -295,73 +300,94 @@ export function QuotationDetailClient({ q, comms, drivers, pkrRate, docs, timeli
   const driverLabel = q.driver_name ?? q.drivers?.full_name ?? "Not assigned";
 
   return (
-    <div className="max-w-7xl space-y-4">
+    <div className="mx-auto max-w-7xl space-y-5 pb-10">
       {/* Header */}
       <div>
-        <Link href="/admin/quotations" className="mb-2 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#C9A84C] hover:underline"><ArrowLeft className="h-3.5 w-3.5" /> Quotations</Link>
-        <div className="flex flex-wrap items-center gap-3">
-          <h1 className="font-mono text-xl font-bold text-[#C9A84C]">{q.quote_reference}</h1>
-          <span className={`rounded border px-2 py-0.5 text-[0.65rem] font-bold uppercase tracking-wider ${STAGE_CLASS[stage]}`}>{STAGE_LABEL[stage]}</span>
-          <span className="rounded border border-[#333] px-2 py-0.5 text-[0.65rem] font-bold uppercase tracking-wider text-[#A1A1A6]">{q.status}</span>
-          {converted && <span className="rounded border border-green-500/30 bg-green-500/10 px-2 py-0.5 text-[0.65rem] font-bold uppercase tracking-wider text-green-500">Converted to booking</span>}
-          {margin != null && margin < 0 && <span className="rounded border border-red-500/40 bg-red-500/10 px-2 py-0.5 text-[0.65rem] font-bold uppercase tracking-wider text-red-400">Loss-making</span>}
-          {q.is_test && <span className="text-[0.65rem] font-bold text-purple-400">TEST</span>}
+        <Link href="/admin/quotations" className="mb-3 inline-flex items-center gap-2 text-sm font-semibold text-emerald-700 hover:underline"><ArrowLeft className="h-4 w-4" /> Back to Quotes &amp; Bookings</Link>
+        <div className="flex flex-wrap items-center gap-2">
+          <h1 className="text-2xl font-bold text-slate-900">{q.customer_name}</h1>
+          <span className="font-mono text-sm text-slate-400">{q.quote_reference}</span>
+          <span className={`rounded-full px-3 py-1 text-xs font-semibold ${completed ? "bg-emerald-50 text-emerald-700" : q.status === "cancelled" ? "bg-rose-50 text-rose-700" : converted ? "bg-sky-50 text-sky-700" : "bg-amber-50 text-amber-700"}`}>
+            {completed ? "Completed" : q.status === "cancelled" ? "Cancelled" : converted ? "Confirmed booking" : `Quote: ${STAGE_LABEL[stage]}`}
+          </span>
+          <span className={`rounded-full px-3 py-1 text-xs font-semibold ${q.payment_status === "paid" ? "bg-emerald-50 text-emerald-700" : q.payment_status === "partial" ? "bg-amber-50 text-amber-700" : "bg-slate-100 text-slate-600"}`}>
+            {q.payment_status === "paid" ? "Paid" : q.payment_status === "partial" ? "Part paid" : "Not paid yet"}
+          </span>
+          {margin != null && margin < 0 && <span className="rounded-full bg-rose-100 px-3 py-1 text-xs font-semibold text-rose-700">Lost money</span>}
+          {q.is_test && <span className="text-xs font-bold text-purple-600">TEST</span>}
         </div>
-        <p className="mt-1 text-sm text-[#F5F0E8]">{q.customer_name} · {q.pickup_location} → {q.drop_location}</p>
+        <p className="mt-1 text-slate-600">{q.pickup_location} → {q.drop_location}</p>
       </div>
 
+      {/* Next step */}
+      {!lifecycle.done.every(Boolean) && q.status !== "cancelled" && (
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-4">
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-wider text-emerald-700">Next step</div>
+            <div className="text-lg font-semibold text-slate-900">{NEXT_TEXT[LIFECYCLE[lifecycle.currentIndex]] ?? LIFECYCLE[lifecycle.currentIndex]}</div>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {converted && !completed && <button className={solid} disabled={busy !== null} onClick={() => window.confirm(`Mark ${q.quote_reference} as completed? No email is sent.`) && markCompleted()}>{busy === "complete" ? <Loader2 className="h-4 w-4 animate-spin" /> : <CheckCircle2 className="h-4 w-4" />} Mark ride completed</button>}
+            {converted && !(q.partner_id || q.driver_name || q.assigned_driver_id) && <a className={gold} href="#driver-card">Assign a driver</a>}
+            {completed && q.payment_status !== "paid" && <a className={solid} href="#payment-card">Record payment</a>}
+            {!converted && hasPrice && <button className={solid} disabled={busy !== null} onClick={convert}>Convert to booking</button>}
+          </div>
+        </div>
+      )}
+
       {/* Key facts strip */}
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
         {[
           ["When", `${q.trip_date}${q.trip_time ? ` · ${q.trip_time.slice(0, 5)}` : ""}`],
-          ["Quoted", sar(q.quoted_price)],
-          ["Payment", q.payment_status === "paid" ? "Paid" : q.payment_status === "partial" ? "Partial" : "Unpaid"],
+          ["Quoted price", sar(q.quoted_price)],
+          ["Money received", q.actual_amount_paid != null ? sar(q.actual_amount_paid) : "Nothing yet"],
           ["Driver", driverLabel],
-          ["Result", q.financial_status === "required" ? "Cost needed" : margin == null ? (expected != null ? `Expected ${sar(expected)}` : "—") : margin < 0 ? `LOSS ${sar(Math.abs(margin))}` : sar(margin)],
+          ["Profit", q.financial_status === "required" ? "Driver cost missing" : margin == null ? (expected != null ? `Expected ${sar(expected)}` : "—") : margin < 0 ? `Lost ${sar(Math.abs(margin))}` : sar(margin)],
         ].map(([k, v]) => (
-          <div key={k} className="rounded-xl border border-[#333] bg-[#111] px-3 py-2">
-            <div className="text-[0.6rem] uppercase tracking-widest text-[#7C8088]">{k}</div>
-            <div className={`mt-0.5 text-sm font-bold ${k === "Result" && (margin ?? 0) < 0 ? "text-red-400" : k === "Result" && q.financial_status === "required" ? "text-yellow-500" : "text-[#F5F0E8]"}`}>{v}</div>
+          <div key={k} className="rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
+            <div className="text-xs font-medium text-slate-500">{k}</div>
+            <div className={`mt-0.5 text-base font-bold ${k === "Profit" && (margin ?? 0) < 0 ? "text-rose-600" : k === "Profit" && q.financial_status === "required" ? "text-amber-600" : k === "Driver" && !(q.driver_name || q.drivers?.full_name) ? "text-amber-600" : "text-slate-900"}`}>{v}</div>
           </div>
         ))}
       </div>
 
-      {/* Lifecycle */}
-      <div className="rounded-2xl border border-[#333] bg-[#111] px-4 py-3">
-        <ol className="flex flex-wrap items-center gap-y-1.5 gap-x-1">
+      {/* Progress */}
+      <div className="rounded-2xl border border-slate-200 bg-white px-5 py-4 shadow-sm">
+        <div className="mb-2 text-sm font-semibold text-slate-900">Progress</div>
+        <ol className="flex flex-wrap items-center gap-x-1 gap-y-2">
           {LIFECYCLE.map((step, i) => {
             const done = lifecycle.done[i];
             const current = i === lifecycle.currentIndex && !lifecycle.done.every(Boolean);
             return (
               <li key={step} className="flex items-center gap-1">
-                <div className={`flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[0.65rem] font-bold ${done ? "border-green-500/30 bg-green-500/10 text-green-500" : current ? "border-[#C9A84C] bg-[#C9A84C]/15 text-[#C9A84C]" : "border-[#333] text-[#7C8088]"}`}>
-                  {done ? <Check className="h-3 w-3" /> : <span className="text-[0.6rem]">{i + 1}</span>} {step}
+                <div className={`flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold ${done ? "border-emerald-200 bg-emerald-50 text-emerald-700" : current ? "border-emerald-600 bg-white text-emerald-700" : "border-slate-200 text-slate-400"}`}>
+                  {done ? <Check className="h-3 w-3" /> : <span>{i + 1}</span>} {step}
                 </div>
-                {i < LIFECYCLE.length - 1 && <span className="text-[#444]">›</span>}
+                {i < LIFECYCLE.length - 1 && <span className="text-slate-300">›</span>}
               </li>
             );
           })}
         </ol>
-        {!lifecycle.done.every(Boolean) && <p className="mt-2 text-[0.7rem] text-[#7C8088]">Next: <span className="font-bold text-[#C9A84C]">{LIFECYCLE[lifecycle.currentIndex]}</span> — steps tick themselves from real data, nothing is checked by hand.</p>}
+        <p className="mt-2 text-xs text-slate-400">Steps tick themselves from real records — nothing is ticked by hand.</p>
       </div>
 
       {msg && (
-        <div className={`flex items-start gap-2 rounded-xl border px-4 py-3 text-sm ${msg.ok ? "border-green-500/30 bg-green-500/10 text-green-500" : "border-red-500/30 bg-red-500/10 text-red-400"}`}>
+        <div className={`flex items-start gap-2 rounded-xl border px-4 py-3 text-sm ${msg.ok ? "border-emerald-200 bg-emerald-50 text-emerald-700" : "border-rose-200 bg-rose-50 text-rose-700"}`}>
           {msg.ok ? <CheckCircle2 className="mt-0.5 h-4 w-4" /> : <XCircle className="mt-0.5 h-4 w-4" />} {msg.text}
         </div>
       )}
 
-      <div className="grid gap-4 lg:grid-cols-3">
-        <div className="space-y-4 lg:col-span-2">
+      <div className="grid gap-5 lg:grid-cols-3">
+        <div className="min-w-0 space-y-5 lg:col-span-2">
           {/* Client & trip */}
-          <Card title="Client & trip" right={
-            !editing ? <button className="inline-flex items-center gap-1 text-[0.7rem] font-bold text-[#C9A84C] hover:underline" onClick={() => setEditing(true)}><Pencil className="h-3 w-3" /> Edit</button> : null}>
+          <Card title="Client & trip details" right={
+            !editing ? <button className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 hover:underline" onClick={() => setEditing(true)}><Pencil className="h-3 w-3" /> Edit</button> : null}>
             {!editing ? (
               <div className="grid gap-x-8 sm:grid-cols-2">
                 <div>
-                  <KV k="Client" v={<>{q.customer_name} {q.client_id && <Link className="ml-1 inline-flex items-center gap-0.5 text-[#C9A84C] hover:underline" href={`/admin/clients/${q.client_id}`}><User className="h-3 w-3" />history</Link>}</>} />
+                  <KV k="Client" v={<>{q.customer_name} {q.client_id && <Link className="ml-1 inline-flex items-center gap-0.5 text-emerald-700 hover:underline" href={`/admin/clients/${q.client_id}`}><User className="h-3 w-3" />history</Link>}</>} />
                   <KV k="Phone / WhatsApp" v={q.customer_phone} />
-                  <KV k="Email" v={q.customer_email ?? <span className="text-yellow-500">none — Edit to add</span>} />
+                  <KV k="Email" v={q.customer_email ?? <span className="text-amber-600">none — Edit to add</span>} />
                   <KV k="Source" v={q.source} />
                   <KV k="Enquiry date" v={q.created_at.slice(0, 10)} />
                 </div>
@@ -376,7 +402,7 @@ export function QuotationDetailClient({ q, comms, drivers, pkrRate, docs, timeli
               </div>
             ) : (
               <div className="space-y-2">
-                {locked && <p className="text-xs text-yellow-500">This ride is {q.status}: trip details are locked for record integrity. You can still fix phone and email.</p>}
+                {locked && <p className="text-xs text-amber-600">This ride is {q.status}: trip details are locked for record integrity. You can still fix phone and email.</p>}
                 <div className="grid gap-2 sm:grid-cols-3">
                   <label className={lbl}>Name<input className={field} disabled={locked} value={ed.name} onChange={(e) => setE("name", e.target.value)} /></label>
                   <label className={lbl}>Phone / WhatsApp<input className={field} value={ed.phone} onChange={(e) => setE("phone", e.target.value)} /></label>
@@ -397,18 +423,18 @@ export function QuotationDetailClient({ q, comms, drivers, pkrRate, docs, timeli
                 </div>
                 <div className="flex gap-2">
                   <button className={solid} disabled={busy !== null} onClick={saveEdit}>{busy === "edit" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "Save"}</button>
-                  <button className={`${btn} border-[#333] text-[#A1A1A6]`} onClick={() => setEditing(false)}>Cancel</button>
+                  <button className={`${btn} border-slate-200 text-slate-600`} onClick={() => setEditing(false)}>Cancel</button>
                 </div>
               </div>
             )}
           </Card>
 
           {/* Ride, payment & receipt */}
-          <Card title="Ride, payment & receipt">
+          <Card title="Driver, costs & payment">
             <div className="grid gap-5 lg:grid-cols-2">
-              <div className="space-y-2">
-                <h3 className="text-xs font-bold text-[#F5F0E8]">Driver</h3>
-                <select className="w-full rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-sm text-[#F5F0E8]" value={fin.partnerId} onChange={(e) => assignDriver(e.target.value)}>
+              <div id="driver-card" className="scroll-mt-6 space-y-2">
+                <h3 className="text-sm font-semibold text-slate-900">Driver</h3>
+                <select className="h-10 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm text-slate-900" value={fin.partnerId} onChange={(e) => assignDriver(e.target.value)}>
                   <option value="">— not assigned —</option>
                   <optgroup label="Main drivers">{drivers.filter((d) => d.kind === "main").map((d) => <option key={d.id} value={d.id}>{d.name}</option>)}</optgroup>
                   <optgroup label="Local drivers">{drivers.filter((d) => d.kind === "local").map((d) => <option key={d.id} value={d.id}>{d.name}</option>)}</optgroup>
@@ -421,12 +447,12 @@ export function QuotationDetailClient({ q, comms, drivers, pkrRate, docs, timeli
                 <button className={gold} disabled={busy !== null} onClick={() => saveFinance("driver")}>{busy === "fin-driver" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "Save driver"}</button>
               </div>
               <div className="space-y-2">
-                <h3 className="text-xs font-bold text-[#F5F0E8]">Costs</h3>
+                <h3 className="text-sm font-semibold text-slate-900">Costs</h3>
                 <div className="grid grid-cols-2 gap-2">
                   <label className={lbl}>Driver cost<input type="number" min={0} className={field} value={fin.cost} onChange={(e) => setF("cost", e.target.value)} /></label>
                   <label className={lbl}>Extra cost<input type="number" min={0} className={field} value={fin.extra} onChange={(e) => setF("extra", e.target.value)} /></label>
                 </div>
-                <div className={`rounded-lg border px-3 py-2 font-mono text-sm ${liveMargin == null ? "border-[#333] text-[#7C8088]" : liveMargin < 0 ? "border-red-500/40 bg-red-500/10 font-bold text-red-400" : "border-green-500/30 text-green-500"}`}>
+                <div className={`rounded-lg border px-3 py-2 font-mono text-sm ${liveMargin == null ? "border-slate-200 text-slate-500" : liveMargin < 0 ? "border-rose-200 bg-rose-50 font-bold text-rose-700" : "border-green-500/30 text-emerald-600"}`}>
                   {liveMargin == null ? "Needs a recorded payment + driver cost to show the result" : liveMargin < 0
                     ? `LOSS SAR ${Math.abs(liveMargin).toLocaleString()}${pkr(Math.abs(liveMargin))} · your part SAR ${ownerPart!.toLocaleString()}`
                     : `Margin SAR ${liveMargin.toLocaleString()}${pkr(liveMargin)} · your part SAR ${ownerPart!.toLocaleString()}${pkr(ownerPart!)}`}
@@ -436,13 +462,13 @@ export function QuotationDetailClient({ q, comms, drivers, pkrRate, docs, timeli
             </div>
             <PaymentsPanel q={q} payments={payments} busy={busy} setBusy={setBusy} setMsg={setMsg} refresh={() => router.refresh()} />
 
-            <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-[#222] pt-3">
+            <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-slate-100 pt-3">
               {!completed && q.status !== "cancelled" && <button className={solid} disabled={busy !== null} onClick={markCompleted}>{busy === "complete" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "Mark ride Completed"}</button>}
             </div>
           </Card>
 
           {/* Quote lifecycle + sending */}
-          <Card title="Quote & communication">
+          <Card title="Send to customer">
             <div className="mb-3 flex flex-wrap items-center gap-2">
               <button className={gold} disabled={busy !== null || stage === "ready" || !hasPrice} onClick={() => setStage("ready")}>Mark Ready</button>
               <button className={gold} disabled={busy !== null} onClick={() => setStage("accepted")}>Accepted</button>
@@ -451,46 +477,46 @@ export function QuotationDetailClient({ q, comms, drivers, pkrRate, docs, timeli
               {!converted && q.status !== "cancelled" && (
                 <button className={solid} disabled={busy !== null || !hasPrice} onClick={convert}>{busy === "convert" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "Convert to Booking"}</button>
               )}
-              {!locked && <button className={`${btn} border-red-500/40 text-red-400 hover:bg-red-500/10`} disabled={busy !== null} onClick={cancelBooking}>{busy === "cancel" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "Cancel booking"}</button>}
+              {!locked && <button className={`${btn} border-rose-200 text-rose-700 hover:bg-rose-50`} disabled={busy !== null} onClick={cancelBooking}>{busy === "cancel" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "Cancel booking"}</button>}
             </div>
-            {lastQuoteEmail?.status === "failed" && <p className="mb-2 flex items-center gap-2 text-sm font-bold text-red-400"><XCircle className="h-4 w-4" /> Email Failed — Retry ({lastQuoteEmail.error})</p>}
-            {lastQuoteEmail?.status === "sent" && <p className="mb-2 flex items-center gap-2 text-sm font-bold text-green-500"><CheckCircle2 className="h-4 w-4" /> Quotation Sent ✓ to {lastQuoteEmail.recipient}</p>}
-            {!hasPrice && <p className="mb-2 flex items-center gap-2 text-xs text-yellow-500"><AlertTriangle className="h-4 w-4" /> Set a price before sending a quotation.</p>}
+            {lastQuoteEmail?.status === "failed" && <p className="mb-2 flex items-center gap-2 text-sm font-bold text-rose-600"><XCircle className="h-4 w-4" /> Email Failed — Retry ({lastQuoteEmail.error})</p>}
+            {lastQuoteEmail?.status === "sent" && <p className="mb-2 flex items-center gap-2 text-sm font-bold text-emerald-600"><CheckCircle2 className="h-4 w-4" /> Quotation Sent ✓ to {lastQuoteEmail.recipient}</p>}
+            {!hasPrice && <p className="mb-2 flex items-center gap-2 text-xs text-amber-600"><AlertTriangle className="h-4 w-4" /> Set a price before sending a quotation.</p>}
             <SendRow t="quotation" disabled={!hasPrice} hint="PDF attached; a separate record copy goes to info@taxisaudiarabia.com" />
             <SendRow t="followup" disabled={!hasPrice} />
             <SendRow t="confirmation" disabled={!converted} hint={!converted ? "Convert to booking first" : undefined} />
             <SendRow t="pickup" disabled={!converted} hint={!converted ? "Convert to booking first" : undefined} />
             <SendRow t="receipt" disabled={!completed || !q.actual_amount_paid} hint={!completed ? "Available once the ride is completed and paid" : undefined} />
             <SendRow t="thankyou" disabled={!completed} hint={!completed ? "Available once the ride is completed" : undefined} />
-            <p className="mt-1 text-[0.7rem] text-[#7C8088]">Emails go only when you press the button, a separate &quot;[TSA copy]&quot; record copy goes to the office inbox, and show Sent ✓ / Failed. WhatsApp opens a prefilled message you send yourself, then mark it sent. &quot;Viewed&quot; is not tracked (unreliable).</p>
+            <p className="mt-1 text-xs text-slate-500">Emails go only when you press the button, a separate &quot;[TSA copy]&quot; record copy goes to the office inbox, and show Sent ✓ / Failed. WhatsApp opens a prefilled message you send yourself, then mark it sent. &quot;Viewed&quot; is not tracked (unreliable).</p>
           </Card>
         </div>
 
-        <div className="space-y-4">
+        <div className="min-w-0 space-y-5">
           {/* Financial */}
           <Card title={`Quotation versions (${versions.length})`}>
-            {versions.length === 0 && <p className="text-xs text-[#7C8088]">No version yet — one is saved automatically when a price is set. Earlier edits are never overwritten.</p>}
+            {versions.length === 0 && <p className="text-xs text-slate-500">No version yet — one is saved automatically when a price is set. Earlier edits are never overwritten.</p>}
             <ul className="space-y-2">
               {versions.map((v, i) => {
                 const prev = versions[i + 1];
                 const priceChanged = prev && prev.price !== v.price;
                 return (
-                  <li key={v.id} className="rounded-lg border border-[#222] p-2 text-xs">
+                  <li key={v.id} className="rounded-lg border border-slate-100 p-2 text-xs">
                     <div className="flex flex-wrap items-center justify-between gap-2">
-                      <span className="font-bold text-[#F5F0E8]">v{v.version_no}{i === 0 ? <span className="ml-2 rounded border border-green-500/40 px-1 text-[0.6rem] text-green-500">CURRENT</span> : null}</span>
-                      <span className="text-[#7C8088]">{ksa(v.created_at)} · {v.reason.replace("_", " ")}{v.created_by ? ` · ${v.created_by}` : ""}</span>
+                      <span className="font-bold text-slate-900">v{v.version_no}{i === 0 ? <span className="ml-2 rounded border border-green-500/40 px-1 text-xs text-emerald-600">CURRENT</span> : null}</span>
+                      <span className="text-slate-500">{ksa(v.created_at)} · {v.reason.replace("_", " ")}{v.created_by ? ` · ${v.created_by}` : ""}</span>
                     </div>
-                    <div className="mt-1 text-[#A1A1A6]">
-                      <b className="text-[#F5F0E8]">{sar(v.price)}</b>{priceChanged ? <span className="text-orange-400"> (was {sar(prev.price)})</span> : null}
+                    <div className="mt-1 text-slate-600">
+                      <b className="text-slate-900">{sar(v.price)}</b>{priceChanged ? <span className="text-amber-600"> (was {sar(prev.price)})</span> : null}
                       {v.valid_until ? ` · valid until ${v.valid_until}` : ""} · {v.snapshot.trip_date} {v.snapshot.trip_time?.slice(0, 5) ?? ""} · {v.snapshot.pickup_location} → {v.snapshot.drop_location}
                     </div>
-                    <div className="mt-1 text-[0.65rem] text-[#7C8088]">Template: {v.template_version}</div>
+                    <div className="mt-1 text-xs text-slate-500">Template: {v.template_version}</div>
                     {v.sends.map((s, k) => (
-                      <div key={k} className={`mt-0.5 ${s.status === "sent" ? "text-green-500" : "text-red-400"}`}>
+                      <div key={k} className={`mt-0.5 ${s.status === "sent" ? "text-emerald-600" : "text-rose-600"}`}>
                         {s.status === "sent" ? "✓" : "✗ FAILED"} {s.template} via {s.channel}{s.recipient ? ` to ${s.recipient}` : ""} · {ksa(s.at)}{s.error ? ` — ${s.error}` : ""}
                       </div>
                     ))}
-                    <a className="mt-1 inline-block font-bold text-[#C9A84C] hover:underline" href={`/api/admin/quotation-versions/${v.id}`} target="_blank" rel="noreferrer">View this version (PDF)</a>
+                    <a className="mt-1 inline-block font-bold text-emerald-700 hover:underline" href={`/api/admin/quotation-versions/${v.id}`} target="_blank" rel="noreferrer">View this version (PDF)</a>
                   </li>
                 );
               })}
@@ -501,20 +527,20 @@ export function QuotationDetailClient({ q, comms, drivers, pkrRate, docs, timeli
             <InvoicesCard q={q} invoices={invoices} paid={payments.filter((p) => !p.voided_at).reduce((a, p) => a + p.amount, 0)} settled={q.payment_status === "paid"} busy={busy} setBusy={setBusy} setMsg={setMsg} refresh={() => router.refresh()} />
           </Card>
 
-          <Card title="Financial">
+          <Card title="Money summary">
             <KV k="Quoted" v={sar(q.quoted_price)} />
             <KV k="Customer paid" v={paidLabel} />
             <KV k="Driver / vendor cost" v={sar(q.driver_cost)} />
             {(q.extra_cost ?? 0) > 0 && <KV k="Extra cost" v={sar(q.extra_cost)} />}
             <KV k="Result" v={
-              q.financial_status === "required" ? <span className="font-bold text-yellow-500">Financial data required</span>
+              q.financial_status === "required" ? <span className="font-bold text-amber-600">Financial data required</span>
               : margin == null ? "—"
-              : <span className={margin < 0 ? "font-bold text-red-400" : "font-bold text-green-500"}>{margin < 0 ? `LOSS ${sar(Math.abs(margin))}` : `Profit ${sar(margin)}`}{pkr(Math.abs(margin))}</span>} />
+              : <span className={margin < 0 ? "font-bold text-rose-600" : "font-bold text-emerald-600"}>{margin < 0 ? `LOSS ${sar(Math.abs(margin))}` : `Profit ${sar(margin)}`}{pkr(Math.abs(margin))}</span>} />
             {margin != null && q.partner_share_pct != null && (
               <KV k={`Your part (${100 - q.partner_share_pct}%)`} v={`${sar((margin * (100 - q.partner_share_pct)) / 100)}${pkr((margin * (100 - q.partner_share_pct)) / 100)}`} />
             )}
             {!locked && (
-              <div className="mt-3 space-y-2 border-t border-[#222] pt-3">
+              <div className="mt-3 space-y-2 border-t border-slate-100 pt-3">
                 <div className="grid grid-cols-2 gap-2">
                   <label className={lbl}>Quoted<input type="number" min={0} className={field} value={pr.price} onChange={(e) => setPr((x) => ({ ...x, price: e.target.value }))} /></label>
                   <label className={lbl}>Exp. cost<input type="number" min={0} className={field} value={pr.est} onChange={(e) => setPr((x) => ({ ...x, est: e.target.value }))} /></label>
@@ -532,32 +558,32 @@ export function QuotationDetailClient({ q, comms, drivers, pkrRate, docs, timeli
               {docs.filter((d) => d.kind === "receipt").map((d) => (
                 <a key={d.id} className={gold} href={`/api/admin/documents/${d.id}`} target="_blank" rel="noreferrer"><Receipt className="h-3.5 w-3.5" /> Receipt · {ksa(d.created_at)}{d.amount != null ? ` · SAR ${d.amount.toLocaleString()}` : ""}</a>
               ))}
-              {!hasPrice && docs.length === 0 && <span className="text-xs text-[#7C8088]">No documents yet.</span>}
+              {!hasPrice && docs.length === 0 && <span className="text-xs text-slate-500">No documents yet.</span>}
             </div>
           </Card>
 
           {/* Timeline */}
           <Card title="Timeline">
-            <ol className="relative space-y-3 border-l border-[#333] pl-4">
+            <ol className="relative space-y-3 border-l border-slate-200 pl-4">
               {timeline.map((t, i) => (
                 <li key={i} className="relative">
-                  <span className={`absolute -left-[21px] top-1 h-2.5 w-2.5 rounded-full ${t.tone === "ok" ? "bg-green-500" : t.tone === "bad" ? "bg-red-500" : t.tone === "warn" ? "bg-yellow-500" : "bg-[#7C8088]"}`} />
-                  <div className={`text-xs font-bold ${t.tone === "bad" ? "text-red-400" : "text-[#F5F0E8]"}`}>{t.label}</div>
-                  <div className="text-[0.65rem] text-[#7C8088]">{ksa(t.at)} KSA{t.detail ? ` · ${t.detail}` : ""}</div>
+                  <span className={`absolute -left-[21px] top-1 h-2.5 w-2.5 rounded-full ${t.tone === "ok" ? "bg-emerald-500" : t.tone === "bad" ? "bg-rose-500" : t.tone === "warn" ? "bg-amber-500" : "bg-slate-400"}`} />
+                  <div className={`text-xs font-bold ${t.tone === "bad" ? "text-rose-600" : "text-slate-900"}`}>{t.label}</div>
+                  <div className="text-xs text-slate-500">{ksa(t.at)} KSA{t.detail ? ` · ${t.detail}` : ""}</div>
                 </li>
               ))}
             </ol>
           </Card>
 
           <Card title="Notes">
-            <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={4} className="w-full rounded-lg border border-[#333] bg-black/40 px-2 py-1.5 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]" placeholder="Internal notes (never shown to the client)" />
+            <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={4} className="w-full rounded-lg border border-slate-200 bg-white px-2 py-1.5 text-xs text-slate-900 outline-none focus:border-[#C9A84C]" placeholder="Internal notes (never shown to the client)" />
             <button className={`${gold} mt-2`} disabled={busy !== null || notes === (q.admin_notes ?? "")} onClick={saveNotes}>{busy === "notes" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "Save notes"}</button>
-            {q.financial_note && <p className="mt-2 whitespace-pre-wrap text-[0.7rem] text-[#7C8088]">{q.financial_note}</p>}
+            {q.financial_note && <p className="mt-2 whitespace-pre-wrap text-xs text-slate-500">{q.financial_note}</p>}
           </Card>
 
-          <div className="flex flex-wrap items-center gap-3 px-1 text-[0.7rem] text-[#7C8088]">
-            <button className="underline hover:text-[#F5F0E8]" disabled={busy !== null} onClick={toggleTest}>{q.is_test ? "Unmark as test" : "Mark as test record"}</button>
-            {q.is_test && <button className="underline text-red-400" onClick={deleteTest}>Delete test record</button>}
+          <div className="flex flex-wrap items-center gap-3 px-1 text-xs text-slate-500">
+            <button className="underline hover:text-slate-900" disabled={busy !== null} onClick={toggleTest}>{q.is_test ? "Unmark as test" : "Mark as test record"}</button>
+            {q.is_test && <button className="underline text-rose-600" onClick={deleteTest}>Delete test record</button>}
           </div>
         </div>
       </div>

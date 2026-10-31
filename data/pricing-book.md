@@ -95,3 +95,4 @@ client, per `CLAUDE.md` rule 1.
 | 2026-09-20 | Oxagon (NEOM) | Aqaba (Jordan, round trip) | SUV (Chevrolet Tahoe) | Round-trip | 2200 | Final best price; same price for 1 or 5 pax (full-distance + border fees); client considered NEOM airport as cheaper alt |
 | 2026-09-20 | Dammam | Qatar | Sedan | One-way | 1500 | Additional price point for this route/vehicle |
 | 2026-10-26 | Dammam | Bahrain International Airport | Sedan | One-way | 450 | 1 pax, 2 luggage; trip 29 Oct 7pm; causeway fee incl.; cash on pickup; TSA-2026-0059 Omar Siam |
+| 2026-10-29 | Aqaba (Jordan) | Tabuk | VIP SUV | One-way | 1000 | TSA-2026-0064 Fredrik Hellqvist; 1 pax, 1 large bag; 1 Nov 2026 08:00; cash on pickup |

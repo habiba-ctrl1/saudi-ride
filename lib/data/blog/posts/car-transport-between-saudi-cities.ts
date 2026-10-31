@@ -18,7 +18,7 @@ New job in Riyadh, bought a car from a seller in Dammam, or sending the family c
 
 ### 2026 Intercity Transport Routes
 
-- **Riyadh ⇄ Dammam (~390 km):** same day
+- **Riyadh ⇄ Dammam (~410 km):** same day
 - **Jeddah ⇄ Makkah (~80 km):** 2–3 hours
 - **Jeddah ⇄ Madinah (~420 km):** same day
 - **Riyadh ⇄ Jeddah (~950 km):** same/next day

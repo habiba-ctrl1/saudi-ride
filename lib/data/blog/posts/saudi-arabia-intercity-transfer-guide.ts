@@ -14,7 +14,7 @@ const post: BlogPost = {
   coverAlt: "Black SUV on a desert highway beside a railway line at sunset",
   publishedAt: "2026-10-02",
   quickAnswer:
-    "An intercity transfer is a private car with a driver between two cities, priced as one fixed fare agreed before booking. The busiest routes are Jeddah–Makkah (about 80 km), Makkah–Madinah (about 430 km, around 4 hours), Riyadh–Dammam (about 390 km) and Madinah–AlUla (about 330 km). For distances above roughly 800 km, such as Riyadh–Jeddah, flying is usually faster for individuals; the car wins for families, groups, luggage and door-to-door trips.",
+    "An intercity transfer is a private car with a driver between two cities, priced as one fixed fare agreed before booking. The busiest routes are Jeddah–Makkah (about 80 km), Makkah–Madinah (about 430 km, around 4 hours), Riyadh–Dammam (about 410 km) and Madinah–AlUla (about 330 km). For distances above roughly 800 km, such as Riyadh–Jeddah, flying is usually faster for individuals; the car wins for families, groups, luggage and door-to-door trips.",
   related: ["madinah-to-makkah-taxi-price-distance-time", "jeddah-to-madinah-taxi-guide-fares", "riyadh-to-dubai-taxi-gcc-road-trip"],
   links: [
     { label: "Intercity transfer service", href: "/services/intercity" },
@@ -66,7 +66,7 @@ const post: BlogPost = {
 
 | Route | Distance | Typical drive | Details |
 |---|---|---|---|
-| Riyadh → Dammam | ~390 km | ~3 hr 30 min | [Route](/routes/riyadh-to-dammam) · [Distance](/distance/riyadh-to-dammam) |
+| Riyadh → Dammam | ~410 km | ~4 hr | [Route](/routes/riyadh-to-dammam) · [Distance](/distance/riyadh-to-dammam) |
 | Riyadh → Al Khobar | ~400 km | ~3 hr 40 min | [Route](/routes/riyadh-to-alkhobar) · [Distance](/distance/riyadh-to-alkhobar) |
 | Riyadh → Al Ahsa | ~330 km | ~3 hr | [Route](/routes/riyadh-to-alahsa) |
 | Riyadh → Buraydah | ~350 km | ~3 hr 10 min | [Route](/routes/riyadh-to-buraydah) |

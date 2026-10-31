@@ -3,9 +3,16 @@ export const VIEWS = ["all", "enquiries", "quotes", "confirmed", "upcoming", "co
 export type View = (typeof VIEWS)[number];
 
 export const VIEW_LABEL: Record<View, string> = {
-  all: "All", enquiries: "New enquiries", quotes: "Quotations", confirmed: "Confirmed", upcoming: "Upcoming", completed: "Completed",
-  cancelled: "Cancelled", lost: "Lost", paid: "Paid", unpaid: "Unpaid", profitable: "Profitable", loss: "Loss-making", needcost: "Cost needed",
+  all: "All rides", enquiries: "New enquiries", quotes: "Quotes sent", confirmed: "Confirmed", upcoming: "Upcoming", completed: "Completed",
+  cancelled: "Cancelled", lost: "Lost / rejected", paid: "Paid", unpaid: "Completed, not paid", profitable: "Made profit", loss: "Lost money", needcost: "Driver cost missing",
 };
+
+// Folder groups shown on the Quotes & Bookings page. Every view stays reachable.
+export const VIEW_GROUPS: { title: string; views: View[] }[] = [
+  { title: "Rides", views: ["all", "upcoming", "completed", "cancelled"] },
+  { title: "Sales", views: ["enquiries", "quotes", "confirmed", "lost"] },
+  { title: "Money", views: ["paid", "unpaid", "needcost", "profitable", "loss"] },
+];
 
 export type ListFilters = {
   q?: string;
@@ -37,6 +44,7 @@ export type ListRow = {
   sent_at: string | null;
   followup_at: string | null;
   quoted_price: number | null;
+  currency: string;
   actual_amount_paid: number | null;
   payment_status: string;
   driver_cost: number | null;

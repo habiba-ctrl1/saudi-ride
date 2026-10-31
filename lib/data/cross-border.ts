@@ -322,7 +322,7 @@ export const CORRIDORS: Record<CorridorSlug, Corridor> = {
       { label: "Onward in Jordan", title: "Aqaba, Wadi Rum, Petra, Amman", desc: "Drop-off at your hotel, camp or address.", kind: "destination" },
     ],
     outbound: ["haql-to-aqaba", "tabuk-to-aqaba", "neom-to-aqaba", "alula-to-aqaba", "tabuk-to-wadi-rum", "tabuk-to-petra", "tabuk-to-amman", "neom-to-amman", "alula-to-amman", "medinah-to-amman"],
-    inbound: ["aqaba-to-tabuk", "aqaba-to-neom"],
+    inbound: ["aqaba-to-tabuk", "aqaba-to-neom", "amman-to-tabuk", "amman-to-neom", "amman-to-alula", "amman-to-madinah"],
     practical: [
       { title: "Shortest road, every time", desc: "From Tabuk, Amman is about 130 km shorter through Halat Ammar than via Aqaba. We use whichever crossing is shorter for your trip." },
       { title: "Border fees included", desc: "Border crossing fees for the vehicle are included in your fixed fare. Personal visa or entry fees are the passenger's own." },
@@ -339,7 +339,8 @@ export const CORRIDORS: Record<CorridorSlug, Corridor> = {
       { question: "Can I take a private car from Tabuk to Aqaba?", answer: "Yes. A driver collects you in Tabuk and drives about 270 km west through Haql and across the Al Durrah crossing to your address in Aqaba. Each passenger completes their own exit and entry checks at the border." },
       { question: "Can you take me from Saudi Arabia to Petra or Wadi Rum?", answer: "Yes. Tabuk to Petra (about 275 km) and Tabuk to Wadi Rum (about 230 km) both cross at Halat Ammar–Al Mudawwara. AlUla to Petra or Wadi Rum can be quoted on request." },
       { question: "What documents do I need to enter Jordan by road from Saudi Arabia?", answer: "Each passenger needs a valid passport and the right to enter Jordan; Saudi residents generally also need a valid exit and re-entry visa. Entry rules depend on nationality and change, so confirm with official sources before travel. We do not arrange visas." },
-      { question: "Do you operate taxis inside Jordan?", answer: "No. We arrange private cross-border transfers that start or end in Saudi Arabia. We are not a local Jordanian taxi service." },
+      { question: "Can you arrange private transfers inside Jordan?", answer: "Yes. Through our partner in Jordan we arrange pre-booked private cars inside Jordan, for example Queen Alia International Airport (AMM) to your Amman hotel, or onward from Amman, Aqaba, Petra or Wadi Rum. Tell us the route and dates on WhatsApp and we confirm a fixed fare before you travel. These are pre-booked private transfers, not street-hail taxis." },
+      { question: "Can I book a private car in Jordan as well as the cross-border leg?", answer: "Yes. Book the Saudi–Jordan leg and your Jordan transfers together and we quote them in one written offer. For example, Amman to Petra is about 230 km and Aqaba to Petra about 125–130 km by road, according to Visit Jordan, the official Jordan Tourism Board site." },
     ],
     related: [
       { href: "/locations/tabuk", label: "Tabuk chauffeur & airport transfers" },

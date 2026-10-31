@@ -70,6 +70,13 @@ const ALULA_NAV_SLUGS = ["alula-to-madinah","madinah-to-alula","alula-to-riyadh"
 const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup: string; dropoff: string }> = {
   // Dammam Airport ↔ Bahrain (added 2026-10-03 — GSC 10-01 demand, see
   // seo/page-log.md). Distance from ROUTES_DATA (OSRM-measured).
+  "riyadh-to-al-qassim-airport": {
+    heading: "Get a Riyadh to Al Qassim Airport (ELQ) quote",
+    blurb:
+      "Send your Riyadh pickup address, date, passengers and luggage — we check availability and confirm one fare for the whole vehicle on WhatsApp. About 375 km, roughly 3.5 hours; one-way or return.",
+    pickup: "Riyadh",
+    dropoff: "Prince Naif bin Abdulaziz International Airport (ELQ)",
+  },
   "riyadh-to-taif": {
     heading: "Get a Riyadh-to-Taif quote",
     blurb:
@@ -518,7 +525,7 @@ Thank you.`,
   "riyadh-to-dammam": {
     heading: "Moving a team between Riyadh and the Eastern Province?",
     intro:
-      "For the Aramco, Dhahran and Al Khobar corporate corridor we run executive sedans and full-size SUVs with professional chauffeurs — one-way, same-day return, or by the hour. Regular staff movements can run on a single account with one point of contact, so you are not booking trip by trip.",
+      "For the Aramco, Dhahran and Al Khobar corporate corridor we arrange executive sedans and full-size SUVs with professional chauffeurs through our partner network — one-way, same-day return, or by the hour. Regular staff movements can run on a single account with one point of contact, so you are not booking trip by trip.",
     waPrefill: `Salam! Corporate transfer enquiry — Riyadh / Dammam (Eastern Province).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Riyadh–Dammam",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate transfers on the Riyadh–Dammam / Eastern Province corridor.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
@@ -1235,21 +1242,21 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "riyadh-to-dammam": {
-    tldr: "A private transfer from Riyadh to Dammam covers about 390 km and takes around 3.5 hours, door-to-door on Highway 40. Travel by private sedan, SUV or van with a professional chauffeur, with your fare confirmed on WhatsApp before booking — popular with executives and families travelling to the Eastern Province and the Aramco/Dhahran corridor.",
+    tldr: "A private transfer from Riyadh to Dammam covers about 410 km and takes around 4 hours, door-to-door on Highway 40. Travel by private sedan, SUV or van with a professional chauffeur, with your fare confirmed on WhatsApp before booking — popular with executives and families travelling to the Eastern Province and the Aramco/Dhahran corridor.",
     tldrFacts: [
-      { label: "Distance", value: "~390 km" },
-      { label: "Time", value: "~3.5 hours" },
+      { label: "Distance", value: "~410 km" },
+      { label: "Time", value: "~4 hours" },
       { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
-      { question: "How long is the taxi from Riyadh to Dammam?", answer: "Riyadh to Dammam is about 390 km — roughly a 3.5-hour drive on Highway 40, with rest stops on request." },
+      { question: "How long is the taxi from Riyadh to Dammam?", answer: "Riyadh to Dammam is about 410 km — roughly a 4-hour drive on Highway 40, with rest stops on request." },
       { question: "How much is a taxi from Riyadh to Dammam?", answer: "Fares are confirmed on WhatsApp for a sedan, with SUVs and vans available. Message us on WhatsApp with your travel date and passenger count for a clear quote before booking, with no surge." },
       { question: "Can I book a corporate car for this route?", answer: "Yes. We arrange executive sedans and SUVs with professional drivers for the Riyadh–Dammam corporate corridor — useful for meetings in Dhahran, Al Khobar, or Jubail — with hourly and one-way options." },
-      { question: "What is the distance between Riyadh and Dammam?", answer: "The distance between Riyadh and Dammam is about 390 km by road, a roughly 3.5-hour drive on Highway 40." },
+      { question: "What is the distance between Riyadh and Dammam?", answer: "The distance between Riyadh and Dammam is about 410 km by road, a roughly 4-hour drive on Highway 40." },
       { question: "Can the driver continue on to Khobar, Dhahran, or Jubail after Dammam?", answer: "Yes. Since Dammam, Al Khobar, Dhahran, and Jubail form one Eastern Province service area, you can extend your trip to any of these cities at booking — just mention your final destination when requesting a quote." },
       { question: "Can I book a private car or chauffeur from Riyadh to Dammam instead of a taxi?", answer: "Yes. Alongside a standard taxi, we offer a pre-booked private car from Riyadh to Dammam with a professional chauffeur — an executive sedan, SUV or van reserved just for you and your group, door-to-door. Share your travel date and passenger count on WhatsApp for a fare before booking." },
-      { question: "Can I book a return taxi from Dammam to Riyadh?", answer: "Yes. We run the Dammam to Riyadh direction just as often as Riyadh to Dammam — one-way or same-day return, door-to-door by private sedan, SUV or van. Send your pickup point in Dammam (or Khobar/Dhahran), travel date and passenger count on WhatsApp and we confirm the fare before booking." },
+      { question: "Can I book a return taxi from Dammam to Riyadh?", answer: "Yes. We arrange the Dammam to Riyadh direction as well as Riyadh to Dammam — one-way or same-day return, door-to-door by private sedan, SUV or van. Send your pickup point in Dammam (or Khobar/Dhahran), travel date and passenger count on WhatsApp and we confirm the fare before booking." },
       { question: "Is a private transfer from Riyadh to Dammam available 24/7?", answer: "Yes. You can book at any time of day or night and a professional driver is ready at the time you set — useful for early business departures and late arrivals across the Eastern Province." },
     ],
   },
@@ -1331,6 +1338,32 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
 
+  // Added 2026-10-31. Distance/time: OSRM 2026-10-31, Riyadh centre -> ELQ (~375 km,
+  // ~3 h 36 min); real figure varies by pickup point, traffic and road conditions.
+  "riyadh-to-al-qassim-airport": {
+    tldr: "A private transfer from Riyadh to Al Qassim Airport — officially Prince Naif bin Abdulaziz International Airport, code ELQ — is roughly 375 km by road, about 3.5 hours depending on your pickup point and traffic. The vehicle is arranged for your own party, not shared, and the fare is confirmed on WhatsApp before you book.",
+    tldrFacts: [
+      { label: "Distance", value: "~375 km by road" },
+      { label: "Drive time", value: "~3.5 hr (varies)" },
+      { label: "Airport", value: "ELQ · ICAO OEGS" },
+      { label: "Fare", value: "Agreed before booking" },
+    ],
+    faqs: [
+      { question: "Can I book a private taxi from Riyadh to Al Qassim Airport?", answer: "Yes. Send your Riyadh pickup address, date, passengers and luggage on WhatsApp. We check partner availability and confirm one fare for the whole vehicle before you book." },
+      { question: "What is the airport code for Al Qassim Airport?", answer: "The IATA code is ELQ and the ICAO code is OEGS. Some booking sites list it as Gassim, Qassim or Buraidah airport." },
+      { question: "What is the official name of Al Qassim Airport?", answer: "Prince Naif bin Abdulaziz International Airport. It serves Buraydah and the wider Al Qassim Province." },
+      { question: "How long does it take to travel from Riyadh to ELQ Airport?", answer: "Roughly 3.5 hours over about 375 km from central Riyadh. The exact time depends on your pickup district, traffic and road conditions, so allow a margin before a flight." },
+      { question: "How much does a private transfer from Riyadh to Al Qassim Airport cost?", answer: "The fare depends on the vehicle category, date and availability. We confirm one fare on WhatsApp before you book, with no meter and no surge." },
+      { question: "Can I book a GMC or SUV?", answer: "Yes, subject to availability. A full-size SUV such as a GMC suits families and extra luggage; tell us the party size and we confirm the right vehicle." },
+      { question: "Can I book a sedan for one or two passengers?", answer: "Yes. A sedan suits one or two travellers with moderate luggage. Add your luggage count so we confirm the vehicle fits." },
+      { question: "Can I travel with family and luggage?", answer: "Yes. Give us the number of passengers and large cases and we recommend an SUV or larger vehicle so everyone and all bags travel together." },
+      { question: "Can I arrange an airport drop-off?", answer: "Yes. Tell us your flight time and Riyadh pickup address and we work the pickup back from it, leaving a margin for the long road journey." },
+      { question: "Can I book a return transfer from Al Qassim Airport to Riyadh?", answer: "Yes. Pickups at ELQ must be arranged in advance, not assumed. Share your flight number and destination and we confirm the pickup details before you travel." },
+      { question: "Can I reserve a vehicle in advance?", answer: "Yes, and advance booking is recommended for a journey this long. Send your date and time and we check availability." },
+      { question: "Are these private transfers rather than shared taxis?", answer: "Yes. The vehicle is arranged for your own party and is not shared with other passengers." },
+      { question: "Can I request pickup from a hotel or home in Riyadh?", answer: "Yes. Send the hotel or address and we confirm coverage for that pickup point with our partner network." },
+    ],
+  },
   "riyadh-to-buraydah": {
     tldr: "A taxi from Riyadh to Buraydah, the Qassim capital, is about 350 km and takes roughly 3 hours 10 minutes. The fare is fixed, confirmed on WhatsApp door-to-door, with rest stops on request.",
     tldrFacts: [
@@ -1685,15 +1718,15 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
   },
   "jeddah-to-abha": {
-    tldr: "A taxi from Jeddah to Abha is about 630 km and takes roughly 6 hours, climbing into the cool Asir mountains. The fare is fixed, confirmed on WhatsApp door-to-door, with rest stops included on the long journey south.",
+    tldr: "A taxi from Jeddah to Abha is about 690 km and takes roughly 7 to 8 hours, climbing into the cool Asir mountains. The fare is fixed, confirmed on WhatsApp door-to-door, with rest stops included on the long journey south.",
     tldrFacts: [
-      { label: "Distance", value: "~630 km" },
-      { label: "Time", value: "~6 hours" },
+      { label: "Distance", value: "~690 km" },
+      { label: "Time", value: "~7-8 hours" },
       { label: "Fare", value: "On WhatsApp" },
       { label: "Hours", value: "24/7" },
     ],
     faqs: [
-      { question: "How far is Jeddah from Abha?", answer: "Jeddah to Abha is about 630 km — roughly a 6-hour drive from the Red Sea coast into the cool Asir mountains." },
+      { question: "How far is Jeddah from Abha?", answer: "Jeddah to Abha is about 690 km — roughly a 7 to 8 hour drive from the Red Sea coast into the cool Asir mountains." },
       { question: "How much is a taxi from Jeddah to Abha?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with SUVs recommended for comfort on the long mountain journey." },
       { question: "Are rest stops included on this route?", answer: "Yes. The driver includes prayer and rest stops, and an SUV is recommended for the climb into the Asir highlands." },
     ],
@@ -1930,6 +1963,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // impressions but ~0 clicks — titles now mirror GSC queries ("by road",
   // "car with driver", "riyadh to bahrain") + the distance.
   const TITLE_OVERRIDES: Record<string, string> = {
+    "riyadh-to-al-qassim-airport": "Riyadh to Al Qassim Airport Taxi | Private Transfer to ELQ",
     "red-sea-airport-to-alula": "Red Sea Airport (RSI) to AlUla Private Transfer | ~260 km",
     "alula-to-madinah": "AlUla to Madinah Private Transfer | ~330 km, Door to Door",
     "alula-to-riyadh": "AlUla to Riyadh by Road — Private Car with Driver, 1,050 km",
@@ -1982,6 +2016,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "neom-to-aqaba": "Taxi NEOM to Aqaba, Jordan — Cross-Border Fare, Distance & Booking",
     "aqaba-to-neom": "Taxi Aqaba, Jordan to NEOM — Cross-Border Fare, Distance & Booking",
     "tabuk-to-amman": "Tabuk to Amman Private Transfer, Jordan — Fare, Distance & Booking",
+    "amman-to-madinah": "Amman to Madinah Private Transfer — Fare, Distance & Booking",
+    "amman-to-tabuk": "Amman to Tabuk Private Transfer — Fare, Distance & Booking",
+    "amman-to-neom": "Amman to NEOM Private Transfer — Fare, Distance & Booking",
+    "amman-to-alula": "Amman to AlUla Private Transfer — Fare, Distance & Booking",
     "alula-to-aqaba": "AlUla to Aqaba Private Transfer, Jordan — Fare, Distance & Booking",
     "tabuk-to-petra": "Tabuk to Petra Private Transfer, Jordan — Fare, Distance & Booking",
     "tabuk-to-wadi-rum": "Tabuk to Wadi Rum Private Transfer, Jordan — Fare, Distance & Booking",
@@ -1996,6 +2034,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // Per-slug description overrides — same CTR-fix rationale as TITLE_OVERRIDES,
   // for pages with confirmed impressions/position but zero clicks.
   const DESCRIPTION_OVERRIDES: Record<string, string> = {
+    "riyadh-to-al-qassim-airport": "Book a private transfer from Riyadh to Al Qassim Airport (ELQ). Request a sedan, SUV or GMC and check availability and pricing through WhatsApp.",
     "alula-to-madinah": "Private car from AlUla to Madinah — about 330 km, roughly 3 hours, to your hotel or Madinah Airport. One fixed fare agreed on WhatsApp before booking.",
     "alula-to-riyadh": "Private car from AlUla to Riyadh — about 1,050 km, a full day on the road, door to door with rest and prayer stops. Fare agreed before booking.",
     "alula-to-jeddah": "Private car from AlUla to Jeddah — about 700 km, to your hotel or JED airport. One fixed fare agreed on WhatsApp before booking.",
@@ -2008,7 +2047,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "dammam-airport-to-bahrain": "Dammam Airport to Bahrain taxi — private car from King Fahd International Airport (DMM) over the causeway to your Bahrain hotel, ~105 km. Toll included.",
     "bahrain-to-dammam-airport": "Bahrain to Dammam Airport taxi — private car over the King Fahd Causeway to DMM departures, ~105 km, timed for check-in. Causeway toll included.",
     "riyadh-to-taif": "Private car from Riyadh to Taif — about 785 km on Highway 40, roughly 8 hours, door to door with rest stops. One fixed fare agreed on WhatsApp before booking.",
-    "riyadh-to-dammam": "Private transfer from Riyadh to Dammam — approx 390 km, around 3.5 hours, door-to-door by sedan, SUV or van. Fare confirmed on WhatsApp before booking, 24/7.",
+    "riyadh-to-dammam": "Private Riyadh to Dammam transfer by sedan, SUV or van. Fixed fare agreed on WhatsApp before booking. Free cancellation up to 24 hours before pickup.",
     "jeddah-to-kaec": "Jeddah to KAEC (King Abdullah Economic City) taxi — 120 km, about 1 hr 20 min. Get your exact fare confirmed on WhatsApp before booking. Corporate sedans, 24/7.",
     "riyadh-to-alula": "Riyadh to AlUla taxi — 1,050 km, about 10 hours. Get your exact fare confirmed on WhatsApp before booking. Premium long-distance transfer, rest stops included.",
     "madinah-to-alula": "Madinah to AlUla taxi — 330 km, about 3 hours. Get your exact fare confirmed on WhatsApp before booking. Heritage transfer, rest stops included.",
@@ -2040,6 +2079,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "neom-to-aqaba": "Private transfer, NEOM to Aqaba, Jordan — up the Gulf of Aqaba coast via Haql and Al Durrah (~235 km from Sharma). Fixed fare, border fees included.",
     "aqaba-to-neom": "Private transfer, Aqaba, Jordan to NEOM — via Al Durrah and the Saudi coast road (~235 km to Sharma). Fixed fare, border fees included, 24/7.",
     "tabuk-to-amman": "Private transfer, Tabuk to Amman — ~455 km via the Halat Ammar–Al Mudawwara crossing, Ma'an and the Desert Highway. Fixed fare, border fees included.",
+    "amman-to-madinah": "Private transfer, Amman to Madinah — ~1,135 km via the Al Mudawwara–Halat Ammar crossing and Tabuk, best as a two-day trip. Fixed fare, border fees included.",
+    "amman-to-tabuk": "Private transfer, Amman to Tabuk — ~455 km via the Desert Highway and the Al Mudawwara–Halat Ammar crossing. Fixed fare in writing, border fees included.",
+    "amman-to-neom": "Private transfer, Amman to NEOM — ~550 km via Aqaba and the Durra–Al Durrah crossing, then the Red Sea coast road. Fixed fare, border fees included.",
+    "amman-to-alula": "Private transfer, Amman to AlUla — ~895 km via the Al Mudawwara–Halat Ammar crossing and Tabuk, best over two days. Fixed fare, border fees included.",
     "alula-to-aqaba": "Private transfer, AlUla to Aqaba, Jordan — ~620 km via the Red Sea coast road, Haql and Al Durrah. Fixed fare in writing, border fees included.",
     "tabuk-to-petra": "Private transfer, Tabuk to Petra (Wadi Musa) — ~275 km via the Halat Ammar–Al Mudawwara crossing and Ma'an. Fixed fare, border fees included.",
     "tabuk-to-wadi-rum": "Private transfer, Tabuk to Wadi Rum — ~230 km via the Halat Ammar–Al Mudawwara crossing to the village or your camp's meeting point. Fixed fare.",
@@ -2937,6 +2980,79 @@ export default async function RouteDetailsPage({ params }: PageProps) {
             </section>
           )}
 
+          {/* ─── WHAT'S INCLUDED + PRIVATE-VS-PUBLIC (Riyadh -> Dammam) ───
+              Every line below is confirmed in seo/facts.md (2026-10-01 / 2026-10-03).
+              {{TODO}} tolls/fuel inclusion, quote turnaround, driver vetting — not stated until confirmed. */}
+          {slug === "riyadh-to-dammam" && (
+            <section className="bg-white border border-[#16A34A]/12 rounded-3xl p-8 shadow-sm">
+              <div className="max-w-3xl space-y-5">
+                <h2 className="font-heading text-2xl font-bold text-[#1C1C1C]">What you get on a Riyadh to Dammam private transfer</h2>
+                <p className="text-sm text-[#4B5563] leading-relaxed">
+                  A private transfer means one vehicle and one chauffeur for your party only, not a shared ride. The terms below apply to every booking on this route.
+                </p>
+                <ul className="grid gap-3 sm:grid-cols-2 text-sm text-[#1C1C1C]">
+                  {[
+                    "Fixed fare quoted and agreed before you book — no meter, no surge",
+                    "Free cancellation up to 24 hours before pickup",
+                    "15–30 minutes of free waiting time",
+                    "Pay the driver in cash or by bank transfer; e-receipt on request",
+                    "English- and Arabic-speaking drivers",
+                    "Available 24/7, including early-morning and late-night departures",
+                  ].map((t) => (
+                    <li key={t} className="flex items-start gap-2">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#16A34A]" />
+                      <span>{t}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <h3 className="font-heading text-xl font-bold text-[#1C1C1C] pt-2">Private car, train or bus between Riyadh and Dammam?</h3>
+                <p className="text-sm text-[#4B5563] leading-relaxed">
+                  A private car is the better fit when you travel with luggage, as a family or team, or need to start and finish at specific addresses on your own schedule. Public options can be cheaper per person for a solo traveller who is happy to work around fixed stations and timetables, so compare before you decide.
+                </p>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-sm">
+                    <caption className="sr-only">Private transfer compared with public transport between Riyadh and Dammam</caption>
+                    <thead>
+                      <tr className="border-b border-[#16A34A]/20 text-[#1C1C1C]">
+                        <th scope="col" className="py-2 pr-4 font-semibold">Consideration</th>
+                        <th scope="col" className="py-2 pr-4 font-semibold">Private transfer</th>
+                        <th scope="col" className="py-2 font-semibold">Train or bus</th>
+                      </tr>
+                    </thead>
+                    <tbody className="text-[#4B5563]">
+                      <tr className="border-b border-[#16A34A]/10"><th scope="row" className="py-2 pr-4 font-medium text-[#1C1C1C]">Pickup and drop-off</th><td className="py-2 pr-4">Your address, hotel or office</td><td className="py-2">Fixed station or stop</td></tr>
+                      <tr className="border-b border-[#16A34A]/10"><th scope="row" className="py-2 pr-4 font-medium text-[#1C1C1C]">Departure time</th><td className="py-2 pr-4">You choose, any hour</td><td className="py-2">Set timetable</td></tr>
+                      <tr className="border-b border-[#16A34A]/10"><th scope="row" className="py-2 pr-4 font-medium text-[#1C1C1C]">Luggage and group</th><td className="py-2 pr-4">Sedan, SUV or van sized to your party</td><td className="py-2">Per-ticket limits</td></tr>
+                      <tr><th scope="row" className="py-2 pr-4 font-medium text-[#1C1C1C]">Cost</th><td className="py-2 pr-4">One fixed fare per vehicle, shared across the party</td><td className="py-2">Priced per passenger</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="flex flex-wrap items-center gap-3 pt-1">
+                  <a
+                    href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                      `Salam! I'd like a private transfer — Riyadh to Dammam.
+• From (area/hotel in Riyadh): 
+• To (area/hotel in Dammam): 
+• Date & time: 
+• Passengers & luggage: 
+• Vehicle (Sedan / SUV / Van): `,
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-primary"
+                  >
+                    <MessageSquare className="h-4 w-4 text-[#FACC15]" />
+                    Get a fixed fare on WhatsApp
+                  </a>
+                  <Link href="/services/corporate" className="btn btn-secondary">
+                    Corporate quote and invoicing
+                  </Link>
+                </div>
+              </div>
+            </section>
+          )}
+
           {/* ─── REVERSE-INTENT SECTION (Dammam -> Riyadh) ─── */}
           {slug === "riyadh-to-dammam" && (
             <section className="bg-white border border-[#16A34A]/12 rounded-3xl p-8 shadow-sm">
@@ -2949,7 +3065,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                   Dammam to Riyadh Private Transfer
                 </h2>
                 <p className="text-xs sm:text-sm text-[#6B7280] leading-relaxed">
-                  We run the Dammam to Riyadh direction just as often as the outbound trip — book a taxi from Dammam to Riyadh one-way, or a same-day return for meetings in the capital. It is the same private, door-to-door service: a professional chauffeur collects you from your Dammam address (or Al Khobar and Dhahran nearby) and drives the ~390 km back to Riyadh in around 3.5 hours on Highway 40.
+                  We arrange the Dammam to Riyadh direction as well as the outbound trip — book a taxi from Dammam to Riyadh one-way, or a same-day return for meetings in the capital. It is the same private, door-to-door service: a professional chauffeur collects you from your Dammam address (or Al Khobar and Dhahran nearby) and drives the ~410 km back to Riyadh in around 4 hours on Highway 40.
                 </p>
                 <p className="text-xs sm:text-sm text-[#6B7280] leading-relaxed">
                   Choose an executive sedan for 1–3 business travellers, a GMC SUV for families or teams, or a Staria van for larger groups with luggage. For companies moving staff between the Eastern Province and Riyadh, we also arrange{" "}

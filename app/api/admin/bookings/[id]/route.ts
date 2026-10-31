@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { BookingStatus, PaymentStatus, Prisma } from "@prisma/client";
 import { requireAdmin } from "@/lib/auth/requireAdmin";
+import { isEmailedBookingStatus, sendBookingStatusEmail } from "@/lib/email/booking-status";
 
 const BOOKING_STATUSES: BookingStatus[] = [
   "PENDING",
@@ -40,7 +41,8 @@ export async function PATCH(
       returnDateTime,
       passengers,
       flightNumber,
-      isTest
+      isTest,
+      notifyCustomer
     } = body;
 
     if (status !== undefined && !BOOKING_STATUSES.includes(status)) {
@@ -91,10 +93,45 @@ export async function PATCH(
       include: { vehicle: true }
     });
 
+    // Email the customer when the status actually changed to a customer-facing
+    // one. Opt-out via notifyCustomer:false. The DB write already succeeded, so a
+    // failed send is reported back, never thrown.
+    let email: { sent: boolean; to?: string; error?: string } = { sent: false };
+    if (
+      status !== undefined &&
+      status !== booking.status &&
+      notifyCustomer !== false &&
+      isEmailedBookingStatus(status)
+    ) {
+      if (!updated.customerEmail) {
+        email = { sent: false, error: "No customer email on this booking" };
+      } else {
+        const result = await sendBookingStatusEmail({
+          bookingRef: updated.bookingRef,
+          customerName: updated.customerName,
+          customerPhone: updated.customerPhone,
+          customerEmail: updated.customerEmail,
+          pickupLocation: updated.pickupLocation,
+          dropoffLocation: updated.dropoffLocation,
+          pickupDateTime: updated.pickupDateTime,
+          passengers: updated.passengers,
+          vehicleName: updated.vehicle?.name ?? null,
+          totalPrice: updated.totalPrice,
+          currency: updated.currency,
+          paymentMethod: updated.paymentMethod,
+          driverName: updated.driverName,
+          driverPhone: updated.driverPhone,
+          status,
+        });
+        email = result.ok ? { sent: true, to: updated.customerEmail } : { sent: false, error: result.error };
+      }
+    }
+
     return NextResponse.json({
       success: true,
       message: "Booking updated successfully",
-      booking: updated
+      booking: updated,
+      email
     });
 
   } catch (error) {

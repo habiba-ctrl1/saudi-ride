@@ -673,6 +673,204 @@ export const CROSS_BORDER_ROUTE_PAGES: Record<string, CrossBorderRoutePageData> 
       { href: "/locations/madinah", label: "Madinah chauffeur service" },
     ],
   },
+  // ─────────────────────── Jordan → Saudi: Amman origins (added 2026-10-31) ───────────────────────
+  // Reverse legs of the Amman routes above. Distances/times reuse the OSRM figures already in routes.ts.
+  "amman-to-madinah": {
+    slug: "amman-to-madinah",
+    corridorSlug: "saudi-to-jordan",
+    eyebrow: "Jordan → Saudi Arabia · Al Mudawwara – Halat Ammar crossing",
+    lead: "From Amman down the Desert Highway, through Ma'an and the Al Mudawwara – Halat Ammar crossing, then south via Tabuk to Madinah. A long road trip, best planned over two days.",
+    quickAnswer:
+      "A private transfer from Amman to Madinah is about 1,135 km and roughly 13 hours 25 minutes of driving, plus border time. The road follows the Desert Highway to the Al Mudawwara – Halat Ammar crossing, then runs south through Tabuk to Madinah. We recommend two days with a night in Tabuk, or flying if you travel light.",
+    crossing: { name: "Al Mudawwara – Halat Ammar crossing", saudiSide: "Halat Ammar", otherSide: "Al Mudawwara" },
+    bestFor: "Families travelling from Jordan to Madinah, groups with luggage",
+    stages: [
+      { label: "Pickup", title: "Amman", desc: "Your home or hotel in Amman, or Queen Alia International Airport (AMM).", km: 0, kind: "origin" },
+      { label: "South", title: "Desert Highway to Ma'an", desc: "Jordan's main north–south highway, towards the Saudi border.", kind: "road" },
+      { label: "Border", title: "Al Mudawwara → Halat Ammar", desc: "Jordan exit and Saudi entry, each passenger in person.", kind: "border" },
+      { label: "South", title: "Halat Ammar to Tabuk, then Madinah", desc: "The long Saudi leg; a night in Tabuk is recommended.", kind: "road" },
+      { label: "Drop-off", title: "Madinah", desc: "Your hotel near Al-Masjid an-Nabawi, a home, or Madinah airport (MED).", km: 1135, kind: "destination" },
+    ],
+    dropoffs: {
+      heading: "Where we drop off in Madinah",
+      intro: "Your hotel, home or the airport. Tell us the exact address when you book.",
+      points: [
+        { name: "Hotels near Al-Masjid an-Nabawi", desc: "Give us the hotel name; access to the area around the mosque can be restricted, so the driver confirms the best drop-off point." },
+        { name: "Homes and apartments", desc: "Anywhere in Madinah." },
+        { name: "Madinah airport (MED)", desc: "For onward flights." },
+      ],
+    },
+    whoBooks: [
+      { title: "Families from Jordan visiting Madinah", desc: "Several passengers and luggage in one SUV or van, door to door." },
+      { title: "Groups travelling together", desc: "One vehicle category chosen for your group size, with one written quote." },
+    ],
+    tips: [
+      { title: "Plan two days", desc: "About 13.5 hours of driving plus the border is too much for one day with family. A night in Tabuk splits the trip in two." },
+      { title: "Check Saudi entry first", desc: "Every passenger needs the right to enter Saudi Arabia before the trip. Requirements depend on nationality and purpose of visit — check official sources. We do not arrange visas." },
+    ],
+    tradeOff: {
+      heading: "Drive or fly from Amman to Madinah?",
+      body: [
+        "Flying is clearly faster for one or two people with normal luggage.",
+        "The car is worth considering for families or groups with a lot of luggage, or anyone who wants door-to-door travel without airports. Book it as a two-day trip.",
+      ],
+    },
+    faqs: [
+      { question: "How far is Amman from Madinah by road?", answer: "About 1,135 km — roughly 13 hours 25 minutes of driving via the Desert Highway, the Al Mudawwara – Halat Ammar crossing and Tabuk, plus border time." },
+      { question: "Can we do Amman to Madinah in one day?", answer: "It is possible but very long. We recommend two days with a night in Tabuk, and the driver's overnight is included in a multi-day quote." },
+      { question: "Which border crossing is used from Amman to Saudi Arabia?", answer: "Al Mudawwara on the Jordanian side and Halat Ammar on the Saudi side, north of Tabuk — the direct inland crossing." },
+      { question: "Are border crossing fees included?", answer: "Yes. Border crossing fees for the vehicle are included in the fixed fare. Personal visa or entry fees, where they apply, are paid by each passenger." },
+      { question: "What documents do we need to enter Saudi Arabia?", answer: "A valid passport and the right to enter Saudi Arabia for every passenger. Requirements depend on nationality and the purpose of the visit, so check official sources before travel. We do not arrange visas." },
+    ],
+    related: [
+      { href: "/routes/medinah-to-amman", label: "Return: Madinah to Amman" },
+      { href: "/routes/amman-to-tabuk", label: "Amman to Tabuk (shorter)" },
+      { href: "/locations/madinah", label: "Madinah chauffeur service" },
+    ],
+  },
+
+  "amman-to-tabuk": {
+    slug: "amman-to-tabuk",
+    corridorSlug: "saudi-to-jordan",
+    eyebrow: "Jordan → Saudi Arabia · Al Mudawwara – Halat Ammar crossing",
+    lead: "From Amman south on the Desert Highway past Ma'an, across the Al Mudawwara – Halat Ammar crossing and on to your address in Tabuk. One car, one fixed fare.",
+    quickAnswer:
+      "A private transfer from Amman to Tabuk is about 455 km and roughly 5 hours 35 minutes of driving, plus border time. The road follows the Desert Highway south past Ma'an to the Al Mudawwara – Halat Ammar crossing, then about 110 km on to Tabuk. The fixed fare is confirmed in writing and includes border crossing fees for the vehicle.",
+    crossing: { name: "Al Mudawwara – Halat Ammar crossing", saudiSide: "Halat Ammar", otherSide: "Al Mudawwara" },
+    bestFor: "Tabuk residents returning from Amman, travellers continuing to NEOM or AlUla",
+    stages: [
+      { label: "Pickup", title: "Amman", desc: "Your home or hotel in Amman, or Queen Alia International Airport (AMM).", km: 0, kind: "origin" },
+      { label: "South", title: "Desert Highway to Ma'an", desc: "The main highway south through Jordan.", kind: "road" },
+      { label: "Border", title: "Al Mudawwara → Halat Ammar", desc: "Jordan exit and Saudi entry, each passenger in person.", kind: "border" },
+      { label: "Saudi", title: "Halat Ammar to Tabuk", desc: "About 110 km south to Tabuk.", km: 110, kind: "road" },
+      { label: "Drop-off", title: "Tabuk", desc: "Home, hotel, office or Tabuk Regional Airport (TUU).", km: 455, kind: "destination" },
+    ],
+    dropoffs: {
+      heading: "Where we drop off in Tabuk",
+      intro: "Anywhere in Tabuk city, or onward to your flight.",
+      points: [
+        { name: "Tabuk city", desc: "Homes, hotels, offices and compounds." },
+        { name: "Tabuk Regional Airport (TUU)", desc: "Tell us your flight time; the Amman pickup is planned back from it with border margin." },
+        { name: "Onward to NEOM or AlUla", desc: "Going further into north-west Saudi Arabia? Ask for a through quote." },
+      ],
+    },
+    whoBooks: [
+      { title: "Tabuk residents returning home", desc: "The return leg of a trip to Jordan, in one car from Amman." },
+      { title: "Visitors continuing into Saudi Arabia", desc: "Travellers who flew into Amman and continue to Tabuk, NEOM or AlUla by road." },
+      { title: "Teams heading to north-west Saudi", desc: "Executive sedan or SUV for staff, with a written quote for companies." },
+    ],
+    tips: [
+      { title: "Catching a flight at TUU?", desc: "Share the flight time. We count back the drive, border margin and check-in, and suggest a pickup time." },
+      { title: "Have your Saudi entry ready", desc: "Make sure every passenger can enter Saudi Arabia before the trip. We cannot help at the border with visas." },
+    ],
+    faqs: [
+      { question: "How long does Amman to Tabuk take by car?", answer: "About 5 hours 35 minutes of driving for roughly 455 km, plus time at the Al Mudawwara – Halat Ammar crossing, which varies." },
+      { question: "Which border is used from Amman to Tabuk?", answer: "Al Mudawwara (Jordan) and Halat Ammar (Saudi Arabia), about 110 km north of Tabuk. It is shorter than going round via Aqaba." },
+      { question: "Can you pick me up at Queen Alia airport?", answer: "Yes. Pickup at Queen Alia International Airport (AMM) or any address in Amman can be booked. Share your flight number when you book." },
+      { question: "Are border crossing fees extra?", answer: "No. Border crossing fees for the vehicle are included in the fixed fare. Personal visa or entry fees, where they apply, are the passenger's." },
+      { question: "What do I need to enter Saudi Arabia at Halat Ammar?", answer: "A valid passport and the right to enter Saudi Arabia for every passenger. Requirements depend on nationality and change, so check official sources before travel. We do not arrange visas." },
+    ],
+    related: [
+      { href: "/routes/tabuk-to-amman", label: "Outbound: Tabuk to Amman" },
+      { href: "/routes/amman-to-neom", label: "Amman to NEOM" },
+      { href: "/locations/tabuk", label: "Getting around Tabuk" },
+    ],
+  },
+
+  "amman-to-neom": {
+    slug: "amman-to-neom",
+    corridorSlug: "saudi-to-jordan",
+    eyebrow: "Jordan → Saudi Arabia · Durra – Al Durrah crossing",
+    lead: "From Amman down the Desert Highway to Aqaba, across the Durra – Al Durrah crossing and along the Red Sea coast road to NEOM.",
+    quickAnswer:
+      "A private transfer from Amman to NEOM is about 550 km and roughly 6 hours 40 minutes of driving, plus border time. The road follows the Desert Highway to Aqaba, crosses at Durra – Al Durrah, then runs through Haql and along the coast to NEOM. Distance is measured to the NEOM Bay Airport and Sharma area; northern NEOM addresses are shorter.",
+    crossing: DURRAH,
+    bestFor: "NEOM staff and project visitors arriving via Jordan",
+    stages: [
+      { label: "Pickup", title: "Amman", desc: "Your home or hotel in Amman, or Queen Alia International Airport (AMM).", km: 0, kind: "origin" },
+      { label: "South", title: "Desert Highway to Aqaba", desc: "Jordan's main highway to the Gulf of Aqaba.", kind: "road" },
+      { label: "Border", title: "Durra → Al Durrah", desc: "Jordan exit and Saudi entry near Haql, each passenger in person.", kind: "border" },
+      { label: "Coast", title: "Haql and the Red Sea coast road", desc: "South along the coast towards NEOM.", kind: "road" },
+      { label: "Drop-off", title: "NEOM", desc: "NEOM Bay Airport (NUM), Sharma or your NEOM address.", km: 550, kind: "destination" },
+    ],
+    dropoffs: {
+      heading: "Where we drop off in NEOM",
+      intro: "Give us the exact address, gate or meeting point; NEOM sites are spread out.",
+      points: [
+        { name: "NEOM Bay Airport (NUM)", desc: "Tell us your flight time for onward travel." },
+        { name: "Sharma and the coast", desc: "Hotels and residential areas." },
+        { name: "Project sites", desc: "Share the gate and any access rules so the driver arrives at the right entrance." },
+      ],
+    },
+    whoBooks: [
+      { title: "NEOM staff returning from leave in Jordan", desc: "One car from Amman to your NEOM address." },
+      { title: "Visitors arriving via Amman", desc: "Travellers who landed at Queen Alia and continue to NEOM by road." },
+    ],
+    tips: [
+      { title: "Share site access rules", desc: "NEOM locations often need advance details. Send them when you book." },
+      { title: "Have your Saudi entry ready", desc: "Every passenger needs the right to enter Saudi Arabia. We do not arrange visas." },
+    ],
+    faqs: [
+      { question: "How far is Amman from NEOM by road?", answer: "About 550 km — roughly 6 hours 40 minutes of driving via Aqaba and the Durra – Al Durrah crossing, plus border time. Northern NEOM addresses are shorter." },
+      { question: "Which border is used from Amman to NEOM?", answer: "Durra on the Jordanian side and Al Durrah near Haql on the Saudi side, on the Gulf of Aqaba coast." },
+      { question: "Can you pick me up at Queen Alia airport?", answer: "Yes. Pickup at Queen Alia International Airport (AMM) or any address in Amman can be booked. Share your flight number when you book." },
+      { question: "Are border crossing fees included?", answer: "Yes. Border crossing fees for the vehicle are included in the fixed fare. Personal visa or entry fees, where they apply, are the passenger's." },
+      { question: "What documents do I need to enter Saudi Arabia?", answer: "A valid passport and the right to enter Saudi Arabia for every passenger. Requirements depend on nationality and change, so check official sources before travel. We do not arrange visas." },
+    ],
+    related: [
+      { href: "/routes/neom-to-amman", label: "Outbound: NEOM to Amman" },
+      { href: "/routes/aqaba-to-neom", label: "Aqaba to NEOM (shorter)" },
+      { href: "/routes/amman-to-tabuk", label: "Amman to Tabuk" },
+    ],
+  },
+
+  "amman-to-alula": {
+    slug: "amman-to-alula",
+    corridorSlug: "saudi-to-jordan",
+    eyebrow: "Jordan → Saudi Arabia · Al Mudawwara – Halat Ammar crossing",
+    lead: "From Amman through the Al Mudawwara – Halat Ammar crossing and on via Tabuk to AlUla. A long day's drive, or an easy two-day trip with a night in Tabuk.",
+    quickAnswer:
+      "A private transfer from Amman to AlUla is about 895 km and roughly 11 hours 5 minutes of driving, plus border time. The road follows the Desert Highway to the Al Mudawwara – Halat Ammar crossing, then runs via Tabuk to AlUla. For most passengers we recommend splitting it over two days with a night in Tabuk.",
+    crossing: { name: "Al Mudawwara – Halat Ammar crossing", saudiSide: "Halat Ammar", otherSide: "Al Mudawwara" },
+    bestFor: "Heritage travellers arriving from Jordan, groups visiting AlUla",
+    stages: [
+      { label: "Pickup", title: "Amman", desc: "Your home or hotel in Amman, or Queen Alia International Airport (AMM).", km: 0, kind: "origin" },
+      { label: "South", title: "Desert Highway to Ma'an", desc: "Jordan's main highway towards the Saudi border.", kind: "road" },
+      { label: "Border", title: "Al Mudawwara → Halat Ammar", desc: "Jordan exit and Saudi entry, each passenger in person.", kind: "border" },
+      { label: "Saudi", title: "Via Tabuk to AlUla", desc: "A night in Tabuk is recommended.", kind: "road" },
+      { label: "Drop-off", title: "AlUla", desc: "Your AlUla hotel, resort or home, or AlUla International Airport.", km: 895, kind: "destination" },
+    ],
+    dropoffs: {
+      heading: "Where we drop off in AlUla",
+      intro: "Your hotel, resort or home. Give us the exact name or pin.",
+      points: [
+        { name: "AlUla hotels and resorts", desc: "Tell us the property name; some resorts are outside the town." },
+        { name: "AlUla Old Town and Oasis area", desc: "Homes and guesthouses." },
+        { name: "AlUla International Airport", desc: "For onward flights." },
+      ],
+    },
+    whoBooks: [
+      { title: "Heritage and leisure travellers", desc: "Visitors who landed in Amman and continue to AlUla by road." },
+      { title: "Groups visiting AlUla", desc: "One vehicle category chosen for your group size, with one written quote." },
+    ],
+    tips: [
+      { title: "Plan two days", desc: "About 11 hours of driving plus the border is a long day. A night in Tabuk makes it comfortable." },
+      { title: "Fly + private car", desc: "For one or two travellers a flight may be easier; we will tell you honestly when that is the better plan." },
+    ],
+    faqs: [
+      { question: "How far is Amman from AlUla by road?", answer: "About 895 km — roughly 11 hours 5 minutes of driving via the Al Mudawwara – Halat Ammar crossing and Tabuk, plus border time." },
+      { question: "Can we do Amman to AlUla in one day?", answer: "It is possible but very long. We recommend two days with a night in Tabuk; the driver's overnight is included in a multi-day quote." },
+      { question: "Which border is used from Amman to AlUla?", answer: "Al Mudawwara on the Jordanian side and Halat Ammar on the Saudi side, north of Tabuk." },
+      { question: "Are border crossing fees included?", answer: "Yes. Border crossing fees for the vehicle are included in the fixed fare. Personal visa or entry fees, where they apply, are the passenger's." },
+      { question: "What documents do I need to enter Saudi Arabia?", answer: "A valid passport and the right to enter Saudi Arabia for every passenger. Requirements depend on nationality and change, so check official sources before travel. We do not arrange visas." },
+    ],
+    related: [
+      { href: "/routes/alula-to-amman", label: "Return: AlUla to Amman" },
+      { href: "/routes/amman-to-tabuk", label: "Amman to Tabuk (shorter)" },
+      { href: "/routes/alula-to-aqaba", label: "AlUla to Aqaba" },
+    ],
+  },
+
   // ─────────────────────────── Jordan: Haql (added 2026-10-03) ───────────────────────────
   "haql-to-aqaba": {
     slug: "haql-to-aqaba",
@@ -1108,6 +1306,7 @@ export const CROSS_BORDER_ROUTE_PAGES: Record<string, CrossBorderRoutePageData> 
     ],
     related: [
       { href: "/routes/dammam-to-manama", label: "Dammam to Manama" },
+      { href: "/routes/manama-to-alkhobar", label: "Return: Bahrain to Al Khobar" },
       { href: "/routes/alkhobar-to-doha", label: "Al Khobar to Doha, Qatar" },
       { href: "/services/corporate-bahrain-transport", label: "Corporate Saudi–Bahrain transport" },
       { href: "/locations/alkhobar", label: "Al Khobar chauffeur service" },
@@ -1145,6 +1344,8 @@ export const CROSS_BORDER_ROUTE_PAGES: Record<string, CrossBorderRoutePageData> 
       { question: "Is the causeway toll included?", answer: "Yes. The causeway toll for the vehicle is included in the fixed fare." },
       { question: "What do I need to cross the causeway?", answer: "Every passenger needs a valid passport or accepted ID and the right to enter Bahrain, and completes the checks in person. Check official sources before travel — we do not arrange visas." },
       { question: "Do you drop at Bahrain International Airport?", answer: "Yes. BAH is in Muharraq — tell us your flight time so we plan the pickup with margin for the causeway." },
+      { question: "Is this a metered taxi from Dammam to Bahrain?", answer: "No. It is a pre-booked private car with a professional driver at one fixed fare agreed before you travel, with no meter and no surge." },
+      { question: "Do I change cars at the causeway?", answer: "No. The same car and driver take you from your Dammam address across the King Fahd Causeway to your Bahrain address." },
     ],
     related: [
       { href: "/routes/manama-to-dammam", label: "Return: Bahrain to Dammam" },
@@ -1318,10 +1519,13 @@ export const CROSS_BORDER_ROUTE_PAGES: Record<string, CrossBorderRoutePageData> 
       { question: "Can you drop me at the Dammam train station?", answer: "Yes. Tell us your train time and we plan the pickup in Bahrain with margin for the causeway." },
       { question: "Is the causeway toll included?", answer: "Yes, the causeway toll for the vehicle is included in the fixed fare." },
       { question: "What do I need to enter Saudi Arabia?", answer: "A valid passport or accepted ID and the right to enter Saudi Arabia for every passenger. Check official sources before travel." },
+      { question: "Is this a metered taxi from Bahrain to Dammam?", answer: "No. It is a pre-booked private car with a professional driver at one fixed fare agreed before you travel, with no meter and no surge." },
+      { question: "Where in Bahrain can you pick me up for Dammam?", answer: "Anywhere on the island — Manama, Seef, Juffair, Muharraq, Riffa or any address you give us. The same car takes you across the King Fahd Causeway to your Dammam address." },
     ],
     related: [
       { href: "/routes/dammam-to-manama", label: "Outbound: Dammam to Manama" },
       { href: "/routes/bahrain-to-dammam-airport", label: "Bahrain to Dammam Airport" },
+      { href: "/routes/manama-to-alkhobar", label: "Bahrain to Al Khobar instead" },
       { href: "/routes/manama-to-riyadh", label: "Bahrain to Riyadh" },
     ],
   },
@@ -1758,6 +1962,7 @@ export const CROSS_BORDER_ROUTE_PAGES: Record<string, CrossBorderRoutePageData> 
     related: [
       { href: "/routes/kuwait-to-dammam", label: "Return: Kuwait to Dammam" },
       { href: "/routes/jubail-to-kuwait", label: "Jubail to Kuwait" },
+      { href: "/routes/riyadh-to-kuwait", label: "Riyadh to Kuwait City" },
       { href: "/locations/dammam", label: "Dammam private car service" },
     ],
   },

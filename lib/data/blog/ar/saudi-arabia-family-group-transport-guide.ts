@@ -85,7 +85,7 @@ const post: BlogPostAr = {
 | [المدينة ← مكة](/routes/madinah-to-makkah) | نحو 430 كم / 4 ساعات | SUV أو فان |
 | [مطار الرياض ← وسط الرياض](/routes/riyadh-airport-to-city) | نحو 35 كم / 30 دقيقة | SUV |
 | [المدينة ← العُلا](/routes/madinah-to-alula) | نحو 330 كم / 3 ساعات | SUV |
-| [الرياض ← الدمام](/routes/riyadh-to-dammam) | نحو 390 كم / 3 ساعات ونصف | SUV أو فان |
+| [الرياض ← الدمام](/routes/riyadh-to-dammam) | نحو 410 كم / 4 ساعات | SUV أو فان |
 
 ## المجموعات: العمرة، السياحة، المدارس، الشركات
 

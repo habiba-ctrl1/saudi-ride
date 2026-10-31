@@ -1,7 +1,7 @@
 import type { BlogPost } from "../types";
 
 // Rewritten 2026-10-02. Figures from routes.ts only: DMM→Dhahran 25 km/25 min,
-// DMM→Jubail 90 km/65 min, Riyadh→Dammam 390 km/210 min, Riyadh→Al Khobar
+// DMM→Jubail 90 km/65 min, Riyadh→Dammam 410 km/210 min, Riyadh→Al Khobar
 // 400 km/220 min, Dammam→Manama 70 km/60 min (via the King Fahd Causeway route
 // page). The old "~35 km from DMM to Dammam/Al Khobar" had no source — removed.
 const post: BlogPost = {
@@ -44,7 +44,7 @@ Dammam, Al Khobar and Dhahran form one continuous urban area on the Gulf coast, 
 |---|---|---|
 | [DMM airport → Dhahran](/routes/dammam-airport-to-dhahran) | ~25 km | ~25 min |
 | [DMM airport → Jubail](/routes/dammam-airport-to-jubail) | ~90 km | ~65 min |
-| [Riyadh → Dammam](/routes/riyadh-to-dammam) | ~390 km | ~3 hr 30 min |
+| [Riyadh → Dammam](/routes/riyadh-to-dammam) | ~410 km | ~4 hr |
 | [Riyadh → Al Khobar](/routes/riyadh-to-alkhobar) | ~400 km | ~3 hr 40 min |
 | [Dammam → Manama, Bahrain](/routes/dammam-to-manama) | ~70 km | ~1 hr + border |
 
@@ -70,7 +70,7 @@ For teams on site for a week or more, book the whole period together. One quote 
 
 ### Coming from Riyadh
 
-Many executives combine Riyadh and the Eastern Province. The road from Riyadh to Dammam is about 390 km — roughly three and a half hours — which can be a better use of time than a short flight once airport time is counted, especially for a team with equipment.
+Many executives combine Riyadh and the Eastern Province. The road from Riyadh to Dammam is about 410 km — roughly four hours — which can be a better use of time than a short flight once airport time is counted, especially for a team with equipment.
 
 ### Bahrain
 

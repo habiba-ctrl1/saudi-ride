@@ -92,7 +92,7 @@ Private vehicles are priced **per trip, not per seat**, so a larger vehicle is u
 | [Madinah → Makkah](/routes/madinah-to-makkah) | ~430 km / ~4 hr | SUV or van |
 | [Riyadh Airport → central Riyadh](/routes/riyadh-airport-to-city) | ~35 km / ~30 min | SUV |
 | [Madinah → AlUla](/routes/madinah-to-alula) | ~330 km / ~3 hr | SUV |
-| [Riyadh → Dammam](/routes/riyadh-to-dammam) | ~390 km / ~3 hr 30 min | SUV or van |
+| [Riyadh → Dammam](/routes/riyadh-to-dammam) | ~410 km / ~4 hr | SUV or van |
 
 ## Groups: Umrah, tours, schools, companies
 

@@ -44,7 +44,7 @@ const FAQS = [
   {
     question: "Which alternative airport is closest by road?",
     answer:
-      "Dammam (DMM) is the closest of the five on the route figures published on this site — about 390 km, roughly 3 h 30 min of driving to Dammam city, with no border. Bahrain (BAH) is next, but it adds a causeway crossing, so total time depends on border traffic.",
+      "Dammam (DMM) is the closest of the five on the route figures published on this site — about 410 km, roughly 4 h of driving to Dammam city, with no border. Bahrain (BAH) is next, but it adds a causeway crossing, so total time depends on border traffic.",
   },
   {
     question: "How do I request a transfer quote?",

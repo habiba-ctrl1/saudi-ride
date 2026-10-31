@@ -27,7 +27,10 @@ const RIDE_COLS = `id::text, quote_reference, customer_name, customer_phone, pic
 
 export type Kpis = {
   completed: number;
-  revenue: number;
+  paid_count: number; // completed + paid rides in SAR (other currencies are listed separately, never added in)
+  revenue: number; // cash actually collected on completed + paid rides
+  costed_count: number; // completed rides with driver cost entered: cost, margin and share cover ONLY these
+  costed_revenue: number; // collected revenue of just those rides, so margin = costed_revenue - cost
   cost: number;
   margin: number;
   owner_share: number;
@@ -42,6 +45,8 @@ export type Kpis = {
   quotes_value: number;
 };
 
+export type ForeignTotal = { currency: string; total: number; rides: number };
+
 export type Alert = { key: string; label: string; hint: string; items: { id: string; ref: string; text: string }[] };
 
 export type LeadRow = { id: string; customer_name: string | null; customer_phone: string | null; origin: string | null; destination: string | null; trip_date: string | null; vehicle_type: string | null; created_at: string };
@@ -53,8 +58,12 @@ export type Dashboard = {
   tomorrowRides: RideRow[];
   upcomingRides: RideRow[];
   openQuotesUpcoming: RideRow[];
+  laterCount: number;
+  noDriverUpcoming: number;
   month: Kpis;
   all: Kpis;
+  foreignMonth: ForeignTotal[];
+  foreignAll: ForeignTotal[];
   alerts: Alert[];
   leads: LeadRow[];
   leadsTotal7d: number;
@@ -66,7 +75,10 @@ async function kpis(from: string | null): Promise<Kpis> {
   const r = await prisma.$queryRawUnsafe<Kpis[]>(
     `SELECT
        count(*) FILTER (WHERE status='completed')::int completed,
-       COALESCE(SUM(actual_amount_paid) FILTER (WHERE status='completed'),0)::float revenue,
+       count(*) FILTER (WHERE status='completed' AND payment_status='paid' AND COALESCE(currency,'SAR')='SAR')::int paid_count,
+       COALESCE(SUM(actual_amount_paid) FILTER (WHERE status='completed' AND payment_status='paid' AND COALESCE(currency,'SAR')='SAR'),0)::float revenue,
+       count(*) FILTER (WHERE status='completed' AND financial_status='confirmed' AND COALESCE(currency,'SAR')='SAR')::int costed_count,
+       COALESCE(SUM(COALESCE(actual_amount_paid,0)) FILTER (WHERE status='completed' AND financial_status='confirmed' AND COALESCE(currency,'SAR')='SAR'),0)::float costed_revenue,
        COALESCE(SUM(driver_cost+extra_cost) FILTER (WHERE status='completed' AND financial_status='confirmed'),0)::float cost,
        COALESCE(SUM(COALESCE(actual_amount_paid,0)-driver_cost-extra_cost) FILTER (WHERE status='completed' AND financial_status='confirmed'),0)::float margin,
        COALESCE(SUM((COALESCE(actual_amount_paid,0)-driver_cost-extra_cost)*(100-COALESCE(partner_share_pct,0))/100) FILTER (WHERE status='completed' AND financial_status='confirmed'),0)::float owner_share,
@@ -74,7 +86,7 @@ async function kpis(from: string | null): Promise<Kpis> {
        COALESCE(SUM(driver_cost+extra_cost-COALESCE(actual_amount_paid,0)) FILTER (WHERE status='completed' AND financial_status='confirmed' AND COALESCE(actual_amount_paid,0)-driver_cost-extra_cost < 0),0)::float loss_total,
        count(*) FILTER (WHERE status='completed' AND financial_status<>'confirmed')::int missing_cost,
        count(*) FILTER (WHERE status='completed' AND payment_status<>'paid' AND NOT (actual_amount_paid = 0 AND financial_status='confirmed'))::int unpaid_completed,
-       COALESCE(SUM(quoted_price) FILTER (WHERE status='completed' AND payment_status<>'paid' AND NOT (actual_amount_paid = 0 AND financial_status='confirmed')),0)::float unpaid_total,
+       COALESCE(SUM(quoted_price) FILTER (WHERE status='completed' AND payment_status<>'paid' AND COALESCE(currency,'SAR')='SAR' AND NOT (actual_amount_paid = 0 AND financial_status='confirmed')),0)::float unpaid_total,
        count(*) FILTER (WHERE status IN ('confirmed','assigned') AND trip_date >= (now() AT TIME ZONE 'Asia/Riyadh')::date)::int confirmed_upcoming,
        count(*) FILTER (WHERE status='cancelled')::int cancelled,
        count(*) FILTER (WHERE status IN ('new','quoted') AND quote_stage IN ('draft','ready','sent','follow_up'))::int pending_quotes,
@@ -85,11 +97,18 @@ async function kpis(from: string | null): Promise<Kpis> {
   return r[0];
 }
 
+async function foreign(from: string | null): Promise<ForeignTotal[]> {
+  return prisma.$queryRawUnsafe<ForeignTotal[]>(
+    `SELECT currency, SUM(actual_amount_paid)::float total, count(*)::int rides FROM quotations
+      WHERE NOT is_test AND status='completed' AND payment_status='paid' AND COALESCE(currency,'SAR')<>'SAR' AND ($1::date IS NULL OR trip_date >= $1::date)
+      GROUP BY currency ORDER BY currency`, from);
+}
+
 export async function getDashboard(pkrRate: number | null): Promise<Dashboard> {
   const today = (await prisma.$queryRawUnsafe<{ d: string }[]>(`SELECT (now() AT TIME ZONE 'Asia/Riyadh')::date::text d`))[0].d;
   const monthStart = today.slice(0, 8) + "01";
 
-  const [todayRides, tomorrowRides, upcomingRides, openQuotesUpcoming, month, all] = await Promise.all([
+  const [todayRides, tomorrowRides, upcomingRides, openQuotesUpcoming, month, all, counts, foreignMonth, foreignAll] = await Promise.all([
     prisma.$queryRawUnsafe<RideRow[]>(
       `SELECT ${RIDE_COLS}, CASE WHEN trip_type='multi_day' AND trip_date<>$1::date THEN 'multi-day, ends '||to_char(return_date,'DD Mon') WHEN trip_type='multi_day' AND return_date IS NOT NULL THEN 'multi-day, ends '||to_char(return_date,'DD Mon') END day_note
          FROM quotations WHERE NOT is_test AND status IN ('confirmed','assigned','completed')
@@ -100,13 +119,19 @@ export async function getDashboard(pkrRate: number | null): Promise<Dashboard> {
          FROM quotations WHERE NOT is_test AND status IN ('confirmed','assigned','completed') AND trip_date=$1::date+1
          ORDER BY trip_time NULLS LAST`, today),
     prisma.$queryRawUnsafe<RideRow[]>(
-      `SELECT ${RIDE_COLS}, NULL day_note FROM quotations WHERE NOT is_test AND status IN ('confirmed','assigned') AND trip_date > $1::date+1
-         ORDER BY trip_date, trip_time NULLS LAST LIMIT 20`, today),
+      `SELECT ${RIDE_COLS}, NULL day_note FROM quotations WHERE NOT is_test AND status IN ('confirmed','assigned') AND trip_date BETWEEN $1::date+2 AND $1::date+30
+         ORDER BY trip_date, trip_time NULLS LAST LIMIT 80`, today),
     prisma.$queryRawUnsafe<RideRow[]>(
       `SELECT ${RIDE_COLS}, NULL day_note FROM quotations WHERE NOT is_test AND status IN ('new','quoted') AND quote_stage IN ('draft','ready','sent','follow_up')
           AND trip_date >= $1::date ORDER BY trip_date LIMIT 20`, today),
     kpis(monthStart),
     kpis(null),
+    prisma.$queryRawUnsafe<{ later: number; no_driver: number }[]>(
+      `SELECT count(*) FILTER (WHERE trip_date > $1::date+30)::int later,
+              count(*) FILTER (WHERE partner_id IS NULL AND driver_name IS NULL AND assigned_driver_id IS NULL)::int no_driver
+         FROM quotations WHERE NOT is_test AND status IN ('confirmed','assigned') AND trip_date >= $1::date`, today),
+    foreign(monthStart),
+    foreign(null),
   ]);
 
   // ── outstanding actions ──
@@ -158,5 +183,5 @@ export async function getDashboard(pkrRate: number | null): Promise<Dashboard> {
     `SELECT id::text, quote_reference ref, customer_name customer, trip_date::text, (driver_cost+extra_cost-COALESCE(actual_amount_paid,0))::float loss FROM quotations
       WHERE NOT is_test AND status='completed' AND financial_status='confirmed' AND COALESCE(actual_amount_paid,0)-driver_cost-extra_cost < 0 ORDER BY trip_date DESC`);
 
-  return { today, rate: pkrRate, todayRides, tomorrowRides, upcomingRides, openQuotesUpcoming, month, all, alerts, leads: leads.slice(0, 8), leadsTotal7d, owed, lossRides };
+  return { today, rate: pkrRate, todayRides, tomorrowRides, upcomingRides, openQuotesUpcoming, laterCount: counts[0].later, noDriverUpcoming: counts[0].no_driver, month, all, foreignMonth, foreignAll, alerts, leads: leads.slice(0, 8), leadsTotal7d, owed, lossRides };
 }

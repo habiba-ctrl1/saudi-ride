@@ -114,6 +114,11 @@ export function BookingsClient({
   const [driverNameDraft, setDriverNameDraft] = useState<Record<string, string>>({});
   const [driverPhoneDraft, setDriverPhoneDraft] = useState<Record<string, string>>({});
   const [notesDraft, setNotesDraft] = useState<Record<string, string>>({});
+  const [statusDraft, setStatusDraft] = useState<Record<string, BookingStatus>>({});
+  const [pickupDraft, setPickupDraft] = useState<Record<string, string>>({});
+  const [dropoffDraft, setDropoffDraft] = useState<Record<string, string>>({});
+  const [notifyOff, setNotifyOff] = useState<Record<string, boolean>>({});
+  const [rowInfo, setRowInfo] = useState<Record<string, string>>({});
   const [rowError, setRowError] = useState<Record<string, string>>({});
   const [quotation, setQuotation] = useState<Record<string, { id: string; ref: string }>>({});
   const [searchDraft, setSearchDraft] = useState(searchParams.get("search") ?? "");
@@ -133,6 +138,7 @@ export function BookingsClient({
   async function patch(id: string, payload: Record<string, unknown>) {
     setBusyId(id);
     setRowError((prev) => ({ ...prev, [id]: "" }));
+    setRowInfo((prev) => ({ ...prev, [id]: "" }));
     try {
       const res = await fetch(`/api/admin/bookings/${id}`, {
         method: "PATCH",
@@ -144,6 +150,14 @@ export function BookingsClient({
         setRowError((prev) => ({ ...prev, [id]: data.error || "Update failed" }));
         return;
       }
+      const em = data.email as { sent: boolean; to?: string; error?: string } | undefined;
+      setRowInfo((prev) => ({
+        ...prev,
+        [id]: em?.sent ? `Saved. Email sent to ${em.to}.` : em?.error ? `Saved, but email NOT sent: ${em.error}` : "Saved.",
+      }));
+      const drop = <T,>(prev: Record<string, T>) => { const n = { ...prev }; delete n[id]; return n; };
+      setStatusDraft(drop); setPriceDraft(drop); setDriverNameDraft(drop); setDriverPhoneDraft(drop);
+      setNotesDraft(drop); setPickupDraft(drop); setDropoffDraft(drop);
       router.refresh();
     } catch {
       setRowError((prev) => ({ ...prev, [id]: "Network error" }));
@@ -404,6 +418,27 @@ export function BookingsClient({
                               )}
                             </div>
 
+                            <div className="grid gap-3 sm:grid-cols-2">
+                              <label className="text-xs text-[#A1A1A6]">
+                                Pickup location (edit to correct)
+                                <input
+                                  type="text"
+                                  value={pickupDraft[b.id] ?? b.pickupLocation}
+                                  onChange={(e) => setPickupDraft((prev) => ({ ...prev, [b.id]: e.target.value }))}
+                                  className="mt-1 w-full rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
+                                />
+                              </label>
+                              <label className="text-xs text-[#A1A1A6]">
+                                Drop-off location
+                                <input
+                                  type="text"
+                                  value={dropoffDraft[b.id] ?? b.dropoffLocation}
+                                  onChange={(e) => setDropoffDraft((prev) => ({ ...prev, [b.id]: e.target.value }))}
+                                  className="mt-1 w-full rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
+                                />
+                              </label>
+                            </div>
+
                             <div className="grid gap-3 sm:grid-cols-4">
                               <label className="text-xs text-[#A1A1A6]">
                                 Set price (SAR)
@@ -419,9 +454,9 @@ export function BookingsClient({
                               <label className="text-xs text-[#A1A1A6]">
                                 Status
                                 <select
-                                  value={b.status}
+                                  value={statusDraft[b.id] ?? b.status}
                                   disabled={busy}
-                                  onChange={(e) => patch(b.id, { status: e.target.value })}
+                                  onChange={(e) => setStatusDraft((prev) => ({ ...prev, [b.id]: e.target.value as BookingStatus }))}
                                   className="mt-1 w-full rounded-lg border border-[#333] bg-black/40 px-3 py-2 text-xs text-[#F5F0E8] outline-none focus:border-[#C9A84C]"
                                 >
                                   {ALL_STATUSES.map((s) => (
@@ -456,10 +491,19 @@ export function BookingsClient({
                                 disabled={
                                   busy ||
                                   (!priceDraft[b.id] && !driverNameDraft[b.id] && !driverPhoneDraft[b.id] &&
+                                    (statusDraft[b.id] === undefined || statusDraft[b.id] === b.status) &&
+                                    (pickupDraft[b.id] === undefined || pickupDraft[b.id] === b.pickupLocation) &&
+                                    (dropoffDraft[b.id] === undefined || dropoffDraft[b.id] === b.dropoffLocation) &&
                                     (notesDraft[b.id] === undefined || notesDraft[b.id] === (b.notes ?? "")))
                                 }
                                 onClick={() => {
                                   const payload: Record<string, unknown> = {};
+                                  if (statusDraft[b.id] && statusDraft[b.id] !== b.status) {
+                                    payload.status = statusDraft[b.id];
+                                    payload.notifyCustomer = !notifyOff[b.id];
+                                  }
+                                  if (pickupDraft[b.id] !== undefined && pickupDraft[b.id] !== b.pickupLocation) payload.pickupLocation = pickupDraft[b.id];
+                                  if (dropoffDraft[b.id] !== undefined && dropoffDraft[b.id] !== b.dropoffLocation) payload.dropoffLocation = dropoffDraft[b.id];
                                   if (priceDraft[b.id]) payload.totalPrice = priceDraft[b.id];
                                   if (driverNameDraft[b.id]) payload.driverName = driverNameDraft[b.id];
                                   if (driverPhoneDraft[b.id]) payload.driverPhone = driverPhoneDraft[b.id];
@@ -471,6 +515,21 @@ export function BookingsClient({
                                 {busy ? "Saving…" : "Save Changes"}
                               </button>
                               {busy && <Loader2 className="h-4 w-4 animate-spin text-[#C9A84C]" />}
+                              {statusDraft[b.id] && statusDraft[b.id] !== b.status && ["CONFIRMED", "DRIVER_ASSIGNED", "COMPLETED", "CANCELLED"].includes(statusDraft[b.id]) && (
+                                b.customerEmail ? (
+                                  <label className="flex items-center gap-1.5 text-xs text-[#A1A1A6]">
+                                    <input
+                                      type="checkbox"
+                                      checked={!notifyOff[b.id]}
+                                      onChange={(e) => setNotifyOff((prev) => ({ ...prev, [b.id]: !e.target.checked }))}
+                                      className="h-3.5 w-3.5 accent-[#C9A84C]"
+                                    />
+                                    Email {b.customerEmail} about this status
+                                  </label>
+                                ) : (
+                                  <span className="text-xs text-amber-400">No customer email on file, nothing will be emailed.</span>
+                                )
+                              )}
 
                               <span className="flex-1" />
 
@@ -491,6 +550,7 @@ export function BookingsClient({
                                 </button>
                               )}
                             </div>
+                            {rowInfo[b.id] && <p className={`text-xs ${rowInfo[b.id].includes("NOT sent") ? "text-amber-400" : "text-emerald-400"}`}>{rowInfo[b.id]}</p>}
                             {rowError[b.id] && <p className="text-xs text-red-400">{rowError[b.id]}</p>}
                           </td>
                         </tr>

@@ -65,6 +65,8 @@ export default function BookPage() {
   const [hours, setHours] = useState(4);
   const [flightNumber, setFlightNumber] = useState("");
   const [specialNotes, setSpecialNotes] = useState("");
+  const [pickupDetails, setPickupDetails] = useState("");
+  const [dropoffDetails, setDropoffDetails] = useState("");
 
   // Step 2 Vehicle Selection
   const [selectedVehicle, setSelectedVehicle] = useState<VehicleKey>('SUV');
@@ -246,6 +248,8 @@ export default function BookPage() {
       // notes the admin sees — no client-side price/discount math anywhere
       // here, price is always confirmed manually on WhatsApp.
       const noteParts = [
+        pickupDetails.trim() ? `Exact pickup: ${pickupDetails.trim()}` : null,
+        dropoffDetails.trim() ? `Exact drop-off: ${dropoffDetails.trim()}` : null,
         specialNotes || null,
         selectedAddonLabels.length > 0 ? `Requested add-ons: ${selectedAddonLabels.join(", ")}` : null,
         promoCode.trim() ? `Promo code entered: ${promoCode.trim()}` : null,
@@ -430,13 +434,20 @@ export default function BookPage() {
                         onChange={(e) => handlePickupChange(e.target.value)}
                         onFocus={() => setShowPickupList(true)}
                         onBlur={() => setTimeout(() => setShowPickupList(false), 250)}
-                        placeholder={isRtl ? "ابحث عن مطار، معلم أو فندق..." : "Search Airport, hotel, landmark..."}
+                        placeholder={isRtl ? "اكتب أي عنوان أو فندق أو رابط خرائط جوجل" : "Type any address, hotel, villa or Google Maps link"}
                         className="input has-icon"
                       />
                     </div>
 
-                    {showPickupList && pickupSuggestions.length > 0 && (
+                    {showPickupList && pickup.trim().length >= 3 && (
                       <div className="absolute z-20 left-0 right-0 mt-1 max-h-48 overflow-y-auto rounded-xl border border-[#16A34A]/15 bg-white p-2 shadow-2xl">
+                        <button
+                          type="button"
+                          onMouseDown={() => { setPickupSuggestions([]); setShowPickupList(false); }}
+                          className="w-full text-left px-3 py-2 text-[0.7rem] font-semibold text-[#16A34A] hover:bg-[#F0FDF4] rounded transition-colors"
+                        >
+                          {isRtl ? `استخدم: ${pickup}` : `Use “${pickup.trim()}” as typed`}
+                        </button>
                         {pickupSuggestions.map((s, i) => (
                           <button
                             key={i}
@@ -467,13 +478,20 @@ export default function BookPage() {
                           onChange={(e) => handleDropoffChange(e.target.value)}
                           onFocus={() => setShowDropoffList(true)}
                           onBlur={() => setTimeout(() => setShowDropoffList(false), 250)}
-                          placeholder={isRtl ? "ابحث عن وجهة الحجز..." : "Search drop-off landmark..."}
+                          placeholder={isRtl ? "اكتب أي عنوان أو مدينة أو مطار" : "Type any address, city, airport or hotel"}
                           className="input has-icon"
                         />
                       </div>
 
-                      {showDropoffList && dropoffSuggestions.length > 0 && (
+                      {showDropoffList && dropoff.trim().length >= 3 && (
                         <div className="absolute z-20 left-0 right-0 mt-1 max-h-48 overflow-y-auto rounded-xl border border-[#16A34A]/15 bg-white p-2 shadow-2xl">
+                          <button
+                            type="button"
+                            onMouseDown={() => { setDropoffSuggestions([]); setShowDropoffList(false); }}
+                            className="w-full text-left px-3 py-2 text-[0.7rem] font-semibold text-[#16A34A] hover:bg-[#F0FDF4] rounded transition-colors"
+                          >
+                            {isRtl ? `استخدم: ${dropoff}` : `Use “${dropoff.trim()}” as typed`}
+                          </button>
                           {dropoffSuggestions.map((s, i) => (
                             <button
                               key={i}
@@ -488,6 +506,36 @@ export default function BookPage() {
                       )}
                     </div>
                   )}
+
+                  {/* Exact point details - free text, never validated against the suggestion list */}
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div>
+                      <label className="field-label mb-1.5 block">
+                        {isRtl ? "تفاصيل نقطة الركوب (اختياري)" : "Exact pick-up point (optional)"}
+                      </label>
+                      <input
+                        type="text"
+                        value={pickupDetails}
+                        onChange={(e) => setPickupDetails(e.target.value)}
+                        placeholder={isRtl ? "رابط خرائط جوجل، رقم المبنى، معلم قريب" : "Google Maps link, building no., nearby landmark"}
+                        className="input"
+                      />
+                    </div>
+                    {tripType !== "hourly" && (
+                      <div>
+                        <label className="field-label mb-1.5 block">
+                          {isRtl ? "تفاصيل نقطة النزول (اختياري)" : "Exact drop-off point (optional)"}
+                        </label>
+                        <input
+                          type="text"
+                          value={dropoffDetails}
+                          onChange={(e) => setDropoffDetails(e.target.value)}
+                          placeholder={isRtl ? "مثال: مطار حمد الدولي، صالة المغادرة" : "e.g. Hamad Airport departures, hotel name"}
+                          className="input"
+                        />
+                      </div>
+                    )}
+                  </div>
 
                   {/* Hourly Charter Sizing */}
                   {tripType === "hourly" && (

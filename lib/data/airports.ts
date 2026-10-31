@@ -394,5 +394,48 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
       { href: "/airports/abha-regional", label: "Abha airport (AHB) pickups" },
       { href: "/fleet", label: "Vehicle categories" },
     ]
+  },
+  // Added 2026-10-31 (Qassim airport page). Official name: Prince Naif bin
+  // Abdulaziz International Airport, IATA ELQ / ICAO OEGS, serves Buraydah and
+  // Al Qassim. Road figure Riyadh centre -> ELQ is OSRM 2026-10-31 (~375 km,
+  // ~3 h 36 min; varies by pickup point). Hero = shared generic airport
+  // illustration; replace with a real ELQ/Qassim photo when one exists.
+  "prince-naif-qassim": {
+    name: "Prince Naif bin Abdulaziz International Airport",
+    code: "ELQ",
+    nameAr: "مطار الأمير نايف بن عبدالعزيز الدولي (القصيم)",
+    h1Name: "Al Qassim Airport (ELQ)",
+    image: "/airports/med-hero.webp",
+    tagline: "Private transfers to and from Buraydah and Al Qassim",
+    description: "Arrange a private transfer between Prince Naif bin Abdulaziz International Airport (ELQ) in Al Qassim and Riyadh, Buraydah or Unaizah. Request a sedan, SUV or GMC full-size SUV, share your flight number, and we confirm availability and one fare before you travel. Pickups are arranged in advance through our partner network.",
+    tldr: "Al Qassim Airport, officially Prince Naif bin Abdulaziz International Airport, uses the code ELQ and serves Buraydah and the wider Al Qassim Province. Riyadh to ELQ is roughly 375 km by road, around 3.5 hours depending on pickup point and traffic. Private transfers are arranged in advance on WhatsApp, with the fare confirmed before you book.",
+    tldrFacts: [
+      { label: "Airport code", value: "ELQ (ICAO OEGS)" },
+      { label: "Riyadh → ELQ", value: "~375 km · ~3.5 hr" },
+      { label: "Booking", value: "Arranged in advance" },
+      { label: "Fare", value: "Agreed before booking" }
+    ],
+    terminals: [
+      { name: "Arrivals", desc: "Pickups are arranged in advance. Share your flight number and we confirm the meeting point with you before you travel." }
+    ],
+    tips: [
+      "The airport's code is ELQ. Search sites sometimes list it as Gassim, Qassim or Buraidah airport — they are the same airport.",
+      "Pickups are not automatic: book in advance and send your flight number so the driver is planned around your landing. We track your flight.",
+      "Travelling from Riyadh? It is a road journey of roughly 375 km, so tell us your pickup district, passengers and luggage to get the right vehicle.",
+      "Heading to Unaizah or another Qassim town rather than Buraydah? Say so when you book so the quote reflects the actual drop-off."
+    ],
+    priorityRoutes: ["riyadh-to-al-qassim-airport", "riyadh-to-buraydah"],
+    faqs: [
+      { question: "What is the official name of Al Qassim Airport?", answer: "It is Prince Naif bin Abdulaziz International Airport. Its IATA code is ELQ and its ICAO code is OEGS. It serves Buraydah and Al Qassim Province." },
+      { question: "Can I book a private transfer from Riyadh to ELQ?", answer: "Yes. Send your pickup address, date, passengers and luggage on WhatsApp and we check partner availability and confirm one fare before you book." },
+      { question: "Can I get a private transfer from ELQ to Riyadh or Buraydah?", answer: "Yes, if you arrange it in advance. Share your flight number and destination; pickup details are confirmed with you before travel rather than assumed." },
+      { question: "Is this a shared taxi?", answer: "No. The vehicle is arranged for your own party, not shared with other passengers." }
+    ],
+    relatedLinks: [
+      { href: "/routes/riyadh-to-al-qassim-airport", label: "Riyadh to Al Qassim Airport private transfer" },
+      { href: "/routes/riyadh-to-buraydah", label: "Riyadh to Buraydah taxi" },
+      { href: "/airports/king-khalid-riyadh", label: "Riyadh airport (RUH) transfers" },
+      { href: "/fleet", label: "Vehicle categories" },
+    ]
   }
 };

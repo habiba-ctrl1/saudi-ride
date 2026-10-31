@@ -85,7 +85,7 @@ All are available through our partner network; see [vehicle categories](/fleet).
 
 | Route | Distance | Typical drive | Car or plane? |
 |---|---|---|---|
-| [Riyadh → Dammam](/routes/riyadh-to-dammam) | ~390 km | ~3 hr 30 min | Car is competitive door to door; plane faster for one traveller |
+| [Riyadh → Dammam](/routes/riyadh-to-dammam) | ~410 km | ~4 hr | Car is competitive door to door; plane faster for one traveller |
 | [Riyadh → Al Khobar](/routes/riyadh-to-alkhobar) | ~400 km | ~3 hr 40 min | As above |
 | [Jeddah → KAEC](/routes/jeddah-to-kaec) | ~120 km | ~1 hr 20 min | Car or Haramain train |
 | [Riyadh → Jeddah](/routes/riyadh-to-jeddah) | ~950 km | ~9 hr | Fly, unless moving a team with equipment |

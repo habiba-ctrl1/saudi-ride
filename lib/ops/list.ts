@@ -17,7 +17,7 @@ const VIEW_SQL: Record<View, string> = {
   cancelled: "status='cancelled'",
   lost: "(quote_stage IN ('rejected','expired') OR status='cancelled')",
   paid: "payment_status='paid'",
-  unpaid: "payment_status<>'paid' AND status<>'cancelled' AND NOT (actual_amount_paid = 0 AND financial_status='confirmed')",
+  unpaid: "status='completed' AND payment_status<>'paid' AND NOT (actual_amount_paid = 0 AND financial_status='confirmed')",
   profitable: "driver_cost IS NOT NULL AND COALESCE(actual_amount_paid,0)-driver_cost-extra_cost > 0",
   loss: "driver_cost IS NOT NULL AND COALESCE(actual_amount_paid,0)-driver_cost-extra_cost < 0",
   needcost: "status='completed' AND financial_status<>'confirmed'",
@@ -65,7 +65,7 @@ export async function listBookings(f: ListFilters): Promise<{ rows: ListRow[]; t
 
   const rows = await prisma.$queryRawUnsafe<ListRow[]>(
     `SELECT x.id::text, quote_reference, customer_name, customer_phone, customer_email, client_id::text, pickup_location, drop_location, trip_date::text, trip_time::text,
-         vehicle_type_requested::text vehicle, status::text, quote_stage, valid_until::text, sent_at::text, followup_at::text, quoted_price::float, actual_amount_paid::float,
+         vehicle_type_requested::text vehicle, status::text, quote_stage, valid_until::text, sent_at::text, followup_at::text, quoted_price::float, actual_amount_paid::float, COALESCE(currency,'SAR') currency,
          payment_status::text, driver_cost::float, extra_cost::float, financial_status, COALESCE(driver_name, (SELECT full_name FROM drivers d WHERE d.id=assigned_driver_id)) driver_name,
          partner_id::text, is_test,
          CASE WHEN driver_cost IS NOT NULL THEN (COALESCE(actual_amount_paid,0)-driver_cost-extra_cost)::float END margin,
