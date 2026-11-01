@@ -21,8 +21,10 @@ export async function middleware(request: NextRequest) {
   const isAdminRoute = !isArabic && pathname.startsWith('/admin') && pathname !== '/admin/login';
   const isCustomerRoute = !isArabic && (pathname.startsWith('/customer') || pathname.startsWith('/dashboard'));
   const isAdminApiRoute = !isArabic && pathname.startsWith('/api/admin');
+  const isVendorRoute = !isArabic && pathname.startsWith('/vendor') && pathname !== '/vendor/login';
+  const isVendorApiRoute = !isArabic && pathname.startsWith('/api/vendor');
 
-  if (isAdminRoute || isCustomerRoute || isAdminApiRoute) {
+  if (isAdminRoute || isCustomerRoute || isAdminApiRoute || isVendorRoute || isVendorApiRoute) {
     const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
 
     if (!token) {
@@ -30,7 +32,7 @@ export async function middleware(request: NextRequest) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
       }
 
-      const loginUrl = isAdminRoute ? '/admin/login' : '/login';
+      const loginUrl = isAdminRoute ? '/admin/login' : isVendorRoute ? '/vendor/login' : '/login';
       const url = new URL(loginUrl, request.url);
       url.searchParams.set('callbackUrl', encodeURI(request.url));
       return NextResponse.redirect(url);
@@ -41,6 +43,13 @@ export async function middleware(request: NextRequest) {
         return NextResponse.json({ error: "Forbidden" }, { status: 403 });
       }
       return NextResponse.redirect(new URL('/', request.url));
+    }
+
+    if ((isVendorRoute || isVendorApiRoute) && token.role !== 'VENDOR' && token.role !== 'ADMIN') {
+      if (pathname.startsWith('/api/')) {
+        return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+      }
+      return NextResponse.redirect(new URL('/vendor/login', request.url));
     }
 
     if (isCustomerRoute && token.role !== 'CUSTOMER' && token.role !== 'ADMIN') {
@@ -94,6 +103,7 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     "/((?!api|_next/static|_next/image|favicon.ico).*)",
-    "/api/admin/:path*"
+    "/api/admin/:path*",
+    "/api/vendor/:path*"
   ],
 };

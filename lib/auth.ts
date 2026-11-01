@@ -58,6 +58,25 @@ export const authOptions: NextAuthOptions = {
       }
     }),
 
+    // 2b. Vendor Login (separate credentials, role VENDOR — can only reach /vendor)
+    CredentialsProvider({
+      id: "vendor-login",
+      name: "Vendor Login",
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" }
+      },
+      async authorize(credentials) {
+        const inputEmail = credentials?.email?.trim().toLowerCase();
+        const inputPass = credentials?.password?.trim();
+        const vendorEmail = process.env.VENDOR_EMAIL?.trim().toLowerCase();
+        const vendorPassword = process.env.VENDOR_PASSWORD?.trim();
+        if (!inputEmail || !inputPass || !vendorEmail || !vendorPassword) return null;
+        if (inputEmail !== vendorEmail || inputPass !== vendorPassword) return null;
+        return { id: "vendor", name: "Vendor", email: vendorEmail, role: "VENDOR", loyaltyPoints: 0 };
+      }
+    }),
+
     // 3. Customer OTP Login
     CredentialsProvider({
       id: "phone-otp",
