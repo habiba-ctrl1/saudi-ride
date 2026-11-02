@@ -76,15 +76,32 @@ function Card({ label, value, accent }: { label: string; value: string; accent?:
   );
 }
 
+// Rides carry a free-text date label ("3 Nov 2026", "12–15 Oct"); the month in it decides which list the ride belongs to.
+const MONTHS: [RegExp, string][] = [[/nov/i, "November 2026"], [/oct/i, "October 2026"]];
+const monthOf = (label: string | null) => MONTHS.find(([re]) => re.test(label ?? ""))?.[1] ?? "Other";
+
 function Rides({ data, run }: { data: Data; run: Run }) {
+  const groups = [...MONTHS.map(([, name]) => name), "Other"]
+    .map((name) => ({ name, rides: data.rides.filter((r) => monthOf(r.date_label) === name) }))
+    .filter((g) => g.rides.length > 0);
   return (
-    <section className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-      <h2 className="px-4 py-3 font-semibold border-b border-gray-100">Rides ({data.rides.length})</h2>
-      <p className="px-4 py-2 text-xs text-gray-500">Enter the actual driver/vendor cost for each ride. Leave it empty to use the route cost below. Profit = quoted amount − cost. VAT is charged on top and is not part of profit.</p>
-      <div className="divide-y divide-gray-100">
-        {data.rides.map((r) => <RideItem key={r.id} r={r} run={run} />)}
-      </div>
-    </section>
+    <>
+      <p className="text-xs text-gray-500">Enter the actual driver/vendor cost for each ride. Leave it empty to use the route cost below. Profit = quoted amount − cost. VAT is charged on top and is not part of profit.</p>
+      {groups.map((g) => {
+        const profit = g.rides.reduce((s, r) => s + (r.profit ?? 0), 0);
+        return (
+          <section key={g.name} className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+            <h2 className="px-4 py-3 font-semibold border-b border-gray-100 flex items-center justify-between gap-3">
+              <span>{g.name} ({g.rides.length} rides)</span>
+              <span className="text-sm text-green-700">Profit {sar(profit)}</span>
+            </h2>
+            <div className="divide-y divide-gray-100">
+              {g.rides.map((r) => <RideItem key={r.id} r={r} run={run} />)}
+            </div>
+          </section>
+        );
+      })}
+    </>
   );
 }
 
