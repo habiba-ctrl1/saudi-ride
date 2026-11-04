@@ -135,7 +135,7 @@ export async function sendEmail(
 
     if (gmailTransporter) {
       const info = await gmailTransporter.sendMail({
-        from: `Taxi Saudi Arabia <${gmailUser}>`,
+        from: `Taxi Saudi Arabia <${process.env.EMAIL_FROM || "info@taxisaudiarabia.com"}>`,
         to,
         ...(cc.length ? { cc } : {}),
         ...(bcc.length ? { bcc } : {}),
@@ -184,7 +184,7 @@ export async function sendEmailStrict(
   try {
     const bcc = (Array.isArray(options?.bcc) ? options.bcc : options?.bcc ? [options.bcc] : []).filter((b) => b && b.toLowerCase() !== to.toLowerCase());
     const info = await gmailTransporter.sendMail({
-      from: `Taxi Saudi Arabia <${gmailUser}>`,
+      from: `Taxi Saudi Arabia <${process.env.EMAIL_FROM || "info@taxisaudiarabia.com"}>`,
       to,
       ...(bcc.length ? { bcc } : {}),
       ...(withInlineLogo(html, options?.attachments).length ? { attachments: withInlineLogo(html, options?.attachments) } : {}),

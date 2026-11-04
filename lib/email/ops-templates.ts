@@ -59,16 +59,16 @@ export function opsEmail(template: OpsTemplate, q: QuotationRow, receipt?: Recei
   if (template === "quotation") {
     const body =
       para(`Dear <strong>${name}</strong>,`) +
-      para("Thank you for your enquiry. Your quotation for a private chauffeur transfer is below and attached as a PDF.") +
+      para("Thank you for choosing Taxi Saudi Arabia. As already confirmed with you on WhatsApp, your booking for a private chauffeur transfer is confirmed. Your quotation is below and attached as a PDF for your records.") +
       tripBlock(q) +
       totalBox("Total (cash)", fmtMoney(q.quoted_price ?? 0, cur), q.valid_until ? `Valid until ${esc(fmtDate(q.valid_until))}` : undefined) +
       payCard(PAY_CASH) +
       termsList(POLICY) +
-      `<p style="margin:18px 0 4px;">${cta("Confirm on WhatsApp", waLink(`Hello, I would like to confirm quotation ${ref}.`))}</p>` +
-      para(`<span style="font-size:12px;color:#6B7280;">Or simply reply to this email. Electronic receipt available on request.</span>`);
+      `<p style="margin:18px 0 4px;">${cta("Message us on WhatsApp", waLink(`Hello, regarding my booking ${ref}.`))}</p>` +
+      para(`<span style="font-size:12px;color:#6B7280;">Need to change anything? Reply to this email or message us on WhatsApp. Electronic receipt available on request.</span>`);
     return {
-      subject: `Your Quotation ${ref} — Taxi Saudi Arabia`,
-      html: wrapper("Your quotation is ready", body, "You are receiving this email because you requested a quotation from Taxi Saudi Arabia.", { docTitle: "QUOTATION", docTitleAr: "عرض سعر", badge: "Quotation — Awaiting Your Confirmation" }),
+      subject: `Booking Confirmed — Quotation ${ref} — Taxi Saudi Arabia`,
+      html: wrapper("Your booking is confirmed", body, "You are receiving this email because you requested a quotation from Taxi Saudi Arabia.", { docTitle: "QUOTATION", docTitleAr: "عرض سعر", badge: "Booking Confirmed" }),
       attachQuotationPdf: true,
     };
   }
