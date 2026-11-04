@@ -773,6 +773,7 @@ export const CROSS_BORDER_ROUTE_PAGES: Record<string, CrossBorderRoutePageData> 
     related: [
       { href: "/routes/tabuk-to-amman", label: "Outbound: Tabuk to Amman" },
       { href: "/routes/amman-to-neom", label: "Amman to NEOM" },
+      { href: "/locations/amman", label: "Private transfers inside Jordan" },
       { href: "/locations/tabuk", label: "Getting around Tabuk" },
     ],
   },

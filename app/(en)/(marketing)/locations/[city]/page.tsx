@@ -179,6 +179,7 @@ const CITY_COORDS: Record<string, { lat: number; lng: number }> = {
   abha: { lat: 18.2164, lng: 42.5053 },
   tabuk: { lat: 28.3998, lng: 36.5715 },
   abudhabi: { lat: 24.4539, lng: 54.3773 },
+  amman: { lat: 31.9454, lng: 35.9284 },
 };
 
 // City -> matching airport page slug (only where a dedicated /airports/[slug] page exists).
@@ -314,6 +315,16 @@ const CITY_LEAD: Record<string, { heading: string; blurb: string; dropoff: strin
     waPrefill: "Salam! Cross-border transfer enquiry — Saudi Arabia to Abu Dhabi.\n• From (e.g. Riyadh) / To: Abu Dhabi\n• Date & time: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• Corporate / delegation?: ",
     emailSubject: "Cross-border transfer RFQ — Abu Dhabi",
     emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for a cross-border transfer to Abu Dhabi.\n\n• Company / organisation: \n• Contact name & role: \n• Dates: \n• From city (e.g. Riyadh): \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van): \n\nPlease confirm a fixed fare before booking.\n\nThank you.",
+  },
+  amman: {
+    heading: "Get your Jordan transfer quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a pre-booked private car with a professional driver in Jordan, arranged through our partner in Jordan. Queen Alia (AMM) pickups, Amman, Petra, Wadi Rum and Aqaba. Not a street-hail taxi.",
+    dropoff: "Jordan",
+    pathBHeading: "Group, corporate or Saudi–Jordan trip?",
+    pathBBody: "For groups, companies and trips that combine a Saudi–Jordan crossing with transfers in Jordan we prepare one written quote. Share your route, dates, passenger count and luggage in advance.",
+    waPrefill: "Salam! Jordan transfer enquiry.\n• From (e.g. Queen Alia Airport AMM / Amman hotel): \n• To (e.g. Petra / Wadi Rum / Aqaba): \n• Date & time: \n• Passengers & luggage: \n• Vehicle (Executive sedan / SUV / Van): \n• Flight number (if airport): ",
+    emailSubject: "Jordan transfer RFQ — Amman",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers in Jordan.\n\n• Company / group name: \n• Contact name & role: \n• Dates: \n• Route(s) in Jordan: \n• Saudi–Jordan cross-border leg needed (from where)?: \n• Passengers & luggage: \n• Vehicle preference (Executive sedan / SUV / Van): \n\nPlease confirm a fixed fare before booking.\n\nThank you.",
   },
 };
 
@@ -482,6 +493,7 @@ const CITY_META_DESCRIPTION: Record<string, string> = {
   abha: "Taxi in Abha — Soudah Peak & cable car trips, AHB airport transfers (~25 km), and rides across the misty Asir mountains.",
   tabuk: "Taxi in Tabuk — TUU airport transfers, NEOM business trips (~120 km), and cross-border rides to Aqaba, Jordan via Haql (~270 km).",
   abudhabi: "Private, pre-booked car between Saudi Arabia and Abu Dhabi — Riyadh corridor (~850 km), executive sedan/SUV/van, fare confirmed on WhatsApp. Not a local UAE taxi.",
+  amman: "Pre-booked private cars in Jordan through our partner: Queen Alia Airport (AMM), Amman, Petra, Wadi Rum and Aqaba, plus Saudi–Jordan legs. Fixed fare on WhatsApp.",
 };
 
 // Per-city title overrides — same CTR-fix rationale as routes/[slug]'s
@@ -502,6 +514,7 @@ const CITY_META_TITLE: Record<string, string> = {
   yanbu: "Yanbu Taxi & Private Transfers | Airport, Hotels & Chauffeur",
   abha: "Abha Taxi & Private Transfers | AHB Airport, Soudah & Asir",
   abudhabi: "Abu Dhabi Private Taxi & Cross-Border Car Service | Taxi Saudi Arabia",
+  amman: "Jordan Private Transfers | Amman Airport, Petra & Aqaba | Taxi Saudi Arabia",
 };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -657,6 +670,8 @@ export default async function CityLocationPage({ params }: PageProps) {
             alt={
               cityKey === "abudhabi"
                 ? "Abu Dhabi skyline — private cross-border car service between the UAE and Saudi Arabia"
+                : cityKey === "amman"
+                ? "Temple of Hercules on the Amman Citadel, Jordan"
                 : `Taxi service in ${cityData.name}, Saudi Arabia — airport transfers and intercity rides`
             }
             fill

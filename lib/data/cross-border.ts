@@ -343,6 +343,7 @@ export const CORRIDORS: Record<CorridorSlug, Corridor> = {
       { question: "Can I book a private car in Jordan as well as the cross-border leg?", answer: "Yes. Book the Saudi–Jordan leg and your Jordan transfers together and we quote them in one written offer. For example, Amman to Petra is about 230 km and Aqaba to Petra about 125–130 km by road, according to Visit Jordan, the official Jordan Tourism Board site." },
     ],
     related: [
+      { href: "/locations/amman", label: "Private transfers inside Jordan: Amman, Petra & Aqaba" },
       { href: "/locations/tabuk", label: "Tabuk chauffeur & airport transfers" },
       { href: "/locations/neom", label: "NEOM private transfers" },
       { href: "/locations/alula", label: "AlUla private driver" },

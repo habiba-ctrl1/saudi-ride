@@ -719,5 +719,51 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { href: "/locations/dammam", label: "Dammam taxi & Eastern Province transfers" },
       { href: "/locations/jeddah", label: "Jeddah taxi & private transfers" }
     ]
+  },
+  // Jordan in-country hub (added 2026-11-04). Owner confirmed 2026-10-31 (seo/facts.md): the Jordan partner covers all of Jordan.
+  // Only sourced distances are used (Visit Jordan: Amman–Petra ~230 km, Aqaba–Petra ~125–130 km). Hero/OG are temporary crops of the Citadel photo — replace public/locations/amman-hero.webp and amman-og.webp with proper photos.
+  amman: {
+    name: "Amman",
+    nameAr: "عمّان",
+    image: "/locations/amman-hero.webp",
+    tagline: "Private Transfers Across Jordan",
+    description: "Book a private, pre-booked car in Jordan through our partner in Jordan: Queen Alia International Airport (AMM) to your Amman hotel, Amman to Petra, Wadi Rum or Aqaba, and onward from Aqaba. Combine it with a Saudi–Jordan cross-border leg from Tabuk, NEOM, AlUla or Madinah and receive one written quote for both. These are pre-booked private transfers with a professional driver at a fixed fare agreed before you travel, not street-hail taxis. Share your route, dates and passenger count on WhatsApp.",
+    tldr: "Taxi Saudi Arabia arranges pre-booked private cars inside Jordan through its partner in Jordan: airport pickups at Queen Alia International Airport (AMM), Amman city transfers, and longer trips to Petra, Wadi Rum and Aqaba. The fare is a fixed fare confirmed on WhatsApp before you travel. You can add a Saudi–Jordan cross-border leg to the same quote.",
+    tldrFacts: [
+      { label: "Amman → Petra", value: "~230 km by road" },
+      { label: "Aqaba → Petra", value: "~125–130 km by road" },
+      { label: "Airport", value: "Queen Alia (AMM)" },
+      { label: "Pricing", value: "Quoted on WhatsApp" }
+    ],
+    attractions: [
+      { name: "Queen Alia International Airport (AMM)", dist: "Gateway" },
+      { name: "Amman Citadel and the Temple of Hercules", dist: "Downtown Amman" },
+      { name: "Petra", dist: "~230 km from Amman" },
+      { name: "Wadi Rum", dist: "Southern Jordan" },
+      { name: "Aqaba", dist: "Gulf of Aqaba" },
+      { name: "Petra from Aqaba", dist: "~125–130 km" }
+    ],
+    tips: [
+      "Send your flight number for Queen Alia (AMM) arrivals so the pickup is planned around your landing time. Meet & greet is provided at airport arrivals.",
+      "Petra is a long day trip from Amman. Tell us if you prefer a transfer with an overnight stay near Petra or Wadi Rum.",
+      "Coming from Saudi Arabia? Ask for the cross-border leg and the Jordan transfers in one written quote.",
+      "For Wadi Rum camps, share the camp's meeting point; some camps collect guests from a meeting point rather than the camp itself.",
+      "Every passenger needs a valid passport and the right to enter Jordan. Check official sources before travel; we do not arrange visas."
+    ],
+    faqs: [
+      { question: "Can I book a private car with a driver in Jordan?", answer: "Yes. Through our partner in Jordan we arrange pre-booked private cars with a professional driver, for example Queen Alia International Airport (AMM) to your Amman hotel, or Amman to Petra, Wadi Rum or Aqaba. The fare is fixed and confirmed on WhatsApp before you travel." },
+      { question: "Is this a local Amman taxi service?", answer: "No. These are pre-booked private transfers arranged through our partner in Jordan at a fixed fare agreed in advance, not street-hail taxis." },
+      { question: "How far is Petra from Amman?", answer: "About 230 km by road, according to Visit Jordan, the official Jordan Tourism Board site. Plan around three hours of driving each way, plus time at the site." },
+      { question: "How far is Petra from Aqaba?", answer: "About 125–130 km by road, around two hours, according to Visit Jordan." },
+      { question: "Can you collect me from Queen Alia International Airport?", answer: "Yes. Send your flight number and we plan the pickup around your arrival. Meet & greet is provided at airport arrivals." },
+      { question: "Can I combine a Saudi Arabia to Jordan transfer with Jordan transfers?", answer: "Yes. Book the cross-border leg from Tabuk, NEOM, AlUla or Madinah together with your Jordan transfers and we quote both in one written offer." }
+    ],
+    relatedLinks: [
+      { href: "/cross-border/saudi-to-jordan", label: "Saudi to Jordan private transfers" },
+      { href: "/routes/amman-to-tabuk", label: "Amman to Tabuk" },
+      { href: "/routes/tabuk-to-amman", label: "Tabuk to Amman" },
+      { href: "/routes/tabuk-to-petra", label: "Tabuk to Petra" },
+      { href: "/routes/haql-to-aqaba", label: "Haql to Aqaba" }
+    ]
   }
 };
