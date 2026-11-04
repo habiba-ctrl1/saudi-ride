@@ -1,10 +1,10 @@
 // Arabic copy for the GMC and corporate blocks on /ar/locations/makkah and
-// /ar/locations/madinah (no Jeddah AR hub exists yet). Written for Arabic
+// /ar/locations/madinah and /ar/locations/jeddah. Written for Arabic
 // readers, not translated word-for-word. Same fact limits as gmc-cities.ts:
 // "جي إم سي يوكون إكس إل / دينالي" is the only confirmed model name; no
 // capacity, year, trim or price. {{TODO}} partner-confirmed specs and photo.
 
-export type GmcCityAr = "makkah" | "madinah";
+export type GmcCityAr = "jeddah" | "makkah" | "madinah";
 
 export interface GmcCityCopyAr {
   city: string;
@@ -21,6 +21,27 @@ const prefill = (city: string, from: string) =>
   `السلام عليكم، أرغب في عرض سعر لخدمة سائق خاص بسيارة جي إم سي.\nالمدينة: ${city}\n• من: ${from}\n• إلى: \n• التاريخ والوقت: \n• عدد الركاب والحقائب: \n• نوع الرحلة (ذهاب / ذهاب وعودة): \n• نوع الحجز (شركة / فرد): \nيرجى تأكيد موديلات جي إم سي المتاحة والسعر الإجمالي وشروط الحجز.`;
 
 export const GMC_CITY_COPY_AR: Record<GmcCityAr, GmcCityCopyAr> = {
+  jeddah: {
+    city: "جدة",
+    path: "/ar/locations/jeddah",
+    heading: "جي إم سي يوكون إكس إل / دينالي مع سائق في جدة",
+    intro:
+      "لمن يريد مقصورة أوسع من السيارة السيدان: الوصول إلى مطار الملك عبدالعزيز الدولي، ويوم اجتماعات بين الفندق والمكاتب، والطريق إلى مكة أو المدينة المنورة. هي سيارة خاصة مع سائق محترف تُرتَّب عبر شبكة شركائنا، ويُؤكَّد توفرها لتاريخ رحلتك عند عرض السعر.",
+    useCases: [
+      { title: "وصول تنفيذي إلى مطار جدة", text: "مدير زائر بحقائب واجتماع في اليوم نفسه: استقبال في صالة الوصول ثم مباشرة إلى الفندق أو المكتب." },
+      { title: "العائلات وكبار الضيوف", text: "المجموعة التي كانت ستتوزع على سيارتين سيدان قد تسافر معاً في سيارة دفع رباعي واحدة — أخبرنا بعدد الركاب والحقائب الكبيرة ونؤكد الملاءمة." },
+      { title: "من جدة إلى مكة أو المدينة المنورة", text: "سيارة دفع رباعي خاصة على الطريق بين المدن، بسائق واحد وسعر واحد يُتفق عليه قبل الحجز." },
+      { title: "رحلات الأعمال إلى مدينة الملك عبدالله الاقتصادية", text: "زيارات ميدانية أو اجتماعات في اليوم نفسه، بسعر رحلة واحدة أو بالساعة." },
+    ],
+    alternative:
+      "إذا كان عدد الركاب سبعة أو أكثر، أو الحقائب كثيرة، فقد لا تكفي سيارة واحدة. حينها نسعّر حافلة صغيرة أو كوستر أو سيارتين، ونؤكد الخيار الأنسب بحسب مجموعتك دون افتراض.",
+    links: [
+      { href: "/fleet/gmc-yukon-xl", label: "تفاصيل جي إم سي يوكون إكس إل / دينالي" },
+      { href: "/ar/locations/makkah", label: "نقل خاص في مكة المكرمة" },
+      { href: "/ar/locations/madinah", label: "نقل خاص في المدينة المنورة" },
+    ],
+    waPrefill: prefill("جدة", "مطار الملك عبدالعزيز (JED) / فندق / عنوان"),
+  },
   makkah: {
     city: "مكة المكرمة",
     path: "/ar/locations/makkah",

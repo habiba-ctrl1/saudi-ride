@@ -7,6 +7,8 @@ import { faqSchema, speakableSchema, itemListSchema } from "@/lib/schema";
 import { contactConfig } from "@/lib/config/contact";
 import { routeFact } from "@/lib/data/cluster";
 import { AR_ROUTE_CONTENT_SLUGS } from "@/lib/data/routes-content-ar";
+import { GmcSectionAr } from "@/components/ar/GmcSectionAr";
+import { CorporateRfqFormAr } from "@/components/ar/CorporateRfqFormAr";
 import { Head, Facts, Faqs, Quote, wa, BTN_PRIMARY, BTN_GHOST } from "@/components/ar/AlulaArabic";
 import {
   AR_JEDDAH_HUB, AR_JEDDAH_FACTS, AR_JEDDAH_TRIPS, AR_JEDDAH_FLOW, AR_JEDDAH_CORRIDORS, AR_JEDDAH_AREAS,
@@ -205,6 +207,9 @@ export function JeddahHubAr() {
             <a href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(CORP_EMAIL.emailSubject)}&body=${encodeURIComponent(CORP_EMAIL.emailBody)}`} className="inline-flex min-h-[48px] items-center gap-2 rounded-full bg-[#FACC15] px-6 text-xs font-bold text-[#0B1F14] hover:bg-[#FDE047]"><Mail className="h-4 w-4" aria-hidden="true" /> اطلب عرضاً مكتوباً للشركات</a>
           </div>
         </section>
+
+        <GmcSectionAr city="jeddah" />
+        <CorporateRfqFormAr city="جدة" path="/ar/locations/jeddah" />
 
         <Quote heading="اطلب عرض سعر لرحلتك في جدة" body="أخبرنا برحلتك: نقطة الاستلام والوجهة والتاريخ والركاب والحقائب ورقم الرحلة للمطار. نرد على واتساب بالمركبة وسعر واحد ثابت قبل أي حجز." label="اطلب عرض سعر" waPrefill={HUB_WA} pickup="جدة" pathB={CORP_EMAIL} />
 

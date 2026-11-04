@@ -23,9 +23,9 @@ const FORMATS = [
 const inputCls = "mt-1 block min-h-[44px] w-full rounded-xl border border-[#D1D5DB] bg-white px-3 text-sm text-[#1C1C1C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16A34A]";
 const labelCls = "block text-xs font-bold text-[#374151]";
 
-export function CorporateRfqFormAr({ city, path }: { city: "مكة المكرمة" | "المدينة المنورة"; path: string }) {
+export function CorporateRfqFormAr({ city, path }: { city: "جدة" | "مكة المكرمة" | "المدينة المنورة"; path: string }) {
   const [error, setError] = useState("");
-  const key = city === "مكة المكرمة" ? "makkah" : "madinah";
+  const key = city === "جدة" ? "jeddah" : city === "مكة المكرمة" ? "makkah" : "madinah";
 
   function compose(form: HTMLFormElement): string | null {
     const d = new FormData(form);
