@@ -47,6 +47,7 @@ export default async function ReviewsPage() {
             {WHATSAPP_REVIEWS.map((w) => (
               <li key={w.id} className="overflow-hidden rounded-xl border border-gray-200 bg-white">
                 <Image src={w.image} alt={w.alt} width={w.width} height={w.height} sizes="(min-width: 768px) 768px, 100vw" className="h-auto w-full" />
+                {w.translation && <p className="px-5 pt-3 text-sm text-gray-700">{w.translation}</p>}
                 <p className="px-5 py-3 text-xs text-gray-500">{w.label} · {w.month} · phone number hidden</p>
               </li>
             ))}
