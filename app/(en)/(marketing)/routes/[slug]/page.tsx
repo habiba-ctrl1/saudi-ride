@@ -8,6 +8,7 @@ import { Metadata } from "next";
 import { MapPin, Clock, ArrowRight, CheckCircle2, ShieldCheck, Car, HelpCircle, AlertTriangle, ChevronRight, Phone, MessageSquare, Plane, UserCheck, Compass, Users, Briefcase, Navigation, Coffee } from "lucide-react";
 import Link from "next/link";
 import { contactConfig } from "@/lib/config/contact";
+import { QassimAirportSections } from "@/components/routes/QassimAirportSections";
 import Image from "next/image";
 import { RouteJourney } from "@/components/visual/RouteJourney";
 import { breadcrumbSchema, faqSchema, speakableSchema, SITE } from "@/lib/schema";
@@ -2988,6 +2989,8 @@ export default async function RouteDetailsPage({ params }: PageProps) {
               </div>
             </section>
           )}
+
+          {slug === "riyadh-to-al-qassim-airport" && <QassimAirportSections locale="en" />}
 
           {/* ─── WHAT'S INCLUDED + PRIVATE-VS-PUBLIC (Riyadh -> Dammam) ───
               Every line below is confirmed in seo/facts.md (2026-10-01 / 2026-10-03).

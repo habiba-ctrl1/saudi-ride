@@ -96,3 +96,11 @@ client, per `CLAUDE.md` rule 1.
 | 2026-09-20 | Dammam | Qatar | Sedan | One-way | 1500 | Additional price point for this route/vehicle |
 | 2026-10-26 | Dammam | Bahrain International Airport | Sedan | One-way | 450 | 1 pax, 2 luggage; trip 29 Oct 7pm; causeway fee incl.; cash on pickup; TSA-2026-0059 Omar Siam |
 | 2026-10-29 | Aqaba (Jordan) | Tabuk | VIP SUV | One-way | 1000 | TSA-2026-0064 Fredrik Hellqvist; 1 pax, 1 large bag; 1 Nov 2026 08:00; cash on pickup |
+| 2026-11-04 | Riyadh | Doha (Qatar) | SUV (GMC Tahoe) | One-way | 3000 | Owner-set price for Nov website leads; same price for reverse (Doha → Riyadh) |
+| 2026-11-04 | Doha (Qatar) | Riyadh | SUV (GMC Tahoe) | One-way | 3000 | Reverse of Riyadh → Doha, same price |
+| 2026-11-04 | Dubai | Riyadh | SUV (GMC Tahoe) | One-way | 4500 | With vehicle switch (change of vehicle en route); reverse same price |
+| 2026-11-04 | Dubai | Riyadh | SUV (GMC Tahoe) | One-way | 4800 | Direct transfer, no vehicle switch; reverse same price |
+| 2026-11-04 | Riyadh | Dubai | SUV (GMC Tahoe) | One-way | 4500 | With vehicle switch; reverse of Dubai → Riyadh |
+| 2026-11-04 | Riyadh | Dubai | SUV (GMC Tahoe) | One-way | 4800 | Direct transfer, no vehicle switch; reverse of Dubai → Riyadh |
+| 2026-11-04 | Jeddah | Riyadh | Van (Hyundai Staria Luxury) | One-way | 1500 | TSA-2026-624220 "farsi", +966550064456; web booking, fare was NOT SET |
+| 2026-11-06 | Manama (Bahrain) | Riyadh | SUV (GMC Tahoe) | One-way | 1700 | Anton Jakabos, +36209577953; lead asked round trip (out 7 Nov 01:20, back 12 Nov 17:00), 2 pax 2 bags; owner said "1700" without saying per leg or total — confirm before reuse |

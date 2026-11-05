@@ -10,6 +10,7 @@ import { AR_ALULA_CORPORATE, AR_ALULA_ROUTE_SLUGS } from "@/lib/data/routes-cont
 import { AirportTransferSection } from "@/components/seo/AirportTransferSection";
 import { airportView } from "@/lib/data/riyadh-airport-view";
 import { AlulaRouteNavAr } from "@/components/ar/AlulaRouteNavAr";
+import { QassimAirportSections } from "@/components/routes/QassimAirportSections";
 
 export interface ArabicRouteContent {
   slug: string;
@@ -378,6 +379,12 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
       {airport && (
         <div className="section-container max-w-4xl py-8">
           <AirportTransferSection data={airport} path={arPath} locale="ar" />
+        </div>
+      )}
+
+      {content.slug === "riyadh-to-al-qassim-airport" && (
+        <div className="section-container max-w-4xl py-12">
+          <QassimAirportSections locale="ar" />
         </div>
       )}
 
