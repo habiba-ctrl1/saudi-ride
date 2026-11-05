@@ -2093,7 +2093,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title,
-    description: mkMeta?.description ?? DESCRIPTION_OVERRIDES[slug] ?? `Private transfer from ${route.fromCity} to ${route.toCity} — ${route.distance} km, approx ${Math.round(route.duration / 60)}h. ${priceBlurb}, 24/7, professional drivers, no surge.`.slice(0, 160),
+    description: mkMeta?.description ?? DESCRIPTION_OVERRIDES[slug] ?? `Private transfer from ${route.fromCity} to ${route.toCity} — ${route.distance} km, approx ${approxDrive(route.duration)}. ${priceBlurb}, 24/7, professional drivers, no surge.`.slice(0, 160),
     alternates: {
       canonical: `https://taxisaudiarabia.com/routes/${slug}`,
       ...(AR_ROUTE_SLUGS.includes(slug)
@@ -2125,6 +2125,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 // Format a duration in minutes as "3h 30m" / "4h" / "45m". Uses floor for the
 // hour part so half-hour routes (e.g. 210 min) are not double-counted the way
 // Math.round(min/60) + (min%60) previously produced ("4h 30m" for 3.5 hrs).
+// Meta-description drive time. The old Math.round(min / 60) + "h" printed
+// "approx 0h" for any transfer under 30 min (e.g. Dhahran -> Dammam Airport).
+function approxDrive(totalMinutes: number): string {
+  if (totalMinutes < 60) return `${totalMinutes} min`;
+  const h = Math.floor(totalMinutes / 60);
+  const m = totalMinutes % 60;
+  return m ? `${h}h ${m} min` : `${h}h`;
+}
+
 function formatDuration(totalMinutes: number): string {
   const hours = Math.floor(totalMinutes / 60);
   const minutes = totalMinutes % 60;

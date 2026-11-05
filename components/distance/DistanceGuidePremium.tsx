@@ -96,6 +96,28 @@ export function DistanceGuidePremium({ g }: { g: DistanceGuide }) {
         </div>
       </section>
 
+      {/* ─── QUICK ANSWER (quotable, self-contained) ─── */}
+      <section className="bg-[#FAFAF7]" aria-labelledby="quick-answer">
+        <div className="section-container max-w-5xl pt-12">
+          <div className="max-w-3xl rounded-3xl border border-[#16A34A]/15 bg-white p-6 md:p-8 shadow-sm">
+            <h2 id="quick-answer" className="font-heading text-2xl md:text-3xl font-bold mb-3">
+              How far is {g.fromCity} from {g.toCity} by road?
+            </h2>
+            <p className="text-base leading-relaxed text-[#1C1C1C]">
+              {g.fromCity} to {g.toCity} is about {g.km} km by road via {g.highway}, roughly {g.driveLabel.replace(/^about /, "")} by car depending on traffic and stops. A private transfer covers it door to door in one vehicle with a professional chauffeur, the fare is agreed on WhatsApp before you book, and cancellation is free up to 24 hours before pickup.
+            </p>
+            <div className="mt-5 flex flex-wrap items-center gap-3">
+              <a href={WA} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+                <MessageCircle className="h-4 w-4 text-[#FACC15]" /> Get a fixed fare on WhatsApp
+              </a>
+              <Link href={`/routes/${g.routeSlug}`} className="btn btn-secondary">
+                Private transfer options and corporate quotes
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ─── WHO / WHY ─── */}
       <section className="section-container max-w-5xl py-16 md:py-20">
         <div className="max-w-2xl mb-12">
