@@ -37,6 +37,8 @@ import p32 from "./taxi-cost-saudi-arabia-price-guide";
 import p33 from "./umrah-season-autumn-winter-family-group-transport";
 import p34 from "./vip-airport-meet-greet-saudi-arabia";
 import p35 from "./what-is-a-satha-flatbed-tow-truck";
+import p36 from "./riyadh-to-abu-dhabi-by-road";
+import p37 from "./riyadh-to-dammam-taxi-price-train-or-flight";
 
 export const EN_POSTS: BlogPost[] = [
   p0,
@@ -75,4 +77,6 @@ export const EN_POSTS: BlogPost[] = [
   p33,
   p34,
   p35,
+  p36,
+  p37,
 ];
