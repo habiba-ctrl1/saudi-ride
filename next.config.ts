@@ -2,6 +2,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // Hostinger deploy (scripts/deploy-hostinger.mjs) needs the standalone server;
+  // normal local/Vercel builds are unchanged.
+  output: process.env.HOSTINGER_BUILD === "1" ? "standalone" : undefined,
   // PDF invoice route reads Arabic font files at runtime (path.join(process.cwd(), ...))
   // rather than importing them, so Next's file tracer needs an explicit hint to bundle
   // them into the serverless function — otherwise it 404/ENOENTs on Vercel.

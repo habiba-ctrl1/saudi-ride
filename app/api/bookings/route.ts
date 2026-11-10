@@ -217,6 +217,12 @@ export async function GET(_request: Request) {
       console.warn("Session check failed in GET route:", sessionErr);
     }
 
+    // Login required to list bookings — without this, anonymous visitors got every
+    // booking (customer name, phone, email) back from this endpoint.
+    if (!sessionUserEmail) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     // Role-based scoping: non-admins can only see their own bookings if logged in
     if (sessionUserRole !== "ADMIN" && sessionUserEmail) {
       whereClause.user = { email: sessionUserEmail };

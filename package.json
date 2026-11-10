@@ -11,7 +11,8 @@
     "postinstall": "prisma generate",
     "seed:routes": "tsx --env-file=.env.local scripts/seed-routes.ts",
     "seed:blog": "tsx --env-file=.env.local scripts/seed-blog.ts",
-    "validate:data": "tsx scripts/validate-data.ts"
+    "validate:data": "tsx scripts/validate-data.ts",
+    "deploy:hostinger": "node scripts/deploy-hostinger.mjs"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.2",
