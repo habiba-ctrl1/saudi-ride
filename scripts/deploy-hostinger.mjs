@@ -61,7 +61,7 @@ if (!fs.existsSync(path.join(nextDir, "standalone", "server.js"))) {
 // 2. Stage: committed source + prebuilt build (no secrets, no node_modules).
 emptyDir(stageDir);
 exportCommit(stageDir);
-const skip = ["cache", "trace", "server"].map((n) => path.join(nextDir, n)); // server is restored from standalone on Hostinger
+const skip = ["cache", "trace", "server", "types"].map((n) => path.join(nextDir, n)); // server is restored from standalone on Hostinger
 fs.cpSync(nextDir, path.join(stageDir, "prebuilt-next"), {
   recursive: true,
   filter: (src) => !skip.includes(src) && !/[\\/]\.env[^\\/]*$/.test(src),
@@ -74,6 +74,12 @@ fs.writeFileSync(pkgFile, JSON.stringify(pkg, null, 2) + "\n");
 
 // 3. Force-push a single commit to the deploy branch.
 run("git init -q", stageDir);
+// No line-ending conversion: this is build output, and converting ~9000 files is very slow on Windows.
+run("git config core.autocrlf false", stageDir);
+run("git config core.safecrlf false", stageDir);
+// The push is ~180 MB; the default HTTP buffer makes GitHub drop the connection.
+run("git config http.postBuffer 1048576000", stageDir);
+run("git config http.version HTTP/1.1", stageDir);
 run("git add -A -f", stageDir);
 run(`git -c user.name="deploy" -c user.email="deploy@localhost" commit -q -m "Hostinger deploy of ${sha}"`, stageDir);
 run(`git push --force "${remote}" HEAD:refs/heads/${BRANCH}`, stageDir);
