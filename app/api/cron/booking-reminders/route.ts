@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { sendDueReminders } from "@/lib/ops/reminders";
+import { sendDueFollowUpReminders } from "@/lib/ops/followups";
 
 export const dynamic = "force-dynamic";
 
@@ -11,5 +12,9 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   const result = await sendDueReminders();
-  return NextResponse.json({ success: !result.error, ...result }, { status: result.error ? 500 : 200 });
+  // Same daily call also emails the owner the unconfirmed-quote follow-ups whose trip is within 3 days.
+  let followUps: Awaited<ReturnType<typeof sendDueFollowUpReminders>> | { error: string };
+  try { followUps = await sendDueFollowUpReminders(); } catch (e) { followUps = { error: e instanceof Error ? e.message : "follow-up reminders failed" }; }
+  const failed = !!result.error || !!followUps.error;
+  return NextResponse.json({ success: !failed, ...result, followUps }, { status: failed ? 500 : 200 });
 }

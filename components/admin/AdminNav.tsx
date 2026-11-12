@@ -16,6 +16,7 @@ const GROUPS: { title: string; items: Item[] }[] = [
     items: [
       { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
       { name: "Lead Inbox", href: "/admin/leads", icon: Inbox },
+      { name: "Follow-ups", href: "/admin/follow-ups", icon: CalendarClock },
       { name: "Quotes & Bookings", href: "/admin/quotations", icon: FileText },
       { name: "Calendar", href: "/admin/calendar", icon: CalendarDays },
       { name: "Needs Review", href: "/admin/review", icon: AlertTriangle },
