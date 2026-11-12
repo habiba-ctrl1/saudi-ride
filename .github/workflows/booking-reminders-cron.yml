@@ -1,0 +1,33 @@
+name: Booking reminders cron
+
+# Replaces the Vercel cron in vercel.json (the site now runs on Hostinger,
+# which does not read vercel.json). Daily at 05:00 UTC = 08:00 Riyadh time.
+# /api/cron/booking-reminders emails the owner every ride 2 days / 1 day away
+# and unconfirmed-quote follow-ups; it is safe to re-run (deduped server-side).
+on:
+  schedule:
+    - cron: "0 5 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  call-booking-reminders:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hit the booking-reminders endpoint
+        env:
+          SITE_URL: ${{ vars.SITE_URL || 'https://taxisaudiarabia.com' }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          if [ -z "$CRON_SECRET" ]; then
+            echo "::error::Repo secret CRON_SECRET is not set (Settings > Secrets and variables > Actions > Secrets). It must equal CRON_SECRET in the Hostinger environment variables."
+            exit 1
+          fi
+          status=$(curl -sS -o response.txt -w "%{http_code}" -X GET "${SITE_URL%/}/api/cron/booking-reminders" \
+            -H "Authorization: Bearer ${CRON_SECRET}")
+          echo "HTTP $status"
+          cat response.txt
+          if [ "$status" = "401" ]; then
+            echo "::error::401 Unauthorized - CRON_SECRET in GitHub does not match CRON_SECRET on the server."
+            exit 1
+          fi
+          [ "$status" -ge 200 ] && [ "$status" -lt 300 ]
