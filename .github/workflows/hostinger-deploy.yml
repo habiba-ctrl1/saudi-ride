@@ -60,7 +60,9 @@ jobs:
           rm -rf .next/cache .next/trace .next/types .next/server
           find .next -name ".env*" -delete
           mv .next prebuilt-next
-          rm -rf node_modules .git
+          # GITHUB_TOKEN is not allowed to push workflow files, and the deploy
+          # branch does not need them.
+          rm -rf node_modules .git .github
           node -e '
             const fs = require("fs");
             const pkg = JSON.parse(fs.readFileSync("package.json", "utf8"));
