@@ -950,12 +950,12 @@ export const EVENTS: EventPageData[] = [
     description: "Private transport for the Future Minerals Forum in Riyadh — airport transfers to King Abdulaziz International Conference Centre, executive chauffeurs, and group cars for delegates. Fare on WhatsApp.",
     intro: "The Future Minerals Forum gathers mining ministers, CEOs, and government delegations at the King Abdulaziz International Conference Centre in Riyadh each January. It's a ministerial-level event in winter — discreet executive cars, coordinated delegations, and precise airport timing are what the guest list expects.",
     city: "Riyadh",
-    edition: { dates: "January (next edition January 2027)", venue: "King Abdulaziz International Conference Centre (KAICC), Riyadh", note: "Held annually each January in Riyadh." },
+    edition: { dates: "12 – 14 January 2027", venue: "King Abdulaziz International Conference Centre (KAICC), Riyadh", note: "Sixth edition; held annually each January in Riyadh." },
     airport: RUH,
     tldrAnswer: "For the Future Minerals Forum in Riyadh we provide executive airport transfers to the King Abdulaziz International Conference Centre, discreet chauffeurs for ministerial and CEO guests, and coordinated delegation transport — fare confirmed on WhatsApp.",
     tldrFacts: [
       { label: "Venue", value: "KAICC, Riyadh" },
-      { label: "Edition", value: "Annually in January" },
+      { label: "Edition", value: "12 – 14 Jan 2027" },
       { label: "From", value: "Riyadh Airport (RUH)" },
       { label: "Availability", value: "24/7" },
     ],
@@ -966,7 +966,7 @@ export const EVENTS: EventPageData[] = [
       { title: "Full-Day Executive Standby", desc: "A dedicated car and driver for the length of the forum — KAICC sessions, bilateral meetings, and hotel returns — so senior guests never wait for a ride in the January cold." },
     ],
     faqs: [
-      { question: "When and where is the Future Minerals Forum held?", answer: "It runs annually each January at the King Abdulaziz International Conference Centre (KAICC) in Riyadh. Message us for the confirmed dates of the next edition; we plan transfers from Riyadh Airport (RUH) and the main hotels to KAICC around the programme." },
+      { question: "When and where is the Future Minerals Forum held?", answer: "The sixth edition is announced for 12–14 January 2027, held annually each January at the King Abdulaziz International Conference Centre (KAICC) in Riyadh. Check the organiser's site for programme changes; we plan transfers from Riyadh Airport (RUH) and the main hotels to KAICC around the programme." },
       { question: "Can you handle a government or corporate delegation?", answer: "Yes. We coordinate matching executive vehicles for delegations under a single contact, with a lead driver keeping the group together and on schedule between KAICC, meetings, and hotels." },
       { question: "Are your chauffeurs suitable for ministerial guests?", answer: "Yes. We assign experienced, bilingual chauffeurs and immaculate executive cars, briefed for discreet, high-protocol service appropriate to a ministerial and CEO audience." },
       { question: "How is the fare agreed for a multi-day booking?", answer: "Send your dates, guest list size, and vehicle needs on WhatsApp. We confirm a fixed fare for the whole forum in advance — no surge pricing during the event week." },

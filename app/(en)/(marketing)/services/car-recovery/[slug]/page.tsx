@@ -23,6 +23,16 @@ export const revalidate = 86400;
 const REAL_TRUCK = "/services/car-recovery-hero.webp";
 const BUSINESS_WA = recoveryContact.whatsappNumber;
 
+// Recovery cities with no /locations/<slug> taxi page. Linking to the raw slug
+// produced soft-404s (200 + canonical -> /locations). Qatif has a real
+// sub-area page; the rest fall back to the Dammam (Eastern Province) hub.
+const RECOVERY_TAXI_FALLBACK: Record<string, { href: string; label: string }> = {
+  qatif: { href: "/locations/dammam/qatif", label: "Qatif taxi service" },
+  "ras-tanura": { href: "/locations/dammam", label: "Dammam taxi service" },
+  abqaiq: { href: "/locations/dammam", label: "Dammam taxi service" },
+  "al-ahsa": { href: "/locations/dammam", label: "Dammam taxi service" },
+};
+
 // Supporting recovery/towing guides (real, published blog posts). These build
 // the recovery topical cluster and answer the "how much / is it safe / what do
 // I do" intent that these service pages themselves deliberately don't quote
@@ -340,8 +350,17 @@ function CityView({ city }: { city: NonNullable<ReturnType<typeof getRecoveryCit
         </div>
         {!city.transport && (
           <p className="text-center text-sm text-[#6B7280] mt-8">
-            Also need a ride in {city.name}? See our{" "}
-            <Link href={`/locations/${city.slug === "al-khobar" ? "alkhobar" : city.slug}`} className="text-[#16A34A] hover:underline">{city.name} taxi service</Link>.
+            {RECOVERY_TAXI_FALLBACK[city.slug] ? (
+              <>
+                Also need a ride near {city.name}? See our{" "}
+                <Link href={RECOVERY_TAXI_FALLBACK[city.slug].href} className="text-[#16A34A] hover:underline">{RECOVERY_TAXI_FALLBACK[city.slug].label}</Link>.
+              </>
+            ) : (
+              <>
+                Also need a ride in {city.name}? See our{" "}
+                <Link href={`/locations/${city.slug === "al-khobar" ? "alkhobar" : city.slug}`} className="text-[#16A34A] hover:underline">{city.name} taxi service</Link>.
+              </>
+            )}
           </p>
         )}
         <RecoveryGuides />

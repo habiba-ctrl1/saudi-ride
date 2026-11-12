@@ -9,6 +9,8 @@ import { MapPin, Clock, ArrowRight, CheckCircle2, ShieldCheck, Car, HelpCircle, 
 import Link from "next/link";
 import { contactConfig } from "@/lib/config/contact";
 import { QassimAirportSections } from "@/components/routes/QassimAirportSections";
+import { HolyCitySections } from "@/components/routes/HolyCitySections";
+import { JeddahMadinahSections } from "@/components/routes/JeddahMadinahSections";
 import Image from "next/image";
 import { RouteJourney } from "@/components/visual/RouteJourney";
 import { breadcrumbSchema, faqSchema, speakableSchema, SITE } from "@/lib/schema";
@@ -2027,6 +2029,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "neom-to-amman": "NEOM to Amman Private Transfer, Jordan — Fare, Distance & Booking",
     "alula-to-amman": "AlUla to Amman Private Transfer, Jordan — Fare, Distance & Booking",
     "medinah-to-amman": "Madinah to Amman Private Transfer, Jordan — Fare, Distance & Booking",
+    // 2026-11-13 (Batch 3): madinah-to-jeddah GSC 3mo pos 70 (not protected). Aligns with the
+    // Makkah-cluster "Taxi & Private Transfer | Fixed Fare" pattern.
+    // (jeddah-to-madinah title deliberately NOT changed: existing GSC-phrased override above is
+    // already climbing, pos 58 -> 33 in 28d.)
+    "madinah-to-jeddah": "Madinah to Jeddah Taxi & Private Transfer | Fixed Fare",
   };
   const mkMeta = MAKKAH_ROUTE_META[slug];
   const title = mkMeta?.title ?? TITLE_OVERRIDES[slug] ?? (routeLabel.length > 55 ? routeLabel : `${routeLabel} | Taxi Saudi Arabia`);
@@ -2050,8 +2057,21 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "riyadh-to-taif": "Private car from Riyadh to Taif — about 785 km on Highway 40, roughly 8 hours, door to door with rest stops. One fixed fare agreed on WhatsApp before booking.",
     "riyadh-to-dammam": "Private Riyadh to Dammam transfer by sedan, SUV or van. Fixed fare agreed on WhatsApp before booking. Free cancellation up to 24 hours before pickup.",
     "jeddah-to-kaec": "Jeddah to KAEC (King Abdullah Economic City) taxi — 120 km, about 1 hr 20 min. Get your exact fare confirmed on WhatsApp before booking. Corporate sedans, 24/7.",
-    "riyadh-to-alula": "Riyadh to AlUla taxi — 1,050 km, about 10 hours. Get your exact fare confirmed on WhatsApp before booking. Premium long-distance transfer, rest stops included.",
+    // 2026-11-13 (Batch 5): had a bespoke title but generic description (pos 8.7, 1.8% CTR). 375 km / 3h35 from routes.ts.
+    "jubail-to-kuwait": "Private car with driver, Jubail to Kuwait City — ~375 km up the coast via the Al Khafji–Nuwaiseeb border, about 3 hours 35 minutes plus border time. Border fees included.",
+    // 2026-11-13 (Batch 4): description-only (title protected, pos 13). Distances/times from lib/data/routes.ts.
+    "riyadh-to-alula": "Private car from Riyadh to AlUla — about 1,050 km, roughly 10 hours, door to door with rest and prayer stops. One fare agreed on WhatsApp before booking.",
+    "riyadh-to-makkah": "Private car from Riyadh to Makkah — about 870 km, roughly 8 hours, door to door with rest and prayer stops. Sedan, SUV or van, one fare agreed before booking.",
+    "riyadh-to-madinah": "Private car from Riyadh to Madinah — about 840 km, roughly 7.5 hours, to your hotel with rest and prayer stops. Sedan, SUV or van, fare agreed before booking.",
     "madinah-to-alula": "Madinah to AlUla taxi — 330 km, about 3 hours. Get your exact fare confirmed on WhatsApp before booking. Heritage transfer, rest stops included.",
+    // 2026-11-13: description-only (titles untouched, rule 3). Was generic template copy.
+    "jeddah-to-alula": "Private car from Jeddah or JED airport to your AlUla hotel — about 700 km, roughly 6 hours 40 minutes, door to door with rest and prayer stops. One fare agreed on WhatsApp before booking.",
+    "alula-airport-to-resorts": "Private transfer from AlUla International Airport (ULH) to your resort — about 30 km. We track your flight, meet & greet at arrivals, fare agreed before you travel.",
+    // 2026-11-13 (Batch 3): generic template descriptions replaced; 420 km / ~4 h from lib/data/routes.ts.
+    "jeddah-to-madinah": "Private car from Jeddah to Madinah, hotel to hotel — about 420 km, roughly 4 hours. Prayer and rest stops on request, one fare for the whole car, agreed before booking.",
+    "madinah-to-jeddah": "Private car from Madinah to Jeddah, hotel to hotel or to the airport — about 420 km, roughly 4 hours. Luggage-ready vehicles, stops on request, fare agreed before booking.",
+    // Banyan Tree AlUla named as a destination only (venues.md: no partnership). 35 km / 35 min from routes.ts.
+    "alula-airport-to-banyan-tree": "Private transfer from AlUla Airport (ULH) to Banyan Tree AlUla in Ashar Valley — about 35 km, 35 minutes. We track your flight, meet & greet at arrivals, fare agreed before you travel.",
     "jeddah-airport-to-swissotel-makkah": "Taxi from Jeddah Airport (JED) to Swissotel Al Maqam Makkah — ~80 km, about 1 hour. Meet & greet, prayer and rest stops on request, fare confirmed on WhatsApp. 24/7.",
     "red-sea-airport-to-neom": "Taxi from Red Sea International Airport (RSI) to NEOM — private transfer, meet & greet, professional drivers. Fare confirmed on WhatsApp before booking. 24/7.",
     "riyadh-to-dubai": "Private car with driver, Riyadh to Dubai (UAE) — ~990 km via Al Batha–Ghuwaifat, door to door in one day. Fixed fare, border fees included, 24/7.",
@@ -2289,7 +2309,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
       {/* ─── HERO & MAP ───────────────────────────────────────────── */}
       <section className="relative pt-24 pb-12 overflow-hidden border-b border-[#C9A84C]/10">
         <div className="absolute inset-0 z-0 opacity-30">
-          <Image src={mapUrl} alt={`Map route from ${route.fromCity} to ${route.toCity}`} fill className="object-cover" />
+          <Image src={mapUrl} alt={`Map route from ${route.fromCity} to ${route.toCity}`} fill sizes="100vw" className="object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/50 to-[#FAFAF7]/15" />
         </div>
 
@@ -2634,7 +2654,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                 <div key={v.key} className="border border-[#16A34A]/15 rounded-2xl bg-white overflow-hidden group hover:border-[#16A34A]/40 transition-all duration-300 shadow-sm hover:shadow-md flex flex-col justify-between">
                   <div>
                     <div className="h-36 relative overflow-hidden bg-[#FAFAF7]">
-                      <Image src={v.img} alt={`${v.name} for ${route.fromCity} to ${route.toCity} transfer`} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                      <Image src={v.img} alt={`${v.name} for ${route.fromCity} to ${route.toCity} transfer`} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover group-hover:scale-105 transition-transform duration-500" />
                       <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent" />
                       <span className="absolute top-3 right-3 rounded-full bg-[#16A34A]/90 backdrop-blur-md px-3 py-1 text-[0.6rem] font-bold text-white uppercase tracking-wider">
                         Clear Quote
@@ -2991,6 +3011,14 @@ export default async function RouteDetailsPage({ params }: PageProps) {
           )}
 
           {slug === "riyadh-to-al-qassim-airport" && <QassimAirportSections locale="en" />}
+
+          {(slug === "makkah-to-madinah" || slug === "madinah-to-makkah") && (
+            <HolyCitySections locale="en" dir={slug} />
+          )}
+
+          {(slug === "jeddah-to-madinah" || slug === "madinah-to-jeddah") && (
+            <JeddahMadinahSections locale="en" dir={slug} />
+          )}
 
           {/* ─── WHAT'S INCLUDED + PRIVATE-VS-PUBLIC (Riyadh -> Dammam) ───
               Every line below is confirmed in seo/facts.md (2026-10-01 / 2026-10-03).

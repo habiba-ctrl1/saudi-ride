@@ -11,7 +11,8 @@ export default function robots(): MetadataRoute.Robots {
           "/vendor/",
           "/customer/",
           "/api/",
-          "/_next/",
+          // 2026-11-13: "/_next/" removed. It blocked Googlebot from the CSS, JS and
+          // /_next/image files it needs to render pages and index images.
           "/static/",
           "/book?", // parameterized booking links (?pickup=...) — clean /book stays crawlable
         ],

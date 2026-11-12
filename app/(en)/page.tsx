@@ -12,6 +12,22 @@ export const metadata: Metadata = {
       "x-default": "https://taxisaudiarabia.com",
     },
   },
+  // Moved verbatim from rootMetadata 2026-11-13 so other pages stop inheriting them.
+  openGraph: {
+    title: "Taxi Service Saudi Arabia — Book Airport Transfer & Umrah Taxi | 24/7",
+    description:
+      "Book a private taxi in Saudi Arabia. Airport transfers, Umrah transport, Jeddah to Makkah, Makkah to Madinah routes. Professional drivers, clear pricing on WhatsApp, GMC Yukon & Hyundai Staria available. WhatsApp booking 24/7.",
+    type: "website",
+    locale: "en_SA",
+    url: "https://taxisaudiarabia.com",
+    siteName: "Taxi Saudi Arabia",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Taxi Service Saudi Arabia — Book Airport Transfer & Umrah Taxi",
+    description:
+      "Book a taxi in Saudi Arabia for airport transfers and Umrah transport. Professional chauffeurs, fixed fares confirmed on WhatsApp — no surge, no hidden fees. WhatsApp booking 24/7.",
+  },
 };
 
 // Matches the FAQ section actually rendered in homeTranslations.en.faq.items

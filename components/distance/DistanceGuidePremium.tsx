@@ -33,7 +33,7 @@ export function DistanceGuidePremium({ g }: { g: DistanceGuide }) {
 
       {/* ─── HERO ─── */}
       <section className="premium-dark-section relative min-h-[88vh] flex items-end overflow-hidden">
-        <Image src={g.heroImage} alt={`Private car journey from ${g.fromCity} to ${g.toCity}, Saudi Arabia`} fill priority className="object-cover" />
+        <Image src={g.heroImage} alt={`Private car journey from ${g.fromCity} to ${g.toCity}, Saudi Arabia`} fill priority sizes="100vw" className="object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F14] via-[#0B1F14]/85 to-[#0B1F14]/55" />
         <div className="section-container relative z-10 max-w-5xl pb-16 pt-32">
           <div className="mb-6 [&_*]:!text-white/80">
@@ -129,7 +129,7 @@ export function DistanceGuidePremium({ g }: { g: DistanceGuide }) {
         <div className="grid md:grid-cols-3 gap-6">
           {g.whyCards.map((w, i) => (
             <div key={i} className="rounded-3xl overflow-hidden border border-[#16A34A]/12 bg-white">
-              <div className="h-44 relative"><Image src={w.img} alt={w.title} fill className="object-cover" /></div>
+              <div className="h-44 relative"><Image src={w.img} alt={w.title} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" /></div>
               <div className="p-6">
                 <h3 className="font-heading text-lg font-bold mb-2">{w.title}</h3>
                 <p className="text-sm text-[#6B7280] leading-relaxed">{w.body}</p>
@@ -171,7 +171,7 @@ export function DistanceGuidePremium({ g }: { g: DistanceGuide }) {
         <div className="grid md:grid-cols-3 gap-6">
           {VEHICLES.map((v, i) => (
             <Link key={v.name} href={`/routes/${g.routeSlug}`} className="group rounded-3xl overflow-hidden border border-[#16A34A]/12 bg-white hover:border-[#16A34A]/40 hover:shadow-lg transition-all">
-              <div className="h-48 relative bg-[#FAFAF7]"><Image src={v.img} alt={v.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" /></div>
+              <div className="h-48 relative bg-[#FAFAF7]"><Image src={v.img} alt={v.name} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover group-hover:scale-105 transition-transform duration-500" /></div>
               <div className="p-6">
                 <div className="flex items-center gap-2 mb-1">
                   <v.icon className="h-4 w-4 text-[#C9A84C]" />
@@ -250,7 +250,7 @@ export function DistanceGuidePremium({ g }: { g: DistanceGuide }) {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {g.related.map((r) => (
             <Link key={r.href} href={r.href} className="group rounded-2xl overflow-hidden border border-[#16A34A]/12 bg-white hover:border-[#16A34A]/40 transition-all">
-              <div className="h-28 relative"><Image src={r.img} alt={r.label} fill className="object-cover group-hover:scale-105 transition-transform duration-500" /></div>
+              <div className="h-28 relative"><Image src={r.img} alt={r.label} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover group-hover:scale-105 transition-transform duration-500" /></div>
               <div className="p-4"><p className="text-sm font-semibold leading-snug">{r.label}</p></div>
             </Link>
           ))}
@@ -259,7 +259,7 @@ export function DistanceGuidePremium({ g }: { g: DistanceGuide }) {
 
       {/* ─── FINAL CTA ─── */}
       <section className="premium-dark-section relative overflow-hidden">
-        <Image src="/gallery/vip-sedan.webp" alt="" fill className="object-cover" />
+        <Image src="/gallery/vip-sedan.webp" alt="" fill sizes="100vw" className="object-cover" />
         <div className="absolute inset-0 bg-[#0B1F14]/92" />
         <div className="section-container relative z-10 max-w-3xl py-20 text-center">
           <h2 className="text-white font-heading text-3xl md:text-4xl font-bold mb-4">Ready to travel {g.fromCity} to {g.toCity}?</h2>
@@ -276,7 +276,7 @@ export function DistanceGuidePremium({ g }: { g: DistanceGuide }) {
 function RouteImg({ src, label, sub, wide }: { src: string; label: string; sub: string; wide?: boolean }) {
   return (
     <div className={`premium-dark-section relative rounded-2xl overflow-hidden border border-[#16A34A]/15 ${wide ? "h-32" : "h-28"}`}>
-      <Image src={src} alt={label} fill className="object-cover" />
+      <Image src={src} alt={label} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent" />
       <div className="absolute bottom-2 left-3">
         <p className="text-[0.55rem] uppercase tracking-wider text-white/80">{sub}</p>

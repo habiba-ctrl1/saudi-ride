@@ -298,7 +298,7 @@ export const GUIDES: Guide[] = [
     icon: MapPin,
     title: "AlUla Visitor Guide — Hegra, Dadan & the Rose City",
     titleAr: "دليل زيارة العلا — الحجر ودادان",
-    summary: "Everything you need to know about visiting AlUla's UNESCO world heritage sites, rock formations, and luxury resort experiences.",
+    summary: "What to see in AlUla — Hegra's 111 Nabataean tombs, Dadan, Jabal Ikmah and Elephant Rock — the best season to visit (October to March), and how far apart the sites are.",
     date: "March 20, 2026",
     readTime: "9 min",
     tags: ["AlUla", "Tourism", "Heritage"],

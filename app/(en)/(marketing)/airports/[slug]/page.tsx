@@ -64,12 +64,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "king-abdulaziz-jeddah": "Jeddah Airport Taxi (JED) | King Abdulaziz International Airport",
     "king-khalid-riyadh": "Riyadh Airport Taxi & Car Service (RUH) | All Terminals",
     "king-fahd-dammam": "Dammam Airport Taxi (DMM) | King Fahd International Airport",
+    // 2026-11-13: GSC 3mo = 50 impr, 0 clicks, pos 35 (not a protected ranking). Adds "private transfer" intent.
+    "alula": "AlUla Airport (ULH) Private Transfer | Meet & Greet",
   };
   const DESCRIPTION_OVERRIDES: Record<string, string> = {
     "prince-mohammad-madinah": "Madinah Airport (MED) taxi & private car service — a pre-booked private transfer to your Madinah (Medina) hotel near Masjid an-Nabawi (~25 min). Meet & greet, chauffeur, family vans; get the current fare on WhatsApp, 24/7.",
     "king-abdulaziz-jeddah": "Jeddah Airport (JED) taxi — King Abdulaziz International Airport to Makkah, Madinah or your Jeddah hotel. Meet & greet, flight tracking, fare confirmed on WhatsApp, 24/7.",
     "king-khalid-riyadh": "Riyadh Airport (RUH) taxi & executive car service — King Khalid International Airport, all terminals (1–5) to KAFD, Olaya or your hotel. Meet & greet, chauffeur with a name sign, quoted on WhatsApp, 24/7.",
     "king-fahd-dammam": "Dammam Airport (DMM) taxi — King Fahd International Airport to Dammam, Khobar, Dhahran or Jubail. Meet & greet, fare confirmed on WhatsApp, 24/7.",
+    "alula": "Pre-book a private transfer from AlUla International Airport (ULH) to your resort, hotel or Hegra — on-demand taxis at ULH are very limited. Meet & greet, flight tracking, fare agreed before you travel.",
   };
 
   const title = TITLE_OVERRIDES[slug] ?? `Taxi from ${airportData.name} (${airportData.code}) | Taxi Saudi Arabia`;

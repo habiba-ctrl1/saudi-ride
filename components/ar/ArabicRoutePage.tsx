@@ -11,6 +11,8 @@ import { AirportTransferSection } from "@/components/seo/AirportTransferSection"
 import { airportView } from "@/lib/data/riyadh-airport-view";
 import { AlulaRouteNavAr } from "@/components/ar/AlulaRouteNavAr";
 import { QassimAirportSections } from "@/components/routes/QassimAirportSections";
+import { HolyCitySections } from "@/components/routes/HolyCitySections";
+import { JeddahMadinahSections } from "@/components/routes/JeddahMadinahSections";
 
 export interface ArabicRouteContent {
   slug: string;
@@ -385,6 +387,18 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
       {content.slug === "riyadh-to-al-qassim-airport" && (
         <div className="section-container max-w-4xl py-12">
           <QassimAirportSections locale="ar" />
+        </div>
+      )}
+
+      {(content.slug === "makkah-to-madinah" || content.slug === "madinah-to-makkah") && (
+        <div className="section-container max-w-4xl py-12">
+          <HolyCitySections locale="ar" dir={content.slug} />
+        </div>
+      )}
+
+      {(content.slug === "jeddah-to-madinah" || content.slug === "madinah-to-jeddah") && (
+        <div className="section-container max-w-4xl py-12">
+          <JeddahMadinahSections locale="ar" dir={content.slug} />
         </div>
       )}
 

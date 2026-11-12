@@ -4,7 +4,7 @@ export function generateStaticParams() {
   return Object.keys(CITY_DETAILS).map((city) => ({ city }));
 }
 
-// No notFound import
+import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { MapPin, ArrowRight, Car, Building2, CheckCircle2, HelpCircle, Star, Quote, PlaneLanding, ExternalLink, MessageSquare, Clock, Users, Luggage, UserCheck } from "lucide-react";
 import Link from "next/link";
@@ -522,7 +522,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const cityKeyLower = city.toLowerCase();
   const cityData = CITY_DETAILS[cityKeyLower];
 
-  if (!cityData) return { title: "Location Not Found" };
+  // Unknown slug: real 404 (was 200 + canonical -> /locations, a soft-404).
+  if (!cityData) notFound();
 
   // Riyadh hub (rebuilt 2026-10-01): title unchanged (rule 3), OG/Twitter
   // now mirror the real title instead of the generic "Taxi Service in" line.
@@ -576,6 +577,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function CityLocationPage({ params }: PageProps) {
   const { city } = await params;
   const cityKey = city.toLowerCase();
+  if (!CITY_DETAILS[cityKey]) notFound();
   if (cityKey === "riyadh" && CITY_DETAILS.riyadh) {
     return <RiyadhHub name={CITY_DETAILS.riyadh.name} nameAr={CITY_DETAILS.riyadh.nameAr} />;
   }

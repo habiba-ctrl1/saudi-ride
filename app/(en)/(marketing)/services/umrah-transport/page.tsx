@@ -42,7 +42,7 @@ const PACKAGES = [
     title: "Airport to Makkah (One-Way)",
     desc: "Direct VIP transfer from Jeddah Airport to your Makkah hotel.",
     price: "On WhatsApp",
-    features: ["Meet & Greet at Arrivals", "Luggage Assistance", "Zamzam Water Provided", "Direct Haram Drop-off"]
+    features: ["Meet & Greet at Arrivals", "Flight tracking for delays", "15–30 minutes free waiting", "Drop-off at the nearest permitted point"]
   },
   {
     title: "Full Umrah Package",
@@ -52,9 +52,9 @@ const PACKAGES = [
   },
   {
     title: "Ziyarat Tours (Makkah or Madinah)",
-    desc: "4-hour guided transport to historical Islamic sites.",
+    desc: "Private transport to historical Islamic sites, with waiting at each stop.",
     price: "On WhatsApp",
-    features: ["Jabal Al-Nour / Quba Mosque", "Knowledgeable Driver", "Flexible Timing", "Comfortable SUV/Van"]
+    features: ["Jabal Al-Nour / Quba Mosque", "English- and Arabic-speaking drivers", "Flexible Timing", "Comfortable SUV/Van"]
   }
 ];
 
@@ -128,7 +128,7 @@ export default function UmrahTransportPage() {
             <span className="text-[#16A34A]">Your Sacred Journey</span>
           </h1>
           <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-8">
-            Serving the Guests of Allah with dignity, comfort, and unmatched reliability. From Jeddah Airport arrivals to complete Ziyarat tours in Madinah.
+            Serving the Guests of Allah with dignity and comfort. From Jeddah Airport arrivals to complete Ziyarat tours in Madinah.
           </p>
           <div className="max-w-2xl mx-auto mb-10 text-left">
             <TLDRSummary
@@ -136,7 +136,7 @@ export default function UmrahTransportPage() {
               facts={[
                 { label: "Airport → Makkah", value: "On WhatsApp" },
                 { label: "Duration", value: "~1 hour" },
-                { label: "Languages", value: "EN / AR / UR" },
+                { label: "Languages", value: "EN / AR" },
                 { label: "Availability", value: "24/7" },
               ]}
             />
@@ -182,7 +182,7 @@ export default function UmrahTransportPage() {
                 </div>
                 <div>
                   <h4 className="font-bold text-[#1C1C1C] mb-1">Haram Drop-Off Expertise</h4>
-                  <p className="text-sm text-[#6B7280]">Navigating road closures during Salah (prayer) times requires deep local knowledge. We guarantee the closest possible legal drop-off to your hotel.</p>
+                  <p className="text-sm text-[#6B7280]">Navigating road closures during Salah (prayer) times requires local knowledge. Your driver drops you at the closest permitted point to your hotel.</p>
                 </div>
               </div>
 
@@ -192,7 +192,7 @@ export default function UmrahTransportPage() {
                 </div>
                 <div>
                   <h4 className="font-bold text-[#1C1C1C] mb-1">Elderly & Family Friendly</h4>
-                  <p className="text-sm text-[#6B7280]">Spacious SUVs and Vans available with ample room for wheelchairs, large luggage, and large families.</p>
+                  <p className="text-sm text-[#6B7280]">Spacious SUVs and Vans are available for large luggage and large families. Tell us about any wheelchair or mobility needs when you book.</p>
                 </div>
               </div>
             </div>
@@ -222,7 +222,7 @@ export default function UmrahTransportPage() {
         </div>
         <ol className="space-y-4">
           {[
-            { n: 1, title: "Arrive at Jeddah Airport (JED)", desc: "Meet & greet at arrivals with a name sign, 24/7 — even on late-night flights. We track your flight for delays.", href: "/airports/king-abdulaziz-jeddah", cta: "Jeddah Airport taxi" },
+            { n: 1, title: "Arrive at Jeddah Airport (JED)", desc: "Meet & greet at arrivals, available 24/7. We track your flight for delays.", href: "/airports/king-abdulaziz-jeddah", cta: "Jeddah Airport taxi" },
             { n: 2, title: "Plan any stops", desc: "Tell us if you want a prayer, meal or rest stop on the way. See the guide for Miqat information.", href: "/guides/miqat-jeddah-makkah", cta: "Miqat & Ihram guide" },
             { n: 3, title: "Transfer to Makkah (~80 km, ~1 hr)", desc: "Direct, private ride from the airport to your Makkah hotel, as close to the Haram as vehicles are permitted.", href: "/routes/jeddah-airport-to-makkah", cta: "JED → Makkah route" },
             { n: 4, title: "Makkah Ziyarat", desc: "Visit Jabal Al-Nour, Mina, Arafat and other sites by private car, with flexible waiting time at each stop.", href: "/services/makkah-ziyarat", cta: "Makkah Ziyarat tour" },
@@ -244,6 +244,45 @@ export default function UmrahTransportPage() {
             Read the full Jeddah Airport to Makkah transfer guide &rarr;
           </Link>
         </div>
+      </section>
+
+      {/* ─── WHAT AN UMRAH TAXI SERVICE COVERS (answer-first, 2026-11-10) ───
+          Distances/times: lib/data/routes.ts. Terms: seo/facts.md (fixed fare, 24h free cancellation,
+          15–30 min free waiting, flight tracking, meet & greet, English/Arabic drivers). No prices. */}
+      <section className="section-container max-w-5xl py-20 border-b border-[#C9A84C]/10" aria-labelledby="umrah-what">
+        <h2 id="umrah-what" className="font-heading text-3xl font-bold mb-4">What does an Umrah taxi service cover?</h2>
+        <p className="text-[#6B7280] leading-relaxed max-w-3xl mb-6">
+          An Umrah taxi service is a pre-booked private car with a driver for the legs of your pilgrimage: airport to Makkah, Makkah to Madinah, Ziyarat and the return to the airport. The fare is quoted and agreed before you book, with no meter and no surge, and cancellation is free up to 24 hours before pickup. Free waiting time is 15–30 minutes, and we track your flight for delays.
+        </p>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[32rem] border-collapse text-sm">
+            <thead>
+              <tr className="bg-white">
+                <th scope="col" className="border border-[#16A34A]/15 p-3 text-left font-bold">Typical Umrah leg</th>
+                <th scope="col" className="border border-[#16A34A]/15 p-3 text-left font-bold">Approx. distance and time</th>
+                <th scope="col" className="border border-[#16A34A]/15 p-3 text-left font-bold">Book this leg</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ["Jeddah Airport to Makkah", "About 80 km, around 1 hour", "/routes/jeddah-airport-to-makkah", "Jeddah Airport to Makkah taxi"],
+                ["Makkah to Madinah", "About 430 km, around 4–5 hours", "/routes/makkah-to-madinah", "Makkah to Madinah taxi"],
+                ["Jeddah to Madinah", "About 420 km, around 4 hours", "/routes/jeddah-to-madinah", "Jeddah to Madinah taxi"],
+                ["Madinah to Makkah", "About 430 km, around 4–5 hours", "/routes/madinah-to-makkah", "Madinah to Makkah taxi"],
+              ].map(([leg, dist, href, label]) => (
+                <tr key={href} className="bg-white">
+                  <th scope="row" className="border border-[#16A34A]/15 p-3 text-left font-semibold">{leg}</th>
+                  <td className="border border-[#16A34A]/15 p-3 text-[#4B5563]">{dist}</td>
+                  <td className="border border-[#16A34A]/15 p-3"><Link href={href} className="font-semibold text-[#16A34A] underline underline-offset-2">{label}</Link></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-4 text-sm text-[#6B7280]">
+          Distances and times are approximate and exclude prayer and rest stops. Not sure whether to drive or take the Haramain train between the cities? Read the{" "}
+          <Link href="/guides/makkah-to-madinah-transport-guide" className="font-semibold text-[#16A34A] underline underline-offset-2">taxi vs train vs bus comparison</Link>.
+        </p>
       </section>
 
       {/* ─── PACKAGES ─────────────────────────────────────────────── */}

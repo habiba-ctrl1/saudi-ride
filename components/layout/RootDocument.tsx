@@ -46,20 +46,18 @@ export const rootMetadata: Metadata = {
   title: "Taxi Service Saudi Arabia — Book Airport Transfer & Umrah Taxi | 24/7",
   description:
     "Book a taxi in Saudi Arabia — airport transfers, Umrah transport & intercity rides. Professional drivers, clear pricing on WhatsApp, 24/7.",
+  // 2026-11-13 (G1 template fix): no title/description/url here on purpose. Any page
+  // that sets only `title`/`description` used to inherit the HOMEPAGE og:title,
+  // og:url and twitter:title from this object. With them absent, Next.js fills
+  // og/twitter title + description from the page's own metadata. The homepage
+  // strings moved verbatim to app/(en)/page.tsx.
   openGraph: {
-    title: "Taxi Service Saudi Arabia — Book Airport Transfer & Umrah Taxi | 24/7",
-    description:
-      "Book a private taxi in Saudi Arabia. Airport transfers, Umrah transport, Jeddah to Makkah, Makkah to Madinah routes. Professional drivers, clear pricing on WhatsApp, GMC Yukon & Hyundai Staria available. WhatsApp booking 24/7.",
     type: "website",
     locale: "en_SA",
-    url: "https://taxisaudiarabia.com",
     siteName: "Taxi Saudi Arabia",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Taxi Service Saudi Arabia — Book Airport Transfer & Umrah Taxi",
-    description:
-      "Book a taxi in Saudi Arabia for airport transfers and Umrah transport. Professional chauffeurs, fixed fares confirmed on WhatsApp — no surge, no hidden fees. WhatsApp booking 24/7.",
   },
 };
 

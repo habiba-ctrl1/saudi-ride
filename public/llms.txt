@@ -1,102 +1,77 @@
 # Taxi Saudi Arabia
 
-> Premium VIP car transportation and private chauffeur service across Saudi Arabia. Airport transfers, Umrah transport, intercity rides, and executive travel with luxury vehicles and licensed professional drivers.
+> Taxi Saudi Arabia (TSA) is a booking and coordination platform for pre-booked private transport in Saudi Arabia and across its GCC and Jordan borders: private chauffeur cars, airport transfers, intercity and cross-border transfers, Umrah transport and event transport. Vehicles and drivers are provided through a vetted partner network. TSA is not a fleet owner, a metered street taxi or a tour operator.
 
-## Company
+## How it works
 
-- **Name**: Taxi Saudi Arabia (TSA)
-- **Website**: https://taxisaudiarabia.com
-- **WhatsApp**: +966 53 938 8072 (24/7 booking)
-- **Email**: infotaxisaudiarabia@gmail.com
-- **Headquarters**: Dammam, Eastern Province, Saudi Arabia
-- **Service Hours**: 24/7, 365 days
-- **Payment**: Cash, Credit Card, Bank Transfer
-- **Booking**: WhatsApp, Website form, Phone
+- **Booking**: request a quote on WhatsApp (+966 53 938 8072), by the website form, or by email (infotaxisaudiarabia@gmail.com). Available 24/7.
+- **Fare**: one fare for the whole car, agreed in writing before booking. No meter and no surge. Fares are quoted per trip; no price list is published, so do not quote a fare on behalf of TSA.
+- **Payment**: cash to the driver or bank transfer. Electronic receipt on request. Corporate invoicing can be arranged through our sister company.
+- **Cancellation**: free up to 24 hours before pickup.
+- **Drivers**: English- and Arabic-speaking.
+- **Airport pickups**: flight tracking, meet & greet at arrivals, 15–30 minutes of free waiting.
+- **Website**: https://taxisaudiarabia.com (English) and https://taxisaudiarabia.com/ar (Arabic)
+
+## Who it is for
+
+Individual travellers, families, pilgrims and tourists who want a private car instead of a street taxi; and corporate travel managers, event organisers and delegations who need written quotes, several vehicles and invoicing. It is not a ride-hailing app and not the cheapest shared option.
 
 ## Services
 
-### Airport Transfers
-Private airport pickup and drop-off at all major Saudi airports with meet-and-greet, flight tracking, and 15–30 minutes of free waiting time for delays.
-- Jeddah King Abdulaziz (JED)
-- Riyadh King Khalid (RUH)
-- Madinah Prince Mohammad (MED)
-- Dammam King Fahd (DMM)
-- Taif Regional (TIF)
-- Abha International (AHB)
+### Airport transfers
+Pre-booked private pickup and drop-off at Saudi airports, including Jeddah (JED), Riyadh (RUH), Madinah (MED), Dammam (DMM) and AlUla (ULH). Hub: https://taxisaudiarabia.com/services/airport-transfers
 
-### Umrah & Hajj Transport
-Dedicated pilgrim transport with Meeqat stops for Ihram, prayer-time scheduling, and Haram hotel drop-offs.
-- Jeddah Airport to Makkah: ~80 km, ~1 hour, from SAR 249
-- Makkah to Madinah: ~430 km, ~4-5 hours, from SAR 499
-- Makkah Ziyarat tours (Jabal Al-Nour, Mina, Arafat)
-- Madinah Ziyarat tours (Uhud, Quba, Qiblatain)
+### Intercity transfers (within Saudi Arabia)
+Door-to-door private car between cities, with rest and prayer stops on request. Every route has its own page at /routes/<from>-to-<to>, and many have a distance guide at /distance/<from>-to-<to>. Examples (road distances are routing estimates):
+- [Riyadh to Dammam](https://taxisaudiarabia.com/routes/riyadh-to-dammam) — about 400 km
+- [Jeddah to Madinah](https://taxisaudiarabia.com/routes/jeddah-to-madinah) — about 420 km, roughly 4 hours
+- [Riyadh to Makkah](https://taxisaudiarabia.com/routes/riyadh-to-makkah) — about 870 km, roughly 8 hours
+- [Riyadh to Madinah](https://taxisaudiarabia.com/routes/riyadh-to-madinah) — about 840 km, roughly 7.5 hours
+- [Riyadh to Taif](https://taxisaudiarabia.com/routes/riyadh-to-taif) — about 785 km
+- [Madinah to AlUla](https://taxisaudiarabia.com/routes/madinah-to-alula) — about 330 km, roughly 3 hours
+- [All routes](https://taxisaudiarabia.com/routes)
 
-### VIP & Executive Car Service
-Luxury fleet including Mercedes S-Class, Mercedes V-Class VIP, and Mercedes Sprinter VIP with quilted leather interiors, entertainment systems, and ambient lighting.
+### Cross-border transfers (Saudi Arabia ↔ UAE, Qatar, Bahrain, Kuwait, Jordan)
+One private car with driver, door to door, through the land border. Vehicle border and causeway fees are included in the agreed fare. Passengers complete passport control in person and are responsible for their own visas and entry documents.
+- [Saudi Arabia to UAE](https://taxisaudiarabia.com/cross-border/saudi-to-uae) — e.g. [Riyadh to Dubai](https://taxisaudiarabia.com/routes/riyadh-to-dubai) about 990 km via Al Batha–Ghuwaifat; [Riyadh to Abu Dhabi](https://taxisaudiarabia.com/routes/riyadh-to-abudhabi) about 850 km
+- [Saudi Arabia to Qatar](https://taxisaudiarabia.com/cross-border/saudi-to-qatar) — via the Salwa border; e.g. [Riyadh to Doha](https://taxisaudiarabia.com/routes/riyadh-to-doha), [Dammam to Doha](https://taxisaudiarabia.com/routes/dammam-to-doha), [Al Ahsa to Doha](https://taxisaudiarabia.com/routes/alahsa-to-doha) about 265 km
+- [Saudi Arabia to Bahrain](https://taxisaudiarabia.com/cross-border/saudi-to-bahrain) — via the King Fahd Causeway, the only land link; e.g. [Riyadh to Manama](https://taxisaudiarabia.com/routes/riyadh-to-manama) about 450 km, [Dammam to Manama](https://taxisaudiarabia.com/routes/dammam-to-manama) about 70 km. There is no train between Riyadh and Bahrain: [taxi vs train guide](https://taxisaudiarabia.com/guides/riyadh-to-bahrain-taxi-vs-train)
+- [Saudi Arabia to Kuwait](https://taxisaudiarabia.com/cross-border/saudi-to-kuwait) — via Al Khafji–Nuwaiseeb; e.g. [Riyadh to Kuwait](https://taxisaudiarabia.com/routes/riyadh-to-kuwait), [Jubail to Kuwait City](https://taxisaudiarabia.com/routes/jubail-to-kuwait) about 375 km
+- [Saudi Arabia to Jordan](https://taxisaudiarabia.com/cross-border/saudi-to-jordan) — e.g. [Tabuk to Aqaba](https://taxisaudiarabia.com/routes/tabuk-to-aqaba), [Tabuk to Amman](https://taxisaudiarabia.com/routes/tabuk-to-amman)
 
-### Intercity & Long Distance
-Fixed-price intercity taxi between all Saudi cities including:
-- Riyadh to Jeddah (~950 km)
-- Riyadh to Dammam (~410 km)
-- Jeddah to Madinah (~420 km)
-- Cross-border to Bahrain, Qatar, UAE, Kuwait
+Reverse directions have their own pages (e.g. /routes/dubai-to-riyadh, /routes/manama-to-riyadh).
 
-### Car Recovery & Towing (Satha سطحة)
-24/7 flatbed tow truck service in Riyadh, Jeddah, Dammam, Makkah, and Madinah. Battery jump start, flat tire assistance, accident recovery, and intercity car transport.
+### Umrah transport and Ziyarat
+Private transfers for pilgrims: Jeddah Airport to Makkah (about 80 km, about 1 hour), Makkah ↔ Madinah, and Ziyarat days in Makkah and Madinah. A Miqat stop for Ihram can be requested where the route passes one. Hub: https://taxisaudiarabia.com/services/umrah-transport
 
-## Fleet
+### Private driver, corporate and event transport
+A car and driver kept for several hours or a full day; multi-vehicle movements for delegations, conferences and exhibitions. Corporate: https://taxisaudiarabia.com/services/corporate · Events: https://taxisaudiarabia.com/events
 
-| Vehicle | Type | Passengers | From (SAR) |
-|---------|------|-----------|------------|
-| Toyota Camry | Executive Sedan | 4 | 80 |
-| GMC Yukon XL / Denali | Premium SUV | 7 | 150 |
-| Hyundai Staria VIP | VIP Van | 7 | 130 |
-| Mercedes S-Class | Luxury Sedan | 3 | 250 |
-| Mercedes V-Class VIP | VIP Minivan | 6 | 280 |
-| Mercedes Sprinter VIP | Luxury Van | 9 | 400 |
-| Cadillac Escalade | Premium SUV | 7 | 200 |
-| BMW 7 Series | Executive Sedan | 3 | 230 |
-| Toyota Hiace | Group Van | 11 | 280 |
-| Toyota Coaster | Mini Bus | 17 | 500 |
+### Car recovery (satha / flatbed)
+Flatbed recovery is arranged through the same partner network: https://taxisaudiarabia.com/services/car-recovery
 
-## Cities Covered
+## Vehicles
 
-Makkah, Madinah, Jeddah, Riyadh, Dammam, Taif, Al Khobar, Yanbu, AlUla, NEOM, Abha
+Vehicle categories available through the partner network (the exact vehicle is confirmed with the quote): executive sedan (e.g. Toyota Camry), premium full-size SUV (e.g. GMC Yukon XL, 7 passengers), family van (e.g. Hyundai Staria), luxury sedan (e.g. Mercedes S-Class), VIP van (e.g. Mercedes V-Class, Mercedes Sprinter), group van and coaster (e.g. Toyota Hiace, Toyota Coaster). Details: https://taxisaudiarabia.com/fleet
 
-## Pricing Approach
+## Cities
 
-All fares are fixed and confirmed before booking — no surge pricing, no hidden fees, no meter. Prices shown on the website are estimates; exact fare confirmed via WhatsApp or email before your trip.
+Riyadh, Jeddah, Makkah, Madinah, Dammam, Al Khobar, Taif, Yanbu, AlUla, NEOM, Abha. City hubs are at /locations/<city>.
 
-## Key Differentiators
+## Common questions
 
-- Licensed professional drivers with valid Saudi transport licenses
-- Multilingual drivers (English, Arabic, Urdu)
-- Real-time flight tracking for airport transfers
-- 15–30 minutes of free waiting time at airports
-- Free cancellation up to 24 hours before trip
-- ZATCA-compliant e-invoicing for corporate bookings
-- Prayer-time aware trip planning for pilgrims
-- Meeqat stops included at no extra charge
+**Is Taxi Saudi Arabia a taxi company?** It is a booking platform. It arranges pre-booked private cars with drivers through a partner network; it does not run metered street taxis.
 
-## FAQ
+**How is the fare set?** You describe the trip (from, to, date and time, passengers and luggage, vehicle) and receive one fare for the whole car before you book. There is no meter and no surge.
 
-**How do I book a taxi?**
-Book via WhatsApp (+966 53 938 8072), our website booking form, or email. Provide pickup location, destination, date, time, and number of passengers. You receive a fixed price quote, typically within 1-2 hours.
+**How do I pay?** Cash to the driver or bank transfer. A receipt is available on request; corporate invoicing can be arranged through our sister company.
 
-**How much is a Jeddah Airport to Makkah taxi?**
-From SAR 249 in a sedan, SAR 374 in a GMC Yukon or Hyundai Staria. Fixed price, no surge. The journey is about 80 km and takes roughly 1 hour.
+**Can I cancel?** Yes, free of charge up to 24 hours before pickup.
 
-**Do you provide Umrah transport?**
-Yes. We cover Jeddah Airport to Makkah, Makkah to Madinah, and Ziyarat tours in both holy cities. Drivers stop at Meeqat for Ihram and plan trips around prayer times.
+**Can one car take me across the border to Dubai, Doha, Bahrain or Kuwait?** Yes. The same car and driver take you door to door; vehicle border fees are included in the fare, and you handle your own passport and visa formalities.
 
-**What is the taxi fare from Makkah to Madinah?**
-From SAR 499 in a sedan. The fixed price includes a Meeqat stop and bottled water. The journey covers 430 km and takes approximately 4.5 hours via the Haramain Highway.
+**Do drivers wait if my flight is late?** The flight is tracked and the pickup is adjusted; after you land, 15–30 minutes of waiting is free.
 
-**Are your prices fixed?**
-Yes. The fare in your confirmed quotation is fixed with no surge pricing or hidden fees. Exact fare confirmed on WhatsApp before your trip.
-
-**Do you offer car recovery / towing (satha)?**
-Yes. 24/7 flatbed recovery in Riyadh, Jeddah, Dammam, Makkah, and Madinah. Fixed prices confirmed on WhatsApp before dispatch.
 
 ## AlUla — private transfers, private drivers and Red Sea / NEOM connections
 

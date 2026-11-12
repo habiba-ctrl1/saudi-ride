@@ -24,6 +24,21 @@ const RELATED_LINKS: Record<string, { href: string; label: string }[]> = {
     { href: "/blog/madinah-to-makkah-taxi-price-distance-time", label: "Madinah to Makkah by car: distance, time & Miqat stop" },
     { href: "/routes/makkah-to-madinah", label: "Book a Makkah to Madinah taxi" },
   ],
+  // 2026-11-13 (Batch 5): 1,492 impressions at pos 7.6 with no link to the money pages it supports.
+  "riyadh-to-bahrain-taxi-vs-train": [
+    { href: "/routes/riyadh-to-manama", label: "Riyadh to Bahrain private car with driver" },
+    { href: "/routes/manama-to-riyadh", label: "Bahrain to Riyadh private transfer" },
+    { href: "/cross-border/saudi-to-bahrain", label: "Saudi Arabia to Bahrain by road: King Fahd Causeway guide" },
+  ],
+  // 2026-11-13: guide = what to see + seasons; the blog posts own "how to get there" and
+  // "when to go"; the hub owns booking. Links make that split explicit and pass equity to money pages.
+  "alula-transport-guide": [
+    { href: "/locations/alula", label: "Private taxi and chauffeur service in AlUla" },
+    { href: "/locations/alula/private-driver", label: "Hire a private driver in AlUla for a full sightseeing day" },
+    { href: "/blog/alula-travel-guide-hegra-dadan-transport", label: "How to get to AlUla: airport, road and getting around" },
+    { href: "/routes/madinah-to-alula", label: "Madinah to AlUla private transfer" },
+    { href: "/airports/alula", label: "AlUla International Airport (ULH) private transfers" },
+  ],
 };
 
 export function generateStaticParams() {
