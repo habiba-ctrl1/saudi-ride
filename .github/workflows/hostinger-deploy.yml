@@ -52,7 +52,17 @@ jobs:
 
       - run: npm ci
 
-      - run: npm run build
+      # next/font downloads Google Fonts at build time; that request occasionally
+      # fails on the runner (seen once), so retry the build up to 3 times.
+      - name: Build
+        run: |
+          for attempt in 1 2 3; do
+            if npm run build; then exit 0; fi
+            echo "::warning::Build attempt $attempt failed, retrying in 30s"
+            sleep 30
+          done
+          echo "::error::Build failed 3 times"
+          exit 1
 
       - name: Assemble deploy branch contents
         run: |
