@@ -103,7 +103,19 @@ const nextConfig: NextConfig = {
       },
     ];
 
-    return [...guideRedirects, ...dedupeRedirects, ...jobCityRedirects, ...jobHubRedirects, ...vipRedirect, ...blogMergeRedirects];
+    // www -> apex (approved 2026-11-13): www served 200 on every URL and GSC showed
+    // www URLs collecting impressions separately from the canonical apex pages.
+    // Path and query string are preserved. Must stay first so it runs before the rest.
+    const wwwRedirect = [
+      {
+        source: "/:path*",
+        has: [{ type: "host" as const, value: "www.taxisaudiarabia.com" }],
+        destination: "https://taxisaudiarabia.com/:path*",
+        statusCode: 301 as const, // `permanent: true` would send 308
+      },
+    ];
+
+    return [...wwwRedirect, ...guideRedirects,...dedupeRedirects, ...jobCityRedirects, ...jobHubRedirects, ...vipRedirect, ...blogMergeRedirects];
   },
   images: {
     remotePatterns: [
