@@ -36,6 +36,11 @@ export interface SouthernRoutePageData {
   faqs: { question: string; answer: string }[];
   related: { href: string; label: string }[];
   bestFor: string;
+  /** Optional (long-haul pages): passengers/luggage → vehicle guide. Seats and
+   *  bags are read from lib/fleet-data.ts at render time, never typed by hand. */
+  vehicleGuide?: { fleetSlug: string; name: string; fit: string }[];
+  /** Optional: one-way / return / advance-booking section. */
+  booking?: { heading: string; body: string[] };
 }
 
 export const SOUTHERN_ROUTE_PAGES: Record<string, SouthernRoutePageData> = {

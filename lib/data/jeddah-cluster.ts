@@ -228,6 +228,8 @@ export const JEDDAH_DEST_GROUPS: { id: string; label: string; intro: string; ite
       { slug: "jeddah-to-abha", name: "Abha", purpose: "Asir highlands" },
       { slug: "jeddah-to-alula", name: "AlUla", purpose: "Hegra & heritage sites" },
       { slug: "jeddah-to-riyadh", name: "Riyadh", purpose: "Cross-Kingdom to the capital" },
+      { slug: "jeddah-to-dammam", name: "Dammam", purpose: "Coast to coast via Riyadh" },
+      { slug: "jeddah-to-jazan", name: "Jazan", purpose: "South along the Red Sea coast" },
       { slug: "jeddah-to-neom", name: "NEOM", purpose: "Project & site travel" },
     ],
   },

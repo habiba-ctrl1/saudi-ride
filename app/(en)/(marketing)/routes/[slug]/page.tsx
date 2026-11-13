@@ -38,6 +38,7 @@ import RedSeaRoutePage from "@/components/location/cluster/RedSeaRoutePage";
 import { RSI_ROUTE_PAGES } from "@/lib/data/red-sea-cluster";
 import { SOUTHERN_ROUTE_PAGES } from "@/lib/data/southern-cluster";
 import SouthernRoutePage from "@/components/location/cluster/SouthernRoutePage";
+import { JEDDAH_INTERCITY_ROUTE_PAGES } from "@/lib/data/jeddah-intercity";
 
 interface PageProps {
   params: Promise<{
@@ -170,6 +171,29 @@ const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup:
       "Send your AlUla pickup, Riyadh drop-off and passengers — one fixed fare for the whole car, confirmed on WhatsApp. About 1,050 km, a full day by road with rest and prayer stops.",
     pickup: "AlUla",
     dropoff: "Riyadh",
+  },
+  // 2026-11-14 (Jeddah intercity sprint): these three rank on page 1 but had
+  // no on-page quote form. Additive only — title, H1 and body copy untouched.
+  "jeddah-to-riyadh": {
+    heading: "Get your Jeddah to Riyadh quote",
+    blurb:
+      "Send your Jeddah pickup, Riyadh drop-off, date and passengers — we confirm one fixed fare for the whole car on WhatsApp. About 950 km and roughly 9 hours, with rest and prayer stops.",
+    pickup: "Jeddah",
+    dropoff: "Riyadh",
+  },
+  "jeddah-to-abha": {
+    heading: "Get your Jeddah to Abha quote",
+    blurb:
+      "Send your Jeddah pickup, your Abha or Khamis Mushait address, date and passengers — one fixed fare for the whole car, confirmed on WhatsApp. About 690 km up into the Asir highlands.",
+    pickup: "Jeddah",
+    dropoff: "Abha",
+  },
+  "jeddah-to-alula": {
+    heading: "Get your Jeddah to AlUla quote",
+    blurb:
+      "Send your Jeddah pickup or JED flight number, your AlUla hotel, date and passengers — one fixed fare for the whole car, confirmed on WhatsApp. About 700 km, door to door.",
+    pickup: "Jeddah",
+    dropoff: "AlUla",
   },
   "alula-to-jeddah": {
     heading: "Get your AlUla to Jeddah quote",
@@ -1930,7 +1954,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
   // Southern corridor (2026-10-27): bespoke pages, metadata lives with the page data.
-  const south = SOUTHERN_ROUTE_PAGES[slug];
+  const south = SOUTHERN_ROUTE_PAGES[slug] ?? JEDDAH_INTERCITY_ROUTE_PAGES[slug];
   if (south) {
     return {
       title: south.metaTitle,
@@ -2042,6 +2066,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // Per-slug description overrides — same CTR-fix rationale as TITLE_OVERRIDES,
   // for pages with confirmed impressions/position but zero clicks.
   const DESCRIPTION_OVERRIDES: Record<string, string> = {
+    // 2026-11-14: generic template snippet replaced (titles untouched — both rank pos ~7). Figures from routes.ts.
+    "jeddah-to-riyadh": "Private car with driver from Jeddah to Riyadh — about 950 km, roughly 9 hours, door to door with rest and prayer stops. Sedan, SUV or van; one fare agreed on WhatsApp before booking.",
+    "jeddah-to-abha": "Private car with driver from Jeddah or JED airport to Abha and Khamis Mushait — about 690 km, 7–8 hours into the Asir highlands. One fixed fare agreed on WhatsApp before booking.",
     "riyadh-to-al-qassim-airport": "Book a private transfer from Riyadh to Al Qassim Airport (ELQ). Request a sedan, SUV or GMC and check availability and pricing through WhatsApp.",
     "alula-to-madinah": "Private car from AlUla to Madinah — about 330 km, roughly 3 hours, to your hotel or Madinah Airport. One fixed fare agreed on WhatsApp before booking.",
     "alula-to-riyadh": "Private car from AlUla to Riyadh — about 1,050 km, a full day on the road, door to door with rest and prayer stops. Fare agreed before booking.",
@@ -2170,7 +2197,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
   if (bespoke) return <CrossBorderRoutePage data={bespoke} />;
   const rsiPage = RSI_ROUTE_PAGES[slug];
   if (rsiPage) return <RedSeaRoutePage data={rsiPage} />;
-  const southPage = SOUTHERN_ROUTE_PAGES[slug];
+  const southPage = SOUTHERN_ROUTE_PAGES[slug] ?? JEDDAH_INTERCITY_ROUTE_PAGES[slug];
   if (southPage) return <SouthernRoutePage data={southPage} />;
   let route: Awaited<ReturnType<typeof db.route.findUnique>> = null;
   try {

@@ -257,6 +257,8 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { href: "/routes/dammam-to-doha", label: "Dammam to Doha, Qatar taxi" },
       { href: "/routes/dammam-to-abudhabi", label: "Dammam to Abu Dhabi — private car with driver" },
       { href: "/routes/dammam-to-dubai", label: "Dammam to Dubai — private car with driver" },
+      { href: "/routes/dammam-to-jeddah", label: "Dammam to Jeddah by private car, via Riyadh" },
+      { href: "/routes/jeddah-to-dammam", label: "Arriving from Jeddah: Jeddah to Dammam transfer" },
       { href: "/services/car-recovery/dammam", label: "Dammam car recovery & tow truck (satha)" }
     ]
   },
@@ -589,6 +591,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { href: "/airports/abha-regional", label: "Abha airport (AHB) pickups" },
       { href: "/routes/abha-to-jizan", label: "Abha to Jizan private transfer" },
       { href: "/routes/najran-to-abha", label: "Najran to Abha private transfer" },
+      { href: "/routes/abha-to-jeddah", label: "Abha to Jeddah car with driver" },
       { href: "/locations/jizan", label: "Private transfers in Jizan" }
     ]
   },
@@ -630,6 +633,8 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     relatedLinks: [
       { href: "/airports/jizan-regional", label: "Jizan airport (GIZ) transfers" },
       { href: "/routes/abha-to-jizan", label: "Abha to Jizan private transfer" },
+      { href: "/routes/jazan-to-jeddah", label: "Jazan to Jeddah and JED airport by private car" },
+      { href: "/routes/jeddah-to-jazan", label: "Coming from Jeddah to Jazan" },
       { href: "/locations/abha", label: "Abha city transfers and mountain tours" },
       { href: "/fleet", label: "Vehicle categories" }
     ]

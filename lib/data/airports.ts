@@ -197,6 +197,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
       { href: "/routes/dammam-to-manama", label: "DMM to Manama, Bahrain" },
       { href: "/routes/dammam-airport-to-bahrain", label: "Dammam Airport to Bahrain — direct private transfer" },
       { href: "/routes/bahrain-to-dammam-airport", label: "Bahrain to Dammam Airport for your flight" },
+      { href: "/routes/dammam-to-jeddah", label: "Long-distance: Dammam to Jeddah with a private driver" },
       { href: "/cross-border/saudi-to-bahrain", label: "All Saudi–Bahrain causeway transfers" },
       { href: "/fleet/gmc-yukon-xl", label: "GMC Yukon XL — spacious SUV" },
       { href: "/fleet/toyota-camry", label: "Toyota Camry — Executive Sedan" },
@@ -347,6 +348,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
       { href: "/routes/jeddah-to-abha", label: "Jeddah to Abha transfer" },
       { href: "/fleet/gmc-yukon-xl", label: "GMC Yukon XL — SUV for mountain roads" },
       { href: "/routes/abha-to-jizan", label: "Abha to Jizan private transfer" },
+      { href: "/routes/abha-to-jeddah", label: "Abha to Jeddah private transfer by road" },
       { href: "/routes/najran-to-abha", label: "Najran to Abha private transfer" },
       { href: "/locations/jizan", label: "Private transfers in Jizan" },
     ]
@@ -390,6 +392,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     ],
     relatedLinks: [
       { href: "/routes/abha-to-jizan", label: "Abha to Jizan private transfer" },
+      { href: "/routes/jazan-to-jeddah", label: "Jazan to Jeddah airport (JED) by road" },
       { href: "/locations/jizan", label: "Private driver and transfers in Jizan" },
       { href: "/airports/abha-regional", label: "Abha airport (AHB) pickups" },
       { href: "/fleet", label: "Vehicle categories" },

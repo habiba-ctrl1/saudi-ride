@@ -11,6 +11,7 @@ import { contactConfig } from "@/lib/config/contact";
 import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { ROUTES_DATA } from "@/lib/data/routes";
 import type { SouthernRoutePageData } from "@/lib/data/southern-cluster";
+import { fleetCapacity } from "@/lib/fleet-data";
 
 // Bespoke southern-corridor route page (Abha ↔ Jizan, Najran → Abha).
 // Copy lives in lib/data/southern-cluster.ts; distance/time always come from
@@ -37,7 +38,7 @@ export default function SouthernRoutePage({ data }: { data: SouthernRoutePageDat
   const route = ROUTES_DATA.find((r) => r.slug === data.slug)!;
   const path = `/routes/${data.slug}`;
   const label = `${data.fromPlace} to ${data.toPlace}`;
-  const km = `~${route.distance} km`;
+  const km = `~${route.distance.toLocaleString("en-US")} km`;
   const drive = `~${formatDrive(route.duration)}`;
   const waText =
     `Hello, I'd like a quote for a private transfer from ${data.fromPlace} to ${data.toPlace}.\n\n` +
@@ -186,6 +187,44 @@ export default function SouthernRoutePage({ data }: { data: SouthernRoutePageDat
             <p className="mt-3 text-xs leading-relaxed text-[#6B7280]">Vehicles come from our partner network. The exact vehicle is confirmed with your fare.</p>
           </div>
         </section>
+
+        {/* ─── VEHICLE GUIDE (optional, long-haul pages) ─── */}
+        {data.vehicleGuide && (
+          <section aria-labelledby="sr-vehicles" className="rounded-3xl border border-[#16A34A]/15 bg-white p-6 sm:p-8">
+            <h2 id="sr-vehicles" className="font-heading text-2xl font-bold sm:text-3xl">Which vehicle suits {label}?</h2>
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[#6B7280]">
+              Choose by the number of passengers and large bags. Vehicles come from our partner network and availability is confirmed with your quote, so the models shown are examples of each category.
+            </p>
+            <ul className="mt-5 grid gap-3 md:grid-cols-3">
+              {data.vehicleGuide.map((v) => {
+                const cap = fleetCapacity(v.fleetSlug);
+                return (
+                  <li key={v.fleetSlug} className="flex flex-col rounded-2xl border border-[#16A34A]/12 bg-[#FAFAF7] p-5">
+                    <p className="font-semibold">{v.name}</p>
+                    <p className="mt-1 text-xs font-bold uppercase tracking-wider text-[#15803D]">Up to {cap.passengers} passengers · {cap.luggage} large bags</p>
+                    <p className="mt-2 flex-1 text-sm leading-relaxed text-[#475569]">{v.fit}</p>
+                    <a href={vehicleWa(v.name)} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex min-h-[44px] items-center justify-center gap-1.5 rounded-full bg-[#16A34A] px-4 text-sm font-bold text-[#FFFFFF] hover:bg-[#15803D]">
+                      <MessageCircle className="h-4 w-4" aria-hidden /> Check availability
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+            <p className="mt-4 text-sm leading-relaxed text-[#6B7280]">
+              Need a luxury sedan or a larger vehicle for a group? Ask in your message and we will tell you what is available for your date. <Link href="/fleet" className="font-semibold text-[#16A34A] hover:underline">See all vehicle categories</Link>.
+            </p>
+          </section>
+        )}
+
+        {/* ─── BOOKING INFO (optional) ─── */}
+        {data.booking && (
+          <section aria-labelledby="sr-booking" className="rounded-3xl border border-[#16A34A]/15 bg-white p-6 sm:p-8">
+            <h2 id="sr-booking" className="font-heading text-2xl font-bold">{data.booking.heading}</h2>
+            <div className="mt-3 space-y-3 text-[0.95rem] leading-relaxed text-[#475569]" style={{ maxWidth: "70ch" }}>
+              {data.booking.body.map((p) => <p key={p}>{p}</p>)}
+            </div>
+          </section>
+        )}
 
         {/* ─── TIPS + INCLUDED ─── */}
         <section aria-label="Planning tips" className="grid gap-5 lg:grid-cols-2">
