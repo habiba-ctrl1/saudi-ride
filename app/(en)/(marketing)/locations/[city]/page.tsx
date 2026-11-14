@@ -1,0 +1,1273 @@
+export const revalidate = 86400; // revalidate every 24 hours
+
+export function generateStaticParams() {
+  return Object.keys(CITY_DETAILS).map((city) => ({ city }));
+}
+
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
+import { MapPin, ArrowRight, Car, Building2, CheckCircle2, HelpCircle, Star, Quote, PlaneLanding, ExternalLink, MessageSquare, Clock, Users, Luggage, UserCheck } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { serviceSchema, faqSchema, speakableSchema, howToSchema, itemListSchema } from "@/lib/schema";
+import { TLDRSummary } from "@/components/seo/TLDRSummary";
+import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
+import { SUB_AREAS } from "@/lib/data/subareas";
+import { CITY_DETAILS } from "@/lib/data/locations";
+import { ROUTES_DATA } from "@/lib/data/routes";
+import { trustStats } from "@/lib/config/stats";
+import { contactConfig } from "@/lib/config/contact";
+import { CityTransferNetwork, type TransferDestination } from "@/components/location/CityTransferNetwork";
+import { TransferJourneySteps } from "@/components/location/TransferJourneySteps";
+import { ServiceSelector, type ServiceTile } from "@/components/location/ServiceSelector";
+import { TouristJourney, type JourneyStop } from "@/components/location/TouristJourney";
+import { VehicleShowcase, type ShowcaseVehicle } from "@/components/location/VehicleShowcase";
+import { VehicleRecommender } from "@/components/location/VehicleRecommender";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { RiyadhHub } from "@/components/location/cluster/RiyadhHub";
+import { JeddahHub } from "@/components/location/cluster/JeddahHub";
+import { AlulaHub } from "@/components/location/cluster/AlulaHub";
+import { MakkahHub } from "@/components/location/cluster/MakkahHub";
+import { MadinahHub } from "@/components/location/cluster/MadinahHub";
+
+// Real distances/times pulled from the same ROUTES_DATA source the route
+// pages read from (CLAUDE.md single-source-of-truth rule) — a compact
+// "at a glance" overview above the detailed route-ladder list, covering a
+// broader destination set than the TLDR facts chips do. Jeddah-only for now;
+// extend this map as other cities get the same cluster of verified routes.
+const CITY_TRANSFER_NETWORK: Record<string, TransferDestination[]> = {
+  jeddah: [
+    { label: "Makkah", km: 85, duration: "1 hr 10 min", href: "/routes/jeddah-to-makkah" },
+    { label: "Madinah", km: 420, duration: "4 hr", href: "/routes/jeddah-to-madinah" },
+    { label: "Taif", km: 170, duration: "2 hr", href: "/routes/jeddah-to-taif" },
+    { label: "Yanbu", km: 330, duration: "3 hr", href: "/routes/jeddah-to-yanbu" },
+    { label: "KAEC", km: 120, duration: "1 hr 20 min", href: "/routes/jeddah-to-kaec" },
+  ],
+};
+
+const AIRPORT_JOURNEY: Record<string, { heading: string; steps: { title: string; desc: string; icon?: typeof PlaneLanding }[] }> = {
+  jeddah: {
+    heading: "Your JED Airport Transfer, Step by Step",
+    steps: [
+      { title: "Flight lands at JED", desc: "King Abdulaziz International Airport, Terminal 1, North Terminal, or the Hajj Terminal.", icon: PlaneLanding },
+      { title: "Share your flight number", desc: "Add it when you book so we check it before pickup, even if the flight is delayed.", icon: Luggage },
+      { title: "Meet & greet at arrivals", desc: "Your driver waits with a name sign and helps with luggage.", icon: UserCheck },
+      { title: "Private vehicle to your destination", desc: "Straight to your Jeddah hotel, or on to Makkah or Madinah, with a Miqat stop on request.", icon: Car },
+    ],
+  },
+  riyadh: {
+    heading: "Your RUH Airport Transfer, Step by Step",
+    steps: [
+      { title: "Flight lands at RUH", desc: "King Khalid International Airport, about 35 km north of central Riyadh.", icon: PlaneLanding },
+      { title: "Share your flight number", desc: "Add it when you book so we check it before pickup, even if the flight is delayed.", icon: Luggage },
+      { title: "Meet & greet at arrivals", desc: "Your driver waits with a name sign and helps with luggage.", icon: UserCheck },
+      { title: "Private vehicle to your destination", desc: "Straight to your Olaya, KAFD or Diplomatic Quarter hotel, a business meeting, or on to Dammam.", icon: Car },
+    ],
+  },
+};
+
+// Hero trust chips — what this city's service actually covers, at a glance.
+const CITY_HERO_HIGHLIGHTS: Record<string, string[]> = {
+  jeddah: ["JED Airport", "Jeddah Hotels", "Makkah", "Madinah", "Local Chauffeur"],
+  riyadh: ["RUH Airport", "KAFD & Olaya", "Diplomatic Quarter", "Corporate Accounts", "24/7"],
+};
+
+// "What are you travelling for?" — a navigation grid, not decoration. Each
+// tile routes to the page or on-page section that owns that specific intent.
+// Jeddah-only for now; extend as other cities get the same section coverage.
+const SERVICE_SELECTOR: Record<string, { heading: string; tiles: ServiceTile[] }> = {
+  jeddah: {
+    heading: "What are you travelling for?",
+    tiles: [
+      { icon: PlaneLanding, label: "Airport Transfer", desc: "JED ↔ Jeddah hotels or the city", href: "/airports/king-abdulaziz-jeddah" },
+      { icon: Car, label: "Makkah Transfer", desc: "Jeddah ↔ Makkah, ~85 km", href: "/routes/jeddah-to-makkah" },
+      { icon: Car, label: "Madinah Transfer", desc: "Jeddah ↔ Madinah, ~420 km", href: "/routes/jeddah-to-madinah" },
+      { icon: MapPin, label: "Local Jeddah", desc: "Hotels, Corniche, Al-Balad, malls", href: "#areas-we-serve" },
+      { icon: Clock, label: "Hourly Chauffeur", desc: "Multiple stops, business or sightseeing", href: "#hourly-chauffeur" },
+      { icon: Users, label: "Family & Group", desc: "SUV or van, extra luggage", href: "#vehicles" },
+    ],
+  },
+  riyadh: {
+    heading: "What are you travelling for?",
+    tiles: [
+      { icon: PlaneLanding, label: "Airport Transfer", desc: "RUH arrivals & departures", href: "/airports/king-khalid-riyadh" },
+      { icon: Clock, label: "Private / Hourly Driver", desc: "By the hour or full day", href: "/locations/riyadh/private-driver" },
+      { icon: MapPin, label: "Hotel Transfer", desc: "Olaya, KAFD, DQ, Diriyah", href: "/locations/riyadh/hotel-transfer" },
+      { icon: Building2, label: "Corporate Travel", desc: "Accounts & invoicing", href: "/services/corporate" },
+      { icon: Users, label: "VIP / Luxury", desc: "Events, weddings, arrivals", href: "/services/vip-transportation" },
+      { icon: Car, label: "Events & Conferences", desc: "Delegate & exhibitor transfer", href: "/events/riyadh-event-transportation" },
+    ],
+  },
+};
+
+// Sample one-day itinerary, Jeddah-only — shows the service covers a full
+// day out, not just an airport ride. Every stop with an href is a real,
+// existing page (subarea pages in lib/data/subareas.ts).
+const TOURIST_JOURNEY: Record<string, { heading: string; intro: string; stops: JourneyStop[] }> = {
+  jeddah: {
+    heading: "Explore Jeddah With a Private Driver",
+    intro: "Jeddah is more than an airport-to-Makkah corridor — book the same driver for a full day around the city, with the car waiting between stops.",
+    stops: [
+      { label: "Hotel", desc: "Pickup point" },
+      { label: "Al-Balad", desc: "Historic Jeddah, UNESCO site", href: "/locations/jeddah/al-balad" },
+      { label: "Corniche", desc: "Waterfront & King Fahd's Fountain", href: "/locations/jeddah/corniche" },
+      { label: "Al Salamah", desc: "Shopping near Salama Mall", href: "/locations/jeddah/al-salamah" },
+      { label: "Hotel", desc: "Drop-off, or straight to JED" },
+    ],
+  },
+};
+
+// Vehicle showcase — real fleet vehicles (lib/fleet-data.ts) with real
+// images. Jeddah-only for now; the GMC Yukon XL's Jeddah-Makkah framing is
+// the real, already-published fact from fleet-data.ts, not invented here.
+const VEHICLE_SHOWCASE: Record<string, { heading: string; intro: string; vehicles: ShowcaseVehicle[] }> = {
+  jeddah: {
+    heading: "Choose Your Vehicle",
+    intro: "Every vehicle is available through our partner network, confirmed when you book.",
+    vehicles: [
+      { category: "sedan", name: "Toyota Camry", subtitle: "Executive Sedan", image: "/fleet/toyota-camry.webp", passengers: 4, luggage: 2, bestFor: "Best for 1–3 passengers with normal luggage — airport runs and city rides.", href: "/fleet/toyota-camry" },
+      { category: "suv", name: "GMC Yukon XL", subtitle: "Premium SUV", image: "/fleet/gmc-yukon-xl.webp", passengers: 7, luggage: 5, bestFor: "The most-requested vehicle for the JED Airport to Makkah corridor — families and Umrah groups with luggage.", href: "/fleet/gmc-yukon-xl" },
+      { category: "van", name: "Hyundai Staria VIP", subtitle: "VIP Van", image: "/fleet/real/hyundai-staria-exterior.webp", passengers: 7, luggage: 4, bestFor: "Best for larger groups or families travelling together with extra luggage.", href: "/fleet/hyundai-staria" },
+    ],
+  },
+  riyadh: {
+    heading: "Choose Your Vehicle",
+    intro: "Every vehicle is available through our partner network, confirmed when you book — built for Riyadh's business and airport traffic.",
+    vehicles: [
+      { category: "sedan", name: "Toyota Camry", subtitle: "Executive Sedan", image: "/fleet/toyota-camry.webp", passengers: 4, luggage: 2, bestFor: "Best for 1–3 passengers — single meetings and point-to-point trips across Olaya or KAFD.", href: "/fleet/toyota-camry" },
+      { category: "suv", name: "GMC Yukon XL", subtitle: "Premium SUV", image: "/fleet/gmc-yukon-xl.webp", passengers: 7, luggage: 5, bestFor: "Family airport transfers and business days where you're carrying bags between stops.", href: "/fleet/gmc-yukon-xl" },
+      { category: "van", name: "Hyundai Staria VIP", subtitle: "VIP Van", image: "/fleet/real/hyundai-staria-exterior.webp", passengers: 7, luggage: 4, bestFor: "Delegations and group airport pickups that need to travel together.", href: "/fleet/hyundai-staria" },
+    ],
+  },
+};
+
+function groupFaqsByCategory<T extends { category?: string }>(items: T[]): { category: string; items: T[] }[] {
+  const map = new Map<string, T[]>();
+  for (const item of items) {
+    const key = item.category ?? "General";
+    if (!map.has(key)) map.set(key, []);
+    map.get(key)!.push(item);
+  }
+  return Array.from(map.entries()).map(([category, items]) => ({ category, items }));
+}
+
+// Per-city H1 override — only add a city here once its generic templated H1
+// has been explicitly approved for replacement (CLAUDE.md rule 3: never touch
+// an H1 on a page with ranking history without explicit sign-off). All other
+// cities keep the original "Private Taxi & Chauffeur Service in {City}" H1.
+const CITY_H1: Record<string, { line1: string; line2: string; cityWord: string }> = {
+  riyadh: { line1: "Private Transfers, Taxis &", line2: "Chauffeur Services in", cityWord: "Riyadh" },
+};
+
+// Vehicle-fit chooser per city — real categories from facts.md only, each
+// linking to the page that actually fulfils it. Riyadh-only for now.
+// Public city-centroid coordinates (not business location data) — lets
+// location pages attach real GeoCoordinates to their Place/areaServed node.
+const CITY_COORDS: Record<string, { lat: number; lng: number }> = {
+  makkah: { lat: 21.3891, lng: 39.8579 },
+  madinah: { lat: 24.5247, lng: 39.5692 },
+  riyadh: { lat: 24.7136, lng: 46.6753 },
+  jeddah: { lat: 21.4858, lng: 39.1925 },
+  dammam: { lat: 26.4207, lng: 50.0888 },
+  alula: { lat: 26.6084, lng: 37.9153 },
+  taif: { lat: 21.2703, lng: 40.4158 },
+  alkhobar: { lat: 26.2172, lng: 50.1971 },
+  yanbu: { lat: 24.0895, lng: 38.0618 },
+  neom: { lat: 27.9958, lng: 35.6367 },
+  abha: { lat: 18.2164, lng: 42.5053 },
+  tabuk: { lat: 28.3998, lng: 36.5715 },
+  abudhabi: { lat: 24.4539, lng: 54.3773 },
+  amman: { lat: 31.9454, lng: 35.9284 },
+};
+
+// City -> matching airport page slug (only where a dedicated /airports/[slug] page exists).
+// Per-city on-page lead block (form + Path B). Add a city here to enable it;
+// NEOM keeps its own bespoke block above. EN-only (locations have no AR page).
+const CITY_LEAD: Record<string, { heading: string; blurb: string; dropoff: string; pathBHeading: string; pathBBody: string; waPrefill: string; emailSubject: string; emailBody: string }> = {
+  riyadh: {
+    heading: "Get your Riyadh transfer quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a private, door-to-door transfer with a professional chauffeur. Airport pickups from King Khalid International (RUH), business visits, events and daily standby.",
+    dropoff: "Riyadh",
+    pathBHeading: "Corporate or event travel in Riyadh?",
+    pathBBody: "For company travel, KAFD and Olaya business visits, exhibitions and conferences we run executive sedans and full-size SUVs with professional chauffeurs — one account, one point of contact, and corporate invoicing on request.",
+    waPrefill: "Salam! Riyadh transfer enquiry.\n• From / to: \n• Date & time: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• Corporate / event / airport?: ",
+    emailSubject: "Corporate transfer RFQ — Riyadh",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers in Riyadh.\n\n• Company / organisation: \n• Contact name & role: \n• Dates: \n• Route(s) or event/venue: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.",
+  },
+  dammam: {
+    heading: "Get your Dammam transfer quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a private, door-to-door transfer with a professional chauffeur across the Eastern Province. Pickups from King Fahd International (DMM), plus Dhahran, Al Khobar and Jubail.",
+    dropoff: "Dammam",
+    pathBHeading: "Corporate travel in the Eastern Province?",
+    pathBBody: "For Saudi Aramco, Dhahran, Al Khobar and Jubail Industrial City we run executive sedans and full-size SUVs with professional chauffeurs — regular staff movements on a single account with corporate invoicing on request.",
+    waPrefill: "Salam! Dammam / Eastern Province transfer enquiry.\n• From / to (Dammam / Dhahran / Khobar / Jubail): \n• Date & time: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• Corporate / airport?: ",
+    emailSubject: "Corporate transfer RFQ — Dammam / Eastern Province",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers in the Eastern Province (Dammam / Dhahran / Al Khobar / Jubail).\n\n• Company: \n• Contact name & role: \n• Dates: \n• Route(s) / sites: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.",
+  },
+  makkah: {
+    heading: "Get your Makkah transfer quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a private, door-to-door transfer with a professional chauffeur. Haram hotel drop-offs, Jeddah Airport (JED) transfers, Makkah to Madinah, and Ziyarat with prayer stops.",
+    dropoff: "Makkah",
+    pathBHeading: "Umrah group or family transport in Makkah?",
+    pathBBody: "For families and Umrah groups we arrange a full-size SUV or van so everyone travels together with luggage — Haram hotel drop-offs, Ziyarat around the historical sites, and onward transfers to Madinah or Jeddah Airport, with a written quote for agencies and groups.",
+    waPrefill: "Salam! Makkah transfer enquiry.\n• From / to (e.g. Haram hotel / JED / Madinah): \n• Date & time: \n• Passengers (adults / children): \n• Vehicle (Sedan / SUV / Van): \n• Ziyarat / airport / intercity?: ",
+    emailSubject: "Group / family transfer RFQ — Makkah",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers in Makkah.\n\n• Agency / group / family name: \n• Contact name: \n• Dates: \n• Route(s) (e.g. Haram hotel → JED, Makkah → Madinah, Ziyarat): \n• Passengers (adults / children): \n• Vehicle(s) needed (Sedan / SUV / Van): \n• Miqat stop for Ihram (if arriving)?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.",
+  },
+  madinah: {
+    heading: "Get your Madinah transfer quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a private, door-to-door transfer with a professional chauffeur. Masjid an-Nabawi hotel drop-offs, MED airport pickups, Ziyarat, and onward trips to Makkah or AlUla.",
+    dropoff: "Madinah",
+    pathBHeading: "Umrah group or family transport in Madinah?",
+    pathBBody: "For families and Umrah groups we arrange a full-size SUV or van so everyone travels together with luggage — Central Area (Markaziyah) hotel drop-offs near Masjid an-Nabawi, Ziyarat around the historical sites, and onward transfers to Makkah, Jeddah or AlUla, with a written quote for agencies and groups.",
+    waPrefill: "Salam! Madinah transfer enquiry.\n• From / to (e.g. MED / hotel / Makkah / AlUla): \n• Date & time: \n• Passengers (adults / children): \n• Vehicle (Sedan / SUV / Van): \n• Ziyarat / airport / intercity?: ",
+    emailSubject: "Group / family transfer RFQ — Madinah",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers in Madinah.\n\n• Agency / group / family name: \n• Contact name: \n• Dates: \n• Route(s) (e.g. MED → hotel, Madinah → Makkah / AlUla, Ziyarat): \n• Passengers (adults / children): \n• Vehicle(s) needed (Sedan / SUV / Van): \n\nPlease confirm a fixed fare before booking.\n\nThank you.",
+  },
+  dhahran: {
+    heading: "Get your Dhahran transfer quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a private, door-to-door transfer with a professional chauffeur. Aramco and KFUPM area pickups, King Fahd International (DMM) airport runs, plus Dammam and Al Khobar.",
+    dropoff: "Dhahran",
+    pathBHeading: "Corporate travel to Aramco or KFUPM?",
+    pathBBody: "For Saudi Aramco headquarters, KFUPM, and the wider Dhahran business district we run executive sedans and full-size SUVs with professional chauffeurs — regular staff movements on a single account with corporate invoicing on request.",
+    waPrefill: "Salam! Dhahran transfer enquiry.\n• From / to (Dhahran / Aramco / KFUPM / DMM): \n• Date & time: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• Corporate / airport?: ",
+    emailSubject: "Corporate transfer RFQ — Dhahran",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers in Dhahran.\n\n• Company: \n• Contact name & role: \n• Dates: \n• Route(s) / sites (Aramco / KFUPM / DMM / Dammam / Al Khobar): \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.",
+  },
+  alkhobar: {
+    heading: "Get your Al Khobar transfer quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a private, door-to-door transfer with a professional chauffeur. King Fahd Airport (DMM) pickups, Dammam–Dhahran metro rides, the Corniche, and cross-border trips to Bahrain via the Causeway.",
+    dropoff: "Al Khobar",
+    pathBHeading: "Corporate travel in Al Khobar & the Eastern Province?",
+    pathBBody: "For Saudi Aramco, Dhahran, Dammam and Jubail Industrial City we run executive sedans and full-size SUVs with professional chauffeurs — regular staff movements on a single account with corporate invoicing on request, plus King Fahd Causeway runs to Bahrain.",
+    waPrefill: "Salam! Al Khobar / Eastern Province transfer enquiry.\n• From / to (Khobar / Dammam / Dhahran / DMM / Bahrain): \n• Date & time: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• Corporate / airport / Bahrain?: ",
+    emailSubject: "Corporate transfer RFQ — Al Khobar / Eastern Province",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers in Al Khobar and the Eastern Province.\n\n• Company: \n• Contact name & role: \n• Dates: \n• Route(s) / sites (Khobar / Dammam / Dhahran / Jubail / Bahrain): \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.",
+  },
+  alula: {
+    heading: "Get your AlUla transfer quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a private car with a professional chauffeur in AlUla. AlUla International (ULH) airport pickups, resort transfers, full-day heritage tours, and intercity trips to Madinah or Tabuk.",
+    dropoff: "AlUla",
+    pathBHeading: "Full-day AlUla tour or group booking?",
+    pathBBody: "Most visitors want AlUla for the day — book a private car by the hour with your chauffeur waiting between the sites: Hegra (Mada'in Salih), Dadan, AlUla Old Town, Elephant Rock and Maraya. Families and tour groups kept together in one vehicle; agencies get a written quote.",
+    waPrefill: "Salam! AlUla transfer / tour enquiry.\n• From / to (ULH airport / resort / sites): \n• Date: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Full-day tour / airport / intercity?: ",
+    emailSubject: "AlUla private tour / transfer RFQ",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a private car for AlUla.\n\n• Agency / group / family name: \n• Contact name: \n• Date(s): \n• Passengers: \n• Vehicle preference (Sedan / SUV / Van): \n• Sites / plan (Hegra / Dadan / Old Town / Elephant Rock / Maraya / ULH airport): \n• Resort / hotel: \n\nPlease confirm a fixed fare before booking.\n\nThank you.",
+  },
+  jeddah: {
+    heading: "Get your Jeddah transfer quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a private, door-to-door transfer with a professional chauffeur. Pickups from King Abdulaziz International (JED), Umrah transfers to Makkah and Madinah, and business travel.",
+    dropoff: "Jeddah",
+    pathBHeading: "Umrah group or corporate travel from Jeddah?",
+    pathBBody: "For Umrah families and groups (Jeddah Airport to Makkah or Madinah) and for business visits, we arrange the right vehicle — vans for families with luggage, executive cars for corporate — with a written quote for agencies and companies.",
+    waPrefill: "Salam! Jeddah transfer enquiry.\n• From / to (e.g. JED → Makkah): \n• Date & time: \n• Passengers (adults / children): \n• Vehicle (Sedan / SUV / Van): \n• Umrah / corporate / airport?: ",
+    emailSubject: "Group / corporate transfer RFQ — Jeddah",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers from Jeddah.\n\n• Agency / company / group name: \n• Contact name: \n• Dates & flight numbers: \n• Route(s) (e.g. JED → Makkah / Madinah): \n• Passengers per transfer (adults / children): \n• Vehicle(s) needed (Sedan / SUV / Van): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.",
+  },
+  tabuk: {
+    heading: "Get your Tabuk transfer quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a private car with a professional chauffeur in Tabuk. TUU airport pickups, NEOM business trips, AlUla heritage travel, and cross-border runs to Jordan via Haql.",
+    dropoff: "Tabuk",
+    pathBHeading: "NEOM business travel or a group trip from Tabuk?",
+    pathBBody: "For NEOM site access, corporate travel and contractor movements we run executive sedans and SUVs with professional chauffeurs — plus AlUla heritage day trips and Jordan-border runs, with a written quote and corporate invoicing on request.",
+    waPrefill: "Salam! Tabuk transfer enquiry.\n• From / to (TUU / NEOM / AlUla / Jordan border): \n• Date & time: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• NEOM / airport / intercity?: ",
+    emailSubject: "Corporate / group transfer RFQ — Tabuk",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers from Tabuk.\n\n• Company / group name: \n• Contact name: \n• Dates: \n• Route(s) (TUU / NEOM / AlUla / Haql–Jordan): \n• Passengers: \n• Vehicle(s) needed (Executive sedan / SUV / Van): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.",
+  },
+  taif: {
+    heading: "Get your Taif transfer quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a private car with a professional chauffeur in Taif. TIF airport pickups, transfers to Makkah and Jeddah, and sightseeing up the Al Hada and Al Shafa mountain roads.",
+    dropoff: "Taif",
+    pathBHeading: "Family day trip or group booking in Taif?",
+    pathBBody: "For families and groups we arrange SUVs and vans with experienced mountain-road chauffeurs — Al Hada cable car, Al Shafa, the rose farms and Shubra Palace, or a day trip down to Makkah, kept together in one vehicle with a written quote for groups.",
+    waPrefill: "Salam! Taif transfer enquiry.\n• From / to (TIF / Makkah / Jeddah / Al Hada): \n• Date & time: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Sightseeing / airport / intercity?: ",
+    emailSubject: "Group / family transfer RFQ — Taif",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers in Taif.\n\n• Group / family name: \n• Contact name: \n• Date(s): \n• Route(s) / sites (Al Hada / Al Shafa / rose farms / Makkah): \n• Passengers: \n• Vehicle(s) needed (Sedan / SUV / Van): \n\nPlease confirm a fixed fare before booking.\n\nThank you.",
+  },
+  yanbu: {
+    heading: "Get your Yanbu transfer quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a private car with a professional chauffeur in Yanbu. Airport pickups, intercity trips to Madinah and Jeddah, and rides across Yanbu Al-Bahr and the Industrial City.",
+    dropoff: "Yanbu",
+    pathBHeading: "Industrial City or leisure travel in Yanbu?",
+    pathBBody: "For Yanbu Industrial City contractors and companies we run executive sedans and SUVs with corporate invoicing on request; for visitors we cover Red Sea diving trips, the old town, and intercity travel to Madinah or Jeddah — with a written quote for groups.",
+    waPrefill: "Salam! Yanbu transfer enquiry.\n• From / to (airport / Yanbu Al-Bahr / Industrial City / Madinah): \n• Date & time: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Corporate / leisure / intercity?: ",
+    emailSubject: "Corporate / group transfer RFQ — Yanbu",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers in Yanbu.\n\n• Company / group name: \n• Contact name: \n• Dates: \n• Route(s) (Yanbu Al-Bahr / Industrial City / Madinah / Jeddah): \n• Passengers: \n• Vehicle(s) needed (Sedan / SUV / Van): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.",
+  },
+  abha: {
+    heading: "Get your Abha transfer quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a private car with a professional chauffeur in Abha. AHB airport pickups, Soudah and Asir mountain sightseeing, and rides across the cool highlands.",
+    dropoff: "Abha",
+    pathBHeading: "Asir sightseeing or a group trip from Abha?",
+    pathBBody: "For families and groups we arrange SUVs and vans with chauffeurs who know the mountain roads — Soudah Peak and the cable car, Habala, the Green Mountain and the Asir highlands, kept together in one vehicle with a written quote for groups.",
+    waPrefill: "Salam! Abha transfer enquiry.\n• From / to (AHB / Soudah / Asir sites): \n• Date & time: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Sightseeing / airport?: ",
+    emailSubject: "Group / family transfer RFQ — Abha",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers in Abha.\n\n• Group / family name: \n• Contact name: \n• Date(s): \n• Sites / route(s) (Soudah / cable car / Habala / Green Mountain): \n• Passengers: \n• Vehicle(s) needed (Sedan / SUV / Van): \n\nPlease confirm a fixed fare before booking.\n\nThank you.",
+  },
+  abudhabi: {
+    heading: "Get your Riyadh to Abu Dhabi quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a private, pre-booked cross-border car with a professional chauffeur, most commonly from Riyadh (~850 km via Al Batha–Ghuwaifat). Not a local Abu Dhabi taxi service.",
+    dropoff: "Abu Dhabi, UAE",
+    pathBHeading: "Corporate or delegation travel to Abu Dhabi?",
+    pathBBody: "For business travellers and delegations crossing to Abu Dhabi we arrange an executive sedan or full-size SUV with a professional chauffeur. Share your company details, dates and passenger count in advance for a written quote.",
+    waPrefill: "Salam! Cross-border transfer enquiry — Saudi Arabia to Abu Dhabi.\n• From (e.g. Riyadh) / To: Abu Dhabi\n• Date & time: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• Corporate / delegation?: ",
+    emailSubject: "Cross-border transfer RFQ — Abu Dhabi",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for a cross-border transfer to Abu Dhabi.\n\n• Company / organisation: \n• Contact name & role: \n• Dates: \n• From city (e.g. Riyadh): \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van): \n\nPlease confirm a fixed fare before booking.\n\nThank you.",
+  },
+  amman: {
+    heading: "Get your Jordan transfer quote",
+    blurb: "Fill a few details for a fast WhatsApp quote — a pre-booked private car with a professional driver in Jordan, arranged through our partner in Jordan. Queen Alia (AMM) pickups, Amman, Petra, Wadi Rum and Aqaba. Not a street-hail taxi.",
+    dropoff: "Jordan",
+    pathBHeading: "Group, corporate or Saudi–Jordan trip?",
+    pathBBody: "For groups, companies and trips that combine a Saudi–Jordan crossing with transfers in Jordan we prepare one written quote. Share your route, dates, passenger count and luggage in advance.",
+    waPrefill: "Salam! Jordan transfer enquiry.\n• From (e.g. Queen Alia Airport AMM / Amman hotel): \n• To (e.g. Petra / Wadi Rum / Aqaba): \n• Date & time: \n• Passengers & luggage: \n• Vehicle (Executive sedan / SUV / Van): \n• Flight number (if airport): ",
+    emailSubject: "Jordan transfer RFQ — Amman",
+    emailBody: "Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transfers in Jordan.\n\n• Company / group name: \n• Contact name & role: \n• Dates: \n• Route(s) in Jordan: \n• Saudi–Jordan cross-border leg needed (from where)?: \n• Passengers & luggage: \n• Vehicle preference (Executive sedan / SUV / Van): \n\nPlease confirm a fixed fare before booking.\n\nThank you.",
+  },
+};
+
+// Hourly / full-day car-hire section per city (major commercial intent). Add a
+// city here to render it; EN-only. Content must be genuinely city-specific.
+const HOURLY_HIRE: Record<string, { heading: string; intro: string; useCases: string[]; waPrefill: string }> = {
+  makkah: {
+    heading: "Hourly Chauffeur & Full-Day Car Hire in Makkah",
+    intro: "Need the car and driver for several hours rather than a single transfer? Keep a private car on hourly hire in Makkah — for Ziyarat around the historical sites, hotel-to-Haram runs timed around prayer-time road closures, shopping, or a full day that ends at Jeddah Airport.",
+    useCases: [
+      "Ziyarat tour at your own pace — Jabal al-Nour (Cave of Hira), Jabal Thawr, Mina and Arafat",
+      "Hotel ↔ Masjid al-Haram runs timed around Salah road closures near the Haram",
+      "Families and Umrah groups kept together with their luggage in one vehicle",
+      "Shopping and multi-stop trips across Makkah with the car waiting between stops",
+      "A full day ending with your Jeddah Airport (JED) departure transfer",
+    ],
+    waPrefill: "Salam! Hourly chauffeur / full-day car hire in Makkah.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Plan (Ziyarat / hotel-Haram / shopping / airport): ",
+  },
+  madinah: {
+    heading: "Hourly Chauffeur & Full-Day Car Hire in Madinah",
+    intro: "Need the car and driver for several hours rather than a single transfer? Keep a private car on hourly hire in Madinah — for Ziyarat around the historical sites, hotel-to-Masjid an-Nabawi runs, shopping, or a full day that continues to Makkah, Jeddah or AlUla.",
+    useCases: [
+      "Ziyarat tour at your own pace — Quba Mosque, Mount Uhud and Masjid al-Qiblatain",
+      "Central Area (Markaziyah) hotel ↔ Masjid an-Nabawi runs",
+      "Families and Umrah groups kept together with their luggage in one vehicle",
+      "Shopping and multi-stop trips across Madinah with the car waiting",
+      "A full day continuing to Makkah, Jeddah Airport (JED), or an AlUla heritage trip",
+    ],
+    waPrefill: "Salam! Hourly chauffeur / full-day car hire in Madinah.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Plan (Ziyarat / hotel-Masjid / shopping / onward trip): ",
+  },
+  jeddah: {
+    heading: "Hourly Chauffeur & Full-Day Car Hire in Jeddah",
+    intro: "Need the car and driver for several hours rather than a single transfer? Keep a private car on hourly hire in Jeddah — for a day of business meetings, sightseeing along the Corniche and historic Al-Balad, shopping, or an Umrah stopover day before continuing to Makkah.",
+    useCases: [
+      "Business meetings across Jeddah with the car and chauffeur on standby",
+      "Sightseeing — the Corniche waterfront and UNESCO-listed Al-Balad (Historic Jeddah)",
+      "Shopping and multi-stop trips across the malls and districts",
+      "An Umrah stopover day in Jeddah before continuing to Makkah",
+      "A full day ending with your Jeddah Airport (JED) departure",
+    ],
+    waPrefill: "Salam! Hourly chauffeur / full-day car hire in Jeddah.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Plan (business / sightseeing / shopping / airport): ",
+  },
+  dammam: {
+    heading: "Hourly Chauffeur & Full-Day Car Hire in Dammam",
+    intro: "Need the car and driver for several hours rather than a single transfer? Keep a private car on hourly hire across the Eastern Province — a day of business meetings in Dammam, Al Khobar, Dhahran and Jubail, site visits, Corniche outings, or a full day ending at King Fahd Airport.",
+    useCases: [
+      "Business meetings across Dammam, Al Khobar, Dhahran and Jubail on standby",
+      "Corporate and industrial site visits with waiting time between stops",
+      "Corniche and Half Moon Bay outings with the family",
+      "Shopping and multi-stop trips across the metro area",
+      "A full day ending at King Fahd International Airport (DMM), or a Bahrain Causeway run",
+    ],
+    waPrefill: "Salam! Hourly chauffeur / full-day car hire in Dammam / Eastern Province.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• Plan (business / site visits / family / airport): ",
+  },
+  alkhobar: {
+    heading: "Hourly Chauffeur & Full-Day Car Hire in Al Khobar",
+    intro: "Need the car and driver for several hours rather than a single transfer? Keep a private car on hourly hire in Al Khobar — a day of business meetings across the Dammam–Khobar–Dhahran metro, Corniche and Half Moon Bay outings, shopping, or a full day ending at King Fahd Airport or across the Causeway to Bahrain.",
+    useCases: [
+      "Business meetings across Al Khobar, Dammam, Dhahran and Jubail on standby",
+      "Corporate and industrial site visits with waiting time between stops",
+      "Corniche and Half Moon Bay outings with the family",
+      "Shopping and multi-stop trips across the metro area",
+      "A full day ending at King Fahd International Airport (DMM), or a Bahrain Causeway run",
+    ],
+    waPrefill: "Salam! Hourly chauffeur / full-day car hire in Al Khobar.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• Plan (business / site visits / family / airport / Bahrain): ",
+  },
+  alula: {
+    heading: "Full-Day Car Hire & Hourly Chauffeur in AlUla",
+    intro: "AlUla's sites are spread across the valley, so most visitors keep a private car and chauffeur for the day rather than booking single transfers. Tour Hegra, Dadan, the Old Town, Elephant Rock and Maraya at your own pace, with the car waiting between stops.",
+    useCases: [
+      "Full-day heritage tour — Hegra (Mada'in Salih), Dadan, AlUla Old Town, Elephant Rock and Maraya",
+      "Resort ↔ sites transfers across the valley with waiting time",
+      "AlUla International Airport (ULH) arrival day with onward sightseeing",
+      "Families and small groups kept together in one comfortable vehicle",
+      "Higher demand in the cooler Winter at Tantora season — book ahead",
+    ],
+    waPrefill: "Salam! Full-day car hire / hourly chauffeur in AlUla.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Sites (Hegra / Dadan / Old Town / Elephant Rock / Maraya): ",
+  },
+  tabuk: {
+    heading: "Full-Day Car Hire & Hourly Chauffeur in Tabuk",
+    intro: "Tabuk is the gateway to NEOM, AlUla and the north-west, and the sites are far apart — most travellers keep a private car and chauffeur for the day rather than booking single transfers.",
+    useCases: [
+      "NEOM site-access day with waiting time between zones",
+      "AlUla heritage day trip and back",
+      "Tabuk sightseeing — Tabuk Castle, the Hejaz Railway station and Wadi Disah",
+      "Cross-border run to Jordan via the Haql crossing",
+      "Airport (TUU) arrival day with onward travel",
+    ],
+    waPrefill: "Salam! Full-day car hire / hourly chauffeur in Tabuk.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Plan (NEOM / AlUla / sightseeing / Jordan): ",
+  },
+  taif: {
+    heading: "Full-Day Car Hire & Hourly Chauffeur in Taif",
+    intro: "Taif's attractions are spread across the mountains, so a private car by the hour or for the day is the easy way to see them — with a chauffeur experienced on the steep Al Hada road.",
+    useCases: [
+      "Al Hada cable car and mountain viewpoints",
+      "Al Shafa highlands and the rose farms in season",
+      "Shubra Palace and the old souqs",
+      "A day trip down to Makkah (~90 km) and back",
+      "Airport (TIF) arrival day with onward sightseeing",
+    ],
+    waPrefill: "Salam! Full-day car hire / hourly chauffeur in Taif.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Plan (Al Hada / Al Shafa / rose farms / Makkah): ",
+  },
+  yanbu: {
+    heading: "Full-Day Car Hire & Hourly Chauffeur in Yanbu",
+    intro: "Yanbu spreads from the old town on the coast to the Industrial City, so keeping a private car for the day makes moving between them simple — for business or for a Red Sea break.",
+    useCases: [
+      "Industrial City site visits with waiting time between plants",
+      "Red Sea diving and beach trips along the coast",
+      "Yanbu Al-Bahr old town and the waterfront",
+      "Shopping and multi-stop trips across the city",
+      "A full day continuing to Madinah (~240 km) or Jeddah (~330 km)",
+    ],
+    waPrefill: "Salam! Full-day car hire / hourly chauffeur in Yanbu.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Plan (Industrial City / diving / old town / intercity): ",
+  },
+  abha: {
+    heading: "Full-Day Car Hire & Hourly Chauffeur in Abha",
+    intro: "Abha and the Asir highlands are best seen with a private car for the day — the viewpoints and villages are spread across the mountains, on roads a local chauffeur knows well.",
+    useCases: [
+      "Soudah Peak and the Abha cable car",
+      "The hanging village of Habala and Asir mountain viewpoints",
+      "Green Mountain (Jabal Thera) and the city parks",
+      "Shopping and multi-stop trips across Abha and Khamis Mushait",
+      "Airport (AHB) arrival day with onward sightseeing",
+    ],
+    waPrefill: "Salam! Full-day car hire / hourly chauffeur in Abha.\n• Date & hours needed: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Plan (Soudah / Habala / Green Mountain / sightseeing): ",
+  },
+};
+
+const CITY_AIRPORT: Record<string, { slug: string; name: string }> = {
+  jeddah: { slug: "king-abdulaziz-jeddah", name: "King Abdulaziz International Airport (JED)" },
+  madinah: { slug: "prince-mohammad-madinah", name: "Prince Mohammad Bin Abdulaziz Airport (MED)" },
+  riyadh: { slug: "king-khalid-riyadh", name: "King Khalid International Airport (RUH)" },
+  dammam: { slug: "king-fahd-dammam", name: "King Fahd International Airport (DMM)" },
+  taif: { slug: "taif-regional", name: "Taif Regional Airport (TIF)" },
+  alula: { slug: "alula", name: "AlUla International Airport (ULH)" },
+  abha: { slug: "abha-regional", name: "Abha International Airport (AHB)" },
+  tabuk: { slug: "tabuk-regional", name: "Tabuk Regional Airport (TUU)" },
+  neom: { slug: "red-sea", name: "Red Sea International Airport (RSI)" },
+};
+
+// Additional airport links per city (e.g. NEOM serves both RSI and TUU).
+const CITY_AIRPORTS_EXTRA: Record<string, { slug: string; name: string }[]> = {
+  neom: [{ slug: "tabuk-regional", name: "Tabuk Regional Airport (TUU)" }],
+};
+
+interface PageProps {
+  params: Promise<{
+    city: string;
+  }>;
+}
+
+// One genuinely distinguishing sentence per city (a landmark, a real distance,
+// a local route) instead of the old "Book a fixed-price taxi in {city}..."
+// template that was byte-identical across all 11 pages except the city name.
+const CITY_META_DESCRIPTION: Record<string, string> = {
+  makkah: "Book a private taxi or transfer in Makkah — Jeddah Airport, Madinah, Taif, hotel and Ziyarat trips, plus a chauffeur by the hour. Fare agreed first, 24/7.",
+  madinah: "Private taxi & transfers in Madinah — MED airport (~20 km), hotels near Masjid an-Nabawi, Ziyarat by car, a private driver by the hour, and trips to Makkah or AlUla. Fare agreed first.",
+  riyadh: "Private transfers & chauffeurs in Riyadh — RUH airport (~35 km), hotel transfers, hourly drivers, KAFD business travel, intercity & GCC cars. Fare agreed first.",
+  jeddah: "Private taxi & chauffeur in Jeddah — JED airport transfers with flight tracking, Makkah (~80 km) and Madinah (~420 km) trips, hotel transfers, 24/7.",
+  dammam: "Taxi in Dammam — DMM airport transfers (~35 km), Khobar–Dhahran rides, and cross-border trips to Bahrain via the Causeway.",
+  alula: "Private transfers and chauffeur service in AlUla — ULH airport, hotels, Hegra, Maraya, a private driver for multi-stop days, and Madinah or Red Sea transfers. Fare agreed first.",
+  taif: "Taxi in Taif — day trips from Makkah (~90 km) via Al Hada, rose farm visits, and TIF airport transfers. Cool mountain escape.",
+  alkhobar: "Taxi in Al Khobar — Corniche rides, DMM airport transfers (~30 km), and cross-border trips to Bahrain via the Causeway.",
+  yanbu: "Taxi in Yanbu — Red Sea diving trips, and intercity rides to Madinah (~240 km) or Jeddah (~330 km). Industrial City covered.",
+  neom: "Executive taxi across NEOM & Tabuk — Tabuk (TUU) and NEOM Bay (NUM) airport transfers, site access trips, and Gulf of Aqaba coast rides.",
+  abha: "Taxi in Abha — Soudah Peak & cable car trips, AHB airport transfers (~25 km), and rides across the misty Asir mountains.",
+  tabuk: "Taxi in Tabuk — TUU airport transfers, NEOM business trips (~120 km), and cross-border rides to Aqaba, Jordan via Haql (~270 km).",
+  abudhabi: "Private, pre-booked car between Saudi Arabia and Abu Dhabi — Riyadh corridor (~850 km), executive sedan/SUV/van, fare confirmed on WhatsApp. Not a local UAE taxi.",
+  amman: "Pre-booked private cars in Jordan through our partner: Queen Alia Airport (AMM), Amman, Petra, Wadi Rum and Aqaba, plus Saudi–Jordan legs. Fixed fare on WhatsApp.",
+};
+
+// Per-city title overrides — same CTR-fix rationale as routes/[slug]'s
+// TITLE_OVERRIDES: pages with confirmed impressions but zero clicks, where
+// the generic "Taxi in {city} | Airport & Intercity" formula undersells the
+// page relative to what the city's own CITY_META_DESCRIPTION already covers.
+const CITY_META_TITLE: Record<string, string> = {
+  riyadh: "Riyadh Taxi & Chauffeur Service | Airport, KAFD & Intercity",
+  neom: "NEOM Taxi & Executive Transfer | Tabuk & NEOM Bay Airports",
+  makkah: "Makkah Private Taxi & Transfers | Airport, Madinah & Ziyarat",
+  madinah: "Madinah Taxi & Private Transfers | Ziyarat, MED Airport & Hotels",
+  jeddah: "Jeddah Taxi & Private Transfers | JED Airport, Makkah & Chauffeur",
+  dammam: "Dammam Taxi & Private Transfers | DMM Airport, Khobar & Bahrain",
+  alkhobar: "Al Khobar Taxi & Private Transfers | DMM Airport & Bahrain",
+  alula: "AlUla Taxi & Private Car Hire | Hegra, ULH Airport & Tours",
+  tabuk: "Tabuk Taxi & Private Transfers | TUU Airport, NEOM & AlUla",
+  taif: "Taif Taxi & Private Transfers | TIF Airport, Al Hada & Makkah",
+  yanbu: "Yanbu Taxi & Private Transfers | Airport, Hotels & Chauffeur",
+  abha: "Abha Taxi & Private Transfers | AHB Airport, Soudah & Asir",
+  abudhabi: "Abu Dhabi Private Taxi & Cross-Border Car Service | Taxi Saudi Arabia",
+  amman: "Jordan Private Transfers | Amman Airport, Petra & Aqaba | Taxi Saudi Arabia",
+};
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { city } = await params;
+  const cityKeyLower = city.toLowerCase();
+  const cityData = CITY_DETAILS[cityKeyLower];
+
+  // Unknown slug: real 404 (was 200 + canonical -> /locations, a soft-404).
+  if (!cityData) notFound();
+
+  // Riyadh hub (rebuilt 2026-10-01): title unchanged (rule 3), OG/Twitter
+  // now mirror the real title instead of the generic "Taxi Service in" line.
+  if (cityKeyLower === "riyadh" || cityKeyLower === "jeddah" || cityKeyLower === "alula" || cityKeyLower === "makkah" || cityKeyLower === "madinah") {
+    const t = CITY_META_TITLE[cityKeyLower];
+    const d = CITY_META_DESCRIPTION[cityKeyLower];
+    const img = cityKeyLower === "alula" ? "https://taxisaudiarabia.com/locations/alula/alula-og-sandstone-road.webp" : `https://taxisaudiarabia.com/locations/${cityKeyLower}-og.webp`;
+    return {
+      title: t,
+      description: d,
+      alternates: {
+        canonical: `https://taxisaudiarabia.com/locations/${cityKeyLower}`,
+        ...(cityKeyLower === "alula" || cityKeyLower === "jeddah" || cityKeyLower === "makkah" || cityKeyLower === "madinah"
+          ? { languages: { en: `https://taxisaudiarabia.com/locations/${cityKeyLower}`, ar: `https://taxisaudiarabia.com/ar/locations/${cityKeyLower}`, "x-default": `https://taxisaudiarabia.com/locations/${cityKeyLower}` } }
+          : {}),
+      },
+      openGraph: { title: t, description: d, type: "website", url: `https://taxisaudiarabia.com/locations/${cityKeyLower}`, images: [{ url: img, width: 1200, height: 630, alt: cityKeyLower === "riyadh" ? "Riyadh skyline with Kingdom Centre and Al Faisaliah Tower" : cityKeyLower === "alula" ? "Private transport in AlUla, Saudi Arabia" : cityKeyLower === "makkah" ? "Minarets of the Haram complex in Makkah at sunset" : "The Jeddah Corniche on the Red Sea" }] },
+      twitter: { card: "summary_large_image", title: t, description: d, images: [img] },
+    };
+  }
+
+  return {
+    title: CITY_META_TITLE[cityKeyLower] ?? `Taxi in ${cityData.name} | Airport & Intercity — Taxi Saudi Arabia`,
+    description: CITY_META_DESCRIPTION[cityKeyLower] ?? `Book a private transfer in ${cityData.name}, Saudi Arabia — airport transfers, Umrah rides, and 24/7 intercity trips with professional drivers. No surge, quoted on WhatsApp.`,
+    alternates: {
+      canonical: `https://taxisaudiarabia.com/locations/${city}`,
+    },
+    openGraph: {
+      title: `Taxi Service in ${cityData.name} | Taxi Saudi Arabia`,
+      description: `Book a private transfer in ${cityData.name}, quoted on WhatsApp. Airport transfers, Umrah rides, and intercity taxi service. Available 24/7 with professional drivers.`,
+      type: "website",
+      url: `https://taxisaudiarabia.com/locations/${city}`,
+      images: [
+        {
+          url: `https://taxisaudiarabia.com/locations/${city.toLowerCase()}-og.webp`,
+          width: 1200,
+          height: 630,
+          alt: `Taxi service in ${cityData.name}, Saudi Arabia`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `Taxi Service in ${cityData.name} | Taxi Saudi Arabia`,
+      description: `Taxi in ${cityData.name} — airport transfers, Umrah rides, and 24/7 intercity trips.`,
+      images: [`https://taxisaudiarabia.com/locations/${city.toLowerCase()}-og.webp`],
+    },
+  };
+}
+
+export default async function CityLocationPage({ params }: PageProps) {
+  const { city } = await params;
+  const cityKey = city.toLowerCase();
+  if (!CITY_DETAILS[cityKey]) notFound();
+  if (cityKey === "riyadh" && CITY_DETAILS.riyadh) {
+    return <RiyadhHub name={CITY_DETAILS.riyadh.name} nameAr={CITY_DETAILS.riyadh.nameAr} />;
+  }
+  if (cityKey === "alula" && CITY_DETAILS.alula) {
+    return <AlulaHub name={CITY_DETAILS.alula.name} nameAr={CITY_DETAILS.alula.nameAr} />;
+  }
+  if (cityKey === "makkah" && CITY_DETAILS.makkah) {
+    return <MakkahHub name={CITY_DETAILS.makkah.name} nameAr={CITY_DETAILS.makkah.nameAr} />;
+  }
+  if (cityKey === "madinah" && CITY_DETAILS.madinah) {
+    return <MadinahHub name={CITY_DETAILS.madinah.name} nameAr={CITY_DETAILS.madinah.nameAr} />;
+  }
+  if (cityKey === "jeddah" && CITY_DETAILS.jeddah) {
+    return <JeddahHub name={CITY_DETAILS.jeddah.name} nameAr={CITY_DETAILS.jeddah.nameAr} />;
+  }
+  
+  // Default fallback if city not strictly defined
+  const cityData = CITY_DETAILS[cityKey] || {
+    name: city.charAt(0).toUpperCase() + city.slice(1),
+    nameAr: "",
+    image: "/locations/riyadh-hero.webp",
+    tagline: "Taxi & Car Service",
+    description: `Reliable taxi and car service in ${city}, Saudi Arabia. Airport transfers, intercity rides, and local pickups with professional drivers.`,
+    attractions: [],
+    tips: []
+  };
+
+  // District-only — service-kind sub-pages (e.g. private-driver) get their
+  // own explicit relatedLinks entry with proper anchor text instead, since
+  // "Taxi in {area.name}" doesn't fit a service page's framing.
+  const citySubAreas = Object.values(SUB_AREAS).filter((a) => a.city === cityKey && a.kind !== "service");
+  const cityAirport = CITY_AIRPORT[cityKey];
+  const cityLead = CITY_LEAD[cityKey];
+  const hourlyHire = HOURLY_HIRE[cityKey];
+
+  // Routes connected to this city — sourced from the same static ROUTES_DATA
+  // that powers every real /routes/[slug] page. Previously queried a separate,
+  // legacy Prisma `Route` table (pre-dates the WhatsApp-only pricing policy)
+  // that isn't guaranteed to be in sync with the actual live route pages.
+  const cityNameLower = cityData.name.toLowerCase();
+  const cityRoutes = ROUTES_DATA.filter(
+    (r) => r.fromCity.toLowerCase().includes(cityNameLower) || r.toCity.toLowerCase().includes(cityNameLower),
+  )
+    .sort((a, b) => Number(b.popular) - Number(a.popular))
+    .slice(0, 10);
+
+  return (
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
+      <JsonLd
+        data={[
+          serviceSchema({
+            name: `Taxi Service in ${cityData.name}`,
+            description: cityData.description,
+            path: `/locations/${cityKey}`,
+            serviceType: "Local Taxi & Car Service",
+            areaServed: [
+              CITY_COORDS[cityKey]
+                ? { name: cityData.name, lat: CITY_COORDS[cityKey].lat, lng: CITY_COORDS[cityKey].lng }
+                : cityData.name,
+            ],
+          }),
+          speakableSchema({ path: `/locations/${cityKey}` }),
+          ...(cityRoutes.length > 0
+            ? [itemListSchema(cityRoutes.map((r) => ({ name: `${r.fromCity} to ${r.toCity}`, href: `/routes/${r.slug}` })))]
+            : []),
+        ]}
+      />
+      {cityData.faqs && cityData.faqs.length > 0 && (
+        <JsonLd data={faqSchema(cityData.faqs)} />
+      )}
+      {AIRPORT_JOURNEY[cityKey] && (
+        <JsonLd
+          data={howToSchema({
+            name: AIRPORT_JOURNEY[cityKey].heading,
+            description: `Step-by-step private airport transfer process in ${cityData.name}.`,
+            steps: AIRPORT_JOURNEY[cityKey].steps.map((s) => ({ name: s.title, text: s.desc })),
+          })}
+        />
+      )}
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Locations", href: "/locations" },
+          { name: cityData.name, href: `/locations/${cityKey}` },
+        ]}
+      />
+      {/* ─── HERO ─────────────────────────────────────────────────── */}
+      <section className="relative pt-32 pb-20 overflow-hidden border-b border-[#16A34A]/10">
+        <div className="absolute inset-0 z-0" data-parallax="0.08">
+          <Image
+            src={cityData.image}
+            alt={
+              cityKey === "abudhabi"
+                ? "Abu Dhabi skyline — private cross-border car service between the UAE and Saudi Arabia"
+                : cityKey === "amman"
+                ? "Temple of Hercules on the Amman Citadel, Jordan"
+                : `Taxi service in ${cityData.name}, Saudi Arabia — airport transfers and intercity rides`
+            }
+            fill
+            priority
+            sizes="100vw"
+            placeholder="blur"
+            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+            className="object-cover"
+          />
+          {/* Copy side stays solid for legibility; the photo breathes on the
+              form side and fades into the page at the bottom. */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#FAFAF7] via-[#FAFAF7]/88 to-[#FAFAF7]/25 rtl:bg-gradient-to-l" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-transparent to-[#FAFAF7]/40" />
+        </div>
+
+        <div className="section-container relative z-10 max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-8 items-start">
+            {/* Left: identity + copy + trust chips + CTAs */}
+            <div className="lg:col-span-3">
+              <span className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/30 bg-[#16A34A]/20 backdrop-blur-sm px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#16A34A] mb-6">
+                <MapPin className="h-3 w-3" /> Location Guide
+              </span>
+              <h1 className="font-heading text-4xl md:text-6xl font-bold leading-tight">
+                {CITY_H1[cityKey] ? (
+                  <>
+                    {CITY_H1[cityKey].line1} <br />
+                    {CITY_H1[cityKey].line2} <span className="text-[#16A34A]">{CITY_H1[cityKey].cityWord}</span>
+                  </>
+                ) : (
+                  <>
+                    Private Taxi &amp; Chauffeur Service in <br />
+                    <span className="text-[#16A34A]">{cityData.name}</span>
+                  </>
+                )}
+              </h1>
+              <p className="text-[#16A34A] text-sm tracking-widest uppercase font-bold mt-2 mb-6">{cityData.nameAr} - {cityData.tagline}</p>
+              <p className="max-w-xl text-sm md:text-base text-[#6B7280] leading-relaxed">
+                {cityData.description}
+              </p>
+
+              {CITY_HERO_HIGHLIGHTS[cityKey] && (
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {CITY_HERO_HIGHLIGHTS[cityKey].map((h) => (
+                    <span key={h} className="rounded-full border border-[#16A34A]/20 bg-white/80 backdrop-blur-sm px-3 py-1.5 text-[0.7rem] font-semibold text-[#15803D]">
+                      {h}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              <div className="mt-8 flex flex-wrap gap-4">
+                <Link
+                  href={`/book?pickup=${encodeURIComponent(cityData.name)}`}
+                  className="btn btn-primary btn-lg"
+                >
+                  <Car className="h-4 w-4" />
+                  Book a Taxi Now
+                </Link>
+                {cityLead && (
+                  <a
+                    href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(cityLead.waPrefill)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-secondary btn-lg"
+                  >
+                    <MessageSquare className="h-4 w-4" />
+                    Quick Quote on WhatsApp
+                  </a>
+                )}
+              </div>
+            </div>
+
+            {/* Right: the booking product itself — same form/backend used
+                sitewide (WhatsAppQuoteForm), just given hero-level visual
+                weight instead of floating a bare form over the image. */}
+            <div className="lg:col-span-2 lg:pt-2">
+              <div>
+                <WhatsAppQuoteForm defaultDropoff={cityData.name} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Top grid: sidebar (Key Destinations + vehicle card — short content)
+          pairs only with the above-the-fold orientation block. CSS Grid
+          stretches both columns to the tallest row by default, so pairing a
+          short sidebar against the full length of the page (15+ sections)
+          left a permanent blank column running the entire page height on
+          wide viewports. Everything past this point renders full-width
+          below instead — see the matching close/reopen a few sections down. */}
+      <div className="section-container max-w-6xl mt-16 grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div className="lg:col-span-2 space-y-16">
+
+          {/* Service selector — "what are you travelling for?" navigation
+              grid, immediately after the hero so every trip type is
+              discoverable before the user starts reading prose. */}
+          {SERVICE_SELECTOR[cityKey] && (
+            <ServiceSelector heading={SERVICE_SELECTOR[cityKey].heading} tiles={SERVICE_SELECTOR[cityKey].tiles} />
+          )}
+
+          {/* Quick Answer (above-the-fold AI/snippet signal) */}
+          {cityData.tldr && (
+            <TLDRSummary answer={cityData.tldr} facts={cityData.tldrFacts} />
+          )}
+
+          {/* Transfer network overview — broader destination set than the
+              TLDR chips, visual spatial summary ahead of the full route list. */}
+          {CITY_TRANSFER_NETWORK[cityKey] && (
+            <CityTransferNetwork cityName={cityData.name} destinations={CITY_TRANSFER_NETWORK[cityKey]} />
+          )}
+        </div>
+
+        {/* ─── SIDEBAR (sticky — stays visible while this short top row
+            scrolls past, then releases naturally into the full-width
+            content below instead of stretching an empty column) ───────── */}
+        <div className="lg:col-span-1 space-y-8 lg:sticky lg:top-28 lg:self-start">
+
+          {/* Attractions */}
+          {cityData.attractions.length > 0 && (
+            <div className="bg-white border border-[#16A34A]/12 rounded-3xl p-6">
+              <h3 className="font-heading text-xl font-bold mb-6 flex items-center gap-2">
+                <Building2 className="text-[#16A34A] h-5 w-5" /> Key Destinations
+              </h3>
+              <div className="space-y-4">
+                {cityData.attractions.map((attr, idx) => (
+                  <div key={idx} className="flex justify-between items-center border-b border-[#16A34A]/10 pb-4 last:border-0 last:pb-0">
+                    <span className="text-sm font-bold text-[#1C1C1C]">{attr.name}</span>
+                    <span className="text-[0.65rem] uppercase tracking-wider text-[#16A34A] bg-[#16A34A]/10 px-2 py-1 rounded-md">{attr.dist}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Vehicle Recommendation fallback — only for cities that don't yet
+              have the richer VehicleShowcase + VehicleRecommender below
+              (avoids showing two different vehicle-recommendation widgets
+              on the same page for Jeddah/Riyadh). */}
+          {!VEHICLE_SHOWCASE[cityKey] && (
+            <div className="bg-white border border-[#16A34A]/15 shadow-lg rounded-3xl p-6 relative overflow-hidden">
+              <div className="absolute -right-4 -top-4 opacity-10 text-[#16A34A]">
+                <Car className="h-32 w-32" />
+              </div>
+              <div className="relative z-10">
+                <span className="text-[0.6rem] uppercase tracking-widest text-[#16A34A] font-bold">Recommended</span>
+                <h3 className="font-heading text-xl font-bold mt-1 mb-2">SUV Class</h3>
+                <p className="text-xs text-[#6B7280] mb-6 leading-relaxed">
+                  For optimal comfort and ample luggage space in {cityData.name}, a premium SUV (GMC Yukon XL, Cadillac Escalade) is highly recommended.
+                </p>
+                <Link
+                  href={`/book?pickup=${encodeURIComponent(cityData.name)}`}
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#16A34A] py-3 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all"
+                >
+                  Reserve Vehicle
+                </Link>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* ─── FULL-WIDTH CONTENT — everything past the above-the-fold row.
+          No sidebar column here, so no structural empty space is possible. ── */}
+      <div className="section-container max-w-6xl mt-16 space-y-16">
+
+          {/* Available Routes — the intercity "ladder": every corridor with
+              its real distance/duration from the same ROUTES_DATA source the
+              route pages themselves read from, so the hub and the route page
+              never disagree. */}
+          <section>
+            <h2 className="font-heading text-3xl font-bold mb-8">Popular Routes from/to {cityData.name}</h2>
+            {cityRoutes.length > 0 ? (
+              <div className="grid gap-4">
+                {cityRoutes.map((route) => (
+                  <div key={route.slug} className="group relative flex flex-col md:flex-row md:items-center justify-between p-5 rounded-2xl bg-white border border-[#16A34A]/12 hover:border-[#16A34A]/35 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+                    <Link href={`/routes/${route.slug}`} className="absolute inset-0 z-0 rounded-2xl" aria-label={`${route.fromCity} to ${route.toCity} route details`} />
+                    <div className="relative flex items-center gap-4 mb-4 md:mb-0 pointer-events-none">
+                      <div className="font-bold">{route.fromCity}</div>
+                      <ArrowRight className="h-4 w-4 text-[#16A34A]" />
+                      <div className="font-bold">{route.toCity}</div>
+                      <span className="text-[0.65rem] text-[#6B7280] uppercase tracking-wider">
+                        {route.distance > 0 ? `${route.distance} km · ~${Math.round(route.duration / 60)} hr` : "Private transfer"}
+                      </span>
+                    </div>
+                    <div className="relative z-10 flex items-center justify-between md:gap-6">
+                      <a
+                        href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                          `Salam! Quote request.\n• From: ${route.fromCity}\n• To: ${route.toCity}\n• Date & time: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): `,
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 rounded-full bg-[#16A34A]/10 text-[#16A34A] hover:bg-[#16A34A] hover:text-white px-4 py-2 text-xs font-bold uppercase tracking-wide transition-colors"
+                      >
+                        <MessageSquare className="h-3.5 w-3.5" />
+                        Get Your Quote
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-[#6B7280]">Currently mapping custom routes for this city. Please contact us for a quote.</p>
+            )}
+            <div className="mt-6">
+              <Link href="/routes" className="text-[#16A34A] text-sm font-bold hover:underline">View all {trustStats.routesCovered} Kingdom-wide routes &rarr;</Link>
+            </div>
+          </section>
+
+          {/* Transfer vs. hourly hire — an honest trade-off section (AI/AIO
+              retrieval benefits from even-handed comparisons), Riyadh-only
+              since it links to the private-driver page. */}
+          {cityKey === "riyadh" && (
+            <section className="bg-white border border-[#16A34A]/12 rounded-3xl p-8">
+              <h2 className="font-heading text-2xl font-bold mb-4">One-Way Transfer or Hourly Driver?</h2>
+              <p className="text-sm text-[#6B7280] leading-relaxed mb-6 max-w-2xl">
+                A single transfer (airport, hotel, or point-to-point) covers one trip and is the cheaper choice if that&apos;s all you need. Hourly or full-day hire keeps the same driver and vehicle with you across the day — it&apos;s the better value once you have more than two or three stops, which is the normal pattern for a business day moving between KAFD, Olaya and the Diplomatic Quarter.
+              </p>
+              <div className="grid sm:grid-cols-2 gap-4 mb-6">
+                <div className="rounded-2xl border border-[#16A34A]/10 p-5">
+                  <h3 className="font-bold text-sm mb-2">Choose a single transfer if:</h3>
+                  <ul className="space-y-2 text-sm text-[#6B7280]">
+                    <li>— You have one pickup and one drop-off</li>
+                    <li>— It&apos;s an airport arrival or departure only</li>
+                    <li>— You don&apos;t need the car to wait</li>
+                  </ul>
+                </div>
+                <div className="rounded-2xl border border-[#16A34A]/10 p-5">
+                  <h3 className="font-bold text-sm mb-2">Choose hourly/full-day hire if:</h3>
+                  <ul className="space-y-2 text-sm text-[#6B7280]">
+                    <li>— You have 3+ stops in one day</li>
+                    <li>— The car needs to wait between meetings</li>
+                    <li>— You&apos;re hosting a delegation or group for the day</li>
+                  </ul>
+                </div>
+              </div>
+              <Link href="/locations/riyadh/private-driver" className="text-[#16A34A] text-sm font-bold hover:underline">
+                See hourly & full-day hire details &rarr;
+              </Link>
+            </section>
+          )}
+
+          {/* Vehicle showcase + interactive recommender — real fleet vehicles
+              with real images (CLAUDE.md §9/§20), plus a deterministic
+              "not sure which vehicle" selector that never submits anything. */}
+          {VEHICLE_SHOWCASE[cityKey] && (
+            <div id="vehicles" className="space-y-6 scroll-mt-24">
+              <VehicleShowcase
+                heading={VEHICLE_SHOWCASE[cityKey].heading}
+                intro={VEHICLE_SHOWCASE[cityKey].intro}
+                vehicles={VEHICLE_SHOWCASE[cityKey].vehicles}
+              />
+              <VehicleRecommender
+                options={VEHICLE_SHOWCASE[cityKey].vehicles.map((v) => ({ category: v.category, name: v.name, href: v.href }))}
+              />
+            </div>
+          )}
+
+          {/* Areas within this city + nearest airport (internal linking to sub-area pages) */}
+          {(citySubAreas.length > 0 || cityAirport) && (
+            <section id="areas-we-serve" className="scroll-mt-24">
+              <h2 className="font-heading text-3xl font-bold mb-8">Areas We Serve in {cityData.name}</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {cityAirport && (
+                  <Link
+                    href={`/airports/${cityAirport.slug}`}
+                    className="group flex items-center justify-between gap-3 rounded-xl border border-[#16A34A]/12 bg-white px-4 py-3 hover:border-[#16A34A]/35 hover:-translate-y-0.5 hover:shadow-sm transition-all"
+                  >
+                    <span className="flex items-center gap-2 text-sm font-semibold text-[#15803D]">
+                      <PlaneLanding className="h-4 w-4 text-[#16A34A]" /> {cityAirport.name}
+                    </span>
+                    <ArrowRight className="h-4 w-4 text-[#16A34A] group-hover:translate-x-0.5 transition-transform" />
+                  </Link>
+                )}
+                {CITY_AIRPORTS_EXTRA[cityKey]?.map((ap) => (
+                  <Link
+                    key={ap.slug}
+                    href={`/airports/${ap.slug}`}
+                    className="group flex items-center justify-between gap-3 rounded-xl border border-[#16A34A]/12 bg-white px-4 py-3 hover:border-[#16A34A]/35 hover:-translate-y-0.5 hover:shadow-sm transition-all"
+                  >
+                    <span className="flex items-center gap-2 text-sm font-semibold text-[#15803D]">
+                      <PlaneLanding className="h-4 w-4 text-[#16A34A]" /> {ap.name}
+                    </span>
+                    <ArrowRight className="h-4 w-4 text-[#16A34A] group-hover:translate-x-0.5 transition-transform" />
+                  </Link>
+                ))}
+                {citySubAreas.map((area) => (
+                  <Link
+                    key={area.subarea}
+                    href={`/locations/${cityKey}/${area.subarea}`}
+                    className="group flex items-center justify-between gap-3 rounded-xl border border-[#16A34A]/12 bg-white px-4 py-3 hover:border-[#16A34A]/35 hover:-translate-y-0.5 hover:shadow-sm transition-all"
+                  >
+                    <span className="text-sm font-semibold text-[#15803D]">Taxi in {area.name}</span>
+                    <ArrowRight className="h-4 w-4 text-[#16A34A] group-hover:translate-x-0.5 transition-transform" />
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Airport transfer journey — generic 4-step timeline, wording
+              stays within the approved facts.md capability claims. */}
+          {AIRPORT_JOURNEY[cityKey] && (
+            <TransferJourneySteps heading={AIRPORT_JOURNEY[cityKey].heading} steps={AIRPORT_JOURNEY[cityKey].steps} />
+          )}
+
+          {/* Local Tips */}
+          {cityData.tips.length > 0 && (
+            <section className="bg-white border border-[#16A34A]/12 rounded-3xl p-8">
+              <h2 className="font-heading text-2xl font-bold mb-6 text-[#1C1C1C]">Local Travel Tips</h2>
+              <ul className="space-y-4">
+                {cityData.tips.map((tip, idx) => (
+                  <li key={idx} className="flex gap-4">
+                    <CheckCircle2 className="h-5 w-5 text-[#16A34A] shrink-0 mt-0.5" />
+                    <p className="text-sm text-[#6B7280]">{tip}</p>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {/* Popular services in this city — completes the location×service
+              topical mesh and passes authority from indexed city hubs into
+              the commercial service pages (in-content, not footer boilerplate). */}
+          {(() => {
+            const key = cityKey.toLowerCase();
+            const holy = key.includes("makkah") || key.includes("madinah");
+            const business = ["riyadh", "dammam", "dhahran", "jubail", "khobar"].some((b) => key.includes(b));
+            let svc: { href: string; label: string }[];
+            if (key.includes("jeddah")) {
+              svc = [
+                { href: "/services/umrah-transport", label: "Umrah transport service" },
+                { href: "/services/airport-transfers", label: "Airport transfers" },
+              ];
+            } else if (holy) {
+              svc = [
+                { href: "/services/umrah-transport", label: "Umrah transport service" },
+                { href: key.includes("madinah") ? "/services/madinah-ziyarat" : "/services/makkah-ziyarat", label: key.includes("madinah") ? "Madinah Ziyarat tours" : "Makkah Ziyarat tours" },
+              ];
+            } else if (business) {
+              svc = [
+                { href: "/services/corporate", label: "Corporate & business travel" },
+                { href: "/services/vip-transportation", label: "VIP transportation Riyadh" },
+                ...(key.includes("riyadh") ? [{ href: "/events/riyadh-event-transportation", label: "Event & conference transportation" }] : []),
+              ];
+            } else {
+              svc = [
+                { href: "/services/airport-transfers", label: "Airport transfers" },
+                { href: "/services/intercity", label: "Intercity taxi service" },
+              ];
+            }
+            return (
+              <section>
+                <h2 className="font-heading text-2xl font-bold mb-6">Popular Taxi Services in {cityData.name}</h2>
+                <div className="flex flex-wrap gap-3">
+                  {svc.map((s) => (
+                    <Link
+                      key={s.href}
+                      href={s.href}
+                      className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#16A34A]/10 transition-all"
+                    >
+                      <ArrowRight className="h-3.5 w-3.5" />
+                      {s.label}
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            );
+          })()}
+
+          {/* Tourist journey — sample one-day itinerary as a visual flow,
+              answering "can I use this for a whole day out?" */}
+          {TOURIST_JOURNEY[cityKey] && (
+            <TouristJourney
+              heading={TOURIST_JOURNEY[cityKey].heading}
+              intro={TOURIST_JOURNEY[cityKey].intro}
+              stops={TOURIST_JOURNEY[cityKey].stops}
+            />
+          )}
+
+          {/* Hourly / full-day car hire (high commercial intent) */}
+          {hourlyHire && (
+            <section id="hourly-chauffeur" className="scroll-mt-24 rounded-3xl border border-[#16A34A]/15 bg-white p-6 sm:p-8">
+              <h2 className="font-heading text-2xl md:text-3xl font-bold mb-3 text-[#1C1C1C]">{hourlyHire.heading}</h2>
+              <p className="text-sm text-[#6B7280] leading-relaxed mb-5 max-w-2xl">{hourlyHire.intro}</p>
+              <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2.5 mb-6">
+                {hourlyHire.useCases.map((u) => (
+                  <li key={u} className="flex items-start gap-2 text-sm text-[#334155] leading-relaxed">
+                    <CheckCircle2 className="h-4 w-4 text-[#16A34A] shrink-0 mt-0.5" />
+                    <span>{u}</span>
+                  </li>
+                ))}
+              </ul>
+              <a
+                href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(hourlyHire.waPrefill)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary btn-lg"
+              >
+                <MessageSquare className="h-4 w-4" />
+                Request an hourly chauffeur quote
+              </a>
+            </section>
+          )}
+
+          {/* FAQs (FAQPage schema injected above) — grouped by category with
+              a collapsible accordion instead of a wall of open text. Cities
+              without a `category` on their FAQs fall back to one "General"
+              group, so this is backward compatible for every other city. */}
+          {cityData.faqs && cityData.faqs.length > 0 && (
+            <section>
+              <h2 className="font-heading text-3xl font-bold mb-8 flex items-center gap-3">
+                <HelpCircle className="text-[#16A34A] h-7 w-7" />
+                Frequently Asked Questions
+              </h2>
+              <div className="space-y-6">
+                {groupFaqsByCategory(cityData.faqs).map((group) => (
+                  <div key={group.category}>
+                    {group.category !== "General" && (
+                      <span className="block text-[0.7rem] font-bold uppercase tracking-wider text-[#16A34A] mb-2">
+                        {group.category}
+                      </span>
+                    )}
+                    <Accordion multiple className="rounded-2xl border border-[#16A34A]/12 bg-white divide-y divide-[#16A34A]/10 px-6">
+                      {group.items.map((faq, idx) => (
+                        <AccordionItem key={idx} value={`${group.category}-${idx}`}>
+                          <AccordionTrigger className="py-4 text-sm font-bold text-[#1C1C1C] hover:text-[#16A34A] hover:no-underline transition-colors">
+                            {faq.question}
+                          </AccordionTrigger>
+                          <AccordionContent className="pb-4 text-sm text-[#6B7280] leading-relaxed">
+                            {faq.answer}
+                          </AccordionContent>
+                        </AccordionItem>
+                      ))}
+                    </Accordion>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Honest assurances band — used instead of testimonials when no
+              genuine, attributable reviews exist for this city yet (see
+              CLAUDE.md §31 and the home-page.tsx note on the sitewide
+              2026-08-31 fake-reviews cleanup). Built only from claims already
+              stated elsewhere on this page — no fabricated names/quotes. */}
+          {(!cityData.testimonials || cityData.testimonials.length === 0) && cityData.assurances && cityData.assurances.length > 0 && (
+            <section>
+              <h2 className="font-heading text-3xl font-bold mb-8 flex items-center gap-3">
+                <CheckCircle2 className="text-[#16A34A] h-7 w-7" />
+                {cityData.name} Service Standards
+              </h2>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {cityData.assurances.map((a, idx) => (
+                  <div key={idx} className="border border-[#16A34A]/12 rounded-2xl p-6 bg-white flex gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-[#16A34A] shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-sm font-bold text-[#1C1C1C]">{a.title}</p>
+                      <p className="text-[0.8rem] text-[#6B7280] mt-1 leading-relaxed">{a.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Reviews / Testimonials (EEAT trust signals) */}
+          {cityData.testimonials && cityData.testimonials.length > 0 && (
+            <section>
+              <div className="flex items-center justify-between mb-8 flex-wrap gap-3">
+                <h2 className="font-heading text-3xl font-bold flex items-center gap-3">
+                  <Star className="text-[#16A34A] h-7 w-7 fill-[#16A34A]" />
+                  What {cityData.name} Travellers Say
+                </h2>
+                {/* Numeric rating removed — show a rating only when backed by
+                    real, verifiable reviews (Phase 1A: no unbacked claims). */}
+              </div>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {cityData.testimonials.map((t, idx) => (
+                  <div key={idx} className="border border-[#16A34A]/12 rounded-2xl p-6 bg-white relative">
+                    <Quote className="h-6 w-6 text-[#16A34A]/30 mb-3" />
+                    <p className="text-sm text-[#6B7280] leading-relaxed italic mb-4">&quot;{t.quote}&quot;</p>
+                    <div className="flex items-center justify-between border-t border-[#16A34A]/10 pt-3">
+                      <div>
+                        <p className="text-sm font-bold text-[#1C1C1C]">{t.author}</p>
+                        <p className="text-[0.7rem] text-[#6B7280]">{t.location}</p>
+                      </div>
+                      <span className="text-[0.6rem] uppercase tracking-wider text-[#16A34A] bg-[#16A34A]/10 px-2 py-1 rounded-md">{t.trip}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Related Links — internal cross-links to verified route + fleet pages (if present in cityData) */}
+          {cityData.relatedLinks && cityData.relatedLinks.length > 0 && (
+            <section className="bg-white border border-[#16A34A]/12 rounded-3xl p-8">
+              <h2 className="font-heading text-2xl font-bold mb-6 flex items-center gap-3">
+                <ExternalLink className="text-[#16A34A] h-5 w-5" />
+                Related Routes & Vehicles
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {cityData.relatedLinks.map((link, idx) => (
+                  <Link
+                    key={idx}
+                    href={link.href}
+                    className="group flex items-center gap-2 text-sm font-semibold text-[#15803D] hover:text-[#16A34A] transition-all p-2 rounded-lg hover:bg-[#F0FDF4] hover:translate-x-0.5"
+                  >
+                    <ArrowRight className="h-3.5 w-3.5 shrink-0 text-[#16A34A] group-hover:translate-x-0.5 transition-transform" />
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* NEOM — on-page lead form + executive Path B (WhatsApp + email RFQ) */}
+          {cityKey === "neom" && (
+            <section className="bg-[#F0FDF4] border border-[#16A34A]/20 rounded-3xl p-6 sm:p-8">
+              <div className="text-center mb-6">
+                <h2 className="font-heading text-2xl font-bold text-[#1C1C1C] mb-3">
+                  Executive chauffeur &amp; custom transport in NEOM
+                </h2>
+                <p className="text-sm text-[#6B7280] max-w-xl mx-auto leading-relaxed">
+                  Site visits, executive SUV charters, airport transfers from Red Sea International Airport (RSI), and corporate invoicing. Fill the form for a fast WhatsApp quote, or reach our dispatch desk directly.
+                </p>
+              </div>
+
+              <WhatsAppQuoteForm defaultDropoff="NEOM" />
+
+              <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+                <a
+                  href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                    `Salam! NEOM transport enquiry.\n• From / to (airport / zone): \n• Date & time: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• Site visit / corporate invoicing? : `,
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary btn-lg"
+                >
+                  <MessageSquare className="h-4 w-4" />
+                  Executive quote on WhatsApp
+                </a>
+                <a
+                  href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(
+                    "NEOM transport / executive chauffeur RFQ",
+                  )}&body=${encodeURIComponent(
+                    `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for transport in NEOM.\n\n• Company / organisation: \n• Contact name & role: \n• Dates: \n• Route or zone (Red Sea Airport / Sindalah / Oxagon / Trojena / The Line / NEOM Bay): \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+                  )}`}
+                  className="btn btn-secondary btn-lg"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  Email our corporate desk
+                </a>
+              </div>
+            </section>
+          )}
+
+          {/* City on-page lead form + Path B (config-driven; EN-only) */}
+          {cityLead && (
+            <section className="bg-[#F0FDF4] border border-[#16A34A]/20 rounded-3xl p-6 sm:p-8">
+              <div className="text-center mb-6">
+                <h2 className="font-heading text-2xl font-bold text-[#1C1C1C] mb-3">{cityLead.heading}</h2>
+                <p className="text-sm text-[#6B7280] max-w-xl mx-auto leading-relaxed">{cityLead.blurb}</p>
+              </div>
+
+              <WhatsAppQuoteForm defaultDropoff={cityLead.dropoff} />
+
+              <div className="mt-8 rounded-2xl border border-[#16A34A]/15 bg-white p-6">
+                <h3 className="font-heading text-lg font-bold text-[#1C1C1C] mb-2">{cityLead.pathBHeading}</h3>
+                <p className="text-xs sm:text-sm text-[#6B7280] leading-relaxed mb-4">{cityLead.pathBBody}</p>
+                <div className="flex flex-wrap items-center gap-3">
+                  <a
+                    href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(cityLead.waPrefill)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-primary btn-lg"
+                  >
+                    <MessageSquare className="h-4 w-4" />
+                    Quote on WhatsApp
+                  </a>
+                  <a
+                    href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(cityLead.emailSubject)}&body=${encodeURIComponent(cityLead.emailBody)}`}
+                    className="btn btn-secondary btn-lg"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                    Email a written RFQ
+                  </a>
+                </div>
+              </div>
+            </section>
+          )}
+
+      </div>
+    </div>
+  );
+}

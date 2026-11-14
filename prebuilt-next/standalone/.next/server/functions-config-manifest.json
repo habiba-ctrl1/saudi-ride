@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "functions": {
+    "/opengraph-image": {},
+    "/api/admin/corporate-invoice": {},
+    "/api/admin/documents/[id]": {},
+    "/api/admin/invoices/[id]": {},
+    "/api/admin/quotation-versions/[id]": {},
+    "/api/admin/quotations/[id]/send": {},
+    "/api/quotations/[id]/invoice": {},
+    "/api/quotations/[id]/receipt": {},
+    "/api/reviews": {}
+  }
+}

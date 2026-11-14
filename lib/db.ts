@@ -1,0 +1,84 @@
+import { VehicleType } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
+
+// Single shared Prisma instance — `db` is just an alias for `prisma`
+// so we never open two separate connection pools (important on
+// Supabase free-tier where connections are limited).
+export const db = prisma;
+
+export async function ensureVehiclesSeeded() {
+  try {
+    const count = await db.vehicle.count();
+    if (count > 0) return;
+
+    const defaultVehicles = [
+      {
+        name: "Toyota Camry Executive",
+        nameAr: "تويوتا كامري إكزيكتيف",
+        nameUr: "ٹویوٹا کیمری ایگزیکٹو",
+        type: VehicleType.SEDAN,
+        capacity: 3,
+        luggage: 2,
+        pricePerKm: 3.5,
+        basePrice: 50.0,
+        image: "/fleet/toyota-camry.webp",
+        features: ["Leather Seats", "Free Wifi", "Mineral Water", "AC"],
+      },
+      {
+        name: "GMC Yukon Denali XL",
+        nameAr: "جي إم سي يوكون دينالي إكس إل",
+        nameUr: "جی ایم سی یوکون ڈینالی",
+        type: VehicleType.SUV,
+        capacity: 7,
+        luggage: 5,
+        pricePerKm: 5.0,
+        basePrice: 50.0,
+        image: "/fleet/gmc-yukon-xl.webp",
+        features: ["VIP Tinted Windows", "Climate Control", "Child Seat Ready", "Prayer Mats Available"],
+      },
+      {
+        name: "Hyundai Staria Luxury",
+        nameAr: "هيونداي ستاريا الفاخرة",
+        nameUr: "ہونڈائی اسٹاریا لگژری",
+        type: VehicleType.VAN,
+        capacity: 7,
+        luggage: 7,
+        pricePerKm: 4.5,
+        basePrice: 50.0,
+        image: "/fleet/hyundai-staria.webp",
+        features: ["Captain Chairs", "Extra Legroom", "Perfect for Families", "USB Ports"],
+      },
+      {
+        name: "Mercedes-Benz S-Class Elite",
+        nameAr: "مرسيدس بنز الفئة إس إيليت",
+        nameUr: "مرسڈیز بینز ایس کلاس",
+        type: VehicleType.LUXURY,
+        capacity: 3,
+        luggage: 3,
+        pricePerKm: 8.0,
+        basePrice: 50.0,
+        image: "/fleet/mercedes-s-class.webp",
+        features: ["Panoramic Sunroof", "VIP Chauffeur service", "Premium Sound", "KSA Refreshments"],
+      },
+      {
+        name: "VIP Pilgrim Bus/Coaster",
+        nameAr: "حافلة كوستير الفاخرة للحجاج",
+        nameUr: "وی آئی پی زائرین بس",
+        type: VehicleType.BUS,
+        capacity: 18,
+        luggage: 15,
+        pricePerKm: 7.0,
+        basePrice: 50.0,
+        image: "/fleet/toyota-coaster.webp",
+        features: ["Large Group Transport", "Pilgrim Luggage Space", "Meeqat Stop Option", "English/Arabic Driver"],
+      },
+    ];
+
+    for (const veh of defaultVehicles) {
+      await db.vehicle.create({ data: veh });
+    }
+    console.log("Database vehicles seeded successfully.");
+  } catch (error) {
+    console.error("Auto seeding failed:", error);
+  }
+}

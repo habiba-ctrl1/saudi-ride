@@ -1,0 +1,76 @@
+﻿import { Metadata } from "next";
+
+interface SEOProps {
+  title: string;
+  description: string;
+  path: string;
+  image?: string;
+  noIndex?: boolean;
+  /** This page's language — defaults to "en". Set "ar" on pages under /ar. */
+  locale?: "en" | "ar";
+  /** Both language variants' paths, for bidirectional hreflang. Only set on
+   * pages that actually have a translated counterpart. */
+  hreflangPaths?: { en: string; ar: string };
+}
+
+export function generateMetadata({
+  title,
+  description,
+  path,
+  image,
+  noIndex = false,
+  locale = "en",
+  hreflangPaths,
+}: SEOProps): Metadata {
+  const cleanPath = path.startsWith("/") ? path : `/${path}`;
+  const url = `https://taxisaudiarabia.com${cleanPath}`;
+
+  // Always set an explicit image — Next.js's automatic opengraph-image.tsx
+  // fallback only applies when a segment defines no openGraph object at all,
+  // and doesn't reliably bubble up through nested layouts (e.g. /locations).
+  const ogImages = image
+    ? [{ url: image, width: 1200, height: 630, alt: title }]
+    : [{ url: "https://taxisaudiarabia.com/opengraph-image", width: 1200, height: 630, alt: title }];
+
+  return {
+    title: `${title} | Taxi Saudi Arabia`,
+    description,
+    metadataBase: new URL("https://taxisaudiarabia.com"),
+    alternates: {
+      canonical: url,
+      ...(hreflangPaths
+        ? {
+            languages: {
+              en: `https://taxisaudiarabia.com${hreflangPaths.en}`,
+              ar: `https://taxisaudiarabia.com${hreflangPaths.ar}`,
+              "x-default": `https://taxisaudiarabia.com${hreflangPaths.en}`,
+            },
+          }
+        : {}),
+    },
+    robots: {
+      index: !noIndex,
+      follow: !noIndex,
+      nocache: noIndex,
+      googleBot: {
+        index: !noIndex,
+        follow: !noIndex,
+      },
+    },
+    openGraph: {
+      title: `${title} | Taxi Saudi Arabia`,
+      description,
+      url,
+      siteName: "Taxi Saudi Arabia",
+      ...(ogImages ? { images: ogImages } : {}),
+      locale: locale === "ar" ? "ar_SA" : "en_SA",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | Taxi Saudi Arabia`,
+      description,
+      ...(image ? { images: [image] } : {}),
+    },
+  };
+}

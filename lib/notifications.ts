@@ -1,0 +1,670 @@
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import nodemailer from "nodemailer";
+import twilio from "twilio";
+import { prisma } from "@/lib/prisma";
+import { alertSubject } from "@/lib/email/subjects";
+
+// Initialize Resend
+interface NotificationBooking {
+  bookingRef: string;
+  customerName: string;
+  customerPhone: string;
+  customerEmail: string;
+  pickupLocation: string;
+  dropoffLocation: string;
+  pickupDateTime: Date | string;
+  totalPrice: number | string;
+  passengers: number | string;
+  driverName?: string | null;
+  driverPhone?: string | null;
+  vehicle?: {
+    name: string;
+    capacity?: number | null;
+    luggage?: number | null;
+    nameAr?: string | null;
+    image?: string | null;
+    type?: string | null;
+    plateNumber?: string | null;
+  } | null;
+}
+
+/** Escapes HTML special chars so user-submitted booking fields (name, locations,
+ * notes) can't inject markup/links into the emails we generate from them. */
+function escapeHtml(value: unknown): string {
+  return String(value ?? "").replace(/[&<>"']/g, (c) => (
+    { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c] as string
+  ));
+}
+const gmailUser = process.env.GMAIL_USER;
+const gmailAppPassword = process.env.GMAIL_APP_PASSWORD;
+const gmailTransporter = gmailUser && gmailAppPassword
+  ? nodemailer.createTransport({
+      service: "gmail",
+      auth: { user: gmailUser, pass: gmailAppPassword },
+    })
+  : null;
+
+// Initialize Twilio
+const twilioSid = process.env.TWILIO_ACCOUNT_SID;
+const twilioToken = process.env.TWILIO_AUTH_TOKEN;
+const twilioPhone = process.env.TWILIO_PHONE;
+const twilioClient = twilioSid && twilioToken ? twilio(twilioSid, twilioToken) : null;
+
+// Configs
+const adminEmail = process.env.ADMIN_EMAIL || "infotaxisaudiarabia@gmail.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://saudi-ride.vercel.app";
+const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+966539388072";
+
+/**
+ * Normalizes booking reference to "RT-" format to guarantee brand compliance
+ */
+function normalizeRef(ref: string): string {
+  if (ref.startsWith("LXT-")) {
+    return "RT-" + ref.substring(4);
+  }
+  return ref;
+}
+
+/**
+ * Dispatches an SMS alert using Twilio (with dynamic fallback logging)
+ */
+export async function sendSMS(to: string, body: string) {
+  try {
+    if (twilioClient && twilioPhone) {
+      const message = await twilioClient.messages.create({
+        body,
+        from: twilioPhone,
+        to
+      });
+      console.log(`📲 [Twilio] SMS successfully sent to ${to}. Message ID: ${message.sid}`);
+      return message.sid;
+    } else {
+      console.log(`📲 [SMS SIMULATION] To: ${to} | Message: "${body}"`);
+      return "simulated_sms_id";
+    }
+  } catch (err) {
+    console.error("❌ [Twilio] SMS dispatch failed:", err);
+    return null;
+  }
+}
+
+export type EmailAttachment = { filename: string; content: Buffer; cid?: string; contentType?: string };
+
+/** Adds the TSA logo as an inline (cid) attachment when the HTML references it. Mail clients block remote and data-URI logos. */
+function withInlineLogo(html: string, attachments?: EmailAttachment[]): EmailAttachment[] {
+  const list = [...(attachments ?? [])];
+  if (html.includes("cid:tsa-logo") && !list.some((a) => a.cid === "tsa-logo")) {
+    try {
+      list.push({ filename: "tsa-logo.png", content: readFileSync(path.join(process.cwd(), "lib/pdf/tsa-logo-green.png")), cid: "tsa-logo", contentType: "image/png" });
+    } catch (e) {
+      console.error("inline logo not attached:", e instanceof Error ? e.message : e);
+    }
+  }
+  return list;
+}
+
+/**
+ * Dispatches an Email alert using Gmail SMTP (with dynamic fallback logging).
+ * Any email NOT addressed to the admin inbox is automatically CC'd to the
+ * admin, so every client-facing email (quotation, booking confirmation,
+ * contact auto-reply, etc.) always leaves a copy the business can build a
+ * quotation from — without having to remember to CC at each call site. Pass
+ * `cc: []` explicitly to suppress this for a specific send.
+ */
+export async function sendEmail(
+  to: string,
+  subject: string,
+  html: string,
+  options?: {
+    cc?: string | string[];
+    bcc?: string | string[];
+    attachments?: EmailAttachment[];
+    /** Only used to label the row if this send fails — lets notification_failures
+     *  show which flow/booking a failed send belongs to, alongside the real error. */
+    failureContext?: { channel: string; bookingRef?: string | null };
+  }
+) {
+  try {
+    const cc = options?.cc !== undefined
+      ? (Array.isArray(options.cc) ? options.cc : [options.cc])
+      : (to !== adminEmail ? [adminEmail] : []);
+    const bcc = options?.bcc !== undefined
+      ? (Array.isArray(options.bcc) ? options.bcc : [options.bcc]).filter(Boolean)
+      : [];
+
+    if (gmailTransporter) {
+      const info = await gmailTransporter.sendMail({
+        from: `Taxi Saudi Arabia <${process.env.EMAIL_FROM || "info@taxisaudiarabia.com"}>`,
+        to,
+        ...(cc.length ? { cc } : {}),
+        ...(bcc.length ? { bcc } : {}),
+        ...(withInlineLogo(html, options?.attachments).length ? { attachments: withInlineLogo(html, options?.attachments) } : {}),
+        subject,
+        html
+      });
+      console.log(`📧 [Gmail] Email successfully sent to ${to}${cc.length ? ` (cc: ${cc.join(", ")})` : ""}${bcc.length ? ` (bcc: ${bcc.join(", ")})` : ""}. ID: ${info.messageId}`);
+      return info.messageId;
+    } else {
+      console.log(`📧 [EMAIL SIMULATION] To: ${to}${cc.length ? ` (cc: ${cc.join(", ")})` : ""}${bcc.length ? ` (bcc: ${bcc.join(", ")})` : ""} | Subject: "${subject}" | Length: ${html.length} chars`);
+      return "simulated_email_id";
+    }
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("❌ [Gmail] Email dispatch failed:", message);
+    if (options?.failureContext) {
+      await recordNotificationFailure({
+        channel: options.failureContext.channel,
+        target: to,
+        bookingRef: options.failureContext.bookingRef ?? null,
+        subject,
+        error: message,
+      });
+    }
+    return null;
+  }
+}
+
+export type StrictEmailResult =
+  | { ok: true; messageId: string }
+  | { ok: false; error: string };
+
+/**
+ * Operator-triggered email with an HONEST result (ops quotation workflow). Unlike sendEmail():
+ * no automatic admin CC, the real error text is returned, and a missing Gmail config is a
+ * failure — never a silent "simulated" success. The caller records the outcome.
+ */
+export async function sendEmailStrict(
+  to: string,
+  subject: string,
+  html: string,
+  options?: { bcc?: string | string[]; attachments?: EmailAttachment[] },
+): Promise<StrictEmailResult> {
+  if (!gmailTransporter) return { ok: false, error: "Email is not configured (GMAIL_USER / GMAIL_APP_PASSWORD missing)" };
+  try {
+    const bcc = (Array.isArray(options?.bcc) ? options.bcc : options?.bcc ? [options.bcc] : []).filter((b) => b && b.toLowerCase() !== to.toLowerCase());
+    const info = await gmailTransporter.sendMail({
+      from: `Taxi Saudi Arabia <${process.env.EMAIL_FROM || "info@taxisaudiarabia.com"}>`,
+      to,
+      ...(bcc.length ? { bcc } : {}),
+      ...(withInlineLogo(html, options?.attachments).length ? { attachments: withInlineLogo(html, options?.attachments) } : {}),
+      subject,
+      html,
+    });
+    return { ok: true, messageId: info.messageId };
+  } catch (err) {
+    return { ok: false, error: err instanceof Error ? err.message : String(err) };
+  }
+}
+
+/**
+ * 1. Booking Confirmation Email & SMS
+ */
+export async function sendBookingConfirmation(booking: NotificationBooking) {
+  const ref = normalizeRef(booking.bookingRef);
+  const subject = `Your Taxi Saudi Arabia Booking Confirmed — Ref: ${ref}`;
+  const trackLink = `${siteUrl}/track-booking?ref=${ref}&phone=${encodeURIComponent(booking.customerPhone)}`;
+  const whatsappLink = `https://wa.me/${whatsappNumber.replace("+", "")}?text=Hello,%20I%20have%20an%20inquiry%20regarding%20booking%20${ref}`;
+
+  const html = `
+    <div style="font-family: sans-serif; padding: 25px; color: #111; max-width: 600px; border: 1px solid #C9A84C; border-radius: 16px; background-color: #fafafa;">
+      <div style="text-align: center; margin-bottom: 20px;">
+        <span style="font-size: 24px; font-weight: bold; color: #C9A84C; letter-spacing: 1px;">TAXI SAUDI ARABIA</span>
+        <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-top: 4px;">Chauffeur & Luxury Transfers</div>
+      </div>
+      
+      <div style="background: #ffffff; border: 1px solid #eee; border-radius: 12px; padding: 20px; text-align: center; margin-bottom: 25px;">
+        <p style="margin: 0 0 5px 0; color: #888; font-size: 12px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">Booking Reference</p>
+        <h1 style="margin: 0; color: #C9A84C; font-size: 32px; font-family: monospace; font-weight: 800; letter-spacing: 1px;">${ref}</h1>
+        <p style="margin: 10px 0 0 0; color: #2ecc71; font-weight: bold; font-size: 14px;">✔ REQUEST RECEIVED — we'll confirm your price on WhatsApp shortly</p>
+      </div>
+
+      <h3 style="color: #111; border-bottom: 2px solid #C9A84C; padding-bottom: 6px; margin-top: 0;">Trip Summary</h3>
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; color: #666; width: 120px;">Pickup:</td>
+          <td style="padding: 8px 0; color: #111;">${escapeHtml(booking.pickupLocation)}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; color: #666;">Dropoff:</td>
+          <td style="padding: 8px 0; color: #111;">${escapeHtml(booking.dropoffLocation)}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; color: #666;">Date & Time:</td>
+          <td style="padding: 8px 0; color: #111; font-weight: bold;">${new Date(booking.pickupDateTime).toLocaleString()}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; color: #666;">Vehicle:</td>
+          <td style="padding: 8px 0; color: #111;">${escapeHtml(booking.vehicle?.name || "Premium Fleet Vehicle")}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; color: #666;">Passengers:</td>
+          <td style="padding: 8px 0; color: #111;">${booking.passengers} Passenger(s)</td>
+        </tr>
+      </table>
+
+      <div style="background: #FFF9E6; border: 1px solid #C9A84C; border-radius: 12px; padding: 15px; text-align: center; margin-bottom: 25px;">
+        <span style="font-size: 13px; font-weight: bold; color: #A8862A; text-transform: uppercase;">Price Pending</span>
+        <h2 style="margin: 5px 0 0 0; color: #111; font-size: 16px; font-weight: normal;">Our team will confirm your exact fare on WhatsApp shortly.</h2>
+      </div>
+
+      <div style="text-align: center; margin-bottom: 30px;">
+        <a href="${trackLink}" style="display: inline-block; background-color: #C9A84C; color: #0A0A0A; padding: 12px 30px; text-decoration: none; font-weight: bold; border-radius: 8px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 10px;">Track Live Status</a>
+        <a href="${whatsappLink}" style="display: inline-block; background-color: #25D366; color: #fff; padding: 12px 25px; text-decoration: none; font-weight: bold; border-radius: 8px; font-size: 14px;">WhatsApp Support</a>
+      </div>
+
+      <div style="background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 15px; font-size: 12px; color: #666; line-height: 1.5;">
+        <strong style="color: #c0392b; text-transform: uppercase; font-size: 11px; display: block; margin-bottom: 4px;">Cancellation Policy</strong>
+        Bookings can be cancelled up to 24 hours prior to pick-up time. Cancellations inside the 24-hour window will incur standard dispatch fees. Contact concierge via WhatsApp for adjustments.
+      </div>
+    </div>
+  `;
+
+  // Trigger Email + SMS to Customer; return results so callers can log failures.
+  const emailId = await sendEmail(booking.customerEmail, subject, html, {
+    failureContext: { channel: "customer_email", bookingRef: ref },
+  });
+  const smsBody = `Request received! Your Taxi Saudi Arabia transfer on ${new Date(booking.pickupDateTime).toLocaleDateString()} at ${new Date(booking.pickupDateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}. We'll confirm your price on WhatsApp shortly.`;
+  const smsId = await sendSMS(booking.customerPhone, smsBody);
+  return { email: emailId, sms: smsId };
+}
+
+/**
+ * 2. Driver Assignment Email & SMS
+ */
+export async function sendDriverAssignment(booking: NotificationBooking) {
+  const ref = normalizeRef(booking.bookingRef);
+  const subject = `Your Driver is Ready — Taxi Saudi Arabia Ref: ${ref}`;
+  const callHref = `tel:${encodeURIComponent(booking.driverPhone ?? "")}`;
+
+  const html = `
+    <div style="font-family: sans-serif; padding: 25px; color: #111; max-width: 600px; border: 1px solid #C9A84C; border-radius: 16px; background-color: #fafafa;">
+      <div style="text-align: center; margin-bottom: 20px;">
+        <span style="font-size: 24px; font-weight: bold; color: #C9A84C; letter-spacing: 1px;">TAXI SAUDI ARABIA</span>
+      </div>
+
+      <div style="background: #ffffff; border: 1px solid #eee; border-radius: 12px; padding: 20px; text-align: center; margin-bottom: 25px;">
+        <div style="width: 64px; height: 64px; line-height: 64px; margin: 0 auto 12px; border-radius: 50%; border: 3px solid #C9A84C; background: #FFF9E6; color: #C9A84C; font-size: 24px; font-weight: 800;">${escapeHtml((booking.driverName || "D").trim().charAt(0).toUpperCase())}</div>
+        <h2 style="margin: 0; color: #111;">${escapeHtml(booking.driverName)}</h2>
+        <p style="margin: 4px 0 0 0; color: #C9A84C; font-weight: bold;">Professional Chauffeur assigned</p>
+        <p style="margin: 10px 0 0 0; font-size: 14px; font-family: monospace; font-weight: bold; color: #666;">Phone: ${escapeHtml(booking.driverPhone)}</p>
+      </div>
+
+      <h3 style="color: #111; border-bottom: 2px solid #C9A84C; padding-bottom: 6px; margin-top: 0;">Vehicle Details</h3>
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; color: #666; width: 120px;">Vehicle Class:</td>
+          <td style="padding: 8px 0; color: #111; font-weight: bold;">${escapeHtml(booking.vehicle?.name || "Premium Luxury Vehicle")}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; color: #666;">Plate Number:</td>
+          <td style="padding: 8px 0; color: #C9A84C; font-weight: bold; font-family: monospace; font-size: 16px;">${escapeHtml(booking.vehicle?.plateNumber || "Confirm with driver on arrival")}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; color: #666;">Capacity:</td>
+          <td style="padding: 8px 0; color: #111;">Max ${booking.vehicle?.capacity || 4} Passengers & ${booking.vehicle?.luggage || 3} Bags</td>
+        </tr>
+      </table>
+
+      <div style="background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 15px; font-size: 13px; color: #555; line-height: 1.5; margin-bottom: 25px;">
+        <strong style="color: #111; display: block; margin-bottom: 4px;">Pickup Instructions</strong>
+        Your chauffeur will arrive at the scheduled pickup point exactly 15 minutes before departure and will contact you directly via phone or WhatsApp. He will carry a Taxi Saudi Arabia greeting sign with your name.
+      </div>
+
+      <div style="text-align: center;">
+        <a href="${callHref}" style="display: inline-block; background-color: #C9A84C; color: #0A0A0A; padding: 12px 40px; text-decoration: none; font-weight: bold; border-radius: 8px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Call Chauffeur Now</a>
+      </div>
+    </div>
+  `;
+
+  // Trigger Email
+  await sendEmail(booking.customerEmail, subject, html);
+
+  // Trigger SMS
+  const smsBody = `Your driver ${booking.driverName} (${booking.driverPhone}) will pick you up in a ${booking.vehicle?.name || "Taxi Saudi Arabia"}. He'll call 30 mins before.`;
+  await sendSMS(booking.customerPhone, smsBody);
+}
+
+/**
+ * 3. Booking Reminder Email (24 hours before pickup)
+ */
+export async function sendBookingReminder(booking: NotificationBooking) {
+  const ref = normalizeRef(booking.bookingRef);
+  const timeString = new Date(booking.pickupDateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const subject = `Reminder: Your Taxi Saudi Arabia Transfer Tomorrow at ${timeString}`;
+
+  const html = `
+    <div style="font-family: sans-serif; padding: 25px; color: #111; max-width: 600px; border: 1px solid #C9A84C; border-radius: 16px; background-color: #fafafa;">
+      <div style="text-align: center; margin-bottom: 20px;">
+        <span style="font-size: 24px; font-weight: bold; color: #C9A84C; letter-spacing: 1px;">TAXI SAUDI ARABIA</span>
+      </div>
+
+      <h2 style="color: #C9A84C; font-size: 20px; border-bottom: 2px solid #C9A84C; padding-bottom: 6px;">Reminder: Upcoming Journey Tomorrow</h2>
+      
+      <p>This is a standard reminder that your luxury chauffeur service is scheduled for tomorrow.</p>
+
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px; background: #fff; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
+        <tr>
+          <td style="padding: 10px; font-weight: bold; color: #666; width: 100px;">Reference:</td>
+          <td style="padding: 10px; color: #C9A84C; font-weight: bold; font-family: monospace;">${ref}</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; font-weight: bold; color: #666;">Date/Time:</td>
+          <td style="padding: 10px; color: #111; font-weight: bold;">${new Date(booking.pickupDateTime).toLocaleString()}</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; font-weight: bold; color: #666;">Route:</td>
+          <td style="padding: 10px; color: #111;">${escapeHtml(booking.pickupLocation)} → ${escapeHtml(booking.dropoffLocation)}</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; font-weight: bold; color: #666;">Chauffeur:</td>
+          <td style="padding: 10px; color: #111;">${escapeHtml(booking.driverName || "Assigning shortly...")} (${escapeHtml(booking.driverPhone || "Pending")})</td>
+        </tr>
+      </table>
+
+      <div style="background: #FFF9E6; border: 1px solid #C9A84C; border-radius: 12px; padding: 15px; font-size: 13px; color: #111; text-align: center;">
+        <strong>Need Changes?</strong> Adjustments or itinerary changes can be requested up to 24 hours prior to travel. Reach our concierge desk immediately via WhatsApp.
+      </div>
+    </div>
+  `;
+
+  // Trigger Email
+  await sendEmail(booking.customerEmail, subject, html);
+}
+
+/**
+ * 4. Admin Notification Email (new booking)
+ */
+export async function sendAdminNotification(booking: NotificationBooking) {
+  const ref = normalizeRef(booking.bookingRef);
+  const subject = alertSubject("Booking", "New booking", ref, booking.customerName);
+  const adminPanelLink = `${siteUrl}/admin/bookings`;
+
+  const html = `
+    <div style="font-family: sans-serif; padding: 25px; color: #111; max-width: 600px; border: 2px solid #C9A84C; border-radius: 16px; background-color: #fafafa;">
+      <h2 style="color: #C9A84C; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 0;">🔔 New Reservation Received</h2>
+      <p>A new booking request has been received. Payment is collected from the customer on arrival — this is an enquiry to confirm and dispatch.</p>
+
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; color: #666; width: 120px;">Reference ID:</td>
+          <td style="padding: 8px 0; color: #C9A84C; font-weight: bold; font-family: monospace;">${ref}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; color: #666;">Customer Name:</td>
+          <td style="padding: 8px 0; color: #111; font-weight: bold;">${escapeHtml(booking.customerName)}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; color: #666;">Phone:</td>
+          <td style="padding: 8px 0; color: #111;"><a href="tel:${encodeURIComponent(booking.customerPhone)}">${escapeHtml(booking.customerPhone)}</a></td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; color: #666;">Email:</td>
+          <td style="padding: 8px 0; color: #111;"><a href="mailto:${encodeURIComponent(booking.customerEmail)}">${escapeHtml(booking.customerEmail)}</a></td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; color: #666;">Route:</td>
+          <td style="padding: 8px 0; color: #111;">${escapeHtml(booking.pickupLocation)} → ${escapeHtml(booking.dropoffLocation)}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; color: #666;">Vehicle:</td>
+          <td style="padding: 8px 0; color: #111;">${escapeHtml(booking.vehicle?.name || "Premium Fleet Vehicle")}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; color: #666;">Fare:</td>
+          <td style="padding: 8px 0; color: #c0392b; font-weight: bold;">NOT SET — set the real price in Admin &gt; Bookings before quoting the customer</td>
+        </tr>
+      </table>
+
+      <div style="text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
+        <a href="${adminPanelLink}" style="display: inline-block; background-color: #C9A84C; color: #0A0A0A; padding: 12px 30px; text-decoration: none; font-weight: bold; border-radius: 8px; font-size: 14px; text-transform: uppercase;">Manage In Admin Portal</a>
+      </div>
+    </div>
+  `;
+
+  // Trigger Email to Admin; return the result so callers can log failures.
+  const emailId = await sendEmail(adminEmail, subject, html, {
+    failureContext: { channel: "admin_email", bookingRef: ref },
+  });
+  return { email: emailId };
+}
+
+/**
+ * 4b. Urgent re-alert — a second, louder notification for a booking that's
+ * still PENDING with no price set as its pickup time gets close (or has
+ * already passed). The normal sendAdminNotification() only fires once, at
+ * creation; a busy inbox can bury it. This is a distinct, unmissable follow
+ * up, called by the /api/cron/urgent-bookings job, not on every booking.
+ */
+export async function sendUrgentBookingAlert(booking: NotificationBooking & { hoursUntilPickup: number }) {
+  const ref = normalizeRef(booking.bookingRef);
+  const overdue = booking.hoursUntilPickup < 0;
+  const timeLabel = overdue
+    ? `${Math.abs(Math.round(booking.hoursUntilPickup))}h OVERDUE`
+    : `in ${Math.round(booking.hoursUntilPickup)}h`;
+  const subject = alertSubject("URGENT", ref, "still no price", `pickup ${timeLabel}`);
+  const adminPanelLink = `${siteUrl}/admin/bookings`;
+
+  const html = `
+    <div style="font-family: sans-serif; padding: 25px; color: #111; max-width: 600px; border: 3px solid #c0392b; border-radius: 16px; background-color: #fff5f5;">
+      <h2 style="color: #c0392b; border-bottom: 1px solid #f5c6c6; padding-bottom: 10px; margin-top: 0;">🚨 Booking Needs Attention Now</h2>
+      <p style="color: #111;">This booking is still <strong>Pending / No price set</strong>, and pickup is
+        <strong style="color: #c0392b;">${overdue ? "already overdue" : timeLabel}</strong>.
+        The first alert for this booking may have been missed.</p>
+      <table style="width: 100%; border-collapse: collapse; margin: 16px 0;">
+        <tr><td style="padding: 8px 0; font-weight: bold; color: #666; width: 120px;">Reference:</td><td style="padding: 8px 0; color: #c0392b; font-weight: bold; font-family: monospace;">${ref}</td></tr>
+        <tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Customer:</td><td style="padding: 8px 0; color: #111; font-weight: bold;">${escapeHtml(booking.customerName)}</td></tr>
+        <tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Phone:</td><td style="padding: 8px 0; color: #111;"><a href="tel:${encodeURIComponent(booking.customerPhone)}">${escapeHtml(booking.customerPhone)}</a></td></tr>
+        <tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Route:</td><td style="padding: 8px 0; color: #111;">${escapeHtml(booking.pickupLocation)} → ${escapeHtml(booking.dropoffLocation)}</td></tr>
+        <tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Pickup:</td><td style="padding: 8px 0; color: #111; font-weight: bold;">${new Date(booking.pickupDateTime).toLocaleString()}</td></tr>
+      </table>
+      <div style="text-align: center; border-top: 1px solid #f5c6c6; padding-top: 20px;">
+        <a href="${adminPanelLink}" style="display: inline-block; background-color: #c0392b; color: #fff; padding: 12px 30px; text-decoration: none; font-weight: bold; border-radius: 8px; font-size: 14px; text-transform: uppercase;">Open Admin &gt; Bookings Now</a>
+      </div>
+    </div>
+  `;
+
+  const emailId = await sendEmail(adminEmail, subject, html);
+  return { email: emailId };
+}
+
+const trustpilotInviteEmail = process.env.TRUSTPILOT_INVITE_EMAIL;
+const trustpilotReviewUrl = process.env.NEXT_PUBLIC_TRUSTPILOT_URL || "https://www.trustpilot.com/evaluate/taxisaudiarabia.com";
+
+/**
+ * 4c. Review Request Email — sent by /api/cron/review-requests a few hours
+ * after a booking is marked COMPLETED. BCCs the Trustpilot invite address (if
+ * configured) so Trustpilot auto-sends its own official invite on top of this
+ * one, exactly like the manual flow it replaces.
+ */
+export async function sendReviewRequest(booking: NotificationBooking) {
+  const subject = `Thank you for riding with Taxi Saudi Arabia 🚗`;
+
+  const html = `
+    <div style="font-family: Arial, sans-serif; color:#111827; max-width:520px;">
+      <p>Dear ${escapeHtml(booking.customerName)},</p>
+
+      <p>Thank you for choosing Taxi Saudi Arabia for your transfer from ${escapeHtml(booking.pickupLocation)} to ${escapeHtml(booking.dropoffLocation)}. We hope you had a comfortable and enjoyable ride${booking.driverName ? ` with ${escapeHtml(booking.driverName)}` : ""}.</p>
+
+      <p>We'd really appreciate it if you could take a moment to share your experience — it helps us keep improving our service.</p>
+
+      <div style="text-align:center; margin:28px 0;">
+        <a href="${trustpilotReviewUrl}"
+           style="background-color:#16A34A; color:#ffffff; text-decoration:none; padding:14px 28px; border-radius:6px; font-weight:bold; display:inline-block;">
+          ⭐ Leave us a review on Trustpilot
+        </a>
+      </div>
+
+      <p>Thank you again for travelling with us, and we look forward to welcoming you back in the future!</p>
+
+      <p>Best regards,<br>Taxi Saudi Arabia</p>
+    </div>
+  `;
+
+  const emailId = await sendEmail(booking.customerEmail, subject, html, {
+    bcc: trustpilotInviteEmail || undefined,
+  });
+  return { email: emailId };
+}
+
+/**
+ * 5. Booking Created SMS
+ */
+export async function sendBookingCreatedSMS(booking: NotificationBooking) {
+  const ref = normalizeRef(booking.bookingRef);
+  const body = `Taxi Saudi Arabia: Booking ${ref} received. We'll confirm shortly. Track: ${siteUrl}/track-booking`;
+  await sendSMS(booking.customerPhone, body);
+}
+
+/**
+ * 6. 1 Hour Before Pickup SMS
+ */
+export async function sendOneHourBeforeSMS(booking: NotificationBooking) {
+  const body = `Your Taxi Saudi Arabia transfer starts in 1 hour. Driver: ${booking.driverName || "Chauffeur"} ${booking.driverPhone || ""}`;
+  await sendSMS(booking.customerPhone, body);
+}
+
+/**
+ * 7. Booking Completed SMS
+ */
+export async function sendBookingCompletedSMS(booking: NotificationBooking) {
+  const body = `Thank you for riding with Taxi Saudi Arabia! Rate your experience: ${siteUrl}/reviews/new`;
+  await sendSMS(booking.customerPhone, body);
+}
+
+export interface NotificationLead {
+  id: string;
+  origin: string;
+  destination: string;
+  tripDate?: string | null;
+  vehicleType?: string | null;
+  source?: string | null;
+  customerName?: string | null;
+  customerPhone?: string | null;
+  customerEmail?: string | null;
+  tripType?: string | null;
+  passengers?: string | null;
+  luggage?: string | null;
+  flightNumber?: string | null;
+  returnDateTime?: string | null;
+  hoursNeeded?: string | null;
+  notes?: string | null;
+}
+
+/**
+ * 8. Admin Notification — new website lead/quote request captured by the
+ * homepage WhatsApp-quote widget BEFORE the WhatsApp hand-off. The lead row
+ * is always saved first (in the API route); this is a best-effort alert like
+ * sendAdminNotification() above, with the same honest not-a-lie return shape.
+ */
+export async function sendLeadNotification(lead: NotificationLead) {
+  const subject = alertSubject("Lead", "Website calculator", `${lead.origin} → ${lead.destination}`);
+  const adminPanelLink = `${siteUrl}/admin`;
+
+  const rows = [
+    `<tr><td style="padding: 8px 0; font-weight: bold; color: #666; width: 120px;">Route:</td><td style="padding: 8px 0; color: #111; font-weight: bold;">${escapeHtml(lead.origin)} → ${escapeHtml(lead.destination)}</td></tr>`,
+    lead.tripDate ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Date/Time:</td><td style="padding: 8px 0; color: #111;">${escapeHtml(lead.tripDate)}</td></tr>` : "",
+    lead.vehicleType ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Vehicle:</td><td style="padding: 8px 0; color: #111;">${escapeHtml(lead.vehicleType)}</td></tr>` : "",
+    lead.customerName ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Name:</td><td style="padding: 8px 0; color: #111;">${escapeHtml(lead.customerName)}</td></tr>` : "",
+    lead.customerPhone ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Phone:</td><td style="padding: 8px 0; color: #111;"><a href="tel:${encodeURIComponent(lead.customerPhone)}">${escapeHtml(lead.customerPhone)}</a></td></tr>` : "",
+    lead.customerEmail ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Email:</td><td style="padding: 8px 0; color: #111;"><a href="mailto:${encodeURIComponent(lead.customerEmail)}">${escapeHtml(lead.customerEmail)}</a></td></tr>` : "",
+    lead.tripType ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Trip type:</td><td style="padding: 8px 0; color: #111;">${escapeHtml(lead.tripType)}</td></tr>` : "",
+    lead.returnDateTime ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Return:</td><td style="padding: 8px 0; color: #111;">${escapeHtml(lead.returnDateTime)}</td></tr>` : "",
+    lead.hoursNeeded ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Hours:</td><td style="padding: 8px 0; color: #111;">${escapeHtml(lead.hoursNeeded)}</td></tr>` : "",
+    lead.passengers ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Passengers:</td><td style="padding: 8px 0; color: #111;">${escapeHtml(lead.passengers)}</td></tr>` : "",
+    lead.luggage ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Luggage:</td><td style="padding: 8px 0; color: #111;">${escapeHtml(lead.luggage)}</td></tr>` : "",
+    lead.flightNumber ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Flight:</td><td style="padding: 8px 0; color: #111;">${escapeHtml(lead.flightNumber)}</td></tr>` : "",
+    lead.notes ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Notes:</td><td style="padding: 8px 0; color: #111;">${escapeHtml(lead.notes)}</td></tr>` : "",
+    `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Source:</td><td style="padding: 8px 0; color: #111;">${escapeHtml(lead.source || "website")}</td></tr>`,
+  ].join("");
+
+  const html = `
+    <div style="font-family: sans-serif; padding: 25px; color: #111; max-width: 600px; border: 2px solid #C9A84C; border-radius: 16px; background-color: #fafafa;">
+      <h2 style="color: #C9A84C; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 0;">🔔 New Quote Request (Website Widget)</h2>
+      <p>A visitor requested a quote and was handed off to WhatsApp. Follow up if they haven't messaged yet — they may not finish the chat.</p>
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">${rows}</table>
+      <div style="text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
+        <a href="${adminPanelLink}" style="display: inline-block; background-color: #C9A84C; color: #0A0A0A; padding: 12px 30px; text-decoration: none; font-weight: bold; border-radius: 8px; font-size: 14px; text-transform: uppercase;">Open Admin Portal</a>
+      </div>
+    </div>
+  `;
+
+  const emailId = await sendEmail(adminEmail, subject, html, {
+    failureContext: { channel: "lead_admin_email", bookingRef: lead.id },
+  });
+  return { email: emailId };
+}
+
+/** Best-effort durable record of a failed send. Never throws. */
+export async function recordNotificationFailure(input: {
+  channel: string;
+  target?: string | null;
+  bookingRef?: string | null;
+  subject?: string | null;
+  error: string;
+}) {
+  try {
+    await prisma.notificationFailure.create({
+      data: {
+        channel: input.channel,
+        target: input.target ?? null,
+        bookingRef: input.bookingRef ?? null,
+        subject: input.subject ?? null,
+        error: input.error.slice(0, 1000),
+      },
+    });
+  } catch (err) {
+    // Absolute last resort — logging must never break the request.
+    console.error("❌ Could not record notification failure:", err, input);
+  }
+}
+
+/**
+ * Orchestrates every notification for a NEW booking. The booking is ALREADY
+ * saved before this runs; any channel that fails is written to
+ * notification_failures instead of being silently lost. Returns a per-channel
+ * status so the API can report honestly (never a fake "sent").
+ */
+export async function notifyNewBooking(booking: NotificationBooking): Promise<{
+  customerEmail: boolean;
+  customerSms: boolean;
+  adminEmail: boolean;
+}> {
+  const ref = normalizeRef(booking.bookingRef);
+
+  // Customer email + SMS
+  let custEmailOk = false;
+  let custSmsOk = false;
+  if (booking.customerEmail) {
+    try {
+      const r = await sendBookingConfirmation(booking);
+      custEmailOk = !!r.email;
+      custSmsOk = !!r.sms;
+      // Email failure is already recorded with the real error by sendEmail() itself.
+      if (!r.sms)
+        await recordNotificationFailure({ channel: "customer_sms", target: booking.customerPhone, bookingRef: ref, error: "sendSMS returned null (Twilio not configured?)" });
+    } catch (err) {
+      await recordNotificationFailure({ channel: "customer_email", target: booking.customerEmail, bookingRef: ref, error: String(err) });
+    }
+  } else {
+    // No email — still SMS the customer.
+    try {
+      await sendBookingCreatedSMS(booking);
+      custSmsOk = true;
+    } catch (err) {
+      await recordNotificationFailure({ channel: "customer_sms", target: booking.customerPhone, bookingRef: ref, error: String(err) });
+    }
+  }
+
+  // Admin email
+  let adminEmailOk = false;
+  try {
+    const r = await sendAdminNotification(booking);
+    adminEmailOk = !!r.email;
+    // Email failure is already recorded with the real error by sendEmail() itself.
+  } catch (err) {
+    await recordNotificationFailure({ channel: "admin_email", bookingRef: ref, error: String(err) });
+  }
+
+  return { customerEmail: custEmailOk, customerSms: custSmsOk, adminEmail: adminEmailOk };
+}

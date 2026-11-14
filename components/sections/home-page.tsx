@@ -1,0 +1,1812 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
+import { useLanguage } from "@/lib/context/LanguageContext";
+import { contactConfig } from "@/lib/config/contact";
+import { trackEvent } from "@/lib/analytics";
+import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
+import { ParallaxSection } from "./ParallaxSection";
+import { ProcessTimeline } from "@/components/visual/ProcessTimeline";
+import { trustStats } from "@/lib/config/stats";
+import { ROUTES_DATA } from "@/lib/data/routes";
+import { credentials, hasCredential } from "@/lib/config/credentials";
+import {
+  Calendar,
+  Car,
+  CheckCircle,
+  PhoneCall,
+  Compass,
+  ArrowRight,
+  ShieldCheck,
+  Award,
+  Sparkles,
+  Globe,
+  MessageCircle,
+  ChevronRight
+} from "lucide-react";
+
+
+const homeTranslations = {
+  en: {
+    hero: {
+      badge: "Saudi Arabia's Private Chauffeur & Taxi Service",
+      title: "Reserve Your Private Taxi & Chauffeur in Saudi Arabia",
+      subtitle: "Private taxi & chauffeur service across Saudi Arabia — airport transfers, Umrah transport, and luxury intercity rides at clear prices, with professional drivers, 24/7.",
+      btnBook: "Reserve Your Private Taxi",
+      btnFleet: "Get a Free Price Quote",
+      badges: ["Private Transportation Only", "24/7 Private Taxi Service", "Professional Chauffeurs", "Clear Pricing on WhatsApp", "All Saudi Cities"]
+    },
+    stats: [
+      { label: "Routes Covered", value: trustStats.routesCovered, num: trustStats.routesCount },
+      { label: "Clear Quotes on WhatsApp", value: "100%", num: 100 },
+      { label: "Available Support", value: "24/7", num: null },
+      { label: "Saudi Cities Covered", value: "11+", num: 11 }
+    ],
+    widget: {
+      oneWay: "One Way",
+      roundTrip: "Round Trip",
+      hourly: "Hourly Hire",
+      pickupLabel: "Pickup Location",
+      dropoffLabel: "Drop-off Location",
+      hoursLabel: "Hours Needed",
+      dateLabel: "Pickup Date",
+      returnDateLabel: "Return Date",
+      timeLabel: "Pickup Time",
+      passengersLabel: "Passengers",
+      vehicleLabel: "Choose Your Car",
+      btnCalculate: "Calculate My Price",
+      whatsappLabel: "Or reserve directly via our VIP WhatsApp Desk →",
+      popDestinations: "Popular Locations",
+      hrs: "hours"
+    },
+    services: {
+      badge: "Our Services",
+      title: "Airport Transfers, Umrah Taxi & Private Rides Across Saudi Arabia",
+      cards: [
+        {
+          title: "Airport Transfer Saudi Arabia",
+          desc: "Book an airport transfer at Jeddah (JED), Riyadh (RUH), Madinah (MED), and Dammam (DMM). We track your flight in real time — your professional chauffeur waits 15–30 minutes free if your flight is delayed. Meet-and-greet included.",
+          price: "On WhatsApp",
+          icon: Globe
+        },
+        {
+          title: "Umrah Taxi & Umrah Transport",
+          desc: "Dedicated Umrah taxi and Umrah transport for pilgrims. Umrah airport transfer from Jeddah to Makkah, Makkah Ziyarat taxi, and Madinah Ziyarat taxi with prayer and rest stops on request, prayer-time awareness, and English- and Arabic-speaking drivers.",
+          price: "On WhatsApp",
+          icon: Sparkles
+        },
+        {
+          title: "Private Taxi & VIP Taxi Saudi Arabia",
+          desc: "Book a private taxi or VIP taxi between Riyadh, Jeddah, Makkah, Madinah, Taif, and Dammam. Choose a luxury SUV taxi like the GMC Yukon or a family taxi like the Hyundai Staria — pricing confirmed on WhatsApp.",
+          price: "On WhatsApp",
+          icon: Compass
+        },
+        {
+          title: "Corporate & Business Car Service",
+          desc: `Professional chauffeurs for business meetings, corporate events, and executive travel. Wi-Fi equipped vehicles${hasCredential(credentials.vatNumber) ? ", ZATCA-compliant invoicing," : ","} and dedicated account management for companies.`,
+          price: "On WhatsApp",
+          icon: Award
+        },
+        {
+          title: "GCC Cross-Border Taxi",
+          desc: "Cross-border car service from Saudi Arabia to Bahrain, Qatar, UAE, and Kuwait. Experienced drivers for border crossings, clear fares confirmed on WhatsApp, and door-to-door service.",
+          price: "On WhatsApp",
+          icon: ShieldCheck
+        },
+        {
+          title: "Taif Taxi, Dammam Taxi & Day Tours",
+          desc: "Book a Taif taxi for mountain getaways or a Dammam taxi for Eastern Province trips. Full-day car hire with a local driver for AlUla, Diriyah, NEOM, and other Saudi destinations.",
+          price: "On WhatsApp",
+          icon: Car
+        }
+      ]
+    },
+    whyUs: {
+      badge: "Why Choose Us",
+      title: "Why Thousands Book Their Taxi Service in Saudi Arabia With Us",
+      desc: "We provide safe, reliable, professional private taxi & chauffeur service across Saudi Arabia — from airport transfers and Umrah transport to private intercity rides and corporate travel. Here's what makes us different.",
+      points: [
+        { title: "Professional Drivers", desc: "Experienced drivers arranged through our transportation partners — reliable and courteous." },
+        { title: "Clear Pricing — No Surprises", desc: "No surge pricing, no hidden fees, no meter tricks. Your exact fare is confirmed with you on WhatsApp before booking." },
+        { title: "WhatsApp Booking Available 24/7", desc: "Book your taxi via WhatsApp booking anytime — day or night. Our team typically confirms your price within 1–2 hours." },
+        { title: "Live Flight Tracking", desc: "We track your flight in real time for every Saudi airport transfer. Your professional chauffeur waits 15–30 minutes free if your flight is delayed." },
+        { title: "English & Arabic Drivers", desc: "Drivers in our partner network speak English and Arabic — clear communication for international pilgrims and business travelers." },
+        { title: "Free Cancellation — 24 Hours", desc: "Cancel your booking up to 24 hours before your trip for a full refund — no questions asked. Flexibility you can count on." },
+        { title: "Airport Meet & Greet Service", desc: "For every airport transfer in Saudi Arabia, your driver meets you inside the arrivals terminal with a name sign and helps carry your luggage to the car." },
+        { title: "ZATCA-Compliant E-Invoice", desc: "VAT-compliant e-invoices via ZATCA available on request for corporate and business bookings — clean paperwork for your company accounts." }
+      ]
+    },
+    routes: {
+      badge: "Popular Routes",
+      title: "Most Booked Taxi Routes in Saudi Arabia",
+      btnBook: "Book This Route"
+    },
+    fleet: {
+      badge: "Our Fleet",
+      title: "Choose Your Taxi — Sedan, SUV & Family Van",
+      desc: "Clean, comfortable, and well-maintained vehicles for every trip. From the GMC Yukon for VIP groups to the Hyundai Staria for families and the Toyota Hiace for Umrah groups — all driven by professional chauffeurs.",
+      btnBook: "Book This Vehicle",
+      btnMore: "See All Vehicles",
+      "mercedes-sSpec": "Top luxury sedan — perfect for executives, VIPs, and important business arrivals.",
+      escaladeSpec: "Large SUV with spacious cabin — great for groups and families with lots of luggage.",
+      "mercedes-vSpec": "Spacious minivan — ideal for Umrah groups, large families, and corporate teams.",
+      "bmw-7Spec": "Premium executive car — stylish and comfortable for business trips and long-distance rides.",
+      yukonSpec: "Full-size luxury SUV taxi with big boot space — the GMC Yukon is perfect for family taxi trips and airport transfers."
+    },
+    clientele: "Trusted by Pilgrims, Business Travelers & Families Across Saudi Arabia",
+    misc: {
+      instantCalc: "Get a Quote",
+      bookNow: "Book Now",
+      callWhatsApp: "Call or WhatsApp 24/7",
+      viewAllRoutes: "View All Taxi Routes in Saudi Arabia →",
+      seeAllGuides: "See All Travel Guides →",
+      umrahBadge: "Umrah & Hajj Taxi Service",
+      popularUmrahRoutes: "Popular Umrah Taxi Routes",
+      from: "From",
+      by: "By",
+      parallax: [
+        { title: "Ride Across Riyadh With Confidence", text: "Professional taxi service available day and night with experienced drivers and comfortable vehicles.", btn: "Book Your Taxi" },
+        { title: "Travel Anywhere in Saudi Arabia", text: "Airport transfers, city rides, intercity journeys and chauffeur services tailored for every traveler.", btn: "Explore Destinations" },
+        { title: "Comfortable Vehicles For Every Journey", text: "Clean, spacious and well-maintained cars driven by professional chauffeurs to ensure a smooth ride.", btn: "Reserve Your Ride" }
+      ]
+    },
+    umrah: {
+      title: "Umrah Taxi Service — Makkah & Madinah Transfers for Pilgrims",
+      desc: "We provide dedicated Umrah transport and Umrah taxi service for pilgrims. Our Umrah airport transfer covers Jeddah Airport to Makkah, Makkah Ziyarat taxi tours, and Madinah Ziyarat taxi tours. Our drivers understand the holy journey and make every trip smooth, comfortable, and spiritually respectful.",
+      point1: "Trips planned around prayer times and Salah stops",
+      point2: "Prayer and rest stops on request — no rush",
+      point3: "Drop-off at the closest permitted point to Masjid Al-Haram and Masjid An-Nabawi",
+      point4: "Professional chauffeurs trained to respect pilgrims and support the full Umrah journey",
+      btnWhatsApp: "Reserve Your Private Umrah Chauffeur on WhatsApp"
+    },
+    testimonials: {
+      badge: "Why Book With Us",
+      title: "Clear Pricing, Professional Drivers, Real Support",
+      items: [
+        { title: "Fixed price, agreed on WhatsApp", desc: "Your exact fare is confirmed with you on WhatsApp before you book — no surge, no meter, no hidden charges." },
+        { title: "24/7 WhatsApp booking", desc: "Message us any time, day or night. Our team typically confirms your ride within 1–2 hours." },
+        { title: "Drivers speak English & Arabic", desc: "Clear communication for pilgrims, families, and business travellers across the Kingdom." },
+        { title: "Airport meet & greet", desc: "Your driver meets you in the arrivals hall with a name sign and helps carry your luggage to the car." }
+      ]
+    },
+    blog: {
+      badge: "Travel Tips & Guides",
+      title: "Helpful Travel Guides for Saudi Arabia",
+      btnRead: "Read Full Guide →"
+    },
+    cta: {
+      title: "Book Your Private Taxi in Saudi Arabia Today",
+      desc: "Need a private taxi in Saudi Arabia? Book an airport transfer, Umrah taxi, or private intercity ride in under 2 minutes. Fixed taxi prices, licensed chauffeurs, and WhatsApp booking available around the clock.",
+      btnBook: "Book Taxi Online",
+      btnWhatsApp: "Reserve on WhatsApp",
+      trust: "Fast Quote Response • Fixed Taxi Prices Guaranteed • 24/7 Customer Support"
+    },
+    faq: {
+      badge: "Frequently Asked Questions",
+      title: "Everything You Need to Know",
+      items: [
+        {
+          q: "How do I book a taxi in Saudi Arabia?",
+          a: "You can book a taxi in Saudi Arabia online via our booking console or directly through WhatsApp booking. Simply provide your pickup location, destination, date, and time. Our 24/7 taxi service team will confirm your ride with a clear price, usually within 1–2 hours."
+        },
+        {
+          q: "How much is a Jeddah Airport to Makkah taxi?",
+          a: "The taxi fare for a Jeddah Airport to Makkah taxi is confirmed on WhatsApp before booking — a fixed fare with no hidden charges or surge. Standard sedans and larger family vehicles like the Hyundai Staria are available."
+        },
+        {
+          q: "Do you offer Umrah transport from Madinah?",
+          a: "Yes, our Umrah transport covers the Makkah to Madinah taxi route, Madinah to Makkah taxi route, and Madinah Ziyarat taxi services. Prayer and rest stops can be arranged on request, and trips are driven by professional chauffeurs in our partner network."
+        },
+        {
+          q: "Are the taxi drivers licensed and professional?",
+          a: "Absolutely. Drivers in our partner network speak English and Arabic, and trips run 24 hours a day, ensuring a smooth Saudi airport transfer and intercity experience."
+        },
+        {
+          q: "Do you have vehicles for large families or groups?",
+          a: "Yes, we offer luxury SUV taxis like the GMC Yukon and spacious vans like the Toyota Hiace and Hyundai Staria. These are perfect for group Umrah airport transfers and family taxi trips across Saudi Arabia."
+        }
+      ]
+    }
+  },
+  ar: {
+    hero: {
+      badge: "خدمة النقل الفاخرة النخبوية",
+      title: "خدمات التاكسي والسائق الخاص الفاخرة",
+      subtitle: "سائق خاص VIP في جميع أنحاء المملكة — المطارات، العمرة، والتنقل الفاخر بين المدن بأقصى درجات الراحة.",
+      btnBook: "احجز رحلتك الفاخرة",
+      btnFleet: "تصفح أسطول التميز",
+      badges: ["نقل خاص فقط", "دعم VIP على مدار ٢٤ ساعة", "سائقون محترفون", "أسعار واضحة بدون زيادة مفاجئة", "جميع المدن السعودية"]
+    },
+    stats: [
+      { label: "مسار مغطى", value: "+٥٦", num: 56 },
+      { label: "عروض أسعار واضحة", value: "١٠٠٪", num: 100 },
+      { label: "دعم متواصل", value: "٢٤/٧", num: null },
+      { label: "مدينة سعودية", value: "+١١", num: 11 }
+    ],
+    widget: {
+      oneWay: "اتجاه واحد",
+      roundTrip: "ذهاب وعودة",
+      hourly: "بالساعة",
+      pickupLabel: "نقطة الالتقاء",
+      dropoffLabel: "وجهة التوصيل",
+      hoursLabel: "الساعات المطلوبة",
+      dateLabel: "تاريخ الرحلة",
+      returnDateLabel: "تاريخ العودة",
+      timeLabel: "وقت الرحلة",
+      passengersLabel: "عدد الركاب",
+      vehicleLabel: "فئة السيارة",
+      btnCalculate: "احسب الأجرة التقديرية",
+      whatsappLabel: "أو احجز مباشرة عبر واتساب الدعم الفني VIP ←",
+      popDestinations: "مواقع شائعة",
+      hrs: "ساعات"
+    },
+    services: {
+      badge: "الخدمات التنفيذية الفاخرة",
+      title: "مصممة لراحة الملوك والأمراء",
+      cards: [
+        {
+          title: "توصيل المطارات",
+          desc: "خدمة استقبال وتوديع وتتبع رحلات الطيران في مطارات جدة والرياض والمدينة المنورة.",
+          price: "على واتساب",
+          icon: Globe
+        },
+        {
+          title: "العمرة والزيارة",
+          desc: "توصيل خاص للمشاعر المقدسة مع سائقين مدربين على معرفة كاملة بالمواقيت والإحرام عند الطلب.",
+          price: "على واتساب",
+          icon: Sparkles
+        },
+        {
+          title: "التنقل بين المدن",
+          desc: "سفر مريح وسريع بين الرياض، جدة، مكة المكرمة، المدينة المنورة، والدمام بسيارات حديثة.",
+          price: "على واتساب",
+          icon: Compass
+        },
+        {
+          title: "رجال الأعمال وكبار الشخصيات",
+          desc: "تنقل فاخر لرجال الأعمال والدبلوماسيين بسيارات مجهزة بشبكة واي فاي عالية السرعة ومقاعد جلدية.",
+          price: "على واتساب",
+          icon: Award
+        },
+        {
+          title: "عبور الحدود الخليجية",
+          desc: "رحلات برية فاخرة وسلسة تربط المملكة بالبحرين، قطر، الإمارات، والكويت.",
+          price: "على واتساب",
+          icon: ShieldCheck
+        },
+        {
+          title: "باقات السياحة في المملكة",
+          desc: "رحلات مخصصة مع سائقين لاستكشاف وجهات السياحة السعودية الفاخرة مثل العلا، الطائف ونيوم.",
+          price: "على واتساب",
+          icon: Car
+        }
+      ]
+    },
+    whyUs: {
+      badge: "معايير النخبة الفاخرة",
+      title: "لماذا يختار كبار الشخصيات خدماتنا؟",
+      desc: "نحن ندمج دقة الضيافة المعاصرة الراقية مع الكرم العربي الأصيل لنرتقي بكل كيلومتر تقطعه معنا.",
+      points: [
+        { title: "سائقون محترفون", desc: "سائقون ذوو خبرة يتم ترتيبهم من خلال شركائنا في النقل." },
+        { title: "عروض أسعار واضحة", desc: "لا زيادة مفاجئة في الأسعار. يتم تأكيد السعر معك عبر واتساب قبل الحجز." },
+        { title: "متوافق مع أوقات الصلاة", desc: "تخطيط الرحلات والوقفات يراعي أوقات الصلوات ومواقيت الإحرام بشكل طبيعي." },
+        { title: "تتبع الرحلات الذكي", desc: "نتابع مواعيد الطيران بدقة. السائق ينتظرك حتى ٦٠ دقيقة مجاناً." },
+        { title: "سائقين متحدثين بلغات متعددة", desc: "سائقون محترفون يجيدون العربية والإنجليزية والأوردو بطلاقة." },
+        { title: "إلغاء مجاني للرحلات", desc: "إلغاء مرن بالكامل قبل الرحلة بـ ٢٤ ساعة دون أي رسوم." },
+        { title: "استقبال كبار الشخصيات VIP", desc: "استقبال باللوحات الإرشادية والمساعدة في حمل الأمتعة فور خروجك من الصالة." },
+        { title: "فاتورة إلكترونية معتمدة", desc: "متوافقون تماماً مع متطلبات هيئة الزكاة والضريبة والجمارك للشركات." }
+      ]
+    },
+    routes: {
+      badge: "المسارات الأكثر طلباً",
+      title: "مسارات التنقل الفاخرة الشائعة",
+      btnBook: "احجز هذا المسار"
+    },
+    fleet: {
+      badge: "المرآب الملكي الفاخر",
+      title: "أسطول سيارات النخبة",
+      desc: "مقصورات فاخرة معقمة ومجهزة بأحدث وسائل الراحة والمشروبات الباردة لخدمتكم.",
+      btnBook: "احجز هذه الفئة",
+      btnMore: "تصفح أسطول السيارات الكامل",
+      camrySpec: "مثالية لتنقلات رجال الأعمال السريعة والرحلات العملية بين المدن.",
+      yukonSpec: "قمة الفخامة والراحة العائلية. مساحة مقصورة واسعة حضور مهيب لكبار الشخصيات.",
+      stariaSpec: "مقاعد VIP من الدرجة الأولى مصممة خصيصاً للمجموعات والعائلات في رحلات العمرة."
+    },
+    clientele: "موثوقون لدى ضيوف الرحمن ورجال الأعمال والعائلات في جميع أنحاء المملكة",
+    misc: {
+      instantCalc: "احصل على عرض سعر",
+      bookNow: "احجز الآن",
+      callWhatsApp: "اتصل أو واتساب ٢٤/٧",
+      viewAllRoutes: "عرض جميع مسارات التاكسي في السعودية ←",
+      seeAllGuides: "جميع أدلة السفر ←",
+      umrahBadge: "خدمة تاكسي العمرة والحج",
+      popularUmrahRoutes: "مسارات تاكسي العمرة الشائعة",
+      from: "من",
+      by: "بقلم",
+      parallax: [
+        { title: "تنقل في الرياض بكل ثقة", text: "خدمة تاكسي احترافية متاحة ليلاً ونهاراً مع سائقين ذوي خبرة وسيارات مريحة.", btn: "احجز تاكسيك الآن" },
+        { title: "سافر إلى أي مكان في السعودية", text: "توصيل المطارات، رحلات داخل المدن وبينها، وخدمات سائق خاص لكل مسافر.", btn: "استكشف الوجهات" },
+        { title: "سيارات مريحة لكل رحلة", text: "سيارات نظيفة وواسعة وبصيانة ممتازة يقودها سائقون محترفون لرحلة سلسة.", btn: "احجز رحلتك" }
+      ]
+    },
+    umrah: {
+      title: "الرحلة المقدسة تستحق خدمة مقدسة تليق بها",
+      desc: "للمعتمرين والزوار، نقدم خدمة مخصصة تجمع الراحة الجسدية مع الطمأنينة الروحية طوال الطريق لمكة والمدينة.",
+      point1: "جدولة متوافقة مع أوقات الصلوات والمواقيت",
+      point2: "توقف كامل ومريح عند مواقيت الإحرام لتبديل الملابس",
+      point3: "توصيل كبار الشخصيات VIP لأقرب نقطة آمنة من الحرمين الشريفين",
+      point4: "سائقون مدربون على حُسن التعامل والضيافة اللائقة بضيوف الرحمن",
+      btnWhatsApp: "احجز سائق العمرة الخاص عبر الواتساب"
+    },
+    testimonials: {
+      badge: "لماذا تحجز معنا",
+      title: "أسعار واضحة، سائقون محترفون، دعم حقيقي",
+      items: [
+        { title: "سعر ثابت يُؤكد عبر واتساب", desc: "نؤكد أجرتك بالضبط عبر واتساب قبل الحجز — بدون زيادة مفاجئة أو عداد أو رسوم خفية." },
+        { title: "الحجز عبر واتساب على مدار الساعة", desc: "راسلنا في أي وقت ليلاً أو نهاراً، ويؤكد فريقنا رحلتك عادةً خلال ساعة إلى ساعتين." },
+        { title: "سائقون يتحدثون العربية والإنجليزية والأردية", desc: "تواصل واضح للمعتمرين والعائلات ورجال الأعمال في جميع أنحاء المملكة." },
+        { title: "استقبال وترحيب في المطار", desc: "يستقبلك سائقك في صالة الوصول بلوحة تحمل اسمك ويساعدك في حمل أمتعتك إلى السيارة." }
+      ]
+    },
+    blog: {
+      badge: "دليل السفر والإرشادات",
+      title: "مدونة السفر والكونسيرج الفاخر",
+      btnRead: "اقرأ الدليل الكامل ←"
+    },
+    cta: {
+      title: "جاهز لتجربة السفر الفاخرة كبار الشخصيات؟",
+      desc: "استمتع بأعلى معايير التنقل والأمان في المملكة العربية السعودية. احجز رحلتك الآن في دقيقتين فقط.",
+      btnBook: "احجز رحلتك أونلاين",
+      btnWhatsApp: "احجز مباشرة عبر الواتساب",
+      trust: "رد سريع على استفسارك • أسعار واضحة عبر واتساب • خدمة عملاء مخصصة على مدار الساعة"
+    },
+    faq: {
+      badge: "الأسئلة الشائعة",
+      title: "كل ما تحتاج معرفته",
+      items: [
+        { q: "كيف أحجز تاكسي في السعودية؟", a: "يمكنك الحجز عبر منصة الحجز في موقعنا أو مباشرة عبر واتساب. حدد موقع الانطلاق والوجهة والتاريخ والوقت، وسيؤكد فريقنا رحلتك بسعر ثابت، عادة خلال ساعة إلى ساعتين." },
+        { q: "كم تكلفة تاكسي من مطار جدة إلى مكة؟", a: "تُؤكد أجرة تاكسي مطار جدة إلى مكة عبر واتساب قبل الحجز — سعر ثابت بدون رسوم خفية، مع توفر السيارات العادية وخيارات عائلية أكبر." },
+        { q: "هل تقدمون نقل العمرة من المدينة؟", a: "نعم، نغطي مسار مكة إلى المدينة والمدينة إلى مكة وجولات الزيارة، مع التوقف عند الميقات وسائقين محترفين." },
+        { q: "هل السائقون محترفون وذوو خبرة؟", a: "بالتأكيد. يتم ترتيب جميع سائقينا من خلال شركائنا في النقل، وهم يتحدثون العربية والإنجليزية والأردية." },
+        { q: "هل لديكم مركبات للعائلات الكبيرة؟", a: "نعم، نوفر سيارات SUV فاخرة مثل GMC Yukon وحافلات صغيرة مثل Toyota Hiace وHyundai Staria المثالية للمجموعات والعائلات." }
+      ]
+    }
+  },
+  ar_fallback: {},
+  ur: {
+    hero: {
+      badge: "اشرافیہ ٹرانسپورٹ سروس",
+      title: "پریمیم ٹیکسی اور ڈرائیور سروسز",
+      subtitle: "سعودی عرب بھر میں وی آئی پی ڈرائیور سروس — ہوائی اڈے، عمرہ اور بین شہر سفر بہترین آرام کے ساتھ۔",
+      btnBook: "لگژری سواری بک کریں",
+      btnFleet: "پریسٹيج بیڑے کو دیکھیں",
+      badges: ["صرف پرائیویٹ ٹرانسپورٹ", "24/7 پریمیم سپورٹ", "لائسنس یافتہ ڈرائیورز", "مقررہ مسابقتی قیمتیں", "تمام سعودی شہر"]
+    },
+    stats: [
+      { label: "روٹس", value: trustStats.routesCovered, num: trustStats.routesCount },
+      { label: "فکسڈ قیمتیں", value: "100%", num: 100 },
+      { label: "سپورٹ", value: "24/7", num: null },
+      { label: "سعودی شہر", value: "11+", num: 11 }
+    ],
+    widget: {
+      oneWay: "ایک طرف",
+      roundTrip: "دونوں طرف",
+      hourly: "گھنٹہ وار سروس",
+      pickupLabel: "پک اپ مقام",
+      dropoffLabel: "ڈراپ آف مقام",
+      hoursLabel: "گھنٹے مطلوب ہیں",
+      dateLabel: "پک اپ تاریخ",
+      returnDateLabel: "واپسی کی تاریخ",
+      timeLabel: "پک اپ وقت",
+      passengersLabel: "مسافروں کی تعداد",
+      vehicleLabel: "گاڑی کی کلاس",
+      btnCalculate: "اندازہ کرایہ معلوم کریں",
+      whatsappLabel: "یا وی آئی پی واٹس ایپ سپورٹ ڈیسک کے ذریعے بک کریں ←",
+      popDestinations: "مقبول مقامات",
+      hrs: "گھنٹے"
+    },
+    services: {
+      badge: "ایگزیکٹو پیشکشیں",
+      title: "شاہی آرام کے لیے تیار کردہ",
+      cards: [
+        {
+          title: "ایئرپورٹ ٹرانسفر",
+          desc: "جدہ (JED)، ریاض (RUH)، اور مدینہ (MED) ہوائی اڈوں پر فلائٹ ٹریکنگ کے ساتھ استقبال۔",
+          price: "واٹس ایپ پر",
+          icon: Globe
+        },
+        {
+          title: "عمرہ اور زیارت",
+          desc: "مقدس مقامات کے لیے وقف سفر۔ احرام کی حالت میں ڈرائیور کی دستیابی اور میقات کی مکمل معلومات۔",
+          price: "واٹس ایپ پر",
+          icon: Sparkles
+        },
+        {
+          title: "بین شہر روٹس",
+          desc: "ریاض، جدہ، مکہ، دمام، اور مدینہ کے درمیان شاندار ہائی وے کروزنگ سروس۔",
+          price: "واٹس ایپ پر",
+          icon: Compass
+        },
+        {
+          title: "کارپوریٹ اور ایگزیکٹو",
+          desc: "کاروباری شخصیات اور وی آئی پی وفود کے لیے پریمیم وائی فائی سے لیس لگژری کیبنز۔",
+          price: "واٹس ایپ پر",
+          icon: Award
+        },
+        {
+          title: "جی سی سی بارڈر کراسنگ",
+          desc: "بحرین، قطر، متحدہ عرب امارات، اور کویت کو ملانے والی شاہراہوں پر ہموار سفر۔",
+          price: "واٹس ایپ پر",
+          icon: ShieldCheck
+        },
+        {
+          title: "سعودی سیاحتی پیکجز",
+          desc: "العلا، طائف اور نیوم جیسے تاریخی اور خوبصورت مقامات کے لیے اپنی مرضی کا سیاحتی سفر۔",
+          price: "واٹس ایپ پر",
+          icon: Car
+        }
+      ]
+    },
+    whyUs: {
+      badge: "پریسٹيج معیارات",
+      title: "وی آئی پی مسافر ریاض لکس کا انتخاب کیوں کرتے ہیں؟",
+      desc: "ہم جدید مغربی مہمان نوازی کی درستگی کو لازوال عربی سخاوت کے ساتھ ملا کر آپ کے سفر کو یادگار بناتے ہیں۔",
+      points: [
+        { title: "لائسنس یافتہ ڈرائیورز", desc: "ہر ڈرائیور درست سعودی ڈرائیونگ لائسنس رکھتا ہے۔" },
+        { title: "مقررہ لگژری قیمتیں", desc: "کسی قسم کے اضافی چارجز یا سرج پرائسنگ کے بغیر طے شدہ قیمتیں۔" },
+        { title: "نماز کے اوقات کے مطابق", desc: "نماز اور عمرہ کے اوقات کار کے مطابق سفر کی بہترین منصوبہ بندی۔" },
+        { title: "سمارٹ فلائٹ ٹریکنگ", desc: "ہم پرواز کی تاخیر کو مانیٹر کرتے ہیں۔ ڈرائیور ہوائی اڈے پر 60 منٹ تک مفت انتظار کرتا ہے۔" },
+        { title: "تین زبانیں بولنے والے ڈرائیورز", desc: "عربی، انگریزی اور اردو روانی سے بولنے والے پیشہ ور ڈرائیورز۔" },
+        { title: "مفت منسوخی", desc: "سفر سے 24 گھنٹے پہلے تک بکنگ منسوخ کرنے پر مکمل رقم کی واپسی۔" },
+        { title: "وی آئی پی استقبالیہ سروس", desc: "ہوائی اڈے پر نام کی تختی کے ساتھ استقبال اور سامان اٹھانے میں مدد۔" },
+        { title: "ZATCA الیکٹرانک انوائسنگ", desc: "کارپوریٹ کمپنیوں کے لیے فوری ٹیکس رسید اور انوائسنگ کی سہولت۔" }
+      ]
+    },
+    routes: {
+      badge: "مقبول ترین راستے",
+      title: "مقبول لگژری روٹس",
+      btnBook: "راستہ بک کریں"
+    },
+    fleet: {
+      badge: "شاہی گیراج",
+      title: "ہمارا شاندار گاڑیوں کا شوکیس",
+      desc: "بہترین سہولیات اور مکمل طور پر سینیٹائزڈ اور صاف ستھری لگژری گاڑیاں۔",
+      btnBook: "گاڑی بک کریں",
+      btnMore: "تمام گاڑیوں کی تفصیلات دیکھیں",
+      camrySpec: "کارپوریٹ دوروں اور تیز رفتار بین شہر سفر کے لیے بہترین۔",
+      yukonSpec: "شاندار اور انتہائی آرام دہ۔ وسیع کیبن اور وی آئی پی مسافروں کے لیے بہترین انتخاب۔",
+      stariaSpec: "خاندان اور مقدس عمرہ کے زائرین کے لیے فرسٹ کلاس لگژری سیٹنگ۔"
+    },
+    clientele: "زائرین، کاروباری مسافروں اور خاندانوں کا سعودی عرب بھر میں قابل اعتماد انتخاب",
+    misc: {
+      instantCalc: "فوری قیمت کیلکولیٹر",
+      bookNow: "ابھی بک کریں",
+      callWhatsApp: "کال یا واٹس ایپ 24/7",
+      viewAllRoutes: "سعودی عرب کے تمام ٹیکسی روٹس دیکھیں ←",
+      seeAllGuides: "تمام ٹریول گائیڈز دیکھیں ←",
+      umrahBadge: "عمرہ اور حج ٹیکسی سروس",
+      popularUmrahRoutes: "مقبول عمرہ ٹیکسی روٹس",
+      from: "از",
+      by: "تحریر",
+      parallax: [
+        { title: "ریاض میں اعتماد کے ساتھ سفر کریں", text: "تجربہ کار ڈرائیورز اور آرام دہ گاڑیوں کے ساتھ دن رات دستیاب پیشہ ور ٹیکسی سروس۔", btn: "اپنی ٹیکسی بک کریں" },
+        { title: "سعودی عرب میں کہیں بھی سفر کریں", text: "ایئرپورٹ ٹرانسفر، شہری اور بین شہر سفر، اور ہر مسافر کے لیے شوفر سروسز۔", btn: "مقامات دریافت کریں" },
+        { title: "ہر سفر کے لیے آرام دہ گاڑیاں", text: "صاف ستھری، کشادہ اور بہترین حالت میں گاڑیاں، پیشہ ور ڈرائیورز کے ساتھ۔", btn: "اپنی سواری بک کریں" }
+      ]
+    },
+    umrah: {
+      title: "مقدس سفر کے لیے مقدس اور شاندار خدمت کا انتخاب کریں",
+      desc: "عمرہ کے زائرین کے لیے ہم جسمانی آرام کے ساتھ ساتھ روحانی احترام اور سکون فراہم کرتے ہیں۔",
+      point1: "نماز کے اوقات کے مطابق شیڈولنگ",
+      point2: "احرام باندھنے کے لیے میقات کے مقامات پر توقف",
+      point3: "حرم کے بالکل قریب وی آئی پی ڈراپ آف پوائنٹس",
+      point4: "زائرین کی مہمان نوازی کے لیے تربیت یافتہ ڈرائیورز",
+      btnWhatsApp: "واٹس ایپ پر عمرہ کا ڈرائیور بک کریں"
+    },
+    testimonials: {
+      badge: "ہمیں کیوں منتخب کریں",
+      title: "واضح قیمت، پیشہ ور ڈرائیور، حقیقی سپورٹ",
+      items: [
+        { title: "مقررہ کرایہ، واٹس ایپ پر طے شدہ", desc: "بکنگ سے پہلے آپ کا درست کرایہ واٹس ایپ پر طے کیا جاتا ہے — کوئی سرج، میٹر یا چھپے چارجز نہیں۔" },
+        { title: "چوبیس گھنٹے واٹس ایپ بکنگ", desc: "دن ہو یا رات، کسی بھی وقت پیغام بھیجیں۔ ہماری ٹیم عموماً 1–2 گھنٹے میں آپ کی رائیڈ کنفرم کر دیتی ہے۔" },
+        { title: "ڈرائیور انگریزی، عربی اور اردو بولتے ہیں", desc: "زائرین، خاندانوں اور کاروباری مسافروں کے لیے واضح رابطہ۔" },
+        { title: "ایئرپورٹ میٹ اینڈ گریٹ", desc: "آپ کا ڈرائیور نام کی تختی کے ساتھ اریول ہال میں ملتا ہے اور گاڑی تک سامان لے جانے میں مدد کرتا ہے۔" }
+      ]
+    },
+    blog: {
+      badge: "ٹریول گائیڈز",
+      title: "دربان نالج بیس اور تجاویز",
+      btnRead: "مکمل مضمون پڑھیں ←"
+    },
+    cta: {
+      title: "اپنے وی آئی پی سفر کے لیے تیار ہیں؟",
+      desc: "سعودی عرب میں بہترین اور اعلیٰ ترین معیار پر سفر کا تجربہ کریں۔ صرف 2 منٹ میں بکنگ کریں۔",
+      btnBook: "آن لائن بک کریں",
+      btnWhatsApp: "واٹس ایپ کے ذریعے بک کریں",
+      trust: "تیز جواب • طے شدہ فکسڈ ریٹس • 24/7 کسٹمر سپورٹ ڈیسک"
+    },
+    faq: {
+      badge: "اکثر پوچھے گئے سوالات",
+      title: "ہر وہ چیز جو آپ کو جاننی چاہیے",
+      items: [
+        { q: "سعودی عرب میں ٹیکسی کیسے بک کریں؟", a: "آپ ہماری ویب سائٹ کے بکنگ کنسول یا براہ راست واٹس ایپ کے ذریعے بک کر سکتے ہیں۔ پک اپ مقام، منزل، تاریخ اور وقت بتائیں — ہماری 24/7 ٹیم عام طور پر 1-2 گھنٹوں میں فکسڈ قیمت کے ساتھ تصدیق کرے گی۔" },
+        { q: "جدہ ایئرپورٹ سے مکہ ٹیکسی کا کرایہ کتنا ہے؟", a: "جدہ ایئرپورٹ سے مکہ ٹیکسی کا کرایہ عام سیڈان میں 249 ریال سے شروع ہوتا ہے، فیملی گاڑیوں کے آپشن کے ساتھ۔ قیمت فکسڈ ہے، کوئی پوشیدہ چارجز نہیں۔" },
+        { q: "کیا آپ مدینہ سے عمرہ ٹرانسپورٹ فراہم کرتے ہیں؟", a: "جی ہاں، ہم مکہ سے مدینہ، مدینہ سے مکہ اور زیارت ٹورز کا احاطہ کرتے ہیں، میقات پر رکنے اور پیشہ ور ڈرائیوروں کے ساتھ۔" },
+        { q: "کیا ڈرائیور لائسنس یافتہ اور پیشہ ور ہیں؟", a: "بالکل۔ ہمارے تمام ڈرائیورز درست سعودی ڈرائیونگ لائسنس رکھتے ہیں اور عربی، انگریزی اور اردو بولتے ہیں۔" },
+        { q: "کیا بڑے خاندانوں کے لیے گاڑیاں ہیں؟", a: "جی ہاں، ہم GMC Yukon جیسی لگژری SUV اور Toyota Hiace و Hyundai Staria جیسی کشادہ وینز فراہم کرتے ہیں جو گروپس اور خاندانوں کے لیے بہترین ہیں۔" }
+      ]
+    }
+  }
+};
+
+
+// Featured routes shown on the homepage — facts (distance/duration/price) are
+// pulled live from ROUTES_DATA by slug so this list can never drift out of
+// sync with /routes or any other page that reads the same source.
+const FEATURED_ROUTE_SLUGS = [
+  "jeddah-airport-to-makkah",
+  "makkah-to-madinah",
+  "madinah-to-makkah",
+  "makkah-to-jeddah-airport",
+  "madinah-airport-to-makkah",
+  "madinah-airport-to-city",
+  "riyadh-airport-to-city",
+  "jeddah-airport-to-taif",
+  "riyadh-to-dammam",
+  "dammam-to-manama",
+];
+
+function formatRouteDuration(minutes: number) {
+  const h = Math.floor(minutes / 60);
+  const m = minutes % 60;
+  if (h === 0) return `${m}m`;
+  return m > 0 ? `${h}h ${m}m` : `${h}h`;
+}
+
+const topRoutesList = FEATURED_ROUTE_SLUGS.map((slug) => {
+  const route = ROUTES_DATA.find((r) => r.slug === slug)!;
+  return {
+    from: slug,
+    nameEn: `${route.fromCity} ➔ ${route.toCity}`,
+    nameAr: `${route.fromCityAr} ➔ ${route.toCityAr}`,
+    dist: `${route.distance} km`,
+    dur: formatRouteDuration(route.duration),
+    price: String(route.basePrice),
+  };
+});
+
+const vehicleList = [
+  {
+    id: "mercedes-s",
+    name: "Mercedes-Benz S-Class VIP",
+    type: "Ultra Luxury Sedan",
+    capacity: "3 Passengers",
+    luggage: "3 Suitcases",
+    image: "/fleet/real/mercedes-s-class-exterior-night.webp"
+  },
+  {
+    id: "mercedes-v",
+    name: "Mercedes-Benz V-Class VIP",
+    type: "Maybach Trim VIP MPV",
+    capacity: "6 Passengers",
+    luggage: "6 Suitcases",
+    image: "/fleet/real/mercedes-v-class-fleet-lineup.webp"
+  },
+  {
+    id: "sprinter-vip",
+    name: "Mercedes-Benz Sprinter Royal VIP",
+    type: "Custom Lounge Luxury Van",
+    capacity: "9 Passengers",
+    luggage: "8 Suitcases",
+    image: "/fleet/real/mercedes-sprinter-vip-exterior.webp"
+  },
+  {
+    id: "escalade",
+    name: "Cadillac Escalade",
+    type: "VIP Full-Size SUV",
+    capacity: "6 Passengers",
+    luggage: "5 Suitcases",
+    image: "/fleet/cadillac-escalade.webp"
+  },
+  {
+    id: "yukon",
+    name: "GMC Yukon Denali XL",
+    type: "Premium SUV",
+    capacity: "6 Passengers",
+    luggage: "5 Suitcases",
+    image: "/fleet/gmc-yukon-xl.webp"
+  }
+];
+
+const internationalNations = [
+  { name: "Saudi Arabia", flag: "🇸🇦" },
+  { name: "United Kingdom", flag: "🇬🇧" },
+  { name: "United States", flag: "🇺🇸" },
+  { name: "Pakistan", flag: "🇵🇰" },
+  { name: "Indonesia", flag: "🇮🇩" },
+  { name: "India", flag: "🇮🇳" },
+  { name: "Malaysia", flag: "🇲🇾" },
+  { name: "Turkey", flag: "🇹🇷" },
+  { name: "Egypt", flag: "🇪🇬" },
+  { name: "United Arab Emirates", flag: "🇦🇪" },
+  { name: "Kuwait", flag: "🇰🇼" },
+  { name: "Qatar", flag: "🇶🇦" },
+  { name: "Oman", flag: "🇴🇲" },
+  { name: "Bahrain", flag: "🇧🇭" },
+  { name: "Jordan", flag: "🇯🇴" },
+  { name: "Iraq", flag: "🇮🇶" },
+  { name: "Bangladesh", flag: "🇧🇩" },
+  { name: "Algeria", flag: "🇩🇿" },
+  { name: "Morocco", flag: "🇲🇦" },
+  { name: "France", flag: "🇫🇷" },
+  { name: "Germany", flag: "🇩🇪" },
+  { name: "Canada", flag: "🇨🇦" },
+  { name: "Australia", flag: "🇦🇺" },
+  { name: "Nigeria", flag: "🇳🇬" }
+];
+
+// NOTE: fabricated "customerReviews" array removed (Batch 1, 2026-08-31).
+// No genuine review data exists in the codebase, so the on-page section was
+// replaced with an honest assurances band (t.testimonials.items) built only
+// from claims already stated in the page's "whyUs" section — no fabrication.
+// When REAL, attributable reviews become available (e.g. Google Business
+// Profile), reintroduce a reviews section + valid Review schema then.
+
+// Homepage blog cards -> real guide detail pages (pehle /guides?id= duplicate URLs ban rahe the)
+const GUIDE_SLUG_LINKS: Record<string, string> = {
+  "jeddah-sim-guide": "/guides/jeddah-airport-sim-card",
+  "meeqat-guide": "/guides/meeqat-locations",
+  "riyal-cash-guide": "/guides/saudi-riyal-pilgrim-guide",
+};
+
+const blogList = [
+  { id: "jeddah-sim-guide", categoryEn: "Airport Help", categoryAr: "مساعدة المطار", categoryUr: "ہوائی اڈے کی مدد", titleEn: "SIM Card buying guide at Jeddah Airport", titleAr: "دليل شراء بطاقات الاتصال SIM في مطار جدة", titleUr: "جدہ ایئرپورٹ پر سم کارڈ خریدنے کا گائیڈ", excerptEn: "Exactly where to purchase local 5G eSIMs/SIMs from stc, Mobily, or Zain upon landing at Terminal 1 or North Terminal.", excerptAr: "أين تشتري شرائح الاتصال المحلية eSIM/SIM من شركات stc، وموبايلي، وزين فور وصولك لصالة المطار.", excerptUr: "ٹرمینل 1 پر لینڈنگ کے بعد stc، Mobily، یا Zain سے مقامی 5G eSIMs/SIMs خریدنے کی درست جگہوں کی معلومات۔", author: "Taxi Saudi Arabia Editorial", date: "May 12, 2026", timeEn: "5 min read", timeAr: "قراءة ٥ دقائق", timeUr: "5 منٹ مطالعہ" },
+  { id: "meeqat-guide", categoryEn: "Umrah", categoryAr: "العمرة والزيارة", categoryUr: "عمرہ اور زیارت", titleEn: "Complete Meeqat locations guide for Umrah", titleAr: "دليل مواقيت الإحرام الكامل للمعتمرين", titleUr: "عمرہ کے لیے میقات کے مقامات کی مکمل گائیڈ", excerptEn: "Step-by-step guidance on Meeqat points (including Dhul Hulaifah & Yalamlam) for international pilgrims arriving by air or road.", excerptAr: "شرح تفصيلي خطوة بخطوة لمواقيت الإحرام (بما في ذلك ذو الحليفة ويلملم) للحجاج والمعتمرين القادمين جواً أو براً.", excerptUr: "فضائی یا زمینی راستے سے آنے والے بین الاقوامی زائرین کے لیے میقات کے مقامات پر تفصیلی رہنمائي۔", author: "Taxi Saudi Arabia Editorial", date: "May 08, 2026", timeEn: "7 min read", timeAr: "قراءة ٧ دقائق", timeUr: "7 منٹ مطالعہ" },
+  { id: "riyal-cash-guide", categoryEn: "Travel Finance", categoryAr: "المالية والسفر", categoryUr: "ٹریول فنانس", titleEn: "Saudi Riyal cash & card tips for pilgrims", titleAr: "نصائح الكاش والبطاقات للمعتمرين في السعودية", titleUr: "زائرین کے لیے سعودی ریال کیش اور کارڈ کی تجاویز", excerptEn: "Everything about card acceptance, local mada payment network, currency exchange outlets, and ATM fee limits in KSA.", excerptAr: "كل ما تحتاج لمعرفته حول قبول بطاقات الائتمان، شبكة مدى المحلية، منافذ الصرافة ورسوم السحب من أجهزة الصراف الآلي.", excerptUr: "کارڈز کی قبولیت، مقامی mada پیمنٹ نیٹ ورک، کرنسی ایکسچینج اور اے ٹی ایم فیس کی حدود کے بارے میں سب کچھ۔", author: "Taxi Saudi Arabia Editorial", date: "April 29, 2026", timeEn: "4 min read", timeAr: "قراءة ٤ دقائق", timeUr: "4 منٹ مطالعہ" }
+];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0 }
+};
+
+// Hero car slideshow — image changes every 5 seconds
+const heroCars = [
+  { image: "/fleet/real/mercedes-s-class-exterior-night.webp", name: "Mercedes S-Class VIP", nameAr: "مرسيدس الفئة S الفاخرة" },
+  { image: "/fleet/real/mercedes-v-class-fleet-lineup.webp", name: "Mercedes V-Class VIP Lineup", nameAr: "أسطول مرسيدس V-Class" },
+  { image: "/fleet/real/mercedes-sprinter-vip-exterior.webp", name: "Mercedes Sprinter Royal VIP", nameAr: "مرسيدس سبprinter VIP" },
+  { image: "/fleet/cadillac-escalade.webp", name: "Cadillac Escalade", nameAr: "كاديلاك إسكاليد" },
+  { image: "/fleet/gmc-yukon-xl.webp", name: "GMC Yukon XL Denali", nameAr: "جي إم سي يوكن" },
+];
+
+type VehicleItem = {
+  id: string;
+  name: string;
+  type: string;
+  capacity: string;
+  luggage: string;
+  image: string;
+};
+
+function FleetCard({ veh, index, onBook, btnLabel }: {
+  veh: VehicleItem;
+  index: number;
+  onBook: () => void;
+  btnLabel: string;
+}) {
+  return (
+    <motion.article
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.15 }}
+      variants={fadeUp}
+      transition={{ duration: 0.5, delay: index * 0.08 }}
+      whileHover={{ y: -6 }}
+      className="group relative overflow-hidden rounded-2xl border border-[#16A34A]/12 bg-white shadow-sm hover:shadow-xl hover:border-[#16A34A]/35 transition-all duration-400"
+    >
+      {/* Image with zoom */}
+      <div className="relative h-56 w-full overflow-hidden">
+        <Image
+          src={veh.image}
+          alt={veh.name}
+          fill
+          sizes="(max-width: 768px) 100vw, 33vw"
+          className="object-cover brightness-85 transition-transform duration-700 group-hover:scale-108"
+          loading="lazy"
+        />
+        {/* Gold accent overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+        <span
+          className="absolute start-3 top-3 rounded-full px-3 py-1 text-[0.58rem] uppercase tracking-wider font-bold"
+          style={{
+            backgroundColor: "rgba(255,255,255,0.85)",
+            border: "1px solid rgba(22,163,74,0.3)",
+            color: "#16A34A",
+            backdropFilter: "blur(8px)",
+          }}
+        >
+          {veh.type}
+        </span>
+      </div>
+
+      {/* Content */}
+      <div className="p-5 space-y-3">
+        {/* Gold accent line */}
+        <div className="h-[2px] w-10 rounded-full bg-gradient-to-r from-[#16A34A] to-[#4ADE80] group-hover:w-16 transition-all duration-400" />
+
+        <h3 className="font-heading text-lg font-bold text-[#1C1C1C] group-hover:text-[#16A34A] transition-colors leading-snug">
+          {veh.name}
+        </h3>
+
+        <div
+          className="flex items-center gap-3 text-[0.62rem] font-bold uppercase tracking-wider py-2 border-y"
+          style={{ borderColor: "rgba(22,163,74,0.12)", color: "#6B7280" }}
+        >
+          <span>{veh.capacity}</span>
+          <span className="h-1 w-1 rounded-full" style={{ backgroundColor: "#16A34A" }} />
+          <span>{veh.luggage}</span>
+        </div>
+
+        <button
+          onClick={onBook}
+          className="w-full rounded-full py-2.5 text-[0.72rem] font-bold uppercase tracking-wider transition-all duration-300"
+          style={{
+            border: "1.5px solid rgba(22,163,74,0.3)",
+            color: "#16A34A",
+            backgroundColor: "transparent",
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#16A34A";
+            (e.currentTarget as HTMLButtonElement).style.color = "#FFFFFF";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLButtonElement).style.backgroundColor = "transparent";
+            (e.currentTarget as HTMLButtonElement).style.color = "#16A34A";
+          }}
+        >
+          {btnLabel}
+        </button>
+      </div>
+    </motion.article>
+  );
+}
+
+// Structured, bulleted prefill (same pattern as WhatsAppQuoteForm/WhatsAppButton)
+// so every WhatsApp CTA collects the same trip details up front, regardless
+// of which section of the page it's clicked from.
+const HOME_WHATSAPP_TEXT: Record<"en" | "ar" | "ur", string> = {
+  en: "Salam! I'd like to book a private taxi with Taxi Saudi Arabia.\n\n• From: \n• To: \n• Date & time: \n• Passengers & luggage: \n• Vehicle (Sedan / SUV / Van): ",
+  ar: "السلام عليكم، أرغب بحجز تاكسي خاص مع تاكسي السعودية.\n\n• من: \n• إلى: \n• التاريخ والوقت: \n• الركاب والأمتعة: \n• نوع السيارة (سيدان / SUV / فان): ",
+  ur: "سلام! میں ٹیکسی سعودی عرب کے ساتھ پرائیویٹ ٹیکسی بک کروانا چاہتا ہوں۔\n\n• سے: \n• تک: \n• تاریخ اور وقت: \n• مسافر اور سامان: \n• گاڑی (سیڈان / SUV / وین): ",
+};
+
+export function HomePage() {
+  const { language } = useLanguage();
+  const t = homeTranslations[language];
+  const pathname = usePathname();
+  const homeWhatsappLink = `${contactConfig.whatsappLink}?text=${encodeURIComponent(HOME_WHATSAPP_TEXT[language])}`;
+  const trackHomeWhatsappClick = (sourceLocation: string) =>
+    trackEvent("whatsapp_click", {
+      sourceLocation,
+      phoneUsed: contactConfig.whatsappNumber,
+      locale: language,
+      path: pathname,
+    });
+
+  // Active Direction for RTL Support
+  const isRtl = language === "ar";
+
+  // Trust Stats Counter state
+  const [tripsCounter, setTripsCounter] = useState(trustStats.routesCount);
+
+  useEffect(() => {
+    // Smooth count-up animation on client-side mount
+    let start = 0;
+    const end = trustStats.routesCount;
+    const duration = 1500;
+    const increment = Math.ceil(end / (duration / 30));
+    
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= end) {
+        setTripsCounter(end);
+        clearInterval(timer);
+      } else {
+        setTripsCounter(start);
+      }
+    }, 30);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const scrollToBooking = () => {
+    const element = document.getElementById("booking-console");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const [heroCar, setHeroCar] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setHeroCar((i) => (i + 1) % heroCars.length), 5000);
+    return () => clearInterval(id);
+  }, []);
+  const currentCar = heroCars[heroCar];
+
+  return (
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] overflow-hidden pt-20">
+      
+      {/* SECTION 1 — HERO (light, two-column: car image + green panel) */}
+      <section className="relative pt-8 md:pt-10 pb-16" style={{ backgroundColor: "#FAFAF7" }}>
+        <div className="section-container">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+
+            {/* LEFT — Car image card */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="premium-dark-section relative rounded-3xl overflow-hidden min-h-[320px] md:min-h-[460px] shadow-[0_18px_50px_rgba(0,0,0,0.12)]"
+            >
+              <Image
+                key={currentCar.image}
+                src={currentCar.image}
+                alt={`${currentCar.name} — Taxi Saudi Arabia`}
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                quality={90}
+                className="object-cover animate-fade-in"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/45" />
+
+              {/* Top overlay heading */}
+              <div className="absolute top-0 inset-x-0 p-6 text-center">
+                <p className="font-heading text-lg md:text-2xl font-extrabold text-white uppercase tracking-tight leading-tight drop-shadow-md">
+                  {language === "ar" ? "سافر براحة مع تاكسي السعودية" : "Travel in Comfort with Taxi Saudi Arabia"}
+                </p>
+                <p key={currentCar.name} className="t-eyebrow mt-2">
+                  {language === "ar" ? currentCar.nameAr : currentCar.name}
+                </p>
+              </div>
+
+              {/* Bottom car badge */}
+              <div className="absolute bottom-5 start-5">
+                <span key={currentCar.name} className="inline-block rounded-full bg-[#16A34A] px-4 py-1.5 text-xs font-bold text-white shadow-md animate-fade-in">
+                  {language === "ar" ? currentCar.nameAr : currentCar.name}
+                </span>
+              </div>
+
+              {/* Slideshow dots */}
+              <div className="absolute bottom-5 end-5 flex gap-1.5" aria-hidden="true">
+                {heroCars.map((_, i) => (
+                  <span
+                    key={i}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${i === heroCar ? "w-5 bg-[#FACC15]" : "w-1.5 bg-white/50"}`}
+                  />
+                ))}
+              </div>
+            </motion.div>
+
+            {/* RIGHT — Green panel */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.12 }}
+              className="premium-dark-section rounded-3xl p-8 md:p-12 flex flex-col justify-center shadow-[0_18px_50px_rgba(22,163,74,0.18)]"
+              style={{ backgroundColor: "#16A34A" }}
+            >
+              <h1
+                className="font-heading font-extrabold text-white leading-tight"
+                style={{ fontSize: "clamp(1.9rem, 3.6vw, 3.1rem)", letterSpacing: "-0.02em" }}
+              >
+                {t.hero.title}
+              </h1>
+
+              <p className="mt-5 max-w-xl text-sm md:text-base leading-relaxed text-white/90">
+                {t.hero.subtitle}
+              </p>
+
+              {/* CTAs */}
+              <div className="mt-8 flex flex-wrap gap-4">
+                <a
+                  href="#booking-console"
+                  className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-bold transition-all duration-300 hover:scale-105"
+                  style={{ backgroundColor: "#FACC15", color: "#1C1C1C", boxShadow: "0 8px 24px rgba(250,204,21,0.4)" }}
+                >
+                  {t.hero.btnBook}
+                  <ChevronRight className="rtl:-scale-x-100 h-4 w-4" />
+                </a>
+                <a
+                  href={homeWhatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackHomeWhatsappClick("home_hero")}
+                  className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-bold transition-all duration-300 hover:scale-105"
+                  style={{ color: "#16A34A" }}
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  {language === "ar" ? "تواصل عبر واتساب" : "WhatsApp Us"}
+                </a>
+              </div>
+
+              {/* Trust badges — premium icon-style */}
+              <div className="mt-8 grid grid-cols-2 gap-3">
+                {[
+                  { icon: ShieldCheck, label: t.hero.badges[0] },
+                  { icon: Award, label: t.hero.badges[1] },
+                  { icon: Sparkles, label: t.hero.badges[2] },
+                  { icon: Globe, label: t.hero.badges[3] },
+                ].map(({ icon: Icon, label }, idx) => (
+                  <span
+                    key={idx}
+                    className="flex items-center gap-2.5 rounded-xl bg-white/10 backdrop-blur-sm px-3.5 py-2.5 text-xs font-semibold text-white/95 border border-white/10"
+                  >
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#FACC15]/20">
+                      <Icon className="h-3.5 w-3.5 text-[#FACC15]" />
+                    </span>
+                    {label}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* PARALLAX — Riyadh Skyline (after Hero) */}
+      <ParallaxSection
+        image="/locations/riyadh-hero.webp"
+        title={t.misc.parallax[0].title}
+        text={t.misc.parallax[0].text}
+        buttonLabel={t.misc.parallax[0].btn}
+        buttonHref="#booking-console"
+      />
+
+      {/* SECTION 2 — PREMIUM STATS BAR */}
+      <section className="relative z-10 border-y" style={{ backgroundColor: "#F0FDF4", borderColor: "rgba(22,163,74,0.12)" }}>
+        <div className="section-container py-14">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
+            {t.stats.map((stat, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="space-y-2"
+              >
+                <p
+                  className="font-heading font-extrabold"
+                  style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "#16A34A", letterSpacing: "-0.02em" }}
+                >
+                  {idx === 0 ? `${tripsCounter.toLocaleString()}+` : stat.value}
+                </p>
+                <div className="w-8 h-[2px] mx-auto rounded-full" style={{ backgroundColor: "rgba(22,163,74,0.3)" }} />
+                <p className="text-[0.65rem] uppercase tracking-[0.2em] font-semibold" style={{ color: "#6B7280" }}>
+                  {stat.label}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 3 — BOOKING WIDGET */}
+      <section id="booking-console" className="section-container py-24 relative z-10">
+        <div className="text-center space-y-4 mb-12">
+          <span
+            className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[0.65rem] uppercase tracking-widest font-bold"
+            style={{ backgroundColor: "rgba(22,163,74,0.1)", border: "1px solid rgba(22,163,74,0.25)", color: "#16A34A" }}
+          >
+            <Calendar className="h-3.5 w-3.5" />
+            <span>{t.misc.instantCalc}</span>
+          </span>
+          <h2
+            className="font-heading font-bold"
+            style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", letterSpacing: "-0.02em", color: "#0F172A" }}
+          >
+            {language === "ar"
+              ? "احصل على عرض سعر النقل الخاص عبر واتساب"
+              : "Get Your Private Transfer Quote on WhatsApp"}
+          </h2>
+          <p className="max-w-xl mx-auto text-sm" style={{ color: "#6B7280" }}>
+            {language === "ar"
+              ? "شارك تفاصيل رحلتك وسنرد عليك بعرض سعر واضح عبر واتساب، عادةً خلال ساعة إلى ساعتين — بدون رسوم مخفية أو زيادة مفاجئة"
+              : "Share your trip details and we'll send a clear price on WhatsApp, usually within 1–2 hours — no hidden charges, no surge pricing."}
+          </p>
+        </div>
+        <WhatsAppQuoteForm />
+      </section>
+
+      {/* SECTION 3b — HOW IT WORKS (booking process) */}
+      <section className="py-20 md:py-24 border-t border-[#16A34A]/10 relative z-10 surface-tint">
+        <div className="section-container">
+          <ProcessTimeline
+            heading={language === "ar" ? "كيف تعمل الخدمة" : "How booking your transfer works"}
+            intro={
+              language === "ar"
+                ? "أربع خطوات بسيطة من طلب السعر حتى وصولك بكل راحة."
+                : "Four simple steps from your first message to arriving in comfort — no app, no account, no surge pricing."
+            }
+            steps={
+              language === "ar"
+                ? [
+                    { title: "أخبرنا برحلتك", desc: "شارك نقطة الانطلاق والوجهة والموعد وعدد الركاب عبر واتساب أو النموذج.", icon: Calendar },
+                    { title: "استلم عرض السعر", desc: "نرد بسعر ثابت وواضح عبر واتساب، عادةً خلال ساعة إلى ساعتين — بدون رسوم مخفية.", icon: MessageCircle },
+                    { title: "أكّد الحجز", desc: "وافق على السعر وسنؤكد السيارة والسائق وتفاصيل الاستلام.", icon: CheckCircle },
+                    { title: "استمتع برحلتك", desc: "يصل سائقك المحترف في الموعد وتسافر براحة من الباب إلى الباب.", icon: Car },
+                  ]
+                : [
+                    { title: "Tell us your journey", desc: "Share your pickup, destination, date and passengers — on WhatsApp or the quote form. Takes under a minute.", icon: Calendar },
+                    { title: "Get your quote", desc: "We reply with a clear, fixed fare on WhatsApp, usually within 1–2 hours. No meter, no surge, no hidden fees.", icon: MessageCircle },
+                    { title: "Confirm your transfer", desc: "Approve the fare and we confirm your vehicle, professional driver and pickup details in writing.", icon: CheckCircle },
+                    { title: "Travel comfortably", desc: "Your driver arrives on time and you travel door-to-door in a clean, well-maintained vehicle.", icon: Car },
+                  ]
+            }
+          />
+        </div>
+      </section>
+
+      {/* SECTION 4 — SERVICES */}
+      <section className="py-20 md:py-28 border-t border-[#0F172A]/[0.05] relative z-10" style={{ backgroundColor: "#F8FAFC" }}>
+        <div className="section-container">
+          <div className="section-head is-center mb-12 md:mb-14">
+            <span className="t-eyebrow">{t.services.badge}</span>
+            <h2 className="t-h2">{t.services.title}</h2>
+          </div>
+
+          {/* Featured + supporting layout: the lead service gets a 2×2 brand
+              panel; the rest sit beside/below it as compact cards. */}
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {t.services.cards.map((service, index) => {
+              const Icon = service.icon;
+              const waHref = `${contactConfig.whatsappLink}?text=${encodeURIComponent(
+                `Salam! I'd like a quote for ${service.title}.\n\n• From: \n• To: \n• Date & time: \n• Passengers & luggage: \n• Vehicle (Sedan / SUV / Van): `
+              )}`;
+
+              if (index === 0) {
+                return (
+                  <motion.article
+                    key={service.title}
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ once: true, amount: 0.15 }}
+                    variants={fadeUp}
+                    transition={{ duration: 0.5 }}
+                    className="on-dark group relative flex flex-col justify-between overflow-hidden rounded-[28px] p-8 md:col-span-2 lg:row-span-2 md:p-10 band-brand shadow-[0_30px_60px_-30px_rgba(22,163,74,0.8)]"
+                  >
+                    <span aria-hidden className="pointer-events-none absolute -end-24 -top-24 h-72 w-72 rounded-full bg-[#FACC15]/20 blur-3xl transition-transform duration-700 group-hover:scale-110" />
+                    <span aria-hidden className="pointer-events-none absolute -bottom-16 -start-10 h-56 w-56 rounded-full border-[28px] border-white/[0.06]" />
+                    <div className="relative">
+                      <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15 text-[#FACC15] ring-1 ring-white/25 backdrop-blur-sm">
+                        <Icon className="h-7 w-7" />
+                      </span>
+                      <span className="mt-8 block text-[0.72rem] font-bold uppercase tracking-[0.18em] text-[#FEF08A]">Most requested</span>
+                      <h3 className="mt-3 max-w-md font-heading text-[clamp(1.6rem,2.6vw,2.2rem)] font-extrabold leading-[1.12] tracking-tight !text-[#FFFFFF]">
+                        {service.title}
+                      </h3>
+                      <p className="mt-4 max-w-lg text-[0.98rem] leading-relaxed text-white/85">{service.desc}</p>
+                    </div>
+                    <div className="relative mt-10 flex flex-wrap gap-3">
+                      <a href="#booking-console" className="btn btn-accent btn-lg">
+                        {t.misc.bookNow} <ArrowRight className="rtl:-scale-x-100" />
+                      </a>
+                      <a
+                        href={waHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => trackHomeWhatsappClick(`home_services_card_${index}`)}
+                        className="btn btn-glass btn-lg"
+                      >
+                        <MessageCircle /> Request Quote
+                      </a>
+                    </div>
+                  </motion.article>
+                );
+              }
+
+              return (
+                <motion.article
+                  key={service.title}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true, amount: 0.15 }}
+                  variants={fadeUp}
+                  transition={{ duration: 0.45, delay: index * 0.06 }}
+                  className="card card-hover group relative flex flex-col p-6 md:p-7"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <span className="icon-tile">
+                      <Icon />
+                    </span>
+                    <a
+                      href={waHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackHomeWhatsappClick(`home_services_card_${index}`)}
+                      className="inline-flex min-h-9 items-center gap-1.5 rounded-full border border-[#16A34A]/20 bg-[#F0FDF4] px-3 text-[0.72rem] font-bold text-[#15803D] transition-colors hover:border-[#16A34A] hover:bg-[#16A34A] hover:text-[#FFFFFF]"
+                    >
+                      <MessageCircle className="h-3.5 w-3.5" />
+                      Request Quote
+                    </a>
+                  </div>
+
+                  <h3 className="t-h3 mt-5 transition-colors duration-300 group-hover:!text-[#15803D]">{service.title}</h3>
+                  <p className="mt-2.5 flex-1 text-sm leading-relaxed text-[#64748B]">{service.desc}</p>
+
+                  <a
+                    href="#booking-console"
+                    className="mt-6 inline-flex items-center gap-1.5 border-t border-[#0F172A]/[0.06] pt-4 text-sm font-bold text-[#15803D]"
+                  >
+                    {t.misc.bookNow}
+                    <ArrowRight className="rtl:-scale-x-100 h-4 w-4" />
+                  </a>
+                </motion.article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION — ABOUT (integrated from About Us page) */}
+      <section id="about" className="py-24 border-t border-[#C9A84C]/10 relative z-10" style={{ backgroundColor: "#FFFFFF" }}>
+        <div className="section-container">
+          <div className="grid gap-14 lg:grid-cols-2 items-center">
+            {/* Image */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="relative h-[340px] rounded-3xl overflow-hidden border border-[#16A34A]/15 shadow-[0_18px_50px_rgba(0,0,0,0.10)] order-last lg:order-first"
+            >
+              <Image
+                src="/locations/riyadh-hero.webp"
+                alt="Taxi Saudi Arabia — licensed taxi and car service across the Kingdom"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" />
+            </motion.div>
+
+            {/* Copy */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="space-y-6"
+            >
+              <span className="t-eyebrow">
+                {language === "ar" ? "من نحن" : "About Taxi Saudi Arabia"}
+              </span>
+              <h2 className="font-heading font-bold" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", letterSpacing: "-0.02em", color: "#0F172A" }}>
+                {language === "ar" ? "خدمة تاكسي سعودية موثوقة" : "Saudi Arabia's Trusted Taxi Service"}
+              </h2>
+              <p className="text-sm leading-relaxed" style={{ color: "#6B7280" }}>
+                {language === "ar"
+                  ? "تاكسي السعودية ينظّم رحلات خاصة تغطي الرياض وجدة ومكة والمدينة والدمام وغيرها — يخدم الحجاج والمسافرين والعائلات بأسعار واضحة وسائقين محترفين."
+                  : "Taxi Saudi Arabia arranges private transportation across Riyadh, Jeddah, Makkah, Madinah, Dammam and beyond — serving pilgrims, business travellers, and families with clear pricing and professional drivers."}
+              </p>
+
+              <div className="grid sm:grid-cols-2 gap-4">
+                {[
+                  {
+                    icon: CheckCircle,
+                    en: hasCredential(credentials.vatNumber) ? "Licensed drivers & ZATCA-compliant" : "Professional, experienced drivers",
+                    ar: hasCredential(credentials.vatNumber) ? "سائقون مرخصون ومتوافق مع هيئة الزكاة" : "سائقون محترفون وذوو خبرة",
+                  },
+                  { icon: ShieldCheck, en: "Professional drivers speaking English & Arabic", ar: "سائقون محترفون يتحدثون العربية والإنجليزية" },
+                  { icon: Sparkles, en: "Clean, air-conditioned, maintained cars", ar: "سيارات نظيفة ومكيفة وبصيانة دورية" },
+                  { icon: Award, en: "Professional drivers · clear pricing 24/7", ar: "سائقون محترفون · أسعار واضحة على مدار الساعة" },
+                ].map((p) => {
+                  const Icon = p.icon;
+                  return (
+                    <div key={p.en} className="flex items-start gap-3 rounded-2xl border border-[#16A34A]/12 bg-[#F0FDF4] p-4">
+                      <Icon className="h-5 w-5 text-[#16A34A] shrink-0 mt-0.5" />
+                      <span className="text-xs font-medium leading-relaxed text-[#334155]">{language === "ar" ? p.ar : p.en}</span>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="flex flex-wrap gap-4 pt-2">
+                <Link
+                  href="/about"
+                  className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-xs font-bold uppercase tracking-wider text-white transition-transform hover:scale-105"
+                  style={{ backgroundColor: "#16A34A" }}
+                >
+                  {language === "ar" ? "اعرف المزيد عنا" : "Learn More About Us"}
+                  <ArrowRight className="rtl:-scale-x-100 h-4 w-4" />
+                </Link>
+                <a
+                  href="#booking-console"
+                  className="btn btn-secondary"
+                >
+                  {language === "ar" ? "احجز الآن" : "Book a Ride"}
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* PARALLAX — Saudi Landmarks (after Services) */}
+      <ParallaxSection
+        image="/locations/taif-hero.webp"
+        title={t.misc.parallax[1].title}
+        text={t.misc.parallax[1].text}
+        buttonLabel={t.misc.parallax[1].btn}
+        buttonHref="/locations"
+      />
+
+      {/* SECTION 5 — WHY CHOOSE US */}
+      <section className="section-container py-24 border-t border-[#C9A84C]/10 relative z-10">
+        <div className="grid gap-14 lg:grid-cols-[0.85fr_1.15fr] items-start">
+
+          {/* Left: title + description */}
+          <div className="space-y-5 lg:sticky lg:top-28">
+            <span className="text-[0.65rem] uppercase tracking-[0.25em] font-bold" style={{ color: "#16A34A" }}>
+              {t.whyUs.badge}
+            </span>
+            <h2
+              className="font-heading font-bold"
+              style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", letterSpacing: "-0.02em", color: "#0F172A" }}
+            >
+              {t.whyUs.title}
+            </h2>
+            <p className="text-sm leading-relaxed text-[#6B7280]">
+              {t.whyUs.desc}
+            </p>
+            <a
+              href={homeWhatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackHomeWhatsappClick("home_why_us")}
+              className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-xs font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
+              style={{ border: "1.5px solid rgba(22,163,74,0.35)" }}
+            >
+              <PhoneCall className="h-4 w-4" />
+              <span>{t.misc.callWhatsApp}</span>
+            </a>
+          </div>
+
+          {/* Right: feature grid */}
+          <div className="grid gap-4 sm:grid-cols-2">
+            {t.whyUs.points
+              .filter((pt) => hasCredential(credentials.vatNumber) || !pt.title.includes("ZATCA"))
+              .map((pt, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.06 }}
+                className="rounded-xl p-5 space-y-2.5 transition-all duration-300 hover:shadow-md group"
+                style={{
+                  border: "1.5px solid rgba(22,163,74,0.12)",
+                  backgroundColor: "#FFFFFF",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(22,163,74,0.35)")}
+                onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(22,163,74,0.12)")}
+              >
+                <div className="flex items-center gap-2.5">
+                  <span
+                    className="flex h-6 w-6 items-center justify-center rounded-full shrink-0"
+                    style={{ backgroundColor: "rgba(22,163,74,0.12)" }}
+                  >
+                    <CheckCircle className="h-3.5 w-3.5" style={{ color: "#16A34A" }} />
+                  </span>
+                  <h4 className="font-heading font-bold text-[0.9rem]" style={{ color: "#0F172A" }}>
+                    {pt.title}
+                  </h4>
+                </div>
+                <p className="text-[0.72rem] leading-relaxed text-[#6B7280] ps-8">
+                  {pt.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 6 — POPULAR ROUTES */}
+      <section className="section-container py-24 border-t border-[#C9A84C]/10 relative z-10">
+        <div className="mb-12 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <div className="section-head">
+            <span className="t-eyebrow">{t.routes.badge}</span>
+            <h2 className="t-h2">{t.routes.title}</h2>
+          </div>
+          <Link href="/routes" className="btn btn-secondary btn-sm shrink-0 self-start md:self-auto">
+            {t.misc.viewAllRoutes} <ArrowRight className="rtl:-scale-x-100" />
+          </Link>
+        </div>
+
+        {/* Route cards — mini origin→destination rail, real distance/time
+            chips, quote action. 5-up on desktop so 10 routes fill 2 rows. */}
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          {topRoutesList.map((route, index) => {
+            const name = route[`name${language === 'ar' ? 'Ar' : 'En'}` as const];
+            return (
+              <motion.div
+                key={index}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={fadeUp}
+                transition={{ duration: 0.45, delay: (index % 5) * 0.06 }}
+                className="card card-hover group flex flex-col p-5"
+              >
+                <div className="flex gap-3">
+                  <span aria-hidden className="flex flex-col items-center gap-1 pt-1.5">
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#16A34A] ring-4 ring-[#16A34A]/15" />
+                    <span className="w-0 flex-1 border-s-2 border-dotted border-[#16A34A]/35" />
+                    <span className="h-2.5 w-2.5 rounded-full border-2 border-[#16A34A] bg-white" />
+                  </span>
+                  <h3 className="font-heading text-[0.98rem] font-bold leading-snug text-[#0F172A] transition-colors group-hover:text-[#15803D]">
+                    {name}
+                  </h3>
+                </div>
+
+                <div className="mt-4 mb-5 flex flex-wrap gap-1.5">
+                  <span className="rounded-full bg-[#F1F5F9] px-2.5 py-1 text-[0.72rem] font-semibold text-[#475569]">{route.dist}</span>
+                  <span className="rounded-full bg-[#F1F5F9] px-2.5 py-1 text-[0.72rem] font-semibold text-[#475569]">{route.dur}</span>
+                </div>
+
+                <div className="mt-auto flex items-center justify-between gap-2 border-t border-[#0F172A]/[0.06] pt-4">
+                  <a
+                    href={`${contactConfig.whatsappLink}?text=${encodeURIComponent(
+                      `Salam! I'd like a quote:
+
+• Route: ${route.nameEn}
+• Date & time: 
+• Passengers: 
+• Vehicle (Sedan / SUV / Van): `
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackHomeWhatsappClick(`home_route_card_${route.from}`)}
+                    className="inline-flex min-h-9 items-center gap-1.5 text-[0.82rem] font-bold text-[#15803D] hover:underline"
+                  >
+                    <MessageCircle className="h-4 w-4" />
+                    Request Quote
+                  </a>
+                  <button
+                    onClick={scrollToBooking}
+                    aria-label={`${t.routes.btnBook}: ${name}`}
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-[#F0FDF4] text-[#16A34A] transition-all group-hover:bg-[#16A34A] group-hover:text-[#FFFFFF]"
+                  >
+                    <ArrowRight className="rtl:-scale-x-100 h-4 w-4" />
+                  </button>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* SECTION 7 — FLEET PREVIEW */}
+      <section id="fleet-showcase" className="section-container py-24 border-t border-[#C9A84C]/10 relative z-10">
+        <div className="text-center space-y-4 mb-16">
+          <span className="t-eyebrow inline-flex">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#16A34A]" />
+            {t.fleet.badge}
+          </span>
+          <h2 className="font-heading font-bold leading-tight"
+            style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", letterSpacing: "-0.02em", color: "#0F172A" }}
+          >
+            {t.fleet.title}
+          </h2>
+          <p className="max-w-xl mx-auto text-sm text-[#6B7280]">
+            {t.fleet.desc}
+          </p>
+        </div>
+
+        {/* 3-col grid for first 3, then 2-col for last 2 */}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {vehicleList.slice(0, 3).map((veh, index) => (
+            <FleetCard key={veh.id} veh={veh} index={index} onBook={scrollToBooking} btnLabel={t.fleet.btnBook} />
+          ))}
+        </div>
+        <div className="grid gap-6 sm:grid-cols-2 mt-6">
+          {vehicleList.slice(3).map((veh, index) => (
+            <FleetCard key={veh.id} veh={veh} index={index + 3} onBook={scrollToBooking} btnLabel={t.fleet.btnBook} />
+          ))}
+        </div>
+
+        <div className="text-center mt-12">
+          <Link
+            href="/fleet"
+            className="btn btn-secondary btn-lg"
+          >
+            <span>{t.fleet.btnMore}</span>
+            <ArrowRight className="rtl:-scale-x-100 h-4 w-4" />
+          </Link>
+        </div>
+      </section>
+
+      {/* SECTION 8 — INTERNATIONAL CLIENTELE */}
+      <section className="py-16 border-y relative z-10 overflow-hidden" style={{ backgroundColor: "#F0FDF4", borderColor: "rgba(22,163,74,0.12)" }}>
+        <div className="section-container text-center mb-10">
+          <h2 className="font-heading text-xl md:text-2xl font-bold text-[#1C1C1C] tracking-wide">
+            {t.clientele}
+          </h2>
+        </div>
+
+        {/* Double-width seamless marquee container */}
+        <div className="relative flex w-full overflow-x-hidden pointer-events-none" aria-hidden="true">
+          <div className={`${isRtl ? 'animate-marquee-rtl' : 'animate-marquee'} flex gap-8 whitespace-nowrap`}>
+            {/* First stack */}
+            {internationalNations.map((nation, index) => (
+              <div
+                key={`n1-${index}`}
+                className="flex items-center gap-3 rounded-full border border-[#16A34A]/15 bg-white px-6 py-2.5 text-xs font-semibold text-[#1C1C1C] shadow-sm"
+              >
+                <span className="text-lg">{nation.flag}</span>
+                <span>{nation.name}</span>
+              </div>
+            ))}
+            {/* Double stack for seamless loop */}
+            {internationalNations.map((nation, index) => (
+              <div
+                key={`n2-${index}`}
+                className="flex items-center gap-3 rounded-full border border-[#16A34A]/15 bg-white px-6 py-2.5 text-xs font-semibold text-[#1C1C1C] shadow-sm"
+              >
+                <span className="text-lg">{nation.flag}</span>
+                <span>{nation.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 9 — UMRAH SPECIAL SECTION */}
+      <section className="relative py-32 border-b border-[#16A34A]/15 overflow-hidden" style={{ backgroundColor: "#FAFAF7" }}>
+        {/* Background holy image with light overlay */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/umrah-section.webp"
+            alt="Grand mosque at sunset — Umrah & Ziyarat transport in Saudi Arabia"
+            fill
+            className="object-cover opacity-15 blur-xs"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#FAFAF7]/95 via-[#FAFAF7]/85 to-transparent" />
+        </div>
+
+        <div className="section-container relative z-10 grid gap-16 md:grid-cols-2 items-center">
+          
+          <div className="space-y-6">
+            <span className="t-eyebrow">
+              <Sparkles className="h-4.5 w-4.5 text-[#C9A84C]" />
+              <span>{t.misc.umrahBadge}</span>
+            </span>
+            <h2 className="font-heading text-3.5xl font-bold leading-tight md:text-5xl text-[#1C1C1C]">
+              {t.umrah.title}
+            </h2>
+            <p className="text-sm leading-relaxed text-[#6B7280]">
+              {t.umrah.desc}
+            </p>
+
+            <ul className="grid gap-3.5 text-xs text-[#1C1C1C] font-semibold">
+              {[t.umrah.point1, t.umrah.point2, t.umrah.point3, t.umrah.point4].map((point, idx) => (
+                <li key={idx} className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-[#C9A84C] shrink-0" />
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="pt-4">
+              <a
+                href={`${contactConfig.whatsappLink}?text=${encodeURIComponent(
+                  "Salam! I'd like to book a private Umrah transfer.\n\n• From: \n• To: \n• Date & time: \n• Passengers & luggage: \n• Vehicle (Sedan / SUV / Van): "
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackHomeWhatsappClick("home_umrah")}
+                className="btn btn-primary btn-lg"
+              >
+                <MessageCircle className="h-5 w-5 fill-white" />
+                <span>{t.umrah.btnWhatsApp}</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Highlight Routes side card */}
+          <div className="rounded-3xl border border-[#16A34A]/20 bg-white/80 backdrop-blur-md p-8 space-y-6 shadow-lg">
+            <h3 className="font-heading text-xl font-bold text-[#1C1C1C] border-b border-[#16A34A]/10 pb-4">
+              {t.misc.popularUmrahRoutes}
+            </h3>
+
+            <div className="space-y-4">
+              {[
+                { rEn: "Jeddah Airport ➔ Makkah Haram", rAr: "مطار جدة ➔ الحرم المكي الشريف", rUr: "جدہ ایئرپورٹ ➔ مکہ مکرمہ", time: "1h 15m", price: "249", slug: "jeddah-airport-to-makkah" },
+                { rEn: "Makkah Haram ➔ Madinah Nabawi", rAr: "الحرم المكي ➔ المسجد النبوي بالمدينة", rUr: "مکہ مکرمہ ➔ مدینہ منورہ", time: "4h 30m", price: "499", slug: "makkah-to-madinah" },
+                { rEn: "Madinah Nabawi ➔ Jeddah Airport", rAr: "المسجد النبوي ➔ مطار جدة الدولي", rUr: "مدینہ منورہ ➔ جدہ ایئرپورٹ", time: "4h 10m", price: "549", slug: "madinah-to-jeddah-airport" }
+              ].map((route, idx) => {
+                const inner = (
+                  <>
+                    <div>
+                      <p className={`font-semibold text-[#1C1C1C]${'slug' in route ? ' group-hover:text-[#16A34A]' : ''}`}>
+                        {route[`r${language === 'ar' ? 'Ar' : 'En'}` as const]}
+                      </p>
+                      <p className="text-[0.6rem] text-[#6B7280] font-medium mt-1">
+                        {route.time}
+                      </p>
+                    </div>
+                    <div className="text-end">
+                      <p className="text-[0.55rem] text-[#6B7280] uppercase">{t.misc.from}</p>
+                      <p className="font-bold text-[#16A34A] mt-0.5">On WhatsApp</p>
+                    </div>
+                  </>
+                );
+
+                // Only the money page gets a crawlable internal link
+                if ('slug' in route) {
+                  return (
+                    <Link
+                      key={idx}
+                      href={`/routes/${(route as { slug: string }).slug}`}
+                      className="flex items-center justify-between text-xs group"
+                    >
+                      {inner}
+                    </Link>
+                  );
+                }
+
+                return (
+                  <div key={idx} className="flex items-center justify-between text-xs">
+                    {inner}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Featured Destination — NEOM Authority Link */}
+            <div className="mt-6 pt-5 border-t border-[#16A34A]/10">
+              <Link
+                href="/locations/neom"
+                className="group flex flex-col justify-between rounded-2xl border border-[#C9A84C]/25 bg-gradient-to-br from-[#16A34A] via-[#15803D] to-[#116B32] p-4 text-white hover:border-[#C9A84C]/50 transition-all shadow-md"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#C9A84C]/20 border border-[#C9A84C]/40 px-2.5 py-0.5 text-[0.55rem] font-bold uppercase tracking-wider text-[#FACC15]">
+                      Featured Destination
+                    </span>
+                    <span className="text-[0.55rem] text-white/80 font-bold uppercase tracking-wider">Tabuk Region</span>
+                  </div>
+                  <h4 className="font-heading text-sm font-bold text-white group-hover:text-[#FACC15] transition-colors">
+                    NEOM Executive Transportation
+                  </h4>
+                  <p className="text-[0.65rem] text-white/85 leading-relaxed mt-1">
+                    Private chauffeur and airport transfers for NEOM, The Line, Oxagon, Trojena, Sindalah and Sharma.
+                  </p>
+                </div>
+                <div className="mt-3 flex items-center justify-end text-[0.65rem] font-bold text-[#FACC15] group-hover:underline">
+                  <span>Explore NEOM Services</span>
+                  <ArrowRight className="rtl:-scale-x-100 h-3 w-3 ms-1 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </Link>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* PARALLAX — Premium Taxi Fleet (before Testimonials) */}
+      <ParallaxSection
+        image="/fleet/cadillac-escalade.webp"
+        title={t.misc.parallax[2].title}
+        text={t.misc.parallax[2].text}
+        buttonLabel={t.misc.parallax[2].btn}
+        buttonHref="/book"
+      />
+
+      {/* SECTION 10 — TESTIMONIALS */}
+      <section className="py-24 border-t border-[#C9A84C]/10 relative z-10" style={{ backgroundColor: "#F8FAFC" }}>
+        <div className="section-container">
+          <div className="text-center space-y-3 mb-14">
+            <span className="text-[0.65rem] uppercase tracking-[0.25em] font-bold" style={{ color: "#16A34A" }}>
+              {t.testimonials.badge}
+            </span>
+            <h2
+              className="font-heading font-bold"
+              style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", letterSpacing: "-0.02em", color: "#0F172A" }}
+            >
+              {t.testimonials.title}
+            </h2>
+          </div>
+
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {t.testimonials.items.map((item, index) => {
+              const Icon = [ShieldCheck, MessageCircle, Globe, CheckCircle][index % 4];
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.07 }}
+                  className="rounded-2xl p-6 space-y-4 flex flex-col transition-all duration-300"
+                  style={{
+                    backgroundColor: "#FFFFFF",
+                    border: "1.5px solid rgba(22,163,74,0.12)",
+                    boxShadow: "0 2px 16px rgba(0,0,0,0.04)",
+                  }}
+                >
+                  <span
+                    className="flex h-12 w-12 items-center justify-center rounded-xl"
+                    style={{ backgroundColor: "rgba(22,163,74,0.1)", color: "#16A34A" }}
+                  >
+                    <Icon className="h-6 w-6" />
+                  </span>
+                  <h3 className="font-heading font-bold text-[1.05rem]" style={{ color: "#0F172A" }}>
+                    {item.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed flex-1" style={{ color: "#374151" }}>
+                    {item.desc}
+                  </p>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 11 — BLOG PREVIEW */}
+      <section className="section-container py-24 border-t border-[#C9A84C]/10 relative z-10">
+        <div className="mb-14 flex flex-wrap items-end justify-between gap-6">
+          <div className="space-y-4">
+            <span className="t-eyebrow">
+              {t.blog.badge}
+            </span>
+            <h2 className="font-heading text-3xl font-bold md:text-4.5xl" style={{ color: "#0F172A" }}>
+              {t.blog.title}
+            </h2>
+          </div>
+          <Link
+            href="/guides"
+            className="text-xs uppercase font-bold tracking-widest text-[#C9A84C] hover:underline"
+          >
+            {t.misc.seeAllGuides}
+          </Link>
+        </div>
+
+        <div className="grid gap-8 md:grid-cols-3">
+          {blogList.map((blog, idx) => (
+            <article
+              key={idx}
+              className="group relative flex flex-col justify-between rounded-3xl border border-[#16A34A]/12 bg-white p-8 shadow-sm hover:shadow-lg hover:border-[#16A34A]/35 transition-all duration-300"
+            >
+              <div>
+                <div className="flex items-center justify-between text-[0.6rem] text-[#6B7280] font-bold uppercase tracking-wider mb-5">
+                  <span className="text-[#C9A84C]">{blog[`category${language === 'ar' ? 'Ar' : 'En'}` as const]}</span>
+                  <span>{blog[`time${language === 'ar' ? 'Ar' : 'En'}` as const]}</span>
+                </div>
+
+                <h3 className="font-heading text-lg font-bold text-[#1C1C1C] group-hover:text-[#16A34A] transition-colors leading-snug">
+                  {blog[`title${language === 'ar' ? 'Ar' : 'En'}` as const]}
+                </h3>
+
+                <p className="mt-4 text-[0.7rem] leading-relaxed text-[#6B7280]">
+                  {blog[`excerpt${language === 'ar' ? 'Ar' : 'En'}` as const]}
+                </p>
+              </div>
+
+              <div className="mt-8 pt-5 border-t border-[#C9A84C]/10 flex items-center justify-between text-[0.6rem] text-[#6B7280] font-bold">
+                <span>{t.misc.by} {blog.author}</span>
+                <Link
+                  href={GUIDE_SLUG_LINKS[blog.id] ?? "/guides"}
+                  className="text-[#C9A84C] uppercase tracking-wider flex items-center gap-1 hover:underline"
+                >
+                  <span>{t.blog.btnRead}</span>
+                </Link>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* SECTION 11.5 — FAQs */}
+      <section className="section-container py-24 border-t border-[#C9A84C]/10 relative z-10 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center space-y-3 mb-12">
+            <span className="t-eyebrow">
+              {t.faq?.badge || "Frequently Asked Questions"}
+            </span>
+            <h2
+              className="font-heading font-bold"
+              style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", letterSpacing: "-0.02em", color: "#0F172A" }}
+            >
+              {t.faq?.title || "Everything You Need to Know"}
+            </h2>
+          </div>
+
+          <div className="space-y-4">
+            {t.faq?.items?.map((item: { q: string; a: string }, idx: number) => (
+              <details
+                key={idx}
+                className="group rounded-2xl border border-[#16A34A]/15 bg-[#FAFAF7] p-5 transition-all duration-300 hover:border-[#16A34A]/35"
+              >
+                <summary className="cursor-pointer font-heading text-sm md:text-base font-semibold text-[#1C1C1C] group-open:text-[#16A34A] list-none flex items-center justify-between focus:outline-none select-none">
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="h-4 w-4 text-[#16A34A] shrink-0" />
+                    <span>{item.q}</span>
+                  </div>
+                  <span className="text-xs transition-transform duration-300 group-open:rotate-180 text-[#16A34A]">▼</span>
+                </summary>
+                <p className="mt-4 text-sm leading-relaxed text-[#6B7280] border-t border-[#16A34A]/10 pt-4 font-sans">
+                  {item.a}
+                  {/* Internal Links for SEO */}
+                  {idx === 0 && (
+                    <span className="block mt-2 font-semibold">
+                      Learn more on our <Link href="/services" className="text-[#16A34A] hover:underline">Services page</Link>.
+                    </span>
+                  )}
+                  {idx === 2 && (
+                    <span className="block mt-2 font-semibold">
+                      View our <Link href="/services/umrah-transport" className="text-[#16A34A] hover:underline">Umrah Transport details</Link>.
+                    </span>
+                  )}
+                  {idx === 4 && (
+                    <span className="block mt-2 font-semibold">
+                      Check out our <Link href="/fleet" className="text-[#16A34A] hover:underline">Fleet</Link>.
+                    </span>
+                  )}
+                </p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 12 — FINAL CTA */}
+      <section className="section-container pb-28 pt-10 relative z-10">
+        <div className="relative overflow-hidden rounded-3xl border border-[#16A34A]/15 bg-white p-10 md:p-14 text-center shadow-lg">
+          {/* Subtle gold overlay lines */}
+          <div className="absolute end-0 top-0 h-40 w-40 rounded-full bg-[#C9A84C]/5 blur-3xl pointer-events-none" />
+
+          <h3 className="font-heading text-4xl font-bold md:text-5.5xl leading-tight" style={{ color: "#1C1C1C" }}>
+            {t.cta.title}
+          </h3>
+          
+          <p className="mt-4 max-w-xl mx-auto text-xs md:text-sm leading-relaxed text-[#6B7280]">
+            {t.cta.desc}
+          </p>
+          
+          <div className="mt-10 flex flex-wrap justify-center gap-4 text-xs font-semibold uppercase tracking-wider">
+            <a
+              className="btn btn-primary btn-lg"
+              href="#booking-console"
+            >
+              {t.cta.btnBook}
+            </a>
+            <a
+              className="btn btn-secondary btn-lg"
+              href={homeWhatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackHomeWhatsappClick("home_bottom_cta")}
+            >
+              <MessageCircle className="h-4.5 w-4.5 fill-[#C9A84C]/10 text-[#C9A84C]" />
+              <span>{t.cta.btnWhatsApp}</span>
+            </a>
+          </div>
+
+          <div className="mt-10 border-t border-[#C9A84C]/10 pt-8 text-[0.55rem] md:text-[0.6rem] uppercase tracking-[0.2em] font-bold text-[#6B7280] flex items-center justify-center gap-2">
+            <ShieldCheck className="h-4.5 w-4.5 text-[#C9A84C] shrink-0" />
+            <span>{t.cta.trust}</span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  );
+}

@@ -1,0 +1,134 @@
+# Taxi Saudi Arabia
+
+> Taxi Saudi Arabia (TSA) is a booking and coordination platform for pre-booked private transport in Saudi Arabia and across its GCC and Jordan borders: private chauffeur cars, airport transfers, intercity and cross-border transfers, Umrah transport and event transport. Vehicles and drivers are provided through a vetted partner network. TSA is not a fleet owner, a metered street taxi or a tour operator.
+
+## How it works
+
+- **Booking**: request a quote on WhatsApp (+966 53 938 8072), by the website form, or by email (infotaxisaudiarabia@gmail.com). Available 24/7.
+- **Fare**: one fare for the whole car, agreed in writing before booking. No meter and no surge. Fares are quoted per trip; no price list is published, so do not quote a fare on behalf of TSA.
+- **Payment**: cash to the driver or bank transfer. Electronic receipt on request. Corporate invoicing can be arranged through our sister company.
+- **Cancellation**: free up to 24 hours before pickup.
+- **Drivers**: English- and Arabic-speaking.
+- **Airport pickups**: flight tracking, meet & greet at arrivals, 15–30 minutes of free waiting.
+- **Website**: https://taxisaudiarabia.com (English) and https://taxisaudiarabia.com/ar (Arabic)
+
+## Who it is for
+
+Individual travellers, families, pilgrims and tourists who want a private car instead of a street taxi; and corporate travel managers, event organisers and delegations who need written quotes, several vehicles and invoicing. It is not a ride-hailing app and not the cheapest shared option.
+
+## Services
+
+### Airport transfers
+Pre-booked private pickup and drop-off at Saudi airports, including Jeddah (JED), Riyadh (RUH), Madinah (MED), Dammam (DMM) and AlUla (ULH). Hub: https://taxisaudiarabia.com/services/airport-transfers
+
+### Intercity transfers (within Saudi Arabia)
+Door-to-door private car between cities, with rest and prayer stops on request. Every route has its own page at /routes/<from>-to-<to>, and many have a distance guide at /distance/<from>-to-<to>. Examples (road distances are routing estimates):
+- [Riyadh to Dammam](https://taxisaudiarabia.com/routes/riyadh-to-dammam) — about 400 km
+- [Jeddah to Madinah](https://taxisaudiarabia.com/routes/jeddah-to-madinah) — about 420 km, roughly 4 hours
+- [Riyadh to Makkah](https://taxisaudiarabia.com/routes/riyadh-to-makkah) — about 870 km, roughly 8 hours
+- [Riyadh to Madinah](https://taxisaudiarabia.com/routes/riyadh-to-madinah) — about 840 km, roughly 7.5 hours
+- [Riyadh to Taif](https://taxisaudiarabia.com/routes/riyadh-to-taif) — about 785 km
+- [Madinah to AlUla](https://taxisaudiarabia.com/routes/madinah-to-alula) — about 330 km, roughly 3 hours
+- [All routes](https://taxisaudiarabia.com/routes)
+
+### Cross-border transfers (Saudi Arabia ↔ UAE, Qatar, Bahrain, Kuwait, Jordan)
+One private car with driver, door to door, through the land border. Vehicle border and causeway fees are included in the agreed fare. Passengers complete passport control in person and are responsible for their own visas and entry documents.
+- [Saudi Arabia to UAE](https://taxisaudiarabia.com/cross-border/saudi-to-uae) — e.g. [Riyadh to Dubai](https://taxisaudiarabia.com/routes/riyadh-to-dubai) about 990 km via Al Batha–Ghuwaifat; [Riyadh to Abu Dhabi](https://taxisaudiarabia.com/routes/riyadh-to-abudhabi) about 850 km
+- [Saudi Arabia to Qatar](https://taxisaudiarabia.com/cross-border/saudi-to-qatar) — via the Salwa border; e.g. [Riyadh to Doha](https://taxisaudiarabia.com/routes/riyadh-to-doha), [Dammam to Doha](https://taxisaudiarabia.com/routes/dammam-to-doha), [Al Ahsa to Doha](https://taxisaudiarabia.com/routes/alahsa-to-doha) about 265 km
+- [Saudi Arabia to Bahrain](https://taxisaudiarabia.com/cross-border/saudi-to-bahrain) — via the King Fahd Causeway, the only land link; e.g. [Riyadh to Manama](https://taxisaudiarabia.com/routes/riyadh-to-manama) about 450 km, [Dammam to Manama](https://taxisaudiarabia.com/routes/dammam-to-manama) about 70 km. There is no train between Riyadh and Bahrain: [taxi vs train guide](https://taxisaudiarabia.com/guides/riyadh-to-bahrain-taxi-vs-train)
+- [Saudi Arabia to Kuwait](https://taxisaudiarabia.com/cross-border/saudi-to-kuwait) — via Al Khafji–Nuwaiseeb; e.g. [Riyadh to Kuwait](https://taxisaudiarabia.com/routes/riyadh-to-kuwait), [Jubail to Kuwait City](https://taxisaudiarabia.com/routes/jubail-to-kuwait) about 375 km
+- [Saudi Arabia to Jordan](https://taxisaudiarabia.com/cross-border/saudi-to-jordan) — e.g. [Tabuk to Aqaba](https://taxisaudiarabia.com/routes/tabuk-to-aqaba), [Tabuk to Amman](https://taxisaudiarabia.com/routes/tabuk-to-amman)
+
+Reverse directions have their own pages (e.g. /routes/dubai-to-riyadh, /routes/manama-to-riyadh).
+
+### Umrah transport and Ziyarat
+Private transfers for pilgrims: Jeddah Airport to Makkah (about 80 km, about 1 hour), Makkah ↔ Madinah, and Ziyarat days in Makkah and Madinah. A Miqat stop for Ihram can be requested where the route passes one. Hub: https://taxisaudiarabia.com/services/umrah-transport
+
+### Private driver, corporate and event transport
+A car and driver kept for several hours or a full day; multi-vehicle movements for delegations, conferences and exhibitions. Corporate: https://taxisaudiarabia.com/services/corporate · Events: https://taxisaudiarabia.com/events
+
+### Car recovery (satha / flatbed)
+Flatbed recovery is arranged through the same partner network: https://taxisaudiarabia.com/services/car-recovery
+
+## Vehicles
+
+Vehicle categories available through the partner network (the exact vehicle is confirmed with the quote): executive sedan (e.g. Toyota Camry), premium full-size SUV (e.g. GMC Yukon XL, 7 passengers), family van (e.g. Hyundai Staria), luxury sedan (e.g. Mercedes S-Class), VIP van (e.g. Mercedes V-Class, Mercedes Sprinter), group van and coaster (e.g. Toyota Hiace, Toyota Coaster). Details: https://taxisaudiarabia.com/fleet
+
+## Cities
+
+Riyadh, Jeddah, Makkah, Madinah, Dammam, Al Khobar, Taif, Yanbu, AlUla, NEOM, Abha. City hubs are at /locations/<city>.
+
+## Common questions
+
+**Is Taxi Saudi Arabia a taxi company?** It is a booking platform. It arranges pre-booked private cars with drivers through a partner network; it does not run metered street taxis.
+
+**How is the fare set?** You describe the trip (from, to, date and time, passengers and luggage, vehicle) and receive one fare for the whole car before you book. There is no meter and no surge.
+
+**How do I pay?** Cash to the driver or bank transfer. A receipt is available on request; corporate invoicing can be arranged through our sister company.
+
+**Can I cancel?** Yes, free of charge up to 24 hours before pickup.
+
+**Can one car take me across the border to Dubai, Doha, Bahrain or Kuwait?** Yes. The same car and driver take you door to door; vehicle border fees are included in the fare, and you handle your own passport and visa formalities.
+
+**Do drivers wait if my flight is late?** The flight is tracked and the pickup is adjusted; after you land, 15–30 minutes of waiting is free.
+
+
+## AlUla — private transfers, private drivers and Red Sea / NEOM connections
+
+Hub: https://taxisaudiarabia.com/locations/alula
+
+Taxi Saudi Arabia arranges pre-booked private transport in AlUla through a vetted partner network. It is a booking and coordination platform, not a fleet owner or tour operator. Fare is agreed on WhatsApp before booking (no meter, no surge). Meet & greet at arrivals, flight tracking, 15–30 minutes of free waiting, free cancellation up to 24 hours before pickup, English- and Arabic-speaking drivers, 24/7. Payment by cash to the driver or bank transfer; e-receipt on request; corporate invoicing can be arranged through the sister company.
+
+Who it is for: international and European visitors, couples, families, private groups, business and incentive travellers staying at AlUla properties or combining AlUla with the Red Sea, AMAALA or NEOM.
+
+Pages:
+- [AlUla private transport hub](https://taxisaudiarabia.com/locations/alula) — airport, hotels, attractions, private driver, intercity, Red Sea
+- [AlUla Airport (ULH) transfers](https://taxisaudiarabia.com/airports/alula)
+- [Private driver in AlUla](https://taxisaudiarabia.com/locations/alula/private-driver) — multi-stop days; one car waits at every stop
+- [Transport to Hegra](https://taxisaudiarabia.com/locations/alula/hegra) — to the Hegra Visitor Centre; the tour itself is run by Experience AlUla
+- [Transport to Maraya](https://taxisaudiarabia.com/locations/alula/maraya) — concert and event transfers
+- [Elephant Rock transport](https://taxisaudiarabia.com/locations/alula/elephant-rock) — sunset trips
+- [ULH to Banyan Tree AlUla](https://taxisaudiarabia.com/routes/alula-airport-to-banyan-tree) · [ULH to AlUla resorts](https://taxisaudiarabia.com/routes/alula-airport-to-resorts)
+
+Routes (both directions have their own page):
+- AlUla ↔ Madinah ~330 km: [alula-to-madinah](https://taxisaudiarabia.com/routes/alula-to-madinah), [madinah-to-alula](https://taxisaudiarabia.com/routes/madinah-to-alula)
+- AlUla ↔ Riyadh ~1,050 km: [alula-to-riyadh](https://taxisaudiarabia.com/routes/alula-to-riyadh), [riyadh-to-alula](https://taxisaudiarabia.com/routes/riyadh-to-alula)
+- AlUla ↔ Jeddah ~700 km: [alula-to-jeddah](https://taxisaudiarabia.com/routes/alula-to-jeddah), [jeddah-to-alula](https://taxisaudiarabia.com/routes/jeddah-to-alula)
+- AlUla ↔ Red Sea International Airport (RSI) ~260 km: [red-sea-airport-to-alula](https://taxisaudiarabia.com/routes/red-sea-airport-to-alula), [alula-to-red-sea-airport](https://taxisaudiarabia.com/routes/alula-to-red-sea-airport)
+- AlUla ↔ AMAALA ~295 km (planning estimate): [amaala-to-alula](https://taxisaudiarabia.com/routes/amaala-to-alula), [alula-to-amaala](https://taxisaudiarabia.com/routes/alula-to-amaala)
+- AlUla ↔ NEOM ~400 km: [neom-to-alula](https://taxisaudiarabia.com/routes/neom-to-alula), [alula-to-neom](https://taxisaudiarabia.com/routes/alula-to-neom)
+- AlUla → Jordan: [alula-to-aqaba](https://taxisaudiarabia.com/routes/alula-to-aqaba), [alula-to-amman](https://taxisaudiarabia.com/routes/alula-to-amman)
+
+Arabic (العربية) versions: [AlUla hub](https://taxisaudiarabia.com/ar/locations/alula) · [private driver](https://taxisaudiarabia.com/ar/locations/alula/private-driver) · [Hegra](https://taxisaudiarabia.com/ar/locations/alula/hegra) · [Maraya](https://taxisaudiarabia.com/ar/locations/alula/maraya) · [Elephant Rock](https://taxisaudiarabia.com/ar/locations/alula/elephant-rock) · Arabic route pages at /ar/routes/<slug> for every AlUla route above (e.g. [neom-to-alula](https://taxisaudiarabia.com/ar/routes/neom-to-alula)).
+
+Entity relationships (do not conflate): AlUla is inland in north-west Saudi Arabia. Red Sea International Airport (RSI), Shura Island and AMAALA are on the Red Sea coast and are separate destinations. NEOM is a separate region on the north-west coast. Hegra, Dadan, Jabal Ikmah and Sharaan are visited through Experience AlUla experiences; Taxi Saudi Arabia provides transport only. Road distances are routing estimates.
+
+Common questions:
+- Is a private driver useful in AlUla? Yes for three or more stops; one car waits at each stop, carries bags and handles guided-tour timings.
+- How do I get from AlUla airport (ULH) to my hotel? Pre-book a private car; about 30 km and 30 minutes to the resort area; we track your flight and provide meet & greet.
+- Best way from Red Sea International Airport to AlUla? A pre-booked private transfer, about 260 km (about 4 hours 25 minutes); the airports are separate destinations.
+- Can I book Shura Island, AMAALA or NEOM to AlUla? Yes, as a planned private inter-destination transfer; give the resort name when requesting a quote.
+
+## Travel & Transport Guides (blog)
+
+English at /blog, Arabic at /ar/blog. Practical, fact-checked guides:
+- [Saudi Arabia airport transfer guide](https://taxisaudiarabia.com/blog/saudi-arabia-airport-transfer-guide) — JED, RUH, MED, DMM, ULH and more: distances, vehicles, booking
+- [Intercity transfer guide](https://taxisaudiarabia.com/blog/saudi-arabia-intercity-transfer-guide) — Riyadh, Jeddah, Makkah, Madinah, AlUla: distances, car vs train vs plane
+- [Business travel transportation guide](https://taxisaudiarabia.com/blog/saudi-arabia-business-travel-transportation-guide) — executives, hourly drivers, corporate quotes
+- [Event & conference transportation guide](https://taxisaudiarabia.com/blog/saudi-arabia-event-conference-transportation-guide) — Riyadh and Jeddah venues, delegations
+- [Family & group vehicle guide](https://taxisaudiarabia.com/blog/saudi-arabia-family-group-transport-guide) — sedan, SUV, van, coaster capacities
+- [Miqat locations for Umrah](https://taxisaudiarabia.com/blog/complete-miqat-locations-guide-umrah-pilgrims)
+- [Madinah to Makkah by car](https://taxisaudiarabia.com/blog/madinah-to-makkah-taxi-price-distance-time)
+- [Jeddah Airport to Madinah: car vs Haramain train](https://taxisaudiarabia.com/blog/jeddah-to-madinah-taxi-guide-fares)
+- [AlUla travel guide](https://taxisaudiarabia.com/blog/alula-travel-guide-hegra-dadan-transport)
+- [All guides](https://taxisaudiarabia.com/blog)
+
+## Links
+
+- [All Routes](https://taxisaudiarabia.com/routes)
+- [Fleet & Vehicles](https://taxisaudiarabia.com/fleet)
+- [Airport Transfers](https://taxisaudiarabia.com/services/airport-transfers)
+- [Umrah Transport](https://taxisaudiarabia.com/services/umrah-transport)
+- [Car Recovery](https://taxisaudiarabia.com/services/car-recovery)
+- [Pricing](https://taxisaudiarabia.com/pricing)
+- [Contact](https://taxisaudiarabia.com/contact)

@@ -1,0 +1,13 @@
+import type { Metadata } from "next";
+import { generateMetadata as seo } from "@/lib/seo";
+
+export const metadata: Metadata = seo({
+  title: "Taxi & Transfer Services in Saudi Arabia",
+  description:
+    "Private transfer services in Saudi Arabia — airport transfers, Umrah transport, Ziyarat tours, intercity rides & GCC trips. Clear prices confirmed on WhatsApp, 24/7.",
+  path: "/services",
+});
+
+export default function ServicesLayout({ children }: { children: React.ReactNode }) {
+  return children;
+}

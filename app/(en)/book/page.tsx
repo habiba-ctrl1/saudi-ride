@@ -1,0 +1,1356 @@
+﻿"use client";
+
+import { useState, useEffect, useCallback } from "react";
+import { useLanguage } from "@/lib/context/LanguageContext";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  MapPin,
+  Calendar,
+  ChevronRight,
+  ShieldCheck,
+  MessageCircle,
+  User,
+  Phone,
+  Mail,
+  Globe,
+  Languages,
+  Check,
+  ChevronLeft,
+  ArrowRight,
+  FileText
+} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { contactConfig } from "@/lib/config/contact";
+import { fleetCapacity } from "@/lib/fleet-data";
+
+type VehicleKey = 'SEDAN' | 'SUV' | 'VAN' | 'LUXURY' | 'BUS';
+
+const defaultSuggestions = [
+  "Jeddah King Abdulaziz Airport (JED) - Terminal 1",
+  "Makkah Grand Mosque (Haram) - Clock Tower Plaza",
+  "Madinah Nabawi Mosque - North Courtyard Gate",
+  "Riyadh King Khalid Airport (RUH) - Terminal 5",
+  "Riyadh Downtown Olaya District",
+  "Dammam King Fahd International Airport (DMM)",
+  "Taif City Heights Resort",
+  "AlUla Luxury Heritage Resort",
+  "NEOM Gateway Hub",
+  "Doha Gateway (Qatar)",
+  "Dubai Luxury Marina Gateway (UAE)"
+];
+
+const vehicleList = [
+  { key: 'SEDAN' as VehicleKey, name: 'Premium Sedan', desc: 'Toyota Camry or equivalent', cap: 3, luggage: 2, badge: "Best Value", image: "/fleet/toyota-camry.webp" },
+  { key: 'SUV' as VehicleKey, name: 'VIP SUV', desc: 'GMC Yukon Denali XL', cap: fleetCapacity('gmc-yukon-xl').passengers, luggage: fleetCapacity('gmc-yukon-xl').luggage, badge: "Most Popular", image: "/fleet/gmc-yukon-xl.webp" },
+  { key: 'VAN' as VehicleKey, name: 'Luxury Cabin Van', desc: 'Hyundai Staria or equivalent', cap: 7, luggage: 7, badge: "Family Pick", image: "/fleet/hyundai-staria.webp" },
+  { key: 'LUXURY' as VehicleKey, name: 'Ultra Elite', desc: 'Mercedes S-Class or equivalent', cap: 3, luggage: 3, badge: "VIP Choice", image: "/fleet/mercedes-s-class.webp" },
+  { key: 'BUS' as VehicleKey, name: 'Coaster/Bus', desc: 'VIP Pilgrim Bus', cap: 18, luggage: 15, badge: "Pilgrims Hub", image: "/fleet/toyota-coaster.webp" },
+];
+
+export default function BookPage() {
+  const { language } = useLanguage();
+  const isRtl = language === "ar";
+
+  // Wizard Steps (1-6)
+  const [step, setStep] = useState(1);
+
+  // Form State
+  const [pickup, setPickup] = useState("");
+  const [dropoff, setDropoff] = useState("");
+  const [dateTime, setDateTime] = useState("");
+  const [returnDateTime, setReturnDateTime] = useState("");
+  const [passengers, setPassengers] = useState(2);
+  const [tripType, setTripType] = useState<"oneway" | "roundtrip" | "hourly">("oneway");
+  const [hours, setHours] = useState(4);
+  const [flightNumber, setFlightNumber] = useState("");
+  const [specialNotes, setSpecialNotes] = useState("");
+  const [pickupDetails, setPickupDetails] = useState("");
+  const [dropoffDetails, setDropoffDetails] = useState("");
+
+  // Step 2 Vehicle Selection
+  const [selectedVehicle, setSelectedVehicle] = useState<VehicleKey>('SUV');
+
+  // Step 3 Addons
+  const [addons, setAddons] = useState({
+    childSeat: false,
+    meetAndGreet: false,
+    extraWaiting: false,
+    wheelchairFilter: false,
+    prayerMat: false,
+    waterBottles: false
+  });
+
+  // Step 4 Customer
+  const [custName, setCustName] = useState("");
+  const [custPhone, setCustPhone] = useState("");
+  const [phoneCode, setPhoneCode] = useState("+966");
+  const [custEmail, setCustEmail] = useState("");
+  const [nationality, setNationality] = useState("Saudi Arabia");
+  const [preferredLang, setPreferredLang] = useState<"en" | "ar" | "ur">("en");
+
+  // Step 5 Payment
+  // Payment gateway abhi live nahi — booking sirf request hai, final quotation
+  // WhatsApp/email par jati hai aur payment driver ko cash/card se hoti hai.
+  const [promoCode, setPromoCode] = useState("");
+  const [termsAgreed, setTermsAgreed] = useState(false);
+
+  // Step 6 Confirmation details
+  const [bookingRef, setBookingRef] = useState("");
+  const [notificationLogs, setNotificationLogs] = useState<string[]>([]);
+  const [creatingBooking, setCreatingBooking] = useState(false);
+
+  // Autocomplete UI dropdown filters
+  const [pickupSuggestions, setPickupSuggestions] = useState<string[]>([]);
+  const [dropoffSuggestions, setDropoffSuggestions] = useState<string[]>([]);
+  const [showPickupList, setShowPickupList] = useState(false);
+  const [showDropoffList, setShowDropoffList] = useState(false);
+
+  // Load state from sessionStorage if returning
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const saved = sessionStorage.getItem("rt_booking_draft");
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (parsed.pickup) setPickup(parsed.pickup);
+          if (parsed.dropoff) setDropoff(parsed.dropoff);
+          if (parsed.dateTime) setDateTime(parsed.dateTime);
+          if (parsed.tripType) setTripType(parsed.tripType);
+          if (parsed.passengers) setPassengers(parsed.passengers);
+          if (parsed.selectedVehicle) setSelectedVehicle(parsed.selectedVehicle);
+          if (parsed.custName) setCustName(parsed.custName);
+          if (parsed.custPhone) setCustPhone(parsed.custPhone);
+          if (parsed.custEmail) setCustEmail(parsed.custEmail);
+        }
+
+        // Prefill from incoming CTA links (e.g. /book?pickup=...&dropoff=...).
+        // Query params take priority over a saved draft so a clicked route wins.
+        const params = new URLSearchParams(window.location.search);
+        const qpPickup = params.get("pickup");
+        const qpDropoff = params.get("dropoff");
+        if (qpPickup) setPickup(qpPickup);
+        if (qpDropoff) setDropoff(qpDropoff);
+      } catch (e) {
+        console.warn("Session restore skipped:", e);
+      }
+    }
+  }, []);
+
+  // Save progress
+  const persistProgress = useCallback(() => {
+    if (typeof window !== "undefined") {
+      const draft = {
+        pickup, dropoff, dateTime, tripType, passengers, selectedVehicle,
+        custName, custPhone, custEmail
+      };
+      sessionStorage.setItem("rt_booking_draft", JSON.stringify(draft));
+    }
+  }, [pickup, dropoff, dateTime, tripType, passengers, selectedVehicle, custName, custPhone, custEmail]);
+
+  useEffect(() => {
+    persistProgress();
+  }, [persistProgress]);
+
+  // Default date setup (2 hours from now)
+  useEffect(() => {
+    if (!dateTime) {
+      const now = new Date();
+      now.setHours(now.getHours() + 2);
+      const tzoffset = now.getTimezoneOffset() * 60000;
+      const localTime = new Date(now.getTime() - tzoffset).toISOString().slice(0, 16);
+      setDateTime(localTime);
+    }
+  }, [dateTime]);
+
+  const handlePickupChange = (val: string) => {
+    setPickup(val);
+    if (val.trim() === "") {
+      setPickupSuggestions([]);
+    } else {
+      setPickupSuggestions(defaultSuggestions.filter(s => s.toLowerCase().includes(val.toLowerCase())));
+    }
+  };
+
+  const handleDropoffChange = (val: string) => {
+    setDropoff(val);
+    if (val.trim() === "") {
+      setDropoffSuggestions([]);
+    } else {
+      setDropoffSuggestions(defaultSuggestions.filter(s => s.toLowerCase().includes(val.toLowerCase())));
+    }
+  };
+
+  // Google Autocomplete manual setup fallback
+  const setupGoogleAutocomplete = useCallback(() => {
+    try {
+      const pickupInput = document.getElementById("pickup-location") as HTMLInputElement;
+      const dropoffInput = document.getElementById("dropoff-location") as HTMLInputElement;
+      const gWindow = window as unknown as { google?: typeof google };
+
+      if (pickupInput && gWindow.google?.maps?.places) {
+        const pickupAutocomplete = new gWindow.google.maps.places.Autocomplete(pickupInput, {
+          types: ["geocode", "establishment"],
+          componentRestrictions: { country: ["SA", "AE", "QA", "BH", "OM", "KW"] }
+        });
+        pickupAutocomplete.addListener("place_changed", () => {
+          const place = pickupAutocomplete.getPlace();
+          if (place.formatted_address) {
+            setPickup(place.formatted_address);
+          }
+        });
+      }
+
+      if (dropoffInput && gWindow.google?.maps?.places) {
+        const dropoffAutocomplete = new gWindow.google.maps.places.Autocomplete(dropoffInput, {
+          types: ["geocode", "establishment"],
+          componentRestrictions: { country: ["SA", "AE", "QA", "BH", "OM", "KW"] }
+        });
+        dropoffAutocomplete.addListener("place_changed", () => {
+          const place = dropoffAutocomplete.getPlace();
+          if (place.formatted_address) {
+            setDropoff(place.formatted_address);
+          }
+        });
+      }
+    } catch (err) {
+      console.warn("Places autocomplete binding failed:", err);
+    }
+  }, []);
+
+  useEffect(() => {
+    const mapsKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY;
+    if (mapsKey && typeof window !== "undefined") {
+      const gWindow = window as unknown as { google?: typeof google };
+      if (gWindow.google && gWindow.google.maps && gWindow.google.maps.places) {
+        setupGoogleAutocomplete();
+      }
+    }
+  }, [setupGoogleAutocomplete]);
+
+  // Human-readable summary of selected addons, for the review recap + notes
+  const selectedAddonLabels = [
+    addons.childSeat && "Child Safety Seat",
+    addons.meetAndGreet && "Airport Meet & Greet",
+    addons.extraWaiting && "Extra Waiting Time",
+    addons.waterBottles && "Premium Chilled Water",
+    addons.prayerMat && "Sterilized Prayer Mat",
+    addons.wheelchairFilter && "Wheelchair Facility",
+  ].filter(Boolean) as string[];
+
+  // Submit Booking to database (POST /api/bookings)
+  const handleFinalizeBooking = async () => {
+    try {
+      setCreatingBooking(true);
+      setNotificationLogs([]);
+
+      // Combine addon selections + optional promo code into the free-text
+      // notes the admin sees — no client-side price/discount math anywhere
+      // here, price is always confirmed manually on WhatsApp.
+      const noteParts = [
+        pickupDetails.trim() ? `Exact pickup: ${pickupDetails.trim()}` : null,
+        dropoffDetails.trim() ? `Exact drop-off: ${dropoffDetails.trim()}` : null,
+        specialNotes || null,
+        selectedAddonLabels.length > 0 ? `Requested add-ons: ${selectedAddonLabels.join(", ")}` : null,
+        promoCode.trim() ? `Promo code entered: ${promoCode.trim()}` : null,
+      ].filter(Boolean);
+
+      // Make API POST request
+      const res = await fetch("/api/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          pickup,
+          dropoff,
+          dateTime,
+          isRoundTrip: tripType === "roundtrip",
+          returnDateTime: tripType === "roundtrip" ? returnDateTime : null,
+          passengers,
+          vehicleType: selectedVehicle,
+          customerName: custName,
+          customerPhone: `${phoneCode}${custPhone}`,
+          customerEmail: custEmail || null,
+          notes: noteParts.length > 0 ? noteParts.join(" | ") : null,
+          flightNumber: flightNumber || null,
+          paymentMethod: "arrival"
+        })
+      });
+
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.error || "Failed to create booking");
+      }
+
+      const data = await res.json();
+      setBookingRef(data.bookingRef);
+
+      // Honest status — reflect what actually happened server-side (no fake
+      // "queued" claims). data.notified comes from /api/bookings.
+      const n = data.notified || {};
+      setNotificationLogs([
+        `Booking request recorded. Reference: ${data.bookingRef}`,
+        n.customerEmail
+          ? `Confirmation email sent to ${custEmail}.`
+          : custEmail
+            ? `We'll email ${custEmail} once your price is confirmed.`
+            : "No email provided — we'll contact you by phone or WhatsApp.",
+        "Our team will confirm your price on WhatsApp shortly.",
+      ]);
+
+      // Complete to step 6
+      setStep(6);
+      // Clear draft
+      sessionStorage.removeItem("rt_booking_draft");
+
+    } catch (err) {
+      alert(err instanceof Error ? err.message : "Dispatch request failed");
+    } finally {
+      setCreatingBooking(false);
+    }
+  };
+
+  // Step validation triggers
+  const handleNextStep = () => {
+    if (step === 1) {
+      if (pickup.length < 3 || dropoff.length < 3) {
+        alert("Please select valid pickup and dropoff points.");
+        return;
+      }
+      if (!dateTime) {
+        alert("Please set pick-up date & time.");
+        return;
+      }
+      setStep(2);
+    } else if (step === 2) {
+      setStep(3);
+    } else if (step === 3) {
+      setStep(4);
+    } else if (step === 4) {
+      if (custName.trim().length < 2) {
+        alert("Please provide full name.");
+        return;
+      }
+      if (custPhone.trim().length < 6) {
+        alert("Please enter a valid phone number.");
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(custEmail.trim())) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+      setStep(5);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pt-32 pb-24 relative overflow-hidden">
+      
+      {/* Background radial luxury glows */}
+      <div className="absolute top-0 left-0 right-0 h-[500px] bg-gradient-to-b from-[#C9A84C]/5 to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-[#C9A84C]/2.5 blur-3xl pointer-events-none" />
+
+      <div className="section-container relative z-10 max-w-4xl mx-auto space-y-10 text-left">
+        
+        {/* PROGRESS STEP INDICATOR (1-6) */}
+        <div className="relative">
+          <div className="flex items-center justify-between text-[0.55rem] font-bold uppercase tracking-wider text-[#6B7280]">
+            <span className={step >= 1 ? "text-[#C9A84C]" : ""}>{isRtl ? "١. التفاصيل" : "1. Journey"}</span>
+            <span className={step >= 2 ? "text-[#C9A84C]" : ""}>{isRtl ? "٢. السيارة" : "2. Vehicle"}</span>
+            <span className={step >= 3 ? "text-[#C9A84C]" : ""}>{isRtl ? "٣. الإضافات" : "3. Extras"}</span>
+            <span className={step >= 4 ? "text-[#C9A84C]" : ""}>{isRtl ? "٤. العميل" : "4. Contact"}</span>
+            <span className={step >= 5 ? "text-[#C9A84C]" : ""}>{isRtl ? "٥. الدفع" : "5. Summary"}</span>
+            <span className={step >= 6 ? "text-[#C9A84C]" : ""}>{isRtl ? "٦. تأكيد" : "6. Done"}</span>
+          </div>
+
+          <div className="mt-3 h-1 w-full bg-[#E5E7EB] rounded-full overflow-hidden border border-[#C9A84C]/10">
+            <motion.div
+              className="h-full bg-gradient-to-r from-[#C9A84C] to-[#16A34A]"
+              initial={{ width: "16.6%" }}
+              animate={{ width: `${(step / 6) * 100}%` }}
+              transition={{ duration: 0.3 }}
+            />
+          </div>
+        </div>
+
+        {/* WIZARD SCREENS CAROUSEL / CHANGER */}
+        <AnimatePresence mode="wait">
+          
+          {/* STEP 1: JOURNEY DETAILS */}
+          {step === 1 && (
+            <motion.div
+              key="step1"
+              initial={{ opacity: 0, x: 15 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -15 }}
+              className="space-y-6"
+            >
+              <div className="space-y-1">
+                <h2 className="font-heading text-2xl font-bold">{isRtl ? "تفاصيل رحلتك الفاخرة" : "Enter Journey Coordinates"}</h2>
+                <p className="text-xs text-[#6B7280]">{isRtl ? "حدد نقاط النقل، وتفاصيل الجدول الزمني، وحجم السيارة." : "Specify transfer points, schedule details, and vehicle sizing."}</p>
+              </div>
+
+              <div className="grid gap-6 md:grid-cols-[1.1fr_0.9fr]">
+                
+                {/* Inputs block */}
+                <div className="space-y-4 rounded-3xl border border-[#16A34A]/12 bg-white p-6 shadow-2xl">
+                  
+                  {/* Trip type selector */}
+                  <div className="grid grid-cols-3 gap-2 p-1 bg-[#F0FDF4] rounded-full border border-[#C9A84C]/10">
+                    <button
+                      type="button"
+                      onClick={() => { setTripType("oneway"); }}
+                      className={`rounded-full min-h-10 py-2 text-[0.78rem] font-bold transition-all ${tripType === "oneway" ? "bg-[#16A34A] text-white" : "text-[#6B7280] hover:text-[#1C1C1C]"}`}
+                    >
+                      {isRtl ? "اتجاه واحد" : "One-Way"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => { setTripType("roundtrip"); }}
+                      className={`rounded-full min-h-10 py-2 text-[0.78rem] font-bold transition-all ${tripType === "roundtrip" ? "bg-[#16A34A] text-white" : "text-[#6B7280] hover:text-[#1C1C1C]"}`}
+                    >
+                      {isRtl ? "ذهاب وعودة" : "Round-Trip"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => { setTripType("hourly"); }}
+                      className={`rounded-full min-h-10 py-2 text-[0.78rem] font-bold transition-all ${tripType === "hourly" ? "bg-[#16A34A] text-white" : "text-[#6B7280] hover:text-[#1C1C1C]"}`}
+                    >
+                      {isRtl ? "حجز بالساعات" : "Hourly Charter"}
+                    </button>
+                  </div>
+
+                  {/* Pickup */}
+                  <div className="relative">
+                    <label className="field-label mb-1.5 block">
+                      {isRtl ? "موقع الركوب" : "Pick-up Location"}
+                    </label>
+                    <div className="relative">
+                      <MapPin className="input-icon" />
+                      <input
+                        id="pickup-location"
+                        type="text"
+                        required
+                        value={pickup}
+                        onChange={(e) => handlePickupChange(e.target.value)}
+                        onFocus={() => setShowPickupList(true)}
+                        onBlur={() => setTimeout(() => setShowPickupList(false), 250)}
+                        placeholder={isRtl ? "اكتب أي عنوان أو فندق أو رابط خرائط جوجل" : "Type any address, hotel, villa or Google Maps link"}
+                        className="input has-icon"
+                      />
+                    </div>
+
+                    {showPickupList && pickup.trim().length >= 3 && (
+                      <div className="absolute z-20 left-0 right-0 mt-1 max-h-48 overflow-y-auto rounded-xl border border-[#16A34A]/15 bg-white p-2 shadow-2xl">
+                        <button
+                          type="button"
+                          onMouseDown={() => { setPickupSuggestions([]); setShowPickupList(false); }}
+                          className="w-full text-left px-3 py-2 text-[0.7rem] font-semibold text-[#16A34A] hover:bg-[#F0FDF4] rounded transition-colors"
+                        >
+                          {isRtl ? `استخدم: ${pickup}` : `Use “${pickup.trim()}” as typed`}
+                        </button>
+                        {pickupSuggestions.map((s, i) => (
+                          <button
+                            key={i}
+                            type="button"
+                            onMouseDown={() => { setPickup(s); setPickupSuggestions([]); }}
+                            className="w-full text-left px-3 py-2 text-[0.65rem] text-[#6B7280] hover:text-[#16A34A] hover:bg-[#F0FDF4] rounded transition-colors"
+                          >
+                            {s}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Drop-off */}
+                  {tripType !== "hourly" && (
+                    <div className="relative">
+                      <label className="field-label mb-1.5 block">
+                        {isRtl ? "الوجهة" : "Drop-off Destination"}
+                      </label>
+                      <div className="relative">
+                        <MapPin className="input-icon" />
+                        <input
+                          id="dropoff-location"
+                          type="text"
+                          required
+                          value={dropoff}
+                          onChange={(e) => handleDropoffChange(e.target.value)}
+                          onFocus={() => setShowDropoffList(true)}
+                          onBlur={() => setTimeout(() => setShowDropoffList(false), 250)}
+                          placeholder={isRtl ? "اكتب أي عنوان أو مدينة أو مطار" : "Type any address, city, airport or hotel"}
+                          className="input has-icon"
+                        />
+                      </div>
+
+                      {showDropoffList && dropoff.trim().length >= 3 && (
+                        <div className="absolute z-20 left-0 right-0 mt-1 max-h-48 overflow-y-auto rounded-xl border border-[#16A34A]/15 bg-white p-2 shadow-2xl">
+                          <button
+                            type="button"
+                            onMouseDown={() => { setDropoffSuggestions([]); setShowDropoffList(false); }}
+                            className="w-full text-left px-3 py-2 text-[0.7rem] font-semibold text-[#16A34A] hover:bg-[#F0FDF4] rounded transition-colors"
+                          >
+                            {isRtl ? `استخدم: ${dropoff}` : `Use “${dropoff.trim()}” as typed`}
+                          </button>
+                          {dropoffSuggestions.map((s, i) => (
+                            <button
+                              key={i}
+                              type="button"
+                              onMouseDown={() => { setDropoff(s); setDropoffSuggestions([]); }}
+                              className="w-full text-left px-3 py-2 text-[0.65rem] text-[#6B7280] hover:text-[#16A34A] hover:bg-[#F0FDF4] rounded transition-colors"
+                            >
+                              {s}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Exact point details - free text, never validated against the suggestion list */}
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div>
+                      <label className="field-label mb-1.5 block">
+                        {isRtl ? "تفاصيل نقطة الركوب (اختياري)" : "Exact pick-up point (optional)"}
+                      </label>
+                      <input
+                        type="text"
+                        value={pickupDetails}
+                        onChange={(e) => setPickupDetails(e.target.value)}
+                        placeholder={isRtl ? "رابط خرائط جوجل، رقم المبنى، معلم قريب" : "Google Maps link, building no., nearby landmark"}
+                        className="input"
+                      />
+                    </div>
+                    {tripType !== "hourly" && (
+                      <div>
+                        <label className="field-label mb-1.5 block">
+                          {isRtl ? "تفاصيل نقطة النزول (اختياري)" : "Exact drop-off point (optional)"}
+                        </label>
+                        <input
+                          type="text"
+                          value={dropoffDetails}
+                          onChange={(e) => setDropoffDetails(e.target.value)}
+                          placeholder={isRtl ? "مثال: مطار حمد الدولي، صالة المغادرة" : "e.g. Hamad Airport departures, hotel name"}
+                          className="input"
+                        />
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Hourly Charter Sizing */}
+                  {tripType === "hourly" && (
+                    <div>
+                      <label className="field-label mb-1.5 block">
+                        {isRtl ? "مدة الخدمة المطلوبة" : "Charter Sizing (Hours)"}
+                      </label>
+                      <select
+                        value={hours}
+                        onChange={(e) => {
+                          setHours(Number(e.target.value));
+                          setDropoff(`Riyadh Hourly Charter (${e.target.value} Hours)`);
+                        }}
+                        className="input"
+                      >
+                        <option value="4">4 Hours Charter (Half Day)</option>
+                        <option value="8">8 Hours Charter (Full Day)</option>
+                        <option value="12">12 Hours Charter (VIP Touring)</option>
+                        <option value="24">24 Hours Full Concierge Dispatch</option>
+                      </select>
+                    </div>
+                  )}
+
+                  {/* Date Picker */}
+                  <div className="grid gap-4 grid-cols-2">
+                    <div>
+                      <label className="field-label mb-1.5 block">
+                        {isRtl ? "التاريخ والوقت" : "Pick-up DateTime"}
+                      </label>
+                      <div className="relative">
+                        <Calendar className="input-icon" />
+                        <input
+                          type="datetime-local"
+                          required
+                          value={dateTime}
+                          suppressHydrationWarning
+                          onChange={(e) => setDateTime(e.target.value)}
+                          className="input has-icon"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="field-label mb-1.5 block">
+                        {isRtl ? "عدد المسافرين" : "Passengers"}
+                      </label>
+                      <select
+                        value={passengers}
+                        onChange={(e) => setPassengers(Number(e.target.value))}
+                        className="input"
+                      >
+                        {[...Array(18)].map((_, i) => (
+                          <option key={i + 1} value={i + 1}>
+                            {i + 1} {i + 1 === 1 ? (isRtl ? "مسافر" : "Passenger") : (isRtl ? "مسافرين" : "Passengers")}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Return DateTime for Round Trip */}
+                  <AnimatePresence>
+                    {tripType === "roundtrip" && (
+                      <motion.div
+                        key="return-date-picker"
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="overflow-hidden space-y-1"
+                      >
+                        <label className="field-label mb-1.5 block">
+                          {isRtl ? "تاريخ ووقت العودة" : "Return DateTime"}
+                        </label>
+                        <div className="relative">
+                          <Calendar className="input-icon" />
+                          <input
+                            type="datetime-local"
+                            required={tripType === "roundtrip"}
+                            value={returnDateTime}
+                            suppressHydrationWarning
+                            onChange={(e) => setReturnDateTime(e.target.value)}
+                            className="input has-icon"
+                          />
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  {/* Optional flight details & notes */}
+                  <div className="grid gap-4 grid-cols-2">
+                    <div>
+                      <label className="field-label mb-1.5 block">
+                        {isRtl ? "رقم الرحلة (اختياري)" : "Flight Number (Opt)"}
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="e.g. SV-120"
+                        value={flightNumber}
+                        onChange={(e) => setFlightNumber(e.target.value)}
+                        className="input"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="field-label mb-1.5 block">
+                        {isRtl ? "ملاحظات إضافية" : "Special Notes"}
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="e.g. Need extra luggage room"
+                        value={specialNotes}
+                        onChange={(e) => setSpecialNotes(e.target.value)}
+                        className="input"
+                      />
+                    </div>
+                  </div>
+
+                </div>
+
+                {/* Vector Glowing Grid Fallback Map Preview */}
+                <div className="rounded-3xl border border-[#16A34A]/12 bg-white overflow-hidden flex flex-col justify-between p-6 h-full relative">
+                  <div className="absolute inset-0 bg-[linear-gradient(to_right,#C9A84C_1px,transparent_1px),linear-gradient(to_bottom,#C9A84C_1px,transparent_1px)] bg-[size:25px_25px] opacity-5 pointer-events-none" />
+
+                  <div className="space-y-1">
+                    <span className="text-[0.65rem] uppercase tracking-wider text-[#16A34A] font-bold">
+                      {isRtl ? "معاينة إحداثيات المسار" : "Transfer Coordinates Preview"}
+                    </span>
+                    <h3 className="font-heading text-lg font-bold">Taxi Saudi Arabia Dispatch GPS</h3>
+                  </div>
+
+                  {/* Route Visualizer SVG */}
+                  <div className="h-44 w-full flex items-center justify-center my-4 bg-[#F0FDF4] rounded-2xl border border-[#C9A84C]/10 overflow-hidden relative">
+                    <svg className="w-full h-full max-w-[280px]" viewBox="0 0 300 150">
+                      <path d="M 40 100 C 100 40, 200 40, 260 100" fill="none" stroke="#C9A84C" strokeWidth="2" strokeDasharray="5 5" opacity="0.4" />
+                      <motion.path
+                        d="M 40 100 C 100 40, 200 40, 260 100"
+                        fill="none"
+                        stroke="#C9A84C"
+                        strokeWidth="3"
+                        initial={{ strokeDasharray: "300", strokeDashoffset: "300" }}
+                        animate={{ strokeDashoffset: 0 }}
+                        transition={{ duration: 4, repeat: Infinity }}
+                      />
+                      <circle cx="40" cy="100" r="6" fill="#0A0A0A" stroke="#C9A84C" strokeWidth="2" />
+                      <circle cx="260" cy="100" r="6" fill="#C9A84C" />
+                    </svg>
+
+                    <div className="absolute bottom-3 left-3 text-[0.55rem] text-[#6B7280] font-bold uppercase">
+                      Saudi Route Sync
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={handleNextStep}
+                    className="btn btn-primary btn-lg btn-block"
+                  >
+                    <span>{isRtl ? "عرض السيارات المتاحة" : "View Available Fleet"}</span>
+                    <ArrowRight className="h-4 w-4" />
+                  </button>
+
+                </div>
+
+              </div>
+            </motion.div>
+          )}
+
+          {/* STEP 2: CHOOSE VEHICLE */}
+          {step === 2 && (
+            <motion.div
+              key="step2"
+              initial={{ opacity: 0, x: 15 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -15 }}
+              className="space-y-6"
+            >
+              <div className="flex items-center justify-between border-b border-[#C9A84C]/10 pb-4">
+                <div>
+                  <h2 className="font-heading text-2xl font-bold">{isRtl ? "اختر سيارتك الفاخرة" : "Select Reserved Class"}</h2>
+                  <p className="text-xs text-[#6B7280]">{isRtl ? "مقارنة الأسعار الثابتة الشاملة للضريبة لجميع فئات أسطولنا." : "Choose the vehicle class that fits your journey — final pricing is confirmed on WhatsApp."}</p>
+                </div>
+
+                <button
+                  onClick={() => setStep(1)}
+                  className="inline-flex items-center gap-1.5 text-xs text-[#16A34A] hover:underline"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                  <span>{isRtl ? "تعديل المسار" : "Adjust Journey"}</span>
+                </button>
+              </div>
+
+              <div className="grid gap-6">
+                  {vehicleList.map((veh) => {
+                    // Capacity lockout check
+                    const isSoldOut = passengers > veh.cap;
+
+                    return (
+                      <article
+                        key={veh.key}
+                        onClick={() => { if (!isSoldOut) setSelectedVehicle(veh.key); }}
+                        className={`group relative overflow-hidden rounded-3xl border transition-all duration-300 grid md:grid-cols-[0.8fr_1.2fr] ${
+                          isSoldOut
+                            ? "border-red-950/20 bg-white/40 opacity-50 cursor-not-allowed"
+                            : selectedVehicle === veh.key
+                            ? "border-[#16A34A] bg-[#16A34A]/10 shadow-[0_8px_30px_rgba(22,163,74,0.1)] scale-101"
+                            : "border-[#C9A84C]/10 bg-white hover:border-[#C9A84C]/35 cursor-pointer"
+                        }`}
+                      >
+                        {/* Vehicle Image */}
+                        <div className="relative h-48 md:h-full w-full min-h-[160px] overflow-hidden">
+                          <Image
+                            src={veh.image}
+                            alt={veh.name}
+                            fill
+                            placeholder="blur"
+                            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                            className="object-cover transition-transform duration-750 group-hover:scale-103"
+                          />
+
+                          {/* Top tags */}
+                          <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
+                            <span className="rounded-full bg-black/80 px-3 py-1 text-[0.55rem] font-bold uppercase tracking-wider text-[#16A34A] border border-[#C9A84C]/25">
+                              {veh.badge}
+                            </span>
+                            {isSoldOut && (
+                              <span className="rounded-full bg-red-950 border border-red-800 px-3 py-1 text-[0.55rem] font-bold uppercase text-red-300">
+                                Size Limit Exceeded
+                              </span>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Details specs */}
+                        <div className="p-6 flex flex-col justify-between text-left space-y-4">
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                              <h3 className="font-heading text-lg font-bold text-[#1C1C1C] group-hover:text-[#16A34A] transition-colors">
+                                {veh.name}
+                              </h3>
+                            </div>
+
+                            <p className="text-xs text-[#6B7280]">{veh.desc}</p>
+                          </div>
+
+                          <div className="flex items-center justify-between border-t border-[#C9A84C]/10 pt-4">
+                            <div className="flex items-center gap-4 text-[0.65rem] text-[#6B7280] font-bold">
+                              <span>ðŸ‘¥ Max {veh.cap} Pax</span>
+                              <span className="h-1.5 w-1.5 rounded-full bg-[#16A34A]" />
+                              <span>ðŸ§³ {veh.luggage} Bags</span>
+                            </div>
+
+                            {!isSoldOut && (
+                              <div className={`h-5 w-5 rounded-full border-2 flex items-center justify-center ${selectedVehicle === veh.key ? "border-[#C9A84C] bg-[#16A34A]" : "border-[#7C8088]/20"}`}>
+                                {selectedVehicle === veh.key && <Check className="h-3.5 w-3.5 text-white stroke-[3]" />}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </article>
+                    );
+                  })}
+                </div>
+
+              {/* Navigation button */}
+              <div className="flex justify-end pt-4">
+                <button
+                  onClick={handleNextStep}
+                  className="btn btn-primary btn-lg"
+                >
+                  <span>{isRtl ? "المتابعة للإضافات" : "Continue to Extras"}</span>
+                  <ChevronRight className="h-4.5 w-4.5" />
+                </button>
+              </div>
+
+            </motion.div>
+          )}
+
+          {/* STEP 3: ADDONS & EXTRAS */}
+          {step === 3 && (
+            <motion.div
+              key="step3"
+              initial={{ opacity: 0, x: 15 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -15 }}
+              className="space-y-6"
+            >
+              <div className="flex items-center justify-between border-b border-[#C9A84C]/10 pb-4">
+                <div>
+                  <h2 className="font-heading text-2xl font-bold">{isRtl ? "الإضافات والخدمات الخاصة" : "Tailor Your VIP Experience"}</h2>
+                  <p className="text-xs text-[#6B7280]">{isRtl ? "خيارات دربان مخصصة لتأمين أقصى سبل الراحة والترحيب بضيوفكم." : "Premium amenities to enhance pilgrim comfort or executive hospitality."}</p>
+                </div>
+
+                <button
+                  onClick={() => setStep(2)}
+                  className="inline-flex items-center gap-1.5 text-xs text-[#16A34A] hover:underline"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                  <span>{isRtl ? "تغيير السيارة" : "Change Vehicle"}</span>
+                </button>
+              </div>
+
+              {/* Addon Selection Grid */}
+              <div className="grid gap-4 md:grid-cols-2">
+                
+                {/* Child Seat */}
+                <div
+                  onClick={() => setAddons(a => ({ ...a, childSeat: !a.childSeat }))}
+                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.childSeat ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-white hover:border-[#C9A84C]/30"}`}
+                >
+                  <div className="space-y-1.5 max-w-[200px]">
+                    <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "كرسي أطفال آمن" : "Child Safety Seat"}</h4>
+                    <p className="text-[0.6rem] text-[#6B7280] leading-relaxed">Required for babies and toddlers under 4 years old in KSA.</p>
+                  </div>
+                  <span className="text-xs font-bold text-[#6B7280]">Optional</span>
+                </div>
+
+                {/* Meet and Greet */}
+                <div
+                  onClick={() => setAddons(a => ({ ...a, meetAndGreet: !a.meetAndGreet }))}
+                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.meetAndGreet ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-white hover:border-[#C9A84C]/30"}`}
+                >
+                  <div className="space-y-1.5 max-w-[200px]">
+                    <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "الاستقبال والترحيب بالمطار" : "Airport Meet & Greet"}</h4>
+                    <p className="text-[0.6rem] text-[#6B7280] leading-relaxed">driver greets you at arrivals holding a luxury VIP sign.</p>
+                  </div>
+                  <span className="text-xs font-bold text-[#6B7280]">Optional</span>
+                </div>
+
+                {/* Extra Waiting */}
+                <div
+                  onClick={() => setAddons(a => ({ ...a, extraWaiting: !a.extraWaiting }))}
+                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.extraWaiting ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-white hover:border-[#C9A84C]/30"}`}
+                >
+                  <div className="space-y-1.5 max-w-[200px]">
+                    <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "وقت انتظار إضافي (٣٠ دقيقة)" : "Extra Waiting Time"}</h4>
+                    <p className="text-[0.6rem] text-[#6B7280] leading-relaxed">Extend driver standby window at your coordinates.</p>
+                  </div>
+                  <span className="text-xs font-bold text-[#6B7280]">Optional</span>
+                </div>
+
+                {/* Chilled Water Bottles */}
+                <div
+                  onClick={() => setAddons(a => ({ ...a, waterBottles: !a.waterBottles }))}
+                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.waterBottles ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-white hover:border-[#C9A84C]/30"}`}
+                >
+                  <div className="space-y-1.5 max-w-[200px]">
+                    <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "مياه باردة فاخرة" : "Premium Chilled Water"}</h4>
+                    <p className="text-[0.6rem] text-[#6B7280] leading-relaxed">Bottled premium chilled water stocked in vehicle.</p>
+                  </div>
+                  <span className="text-xs font-bold text-[#6B7280]">Optional</span>
+                </div>
+
+                {/* Prayer Mat Stop */}
+                <div
+                  onClick={() => setAddons(a => ({ ...a, prayerMat: !a.prayerMat }))}
+                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.prayerMat ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-white hover:border-[#C9A84C]/30"}`}
+                >
+                  <div className="space-y-1.5 max-w-[200px]">
+                    <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "سجادة صلاة معقمة" : "Sterilized Prayer Mat"}</h4>
+                    <p className="text-[0.6rem] text-[#6B7280] leading-relaxed">Sterilized pilgrim prayer mat loaded in back cabin.</p>
+                  </div>
+                  <span className="text-xs font-bold text-green-400">Complimentary</span>
+                </div>
+
+                {/* Wheelchair accessible filter */}
+                <div
+                  onClick={() => setAddons(a => ({ ...a, wheelchairFilter: !a.wheelchairFilter }))}
+                  className={`rounded-2xl border p-5 text-left flex justify-between items-start transition-all cursor-pointer ${addons.wheelchairFilter ? "border-[#16A34A] bg-[#16A34A]/10" : "border-[#C9A84C]/10 bg-white hover:border-[#C9A84C]/30"}`}
+                >
+                  <div className="space-y-1.5 max-w-[200px]">
+                    <h4 className="text-sm font-bold text-[#1C1C1C]">{isRtl ? "مركبة مهيئة للكراسي" : "Wheelchair Facility"}</h4>
+                    <p className="text-[0.6rem] text-[#6B7280] leading-relaxed">Lock a vehicle that supports folding wheelchair loading.</p>
+                  </div>
+                  <span className="text-xs font-bold text-green-400">Filter Applied</span>
+                </div>
+
+              </div>
+
+              {/* Navigation button */}
+              <div className="flex justify-between pt-4 border-t border-[#C9A84C]/10">
+                <button
+                  onClick={() => setStep(2)}
+                  className="btn btn-secondary btn-lg"
+                >
+                  <ChevronLeft className="h-4.5 w-4.5" />
+                  <span>Back</span>
+                </button>
+
+                <button
+                  onClick={handleNextStep}
+                  className="btn btn-primary btn-lg"
+                >
+                  <span>{isRtl ? "المتابعة لبيانات الاتصال" : "Continue to Contact"}</span>
+                  <ChevronRight className="h-4.5 w-4.5" />
+                </button>
+              </div>
+
+            </motion.div>
+          )}
+
+          {/* STEP 4: CUSTOMER DETAILS */}
+          {step === 4 && (
+            <motion.div
+              key="step4"
+              initial={{ opacity: 0, x: 15 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -15 }}
+              className="space-y-6"
+            >
+              <div className="flex items-center justify-between border-b border-[#C9A84C]/10 pb-4">
+                <div>
+                  <h2 className="font-heading text-2xl font-bold">{isRtl ? "معلومات الاتصال والمسافر" : "VIP Passenger Registry"}</h2>
+                  <p className="text-xs text-[#6B7280]">{isRtl ? "أدخل تفاصيل الاتصال لإرسال بيانات السائق ورقم اللوحة فورا." : "Specify target contacts to receive dispatch verification alerts."}</p>
+                </div>
+
+                <button
+                  onClick={() => setStep(3)}
+                  className="inline-flex items-center gap-1.5 text-xs text-[#16A34A] hover:underline"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                  <span>{isRtl ? "تعديل الإضافات" : "Edit Amenities"}</span>
+                </button>
+              </div>
+
+              {/* Registration Prompt Loyalty */}
+              <div className="rounded-2xl border border-amber-900/30 bg-amber-950/5 p-5 flex items-start gap-4">
+                <ShieldCheck className="h-6 w-6 text-[#C9A84C] shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="text-xs font-bold text-[#1C1C1C]">
+                    {isRtl ? "هل ترغب في كسب ١٥٠ نقطة ولاء فاخرة؟" : "Unlock 150 VIP Points Today"}
+                  </h4>
+                  <p className="text-[0.6rem] text-[#6B7280] leading-relaxed mt-1">
+                    {isRtl
+                      ? "قم بتسجيل الدخول أو إنشاء حساب الآن لحفظ تفاصيل هذا الحجز، والاستفادة من خصومات رحلتك القادمة."
+                      : "Sign in or create an account to lock this dispatch into your client dashboard and trigger loyalty program rewards."}
+                  </p>
+                  <div className="mt-3 flex gap-2">
+                    <Link
+                      href="/admin/login"
+                      className="rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/35 px-4.5 py-1 text-[0.55rem] font-bold text-[#16A34A] hover:bg-[#16A34A] hover:text-white transition-all"
+                    >
+                      Sign In / Register
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              {/* Form panel inputs */}
+              <div className="rounded-3xl border border-[#16A34A]/12 bg-white p-6 space-y-4">
+                
+                {/* Full name */}
+                <div>
+                  <label className="field-label mb-1.5 block">
+                    {isRtl ? "الاسم الكامل للمسافر" : "Passenger Full Name"}
+                  </label>
+                  <div className="relative">
+                    <User className="input-icon" />
+                    <input
+                      type="text"
+                      required
+                      value={custName}
+                      onChange={(e) => setCustName(e.target.value)}
+                      placeholder="e.g. Muhammad Al-Ghamdi"
+                      className="input has-icon"
+                    />
+                  </div>
+                </div>
+
+                {/* Contact phone with code */}
+                <div className="grid gap-4 grid-cols-[0.3fr_0.7fr]">
+                  <div>
+                    <label className="field-label mb-1.5 block">
+                      Code
+                    </label>
+                    <select
+                      value={phoneCode}
+                      onChange={(e) => setPhoneCode(e.target.value)}
+                      className="input"
+                    >
+                      <option value="+966">KSA (+966)</option>
+                      <option value="+971">UAE (+971)</option>
+                      <option value="+974">QAT (+974)</option>
+                      <option value="+973">BAH (+973)</option>
+                      <option value="+968">OMN (+968)</option>
+                      <option value="+965">KWT (+965)</option>
+                      <option value="+1">USA (+1)</option>
+                      <option value="+44">UK (+44)</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="field-label mb-1.5 block">
+                      {isRtl ? "رقم الهاتف والواتساب" : "WhatsApp Phone Number"}
+                    </label>
+                    <div className="relative">
+                      <Phone className="input-icon" />
+                      <input
+                        type="text"
+                        required
+                        value={custPhone}
+                        onChange={(e) => setCustPhone(e.target.value)}
+                        placeholder="e.g. 500123456"
+                        className="input has-icon"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Email and nationality */}
+                <div className="grid gap-4 grid-cols-2">
+                  <div>
+                    <label className="field-label mb-1.5 block">
+                      {isRtl ? "البريد الإلكتروني" : "Email Address"}
+                    </label>
+                    <div className="relative">
+                      <Mail className="input-icon" />
+                      <input
+                        type="email"
+                        required
+                        value={custEmail}
+                        onChange={(e) => setCustEmail(e.target.value)}
+                        placeholder="e.g. client@taxisaudiarabia.com"
+                        className="input has-icon"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="field-label mb-1.5 block">
+                      {isRtl ? "الجنسية / البلد" : "Nationality / Country"}
+                    </label>
+                    <div className="relative">
+                      <Globe className="input-icon" />
+                      <input
+                        type="text"
+                        value={nationality}
+                        onChange={(e) => setNationality(e.target.value)}
+                        placeholder="e.g. Saudi Arabia"
+                        className="input has-icon"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Language Select */}
+                <div>
+                  <label className="field-label mb-1.5 block">
+                    {isRtl ? "لغة السائق المفضلة" : "Preferred Communication Language"}
+                  </label>
+                  <div className="relative">
+                    <Languages className="input-icon" />
+                    <select
+                      value={preferredLang}
+                      onChange={(e) => setPreferredLang(e.target.value as "en" | "ar" | "ur")}
+                      className="input has-icon"
+                    >
+                      <option value="en">English (driver Standard)</option>
+                      <option value="ar">العربية (سائق يتحدث العربية)</option>
+                      <option value="ur">اردو (سائق اردو بولنے والا)</option>
+                    </select>
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Navigation button */}
+              <div className="flex justify-between pt-4 border-t border-[#C9A84C]/10">
+                <button
+                  onClick={() => setStep(3)}
+                  className="btn btn-secondary btn-lg"
+                >
+                  <ChevronLeft className="h-4.5 w-4.5" />
+                  <span>Back</span>
+                </button>
+
+                <button
+                  onClick={handleNextStep}
+                  className="btn btn-primary btn-lg"
+                >
+                  <span>{isRtl ? "مراجعة وحساب الفاتورة" : "Review Summary & Pay"}</span>
+                  <ChevronRight className="h-4.5 w-4.5" />
+                </button>
+              </div>
+
+            </motion.div>
+          )}
+
+          {/* STEP 5: REVIEW & PAYMENT */}
+          {step === 5 && (
+            <motion.div
+              key="step5"
+              initial={{ opacity: 0, x: 15 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -15 }}
+              className="space-y-6"
+            >
+              <div className="flex items-center justify-between border-b border-[#C9A84C]/10 pb-4">
+                <div>
+                  <h2 className="font-heading text-2xl font-bold">{isRtl ? "مراجعة الطلب وتأكيد الحجز" : "Review & Send Booking Request"}</h2>
+                  <p className="text-xs text-[#6B7280]">{isRtl ? "راجع تفاصيل رحلتك وأرسل الطلب — السعر النهائي يصلك عبر واتساب أو البريد الإلكتروني." : "Check your trip details and send the request — your final quotation arrives on WhatsApp or email."}</p>
+                </div>
+
+                <button
+                  onClick={() => setStep(4)}
+                  className="inline-flex items-center gap-1.5 text-xs text-[#16A34A] hover:underline"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                  <span>{isRtl ? "تعديل معلوماتي" : "Edit Customer Info"}</span>
+                </button>
+              </div>
+
+              <div className="grid gap-6 md:grid-cols-[1.1fr_0.9fr]">
+                
+                {/* LEFT: Payment inputs */}
+                <div className="space-y-6">
+                  
+                  {/* No online payment — quotation-based booking request */}
+                  <div className="rounded-3xl border border-[#16A34A]/12 bg-white p-6 space-y-3">
+                    <h3 className="font-heading text-sm uppercase tracking-wider text-[#16A34A] font-bold">
+                      {isRtl ? "لا حاجة للدفع الآن" : "No Payment Required Now"}
+                    </h3>
+                    <p className="text-xs text-[#6B7280] leading-relaxed">
+                      {isRtl
+                        ? "هذا طلب حجز فقط — لا يوجد دفع إلكتروني. سنؤكد لك عرض السعر النهائي عبر واتساب أو البريد الإلكتروني حسب تفاصيل رحلتك، والدفع يكون نقداً أو بالبطاقة للسائق."
+                        : "This is a booking request — no online payment is taken. Your final quotation is confirmed on WhatsApp or email based on your trip details, and you pay the driver by cash or card."}
+                    </p>
+                    <div className="flex items-center gap-2 rounded-2xl bg-[#F0FDF4] border border-[#16A34A]/15 p-3 text-[0.65rem] text-[#1C1C1C] font-semibold">
+                      <ShieldCheck className="h-4 w-4 text-[#16A34A] shrink-0" />
+                      <span>{isRtl ? "تأكيد السعر عبر واتساب خلال 1-2 ساعة عادة" : "Price confirmation on WhatsApp, usually within 1–2 hours"}</span>
+                    </div>
+                  </div>
+
+                  {/* Promo Code section — collected only, never validated/discounted client-side */}
+                  <div className="rounded-3xl border border-[#C9A84C]/10 bg-white p-6 space-y-2">
+                    <input
+                      type="text"
+                      placeholder="PROMO CODE (optional)"
+                      value={promoCode}
+                      onChange={(e) => setPromoCode(e.target.value)}
+                      className="input"
+                    />
+                    <p className="text-[0.6rem] text-[#6B7280]">
+                      {isRtl ? "سنطبق أي كود صالح يدويًا عند تأكيد السعر." : "We'll apply any valid code manually when confirming your price."}
+                    </p>
+                  </div>
+
+                  {/* Terms checkbox */}
+                  <div className="flex items-start gap-2.5 pl-2">
+                    <input
+                      type="checkbox"
+                      checked={termsAgreed}
+                      onChange={(e) => setTermsAgreed(e.target.checked)}
+                      className="h-4.5 w-4.5 accent-[#C9A84C] rounded border-[#16A34A]/15 mt-0.5"
+                    />
+                    <p className="text-[0.6rem] leading-relaxed text-[#6B7280]">
+                      I agree to the <span className="underline hover:text-[#16A34A] cursor-pointer">Terms of Carriage</span>, including Saudi Transport General Authority (TGA) regulations. No price is shown on the website — the final price for this trip is confirmed on WhatsApp or email before dispatch.
+                    </p>
+                  </div>
+
+                </div>
+
+                {/* RIGHT: Trip recap — no pricing, just what's being requested */}
+                <div className="rounded-3xl border border-[#16A34A]/12 bg-white p-6 space-y-6 flex flex-col justify-between shadow-2xl">
+
+                  <div className="space-y-6">
+                    <h3 className="font-heading text-sm uppercase tracking-wider text-[#16A34A] font-bold border-b border-[#C9A84C]/10 pb-3 flex items-center gap-1.5">
+                      <FileText className="h-4 w-4" /> {isRtl ? "ملخص الطلب" : "Request Summary"}
+                    </h3>
+
+                    {/* Summary coordinates list */}
+                    <div className="space-y-3.5 text-xs">
+                      <div>
+                        <p className="text-[0.55rem] text-[#6B7280] font-bold uppercase">{isRtl ? "مسار الرحلة" : "Route details"}</p>
+                        <p className="text-[#1C1C1C] truncate max-w-[280px]">{pickup} → {dropoff}</p>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-2">
+                        <div>
+                          <p className="text-[0.55rem] text-[#6B7280] font-bold uppercase">{isRtl ? "التاريخ والوقت" : "Departure"}</p>
+                          <p className="text-[0.65rem] text-[#1C1C1C] font-semibold">{new Date(dateTime).toLocaleString()}</p>
+                        </div>
+                        <div>
+                          <p className="text-[0.55rem] text-[#6B7280] font-bold uppercase">{isRtl ? "السيارة والركاب" : "Vehicle sizing"}</p>
+                          <p className="text-[0.65rem] text-[#1C1C1C] font-semibold">{selectedVehicle} • {passengers} Pax</p>
+                        </div>
+                      </div>
+
+                      {selectedAddonLabels.length > 0 && (
+                        <div className="border-t border-[#C9A84C]/10 pt-4">
+                          <p className="text-[0.55rem] text-[#6B7280] font-bold uppercase mb-1.5">{isRtl ? "الإضافات المطلوبة" : "Requested add-ons"}</p>
+                          <p className="text-[0.65rem] text-[#1C1C1C]">{selectedAddonLabels.join(", ")}</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Send action */}
+                  <div className="space-y-4 pt-6 border-t border-[#C9A84C]/10">
+                    <div className="rounded-2xl bg-[#F0FDF4] border border-[#16A34A]/15 p-3 text-[0.65rem] text-[#1C1C1C] font-semibold flex items-center gap-2">
+                      <ShieldCheck className="h-4 w-4 text-[#16A34A] shrink-0" />
+                      <span>{isRtl ? "لا يوجد سعر معروض هنا — السعر النهائي يصلك عبر واتساب" : "No price shown here — final price confirmed on WhatsApp"}</span>
+                    </div>
+
+                    <button
+                      onClick={handleFinalizeBooking}
+                      disabled={!termsAgreed || creatingBooking}
+                      className="btn btn-primary btn-lg btn-block"
+                    >
+                      {creatingBooking ? (
+                        <span className="h-4.5 w-4.5 animate-spin rounded-full border-2 border-[#0A0A0A] border-t-transparent" />
+                      ) : (
+                        <ShieldCheck className="h-4.5 w-4.5" />
+                      )}
+                      <span>{isRtl ? "أرسل طلب الحجز" : "Send Booking Request"}</span>
+                    </button>
+                  </div>
+
+                </div>
+
+              </div>
+            </motion.div>
+          )}
+
+          {/* STEP 6: BOOKING CONFIRMATION & NOTIFICATIONS */}
+          {step === 6 && (
+            <motion.div
+              key="step6"
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="max-w-xl mx-auto text-center space-y-8 rounded-3xl border border-[#16A34A]/15 bg-white p-8 md:p-10 shadow-2xl relative overflow-hidden"
+            >
+              <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-[#C9A84C]/5 blur-3xl pointer-events-none" />
+
+              {/* Animated golden success checkmark */}
+              <div className="h-16 w-16 rounded-full bg-[#C9A84C]/10 border-2 border-[#C9A84C] flex items-center justify-center mx-auto shadow-[0_0_20px_rgba(22,163,74,0.25)]">
+                <motion.span
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
+                  className="text-[#C9A84C] text-2xl font-bold"
+                >
+                  ✓
+                </motion.span>
+              </div>
+
+              <div className="space-y-2">
+                <span className="text-[0.6rem] uppercase tracking-[0.25em] text-[#C9A84C] font-bold">
+                  {isRtl ? "تم تأكيد حجز السائق" : "VIP Booking Certified"}
+                </span>
+                <h2 className="font-heading text-2xl font-bold text-[#1C1C1C]">
+                  {isRtl ? "رحلة مباركة بضيافة فاخرة" : "Welcome Aboard, Guest"}
+                </h2>
+                <p className="text-xs text-[#6B7280] max-w-sm mx-auto leading-relaxed">
+                  Your driver is registered in our centralized administrative system. Check details or verify GPS updates below.
+                </p>
+              </div>
+
+              {/* Booking Reference card */}
+              <div className="bg-white rounded-2xl border border-[#16A34A]/15 shadow-sm p-5 space-y-3.5">
+                <div className="flex justify-between items-center text-xs">
+                  <span className="text-[#6B7280] font-bold">BOOKING REFERENCE</span>
+                  <span className="font-bold text-[#16A34A] font-mono tracking-widest">{bookingRef}</span>
+                </div>
+                <div className="flex justify-between items-center text-xs border-t border-[#C9A84C]/10 pt-3">
+                  <span className="text-[#6B7280] font-bold">SCHEDULED TRIP</span>
+                  <span className="text-[#1C1C1C] font-semibold truncate max-w-[200px]">{pickup}</span>
+                </div>
+                <div className="flex justify-between items-center text-xs border-t border-[#C9A84C]/10 pt-3">
+                  <span className="text-[#6B7280] font-bold">PRICE</span>
+                  <span className="text-[#C9A84C] font-bold">Confirmed on WhatsApp</span>
+                </div>
+              </div>
+
+              {/* Developer / Dispatch alerts simulator log */}
+              <div className="rounded-xl bg-black/75 p-4 text-[0.6rem] text-left space-y-2 font-mono text-white/70 border border-[#C9A84C]/10">
+                <p className="text-[#C9A84C] font-bold border-b border-[#C9A84C]/10 pb-1.5 uppercase tracking-wider text-[0.55rem]">
+                  Dispatch Simulation Console Output:
+                </p>
+                {notificationLogs.map((log, idx) => (
+                  <p key={idx}>{log}</p>
+                ))}
+              </div>
+
+              {/* Quick Action Links */}
+              <div className="grid gap-3 grid-cols-2">
+                <Link
+                  href={`/track-booking?ref=${encodeURIComponent(bookingRef)}&phone=${encodeURIComponent(custPhone)}`}
+                  className="flex items-center justify-center gap-2 rounded-full border border-[#C9A84C]/25 bg-white hover:bg-[#C9A84C]/10 py-3.5 text-xs font-bold text-[#16A34A] transition-all"
+                >
+                  <MapPin className="h-4 w-4" />
+                  <span>Track GPS Live</span>
+                </Link>
+
+                <a
+                  href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam,%20I%20have%20successfully%20booked%20my%20driver%20ref%20${bookingRef}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 rounded-full bg-[#16A34A] hover:bg-[#15803D] py-3.5 text-xs font-bold text-white transition-all"
+                >
+                  <MessageCircle className="h-4 w-4 fill-current" />
+                  <span>Share on WhatsApp</span>
+                </a>
+              </div>
+
+              <div className="pt-2 border-t border-[#C9A84C]/10 flex items-center justify-between text-[0.6rem] text-[#6B7280] font-bold">
+                <span>driver contacts you 1 hour before pick-up</span>
+                <Link href="/" className="underline hover:text-[#16A34A]">Back to Home</Link>
+              </div>
+
+            </motion.div>
+          )}
+
+        </AnimatePresence>
+
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,3604 @@
+export const revalidate = 86400; // static + refresh daily (was force-dynamic = ~16s server render on every request)
+
+import { notFound } from "next/navigation";
+import { db } from "@/lib/db";
+import { ROUTES_DATA } from "@/lib/data/routes";
+import { DISTANCE_GUIDES } from "@/lib/data/distances";
+import { Metadata } from "next";
+import { MapPin, Clock, ArrowRight, CheckCircle2, ShieldCheck, Car, HelpCircle, AlertTriangle, ChevronRight, Phone, MessageSquare, Plane, UserCheck, Compass, Users, Briefcase, Navigation, Coffee } from "lucide-react";
+import Link from "next/link";
+import { contactConfig } from "@/lib/config/contact";
+import { QassimAirportSections } from "@/components/routes/QassimAirportSections";
+import { HolyCitySections } from "@/components/routes/HolyCitySections";
+import { JeddahMadinahSections } from "@/components/routes/JeddahMadinahSections";
+import Image from "next/image";
+import { RouteJourney } from "@/components/visual/RouteJourney";
+import { breadcrumbSchema, faqSchema, speakableSchema, SITE } from "@/lib/schema";
+import { TLDRSummary } from "@/components/seo/TLDRSummary";
+import { RouteRelatedLinks } from "@/components/seo/RouteRelatedLinks";
+import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
+import { fleetCapacity } from "@/lib/fleet-data";
+import { KuwaitRouteSections, type KuwaitRouteConfig } from "@/components/seo/KuwaitRouteSections";
+import { credentials, hasCredential } from "@/lib/config/credentials";
+import { AR_ROUTE_SLUGS } from "@/lib/config/i18n";
+import { getCorridorForRoute, crossBorderWhatsAppText, placeWithCountry } from "@/lib/data/cross-border";
+import { CrossBorderRouteSections } from "@/components/cross-border/CrossBorderRouteSections";
+import { CrossBorderRoutePage } from "@/components/cross-border/CrossBorderRoutePage";
+import { AirportTransferSection } from "@/components/seo/AirportTransferSection";
+import { airportView } from "@/lib/data/riyadh-airport-view";
+import { CROSS_BORDER_ROUTE_PAGES } from "@/lib/data/cross-border-route-pages";
+import { RedSeaAlulaRouteSection, AlulaRouteNav } from "@/components/location/cluster/CrossDestination";
+import { MAKKAH_ROUTE_META, MAKKAH_CLUSTER_ROUTE_SLUGS } from "@/lib/data/makkah-cluster";
+import { MAKKAH_ROUTE_CONTENT } from "@/lib/data/makkah-route-content";
+import { MakkahRouteDetails } from "@/components/location/cluster/MakkahRouteLinks";
+import { MakkahRouteLinks } from "@/components/location/cluster/MakkahRouteLinks";
+import { MadinahRouteLinks, MadinahRouteJourney } from "@/components/location/cluster/MadinahRouteLinks";
+import { MADINAH_CLUSTER_ROUTE_SLUGS } from "@/lib/data/madinah-cluster";
+import RedSeaRoutePage from "@/components/location/cluster/RedSeaRoutePage";
+import { RSI_ROUTE_PAGES } from "@/lib/data/red-sea-cluster";
+import { SOUTHERN_ROUTE_PAGES } from "@/lib/data/southern-cluster";
+import SouthernRoutePage from "@/components/location/cluster/SouthernRoutePage";
+import { JEDDAH_INTERCITY_ROUTE_PAGES } from "@/lib/data/jeddah-intercity";
+
+interface PageProps {
+  params: Promise<{
+    slug: string;
+  }>;
+}
+
+// Pre-render every route page at build time so they load instantly and get
+// indexed reliably (previously each one server-rendered on every request).
+export function generateStaticParams() {
+  return ROUTES_DATA.map((r) => ({ slug: r.slug }));
+}
+
+// Generic fallback FAQs for routes without bespoke content.
+const DEFAULT_FAQS = [
+  {
+    question: "Can I modify my pickup time?",
+    answer: "Yes, you can modify your pickup time up to 12 hours before the scheduled transfer without any penalty. Just contact our support team.",
+  },
+  {
+    question: "Are there stops allowed during the trip?",
+    answer: "Brief rest stops for prayer or refreshments are absolutely fine and included in long-distance trips. For extensive detours, please request a custom quote.",
+  },
+];
+
+// Routes that receive the full lead-conversion pass: an on-page WhatsApp quote
+// form (pre-filled with the route), an easy structured hero prefill, and a
+// mobile sticky CTA. Add a slug + its copy here to enable it — no other route
+// is affected. Path B (corporate vs heritage) is handled by separate per-slug
+// blocks in the body since the buyer differs by route.
+const ALULA_NAV_SLUGS = ["alula-to-madinah","madinah-to-alula","alula-to-riyadh","riyadh-to-alula","alula-to-jeddah","jeddah-to-alula","alula-to-neom","neom-to-alula","alula-to-amaala","amaala-to-alula","alula-to-red-sea-airport","red-sea-airport-to-alula"];
+
+const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup: string; dropoff: string }> = {
+  // Dammam Airport ↔ Bahrain (added 2026-10-03 — GSC 10-01 demand, see
+  // seo/page-log.md). Distance from ROUTES_DATA (OSRM-measured).
+  "riyadh-to-al-qassim-airport": {
+    heading: "Get a Riyadh to Al Qassim Airport (ELQ) quote",
+    blurb:
+      "Send your Riyadh pickup address, date, passengers and luggage — we check availability and confirm one fare for the whole vehicle on WhatsApp. About 375 km, roughly 3.5 hours; one-way or return.",
+    pickup: "Riyadh",
+    dropoff: "Prince Naif bin Abdulaziz International Airport (ELQ)",
+  },
+  "riyadh-to-taif": {
+    heading: "Get a Riyadh-to-Taif quote",
+    blurb:
+      "Send your Riyadh pickup address, date and passengers — we confirm one fixed fare for the whole car on WhatsApp. Door to door, about 785 km, with rest and prayer stops when you ask.",
+    pickup: "Riyadh",
+    dropoff: "Taif",
+  },
+  "riyadh-to-dammam": {
+    heading: "Get your Riyadh to Dammam quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, door-to-door transfer with a professional chauffeur. No meter, no surge.",
+    pickup: "Riyadh",
+    dropoff: "Dammam",
+  },
+  "madinah-to-alula": {
+    heading: "Get your Madinah to AlUla quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, door-to-door heritage transfer with a professional chauffeur. Add waiting time or a full-day AlUla tour on request.",
+    pickup: "Madinah",
+    dropoff: "AlUla",
+  },
+  "jeddah-to-kaec": {
+    heading: "Get your Jeddah to KAEC quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, door-to-door transfer with a professional chauffeur for King Abdullah Economic City. No meter, no surge.",
+    pickup: "Jeddah",
+    dropoff: "KAEC",
+  },
+  "jeddah-airport-to-swissotel-makkah": {
+    heading: "Get your airport-to-hotel transfer quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private transfer from Jeddah Airport (JED) straight to Swissotel Al Maqam Makkah, with meet & greet at arrivals and prayer or rest stops on request.",
+    pickup: "Jeddah Airport (JED)",
+    dropoff: "Swissotel Al Maqam Makkah",
+  },
+  "jeddah-to-madinah": {
+    heading: "Get your Jeddah to Madinah quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, door-to-door transfer to Madinah with a professional chauffeur, prayer and rest stops, and spacious vehicles for families and luggage.",
+    pickup: "Jeddah",
+    dropoff: "Madinah",
+  },
+  "makkah-to-madinah": {
+    heading: "Get your Makkah to Madinah quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private transfer between the two Holy Cities with a professional chauffeur, prayer and rest stops, and vehicles sized for families and luggage.",
+    pickup: "Makkah",
+    dropoff: "Madinah",
+  },
+  "riyadh-to-makkah": {
+    heading: "Get your Riyadh to Makkah quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, door-to-door transfer to Makkah with a professional chauffeur, and prayer and rest stops on request.",
+    pickup: "Riyadh",
+    dropoff: "Makkah",
+  },
+  "jeddah-airport-to-makkah": {
+    heading: "Get your Jeddah Airport to Makkah quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private transfer from Jeddah Airport (JED) to Makkah with meet & greet at arrivals, flight tracking, and prayer or rest stops on request.",
+    pickup: "Jeddah Airport (JED)",
+    dropoff: "Makkah",
+  },
+  "riyadh-to-jeddah": {
+    heading: "Get your Riyadh to Jeddah quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, door-to-door transfer with a professional chauffeur for the 950 km desert crossing to the Red Sea coast. No meter, no surge.",
+    pickup: "Riyadh",
+    dropoff: "Jeddah",
+  },
+  "riyadh-to-alula": {
+    heading: "Get your Riyadh to AlUla quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, door-to-door heritage transfer with a professional chauffeur for the long drive north-west to AlUla. No meter, no surge.",
+    pickup: "Riyadh",
+    dropoff: "AlUla",
+  },
+  "alula-to-madinah": {
+    heading: "Get your AlUla to Madinah quote",
+    blurb:
+      "Send your AlUla hotel, your Madinah hotel or MED flight, and passengers — we confirm one fixed fare for the whole car on WhatsApp. About 330 km, door to door, with prayer and rest stops when you ask.",
+    pickup: "AlUla",
+    dropoff: "Madinah",
+  },
+  "alula-to-riyadh": {
+    heading: "Get your AlUla to Riyadh quote",
+    blurb:
+      "Send your AlUla pickup, Riyadh drop-off and passengers — one fixed fare for the whole car, confirmed on WhatsApp. About 1,050 km, a full day by road with rest and prayer stops.",
+    pickup: "AlUla",
+    dropoff: "Riyadh",
+  },
+  // 2026-11-14 (Jeddah intercity sprint): these three rank on page 1 but had
+  // no on-page quote form. Additive only — title, H1 and body copy untouched.
+  "jeddah-to-riyadh": {
+    heading: "Get your Jeddah to Riyadh quote",
+    blurb:
+      "Send your Jeddah pickup, Riyadh drop-off, date and passengers — we confirm one fixed fare for the whole car on WhatsApp. About 950 km and roughly 9 hours, with rest and prayer stops.",
+    pickup: "Jeddah",
+    dropoff: "Riyadh",
+  },
+  "jeddah-to-abha": {
+    heading: "Get your Jeddah to Abha quote",
+    blurb:
+      "Send your Jeddah pickup, your Abha or Khamis Mushait address, date and passengers — one fixed fare for the whole car, confirmed on WhatsApp. About 690 km up into the Asir highlands.",
+    pickup: "Jeddah",
+    dropoff: "Abha",
+  },
+  "jeddah-to-alula": {
+    heading: "Get your Jeddah to AlUla quote",
+    blurb:
+      "Send your Jeddah pickup or JED flight number, your AlUla hotel, date and passengers — one fixed fare for the whole car, confirmed on WhatsApp. About 700 km, door to door.",
+    pickup: "Jeddah",
+    dropoff: "AlUla",
+  },
+  "alula-to-jeddah": {
+    heading: "Get your AlUla to Jeddah quote",
+    blurb:
+      "Send your AlUla pickup, Jeddah hotel or JED flight time, and passengers — one fixed fare for the whole car, confirmed on WhatsApp. About 700 km across the Kingdom.",
+    pickup: "AlUla",
+    dropoff: "Jeddah",
+  },
+  "amaala-to-alula": {
+    heading: "Get your AMAALA to AlUla quote",
+    blurb:
+      "Send your AMAALA resort, your AlUla hotel and passengers — we confirm one fixed fare on WhatsApp. A long planned leg between two separate destinations, about 295 km as a planning estimate.",
+    pickup: "AMAALA",
+    dropoff: "AlUla",
+  },
+  "alula-to-amaala": {
+    heading: "Get your AlUla to AMAALA quote",
+    blurb:
+      "Send your AlUla hotel, your AMAALA resort and passengers — we confirm one fixed fare on WhatsApp. A long planned leg between two separate destinations, about 295 km as a planning estimate.",
+    pickup: "AlUla",
+    dropoff: "AMAALA",
+  },
+  "neom-to-alula": {
+    heading: "Get your NEOM to AlUla quote",
+    blurb:
+      "Send your NEOM pickup (NEOM Bay Airport, Sharma, Magna, Oxagon), your AlUla hotel and passengers — one fixed fare confirmed on WhatsApp. About 400 km across north-west Saudi Arabia.",
+    pickup: "NEOM",
+    dropoff: "AlUla",
+  },
+  "alula-to-neom": {
+    heading: "Get your AlUla to NEOM quote",
+    blurb:
+      "Send your AlUla hotel, your NEOM drop-off and passengers — one fixed fare confirmed on WhatsApp. About 400 km across north-west Saudi Arabia; some NEOM sites need access clearance.",
+    pickup: "AlUla",
+    dropoff: "NEOM",
+  },
+  "red-sea-airport-to-alula": {
+    heading: "Get your Red Sea Airport to AlUla quote",
+    blurb:
+      "Send your flight number, your AlUla hotel and passengers — we confirm one fixed fare for the whole car on WhatsApp. A private inter-destination transfer from Red Sea International Airport (RSI) to AlUla, about 260 km by road.",
+    pickup: "Red Sea International Airport",
+    dropoff: "AlUla",
+  },
+  "alula-to-red-sea-airport": {
+    heading: "Get your AlUla to Red Sea Airport quote",
+    blurb:
+      "Send your AlUla hotel, your flight time at RSI (or your Red Sea resort) and passengers — we work the pickup back from your timing and confirm one fixed fare on WhatsApp. About 260 km by road.",
+    pickup: "AlUla",
+    dropoff: "Red Sea International Airport",
+  },
+  "red-sea-airport-to-amaala": {
+    heading: "Get your Red Sea Airport to AMAALA quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private VIP transfer from Red Sea International Airport straight to AMAALA, with meet & greet at arrivals.",
+    pickup: "Red Sea International Airport",
+    dropoff: "AMAALA",
+  },
+  "red-sea-airport-to-neom": {
+    heading: "Get your Red Sea Airport to NEOM quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private executive transfer from Red Sea International Airport to NEOM and NEOM Bay, with meet & greet at arrivals.",
+    pickup: "Red Sea International Airport",
+    dropoff: "NEOM",
+  },
+  "madinah-to-tabuk": {
+    heading: "Get your Madinah to Tabuk quote",
+    blurb:
+      "Fill a few details and we confirm your fixed fare on WhatsApp — a private, door-to-door transfer with a professional chauffeur for the long drive north to Tabuk. No meter, no surge.",
+    pickup: "Madinah",
+    dropoff: "Tabuk",
+  },
+};
+
+// Corporate (Path B) block config for business-corridor routes. The invoicing
+// paragraph, button labels and /services/corporate link are shared in the JSX;
+// only the heading, intro and prefills differ per route.
+const CORPORATE_CONFIG: Record<string, { heading: string; intro: string; waPrefill: string; emailSubject: string; emailBody: string }> = {
+  "amaala-to-alula": {
+    heading: "Delegation, incentive group or project team on this route?",
+    intro:
+      "Groups can be quoted in writing by email — vehicles from executive sedans to coasters through our partner network, one point of contact, and a fixed fare before booking. Corporate invoicing can be arranged through our sister company.",
+    waPrefill: `Salam! Group transfer — AMAALA to AlUla.\n• Company / group: \n• Date & flight no.: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van / Coaster): \n• Email (for written quote): \n• Invoice needed?: `,
+    emailSubject: "Group transfer RFQ — AMAALA to AlUla",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for a group transfer from AMAALA to AlUla.\n\n• Company / organisation: \n• Contact name & role: \n• Date & flight no./time: \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van / Coaster): \n• Invoice needed?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+  },
+  "alula-to-amaala": {
+    heading: "Delegation, incentive group or project team on this route?",
+    intro:
+      "Groups can be quoted in writing by email — vehicles from executive sedans to coasters through our partner network, one point of contact, and a fixed fare before booking. Corporate invoicing can be arranged through our sister company.",
+    waPrefill: `Salam! Group transfer — AlUla to AMAALA.\n• Company / group: \n• Date & flight no.: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van / Coaster): \n• Email (for written quote): \n• Invoice needed?: `,
+    emailSubject: "Group transfer RFQ — AlUla to AMAALA",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for a group transfer from AlUla to AMAALA.\n\n• Company / organisation: \n• Contact name & role: \n• Date & flight no./time: \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van / Coaster): \n• Invoice needed?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+  },
+  "neom-to-alula": {
+    heading: "Delegation, incentive group or project team on this route?",
+    intro:
+      "Groups can be quoted in writing by email — vehicles from executive sedans to coasters through our partner network, one point of contact, and a fixed fare before booking. Corporate invoicing can be arranged through our sister company.",
+    waPrefill: `Salam! Group transfer — NEOM to AlUla.\n• Company / group: \n• Date & flight no.: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van / Coaster): \n• Email (for written quote): \n• Invoice needed?: `,
+    emailSubject: "Group transfer RFQ — NEOM to AlUla",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for a group transfer from NEOM to AlUla.\n\n• Company / organisation: \n• Contact name & role: \n• Date & flight no./time: \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van / Coaster): \n• Invoice needed?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+  },
+  "alula-to-neom": {
+    heading: "Delegation, incentive group or project team on this route?",
+    intro:
+      "Groups can be quoted in writing by email — vehicles from executive sedans to coasters through our partner network, one point of contact, and a fixed fare before booking. Corporate invoicing can be arranged through our sister company.",
+    waPrefill: `Salam! Group transfer — AlUla to NEOM.\n• Company / group: \n• Date & flight no.: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van / Coaster): \n• Email (for written quote): \n• Invoice needed?: `,
+    emailSubject: "Group transfer RFQ — AlUla to NEOM",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for a group transfer from AlUla to NEOM.\n\n• Company / organisation: \n• Contact name & role: \n• Date & flight no./time: \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van / Coaster): \n• Invoice needed?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+  },
+  "alula-to-riyadh": {
+    heading: "Delegation, incentive group or project team on this route?",
+    intro:
+      "Groups can be quoted in writing by email — vehicles from executive sedans to coasters through our partner network, one point of contact, and a fixed fare before booking. Corporate invoicing can be arranged through our sister company.",
+    waPrefill: `Salam! Group transfer — AlUla to Riyadh.\n• Company / group: \n• Date & flight no.: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van / Coaster): \n• Email (for written quote): \n• Invoice needed?: `,
+    emailSubject: "Group transfer RFQ — AlUla to Riyadh",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for a group transfer from AlUla to Riyadh.\n\n• Company / organisation: \n• Contact name & role: \n• Date & flight no./time: \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van / Coaster): \n• Invoice needed?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+  },
+  "alula-to-jeddah": {
+    heading: "Delegation, incentive group or project team on this route?",
+    intro:
+      "Groups can be quoted in writing by email — vehicles from executive sedans to coasters through our partner network, one point of contact, and a fixed fare before booking. Corporate invoicing can be arranged through our sister company.",
+    waPrefill: `Salam! Group transfer — AlUla to Jeddah.\n• Company / group: \n• Date & flight no.: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van / Coaster): \n• Email (for written quote): \n• Invoice needed?: `,
+    emailSubject: "Group transfer RFQ — AlUla to Jeddah",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for a group transfer from AlUla to Jeddah.\n\n• Company / organisation: \n• Contact name & role: \n• Date & flight no./time: \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van / Coaster): \n• Invoice needed?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+  },
+  "alula-to-madinah": {
+    heading: "Delegation, incentive group or project team on this route?",
+    intro:
+      "Groups can be quoted in writing by email — vehicles from executive sedans to coasters through our partner network, one point of contact, and a fixed fare before booking. Corporate invoicing can be arranged through our sister company.",
+    waPrefill: `Salam! Group transfer — AlUla to Madinah.\n• Company / group: \n• Date & flight no.: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van / Coaster): \n• Email (for written quote): \n• Invoice needed?: `,
+    emailSubject: "Group transfer RFQ — AlUla to Madinah",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for a group transfer from AlUla to Madinah.\n\n• Company / organisation: \n• Contact name & role: \n• Date & flight no./time: \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van / Coaster): \n• Invoice needed?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+  },
+  "red-sea-airport-to-alula": {
+    heading: "Delegation or incentive group moving between the Red Sea and AlUla?",
+    intro:
+      "Groups combining the Red Sea resorts with AlUla can be quoted in writing by email — vehicles from executive sedans to coasters through our partner network, one point of contact, and a fixed fare before booking. Corporate invoicing can be arranged through our sister company.",
+    waPrefill: `Salam! Group transfer — Red Sea Airport (RSI) to AlUla.
+• Company / group: 
+• Date & flight no.: 
+• Passengers: 
+• Vehicle (Executive sedan / SUV / Van / Coaster): 
+• Email (for written quote): 
+• Invoice needed?: `,
+    emailSubject: "Group transfer RFQ — Red Sea Airport (RSI) to AlUla",
+    emailBody: `Hello Taxi Saudi Arabia team,
+
+We'd like a written quote for a group transfer from Red Sea Airport (RSI) to AlUla.
+
+• Company / organisation: 
+• Contact name & role: 
+• Date & flight no./time: 
+• Passengers: 
+• Vehicle preference (Executive sedan / SUV / Van / Coaster): 
+• Invoice needed?: 
+
+Please confirm a fixed fare before booking.
+
+Thank you.`,
+  },
+  "alula-to-red-sea-airport": {
+    heading: "Delegation or incentive group moving between the Red Sea and AlUla?",
+    intro:
+      "Groups combining the Red Sea resorts with AlUla can be quoted in writing by email — vehicles from executive sedans to coasters through our partner network, one point of contact, and a fixed fare before booking. Corporate invoicing can be arranged through our sister company.",
+    waPrefill: `Salam! Group transfer — AlUla to Red Sea Airport (RSI).
+• Company / group: 
+• Date & flight no.: 
+• Passengers: 
+• Vehicle (Executive sedan / SUV / Van / Coaster): 
+• Email (for written quote): 
+• Invoice needed?: `,
+    emailSubject: "Group transfer RFQ — AlUla to Red Sea Airport (RSI)",
+    emailBody: `Hello Taxi Saudi Arabia team,
+
+We'd like a written quote for a group transfer from AlUla to Red Sea Airport (RSI).
+
+• Company / organisation: 
+• Contact name & role: 
+• Date & flight no./time: 
+• Passengers: 
+• Vehicle preference (Executive sedan / SUV / Van / Coaster): 
+• Invoice needed?: 
+
+Please confirm a fixed fare before booking.
+
+Thank you.`,
+  },
+  "jeddah-airport-to-jeddah-city": {
+    heading: "Executive arrival or staff transfer at King Abdulaziz Airport?",
+    intro:
+      "Executives, visiting teams and recurring staff movements from King Abdulaziz International Airport (JED) to Jeddah hotels and offices can be quoted in writing: executive sedans and full-size SUVs with professional chauffeurs through our partner network, with one point of contact for repeat travel.",
+    waPrefill: `Salam! Corporate transfer enquiry — Jeddah Airport (JED) to Jeddah.
+• Company: 
+• Trip(s) & dates: 
+• Passengers per trip: 
+• Vehicle (Executive sedan / SUV / Van): 
+• Email (for written quote): 
+• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Jeddah Airport (JED) to Jeddah",
+    emailBody: `Hello Taxi Saudi Arabia team,
+
+We'd like a written quote for corporate transfers: Jeddah Airport (JED) to Jeddah.
+
+• Company name: 
+• Contact name & role: 
+• Trip(s) & dates: 
+• Passengers per trip: 
+• Vehicle preference (Executive sedan / SUV / Van): 
+• VAT number: 
+• PO reference: 
+
+Please confirm invoicing details and a fixed fare before booking.
+
+Thank you.`,
+  },
+  "jeddah-airport-to-kaec": {
+    heading: "Business visit to King Abdullah Economic City?",
+    intro:
+      "For KAEC — King Abdullah Port, the Industrial Valley and business visits — arriving at King Abdulaziz International Airport (JED), we arrange executive sedans and full-size SUVs with professional chauffeurs through our partner network. Written quotes are available for single trips and recurring company travel.",
+    waPrefill: `Salam! Corporate transfer enquiry — Jeddah Airport (JED) to KAEC.
+• Company: 
+• Trip(s) & dates: 
+• Passengers per trip: 
+• Vehicle (Executive sedan / SUV / Van): 
+• Email (for written quote): 
+• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Jeddah Airport (JED) to KAEC",
+    emailBody: `Hello Taxi Saudi Arabia team,
+
+We'd like a written quote for corporate transfers: Jeddah Airport (JED) to KAEC.
+
+• Company name: 
+• Contact name & role: 
+• Trip(s) & dates: 
+• Passengers per trip: 
+• Vehicle preference (Executive sedan / SUV / Van): 
+• VAT number: 
+• PO reference: 
+
+Please confirm invoicing details and a fixed fare before booking.
+
+Thank you.`,
+  },
+  "jeddah-airport-to-taif": {
+    heading: "Business or delegation travel to Taif?",
+    intro:
+      "For executives and delegations travelling from King Abdulaziz International Airport (JED) up to Taif, we arrange executive sedans and full-size SUVs with professional chauffeurs through our partner network, with a written quote and one point of contact.",
+    waPrefill: `Salam! Corporate transfer enquiry — Jeddah Airport (JED) to Taif.
+• Company: 
+• Trip(s) & dates: 
+• Passengers per trip: 
+• Vehicle (Executive sedan / SUV / Van): 
+• Email (for written quote): 
+• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Jeddah Airport (JED) to Taif",
+    emailBody: `Hello Taxi Saudi Arabia team,
+
+We'd like a written quote for corporate transfers: Jeddah Airport (JED) to Taif.
+
+• Company name: 
+• Contact name & role: 
+• Trip(s) & dates: 
+• Passengers per trip: 
+• Vehicle preference (Executive sedan / SUV / Van): 
+• VAT number: 
+• PO reference: 
+
+Please confirm invoicing details and a fixed fare before booking.
+
+Thank you.`,
+  },
+  "jeddah-to-taif": {
+    heading: "Business or delegation travel to Taif?",
+    intro:
+      "For executives and teams travelling between Jeddah and Taif we arrange executive sedans and full-size SUVs with professional chauffeurs through our partner network. Written quotes are available for single trips and recurring travel.",
+    waPrefill: `Salam! Corporate transfer enquiry — Jeddah to Taif.
+• Company: 
+• Trip(s) & dates: 
+• Passengers per trip: 
+• Vehicle (Executive sedan / SUV / Van): 
+• Email (for written quote): 
+• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Jeddah to Taif",
+    emailBody: `Hello Taxi Saudi Arabia team,
+
+We'd like a written quote for corporate transfers: Jeddah to Taif.
+
+• Company name: 
+• Contact name & role: 
+• Trip(s) & dates: 
+• Passengers per trip: 
+• Vehicle preference (Executive sedan / SUV / Van): 
+• VAT number: 
+• PO reference: 
+
+Please confirm invoicing details and a fixed fare before booking.
+
+Thank you.`,
+  },
+  "jeddah-to-yanbu": {
+    heading: "Business travel between Jeddah and Yanbu?",
+    intro:
+      "For company travel between Jeddah and Yanbu we arrange executive sedans and full-size SUVs with professional chauffeurs through our partner network. Written quotes are available for single trips, project teams and recurring staff movements.",
+    waPrefill: `Salam! Corporate transfer enquiry — Jeddah to Yanbu.
+• Company: 
+• Trip(s) & dates: 
+• Passengers per trip: 
+• Vehicle (Executive sedan / SUV / Van): 
+• Email (for written quote): 
+• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Jeddah to Yanbu",
+    emailBody: `Hello Taxi Saudi Arabia team,
+
+We'd like a written quote for corporate transfers: Jeddah to Yanbu.
+
+• Company name: 
+• Contact name & role: 
+• Trip(s) & dates: 
+• Passengers per trip: 
+• Vehicle preference (Executive sedan / SUV / Van): 
+• VAT number: 
+• PO reference: 
+
+Please confirm invoicing details and a fixed fare before booking.
+
+Thank you.`,
+  },
+  "jeddah-to-riyadh": {
+    heading: "Business travel between Jeddah and Riyadh?",
+    intro:
+      "For executives and delegations moving between the Red Sea coast and the capital we arrange executive sedans and full-size SUVs with professional chauffeurs through our partner network. Regular company travel can run on one account with a single point of contact.",
+    waPrefill: `Salam! Corporate transfer enquiry — Jeddah to Riyadh.
+• Company: 
+• Trip(s) & dates: 
+• Passengers per trip: 
+• Vehicle (Executive sedan / SUV / Van): 
+• Email (for written quote): 
+• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Jeddah to Riyadh",
+    emailBody: `Hello Taxi Saudi Arabia team,
+
+We'd like a written quote for corporate transfers: Jeddah to Riyadh.
+
+• Company name: 
+• Contact name & role: 
+• Trip(s) & dates: 
+• Passengers per trip: 
+• Vehicle preference (Executive sedan / SUV / Van): 
+• VAT number: 
+• PO reference: 
+
+Please confirm invoicing details and a fixed fare before booking.
+
+Thank you.`,
+  },
+  "riyadh-to-dammam": {
+    heading: "Moving a team between Riyadh and the Eastern Province?",
+    intro:
+      "For the Aramco, Dhahran and Al Khobar corporate corridor we arrange executive sedans and full-size SUVs with professional chauffeurs through our partner network — one-way, same-day return, or by the hour. Regular staff movements can run on a single account with one point of contact, so you are not booking trip by trip.",
+    waPrefill: `Salam! Corporate transfer enquiry — Riyadh / Dammam (Eastern Province).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Riyadh–Dammam",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate transfers on the Riyadh–Dammam / Eastern Province corridor.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
+  "jeddah-to-kaec": {
+    heading: "Business travel to King Abdullah Economic City?",
+    intro:
+      "For KAEC — King Abdullah Port, the Industrial Valley and business visits — we run executive sedans and full-size SUVs with professional chauffeurs, one-way or by the hour with waiting time. Regular company travel can run on a single account with one point of contact instead of trip-by-trip bookings.",
+    waPrefill: `Salam! Corporate transfer enquiry — Jeddah / KAEC (King Abdullah Economic City).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Jeddah–KAEC",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate transfers between Jeddah and King Abdullah Economic City (KAEC).\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
+  "riyadh-to-jeddah": {
+    heading: "Business travel between Riyadh and Jeddah?",
+    intro:
+      "For executives and delegations moving between the capital and the Red Sea coast we run executive sedans and full-size SUVs with professional chauffeurs — work or rest across the 950 km drive, or ask about a fly + private-transfer alternative for time-sensitive trips. Regular company travel can run on one account with a single point of contact.",
+    waPrefill: `Salam! Executive car with driver — Riyadh / Jeddah.\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Riyadh–Jeddah",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate transfers between Riyadh and Jeddah.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
+  "red-sea-airport-to-amaala": {
+    heading: "VIP or delegation arrival for AMAALA?",
+    intro:
+      "For executive arrivals, event organisers and travel coordinators booking AMAALA we arrange executive sedans and full-size SUVs through our partner network, with meet & greet at Red Sea International Airport and flight tracking. Multi-vehicle delegation movements can run on one account with a single point of contact.",
+    waPrefill: `Salam! VIP / delegation transfer — Red Sea Airport to AMAALA.\n• Company / event: \n• Flight no. & arrival date: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate/VIP transfer RFQ — Red Sea Airport–AMAALA",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for VIP or delegation transfers from Red Sea International Airport to AMAALA.\n\n• Company / organisation: \n• Contact name & role: \n• Flight no. & arrival date/time: \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
+  "red-sea-airport-to-neom": {
+    heading: "Business travel to NEOM?",
+    intro:
+      "For business visitors and contractors arriving for NEOM project work we arrange executive sedans and full-size SUVs through our partner network, with meet & greet at Red Sea International Airport and flight tracking on to NEOM and NEOM Bay. Some NEOM gates require access clearance — confirm your permit in advance. Regular staff travel can run on one account with a single point of contact.",
+    waPrefill: `Salam! Corporate transfer — Red Sea Airport to NEOM.\n• Company: \n• Flight no. & arrival date: \n• Passengers: \n• Vehicle (Executive sedan / SUV / Van): \n• NEOM site / gate clearance confirmed?: \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Red Sea Airport–NEOM",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate transfers from Red Sea International Airport to NEOM.\n\n• Company name: \n• Contact name & role: \n• Flight no. & arrival date/time: \n• Passengers: \n• Vehicle preference (Executive sedan / SUV / Van): \n• NEOM site / gate clearance: \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
+};
+
+// Umrah group & family (Path B) block config for pilgrim routes. Shared JSX;
+// only heading/intro/prefills differ per corridor.
+const UMRAH_GROUP_CONFIG: Record<string, { heading: string; intro: string; waPrefill: string; emailSubject: string; emailBody: string }> = {
+  "jeddah-airport-to-swissotel-makkah": {
+    heading: "Travelling as a family or Umrah group?",
+    intro:
+      "For families and groups we arrange a full-size SUV or van so everyone travels together with their luggage — one vehicle and one chauffeur from Jeddah Airport straight to Swissotel Al Maqam Makkah. Meet & greet at arrivals with a name sign, prayer and rest stops on request, and help with bags at the hotel.",
+    waPrefill: `Salam! Umrah transfer — Jeddah Airport to Swissotel Makkah.\n• Flight no. & arrival time: \n• Passengers (adults / children): \n• Luggage: \n• Vehicle (Sedan / SUV / Van): \n• Prayer / rest stops needed? : `,
+    emailSubject: "Umrah group transfer RFQ — Jeddah Airport to Makkah",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for Umrah airport transfers from Jeddah Airport (JED) to Makkah.\n\n• Agency / group name: \n• Contact name: \n• Arrival date & flight number: \n• Number of pilgrims (adults / children): \n• Luggage: \n• Vehicle(s) needed (SUV / Van): \n• Hotel in Makkah: \n• Prayer / rest stops needed?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+  },
+  "jeddah-to-madinah": {
+    heading: "Travelling to Madinah as a family or group?",
+    intro:
+      "For families and Umrah groups we arrange a full-size SUV or van so everyone travels together with their luggage — one vehicle and one chauffeur from Jeddah to your Madinah hotel near Masjid an-Nabawi, with prayer and rest stops along the Haramain highway.",
+    waPrefill: `Salam! Umrah transfer — Jeddah to Madinah.\n• Date & time: \n• Passengers (adults / children): \n• Luggage: \n• Vehicle (Sedan / SUV / Van): \n• Madinah hotel: `,
+    emailSubject: "Umrah group transfer RFQ — Jeddah to Madinah",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for Umrah transfers from Jeddah to Madinah.\n\n• Agency / group name: \n• Contact name: \n• Travel date: \n• Number of pilgrims (adults / children): \n• Luggage: \n• Vehicle(s) needed (SUV / Van): \n• Madinah hotel: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+  },
+  "jeddah-airport-to-madinah": {
+    heading: "Arriving for Umrah or Ziyarat — family or group?",
+    intro:
+      "For families and groups we arrange a full-size SUV or van so everyone travels together with their luggage — one vehicle and one chauffeur from King Abdulaziz International Airport (JED) to your Madinah hotel, with prayer and rest stops on request.",
+    waPrefill: `Salam! Umrah transfer — Jeddah Airport (JED) to Madinah.
+• Date & time: 
+• Flight no. (if arriving): 
+• Passengers (adults / children): 
+• Luggage: 
+• Vehicle (Sedan / SUV / Van): `,
+    emailSubject: "Umrah group transfer RFQ — Jeddah Airport (JED) to Madinah",
+    emailBody: `Hello Taxi Saudi Arabia team,
+
+We'd like a written quote for an Umrah group transfer: Jeddah Airport (JED) to Madinah.
+
+• Agency / group name: 
+• Contact name: 
+• Travel date: 
+• Number of passengers: 
+• Luggage: 
+• Vehicle preference (SUV / Van / Coaster): 
+
+Please confirm a fixed fare before booking.
+
+Thank you.`,
+  },
+  "jeddah-to-makkah": {
+    heading: "Travelling to Makkah for Umrah — family or group?",
+    intro:
+      "For families and Umrah groups we arrange a full-size SUV or van so everyone travels together with their luggage — one vehicle and one chauffeur from Jeddah to your Makkah hotel, with prayer and rest stops on request.",
+    waPrefill: `Salam! Umrah transfer — Jeddah to Makkah.
+• Date & time: 
+• Flight no. (if arriving): 
+• Passengers (adults / children): 
+• Luggage: 
+• Vehicle (Sedan / SUV / Van): `,
+    emailSubject: "Umrah group transfer RFQ — Jeddah to Makkah",
+    emailBody: `Hello Taxi Saudi Arabia team,
+
+We'd like a written quote for an Umrah group transfer: Jeddah to Makkah.
+
+• Agency / group name: 
+• Contact name: 
+• Travel date: 
+• Number of passengers: 
+• Luggage: 
+• Vehicle preference (SUV / Van / Coaster): 
+
+Please confirm a fixed fare before booking.
+
+Thank you.`,
+  },
+  "makkah-to-madinah": {
+    heading: "Umrah group between the Holy Cities?",
+    intro:
+      "For families and Umrah groups we arrange a full-size SUV or van so everyone travels together with their luggage — one vehicle and one chauffeur from Makkah to your Madinah hotel, with prayer and rest stops along the way.",
+    waPrefill: `Salam! Umrah transfer — Makkah to Madinah.\n• Date & time: \n• Passengers (adults / children): \n• Luggage: \n• Vehicle (Sedan / SUV / Van): \n• Madinah hotel: `,
+    emailSubject: "Umrah group transfer RFQ — Makkah to Madinah",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for Umrah transfers between Makkah and Madinah.\n\n• Agency / group name: \n• Contact name: \n• Travel date: \n• Number of pilgrims (adults / children): \n• Luggage: \n• Vehicle(s) needed (SUV / Van): \n• Madinah hotel: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+  },
+  "riyadh-to-makkah": {
+    heading: "Umrah group from Riyadh to Makkah?",
+    intro:
+      "For families and Umrah groups we arrange a full-size SUV or van so everyone travels together with their luggage on the long drive from Riyadh — one vehicle and one chauffeur, with a Miqat stop at Qarn Al-Manazil for those coming from Najd, and prayer and rest stops along the way.",
+    waPrefill: `Salam! Umrah transfer — Riyadh to Makkah.\n• Date & time: \n• Passengers (adults / children): \n• Luggage: \n• Vehicle (Sedan / SUV / Van): \n• Miqat stop for Ihram? : `,
+    emailSubject: "Umrah group transfer RFQ — Riyadh to Makkah",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for Umrah transfers from Riyadh to Makkah.\n\n• Agency / group name: \n• Contact name: \n• Travel date: \n• Number of pilgrims (adults / children): \n• Luggage: \n• Vehicle(s) needed (SUV / Van): \n• Miqat stop for Ihram?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+  },
+  "jeddah-airport-to-makkah": {
+    heading: "Arriving for Umrah — family or group?",
+    intro:
+      "For families and groups we arrange a full-size SUV or van so everyone travels together with their luggage — one vehicle and one chauffeur from Jeddah Airport (JED) to Makkah. Meet & greet in the arrivals hall with a name sign, flight tracking, and prayer or rest stops on request.",
+    waPrefill: `Salam! Umrah transfer — Jeddah Airport to Makkah.\n• Flight no. & arrival time: \n• Passengers (adults / children): \n• Luggage: \n• Vehicle (Sedan / SUV / Van): \n• Prayer / rest stops needed? : `,
+    emailSubject: "Umrah group transfer RFQ — Jeddah Airport to Makkah",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for Umrah airport transfers from Jeddah Airport (JED) to Makkah.\n\n• Agency / group name: \n• Contact name: \n• Arrival date & flight number: \n• Number of pilgrims (adults / children): \n• Luggage: \n• Vehicle(s) needed (SUV / Van): \n• Prayer / rest stops needed?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+  },
+};
+
+// Bespoke sections for Kuwait cross-border corridors, rendered by the shared
+// KuwaitRouteSections component. Add a slug here to give a Kuwait → Saudi route
+// the full journey / coverage / border / why-book / CTA treatment. Facts only.
+const KUWAIT_ROUTE_SECTIONS: Record<string, KuwaitRouteConfig> = {
+};
+
+// Route-specific, entity-rich content for the highest-value Jeddah corridors.
+// Keyed by slug → above-the-fold answer + featured-snippet facts + bespoke FAQs.
+const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; value: string }[]; faqs: { question: string; answer: string }[] }> = {
+  "alula-to-madinah": {
+    tldr: "AlUla to Madinah is about 330 km — roughly 3 hours of driving. A private car collects you from your AlUla hotel and drops you at your Madinah hotel or Madinah Airport (MED) at a fixed fare confirmed on WhatsApp before booking. It is the natural next leg after a heritage stay, and for many travellers the start of Ziyarat. We track your flight if you are connecting at MED.",
+    tldrFacts: [
+      { label: "Distance", value: "~330 km" },
+      { label: "Drive time", value: "~3 hr" },
+      { label: "Ends at", value: "Madinah hotel or MED" },
+      { label: "Fare", value: "Agreed before booking" },
+    ],
+    faqs: [
+      { question: "How far is AlUla from Madinah by road?", answer: "About 330 km, roughly 3 hours of driving, plus any prayer or rest stops you ask for." },
+      { question: "Can you take me from my AlUla hotel straight to my Madinah hotel?", answer: "Yes. The car collects you at the hotel and drops you as close to your Madinah hotel as vehicles are permitted, with all luggage in one vehicle." },
+      { question: "Can I go to Madinah Airport (MED) instead?", answer: "Yes. Send your flight time and we work the pickup back from it, leaving a margin for the drive. We track the flight if you are arriving rather than departing." },
+      { question: "Is it better to book this together with Madinah to AlUla?", answer: "Many visitors book both legs so the same arrangement runs the whole trip. Tell us the dates for each leg and we quote them together." },
+      { question: "Can we stop on the way?", answer: "Yes — prayer, meal and photo stops. Tell us when you book so the quote reflects them." },
+      { question: "Can I travel with a lot of luggage?", answer: "Yes. Give us the number of large cases and passengers; a full-size SUV or van is the usual choice." },
+    ],
+  },
+  "alula-to-riyadh": {
+    tldr: "AlUla to Riyadh is about 1,050 km by road — roughly 10 hours of driving, so it is a full day. A private car goes door to door at a fixed fare confirmed on WhatsApp before booking, with rest and prayer stops. Many travellers fly from AlUla International Airport (ULH) instead and use a car at each end; the road suits families, groups, heavy luggage and travellers who want to stop on the way.",
+    tldrFacts: [
+      { label: "Distance", value: "~1,050 km" },
+      { label: "Drive time", value: "~10 hr" },
+      { label: "Format", value: "Full day, door to door" },
+      { label: "Fare", value: "Agreed before booking" },
+    ],
+    faqs: [
+      { question: "How long is the drive from AlUla to Riyadh?", answer: "About 1,050 km and roughly 10 hours of driving, plus rest and prayer stops. Plan for a full day and an early start." },
+      { question: "Should I drive or fly from AlUla to Riyadh?", answer: "For one or two light travellers, flying from ULH is faster, with a car at each end. Driving makes sense for families, groups, heavy luggage, or when you want to stop on the way. Check which airlines currently serve ULH before deciding." },
+      { question: "Can we break the journey overnight?", answer: "Yes. Ask for a two-day quote with an overnight stop and we include it." },
+      { question: "Which vehicle is best for 10 hours on the road?", answer: "A full-size SUV is the usual choice for comfort; vans suit larger groups. Tell us passengers and luggage and the vehicle is confirmed with the fare." },
+      { question: "Can the driver collect us from an AlUla resort?", answer: "Yes — hotel or resort entrance, or AlUla Airport. Give us the property name when you request the quote." },
+      { question: "Can a company be invoiced?", answer: "Yes. Corporate invoicing can be arranged through our sister company. Email your trip details for a written quote." },
+    ],
+  },
+  "alula-to-jeddah": {
+    tldr: "AlUla to Jeddah is about 700 km — roughly 6 hours 40 minutes of driving. A private car takes you from your AlUla hotel to your Jeddah hotel or King Abdulaziz International Airport (JED) at a fixed fare confirmed on WhatsApp before booking. It suits families and groups continuing to the Red Sea coast or on to Makkah, and travellers who prefer one vehicle to a flight connection.",
+    tldrFacts: [
+      { label: "Distance", value: "~700 km" },
+      { label: "Drive time", value: "~6 hr 40 min" },
+      { label: "Ends at", value: "Jeddah hotel or JED" },
+      { label: "Fare", value: "Agreed before booking" },
+    ],
+    faqs: [
+      { question: "How far is AlUla from Jeddah?", answer: "About 700 km by road, roughly 6 hours 40 minutes of driving plus stops." },
+      { question: "Can you drop us at Jeddah airport for a flight?", answer: "Yes. Send your JED flight time and we set the pickup from AlUla so you arrive with a comfortable margin." },
+      { question: "Can we continue to Makkah after Jeddah?", answer: "Yes. Ask for the extra leg when you request the quote and we price the journey as one booking or two." },
+      { question: "Is the drive comfortable with children?", answer: "Yes, with planned rest stops. Tell us the children's ages and we choose a vehicle with room for seats and bags." },
+      { question: "Do you also run Jeddah to AlUla?", answer: "Yes. The same arrangement runs in the opposite direction; see the Jeddah to AlUla route." },
+      { question: "How is the fare set?", answer: "One fixed fare for the whole car, agreed on WhatsApp before booking — no meter, no surge." },
+    ],
+  },
+  "amaala-to-alula": {
+    tldr: "AMAALA and AlUla are separate destinations: AMAALA is on the Red Sea coast, AlUla is inland. A private transfer between them is a long planned leg of about 295 km as a planning estimate — roughly 35 km from the Red Sea International Airport gateway plus about 260 km on to AlUla. We collect you from your AMAALA resort (or RSI) and take you to your AlUla hotel, with the fare agreed before booking.",
+    tldrFacts: [
+      { label: "Distance", value: "~295 km (planning estimate)" },
+      { label: "Starts", value: "AMAALA resort or RSI" },
+      { label: "Ends", value: "Your AlUla hotel" },
+      { label: "Fare", value: "Agreed before booking" },
+    ],
+    faqs: [
+      { question: "Is AMAALA near AlUla?", answer: "No. AMAALA is on the Red Sea coast and AlUla is inland in north-west Saudi Arabia. They are separate destinations, linked by a long road transfer." },
+      { question: "How far is AMAALA from AlUla by road?", answer: "About 295 km as a planning estimate: roughly 35 km from the Red Sea International Airport gateway, then about 260 km to AlUla. The driver confirms timing for your day." },
+      { question: "Can you collect us from Four Seasons Resort and Residences AMAALA?", answer: "Yes — give us the resort name when you request the quote. We are independent of the resort and have no partnership with it." },
+      { question: "Should we fly into RSI or AlUla first?", answer: "Either order works. Many guests land at Red Sea International Airport for AMAALA and transfer to AlUla by road afterwards; the same transfer runs in reverse." },
+      { question: "Can you handle a group or delegation?", answer: "Yes. Vehicles from executive sedans to coasters are available through our partner network; email for a written quote." },
+      { question: "Do you track my flight?", answer: "Yes. Share your RSI flight number and a delay moves your pickup." },
+    ],
+  },
+  "alula-to-amaala": {
+    tldr: "AlUla to AMAALA is a planned inter-destination transfer from the inland heritage oasis to the Red Sea coast — about 295 km as a planning estimate. A private car collects you from your AlUla hotel and takes you to your AMAALA resort or to Red Sea International Airport (RSI) for your flight, with the fare agreed on WhatsApp before booking. AlUla and AMAALA are separate destinations.",
+    tldrFacts: [
+      { label: "Distance", value: "~295 km (planning estimate)" },
+      { label: "Starts", value: "Your AlUla hotel" },
+      { label: "Ends", value: "AMAALA resort or RSI" },
+      { label: "Fare", value: "Agreed before booking" },
+    ],
+    faqs: [
+      { question: "How long does AlUla to AMAALA take?", answer: "Roughly 5 hours as a planning estimate, depending on the exact resort and stops. The driver confirms the timing for your day." },
+      { question: "Can you drop us at the airport rather than the resort?", answer: "Yes. For an RSI flight we work the pickup back from your departure time and add a safety margin." },
+      { question: "Is it worth driving rather than flying?", answer: "Driving is door to door with all luggage and a time you choose. Flying can be quicker for light travellers when a suitable flight exists; check current schedules and remember a car is still needed at each end." },
+      { question: "Can we stop on the way?", answer: "Yes — rest, prayer or photo stops. Tell us when you book." },
+      { question: "Can we add Shura Island afterwards?", answer: "Yes. Shura Island is another Red Sea destination near RSI; we can quote the onward leg." },
+      { question: "How do I pay?", answer: "Cash to the driver or bank transfer, with an electronic receipt on request." },
+    ],
+  },
+  "neom-to-alula": {
+    tldr: "NEOM to AlUla is about 400 km by road — roughly 6 hours 45 minutes of driving from the NEOM Bay Airport area. A private car collects you at NEOM (NEOM Bay Airport, Sharma, Magna or Oxagon) and takes you to your AlUla hotel at a fixed fare confirmed on WhatsApp before booking. It suits NEOM visitors adding AlUla's heritage, and AlUla guests heading to NEOM for business. Some NEOM sites need access clearance, which you arrange in advance.",
+    tldrFacts: [
+      { label: "Distance", value: "~400 km" },
+      { label: "Drive time", value: "~6 hr 45 min" },
+      { label: "Starts", value: "NEOM Bay Airport area" },
+      { label: "Fare", value: "Agreed before booking" },
+    ],
+    faqs: [
+      { question: "How far is NEOM from AlUla?", answer: "About 400 km by road, roughly 6 hours 45 minutes from the NEOM Bay Airport area; other NEOM sites differ, so tell us your exact pickup." },
+      { question: "Which NEOM pickup points do you cover?", answer: "NEOM Bay Airport, Sharma, Magna and Oxagon. Give us the exact location when you request the quote." },
+      { question: "Do I need clearance to be collected inside NEOM?", answer: "Some NEOM gates and sites require access clearance. Confirm yours before the day; we cannot arrange it for you." },
+      { question: "Is it better to drive or to fly via Tabuk?", answer: "Driving is door to door in one vehicle. Flights can shorten the day for light travellers if schedules suit; a car is still needed at each end." },
+      { question: "Can we stop in Tabuk on the way?", answer: "Yes. Tell us and we include the stop in the quote." },
+      { question: "Can a business team be invoiced?", answer: "Yes. Corporate invoicing can be arranged through our sister company. Email your trip details for a written quote." },
+    ],
+  },
+  "alula-to-neom": {
+    tldr: "AlUla to NEOM is about 400 km by road — roughly 6 hours 45 minutes of driving to the NEOM Bay Airport area. A private car collects you from your AlUla hotel and drops you at NEOM (NEOM Bay Airport, Sharma, Magna or Oxagon) at a fixed fare confirmed on WhatsApp before booking. Some NEOM sites need access clearance, arranged in advance; we provide the transport only.",
+    tldrFacts: [
+      { label: "Distance", value: "~400 km" },
+      { label: "Drive time", value: "~6 hr 45 min" },
+      { label: "Ends at", value: "NEOM Bay Airport area" },
+      { label: "Fare", value: "Agreed before booking" },
+    ],
+    faqs: [
+      { question: "How long is the drive from AlUla to NEOM?", answer: "About 400 km, roughly 6 hours 45 minutes to the NEOM Bay Airport area, plus stops." },
+      { question: "Can you drop me at NEOM Bay Airport for a flight?", answer: "Yes. Send your flight time and we set the pickup from AlUla with a comfortable margin." },
+      { question: "Do I need a permit to enter NEOM sites?", answer: "Some NEOM gates require access clearance. Confirm yours in advance; it is not something we arrange." },
+      { question: "Can we break the journey?", answer: "Yes. Ask for a stop on the way or an overnight and we quote it." },
+      { question: "Which vehicle should we pick for 400 km?", answer: "A full-size SUV for comfort, or a van for groups. Tell us passengers and luggage and we confirm the vehicle with the fare." },
+      { question: "Can I book the return NEOM to AlUla too?", answer: "Yes, and quoting both legs together is common." },
+    ],
+  },
+  "red-sea-airport-to-alula": {
+    tldr: "Red Sea International Airport (RSI) and AlUla are separate destinations about 260 km apart by road — roughly 4 hours 25 minutes of driving. A private car takes you from RSI, or from a Red Sea resort, to your AlUla hotel at a fixed fare confirmed on WhatsApp before booking. We track your flight, and 15–30 minutes of waiting after landing is free. Distances are road-routing estimates; the driver confirms the timing for your day.",
+    tldrFacts: [
+      { label: "Distance", value: "~260 km" },
+      { label: "Drive time", value: "~4 hr 25 min" },
+      { label: "Flights", value: "We track your flight" },
+      { label: "Fare", value: "Agreed before booking" },
+    ],
+    faqs: [
+      { question: "How far is Red Sea International Airport from AlUla?", answer: "About 260 km by road, roughly 4 hours 25 minutes. It is a road-routing estimate; the driver confirms timing for your day and you can ask for rest and prayer stops." },
+      { question: "Is AlUla near the Red Sea resorts?", answer: "No. AlUla is inland in north-west Saudi Arabia; Shura Island, AMAALA and Red Sea International Airport are on the Red Sea coast. They are separate destinations that travellers combine, which is why a private inter-destination transfer is useful." },
+      { question: "Can I book a transfer from Shura Island or AMAALA to AlUla?", answer: "Yes. Most Red Sea resort guests fly in via RSI; we collect you from RSI or from your resort and drive to your AlUla hotel. Tell us the resort name when you request the quote." },
+      { question: "Is it better to drive or fly between the Red Sea and AlUla?", answer: "Driving is door to door in one vehicle with all luggage and a departure time you choose. Flying can be faster for light, solo travellers when a suitable flight exists; check which airlines currently connect the two airports, and remember you still need a car at each end." },
+      { question: "Do you track my flight into RSI?", answer: "Yes. Share your flight number when you book and we track the flight, so a delay moves your pickup. 15–30 minutes of waiting after landing is free." },
+      { question: "Can we stop on the way?", answer: "Yes. Tell us your rest, prayer or photo stops when you book so the quote reflects them." },
+      { question: "Can companies be invoiced?", answer: "Yes. Corporate invoicing can be arranged through our sister company. Email your trip details for a written quote." },
+    ],
+  },
+  "alula-to-red-sea-airport": {
+    tldr: "AlUla to Red Sea International Airport (RSI) is about 260 km by road — roughly 4 hours 25 minutes. A private car collects you from your AlUla hotel and takes you to RSI or on to a Red Sea resort at a fixed fare confirmed on WhatsApp before booking. We work the pickup back from your flight time, and we track your flight. AlUla and the Red Sea coast are separate destinations; distances are road-routing estimates.",
+    tldrFacts: [
+      { label: "Distance", value: "~260 km" },
+      { label: "Drive time", value: "~4 hr 25 min" },
+      { label: "Pickup", value: "Worked back from your flight" },
+      { label: "Fare", value: "Agreed before booking" },
+    ],
+    faqs: [
+      { question: "How long does it take to drive from AlUla to Red Sea International Airport?", answer: "About 4 hours 25 minutes for roughly 260 km, as a road-routing estimate. We set your pickup time from your flight and add a safety margin." },
+      { question: "Can you take us to Shura Island or AMAALA instead of the airport?", answer: "Yes. Say which resort you are staying at and we quote the drop-off there. Shura Island and AMAALA are separate Red Sea destinations, and the final leg from RSI is short." },
+      { question: "What time should the car leave AlUla for an afternoon flight?", answer: "We work it back from your departure time and the drive. Send the flight time and your AlUla hotel and we suggest the pickup." },
+      { question: "Can we add a stop on the way?", answer: "Yes — rest and prayer stops, or a photo stop. Tell us when you book so the quote reflects it." },
+      { question: "How is the fare agreed?", answer: "One fixed fare for the whole car, confirmed on WhatsApp before booking — no meter and no surge." },
+      { question: "Can I cancel?", answer: "Cancellation is free up to 24 hours before pickup." },
+    ],
+  },
+  "jeddah-airport-to-makkah": {
+    tldr: "A private transfer from Jeddah Airport (JED) to Makkah (Mecca) is about 80 km and takes roughly 1 hour. Fares are confirmed on WhatsApp before booking, available 24/7, with prayer and rest stops on request.",
+    tldrFacts: [
+      { label: "Distance", value: "~80 km" },
+      { label: "Time", value: "~1 hour" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Jeddah airport from Makkah?", answer: "King Abdulaziz International Airport (JED) is about 80 km from Makkah — roughly a 1-hour drive on the Makkah Expressway, traffic permitting." },
+      { question: "How much is a taxi from Jeddah airport to Makkah?", answer: "Fares are confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Message us on WhatsApp with your flight time and passenger count for a clear quote before booking — no surge, tolls included." },
+      { question: "Does a Jeddah pickup involve a Miqat stop?", answer: "A pickup in Jeddah does not by itself involve a Miqat stop. Whether a Miqat matters for you depends on where you travelled from and on your own religious circumstances, which we cannot advise on. If your plans include a stop, tell us when you book and we will plan it." },
+      { question: "Is the Jeddah airport to Makkah taxi available at night?", answer: "Yes, we are available 24/7. We track your flight number, so the driver is waiting at arrivals with a name sign even for late-night or delayed flights." },
+      { question: "Which is better — taxi or the Haramain train?", answer: "A private transfer is door-to-door from the airport to your Makkah hotel with luggage help and no station transfers. The Haramain high-speed train is fast but requires transfers to and from the stations. For pilgrims with luggage, the direct taxi is usually more convenient." },
+      { question: "Where do I meet my driver at Jeddah airport?", answer: "Your driver waits in the arrivals hall with a name sign at your terminal (Terminal 1 for most international airlines, the Hajj Terminal during Hajj/Umrah peak season). We track your flight, so pickup timing adjusts automatically if you land early or late." },
+      { question: "Is a private transfer cheaper than Uber or Careem from Jeddah to Makkah?", answer: "A private, pre-booked taxi gives you a confirmed vehicle and driver waiting at arrivals with no surge pricing during peak Umrah season — unlike ride-hailing apps, which can be scarce or surge-priced right after international flights land. Message us on WhatsApp to compare your options for a quote." },
+      { question: "Do you provide a taxi service from Jeddah to Mecca for groups?", answer: "Yes. Alongside sedans, we arrange SUVs and vans for Umrah groups and families travelling together from Jeddah Airport to Mecca, with one driver and vehicle for the whole party." },
+    ],
+  },
+  "jeddah-airport-to-fairmont-makkah": {
+    tldr: "A taxi from Jeddah Airport (JED) to the Fairmont Makkah Clock Royal Tower is about 80 km and takes roughly 1 hour. The fare is fixed, confirmed on WhatsApp available 24/7, with drop-off right at the hotel entrance overlooking Masjid al-Haram.",
+    tldrFacts: [
+      { label: "Distance", value: "~80 km" },
+      { label: "Time", value: "~1 hour" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is the Fairmont Makkah Clock Royal Tower from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. The hotel sits directly in the Abraj Al Bait complex, overlooking Masjid al-Haram." },
+      { question: "How much is a taxi from Jeddah airport to the Fairmont Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "Does a Jeddah pickup involve a Miqat stop?", answer: "A pickup in Jeddah does not by itself involve a Miqat stop. Whether a Miqat matters for you depends on where you travelled from and on your own religious circumstances, which we cannot advise on. If your plans include a stop, tell us when you book and we will plan it." },
+      { question: "Will the driver drop me at the hotel entrance?", answer: "Yes, as close to the Fairmont's entrance as vehicle access allows — during peak prayer times the driver uses the nearest permitted drop-off point, just a short walk from the lobby." },
+    ],
+  },
+  "jeddah-airport-to-swissotel-makkah": {
+    tldr: "A taxi from Jeddah Airport (JED) to Swissotel Al Maqam Makkah is about 80 km and takes roughly 1 hour. The fare is fixed, confirmed on WhatsApp available 24/7, with drop-off at the hotel, steps from Masjid al-Haram.",
+    tldrFacts: [
+      { label: "Distance", value: "~80 km" },
+      { label: "Time", value: "~1 hour" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Swissotel Al Maqam Makkah from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. The hotel is in the Abraj Al Bait towers, a short walk from Masjid al-Haram." },
+      { question: "How much is a taxi from Jeddah airport to Swissotel Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "Does a Jeddah pickup involve a Miqat stop?", answer: "A pickup in Jeddah does not by itself involve a Miqat stop. Whether a Miqat matters for you depends on where you travelled from and on your own religious circumstances, which we cannot advise on. If your plans include a stop, tell us when you book and we will plan it." },
+      { question: "Is the transfer available for late-night flight arrivals?", answer: "Yes, we are available 24/7. We track your flight number so the driver is waiting with a name sign even for delayed or late-night arrivals." },
+    ],
+  },
+  "jeddah-airport-to-pullman-zamzam-makkah": {
+    tldr: "A taxi from Jeddah Airport (JED) to Pullman Zamzam Makkah is about 80 km and takes roughly 1 hour. The fare is fixed, confirmed on WhatsApp available 24/7, with drop-off at one of the closest hotels to Masjid al-Haram.",
+    tldrFacts: [
+      { label: "Distance", value: "~80 km" },
+      { label: "Time", value: "~1 hour" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Pullman Zamzam Makkah from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. It's one of the closest hotels to Masjid al-Haram." },
+      { question: "How much is a taxi from Jeddah airport to Pullman Zamzam Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "Does a Jeddah pickup involve a Miqat stop?", answer: "A pickup in Jeddah does not by itself involve a Miqat stop. Whether a Miqat matters for you depends on where you travelled from and on your own religious circumstances, which we cannot advise on. If your plans include a stop, tell us when you book and we will plan it." },
+      { question: "Will the driver help with luggage at the hotel?", answer: "Yes, the driver assists with luggage from the vehicle to the hotel entrance, especially useful for families and larger groups." },
+    ],
+  },
+  "jeddah-airport-to-conrad-makkah": {
+    tldr: "A taxi from Jeddah Airport (JED) to Conrad Makkah is about 80 km and takes roughly 1 hour. The fare is fixed, confirmed on WhatsApp available 24/7, with drop-off near King Abdulaziz Gate, a short walk from Masjid al-Haram.",
+    tldrFacts: [
+      { label: "Distance", value: "~80 km" },
+      { label: "Time", value: "~1 hour" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Conrad Makkah from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. The hotel is a short walk from Masjid al-Haram via King Abdulaziz Gate." },
+      { question: "How much is a taxi from Jeddah airport to Conrad Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "Does a Jeddah pickup involve a Miqat stop?", answer: "A pickup in Jeddah does not by itself involve a Miqat stop. Whether a Miqat matters for you depends on where you travelled from and on your own religious circumstances, which we cannot advise on. If your plans include a stop, tell us when you book and we will plan it." },
+      { question: "Is this transfer available 24/7?", answer: "Yes, we operate around the clock with flight tracking, so your driver is waiting even for late-night or delayed arrivals." },
+    ],
+  },
+  "jeddah-airport-to-hilton-suites-makkah": {
+    tldr: "A taxi from Jeddah Airport (JED) to Hilton Suites Makkah is about 80 km and takes roughly 1 hour. The fare is fixed, confirmed on WhatsApp available 24/7, with drop-off at the hotel in the Jabal Omar development, adjacent to the Haram.",
+    tldrFacts: [
+      { label: "Distance", value: "~80 km" },
+      { label: "Time", value: "~1 hour" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Hilton Suites Makkah from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. The hotel is in the Jabal Omar development, adjacent to Masjid al-Haram." },
+      { question: "How much is a taxi from Jeddah airport to Hilton Suites Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "Does a Jeddah pickup involve a Miqat stop?", answer: "A pickup in Jeddah does not by itself involve a Miqat stop. Whether a Miqat matters for you depends on where you travelled from and on your own religious circumstances, which we cannot advise on. If your plans include a stop, tell us when you book and we will plan it." },
+      { question: "Is the vehicle suitable for families with luggage?", answer: "Yes, SUVs and vans are available with ample luggage space, ideal for families travelling to Hilton Suites Makkah." },
+    ],
+  },
+  "jeddah-airport-to-movenpick-makkah": {
+    tldr: "A taxi from Jeddah Airport (JED) to Movenpick Hajar Tower Makkah is about 80 km and takes roughly 1 hour. The fare is fixed, confirmed on WhatsApp available 24/7, with drop-off at the hotel overlooking Masjid al-Haram.",
+    tldrFacts: [
+      { label: "Distance", value: "~80 km" },
+      { label: "Time", value: "~1 hour" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Movenpick Hajar Tower Makkah from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. The hotel overlooks Masjid al-Haram." },
+      { question: "How much is a taxi from Jeddah airport to Movenpick Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "Does a Jeddah pickup involve a Miqat stop?", answer: "A pickup in Jeddah does not by itself involve a Miqat stop. Whether a Miqat matters for you depends on where you travelled from and on your own religious circumstances, which we cannot advise on. If your plans include a stop, tell us when you book and we will plan it." },
+      { question: "Is the taxi available for early-morning or late-night flights?", answer: "Yes, we are available 24/7 with flight tracking, so your driver is waiting with a name sign regardless of arrival time." },
+    ],
+  },
+  "jeddah-to-makkah": {
+    tldr: "A taxi from Jeddah city to Makkah is about 85 km and takes around 1 hour 10 minutes. The fare is fixed, confirmed on WhatsApp available 24/7, with door-to-door pickup from any Jeddah hotel or address.",
+    tldrFacts: [
+      { label: "Distance", value: "~85 km" },
+      { label: "Time", value: "~1 hr 10 min" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Jeddah from Makkah?", answer: "Jeddah city centre is about 85 km from Makkah — roughly a 1 hour 10 minute drive on the Makkah Expressway." },
+      { question: "How much is a taxi from Jeddah to Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan. SUVs and vans are available for families and extra luggage. The price is confirmed before booking, with tolls included and no surge." },
+      { question: "Can you pick me up from my Jeddah hotel?", answer: "Yes. We offer door-to-door pickup from any hotel, residence, or address in Jeddah and drop you directly at your Makkah hotel or close to Masjid al-Haram." },
+      { question: "Does a Jeddah pickup involve a Miqat stop?", answer: "A pickup in Jeddah does not by itself involve a Miqat stop. Whether a Miqat matters for you depends on where you travelled from and on your own religious circumstances, which we cannot advise on. If your plans include a stop, tell us when you book and we will plan it." },
+      { question: "Do you offer a taxi service from Jeddah to Mecca?", answer: "Yes, Taxi Saudi Arabia arranges private transfers from Jeddah to Makkah (Mecca) 24/7, with door-to-door pickup and prayer or rest stops on request." },
+    ],
+  },
+  "jeddah-airport-to-jeddah-city": {
+    tldr: "A taxi from Jeddah Airport (JED) to the city centre, Corniche, or Al-Balad takes about 20–35 minutes depending on your area. The fare is fixed, confirmed on WhatsApp with meet & greet at arrivals and 24/7 availability.",
+    tldrFacts: [
+      { label: "Distance", value: "~20 km" },
+      { label: "Time", value: "~20–35 min" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Jeddah airport from the city centre?", answer: "King Abdulaziz International Airport (JED) is about 20 km from central Jeddah — roughly a 20–35 minute drive depending on whether you are heading to the Corniche, Al-Balad, or a business district." },
+      { question: "How much is a taxi from Jeddah airport to the city?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before you book, with no surge and tolls included. Larger vehicles are available for families and extra luggage." },
+      { question: "Do you drop off at any Jeddah hotel?", answer: "Yes. We provide door-to-door drop-off at any hotel or address in Jeddah, including the Corniche, Al-Balad, Al-Hamra, and Obhur, with meet & greet at arrivals." },
+      { question: "Is the airport taxi available for late-night arrivals?", answer: "Yes, we are available 24/7 and track your flight, so your driver is waiting at arrivals with a name sign even for late-night or early-morning landings." },
+    ],
+  },
+  "jeddah-to-haramain-station": {
+    tldr: "A taxi from Jeddah to the Haramain High-Speed Railway station is about 15 km and takes roughly 25 minutes. The fare is fixed, confirmed on WhatsApp door-to-door with luggage help, so you can catch the train onward to Makkah or Madinah.",
+    tldrFacts: [
+      { label: "Distance", value: "~15 km" },
+      { label: "Time", value: "~25 min" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "Where is the Haramain station in Jeddah?", answer: "The Haramain High-Speed Railway serves Jeddah, with a station at King Abdulaziz International Airport (JED). A taxi from central Jeddah takes about 25 minutes door-to-door." },
+      { question: "How much is a taxi to the Haramain station in Jeddah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with help for your luggage so you make your train comfortably." },
+      { question: "Can you get me to the station in time for my train?", answer: "Yes. We recommend booking with a buffer before departure; we track timing and provide door-to-door pickup so you reach the Haramain station with time to spare." },
+      { question: "Should I take the train or a direct taxi to Makkah?", answer: "The Haramain train is fast between stations, but a direct taxi from Jeddah to Makkah is door-to-door with no station transfers. For pilgrims with luggage, the direct taxi is often more convenient." },
+    ],
+  },
+  "jeddah-airport-to-madinah": {
+    tldr: "A taxi from Jeddah Airport (JED) to Madinah is about 410 km and takes roughly 4 to 5 hours via the Haramain highway. The fare is confirmed on WhatsApp before booking, with comfortable vehicles for families and luggage, available 24/7 with rest stops on request.",
+    tldrFacts: [
+      { label: "Distance", value: "~410 km" },
+      { label: "Time", value: "~4–5 hours" },
+      { label: "Price", value: "Confirmed on WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How long does Jeddah airport to Madinah take by taxi?", answer: "The direct drive is about 410 km and takes roughly 4 to 5 hours via the Haramain highway, depending on traffic and rest stops." },
+      { question: "How much is a taxi from Jeddah airport to Madinah?", answer: "The exact fare is confirmed on WhatsApp before booking, based on your vehicle choice — sedan, SUV, or van for families and luggage on this long-distance route. Tolls included, no surge." },
+      { question: "Are rest stops included on the way to Madinah?", answer: "Yes. Brief stops for prayer, food, or refreshments are included on this long-distance transfer — just let your driver know." },
+      { question: "Is the trip comfortable for families with luggage?", answer: "Yes. We provide spacious SUVs (e.g. GMC Yukon) and vans (e.g. Hyundai Staria) with ample luggage space, ideal for families travelling from JED to Madinah." },
+    ],
+  },
+  "jeddah-to-madinah": {
+    tldr: "A taxi from Jeddah to Madinah is about 420 km and takes roughly 4 to 5 hours via the Haramain highway. The fare is confirmed on WhatsApp before booking, door-to-door, with rest stops on request and 24/7 availability.",
+    tldrFacts: [
+      { label: "Distance", value: "~420 km" },
+      { label: "Time", value: "~4–5 hours" },
+      { label: "Price", value: "Confirmed on WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Jeddah from Madinah?", answer: "Jeddah is about 420 km from Madinah — roughly a 4 to 5 hour drive on the Haramain highway." },
+      { question: "What is the taxi fare from Jeddah to Madinah (Madina)?", answer: "The exact fare is confirmed on WhatsApp before booking, based on your vehicle choice — sedan, SUV, or van for families. Tolls included, no surge." },
+      { question: "Can you collect me from my Jeddah hotel?", answer: "Yes, we provide door-to-door pickup from any Jeddah hotel or address and drop you at your Madinah hotel near Masjid an-Nabawi." },
+      { question: "Are prayer and rest stops included?", answer: "Yes. Short stops for prayer and refreshments are included on this long-distance route — just tell your driver." },
+    ],
+  },
+  "makkah-to-jeddah-airport": {
+    tldr: "A taxi from Makkah to Jeddah Airport (JED) is about 80 km and takes roughly 1 hour. The fare is fixed, confirmed on WhatsApp with pickup from your Makkah hotel and 24/7 availability — pre-book and allow buffer time before your flight.",
+    tldrFacts: [
+      { label: "Distance", value: "~80 km" },
+      { label: "Time", value: "~1 hour" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How much is a taxi from Makkah to Jeddah airport?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with larger SUVs and vans available for families and luggage. Tolls are included and there is no surge." },
+      { question: "How long does Makkah to Jeddah airport take?", answer: "It is about 80 km and roughly a 1-hour drive. For departures we recommend leaving with extra buffer time, especially during Umrah, Hajj, and Ramadan seasons." },
+      { question: "Can you pick up from my Makkah hotel near the Haram?", answer: "Yes. We collect you from your hotel as close to Masjid al-Haram as vehicles are permitted; during prayer-time road closures we use the nearest allowed checkpoint." },
+      { question: "Is the airport transfer available late at night?", answer: "Yes, we are available 24/7. Pre-book your departure transfer so a driver is ready at your hotel at the agreed time, even for early-morning flights." },
+    ],
+  },
+  "makkah-to-madinah": {
+    tldr: "A taxi from Makkah to Madinah is about 430 km and takes roughly 4 to 5 hours via the Haramain highway. The fare is fixed, confirmed on WhatsApp with prayer and rest stops included and comfortable vehicles for families and luggage.",
+    tldrFacts: [
+      { label: "Distance", value: "~430 km" },
+      { label: "Time", value: "~4–5 hours" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How much is a taxi from Makkah to Madinah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan. SUVs and vans are available for families and extra luggage — the exact price is confirmed before booking with tolls included and no surge." },
+      { question: "How long does a taxi from Makkah to Madinah take?", answer: "The journey is approximately 430 km and takes roughly 4 to 5 hours via the Haramain highway, depending on traffic conditions and any rest stops." },
+      { question: "Can I book a private transfer from Makkah to Madinah?", answer: "Yes. Every booking is a private transfer — your vehicle is exclusively for you and your group, with a dedicated driver for the entire journey between the two Holy Cities." },
+      { question: "Is the fare fixed or metered?", answer: "Fixed. The price is confirmed upfront before booking with zero surge pricing. Tolls, fuel, and all costs are included — no hidden fees." },
+      { question: "Can families travel with luggage?", answer: "Yes. We provide spacious SUVs (e.g. GMC Yukon XL) and vans (e.g. Hyundai Staria) with ample luggage space, ideal for families and groups travelling between Makkah and Madinah." },
+      { question: "Can we stop for prayer or rest during the journey?", answer: "Yes. Rest and prayer stops are included on this long-distance transfer at no extra charge — just let your driver know your preferences along the way." },
+    ],
+  },
+  "makkah-to-jeddah": {
+    tldr: "A taxi from Makkah to Jeddah city is about 85 km and takes around 1 hour 10 minutes. The fare is fixed, confirmed on WhatsApp door-to-door from your Makkah hotel to any address in Jeddah, available 24/7.",
+    tldrFacts: [
+      { label: "Distance", value: "~85 km" },
+      { label: "Time", value: "~1 hr 10 min" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Makkah from Jeddah?", answer: "Makkah to Jeddah city is about 85 km — roughly a 1 hour 10 minute drive on the Makkah Expressway." },
+      { question: "How much is a taxi from Makkah to Jeddah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with no surge and tolls included." },
+      { question: "Can you drop me at any address in Jeddah?", answer: "Yes. We provide door-to-door drop-off anywhere in Jeddah — hotels, the Corniche, Al-Balad, Obhur, or a residence." },
+      { question: "Is the Makkah to Jeddah taxi available 24/7?", answer: "Yes, we operate around the clock with fixed pricing and pickup from your Makkah hotel." },
+    ],
+  },
+  "makkah-to-taif": {
+    tldr: "A taxi from Makkah to Taif is about 90 km and takes roughly 1 hour 10 minutes via the scenic Al Hada mountain road. The fare is fixed, confirmed on WhatsApp with experienced drivers for the winding ascent.",
+    tldrFacts: [
+      { label: "Distance", value: "~90 km" },
+      { label: "Time", value: "~1 hr 10 min" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Makkah from Taif?", answer: "Makkah to Taif is about 90 km — roughly a 1 hour 10 minute drive, often via the scenic Al Hada mountain road." },
+      { question: "How much is a taxi from Makkah to Taif?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs available for families. Tolls are included." },
+      { question: "Is the Al Hada mountain road safe by taxi?", answer: "Al Hada is a steep, winding climb; you can also request the longer, gentler Al Sail road if you prefer." },
+      { question: "Can I do a Taif day trip from Makkah?", answer: "Yes. We offer round-trip and hourly hire so you can visit Taif's rose farms, Al Hada, and cable car with waiting time included." },
+    ],
+  },
+  "madinah-airport-to-city": {
+    tldr: "A taxi from Madinah Airport (MED) to the central hotels near Masjid an-Nabawi is about 20 km and takes roughly 25 minutes. The fare is fixed, confirmed on WhatsApp with meet & greet at arrivals and 24/7 availability.",
+    tldrFacts: [
+      { label: "Distance", value: "~20 km" },
+      { label: "Time", value: "~25 min" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Madinah airport from the city centre?", answer: "Prince Mohammad Bin Abdulaziz Airport (MED) is about 20 km from the Central Area (Markazia) hotels — roughly a 25-minute drive." },
+      { question: "How much is a taxi from Madinah airport to my hotel?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with meet & greet at arrivals and larger vehicles for families." },
+      { question: "Will the driver meet me at arrivals?", answer: "Yes. We track your flight and your driver waits in the arrivals hall with a name sign, then helps with your luggage to the car." },
+      { question: "Is the airport transfer available for late-night flights?", answer: "Yes, we are available 24/7, so your driver is ready even for late-night or early-morning arrivals at MED." },
+      { question: "Is there a car service or cab from Madinah airport?", answer: "Yes — our licensed car service (cab) meets you at Prince Mohammad Bin Abdulaziz Airport (MED) arrivals and drives you directly to your Madinah hotel, fixed confirmed on WhatsApp." },
+    ],
+  },
+  "madinah-to-makkah": {
+    tldr: "A taxi from Madinah to Makkah is about 430 km and takes roughly 4 to 5 hours via the Haramain highway. The fare is fixed, confirmed on WhatsApp door-to-door with prayer and rest stops, ideal for completing your Umrah journey.",
+    tldrFacts: [
+      { label: "Distance", value: "~430 km" },
+      { label: "Time", value: "~4–5 hours" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Madinah from Makkah?", answer: "Madinah to Makkah is about 430 km — roughly a 4 to 5 hour drive on the Haramain highway, depending on traffic and rest stops." },
+      { question: "How much is a taxi from Madinah to Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan. For families and luggage we recommend an SUV or van; the price is confirmed before booking with tolls included." },
+      { question: "Do I need to enter Ihram travelling from Madinah to Makkah?", answer: "Yes, if you intend Umrah you enter Ihram at the Miqat of Dhul Hulaifah (Abyar Ali) near Madinah. Your driver can stop there so you assume Ihram before continuing to Makkah." },
+      { question: "Are prayer and rest stops included?", answer: "Yes. With a private transfer your driver includes stops for prayer, food, and rest on the long-distance journey between the two Holy Cities." },
+    ],
+  },
+  "madinah-airport-to-makkah": {
+    // Strengthened 2026-10-02 (replaces the proposed blog article "Madinah Airport
+    // to Makkah", which would have cannibalised this page). Time corrected to
+    // routes.ts (450 km / 260 min); removed "track your flight" + "tolls included".
+    tldr: "A private transfer from Madinah Airport (MED) to Makkah is about 450 km and takes roughly 4 hours 20 minutes of driving, plus a stop at the Dhul Hulaifah (Abyar Ali) Miqat to enter Ihram. The fare is fixed and confirmed on WhatsApp before booking; share your flight number and we check it before pickup.",
+    tldrFacts: [
+      { label: "Distance", value: "~450 km" },
+      { label: "Drive", value: "~4 hr 20 min + Miqat stop" },
+      { label: "Miqat", value: "Abyar Ali (Dhul Hulaifah)" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How long is Madinah airport to Makkah by car?", answer: "About 450 km — roughly 4 hours 20 minutes of driving from Prince Mohammad bin Abdulaziz Airport (MED), plus time at the Miqat and any rest stop." },
+      { question: "How much is the Madinah airport to Makkah transfer?", answer: "The fare is fixed and confirmed on WhatsApp before booking. It depends on the vehicle (sedan, SUV or van) and any stops — not on traffic or the time you land." },
+      { question: "Where do we enter Ihram on the way?", answer: "Travelling from Madinah to Makkah for Umrah, the Miqat is Dhul Hulaifah (Abyar Ali), on the southern edge of Madinah — early in the journey. Many pilgrims change at the airport or at the mosque, pray, make their intention and continue. Tell us you need the stop when you book." },
+      { question: "Should we go straight to Makkah after landing, or stay in Madinah first?", answer: "Both are common. Going straight works if you are rested; after a long overnight flight, many families spend a night or more in Madinah first and travel to Makkah later, still passing Abyar Ali." },
+      { question: "Is the Haramain train an alternative?", answer: "Yes, from Madinah station — but the station is not at the airport or the Haram, and Makkah station is not beside the Haram either, so you need a car at both ends. With luggage or children, a direct car is usually simpler." },
+      { question: "Which vehicle should a family choose?", answer: "For four hours with Umrah luggage, most families take a full-size SUV (up to 7 passengers) or a van, which has more luggage space and is easier for older relatives." },
+      { question: "Is this a good option after a late flight into Madinah?", answer: "Yes. Bookings run 24/7; share your flight number and we check it before pickup so the transfer is planned around your actual arrival." },
+    ],
+  },
+
+  "madinah-to-jeddah-airport": {
+    tldr: "A taxi from Madinah to Jeddah Airport (JED) is about 410 km and takes roughly 4 to 5 hours via the Haramain highway. The fare is confirmed on WhatsApp before booking, door-to-door from your Madinah hotel, with rest stops on request.",
+    tldrFacts: [
+      { label: "Distance", value: "~410 km" },
+      { label: "Time", value: "~4–5 hours" },
+      { label: "Price", value: "Confirmed on WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Madinah from Jeddah airport?", answer: "Madinah to King Abdulaziz International Airport (JED) is about 410 km — roughly a 4 to 5 hour drive on the Haramain highway." },
+      { question: "What is the taxi fare from Madinah to Jeddah airport?", answer: "The exact fare is confirmed on WhatsApp before booking, based on your vehicle choice — sedan, SUV, or van for families and luggage. Tolls included." },
+      { question: "Can you collect me from my Madinah hotel for the airport?", answer: "Yes, we provide door-to-door pickup from your Madinah hotel after Ziyarah and take you directly to Jeddah Airport for your flight." },
+      { question: "Should I leave extra time for this departure?", answer: "Yes. For a long-distance airport transfer we recommend departing with comfortable buffer time before check-in, especially during Hajj and Ramadan seasons." },
+    ],
+  },
+
+  // ─── Jeddah corridors ───
+  "jeddah-to-taif": {
+    tldr: "A taxi from Jeddah to Taif is about 170 km and takes around 2 hours via the Al Hada mountain road. The fare is fixed, confirmed on WhatsApp with experienced drivers for the scenic, winding climb to the City of Roses.",
+    tldrFacts: [
+      { label: "Distance", value: "~170 km" },
+      { label: "Time", value: "~2 hours" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How long is the taxi from Jeddah to Taif?", answer: "Jeddah to Taif is about 170 km and takes roughly 2 hours, climbing the scenic Al Hada mountain road to the cool highlands of Taif." },
+      { question: "How much is a taxi from Jeddah to Taif?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available. The exact price is confirmed before booking, with tolls included and no surge." },
+      { question: "Is the Al Hada mountain road safe by taxi?", answer: "Yes. Our drivers are experienced on the steep, winding Al Hada route. An SUV is a comfortable choice for families on the climb." },
+    ],
+  },
+  "jeddah-airport-to-taif": {
+    tldr: "A taxi from Jeddah Airport (JED) to Taif is about 180 km and takes roughly 2 hours 10 minutes. The fare is fixed, confirmed on WhatsApp with meet & greet at arrivals and a direct transfer up the Al Hada road.",
+    tldrFacts: [
+      { label: "Distance", value: "~180 km" },
+      { label: "Time", value: "~2 hr 10 min" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Jeddah airport from Taif?", answer: "King Abdulaziz International Airport (JED) is about 180 km from Taif — roughly a 2 hour 10 minute drive via the Al Hada mountain road." },
+      { question: "How much is the Jeddah airport to Taif taxi?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking. SUVs and vans are available for families and luggage, with tolls included." },
+      { question: "Is meet & greet included at Jeddah airport?", answer: "Yes. We track your flight and the driver waits at arrivals with a name sign, then takes you directly to Taif, 24/7." },
+    ],
+  },
+  "jeddah-to-riyadh": {
+    tldr: "A taxi from Jeddah to Riyadh is about 950 km and takes roughly 9 hours across the Kingdom. The fare is fixed, confirmed on WhatsApp door-to-door, with rest and prayer stops included for the long-distance journey.",
+    tldrFacts: [
+      { label: "Distance", value: "~950 km" },
+      { label: "Time", value: "~9 hours" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How long is the drive from Jeddah to Riyadh?", answer: "Jeddah to Riyadh is about 950 km — roughly a 9-hour drive on Highway 40. We include rest and prayer stops along the way." },
+      { question: "How much is a taxi from Jeddah to Riyadh?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans for families and luggage. The price is confirmed before booking, with no surge." },
+      { question: "Is a one-way long-distance transfer comfortable?", answer: "Yes. We use comfortable, air-conditioned vehicles and the driver takes rest stops, making the long cross-Kingdom journey far easier than self-driving." },
+    ],
+  },
+  "jeddah-to-kaec": {
+    tldr: "A taxi from Jeddah to King Abdullah Economic City (KAEC) is about 120 km and takes around 1 hour 20 minutes on the coastal highway. The fare is fixed, confirmed on WhatsApp ideal for business visits to the King Abdullah Port and industrial zones.",
+    tldrFacts: [
+      { label: "Distance", value: "~120 km" },
+      { label: "Time", value: "~1 hr 20 min" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is KAEC from Jeddah?", answer: "King Abdullah Economic City (KAEC) is about 120 km north of Jeddah on the Red Sea coastal highway — roughly a 1 hour 20 minute drive." },
+      { question: "How much is a taxi from Jeddah to KAEC?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking. Corporate sedans and SUVs are available for business travel." },
+      { question: "Do you serve King Abdullah Port and business visitors?", answer: "Yes. We provide corporate transfers to KAEC for the port, industrial zones, and business meetings, with professional drivers 24/7." },
+    ],
+  },
+  "jeddah-airport-to-kaec": {
+    tldr: "A taxi from Jeddah Airport (JED) to King Abdullah Economic City (KAEC) is about 100 km and takes around 1 hour 10 minutes. The fare is fixed, confirmed on WhatsApp with meet & greet at arrivals for business travellers.",
+    tldrFacts: [
+      { label: "Distance", value: "~100 km" },
+      { label: "Time", value: "~1 hr 10 min" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is KAEC from Jeddah airport?", answer: "King Abdullah Economic City is about 100 km from King Abdulaziz International Airport (JED) — roughly a 1 hour 10 minute drive on the coastal highway." },
+      { question: "How much is the Jeddah airport to KAEC taxi?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with corporate sedans and SUVs available for business travellers." },
+      { question: "Is the driver waiting at the airport?", answer: "Yes. We track your flight and the driver meets you at arrivals with a name sign, then takes you directly to KAEC, 24/7." },
+    ],
+  },
+  "jeddah-to-yanbu": {
+    tldr: "A taxi from Jeddah to Yanbu is about 330 km and takes roughly 3 hours on the Red Sea coastal highway. The fare is fixed, confirmed on WhatsApp door-to-door, suitable for divers, business visitors, and onward pilgrim travel.",
+    tldrFacts: [
+      { label: "Distance", value: "~330 km" },
+      { label: "Time", value: "~3 hours" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Jeddah from Yanbu?", answer: "Jeddah to Yanbu is about 330 km — roughly a 3-hour drive along the Red Sea coastal highway." },
+      { question: "How much is a taxi from Jeddah to Yanbu?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available. The price is confirmed before booking, with no surge." },
+      { question: "Do you serve both Yanbu city and the Industrial City?", answer: "Yes. Tell us whether you need Yanbu Al-Bahr (the city) or Yanbu Industrial City, as the two areas are far apart, and the driver will take you directly." },
+    ],
+  },
+
+  // ─── Riyadh corridors ───
+  "riyadh-airport-to-city": {
+    tldr: "A taxi from Riyadh Airport (RUH) to the city is about 35 km and takes around 45 minutes. The fare is fixed, confirmed on WhatsApp with meet & greet at arrivals and direct drop-off to any Riyadh district, 24/7.",
+    tldrFacts: [
+      { label: "Distance", value: "~35 km" },
+      { label: "Time", value: "~45 min" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How much is a taxi from Riyadh airport to the city?", answer: "The fare is fixed, confirmed on WhatsApp to central Riyadh districts like Olaya or KAFD. King Khalid International Airport (RUH) is about 35 km from the centre, roughly a 45-minute drive." },
+      { question: "Is there a taxi at Riyadh airport 24/7?", answer: "Yes. We operate around the clock at RUH and track your flight, so the driver waits at arrivals with a name sign even for late or delayed flights." },
+      { question: "Can the driver take me to any Riyadh district?", answer: "Yes — KAFD, Olaya, the Diplomatic Quarter, and all other districts. Share your exact address when booking so the driver plans the best route." },
+    ],
+  },
+  "riyadh-to-dammam": {
+    tldr: "A private transfer from Riyadh to Dammam covers about 410 km and takes around 4 hours, door-to-door on Highway 40. Travel by private sedan, SUV or van with a professional chauffeur, with your fare confirmed on WhatsApp before booking — popular with executives and families travelling to the Eastern Province and the Aramco/Dhahran corridor.",
+    tldrFacts: [
+      { label: "Distance", value: "~410 km" },
+      { label: "Time", value: "~4 hours" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How long is the taxi from Riyadh to Dammam?", answer: "Riyadh to Dammam is about 410 km — roughly a 4-hour drive on Highway 40, with rest stops on request." },
+      { question: "How much is a taxi from Riyadh to Dammam?", answer: "Fares are confirmed on WhatsApp for a sedan, with SUVs and vans available. Message us on WhatsApp with your travel date and passenger count for a clear quote before booking, with no surge." },
+      { question: "Can I book a corporate car for this route?", answer: "Yes. We arrange executive sedans and SUVs with professional drivers for the Riyadh–Dammam corporate corridor — useful for meetings in Dhahran, Al Khobar, or Jubail — with hourly and one-way options." },
+      { question: "What is the distance between Riyadh and Dammam?", answer: "The distance between Riyadh and Dammam is about 410 km by road, a roughly 4-hour drive on Highway 40." },
+      { question: "Can the driver continue on to Khobar, Dhahran, or Jubail after Dammam?", answer: "Yes. Since Dammam, Al Khobar, Dhahran, and Jubail form one Eastern Province service area, you can extend your trip to any of these cities at booking — just mention your final destination when requesting a quote." },
+      { question: "Can I book a private car or chauffeur from Riyadh to Dammam instead of a taxi?", answer: "Yes. Alongside a standard taxi, we offer a pre-booked private car from Riyadh to Dammam with a professional chauffeur — an executive sedan, SUV or van reserved just for you and your group, door-to-door. Share your travel date and passenger count on WhatsApp for a fare before booking." },
+      { question: "Can I book a return taxi from Dammam to Riyadh?", answer: "Yes. We arrange the Dammam to Riyadh direction as well as Riyadh to Dammam — one-way or same-day return, door-to-door by private sedan, SUV or van. Send your pickup point in Dammam (or Khobar/Dhahran), travel date and passenger count on WhatsApp and we confirm the fare before booking." },
+      { question: "Is a private transfer from Riyadh to Dammam available 24/7?", answer: "Yes. You can book at any time of day or night and a professional driver is ready at the time you set — useful for early business departures and late arrivals across the Eastern Province." },
+    ],
+  },
+  "dammam-airport-to-jubail": {
+    tldr: "A taxi from King Fahd International Airport (DMM) to Jubail is about 90 km and takes roughly 65 minutes. The fare is fixed, confirmed on WhatsApp with corporate accounts available for contractors and companies operating in Jubail Industrial City.",
+    tldrFacts: [
+      { label: "Distance", value: "~90 km" },
+      { label: "Time", value: "~65 minutes" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How long does the trip from Dammam airport to Jubail take?", answer: "The drive is about 90 km and takes roughly 65 minutes, depending on traffic and shift-change hours around the industrial city." },
+      { question: "How much is a taxi from Dammam airport to Jubail?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for groups and equipment. The price is confirmed before booking, with no surge." },
+      { question: "Do you offer corporate accounts for Jubail Industrial City?", answer: "Yes. Contractors and companies operating in Jubail Industrial City I & II can set up monthly corporate billing instead of paying per trip — message us on WhatsApp to arrange an account." },
+      { question: "Can the driver access restricted plant gates in Jubail?", answer: "Share your company name and site/gate location when booking so the driver can plan the correct access route — some plants have restricted entry points and ID checks." },
+    ],
+  },
+  "dammam-airport-to-dhahran": {
+    tldr: "A taxi from King Fahd International Airport (DMM) to Dhahran is about 25 km and takes roughly 25 minutes — one of the shortest airport transfers in the Eastern Province. The fare is fixed, confirmed on WhatsApp with corporate accounts available for Saudi Aramco and KFUPM visitors.",
+    tldrFacts: [
+      { label: "Distance", value: "~25 km" },
+      { label: "Time", value: "~25 minutes" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How long does the trip from Dammam airport to Dhahran take?", answer: "The drive is about 25 km and takes roughly 25 minutes — one of the shortest airport-to-city runs in the Eastern Province." },
+      { question: "How much is a taxi from Dammam airport to Dhahran?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available. The price is confirmed before booking, with no surge." },
+      { question: "Do you offer corporate accounts for Saudi Aramco or KFUPM?", answer: "Yes. Contractors, consultants, and companies working with Saudi Aramco, KFUPM, or based in Dhahran Techno Valley can set up monthly corporate billing instead of paying per trip — message us on WhatsApp to arrange an account." },
+      { question: "Can the driver pick up visitors from inside Aramco or KFUPM gates?", answer: "Share your host company, badge type, and gate name when booking so the driver can plan the correct visitor entry point — some facilities require advance notice for access." },
+    ],
+  },
+  "dhahran-to-dammam-airport": {
+    tldr: "A taxi from Dhahran to King Fahd International Airport (DMM) is about 25 km and takes roughly 25 minutes. The fare is fixed, confirmed on WhatsApp with meet & greet pickup from Saudi Aramco, KFUPM, or any Dhahran hotel or address.",
+    tldrFacts: [
+      { label: "Distance", value: "~25 km" },
+      { label: "Time", value: "~25 minutes" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Dhahran from Dammam airport?", answer: "Dhahran is about 25 km from King Fahd International Airport (DMM) — roughly a 25-minute drive, traffic permitting." },
+      { question: "How much is a taxi from Dhahran to the airport?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with larger vehicles available for groups and luggage." },
+      { question: "Can you collect me from Saudi Aramco or KFUPM for my flight?", answer: "Yes, we provide door-to-door pickup from Aramco facilities, KFUPM, Dhahran Techno Valley, or any hotel or address in Dhahran, timed to your flight." },
+    ],
+  },
+  "riyadh-to-alkhobar": {
+    tldr: "A taxi from Riyadh to Al Khobar is about 400 km and takes roughly 3 hours 40 minutes on Highway 40. The fare is fixed, confirmed on WhatsApp door-to-door to the Eastern Province waterfront city.",
+    tldrFacts: [
+      { label: "Distance", value: "~400 km" },
+      { label: "Time", value: "~3 hr 40 min" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Riyadh from Al Khobar?", answer: "Riyadh to Al Khobar is about 400 km — roughly a 3 hour 40 minute drive on Highway 40 towards the Eastern Province." },
+      { question: "How much is a taxi from Riyadh to Al Khobar?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs and vans for families and luggage." },
+      { question: "Does this route also serve Dammam and Dhahran?", answer: "Yes. Al Khobar, Dammam, and Dhahran form one metro area, so we can drop you anywhere across the three cities — just confirm your district." },
+    ],
+  },
+  "riyadh-to-alula": {
+    // Strengthened 2026-10-02 (replaces the proposed blog article "Riyadh to
+    // AlUla", which would have collided with this page + /distance/riyadh-to-alula).
+    tldr: "Riyadh to AlUla is about 1,050 km by road — roughly 10 hours of driving, so it is a full day. A private car with a driver is door to door at a fixed fare confirmed on WhatsApp before booking, with rest and prayer stops. Many travellers fly to AlUla (ULH) instead and book a car on arrival; the road suits families, groups, luggage and travellers who want to stop on the way.",
+    tldrFacts: [
+      { label: "Distance", value: "~1,050 km" },
+      { label: "Drive", value: "~10 hours" },
+      { label: "Alternative", value: "Fly to ULH + transfer" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How long is the drive from Riyadh to AlUla?", answer: "Riyadh to AlUla is about 1,050 km — roughly 10 hours of driving, plus rest and prayer stops. Plan for a full day." },
+      { question: "How much is a private car from Riyadh to AlUla?", answer: "The fare is fixed and confirmed on WhatsApp before booking, based on the vehicle and any stops. A full-size SUV is the usual choice for comfort on a drive this long." },
+      { question: "Is it better to fly or drive to AlUla?", answer: "For one or two people, flying to AlUla International Airport (ULH) is faster — then a ~30 km transfer to the resort area. Driving makes sense for families and groups with luggage, people who prefer not to fly, or trips with stops on the way." },
+      { question: "Can we break the journey?", answer: "Yes. Some travellers stop overnight on the way, or route via Madinah (Madinah to AlUla is about 330 km). Tell us your plan when you book so the quote reflects it." },
+      { question: "Can we keep the car in AlUla?", answer: "AlUla's sites are spread across the valley, so many visitors book a driver for their sightseeing days as well. Ask for both together." },
+      { question: "When is the best time to drive to AlUla?", answer: "The main season is October to March. In summer, early starts avoid the hottest part of the day." },
+    ],
+  },
+
+  // Added 2026-10-31. Distance/time: OSRM 2026-10-31, Riyadh centre -> ELQ (~375 km,
+  // ~3 h 36 min); real figure varies by pickup point, traffic and road conditions.
+  "riyadh-to-al-qassim-airport": {
+    tldr: "A private transfer from Riyadh to Al Qassim Airport — officially Prince Naif bin Abdulaziz International Airport, code ELQ — is roughly 375 km by road, about 3.5 hours depending on your pickup point and traffic. The vehicle is arranged for your own party, not shared, and the fare is confirmed on WhatsApp before you book.",
+    tldrFacts: [
+      { label: "Distance", value: "~375 km by road" },
+      { label: "Drive time", value: "~3.5 hr (varies)" },
+      { label: "Airport", value: "ELQ · ICAO OEGS" },
+      { label: "Fare", value: "Agreed before booking" },
+    ],
+    faqs: [
+      { question: "Can I book a private taxi from Riyadh to Al Qassim Airport?", answer: "Yes. Send your Riyadh pickup address, date, passengers and luggage on WhatsApp. We check partner availability and confirm one fare for the whole vehicle before you book." },
+      { question: "What is the airport code for Al Qassim Airport?", answer: "The IATA code is ELQ and the ICAO code is OEGS. Some booking sites list it as Gassim, Qassim or Buraidah airport." },
+      { question: "What is the official name of Al Qassim Airport?", answer: "Prince Naif bin Abdulaziz International Airport. It serves Buraydah and the wider Al Qassim Province." },
+      { question: "How long does it take to travel from Riyadh to ELQ Airport?", answer: "Roughly 3.5 hours over about 375 km from central Riyadh. The exact time depends on your pickup district, traffic and road conditions, so allow a margin before a flight." },
+      { question: "How much does a private transfer from Riyadh to Al Qassim Airport cost?", answer: "The fare depends on the vehicle category, date and availability. We confirm one fare on WhatsApp before you book, with no meter and no surge." },
+      { question: "Can I book a GMC or SUV?", answer: "Yes, subject to availability. A full-size SUV such as a GMC suits families and extra luggage; tell us the party size and we confirm the right vehicle." },
+      { question: "Can I book a sedan for one or two passengers?", answer: "Yes. A sedan suits one or two travellers with moderate luggage. Add your luggage count so we confirm the vehicle fits." },
+      { question: "Can I travel with family and luggage?", answer: "Yes. Give us the number of passengers and large cases and we recommend an SUV or larger vehicle so everyone and all bags travel together." },
+      { question: "Can I arrange an airport drop-off?", answer: "Yes. Tell us your flight time and Riyadh pickup address and we work the pickup back from it, leaving a margin for the long road journey." },
+      { question: "Can I book a return transfer from Al Qassim Airport to Riyadh?", answer: "Yes. Pickups at ELQ must be arranged in advance, not assumed. Share your flight number and destination and we confirm the pickup details before you travel." },
+      { question: "Can I reserve a vehicle in advance?", answer: "Yes, and advance booking is recommended for a journey this long. Send your date and time and we check availability." },
+      { question: "Are these private transfers rather than shared taxis?", answer: "Yes. The vehicle is arranged for your own party and is not shared with other passengers." },
+      { question: "Can I request pickup from a hotel or home in Riyadh?", answer: "Yes. Send the hotel or address and we confirm coverage for that pickup point with our partner network." },
+    ],
+  },
+  "riyadh-to-buraydah": {
+    tldr: "A taxi from Riyadh to Buraydah, the Qassim capital, is about 350 km and takes roughly 3 hours 10 minutes. The fare is fixed, confirmed on WhatsApp door-to-door, with rest stops on request.",
+    tldrFacts: [
+      { label: "Distance", value: "~350 km" },
+      { label: "Time", value: "~3 hr 10 min" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Riyadh from Buraydah?", answer: "Riyadh to Buraydah, the capital of the Qassim region, is about 350 km — roughly a 3 hour 10 minute drive north." },
+      { question: "How much is a taxi from Riyadh to Buraydah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs and vans available for families." },
+      { question: "Do you cover the Qassim region?", answer: "Yes. We serve Buraydah, Unaizah, and the wider Qassim region with intercity transfers from Riyadh, quoted on WhatsApp, 24/7." },
+    ],
+  },
+  "riyadh-to-jeddah": {
+    tldr: "A taxi from Riyadh to Jeddah is about 950 km and takes roughly 9 hours across the Kingdom. The fare is fixed, confirmed on WhatsApp door-to-door, with rest and prayer stops included on the long-distance journey.",
+    tldrFacts: [
+      { label: "Distance", value: "~950 km" },
+      { label: "Time", value: "~9 hours" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How long is the drive from Riyadh to Jeddah?", answer: "Riyadh to Jeddah is about 950 km — roughly a 9-hour drive on Highway 40, with rest and prayer stops along the way." },
+      { question: "How much is a taxi from Riyadh to Jeddah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans for families and luggage. The price is confirmed before booking, with no surge." },
+      { question: "Is a long-distance car better than flying?", answer: "Flying is faster, but a private car is door-to-door with no airport check-in. For groups with luggage it can be convenient and comfortable with rest stops." },
+    ],
+  },
+  "riyadh-to-makkah": {
+    tldr: "A taxi from Riyadh to Makkah is about 870 km and takes roughly 8 hours. The fare is fixed, confirmed on WhatsApp door-to-door, with prayer and rest stops and a Miqat stop for Ihram on request.",
+    tldrFacts: [
+      { label: "Distance", value: "~870 km" },
+      { label: "Time", value: "~8 hours" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How long is the drive from Riyadh to Makkah?", answer: "Riyadh to Makkah is about 870 km — roughly an 8-hour drive. We include prayer and rest stops, and a Miqat stop for Ihram if you are performing Umrah." },
+      { question: "How much is a taxi from Riyadh to Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs and vans for families and luggage." },
+      { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Tell us in advance and the driver will stop at the relevant Miqat (Qarn Al-Manazil for those coming from Najd) so you can enter Ihram." },
+    ],
+  },
+  "riyadh-to-madinah": {
+    tldr: "A taxi from Riyadh to Madinah is about 840 km and takes roughly 7.5 hours. The fare is fixed, confirmed on WhatsApp door-to-door to your Madinah hotel, with prayer and rest stops included.",
+    tldrFacts: [
+      { label: "Distance", value: "~840 km" },
+      { label: "Time", value: "~7.5 hours" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How long is the drive from Riyadh to Madinah?", answer: "Riyadh to Madinah is about 840 km — roughly a 7.5-hour drive, with prayer and rest stops along the way." },
+      { question: "How much is a taxi from Riyadh to Madinah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs and vans for families and luggage." },
+      { question: "Can you drop me at my hotel near Masjid an-Nabawi?", answer: "Yes. We provide door-to-door transfer to your Central Area (Markazia) hotel, handling any prayer-time road restrictions near the Haram." },
+    ],
+  },
+  "riyadh-to-alahsa": {
+    tldr: "A taxi from Riyadh to Al Ahsa, the world's largest oasis, is about 330 km and takes roughly 3 hours. The fare is fixed, confirmed on WhatsApp door-to-door, ideal for visiting the UNESCO-listed palm groves and heritage sites.",
+    tldrFacts: [
+      { label: "Distance", value: "~330 km" },
+      { label: "Time", value: "~3 hours" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Riyadh from Al Ahsa?", answer: "Riyadh to Al Ahsa (Hofuf) is about 330 km — roughly a 3-hour drive east towards the Eastern Province oasis." },
+      { question: "How much is a taxi from Riyadh to Al Ahsa?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs and vans available for families and groups." },
+      { question: "Is Al Ahsa worth visiting?", answer: "Yes. Al Ahsa is a UNESCO World Heritage oasis with vast palm groves, springs, and heritage sites. A full-day car lets you explore the highlights comfortably." },
+    ],
+  },
+  "riyadh-to-taif": {
+    tldr: "A private car from Riyadh to Taif is about 785 km on Highway 40 — roughly 7 hours 50 minutes of driving, longer with rest and prayer stops. It is door to door, one fixed fare for the whole car agreed on WhatsApp before booking, and popular with families heading to Taif's cooler mountain climate in summer.",
+    tldrFacts: [
+      { label: "Distance", value: "~785 km" },
+      { label: "Driving time", value: "~7 hr 50 min" },
+      { label: "Road", value: "Highway 40" },
+      { label: "Fare", value: "Agreed on WhatsApp" },
+    ],
+    faqs: [
+      { question: "How far is Taif from Riyadh by road?", answer: "About 785 km, mostly on Highway 40 heading west — roughly 7 hours 50 minutes of driving before stops." },
+      { question: "Is it better to drive or fly from Riyadh to Taif?", answer: "Flying is faster in the air, but involves airport transfers at both ends and per-person tickets. A private car is door to door with one fare for the whole family and all the luggage — the usual choice for groups and summer stays." },
+      { question: "Can we stop on the way to Taif?", answer: "Yes. Tell the driver when you want to stop for prayer, food or rest — Al Quway'iyah is a common first stop out of Riyadh." },
+      { question: "Can the trip continue to Makkah or Jeddah?", answer: "Yes. Taif is about 90 km from Makkah; you can book Riyadh to Taif and continue later, or plan a multi-stop trip — tell us the itinerary for a quote." },
+      { question: "How much is a car from Riyadh to Taif?", answer: "It depends on the vehicle and the date. Send your pickup address, date and passengers and we agree one fixed fare before booking — no meter, no surge." },
+    ],
+  },
+  "riyadh-to-hail": {
+    tldr: "A taxi from Riyadh to Hail is about 600 km and takes roughly 5.5 hours on the northern highway. The fare is fixed, confirmed on WhatsApp door-to-door, with rest stops included for the long-distance journey.",
+    tldrFacts: [
+      { label: "Distance", value: "~600 km" },
+      { label: "Time", value: "~5.5 hours" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Riyadh from Hail?", answer: "Riyadh to Hail is about 600 km — roughly a 5.5-hour drive on the northern highway, with rest stops on request." },
+      { question: "How much is a taxi from Riyadh to Hail?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs and vans available for families and luggage." },
+      { question: "Are rest stops included on the way to Hail?", answer: "Yes. On this long-distance route the driver includes stops for prayer, food, and rest to keep the journey comfortable." },
+    ],
+  },
+
+  // ─── Madinah corridors ───
+  "madinah-to-jeddah": {
+    tldr: "A taxi from Madinah to Jeddah is about 420 km and takes roughly 4 hours via the Haramain highway. The fare is confirmed on WhatsApp before booking, door-to-door from your Madinah hotel, with rest stops on request.",
+    tldrFacts: [
+      { label: "Distance", value: "~420 km" },
+      { label: "Time", value: "~4 hours" },
+      { label: "Price", value: "Confirmed on WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Madinah from Jeddah?", answer: "Madinah to Jeddah is about 420 km — roughly a 4-hour drive on the Haramain highway." },
+      { question: "How much is a taxi from Madinah to Jeddah?", answer: "The exact fare is confirmed on WhatsApp before booking, based on your vehicle choice — sedan, SUV, or van for families and luggage." },
+      { question: "Do you pick up from my Madinah hotel?", answer: "Yes. We provide door-to-door pickup from your hotel near Masjid an-Nabawi and take you directly to your Jeddah address, 24/7." },
+    ],
+  },
+  "madinah-to-yanbu": {
+    tldr: "A taxi from Madinah to Yanbu is about 240 km and takes roughly 2 hours 50 minutes. The fare is fixed, confirmed on WhatsApp door-to-door, popular for onward Red Sea coastal travel and diving trips.",
+    tldrFacts: [
+      { label: "Distance", value: "~240 km" },
+      { label: "Time", value: "~2 hr 50 min" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Madinah from Yanbu?", answer: "Madinah to Yanbu is about 240 km — roughly a 2 hour 50 minute drive towards the Red Sea coast." },
+      { question: "How much is a taxi from Madinah to Yanbu?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs and vans available." },
+      { question: "Do you serve Yanbu Industrial City too?", answer: "Yes. Tell us whether you need Yanbu Al-Bahr or the Industrial City, as the two are far apart, and the driver will take you directly." },
+    ],
+  },
+  "madinah-to-alula": {
+    tldr: "A taxi from Madinah to AlUla is about 330 km and takes roughly 3 hours. The fare is fixed, confirmed on WhatsApp door-to-door, popular with pilgrims adding a heritage trip to Hegra and the Old Town after Ziyarah.",
+    tldrFacts: [
+      { label: "Distance", value: "~330 km" },
+      { label: "Time", value: "~3 hours" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Madinah from AlUla?", answer: "Madinah to AlUla is about 330 km — roughly a 3-hour drive, making it an easy heritage trip after visiting Madinah." },
+      { question: "How much is a taxi from Madinah to AlUla?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs recommended for comfort and luggage." },
+      { question: "Can I combine Ziyarah with an AlUla heritage trip?", answer: "Yes. Many pilgrims travel from Madinah to AlUla to visit Hegra, Dadan, and the Old Town. We can arrange the transfer and onward sightseeing." },
+    ],
+  },
+  "madinah-to-riyadh": {
+    tldr: "A taxi from Madinah to Riyadh is about 840 km and takes roughly 7.5 hours. The fare is fixed, confirmed on WhatsApp door-to-door, with prayer and rest stops included on the long-distance journey.",
+    tldrFacts: [
+      { label: "Distance", value: "~840 km" },
+      { label: "Time", value: "~7.5 hours" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How long is the drive from Madinah to Riyadh?", answer: "Madinah to Riyadh is about 840 km — roughly a 7.5-hour drive, with prayer and rest stops along the way." },
+      { question: "How much is a taxi from Madinah to Riyadh?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs and vans for families and luggage." },
+      { question: "Is this comfortable for families?", answer: "Yes. We use spacious, air-conditioned SUVs and vans for long trips, and the driver takes regular rest stops for comfort." },
+    ],
+  },
+  "madinah-to-tabuk": {
+    tldr: "A taxi from Madinah to Tabuk is about 620 km and takes roughly 5.5 hours on the northern highway. The fare is fixed, confirmed on WhatsApp door-to-door, with rest stops included for the long journey north.",
+    tldrFacts: [
+      { label: "Distance", value: "~620 km" },
+      { label: "Time", value: "~5.5 hours" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Madinah from Tabuk?", answer: "Madinah to Tabuk is about 620 km — roughly a 5.5-hour drive on the northern highway towards the Tabuk region and NEOM." },
+      { question: "How much is a taxi from Madinah to Tabuk?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs and vans for families and luggage." },
+      { question: "Can I continue to NEOM from Tabuk?", answer: "Yes. Tabuk is the main gateway to the NEOM region, and we can arrange onward transfers to the project zones and the Red Sea coast." },
+    ],
+  },
+  "madinah-to-taif": {
+    tldr: "A taxi from Madinah to Taif is about 480 km and takes roughly 4.5 hours, ending on the scenic Al Hada mountain road. The fare is fixed, confirmed on WhatsApp door-to-door, with rest stops on request.",
+    tldrFacts: [
+      { label: "Distance", value: "~480 km" },
+      { label: "Time", value: "~4.5 hours" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Madinah from Taif?", answer: "Madinah to Taif is about 480 km — roughly a 4.5-hour drive, finishing with the scenic mountain climb into Taif." },
+      { question: "How much is a taxi from Madinah to Taif?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs and vans available for families." },
+      { question: "Are rest stops included?", answer: "Yes. On this long route the driver includes prayer and rest stops, and an SUV is recommended for comfort on the mountain section." },
+    ],
+  },
+
+  // ─── Makkah corridors ───
+  "makkah-to-madinah-airport": {
+    tldr: "A taxi from Makkah to Madinah Airport (MED) is about 450 km and takes roughly 4.5 hours. The fare is fixed, confirmed on WhatsApp door-to-door from your Makkah hotel, with prayer and rest stops for departing pilgrims.",
+    tldrFacts: [
+      { label: "Distance", value: "~450 km" },
+      { label: "Time", value: "~4.5 hours" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Makkah from Madinah airport?", answer: "Makkah to Prince Mohammad Bin Abdulaziz Airport (MED) is about 450 km — roughly a 4.5-hour drive on the Haramain highway." },
+      { question: "How much is a taxi from Makkah to Madinah airport?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs and vans for families and luggage." },
+      { question: "Will I have time for my flight?", answer: "Yes. We recommend departing Makkah with comfortable buffer time, and the driver takes you directly to MED departures, with rest stops if needed." },
+    ],
+  },
+  "makkah-to-riyadh": {
+    tldr: "A taxi from Makkah to Riyadh is about 870 km and takes roughly 8 hours. The fare is fixed, confirmed on WhatsApp door-to-door, with prayer and rest stops included for the long-distance journey to the capital.",
+    tldrFacts: [
+      { label: "Distance", value: "~870 km" },
+      { label: "Time", value: "~8 hours" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How long is the drive from Makkah to Riyadh?", answer: "Makkah to Riyadh is about 870 km — roughly an 8-hour drive, with prayer and rest stops along the way." },
+      { question: "How much is a taxi from Makkah to Riyadh?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs and vans for families and luggage." },
+      { question: "Is this route comfortable for a family?", answer: "Yes. We use spacious, air-conditioned SUVs and vans for long trips, and the driver takes regular rest stops for comfort." },
+    ],
+  },
+  "makkah-to-kaec": {
+    tldr: "A taxi from Makkah to King Abdullah Economic City (KAEC) is about 180 km and takes roughly 1 hour 50 minutes. The fare is fixed, confirmed on WhatsApp door-to-door, ideal for business travel to the Red Sea coast.",
+    tldrFacts: [
+      { label: "Distance", value: "~180 km" },
+      { label: "Time", value: "~1 hr 50 min" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Makkah from KAEC?", answer: "Makkah to King Abdullah Economic City (KAEC) is about 180 km — roughly a 1 hour 50 minute drive towards the Red Sea coast." },
+      { question: "How much is a taxi from Makkah to KAEC?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with corporate sedans and SUVs available." },
+      { question: "Do you serve King Abdullah Port?", answer: "Yes. We provide corporate transfers to KAEC for the port, industrial zones, and business meetings, with professional drivers 24/7." },
+    ],
+  },
+  "makkah-to-yanbu": {
+    tldr: "A taxi from Makkah to Yanbu is about 400 km and takes roughly 3 hours 40 minutes on the coastal route. The fare is fixed, confirmed on WhatsApp door-to-door, with rest stops on request.",
+    tldrFacts: [
+      { label: "Distance", value: "~400 km" },
+      { label: "Time", value: "~3 hr 40 min" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Makkah from Yanbu?", answer: "Makkah to Yanbu is about 400 km — roughly a 3 hour 40 minute drive towards the Red Sea coast." },
+      { question: "How much is a taxi from Makkah to Yanbu?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs and vans available for families." },
+      { question: "Are rest stops included on this route?", answer: "Yes. The driver includes prayer and rest stops, and tells us whether you need Yanbu city or the Industrial City for a direct drop-off." },
+    ],
+  },
+
+  // ─── GCC border crossings ───
+
+  // ─── Tourism routes ───
+  "alula-airport-to-resorts": {
+    // Strengthened 2026-10-02 (replaces the proposed blog article "AlUla Airport
+    // to Hotels & Resorts"). Removed "meet & greet" as a guaranteed inclusion.
+    tldr: "A private transfer from AlUla International Airport (ULH) to the main resort area is about 30 km and takes around 30 minutes. On-demand taxis at ULH are limited, so pre-book: share your flight number and resort name, and the fare is fixed and confirmed on WhatsApp before booking.",
+    tldrFacts: [
+      { label: "Distance", value: "~30 km" },
+      { label: "Time", value: "~30 min" },
+      { label: "Taxis at ULH", value: "Limited — pre-book" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is AlUla airport from the resorts?", answer: "AlUla International Airport (ULH) is about 30 km from the main resort area — roughly a 30-minute transfer. Resorts are spread across the valley and canyons, so share your resort's name for an exact plan." },
+      { question: "How much is a transfer from AlUla airport to my resort?", answer: "The fare is fixed and confirmed on WhatsApp before booking, depending on the vehicle and the resort's location." },
+      { question: "Are there taxis at AlUla airport?", answer: "On-demand taxis at ULH are limited. Pre-booking is strongly recommended, especially on peak-season weekends." },
+      { question: "Can the driver take us to Hegra or the Old Town after check-in?", answer: "Yes — book a driver by the hour or for a full day. Hegra is visited on official ticketed tours, so the driver takes you to and from your tour's departure point." },
+      { question: "Which vehicle for a family with luggage?", answer: "A full-size SUV suits most families; a van for larger groups or lots of luggage." },
+      { question: "Can we book the return to the airport now too?", answer: "Yes — send your departure flight and we will plan the pickup time from your resort." },
+    ],
+  },
+
+  "alula-airport-to-banyan-tree": {
+    tldr: "A private VIP taxi from AlUla Airport (ULH) to Banyan Tree AlUla is about 35 km and takes around 35 minutes. The fare is fixed, confirmed on WhatsApp in a luxury SUV or VIP sedan, with meet & greet at arrivals for the resort's guests.",
+    tldrFacts: [
+      { label: "Distance", value: "~35 km" },
+      { label: "Time", value: "~35 min" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is AlUla airport from Banyan Tree AlUla?", answer: "AlUla International Airport (ULH) is about 35 km from Banyan Tree AlUla, in Ashar Valley — roughly a 35-minute private transfer through the sandstone canyons." },
+      { question: "How much is a private transfer to Banyan Tree AlUla?", answer: "The fare is fixed, confirmed on WhatsApp in a luxury SUV or VIP sedan, confirmed before booking, with meet & greet at arrivals and help with luggage." },
+      { question: "Is this a shared shuttle or a private car?", answer: "This is a private, chauffeur-driven vehicle exclusively for you and your party — not a shared shuttle — matching the resort's VIP standard." },
+      { question: "Can you arrange a full-day driver for Hegra or Elephant Rock during my stay?", answer: "Yes. We offer full-day and half-day private chauffeur hire from Banyan Tree AlUla to Hegra, Elephant Rock, Dadan, and the Old Town, with flexible waiting time." },
+    ],
+  },
+  "jeddah-to-alula": {
+    tldr: "A taxi from Jeddah to AlUla is about 700 km and takes roughly 6.5 hours. The fare is fixed, confirmed on WhatsApp for this coastal-to-desert heritage transfer, with rest stops and comfortable vehicles for the journey.",
+    tldrFacts: [
+      { label: "Distance", value: "~700 km" },
+      { label: "Time", value: "~6.5 hours" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Jeddah from AlUla?", answer: "Jeddah to AlUla is about 700 km — roughly a 6.5-hour drive from the Red Sea coast to the desert heritage valley." },
+      { question: "How much is a taxi from Jeddah to AlUla?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with SUVs recommended for comfort over the long journey." },
+      { question: "Is it better to fly or drive to AlUla from Jeddah?", answer: "Flying to AlUla (ULH) is faster, but a private car is door-to-door with rest stops. For comfort on the road, we recommend an SUV." },
+    ],
+  },
+  "tabuk-airport-to-neom": {
+    tldr: "A taxi from Tabuk Airport (TUU) to NEOM is about 120 km and takes roughly 1 hour 20 minutes. The fare is fixed, confirmed on WhatsApp with meet & greet at arrivals — the main gateway transfer into the NEOM project.",
+    tldrFacts: [
+      { label: "Distance", value: "~120 km" },
+      { label: "Time", value: "~1 hr 20 min" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Tabuk airport from NEOM?", answer: "Tabuk Airport (TUU) is about 120 km from the NEOM zone — roughly a 1 hour 20 minute drive, and the main air gateway to the project." },
+      { question: "How much is a taxi from Tabuk airport to NEOM?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with executive SUVs available for business visitors and contractors." },
+      { question: "Do I need a permit for NEOM site access?", answer: "Some NEOM gates require access clearance. Confirm your permit in advance so the driver can take you to the correct entry point." },
+    ],
+  },
+  "riyadh-to-neom": {
+    tldr: "A taxi from Riyadh to NEOM is about 1300 km and takes roughly 12 hours. The fare is fixed, confirmed on WhatsApp for this elite long-distance transfer, with rest stops and an executive vehicle for the journey north.",
+    tldrFacts: [
+      { label: "Distance", value: "~1300 km" },
+      { label: "Time", value: "~12 hours" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Riyadh from NEOM?", answer: "Riyadh to NEOM is about 1300 km — roughly a 12-hour drive. Many travellers fly to Tabuk or NEOM Bay, but we offer a premium road transfer with rest stops." },
+      { question: "How much is a taxi from Riyadh to NEOM?", answer: "The fare is fixed, confirmed on WhatsApp for this elite long-distance transfer, confirmed before booking, with executive SUVs for comfort." },
+      { question: "Is flying better for Riyadh to NEOM?", answer: "Flying to Tabuk (TUU) or NEOM Bay (NUM) is much faster. We can arrange the airport transfer at the NEOM end, or a full road transfer if you prefer." },
+    ],
+  },
+  "jeddah-to-neom": {
+    tldr: "A taxi from Jeddah to NEOM is about 1000 km and takes roughly 9 hours along the Red Sea coast. The fare is fixed, confirmed on WhatsApp for this long-distance transfer, with rest stops and a comfortable vehicle.",
+    tldrFacts: [
+      { label: "Distance", value: "~1000 km" },
+      { label: "Time", value: "~9 hours" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Jeddah from NEOM?", answer: "Jeddah to NEOM is about 1000 km — roughly a 9-hour drive north along the Red Sea coast." },
+      { question: "How much is a taxi from Jeddah to NEOM?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with executive SUVs recommended for comfort on the long journey." },
+      { question: "Do I need NEOM site clearance?", answer: "Some NEOM gates require access permits. Confirm your clearance in advance so the driver can take you to the correct entry point." },
+    ],
+  },
+  "abha-airport-to-soudah": {
+    tldr: "A taxi from Abha Airport (AHB) to Soudah is about 45 km and takes roughly 50 minutes up the Asir mountain road. The fare is fixed, confirmed on WhatsApp with experienced drivers for the climb to Saudi Arabia's highest peak.",
+    tldrFacts: [
+      { label: "Distance", value: "~45 km" },
+      { label: "Time", value: "~50 min" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Abha airport from Soudah?", answer: "Abha International Airport (AHB) is about 45 km from Soudah — roughly a 50-minute drive up the Asir mountain road to Saudi Arabia's highest peak." },
+      { question: "How much is a taxi from Abha airport to Soudah?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with experienced mountain drivers and SUVs for the climb." },
+      { question: "Can the driver wait while I explore Soudah?", answer: "Yes. We offer full-day hire with waiting time so you can enjoy Soudah Peak, the cable car, and the viewpoints at your own pace." },
+    ],
+  },
+  "jeddah-to-abha": {
+    tldr: "A taxi from Jeddah to Abha is about 690 km and takes roughly 7 to 8 hours, climbing into the cool Asir mountains. The fare is fixed, confirmed on WhatsApp door-to-door, with rest stops included on the long journey south.",
+    tldrFacts: [
+      { label: "Distance", value: "~690 km" },
+      { label: "Time", value: "~7-8 hours" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Jeddah from Abha?", answer: "Jeddah to Abha is about 690 km — roughly a 7 to 8 hour drive from the Red Sea coast into the cool Asir mountains." },
+      { question: "How much is a taxi from Jeddah to Abha?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with SUVs recommended for comfort on the long mountain journey." },
+      { question: "Are rest stops included on this route?", answer: "Yes. The driver includes prayer and rest stops, and an SUV is recommended for the climb into the Asir highlands." },
+    ],
+  },
+  "taif-to-albaha": {
+    tldr: "A taxi from Taif to Al Baha is about 220 km and takes roughly 2 hours 20 minutes on a scenic mountain road between two resort cities. The fare is fixed, confirmed on WhatsApp with experienced drivers for the winding route.",
+    tldrFacts: [
+      { label: "Distance", value: "~220 km" },
+      { label: "Time", value: "~2 hr 20 min" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Taif from Al Baha?", answer: "Taif to Al Baha is about 220 km — roughly a 2 hour 20 minute drive on a scenic mountain road connecting the two resort cities." },
+      { question: "How much is a taxi from Taif to Al Baha?", answer: "The fare is fixed, confirmed on WhatsApp before booking, with SUVs available for comfort on the mountain route." },
+      { question: "Is the mountain road safe by taxi?", answer: "Yes. Our drivers are experienced on the winding Sarawat mountain roads, and an SUV is a comfortable choice for families." },
+    ],
+  },
+  "jeddah-airport-to-makkah-clock-tower": {
+    tldr: "A taxi from Jeddah Airport (JED) to the Makkah Clock Tower hotels (Fairmont, Pullman Zamzam, Abraj Al Bait) is about 85 km and takes roughly 65 minutes. The fare is fixed, confirmed on WhatsApp available 24/7, with door-to-door drop-off and luggage help.",
+    tldrFacts: [
+      { label: "Distance", value: "~85 km" },
+      { label: "Time", value: "~65 min" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is the Makkah Clock Tower from Jeddah airport?", answer: "About 85 km — roughly a 65-minute drive on the Makkah Expressway from King Abdulaziz International Airport (JED) to the Clock Tower hotel complex (Abraj Al Bait), which includes the Fairmont, Pullman Zamzam, and other Haram-adjacent hotels." },
+      { question: "How much is a taxi from Jeddah airport to the Clock Tower hotels?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "Does a Jeddah pickup involve a Miqat stop?", answer: "A pickup in Jeddah does not by itself involve a Miqat stop. Whether a Miqat matters for you depends on where you travelled from and on your own religious circumstances, which we cannot advise on. If your plans include a stop, tell us when you book and we will plan it." },
+      { question: "Which hotels are in the Clock Tower complex?", answer: "The Abraj Al Bait complex includes the Fairmont Makkah Clock Royal Tower, Pullman Zamzam Makkah, and several other towers — all directly overlooking Masjid al-Haram. Tell us your specific hotel when booking." },
+    ],
+  },
+  "madinah-airport-to-madinah-markaziyah": {
+    tldr: "A taxi from Madinah Airport (MED) to the Central Markaziyah hotels is about 22 km and takes roughly 25 minutes. The fare is fixed, confirmed on WhatsApp available 24/7, with drop-off steps from Al-Masjid an-Nabawi.",
+    tldrFacts: [
+      { label: "Distance", value: "~22 km" },
+      { label: "Time", value: "~25 min" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is Central Markaziyah from Madinah airport?", answer: "About 22 km — roughly a 25-minute drive from Prince Mohammad Bin Abdulaziz International Airport (MED) to the Central Markaziyah hotel district, which sits directly around Al-Masjid an-Nabawi." },
+      { question: "How much is a taxi from Madinah airport to Markaziyah hotels?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "Is there a taxi at Madinah airport at night?", answer: "Yes. We operate 24/7 at MED, including late-night and early-morning arrivals, and track your flight so your driver is waiting even if it's delayed." },
+      { question: "How close is the drop-off to the Prophet's Mosque?", answer: "Markaziyah hotels are within walking distance of Al-Masjid an-Nabawi — the driver drops you as close to your hotel entrance as vehicle access allows, especially during prayer-time road closures." },
+    ],
+  },
+  "makkah-clock-tower-to-madinah-markaziyah": {
+    tldr: "A taxi from the Makkah Clock Tower hotels to Madinah Central Markaziyah is about 430 km and takes roughly 4 hours 10 minutes via the Haramain Highway. The fare is fixed, confirmed on WhatsApp with prayer and rest stops on request.",
+    tldrFacts: [
+      { label: "Distance", value: "~430 km" },
+      { label: "Time", value: "~4h 10m" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Stops", value: "Prayer & rest on request" },
+    ],
+    faqs: [
+      { question: "How far is it from Makkah Clock Tower hotels to Madinah?", answer: "About 430 km — roughly a 4 hour 10 minute drive via the Haramain Highway, direct from the Clock Tower hotel complex to the Central Markaziyah hotels around the Prophet's Mosque." },
+      { question: "How much is a taxi from Makkah Clock Tower to Madinah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "Can we stop for prayer on the way to Madinah?", answer: "Yes. Tell us when you book and the driver plans prayer and rest stops along the Haramain Highway." },
+      { question: "Are rest stops included on the drive?", answer: "Yes, brief stops for prayer or refreshments along the highway are included at no extra charge — just let the driver know." },
+    ],
+  },
+  "makkah-hotels-to-taif-resorts": {
+    tldr: "A taxi from Makkah Haram-area hotels to the Al-Hada and Shafa mountain resorts of Taif is about 85 km and takes roughly 75 minutes. The fare is fixed, confirmed on WhatsApp available 24/7, ideal as a day trip or resort-hotel transfer.",
+    tldrFacts: [
+      { label: "Distance", value: "~85 km" },
+      { label: "Time", value: "~75 min" },
+      { label: "Fare", value: "On WhatsApp" },
+      { label: "Route", value: "Al-Hada mountain road" },
+    ],
+    faqs: [
+      { question: "How far are the Taif resorts from Makkah hotels?", answer: "About 85 km — roughly a 75-minute drive on the Al-Hada mountain road, from the Makkah Haram area up to the resort hotels of Al-Hada and Shafa in Taif." },
+      { question: "How much is a taxi from Makkah to Taif resorts?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs recommended for the mountain road and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "Can we stop at the rose distilleries?", answer: "Yes — this route is popular as a day trip that includes a stop at the Taif rose distilleries and gardens. Mention it when booking so the driver plans the stop into your day." },
+      { question: "Is this a good day trip from Makkah?", answer: "Yes. Taif's cooler mountain climate, the Al-Hada cable car, and the rose season (spring) make it a popular half-day or full-day escape from Makkah — book a return trip or hourly hire if you want the driver to wait." },
+    ],
+  },
+  "riyadh-airport-to-kafd-hotels": {
+    // Strengthened 2026-10-02 (replaces the proposed blog article "Riyadh Airport
+    // to KAFD"). P0: removed "60 minutes of free waiting", "flight tracking",
+    // "name sign" and "tolls included" (not confirmed in seo/facts.md). Metro
+    // Line 4 fact from seo/venues.md.
+    tldr: "Riyadh Airport (RUH) to KAFD and the Olaya business-district hotels is about 40 km — roughly 35 minutes off-peak, longer at weekday commuter peaks. A private transfer goes straight to your hotel or office entrance at a fixed fare confirmed on WhatsApp; the Riyadh Metro's Yellow Line also links the airport with KAFD for light travellers.",
+    tldrFacts: [
+      { label: "Distance", value: "~40 km" },
+      { label: "Time", value: "~35 min off-peak" },
+      { label: "Metro", value: "Yellow Line to KAFD" },
+      { label: "Hours", value: "24/7" },
+    ],
+    faqs: [
+      { question: "How far is KAFD from Riyadh airport?", answer: "About 40 km — roughly 35 minutes from King Khalid International Airport (RUH) to the King Abdullah Financial District (KAFD) and Olaya with clear roads. Morning and late-afternoon peaks can add significantly to that." },
+      { question: "How much is a transfer from Riyadh airport to KAFD?", answer: "The fare is fixed and confirmed on WhatsApp before booking — executive sedans, SUVs and luxury sedans are available. No meter and no surge." },
+      { question: "Car or metro from RUH to KAFD?", answer: "The Riyadh Metro's Line 4 (Yellow) runs between the airport (Terminals 1–2) and KAFD — good if you travel light and your destination is near a station. With luggage, a team, or a hotel or office entrance to reach, a car is simpler." },
+      { question: "Can I go straight to a meeting?", answer: "Yes. Book the airport transfer with hours added so the same car takes you to the meeting and then the hotel." },
+      { question: "Do you offer executive vehicles?", answer: "Yes — a luxury sedan such as a Mercedes S-Class or a full-size SUV can be booked through our partner network for corporate and VIP arrivals." },
+      { question: "What if my flight is delayed?", answer: "Share your flight number when you book and we check it before pickup, so the pickup is planned around your actual arrival." },
+      { question: "Can my company get an invoice?", answer: "Yes. Company invoices are available on request; corporate invoicing can be arranged through our sister company." },
+    ],
+  },
+
+};
+
+// Explicit inbound links from the highest-traffic Makkah route page — the
+// generic RouteRelatedLinks same-city matching doesn't reliably surface these
+// (crowded out by other jeddah-airport-* routes), so without this block these
+// 6 pages would have no real inbound internal link and risk staying orphaned.
+const MAKKAH_HOTEL_ROUTES: { slug: string; hotel: string }[] = [
+  { slug: "jeddah-airport-to-fairmont-makkah", hotel: "Fairmont Makkah Clock Royal Tower" },
+  { slug: "jeddah-airport-to-swissotel-makkah", hotel: "Swissotel Al Maqam Makkah" },
+  { slug: "jeddah-airport-to-pullman-zamzam-makkah", hotel: "Pullman Zamzam Makkah" },
+  { slug: "jeddah-airport-to-conrad-makkah", hotel: "Conrad Makkah" },
+  { slug: "jeddah-airport-to-hilton-suites-makkah", hotel: "Hilton Suites Makkah" },
+  { slug: "jeddah-airport-to-movenpick-makkah", hotel: "Movenpick Hajar Tower Makkah" },
+  { slug: "jeddah-airport-to-makkah-clock-tower", hotel: "Makkah Clock Tower Hotels (Abraj Al Bait)" },
+];
+
+// Explicit inbound links for routes that RouteRelatedLinks' same-city
+// substring matching (slice(0,5)) reliably crowds out — same orphan-page
+// risk as MAKKAH_HOTEL_ROUTES above, confirmed via
+// scripts/check_route_link_density.ts. Placed on each corridor's highest-
+// traffic flagship page so they inherit real link equity, not just the
+// baseline /routes hub listing every route already gets.
+const MORE_JEDDAH_MAKKAH_ROUTES: { slug: string; label: string; distance: number; price: number }[] = [
+  { slug: "jeddah-airport-to-jeddah-city", label: "Jeddah Airport to Jeddah City", distance: 20, price: 80 },
+  { slug: "jeddah-to-haramain-station", label: "Jeddah to Haramain Station", distance: 15, price: 70 },
+  { slug: "makkah-to-jeddah", label: "Makkah to Jeddah", distance: 85, price: 150 },
+  { slug: "jeddah-airport-to-kaec", label: "Jeddah Airport to KAEC", distance: 100, price: 180 },
+  { slug: "makkah-to-kaec", label: "Makkah to KAEC", distance: 180, price: 250 },
+  { slug: "makkah-to-yanbu", label: "Makkah to Yanbu", distance: 400, price: 350 },
+];
+
+const MORE_MADINAH_ROUTES: { slug: string; label: string; distance: number; price: number }[] = [
+  { slug: "madinah-airport-to-madinah-markaziyah", label: "Madinah Airport to Markaziyah Hotels", distance: 22, price: 120 },
+  { slug: "makkah-clock-tower-to-madinah-markaziyah", label: "Makkah Clock Tower to Madinah Markaziyah Hotels", distance: 430, price: 499 },
+  { slug: "madinah-to-yanbu", label: "Madinah to Yanbu", distance: 240, price: 200 },
+];
+
+const MORE_RIYADH_ROUTES: { slug: string; label: string; distance: number; price: number }[] = [
+  { slug: "riyadh-airport-to-kafd-hotels", label: "Riyadh Airport to KAFD & Olaya Hotels", distance: 40, price: 150 },
+  { slug: "riyadh-to-madinah", label: "Riyadh to Madinah", distance: 840, price: 550 },
+  { slug: "riyadh-to-alahsa", label: "Riyadh to Al Ahsa", distance: 330, price: 280 },
+  { slug: "riyadh-to-hail", label: "Riyadh to Hail", distance: 600, price: 450 },
+  { slug: "riyadh-to-taif", label: "Riyadh to Taif", distance: 785, price: 0 },
+  { slug: "riyadh-to-abudhabi", label: "Riyadh to Abu Dhabi, UAE", distance: 850, price: 1100 },
+];
+
+// Explicit cross-links between the 3 Saudi-to-Abu-Dhabi corridor pages —
+// RouteRelatedLinks' generic same-city substring match gets crowded out here
+// (Riyadh/Dammam/Jeddah each appear in dozens of unrelated routes), so without
+// this the 3 pages would rarely link to each other. Rendered on all 3.
+
+
+
+
+// Static fallback from ROUTES_DATA — used when the DB is unreachable (flaky
+// pooler at build time) OR the slug exists in ROUTES_DATA but isn't seeded in
+// the DB yet (e.g. newly added cross-border routes). Keeps every route in
+// ROUTES_DATA renderable without depending on the database at build time.
+type DbRoute = NonNullable<Awaited<ReturnType<typeof db.route.findUnique>>>;
+function staticRouteFallback(slug: string): DbRoute | null {
+  const s = ROUTES_DATA.find((r) => r.slug === slug);
+  if (!s) return null;
+  return {
+    id: s.slug,
+    fromCity: s.fromCity,
+    toCity: s.toCity,
+    fromCityAr: s.fromCityAr,
+    toCityAr: s.toCityAr,
+    distance: s.distance,
+    duration: s.duration,
+    basePrice: s.basePrice,
+    popular: s.popular ?? false,
+    description: s.description ?? null,
+    descriptionAr: s.descriptionAr ?? null,
+    slug: s.slug,
+    priceOnRequest: false,
+  } as DbRoute;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  // RSI cluster (2026-10-08): bespoke pages, metadata lives with the page data.
+  const rsi = RSI_ROUTE_PAGES[slug];
+  if (rsi) {
+    return {
+      title: rsi.metaTitle,
+      description: rsi.metaDescription,
+      alternates: { canonical: `https://taxisaudiarabia.com/routes/${slug}` },
+      openGraph: {
+        title: rsi.ogTitle,
+        description: rsi.ogDescription,
+        type: "website",
+        url: `https://taxisaudiarabia.com/routes/${slug}`,
+        images: [{ url: "/red-sea/rsi-og.png", width: 1200, height: 630, alt: "Illustration of a private transfer from Red Sea International Airport to the Red Sea coast" }],
+      },
+      twitter: { card: "summary_large_image", title: rsi.metaTitle, description: rsi.metaDescription, images: ["/red-sea/rsi-og.png"] },
+    };
+  }
+  // Southern corridor (2026-10-27): bespoke pages, metadata lives with the page data.
+  const south = SOUTHERN_ROUTE_PAGES[slug] ?? JEDDAH_INTERCITY_ROUTE_PAGES[slug];
+  if (south) {
+    return {
+      title: south.metaTitle,
+      description: south.metaDescription,
+      alternates: { canonical: `https://taxisaudiarabia.com/routes/${slug}` },
+      openGraph: { title: south.metaTitle, description: south.metaDescription, type: "website", url: `https://taxisaudiarabia.com/routes/${slug}` },
+      twitter: { card: "summary_large_image", title: south.metaTitle, description: south.metaDescription },
+    };
+  }
+  // A transient DB hiccup here must not fail metadata for this one page,
+  // let alone abort the static build for every page on the site (this is
+  // the same class of bug fixed in airports/[slug] and locations/[city] —
+  // it just hadn't hit routes/[slug] yet).
+  let route: Awaited<ReturnType<typeof db.route.findUnique>> = null;
+  try {
+    route = await db.route.findUnique({ where: { slug } });
+  } catch (error) {
+    console.error(`❌ Route metadata fetch failed for ${slug}.`, error);
+  }
+
+  if (!route) route = staticRouteFallback(slug);
+  if (!route) return { title: "Route Not Found" };
+
+  // Hotel-specific destinations (e.g. "Fairmont Makkah Clock Royal Tower")
+  // push the full title well past the ~600px truncation point — drop the
+  // brand suffix when the route name itself is already long.
+  const routeLabel = `Taxi ${route.fromCity} to ${route.toCity}`;
+  // Per-slug overrides below match literal Search Console query phrasing for
+  // pages that already get impressions but zero clicks — title/CTR fixes
+  // only, no price or content claims changed. Formula below still covers
+  // every other route.
+  // 2026-10-03 (owner-approved title tests): CTR fixes on UAE/Bahrain pages with
+  // impressions but ~0 clicks — titles now mirror GSC queries ("by road",
+  // "car with driver", "riyadh to bahrain") + the distance.
+  const TITLE_OVERRIDES: Record<string, string> = {
+    "riyadh-to-al-qassim-airport": "Riyadh to Al Qassim Airport Taxi | Private Transfer to ELQ",
+    "red-sea-airport-to-alula": "Red Sea Airport (RSI) to AlUla Private Transfer | ~260 km",
+    "alula-to-madinah": "AlUla to Madinah Private Transfer | ~330 km, Door to Door",
+    "alula-to-riyadh": "AlUla to Riyadh by Road — Private Car with Driver, 1,050 km",
+    "alula-to-jeddah": "AlUla to Jeddah Private Transfer | ~700 km by Road",
+    "amaala-to-alula": "AMAALA to AlUla Private Transfer | Red Sea to AlUla",
+    "alula-to-amaala": "AlUla to AMAALA Private Transfer | AlUla to the Red Sea",
+    "neom-to-alula": "NEOM to AlUla Private Transfer | ~400 km",
+    "alula-to-neom": "AlUla to NEOM Private Transfer | ~400 km",
+    "alula-to-red-sea-airport": "AlUla to Red Sea Airport (RSI) Private Transfer | ~260 km",
+    "riyadh-to-manama": "Riyadh to Bahrain by Car — Private Driver to Manama, 450 km",
+    "riyadh-to-abudhabi": "Riyadh to Abu Dhabi by Road — Private Car with Driver, 850 km",
+    "abudhabi-to-riyadh": "Abu Dhabi to Riyadh Private Car with Driver | UAE to Saudi",
+    "jubail-to-kuwait": "Jubail to Kuwait City Private Transfer | Khafji Border",
+    "dammam-airport-to-doha": "Dammam Airport to Doha Private Transfer | DMM to Qatar",
+    "alkhobar-to-doha": "Al Khobar to Doha Private Transfer | Khobar to Qatar by Car",
+    "doha-to-alahsa": "Doha to Al Ahsa Private Transfer | Qatar to Hofuf by Car",
+    "haql-to-aqaba": "Haql to Aqaba Private Transfer | Saudi Arabia to Jordan",
+    "dammam-airport-to-bahrain": "Dammam Airport to Bahrain Taxi & Private Transfer | DMM",
+    "bahrain-to-dammam-airport": "Bahrain to Dammam Airport Taxi & Private Transfer | DMM",
+    "riyadh-to-taif": "Riyadh to Taif Private Car | 785 km Door-to-Door Transfer",
+    "jeddah-airport-to-makkah": "Taxi Jeddah Airport to Makkah — Fare, Distance & Booking",
+    "makkah-to-madinah": "Taxi Makkah to Madinah — Fare on WhatsApp",
+    "riyadh-to-dammam": "Riyadh to Dammam Taxi | Private Car & Chauffeur",
+    "jeddah-to-kaec": "Jeddah to KAEC Taxi — Distance, Fare & Price",
+    "riyadh-to-alula": "Riyadh to AlUla Taxi — Distance, Fare & Price",
+    "madinah-to-alula": "Madinah to AlUla Taxi — Distance, Fare & Price",
+    "dammam-to-doha": "Taxi Dammam to Doha, Qatar — Cross-Border Fare, Distance & Booking",
+    "manama-to-dammam": "Taxi Bahrain to Dammam — Causeway Fare, Distance & Booking",
+    "manama-to-alkhobar": "Taxi Bahrain to Al Khobar — King Fahd Causeway Fare & Booking",
+    "manama-to-riyadh": "Taxi Bahrain to Riyadh — Cross-Border Fare, Distance & Booking",
+    "alkhobar-to-manama": "Taxi Al Khobar to Bahrain — King Fahd Causeway Fare & Booking",
+    "doha-to-dammam": "Taxi Doha, Qatar to Dammam — Salwa Border Fare & Booking",
+    "doha-to-riyadh": "Taxi Doha, Qatar to Riyadh — Cross-Border Fare & Booking",
+    "kuwait-to-dammam": "Taxi Kuwait to Dammam — Khafji Border Fare, Distance & Booking",
+    "kuwait-to-riyadh": "Kuwait to Riyadh Taxi — Private Cross-Border Car & Chauffeur",
+    "alahsa-to-doha": "Taxi Al Ahsa to Doha, Qatar — Shortest Salwa Border Route",
+    "jeddah-to-makkah": "Jeddah to Makkah (Mecca) Taxi Service — Fare on WhatsApp",
+    "madinah-to-jeddah-airport": "Taxi Madinah to Jeddah Airport — Fare Confirmed on WhatsApp",
+    "jeddah-to-madinah": "Taxi Jeddah to Madinah (Madina) — Fare Confirmed on WhatsApp",
+    "madinah-airport-to-city": "Madinah Airport Taxi & Car Service — Fare on WhatsApp",
+    "riyadh-to-dubai": "Riyadh to Dubai Car with Driver — 990 km by Road, Door to Door",
+    "dubai-to-riyadh": "Private Car with Driver — Dubai to Riyadh — Fare on WhatsApp",
+    "jeddah-airport-to-swissotel-makkah": "Jeddah Airport to Swissotel Makkah Taxi — Fare & Booking",
+    "red-sea-airport-to-neom": "Red Sea Airport (RSI) to NEOM Taxi — Fare & Transfer",
+    "dammam-to-abudhabi": "Dammam to Abu Dhabi by Road — Private Car with Driver, 750 km",
+    "jeddah-to-abudhabi": "Jeddah to Abu Dhabi by Road — 1,750 km Private Car Transfer",
+    "riyadh-to-kuwait": "Riyadh to Kuwait Taxi — Private Cross-Border Car & Chauffeur",
+    "dammam-to-dubai": "Taxi Dammam to Dubai, UAE — Cross-Border Fare, Distance & Booking",
+    "aqaba-to-tabuk": "Taxi Aqaba, Jordan to Tabuk — Cross-Border Fare, Distance & Booking",
+    "neom-to-aqaba": "Taxi NEOM to Aqaba, Jordan — Cross-Border Fare, Distance & Booking",
+    "aqaba-to-neom": "Taxi Aqaba, Jordan to NEOM — Cross-Border Fare, Distance & Booking",
+    "tabuk-to-amman": "Tabuk to Amman Private Transfer, Jordan — Fare, Distance & Booking",
+    "amman-to-madinah": "Amman to Madinah Private Transfer — Fare, Distance & Booking",
+    "amman-to-tabuk": "Amman to Tabuk Private Transfer — Fare, Distance & Booking",
+    "amman-to-neom": "Amman to NEOM Private Transfer — Fare, Distance & Booking",
+    "amman-to-alula": "Amman to AlUla Private Transfer — Fare, Distance & Booking",
+    "alula-to-aqaba": "AlUla to Aqaba Private Transfer, Jordan — Fare, Distance & Booking",
+    "tabuk-to-petra": "Tabuk to Petra Private Transfer, Jordan — Fare, Distance & Booking",
+    "tabuk-to-wadi-rum": "Tabuk to Wadi Rum Private Transfer, Jordan — Fare, Distance & Booking",
+    "neom-to-amman": "NEOM to Amman Private Transfer, Jordan — Fare, Distance & Booking",
+    "alula-to-amman": "AlUla to Amman Private Transfer, Jordan — Fare, Distance & Booking",
+    "medinah-to-amman": "Madinah to Amman Private Transfer, Jordan — Fare, Distance & Booking",
+    // 2026-11-13 (Batch 3): madinah-to-jeddah GSC 3mo pos 70 (not protected). Aligns with the
+    // Makkah-cluster "Taxi & Private Transfer | Fixed Fare" pattern.
+    // (jeddah-to-madinah title deliberately NOT changed: existing GSC-phrased override above is
+    // already climbing, pos 58 -> 33 in 28d.)
+    "madinah-to-jeddah": "Madinah to Jeddah Taxi & Private Transfer | Fixed Fare",
+  };
+  const mkMeta = MAKKAH_ROUTE_META[slug];
+  const title = mkMeta?.title ?? TITLE_OVERRIDES[slug] ?? (routeLabel.length > 55 ? routeLabel : `${routeLabel} | Taxi Saudi Arabia`);
+  const priceBlurb = "Fare confirmed on WhatsApp";
+
+  // Per-slug description overrides — same CTR-fix rationale as TITLE_OVERRIDES,
+  // for pages with confirmed impressions/position but zero clicks.
+  const DESCRIPTION_OVERRIDES: Record<string, string> = {
+    // 2026-11-14: generic template snippet replaced (titles untouched — both rank pos ~7). Figures from routes.ts.
+    "jeddah-to-riyadh": "Private car with driver from Jeddah to Riyadh — about 950 km, roughly 9 hours, door to door with rest and prayer stops. Sedan, SUV or van; one fare agreed on WhatsApp before booking.",
+    "jeddah-to-abha": "Private car with driver from Jeddah or JED airport to Abha and Khamis Mushait — about 690 km, 7–8 hours into the Asir highlands. One fixed fare agreed on WhatsApp before booking.",
+    "riyadh-to-al-qassim-airport": "Book a private transfer from Riyadh to Al Qassim Airport (ELQ). Request a sedan, SUV or GMC and check availability and pricing through WhatsApp.",
+    "alula-to-madinah": "Private car from AlUla to Madinah — about 330 km, roughly 3 hours, to your hotel or Madinah Airport. One fixed fare agreed on WhatsApp before booking.",
+    "alula-to-riyadh": "Private car from AlUla to Riyadh — about 1,050 km, a full day on the road, door to door with rest and prayer stops. Fare agreed before booking.",
+    "alula-to-jeddah": "Private car from AlUla to Jeddah — about 700 km, to your hotel or JED airport. One fixed fare agreed on WhatsApp before booking.",
+    "amaala-to-alula": "Private transfer from your AMAALA resort to AlUla — a long planned leg between two separate destinations. Fare agreed before booking.",
+    "alula-to-amaala": "Private transfer from AlUla to AMAALA or Red Sea Airport — a planned leg between two separate destinations. Fare agreed before booking.",
+    "neom-to-alula": "Private transfer from NEOM to AlUla — about 400 km across north-west Saudi Arabia, door to door. Fare agreed on WhatsApp before booking.",
+    "alula-to-neom": "Private transfer from AlUla to NEOM — about 400 km, to NEOM Bay Airport, Sharma, Magna or Oxagon. Fare agreed before booking.",
+    "red-sea-airport-to-alula": "Private transfer from Red Sea International Airport (RSI) or a Red Sea resort to your AlUla hotel — about 260 km, door to door. Fare agreed before booking; we track your flight.",
+    "alula-to-red-sea-airport": "Private transfer from your AlUla hotel to Red Sea International Airport (RSI) or a Red Sea resort — about 260 km, pickup worked back from your flight. Fare agreed first.",
+    "dammam-airport-to-bahrain": "Dammam Airport to Bahrain taxi — private car from King Fahd International Airport (DMM) over the causeway to your Bahrain hotel, ~105 km. Toll included.",
+    "bahrain-to-dammam-airport": "Bahrain to Dammam Airport taxi — private car over the King Fahd Causeway to DMM departures, ~105 km, timed for check-in. Causeway toll included.",
+    "riyadh-to-taif": "Private car from Riyadh to Taif — about 785 km on Highway 40, roughly 8 hours, door to door with rest stops. One fixed fare agreed on WhatsApp before booking.",
+    "riyadh-to-dammam": "Private Riyadh to Dammam transfer by sedan, SUV or van. Fixed fare agreed on WhatsApp before booking. Free cancellation up to 24 hours before pickup.",
+    "jeddah-to-kaec": "Jeddah to KAEC (King Abdullah Economic City) taxi — 120 km, about 1 hr 20 min. Get your exact fare confirmed on WhatsApp before booking. Corporate sedans, 24/7.",
+    // 2026-11-13 (Batch 5): had a bespoke title but generic description (pos 8.7, 1.8% CTR). 375 km / 3h35 from routes.ts.
+    "jubail-to-kuwait": "Private car with driver, Jubail to Kuwait City — ~375 km up the coast via the Al Khafji–Nuwaiseeb border, about 3 hours 35 minutes plus border time. Border fees included.",
+    // 2026-11-13 (Batch 4): description-only (title protected, pos 13). Distances/times from lib/data/routes.ts.
+    "riyadh-to-alula": "Private car from Riyadh to AlUla — about 1,050 km, roughly 10 hours, door to door with rest and prayer stops. One fare agreed on WhatsApp before booking.",
+    "riyadh-to-makkah": "Private car from Riyadh to Makkah — about 870 km, roughly 8 hours, door to door with rest and prayer stops. Sedan, SUV or van, one fare agreed before booking.",
+    "riyadh-to-madinah": "Private car from Riyadh to Madinah — about 840 km, roughly 7.5 hours, to your hotel with rest and prayer stops. Sedan, SUV or van, fare agreed before booking.",
+    "madinah-to-alula": "Madinah to AlUla taxi — 330 km, about 3 hours. Get your exact fare confirmed on WhatsApp before booking. Heritage transfer, rest stops included.",
+    // 2026-11-13: description-only (titles untouched, rule 3). Was generic template copy.
+    "jeddah-to-alula": "Private car from Jeddah or JED airport to your AlUla hotel — about 700 km, roughly 6 hours 40 minutes, door to door with rest and prayer stops. One fare agreed on WhatsApp before booking.",
+    "alula-airport-to-resorts": "Private transfer from AlUla International Airport (ULH) to your resort — about 30 km. We track your flight, meet & greet at arrivals, fare agreed before you travel.",
+    // 2026-11-13 (Batch 3): generic template descriptions replaced; 420 km / ~4 h from lib/data/routes.ts.
+    "jeddah-to-madinah": "Private car from Jeddah to Madinah, hotel to hotel — about 420 km, roughly 4 hours. Prayer and rest stops on request, one fare for the whole car, agreed before booking.",
+    "madinah-to-jeddah": "Private car from Madinah to Jeddah, hotel to hotel or to the airport — about 420 km, roughly 4 hours. Luggage-ready vehicles, stops on request, fare agreed before booking.",
+    // Banyan Tree AlUla named as a destination only (venues.md: no partnership). 35 km / 35 min from routes.ts.
+    "alula-airport-to-banyan-tree": "Private transfer from AlUla Airport (ULH) to Banyan Tree AlUla in Ashar Valley — about 35 km, 35 minutes. We track your flight, meet & greet at arrivals, fare agreed before you travel.",
+    "jeddah-airport-to-swissotel-makkah": "Taxi from Jeddah Airport (JED) to Swissotel Al Maqam Makkah — ~80 km, about 1 hour. Meet & greet, prayer and rest stops on request, fare confirmed on WhatsApp. 24/7.",
+    "red-sea-airport-to-neom": "Taxi from Red Sea International Airport (RSI) to NEOM — private transfer, meet & greet, professional drivers. Fare confirmed on WhatsApp before booking. 24/7.",
+    "riyadh-to-dubai": "Private car with driver, Riyadh to Dubai (UAE) — ~990 km via Al Batha–Ghuwaifat, door to door in one day. Fixed fare, border fees included, 24/7.",
+    "dubai-to-riyadh": "Private car with driver, Dubai (UAE) to Riyadh — ~990 km via Ghuwaifat–Al Batha, door to door. Fixed fare in writing, border fees included, 24/7.",
+    "manama-to-dammam": "Bahrain to Dammam private car via the King Fahd Causeway — ~70 km, about 1 hr, to your home, hotel or the train station. Causeway toll included.",
+    "manama-to-alkhobar": "Bahrain to Al Khobar private car across the King Fahd Causeway — ~50 km, about 50 min. Ideal weekend return. Causeway toll included, 24/7.",
+    "manama-to-riyadh": "Bahrain to Riyadh private car — ~450 km via the King Fahd Causeway, to your Riyadh address or RUH airport. Causeway toll included, 24/7.",
+    "alkhobar-to-manama": "Al Khobar to Bahrain private car across the King Fahd Causeway — ~50 km, about 50 min. Pickups in Khobar & Dhahran. Causeway toll included, 24/7.",
+    "doha-to-dammam": "Doha to Dammam private car via Abu Samra and Salwa — ~400 km, home, compound or DMM airport drop-off. Fixed fare, border fees included.",
+    "doha-to-riyadh": "Doha to Riyadh private car via Abu Samra and Salwa — ~580 km, door to door or to RUH airport. Fixed fare in writing, border fees included.",
+    "kuwait-to-dammam": "Kuwait to Dammam private car — ~436 km via Nuwaiseeb–Al Khafji to Dammam, Khobar, Dhahran or DMM airport. Fixed fare, border fees included.",
+    "kuwait-to-riyadh": "Kuwait to Riyadh private car with driver — ~650 km via Nuwaiseeb–Al Khafji to KAFD, Olaya or RUH. Corporate invoicing, border fees included.",
+    "alahsa-to-doha": "Al Ahsa to Doha private car — ~265 km via Salwa, the shortest Saudi road into Qatar. Fixed fare in writing, border fees included, 24/7.",
+    "riyadh-to-abudhabi": "Private car with driver, Riyadh to Abu Dhabi (UAE) — ~850 km via the Al Batha–Ghuwaifat border and the E11. Fixed fare, border fees included.",
+    "dammam-to-abudhabi": "Private car with driver, Dammam to Abu Dhabi (UAE) — ~750 km via the Al Batha–Ghuwaifat border; Khobar & Dhahran pickups. Border fees included.",
+    "jeddah-to-abudhabi": "Jeddah to Abu Dhabi by private car — ~1,750 km, best as a two-day trip; honest fly-vs-drive advice. Fixed fare, border fees included.",
+    "riyadh-to-doha": "Private car with driver, Riyadh to Doha (Qatar) — ~580 km via Al Ahsa and the Salwa border. Fixed fare in writing, border fees included, 24/7.",
+    "riyadh-to-manama": "Private car with driver, Riyadh to Manama (Bahrain) — ~450 km via the King Fahd Causeway, door to door, no train change. Causeway toll included.",
+    "dammam-to-kuwait": "Private car with driver, Dammam to Kuwait City — ~436 km along the coast via Al Khafji–Nuwaiseeb. Fixed fare in writing, border fees included.",
+    "dammam-to-manama": "Private car with driver, Dammam to Manama (Bahrain) — ~70 km across the King Fahd Causeway, from home, hotel or the station. Causeway toll included, 24/7.",
+    "dammam-to-doha": "Private car with driver, Dammam to Doha (Qatar) — ~400 km via Al Ahsa and the Salwa border. Fixed fare in writing, border fees included, 24/7.",
+    "riyadh-to-kuwait": "Private car with driver, Riyadh to Kuwait City — ~650 km via Al Khafji–Nuwaiseeb, the shortest crossing. Fixed fare, border fees included.",
+    "dammam-to-dubai": "Private car with driver, Dammam to Dubai (UAE) — ~890 km via Al Batha–Ghuwaifat and past Abu Dhabi. Fixed fare in writing, border fees included.",
+    "tabuk-to-aqaba": "Private transfer, Tabuk to Aqaba, Jordan — ~270 km via Haql and the Al Durrah crossing. Fixed fare in writing, border fees included, 24/7.",
+    "aqaba-to-tabuk": "Private transfer, Aqaba, Jordan to Tabuk — ~270 km via the Al Durrah crossing and Haql. Fixed fare in writing, border fees included, 24/7.",
+    "neom-to-aqaba": "Private transfer, NEOM to Aqaba, Jordan — up the Gulf of Aqaba coast via Haql and Al Durrah (~235 km from Sharma). Fixed fare, border fees included.",
+    "aqaba-to-neom": "Private transfer, Aqaba, Jordan to NEOM — via Al Durrah and the Saudi coast road (~235 km to Sharma). Fixed fare, border fees included, 24/7.",
+    "tabuk-to-amman": "Private transfer, Tabuk to Amman — ~455 km via the Halat Ammar–Al Mudawwara crossing, Ma'an and the Desert Highway. Fixed fare, border fees included.",
+    "amman-to-madinah": "Private transfer, Amman to Madinah — ~1,135 km via the Al Mudawwara–Halat Ammar crossing and Tabuk, best as a two-day trip. Fixed fare, border fees included.",
+    "amman-to-tabuk": "Private transfer, Amman to Tabuk — ~455 km via the Desert Highway and the Al Mudawwara–Halat Ammar crossing. Fixed fare in writing, border fees included.",
+    "amman-to-neom": "Private transfer, Amman to NEOM — ~550 km via Aqaba and the Durra–Al Durrah crossing, then the Red Sea coast road. Fixed fare, border fees included.",
+    "amman-to-alula": "Private transfer, Amman to AlUla — ~895 km via the Al Mudawwara–Halat Ammar crossing and Tabuk, best over two days. Fixed fare, border fees included.",
+    "alula-to-aqaba": "Private transfer, AlUla to Aqaba, Jordan — ~620 km via the Red Sea coast road, Haql and Al Durrah. Fixed fare in writing, border fees included.",
+    "tabuk-to-petra": "Private transfer, Tabuk to Petra (Wadi Musa) — ~275 km via the Halat Ammar–Al Mudawwara crossing and Ma'an. Fixed fare, border fees included.",
+    "tabuk-to-wadi-rum": "Private transfer, Tabuk to Wadi Rum — ~230 km via the Halat Ammar–Al Mudawwara crossing to the village or your camp's meeting point. Fixed fare.",
+    "neom-to-amman": "Private transfer, NEOM to Amman — via Haql, Al Durrah, Aqaba and the Desert Highway (~550 km from Sharma). Fixed fare, border fees included.",
+    "alula-to-amman": "Private transfer, AlUla to Amman — ~895 km via Tabuk and the Halat Ammar crossing; one long day or two with a Petra stop. Fixed fare, border fees included.",
+    "medinah-to-amman": "Private transfer, Madinah to Amman — ~1,135 km via Tabuk and the Halat Ammar crossing, best as a two-day trip. Fixed fare, border fees included.",
+  };
+
+  return {
+    title,
+    description: mkMeta?.description ?? DESCRIPTION_OVERRIDES[slug] ?? `Private transfer from ${route.fromCity} to ${route.toCity} — ${route.distance} km, approx ${approxDrive(route.duration)}. ${priceBlurb}, 24/7, professional drivers, no surge.`.slice(0, 160),
+    alternates: {
+      canonical: `https://taxisaudiarabia.com/routes/${slug}`,
+      ...(AR_ROUTE_SLUGS.includes(slug)
+        ? {
+            languages: {
+              en: `https://taxisaudiarabia.com/routes/${slug}`,
+              ar: `https://taxisaudiarabia.com/ar/routes/${slug}`,
+              "x-default": `https://taxisaudiarabia.com/routes/${slug}`,
+            },
+          }
+        : {}),
+    },
+    openGraph: {
+      title: mkMeta?.title ?? `Taxi from ${route.fromCity} to ${route.toCity}`,
+      description: mkMeta?.description ?? (route.description || `Book a taxi from ${route.fromCity} to ${route.toCity} with a clear price confirmed on WhatsApp. No surge, no hidden fees.`),
+      type: "website",
+    },
+    // Explicit twitter card so twitter.title uses THIS page's title instead of
+    // falling back to the site-wide default (G1 template fix — applies to every
+    // route, pure improvement, no visible/SERP title changed).
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: mkMeta?.description ?? DESCRIPTION_OVERRIDES[slug] ?? `Private transfer from ${route.fromCity} to ${route.toCity} — fare confirmed on WhatsApp, 24/7.`,
+    },
+  };
+}
+
+// Format a duration in minutes as "3h 30m" / "4h" / "45m". Uses floor for the
+// hour part so half-hour routes (e.g. 210 min) are not double-counted the way
+// Math.round(min/60) + (min%60) previously produced ("4h 30m" for 3.5 hrs).
+// Meta-description drive time. The old Math.round(min / 60) + "h" printed
+// "approx 0h" for any transfer under 30 min (e.g. Dhahran -> Dammam Airport).
+function approxDrive(totalMinutes: number): string {
+  if (totalMinutes < 60) return `${totalMinutes} min`;
+  const h = Math.floor(totalMinutes / 60);
+  const m = totalMinutes % 60;
+  return m ? `${h}h ${m} min` : `${h}h`;
+}
+
+function formatDuration(totalMinutes: number): string {
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  if (hours === 0) return `${minutes}m`;
+  return minutes > 0 ? `${hours}h ${minutes}m` : `${hours}h`;
+}
+
+export default async function RouteDetailsPage({ params }: PageProps) {
+  const { slug } = await params;
+  // Bespoke cross-border pages (Jordan cluster first, 2026-10-03) render their
+  // own unique layout + content from lib/data/cross-border-route-pages.ts.
+  const bespoke = CROSS_BORDER_ROUTE_PAGES[slug];
+  if (bespoke) return <CrossBorderRoutePage data={bespoke} />;
+  const rsiPage = RSI_ROUTE_PAGES[slug];
+  if (rsiPage) return <RedSeaRoutePage data={rsiPage} />;
+  const southPage = SOUTHERN_ROUTE_PAGES[slug] ?? JEDDAH_INTERCITY_ROUTE_PAGES[slug];
+  if (southPage) return <SouthernRoutePage data={southPage} />;
+  let route: Awaited<ReturnType<typeof db.route.findUnique>> = null;
+  try {
+    route = await db.route.findUnique({ where: { slug } });
+  } catch (error) {
+    console.error(`❌ Route page fetch failed for ${slug}. Falling back to static ROUTES_DATA — next revalidate will retry.`, error);
+  }
+
+  if (!route) route = staticRouteFallback(slug);
+  if (!route) {
+    notFound();
+  }
+
+  // Route-specific content (TLDR + bespoke FAQs) for priority corridors;
+  // falls back to generic FAQs for all other routes.
+  const mkContent = MAKKAH_ROUTE_CONTENT[slug];
+  const content = mkContent ?? ROUTE_CONTENT[slug];
+  const isMk = MAKKAH_CLUSTER_ROUTE_SLUGS.includes(slug);
+  const isMd = MADINAH_CLUSTER_ROUTE_SLUGS.includes(slug);
+  const airportIntent = slug === "riyadh-to-dammam" ? airportView(slug, "en") : undefined;
+  const faqs = [...(content?.faqs ?? DEFAULT_FAQS), ...(airportIntent?.faqs ?? [])];
+
+  const distanceGuide = DISTANCE_GUIDES.find((d) => d.routeSlug === slug);
+
+  const vehicles = [
+    { name: "Executive Sedan", note: "Latest Toyota Camry / Ford — 2025–26 models", key: "SEDAN", pax: 3, luggage: 2, img: "/fleet/toyota-camry.webp" },
+    { name: "Family SUV", note: "GMC Yukon / Suburban — spacious & premium", key: "SUV", pax: fleetCapacity("gmc-yukon-xl").passengers, luggage: fleetCapacity("gmc-yukon-xl").luggage, img: "/fleet/gmc-yukon-xl.webp" },
+    { name: "Luxury VIP", note: "Mercedes S-Class / Lexus — subject to route", key: "LUXURY", pax: 3, luggage: 3, img: "/fleet/mercedes-s-class.webp" },
+    { name: "Group Van", note: "Hyundai Staria — comfortable for groups", key: "VAN", pax: 7, luggage: 7, img: "/fleet/hyundai-staria.webp" },
+  ];
+
+  // Schema Markup
+  const schemaMarkup = {
+    "@context": "https://schema.org",
+    "@type": "TouristTrip",
+    "name": `${route.fromCity} to ${route.toCity} Transfer`,
+    "description": route.description,
+    "provider": { "@id": SITE.businessId },
+    "itinerary": {
+      "@type": "ItemList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "TouristAttraction",
+            "name": route.fromCity
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "TouristAttraction",
+            "name": route.toCity
+          }
+        }
+      ]
+    },
+  };
+
+  // Google Static Maps integration (Placeholder logic using standard maps URL if no key)
+  const mapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY;
+  const mapUrl = mapsApiKey
+    ? `https://maps.googleapis.com/maps/api/staticmap?size=800x400&path=color:0x16A34A|weight:4|${encodeURIComponent(route.fromCity)}|${encodeURIComponent(route.toCity)}&markers=color:black|label:A|${encodeURIComponent(route.fromCity)}&markers=color:black|label:B|${encodeURIComponent(route.toCity)}&key=${mapsApiKey}`
+    : `/routes/map-abstract.webp`; // Fallback beautiful map abstract
+
+  // Real vehicle photo for the hero panel, picked by trip type so the image
+  // matches the journey — airport meet & greet, long-haul highway, or city sedan.
+  // Abu Dhabi corridor gets a dedicated Corniche shot instead of the generic highway photo.
+  const heroCar = slug.includes("abudhabi")
+    ? "/routes/abudhabi-corniche-executive-suv-transfer.webp"
+    : slug.includes("airport")
+      ? "/gallery/airport-meet.webp"
+      : route.distance >= 250
+        ? "/gallery/highway-travel.webp"
+        : "/gallery/vip-sedan.webp";
+
+  // Routes that get the full lead-conversion pass (on-page form + easy
+  // structured prefills + mobile sticky CTA). Add a slug here to switch a route
+  // to the enhanced treatment; every other route keeps its existing behaviour.
+  const leadForm = LEAD_FORM_CONFIG[slug];
+  const corporate = CORPORATE_CONFIG[slug];
+  const umrahGroup = UMRAH_GROUP_CONFIG[slug];
+  // Cross-border corridor (lib/data/cross-border.ts) — drives the hub link,
+  // breadcrumb, border block and the route-specific WhatsApp prefill.
+  const corridor = getCorridorForRoute(slug);
+
+  // Easy-to-fill, structured WhatsApp prefill for the hero button. Kept short
+  // (3 fields) so a client can complete it in seconds. Only enhanced routes get
+  // it; all others keep their existing one-line prefill. Premium "private
+  // transfer" framing, not a cheap street-taxi tone.
+  const heroWaText = corridor
+    ? crossBorderWhatsAppText(route.fromCity, route.toCity, corridor)
+    : leadForm
+    ? `Salam! I'd like a private transfer — ${route.fromCity} to ${route.toCity}.\n• Date & time: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): `
+    : `Salam! I want to book a private transfer from ${route.fromCity} to ${route.toCity}.`;
+
+  return (
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
+      {/* Inject Schema Markup */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(faqs)) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema(
+              corridor
+                ? [
+                    { name: "Home", href: "/" },
+                    { name: "Border Crossings", href: "/services/border-crossings" },
+                    { name: corridor.pairLabel.replace("↔", "–"), href: `/cross-border/${corridor.slug}` },
+                    { name: `${route.fromCity} to ${route.toCity}`, href: `/routes/${slug}` },
+                  ]
+                : [
+                    { name: "Home", href: "/" },
+                    { name: "Routes", href: "/routes" },
+                    { name: `${route.fromCity} to ${route.toCity}`, href: `/routes/${slug}` },
+                  ]
+            )
+          ),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema({ path: `/routes/${slug}` })) }}
+      />
+
+      {/* ─── HERO & MAP ───────────────────────────────────────────── */}
+      <section className="relative pt-24 pb-12 overflow-hidden border-b border-[#C9A84C]/10">
+        <div className="absolute inset-0 z-0 opacity-30">
+          <Image src={mapUrl} alt={`Map route from ${route.fromCity} to ${route.toCity}`} fill sizes="100vw" className="object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/50 to-[#FAFAF7]/15" />
+        </div>
+
+        <div className="section-container relative z-10 max-w-5xl">
+          {/* Breadcrumbs */}
+          <div className="flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-wider text-[#6B7280] mb-8">
+            <Link href="/" className="hover:text-[#16A34A] transition-colors">Home</Link>
+            <ChevronRight className="h-3 w-3" />
+            {corridor ? (
+              <>
+                <Link href="/services/border-crossings" className="hover:text-[#16A34A] transition-colors">Border Crossings</Link>
+                <ChevronRight className="h-3 w-3" />
+                <Link href={`/cross-border/${corridor.slug}`} className="hover:text-[#16A34A] transition-colors">{corridor.pairLabel.replace("↔", "–")}</Link>
+              </>
+            ) : (
+              <Link href="/routes" className="hover:text-[#16A34A] transition-colors">Routes</Link>
+            )}
+            <ChevronRight className="h-3 w-3" />
+            <span className="text-[#16A34A]">{route.fromCity} to {route.toCity}</span>
+          </div>
+
+          {slug === "jeddah-airport-to-makkah" ? (
+            <div className="premium-dark-section bg-gradient-to-br from-[#16A34A] via-[#15803D] to-[#116B32] rounded-3xl p-8 sm:p-10 text-white shadow-2xl border border-[#C9A84C]/25 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-96 h-96 bg-[#C9A84C]/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="relative z-10 max-w-3xl space-y-6">
+                <div className="flex flex-wrap items-center gap-2.5">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C9A84C]/20 border border-[#C9A84C]/40 px-3.5 py-1 text-[0.65rem] font-bold uppercase tracking-widest text-[#FACC15]">
+                    <Plane className="h-3.5 w-3.5 text-[#FACC15]" />
+                    JED Airport Transfer
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 px-3.5 py-1 text-[0.65rem] font-bold uppercase tracking-widest text-white/90">
+                    <ShieldCheck className="h-3.5 w-3.5 text-[#16A34A]" />
+                    Pilgrim-Friendly · Prayer & Rest Stops
+                  </span>
+                </div>
+
+                <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight tracking-tight text-white">
+                  Taxi from Jeddah Airport <span className="text-[#FACC15]">to</span> Makkah
+                </h1>
+
+                <p className="text-sm sm:text-base text-white/85 leading-relaxed font-normal">
+                  Private transfer &amp; chauffeur service from King Abdulaziz International Airport (JED) directly to your hotel near Masjid al-Haram. 24/7 flight tracking with meet &amp; greet included.
+                </p>
+
+                <div className="flex flex-wrap items-center gap-3 pt-1">
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-xl px-4 py-2 border border-white/15 text-xs font-semibold">
+                    <MapPin className="h-4 w-4 text-[#FACC15]" />
+                    <span>~80 km</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-xl px-4 py-2 border border-white/15 text-xs font-semibold">
+                    <Clock className="h-4 w-4 text-[#FACC15]" />
+                    <span>~1 hour</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-xl px-4 py-2 border border-white/15 text-xs font-semibold">
+                    <CheckCircle2 className="h-4 w-4 text-[#16A34A]" />
+                    <span>Fare on WhatsApp</span>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3 pt-3">
+                  <Link
+                    href={`/book?pickup=${encodeURIComponent(route.fromCity)}&dropoff=${encodeURIComponent(route.toCity)}`}
+                    className="btn btn-accent btn-lg"
+                  >
+                    <span>Book Now</span>
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+
+                  <a
+                    href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                      `Salam! I want to book a taxi from Jeddah Airport to Makkah.`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-glass btn-lg"
+                  >
+                    <MessageSquare className="h-4 w-4 text-[#FACC15]" />
+                    <span>WhatsApp</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          ) : slug === "makkah-to-madinah" ? (
+            <div className="premium-dark-section bg-gradient-to-br from-[#16A34A] via-[#15803D] to-[#116B32] rounded-3xl p-8 sm:p-10 text-white shadow-2xl border border-[#C9A84C]/25 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-96 h-96 bg-[#C9A84C]/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute bottom-0 left-0 w-72 h-72 bg-[#16A34A]/8 rounded-full blur-3xl pointer-events-none" />
+              <div className="relative z-10 max-w-3xl space-y-6">
+                <div className="flex flex-wrap items-center gap-2.5">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C9A84C]/20 border border-[#C9A84C]/40 px-3.5 py-1 text-[0.65rem] font-bold uppercase tracking-widest text-[#FACC15]">
+                    <Navigation className="h-3.5 w-3.5 text-[#FACC15]" />
+                    Intercity Private Transfer
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 px-3.5 py-1 text-[0.65rem] font-bold uppercase tracking-widest text-white/90">
+                    <ShieldCheck className="h-3.5 w-3.5 text-[#16A34A]" />
+                    Clear Pricing · No Surge
+                  </span>
+                </div>
+
+                <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight tracking-tight text-white">
+                  Taxi from Makkah <span className="text-[#FACC15]">to</span> Madinah
+                </h1>
+
+                <p className="text-sm sm:text-base text-white/85 leading-relaxed font-normal">
+                  Private intercity transfer between the two Holy Cities. Comfortable vehicles for families and luggage, with prayer and rest stops along the Haramain highway.
+                </p>
+
+                <div className="flex flex-wrap items-center gap-3 pt-1">
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-xl px-4 py-2 border border-white/15 text-xs font-semibold">
+                    <MapPin className="h-4 w-4 text-[#FACC15]" />
+                    <span>~430 km</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-xl px-4 py-2 border border-white/15 text-xs font-semibold">
+                    <Clock className="h-4 w-4 text-[#FACC15]" />
+                    <span>~4 hours</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-xl px-4 py-2 border border-white/15 text-xs font-semibold">
+                    <CheckCircle2 className="h-4 w-4 text-[#16A34A]" />
+                    <span>Fare on WhatsApp</span>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3 pt-3">
+                  <Link
+                    href={`/book?pickup=${encodeURIComponent(route.fromCity)}&dropoff=${encodeURIComponent(route.toCity)}`}
+                    className="btn btn-accent btn-lg"
+                  >
+                    <span>Book Now</span>
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+
+                  <a
+                    href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                      `Salam! I want to book a private transfer from Makkah to Madinah.`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-glass btn-lg"
+                  >
+                    <MessageSquare className="h-4 w-4 text-[#FACC15]" />
+                    <span>WhatsApp</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="premium-dark-section relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#16A34A] via-[#15803D] to-[#116B32] p-8 sm:p-10 text-white shadow-2xl border border-[#C9A84C]/25">
+              {/* Real vehicle photo, right side, fading into the green so the
+                  car is clearly visible while the copy stays fully readable. */}
+              <div className="absolute inset-y-0 right-0 hidden sm:block sm:w-3/5 pointer-events-none">
+                <Image
+                  src={heroCar}
+                  alt={`Private transfer from ${route.fromCity} to ${route.toCity}`}
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 0vw, 60vw"
+                  className="object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#16A34A] via-[#16A34A]/70 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#116B32]/70 via-transparent to-transparent" />
+              </div>
+
+              <div className="relative z-10 max-w-xl space-y-6">
+                <div className="flex flex-wrap items-center gap-2.5">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C9A84C]/20 border border-[#C9A84C]/40 px-3.5 py-1 text-[0.65rem] font-bold uppercase tracking-widest text-[#FACC15]">
+                    <Navigation className="h-3.5 w-3.5 text-[#FACC15]" />
+                    {slug.includes("airport") ? "Airport Transfer" : "Private Transfer"}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 px-3.5 py-1 text-[0.65rem] font-bold uppercase tracking-widest text-white/90">
+                    <ShieldCheck className="h-3.5 w-3.5 text-[#FACC15]" />
+                    Clear Pricing · No Surge
+                  </span>
+                </div>
+
+                <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight tracking-tight text-white">
+                  {route.fromCity} <span className="text-[#FACC15]">to</span> {route.toCity}
+                  {slug === "riyadh-to-dammam" || slug === "kuwait-to-dammam" || slug === "kuwait-to-riyadh" ? " Taxi" : MAKKAH_ROUTE_META[slug] ? " Private Transfer" : ""}
+                </h1>
+
+                <p className="text-sm sm:text-base text-white/85 leading-relaxed font-normal max-w-lg">
+                  {route.description}
+                </p>
+
+                <div className="flex flex-wrap items-center gap-3 pt-1">
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-xl px-4 py-2 border border-white/15 text-xs font-semibold">
+                    <MapPin className="h-4 w-4 text-[#FACC15]" />
+                    <span>~{route.distance} km</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-xl px-4 py-2 border border-white/15 text-xs font-semibold">
+                    <Clock className="h-4 w-4 text-[#FACC15]" />
+                    <span>~{formatDuration(route.duration)}</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-xl px-4 py-2 border border-white/15 text-xs font-semibold">
+                    <CheckCircle2 className="h-4 w-4 text-[#FACC15]" />
+                    <span>Fare on WhatsApp</span>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3 pt-3">
+                  <Link
+                    href={`/book?pickup=${encodeURIComponent(route.fromCity)}&dropoff=${encodeURIComponent(route.toCity)}`}
+                    className="btn btn-accent btn-lg"
+                  >
+                    <span>Book Now</span>
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+
+                  <a
+                    href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(heroWaText)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-glass btn-lg"
+                  >
+                    <MessageSquare className="h-4 w-4 text-[#FACC15]" />
+                    <span>WhatsApp</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <div className="section-container max-w-5xl mt-12 grid grid-cols-1 lg:grid-cols-3 gap-12">
+        {/* ─── LEFT COLUMN (Details) ──────────────────────────────── */}
+        <div className="lg:col-span-2 space-y-12">
+
+          {/* Quick Answer (above-the-fold AI/snippet signal) */}
+          {content?.tldr && (
+            <TLDRSummary answer={content.tldr} facts={content.tldrFacts} />
+          )}
+
+          {/* Stylized route diagram — real distance/time from route data only. */}
+          <RouteJourney
+            from={route.fromCity}
+            to={route.toCity}
+            distance={`~${route.distance} km`}
+            duration={`~${formatDuration(route.duration)}`}
+            vehicleLabel="Private car & chauffeur"
+          />
+
+          {/* On-page lead form — easy, structured, hands off to WhatsApp with the
+              trip pre-filled. Private-transfer framing. Config-driven per slug. */}
+          {leadForm && (
+            <section id="route-quote">
+              <div className="section-head mb-6">
+                <span className="t-eyebrow">Private Transfer Quote</span>
+                <h2 className="t-h2 !text-[clamp(1.5rem,2.6vw,2rem)]">
+                  {leadForm.heading}
+                </h2>
+                <p className="t-lead !text-[0.95rem]">
+                  {leadForm.blurb}
+                </p>
+              </div>
+              {corridor ? (
+                <WhatsAppQuoteForm
+                  defaultPickup={leadForm.pickup}
+                  defaultDropoff={leadForm.dropoff}
+                  pickupPlaceholder={`Pickup address in ${route.fromCity}`}
+                  dropoffPlaceholder={`Drop-off address in ${route.toCity}`}
+                  messageIntro={`Hello, I'd like a quote for a private cross-border transfer from ${placeWithCountry(route.fromCity, corridor)} to ${placeWithCountry(route.toCity, corridor)}.`}
+                  showNotes
+                  submitLabel="Request a Cross-Border Quote"
+                />
+              ) : (
+                <WhatsAppQuoteForm defaultPickup={leadForm.pickup} defaultDropoff={leadForm.dropoff} />
+              )}
+            </section>
+          )}
+
+          {/* Contextual Internal Links for JED -> Makkah */}
+          {slug === "jeddah-airport-to-makkah" && (
+            <div className="rounded-2xl border border-[#16A34A]/20 bg-[#F0FDF4] p-4 text-xs text-[#334155] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <span className="font-medium">Planning your flight arrival or pilgrimage logistics?</span>
+              <div className="flex flex-wrap items-center gap-4 font-bold shrink-0">
+                <Link href="/airports/king-abdulaziz-jeddah" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
+                  Jeddah Airport Transfer Guide &rarr;
+                </Link>
+                <Link href="/services/umrah-transport" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
+                  Umrah Transport Services &rarr;
+                </Link>
+              </div>
+            </div>
+          )}
+
+          {/* Contextual Internal Links for Makkah -> Madinah */}
+          {slug === "makkah-to-madinah" && (
+            <div className="rounded-2xl border border-[#16A34A]/20 bg-[#F0FDF4] p-4 text-xs text-[#334155] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <span className="font-medium">Travelling between the Holy Cities for Umrah?</span>
+              <div className="flex flex-wrap items-center gap-4 font-bold shrink-0">
+                <Link href="/airports/prince-mohammad-madinah" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
+                  Madinah Airport (MED) taxi &rarr;
+                </Link>
+                <Link href="/services/umrah-transport" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
+                  Umrah Transport Services &rarr;
+                </Link>
+                <Link href="/services/madinah-ziyarat" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
+                  Madinah Ziyarat Tours &rarr;
+                </Link>
+              </div>
+            </div>
+          )}
+
+          {/* Contextual Internal Links for Jeddah -> Madinah (Madinah cluster) */}
+          {slug === "jeddah-to-madinah" && (
+            <div className="rounded-2xl border border-[#16A34A]/20 bg-[#F0FDF4] p-4 text-xs text-[#334155] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <span className="font-medium">Arriving for Umrah or Ziyarah in Madinah?</span>
+              <div className="flex flex-wrap items-center gap-4 font-bold shrink-0">
+                <Link href="/airports/prince-mohammad-madinah" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
+                  Madinah Airport (MED) taxi &rarr;
+                </Link>
+                <Link href="/routes/makkah-to-madinah" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
+                  Makkah to Madinah taxi &rarr;
+                </Link>
+                <Link href="/locations/madinah" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
+                  Madinah chauffeur service &rarr;
+                </Link>
+              </div>
+            </div>
+          )}
+
+          {distanceGuide && (
+            <Link
+              href={`/distance/${distanceGuide.slug}`}
+              className="flex items-center justify-between gap-3 rounded-2xl border border-[#16A34A]/20 bg-[#F0FDF4] px-5 py-4 hover:border-[#16A34A]/45 transition-colors"
+            >
+              <span className="text-sm font-semibold text-[#166534]">
+                {route.fromCity} to {route.toCity} distance, driving time &amp; journey guide
+              </span>
+              <ArrowRight className="h-4 w-4 text-[#16A34A] shrink-0" />
+            </Link>
+          )}
+
+          {/* Vehicles & Pricing */}
+          <section>
+            <h2 className="font-heading text-2xl font-bold mb-6 flex items-center gap-3">
+              <Car className="text-[#C9A84C]" />
+              {isMk ? "Choose the Right Vehicle for Your Group" : <>Vehicle Options for {route.fromCity} to {route.toCity}</>}
+            </h2>
+            <p className="text-[0.7rem] text-[#6B7280] mb-6">* All fares are fixed with zero surge pricing — confirmed on WhatsApp or email prior to dispatch.</p>
+            <div className="grid sm:grid-cols-2 gap-5">
+              {vehicles.map((v) => (
+                <div key={v.key} className="border border-[#16A34A]/15 rounded-2xl bg-white overflow-hidden group hover:border-[#16A34A]/40 transition-all duration-300 shadow-sm hover:shadow-md flex flex-col justify-between">
+                  <div>
+                    <div className="h-36 relative overflow-hidden bg-[#FAFAF7]">
+                      <Image src={v.img} alt={`${v.name} for ${route.fromCity} to ${route.toCity} transfer`} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent" />
+                      <span className="absolute top-3 right-3 rounded-full bg-[#16A34A]/90 backdrop-blur-md px-3 py-1 text-[0.6rem] font-bold text-white uppercase tracking-wider">
+                        Clear Quote
+                      </span>
+                    </div>
+                    <div className="p-5 relative -mt-4">
+                      <div className="flex justify-between items-start mb-3">
+                        <div>
+                          <h3 className="font-bold text-lg text-[#1C1C1C]">{v.name}</h3>
+                          <p className="text-[0.68rem] text-[#16A34A] font-semibold mt-0.5">{v.note}</p>
+                          <div className="flex items-center gap-3 text-[0.7rem] text-[#6B7280] font-semibold mt-1">
+                            <span className="flex items-center gap-1"><Users className="h-3.5 w-3.5 text-[#C9A84C]" /> {v.pax} Passengers</span>
+                            <span className="flex items-center gap-1"><Briefcase className="h-3.5 w-3.5 text-[#C9A84C]" /> {v.luggage} Bags</span>
+                          </div>
+                        </div>
+                        <a
+                          href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                            `Salam! I'd like a quote:\n\n• Vehicle: ${v.name}\n• From: ${route.fromCity}\n• To: ${route.toCity}\n• Date & time: \n• Passengers: `
+                          )}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="shrink-0 flex flex-col items-end gap-1.5"
+                        >
+                          <span className="text-[0.55rem] uppercase tracking-wider text-[#6B7280]">Fare</span>
+                          <span className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-[#16A34A] px-3 py-1.5 text-[0.62rem] font-bold uppercase tracking-wide text-white hover:bg-[#15803D] transition-colors">
+                            <MessageSquare className="h-3 w-3" />
+                            Request Quote
+                          </span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="px-5 pb-5 pt-0">
+                    <Link
+                      href={`/book?pickup=${encodeURIComponent(route.fromCity)}&dropoff=${encodeURIComponent(route.toCity)}&vehicle=${v.key}`}
+                      className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#F0FDF4] border border-[#16A34A]/25 py-2.5 text-xs font-bold uppercase text-[#16A34A] hover:bg-[#16A34A] hover:text-white transition-all"
+                    >
+                      Book This Vehicle <ArrowRight className="h-3.5 w-3.5" />
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ─── CROSS-BORDER CORRIDOR BLOCK (lib/data/cross-border.ts) ─── */}
+          {corridor && (
+            <CrossBorderRouteSections
+              slug={slug}
+              fromCity={route.fromCity}
+              toCity={route.toCity}
+              corridor={corridor}
+              showJourney={!KUWAIT_ROUTE_SECTIONS[slug]}
+            />
+          )}
+
+          {/* ─── BESPOKE KUWAIT CROSS-BORDER SECTIONS (data-driven) ─── */}
+          {KUWAIT_ROUTE_SECTIONS[slug] && (
+            <KuwaitRouteSections
+              slug={slug}
+              fromCity={route.fromCity}
+              toCity={route.toCity}
+              whatsappNumber={contactConfig.whatsappNumber}
+              config={KUWAIT_ROUTE_SECTIONS[slug]}
+            />
+          )}
+
+          {/* ─── 4-STEP TRANSFER PROCESS (JED -> Makkah) ─── */}
+          {slug === "jeddah-airport-to-makkah" && (
+            <section className="bg-white border border-[#16A34A]/15 rounded-3xl p-8 shadow-sm">
+              <div className="mb-8">
+                <span className="t-eyebrow">Simple 4-Step Process</span>
+                <h2 className="font-heading text-2xl font-bold mt-1 text-[#1C1C1C]">
+                  How Your Jeddah Airport Transfer Works
+                </h2>
+              </div>
+
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                {[
+                  { step: "1", title: "Flight Tracked", desc: "We monitor your flight status in real time for delays.", icon: Plane },
+                  { step: "2", title: "Meet Your Driver", desc: "Meet your driver at the agreed airport pickup point.", icon: UserCheck },
+                  { step: "3", title: "Prayer or Rest Stop", desc: "Request a prayer or rest stop in advance if you need one.", icon: Compass },
+                  { step: "4", title: "Makkah Hotel Drop-Off", desc: "Direct drop-off at your requested Makkah destination.", icon: MapPin },
+                ].map((s, idx) => {
+                  const Icon = s.icon;
+                  return (
+                    <div key={idx} className="bg-[#FAFAF7] rounded-2xl p-5 border border-[#16A34A]/10 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center justify-between mb-4">
+                          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#16A34A] text-xs font-bold text-white">
+                            {s.step}
+                          </span>
+                          <Icon className="h-5 w-5 text-[#C9A84C]" />
+                        </div>
+                        <h3 className="font-bold text-sm text-[#1C1C1C] mb-1.5">{s.title}</h3>
+                        <p className="text-xs text-[#6B7280] leading-relaxed">{s.desc}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+          )}
+
+          {/* ─── 4-STEP TRANSFER PROCESS (Makkah -> Madinah) ─── */}
+          {slug === "makkah-to-madinah" && (
+            <section className="bg-white border border-[#16A34A]/15 rounded-3xl p-8 shadow-sm">
+              <div className="mb-8">
+                <span className="t-eyebrow">Simple 4-Step Process</span>
+                <h2 className="font-heading text-2xl font-bold mt-1 text-[#1C1C1C]">
+                  How Your Makkah to Madinah Transfer Works
+                </h2>
+              </div>
+
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                {[
+                  { step: "1", title: "Makkah Pickup", desc: "Driver collects you from your requested Makkah pickup point.", icon: MapPin },
+                  { step: "2", title: "Haramain Highway", desc: "Comfortable drive on the Haramain highway towards Madinah.", icon: Navigation },
+                  { step: "3", title: "Prayer & Rest Stop", desc: "Optional stops for prayer, food, or refreshments along the way.", icon: Coffee },
+                  { step: "4", title: "Madinah Drop-Off", desc: "Direct drop-off at your requested Madinah destination.", icon: MapPin },
+                ].map((s, idx) => {
+                  const Icon = s.icon;
+                  return (
+                    <div key={idx} className="bg-[#FAFAF7] rounded-2xl p-5 border border-[#16A34A]/10 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center justify-between mb-4">
+                          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#16A34A] text-xs font-bold text-white">
+                            {s.step}
+                          </span>
+                          <Icon className="h-5 w-5 text-[#C9A84C]" />
+                        </div>
+                        <h3 className="font-bold text-sm text-[#1C1C1C] mb-1.5">{s.title}</h3>
+                        <p className="text-xs text-[#6B7280] leading-relaxed">{s.desc}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+          )}
+
+          {/* ─── WHAT'S INCLUDED TRUST STRIP (JED -> Makkah) ─── */}
+          {slug === "jeddah-airport-to-makkah" && (
+            <section className="bg-gradient-to-r from-[#F0FDF4] via-white to-[#F0FDF4] border border-[#16A34A]/20 rounded-3xl p-8 shadow-sm">
+              <h2 className="font-heading text-xl font-bold mb-6 flex items-center gap-2 text-[#1C1C1C]">
+                <ShieldCheck className="h-5 w-5 text-[#16A34A]" />
+                What&apos;s Included in Your JED ➔ Makkah Transfer
+              </h2>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {[
+                  { title: "Clear-Price Private Transfer", desc: "Confirmed upfront fare with zero surge pricing." },
+                  { title: "Meet & Greet Service", desc: "Driver waits in the arrivals hall with a name sign." },
+                  { title: "Real-Time Flight Tracking", desc: "We track your landing time automatically." },
+                  { title: "15–30 Mins Free Waiting", desc: "Time for baggage collection and customs." },
+                  { title: "Direct Hotel Drop-Off", desc: "Door-to-door service at your Makkah hotel." },
+                  { title: "Prayer & Rest Stops", desc: "Available on request along the way." },
+                ].map((item, idx) => (
+                  <div key={idx} className="flex gap-3 bg-white p-4 rounded-2xl border border-[#16A34A]/12 shadow-2xs">
+                    <CheckCircle2 className="h-5 w-5 text-[#16A34A] shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="font-bold text-xs text-[#1C1C1C]">{item.title}</h4>
+                      <p className="text-[0.7rem] text-[#6B7280] mt-0.5">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* ─── WHAT'S INCLUDED TRUST STRIP (Makkah -> Madinah) ─── */}
+          {slug === "makkah-to-madinah" && (
+            <section className="bg-gradient-to-r from-[#F0FDF4] via-white to-[#F0FDF4] border border-[#16A34A]/20 rounded-3xl p-8 shadow-sm">
+              <h2 className="font-heading text-xl font-bold mb-6 flex items-center gap-2 text-[#1C1C1C]">
+                <ShieldCheck className="h-5 w-5 text-[#16A34A]" />
+                What&apos;s Included in Your Makkah ➔ Madinah Transfer
+              </h2>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {[
+                  { title: "Clear-Price Private Transfer", desc: "Confirmed upfront fare — no surge, tolls included." },
+                  { title: "24/7 Booking & Contact", desc: "Book and travel any time, day or night." },
+                  { title: "Spacious Luggage Capacity", desc: "SUVs and vans available for families with luggage." },
+                  { title: "Prayer & Rest Stops", desc: "Complimentary stops along the highway on request." },
+                  { title: "Makkah Pickup", desc: "Collected from your requested Makkah pickup point." },
+                  { title: "Madinah Drop-Off", desc: "Direct drop-off at your requested Madinah destination." },
+                ].map((item, idx) => (
+                  <div key={idx} className="flex gap-3 bg-white p-4 rounded-2xl border border-[#16A34A]/12 shadow-2xs">
+                    <CheckCircle2 className="h-5 w-5 text-[#16A34A] shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="font-bold text-xs text-[#1C1C1C]">{item.title}</h4>
+                      <p className="text-[0.7rem] text-[#6B7280] mt-0.5">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* ─── PILGRIM INTENT VISUAL BLOCK (JED -> Makkah) ─── */}
+          {slug === "jeddah-airport-to-makkah" && (
+            <section className="bg-white border border-[#C9A84C]/25 rounded-3xl p-8 relative overflow-hidden shadow-sm">
+              <div className="max-w-2xl space-y-4">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#16A34A]">
+                  Umrah &amp; Hajj Pilgrims
+                </span>
+                <h2 className="font-heading text-2xl font-bold text-[#1C1C1C]">
+                  Jeddah Airport to Makkah for Umrah Travelers
+                </h2>
+                <p className="text-xs sm:text-sm text-[#6B7280] leading-relaxed">
+                  Arriving at King Abdulaziz International Airport (JED) for Umrah? Whether your flight lands late at night or early in the morning, 24/7 pre-booked private transfers make the journey seamless. We provide spacious vehicles for family luggage, direct drop-off at your requested Makkah destination, and prayer or rest stops on request.
+                </p>
+                <div className="flex flex-wrap items-center gap-4 pt-2 text-xs font-bold">
+                  <Link href="/services/umrah-transport" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
+                    Umrah Transport Services &rarr;
+                  </Link>
+                  <Link href="/services/makkah-ziyarat" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
+                    Makkah Ziyarat Tours &rarr;
+                  </Link>
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* ─── PILGRIM INTENT VISUAL BLOCK (Makkah -> Madinah) ─── */}
+          {slug === "makkah-to-madinah" && (
+            <section className="bg-white border border-[#C9A84C]/25 rounded-3xl p-8 relative overflow-hidden shadow-sm">
+              <div className="max-w-2xl space-y-4">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#16A34A]">
+                  Umrah Travelers
+                </span>
+                <h2 className="font-heading text-2xl font-bold text-[#1C1C1C]">
+                  Makkah to Madinah Taxi for Umrah Travelers
+                </h2>
+                <p className="text-xs sm:text-sm text-[#6B7280] leading-relaxed">
+                  Completing your Umrah in Makkah and continuing to Madinah? This private intercity transfer covers the approximately 430 km journey in around 4 hours via the Haramain highway. Suitable for individuals, couples, and families — with spacious vehicles for luggage and prayer or rest stops along the way. The fare is fixed, confirmed on WhatsApp and confirmed before booking.
+                </p>
+                <div className="flex flex-wrap items-center gap-4 pt-2 text-xs font-bold">
+                  <Link href="/locations/makkah" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
+                    Makkah taxi services &rarr;
+                  </Link>
+                  <Link href="/locations/madinah" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
+                    Madinah taxi services &rarr;
+                  </Link>
+                  <Link href="/services/umrah-transport" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
+                    Umrah transport &rarr;
+                  </Link>
+                  <Link href="/services/madinah-ziyarat" className="text-[#16A34A] hover:underline inline-flex items-center gap-1">
+                    Madinah Ziyarat tours &rarr;
+                  </Link>
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* Route Tips */}
+          <section className="bg-white border border-[#16A34A]/12 rounded-3xl p-8">
+            <h2 className="font-heading text-2xl font-bold mb-6 flex items-center gap-3">
+              <AlertTriangle className="text-[#C9A84C]" />
+              {isMk ? <>{route.fromCity} to {route.toCity}: Route Details &amp; Tips</> : <>Route Tips &amp; Information</>}
+            </h2>
+            <ul className="space-y-4">
+              <li className="flex gap-4">
+                <CheckCircle2 className="h-5 w-5 text-[#C9A84C] shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="font-bold text-sm">Clear, All-Inclusive Pricing</h4>
+                  <p className="text-xs text-[#6B7280] mt-1">Your fare is confirmed with you on WhatsApp before booking. No hidden fees, no surge pricing, tolls and taxes included.</p>
+                </div>
+              </li>
+              <li className="flex gap-4">
+                <CheckCircle2 className="h-5 w-5 text-[#C9A84C] shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="font-bold text-sm">Meet &amp; Greet Service</h4>
+                  <p className="text-xs text-[#6B7280] mt-1">Your driver will wait at the pickup location holding a name sign with your name on it.</p>
+                </div>
+              </li>
+              <li className="flex gap-4">
+                <ShieldCheck className="h-5 w-5 text-[#C9A84C] shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="font-bold text-sm">English &amp; Arabic-Speaking Drivers</h4>
+                  <p className="text-xs text-[#6B7280] mt-1">
+                    {hasCredential(credentials.motLicenseNumber)
+                      ? `Drivers in our partner network speak English and Arabic (Licence ${credentials.motLicenseNumber}).`
+                      : "Drivers in our partner network speak English and Arabic, and trips run 24 hours a day."}
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </section>
+
+          {/* ─── INLINE BOOKING CTA BEFORE FAQ (JED -> Makkah) ─── */}
+          {slug === "jeddah-airport-to-makkah" && (
+            <section className="premium-dark-section bg-gradient-to-br from-[#16A34A] to-[#116B32] rounded-3xl p-8 sm:p-10 text-white text-center shadow-xl space-y-6">
+              <div className="max-w-xl mx-auto space-y-3">
+                <h2 className="font-heading text-2xl sm:text-3xl font-extrabold">
+                  Ready to Travel from Jeddah Airport to Makkah?
+                </h2>
+                <p className="text-xs sm:text-sm text-white/90 leading-relaxed">
+                  Book your private transfer in under 2 minutes. Free cancellation up to 24 hours before pickup.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap justify-center items-center gap-4 text-xs font-bold uppercase tracking-wider pt-2">
+                <Link
+                  href={`/book?pickup=${encodeURIComponent(route.fromCity)}&dropoff=${encodeURIComponent(route.toCity)}`}
+                  className="rounded-full bg-[#FACC15] px-8 py-3.5 text-[#1C1C1C] hover:bg-[#e5b810] transition-all hover:scale-105 shadow-md"
+                >
+                  Book Jeddah Airport ➔ Makkah
+                </Link>
+                <a
+                  href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                    `Salam! I want to book a taxi from Jeddah Airport to Makkah.`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full bg-white px-7 py-3.5 text-[#16A34A] hover:bg-white/90 transition-all hover:scale-105"
+                >
+                  WhatsApp Booking
+                </a>
+              </div>
+            </section>
+          )}
+
+          {/* ─── INLINE BOOKING CTA BEFORE FAQ (Makkah -> Madinah) ─── */}
+          {slug === "makkah-to-madinah" && (
+            <section className="premium-dark-section bg-gradient-to-br from-[#16A34A] to-[#116B32] rounded-3xl p-8 sm:p-10 text-white text-center shadow-xl space-y-6">
+              <div className="max-w-xl mx-auto space-y-3">
+                <h2 className="font-heading text-2xl sm:text-3xl font-extrabold">
+                  Ready to Travel from Makkah to Madinah?
+                </h2>
+                <p className="text-xs sm:text-sm text-white/90 leading-relaxed">
+                  Book your private transfer in under 2 minutes. Free cancellation up to 24 hours before pickup.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap justify-center items-center gap-4 text-xs font-bold uppercase tracking-wider pt-2">
+                <Link
+                  href={`/book?pickup=${encodeURIComponent(route.fromCity)}&dropoff=${encodeURIComponent(route.toCity)}`}
+                  className="rounded-full bg-[#FACC15] px-8 py-3.5 text-[#1C1C1C] hover:bg-[#e5b810] transition-all hover:scale-105 shadow-md"
+                >
+                  Book Makkah ➔ Madinah Taxi
+                </Link>
+                <a
+                  href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                    `Salam! I want to book a private transfer from Makkah to Madinah.`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full bg-white px-7 py-3.5 text-[#16A34A] hover:bg-white/90 transition-all hover:scale-105"
+                >
+                  WhatsApp Booking
+                </a>
+              </div>
+            </section>
+          )}
+
+          {slug === "riyadh-to-al-qassim-airport" && <QassimAirportSections locale="en" />}
+
+          {(slug === "makkah-to-madinah" || slug === "madinah-to-makkah") && (
+            <HolyCitySections locale="en" dir={slug} />
+          )}
+
+          {(slug === "jeddah-to-madinah" || slug === "madinah-to-jeddah") && (
+            <JeddahMadinahSections locale="en" dir={slug} />
+          )}
+
+          {/* ─── WHAT'S INCLUDED + PRIVATE-VS-PUBLIC (Riyadh -> Dammam) ───
+              Every line below is confirmed in seo/facts.md (2026-10-01 / 2026-10-03).
+              {{TODO}} tolls/fuel inclusion, quote turnaround, driver vetting — not stated until confirmed. */}
+          {slug === "riyadh-to-dammam" && (
+            <section className="bg-white border border-[#16A34A]/12 rounded-3xl p-8 shadow-sm">
+              <div className="max-w-3xl space-y-5">
+                <h2 className="font-heading text-2xl font-bold text-[#1C1C1C]">What you get on a Riyadh to Dammam private transfer</h2>
+                <p className="text-sm text-[#4B5563] leading-relaxed">
+                  A private transfer means one vehicle and one chauffeur for your party only, not a shared ride. The terms below apply to every booking on this route.
+                </p>
+                <ul className="grid gap-3 sm:grid-cols-2 text-sm text-[#1C1C1C]">
+                  {[
+                    "Fixed fare quoted and agreed before you book — no meter, no surge",
+                    "Free cancellation up to 24 hours before pickup",
+                    "15–30 minutes of free waiting time",
+                    "Pay the driver in cash or by bank transfer; e-receipt on request",
+                    "English- and Arabic-speaking drivers",
+                    "Available 24/7, including early-morning and late-night departures",
+                  ].map((t) => (
+                    <li key={t} className="flex items-start gap-2">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#16A34A]" />
+                      <span>{t}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <h3 className="font-heading text-xl font-bold text-[#1C1C1C] pt-2">Private car, train or bus between Riyadh and Dammam?</h3>
+                <p className="text-sm text-[#4B5563] leading-relaxed">
+                  A private car is the better fit when you travel with luggage, as a family or team, or need to start and finish at specific addresses on your own schedule. Public options can be cheaper per person for a solo traveller who is happy to work around fixed stations and timetables, so compare before you decide.
+                </p>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-sm">
+                    <caption className="sr-only">Private transfer compared with public transport between Riyadh and Dammam</caption>
+                    <thead>
+                      <tr className="border-b border-[#16A34A]/20 text-[#1C1C1C]">
+                        <th scope="col" className="py-2 pr-4 font-semibold">Consideration</th>
+                        <th scope="col" className="py-2 pr-4 font-semibold">Private transfer</th>
+                        <th scope="col" className="py-2 font-semibold">Train or bus</th>
+                      </tr>
+                    </thead>
+                    <tbody className="text-[#4B5563]">
+                      <tr className="border-b border-[#16A34A]/10"><th scope="row" className="py-2 pr-4 font-medium text-[#1C1C1C]">Pickup and drop-off</th><td className="py-2 pr-4">Your address, hotel or office</td><td className="py-2">Fixed station or stop</td></tr>
+                      <tr className="border-b border-[#16A34A]/10"><th scope="row" className="py-2 pr-4 font-medium text-[#1C1C1C]">Departure time</th><td className="py-2 pr-4">You choose, any hour</td><td className="py-2">Set timetable</td></tr>
+                      <tr className="border-b border-[#16A34A]/10"><th scope="row" className="py-2 pr-4 font-medium text-[#1C1C1C]">Luggage and group</th><td className="py-2 pr-4">Sedan, SUV or van sized to your party</td><td className="py-2">Per-ticket limits</td></tr>
+                      <tr><th scope="row" className="py-2 pr-4 font-medium text-[#1C1C1C]">Cost</th><td className="py-2 pr-4">One fixed fare per vehicle, shared across the party</td><td className="py-2">Priced per passenger</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="flex flex-wrap items-center gap-3 pt-1">
+                  <a
+                    href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                      `Salam! I'd like a private transfer — Riyadh to Dammam.
+• From (area/hotel in Riyadh): 
+• To (area/hotel in Dammam): 
+• Date & time: 
+• Passengers & luggage: 
+• Vehicle (Sedan / SUV / Van): `,
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-primary"
+                  >
+                    <MessageSquare className="h-4 w-4 text-[#FACC15]" />
+                    Get a fixed fare on WhatsApp
+                  </a>
+                  <Link href="/services/corporate" className="btn btn-secondary">
+                    Corporate quote and invoicing
+                  </Link>
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* ─── REVERSE-INTENT SECTION (Dammam -> Riyadh) ─── */}
+          {slug === "riyadh-to-dammam" && (
+            <section className="bg-white border border-[#16A34A]/12 rounded-3xl p-8 shadow-sm">
+              <div className="max-w-2xl space-y-4">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#16A34A]">
+                  <Navigation className="h-3.5 w-3.5" />
+                  Return &amp; Reverse Direction
+                </span>
+                <h2 className="font-heading text-2xl font-bold text-[#1C1C1C]">
+                  Dammam to Riyadh Private Transfer
+                </h2>
+                <p className="text-xs sm:text-sm text-[#6B7280] leading-relaxed">
+                  We arrange the Dammam to Riyadh direction as well as the outbound trip — book a taxi from Dammam to Riyadh one-way, or a same-day return for meetings in the capital. It is the same private, door-to-door service: a professional chauffeur collects you from your Dammam address (or Al Khobar and Dhahran nearby) and drives the ~410 km back to Riyadh in around 4 hours on Highway 40.
+                </p>
+                <p className="text-xs sm:text-sm text-[#6B7280] leading-relaxed">
+                  Choose an executive sedan for 1–3 business travellers, a GMC SUV for families or teams, or a Staria van for larger groups with luggage. For companies moving staff between the Eastern Province and Riyadh, we also arrange{" "}
+                  <Link href="/services/corporate" className="text-[#16A34A] font-semibold hover:underline">corporate &amp; business transport</Link>{" "}
+                  with hourly and one-way options. Share your Dammam pickup point, travel date and passenger count on WhatsApp and we confirm the fare before booking — no meter, no surge.
+                </p>
+                <div className="flex flex-wrap items-center gap-3 pt-1">
+                  <a
+                    href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                      `Salam! I'd like a private transfer — Dammam to Riyadh.\n• Pickup in Dammam (area/hotel): \n• Date & time: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): `,
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-primary"
+                  >
+                    <MessageSquare className="h-4 w-4 text-[#FACC15]" />
+                    Get a Dammam → Riyadh quote on WhatsApp
+                  </a>
+                </div>
+                <div className="flex flex-wrap gap-3 pt-2">
+                  <Link href="/locations/dammam" className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all">
+                    <MapPin className="h-3.5 w-3.5" /> Taxi service in Dammam
+                  </Link>
+                  <Link href="/routes/riyadh-to-alkhobar" className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#16A34A]/10 transition-all">
+                    <ArrowRight className="h-3.5 w-3.5" /> Riyadh to Al Khobar
+                  </Link>
+                  <Link href="/routes/dammam-to-manama" className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#16A34A]/10 transition-all">
+                    <ArrowRight className="h-3.5 w-3.5" /> Dammam to Bahrain
+                  </Link>
+                  <Link href="/routes/dammam-to-doha" className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#16A34A]/10 transition-all">
+                    <ArrowRight className="h-3.5 w-3.5" /> Dammam to Doha
+                  </Link>
+                  <Link href="/routes/dammam-to-kuwait" className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#16A34A]/10 transition-all">
+                    <ArrowRight className="h-3.5 w-3.5" /> Dammam to Kuwait
+                  </Link>
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* ─── CORPORATE / DELEGATION (Path B) — business-corridor routes ── */}
+          {corporate && (
+            <section className="rounded-3xl border border-[#16A34A]/15 bg-[#0F172A] p-8 text-white shadow-sm">
+              <div className="max-w-2xl space-y-4">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#FACC15]/15 border border-[#FACC15]/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#FACC15]">
+                  <Briefcase className="h-3.5 w-3.5" /> Corporate &amp; Delegation Travel
+                </span>
+                <h2 className="font-heading text-2xl font-bold">
+                  {corporate.heading}
+                </h2>
+                <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+                  {corporate.intro}
+                </p>
+                <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+                  Corporate invoicing can be arranged through our sister company. Send your company name, VAT number and PO reference with your enquiry and we&apos;ll confirm invoicing details before the booking is finalised.
+                </p>
+                <div className="flex flex-wrap items-center gap-3 pt-1">
+                  <a
+                    href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(corporate.waPrefill)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-primary"
+                  >
+                    <MessageSquare className="h-4 w-4 text-[#FACC15]" />
+                    Corporate quote on WhatsApp
+                  </a>
+                  <a
+                    href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(corporate.emailSubject)}&body=${encodeURIComponent(corporate.emailBody)}`}
+                    className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-white/15 transition-all"
+                  >
+                    <Briefcase className="h-4 w-4 text-[#FACC15]" />
+                    Email our corporate desk
+                  </a>
+                </div>
+                <p className="pt-1">
+                  <Link href="/services/corporate" className="text-[#FACC15] text-xs font-bold hover:underline">
+                    See corporate &amp; business transport &rarr;
+                  </Link>
+                </p>
+              </div>
+            </section>
+          )}
+
+          {/* ─── HERITAGE DAY-CHARTER (Path B) — AlUla private tour ────────── */}
+          {ALULA_NAV_SLUGS.includes(slug) && <AlulaRouteNav slug={slug} />}
+          {(slug === "red-sea-airport-to-alula" || slug === "alula-to-red-sea-airport" || slug === "amaala-to-alula" || slug === "alula-to-amaala") && <RedSeaAlulaRouteSection />}
+
+          {slug === "madinah-to-alula" && (
+            <section className="rounded-3xl border border-[#16A34A]/15 bg-[#0F172A] p-8 text-white shadow-sm">
+              <div className="max-w-2xl space-y-4">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#FACC15]/15 border border-[#FACC15]/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#FACC15]">
+                  <Compass className="h-3.5 w-3.5" /> Full-Day AlUla Private Tour
+                </span>
+                <h2 className="font-heading text-2xl font-bold">
+                  Turn the drive into a full AlUla day
+                </h2>
+                <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+                  Most travellers don&apos;t just want a one-way drop — they want AlUla for the day. Book a private car by the hour with your chauffeur waiting between stops: Hegra (Mada&apos;in Salih), Dadan, AlUla Old Town and Elephant Rock, then back to Madinah or your AlUla hotel. Comfortable, air-conditioned vehicles for families and small groups, at a fixed fare with no meter.
+                </p>
+                <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+                  Planning for a group or through a travel agency? Send your dates and party size and we&apos;ll put together a private itinerary with one chauffeur for the whole day.
+                </p>
+                <div className="flex flex-wrap items-center gap-3 pt-1">
+                  <a
+                    href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                      `Salam! I'd like a full-day AlUla private tour from Madinah.\n• Date: \n• Passengers: \n• Vehicle (Sedan / SUV / Van): \n• Stops (Hegra / Dadan / Old Town / Elephant Rock): \n• Return same day or overnight? : `,
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-primary"
+                  >
+                    <MessageSquare className="h-4 w-4 text-[#FACC15]" />
+                    Plan an AlUla day on WhatsApp
+                  </a>
+                  <a
+                    href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(
+                      "AlUla private tour enquiry — from Madinah",
+                    )}&body=${encodeURIComponent(
+                      `Hello Taxi Saudi Arabia team,\n\nWe'd like a private car for a full-day AlUla tour from Madinah.\n\n• Contact name: \n• Travel date: \n• Passengers: \n• Vehicle preference (Sedan / SUV / Van): \n• Stops of interest (Hegra / Dadan / AlUla Old Town / Elephant Rock): \n• Return to Madinah same day, or overnight in AlUla?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+                    )}`}
+                    className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-white/15 transition-all"
+                  >
+                    <Briefcase className="h-4 w-4 text-[#FACC15]" />
+                    Email a tour enquiry
+                  </a>
+                </div>
+                <p className="pt-1">
+                  <Link href="/services/heritage-tours" className="text-[#FACC15] text-xs font-bold hover:underline">
+                    See heritage &amp; sightseeing tours &rarr;
+                  </Link>
+                </p>
+              </div>
+            </section>
+          )}
+
+          {/* ─── UMRAH GROUP & FAMILY (Path B) — pilgrim corridors ─────────── */}
+          {umrahGroup && (
+            <section className="rounded-3xl border border-[#16A34A]/15 bg-[#0F172A] p-8 text-white shadow-sm">
+              <div className="max-w-2xl space-y-4">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#FACC15]/15 border border-[#FACC15]/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#FACC15]">
+                  <Users className="h-3.5 w-3.5" /> Umrah Group &amp; Family Transfer
+                </span>
+                <h2 className="font-heading text-2xl font-bold">
+                  {umrahGroup.heading}
+                </h2>
+                <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+                  {umrahGroup.intro}
+                </p>
+                <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+                  Organising for an Umrah group or through a travel agency? Send your details and party size and we&apos;ll put together the transfers with one point of contact and a written quote.
+                </p>
+                <div className="flex flex-wrap items-center gap-3 pt-1">
+                  <a
+                    href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(umrahGroup.waPrefill)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-primary"
+                  >
+                    <MessageSquare className="h-4 w-4 text-[#FACC15]" />
+                    Group transfer on WhatsApp
+                  </a>
+                  <a
+                    href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(umrahGroup.emailSubject)}&body=${encodeURIComponent(umrahGroup.emailBody)}`}
+                    className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-white/15 transition-all"
+                  >
+                    <Briefcase className="h-4 w-4 text-[#FACC15]" />
+                    Email a group enquiry
+                  </a>
+                </div>
+                <p className="pt-1">
+                  <Link href="/services/umrah-transport" className="text-[#FACC15] text-xs font-bold hover:underline">
+                    See Umrah transport services &rarr;
+                  </Link>
+                </p>
+              </div>
+            </section>
+          )}
+
+          {airportIntent && <AirportTransferSection data={airportIntent} path={`/routes/${slug}`} quoteAnchor="#route-quote" />}
+
+          {/* FAQs */}
+          <section>
+            <h2 className="font-heading text-2xl font-bold mb-6 flex items-center gap-3">
+              <HelpCircle className="text-[#C9A84C]" />
+              {isMk ? <>{route.fromCity} to {route.toCity} FAQs</> : <>Frequently Asked Questions</>}
+            </h2>
+            <div className="space-y-4">
+              {faqs.map((faq, idx) => (
+                <div key={idx} className="border border-[#16A34A]/12 rounded-2xl p-5 bg-white shadow-2xs">
+                  <h4 className="font-bold text-sm text-[#1C1C1C] mb-2">{faq.question}</h4>
+                  <p className="text-xs text-[#6B7280] leading-relaxed">{faq.answer}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {slug === "jeddah-airport-to-makkah" && (
+            <section className="mt-16 border-t border-[#C9A84C]/10 pt-10">
+              <h2 className="font-heading text-2xl font-bold mb-6">
+                Book by Hotel Near Masjid al-Haram
+              </h2>
+              <p className="text-xs text-[#6B7280] mb-6">
+                Already have a hotel booked? Same clear price, direct drop-off at your hotel entrance.
+              </p>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {MAKKAH_HOTEL_ROUTES.map((h) => (
+                  <Link
+                    key={h.slug}
+                    href={`/routes/${h.slug}`}
+                    className="group flex items-center justify-between rounded-2xl border border-[#16A34A]/12 bg-white px-5 py-4 hover:border-[#16A34A]/35 transition-all"
+                  >
+                    <span className="text-sm font-semibold">
+                      Taxi to {h.hotel}
+                      <span className="block text-[0.65rem] text-[#6B7280] font-normal mt-0.5">
+                        80 km · confirmed on WhatsApp
+                      </span>
+                    </span>
+                    <ArrowRight className="h-4 w-4 text-[#C9A84C] shrink-0 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {slug === "jeddah-airport-to-makkah" && (
+            <section className="mt-16 border-t border-[#C9A84C]/10 pt-10">
+              <h2 className="font-heading text-2xl font-bold mb-6">
+                More Jeddah &amp; Makkah Routes
+              </h2>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {MORE_JEDDAH_MAKKAH_ROUTES.map((r) => (
+                  <Link
+                    key={r.slug}
+                    href={`/routes/${r.slug}`}
+                    className="group flex items-center justify-between rounded-2xl border border-[#16A34A]/12 bg-white px-5 py-4 hover:border-[#16A34A]/35 transition-all"
+                  >
+                    <span className="text-sm font-semibold">
+                      {r.label}
+                      <span className="block text-[0.65rem] text-[#6B7280] font-normal mt-0.5">
+                        {r.distance} km · Fare on WhatsApp
+                      </span>
+                    </span>
+                    <ArrowRight className="h-4 w-4 text-[#C9A84C] shrink-0 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {(slug === "madinah-to-makkah" || slug === "makkah-to-madinah") && (
+            <section className="mt-16 border-t border-[#C9A84C]/10 pt-10">
+              <h2 className="font-heading text-2xl font-bold mb-6">
+                More Madinah Routes
+              </h2>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {MORE_MADINAH_ROUTES.map((r) => (
+                  <Link
+                    key={r.slug}
+                    href={`/routes/${r.slug}`}
+                    className="group flex items-center justify-between rounded-2xl border border-[#16A34A]/12 bg-white px-5 py-4 hover:border-[#16A34A]/35 transition-all"
+                  >
+                    <span className="text-sm font-semibold">
+                      {r.label}
+                      <span className="block text-[0.65rem] text-[#6B7280] font-normal mt-0.5">
+                        {r.distance} km · Fare on WhatsApp
+                      </span>
+                    </span>
+                    <ArrowRight className="h-4 w-4 text-[#C9A84C] shrink-0 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {slug === "riyadh-airport-to-city" && (
+            <section className="mt-16 border-t border-[#C9A84C]/10 pt-10">
+              <h2 className="font-heading text-2xl font-bold mb-6">
+                More Riyadh Routes
+              </h2>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {MORE_RIYADH_ROUTES.map((r) => (
+                  <Link
+                    key={r.slug}
+                    href={`/routes/${r.slug}`}
+                    className="group flex items-center justify-between rounded-2xl border border-[#16A34A]/12 bg-white px-5 py-4 hover:border-[#16A34A]/35 transition-all"
+                  >
+                    <span className="text-sm font-semibold">
+                      {r.label}
+                      <span className="block text-[0.65rem] text-[#6B7280] font-normal mt-0.5">
+                        {r.distance} km · Fare on WhatsApp
+                      </span>
+                    </span>
+                    <ArrowRight className="h-4 w-4 text-[#C9A84C] shrink-0 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+
+
+
+          {mkContent && <MakkahRouteDetails details={mkContent.details} />}
+          {isMk && <MakkahRouteLinks slug={slug} fromCity={route.fromCity} toCity={route.toCity} />}
+          {isMd && <MadinahRouteJourney slug={slug} />}
+          {isMd && <MadinahRouteLinks slug={slug} fromCity={route.fromCity} toCity={route.toCity} />}
+          <RouteRelatedLinks slug={slug} fromCity={route.fromCity} toCity={route.toCity} />
+
+        </div>
+
+        {/* ─── RIGHT COLUMN (Booking Widget) ──────────────────────── */}
+        <div className="lg:col-span-1">
+          <div className="sticky top-[100px] bg-white border border-[#0F172A]/[0.07] rounded-3xl p-6 shadow-[0_2px_6px_rgba(15,23,42,0.04),0_24px_50px_-28px_rgba(15,23,42,0.35)]">
+            <h3 className="font-heading text-xl font-bold mb-4">Book This Route</h3>
+            
+            <div className="space-y-4 mb-8">
+              <div className="bg-[#FAFAF7] p-4 rounded-xl border border-[#C9A84C]/10 relative">
+                <div className="absolute start-[1.36rem] top-7 bottom-7 w-0 border-s-2 border-dotted border-[#16A34A]/35" />
+                
+                <div className="flex items-center gap-3 mb-6 relative z-10">
+                  <div className="w-3 h-3 rounded-full bg-[#16A34A] ring-4 ring-[#16A34A]/20" />
+                  <div>
+                    <p className="text-[0.6rem] text-[#6B7280] font-bold uppercase tracking-wider">Pickup</p>
+                    <p className="font-bold text-sm truncate">{route.fromCity}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 relative z-10">
+                  <div className="w-3 h-3 rounded-full bg-white border-[3px] border-[#16A34A]" />
+                  <div>
+                    <p className="text-[0.6rem] text-[#6B7280] font-bold uppercase tracking-wider">Dropoff</p>
+                    <p className="font-bold text-sm truncate">{route.toCity}</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex justify-between items-center px-2">
+                <span className="text-sm font-bold text-[#6B7280]">Fare</span>
+                <span className="text-sm font-bold text-[#16A34A]">Confirmed on WhatsApp</span>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <Link
+                href={`/book?pickup=${encodeURIComponent(route.fromCity)}&dropoff=${encodeURIComponent(route.toCity)}`}
+                className="btn btn-primary btn-lg btn-block"
+              >
+                Proceed to Booking <ArrowRight className="h-4 w-4" />
+              </Link>
+              
+              <a
+                href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                  `Salam! I want to book a taxi with Taxi Saudi Arabia.\n\n` +
+                    `• From: \n` +
+                    `• To: \n` +
+                    `• Date & time: \n` +
+                    `• Passengers & luggage: \n` +
+                    `• Vehicle (Sedan / SUV / Van): `,
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-whatsapp btn-lg btn-block"
+              >
+                Book via WhatsApp
+              </a>
+            </div>
+            
+            <p className="text-center text-[0.6rem] text-[#6B7280] mt-4">Free cancellation up to 24h before pickup</p>
+          </div>
+        </div>
+      </div>
+
+      {/* ─── MOBILE STICKY BOOKING BAR (JED -> Makkah) ─────────────── */}
+      {slug === "jeddah-airport-to-makkah" && (
+        <div className="fixed bottom-0 inset-x-0 z-50 lg:hidden bg-white/95 backdrop-blur-md border-t border-[#16A34A]/20 p-3 px-4 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+          <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
+            <div>
+              <p className="text-[0.65rem] font-bold text-[#1C1C1C] uppercase tracking-wider">JED ➔ Makkah</p>
+              <p className="text-xs font-extrabold text-[#16A34A]">Fare on WhatsApp</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <a
+                href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                  `Salam! I want to book a taxi from Jeddah Airport to Makkah.`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 rounded-full border border-[#C9A84C]/40 bg-[#C9A84C]/10 px-3.5 py-2 text-xs font-bold text-[#16A34A] hover:bg-[#C9A84C]/20 transition-all"
+              >
+                <MessageSquare className="h-3.5 w-3.5" />
+                <span>WhatsApp</span>
+              </a>
+              <Link
+                href={`/book?pickup=${encodeURIComponent(route.fromCity)}&dropoff=${encodeURIComponent(route.toCity)}`}
+                className="inline-flex items-center gap-1 rounded-full bg-[#16A34A] px-4 py-2 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all shadow-sm"
+              >
+                <span>Book Now</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ─── MOBILE STICKY BOOKING BAR (Makkah -> Madinah) ─────────────── */}
+      {slug === "makkah-to-madinah" && (
+        <div className="fixed bottom-0 inset-x-0 z-50 lg:hidden bg-white/95 backdrop-blur-md border-t border-[#16A34A]/20 p-3 px-4 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+          <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
+            <div>
+              <p className="text-[0.65rem] font-bold text-[#1C1C1C] uppercase tracking-wider">Makkah ➔ Madinah</p>
+              <p className="text-xs font-extrabold text-[#16A34A]">Fare on WhatsApp</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <a
+                href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                  `Salam! I want to book a private transfer from Makkah to Madinah.`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 rounded-full border border-[#C9A84C]/40 bg-[#C9A84C]/10 px-3.5 py-2 text-xs font-bold text-[#16A34A] hover:bg-[#C9A84C]/20 transition-all"
+              >
+                <MessageSquare className="h-3.5 w-3.5" />
+                <span>WhatsApp</span>
+              </a>
+              <Link
+                href={`/book?pickup=${encodeURIComponent(route.fromCity)}&dropoff=${encodeURIComponent(route.toCity)}`}
+                className="inline-flex items-center gap-1 rounded-full bg-[#16A34A] px-4 py-2 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all shadow-sm"
+              >
+                <span>Book Now</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ─── MOBILE STICKY BOOKING BAR (enhanced lead-pass routes) ──────── */}
+      {/* makkah-to-madinah & jeddah-airport-to-makkah are excluded — they render their own sticky bars above. */}
+      {leadForm && slug !== "makkah-to-madinah" && slug !== "jeddah-airport-to-makkah" && (
+        <div className="fixed bottom-0 inset-x-0 z-50 lg:hidden bg-white/95 backdrop-blur-md border-t border-[#16A34A]/20 p-3 px-4 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+          <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
+            <div>
+              <p className="text-[0.65rem] font-bold text-[#1C1C1C] uppercase tracking-wider">{route.fromCity} ➔ {route.toCity}</p>
+              <p className="text-xs font-extrabold text-[#16A34A]">Private transfer · Fare on WhatsApp</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <a
+                href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(heroWaText)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 rounded-full border border-[#C9A84C]/40 bg-[#C9A84C]/10 px-3.5 py-2 text-xs font-bold text-[#16A34A] hover:bg-[#C9A84C]/20 transition-all"
+              >
+                <MessageSquare className="h-3.5 w-3.5" />
+                <span>WhatsApp</span>
+              </a>
+              <Link
+                href={`/book?pickup=${encodeURIComponent(route.fromCity)}&dropoff=${encodeURIComponent(route.toCity)}`}
+                className="inline-flex items-center gap-1 rounded-full bg-[#16A34A] px-4 py-2 text-xs font-bold uppercase text-white hover:bg-[#15803D] transition-all shadow-sm"
+              >
+                <span>Book Now</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

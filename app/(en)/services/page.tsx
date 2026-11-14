@@ -1,0 +1,373 @@
+"use client";
+
+import { motion } from "framer-motion";
+import {
+  Plane, Star, Users, Clock, MapPin, Sparkles,
+  ShieldCheck, Building2, Heart, Camera, Car, MessageCircle, ChevronRight, Truck
+} from "lucide-react";
+import Link from "next/link";
+import { contactConfig } from "@/lib/config/contact";
+
+const SERVICES = [
+  {
+    icon: Plane,
+    slug: "airport-transfers",
+    title: "Airport Transfers",
+    titleAr: "نقل المطارات",
+    badge: "24/7 Service",
+    color: "from-[#16A34A]/8 to-transparent",
+    borderColor: "border-[#16A34A]/15",
+    description: "Airport taxi service with live flight tracking, meet & greet at arrivals, driver with name sign, and luggage help. Serving Jeddah (JED), Riyadh (RUH), Madinah (MED) and all KSA airports.",
+    features: [
+      "Live flight tracking — driver waits free if delayed",
+      "Driver meets you in arrivals with your name sign",
+      "Full luggage assistance to the car",
+      "Drivers speak English & Arabic",
+      "Available 24 hours, 365 days a year",
+    ],
+    startingPrice: 80,
+    route: "/book?service=airport",
+  },
+  {
+    icon: Sparkles,
+    slug: "umrah-transport",
+    title: "Umrah & Pilgrimage",
+    titleAr: "نقل العمرة والحج",
+    badge: "Most Requested",
+    color: "from-[#16A34A]/8 to-transparent",
+    borderColor: "border-[#16A34A]/15",
+    description: "Dedicated pilgrimage transfers between Jeddah Airport, Makkah, and Madinah. Prayer-time aware scheduling, zamzam water, and respectful service for your spiritual journey.",
+    features: [
+      "Jeddah ↔ Makkah ↔ Madinah corridors",
+      "Prayer-time sensitive scheduling",
+      "Zamzam storage space guaranteed",
+      "Complimentary prayer mat & Quran",
+      "Elderly & wheelchair-friendly vehicles",
+    ],
+    startingPrice: 180,
+    route: "/book?service=umrah",
+  },
+  {
+    icon: Building2,
+    slug: "business-executive",
+    title: "Corporate & VIP Executive",
+    titleAr: "الخدمات التنفيذية والشركات",
+    badge: "Business Class",
+    color: "from-[#16A34A]/8 to-transparent",
+    borderColor: "border-[#16A34A]/15",
+    description: "Luxury fleet for business delegations, C-suite executives, Saudi board meetings, and diplomatic arrivals. Discretion and professionalism guaranteed.",
+    features: [
+      "Signed NDAs available on request",
+      "Advance route scouting for delegations",
+      "On-board WiFi & charging ports",
+      "Corporate billing & monthly invoicing",
+      "Dedicated account manager",
+    ],
+    startingPrice: 200,
+    route: "/book?service=corporate",
+  },
+  {
+    icon: Star,
+    slug: "vip-luxury",
+    title: "VIP Luxury Charter",
+    titleAr: "تأجير VIP الفاخر",
+    badge: "Ultra Premium",
+    color: "from-[#16A34A]/8 to-transparent",
+    borderColor: "border-[#16A34A]/15",
+    description: "Executive sedans and full-size luxury SUVs available for full-day, half-day, or hourly exclusive charter. Perfect for dignitaries, celebrities, and ultra-HNW clients.",
+    features: [
+      "Executive sedan & full-size luxury SUV fleet",
+      "Dedicated concierge attendant available",
+      "Chilled beverages & refreshments",
+      "Roses, gifts, surprise setups on request",
+      "Arrival fanfare coordination",
+    ],
+    startingPrice: 250,
+    route: "/book?service=vip",
+  },
+  {
+    icon: Heart,
+    slug: "wedding-events",
+    title: "Weddings & Special Events",
+    titleAr: "الأفراح والمناسبات الخاصة",
+    badge: "Special Occasions",
+    color: "from-[#16A34A]/8 to-transparent",
+    borderColor: "border-[#16A34A]/15",
+    description: "Impeccably decorated fleet for Saudi weddings, engagement ceremonies, graduation celebrations, and luxury events. Full convoy arrangements available.",
+    features: [
+      "White ribbon & floral decoration",
+      "Bridal entourage convoy arrangements",
+      "Photography-ready presentation",
+      "Royal red carpet deployment",
+      "English & Arabic drivers",
+    ],
+    startingPrice: 400,
+    route: "/book?service=wedding",
+  },
+  {
+    icon: Camera,
+    slug: "tourism-tours",
+    title: "Tourism & Private Tours",
+    titleAr: "السياحة والجولات الخاصة",
+    badge: "Explore KSA",
+    color: "from-[#16A34A]/8 to-transparent",
+    borderColor: "border-[#16A34A]/15",
+    description: "Full-day guided private touring of AlUla, Diriyah, NEOM, and Saudi heritage sites. Expert bilingual guides and luxury vehicles for inbound tourists.",
+    features: [
+      "AlUla, Diriyah, NEOM packages",
+      "Bilingual cultural guide on board",
+      "Photography stops included",
+      "Halal meal planning assistance",
+      "Multi-day touring packages",
+    ],
+    startingPrice: 350,
+    route: "/book?service=tourism",
+  },
+  {
+    icon: Users,
+    slug: "group-transport",
+    title: "Group & Pilgrimage Bus",
+    titleAr: "نقل المجموعات والحافلات",
+    badge: "Up to 25 Pax",
+    color: "from-[#16A34A]/8 to-transparent",
+    borderColor: "border-[#16A34A]/15",
+    description: "Coaster and passenger van options for pilgrimage groups, corporate tours, school trips, and large family groups. Scalable fleet for any group size.",
+    features: [
+      "22-seat coaster & passenger van fleet",
+      "Luxury bus with WiFi & entertainment",
+      "Luggage bay for heavy loads",
+      "Pilgrimage group specialist drivers",
+      "Multi-pickup point coordination",
+    ],
+    startingPrice: 300,
+    route: "/book?service=group",
+  },
+  {
+    icon: Truck,
+    slug: "car-recovery",
+    title: "Car Recovery & Towing",
+    titleAr: "سطحة وسحب سيارات",
+    badge: "24/7 Rescue",
+    color: "from-red-500/10 to-transparent",
+    borderColor: "border-red-500/20",
+    description: "Broken down or in an accident? Dammam-based flatbed tow truck (satha سطحة) across the Eastern Province — Dammam, Khobar, Dhahran, Qatif & Al-Ahsa. Battery, tire help, and booked intercity car transport to Riyadh, Jeddah & Yanbu. Price confirmed on WhatsApp.",
+    features: [
+      "Hydraulic flatbed — zero damage towing",
+      "Dammam-based, 24/7 Eastern Province coverage",
+      "Clear price confirmed on WhatsApp before dispatch",
+      "Booked intercity car transport from Dammam",
+      "Deal directly with the driver",
+    ],
+    startingPrice: 0,
+    route: "/services/car-recovery",
+  },
+  {
+    icon: Clock,
+    slug: "hourly-charter",
+    title: "Hourly Charter Service",
+    titleAr: "الإيجار بالساعة",
+    badge: "4 – 24 Hours",
+    color: "from-[#16A34A]/8 to-transparent",
+    borderColor: "border-[#16A34A]/15",
+    description: "Book your driver for 4, 8, 12, or 24 hours for complete flexibility. Ideal for business road shows, city exploration, or multi-stop transfers.",
+    features: [
+      "4, 8, 12 or 24-hour packages",
+      "Unlimited stops within service hours",
+      "No extra charge for waiting time",
+      "Driver on standby at all times",
+      "Flexible city or intercity coverage",
+    ],
+    startingPrice: 250,
+    route: "/book?tripType=hourly",
+  },
+];
+
+const fadeUp = { hidden: { opacity: 0, y: 28 }, show: { opacity: 1, y: 0 } };
+
+// Card titles link to these detail pages (authority distribution from the hub).
+const DETAIL_PAGES: Record<string, string> = {
+  "airport-transfers": "/services/airport-transfers",
+  "umrah-transport": "/services/umrah-transport",
+  "business-executive": "/services/business-executive",
+  "vip-luxury": "/services/vip-transportation",
+  "wedding-events": "/services/wedding-car-rental",
+  "tourism-tours": "/services/tourism",
+  "group-transport": "/services/group-transport",
+  "car-recovery": "/services/car-recovery",
+};
+
+export default function ServicesPage() {
+  return (
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C]">
+
+      {/* ─── HERO ─────────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden pt-32 pb-20">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#C9A84C]/6 to-transparent pointer-events-none" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[400px] w-[800px] rounded-full bg-[#C9A84C]/4 blur-3xl pointer-events-none" />
+
+        <div className="section-container relative z-10 max-w-5xl">
+          <motion.div initial="hidden" animate="show" variants={fadeUp} transition={{ duration: 0.6 }}>
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/8 px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#16A34A]">
+              <Car className="h-3 w-3" /> Premium Services
+            </span>
+            <h1 className="mt-6 font-heading text-4xl font-bold leading-tight md:text-6xl">
+              9 Elite Transfer Services<br />
+              <span className="text-[#16A34A]">Tailored to Every Need</span>
+            </h1>
+            <p className="mt-6 max-w-2xl text-sm md:text-base leading-relaxed text-[#6B7280]">
+              From Umrah pilgrimage transfers to royal wedding convoys — we have a premium service
+              crafted for every occasion across Saudi Arabia and the GCC region.
+            </p>
+          </motion.div>
+
+          {/* Quick stats */}
+          <motion.div
+            initial="hidden"
+            animate="show"
+            variants={fadeUp}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-5 max-w-2xl"
+          >
+            {[
+              { value: "9", label: "Service Types" },
+              { value: "14", label: "Fleet Vehicles" },
+              { value: "100%", label: "Clear Quotes on WhatsApp" },
+              { value: "24/7", label: "WhatsApp Booking" },
+            ].map((s) => (
+              <div key={s.label} className="rounded-2xl border border-[#C9A84C]/10 bg-white p-4 text-center">
+                <p className="font-heading text-xl font-bold text-[#16A34A]">{s.value}</p>
+                <p className="text-[0.6rem] text-[#6B7280] font-bold uppercase tracking-wider mt-1">{s.label}</p>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ─── SERVICES GRID ────────────────────────────────────────── */}
+      <section className="section-container max-w-6xl py-10 pb-24">
+        <div className="grid gap-6 md:grid-cols-2">
+          {SERVICES.map((service, index) => {
+            const Icon = service.icon;
+            return (
+              <motion.article
+                key={service.slug}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.1 }}
+                variants={fadeUp}
+                transition={{ duration: 0.45, delay: (index % 4) * 0.08 }}
+                className={`group relative overflow-hidden rounded-3xl border bg-white p-7 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(22,163,74,0.08)] ${service.borderColor} hover:border-[#16A34A]/35`}
+              >
+                {/* Background gradient */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-60 pointer-events-none rounded-3xl`} />
+
+                <div className="relative space-y-5">
+                  {/* Header row */}
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#C9A84C]/10 border border-[#16A34A]/15">
+                        <Icon className="h-5 w-5 text-[#C9A84C]" />
+                      </div>
+                      <div>
+                        <span className="text-[0.55rem] font-bold uppercase tracking-wider text-[#16A34A]">{service.badge}</span>
+                        <h2 className="font-heading text-lg font-bold text-[#1C1C1C] group-hover:text-[#16A34A] transition-colors leading-tight">
+                          {DETAIL_PAGES[service.slug] ? (
+                            <Link href={DETAIL_PAGES[service.slug]} className="hover:underline">
+                              {service.title}
+                            </Link>
+                          ) : (
+                            service.title
+                          )}
+                        </h2>
+                        <p className="text-[0.6rem] text-[#6B7280]">{service.titleAr}</p>
+                      </div>
+                    </div>
+                    <div className="text-right shrink-0">
+                      {service.startingPrice > 0 ? (
+                        <>
+                          <p className="text-[0.55rem] text-[#6B7280] uppercase font-bold">From</p>
+                          <p className="whitespace-nowrap font-heading text-sm font-bold text-[#16A34A]">On WhatsApp</p>
+                        </>
+                      ) : (
+                        <>
+                          <p className="text-[0.55rem] text-[#6B7280] uppercase font-bold">Price</p>
+                          <p className="font-heading text-sm font-bold text-[#16A34A]">WhatsApp</p>
+                        </>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-xs text-[#6B7280] leading-relaxed">{service.description}</p>
+
+                  {/* Features */}
+                  <ul className="space-y-2">
+                    {service.features.map((f) => (
+                      <li key={f} className="flex items-center gap-2 text-[0.65rem] text-[#6B7280]">
+                        <ShieldCheck className="h-3.5 w-3.5 text-[#C9A84C] shrink-0" />
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* CTA Buttons */}
+                  <div className="grid grid-cols-2 gap-3 pt-2">
+                    <Link
+                      href={service.route}
+                      className="flex items-center justify-center gap-1.5 rounded-full bg-[#16A34A] py-3 text-[0.65rem] font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-all shadow-[0_4px_14px_rgba(22,163,74,0.2)]"
+                    >
+                      Book Now
+                      <ChevronRight className="h-3.5 w-3.5" />
+                    </Link>
+                    <a
+                      href={`https://wa.me/${contactConfig.whatsappNumber}?text=Salam, I need your ${service.title} service.`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-1.5 rounded-full border border-[#C9A84C]/30 py-3 text-[0.65rem] font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#C9A84C]/10 transition-all"
+                    >
+                      <MessageCircle className="h-3.5 w-3.5 fill-current" />
+                      Inquire
+                    </a>
+                  </div>
+                </div>
+              </motion.article>
+            );
+          })}
+        </div>
+
+        {/* Trust Section */}
+        <div className="mt-16 rounded-3xl border border-[#16A34A]/12 bg-white p-8 md:p-12">
+          <div className="grid gap-8 md:grid-cols-2 items-center">
+            <div className="space-y-4">
+              <span className="t-eyebrow">Why Taxi Saudi Arabia?</span>
+              <h2 className="font-heading text-2xl md:text-3xl font-bold">
+                Saudi Arabia&apos;s Most Trusted<br />Taxi & Car Service
+              </h2>
+              <p className="text-sm text-[#6B7280] leading-relaxed">
+                Every driver holds a valid Saudi driving license, is background-checked, and trained in respectful customer service.
+                Every vehicle is GPS-tracked, fully insured, and inspected monthly.
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { icon: ShieldCheck, label: "Professional Drivers", sub: "Valid Saudi driving license" },
+                { icon: MapPin, label: "GPS Tracked", sub: "Every trip monitored" },
+                { icon: Clock, label: "Always On-Time", sub: "On-time pickup promise" },
+                { icon: Star, label: "Clear Quotes on WhatsApp", sub: "Confirmed before you book" },
+              ].map((item) => {
+                const ItemIcon = item.icon;
+                return (
+                  <div key={item.label} className="rounded-2xl border border-[#C9A84C]/10 bg-[#F0FDF4] p-4 space-y-2">
+                    <ItemIcon className="h-5 w-5 text-[#C9A84C]" />
+                    <p className="text-xs font-bold text-[#1C1C1C]">{item.label}</p>
+                    <p className="text-[0.6rem] text-[#6B7280]">{item.sub}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}

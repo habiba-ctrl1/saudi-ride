@@ -1,0 +1,323 @@
+import { Metadata } from "next";
+import Image from "next/image";
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
+import { serviceSchema, faqSchema, speakableSchema, airportTaxiServiceSchema } from "@/lib/schema";
+import { AIRPORT_DETAILS } from "@/lib/data/airports";
+import { TLDRSummary } from "@/components/seo/TLDRSummary";
+import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
+import Link from "next/link";
+import { RiyadhAirportTransferLinks } from "@/components/seo/RiyadhAirportTransferLinks";
+import { contactConfig } from "@/lib/config/contact";
+import { Plane, Clock, UserCheck, CheckCircle2, ShieldCheck, Search, PlaneLanding, MapPin, MessageCircle, Luggage, Car } from "lucide-react";
+import { JourneyFlow } from "@/components/visual/JourneyFlow";
+
+// WhatsApp is the proven conversion path for this business, so the primary
+// airport-transfer CTAs go straight to a prefilled WhatsApp chat (matching the
+// route pages) instead of the /book form.
+const waLink = (msg: string) =>
+  `https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(msg)}`;
+
+const TITLE = "Airport Taxi & Private Transfer Saudi Arabia | Jeddah, Riyadh, Madinah";
+const DESCRIPTION = "Private airport taxi & transfer in Saudi Arabia — Jeddah, Riyadh, Madinah, Dammam. Meet & greet, chauffeur & family vehicles, fare confirmed on WhatsApp.";
+const OG_IMAGE = "https://taxisaudiarabia.com/services/airport-transfers-hero.webp";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "https://taxisaudiarabia.com/services/airport-transfers" },
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: "https://taxisaudiarabia.com/services/airport-transfers",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Airport taxi service in Saudi Arabia" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
+  },
+};
+
+const AIRPORT_ROUTES = [
+  { airport: "Jeddah (JED)", dest: "Makkah", time: "1 hr", routeSlug: "jeddah-airport-to-makkah" },
+  { airport: "Jeddah (JED)", dest: "Madinah", time: "4.5 hrs", routeSlug: "jeddah-airport-to-madinah" },
+  { airport: "Jeddah (JED)", dest: "Jeddah City", time: "30 mins", routeSlug: "jeddah-airport-to-jeddah-city" },
+  { airport: "Riyadh (RUH)", dest: "City Center", time: "40 mins", routeSlug: "riyadh-airport-to-city" },
+  { airport: "Madinah (MED)", dest: "Haram Area", time: "25 mins", routeSlug: "madinah-airport-to-city" },
+];
+
+const FAQS = [
+  {
+    q: "What if my flight is delayed?",
+    a: "Share your flight number when you book and we check it before pickup, so your driver plans the pickup time around your actual arrival."
+  },
+  {
+    q: "How will I find my driver?",
+    a: "Your driver will be waiting in the arrivals hall holding a name sign with your name on it. They will help you with your luggage and guide you directly to the car."
+  },
+  {
+    q: "Are the prices fixed?",
+    a: "Your fare is confirmed in a quotation on WhatsApp or email before the trip — and that confirmed price is final, with no hidden fees, toll charges, or surge pricing."
+  },
+  {
+    q: "Do you offer private airport transfers and chauffeur service across Saudi Arabia?",
+    a: "Yes. Every airport booking is a pre-booked private transfer — your own car with a professional chauffeur and meet & greet at arrivals. We arrange executive sedans, SUVs and family vehicles at Jeddah, Riyadh, Madinah and Dammam airports, with the fare confirmed on WhatsApp."
+  }
+];
+
+export default function AirportTransfersPage() {
+  return (
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
+      <JsonLd
+        data={[
+          serviceSchema({
+            name: "Airport Taxi Service",
+            description:
+              "Private airport taxi service in Saudi Arabia with meet & greet at Jeddah (JED), Riyadh (RUH), and Madinah (MED) airports.",
+            path: "/services/airport-transfers",
+            serviceType: "Airport Transfer",
+            areaServed: ["Jeddah", "Riyadh", "Madinah", "Dammam"],
+          }),
+          faqSchema(FAQS.map((f) => ({ question: f.q, answer: f.a }))),
+          speakableSchema({ path: "/services/airport-transfers" }),
+        ]}
+      />
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Services", href: "/services" },
+          { name: "Airport Transfers", href: "/services/airport-transfers" },
+        ]}
+      />
+      {/* ─── HERO ─────────────────────────────────────────────────── */}
+      <section className="relative pt-32 pb-20 overflow-hidden border-b border-[#C9A84C]/10">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/services/airport-transfers-hero.webp"
+            alt="Saudi Arabia Airport Transfer"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover opacity-80"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/50 to-[#FAFAF7]/15" />
+        </div>
+
+        <div className="section-container relative z-10 max-w-5xl">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 backdrop-blur-md px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#16A34A] mb-6">
+            <Plane className="h-3 w-3" /> Airport Services
+          </span>
+          <h1 className="font-heading text-4xl md:text-6xl font-bold leading-tight mb-6">
+            Airport Taxi & Private <br />
+            <span className="text-[#16A34A]">Transfers Across Saudi Arabia</span>
+          </h1>
+          <p className="max-w-2xl text-sm md:text-base text-[#6B7280] leading-relaxed mb-8">
+            Arrive relaxed with a pre-booked private airport transfer. We serve King Abdulaziz (JED), King Khalid (RUH), Prince Mohammad Bin Abdulaziz (MED) and King Fahd (DMM) airports — private cars, chauffeur service and family vehicles, with meet & greet.
+          </p>
+          <div className="max-w-2xl mb-10">
+            <TLDRSummary
+              answer="Airport taxi and private transfers in Saudi Arabia cover Jeddah (JED), Riyadh (RUH), Madinah (MED) and Dammam (DMM), with a private car or chauffeur and meet & greet. Share your flight number when you book and we check it before pickup — your exact fare is confirmed on WhatsApp before booking."
+              facts={[
+                { label: "JED → Makkah", value: "On WhatsApp" },
+                { label: "RUH → City", value: "On WhatsApp" },
+                { label: "Meet & greet", value: "Included" },
+                { label: "Availability", value: "24/7" },
+              ]}
+            />
+          </div>
+
+          {/* Share-your-flight-number tip card — replaces a non-functional
+              "flight tracker" UI that implied live automated flight tracking,
+              a capability not confirmed in facts.md. */}
+          <div className="bg-white/85 backdrop-blur-xl border border-[#16A34A]/15 p-6 rounded-3xl max-w-2xl shadow-2xl">
+            <h3 className="text-sm font-bold text-[#1C1C1C] mb-2 flex items-center gap-2">
+              <Search className="h-4 w-4 text-[#C9A84C]" /> Share Your Flight Number
+            </h3>
+            <p className="text-sm text-[#6B7280] leading-relaxed">
+              Add your flight number when you book (e.g. SV 112) and we check it before pickup, so your driver plans around your actual arrival time.
+            </p>
+          </div>
+
+          {/* Primary conversion CTA — WhatsApp (proven lead path) */}
+          <div className="mt-8 flex flex-col sm:flex-row gap-3">
+            <a
+              href={waLink("Salam, I'd like an airport taxi in Saudi Arabia. My flight/airport and destination are:")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary btn-lg"
+            >
+              <MessageCircle className="h-4 w-4" /> Get Airport Fare on WhatsApp
+            </a>
+            <a
+              href={contactConfig.primaryPhoneLink}
+              className="btn btn-secondary btn-lg"
+            >
+              Call {contactConfig.primaryPhoneDisplay}
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── FEATURES ─────────────────────────────────────────────── */}
+      <section className="section-container max-w-7xl py-20 border-b border-[#C9A84C]/10">
+        <h2 className="t-h2 mb-10 text-center">Why Pre-Book a Private Airport Taxi in Saudi Arabia</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {[
+            { icon: PlaneLanding, title: "Share Your Flight Number", desc: "Add it when you book and we check it before pickup, so the pickup time is planned around your actual arrival." },
+            { icon: UserCheck, title: "Meet & Greet at Arrivals", desc: "Driver awaits in the arrivals hall with a personalized name sign and helps with luggage." },
+            { icon: Clock, title: "24/7 Availability", desc: "Early-morning and late-night arrivals are covered — book any hour." },
+            { icon: ShieldCheck, title: "Clear Fares Confirmed on WhatsApp", desc: "No hidden surge fees or toll charges. Your quoted price is confirmed before the trip." }
+          ].map((feat, i) => (
+            <div key={i} className="card card-hover group p-7">
+              <span className="icon-tile mb-5"><feat.icon /></span>
+              <h3 className="t-h3 mb-2.5">{feat.title}</h3>
+              <p className="text-sm text-[#64748B] leading-relaxed">{feat.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Arrival flow — restates the meet & greet / luggage help described above. */}
+        <JourneyFlow
+          className="mt-12"
+          title="Your arrival, step by step"
+          stages={[
+            { icon: PlaneLanding, label: "Land & clear arrivals", note: "Shared flight number checked before pickup" },
+            { icon: UserCheck, label: "Meet your driver", note: "Name sign in the arrivals hall" },
+            { icon: Luggage, label: "Luggage to the car", note: "Your driver helps with bags" },
+            { icon: Car, label: "Private ride", note: "Your own car — no sharing" },
+            { icon: MapPin, label: "Hotel or destination", note: "Door-to-door drop-off" },
+          ]}
+        />
+      </section>
+
+      {/* ─── AIRPORT HUB LINKS ──────────────────────────────────── */}
+      <section className="section-container max-w-7xl py-20 border-b border-[#C9A84C]/10">
+        <div className="text-center mb-12">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">Airports We Serve Across Saudi Arabia</h2>
+          <p className="text-[#6B7280] max-w-2xl mx-auto">Pre-book your airport taxi at any of our covered airports. Each page has terminal info, transfer tips, and instant booking.</p>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {Object.entries(AIRPORT_DETAILS).map(([slug, airport]) => (
+            <Link
+              key={slug}
+              href={`/airports/${slug}`}
+              className="group flex items-center gap-4 bg-white border border-[#16A34A]/12 rounded-2xl p-5 hover:border-[#16A34A]/35 transition-colors"
+            >
+              <div className="bg-[#C9A84C]/10 rounded-full p-3 group-hover:bg-[#16A34A]/10 transition-colors">
+                <MapPin className="h-5 w-5 text-[#C9A84C] group-hover:text-[#16A34A] transition-colors" />
+              </div>
+              <div>
+                <div className="font-bold text-sm text-[#1C1C1C]">{airport.name}</div>
+                <div className="text-xs text-[#6B7280]">{airport.code} · {airport.tagline}</div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <div className="section-container max-w-5xl py-10">
+        <RiyadhAirportTransferLinks variant="service" />
+      </div>
+
+      {/* ─── PRICING TABLE ────────────────────────────────────────── */}
+      <section className="section-container max-w-5xl py-20">
+        <div className="text-center mb-12">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">Popular Airport Transfer Routes in Saudi Arabia</h2>
+          <p className="text-[#6B7280]">Sedan, SUV and family vehicles available — a pre-booked private transfer with a professional chauffeur. Your fare is confirmed on WhatsApp before your trip.</p>
+        </div>
+
+        <div className="bg-white rounded-3xl border border-[#16A34A]/12 overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-[#F0FDF4] border-b border-[#C9A84C]/10 text-[0.65rem] uppercase tracking-widest text-[#6B7280]">
+                  <th className="p-6 font-bold">Departure Airport</th>
+                  <th className="p-6 font-bold">Destination</th>
+                  <th className="p-6 font-bold">Est. Time</th>
+                  <th className="p-6 font-bold text-right">Fare</th>
+                  <th className="p-6 font-bold text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[#C9A84C]/5">
+                {AIRPORT_ROUTES.map((route, i) => (
+                  <tr key={i} className="hover:bg-[#F0FDF4]/60 transition-colors">
+                    <td className="p-6 font-bold text-sm text-[#1C1C1C]">{route.airport}</td>
+                    <td className="p-6 text-sm text-[#6B7280]">{route.dest}</td>
+                    <td className="p-6 text-sm text-[#6B7280]">{route.time}</td>
+                    <td className="p-6 font-bold text-[#16A34A] text-right">On WhatsApp</td>
+                    <td className="p-6 text-center flex items-center justify-center gap-4">
+                      <Link href={`/routes/${route.routeSlug}`} className="text-xs font-bold uppercase tracking-wider text-[#6B7280] hover:text-[#16A34A] transition-colors">
+                        Details
+                      </Link>
+                      <a href={waLink(`Salam, I'd like an airport taxi: ${route.airport} to ${route.dest}. Please confirm the fare.`)} target="_blank" rel="noopener noreferrer" className="text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:text-[#1C1C1C] transition-colors">
+                        WhatsApp
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── FAQ ──────────────────────────────────────────────────── */}
+      <section className="section-container max-w-4xl py-20 border-t border-[#C9A84C]/10">
+        <h2 className="font-heading text-3xl font-bold mb-12 text-center">Airport Taxi FAQ — Saudi Arabia</h2>
+        <div className="space-y-6">
+          {FAQS.map((faq, i) => (
+            <div key={i} className="bg-white border border-[#16A34A]/12 rounded-2xl p-6">
+              <h4 className="font-bold text-[#1C1C1C] mb-3 flex items-start gap-3">
+                <CheckCircle2 className="h-5 w-5 text-[#C9A84C] shrink-0 mt-0.5" />
+                {faq.q}
+              </h4>
+              <p className="text-sm text-[#6B7280] leading-relaxed pl-8">{faq.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ─── CTA + on-page lead form + corporate/group Path B ────────── */}
+      <section className="section-container max-w-5xl pb-20">
+        <div className="bg-white border border-[#16A34A]/15 shadow-lg rounded-3xl p-6 sm:p-10">
+          <div className="text-center mb-6">
+            <h2 className="font-heading text-2xl md:text-3xl font-bold mb-3 text-[#1C1C1C]">Ready for a stress-free arrival?</h2>
+            <p className="text-[#6B7280] max-w-lg mx-auto">
+              Fill a few details for a fast WhatsApp quote — meet &amp; greet and a fixed fare confirmed before you book. Companies and groups can request a written quote.
+            </p>
+          </div>
+
+          <WhatsAppQuoteForm defaultDropoff="Airport transfer" />
+
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            <a
+              href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                `Salam! Private airport transfer enquiry.\n• Airport (JED / RUH / MED / DMM): \n• Flight no. & arrival time: \n• Destination (hotel / city): \n• Passengers & bags: \n• Vehicle (Sedan / SUV / Van): `,
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary btn-lg"
+            >
+              <MessageCircle className="h-4 w-4" /> Book airport taxi on WhatsApp
+            </a>
+            <a
+              href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(
+                "Corporate / group airport transfer RFQ",
+              )}&body=${encodeURIComponent(
+                `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for airport transfers in Saudi Arabia.\n\n• Company / group name: \n• Contact name: \n• Airport(s) (JED / RUH / MED / DMM): \n• Dates & flight numbers: \n• Passengers per transfer: \n• Vehicle(s) needed (Sedan / SUV / Van): \n• Destination(s): \n• Corporate invoicing (VAT / PO)?: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+              )}`}
+              className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C] px-7 py-3.5 text-xs font-bold uppercase text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
+            >
+              Email a corporate / group RFQ
+            </a>
+          </div>
+        </div>
+      </section>
+      <ServiceRelatedLinks currentPath="/services/airport-transfers" />
+    </div>
+  );
+}

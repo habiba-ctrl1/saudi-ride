@@ -1,0 +1,379 @@
+﻿import { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { Landmark, Languages, ShieldCheck, HeartHandshake, CheckCircle2, MessageCircle } from "lucide-react";
+import { contactConfig } from "@/lib/config/contact";
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
+import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
+import { TLDRSummary } from "@/components/seo/TLDRSummary";
+import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
+
+// WhatsApp is the proven conversion path — Umrah CTAs go to a prefilled chat.
+const waLink = (msg: string) =>
+  `https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(msg)}`;
+
+const TITLE = "Umrah Taxi Service | Jeddah to Makkah & Madinah Transfers";
+const DESCRIPTION = "Umrah taxi service in Saudi Arabia — airport to Makkah, Makkah to Madinah, Ziyarat tours & prayer stops. English- & Arabic-speaking drivers. Clear pricing on WhatsApp, 24/7.";
+const OG_IMAGE = "https://taxisaudiarabia.com/services/umrah-transport-hero.webp";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "https://taxisaudiarabia.com/services/umrah-transport" },
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: "https://taxisaudiarabia.com/services/umrah-transport",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Umrah taxi service in Saudi Arabia" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
+  },
+};
+
+const PACKAGES = [
+  {
+    title: "Airport to Makkah (One-Way)",
+    desc: "Direct VIP transfer from Jeddah Airport to your Makkah hotel.",
+    price: "On WhatsApp",
+    features: ["Meet & Greet at Arrivals", "Flight tracking for delays", "15–30 minutes free waiting", "Drop-off at the nearest permitted point"]
+  },
+  {
+    title: "Full Umrah Package",
+    desc: "Complete transport solution for your entire journey.",
+    price: "On WhatsApp",
+    features: ["JED to Makkah", "Makkah to Madinah", "Madinah to Airport", "24/7 Support via WhatsApp"]
+  },
+  {
+    title: "Ziyarat Tours (Makkah or Madinah)",
+    desc: "Private transport to historical Islamic sites, with waiting at each stop.",
+    price: "On WhatsApp",
+    features: ["Jabal Al-Nour / Quba Mosque", "English- and Arabic-speaking drivers", "Flexible Timing", "Comfortable SUV/Van"]
+  }
+];
+
+const FAQS = [
+  {
+    q: "Where do you drop us off in Makkah?",
+    a: "We drop you off directly at your hotel's lobby. If your hotel is located on the immediate Haram boundary where vehicles are restricted during prayer times, we will safely drop you at the closest permitted security checkpoint."
+  },
+  {
+    q: "What languages do your drivers speak?",
+    a: "We understand pilgrims come from all over the world. Drivers in our partner network speak English and Arabic. Please tell us your preferred language when you book."
+  },
+  {
+    q: "Can you arrange a trip to a Miqat before Makkah?",
+    a: "If your plans include a visit to a Miqat such as Al-Juhfah before Makkah, tell us when you book and we quote it as a separate trip. We provide transport only and cannot advise on religious matters."
+  },
+  {
+    q: "Is Jeddah a Miqat for Umrah?",
+    a: "Jeddah lies inside the Miqat boundary, so a pickup at Jeddah Airport does not by itself involve a Miqat stop. What applies to you depends on your route and your own religious circumstances, which we cannot advise on — see our Miqat guide, and tell us if you want a separate trip planned."
+  },
+  {
+    q: "How far is Jeddah Airport from Makkah for Umrah?",
+    a: "King Abdulaziz International Airport (JED) is about 80 km from Makkah — roughly a 1-hour direct transfer, with prayer and rest stops on request."
+  }
+];
+
+export default function UmrahTransportPage() {
+  return (
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
+      <JsonLd
+        data={[
+          serviceSchema({
+            name: "Umrah Taxi Service",
+            description:
+              "Dedicated Umrah taxi service in Saudi Arabia — Jeddah Airport to Makkah transfers, Makkah to Madinah rides, Ziyarat tours, and prayer stops with English- and Arabic-speaking drivers.",
+            path: "/services/umrah-transport",
+            serviceType: "Umrah Transport",
+            areaServed: ["Makkah", "Madinah", "Jeddah"],
+          }),
+          faqSchema(FAQS.map((f) => ({ question: f.q, answer: f.a }))),
+          speakableSchema({ path: "/services/umrah-transport" }),
+        ]}
+      />
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Services", href: "/services" },
+          { name: "Umrah Taxi", href: "/services/umrah-transport" },
+        ]}
+      />
+      {/* ─── HERO ─────────────────────────────────────────────────── */}
+      <section className="relative pt-32 pb-20 overflow-hidden border-b border-[#C9A84C]/10">
+        <div className="absolute inset-0 z-0">
+          <Image 
+            src="/services/umrah-transport-hero.webp"
+            alt="Makkah Umrah Pilgrimage"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover opacity-80"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-[#FAFAF7]/50 to-[#FAFAF7]/15" />
+        </div>
+
+        <div className="section-container relative z-10 max-w-5xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 backdrop-blur-md px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#16A34A] mb-6">
+            <Landmark className="h-3 w-3" /> Spiritual Journeys
+          </span>
+          <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+            Premium Transport for <br />
+            <span className="text-[#16A34A]">Your Sacred Journey</span>
+          </h1>
+          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-8">
+            Serving the Guests of Allah with dignity and comfort. From Jeddah Airport arrivals to complete Ziyarat tours in Madinah.
+          </p>
+          <div className="max-w-2xl mx-auto mb-10 text-left">
+            <TLDRSummary
+              answer="Umrah taxi transfers in Saudi Arabia cover Jeddah Airport to Makkah (~1 hour), Makkah to Madinah, and Ziyarat tours, with English- and Arabic-speaking drivers and 24/7 availability. Your fare is confirmed on WhatsApp before booking."
+              facts={[
+                { label: "Airport → Makkah", value: "On WhatsApp" },
+                { label: "Duration", value: "~1 hour" },
+                { label: "Languages", value: "EN / AR" },
+                { label: "Availability", value: "24/7" },
+              ]}
+            />
+          </div>
+          <div className="flex justify-center gap-4">
+            <a
+              href={waLink("Salam, I'd like to arrange Umrah transport (Jeddah Airport / Makkah / Madinah). My dates and group size are:")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary btn-lg"
+            >
+              <MessageCircle className="h-4 w-4" /> Get Umrah Fare on WhatsApp
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── KNOWLEDGE SECTION ────────────────────────────────────── */}
+      <section className="section-container max-w-6xl py-20 border-b border-[#C9A84C]/10">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="space-y-8">
+            <div>
+              <h2 className="font-heading text-3xl font-bold mb-4">Dedicated to Pilgrims</h2>
+              <p className="text-[#6B7280] leading-relaxed">
+                We understand that Umrah is a profoundly physical and spiritual undertaking. We plan the transport around it: pre-booked pickups, vehicles sized to your luggage, and drop-offs at the nearest permitted point to your hotel.
+              </p>
+            </div>
+            
+            <div className="space-y-6">
+              <div className="flex gap-4">
+                <div className="bg-[#C9A84C]/10 p-3 rounded-xl h-fit">
+                  <Languages className="h-6 w-6 text-[#C9A84C]" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-[#1C1C1C] mb-1">English & Arabic Drivers</h4>
+                  <p className="text-sm text-[#6B7280]">Drivers in our partner network speak English and Arabic, so you can communicate easily with them and your family can too.</p>
+                </div>
+              </div>
+              
+              <div className="flex gap-4">
+                <div className="bg-[#C9A84C]/10 p-3 rounded-xl h-fit">
+                  <ShieldCheck className="h-6 w-6 text-[#C9A84C]" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-[#1C1C1C] mb-1">Haram Drop-Off Expertise</h4>
+                  <p className="text-sm text-[#6B7280]">Navigating road closures during Salah (prayer) times requires local knowledge. Your driver drops you at the closest permitted point to your hotel.</p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="bg-[#C9A84C]/10 p-3 rounded-xl h-fit">
+                  <HeartHandshake className="h-6 w-6 text-[#C9A84C]" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-[#1C1C1C] mb-1">Elderly & Family Friendly</h4>
+                  <p className="text-sm text-[#6B7280]">Spacious SUVs and Vans are available for large luggage and large families. Tell us about any wheelchair or mobility needs when you book.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="relative h-[500px] rounded-3xl overflow-hidden border border-[#16A34A]/15">
+            <Image src="/services/madinah-ziyarat-hero.webp" alt="Madinah Ziyarat Transport" fill className="object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] to-transparent" />
+            <div className="absolute bottom-8 left-8 right-8">
+              <div className="bg-white/90 backdrop-blur-md p-6 rounded-2xl border border-[#C9A84C]/30">
+                <p className="text-xs text-[#C9A84C] font-bold uppercase tracking-wider mb-2">Ziyarat Guidance</p>
+                <p className="text-sm text-[#1C1C1C]">Your driver takes you to sites such as Jabal Uhud, Quba Mosque and Jabal Al-Nour and waits at each stop. Transport only — no religious guidance.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── UMRAH FROM JEDDAH (journey + internal linking) ───────── */}
+      <section className="section-container max-w-5xl py-20 border-b border-[#C9A84C]/10">
+        <div className="mb-12">
+          <span className="t-eyebrow">The Gateway</span>
+          <h2 className="font-heading text-3xl font-bold mt-2 mb-4">Your Umrah Journey from Jeddah, Step by Step</h2>
+          <p className="text-[#6B7280] leading-relaxed max-w-2xl">
+            Most pilgrims begin Umrah by landing at King Abdulaziz International Airport (JED) in Jeddah — the Kingdom&apos;s main gateway. Here is the full transport chain we handle for you, from arrival to your return flight.
+          </p>
+        </div>
+        <ol className="space-y-4">
+          {[
+            { n: 1, title: "Arrive at Jeddah Airport (JED)", desc: "Meet & greet at arrivals, available 24/7. We track your flight for delays.", href: "/airports/king-abdulaziz-jeddah", cta: "Jeddah Airport taxi" },
+            { n: 2, title: "Plan any stops", desc: "Tell us if you want a prayer, meal or rest stop on the way. See the guide for Miqat information.", href: "/guides/miqat-jeddah-makkah", cta: "Miqat & Ihram guide" },
+            { n: 3, title: "Transfer to Makkah (~80 km, ~1 hr)", desc: "Direct, private ride from the airport to your Makkah hotel, as close to the Haram as vehicles are permitted.", href: "/routes/jeddah-airport-to-makkah", cta: "JED → Makkah route" },
+            { n: 4, title: "Makkah Ziyarat", desc: "Visit Jabal Al-Nour, Mina, Arafat and other sites by private car, with flexible waiting time at each stop.", href: "/services/makkah-ziyarat", cta: "Makkah Ziyarat tour" },
+            { n: 5, title: "Travel to Madinah (~420 km)", desc: "Comfortable long-distance transfer via the Haramain highway, with prayer and rest stops on request.", href: "/routes/jeddah-to-madinah", cta: "Jeddah → Madinah route" },
+            { n: 6, title: "Madinah Ziyarat & return", desc: "Visit Masjid an-Nabawi, Quba, and Uhud, then a smooth transfer back to the airport for your flight home.", href: "/services/madinah-ziyarat", cta: "Madinah Ziyarat tour" },
+          ].map((step) => (
+            <li key={step.n} className="flex items-start gap-4 p-6 rounded-2xl bg-white border border-[#C9A84C]/10">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 text-sm font-bold text-[#16A34A]">{step.n}</span>
+              <div>
+                <h3 className="font-bold text-[#1C1C1C] mb-1">{step.title}</h3>
+                <p className="text-sm text-[#6B7280] leading-relaxed mb-2">{step.desc}</p>
+                <Link href={step.href} className="text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:underline">{step.cta} &rarr;</Link>
+              </div>
+            </li>
+          ))}
+        </ol>
+        <div className="mt-8">
+          <Link href="/guides/jeddah-airport-to-makkah-guide" className="text-sm font-bold text-[#16A34A] hover:underline">
+            Read the full Jeddah Airport to Makkah transfer guide &rarr;
+          </Link>
+        </div>
+      </section>
+
+      {/* ─── WHAT AN UMRAH TAXI SERVICE COVERS (answer-first, 2026-11-10) ───
+          Distances/times: lib/data/routes.ts. Terms: seo/facts.md (fixed fare, 24h free cancellation,
+          15–30 min free waiting, flight tracking, meet & greet, English/Arabic drivers). No prices. */}
+      <section className="section-container max-w-5xl py-20 border-b border-[#C9A84C]/10" aria-labelledby="umrah-what">
+        <h2 id="umrah-what" className="font-heading text-3xl font-bold mb-4">What does an Umrah taxi service cover?</h2>
+        <p className="text-[#6B7280] leading-relaxed max-w-3xl mb-6">
+          An Umrah taxi service is a pre-booked private car with a driver for the legs of your pilgrimage: airport to Makkah, Makkah to Madinah, Ziyarat and the return to the airport. The fare is quoted and agreed before you book, with no meter and no surge, and cancellation is free up to 24 hours before pickup. Free waiting time is 15–30 minutes, and we track your flight for delays.
+        </p>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[32rem] border-collapse text-sm">
+            <thead>
+              <tr className="bg-white">
+                <th scope="col" className="border border-[#16A34A]/15 p-3 text-left font-bold">Typical Umrah leg</th>
+                <th scope="col" className="border border-[#16A34A]/15 p-3 text-left font-bold">Approx. distance and time</th>
+                <th scope="col" className="border border-[#16A34A]/15 p-3 text-left font-bold">Book this leg</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ["Jeddah Airport to Makkah", "About 80 km, around 1 hour", "/routes/jeddah-airport-to-makkah", "Jeddah Airport to Makkah taxi"],
+                ["Makkah to Madinah", "About 430 km, around 4–5 hours", "/routes/makkah-to-madinah", "Makkah to Madinah taxi"],
+                ["Jeddah to Madinah", "About 420 km, around 4 hours", "/routes/jeddah-to-madinah", "Jeddah to Madinah taxi"],
+                ["Madinah to Makkah", "About 430 km, around 4–5 hours", "/routes/madinah-to-makkah", "Madinah to Makkah taxi"],
+              ].map(([leg, dist, href, label]) => (
+                <tr key={href} className="bg-white">
+                  <th scope="row" className="border border-[#16A34A]/15 p-3 text-left font-semibold">{leg}</th>
+                  <td className="border border-[#16A34A]/15 p-3 text-[#4B5563]">{dist}</td>
+                  <td className="border border-[#16A34A]/15 p-3"><Link href={href} className="font-semibold text-[#16A34A] underline underline-offset-2">{label}</Link></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-4 text-sm text-[#6B7280]">
+          Distances and times are approximate and exclude prayer and rest stops. Not sure whether to drive or take the Haramain train between the cities? Read the{" "}
+          <Link href="/guides/makkah-to-madinah-transport-guide" className="font-semibold text-[#16A34A] underline underline-offset-2">taxi vs train vs bus comparison</Link>.
+        </p>
+      </section>
+
+      {/* ─── PACKAGES ─────────────────────────────────────────────── */}
+      <section className="section-container max-w-7xl py-20">
+        <div className="text-center mb-16">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">Umrah Transport Packages</h2>
+          <p className="text-[#6B7280]">Choose the transport tier that fits your pilgrimage needs.</p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          {PACKAGES.map((pkg, i) => (
+            <div key={i} className="bg-white border border-[#16A34A]/12 rounded-3xl p-8 flex flex-col hover:border-[#16A34A]/35 transition-colors">
+              <h3 className="font-heading text-xl font-bold mb-2 text-[#1C1C1C]">{pkg.title}</h3>
+              <p className="text-sm text-[#6B7280] mb-6 min-h-[40px]">{pkg.desc}</p>
+              <div className="text-2xl font-bold text-[#16A34A] mb-8">{pkg.price}</div>
+              
+              <ul className="space-y-4 mb-8 flex-1">
+                {pkg.features.map((feat, idx) => (
+                  <li key={idx} className="flex items-start gap-3 text-sm text-[#6B7280]">
+                    <CheckCircle2 className="h-4 w-4 text-[#C9A84C] shrink-0 mt-0.5" />
+                    {feat}
+                  </li>
+                ))}
+              </ul>
+
+              <a
+                href={waLink(`Salam, I'm interested in the Umrah "${pkg.title}" package (${pkg.price}). Please confirm details and fare.`)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full inline-flex items-center justify-center gap-2 rounded-full border border-[#C9A84C]/30 py-3 text-xs font-bold uppercase text-[#C9A84C] hover:bg-[#16A34A] hover:text-white transition-all"
+              >
+                <MessageCircle className="h-3.5 w-3.5" /> Enquire on WhatsApp
+              </a>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ─── FAQ ──────────────────────────────────────────────────── */}
+      <section className="section-container max-w-4xl py-20">
+        <h2 className="font-heading text-3xl font-bold mb-12 text-center">Umrah Transport FAQ</h2>
+        <div className="space-y-6">
+          {FAQS.map((faq, i) => (
+            <div key={i} className="bg-white border border-[#16A34A]/12 rounded-2xl p-6">
+              <h4 className="font-bold text-[#1C1C1C] mb-3 flex items-start gap-3">
+                <CheckCircle2 className="h-5 w-5 text-[#C9A84C] shrink-0 mt-0.5" />
+                {faq.q}
+              </h4>
+              <p className="text-sm text-[#6B7280] leading-relaxed pl-8">{faq.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ─── CTA + on-page lead form + Umrah group Path B ────────────── */}
+      <section className="section-container max-w-5xl pb-20">
+        <div className="bg-white border border-[#16A34A]/15 shadow-lg rounded-3xl p-6 sm:p-10">
+          <div className="text-center mb-6">
+            <h2 className="font-heading text-2xl font-bold mb-3 text-[#1C1C1C]">Plan your Umrah transport</h2>
+            <p className="text-[#6B7280] max-w-lg mx-auto">
+              Fill a few details for a fast WhatsApp quote — airport to Makkah, Makkah to Madinah, or a full itinerary. Group or travel-agency bookings can be quoted in writing.
+            </p>
+          </div>
+
+          <WhatsAppQuoteForm defaultPickup="Jeddah Airport (JED)" defaultDropoff="Makkah" />
+
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            <a
+              href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+                `Salam! Umrah transport enquiry.\n• Route(s) (e.g. JED → Makkah, Makkah → Madinah): \n• Dates: \n• Passengers (adults / children): \n• Vehicle (Sedan / SUV / Van): \n• Miqat stop for Ihram? : `,
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary btn-lg"
+            >
+              <MessageCircle className="h-4 w-4" /> Plan Umrah transport on WhatsApp
+            </a>
+            <a
+              href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(
+                "Umrah group transport RFQ",
+              )}&body=${encodeURIComponent(
+                `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for Umrah transport.\n\n• Agency / group name: \n• Contact name: \n• Route(s) (e.g. JED → Makkah, Makkah → Madinah, Madinah → JED): \n• Dates: \n• Number of pilgrims (adults / children): \n• Vehicle(s) needed (SUV / Van): \n• Miqat stop for Ihram?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
+              )}`}
+              className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C] px-7 py-3.5 text-xs font-bold uppercase text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all"
+            >
+              Email a group RFQ
+            </a>
+          </div>
+        </div>
+      </section>
+      <ServiceRelatedLinks currentPath="/services/umrah-transport" />
+    </div>
+  );
+}
