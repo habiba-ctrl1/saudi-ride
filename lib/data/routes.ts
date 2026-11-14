@@ -1273,7 +1273,7 @@ export const ROUTES_DATA = [
     toCityAr: "جدة",
     distance: 690,
     duration: 450,
-    basePrice: 0,
+    basePrice: 700, // mirrors jeddah-to-abha (validate-data.ts requires reverse pairs to match); internal only, never shown
     popular: false,
     description: "Private transfer from the Asir highlands down to Jeddah.",
     descriptionAr: "نقل خاص من مرتفعات عسير إلى جدة.",
