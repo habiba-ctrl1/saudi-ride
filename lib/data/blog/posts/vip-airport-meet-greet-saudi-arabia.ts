@@ -13,7 +13,7 @@ const post: BlogPost = {
     "How a pre-booked airport pickup works in Saudi Arabia — what to send when you book, how the driver finds you, what happens if your flight is late, and what a VIP arrival adds.",
   category: "Airport Transfers",
   coverImage: "/blog/vip-airport-meet-greet-saudi-arabia.webp",
-  coverAlt: "Driver in a dark suit holding a passenger name card in an airport arrivals hall",
+  coverAlt: "Chauffeur opening the car door for a passenger at a VIP private entrance",
   publishedAt: "2026-09-29",
   updatedAt: "2026-10-02",
   quickAnswer:

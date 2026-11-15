@@ -50,11 +50,12 @@ export function generateMetadata({
     },
     robots: {
       index: !noIndex,
-      follow: !noIndex,
+      // noindex pages still pass link equity: "noindex, follow", never "nofollow".
+      follow: true,
       nocache: noIndex,
       googleBot: {
         index: !noIndex,
-        follow: !noIndex,
+        follow: true,
       },
     },
     openGraph: {
