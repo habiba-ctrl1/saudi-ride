@@ -270,6 +270,37 @@ export const ROUTES_DATA = [
     descriptionAr: "نقل مباشر من الرياض إلى الخبر.",
     slug: "riyadh-to-alkhobar",
   },
+  // Added 2026-11-16 (GSC: "dammam to riyadh taxi" ~166 impr / 3 mo at pos ~43, no
+  // dedicated page). Distance and duration mirror riyadh-to-dammam — same road,
+  // single source of truth; do not let the two directions disagree.
+  {
+    fromCity: "Dammam",
+    toCity: "Riyadh",
+    fromCityAr: "الدمام",
+    toCityAr: "الرياض",
+    distance: 410,
+    duration: 240,
+    basePrice: 699,
+    popular: false,
+    description: "Private car with a driver from Dammam to Riyadh — a pre-booked, door-to-door transfer from the Eastern Province to the capital, with pickups in Dammam, Al Khobar and Dhahran.",
+    descriptionAr: "سيارة خاصة مع سائق من الدمام إلى الرياض — نقل مباشر من الباب إلى الباب من المنطقة الشرقية إلى العاصمة.",
+    slug: "dammam-to-riyadh",
+  },
+  // Added 2026-11-16 (GSC: "al khobar to riyadh" ~154 impr / 3 mo, no dedicated
+  // page). Distance and duration mirror riyadh-to-alkhobar.
+  {
+    fromCity: "Al Khobar",
+    toCity: "Riyadh",
+    fromCityAr: "الخبر",
+    toCityAr: "الرياض",
+    distance: 400,
+    duration: 220,
+    basePrice: 320,
+    popular: false,
+    description: "Private car with a driver from Al Khobar to Riyadh — door to door from your Khobar hotel, home or compound to your Riyadh address.",
+    descriptionAr: "سيارة خاصة مع سائق من الخبر إلى الرياض — من الباب إلى الباب.",
+    slug: "alkhobar-to-riyadh",
+  },
   {
     fromCity: "Riyadh",
     toCity: "AlUla",

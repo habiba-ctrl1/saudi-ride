@@ -13,6 +13,37 @@ import { AlulaRouteNavAr } from "@/components/ar/AlulaRouteNavAr";
 import { QassimAirportSections } from "@/components/routes/QassimAirportSections";
 import { HolyCitySections } from "@/components/routes/HolyCitySections";
 import { JeddahMadinahSections } from "@/components/routes/JeddahMadinahSections";
+import { AR_ROUTE_CONTENT_SLUGS } from "@/lib/data/routes-content-ar";
+import { AR_XB_ROUTE_SLUGS } from "@/lib/data/cross-border-ar";
+
+// Related Arabic routes (added 2026-11-16). The live crawl showed most
+// /ar/routes/* pages had only 0–2 internal links pointing at them (there is no
+// Arabic routes index), and GSC listed them as "Discovered – not indexed".
+// Each Arabic route now links to up to 6 other Arabic routes that share a city,
+// reverse direction first. The list is walked circularly from the current slug
+// so links are spread across all routes instead of piling onto the first few.
+function relatedArRoutes(slug: string) {
+  const all = [...AR_ROUTE_CONTENT_SLUGS, ...AR_XB_ROUTE_SLUGS];
+  const [from = "", to = ""] = slug.split("-to-");
+  const root = (s: string) => s.split("-")[0];
+  const start = Math.max(all.indexOf(slug), 0);
+  const ordered = [...all.slice(start + 1), ...all.slice(0, start)];
+  const reverse = `${to}-to-${from}`;
+  const shares = (other: string) => {
+    const [f = "", t = ""] = other.split("-to-");
+    return [root(f), root(t)].some((r) => r === root(from) || r === root(to));
+  };
+  const picked = [
+    ...ordered.filter((s) => s === reverse),
+    ...ordered.filter((s) => s !== reverse && shares(s)),
+  ].slice(0, 6);
+  return picked
+    .map((s) => {
+      const r = ROUTES_DATA.find((x) => x.slug === s);
+      return r?.fromCityAr && r?.toCityAr ? { slug: s, label: `تاكسي من ${r.fromCityAr} إلى ${r.toCityAr}` } : null;
+    })
+    .filter((x): x is { slug: string; label: string } => x !== null);
+}
 
 export interface ArabicRouteContent {
   slug: string;
@@ -168,6 +199,7 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
   // Airport-intent section + FAQs (Riyadh → DOH / DMM), added 2026-10-09.
   const airport = airportView(content.slug, "ar");
   const faqs = [...content.faqs, ...(airport?.faqs ?? [])];
+  const related = relatedArRoutes(content.slug);
 
   return (
     <div dir="rtl" className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24" lang="ar">
@@ -416,6 +448,23 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
       </section>
 
       {AR_ALULA_ROUTE_SLUGS.includes(content.slug) && <AlulaRouteNavAr slug={content.slug} />}
+
+      {related.length > 0 && (
+        <section className="section-container max-w-4xl py-12 border-t border-[#C9A84C]/10">
+          <h2 className="font-heading text-xl font-bold mb-6 text-center">مسارات ذات صلة</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {related.map((r) => (
+              <Link
+                key={r.slug}
+                href={`/ar/routes/${r.slug}`}
+                className="flex min-h-[44px] items-center rounded-xl border border-[#16A34A]/12 bg-white px-4 py-3 text-sm font-medium text-[#1C1C1C] hover:border-[#16A34A]/35 hover:text-[#16A34A] transition-colors"
+              >
+                {r.label}
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* RELATED */}
       <section className="section-container max-w-4xl py-12 border-t border-[#C9A84C]/10 text-center">

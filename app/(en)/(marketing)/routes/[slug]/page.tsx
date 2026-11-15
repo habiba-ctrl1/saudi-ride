@@ -95,6 +95,20 @@ const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup:
     pickup: "Riyadh",
     dropoff: "Dammam",
   },
+  "dammam-to-riyadh": {
+    heading: "Get your Dammam to Riyadh quote",
+    blurb:
+      "Tell us where in Dammam, Al Khobar or Dhahran to collect you and where in Riyadh you are going. We confirm one fixed fare on WhatsApp before you book.",
+    pickup: "Dammam",
+    dropoff: "Riyadh",
+  },
+  "alkhobar-to-riyadh": {
+    heading: "Get your Al Khobar to Riyadh quote",
+    blurb:
+      "Send your Khobar pickup point and your Riyadh address or flight. We confirm one fixed fare on WhatsApp before you book.",
+    pickup: "Al Khobar",
+    dropoff: "Riyadh",
+  },
   "madinah-to-alula": {
     heading: "Get your Madinah to AlUla quote",
     blurb:
@@ -556,6 +570,14 @@ Thank you.`,
     waPrefill: `Salam! Corporate transfer enquiry — Riyadh / Dammam (Eastern Province).\n• Company: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
     emailSubject: "Corporate transfer RFQ — Riyadh–Dammam",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate transfers on the Riyadh–Dammam / Eastern Province corridor.\n\n• Company name: \n• Contact name & role: \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
+  },
+  "dammam-to-riyadh": {
+    heading: "Sending staff from the Eastern Province to Riyadh?",
+    intro:
+      "For teams based in Dammam, Dhahran, Al Khobar or Jubail with meetings in the capital, we arrange executive sedans and full-size SUVs with professional drivers through our partner network — one-way, same-day return, or kept with you in Riyadh by the hour. Corporate invoicing can be arranged through our sister company.",
+    waPrefill: `Salam! Corporate transfer enquiry — Dammam / Eastern Province to Riyadh.\n• Company: \n• Pickup city (Dammam / Khobar / Dhahran / Jubail): \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle (Executive sedan / SUV / Van): \n• Email (for written quote): \n• Invoicing needed (VAT / PO)? : `,
+    emailSubject: "Corporate transfer RFQ — Dammam to Riyadh",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for corporate transfers from the Eastern Province to Riyadh.\n\n• Company name: \n• Contact name & role: \n• Pickup city (Dammam / Khobar / Dhahran / Jubail): \n• Trip(s) & dates: \n• Passengers per trip: \n• Vehicle preference (Executive sedan / SUV / Van): \n• VAT number: \n• PO reference: \n\nPlease confirm invoicing details and a fixed fare before booking.\n\nThank you.`,
   },
   "jeddah-to-kaec": {
     heading: "Business travel to King Abdullah Economic City?",
@@ -1345,6 +1367,45 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "Does this route also serve Dammam and Dhahran?", answer: "Yes. Al Khobar, Dammam, and Dhahran form one metro area, so we can drop you anywhere across the three cities — just confirm your district." },
     ],
   },
+  // Added 2026-11-16. Distance/time mirror riyadh-to-dammam in lib/data/routes.ts.
+  // Business facts (cancellation, payment, languages, invoicing wording) are
+  // from seo/facts.md / CLAUDE.md sections 14 and 17 only.
+  "dammam-to-riyadh": {
+    tldr: "A private car from Dammam to Riyadh covers about 410 km and takes around 4 hours on Highway 40. The driver collects you from your address in Dammam, Al Khobar or Dhahran and takes you to your Riyadh hotel, office or King Khalid International Airport (RUH). The car is for your party only, and the fare is confirmed on WhatsApp before you book.",
+    tldrFacts: [
+      { label: "Distance", value: "~410 km" },
+      { label: "Time", value: "~4 hours" },
+      { label: "Pickup", value: "Dammam · Khobar · Dhahran" },
+      { label: "Fare", value: "On WhatsApp" },
+    ],
+    faqs: [
+      { question: "How long does a taxi from Dammam to Riyadh take?", answer: "About 4 hours for roughly 410 km on Highway 40. Your pickup district in the Eastern Province and your drop-off district in Riyadh change the total, so allow extra time if you have a meeting or a flight." },
+      { question: "How much is a taxi from Dammam to Riyadh?", answer: "The fare depends on the vehicle category and your exact pickup and drop-off points. Send them on WhatsApp with your date and passenger count, and we confirm one fixed fare before you book. There is no meter and no surge." },
+      { question: "Can you pick me up from Al Khobar, Dhahran or Jubail?", answer: "Yes. Dammam, Al Khobar and Dhahran are served as one area, and Jubail pickups can be arranged too. Tell us the pickup city and address when you ask for a quote so the fare reflects it." },
+      { question: "Can the driver take me straight to Riyadh airport?", answer: "Yes. The drop-off can be King Khalid International Airport (RUH). Share your flight time and we plan the pickup in Dammam back from it, with a margin for the long drive." },
+      { question: "Should I take the train or a private car from Dammam to Riyadh?", answer: "The train runs station to station, so it suits a solo traveller with light luggage whose start and end points are near the stations. A private car goes door to door on your own schedule, which suits families, groups, heavy luggage and anyone going on to a meeting or the airport." },
+      { question: "Can I book a same-day return from Dammam to Riyadh and back?", answer: "Yes. Tell us your meeting times in Riyadh and we arrange the outbound and return together, or keep the car with you in Riyadh by the hour between the two legs." },
+      { question: "How do I pay, and can I cancel?", answer: "You can pay cash to the driver or by bank transfer, and an electronic receipt is available on request. Cancellation is free up to 24 hours before pickup." },
+      { question: "Do the drivers speak English?", answer: "Drivers arranged through our partner network speak English or Arabic. If you need a specific language, say so when you book." },
+    ],
+  },
+  "alkhobar-to-riyadh": {
+    tldr: "A private car from Al Khobar to Riyadh is about 400 km and takes roughly 3 hours 40 minutes on Highway 40. The driver collects you from your Khobar hotel, home or compound and drives you to your address in Riyadh or to King Khalid International Airport (RUH). The fare is fixed and confirmed on WhatsApp before you book.",
+    tldrFacts: [
+      { label: "Distance", value: "~400 km" },
+      { label: "Time", value: "~3 hr 40 min" },
+      { label: "Service", value: "Private, door to door" },
+      { label: "Fare", value: "On WhatsApp" },
+    ],
+    faqs: [
+      { question: "How far is Al Khobar from Riyadh by road?", answer: "About 400 km — roughly a 3 hour 40 minute drive on Highway 40. The exact time depends on your pickup point in Khobar and where in Riyadh you are going." },
+      { question: "How much is a taxi from Al Khobar to Riyadh?", answer: "We confirm one fixed fare on WhatsApp before you book, based on the vehicle category and your pickup and drop-off points. There is no meter and no surge." },
+      { question: "I am arriving from Bahrain. Can the same car take me on to Riyadh?", answer: "Yes. If you are crossing the King Fahd Causeway, a single car can be arranged from Bahrain all the way to Riyadh — see our Bahrain to Riyadh route. If you are already in Al Khobar, the driver collects you there." },
+      { question: "Can you collect from Dhahran or Dammam instead of Khobar?", answer: "Yes. Al Khobar, Dhahran and Dammam are served as one area. Give us the pickup address and we confirm the fare for that point." },
+      { question: "Which vehicle should I choose for Al Khobar to Riyadh?", answer: "An executive sedan suits one to three travellers. A full-size SUV suits a family or a small team with luggage, and a van suits larger groups. Tell us the passenger and bag count and we confirm the right category." },
+      { question: "How do I pay, and what is the cancellation policy?", answer: "Pay cash to the driver or by bank transfer. An electronic receipt is available on request, and cancellation is free up to 24 hours before pickup." },
+    ],
+  },
   "riyadh-to-alula": {
     // Strengthened 2026-10-02 (replaces the proposed blog article "Riyadh to
     // AlUla", which would have collided with this page + /distance/riyadh-to-alula).
@@ -1909,6 +1970,37 @@ const MORE_RIYADH_ROUTES: { slug: string; label: string; distance: number; price
 
 
 
+const EP_RIYADH_LINKS: Record<string, { heading: string; links: { href: string; label: string }[] }> = {
+  "dammam-to-riyadh": {
+    heading: "Planning the Dammam to Riyadh trip",
+    links: [
+      { href: "/routes/riyadh-to-dammam", label: "Return leg: Riyadh to Dammam private car" },
+      { href: "/distance/riyadh-to-dammam", label: "Riyadh–Dammam road distance and drive time" },
+      { href: "/blog/riyadh-to-dammam-taxi-price-train-or-flight", label: "Car, train or flight between Riyadh and Dammam" },
+      { href: "/airports/king-khalid-riyadh", label: "Arriving at King Khalid International Airport (RUH)" },
+      { href: "/routes/alkhobar-to-riyadh", label: "Starting in Al Khobar instead" },
+      { href: "/locations/dammam", label: "Car service within Dammam" },
+    ],
+  },
+  "alkhobar-to-riyadh": {
+    heading: "Planning the Al Khobar to Riyadh trip",
+    links: [
+      { href: "/routes/riyadh-to-alkhobar", label: "Return leg: Riyadh to Al Khobar" },
+      { href: "/distance/riyadh-to-alkhobar", label: "How far Riyadh is from Al Khobar by road" },
+      { href: "/routes/manama-to-riyadh", label: "Coming from Bahrain: Manama to Riyadh by car" },
+      { href: "/routes/dammam-to-riyadh", label: "Pickup in Dammam: Dammam to Riyadh taxi" },
+      { href: "/locations/alkhobar", label: "Private car service in Al Khobar" },
+    ],
+  },
+  "riyadh-to-alkhobar": {
+    heading: "Related Eastern Province trips",
+    links: [
+      { href: "/routes/alkhobar-to-riyadh", label: "Going back: Al Khobar to Riyadh taxi" },
+      { href: "/distance/riyadh-to-alkhobar", label: "Riyadh to Al Khobar distance guide" },
+    ],
+  },
+};
+
 // Static fallback from ROUTES_DATA — used when the DB is unreachable (flaky
 // pooler at build time) OR the slug exists in ROUTES_DATA but isn't seeded in
 // the DB yet (e.g. newly added cross-border routes). Keeps every route in
@@ -2014,6 +2106,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "jeddah-airport-to-makkah": "Taxi Jeddah Airport to Makkah — Fare, Distance & Booking",
     "makkah-to-madinah": "Taxi Makkah to Madinah — Fare on WhatsApp",
     "riyadh-to-dammam": "Riyadh to Dammam Taxi | Private Car & Chauffeur",
+    "dammam-to-riyadh": "Dammam to Riyadh Taxi | Private Car with Driver",
+    "alkhobar-to-riyadh": "Al Khobar to Riyadh Taxi | Private Car with Driver",
     "jeddah-to-kaec": "Jeddah to KAEC Taxi — Distance, Fare & Price",
     "riyadh-to-alula": "Riyadh to AlUla Taxi — Distance, Fare & Price",
     "madinah-to-alula": "Madinah to AlUla Taxi — Distance, Fare & Price",
@@ -2083,6 +2177,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "bahrain-to-dammam-airport": "Bahrain to Dammam Airport taxi — private car over the King Fahd Causeway to DMM departures, ~105 km, timed for check-in. Causeway toll included.",
     "riyadh-to-taif": "Private car from Riyadh to Taif — about 785 km on Highway 40, roughly 8 hours, door to door with rest stops. One fixed fare agreed on WhatsApp before booking.",
     "riyadh-to-dammam": "Private Riyadh to Dammam transfer by sedan, SUV or van. Fixed fare agreed on WhatsApp before booking. Free cancellation up to 24 hours before pickup.",
+    "dammam-to-riyadh": "Dammam to Riyadh taxi — about 410 km, around 4 hours, door to door from Dammam, Khobar or Dhahran. Fixed fare on WhatsApp, free cancellation up to 24 hours before.",
+    "alkhobar-to-riyadh": "Al Khobar to Riyadh taxi — about 400 km, roughly 3 hr 40 min, from your Khobar address to Riyadh or RUH airport. Fixed fare confirmed on WhatsApp before booking.",
     "jeddah-to-kaec": "Jeddah to KAEC (King Abdullah Economic City) taxi — 120 km, about 1 hr 20 min. Get your exact fare confirmed on WhatsApp before booking. Corporate sedans, 24/7.",
     // 2026-11-13 (Batch 5): had a bespoke title but generic description (pos 8.7, 1.8% CTR). 375 km / 3h35 from routes.ts.
     "jubail-to-kuwait": "Private car with driver, Jubail to Kuwait City — ~375 km up the coast via the Al Khafji–Nuwaiseeb border, about 3 hours 35 minutes plus border time. Border fees included.",
@@ -2512,7 +2608,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
 
                 <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight tracking-tight text-white">
                   {route.fromCity} <span className="text-[#FACC15]">to</span> {route.toCity}
-                  {slug === "riyadh-to-dammam" || slug === "kuwait-to-dammam" || slug === "kuwait-to-riyadh" ? " Taxi" : MAKKAH_ROUTE_META[slug] ? " Private Transfer" : ""}
+                  {slug === "riyadh-to-dammam" || slug === "dammam-to-riyadh" || slug === "alkhobar-to-riyadh" || slug === "kuwait-to-dammam" || slug === "kuwait-to-riyadh" ? " Taxi" : MAKKAH_ROUTE_META[slug] ? " Private Transfer" : ""}
                 </h1>
 
                 <p className="text-sm sm:text-base text-white/85 leading-relaxed font-normal max-w-lg">
@@ -3120,6 +3216,24 @@ export default async function RouteDetailsPage({ params }: PageProps) {
             </section>
           )}
 
+          {/* ─── EASTERN PROVINCE / RIYADH LINKS (added 2026-11-16) ───
+              Reverse route, distance guide and arrival pages for the two new
+              Eastern-Province-origin routes, plus the reverse link that
+              riyadh-to-alkhobar was missing. */}
+          {EP_RIYADH_LINKS[slug] && (
+            <section className="bg-white border border-[#16A34A]/12 rounded-3xl p-8 shadow-sm">
+              <h2 className="font-heading text-2xl font-bold text-[#1C1C1C] mb-5">{EP_RIYADH_LINKS[slug].heading}</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {EP_RIYADH_LINKS[slug].links.map((l) => (
+                  <Link key={l.href} href={l.href} className="group flex min-h-[44px] items-center justify-between gap-3 rounded-xl border border-[#16A34A]/12 bg-[#FAFAF7] px-4 py-3 hover:border-[#16A34A]/35 transition-colors">
+                    <span className="text-sm font-medium text-[#1C1C1C] group-hover:text-[#16A34A]">{l.label}</span>
+                    <ArrowRight className="h-4 w-4 shrink-0 text-[#C9A84C]" />
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
           {/* ─── REVERSE-INTENT SECTION (Dammam -> Riyadh) ─── */}
           {slug === "riyadh-to-dammam" && (
             <section className="bg-white border border-[#16A34A]/12 rounded-3xl p-8 shadow-sm">
@@ -3153,6 +3267,9 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                   </a>
                 </div>
                 <div className="flex flex-wrap gap-3 pt-2">
+                  <Link href="/routes/dammam-to-riyadh" className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#16A34A] hover:bg-[#16A34A]/10 transition-all">
+                    <ArrowRight className="h-3.5 w-3.5" /> Dammam to Riyadh route page
+                  </Link>
                   <Link href="/locations/dammam" className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/25 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all">
                     <MapPin className="h-3.5 w-3.5" /> Taxi service in Dammam
                   </Link>

@@ -166,6 +166,11 @@ export default async function SubAreaPage({ params }: PageProps) {
   const clusterPage = cluster?.pages[subarea];
   if (cluster && clusterPage) return <ClusterChildPage page={clusterPage} city={cluster.city} />;
 
+  // Sibling areas in the same city (added 2026-11-16). The live crawl showed
+  // Makkah / Madinah / Dammam district pages had a single internal link each
+  // and GSC listed them as "Discovered – not indexed".
+  const siblings = Object.values(SUB_AREAS).filter((a) => a.city === city && a.subarea !== subarea);
+
   return (
     <div className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C] pb-24">
       <JsonLd
@@ -393,6 +398,28 @@ export default async function SubAreaPage({ params }: PageProps) {
             {[...(SERVICE_CROSS_LINKS[subarea] ?? []), ...RELATED_LINKS[city]].map((l) => (
               <Link key={l.href} href={l.href} className="group flex items-center justify-between gap-3 rounded-xl border border-[#16A34A]/12 bg-white px-4 py-3 hover:border-[#16A34A]/35 transition-colors">
                 <span className="text-sm font-medium text-[#1C1C1C] group-hover:text-[#16A34A]">{l.name}</span>
+                <ArrowRight className="h-4 w-4 text-[#C9A84C]" />
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {siblings.length > 0 && (
+        <section className="section-container max-w-5xl pb-12">
+          <h2 className="font-heading text-xl font-bold mb-5 text-[#1C1C1C]">
+            More areas we cover in {capitalizedCity}
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {siblings.map((s) => (
+              <Link
+                key={s.subarea}
+                href={`/locations/${city}/${s.subarea}`}
+                className="group flex min-h-[44px] items-center justify-between gap-3 rounded-xl border border-[#16A34A]/12 bg-white px-4 py-3 hover:border-[#16A34A]/35 transition-colors"
+              >
+                <span className="text-sm font-medium text-[#1C1C1C] group-hover:text-[#16A34A]">
+                  {s.kind === "service" ? `${s.name} in ${capitalizedCity}` : s.name}
+                </span>
                 <ArrowRight className="h-4 w-4 text-[#C9A84C]" />
               </Link>
             ))}

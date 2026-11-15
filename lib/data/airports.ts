@@ -38,6 +38,9 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     ],
     relatedLinks: [
       { href: "/routes/jeddah-airport-to-makkah", label: "Jeddah Airport to Makkah taxi" },
+      // Added 2026-11-16: both guides were un-indexed in GSC and the airport page did not link to them.
+      { href: "/guides/jeddah-airport-guide", label: "Jeddah Airport guide: terminals and arrivals" },
+      { href: "/guides/jeddah-airport-to-makkah-guide", label: "How to get from Jeddah Airport to Makkah" },
       { href: "/locations/jeddah", label: "Private transfers across Jeddah" },
       { href: "/locations/jeddah/private-driver", label: "Private driver in Jeddah by the hour" },
       { href: "/locations/jeddah/obhur", label: "Obhur resort transfers (near the airport)" },
