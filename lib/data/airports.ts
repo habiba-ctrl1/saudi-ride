@@ -16,25 +16,30 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
       { label: "Meet & greet", value: "Included" },
       { label: "Hours", value: "24/7" }
     ],
+    // Updated 2026-11-16 (sources: Khaleej Times 17 Oct 2026, Gulf News 27 Sep 2026, Wego 1 Oct 2026;
+    // see seo/venues.md). Terminal 4 opened in phases from 27 Sep 2026 and North Terminal flights are
+    // being moved to it and to the Hajj and Umrah Terminals. Assignments still change — keep the
+    // "confirm with your airline" wording and do not name per-airline terminals here.
     terminals: [
-      { name: "Terminal 1", desc: "The main modern terminal — Saudia plus most international and domestic flights. Largest arrivals hall; pre-booked drivers meet you here." },
-      { name: "North Terminal", desc: "Older terminal used by some international carriers (e.g. flynas and others). Confirm your terminal from your boarding pass." },
-      { name: "Hajj Terminal", desc: "Dedicated terminal for Hajj and Umrah charter flights during the pilgrimage seasons." }
+      { name: "Terminal 1", desc: "The main hub for international and domestic flights, including Saudia. Opened in 2019 and connected to the Haramain high-speed rail station. Confirm your terminal with your airline before you travel." },
+      { name: "Terminal 4", desc: "The newest terminal (about 97,000 m², phased opening from 27 September 2026). Foreign airlines have been moving here from the North Terminal, and it has a dedicated group check-in area for Hajj and Umrah pilgrims." },
+      { name: "North Terminal", desc: "Handled most foreign airlines. Reports say its flights move to Terminal 4 and the Hajj and Umrah Terminals from 17 October 2026, though some tickets may still show it — confirm with your airline." },
+      { name: "Hajj and Umrah Terminal", desc: "A separate terminal for pilgrim flights, distinct from Terminal 4. Several airlines moved here from the North Terminal in autumn 2026." }
     ],
     tips: [
       "Share your flight number when you book so we check it before pickup and plan around any delay.",
       "Jeddah is inside the Miqat boundary — most Umrah pilgrims enter Ihram on the plane before landing. If you need to travel to the Al-Juhfah Miqat near Rabigh first, tell us when you book and we quote it as a separate trip.",
       "Meet & greet is included — your driver waits in the arrivals hall holding a sign with your name.",
-      "Confirm your terminal (Terminal 1, North, or Hajj) when booking so your driver meets you at the right arrivals exit."
+      "Confirm the terminal your airline shows (Terminal 1, Terminal 4, or the Hajj and Umrah Terminal) when booking, and message us if it changes before you fly, so your driver waits at the right arrivals hall. See our Jeddah airport terminals guide for the current layout."
     ],
     priorityRoutes: ["jeddah-airport-to-makkah", "jeddah-airport-to-madinah", "jeddah-airport-to-taif"],
     faqs: [
       { question: "How much is a taxi from Jeddah airport to Makkah?", answer: "The fare from King Abdulaziz International Airport (JED) to Makkah is confirmed on WhatsApp for a sedan, with larger SUVs and vans available — confirmed before you book, no surge, tolls included." },
       { question: "Is there a taxi at Jeddah airport at night?", answer: "Yes. We operate 24/7 at JED, including late-night and early-morning arrivals. Share your flight number when you book so your driver is waiting with a name sign even on 2–4 AM landings." },
-      { question: "Where do I meet my driver at Jeddah airport?", answer: "Your driver meets you inside the arrivals hall of your terminal (Terminal 1, North Terminal, or the Hajj Terminal) holding a sign with your name. Confirm your terminal when booking so we meet you at the right exit." },
+      { question: "Where do I meet my driver at Jeddah airport?", answer: "Your driver provides meet & greet at the arrivals hall of your terminal. Terminal assignments at Jeddah airport have been changing since Terminal 4 opened in September 2026, so confirm the terminal your airline shows when you book and tell us if it changes before you fly." },
       { question: "Is there a Miqat on the way from Jeddah Airport to Makkah?", answer: "No. Jeddah lies inside the Miqat boundary, so pilgrims arriving by air usually enter Ihram on the plane before landing. If you need to go to the Al-Juhfah Miqat near Rabigh first, tell us when booking and we quote that trip separately — see our Miqat guide for the details." },
       { question: "What happens if my flight is delayed?", answer: "Share your flight number when you book — we track your flight, so a delay simply moves the pickup to your actual landing time, and 15–30 minutes of waiting after landing is free." },
-      { question: "Is there a taxi service at the Hajj Terminal?", answer: "Yes. During Hajj and Umrah seasons we serve the dedicated Hajj Terminal. Pre-book and share your flight details so your driver meets you at the correct terminal." }
+      { question: "Is there a taxi service at the Hajj and Umrah Terminal and Terminal 4?", answer: "Yes. We arrange meet & greet and a private car for arrivals at any terminal, including the Hajj and Umrah Terminal and Terminal 4. Pre-book and share your flight number and the terminal your airline shows so your driver waits at the correct one." }
     ],
     relatedLinks: [
       { href: "/routes/jeddah-airport-to-makkah", label: "Jeddah Airport to Makkah taxi" },

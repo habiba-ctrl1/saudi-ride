@@ -175,7 +175,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { name: "Madinah (Masjid an-Nabawi)", dist: "~420 km" }
     ],
     tips: [
-      "Jeddah Airport (JED) has Terminal 1 (the main terminal for Saudia and most international flights), the older North Terminal, and a dedicated Hajj Terminal. Tell us your terminal when booking.",
+      "Jeddah Airport (JED) has Terminal 1 (the main hub, including Saudia), the new Terminal 4, the North Terminal and the Hajj and Umrah Terminal. Foreign airlines have been moving from the North Terminal to Terminal 4 since September 2026, so tell us the terminal your airline shows when booking.",
       "For Umrah, ask the driver to stop at the Miqat on the Jeddah–Makkah road so you can enter Ihram before reaching Makkah.",
       "Late-night flights are common at JED — pre-book so a driver with a name sign is waiting at arrivals, even at 2–4 AM.",
       "Traffic near the Corniche is heavy on Thursday and Friday evenings. Plan ahead."

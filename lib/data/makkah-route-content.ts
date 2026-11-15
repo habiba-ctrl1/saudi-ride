@@ -40,7 +40,7 @@ export const MAKKAH_ROUTE_CONTENT: Record<string, MakkahRouteContent> = {
     tldrFacts: facts("jeddah-airport-to-makkah", { label: "Flights", value: "We track your flight" }),
     faqs: [
       { question: "Can I travel from Jeddah Airport directly to my Makkah hotel?", answer: `Yes. The driver takes you from your JED terminal to your hotel — about ${km("jeddah-airport-to-makkah")}, ${t("jeddah-airport-to-makkah")} — as close to the entrance as vehicles are permitted. Near Masjid al-Haram that may be the nearest permitted drop-off point at prayer times.` },
-      { question: "Where does the driver meet me at Jeddah Airport?", answer: "After baggage claim in the arrivals area of your terminal. JED has Terminal 1, the North Terminal and, in pilgrimage season, the Hajj Terminal. Send your flight number and we confirm the meeting point on WhatsApp before you land." },
+      { question: "Where does the driver meet me at Jeddah Airport?", answer: "After baggage claim in the arrivals area of your terminal. JED has Terminal 1, the new Terminal 4, the North Terminal and the Hajj and Umrah Terminal, and assignments are still changing. Send your flight number and we confirm the meeting point on WhatsApp before you land." },
       { question: "What happens if my flight is delayed?", answer: `We track your flight, so the pickup moves with it. After you land, the first ${FREE_WAIT} of waiting is free.` },
       { question: "Is the transfer private?", answer: "Yes. The whole car is yours — you share it only with the people in your group. There are no other pickups on the way." },
       { question: "Which vehicle should I choose for my family and luggage?", answer: GROUP_VEHICLES },

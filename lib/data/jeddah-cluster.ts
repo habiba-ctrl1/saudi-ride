@@ -148,7 +148,7 @@ export const JEDDAH_TRIPS: TripType[] = [
 export const JED_FLOW = {
   arrival: [
     { title: "Book with your flight", desc: "Send the flight number and where you are going. The fare is agreed before you travel." },
-    { title: "Land at JED", desc: "Terminal 1, the North Terminal or the Hajj Terminal — tell us which if you know." },
+    { title: "Land at JED", desc: "Terminal 1, Terminal 4, the North Terminal or the Hajj and Umrah Terminal — tell us which if you know." },
     { title: "We track the flight", desc: `Delays move your pickup automatically, and ${FREE_WAIT} of waiting is free once you land.` },
     { title: "Meet your driver", desc: "Driver details arrive on WhatsApp before pickup, so you can call as soon as you clear baggage." },
     { title: "Luggage loaded", desc: "The vehicle is sized to your bags at booking — families and pilgrims with heavy cases get an SUV or van." },
@@ -286,7 +286,7 @@ export const TRAIN_VS_CAR = [
 
 export const JEDDAH_VISITOR_GUIDE = [
   { q: "How do I get from Jeddah airport to Makkah?", a: `The simplest way is a pre-booked private car from your JED terminal to your Makkah hotel — about ${JED_MAKKAH.km} km and ${JED_MAKKAH.time}, with your bags in the same vehicle. The Haramain train from the Terminal 1 station is the alternative if you travel light and are happy to transfer at Makkah station.` },
-  { q: "Which terminal will I arrive at?", a: "JED has Terminal 1, the North Terminal and, in pilgrimage season, the Hajj Terminal. Your airline confirms which; send us the flight number and we plan the pickup for that terminal." },
+  { q: "Which terminal will I arrive at?", a: "JED has Terminal 1, the new Terminal 4 (phased opening from 27 September 2026), the North Terminal and the Hajj and Umrah Terminal, and assignments are still changing. Your airline confirms which; send us the flight number and we plan the pickup for that terminal." },
   { q: "Can I go straight from the airport to Madinah?", a: `Yes. JED Airport to Madinah is about ${JED_MADINAH.km} km by road. Many families do this on arrival day rather than stopping in Jeddah — tell us if you want a meal or prayer stop on the way.` },
   { q: "What should I book for a day in Jeddah?", a: "If you have three or more stops — Al-Balad, the Corniche, a mall, a restaurant — book a car by the hour. For a single trip, book a one-way transfer and a timed return." },
   { q: "Can I travel with a lot of luggage?", a: "Yes. Tell us the number of large cases when you book. Full-size SUVs, vans and coasters are the usual choice for Umrah families with luggage and zamzam." },

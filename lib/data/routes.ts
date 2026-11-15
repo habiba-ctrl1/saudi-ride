@@ -301,6 +301,24 @@ export const ROUTES_DATA = [
     descriptionAr: "سيارة خاصة مع سائق من الخبر إلى الرياض — من الباب إلى الباب.",
     slug: "alkhobar-to-riyadh",
   },
+  // Added 2026-11-16 (Semrush, competitor taxiserviceksa.com: "dammam to makkah distance" 1,000/mo,
+  // "dammam to makkah" 590/mo, "makkah to dammam distance" 480/mo; our GSC: 0 impressions).
+  // Distance and time are the sum of two existing figures in this file, not a new estimate:
+  // riyadh-to-dammam (410 km / 240 min) + riyadh-to-makkah (870 km / 480 min) = 1,280 km / 720 min.
+  // The road runs via Riyadh. Price on request (basePrice 0), like the other long-haul pages.
+  {
+    fromCity: "Dammam",
+    toCity: "Makkah",
+    fromCityAr: "الدمام",
+    toCityAr: "مكة المكرمة",
+    distance: 1280,
+    duration: 720,
+    basePrice: 0,
+    popular: false,
+    description: "Private car with a driver from Dammam to Makkah — a long-distance transfer across the Kingdom via Riyadh, from Dammam, Al Khobar or Dhahran to your Makkah hotel, with prayer, rest and Miqat stops planned.",
+    descriptionAr: "سيارة خاصة مع سائق من الدمام إلى مكة المكرمة — رحلة طويلة عبر الرياض من الدمام أو الخبر أو الظهران إلى فندقك في مكة.",
+    slug: "dammam-to-makkah",
+  },
   {
     fromCity: "Riyadh",
     toCity: "AlUla",

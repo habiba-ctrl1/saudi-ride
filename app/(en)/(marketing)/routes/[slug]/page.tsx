@@ -95,6 +95,13 @@ const LEAD_FORM_CONFIG: Record<string, { heading: string; blurb: string; pickup:
     pickup: "Riyadh",
     dropoff: "Dammam",
   },
+  "dammam-to-makkah": {
+    heading: "Get your Dammam to Makkah quote",
+    blurb:
+      "Tell us where in Dammam, Al Khobar or Dhahran to collect you and which Makkah hotel you are going to. We confirm one fixed fare on WhatsApp before you book.",
+    pickup: "Dammam",
+    dropoff: "Makkah",
+  },
   "dammam-to-riyadh": {
     heading: "Get your Dammam to Riyadh quote",
     blurb:
@@ -616,6 +623,14 @@ Thank you.`,
 // Umrah group & family (Path B) block config for pilgrim routes. Shared JSX;
 // only heading/intro/prefills differ per corridor.
 const UMRAH_GROUP_CONFIG: Record<string, { heading: string; intro: string; waPrefill: string; emailSubject: string; emailBody: string }> = {
+  "dammam-to-makkah": {
+    heading: "Going for Umrah from the Eastern Province with family or a group?",
+    intro:
+      "For families and Umrah groups we arrange a full-size SUV or van so everyone travels together with their luggage — one vehicle and one chauffeur from Dammam, Al Khobar or Dhahran to your Makkah hotel, with prayer and rest stops on the way. Pilgrims coming from the Riyadh direction enter Ihram at Qarn Al-Manazil (As-Sayl); tell us when you book and we plan that stop into the trip.",
+    waPrefill: `Salam! Umrah transfer — Dammam / Eastern Province to Makkah.\n• Pickup (Dammam / Khobar / Dhahran): \n• Date & time: \n• Passengers (adults / children): \n• Luggage: \n• Vehicle (Sedan / SUV / Van): \n• Makkah hotel: \n• Ihram stop at the Miqat needed? : `,
+    emailSubject: "Umrah group transfer RFQ — Dammam to Makkah",
+    emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for an Umrah group transfer from the Eastern Province to Makkah.\n\n• Agency / group name: \n• Contact name: \n• Pickup city (Dammam / Khobar / Dhahran): \n• Travel date: \n• Number of pilgrims (adults / children): \n• Luggage: \n• Vehicle(s) needed (SUV / Van): \n• Makkah hotel: \n\nPlease confirm a fixed fare in writing before booking.\n\nThank you.`,
+  },
   "jeddah-airport-to-swissotel-makkah": {
     heading: "Travelling as a family or Umrah group?",
     intro:
@@ -887,7 +902,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "Does a Jeddah pickup involve a Miqat stop?", answer: "A pickup in Jeddah does not by itself involve a Miqat stop. Whether a Miqat matters for you depends on where you travelled from and on your own religious circumstances, which we cannot advise on. If your plans include a stop, tell us when you book and we will plan it." },
       { question: "Is the Jeddah airport to Makkah taxi available at night?", answer: "Yes, we are available 24/7. We track your flight number, so the driver is waiting at arrivals with a name sign even for late-night or delayed flights." },
       { question: "Which is better — taxi or the Haramain train?", answer: "A private transfer is door-to-door from the airport to your Makkah hotel with luggage help and no station transfers. The Haramain high-speed train is fast but requires transfers to and from the stations. For pilgrims with luggage, the direct taxi is usually more convenient." },
-      { question: "Where do I meet my driver at Jeddah airport?", answer: "Your driver waits in the arrivals hall with a name sign at your terminal (Terminal 1 for most international airlines, the Hajj Terminal during Hajj/Umrah peak season). We track your flight, so pickup timing adjusts automatically if you land early or late." },
+      { question: "Where do I meet my driver at Jeddah airport?", answer: "Your driver provides meet & greet at the arrivals hall of your terminal. Terminal assignments at Jeddah airport have changed since Terminal 4 opened in September 2026, so confirm the terminal your airline shows when you book. We track your flight, so pickup timing adjusts if you land early or late." },
       { question: "Is a private transfer cheaper than Uber or Careem from Jeddah to Makkah?", answer: "A private, pre-booked taxi gives you a confirmed vehicle and driver waiting at arrivals with no surge pricing during peak Umrah season — unlike ride-hailing apps, which can be scarce or surge-priced right after international flights land. Message us on WhatsApp to compare your options for a quote." },
       { question: "Do you provide a taxi service from Jeddah to Mecca for groups?", answer: "Yes. Alongside sedans, we arrange SUVs and vans for Umrah groups and families travelling together from Jeddah Airport to Mecca, with one driver and vehicle for the whole party." },
     ],
@@ -1370,6 +1385,28 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
   // Added 2026-11-16. Distance/time mirror riyadh-to-dammam in lib/data/routes.ts.
   // Business facts (cancellation, payment, languages, invoicing wording) are
   // from seo/facts.md / CLAUDE.md sections 14 and 17 only.
+  // Added 2026-11-16. Distance/time = riyadh-to-dammam + riyadh-to-makkah in lib/data/routes.ts.
+  // Miqat wording follows lib/data/guides.ts ("meeqat-locations": Qarn Al-Manazil / As-Sayl for pilgrims
+  // from Najd). No price, no vehicle models, no unverified claims.
+  "dammam-to-makkah": {
+    tldr: "A private car from Dammam to Makkah is about 1,280 km and takes roughly 12 hours of driving, plus prayer and rest stops, via Riyadh. The driver collects you from Dammam, Al Khobar or Dhahran and takes you to your Makkah hotel, with the fare confirmed on WhatsApp before you book. Umrah pilgrims travelling from the Riyadh direction enter Ihram at Qarn Al-Manazil (As-Sayl), and we plan that stop with you.",
+    tldrFacts: [
+      { label: "Distance", value: "~1,280 km via Riyadh" },
+      { label: "Driving time", value: "~12 hours + stops" },
+      { label: "Pickup", value: "Dammam · Khobar · Dhahran" },
+      { label: "Fare", value: "On WhatsApp" },
+    ],
+    faqs: [
+      { question: "How far is Dammam from Makkah by road?", answer: "About 1,280 km via Riyadh, roughly 12 hours of driving before prayer, fuel and rest stops. Plan for a full day, or break the journey overnight if you are travelling with elderly relatives or young children." },
+      { question: "How much is a taxi from Dammam to Makkah?", answer: "The fare depends on the vehicle category, the date and your exact pickup and Makkah hotel. Send them on WhatsApp with your passenger and luggage count and we confirm one fixed fare before you book. There is no meter and no surge." },
+      { question: "Should I drive, fly or take a private car from Dammam to Makkah?", answer: "For one or two travellers with light luggage, flying from Dammam to Jeddah and taking a car for the last 80 km to Makkah saves the most time. A private car all the way suits families, groups, heavy luggage and anyone who wants to stop for prayer on their own schedule, door to door." },
+      { question: "Which Miqat will we pass on the way from Dammam to Makkah?", answer: "Pilgrims travelling from the Riyadh and Najd direction enter Ihram at Qarn Al-Manazil, also called As-Sayl. If you are going for Umrah, tell us when you book and we plan the stop so you can change and make your intention before continuing. Our Miqat guide explains each location." },
+      { question: "Can you collect from Al Khobar, Dhahran or Jubail instead of Dammam?", answer: "Yes. Dammam, Al Khobar and Dhahran are served as one area, and Jubail pickups can be arranged. Give us the pickup address and we confirm the fare for that point." },
+      { question: "Can we break the journey with an overnight stop?", answer: "Yes. Many families stop for the night partway, for example in Riyadh. Tell us your plan when you book so the quote and the timing reflect it." },
+      { question: "Do you also run the trip from Makkah back to Dammam?", answer: "Yes. We arrange Makkah to Dammam as well, one way or as part of a return trip. Send your Makkah hotel, travel date and passenger count on WhatsApp and we confirm the fare before booking." },
+      { question: "How do I pay, and can I cancel?", answer: "You can pay cash to the driver or by bank transfer, and an electronic receipt is available on request. Cancellation is free up to 24 hours before pickup." },
+    ],
+  },
   "dammam-to-riyadh": {
     tldr: "A private car from Dammam to Riyadh covers about 410 km and takes around 4 hours on Highway 40. The driver collects you from your address in Dammam, Al Khobar or Dhahran and takes you to your Riyadh hotel, office or King Khalid International Airport (RUH). The car is for your party only, and the fare is confirmed on WhatsApp before you book.",
     tldrFacts: [
@@ -1992,6 +2029,17 @@ const EP_RIYADH_LINKS: Record<string, { heading: string; links: { href: string; 
       { href: "/locations/alkhobar", label: "Private car service in Al Khobar" },
     ],
   },
+  "dammam-to-makkah": {
+    heading: "Planning the Dammam to Makkah trip",
+    links: [
+      { href: "/routes/riyadh-to-makkah", label: "Riyadh to Makkah private car (the second half of the road)" },
+      { href: "/routes/dammam-to-riyadh", label: "Dammam to Riyadh taxi, if you want to break the journey" },
+      { href: "/routes/dammam-to-jeddah", label: "Dammam to Jeddah private car" },
+      { href: "/guides/meeqat-locations", label: "Miqat locations for Umrah: which one applies to you" },
+      { href: "/services/umrah-transport", label: "Umrah transport for families and groups" },
+      { href: "/locations/dammam", label: "Private car service in Dammam" },
+    ],
+  },
   "riyadh-to-alkhobar": {
     heading: "Related Eastern Province trips",
     links: [
@@ -2108,6 +2156,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "riyadh-to-dammam": "Riyadh to Dammam Taxi | Private Car & Chauffeur",
     "dammam-to-riyadh": "Dammam to Riyadh Taxi | Private Car with Driver",
     "alkhobar-to-riyadh": "Al Khobar to Riyadh Taxi | Private Car with Driver",
+    "dammam-to-makkah": "Dammam to Makkah Taxi | Private Car with Driver",
     "jeddah-to-kaec": "Jeddah to KAEC Taxi — Distance, Fare & Price",
     "riyadh-to-alula": "Riyadh to AlUla Taxi — Distance, Fare & Price",
     "madinah-to-alula": "Madinah to AlUla Taxi — Distance, Fare & Price",
@@ -2179,6 +2228,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "riyadh-to-dammam": "Private Riyadh to Dammam transfer by sedan, SUV or van. Fixed fare agreed on WhatsApp before booking. Free cancellation up to 24 hours before pickup.",
     "dammam-to-riyadh": "Dammam to Riyadh taxi — about 410 km, around 4 hours, door to door from Dammam, Khobar or Dhahran. Fixed fare on WhatsApp, free cancellation up to 24 hours before.",
     "alkhobar-to-riyadh": "Al Khobar to Riyadh taxi — about 400 km, roughly 3 hr 40 min, from your Khobar address to Riyadh or RUH airport. Fixed fare confirmed on WhatsApp before booking.",
+    "dammam-to-makkah": "Dammam to Makkah private car — about 1,280 km, around 12 hours, from Dammam, Khobar or Dhahran to your Makkah hotel. Fixed fare on WhatsApp; Miqat stop planned.",
     "jeddah-to-kaec": "Jeddah to KAEC (King Abdullah Economic City) taxi — 120 km, about 1 hr 20 min. Get your exact fare confirmed on WhatsApp before booking. Corporate sedans, 24/7.",
     // 2026-11-13 (Batch 5): had a bespoke title but generic description (pos 8.7, 1.8% CTR). 375 km / 3h35 from routes.ts.
     "jubail-to-kuwait": "Private car with driver, Jubail to Kuwait City — ~375 km up the coast via the Al Khafji–Nuwaiseeb border, about 3 hours 35 minutes plus border time. Border fees included.",
@@ -2608,7 +2658,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
 
                 <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight tracking-tight text-white">
                   {route.fromCity} <span className="text-[#FACC15]">to</span> {route.toCity}
-                  {slug === "riyadh-to-dammam" || slug === "dammam-to-riyadh" || slug === "alkhobar-to-riyadh" || slug === "kuwait-to-dammam" || slug === "kuwait-to-riyadh" ? " Taxi" : MAKKAH_ROUTE_META[slug] ? " Private Transfer" : ""}
+                  {slug === "riyadh-to-dammam" || slug === "dammam-to-riyadh" || slug === "alkhobar-to-riyadh" || slug === "dammam-to-makkah" || slug === "kuwait-to-dammam" || slug === "kuwait-to-riyadh" ? " Taxi" : MAKKAH_ROUTE_META[slug] ? " Private Transfer" : ""}
                 </h1>
 
                 <p className="text-sm sm:text-base text-white/85 leading-relaxed font-normal max-w-lg">

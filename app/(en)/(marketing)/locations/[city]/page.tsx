@@ -51,7 +51,7 @@ const AIRPORT_JOURNEY: Record<string, { heading: string; steps: { title: string;
   jeddah: {
     heading: "Your JED Airport Transfer, Step by Step",
     steps: [
-      { title: "Flight lands at JED", desc: "King Abdulaziz International Airport, Terminal 1, North Terminal, or the Hajj Terminal.", icon: PlaneLanding },
+      { title: "Flight lands at JED", desc: "King Abdulaziz International Airport: Terminal 1, Terminal 4, the North Terminal or the Hajj and Umrah Terminal.", icon: PlaneLanding },
       { title: "Share your flight number", desc: "Add it when you book so we check it before pickup, even if the flight is delayed.", icon: Luggage },
       { title: "Meet & greet at arrivals", desc: "Your driver waits with a name sign and helps with luggage.", icon: UserCheck },
       { title: "Private vehicle to your destination", desc: "Straight to your Jeddah hotel, or on to Makkah or Madinah, with a Miqat stop on request.", icon: Car },

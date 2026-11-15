@@ -24,6 +24,29 @@ export interface Guide {
   tldrFacts?: { label: string; value: string }[];
   /** Optional FAQ block — rendered + emitted as FAQPage schema when present. */
   faqs?: { question: string; answer: string }[];
+  /** Optional <title> (without brand suffix) when the H1 is too long for a SERP title. */
+  metaTitle?: string;
+  /** Optional last-verified date shown under the hero for time-sensitive guides. */
+  updated?: string;
+  /**
+   * Optional structured body (2026-11-16). When present it is rendered INSTEAD of the
+   * numbered "Key Insights" list: question/answer-first H2s, bullets and tables that
+   * survive extraction by search and AI answer engines. `content` stays required as a
+   * short plain-text summary list for the guides index and as a fallback.
+   */
+  sections?: GuideSection[];
+  /** Optional WhatsApp CTA with a structured prefill (replaces the generic CTA copy). */
+  cta?: { heading: string; text: string; waText: string };
+}
+
+export interface GuideSection {
+  heading: string;
+  /** Paragraphs — first sentence should answer the heading. */
+  body?: string[];
+  bullets?: string[];
+  table?: { head: string[]; rows: string[][] };
+  /** Small note under the section, e.g. a source line. */
+  note?: string;
 }
 
 export const GUIDES: Guide[] = [
@@ -161,37 +184,117 @@ export const GUIDES: Guide[] = [
     ],
   },
   {
+    // Rewritten 2026-11-16. The previous text called the North Terminal "domestic" (wrong: it
+    // served foreign airlines) and omitted Terminal 4, which opened in phases from 27 Sep 2026.
+    // Sources (read 2026-11-16): Khaleej Times 17 Oct 2026 "Jeddah airport moves North Terminal
+    // flights to T4, Hajj, Umrah terminals from October 17"; Gulf News 27 Sep 2026 "Jeddah airport
+    // opens new Terminal 4 with phased airline moves"; Wego blog "Jeddah Airport Hajj Terminal: 7
+    // airlines moving from the North Terminal" (published 1 Oct, updated 2 Nov 2026); seo/venues.md
+    // (Terminal 1 opened 2019; Haramain station at Terminal 1, SPA). kaia.sa returned HTTP 403 to
+    // our fetch, so the airport's own site was NOT read directly.
+    // Distances: lib/data/routes.ts (JED -> Makkah 80 km / 60 min). Madinah figure kept from the
+    // previous guide and airports.ts (about 420 km, 4-5 hours).
     slug: "jeddah-airport-guide",
     category: "arrival",
     icon: Plane,
-    title: "Jeddah Airport Arrivals — Full Walk-Through",
-    titleAr: "دليل وصول مطار جدة الشامل",
-    summary: "Terminal layout, immigration queues, baggage claim zones, VIP arrival halls, and how to find your Taxi Saudi Arabia driver.",
+    title: "Jeddah Airport Terminals: Terminal 1, Terminal 4, North Terminal and Hajj Terminal",
+    metaTitle: "Jeddah Airport Terminals: Terminal 1, T4, North & Hajj",
+    titleAr: "دليل صالات مطار الملك عبدالعزيز في جدة",
+    summary: "Terminal 1, new Terminal 4, North Terminal and Hajj Terminal at Jeddah airport (JED) explained, with the airline moves reported since September 2026.",
     date: "April 21, 2026",
-    readTime: "6 min",
-    tags: ["Jeddah", "Airport", "Arrival"],
+    updated: "16 November 2026",
+    readTime: "7 min",
+    tags: ["Jeddah", "Airport", "Terminals"],
     content: [
-      "Terminal 1 (International): Arrivals on Level 0 — immigration first, baggage claim in Halls A, B, C, D depending on your flight.",
-      "North Terminal (Domestic): Smaller, faster processing — used for KSA internal flights.",
-      "Hajj Terminal: Seasonal — used exclusively during Hajj season for pilgrims. Completely separate facility.",
-      "VIP arrivals hall (Level 1): Available for business/first class passengers — ask your airline at check-in.",
-      "Finding your driver: Your Taxi Saudi Arabia driver will be standing in the Arrivals Meet Zone with your name on a digital sign.",
-      "WhatsApp your driver directly from the booking confirmation SMS — no waiting, no confusion.",
-      "Onward transfer: Makkah is about 80 km (~1 hour) and Madinah about 420 km (~4–5 hours) from JED — pre-book a private transfer, quoted on WhatsApp, to avoid queues and surge pricing.",
+      "Terminal 1 is the main hub for international and domestic flights, including Saudia.",
+      "Terminal 4 began a phased opening on 27 September 2026, and foreign airlines are moving there from the North Terminal.",
+      "Reports say all North Terminal flights move to Terminal 4 and the Hajj and Umrah Terminals from 17 October 2026.",
+      "The terminals are separate buildings and assignments are still changing, so confirm your terminal with your airline.",
+      "Makkah is about 80 km (around 1 hour) from the airport; Madinah is about 420 km (4 to 5 hours).",
     ],
-    tldr: "King Abdulaziz International Airport (JED) has three terminals — Terminal 1 (international), the North Terminal (domestic), and the seasonal Hajj Terminal. After immigration and baggage claim, meet your pre-booked Taxi Saudi Arabia driver in the arrivals Meet Zone, identified by a name sign.",
+    tldr: "King Abdulaziz International Airport (JED) has Terminal 1, the new Terminal 4, the North Terminal and the Hajj and Umrah Terminal. Terminal 1 is the main hub, Terminal 4 began opening in phases on 27 September 2026, and the North Terminal's foreign airlines are being moved to Terminal 4 and the Hajj and Umrah Terminals. Assignments are still changing, so confirm your terminal with your airline before you travel.",
     tldrFacts: [
-      { label: "International", value: "Terminal 1" },
-      { label: "Domestic", value: "North Terminal" },
-      { label: "To Makkah", value: "~80 km, 1 hr" },
-      { label: "Driver", value: "Arrivals Meet Zone" },
+      { label: "Main hub", value: "Terminal 1" },
+      { label: "New", value: "Terminal 4 (from 27 Sep 2026)" },
+      { label: "To Makkah", value: "~80 km, ~1 hr" },
+      { label: "Pickup", value: "Meet & greet at arrivals" },
+    ],
+    sections: [
+      {
+        heading: "Which terminal does my flight use at Jeddah airport?",
+        body: [
+          "Your airline decides, and the answer has been changing since September 2026, so check it on your ticket or the airline's app before you leave and again a day before you land. Your ticket may still show the North Terminal even after the move, so a quick confirmation with the airline is worth it.",
+          "The table below sets out what each terminal is for, based on press reports published between September and November 2026. It is a guide to the layout, not a flight-by-flight list.",
+        ],
+        table: {
+          head: ["Terminal", "What it is", "Who uses it"],
+          rows: [
+            ["Terminal 1", "The main hub for international and domestic flights. Opened in 2019, with the Haramain high-speed rail station connected to it.", "Saudia and many other carriers. Selected carriers from Terminal 1 are part of the relocation plan."],
+            ["Terminal 4", "The newest terminal: about 97,000 square metres, up to 15 million passengers a year, with a dedicated group check-in area for Hajj and Umrah pilgrims. Phased opening began on 27 September 2026.", "Foreign airlines moving from the North Terminal, such as Wizz Air, AJet and SalamAir, plus other carriers as the move continues."],
+            ["North Terminal", "The terminal that handled most foreign airlines. Reports say its flights move to Terminal 4 and the Hajj and Umrah Terminals from 17 October 2026.", "Being phased out; some tickets may still show it."],
+            ["Hajj and Umrah Terminal", "A separate terminal for pilgrim flights, distinct from Terminal 4.", "Pilgrim and charter operations, and several airlines moved there from the North Terminal."],
+          ],
+        },
+        note: "Sources: Khaleej Times (17 October 2026), Gulf News (27 September 2026) and Wego (1 October 2026, updated 2 November 2026). Terminal assignments change; the airline's own booking information is the final word.",
+      },
+      {
+        heading: "What is Terminal 4 at Jeddah airport?",
+        body: [
+          "Terminal 4 is the new terminal at King Abdulaziz International Airport, about 97,000 square metres with room for up to 15 million passengers a year. Its phased opening began on 27 September 2026, and it includes a dedicated group check-in area for Hajj and Umrah pilgrims.",
+          "Wizz Air, AJet and SalamAir were the first airlines to move in on 27 September. Fly Jinnah, Nesma Airlines, Akasa Air, SyrianAir, Pegasus, Azerbaijan Airlines and Tunisair followed between 28 September and 3 October. Other airlines are moving gradually as operations allow.",
+        ],
+      },
+      {
+        heading: "Is the North Terminal at Jeddah airport still used?",
+        body: [
+          "The North Terminal is being phased out. Khaleej Times reported on 17 October 2026 that all flights from the North Terminal move to Terminal 4 and the Hajj and Umrah Terminals, effective 17 October.",
+          "Wego reported seven airlines assigned to the Hajj and Umrah Terminal from the North Terminal: Tarco Aviation, Yemenia, SCAT Airlines, Uzbekistan Airways, Daallo Airlines, Somon Air and Sudan Airways. If your ticket says North Terminal, confirm the current terminal with your airline before you book a pickup.",
+        ],
+      },
+      {
+        heading: "Which Jeddah airport terminal is for Umrah and Hajj flights?",
+        body: [
+          "Pilgrim flights use the Hajj and Umrah Terminal and, since September 2026, Terminal 4, which has its own group check-in area for pilgrims. Many Umrah travellers also arrive through Terminal 1 on scheduled flights, so the terminal depends on the airline, not on the purpose of your trip.",
+          "Jeddah lies inside the Miqat boundary, so pilgrims arriving by air usually enter Ihram on the plane before landing. Our Miqat guide explains the details and what to do if you need the Al-Juhfah Miqat near Rabigh.",
+        ],
+      },
+      {
+        heading: "How do I meet my driver at Jeddah airport?",
+        body: [
+          "Your driver provides meet and greet at arrivals. Send us your flight number and the terminal your airline shows when you book, and tell us if the terminal changes before you fly.",
+          "We track your flight, so a delay simply moves the pickup to your actual landing time, and 15 to 30 minutes of waiting after landing is free. The terminals are separate buildings, so a message to correct the terminal saves you a long walk or a second transfer.",
+        ],
+      },
+      {
+        heading: "How far is Jeddah airport from Makkah and Madinah?",
+        body: [
+          "Makkah is about 80 km from Jeddah airport, roughly one hour by road, and Madinah is about 420 km, roughly four to five hours. A private car goes straight from your terminal to your hotel on your schedule, with prayer and rest stops on request.",
+        ],
+        table: {
+          head: ["Option", "Best when", "Trade-off"],
+          rows: [
+            ["Private car with driver", "Families, groups, heavy luggage, late-night arrivals, or a hotel that is not beside a station", "Door to door on your schedule; the fare is agreed on WhatsApp before you book"],
+            ["Haramain high-speed train", "Light luggage and a hotel close to a station; the Jeddah airport station is connected to Terminal 1, about 45 minutes to Makkah and about 1 hour 45 minutes to Madinah", "Station to station; you arrange the last stretch to your hotel, and a terminal other than Terminal 1 means getting to Terminal 1 first"],
+          ],
+        },
+        note: "Train times from SPA via seo/venues.md. Check the current timetable with the operator.",
+      },
     ],
     faqs: [
-      { question: "Which terminal do international flights use at Jeddah Airport?", answer: "International flights arrive at Terminal 1, with immigration on Level 0 and baggage claim in Halls A–D depending on your flight. Domestic flights use the North Terminal." },
-      { question: "How do I find my driver at Jeddah Airport?", answer: "Your pre-booked Taxi Saudi Arabia driver waits in the arrivals Meet Zone holding a name sign. You can also message the driver directly via the WhatsApp link in your booking confirmation SMS." },
-      { question: "How far is Jeddah Airport from Makkah and Madinah?", answer: "Makkah is about 80 km (roughly a 1-hour drive) and Madinah about 420 km (roughly 4–5 hours) from JED. A pre-booked private transfer is the most direct option with luggage." },
-      { question: "Should I pre-book a taxi or take one at the airport?", answer: "Pre-booking is recommended — it gives you a clear price confirmed on WhatsApp, a driver waiting on arrival, and avoids airport queues and surge pricing, especially after a long international flight." },
+      { question: "Which terminal do international flights use at Jeddah airport?", answer: "Terminal 1 is the main hub for international and domestic flights, including Saudia. Since September 2026, foreign airlines have also been moving to the new Terminal 4. Confirm your terminal with your airline, because assignments are still changing." },
+      { question: "What is the difference between Terminal 1 and the North Terminal at Jeddah airport?", answer: "Terminal 1 is the main hub and opened in 2019. The North Terminal handled most foreign airlines and is being phased out, with its flights moving to Terminal 4 and the Hajj and Umrah Terminals from 17 October 2026, according to Khaleej Times." },
+      { question: "Is Terminal 4 open at Jeddah airport?", answer: "Yes, in phases. Terminal 4 began opening on 27 September 2026 with Wizz Air, AJet and SalamAir, and other airlines have been moving since. It covers about 97,000 square metres and is designed for up to 15 million passengers a year." },
+      { question: "Which terminal is the Hajj terminal at Jeddah airport?", answer: "The Hajj and Umrah Terminal is a separate terminal for pilgrim flights, distinct from Terminal 4. Terminal 4 also has a dedicated group check-in area for pilgrims. Your airline confirms which one your flight uses." },
+      { question: "How do I find my driver at Jeddah airport?", answer: "Your driver provides meet and greet at arrivals. Share your flight number and the terminal your airline shows when you book, and tell us if it changes before you fly so the driver waits at the right place." },
+      { question: "What happens if my flight to Jeddah is delayed?", answer: "We track your flight, so a delay moves the pickup to your actual landing time. Free waiting of 15 to 30 minutes after landing applies, so you are not charged for the time it takes to clear immigration and collect bags." },
+      { question: "How far is Jeddah airport from Makkah and Madinah?", answer: "Makkah is about 80 km, roughly one hour. Madinah is about 420 km, roughly four to five hours. A pre-booked private car takes you straight from your terminal to your hotel, with the fare confirmed on WhatsApp before you book." },
+      { question: "Should I take the train or a private car from Jeddah airport to Makkah?", answer: "The Haramain train suits light luggage and a hotel near a station; the airport station connects to Terminal 1. A private car suits families, groups, heavy bags and late arrivals, and takes you door to door at a fare agreed before you travel." },
     ],
+    cta: {
+      heading: "Arriving at Jeddah airport?",
+      text: "Send your flight number, the terminal your airline shows and where you are going. We confirm the fare on WhatsApp before you book, and cancellation is free up to 24 hours before pickup.",
+      waText: "Salam! Jeddah airport pickup enquiry.\n• Flight number & arrival time: \n• Terminal shown by my airline: \n• Going to (Makkah / Madinah / Jeddah hotel): \n• Passengers & luggage: \n• Vehicle (Sedan / SUV / Van): ",
+    },
   },
   {
     slug: "umrah-packing-checklist",

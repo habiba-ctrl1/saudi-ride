@@ -59,7 +59,7 @@ const LOCATIONS = [
     airports: ["King Abdulaziz International Airport (JED)"],
     popularRoutes: ["JED → Makkah", "JED → Madinah", "JED → Taif", "JED → KAEC"],
     startingPrice: 80,
-    note: "Terminal 1 (International), North Terminal (Domestic), and Hajj Terminal all covered.",
+    note: "Terminal 1, the new Terminal 4, the North Terminal and the Hajj and Umrah Terminal all covered.",
     slug: "jeddah"
   },
   {

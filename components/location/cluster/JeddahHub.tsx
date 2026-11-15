@@ -183,7 +183,7 @@ export function JeddahHub({ name, nameAr }: { name: string; nameAr: string }) {
             id="airport-heading"
             eyebrow="King Abdulaziz International Airport (JED)"
             title="Your JED airport transfer, step by step"
-            intro={`JED has Terminal 1, the North Terminal and a Hajj Terminal. Central Jeddah is about ${JED_CITY.km} km away; Makkah about ${JED_MAKKAH.km} km.`}
+            intro={`JED has Terminal 1, the new Terminal 4, the North Terminal and the Hajj and Umrah Terminal. Central Jeddah is about ${JED_CITY.km} km away; Makkah about ${JED_MAKKAH.km} km.`}
           />
           <AirportFlow arrival={JED_FLOW.arrival} departure={JED_FLOW.departure} code="JED" />
           <div className="mt-10 flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 md:flex-row md:items-center md:justify-between">

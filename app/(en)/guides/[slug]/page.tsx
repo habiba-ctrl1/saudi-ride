@@ -6,6 +6,7 @@ import Link from "next/link";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
+import { contactConfig } from "@/lib/config/contact";
 
 export const revalidate = 86400;
 
@@ -41,6 +42,18 @@ const RELATED_LINKS: Record<string, { href: string; label: string }[]> = {
   ],
 };
 
+// Jeddah airport terminals guide (2026-11-16): the terminal layout changed in
+// Sep-Oct 2026 (Terminal 4 opened), so the guide links the airport page, the two
+// most-booked onward routes and the Miqat guide instead of repeating them.
+RELATED_LINKS["jeddah-airport-guide"] = [
+  { href: "/airports/king-abdulaziz-jeddah", label: "Jeddah Airport (JED) private transfers and meet & greet" },
+  { href: "/routes/jeddah-airport-to-makkah", label: "Jeddah Airport to Makkah taxi" },
+  { href: "/routes/jeddah-airport-to-madinah", label: "Jeddah Airport to Madinah private transfer" },
+  { href: "/guides/jeddah-airport-to-makkah-guide", label: "How to get from Jeddah Airport to Makkah" },
+  { href: "/guides/miqat-jeddah-makkah", label: "Miqat and Ihram when you arrive at Jeddah" },
+  { href: "/guides/jeddah-airport-sim-card", label: "Buying a SIM card at Jeddah Airport" },
+];
+
 export function generateStaticParams() {
   return GUIDES.map((guide) => ({
     slug: guide.slug,
@@ -59,19 +72,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!guide) return { title: "Guide Not Found" };
 
+  const metaTitle = guide.metaTitle ?? guide.title;
   return {
-    title: `${guide.title} | Taxi Saudi Arabia`,
+    title: `${metaTitle} | Taxi Saudi Arabia`,
     description: guide.summary,
     alternates: {
       canonical: `https://taxisaudiarabia.com/guides/${slug}`,
     },
     openGraph: {
-      title: `${guide.title} | Taxi Saudi Arabia`,
+      title: `${metaTitle} | Taxi Saudi Arabia`,
       description: guide.summary,
     },
     twitter: {
       card: "summary_large_image",
-      title: `${guide.title} | Taxi Saudi Arabia`,
+      title: `${metaTitle} | Taxi Saudi Arabia`,
       description: guide.summary,
     },
   };
@@ -141,6 +155,11 @@ export default async function GuideSinglePage({ params }: PageProps) {
               <Clock className="h-4 w-4 text-[#C9A84C]" />
               <span>{guide.readTime} read</span>
             </div>
+            {guide.updated && (
+              <div className="flex items-center gap-2">
+                <span>Checked {guide.updated}</span>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -151,6 +170,52 @@ export default async function GuideSinglePage({ params }: PageProps) {
         {guide.tldr && (
           <TLDRSummary answer={guide.tldr} facts={guide.tldrFacts} className="mb-12" />
         )}
+        {guide.sections && guide.sections.length > 0 ? (
+          <div className="space-y-14">
+            {guide.sections.map((sec) => (
+              <section key={sec.heading}>
+                <h2 className="font-heading text-2xl font-bold mb-4 text-[#0F172A]">{sec.heading}</h2>
+                {sec.body?.map((para, i) => (
+                  <p key={i} className="mb-4 leading-[1.8] text-[#475569] max-w-[70ch]">{para}</p>
+                ))}
+                {sec.bullets && (
+                  <ul className="mb-4 space-y-2 pl-5 list-disc marker:text-[#16A34A] text-[#475569] max-w-[70ch]">
+                    {sec.bullets.map((b, i) => (
+                      <li key={i} className="leading-relaxed">{b}</li>
+                    ))}
+                  </ul>
+                )}
+                {sec.table && (
+                  <div className="overflow-x-auto rounded-2xl border border-[#16A34A]/12 bg-white">
+                    {/* Below sm each row stacks into a labelled card so nothing needs sideways scrolling at 320-414px. */}
+                    <table className="w-full text-left text-sm">
+                      <thead className="hidden sm:table-header-group bg-[#FAFAF7] text-[#0F172A]">
+                        <tr>
+                          {sec.table.head.map((h) => (
+                            <th key={h} className="px-4 py-3 font-bold">{h}</th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody className="text-[#475569]">
+                        {sec.table.rows.map((row, ri) => (
+                          <tr key={ri} className="block sm:table-row border-t border-[#16A34A]/10 align-top first:border-t-0 py-2 sm:py-0">
+                            {row.map((cell, ci) => (
+                              <td key={ci} className={`block sm:table-cell px-4 py-1.5 sm:py-3 leading-relaxed ${ci === 0 ? "font-semibold text-[#0F172A]" : ""}`}>
+                                {ci > 0 && <span className="sm:hidden block text-[0.65rem] font-bold uppercase tracking-wider text-[#16A34A]">{sec.table!.head[ci]}</span>}
+                                {cell}
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+                {sec.note && <p className="mt-3 text-xs text-[#6B7280] leading-relaxed max-w-[70ch]">{sec.note}</p>}
+              </section>
+            ))}
+          </div>
+        ) : (
         <div className="tsa-prose prose prose-lg mx-auto max-w-[70ch] prose-p:leading-[1.8] prose-p:text-[#475569] prose-li:text-[#475569] prose-li:marker:text-[#16A34A] prose-headings:font-heading prose-headings:tracking-tight prose-headings:text-[#0F172A] prose-strong:text-[#0F172A] prose-a:text-[#15803D] prose-td:text-[#475569] prose-th:text-[#0F172A]">
           <p className="text-sm font-bold uppercase tracking-widest text-[#C9A84C] mb-8">Key Insights</p>
           
@@ -165,6 +230,7 @@ export default async function GuideSinglePage({ params }: PageProps) {
             ))}
           </ul>
         </div>
+        )}
 
         {/* FAQs (FAQPage schema injected above) */}
         {guide.faqs && guide.faqs.length > 0 && (
@@ -206,17 +272,29 @@ export default async function GuideSinglePage({ params }: PageProps) {
         {/* CTA */}
         <div className="mt-16 p-8 rounded-3xl bg-white border border-[#16A34A]/15 shadow-lg text-center">
           <BookOpen className="h-8 w-8 text-[#C9A84C] mx-auto mb-4" />
-          <h3 className="font-heading text-2xl font-bold mb-3">Ready to plan your journey?</h3>
+          <h3 className="font-heading text-2xl font-bold mb-3">{guide.cta?.heading ?? "Ready to plan your journey?"}</h3>
           <p className="text-[#6B7280] text-sm mb-8 max-w-md mx-auto">
-            Book your premium transfer with Taxi Saudi Arabia, price confirmed on WhatsApp, and enjoy a stress-free travel experience across the Kingdom.
+            {guide.cta?.text ?? "Book your premium transfer with Taxi Saudi Arabia, price confirmed on WhatsApp, and enjoy a stress-free travel experience across the Kingdom."}
           </p>
-          <Link
-            href="/book"
-            className="btn btn-primary btn-lg"
-          >
-            Book a Transfer
-            <ChevronRight className="h-4 w-4" />
-          </Link>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            {guide.cta && (
+              <a
+                href={`https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(guide.cta.waText)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary btn-lg"
+              >
+                Get a quote on WhatsApp
+              </a>
+            )}
+            <Link
+              href="/book"
+              className={guide.cta ? "btn btn-lg" : "btn btn-primary btn-lg"}
+            >
+              Book a Transfer
+              <ChevronRight className="h-4 w-4" />
+            </Link>
+          </div>
         </div>
       </section>
     </div>
