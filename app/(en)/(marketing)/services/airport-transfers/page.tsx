@@ -57,7 +57,7 @@ const FAQS = [
   },
   {
     q: "How will I find my driver?",
-    a: "Your driver will be waiting in the arrivals hall holding a name sign with your name on it. They will help you with your luggage and guide you directly to the car."
+    a: "Your driver will be waiting in the arrivals hall. They will help you with your luggage and guide you directly to the car."
   },
   {
     q: "Are the prices fixed?",
@@ -168,7 +168,7 @@ export default function AirportTransfersPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {[
             { icon: PlaneLanding, title: "Share Your Flight Number", desc: "Add it when you book and we check it before pickup, so the pickup time is planned around your actual arrival." },
-            { icon: UserCheck, title: "Meet & Greet at Arrivals", desc: "Driver awaits in the arrivals hall with a personalized name sign and helps with luggage." },
+            { icon: UserCheck, title: "Meet & Greet at Arrivals", desc: "Driver awaits in the arrivals hall and helps with luggage." },
             { icon: Clock, title: "24/7 Availability", desc: "Early-morning and late-night arrivals are covered — book any hour." },
             { icon: ShieldCheck, title: "Clear Fares Confirmed on WhatsApp", desc: "No hidden surge fees or toll charges. Your quoted price is confirmed before the trip." }
           ].map((feat, i) => (
@@ -186,7 +186,7 @@ export default function AirportTransfersPage() {
           title="Your arrival, step by step"
           stages={[
             { icon: PlaneLanding, label: "Land & clear arrivals", note: "Shared flight number checked before pickup" },
-            { icon: UserCheck, label: "Meet your driver", note: "Name sign in the arrivals hall" },
+            { icon: UserCheck, label: "Meet your driver", note: "Meet & greet at arrivals" },
             { icon: Luggage, label: "Luggage to the car", note: "Your driver helps with bags" },
             { icon: Car, label: "Private ride", note: "Your own car — no sharing" },
             { icon: MapPin, label: "Hotel or destination", note: "Door-to-door drop-off" },

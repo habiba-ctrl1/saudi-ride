@@ -87,15 +87,15 @@ const translations: Record<string, {
         faqs: [
           {
             question: "How do you coordinate airport arrivals?",
-            answer: "We track all flights in real-time. Your driver will wait at the arrivals terminal with a name sign when your flight lands. If delayed, your driver continues to wait — the first 90 minutes of waiting are free."
+            answer: "We track all flights in real-time. Your driver meets you on arrival. If your flight is delayed we adjust the pickup, and 15–30 minutes of waiting after landing is free."
           },
           {
             question: "What happens if my flight is delayed?",
-            answer: "There is no need to worry. We offer up to 90 minutes of complimentary waiting time at all Saudi airports for international flights and adjust driver dispatches automatically."
+            answer: "There is no need to worry. We track your flight and adjust the pickup to your actual landing time, and 15–30 minutes of waiting after landing is free."
           },
           {
             question: "Is luggage assistance included in airport services?",
-            answer: "Yes, absolute VIP luggage handling is fully included from the arrivals gate directly to your vehicle's trunk."
+            answer: "Yes, your driver helps with your luggage to the vehicle."
           }
         ]
       },
@@ -206,11 +206,11 @@ const translations: Record<string, {
         faqs: [
           {
             question: "كيف يتم تنسيق الاستقبال في المطار؟",
-            answer: "نقوم بتتبع جميع الرحلات الجوية لحظة بلحظة. سينتظر السائق الخاص بك في صالة الوصول حاملاً لوحة رقمية أو ورقية باسمك عند هبوط الطائرة."
+            answer: "نقوم بتتبع جميع الرحلات الجوية لحظة بلحظة. سينتظر السائق الخاص بك في صالة الوصول عند هبوط الطائرة."
           },
           {
             question: "ماذا يحدث إذا تأخرت رحلتي الجوية؟",
-            answer: "لا داعي للقلق أبداً. نحن نقدم ما يصل إلى 90 دقيقة من وقت الانتظار المجاني في جميع مطارات المملكة للرحلات الدولية."
+            answer: "لا داعي للقلق. نتابع رحلتك ونعدّل موعد الاستلام حسب وقت الهبوط الفعلي، والانتظار مجاني لمدة 15–30 دقيقة بعد الهبوط."
           }
         ]
       },

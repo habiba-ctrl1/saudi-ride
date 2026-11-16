@@ -19,7 +19,7 @@ const FAQS = [
   },
   {
     q: "How do I recognize my driver at the airport?",
-    a: "Your driver will be waiting at the arrivals hall holding a personalized name board. You will also receive their name, photo, and vehicle details via SMS before pickup."
+    a: "Your driver will be waiting at the arrivals hall. You will also receive their name, photo, and vehicle details via SMS before pickup."
   }
 ];
 

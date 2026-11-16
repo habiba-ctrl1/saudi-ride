@@ -17,10 +17,10 @@ const SERVICES = [
     badge: "24/7 Service",
     color: "from-[#16A34A]/8 to-transparent",
     borderColor: "border-[#16A34A]/15",
-    description: "Airport taxi service with live flight tracking, meet & greet at arrivals, driver with name sign, and luggage help. Serving Jeddah (JED), Riyadh (RUH), Madinah (MED) and all KSA airports.",
+    description: "Airport taxi service with live flight tracking, meet & greet at arrivals, and luggage help. Serving Jeddah (JED), Riyadh (RUH), Madinah (MED) and all KSA airports.",
     features: [
       "Live flight tracking — driver waits free if delayed",
-      "Driver meets you in arrivals with your name sign",
+      "Driver meets you in arrivals",
       "Full luggage assistance to the car",
       "Drivers speak English & Arabic",
       "Available 24 hours, 365 days a year",

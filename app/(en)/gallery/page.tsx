@@ -30,7 +30,7 @@ const GALLERY_ITEMS = [
     type: "image",
     src: "/gallery/airport-meet.webp",
     title: "VIP Airport Meet & Greet",
-    description: "Professional drivers waiting at Jeddah Terminal 1 arrivals with customized name boards and luggage assistance.",
+    description: "Professional drivers meeting passengers at Jeddah Terminal 1 arrivals.",
   },
   {
     id: "g3",

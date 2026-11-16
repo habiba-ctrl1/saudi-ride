@@ -634,7 +634,7 @@ const UMRAH_GROUP_CONFIG: Record<string, { heading: string; intro: string; waPre
   "jeddah-airport-to-swissotel-makkah": {
     heading: "Travelling as a family or Umrah group?",
     intro:
-      "For families and groups we arrange a full-size SUV or van so everyone travels together with their luggage — one vehicle and one chauffeur from Jeddah Airport straight to Swissotel Al Maqam Makkah. Meet & greet at arrivals with a name sign, prayer and rest stops on request, and help with bags at the hotel.",
+      "For families and groups we arrange a full-size SUV or van so everyone travels together with their luggage — one vehicle and one chauffeur from Jeddah Airport straight to Swissotel Al Maqam Makkah. Meet & greet at arrivals, prayer and rest stops on request, and help with bags at the hotel.",
     waPrefill: `Salam! Umrah transfer — Jeddah Airport to Swissotel Makkah.\n• Flight no. & arrival time: \n• Passengers (adults / children): \n• Luggage: \n• Vehicle (Sedan / SUV / Van): \n• Prayer / rest stops needed? : `,
     emailSubject: "Umrah group transfer RFQ — Jeddah Airport to Makkah",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for Umrah airport transfers from Jeddah Airport (JED) to Makkah.\n\n• Agency / group name: \n• Contact name: \n• Arrival date & flight number: \n• Number of pilgrims (adults / children): \n• Luggage: \n• Vehicle(s) needed (SUV / Van): \n• Hotel in Makkah: \n• Prayer / rest stops needed?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
@@ -718,7 +718,7 @@ Thank you.`,
   "jeddah-airport-to-makkah": {
     heading: "Arriving for Umrah — family or group?",
     intro:
-      "For families and groups we arrange a full-size SUV or van so everyone travels together with their luggage — one vehicle and one chauffeur from Jeddah Airport (JED) to Makkah. Meet & greet in the arrivals hall with a name sign, flight tracking, and prayer or rest stops on request.",
+      "For families and groups we arrange a full-size SUV or van so everyone travels together with their luggage — one vehicle and one chauffeur from Jeddah Airport (JED) to Makkah. Meet & greet in the arrivals hall, flight tracking, and prayer or rest stops on request.",
     waPrefill: `Salam! Umrah transfer — Jeddah Airport to Makkah.\n• Flight no. & arrival time: \n• Passengers (adults / children): \n• Luggage: \n• Vehicle (Sedan / SUV / Van): \n• Prayer / rest stops needed? : `,
     emailSubject: "Umrah group transfer RFQ — Jeddah Airport to Makkah",
     emailBody: `Hello Taxi Saudi Arabia team,\n\nWe'd like a written quote for Umrah airport transfers from Jeddah Airport (JED) to Makkah.\n\n• Agency / group name: \n• Contact name: \n• Arrival date & flight number: \n• Number of pilgrims (adults / children): \n• Luggage: \n• Vehicle(s) needed (SUV / Van): \n• Prayer / rest stops needed?: \n\nPlease confirm a fixed fare before booking.\n\nThank you.`,
@@ -900,9 +900,9 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "How far is Jeddah airport from Makkah?", answer: "King Abdulaziz International Airport (JED) is about 80 km from Makkah — roughly a 1-hour drive on the Makkah Expressway, traffic permitting." },
       { question: "How much is a taxi from Jeddah airport to Makkah?", answer: "Fares are confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Message us on WhatsApp with your flight time and passenger count for a clear quote before booking — no surge, tolls included." },
       { question: "Does a Jeddah pickup involve a Miqat stop?", answer: "A pickup in Jeddah does not by itself involve a Miqat stop. Whether a Miqat matters for you depends on where you travelled from and on your own religious circumstances, which we cannot advise on. If your plans include a stop, tell us when you book and we will plan it." },
-      { question: "Is the Jeddah airport to Makkah taxi available at night?", answer: "Yes, we are available 24/7. We track your flight number, so the driver is waiting at arrivals with a name sign even for late-night or delayed flights." },
+      { question: "Is the Jeddah airport to Makkah taxi available at night?", answer: "Yes, we are available 24/7. We track your flight number, so the driver is waiting at arrivals even for late-night or delayed flights." },
       { question: "Which is better — taxi or the Haramain train?", answer: "A private transfer is door-to-door from the airport to your Makkah hotel with luggage help and no station transfers. The Haramain high-speed train is fast but requires transfers to and from the stations. For pilgrims with luggage, the direct taxi is usually more convenient." },
-      { question: "Where do I meet my driver at Jeddah airport?", answer: "Your driver provides meet & greet at the arrivals hall of your terminal. Terminal assignments at Jeddah airport have changed since Terminal 4 opened in September 2026, so confirm the terminal your airline shows when you book. We track your flight, so pickup timing adjusts if you land early or late." },
+      { question: "Where do I meet my driver at Jeddah airport?", answer: "Your driver provides meet & greet at arrivals. Terminal assignments at Jeddah airport have changed since Terminal 4 opened in September 2026, so confirm the terminal your airline shows when you book. We track your flight, so pickup timing adjusts if you land early or late." },
       { question: "Is a private transfer cheaper than Uber or Careem from Jeddah to Makkah?", answer: "A private, pre-booked taxi gives you a confirmed vehicle and driver waiting at arrivals with no surge pricing during peak Umrah season — unlike ride-hailing apps, which can be scarce or surge-priced right after international flights land. Message us on WhatsApp to compare your options for a quote." },
       { question: "Do you provide a taxi service from Jeddah to Mecca for groups?", answer: "Yes. Alongside sedans, we arrange SUVs and vans for Umrah groups and families travelling together from Jeddah Airport to Mecca, with one driver and vehicle for the whole party." },
     ],
@@ -934,7 +934,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "How far is Swissotel Al Maqam Makkah from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. The hotel is in the Abraj Al Bait towers, a short walk from Masjid al-Haram." },
       { question: "How much is a taxi from Jeddah airport to Swissotel Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
       { question: "Does a Jeddah pickup involve a Miqat stop?", answer: "A pickup in Jeddah does not by itself involve a Miqat stop. Whether a Miqat matters for you depends on where you travelled from and on your own religious circumstances, which we cannot advise on. If your plans include a stop, tell us when you book and we will plan it." },
-      { question: "Is the transfer available for late-night flight arrivals?", answer: "Yes, we are available 24/7. We track your flight number so the driver is waiting with a name sign even for delayed or late-night arrivals." },
+      { question: "Is the transfer available for late-night flight arrivals?", answer: "Yes, we are available 24/7. We track your flight number so the driver is waiting even for delayed or late-night arrivals." },
     ],
   },
   "jeddah-airport-to-pullman-zamzam-makkah": {
@@ -994,7 +994,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "How far is Movenpick Hajar Tower Makkah from Jeddah airport?", answer: "About 80 km — roughly a 1-hour drive on the Makkah Expressway. The hotel overlooks Masjid al-Haram." },
       { question: "How much is a taxi from Jeddah airport to Movenpick Makkah?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available for families and extra luggage. Confirmed before booking, no surge, tolls included." },
       { question: "Does a Jeddah pickup involve a Miqat stop?", answer: "A pickup in Jeddah does not by itself involve a Miqat stop. Whether a Miqat matters for you depends on where you travelled from and on your own religious circumstances, which we cannot advise on. If your plans include a stop, tell us when you book and we will plan it." },
-      { question: "Is the taxi available for early-morning or late-night flights?", answer: "Yes, we are available 24/7 with flight tracking, so your driver is waiting with a name sign regardless of arrival time." },
+      { question: "Is the taxi available for early-morning or late-night flights?", answer: "Yes, we are available 24/7 with flight tracking, so your driver is waiting regardless of arrival time." },
     ],
   },
   "jeddah-to-makkah": {
@@ -1025,7 +1025,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
       { question: "How far is Jeddah airport from the city centre?", answer: "King Abdulaziz International Airport (JED) is about 20 km from central Jeddah — roughly a 20–35 minute drive depending on whether you are heading to the Corniche, Al-Balad, or a business district." },
       { question: "How much is a taxi from Jeddah airport to the city?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before you book, with no surge and tolls included. Larger vehicles are available for families and extra luggage." },
       { question: "Do you drop off at any Jeddah hotel?", answer: "Yes. We provide door-to-door drop-off at any hotel or address in Jeddah, including the Corniche, Al-Balad, Al-Hamra, and Obhur, with meet & greet at arrivals." },
-      { question: "Is the airport taxi available for late-night arrivals?", answer: "Yes, we are available 24/7 and track your flight, so your driver is waiting at arrivals with a name sign even for late-night or early-morning landings." },
+      { question: "Is the airport taxi available for late-night arrivals?", answer: "Yes, we are available 24/7 and track your flight, so your driver is waiting at arrivals even for late-night or early-morning landings." },
     ],
   },
   "jeddah-to-haramain-station": {
@@ -1146,7 +1146,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     faqs: [
       { question: "How far is Madinah airport from the city centre?", answer: "Prince Mohammad Bin Abdulaziz Airport (MED) is about 20 km from the Central Area (Markazia) hotels — roughly a 25-minute drive." },
       { question: "How much is a taxi from Madinah airport to my hotel?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with meet & greet at arrivals and larger vehicles for families." },
-      { question: "Will the driver meet me at arrivals?", answer: "Yes. We track your flight and your driver waits in the arrivals hall with a name sign, then helps with your luggage to the car." },
+      { question: "Will the driver meet me at arrivals?", answer: "Yes. We track your flight and your driver waits in the arrivals hall, then helps with your luggage to the car." },
       { question: "Is the airport transfer available for late-night flights?", answer: "Yes, we are available 24/7, so your driver is ready even for late-night or early-morning arrivals at MED." },
       { question: "Is there a car service or cab from Madinah airport?", answer: "Yes — our licensed car service (cab) meets you at Prince Mohammad Bin Abdulaziz Airport (MED) arrivals and drives you directly to your Madinah hotel, fixed confirmed on WhatsApp." },
     ],
@@ -1230,7 +1230,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     faqs: [
       { question: "How far is Jeddah airport from Taif?", answer: "King Abdulaziz International Airport (JED) is about 180 km from Taif — roughly a 2 hour 10 minute drive via the Al Hada mountain road." },
       { question: "How much is the Jeddah airport to Taif taxi?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking. SUVs and vans are available for families and luggage, with tolls included." },
-      { question: "Is meet & greet included at Jeddah airport?", answer: "Yes. We track your flight and the driver waits at arrivals with a name sign, then takes you directly to Taif, 24/7." },
+      { question: "Is meet & greet included at Jeddah airport?", answer: "Yes. We track your flight and the driver waits at arrivals, then takes you directly to Taif, 24/7." },
     ],
   },
   "jeddah-to-riyadh": {
@@ -1272,7 +1272,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     faqs: [
       { question: "How far is KAEC from Jeddah airport?", answer: "King Abdullah Economic City is about 100 km from King Abdulaziz International Airport (JED) — roughly a 1 hour 10 minute drive on the coastal highway." },
       { question: "How much is the Jeddah airport to KAEC taxi?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with corporate sedans and SUVs available for business travellers." },
-      { question: "Is the driver waiting at the airport?", answer: "Yes. We track your flight and the driver meets you at arrivals with a name sign, then takes you directly to KAEC, 24/7." },
+      { question: "Is the driver waiting at the airport?", answer: "Yes. We track your flight and the driver meets you at arrivals, then takes you directly to KAEC, 24/7." },
     ],
   },
   "jeddah-to-yanbu": {
@@ -1301,7 +1301,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
     faqs: [
       { question: "How much is a taxi from Riyadh airport to the city?", answer: "The fare is fixed, confirmed on WhatsApp to central Riyadh districts like Olaya or KAFD. King Khalid International Airport (RUH) is about 35 km from the centre, roughly a 45-minute drive." },
-      { question: "Is there a taxi at Riyadh airport 24/7?", answer: "Yes. We operate around the clock at RUH and track your flight, so the driver waits at arrivals with a name sign even for late or delayed flights." },
+      { question: "Is there a taxi at Riyadh airport 24/7?", answer: "Yes. We operate around the clock at RUH and track your flight, so the driver waits at arrivals even for late or delayed flights." },
       { question: "Can the driver take me to any Riyadh district?", answer: "Yes — KAFD, Olaya, the Diplomatic Quarter, and all other districts. Share your exact address when booking so the driver plans the best route." },
     ],
   },
@@ -2980,7 +2980,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {[
                   { title: "Clear-Price Private Transfer", desc: "Confirmed upfront fare with zero surge pricing." },
-                  { title: "Meet & Greet Service", desc: "Driver waits in the arrivals hall with a name sign." },
+                  { title: "Meet & Greet Service", desc: "Driver waits in the arrivals hall." },
                   { title: "Real-Time Flight Tracking", desc: "We track your landing time automatically." },
                   { title: "15–30 Mins Free Waiting", desc: "Time for baggage collection and customs." },
                   { title: "Direct Hotel Drop-Off", desc: "Door-to-door service at your Makkah hotel." },
@@ -3100,7 +3100,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
                 <CheckCircle2 className="h-5 w-5 text-[#C9A84C] shrink-0 mt-0.5" />
                 <div>
                   <h4 className="font-bold text-sm">Meet &amp; Greet Service</h4>
-                  <p className="text-xs text-[#6B7280] mt-1">Your driver will wait at the pickup location holding a name sign with your name on it.</p>
+                  <p className="text-xs text-[#6B7280] mt-1">Your driver will wait at the pickup location.</p>
                 </div>
               </li>
               <li className="flex gap-4">

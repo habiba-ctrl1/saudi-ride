@@ -8,8 +8,8 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     h1Name: "Jeddah Airport (JED)",
     image: "/airports/jed-hero.webp",
     tagline: "The Main Gateway for Umrah & Hajj",
-    description: "Pre-book a private transfer from King Abdulaziz International Airport (JED) to Makkah (~1 hour), Madinah, or your Jeddah hotel. Meet & greet at arrivals with a name sign, no surge pricing, and 24/7 service — including late-night and early-morning pilgrim flights. Jeddah lies inside the Miqat boundary, so pilgrims arriving by air usually enter Ihram on the plane before landing.",
-    tldr: "A taxi from Jeddah Airport (JED) to Makkah takes about 1 hour, with the fare confirmed on WhatsApp. Share your flight number when you book and your driver meets you at arrivals with a name sign, 24/7 — including late-night flights — and we track your flight, so a delay simply moves the pickup.",
+    description: "Pre-book a private transfer from King Abdulaziz International Airport (JED) to Makkah (~1 hour), Madinah, or your Jeddah hotel. Meet & greet at arrivals, no surge pricing, and 24/7 service — including late-night and early-morning pilgrim flights. Jeddah lies inside the Miqat boundary, so pilgrims arriving by air usually enter Ihram on the plane before landing.",
+    tldr: "A taxi from Jeddah Airport (JED) to Makkah takes about 1 hour, with the fare confirmed on WhatsApp. Share your flight number when you book and your driver meets you at arrivals, 24/7 — including late-night flights — and we track your flight, so a delay simply moves the pickup.",
     tldrFacts: [
       { label: "JED → Makkah", value: "~1 hr · fare on WhatsApp" },
       { label: "JED → Madinah", value: "~4–5 hr" },
@@ -29,17 +29,17 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     tips: [
       "Share your flight number when you book so we check it before pickup and plan around any delay.",
       "Jeddah is inside the Miqat boundary — most Umrah pilgrims enter Ihram on the plane before landing. If you need to travel to the Al-Juhfah Miqat near Rabigh first, tell us when you book and we quote it as a separate trip.",
-      "Meet & greet is included — your driver waits in the arrivals hall holding a sign with your name.",
-      "Confirm the terminal your airline shows (Terminal 1, Terminal 4, or the Hajj and Umrah Terminal) when booking, and message us if it changes before you fly, so your driver waits at the right arrivals hall. See our Jeddah airport terminals guide for the current layout."
+      "Meet & greet is included — we confirm the meeting point with you before you land.",
+      "Confirm the terminal your airline shows (Terminal 1, Terminal 4, or the Hajj and Umrah Terminal) when booking, and message us if it changes before you fly, so we can confirm the meeting point with you. See our Jeddah airport terminals guide for the current layout."
     ],
     priorityRoutes: ["jeddah-airport-to-makkah", "jeddah-airport-to-madinah", "jeddah-airport-to-taif"],
     faqs: [
       { question: "How much is a taxi from Jeddah airport to Makkah?", answer: "The fare from King Abdulaziz International Airport (JED) to Makkah is confirmed on WhatsApp for a sedan, with larger SUVs and vans available — confirmed before you book, no surge, tolls included." },
-      { question: "Is there a taxi at Jeddah airport at night?", answer: "Yes. We operate 24/7 at JED, including late-night and early-morning arrivals. Share your flight number when you book so your driver is waiting with a name sign even on 2–4 AM landings." },
-      { question: "Where do I meet my driver at Jeddah airport?", answer: "Your driver provides meet & greet at the arrivals hall of your terminal. Terminal assignments at Jeddah airport have been changing since Terminal 4 opened in September 2026, so confirm the terminal your airline shows when you book and tell us if it changes before you fly." },
+      { question: "Is there a taxi at Jeddah airport at night?", answer: "Yes. We operate 24/7 at JED, including late-night and early-morning arrivals. Share your flight number when you book so your driver is waiting even on 2–4 AM landings." },
+      { question: "Where do I meet my driver at Jeddah airport?", answer: "Your driver provides meet & greet at arrivals. Terminal assignments at Jeddah airport have been changing since Terminal 4 opened in September 2026, so confirm the terminal your airline shows when you book and tell us if it changes before you fly." },
       { question: "Is there a Miqat on the way from Jeddah Airport to Makkah?", answer: "No. Jeddah lies inside the Miqat boundary, so pilgrims arriving by air usually enter Ihram on the plane before landing. If you need to go to the Al-Juhfah Miqat near Rabigh first, tell us when booking and we quote that trip separately — see our Miqat guide for the details." },
       { question: "What happens if my flight is delayed?", answer: "Share your flight number when you book — we track your flight, so a delay simply moves the pickup to your actual landing time, and 15–30 minutes of waiting after landing is free." },
-      { question: "Is there a taxi service at the Hajj and Umrah Terminal and Terminal 4?", answer: "Yes. We arrange meet & greet and a private car for arrivals at any terminal, including the Hajj and Umrah Terminal and Terminal 4. Pre-book and share your flight number and the terminal your airline shows so your driver waits at the correct one." }
+      { question: "Is there a taxi service at the Hajj and Umrah Terminal and Terminal 4?", answer: "Yes. We arrange meet & greet and a private car for arrivals, including flights using the Hajj and Umrah Terminal and Terminal 4. Pre-book and share your flight number and the terminal your airline shows so we can confirm the meeting point with you." }
     ],
     relatedLinks: [
       { href: "/routes/jeddah-airport-to-makkah", label: "Jeddah Airport to Makkah taxi" },
@@ -128,7 +128,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     image: "/airports/ruh-hero.webp",
     tagline: "The Capital Hub",
     description: "Executive airport transfers from King Khalid International Airport (RUH) in Riyadh. Premium chauffeur services for business travelers heading to KAFD, Olaya, or Diplomatic Quarter.",
-    tldr: "A taxi or private car service from King Khalid International Airport (RUH) to central Riyadh takes about 30–45 minutes, with the fare confirmed on WhatsApp. Share your flight number when you book and your driver meets you at arrivals with a name sign at any terminal (1, 2, 3, 4 or 5), 24/7.",
+    tldr: "A taxi or private car service from King Khalid International Airport (RUH) to central Riyadh takes about 30–45 minutes, with the fare confirmed on WhatsApp. Share your flight number when you book and your driver meets you at arrivals, 24/7.",
     tldrFacts: [
       { label: "RUH → City", value: "~30–45 min · fare on WhatsApp" },
       { label: "RUH → KAFD Hotels", value: "~35 min · fare on WhatsApp" },
@@ -136,23 +136,21 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
       { label: "Hours", value: "24/7" }
     ],
     terminals: [
-      { name: "Terminal 5 car service", desc: "Dedicated to domestic flights — private car service and meet & greet at the Terminal 5 arrivals hall." },
-      { name: "Terminal 1 & 2 car service", desc: "International flights depending on the airline — car service and name-sign pickup at the Terminal 1 and Terminal 2 arrivals halls." },
-      { name: "Terminal 3 & 4 car service", desc: "Recently renovated international terminals — private car service and pickup at the Terminal 3 and Terminal 4 arrivals halls." }
+      { name: "Arrivals", desc: "Pickups are arranged in advance. Share your flight number and terminal and we confirm the meeting point with you before you land." }
     ],
     tips: [
       "Riyadh airport is 35km north of the city center. Expect a 30-45 minute drive.",
       "Corporate invoicing is available for business travelers on request.",
       "Share your flight number when you book so we check it before pickup.",
-      "Meet & greet is included — your driver waits in the arrivals hall with a name sign."
+      "Meet & greet is included — we confirm the meeting point with you before you land."
     ],
     priorityRoutes: ["riyadh-airport-to-city"],
     faqs: [
       { question: "How much is a taxi from Riyadh airport to the city center?", answer: "The fare from King Khalid International Airport (RUH) to central Riyadh is confirmed on WhatsApp before you book — no meter, no surge, no hidden fees." },
       { question: "How long does it take from Riyadh airport to KAFD?", answer: "The drive from RUH to KAFD is about 35–40 minutes (approximately 40 km), depending on traffic." },
-      { question: "Is there a taxi or car service at RUH Terminal 2, 3, 4 or 5?", answer: "Yes — we provide a private taxi and car service and meet & greet at every King Khalid International Airport (RUH) terminal: Terminal 1 and Terminal 2, Terminal 3 and Terminal 4 for international flights, and Terminal 5 for domestic. Share your terminal number when booking and your chauffeur waits in that arrivals hall with a name sign." },
+      { question: "Is there a taxi or car service at King Khalid International Airport (RUH)?", answer: "Yes — we provide a private taxi and car service with meet & greet for arrivals at King Khalid International Airport (RUH). Share your flight number and terminal when booking and we confirm the meeting point with you before you land." },
       { question: "Do you offer a King Khalid International Airport car service for business travellers?", answer: "Yes. We run an executive car service from RUH for business travellers heading to KAFD, Olaya and the Diplomatic Quarter — executive sedans and SUVs, bilingual chauffeurs, and corporate invoicing on request." },
-      { question: "Where do I meet my driver at Riyadh airport?", answer: "Your driver meets you in the arrivals hall of your terminal holding a name sign. Confirm your terminal number when booking so we meet you at the right exit." },
+      { question: "Where do I meet my driver at Riyadh airport?", answer: "Your driver meets you at arrivals. Share your flight number and terminal when booking and we confirm the meeting point with you before you land." },
       { question: "What happens if my flight is delayed?", answer: "Share your flight number when you book and we check it before pickup, so the pickup time is planned around your actual arrival." },
       { question: "Do you provide invoices for business travelers?", answer: "Yes. Corporate invoices are available for business travelers on request — just let us know when you book." }
     ],
@@ -190,13 +188,13 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
       "DMM is the largest airport in the world by area, located 20km northwest of Dammam.",
       "For transfers to Bahrain, please provide passport details 24 hours in advance.",
       "Share your flight number when you book so we check it before pickup.",
-      "Meet & greet is included — your driver waits in the arrivals hall with a name sign."
+      "Meet & greet is included — we confirm the meeting point with you before you land."
     ],
     priorityRoutes: ["dammam-to-doha", "dammam-to-manama"],
     faqs: [
       { question: "How much is a taxi from Dammam airport to Al Khobar?", answer: "A taxi from King Fahd International Airport (DMM) to Al Khobar is a 30–40 minute drive. The exact fare is confirmed before you book — no surge or hidden fees." },
       { question: "Can I get a taxi from DMM airport to Bahrain?", answer: "Yes. We offer cross-border transfers from DMM to Bahrain via the King Fahd Causeway. Each passenger completes their own border checks on the causeway and carries their own valid documents. Our Dammam Airport to Bahrain route page has the full details." },
-      { question: "Where do I meet my driver at Dammam airport?", answer: "Your driver meets you in the arrivals hall holding a sign with your name. Meet & greet is included with every booking." },
+      { question: "Where do I meet my driver at Dammam airport?", answer: "Your driver meets you at arrivals. Meet & greet is included with every booking, and we confirm the meeting point with you before you land." },
       { question: "What happens if my flight is delayed?", answer: "Share your flight number when you book and we check it before pickup, so the pickup time is planned around your actual arrival." }
     ],
     relatedLinks: [
@@ -254,7 +252,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     priorityRoutes: ["tabuk-airport-to-neom"],
     faqs: [
       { question: "How long is the drive from Tabuk airport to NEOM?", answer: "The drive from Tabuk Regional Airport (TUU) to NEOM is roughly 2.5 hours (about 120 km). Pre-booking an SUV is recommended for comfort on this route." },
-      { question: "Where do I meet my driver at Tabuk airport?", answer: "Your driver meets you at the arrivals exit of the main terminal with a name sign." },
+      { question: "Where do I meet my driver at Tabuk airport?", answer: "Your driver meets you at arrivals. Share your flight number when you book and we confirm the meeting point with you before you land." },
       { question: "What happens if my flight is delayed?", answer: "Share your flight number when you book and we check it before pickup, so the pickup time is planned around your actual arrival." }
     ],
     relatedLinks: [

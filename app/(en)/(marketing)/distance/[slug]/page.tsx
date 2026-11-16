@@ -17,9 +17,12 @@ export function generateStaticParams() {
 // other distance guide.
 const TITLE_OVERRIDES: Record<string, string> = {
   "madinah-to-alula": "Madinah to AlUla Distance: 330 km, About 3 Hours (+ Private Taxi)",
+  // Approved 2026-11-16. GSC 3mo: 1,300 impr, 2 clicks, pos 8.35; every query is "distance/by road/km/hours".
+  "riyadh-to-makkah": "Riyadh to Makkah Distance: 870 km, 8–9 Hours by Road (+ Private Car)",
 };
 const DESCRIPTION_OVERRIDES: Record<string, string> = {
   "madinah-to-alula": "Madinah to AlUla is 330 km — about 3 hours by road. See the route, driving time, and book a private door-to-door car with a professional driver, fare confirmed on WhatsApp, 24/7.",
+  "riyadh-to-makkah": "Riyadh to Makkah is about 870 km, 8–9 hours by road via Highway 40. Route, driving time and a private door-to-door car, fare confirmed on WhatsApp.",
 };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

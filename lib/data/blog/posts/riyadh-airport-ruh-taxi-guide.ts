@@ -102,9 +102,9 @@ About 35 km — around 30 minutes off-peak, longer at rush hour.
 
 About 40 km — around 35 minutes with clear roads. The Metro Yellow Line also links the airport with KAFD.
 
-### Can I book a pickup at any terminal?
+### Can I book a pickup at Riyadh airport?
 
-Yes. Tell us your terminal number when you book so you are met at the right arrivals hall.
+Yes. Tell us your flight number and terminal when you book and we confirm the meeting point with you before you land.
 `,
 };
 

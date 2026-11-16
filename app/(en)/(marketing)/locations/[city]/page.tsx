@@ -53,7 +53,7 @@ const AIRPORT_JOURNEY: Record<string, { heading: string; steps: { title: string;
     steps: [
       { title: "Flight lands at JED", desc: "King Abdulaziz International Airport: Terminal 1, Terminal 4, the North Terminal or the Hajj and Umrah Terminal.", icon: PlaneLanding },
       { title: "Share your flight number", desc: "Add it when you book so we check it before pickup, even if the flight is delayed.", icon: Luggage },
-      { title: "Meet & greet at arrivals", desc: "Your driver waits with a name sign and helps with luggage.", icon: UserCheck },
+      { title: "Meet & greet at arrivals", desc: "Your driver waits and helps with luggage.", icon: UserCheck },
       { title: "Private vehicle to your destination", desc: "Straight to your Jeddah hotel, or on to Makkah or Madinah, with a Miqat stop on request.", icon: Car },
     ],
   },
@@ -62,7 +62,7 @@ const AIRPORT_JOURNEY: Record<string, { heading: string; steps: { title: string;
     steps: [
       { title: "Flight lands at RUH", desc: "King Khalid International Airport, about 35 km north of central Riyadh.", icon: PlaneLanding },
       { title: "Share your flight number", desc: "Add it when you book so we check it before pickup, even if the flight is delayed.", icon: Luggage },
-      { title: "Meet & greet at arrivals", desc: "Your driver waits with a name sign and helps with luggage.", icon: UserCheck },
+      { title: "Meet & greet at arrivals", desc: "Your driver waits and helps with luggage.", icon: UserCheck },
       { title: "Private vehicle to your destination", desc: "Straight to your Olaya, KAFD or Diplomatic Quarter hotel, a business meeting, or on to Dammam.", icon: Car },
     ],
   },

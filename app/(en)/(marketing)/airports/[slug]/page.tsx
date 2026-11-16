@@ -70,7 +70,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const DESCRIPTION_OVERRIDES: Record<string, string> = {
     "prince-mohammad-madinah": "Madinah Airport (MED) taxi & private car service — a pre-booked private transfer to your Madinah (Medina) hotel near Masjid an-Nabawi (~25 min). Meet & greet, chauffeur, family vans; get the current fare on WhatsApp, 24/7.",
     "king-abdulaziz-jeddah": "Jeddah Airport (JED) taxi — King Abdulaziz International Airport to Makkah, Madinah or your Jeddah hotel. Meet & greet, flight tracking, fare confirmed on WhatsApp, 24/7.",
-    "king-khalid-riyadh": "Riyadh Airport (RUH) taxi & executive car service — King Khalid International Airport, all terminals (1–5) to KAFD, Olaya or your hotel. Meet & greet, chauffeur with a name sign, quoted on WhatsApp, 24/7.",
+    "king-khalid-riyadh": "Riyadh Airport (RUH) taxi & executive car service — King Khalid International Airport to KAFD, Olaya or your hotel. Meet & greet, chauffeur, quoted on WhatsApp, 24/7.",
     "king-fahd-dammam": "Dammam Airport (DMM) taxi — King Fahd International Airport to Dammam, Khobar, Dhahran or Jubail. Meet & greet, fare confirmed on WhatsApp, 24/7.",
     "alula": "Pre-book a private transfer from AlUla International Airport (ULH) to your resort, hotel or Hegra — on-demand taxis at ULH are very limited. Meet & greet, flight tracking, fare agreed before you travel.",
   };
@@ -301,7 +301,7 @@ export default async function AirportLandingPage({ params }: PageProps) {
                     Get your Riyadh Airport (RUH) transfer quote
                   </h2>
                   <p className="text-xs sm:text-sm text-[#6B7280] leading-relaxed max-w-xl">
-                    Fill a few details and we confirm your fixed fare on WhatsApp — a pre-booked private transfer from King Khalid International Airport (RUH), any terminal (1&ndash;5), with meet &amp; greet at arrivals and flight tracking.
+                    Fill a few details and we confirm your fixed fare on WhatsApp — a pre-booked private transfer from King Khalid International Airport (RUH), with meet &amp; greet at arrivals and flight tracking.
                   </p>
                 </div>
                 <WhatsAppQuoteForm defaultPickup="Riyadh Airport (RUH)" defaultDropoff="Riyadh hotel" />
@@ -360,7 +360,7 @@ export default async function AirportLandingPage({ params }: PageProps) {
               intro="A pre-booked private transfer from the moment you land — no taxi queue, no haggling, a fixed fare agreed before you travel."
               steps={[
                 { title: "Book & share your flight", desc: "Send your arrival details and flight number when you book — we check it before pickup so your driver is there even if your flight shifts.", icon: PlaneLanding },
-                { title: "Meet on arrival", desc: "Your English- and Arabic-speaking driver meets you after the arrivals hall and helps with your luggage to the vehicle.", icon: CheckCircle2 },
+                { title: "Meet on arrival", desc: "Your English- and Arabic-speaking driver meets you at arrivals and helps with your luggage to the vehicle.", icon: CheckCircle2 },
                 { title: "Settle into your vehicle", desc: "Travel in a clean, well-maintained sedan, SUV or van matched to your group and luggage.", icon: Car },
                 { title: "Door-to-door transfer", desc: "Go straight to your hotel or destination at a fixed fare agreed in advance — no meter, no surge.", icon: MapPin },
               ]}

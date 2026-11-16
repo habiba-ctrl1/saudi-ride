@@ -116,7 +116,7 @@ const homeTranslations = {
         { title: "Live Flight Tracking", desc: "We track your flight in real time for every Saudi airport transfer. Your professional chauffeur waits 15–30 minutes free if your flight is delayed." },
         { title: "English & Arabic Drivers", desc: "Drivers in our partner network speak English and Arabic — clear communication for international pilgrims and business travelers." },
         { title: "Free Cancellation — 24 Hours", desc: "Cancel your booking up to 24 hours before your trip for a full refund — no questions asked. Flexibility you can count on." },
-        { title: "Airport Meet & Greet Service", desc: "For every airport transfer in Saudi Arabia, your driver meets you inside the arrivals terminal with a name sign and helps carry your luggage to the car." },
+        { title: "Airport Meet & Greet Service", desc: "For every airport transfer in Saudi Arabia, your driver meets you inside the arrivals terminal and helps carry your luggage to the car." },
         { title: "ZATCA-Compliant E-Invoice", desc: "VAT-compliant e-invoices via ZATCA available on request for corporate and business bookings — clean paperwork for your company accounts." }
       ]
     },
@@ -170,7 +170,7 @@ const homeTranslations = {
         { title: "Fixed price, agreed on WhatsApp", desc: "Your exact fare is confirmed with you on WhatsApp before you book — no surge, no meter, no hidden charges." },
         { title: "24/7 WhatsApp booking", desc: "Message us any time, day or night. Our team typically confirms your ride within 1–2 hours." },
         { title: "Drivers speak English & Arabic", desc: "Clear communication for pilgrims, families, and business travellers across the Kingdom." },
-        { title: "Airport meet & greet", desc: "Your driver meets you in the arrivals hall with a name sign and helps carry your luggage to the car." }
+        { title: "Airport meet & greet", desc: "Your driver meets you in the arrivals hall and helps carry your luggage to the car." }
       ]
     },
     blog: {
@@ -349,7 +349,7 @@ const homeTranslations = {
         { title: "سعر ثابت يُؤكد عبر واتساب", desc: "نؤكد أجرتك بالضبط عبر واتساب قبل الحجز — بدون زيادة مفاجئة أو عداد أو رسوم خفية." },
         { title: "الحجز عبر واتساب على مدار الساعة", desc: "راسلنا في أي وقت ليلاً أو نهاراً، ويؤكد فريقنا رحلتك عادةً خلال ساعة إلى ساعتين." },
         { title: "سائقون يتحدثون العربية والإنجليزية والأردية", desc: "تواصل واضح للمعتمرين والعائلات ورجال الأعمال في جميع أنحاء المملكة." },
-        { title: "استقبال وترحيب في المطار", desc: "يستقبلك سائقك في صالة الوصول بلوحة تحمل اسمك ويساعدك في حمل أمتعتك إلى السيارة." }
+        { title: "استقبال وترحيب في المطار", desc: "يستقبلك سائقك في صالة الوصول ويساعدك في حمل أمتعتك إلى السيارة." }
       ]
     },
     blog: {

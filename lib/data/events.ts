@@ -927,7 +927,7 @@ export const EVENTS: EventPageData[] = [
       { label: "Availability", value: "24/7" },
     ],
     services: [
-      { title: "VIP Airport Meet & Greet", desc: "GAIN attracts senior officials and technology leaders. We meet them at Riyadh Airport (RUH) with a discreet executive car and name-sign greeting, then drive directly to the conference hotel or KAICC — smooth, private, and on time." },
+      { title: "VIP Airport Meet & Greet", desc: "GAIN attracts senior officials and technology leaders. We meet them at Riyadh Airport (RUH) with a discreet executive car and a meet & greet, then drive directly to the conference hotel or KAICC — smooth, private, and on time." },
       { title: "Protocol-Ready Executive Chauffeur", desc: "For a high-protocol summit, we assign immaculate S-Class and Escalade-class cars with experienced bilingual chauffeurs who understand precise timing, security-conscious pickups, and a low profile." },
       { title: "Delegation & Speaker Transport", desc: "Coordinated executive vehicles for speaker panels and official delegations, kept together under one contact so a group reaches KAICC together for a keynote or a bilateral session." },
       { title: "Full-Day Standby", desc: "A car and driver dedicated to a guest for the length of the summit — moving between KAICC, ministry meetings, and the hotel without a new booking each time." },
@@ -960,7 +960,7 @@ export const EVENTS: EventPageData[] = [
       { label: "Availability", value: "24/7" },
     ],
     services: [
-      { title: "Delegation Airport Transfers", desc: "The forum draws government and mining delegations from around the world. We meet them at Riyadh Airport (RUH) with executive cars and name-sign greetings, then run them to the conference hotel or KAICC as a coordinated group." },
+      { title: "Delegation Airport Transfers", desc: "The forum draws government and mining delegations from around the world. We meet them at Riyadh Airport (RUH) with executive cars and greetings, then run them to the conference hotel or KAICC as a coordinated group." },
       { title: "Ministerial-Level Chauffeur", desc: "Immaculate S-Class and Escalade-class cars with discreet, bilingual chauffeurs experienced with high-protocol, security-conscious guests — appropriate for a ministerial and C-suite audience." },
       { title: "Convoy & Group Coordination", desc: "Matching vehicles for delegations that must travel together, managed under one contact with a lead driver keeping the convoy on a synchronised schedule between venues." },
       { title: "Full-Day Executive Standby", desc: "A dedicated car and driver for the length of the forum — KAICC sessions, bilateral meetings, and hotel returns — so senior guests never wait for a ride in the January cold." },

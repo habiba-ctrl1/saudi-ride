@@ -239,7 +239,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
       "Families and groups prefer a private car because it is door-to-door with room for luggage, avoiding the transfers and waiting that come with the train or shared transport. Only Muslims may enter the city limits of Makkah.",
     ],
     whyCards: [
-      { img: "/gallery/airport-meet.webp", title: "Meet & greet at JED", body: "Your driver waits at arrivals with a name sign — even for late-night or delayed flights — and helps with your luggage." },
+      { img: "/gallery/airport-meet.webp", title: "Meet & greet at JED", body: "Your driver waits at arrivals — even for late-night or delayed flights — and helps with your luggage." },
       { img: "/gallery/umrah-family.webp", title: "Prayer & rest stops", body: "Tell us when you book if you want a prayer, meal or rest stop on the way. A pickup in Jeddah does not by itself involve a Miqat stop." },
       { img: "/gallery/luggage-assist.webp", title: "Straight to your hotel", body: "Drop-off as close to your Makkah hotel and Masjid al-Haram as vehicle access allows, with luggage help." },
     ],
@@ -262,7 +262,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
       { question: "How long is the drive from Jeddah to Makkah?", answer: "The drive takes about 1 hour 10 minutes on the expressway, a little more from the airport in peak Umrah traffic." },
       { question: "Is there a train from Jeddah to Makkah?", answer: "Yes — the Haramain High-Speed Railway links Jeddah and Makkah in about 30 minutes. A private transfer is door-to-door with luggage help and no station transfers." },
       { question: "Does a Jeddah pickup involve a Miqat stop?", answer: "A pickup in Jeddah does not by itself involve a Miqat stop. Whether a Miqat matters depends on where you travelled from and on your own religious circumstances, which we cannot advise on. If your plans include a stop, tell us when you book." },
-      { question: "Do you meet pilgrims at Jeddah Airport (JED)?", answer: "Yes. We track your flight and the driver waits at arrivals with a name sign, even for late or delayed flights, and helps with luggage." },
+      { question: "Do you meet pilgrims at Jeddah Airport (JED)?", answer: "Yes. We track your flight and the driver waits at arrivals, even for late or delayed flights, and helps with luggage." },
       { question: "How much is a taxi from Jeddah to Makkah?", answer: "The fare depends on your vehicle and pickup point. We confirm one fixed price on WhatsApp before booking — no surge, tolls included." },
       { question: "Can non-Muslims travel to Makkah?", answer: "No — only Muslims may enter the city limits of Makkah. Keep passports and documents ready at the Haramain checkpoint." },
     ],
@@ -295,7 +295,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
       "It is also popular with travellers on flexible schedules — an early-morning or late-night departure is no problem when you have your own vehicle and driver.",
     ],
     whyCards: [
-      { img: "/gallery/airport-meet.webp", title: "Meet & greet at JED", body: "Your driver waits at arrivals with a name sign, tracks your flight, and helps with luggage — even for late arrivals." },
+      { img: "/gallery/airport-meet.webp", title: "Meet & greet at JED", body: "Your driver waits at arrivals, tracks your flight, and helps with luggage — even for late arrivals." },
       { img: "/gallery/umrah-family.webp", title: "Comfortable for families", body: "A private cabin with room to rest on the four-hour drive, with prayer and refreshment stops on request." },
       { img: "/gallery/luggage-assist.webp", title: "Door to your Madinah hotel", body: "Straight to your accommodation near the Prophet's Mosque, as close as vehicle access allows." },
     ],
