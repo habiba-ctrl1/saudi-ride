@@ -2257,7 +2257,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "doha-to-riyadh": "Doha to Riyadh private car via Abu Samra and Salwa — ~580 km, door to door or to RUH airport. Fixed fare in writing, border fees included.",
     "kuwait-to-dammam": "Kuwait to Dammam private car — ~436 km via Nuwaiseeb–Al Khafji to Dammam, Khobar, Dhahran or DMM airport. Fixed fare, border fees included.",
     "kuwait-to-riyadh": "Kuwait to Riyadh private car with driver — ~650 km via Nuwaiseeb–Al Khafji to KAFD, Olaya or RUH. Corporate invoicing, border fees included.",
-    "alahsa-to-doha": "Al Ahsa to Doha private car — ~265 km via Salwa, the shortest Saudi road into Qatar. Fixed fare in writing, border fees included, 24/7.",
+    // 2026-11-16 (approved): distance-led — GSC 3mo "al ahsa to qatar distance" 109 impr pos 7.7, 0 clicks; page CTR 2.6%.
+    "alahsa-to-doha": "Al Ahsa to Doha is about 265 km, around 3 hours by road via Salwa, the shortest Saudi road into Qatar. Private car, fixed fare, border fees included.",
+    // 2026-11-16 (approved): these three used the generic fallback description.
+    "doha-to-alahsa": "Doha to Al Ahsa (Hofuf) is about 265 km, around 3 hours by road via Abu Samra and Salwa. Private car with driver, fixed fare, border fees included.",
+    "alkhobar-to-doha": "Private car with driver, Al Khobar to Doha (Qatar) — ~400 km via the Salwa border, door to door. Fixed fare in writing, border fees included, 24/7.",
+    "dammam-airport-to-doha": "Private car from Dammam Airport (DMM) to Doha, Qatar — ~420 km via the Salwa border, meet & greet at arrivals. Fixed fare in writing, border fees included.",
     "riyadh-to-abudhabi": "Private car with driver, Riyadh to Abu Dhabi (UAE) — ~850 km via the Al Batha–Ghuwaifat border and the E11. Fixed fare, border fees included.",
     "dammam-to-abudhabi": "Private car with driver, Dammam to Abu Dhabi (UAE) — ~750 km via the Al Batha–Ghuwaifat border; Khobar & Dhahran pickups. Border fees included.",
     "jeddah-to-abudhabi": "Jeddah to Abu Dhabi by private car — ~1,750 km, best as a two-day trip; honest fly-vs-drive advice. Fixed fare, border fees included.",
