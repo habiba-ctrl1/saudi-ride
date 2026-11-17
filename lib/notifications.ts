@@ -38,7 +38,23 @@ function escapeHtml(value: unknown): string {
 }
 const gmailUser = process.env.GMAIL_USER;
 const gmailAppPassword = process.env.GMAIL_APP_PASSWORD;
-const gmailTransporter = gmailUser && gmailAppPassword
+// Outbound mail transport.
+// Preferred: a relay that DKIM-signs for taxisaudiarabia.com (set SMTP_HOST, SMTP_PORT,
+// SMTP_USER, SMTP_PASS). Without DKIM for the From domain, Yahoo/AOL reject our mail
+// ("550 5.7.9 ... requires DKIM", seen Nov 2026) — Gmail SMTP cannot sign for a custom domain.
+// Fallback (unchanged behaviour): Gmail SMTP when the SMTP_* vars are not set.
+const smtpHost = process.env.SMTP_HOST;
+const smtpUser = process.env.SMTP_USER;
+const smtpPass = process.env.SMTP_PASS;
+const smtpPort = Number(process.env.SMTP_PORT || 465);
+const gmailTransporter = smtpHost && smtpUser && smtpPass
+  ? nodemailer.createTransport({
+      host: smtpHost,
+      port: smtpPort,
+      secure: smtpPort === 465,
+      auth: { user: smtpUser, pass: smtpPass },
+    })
+  : gmailUser && gmailAppPassword
   ? nodemailer.createTransport({
       service: "gmail",
       auth: { user: gmailUser, pass: gmailAppPassword },
