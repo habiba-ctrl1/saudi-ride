@@ -2263,11 +2263,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "doha-to-alahsa": "Doha to Al Ahsa (Hofuf) is about 265 km, around 3 hours by road via Abu Samra and Salwa. Private car with driver, fixed fare, border fees included.",
     "alkhobar-to-doha": "Private car with driver, Al Khobar to Doha (Qatar) — ~400 km via the Salwa border, door to door. Fixed fare in writing, border fees included, 24/7.",
     "dammam-airport-to-doha": "Private car from Dammam Airport (DMM) to Doha, Qatar — ~420 km via the Salwa border, meet & greet at arrivals. Fixed fare in writing, border fees included.",
-    "riyadh-to-abudhabi": "Private car with driver, Riyadh to Abu Dhabi (UAE) — ~850 km via the Al Batha–Ghuwaifat border and the E11. Fixed fare, border fees included.",
+    // 2026-11-18 (approved): distance-led — GSC 3mo "riyadh to abu dhabi by road" 309 impr pos 5.7, page CTR 3.4% vs riyadh-to-dubai 6.6%.
+    "riyadh-to-abudhabi": "Riyadh to Abu Dhabi by road is about 850 km, around 8 hours via the Al Batha–Ghuwaifat border. Private car with driver, fixed fare, border fees included.",
     "dammam-to-abudhabi": "Private car with driver, Dammam to Abu Dhabi (UAE) — ~750 km via the Al Batha–Ghuwaifat border; Khobar & Dhahran pickups. Border fees included.",
     "jeddah-to-abudhabi": "Jeddah to Abu Dhabi by private car — ~1,750 km, best as a two-day trip; honest fly-vs-drive advice. Fixed fare, border fees included.",
     "riyadh-to-doha": "Private car with driver, Riyadh to Doha (Qatar) — ~580 km via Al Ahsa and the Salwa border. Fixed fare in writing, border fees included, 24/7.",
-    "riyadh-to-manama": "Private car with driver, Riyadh to Manama (Bahrain) — ~450 km via the King Fahd Causeway, door to door, no train change. Causeway toll included.",
+    // 2026-11-18 (approved): answers by-road/by-car + train intent — page CTR 2.8%, "riyadh to bahrain train" 263 impr.
+    "riyadh-to-manama": "Riyadh to Bahrain by car is about 450 km, around 4.5 hours via the King Fahd Causeway, with no train change. Private car with driver, causeway toll included.",
     "dammam-to-kuwait": "Private car with driver, Dammam to Kuwait City — ~436 km along the coast via Al Khafji–Nuwaiseeb. Fixed fare in writing, border fees included.",
     "dammam-to-manama": "Private car with driver, Dammam to Manama (Bahrain) — ~70 km across the King Fahd Causeway, from home, hotel or the station. Causeway toll included, 24/7.",
     "dammam-to-doha": "Private car with driver, Dammam to Doha (Qatar) — ~400 km via Al Ahsa and the Salwa border. Fixed fare in writing, border fees included, 24/7.",

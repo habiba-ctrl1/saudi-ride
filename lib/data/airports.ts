@@ -161,6 +161,7 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
       { href: "/locations/riyadh/private-driver", label: "Hire a private driver for your Riyadh day" },
       { href: "/routes/riyadh-to-dammam", label: "Riyadh to Dammam taxi" },
       { href: "/routes/riyadh-to-dubai", label: "Riyadh to Dubai — car with driver" },
+      { href: "/riyadh-alternative-airports", label: "Other airports reachable by road from Riyadh — DMM, Bahrain, Doha, Dubai, Jeddah" },
       { href: "/fleet/mercedes-s-class", label: "Mercedes S-Class — executive sedan" },
       { href: "/fleet/gmc-yukon-xl", label: "GMC Yukon XL — Premium SUV" },
       { href: "/fleet/toyota-camry", label: "Toyota Camry — Executive Sedan" },
