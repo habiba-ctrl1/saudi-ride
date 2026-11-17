@@ -118,6 +118,11 @@ const nextConfig: NextConfig = {
     return [...wwwRedirect, ...guideRedirects,...dedupeRedirects, ...jobCityRedirects, ...jobHubRedirects, ...vipRedirect, ...blogMergeRedirects];
   },
   images: {
+    // Cache optimised images for a year (default is 60 s). On the Hostinger shared plan every
+    // /_next/image miss runs the optimizer (~1.9 s). CAUTION: when replacing a photo in /public,
+    // give it a NEW filename — a file overwritten under the same name keeps showing the old
+    // picture to returning visitors for up to a year. See docs/SERVER-SPEED-PLAN-2026-11-18.md.
+    minimumCacheTTL: 31536000,
     remotePatterns: [
       {
         protocol: "https",
