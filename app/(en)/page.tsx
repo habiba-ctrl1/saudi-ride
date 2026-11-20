@@ -1,0 +1,66 @@
+import { Metadata } from "next";
+import { HomePage } from "@/components/sections/home-page";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { faqSchema } from "@/lib/schema";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "https://taxisaudiarabia.com",
+    languages: {
+      en: "https://taxisaudiarabia.com",
+      ar: "https://taxisaudiarabia.com/ar",
+      "x-default": "https://taxisaudiarabia.com",
+    },
+  },
+  // Moved verbatim from rootMetadata 2026-11-13 so other pages stop inheriting them.
+  openGraph: {
+    title: "Taxi Service Saudi Arabia — Book Airport Transfer & Umrah Taxi | 24/7",
+    description:
+      "Book a private taxi in Saudi Arabia. Airport transfers, Umrah transport, Jeddah to Makkah, Makkah to Madinah routes. Professional drivers, clear pricing on WhatsApp, GMC Yukon & Hyundai Staria available. WhatsApp booking 24/7.",
+    type: "website",
+    locale: "en_SA",
+    url: "https://taxisaudiarabia.com",
+    siteName: "Taxi Saudi Arabia",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Taxi Service Saudi Arabia — Book Airport Transfer & Umrah Taxi",
+    description:
+      "Book a taxi in Saudi Arabia for airport transfers and Umrah transport. Professional chauffeurs, fixed fares confirmed on WhatsApp — no surge, no hidden fees. WhatsApp booking 24/7.",
+  },
+};
+
+// Matches the FAQ section actually rendered in homeTranslations.en.faq.items
+// (components/sections/home-page.tsx) — kept in sync manually since that
+// content lives in a client component's translation object.
+const HOME_FAQS = [
+  {
+    question: "How do I book a taxi in Saudi Arabia?",
+    answer: "You can book a taxi in Saudi Arabia online via our booking console or directly through WhatsApp booking. Simply provide your pickup location, destination, date, and time. Our 24/7 taxi service team will confirm your ride with a clear price, usually within 1–2 hours.",
+  },
+  {
+    question: "How much is a Jeddah Airport to Makkah taxi?",
+    answer: "The taxi fare for a Jeddah Airport to Makkah taxi is confirmed on WhatsApp before booking — a fixed fare with no hidden charges or surge. Standard sedans and larger family vehicles like the Hyundai Staria are available.",
+  },
+  {
+    question: "Do you offer Umrah transport from Madinah?",
+    answer: "Yes, our Umrah transport covers the Makkah to Madinah taxi route, Madinah to Makkah taxi route, and Madinah Ziyarat taxi services. Prayer and rest stops can be arranged on request, and trips are driven by professional chauffeurs in our partner network.",
+  },
+  {
+    question: "Are the taxi drivers licensed and professional?",
+    answer: "Absolutely. Drivers in our partner network speak English and Arabic, and trips run 24 hours a day, ensuring a smooth Saudi airport transfer and intercity experience.",
+  },
+  {
+    question: "Do you have vehicles for large families or groups?",
+    answer: "Yes, we offer luxury SUV taxis like the GMC Yukon and spacious vans like the Toyota Hiace and Hyundai Staria. These are perfect for group Umrah airport transfers and family taxi trips across Saudi Arabia.",
+  },
+];
+
+export default function Home() {
+  return (
+    <>
+      <JsonLd data={faqSchema(HOME_FAQS)} />
+      <HomePage />
+    </>
+  );
+}

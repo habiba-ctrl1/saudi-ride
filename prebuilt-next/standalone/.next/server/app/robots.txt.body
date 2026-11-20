@@ -1,0 +1,32 @@
+User-Agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /vendor/
+Disallow: /customer/
+Disallow: /api/
+Disallow: /static/
+Disallow: /book?
+
+User-Agent: GPTBot
+Allow: /
+
+User-Agent: Google-Extended
+Allow: /
+
+User-Agent: Claude-Web
+Allow: /
+
+User-Agent: ClaudeBot
+Allow: /
+
+User-Agent: PerplexityBot
+Allow: /
+
+User-Agent: Applebot-Extended
+Allow: /
+
+User-Agent: Bytespider
+Allow: /
+
+Host: https://taxisaudiarabia.com
+Sitemap: https://taxisaudiarabia.com/sitemap.xml

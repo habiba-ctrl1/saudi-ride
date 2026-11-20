@@ -1,0 +1,1560 @@
+{
+  "version": 3,
+  "pages404": true,
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.taxisaudiarabia.com"
+        }
+      ],
+      "destination": "https://taxisaudiarabia.com/:path*",
+      "statusCode": 301,
+      "regex": "^(?!/_next)(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))?(?:/)?$"
+    },
+    {
+      "source": "/guides",
+      "has": [
+        {
+          "type": "query",
+          "key": "id",
+          "value": "jeddah-sim-guide"
+        }
+      ],
+      "destination": "/guides/jeddah-airport-sim-card",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/guides(?:/)?$"
+    },
+    {
+      "source": "/guides",
+      "has": [
+        {
+          "type": "query",
+          "key": "id",
+          "value": "meeqat-guide"
+        }
+      ],
+      "destination": "/guides/meeqat-locations",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/guides(?:/)?$"
+    },
+    {
+      "source": "/guides",
+      "has": [
+        {
+          "type": "query",
+          "key": "id",
+          "value": "riyal-cash-guide"
+        }
+      ],
+      "destination": "/guides/saudi-riyal-pilgrim-guide",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/guides(?:/)?$"
+    },
+    {
+      "source": "/locations/dammam/al-khobar",
+      "destination": "/locations/alkhobar",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/locations/dammam/al-khobar(?:/)?$"
+    },
+    {
+      "source": "/driver-jobs/riyadh",
+      "destination": "/locations/riyadh",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/driver-jobs/riyadh(?:/)?$"
+    },
+    {
+      "source": "/driver-jobs/jeddah",
+      "destination": "/locations/jeddah",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/driver-jobs/jeddah(?:/)?$"
+    },
+    {
+      "source": "/driver-jobs/makkah",
+      "destination": "/locations/makkah",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/driver-jobs/makkah(?:/)?$"
+    },
+    {
+      "source": "/driver-jobs/madinah",
+      "destination": "/locations/madinah",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/driver-jobs/madinah(?:/)?$"
+    },
+    {
+      "source": "/driver-jobs/dammam",
+      "destination": "/locations/dammam",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/driver-jobs/dammam(?:/)?$"
+    },
+    {
+      "source": "/driver-jobs/khobar",
+      "destination": "/locations/alkhobar",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/driver-jobs/khobar(?:/)?$"
+    },
+    {
+      "source": "/driver-jobs/taif",
+      "destination": "/locations/taif",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/driver-jobs/taif(?:/)?$"
+    },
+    {
+      "source": "/driver-jobs/abha",
+      "destination": "/locations/abha",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/driver-jobs/abha(?:/)?$"
+    },
+    {
+      "source": "/driver-jobs/yanbu",
+      "destination": "/locations/yanbu",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/driver-jobs/yanbu(?:/)?$"
+    },
+    {
+      "source": "/driver-jobs/tabuk",
+      "destination": "/services/car-recovery/tabuk",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/driver-jobs/tabuk(?:/)?$"
+    },
+    {
+      "source": "/driver-jobs/jubail",
+      "destination": "/services/car-recovery/jubail",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/driver-jobs/jubail(?:/)?$"
+    },
+    {
+      "source": "/driver-jobs/dhahran",
+      "destination": "/locations/alkhobar",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/driver-jobs/dhahran(?:/)?$"
+    },
+    {
+      "source": "/driver-jobs/khamis-mushait",
+      "destination": "/locations/abha",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/driver-jobs/khamis-mushait(?:/)?$"
+    },
+    {
+      "source": "/driver-jobs/buraidah",
+      "destination": "/",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/driver-jobs/buraidah(?:/)?$"
+    },
+    {
+      "source": "/driver-jobs/al-ahsa",
+      "destination": "/",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/driver-jobs/al-ahsa(?:/)?$"
+    },
+    {
+      "source": "/driver-jobs/hail",
+      "destination": "/",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/driver-jobs/hail(?:/)?$"
+    },
+    {
+      "source": "/driver-jobs/najran",
+      "destination": "/",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/driver-jobs/najran(?:/)?$"
+    },
+    {
+      "source": "/driver-jobs/al-qassim",
+      "destination": "/",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/driver-jobs/al-qassim(?:/)?$"
+    },
+    {
+      "source": "/chauffeur-jobs/riyadh",
+      "destination": "/locations/riyadh",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/chauffeur-jobs/riyadh(?:/)?$"
+    },
+    {
+      "source": "/chauffeur-jobs/jeddah",
+      "destination": "/locations/jeddah",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/chauffeur-jobs/jeddah(?:/)?$"
+    },
+    {
+      "source": "/chauffeur-jobs/makkah",
+      "destination": "/locations/makkah",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/chauffeur-jobs/makkah(?:/)?$"
+    },
+    {
+      "source": "/chauffeur-jobs/madinah",
+      "destination": "/locations/madinah",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/chauffeur-jobs/madinah(?:/)?$"
+    },
+    {
+      "source": "/chauffeur-jobs/dammam",
+      "destination": "/locations/dammam",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/chauffeur-jobs/dammam(?:/)?$"
+    },
+    {
+      "source": "/chauffeur-jobs/khobar",
+      "destination": "/locations/alkhobar",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/chauffeur-jobs/khobar(?:/)?$"
+    },
+    {
+      "source": "/chauffeur-jobs/taif",
+      "destination": "/locations/taif",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/chauffeur-jobs/taif(?:/)?$"
+    },
+    {
+      "source": "/chauffeur-jobs/abha",
+      "destination": "/locations/abha",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/chauffeur-jobs/abha(?:/)?$"
+    },
+    {
+      "source": "/chauffeur-jobs/yanbu",
+      "destination": "/locations/yanbu",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/chauffeur-jobs/yanbu(?:/)?$"
+    },
+    {
+      "source": "/chauffeur-jobs/tabuk",
+      "destination": "/services/car-recovery/tabuk",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/chauffeur-jobs/tabuk(?:/)?$"
+    },
+    {
+      "source": "/chauffeur-jobs/jubail",
+      "destination": "/services/car-recovery/jubail",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/chauffeur-jobs/jubail(?:/)?$"
+    },
+    {
+      "source": "/chauffeur-jobs/dhahran",
+      "destination": "/locations/alkhobar",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/chauffeur-jobs/dhahran(?:/)?$"
+    },
+    {
+      "source": "/chauffeur-jobs/khamis-mushait",
+      "destination": "/locations/abha",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/chauffeur-jobs/khamis-mushait(?:/)?$"
+    },
+    {
+      "source": "/chauffeur-jobs/buraidah",
+      "destination": "/",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/chauffeur-jobs/buraidah(?:/)?$"
+    },
+    {
+      "source": "/chauffeur-jobs/al-ahsa",
+      "destination": "/",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/chauffeur-jobs/al-ahsa(?:/)?$"
+    },
+    {
+      "source": "/chauffeur-jobs/hail",
+      "destination": "/",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/chauffeur-jobs/hail(?:/)?$"
+    },
+    {
+      "source": "/chauffeur-jobs/najran",
+      "destination": "/",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/chauffeur-jobs/najran(?:/)?$"
+    },
+    {
+      "source": "/chauffeur-jobs/al-qassim",
+      "destination": "/",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/chauffeur-jobs/al-qassim(?:/)?$"
+    },
+    {
+      "source": "/taxi-driver-jobs/riyadh",
+      "destination": "/locations/riyadh",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/taxi-driver-jobs/riyadh(?:/)?$"
+    },
+    {
+      "source": "/taxi-driver-jobs/jeddah",
+      "destination": "/locations/jeddah",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/taxi-driver-jobs/jeddah(?:/)?$"
+    },
+    {
+      "source": "/taxi-driver-jobs/makkah",
+      "destination": "/locations/makkah",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/taxi-driver-jobs/makkah(?:/)?$"
+    },
+    {
+      "source": "/taxi-driver-jobs/madinah",
+      "destination": "/locations/madinah",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/taxi-driver-jobs/madinah(?:/)?$"
+    },
+    {
+      "source": "/taxi-driver-jobs/dammam",
+      "destination": "/locations/dammam",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/taxi-driver-jobs/dammam(?:/)?$"
+    },
+    {
+      "source": "/taxi-driver-jobs/khobar",
+      "destination": "/locations/alkhobar",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/taxi-driver-jobs/khobar(?:/)?$"
+    },
+    {
+      "source": "/taxi-driver-jobs/taif",
+      "destination": "/locations/taif",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/taxi-driver-jobs/taif(?:/)?$"
+    },
+    {
+      "source": "/taxi-driver-jobs/abha",
+      "destination": "/locations/abha",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/taxi-driver-jobs/abha(?:/)?$"
+    },
+    {
+      "source": "/taxi-driver-jobs/yanbu",
+      "destination": "/locations/yanbu",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/taxi-driver-jobs/yanbu(?:/)?$"
+    },
+    {
+      "source": "/taxi-driver-jobs/tabuk",
+      "destination": "/services/car-recovery/tabuk",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/taxi-driver-jobs/tabuk(?:/)?$"
+    },
+    {
+      "source": "/taxi-driver-jobs/jubail",
+      "destination": "/services/car-recovery/jubail",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/taxi-driver-jobs/jubail(?:/)?$"
+    },
+    {
+      "source": "/taxi-driver-jobs/dhahran",
+      "destination": "/locations/alkhobar",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/taxi-driver-jobs/dhahran(?:/)?$"
+    },
+    {
+      "source": "/taxi-driver-jobs/khamis-mushait",
+      "destination": "/locations/abha",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/taxi-driver-jobs/khamis-mushait(?:/)?$"
+    },
+    {
+      "source": "/taxi-driver-jobs/buraidah",
+      "destination": "/",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/taxi-driver-jobs/buraidah(?:/)?$"
+    },
+    {
+      "source": "/taxi-driver-jobs/al-ahsa",
+      "destination": "/",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/taxi-driver-jobs/al-ahsa(?:/)?$"
+    },
+    {
+      "source": "/taxi-driver-jobs/hail",
+      "destination": "/",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/taxi-driver-jobs/hail(?:/)?$"
+    },
+    {
+      "source": "/taxi-driver-jobs/najran",
+      "destination": "/",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/taxi-driver-jobs/najran(?:/)?$"
+    },
+    {
+      "source": "/taxi-driver-jobs/al-qassim",
+      "destination": "/",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/taxi-driver-jobs/al-qassim(?:/)?$"
+    },
+    {
+      "source": "/driver-jobs",
+      "destination": "/services",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/driver-jobs(?:/)?$"
+    },
+    {
+      "source": "/chauffeur-jobs",
+      "destination": "/services",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/chauffeur-jobs(?:/)?$"
+    },
+    {
+      "source": "/taxi-driver-jobs",
+      "destination": "/services",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/taxi-driver-jobs(?:/)?$"
+    },
+    {
+      "source": "/services/vip-luxury",
+      "destination": "/services/vip-transportation",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/services/vip-luxury(?:/)?$"
+    },
+    {
+      "source": "/blog/jeddah-airport-to-makkah-complete-taxi-guide-2025",
+      "destination": "/guides/jeddah-airport-to-makkah-guide",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/blog/jeddah-airport-to-makkah-complete-taxi-guide-2025(?:/)?$"
+    },
+    {
+      "source": "/blog/makkah-to-madinah-taxi-journey-expectations",
+      "destination": "/guides/makkah-to-madinah-transport-guide",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/blog/makkah-to-madinah-taxi-journey-expectations(?:/)?$"
+    }
+  ],
+  "headers": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/admin/clients/[id]",
+      "regex": "^/admin/clients/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/clients/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/admin/content/blog/[id]/edit",
+      "regex": "^/admin/content/blog/([^/]+?)/edit(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/content/blog/(?<nxtPid>[^/]+?)/edit(?:/)?$"
+    },
+    {
+      "page": "/admin/leads/[id]",
+      "regex": "^/admin/leads/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/leads/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/admin/quotations/[id]",
+      "regex": "^/admin/quotations/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/quotations/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/airports/[slug]",
+      "regex": "^/airports/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/airports/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/admin/blog/[id]",
+      "regex": "^/api/admin/blog/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/blog/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/admin/bookings/[id]",
+      "regex": "^/api/admin/bookings/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/bookings/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/admin/bookings/[id]/assign",
+      "regex": "^/api/admin/bookings/([^/]+?)/assign(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/bookings/(?<nxtPid>[^/]+?)/assign(?:/)?$"
+    },
+    {
+      "page": "/api/admin/bookings/[id]/quotation",
+      "regex": "^/api/admin/bookings/([^/]+?)/quotation(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/bookings/(?<nxtPid>[^/]+?)/quotation(?:/)?$"
+    },
+    {
+      "page": "/api/admin/clients/[id]",
+      "regex": "^/api/admin/clients/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/clients/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/admin/documents/[id]",
+      "regex": "^/api/admin/documents/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/documents/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/admin/follow-ups/[id]",
+      "regex": "^/api/admin/follow\\-ups/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/follow\\-ups/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/admin/invoices/[id]",
+      "regex": "^/api/admin/invoices/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/invoices/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/admin/leads/[id]",
+      "regex": "^/api/admin/leads/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/leads/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/admin/partners/[id]/settlements",
+      "regex": "^/api/admin/partners/([^/]+?)/settlements(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/partners/(?<nxtPid>[^/]+?)/settlements(?:/)?$"
+    },
+    {
+      "page": "/api/admin/pricing-book/[id]",
+      "regex": "^/api/admin/pricing\\-book/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/pricing\\-book/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/admin/promo-codes/[id]",
+      "regex": "^/api/admin/promo\\-codes/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/promo\\-codes/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/admin/quotation-versions/[id]",
+      "regex": "^/api/admin/quotation\\-versions/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/quotation\\-versions/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/admin/quotations/[id]/contact",
+      "regex": "^/api/admin/quotations/([^/]+?)/contact(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/quotations/(?<nxtPid>[^/]+?)/contact(?:/)?$"
+    },
+    {
+      "page": "/api/admin/quotations/[id]/finance",
+      "regex": "^/api/admin/quotations/([^/]+?)/finance(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/quotations/(?<nxtPid>[^/]+?)/finance(?:/)?$"
+    },
+    {
+      "page": "/api/admin/quotations/[id]/invoices",
+      "regex": "^/api/admin/quotations/([^/]+?)/invoices(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/quotations/(?<nxtPid>[^/]+?)/invoices(?:/)?$"
+    },
+    {
+      "page": "/api/admin/quotations/[id]/payments",
+      "regex": "^/api/admin/quotations/([^/]+?)/payments(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/quotations/(?<nxtPid>[^/]+?)/payments(?:/)?$"
+    },
+    {
+      "page": "/api/admin/quotations/[id]/price",
+      "regex": "^/api/admin/quotations/([^/]+?)/price(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/quotations/(?<nxtPid>[^/]+?)/price(?:/)?$"
+    },
+    {
+      "page": "/api/admin/quotations/[id]/receipt-doc",
+      "regex": "^/api/admin/quotations/([^/]+?)/receipt\\-doc(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/quotations/(?<nxtPid>[^/]+?)/receipt\\-doc(?:/)?$"
+    },
+    {
+      "page": "/api/admin/quotations/[id]/send",
+      "regex": "^/api/admin/quotations/([^/]+?)/send(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/quotations/(?<nxtPid>[^/]+?)/send(?:/)?$"
+    },
+    {
+      "page": "/api/admin/quotations/[id]/stage",
+      "regex": "^/api/admin/quotations/([^/]+?)/stage(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/quotations/(?<nxtPid>[^/]+?)/stage(?:/)?$"
+    },
+    {
+      "page": "/api/admin/quotations/[id]/whatsapp-sent",
+      "regex": "^/api/admin/quotations/([^/]+?)/whatsapp\\-sent(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/quotations/(?<nxtPid>[^/]+?)/whatsapp\\-sent(?:/)?$"
+    },
+    {
+      "page": "/api/admin/review/[id]",
+      "regex": "^/api/admin/review/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/review/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/admin/route-price-approvals/[id]",
+      "regex": "^/api/admin/route\\-price\\-approvals/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/route\\-price\\-approvals/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/admin/vehicles/[id]",
+      "regex": "^/api/admin/vehicles/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/vehicles/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/auth/[...nextauth]",
+      "regex": "^/api/auth/(.+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPnextauth": "nxtPnextauth"
+      },
+      "namedRegex": "^/api/auth/(?<nxtPnextauth>.+?)(?:/)?$"
+    },
+    {
+      "page": "/api/bookings/[id]",
+      "regex": "^/api/bookings/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/bookings/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/bookings/[id]/cancel",
+      "regex": "^/api/bookings/([^/]+?)/cancel(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/bookings/(?<nxtPid>[^/]+?)/cancel(?:/)?$"
+    },
+    {
+      "page": "/api/bookings/[id]/review",
+      "regex": "^/api/bookings/([^/]+?)/review(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/bookings/(?<nxtPid>[^/]+?)/review(?:/)?$"
+    },
+    {
+      "page": "/api/driver-applications/[id]",
+      "regex": "^/api/driver\\-applications/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/driver\\-applications/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/drivers/trips/[id]/complete",
+      "regex": "^/api/drivers/trips/([^/]+?)/complete(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/drivers/trips/(?<nxtPid>[^/]+?)/complete(?:/)?$"
+    },
+    {
+      "page": "/api/drivers/trips/[id]/start",
+      "regex": "^/api/drivers/trips/([^/]+?)/start(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/drivers/trips/(?<nxtPid>[^/]+?)/start(?:/)?$"
+    },
+    {
+      "page": "/api/drivers/[id]/profile",
+      "regex": "^/api/drivers/([^/]+?)/profile(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/drivers/(?<nxtPid>[^/]+?)/profile(?:/)?$"
+    },
+    {
+      "page": "/api/payments/[bookingId]",
+      "regex": "^/api/payments/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPbookingId": "nxtPbookingId"
+      },
+      "namedRegex": "^/api/payments/(?<nxtPbookingId>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/payments/[bookingId]/invoice",
+      "regex": "^/api/payments/([^/]+?)/invoice(?:/)?$",
+      "routeKeys": {
+        "nxtPbookingId": "nxtPbookingId"
+      },
+      "namedRegex": "^/api/payments/(?<nxtPbookingId>[^/]+?)/invoice(?:/)?$"
+    },
+    {
+      "page": "/api/payments/[bookingId]/refund",
+      "regex": "^/api/payments/([^/]+?)/refund(?:/)?$",
+      "routeKeys": {
+        "nxtPbookingId": "nxtPbookingId"
+      },
+      "namedRegex": "^/api/payments/(?<nxtPbookingId>[^/]+?)/refund(?:/)?$"
+    },
+    {
+      "page": "/api/quotations/[id]",
+      "regex": "^/api/quotations/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/quotations/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/quotations/[id]/invoice",
+      "regex": "^/api/quotations/([^/]+?)/invoice(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/quotations/(?<nxtPid>[^/]+?)/invoice(?:/)?$"
+    },
+    {
+      "page": "/api/quotations/[id]/receipt",
+      "regex": "^/api/quotations/([^/]+?)/receipt(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/quotations/(?<nxtPid>[^/]+?)/receipt(?:/)?$"
+    },
+    {
+      "page": "/api/vendor/payments/[id]",
+      "regex": "^/api/vendor/payments/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/vendor/payments/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/vendor/rides/[id]",
+      "regex": "^/api/vendor/rides/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/vendor/rides/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/ar/blog/[slug]",
+      "regex": "^/ar/blog/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/ar/blog/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/ar/cross-border/[corridor]",
+      "regex": "^/ar/cross\\-border/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPcorridor": "nxtPcorridor"
+      },
+      "namedRegex": "^/ar/cross\\-border/(?<nxtPcorridor>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/ar/locations/alula/[subarea]",
+      "regex": "^/ar/locations/alula/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPsubarea": "nxtPsubarea"
+      },
+      "namedRegex": "^/ar/locations/alula/(?<nxtPsubarea>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/ar/routes/[slug]",
+      "regex": "^/ar/routes/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/ar/routes/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/ar/services/car-recovery/[slug]",
+      "regex": "^/ar/services/car\\-recovery/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/ar/services/car\\-recovery/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/blog/[slug]",
+      "regex": "^/blog/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/blog/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/cross-border/[corridor]",
+      "regex": "^/cross\\-border/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPcorridor": "nxtPcorridor"
+      },
+      "namedRegex": "^/cross\\-border/(?<nxtPcorridor>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/distance/[slug]",
+      "regex": "^/distance/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/distance/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/events/[slug]",
+      "regex": "^/events/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/events/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/fleet/[slug]",
+      "regex": "^/fleet/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/fleet/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/guides/[slug]",
+      "regex": "^/guides/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/guides/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/locations/[city]",
+      "regex": "^/locations/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPcity": "nxtPcity"
+      },
+      "namedRegex": "^/locations/(?<nxtPcity>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/locations/[city]/[subarea]",
+      "regex": "^/locations/([^/]+?)/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPcity": "nxtPcity",
+        "nxtPsubarea": "nxtPsubarea"
+      },
+      "namedRegex": "^/locations/(?<nxtPcity>[^/]+?)/(?<nxtPsubarea>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/routes/[slug]",
+      "regex": "^/routes/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/routes/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/services/car-recovery/[slug]",
+      "regex": "^/services/car\\-recovery/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/services/car\\-recovery/(?<nxtPslug>[^/]+?)(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/about",
+      "regex": "^/about(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/about(?:/)?$"
+    },
+    {
+      "page": "/admin",
+      "regex": "^/admin(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin(?:/)?$"
+    },
+    {
+      "page": "/admin/analytics",
+      "regex": "^/admin/analytics(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/analytics(?:/)?$"
+    },
+    {
+      "page": "/admin/bookings",
+      "regex": "^/admin/bookings(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/bookings(?:/)?$"
+    },
+    {
+      "page": "/admin/calendar",
+      "regex": "^/admin/calendar(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/calendar(?:/)?$"
+    },
+    {
+      "page": "/admin/clients",
+      "regex": "^/admin/clients(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/clients(?:/)?$"
+    },
+    {
+      "page": "/admin/content/blog",
+      "regex": "^/admin/content/blog(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/content/blog(?:/)?$"
+    },
+    {
+      "page": "/admin/content/blog/new",
+      "regex": "^/admin/content/blog/new(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/content/blog/new(?:/)?$"
+    },
+    {
+      "page": "/admin/corporate-invoice",
+      "regex": "^/admin/corporate\\-invoice(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/corporate\\-invoice(?:/)?$"
+    },
+    {
+      "page": "/admin/customers",
+      "regex": "^/admin/customers(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/customers(?:/)?$"
+    },
+    {
+      "page": "/admin/driver-applications",
+      "regex": "^/admin/driver\\-applications(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/driver\\-applications(?:/)?$"
+    },
+    {
+      "page": "/admin/drivers",
+      "regex": "^/admin/drivers(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/drivers(?:/)?$"
+    },
+    {
+      "page": "/admin/enquiries",
+      "regex": "^/admin/enquiries(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/enquiries(?:/)?$"
+    },
+    {
+      "page": "/admin/follow-ups",
+      "regex": "^/admin/follow\\-ups(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/follow\\-ups(?:/)?$"
+    },
+    {
+      "page": "/admin/leads",
+      "regex": "^/admin/leads(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/leads(?:/)?$"
+    },
+    {
+      "page": "/admin/leads/new",
+      "regex": "^/admin/leads/new(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/leads/new(?:/)?$"
+    },
+    {
+      "page": "/admin/leads/paste",
+      "regex": "^/admin/leads/paste(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/leads/paste(?:/)?$"
+    },
+    {
+      "page": "/admin/login",
+      "regex": "^/admin/login(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/login(?:/)?$"
+    },
+    {
+      "page": "/admin/pricing-book",
+      "regex": "^/admin/pricing\\-book(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/pricing\\-book(?:/)?$"
+    },
+    {
+      "page": "/admin/pricing-book/evidence",
+      "regex": "^/admin/pricing\\-book/evidence(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/pricing\\-book/evidence(?:/)?$"
+    },
+    {
+      "page": "/admin/pricing-book/routes",
+      "regex": "^/admin/pricing\\-book/routes(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/pricing\\-book/routes(?:/)?$"
+    },
+    {
+      "page": "/admin/promo-codes",
+      "regex": "^/admin/promo\\-codes(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/promo\\-codes(?:/)?$"
+    },
+    {
+      "page": "/admin/quotations",
+      "regex": "^/admin/quotations(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/quotations(?:/)?$"
+    },
+    {
+      "page": "/admin/quotations/new",
+      "regex": "^/admin/quotations/new(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/quotations/new(?:/)?$"
+    },
+    {
+      "page": "/admin/receipts",
+      "regex": "^/admin/receipts(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/receipts(?:/)?$"
+    },
+    {
+      "page": "/admin/reports",
+      "regex": "^/admin/reports(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/reports(?:/)?$"
+    },
+    {
+      "page": "/admin/revenue",
+      "regex": "^/admin/revenue(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/revenue(?:/)?$"
+    },
+    {
+      "page": "/admin/review",
+      "regex": "^/admin/review(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/review(?:/)?$"
+    },
+    {
+      "page": "/admin/reviews",
+      "regex": "^/admin/reviews(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/reviews(?:/)?$"
+    },
+    {
+      "page": "/admin/ride-register",
+      "regex": "^/admin/ride\\-register(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/ride\\-register(?:/)?$"
+    },
+    {
+      "page": "/admin/schedule",
+      "regex": "^/admin/schedule(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/schedule(?:/)?$"
+    },
+    {
+      "page": "/admin/vehicles",
+      "regex": "^/admin/vehicles(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/vehicles(?:/)?$"
+    },
+    {
+      "page": "/apple-icon.png",
+      "regex": "^/apple\\-icon\\.png(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/apple\\-icon\\.png(?:/)?$"
+    },
+    {
+      "page": "/ar",
+      "regex": "^/ar(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/ar(?:/)?$"
+    },
+    {
+      "page": "/ar/about",
+      "regex": "^/ar/about(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/ar/about(?:/)?$"
+    },
+    {
+      "page": "/ar/blog",
+      "regex": "^/ar/blog(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/ar/blog(?:/)?$"
+    },
+    {
+      "page": "/ar/contact",
+      "regex": "^/ar/contact(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/ar/contact(?:/)?$"
+    },
+    {
+      "page": "/ar/faq",
+      "regex": "^/ar/faq(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/ar/faq(?:/)?$"
+    },
+    {
+      "page": "/ar/locations/alula",
+      "regex": "^/ar/locations/alula(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/ar/locations/alula(?:/)?$"
+    },
+    {
+      "page": "/ar/locations/jeddah",
+      "regex": "^/ar/locations/jeddah(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/ar/locations/jeddah(?:/)?$"
+    },
+    {
+      "page": "/ar/locations/madinah",
+      "regex": "^/ar/locations/madinah(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/ar/locations/madinah(?:/)?$"
+    },
+    {
+      "page": "/ar/locations/makkah",
+      "regex": "^/ar/locations/makkah(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/ar/locations/makkah(?:/)?$"
+    },
+    {
+      "page": "/ar/partners",
+      "regex": "^/ar/partners(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/ar/partners(?:/)?$"
+    },
+    {
+      "page": "/ar/pricing",
+      "regex": "^/ar/pricing(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/ar/pricing(?:/)?$"
+    },
+    {
+      "page": "/ar/services/car-recovery",
+      "regex": "^/ar/services/car\\-recovery(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/ar/services/car\\-recovery(?:/)?$"
+    },
+    {
+      "page": "/ar/services/corporate",
+      "regex": "^/ar/services/corporate(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/ar/services/corporate(?:/)?$"
+    },
+    {
+      "page": "/ar/services/makkah-ziyarat",
+      "regex": "^/ar/services/makkah\\-ziyarat(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/ar/services/makkah\\-ziyarat(?:/)?$"
+    },
+    {
+      "page": "/auth/signout",
+      "regex": "^/auth/signout(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/auth/signout(?:/)?$"
+    },
+    {
+      "page": "/blog",
+      "regex": "^/blog(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/blog(?:/)?$"
+    },
+    {
+      "page": "/book",
+      "regex": "^/book(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/book(?:/)?$"
+    },
+    {
+      "page": "/contact",
+      "regex": "^/contact(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/contact(?:/)?$"
+    },
+    {
+      "page": "/customer/bookings",
+      "regex": "^/customer/bookings(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/customer/bookings(?:/)?$"
+    },
+    {
+      "page": "/customer/help",
+      "regex": "^/customer/help(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/customer/help(?:/)?$"
+    },
+    {
+      "page": "/customer/loyalty",
+      "regex": "^/customer/loyalty(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/customer/loyalty(?:/)?$"
+    },
+    {
+      "page": "/customer/profile",
+      "regex": "^/customer/profile(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/customer/profile(?:/)?$"
+    },
+    {
+      "page": "/distance",
+      "regex": "^/distance(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/distance(?:/)?$"
+    },
+    {
+      "page": "/events",
+      "regex": "^/events(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/events(?:/)?$"
+    },
+    {
+      "page": "/faq",
+      "regex": "^/faq(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/faq(?:/)?$"
+    },
+    {
+      "page": "/fleet",
+      "regex": "^/fleet(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/fleet(?:/)?$"
+    },
+    {
+      "page": "/gallery",
+      "regex": "^/gallery(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/gallery(?:/)?$"
+    },
+    {
+      "page": "/guides",
+      "regex": "^/guides(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/guides(?:/)?$"
+    },
+    {
+      "page": "/icon.svg",
+      "regex": "^/icon\\.svg(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/icon\\.svg(?:/)?$"
+    },
+    {
+      "page": "/locations",
+      "regex": "^/locations(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/locations(?:/)?$"
+    },
+    {
+      "page": "/login",
+      "regex": "^/login(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/login(?:/)?$"
+    },
+    {
+      "page": "/opengraph-image",
+      "regex": "^/opengraph\\-image(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/opengraph\\-image(?:/)?$"
+    },
+    {
+      "page": "/partners",
+      "regex": "^/partners(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/partners(?:/)?$"
+    },
+    {
+      "page": "/partners/driver-registration",
+      "regex": "^/partners/driver\\-registration(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/partners/driver\\-registration(?:/)?$"
+    },
+    {
+      "page": "/pricing",
+      "regex": "^/pricing(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pricing(?:/)?$"
+    },
+    {
+      "page": "/privacy-policy",
+      "regex": "^/privacy\\-policy(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/privacy\\-policy(?:/)?$"
+    },
+    {
+      "page": "/review",
+      "regex": "^/review(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/review(?:/)?$"
+    },
+    {
+      "page": "/reviews",
+      "regex": "^/reviews(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/reviews(?:/)?$"
+    },
+    {
+      "page": "/riyadh-alternative-airports",
+      "regex": "^/riyadh\\-alternative\\-airports(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/riyadh\\-alternative\\-airports(?:/)?$"
+    },
+    {
+      "page": "/robots.txt",
+      "regex": "^/robots\\.txt(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/robots\\.txt(?:/)?$"
+    },
+    {
+      "page": "/routes",
+      "regex": "^/routes(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/routes(?:/)?$"
+    },
+    {
+      "page": "/services",
+      "regex": "^/services(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services(?:/)?$"
+    },
+    {
+      "page": "/services/airport-transfers",
+      "regex": "^/services/airport\\-transfers(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/airport\\-transfers(?:/)?$"
+    },
+    {
+      "page": "/services/badr-ziyarat",
+      "regex": "^/services/badr\\-ziyarat(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/badr\\-ziyarat(?:/)?$"
+    },
+    {
+      "page": "/services/border-crossings",
+      "regex": "^/services/border\\-crossings(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/border\\-crossings(?:/)?$"
+    },
+    {
+      "page": "/services/business-executive",
+      "regex": "^/services/business\\-executive(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/business\\-executive(?:/)?$"
+    },
+    {
+      "page": "/services/car-recovery",
+      "regex": "^/services/car\\-recovery(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/car\\-recovery(?:/)?$"
+    },
+    {
+      "page": "/services/corporate",
+      "regex": "^/services/corporate(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/corporate(?:/)?$"
+    },
+    {
+      "page": "/services/corporate-bahrain-transport",
+      "regex": "^/services/corporate\\-bahrain\\-transport(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/corporate\\-bahrain\\-transport(?:/)?$"
+    },
+    {
+      "page": "/services/group-transport",
+      "regex": "^/services/group\\-transport(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/group\\-transport(?:/)?$"
+    },
+    {
+      "page": "/services/hajj-transport",
+      "regex": "^/services/hajj\\-transport(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/hajj\\-transport(?:/)?$"
+    },
+    {
+      "page": "/services/heritage-tours",
+      "regex": "^/services/heritage\\-tours(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/heritage\\-tours(?:/)?$"
+    },
+    {
+      "page": "/services/hotel-transfers",
+      "regex": "^/services/hotel\\-transfers(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/hotel\\-transfers(?:/)?$"
+    },
+    {
+      "page": "/services/intercity",
+      "regex": "^/services/intercity(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/intercity(?:/)?$"
+    },
+    {
+      "page": "/services/long-distance",
+      "regex": "^/services/long\\-distance(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/long\\-distance(?:/)?$"
+    },
+    {
+      "page": "/services/madinah-ziyarat",
+      "regex": "^/services/madinah\\-ziyarat(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/madinah\\-ziyarat(?:/)?$"
+    },
+    {
+      "page": "/services/makkah-ziyarat",
+      "regex": "^/services/makkah\\-ziyarat(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/makkah\\-ziyarat(?:/)?$"
+    },
+    {
+      "page": "/services/taif-ziyarat",
+      "regex": "^/services/taif\\-ziyarat(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/taif\\-ziyarat(?:/)?$"
+    },
+    {
+      "page": "/services/tourism",
+      "regex": "^/services/tourism(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/tourism(?:/)?$"
+    },
+    {
+      "page": "/services/umrah-transport",
+      "regex": "^/services/umrah\\-transport(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/umrah\\-transport(?:/)?$"
+    },
+    {
+      "page": "/services/vip-transportation",
+      "regex": "^/services/vip\\-transportation(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/vip\\-transportation(?:/)?$"
+    },
+    {
+      "page": "/services/wedding-car-rental",
+      "regex": "^/services/wedding\\-car\\-rental(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/wedding\\-car\\-rental(?:/)?$"
+    },
+    {
+      "page": "/sitemap.xml",
+      "regex": "^/sitemap\\.xml(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/sitemap\\.xml(?:/)?$"
+    },
+    {
+      "page": "/terms-conditions",
+      "regex": "^/terms\\-conditions(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/terms\\-conditions(?:/)?$"
+    },
+    {
+      "page": "/track-booking",
+      "regex": "^/track\\-booking(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/track\\-booking(?:/)?$"
+    },
+    {
+      "page": "/vendor",
+      "regex": "^/vendor(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/vendor(?:/)?$"
+    },
+    {
+      "page": "/vendor/login",
+      "regex": "^/vendor/login(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/vendor/login(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSuffix": ".prefetch.rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments"
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}

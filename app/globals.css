@@ -1,0 +1,754 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ─── Taxi Saudi Arabia Premium Design Tokens ──────────────────────────────────── */
+:root {
+  /* Background & Surface */
+  --background: #FAFAF7;
+  --card: #FFFFFF;
+  --popover: #FFFFFF;
+  --paper: #FAFAF7;
+
+  /* Text */
+  --foreground: #1C1C1C;
+  --card-foreground: #1C1C1C;
+  --popover-foreground: #1C1C1C;
+  --muted-foreground: #6B7280;
+
+  /* Brand — Saudi Green (action) + Gold (accent) + White */
+  --primary: #16A34A;          /* Saudi green — buttons & actions */
+  --primary-foreground: #FFFFFF;
+  --green-dark: #15803D;       /* Green hover */
+  --secondary: #F1F5F9;
+  --secondary-foreground: #1C1C1C;
+  --muted: #F4F6F4;
+  --accent: #FACC15;           /* Yellow — accent chips/highlights (on green/dark) */
+  --accent-foreground: #14532D;
+  --navy: #0F172A;
+  --navy-secondary: #1E293B;
+  --gold-light: #DCFCE7;
+
+  /* Utility */
+  --destructive: #DC2626;
+  --border: rgba(22, 163, 74, 0.14);
+  --input: #FFFFFF;
+  --ring: #16A34A;
+  --radius: 0.75rem;
+  --success: #16A34A;
+
+  /* Legacy aliases (kept for component compatibility) */
+  --charcoal: #FAFAF7;
+  --charcoal-soft: #FFFFFF;
+  /* "gold" slot is now the brand green on light surfaces (readable on white);
+     yellow is reserved for accents on green/dark backgrounds. Kept the name so
+     the 1400+ existing text-/border-/fill-[#C9A84C] classes recolour centrally. */
+  --gold: #16A34A;
+  --gold-soft: #DCFCE7;
+
+  /* Sidebar */
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #1C1C1C;
+  --sidebar-primary: #C8A45D;
+  --sidebar-primary-foreground: #0F172A;
+  --sidebar-accent: #F1F5F9;
+  --sidebar-accent-foreground: #1C1C1C;
+  --sidebar-border: rgba(22, 163, 74, 0.2);
+  --sidebar-ring: #C8A45D;
+}
+
+/* ─── Dark keeps same (light-only site) ─────────────────────────────────── */
+.dark {
+  --background: #FAFAF7;
+  --foreground: #1C1C1C;
+  --card: #FFFFFF;
+  --card-foreground: #1C1C1C;
+  --popover: #FFFFFF;
+  --popover-foreground: #1C1C1C;
+  --primary: #16A34A;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F1F5F9;
+  --secondary-foreground: #1C1C1C;
+  --muted: #F4F6F4;
+  --muted-foreground: #6B7280;
+  --accent: #C8A45D;
+  --accent-foreground: #0F172A;
+  --destructive: #DC2626;
+  --border: rgba(22, 163, 74, 0.14);
+  --input: #FFFFFF;
+  --ring: #16A34A;
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #1C1C1C;
+  --sidebar-primary: #C8A45D;
+  --sidebar-primary-foreground: #0F172A;
+  --sidebar-accent: #F1F5F9;
+  --sidebar-accent-foreground: #1C1C1C;
+  --sidebar-border: rgba(22, 163, 74, 0.2);
+  --sidebar-ring: #C8A45D;
+}
+
+/* ─── Tailwind Theme Wiring ──────────────────────────────────────────────── */
+@theme inline {
+  --font-heading: var(--font-heading);
+  --font-sans: var(--font-body);
+  --font-arabic: var(--font-arabic);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* ─── Base Reset ─────────────────────────────────────────────────────────── */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    box-sizing: border-box;
+  }
+  body {
+    @apply bg-background text-foreground;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+  html {
+    @apply font-sans;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+/* ─── Light-Theme Class Overrides ────────────────────────────────────────── */
+/* These convert hardcoded dark-theme Tailwind classes to light-theme values
+   for all elements NOT inside a .premium-dark-section */
+
+.bg-\[\#0A0A0A\]:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-black:not(.premium-dark-section *):not(.premium-dark-section) {
+  background-color: var(--background) !important;
+}
+
+.bg-\[\#121212\]:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-\[\#111111\]:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-zinc-900:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-neutral-900:not(.premium-dark-section *):not(.premium-dark-section) {
+  background-color: var(--card) !important;
+}
+
+/* Navbar scroll state */
+.bg-\[\#0A0A0A\]\/95:not(.premium-dark-section *):not(.premium-dark-section) {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(16px) !important;
+}
+
+.bg-\[\#0A0A0A\]\/98:not(.premium-dark-section *):not(.premium-dark-section) {
+  background-color: rgba(255, 255, 255, 0.97) !important;
+}
+
+/* Text colors */
+.text-\[\#F5F0E8\]:not(.premium-dark-section *):not(.premium-dark-section),
+.text-white:not(.premium-dark-section *):not(.premium-dark-section) {
+  color: var(--foreground) !important;
+}
+
+.text-\[\#A1A1A6\]:not(.premium-dark-section *):not(.premium-dark-section),
+.text-zinc-400:not(.premium-dark-section *):not(.premium-dark-section),
+.text-neutral-400:not(.premium-dark-section *):not(.premium-dark-section) {
+  color: var(--muted-foreground) !important;
+}
+
+.text-\[\#7C8088\]:not(.premium-dark-section *):not(.premium-dark-section),
+.text-zinc-500:not(.premium-dark-section *):not(.premium-dark-section),
+.text-neutral-500:not(.premium-dark-section *):not(.premium-dark-section) {
+  color: #9CA3AF !important;
+}
+
+.text-\[\#666\]:not(.premium-dark-section *):not(.premium-dark-section) {
+  color: var(--muted-foreground) !important;
+}
+
+/* Dashboard (admin/customer) dark-panel hex classes — force to the light,
+   white/green/gold app theme instead of a dark backend UI. */
+.bg-\[\#111\]:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-\[\#1A1A1A\]:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-\[\#1a1a1a\]:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-\[\#0D1B2A\]:not(.premium-dark-section *):not(.premium-dark-section) {
+  background-color: var(--card) !important;
+}
+
+.border-\[\#333\]:not(.premium-dark-section *):not(.premium-dark-section),
+.border-\[\#222\]:not(.premium-dark-section *):not(.premium-dark-section) {
+  border-color: var(--border) !important;
+}
+
+/* Gold / Primary */
+.text-\[\#C9A84C\]:not(.premium-dark-section *):not(.premium-dark-section),
+.text-yellow-500:not(.premium-dark-section *):not(.premium-dark-section) {
+  color: var(--gold) !important;
+}
+
+.bg-\[\#C9A84C\]:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-yellow-500:not(.premium-dark-section *):not(.premium-dark-section) {
+  background-color: var(--primary) !important;
+}
+
+.bg-\[\#C9A84C\]\/10:not(.premium-dark-section *):not(.premium-dark-section) {
+  background-color: rgba(22, 163, 74, 0.1) !important;
+}
+
+.bg-\[\#C9A84C\]\/5:not(.premium-dark-section *):not(.premium-dark-section) {
+  background-color: rgba(22, 163, 74, 0.06) !important;
+}
+
+.border-\[\#C9A84C\]:not(.premium-dark-section *):not(.premium-dark-section) {
+  border-color: var(--gold) !important;
+}
+
+.border-\[\#C9A84C\]\/10:not(.premium-dark-section *):not(.premium-dark-section),
+.border-\[\#C9A84C\]\/15:not(.premium-dark-section *):not(.premium-dark-section),
+.border-\[\#C9A84C\]\/20:not(.premium-dark-section *):not(.premium-dark-section),
+.border-\[\#C9A84C\]\/25:not(.premium-dark-section *):not(.premium-dark-section),
+.border-\[\#C9A84C\]\/30:not(.premium-dark-section *):not(.premium-dark-section),
+.border-\[\#C9A84C\]\/35:not(.premium-dark-section *):not(.premium-dark-section) {
+  border-color: rgba(22, 163, 74, 0.2) !important;
+}
+
+.fill-\[\#C9A84C\]:not(.premium-dark-section *):not(.premium-dark-section) {
+  fill: var(--gold) !important;
+}
+
+.hover\:bg-\[\#B8963B\]:hover:not(.premium-dark-section *):not(.premium-dark-section),
+.hover\:bg-\[\#C9A84C\]:hover:not(.premium-dark-section *):not(.premium-dark-section) {
+  background-color: var(--green-dark) !important;
+}
+
+/* Black partial backgrounds → light surface */
+.bg-black\/20:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-black\/25:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-black\/30:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-black\/40:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-black\/45:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-black\/50:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-black\/55:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-black\/60:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-black\/65:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-black\/70:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-black\/75:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-black\/80:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-black\/85:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-black\/90:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-black\/95:not(.premium-dark-section *):not(.premium-dark-section) {
+  background-color: #F8FAFC !important;
+}
+
+/* Semi-transparent dark cards */
+.bg-\[\#121212\]\/50:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-\[\#121212\]\/60:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-\[\#121212\]\/80:not(.premium-dark-section *):not(.premium-dark-section) {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Active / selected state (booking & fleet page selected cards) */
+.bg-\[\#1A1813\]:not(.premium-dark-section *):not(.premium-dark-section) {
+  background-color: rgba(22, 163, 74, 0.08) !important;
+}
+
+/* Extra gold badge opacity variants */
+.bg-\[\#C9A84C\]\/6:not(.premium-dark-section *):not(.premium-dark-section),
+.bg-\[\#C9A84C\]\/8:not(.premium-dark-section *):not(.premium-dark-section) {
+  background-color: rgba(22, 163, 74, 0.08) !important;
+}
+
+/* Suggestion dropdown fix */
+.bg-neutral-800:not(.premium-dark-section *):not(.premium-dark-section) {
+  background-color: #E5E7EB !important;
+}
+
+/* ── Catch-all: any remaining gold (non-standard opacity variants, #B8963B,
+   etc.) on LIGHT surfaces → brand green. Keeps the site green+yellow+white with
+   no leftover gold. Solid `bg-[#C9A84C]` buttons are excluded (no trailing "/")
+   and stay handled by the specific green rule above. */
+[class*="text-[#C9A84C]"]:not(.premium-dark-section *):not(.premium-dark-section),
+[class*="text-[#B8963B]"]:not(.premium-dark-section *):not(.premium-dark-section),
+[class*="text-[#C8A45D]"]:not(.premium-dark-section *):not(.premium-dark-section) {
+  color: #16A34A !important;
+}
+[class*="border-[#C9A84C]"]:not(.premium-dark-section *):not(.premium-dark-section),
+[class*="border-[#B8963B]"]:not(.premium-dark-section *):not(.premium-dark-section) {
+  border-color: rgba(22, 163, 74, 0.3) !important;
+}
+[class*="bg-[#C9A84C]/"]:not(.premium-dark-section *):not(.premium-dark-section),
+[class*="bg-[#B8963B]/"]:not(.premium-dark-section *):not(.premium-dark-section) {
+  background-color: rgba(22, 163, 74, 0.09) !important;
+}
+[class*="fill-[#C9A84C]"]:not(.premium-dark-section *):not(.premium-dark-section) {
+  fill: #16A34A !important;
+}
+/* Gradient / ring / accent gold utilities on light → green */
+[class*="from-[#C9A84C]"]:not(.premium-dark-section *):not(.premium-dark-section),
+[class*="via-[#C9A84C]"]:not(.premium-dark-section *):not(.premium-dark-section),
+[class*="to-[#C9A84C]"]:not(.premium-dark-section *):not(.premium-dark-section) {
+  --tw-gradient-from: rgba(22,163,74,0.10) !important;
+  --tw-gradient-via: rgba(22,163,74,0.10) !important;
+  --tw-gradient-to: rgba(22,163,74,0.10) !important;
+}
+[class*="ring-[#C9A84C]"]:not(.premium-dark-section *):not(.premium-dark-section) {
+  --tw-ring-color: rgba(22,163,74,0.4) !important;
+}
+[class*="accent-[#C9A84C]"] { accent-color: #16A34A !important; }
+[class*="divide-[#C9A84C]"] > * + * { border-color: rgba(22,163,74,0.12) !important; }
+/* Same gradients inside dark sections → yellow */
+.premium-dark-section [class*="from-[#C9A84C]"],
+.premium-dark-section [class*="via-[#C9A84C]"],
+.premium-dark-section [class*="to-[#C9A84C]"] {
+  --tw-gradient-from: rgba(250,204,21,0.12) !important;
+  --tw-gradient-via: rgba(250,204,21,0.12) !important;
+  --tw-gradient-to: rgba(250,204,21,0.12) !important;
+}
+
+/* ─── Premium Dark Sections (Hero, Umrah, etc.) ──────────────────────────── */
+/* These are intentionally dark — CSS overrides above do NOT apply here */
+.premium-dark-section,
+.premium-dark-section * {
+  /* Intentionally left to use their hardcoded dark classes */
+}
+
+.premium-dark-section .text-\[\#F5F0E8\],
+.premium-dark-section .text-white,
+.premium-dark-section h1,
+.premium-dark-section h2,
+.premium-dark-section h3 {
+  color: #FAF8F5 !important;
+}
+
+.premium-dark-section .text-\[\#A1A1A6\] {
+  color: #A1A1A6 !important;
+}
+
+.premium-dark-section .text-\[\#7C8088\] {
+  color: #7C8088 !important;
+}
+
+/* On dark sections the gold accent becomes brand yellow (matches the header
+   language: green ground, yellow pop, white text). */
+.premium-dark-section .text-\[\#C9A84C\],
+.premium-dark-section .text-\[\#B8963B\] {
+  color: #FACC15 !important;
+}
+
+.premium-dark-section .bg-\[\#C9A84C\],
+.premium-dark-section a.bg-\[\#C9A84C\],
+.premium-dark-section button.bg-\[\#C9A84C\] {
+  background-color: var(--primary) !important;
+  color: #FFFFFF !important;
+}
+
+/* Faint gold badge/panel fills on dark → faint yellow */
+.premium-dark-section .bg-\[\#C9A84C\]\/5,
+.premium-dark-section .bg-\[\#C9A84C\]\/6,
+.premium-dark-section .bg-\[\#C9A84C\]\/8,
+.premium-dark-section .bg-\[\#C9A84C\]\/10,
+.premium-dark-section .bg-\[\#C9A84C\]\/15,
+.premium-dark-section .bg-\[\#C9A84C\]\/20 {
+  background-color: rgba(250, 204, 21, 0.14) !important;
+}
+
+/* Gold borders on dark → yellow borders (any opacity variant) */
+.premium-dark-section [class*="border-[#C9A84C]"] {
+  border-color: rgba(250, 204, 21, 0.4) !important;
+}
+
+.premium-dark-section .fill-\[\#C9A84C\] {
+  fill: #FACC15 !important;
+}
+
+.premium-dark-section svg {
+  stroke: currentColor;
+}
+
+/* ─── Input Styling ──────────────────────────────────────────────────────── */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="datetime-local"],
+select,
+textarea {
+  background-color: #FFFFFF !important;
+  color: var(--foreground) !important;
+  border: 1.5px solid rgba(22, 163, 74, 0.3) !important;
+  border-radius: 0.75rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="datetime-local"]:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15) !important;
+  outline: none;
+}
+
+.premium-dark-section input[type="text"],
+.premium-dark-section input[type="datetime-local"],
+.premium-dark-section select,
+.premium-dark-section textarea {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  color: #FAF8F5 !important;
+  border: 1.5px solid rgba(22, 163, 74, 0.25) !important;
+}
+
+/* ─── Layout Utilities ───────────────────────────────────────────────────── */
+.section-container {
+  margin-inline: auto;
+  max-width: 72rem;
+  padding-inline: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .section-container {
+    padding-inline: 2.5rem;
+  }
+}
+
+/* ─── Parallax Sections ──────────────────────────────────────────────────── */
+.parallax-bg {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;   /* image stays fixed, content scrolls over */
+}
+/* Mobile/tablet: background-attachment:fixed is janky/unsupported (esp. iOS) —
+   fall back to a normal scrolling cover background. */
+@media (max-width: 820px) {
+  .parallax-bg {
+    background-attachment: scroll;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .parallax-bg {
+    background-attachment: scroll;
+  }
+}
+
+/* ─── Glass Morphism Utility ─────────────────────────────────────────────── */
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(22, 163, 74, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+}
+
+.glass-navbar {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(22, 163, 74, 0.15);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+}
+
+/* ─── Premium Card Hover ─────────────────────────────────────────────────── */
+.premium-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(22, 163, 74, 0.15);
+  border-radius: 1.25rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.premium-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(22, 163, 74, 0.12);
+  border-color: rgba(22, 163, 74, 0.4);
+}
+
+.premium-card .gold-accent-line {
+  display: block;
+  height: 3px;
+  width: 48px;
+  background: linear-gradient(90deg, #16A34A, #FACC15);
+  border-radius: 2px;
+  margin-bottom: 1rem;
+  transition: width 0.3s ease;
+}
+
+.premium-card:hover .gold-accent-line {
+  width: 72px;
+}
+
+/* ─── Hero Glow ──────────────────────────────────────────────────────────── */
+.hero-glow::before {
+  content: "";
+  position: absolute;
+  inset: -40% auto auto -12%;
+  width: 30rem;
+  height: 30rem;
+  border-radius: 9999px;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(22, 163, 74, 0.12) 0%, rgba(22, 163, 74, 0) 70%);
+}
+
+/* ─── Animations ─────────────────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes floatBadge {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-5px); }
+}
+
+@keyframes goldPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.4); }
+  50%       { box-shadow: 0 0 0 8px rgba(22, 163, 74, 0); }
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-rtl {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(50%); }
+}
+
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(100%); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.4s ease-out forwards;
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.6s ease forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.animate-float-badge {
+  animation: floatBadge 3s ease-in-out infinite;
+}
+
+.animate-gold-pulse {
+  animation: goldPulse 2s ease-in-out infinite;
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 45s linear infinite;
+}
+
+.animate-marquee-rtl {
+  display: flex;
+  width: max-content;
+  animation: marquee-rtl 45s linear infinite;
+}
+
+.animate-count-up {
+  animation: countUp 0.5s ease forwards;
+}
+
+/* Staggered fade-up delays */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+
+/* ─── Typography Scale ───────────────────────────────────────────────────── */
+.text-hero {
+  font-size: clamp(2.625rem, 6vw, 4rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+}
+
+.text-section-title {
+  font-size: clamp(1.875rem, 4vw, 2.625rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+.text-card-title {
+  font-size: 1.5rem;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+}
+
+/* ─── Design-System Tokens (Batch 1) ─────────────────────────────────────────
+   Reusable container / spacing / type utilities. Additive only — existing
+   pages keep working; templates adopt these incrementally in later batches.
+   No new !important rules are introduced here. */
+
+/* Container scale — pairs with the existing .section-container (max-w 72rem).
+   Use .container-wide for full-bleed feature bands that still need gutters. */
+.container-wide {
+  margin-inline: auto;
+  max-width: 87.5rem; /* 1400px */
+  padding-inline: 1.5rem;
+}
+@media (min-width: 768px) {
+  .container-wide { padding-inline: 2.5rem; }
+}
+
+/* Vertical rhythm — responsive replacement for ad-hoc py-24. */
+.section-y   { padding-block: clamp(3.5rem, 8vw, 6rem); }
+.section-y-sm { padding-block: clamp(2.5rem, 6vw, 4rem); }
+
+/* Type helpers — complement .text-hero / .text-section-title / .text-card-title */
+.text-eyebrow {
+  font-size: 0.72rem;
+  line-height: 1.2;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.text-subhead {
+  font-size: 1.25rem;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+}
+.text-body-lg {
+  font-size: clamp(1rem, 1.2vw, 1.125rem);
+  line-height: 1.7;
+}
+.text-body {
+  font-size: 1rem;
+  line-height: 1.65;
+}
+.text-caption {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+/* Arabic font class */
+[lang="ar"], .font-arabic {
+  font-family: var(--font-arabic), 'Cairo', sans-serif;
+}
+
+/* ─── Gold Gradient Text ─────────────────────────────────────────────────── */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #16A34A 0%, #FACC15 50%, #16A34A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Surface & Elevation System (visual product pass) ───────────────────────
+   Additive only — a small, intentional elevation + surface vocabulary so cards
+   and bands stop each inventing their own shadow/radius. Does NOT touch the
+   light-theme compatibility layer above. Safe for both light bands and
+   .premium-dark-section (which opts out of the shadows via its own rules). */
+
+/* Section surface tints — alternate bands without per-page hex backgrounds. */
+.surface-base   { background-color: #FAFAF7; }
+.surface-raised { background-color: #FFFFFF; }
+.surface-tint   { background-color: #F4F8F4; }           /* faint green wash  */
+.surface-tint-strong { background-color: #ECFDF3; }      /* stronger green    */
+
+/* Elevation scale (0–3). Transition-friendly; pair with .card-interactive. */
+.elev-1 { box-shadow: 0 1px 2px rgba(15,23,42,0.04), 0 2px 8px rgba(15,23,42,0.04); }
+.elev-2 { box-shadow: 0 4px 12px rgba(15,23,42,0.06), 0 10px 28px rgba(15,23,42,0.06); }
+.elev-3 { box-shadow: 0 12px 32px rgba(22,163,74,0.10), 0 24px 60px rgba(15,23,42,0.08); }
+
+/* Standard interactive card — one hover behaviour for the whole site:
+   subtle lift + warmer border + elevation bump. Respects reduced motion. */
+.card-interactive {
+  border: 1px solid rgba(22,163,74,0.12);
+  border-radius: 1rem;
+  background: #FFFFFF;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.card-interactive:hover {
+  transform: translateY(-4px);
+  border-color: rgba(22,163,74,0.35);
+  box-shadow: 0 14px 40px rgba(22,163,74,0.10);
+}
+@media (prefers-reduced-motion: reduce) {
+  .card-interactive:hover { transform: none; }
+}
+
+/* Image zoom-on-hover wrapper — use on a `.group` parent with a child
+   `.img-zoom` (needs overflow-hidden on the parent). */
+.group:hover .img-zoom { transform: scale(1.04); }
+.img-zoom { transition: transform 0.5s ease; }
+@media (prefers-reduced-motion: reduce) {
+  .group:hover .img-zoom { transform: none; }
+}
+
+/* Hairline divider that reads on both light and tinted surfaces. */
+.rule-soft { border-color: rgba(22,163,74,0.12); }
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(22, 163, 74, 0.4);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #15803D;
+}

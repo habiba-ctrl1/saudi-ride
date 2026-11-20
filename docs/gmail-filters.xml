@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Gmail filters for Taxi Saudi Arabia. Import: Gmail > Settings > See all settings > Filters and Blocked Addresses > Import filters.
+     Matches the subject convention in lib/email/subjects.ts ("[TSA] Lead · …", "[TSA copy] Quotation · …").
+     Gmail ignores the square brackets, so the phrases below are "TSA Lead", "TSA copy Quotation", etc.
+     Alerts stay in the Inbox (labelled). Record copies skip the Inbox and are only labelled, so the Inbox stays clean. -->
+<feed xmlns='http://www.w3.org/2005/Atom' xmlns:apps='http://schemas.google.com/apps/2006'>
+  <title>Mail Filters</title>
+
+  <!-- ===== Alerts (stay in Inbox) ===== -->
+  <entry><category term='filter'/><title>TSA lead</title>
+    <apps:property name='subject' value='"TSA Lead"'/><apps:property name='label' value='TSA/Alerts/Leads'/></entry>
+  <entry><category term='filter'/><title>TSA contact</title>
+    <apps:property name='subject' value='"TSA Contact"'/><apps:property name='label' value='TSA/Alerts/Contact'/></entry>
+  <entry><category term='filter'/><title>TSA driver application</title>
+    <apps:property name='subject' value='"TSA Driver application"'/><apps:property name='label' value='TSA/Alerts/Drivers'/></entry>
+  <entry><category term='filter'/><title>TSA booking</title>
+    <apps:property name='subject' value='"TSA Booking"'/><apps:property name='label' value='TSA/Alerts/Bookings'/></entry>
+  <entry><category term='filter'/><title>TSA urgent</title>
+    <apps:property name='subject' value='"TSA URGENT"'/><apps:property name='label' value='TSA/Alerts/URGENT'/>
+    <apps:property name='shouldStar' value='true'/><apps:property name='shouldAlwaysMarkAsImportant' value='true'/></entry>
+
+  <!-- ===== Record copies (skip Inbox, label only) ===== -->
+  <entry><category term='filter'/><title>Record: quotation</title>
+    <apps:property name='subject' value='"TSA copy Quotation"'/><apps:property name='label' value='TSA/Records/Quotations'/><apps:property name='shouldArchive' value='true'/></entry>
+  <entry><category term='filter'/><title>Record: follow-up</title>
+    <apps:property name='subject' value='"TSA copy Follow-up"'/><apps:property name='label' value='TSA/Records/Follow-ups'/><apps:property name='shouldArchive' value='true'/></entry>
+  <entry><category term='filter'/><title>Record: booking confirmation</title>
+    <apps:property name='subject' value='"TSA copy Booking confirmation"'/><apps:property name='label' value='TSA/Records/Booking confirmations'/><apps:property name='shouldArchive' value='true'/></entry>
+  <entry><category term='filter'/><title>Record: pickup details</title>
+    <apps:property name='subject' value='"TSA copy Pickup details"'/><apps:property name='label' value='TSA/Records/Pickup details'/><apps:property name='shouldArchive' value='true'/></entry>
+  <entry><category term='filter'/><title>Record: receipt</title>
+    <apps:property name='subject' value='"TSA copy Receipt"'/><apps:property name='label' value='TSA/Records/Receipts'/><apps:property name='shouldArchive' value='true'/></entry>
+  <entry><category term='filter'/><title>Record: thank-you</title>
+    <apps:property name='subject' value='"TSA copy Thank-you"'/><apps:property name='label' value='TSA/Records/Thank-yous'/><apps:property name='shouldArchive' value='true'/></entry>
+
+  <!-- ===== Automatic customer replies that CC the owner (website form flow) ===== -->
+  <entry><category term='filter'/><title>Auto replies</title>
+    <apps:property name='hasTheWord' value='subject:("Your Quote Request" OR "We received your message" OR "Your Taxi Saudi Arabia Booking Confirmed" OR "Your Driver is Ready" OR "Reminder: Your Taxi Saudi Arabia Transfer")'/>
+    <apps:property name='label' value='TSA/Auto replies'/><apps:property name='shouldArchive' value='true'/></entry>
+</feed>
