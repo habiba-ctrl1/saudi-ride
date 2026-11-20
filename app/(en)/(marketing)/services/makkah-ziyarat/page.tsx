@@ -44,9 +44,12 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: [OG_IMAGE] },
 };
 
+// Jabal Al-Noor (642 m, ~4 km NE of the Grand Mosque, Hira Cultural District at
+// its foot) and Jabal Thawr (Hijrah refuge) — source: saudipedia.com/en/jabal-al-nour
+// and saudipedia.com/en/list-of-eight-islamic-historical-sites-in-makkah-al-mukarramah (checked 2026-11-21).
 const SITES = [
-  { name: "Jabal Al-Noor (Cave of Hira)", where: "North of Makkah", desc: "The mountain above the Cave of Hira. The car waits at the base; the climb is on foot and takes time, so allow for it." },
-  { name: "Jabal Thawr (Cave of Thawr)", where: "South of Makkah", desc: "The mountain with the Cave of Thawr. The car waits at the base." },
+  { name: "Jabal Al-Noor (Cave of Hira)", where: "About 4 km north-east of the Haram", desc: "A 642 m mountain with the Cave of Hira near its summit, where the first verses of the Quran were revealed. The Hira Cultural District sits at its foot. The car waits below; the climb is on foot and takes time, so plan an early start." },
+  { name: "Jabal Thawr (Cave of Thawr)", where: "South of Makkah", desc: "The mountain whose cave sheltered the Prophet ﷺ and Abu Bakr during the Hijrah to Madinah. Most visitors view it from below; the car waits at the base while you decide whether to climb." },
   { name: "Mina", where: "About 8 km east of the Haram", desc: "The tent valley used during the days of Hajj. Outside the Hajj season it can be visited by car." },
   { name: "Muzdalifah", where: "Between Mina and Arafat", desc: "The open area between Mina and Arafat." },
   { name: "Arafat & Jabal Al-Rahmah", where: "East of Makkah", desc: "The plain of Arafat and the Mount of Mercy (Jabal Al-Rahmah)." },
@@ -79,7 +82,7 @@ const FAQS = [
   { question: "Can I cancel or change the booking?", answer: "Yes. Cancellation is free up to 24 hours before pickup, and changes of time or hotel can be made on WhatsApp." },
 ];
 
-const WA_PREFILL = "Salam! Makkah Ziyarat taxi enquiry.\n• Makkah hotel: \n• Date & start time: \n• Passengers (any elders / children?): \n• Half-day or full-day? : \n• Sites (Jabal al-Noor / Jabal Thawr / Mina / Muzdalifah / Arafat / other): \n• Vehicle (Sedan / SUV / Staria / Van / Coaster): ";
+const WA_PREFILL = "Salam! Makkah Ziyarat taxi enquiry.\n• Makkah hotel: \n• Date & start time: \n• Passengers (any elders / children?): \n• Half-day or full-day? : \n• Sites (Jabal al-Noor / Jabal Thawr / Mina / Muzdalifah / Arafat / other): \n• Vehicle (Sedan / SUV / Staria / Van / Coaster): \n(ref: makkah-ziyarat)";
 
 export default function MakkahZiyaratPage() {
   const fitOptions: FitOption[] = MAKKAH_VEHICLE_FIT.map((v) => {
@@ -161,7 +164,7 @@ export default function MakkahZiyaratPage() {
       <section className="section-container max-w-6xl py-20 border-b border-[#C9A84C]/10">
         <div className="text-center mb-12">
           <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">Makkah Ziyarat Sites You Can Visit by Car</h2>
-          <p className="text-[#6B7280]">You choose the sites. Locations are approximate and relative to Masjid Al-Haram.</p>
+          <p className="text-[#6B7280]">You choose the sites. Locations are approximate and relative to Masjid Al-Haram. For route order, timing and history, see the <Link href="/blog/makkah-ziyarat-taxi-holy-sites-tour" className="font-semibold text-[#15803D] hover:underline">guide to the Makkah Ziyarat places</Link>.</p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {SITES.map((site) => (

@@ -65,7 +65,11 @@ export type Block =
   | { eyebrow?: string; type: "table"; heading: string; intro?: string; columns: string[]; rows: string[][] }
   | { eyebrow?: string; type: "compare"; heading: string; intro?: string; options: { title: string; when: string[]; tone: "green" | "ink" }[] }
   | { eyebrow?: string; type: "timeline"; heading: string; intro?: string; items: { time: string; title: string; desc: string }[] }
-  | { eyebrow?: string; type: "routes"; heading: string; intro?: string; items: { slug: string; note: string }[] };
+  | { eyebrow?: string; type: "routes"; heading: string; intro?: string; items: { slug: string; note: string }[] }
+  /** Vehicle tiers for hourly hire. `models` are lib/fleet-data slugs (names +
+   *  capacities are read from there, never typed here); every model must be in
+   *  seo/facts.md. Each tier carries its own WhatsApp prefill. */
+  | { eyebrow?: string; type: "vehicles"; heading: string; intro?: string; items: { tier: string; models: string[]; bestFor: string; waPrefill: string }[] };
 
 export interface ClusterPage {
   slug: string;

@@ -6,6 +6,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { faqSchema, speakableSchema } from "@/lib/schema";
 import { routeFact, distanceGuideFor, type Block, type ClusterPage, type ClusterCity } from "@/lib/data/cluster";
 import { SectionHeader, FactsStrip, FaqList, LinkCards, QuoteSection, wa } from "./ui";
+import { FLEET_VEHICLES } from "@/lib/fleet-data";
 
 const SITE = "https://taxisaudiarabia.com";
 
@@ -171,6 +172,41 @@ function BlockView({ block, index }: { block: Block; index: number }) {
               </li>
             ))}
           </ol>
+        </section>
+      );
+    case "vehicles":
+      return (
+        <section aria-labelledby={id}>
+          <SectionHeader id={id} eyebrow={block.eyebrow ?? "Choose the car"} title={block.heading} intro={block.intro} />
+          <ul data-stagger className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {block.items.map((t) => {
+              const models = t.models
+                .map((slug) => FLEET_VEHICLES.find((v) => v.slug === slug))
+                .filter((v): v is NonNullable<typeof v> => !!v);
+              return (
+                <li key={t.tier} className="flex flex-col rounded-3xl border border-[#E5E7EB] bg-white p-6">
+                  <h3 className="font-heading text-lg font-bold">{t.tier}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-[#4B5563]">{t.bestFor}</p>
+                  <ul className="mt-4 flex-1 space-y-2">
+                    {models.map((v) => (
+                      <li key={v.slug} className="flex items-baseline justify-between gap-3 text-sm">
+                        <Link href={`/fleet/${v.slug}`} className="font-semibold text-[#15803D] underline-offset-2 hover:underline">{v.name}</Link>
+                        <span className="shrink-0 text-[0.75rem] tabular-nums text-[#6B7280]">{v.passengers} pax · {v.luggage} bags</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <a
+                    href={wa(t.waPrefill)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-5 inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full border border-[#16A34A] px-5 text-sm font-bold text-[#15803D] hover:bg-[#F0FDF4] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16A34A]"
+                  >
+                    <MessageCircle className="h-4 w-4" aria-hidden="true" /> Ask for this car on WhatsApp
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
         </section>
       );
   }
