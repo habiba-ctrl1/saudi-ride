@@ -216,7 +216,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     nameAr: "الدمام",
     image: "/locations/dammam-hero.webp",
     tagline: "Eastern Province Capital",
-    description: "Book a private transfer in Dammam for airport transfers from King Fahd International Airport (DMM) (~35 km, ~40 min), rides across the Dammam–Khobar–Dhahran metro area, corporate trips to Aramco and the industrial zones, hotel transfers, and cross-border journeys to Bahrain via the King Fahd Causeway (~1 hour). Our drivers know the Eastern Province well and provide 24/7 service for business travellers, families, and tourists heading to Half Moon Bay or Ithra. Every fare is confirmed on WhatsApp before you book, with tolls included and no surge pricing.",
+    description: "Book a private transfer in Dammam for airport transfers from King Fahd International Airport (DMM) (~35 km, ~40 min), rides across the Dammam–Khobar–Dhahran metro area, corporate trips to Aramco and the industrial zones, hotel transfers, and cross-border journeys to Bahrain via the King Fahd Causeway (~1 hour). Drivers in our partner network provide 24/7 service for business travellers, families, and tourists heading to Half Moon Bay or Ithra. Every fare is confirmed on WhatsApp before you book, with tolls included and no surge pricing.",
     tldr: "Taxi Saudi Arabia arranges 24/7 private transfer service in Dammam — King Fahd International Airport (DMM) transfers (~35 km, ~40 min), rides across the Dammam–Khobar–Dhahran metro, hotel transfers, and cross-border trips to Bahrain via the King Fahd Causeway (~1 hour). Corporate and family vehicles available, quoted on WhatsApp.",
     tldrFacts: [
       { label: "Airport (DMM)", value: "~35 km · ~40 min" },
@@ -233,7 +233,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { name: "Dhahran / Aramco", dist: "15 km" }
     ],
     tips: [
-      "Cross-border taxi to Bahrain via the King Fahd Causeway — contact us in advance so we can prepare the required travel documents.",
+      "Cross-border transfers to Bahrain run via the King Fahd Causeway — book in advance; each passenger carries their own passport and entry documents.",
       "King Fahd International Airport (DMM) is about 40 minutes from Dammam city centre.",
       "Dammam, Khobar, and Dhahran form one metro area — confirm the exact district when booking.",
       "For Aramco and industrial-zone visits, pre-book a corporate sedan or SUV with a professional driver."
@@ -267,8 +267,8 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     nameAr: "الظهران",
     image: "/locations/dammam-hero.webp",
     tagline: "Home of Saudi Aramco & KFUPM",
-    description: "Book a private transfer in Dhahran for transfers to and from King Fahd International Airport (DMM) (~25 km, ~25 min), corporate travel to Saudi Aramco headquarters, Dhahran Techno Valley, and King Fahd University of Petroleum & Minerals (KFUPM), plus connections to Dammam, Al Khobar, and Jubail. Our drivers know Aramco gate procedures, visitor-badge waiting areas, and shift-change traffic, and we offer monthly corporate accounts for contractors and companies who need consolidated billing instead of per-ride payment. Fares are fixed in advance with no surge pricing.",
-    tldr: "Taxi Saudi Arabia arranges 24/7 private transfer service in Dhahran — King Fahd International Airport (DMM) transfers (~25 km, ~25 min), corporate transport to Saudi Aramco HQ and KFUPM, and connections to Dammam, Al Khobar, and Jubail. Monthly corporate billing available for contractor accounts.",
+    description: "Book a private transfer in Dhahran for transfers to and from King Fahd International Airport (DMM) (~25 km, ~25 min), corporate travel to Saudi Aramco headquarters, Dhahran Techno Valley, and King Fahd University of Petroleum & Minerals (KFUPM), plus connections to Dammam, Al Khobar, and Jubail. Visitors share the host company and gate name when booking so the driver plans the right entry point, and companies can request a written quote by email. Corporate invoicing can be arranged through our sister company. Fares are fixed in advance with no surge pricing.",
+    tldr: "Taxi Saudi Arabia arranges 24/7 private transfer service in Dhahran — King Fahd International Airport (DMM) transfers (~25 km, ~25 min), corporate transport to Saudi Aramco HQ and KFUPM, and connections to Dammam, Al Khobar, and Jubail. Written quotes for companies; corporate invoicing can be arranged through our sister company.",
     tldrFacts: [
       { label: "Airport (DMM)", value: "~25 km · ~25 min" },
       { label: "To Al Khobar", value: "~15 km · ~15 min" },
@@ -286,12 +286,12 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     tips: [
       "Aramco and KFUPM sites require visitor badges or gate clearance — share your host company and gate name when booking so the driver can plan the correct entry point and waiting area.",
       "King Fahd International Airport (DMM) is about 25 minutes from Dhahran — one of the shortest airport transfers in the Eastern Province.",
-      "Contractors and companies can set up a monthly corporate account instead of paying per trip — ask about invoicing.",
+      "Companies can request a written quote by email. Corporate invoicing can be arranged through our sister company.",
       "Dhahran, Al Khobar, Dammam, and Jubail are all served by the same Eastern Province driver network for same-day bookings."
     ],
     faqs: [
       { question: "How much is a taxi from Dhahran to Dammam airport?", answer: "A taxi from Dhahran to King Fahd International Airport (DMM) is about 25 km — roughly a 25-minute drive. Sedans, SUVs and vans are available, fare confirmed on WhatsApp before booking." },
-      { question: "Do you offer corporate accounts for Saudi Aramco contractors?", answer: "Yes. We offer monthly corporate billing for contractors, consultants, and companies working with Saudi Aramco, KFUPM, or based in Dhahran Techno Valley — a dedicated account manager and consolidated invoicing instead of per-trip payment. Contact us via WhatsApp to set one up." },
+      { question: "Do you offer corporate accounts for Saudi Aramco contractors?", answer: "Companies, contractors and consultants visiting Aramco, KFUPM or Dhahran Techno Valley can request a written quote by email for the trips and dates they need. Corporate invoicing can be arranged through our sister company." },
       { question: "Can you pick up visitors from inside Aramco or KFUPM gates?", answer: "Share your host company, badge type, and gate name when booking so the driver can plan the correct visitor entry point and waiting area — some Aramco facilities have restricted access requiring advance notice." },
       { question: "How far is Dhahran from Al Khobar and Jubail?", answer: "Dhahran is about 15 km from Al Khobar (roughly 15 minutes) and 85 km from Jubail (roughly an hour). We serve all three cities with the same Eastern Province driver network." },
       { question: "Is taxi available in Dhahran 24/7?", answer: "Yes, we run 24/7 in Dhahran, including early-morning and late-night pickups for shift workers, contractors, and airport connections." }
@@ -302,7 +302,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     nameAr: "الجبيل",
     image: "/locations/dammam-hero.webp",
     tagline: "Saudi Arabia's Industrial Powerhouse",
-    description: "Book a private transfer in Jubail for transfers to and from King Fahd International Airport (DMM) (~90 km, ~65 min), corporate travel across Jubail Industrial City I & II, contractor and camp transport for SABIC, Aramco, and Royal Commission (RCJY) sites, and connections to Dammam, Al Khobar, and Dhahran. Our drivers know the industrial zones, gate access points, and shift-change traffic patterns well, and we offer monthly corporate accounts for contractors who need daily, not per-ride, billing. Fares are fixed in advance with no surge pricing.",
+    description: "Book a private transfer in Jubail for transfers to and from King Fahd International Airport (DMM) (~90 km, ~65 min), corporate travel across Jubail Industrial City I & II, contractor and camp transport for SABIC, Aramco, and Royal Commission (RCJY) sites, and connections to Dammam, Al Khobar, and Dhahran. Share the company and site name when booking so the driver plans the right gate, and companies can request a written quote by email. Corporate invoicing can be arranged through our sister company. Fares are fixed in advance with no surge pricing.",
     tldr: "Taxi Saudi Arabia arranges 24/7 private transfer service in Jubail — King Fahd International Airport (DMM) transfers (~90 km, ~65 min), corporate and contractor transport across Jubail Industrial City, and connections to Dammam, Al Khobar, and Dhahran. Monthly corporate billing available for contractor accounts.",
     tldrFacts: [
       { label: "Airport (DMM)", value: "~90 km · ~65 min" },
@@ -321,12 +321,12 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     tips: [
       "Jubail Industrial City has restricted gate access at several plants — share your company/site name when booking so the driver can plan the correct entry point.",
       "King Fahd International Airport (DMM) is about 65 minutes from Jubail — allow extra buffer time around shift-change hours.",
-      "Contractors and companies can set up a monthly corporate account instead of paying per trip — ask about invoicing.",
+      "Companies can request a written quote by email. Corporate invoicing can be arranged through our sister company.",
       "Jubail, Dammam, Al Khobar, and Dhahran are all served by the same Eastern Province driver network for same-day bookings."
     ],
     faqs: [
       { question: "How much is a taxi from Jubail to Dammam airport?", answer: "A taxi from Jubail to King Fahd International Airport (DMM) is about 90 km — roughly a 65-minute drive. Sedans, SUVs and vans are available for groups, fare confirmed on WhatsApp before booking." },
-      { question: "Do you offer corporate accounts for Jubail Industrial City companies?", answer: "Yes. We offer monthly corporate billing for contractors and companies operating in Jubail Industrial City I & II — a dedicated account manager and consolidated invoicing instead of per-trip payment. Contact us via WhatsApp to set one up." },
+      { question: "Do you offer corporate accounts for Jubail Industrial City companies?", answer: "Companies and contractors in Jubail Industrial City I & II can request a written quote by email for the trips and dates they need. Corporate invoicing can be arranged through our sister company." },
       { question: "Is taxi available in Jubail 24/7, including night shifts?", answer: "Yes, we run 24/7 in Jubail, including early-morning and night shift-change hours for plant workers and contractors." },
       { question: "How far is Jubail from Al Khobar and Dammam?", answer: "Jubail is about 75 km from Al Khobar and 90 km from Dammam — both roughly an hour's drive. We serve all three cities with the same Eastern Province driver network." },
       { question: "Can you pick up from inside Jubail Industrial City plants?", answer: "Yes. Share your company name and gate/site location when booking so the driver can plan the correct access route — some plants have restricted entry points." }

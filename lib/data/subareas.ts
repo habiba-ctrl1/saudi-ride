@@ -31,7 +31,7 @@ export const SUB_AREAS: Record<string, {
     description: "Premium executive chauffeur and corporate account transport for banks, funds, and companies based in KAFD.",
     airportMin: "~30 min", makkahMin: "—", airportLabel: "King Khalid Airport (RUH)", popularFor: "Corporate accounts, executive chauffeur, banks & funds",
     landmarks: ["KAFD Conference Center", "Zone A/B/C office towers", "KAFD Metro Station"],
-    tldr: "A chauffeur in KAFD, Riyadh is quoted on WhatsApp before booking and available 24/7, built for corporate accounts and executive travel. It is about 30 minutes from King Khalid International Airport (RUH), with monthly billing available for companies.",
+    tldr: "A chauffeur in KAFD, Riyadh is quoted on WhatsApp before booking and available 24/7, built for corporate accounts and executive travel. It is about 30 minutes from King Khalid International Airport (RUH), with written quotes for companies by email.",
     tldrFacts: [{ label: "To RUH", value: "~30 min" }, { label: "Pricing", value: "Quoted on WhatsApp / Corporate" }, { label: "Hours", value: "24/7" }, { label: "Fleet", value: "Executive sedan/SUV" }],
     faqs: [
       { question: "Do you offer corporate accounts for companies in KAFD?", answer: "Yes. We set up monthly-billed corporate accounts for banks, funds, and firms based in KAFD, with dedicated executive drivers and rides." },
@@ -346,6 +346,12 @@ export const SUB_AREAS: Record<string, {
     kind: "service",
     description: "Hire a private driver in Jeddah by the hour or for a full day.",
   },
+  // Dammam / Eastern Province — added 2026-11-21. Content: lib/data/dammam-cluster.ts.
+  "dammam-private-driver": {
+    city: "dammam", subarea: "private-driver", name: "Private Driver", nameAr: "سائق خاص",
+    kind: "service",
+    description: "Hire a private driver in Dammam, Al Khobar and Dhahran by the hour or for a full day.",
+  },
   // AlUla — added 2026-10-07. Content: lib/data/alula-cluster.ts.
   "alula-private-driver": {
     city: "alula", subarea: "private-driver", name: "Private Driver", nameAr: "سائق خاص",
@@ -531,14 +537,14 @@ export const SUB_AREAS: Record<string, {
   "dhahran": {
     city: "dammam", subarea: "dhahran", name: "Dhahran", nameAr: "الظهران",
     description: "Executive corporate transport for Saudi Aramco facilities, KFUPM, and companies based in Dhahran.",
-    airportMin: "~25 min", makkahMin: "—", airportLabel: "King Fahd Airport (DMM)", popularFor: "Aramco facilities, KFUPM, corporate accounts",
+    airportMin: "~25 min", makkahMin: "—", airportLabel: "King Fahd Airport (DMM)", popularFor: "Aramco facilities, KFUPM, corporate visitors",
     landmarks: ["Saudi Aramco headquarters area", "KFUPM", "Dhahran Expo"],
-    tldr: "A chauffeur in Dhahran is quoted on WhatsApp before booking and available 24/7, built for corporate and Aramco-related travel. It is about 25 minutes from King Fahd International Airport (DMM), with monthly billing available for companies.",
+    tldr: "A chauffeur in Dhahran is quoted on WhatsApp before booking and available 24/7, built for corporate and Aramco-related travel. It is about 25 minutes from King Fahd International Airport (DMM), with written quotes for companies by email.",
     tldrFacts: [{ label: "To DMM", value: "~25 min" }, { label: "Pricing", value: "Quoted on WhatsApp / Corporate" }, { label: "Hours", value: "24/7" }, { label: "Popular for", value: "Aramco, KFUPM" }],
     faqs: [
-      { question: "Do you provide corporate accounts for companies in Dhahran?", answer: "Yes, we set up monthly-billed corporate accounts with dedicated drivers for companies and contractors operating around Dhahran and Aramco facilities." },
+      { question: "Do you provide corporate accounts for companies in Dhahran?", answer: "Yes. Companies and contractors around Dhahran can request a written quote by email. Corporate invoicing can be arranged through our sister company." },
       { question: "How far is Dhahran from Dammam airport?", answer: "Dhahran is about 25 minutes from King Fahd International Airport (DMM), with meet & greet transfers." },
-      { question: "Can you arrange transport for KFUPM visitors or staff?", answer: "Yes, we provide reliable dedicated-driver transport for KFUPM staff, visitors, and conference guests." },
+      { question: "Can you arrange transport for KFUPM visitors or staff?", answer: "Yes. Private transfers can be booked for KFUPM visitors and conference guests — share the gate or building when booking." },
     ],
   },
   "half-moon-bay": {
