@@ -24,7 +24,7 @@ const FORMATS = [
 const inputCls = "mt-1 block min-h-[44px] w-full rounded-xl border border-[#D1D5DB] bg-white px-3 text-sm text-[#1C1C1C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16A34A]";
 const labelCls = "block text-xs font-bold uppercase tracking-wider text-[#374151]";
 
-export function CorporateRfqForm({ city, path }: { city: "Jeddah" | "Makkah" | "Madinah" | "Dammam"; path: string }) {
+export function CorporateRfqForm({ city, path }: { city: "Jeddah" | "Makkah" | "Madinah" | "Dammam" | "Al Khobar" | "Dhahran" | "Jubail"; path: string }) {
   const [error, setError] = useState("");
 
   function compose(form: HTMLFormElement): string | null {
@@ -95,7 +95,7 @@ export function CorporateRfqForm({ city, path }: { city: "Jeddah" | "Makkah" | "
           <label className={labelCls}>WhatsApp number *<input name="whatsapp" type="tel" required autoComplete="tel" placeholder="+966…" className={inputCls} /></label>
           <label className={labelCls}>City
             <select name="city" defaultValue={city} className={inputCls}>
-              {["Jeddah", "Makkah", "Madinah", "Riyadh", "Dammam", "Other"].map((c) => <option key={c}>{c}</option>)}
+              {["Jeddah", "Makkah", "Madinah", "Riyadh", "Dammam", "Al Khobar", "Dhahran", "Jubail", "Other"].map((c) => <option key={c}>{c}</option>)}
             </select>
           </label>
           <label className={labelCls}>Travel dates<input name="dates" placeholder="e.g. 12–15 Nov" className={inputCls} /></label>

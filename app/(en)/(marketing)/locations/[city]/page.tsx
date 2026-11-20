@@ -32,6 +32,8 @@ import { AlulaHub } from "@/components/location/cluster/AlulaHub";
 import { MakkahHub } from "@/components/location/cluster/MakkahHub";
 import { MadinahHub } from "@/components/location/cluster/MadinahHub";
 import { DammamHub } from "@/components/location/cluster/DammamHub";
+import { RegionalHub } from "@/components/location/cluster/RegionalHub";
+import { EASTERN_HUBS } from "@/lib/data/eastern-hubs";
 
 // Real distances/times pulled from the same ROUTES_DATA source the route
 // pages read from (CLAUDE.md single-source-of-truth rule) — a compact
@@ -488,7 +490,9 @@ const CITY_META_DESCRIPTION: Record<string, string> = {
   dammam: "Private taxi & chauffeur in Dammam, Al Khobar and Dhahran — DMM airport pickups with flight tracking, city rides, hourly drivers, Bahrain and Doha trips. Fare agreed first.",
   alula: "Private transfers and chauffeur service in AlUla — ULH airport, hotels, Hegra, Maraya, a private driver for multi-stop days, and Madinah or Red Sea transfers. Fare agreed first.",
   taif: "Taxi in Taif — day trips from Makkah (~90 km) via Al Hada, rose farm visits, and TIF airport transfers. Cool mountain escape.",
-  alkhobar: "Taxi in Al Khobar — Corniche rides, DMM airport transfers (~30 km), and cross-border trips to Bahrain via the Causeway.",
+  alkhobar: "Private taxi & chauffeur in Al Khobar — Bahrain over the King Fahd Causeway, DMM airport pickups, Corniche and Dhahran rides, Doha and Riyadh by road. Fare agreed first.",
+  dhahran: "Private transfers in Dhahran — DMM airport (25 km), visitor pickups at offices and campuses, Ithra, hourly drivers and trips to Al Khobar, Dammam and Bahrain. Fare agreed first.",
+  jubail: "Private transfers for Jubail — DMM airport (90 km), Industrial City site visits, crew vans and coasters, hourly drivers and Kuwait by road. Fare agreed before booking.",
   yanbu: "Taxi in Yanbu — Red Sea diving trips, and intercity rides to Madinah (~240 km) or Jeddah (~330 km). Industrial City covered.",
   neom: "Executive taxi across NEOM & Tabuk — Tabuk (TUU) and NEOM Bay (NUM) airport transfers, site access trips, and Gulf of Aqaba coast rides.",
   abha: "Taxi in Abha — Soudah Peak & cable car trips, AHB airport transfers (~25 km), and rides across the misty Asir mountains.",
@@ -546,6 +550,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
+  if (EASTERN_HUBS[cityKeyLower]) {
+    const t = CITY_META_TITLE[cityKeyLower] ?? `Taxi in ${cityData.name} | Airport & Intercity — Taxi Saudi Arabia`;
+    const d = CITY_META_DESCRIPTION[cityKeyLower];
+    const url = `https://taxisaudiarabia.com/locations/${cityKeyLower}`;
+    const img = cityKeyLower === "alkhobar" ? "https://taxisaudiarabia.com/locations/alkhobar-og.webp" : "https://taxisaudiarabia.com/opengraph-image";
+    return {
+      title: t,
+      description: d,
+      alternates: { canonical: url },
+      openGraph: { title: t, description: d, type: "website", url, images: [{ url: img, width: 1200, height: 630, alt: `Private transport in ${cityData.name}, Saudi Arabia` }] },
+      twitter: { card: "summary_large_image", title: t, description: d, images: [img] },
+    };
+  }
+
   return {
     title: CITY_META_TITLE[cityKeyLower] ?? `Taxi in ${cityData.name} | Airport & Intercity — Taxi Saudi Arabia`,
     description: CITY_META_DESCRIPTION[cityKeyLower] ?? `Book a private transfer in ${cityData.name}, Saudi Arabia — airport transfers, Umrah rides, and 24/7 intercity trips with professional drivers. No surge, quoted on WhatsApp.`,
@@ -590,6 +608,9 @@ export default async function CityLocationPage({ params }: PageProps) {
   }
   if (cityKey === "madinah" && CITY_DETAILS.madinah) {
     return <MadinahHub name={CITY_DETAILS.madinah.name} nameAr={CITY_DETAILS.madinah.nameAr} />;
+  }
+  if (EASTERN_HUBS[cityKey]) {
+    return <RegionalHub c={EASTERN_HUBS[cityKey]} />;
   }
   if (cityKey === "dammam" && CITY_DETAILS.dammam) {
     return <DammamHub name={CITY_DETAILS.dammam.name} nameAr={CITY_DETAILS.dammam.nameAr} />;
