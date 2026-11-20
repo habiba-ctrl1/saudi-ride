@@ -41,6 +41,8 @@ export interface SouthernRoutePageData {
   vehicleGuide?: { fleetSlug: string; name: string; fit: string }[];
   /** Optional: one-way / return / advance-booking section. */
   booking?: { heading: string; body: string[] };
+  /** Optional contextual CTA label (hero + form submit). Defaults to "Get your quote". */
+  ctaLabel?: string;
 }
 
 export const SOUTHERN_ROUTE_PAGES: Record<string, SouthernRoutePageData> = {

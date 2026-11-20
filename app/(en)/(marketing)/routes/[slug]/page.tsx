@@ -30,6 +30,8 @@ import { CROSS_BORDER_ROUTE_PAGES } from "@/lib/data/cross-border-route-pages";
 import { RedSeaAlulaRouteSection, AlulaRouteNav } from "@/components/location/cluster/CrossDestination";
 import { MAKKAH_ROUTE_META, MAKKAH_CLUSTER_ROUTE_SLUGS } from "@/lib/data/makkah-cluster";
 import { MAKKAH_ROUTE_CONTENT } from "@/lib/data/makkah-route-content";
+import { TAIF_ROUTE_PAGES } from "@/lib/data/taif-routes";
+import { TaifRouteLinks, TAIF_LINKED_SLUGS } from "@/components/location/cluster/TaifRouteLinks";
 import { MakkahRouteDetails } from "@/components/location/cluster/MakkahRouteLinks";
 import { MakkahRouteLinks } from "@/components/location/cluster/MakkahRouteLinks";
 import { MadinahRouteLinks, MadinahRouteJourney } from "@/components/location/cluster/MadinahRouteLinks";
@@ -1130,7 +1132,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
     faqs: [
       { question: "How far is Makkah from Taif?", answer: "Makkah to Taif is about 90 km — roughly a 1 hour 10 minute drive, often via the scenic Al Hada mountain road." },
-      { question: "How much is a taxi from Makkah to Taif?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs available for families. Tolls are included." },
+      { question: "How much is a taxi from Makkah to Taif?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking, with SUVs available for families." },
       { question: "Is the Al Hada mountain road safe by taxi?", answer: "Al Hada is a steep, winding climb; you can also request the longer, gentler Al Sail road if you prefer." },
       { question: "Can I do a Taif day trip from Makkah?", answer: "Yes. We offer round-trip and hourly hire so you can visit Taif's rose farms, Al Hada, and cable car with waiting time included." },
     ],
@@ -1215,7 +1217,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
     faqs: [
       { question: "How long is the taxi from Jeddah to Taif?", answer: "Jeddah to Taif is about 170 km and takes roughly 2 hours, climbing the scenic Al Hada mountain road to the cool highlands of Taif." },
-      { question: "How much is a taxi from Jeddah to Taif?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available. The exact price is confirmed before booking, with tolls included and no surge." },
+      { question: "How much is a taxi from Jeddah to Taif?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs and vans available. The exact price is confirmed before booking, with no surge." },
       { question: "Is the Al Hada mountain road safe by taxi?", answer: "Yes. Our drivers are experienced on the steep, winding Al Hada route. An SUV is a comfortable choice for families on the climb." },
     ],
   },
@@ -1229,7 +1231,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
     faqs: [
       { question: "How far is Jeddah airport from Taif?", answer: "King Abdulaziz International Airport (JED) is about 180 km from Taif — roughly a 2 hour 10 minute drive via the Al Hada mountain road." },
-      { question: "How much is the Jeddah airport to Taif taxi?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking. SUVs and vans are available for families and luggage, with tolls included." },
+      { question: "How much is the Jeddah airport to Taif taxi?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, confirmed before booking. SUVs and vans are available for families and luggage. " },
       { question: "Is meet & greet included at Jeddah airport?", answer: "Yes. We track your flight and the driver waits at arrivals, then takes you directly to Taif, 24/7." },
     ],
   },
@@ -1925,7 +1927,7 @@ const ROUTE_CONTENT: Record<string, { tldr: string; tldrFacts: { label: string; 
     ],
     faqs: [
       { question: "How far are the Taif resorts from Makkah hotels?", answer: "About 85 km — roughly a 75-minute drive on the Al-Hada mountain road, from the Makkah Haram area up to the resort hotels of Al-Hada and Shafa in Taif." },
-      { question: "How much is a taxi from Makkah to Taif resorts?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs recommended for the mountain road and extra luggage. Confirmed before booking, no surge, tolls included." },
+      { question: "How much is a taxi from Makkah to Taif resorts?", answer: "The fare is fixed, confirmed on WhatsApp for a sedan, with SUVs recommended for the mountain road and extra luggage. Agreed before booking, no meter and no surge." },
       { question: "Can we stop at the rose distilleries?", answer: "Yes — this route is popular as a day trip that includes a stop at the Taif rose distilleries and gardens. Mention it when booking so the driver plans the stop into your day." },
       { question: "Is this a good day trip from Makkah?", answer: "Yes. Taif's cooler mountain climate, the Al-Hada cable car, and the rose season (spring) make it a popular half-day or full-day escape from Makkah — book a return trip or hourly hire if you want the driver to wait." },
     ],
@@ -2094,12 +2096,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
   // Southern corridor (2026-10-27): bespoke pages, metadata lives with the page data.
-  const south = SOUTHERN_ROUTE_PAGES[slug] ?? JEDDAH_INTERCITY_ROUTE_PAGES[slug];
+  const south = SOUTHERN_ROUTE_PAGES[slug] ?? JEDDAH_INTERCITY_ROUTE_PAGES[slug] ?? TAIF_ROUTE_PAGES[slug];
   if (south) {
     return {
       title: south.metaTitle,
       description: south.metaDescription,
-      alternates: { canonical: `https://taxisaudiarabia.com/routes/${slug}` },
+      alternates: {
+        canonical: `https://taxisaudiarabia.com/routes/${slug}`,
+        // Keep hreflang for bespoke pages that have an Arabic twin (e.g. jeddah-to-taif).
+        ...(AR_ROUTE_SLUGS.includes(slug)
+          ? { languages: { en: `https://taxisaudiarabia.com/routes/${slug}`, ar: `https://taxisaudiarabia.com/ar/routes/${slug}`, "x-default": `https://taxisaudiarabia.com/routes/${slug}` } }
+          : {}),
+      },
       openGraph: { title: south.metaTitle, description: south.metaDescription, type: "website", url: `https://taxisaudiarabia.com/routes/${slug}` },
       twitter: { card: "summary_large_image", title: south.metaTitle, description: south.metaDescription },
     };
@@ -2350,8 +2358,8 @@ export default async function RouteDetailsPage({ params }: PageProps) {
   if (bespoke) return <CrossBorderRoutePage data={bespoke} />;
   const rsiPage = RSI_ROUTE_PAGES[slug];
   if (rsiPage) return <RedSeaRoutePage data={rsiPage} />;
-  const southPage = SOUTHERN_ROUTE_PAGES[slug] ?? JEDDAH_INTERCITY_ROUTE_PAGES[slug];
-  if (southPage) return <SouthernRoutePage data={southPage} />;
+  const southPage = SOUTHERN_ROUTE_PAGES[slug] ?? JEDDAH_INTERCITY_ROUTE_PAGES[slug] ?? TAIF_ROUTE_PAGES[slug];
+  if (southPage) return <SouthernRoutePage data={southPage} beforeRelated={TAIF_ROUTE_PAGES[slug] ? <TaifRouteLinks slug={slug} /> : undefined} />;
   let route: Awaited<ReturnType<typeof db.route.findUnique>> = null;
   try {
     route = await db.route.findUnique({ where: { slug } });
@@ -3613,6 +3621,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
           {isMk && <MakkahRouteLinks slug={slug} fromCity={route.fromCity} toCity={route.toCity} />}
           {isMd && <MadinahRouteJourney slug={slug} />}
           {isMd && <MadinahRouteLinks slug={slug} fromCity={route.fromCity} toCity={route.toCity} />}
+          {TAIF_LINKED_SLUGS.includes(slug) && <TaifRouteLinks slug={slug} />}
           <RouteRelatedLinks slug={slug} fromCity={route.fromCity} toCity={route.toCity} />
 
         </div>

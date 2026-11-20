@@ -1364,7 +1364,9 @@ export const ROUTES_DATA = [
     fromCityAr: "الطائف",
     toCityAr: "الباحة",
     distance: 220,
-    duration: 140,
+    // 2026-11-21: was 140 min. Route calculators give 219 km / ~2 h 39 min
+    // (kupi.com, distance tables) to 2.5–3 h; 160 min aligns with them.
+    duration: 160,
     basePrice: 300,
     popular: false,
     description: "Scenic mountain route connecting two major resort cities.",

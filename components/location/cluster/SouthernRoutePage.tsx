@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import {
   ArrowRight, MapPin, Clock, MessageCircle, Mail, CheckCircle2, Car, Users, Lightbulb, Flag, Route as RouteIcon, Scale,
 } from "lucide-react";
@@ -34,7 +35,7 @@ const VEHICLES = [
 
 const STAGE_ICON = { origin: MapPin, road: RouteIcon, destination: Flag } as const;
 
-export default function SouthernRoutePage({ data }: { data: SouthernRoutePageData }) {
+export default function SouthernRoutePage({ data, beforeRelated }: { data: SouthernRoutePageData; beforeRelated?: ReactNode }) {
   const route = ROUTES_DATA.find((r) => r.slug === data.slug)!;
   const path = `/routes/${data.slug}`;
   const label = `${data.fromPlace} to ${data.toPlace}`;
@@ -92,7 +93,7 @@ export default function SouthernRoutePage({ data }: { data: SouthernRoutePageDat
               ))}
             </div>
             <div className="flex flex-wrap gap-3 pt-1">
-              <a href="#route-quote" className="btn btn-accent btn-lg">Get your quote <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden /></a>
+              <a href="#route-quote" className="btn btn-accent btn-lg">{data.ctaLabel ?? "Get your quote"} <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden /></a>
               <a href={waHref} target="_blank" rel="noopener noreferrer" className="btn btn-glass btn-lg"><MessageCircle className="h-4 w-4" aria-hidden /> WhatsApp this route</a>
             </div>
           </div>
@@ -268,7 +269,7 @@ export default function SouthernRoutePage({ data }: { data: SouthernRoutePageDat
             dropoffPlaceholder={`Drop-off address in ${data.toPlace}`}
             messageIntro={`Hello, I'd like a quote for a private transfer from ${data.fromPlace} to ${data.toPlace}.`}
             showNotes
-            submitLabel="Get my quote"
+            submitLabel={data.ctaLabel ?? "Get my quote"}
           />
           <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <a href={waHref} target="_blank" rel="noopener noreferrer" className="btn btn-whatsapp btn-lg"><MessageCircle className="h-4 w-4" aria-hidden /> Or message us on WhatsApp</a>
@@ -276,6 +277,8 @@ export default function SouthernRoutePage({ data }: { data: SouthernRoutePageDat
           </div>
           <p className="mt-3 text-center text-xs text-[#6B7280]">Corporate invoicing can be arranged through our sister company.</p>
         </section>
+
+        {beforeRelated}
 
         {/* ─── RELATED ─── */}
         <section aria-labelledby="sr-related">
