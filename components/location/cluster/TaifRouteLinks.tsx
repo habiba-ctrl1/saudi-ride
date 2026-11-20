@@ -19,6 +19,7 @@ const NETWORK: { slug: string; label: string }[] = [
   { slug: "taif-to-albaha", label: "Taif → Al Baha" },
   { slug: "madinah-to-taif", label: "Madinah → Taif" },
   { slug: "riyadh-to-taif", label: "Riyadh → Taif" },
+  { slug: "taif-to-riyadh", label: "Taif → Riyadh" },
 ];
 
 const GUIDES = [

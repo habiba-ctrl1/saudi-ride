@@ -873,6 +873,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
     ],
     related: [
       { href: "/routes/riyadh-to-taif", label: "Riyadh to Taif private car (book this route)", img: "/locations/taif-hero.webp" },
+      { href: "/routes/taif-to-riyadh", label: "Heading back? Taif to Riyadh private car", img: "/locations/riyadh-hero.webp" },
       { href: "/distance/riyadh-to-makkah", label: "Riyadh to Makkah distance guide", img: "/locations/makkah-hero.webp" },
       { href: "/distance/makkah-to-taif", label: "Makkah to Taif distance guide", img: "/locations/taif-hero.webp" },
       { href: "/locations/riyadh", label: "Private transport in Riyadh", img: "/locations/riyadh-hero.webp" },

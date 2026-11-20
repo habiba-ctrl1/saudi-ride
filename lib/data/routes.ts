@@ -443,6 +443,21 @@ export const ROUTES_DATA = [
     descriptionAr: "سيارة خاصة من الرياض إلى الطائف عبر الطريق السريع 40 من الباب إلى الباب.",
     slug: "riyadh-to-taif",
   },
+  {
+    // 2026-11-21: reverse of riyadh-to-taif — same road, so the same figures
+    // (785 km / 470 min) keep both directions and /distance/riyadh-to-taif in agreement.
+    fromCity: "Taif",
+    toCity: "Riyadh",
+    fromCityAr: "الطائف",
+    toCityAr: "الرياض",
+    distance: 785,
+    duration: 470,
+    basePrice: 0,
+    popular: false,
+    description: "Private long-distance car from Taif to Riyadh on Highway 40 — door to door from Taif, Al Hada or Taif Regional Airport, with rest and prayer stops on request.",
+    descriptionAr: "سيارة خاصة من الطائف إلى الرياض عبر الطريق السريع 40 من الباب إلى الباب.",
+    slug: "taif-to-riyadh",
+  },
 
   // --- FROM MADINAH (10 routes) ---
   {

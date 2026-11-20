@@ -329,4 +329,89 @@ export const TAIF_ROUTE_PAGES: Record<string, SouthernRoutePageData> = {
   },
 };
 
+// New URL (2026-11-21, owner-requested reverse of riyadh-to-taif). Transactional
+// intent ("taif to riyadh taxi / by car"); the informational distance queries
+// ("taif to riyadh distance", 56 impr pos 9.9) stay with /distance/riyadh-to-taif,
+// which this page links to. Road facts mirror the riyadh-to-taif distance guide
+// (Highway 40, Al Quway'iyah) — no new road claims.
+TAIF_ROUTE_PAGES["taif-to-riyadh"] = {
+  slug: "taif-to-riyadh",
+  h1: "Taif to Riyadh Private Car with Driver",
+  eyebrow: "Taif highlands → the capital",
+  fromPlace: "Taif",
+  toPlace: "Riyadh",
+  ctaLabel: "Get my private long-distance quote",
+  bestFor: "Families heading home after a summer stay, business travel, RUH departures",
+  lead: "One private car from your Taif hotel, resort or home all the way to your door in Riyadh — about 8 hours of driving on Highway 40, with stops whenever you ask.",
+  quickAnswer:
+    "Taif to Riyadh is about 785 km by road, roughly 7 hours 50 minutes of driving on Highway 40 before stops; with prayer, meal and rest breaks most families plan on 8 to 9 hours. Taxi Saudi Arabia arranges a private car with driver from any Taif address or Taif Regional Airport (TIF) to any Riyadh address or King Khalid International Airport (RUH), with one fixed fare agreed on WhatsApp before booking.",
+  metaTitle: "Taif to Riyadh Private Car with Driver | ~785 km by Road",
+  metaDescription:
+    "Private car from Taif, Al Hada or Taif Airport to Riyadh — about 785 km on Highway 40, roughly 8 hours, door to door with rest stops. One fare agreed on WhatsApp.",
+  stages: [
+    { label: "Pickup", title: "Taif", desc: "Your hotel, home or resort in Taif city, Al Hada or Al Shafa, or Taif Regional Airport (TIF) after a flight. Luggage from a summer stay is loaded once.", kind: "origin" },
+    { label: "Down from the plateau", title: "Onto Highway 40", desc: "The car leaves the Taif highlands and joins Highway 40 heading east towards Najd.", kind: "road" },
+    { label: "The long stretch", title: "Across the Najd plateau", desc: "Most of the day is open highway. Stops for prayer, meals and rest are made whenever you ask; Al Quway'iyah is the last town of note before Riyadh.", kind: "road" },
+    { label: "Drop-off", title: "Riyadh", desc: "Your home, hotel or office anywhere in Riyadh, or King Khalid International Airport (RUH) for a flight.", kind: "destination" },
+  ],
+  tradeOff: {
+    heading: "Drive or fly from Taif to Riyadh?",
+    body: [
+      "Flying from Taif Regional Airport is quicker in the air where a suitable flight operates, but you pay per seat, arrive early for check-in and still need a transfer at RUH. There is no passenger rail line from Taif.",
+      "A private car takes most of a day, but it is one fare for the whole vehicle, every bag travels with you, and you are dropped at your own door. That is why families ending a summer stay in Taif usually drive.",
+      "Travelling alone and light with a meeting the same afternoon? A flight may suit you better — tell us and we will say so.",
+    ],
+  },
+  endPoints: {
+    heading: "Pickup in Taif, drop-off in Riyadh",
+    intro: "Give us the exact addresses. These are the usual start and end points.",
+    points: [
+      { name: "Taif city, Al Hada and Al Shafa", desc: "Hotels, resorts, chalets and family homes across the Taif area." },
+      { name: "Taif Regional Airport (TIF)", desc: "Meet & greet at arrivals if you fly into Taif first; we track your flight." },
+      { name: "Riyadh homes, hotels and offices", desc: "Any district in the city." },
+      { name: "King Khalid International Airport (RUH)", desc: "For an onward flight — share the departure time and we plan the pickup in Taif back from it." },
+    ],
+  },
+  whoBooks: [
+    { title: "Riyadh families after a summer in Taif", desc: "The return leg of the classic summer escape — one vehicle for everyone and a stay's worth of luggage." },
+    { title: "Visitors ending a western Saudi trip", desc: "After Makkah or Taif, heading to Riyadh or a flight home from RUH." },
+    { title: "Business and government travel", desc: "Executive sedan with a written quote for companies; " + INVOICE.toLowerCase() },
+  ],
+  vehicleGuide: [
+    { fleetSlug: "toyota-camry", name: "Executive sedan (e.g. Toyota Camry)", fit: "One or two adults travelling light. Comfortable for the distance, limited for luggage." },
+    { fleetSlug: "gmc-yukon-xl", name: "Full-size SUV (e.g. GMC Yukon XL)", fit: "The usual choice for families coming home from a summer stay — legroom and luggage space for a long day." },
+    { fleetSlug: "hyundai-staria", name: "Van (e.g. Hyundai Staria)", fit: "Extended families and groups who want everyone in one vehicle." },
+  ],
+  booking: {
+    heading: "Booking a long drive home",
+    body: [
+      "Book a few days ahead where you can: this trip takes a driver and vehicle for most of the day, and the end of the summer season is busy. Short-notice requests are checked against availability and we tell you plainly what can be arranged.",
+      "To quote we need the pickup and drop-off addresses, date and departure time, passengers, large bags, and your flight time if you are going to RUH. We usually reply within 1–2 hours with the vehicle and one fixed fare.",
+      "Need the outbound leg too? Riyadh to Taif is quoted the same way, and both legs can be agreed together.",
+    ],
+  },
+  tips: [
+    { title: "Leave early", desc: "A morning departure from Taif gets you into Riyadh before the evening traffic." },
+    { title: "Flying out of RUH?", desc: "Do not plan a same-day flight tightly. Leave a generous margin for stops and city traffic on arrival." },
+    { title: "Count the bags", desc: "Summer-stay luggage fills a sedan quickly; with more than two large cases choose an SUV or van." },
+    { title: "Plan your breaks", desc: "Tell the driver at the start how often you want to stop for prayer and meals." },
+  ],
+  faqs: [
+    { question: "How far is Taif from Riyadh by car?", answer: "About 785 km by road, mostly on Highway 40 — roughly 7 hours 50 minutes of driving. With prayer, meal and rest stops, plan on 8 to 9 hours door to door." },
+    { question: "Can I book a private car from Taif to Riyadh?", answer: "Yes. Send your Taif pickup, Riyadh drop-off, date, passengers and bags by the form or on WhatsApp. We reply with the vehicle and one fixed fare before anything is booked." },
+    { question: "Can the driver take me straight to Riyadh airport (RUH)?", answer: "Yes. Share your flight time and the Taif pickup is planned back from it, with a generous margin for the long drive." },
+    { question: "Can we stop on the way?", answer: "Yes. The driver stops for prayer, food or rest whenever you ask; tell us roughly how many breaks you expect when you book." },
+    { question: "Is there a train from Taif to Riyadh?", answer: "No. No passenger rail line serves Taif, so the options are driving or flying from Taif Regional Airport." },
+    { question: "How much is a private car from Taif to Riyadh?", answer: "The fare is fixed and agreed on WhatsApp before you book. It depends on the vehicle and the date. Free cancellation applies up to 24 hours before pickup." },
+  ],
+  related: [
+    { href: "/routes/riyadh-to-taif", label: "The outbound leg: Riyadh to Taif" },
+    { href: "/distance/riyadh-to-taif", label: "Riyadh–Taif road distance and drive time" },
+    { href: "/locations/taif", label: "Getting around Taif by private car" },
+    { href: "/locations/riyadh", label: "Private transport in Riyadh" },
+    { href: "/airports/king-khalid-riyadh", label: "Riyadh airport (RUH) transfers" },
+    { href: "/services/intercity", label: "Long-distance intercity transfers" },
+  ],
+};
+
 export const TAIF_ROUTE_SLUGS = Object.keys(TAIF_ROUTE_PAGES);
