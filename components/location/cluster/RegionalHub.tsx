@@ -74,7 +74,7 @@ export function RegionalHub({ c }: { c: RegionalHubConfig }) {
           items={[
             { name: "Home", href: "/" },
             { name: "Saudi Arabia Transportation", href: "/locations" },
-            { name: "Dammam & Eastern Province", href: "/locations/dammam" },
+            ...(c.parent ? [{ name: c.parent.name, href: c.parent.href }] : []),
             { name: c.name, href: path },
           ]}
         />
@@ -184,7 +184,7 @@ export function RegionalHub({ c }: { c: RegionalHubConfig }) {
           <h2 id="driver-heading" className="mt-3 font-heading text-[1.75rem] font-bold leading-tight md:text-[2.1rem]">{c.hourly.heading}</h2>
           <p className="mt-4 max-w-3xl text-sm leading-relaxed text-[#4B5563]">{c.hourly.body}</p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <Link href="/locations/dammam/private-driver" className={BTN_G}>{c.hourly.linkLabel} <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+            {c.hourly.href && <Link href={c.hourly.href} className={BTN_G}>{c.hourly.linkLabel} <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>}
             <a href={wa(c.hourly.waPrefill)} target="_blank" rel="noopener noreferrer" className={BTN_O}><MessageCircle className="h-4 w-4" aria-hidden="true" /> Ask on WhatsApp</a>
           </div>
         </section>
@@ -218,7 +218,7 @@ export function RegionalHub({ c }: { c: RegionalHubConfig }) {
             <a href={`mailto:${contactConfig.email}?subject=${encodeURIComponent(c.corporate.emailSubject)}&body=${encodeURIComponent(c.corporate.emailBody)}`} className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-[#FACC15] px-6 text-xs font-bold uppercase tracking-wider text-[#0B1F14] hover:bg-[#FDE047]"><Mail className="h-4 w-4" aria-hidden="true" /> Request a Written Quote</a>
             <Link href="/services/corporate" className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-white/25 px-6 text-xs font-bold uppercase tracking-wider text-[#FFFFFF] hover:bg-white/10">Corporate transportation <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
             <Link href="/services/vip-transportation" className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-white/25 px-6 text-xs font-bold uppercase tracking-wider text-[#FFFFFF] hover:bg-white/10">VIP transportation <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
-            <Link href="/locations/dammam#corporate-rfq" className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-white/25 px-6 text-xs font-bold uppercase tracking-wider text-[#FFFFFF] hover:bg-white/10">Detailed RFQ form <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+            {c.rfqHref && <Link href={c.rfqHref} className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-white/25 px-6 text-xs font-bold uppercase tracking-wider text-[#FFFFFF] hover:bg-white/10">Detailed RFQ form <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>}
           </div>
         </section>
 

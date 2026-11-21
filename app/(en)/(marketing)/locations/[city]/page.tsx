@@ -5,6 +5,8 @@ export function generateStaticParams() {
 }
 
 import { notFound } from "next/navigation";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { Metadata } from "next";
 import { MapPin, ArrowRight, Car, Building2, CheckCircle2, HelpCircle, Star, Quote, PlaneLanding, ExternalLink, MessageSquare, Clock, Users, Luggage, UserCheck } from "lucide-react";
 import Link from "next/link";
@@ -33,7 +35,9 @@ import { MakkahHub } from "@/components/location/cluster/MakkahHub";
 import { MadinahHub } from "@/components/location/cluster/MadinahHub";
 import { DammamHub } from "@/components/location/cluster/DammamHub";
 import { RegionalHub } from "@/components/location/cluster/RegionalHub";
-import { EASTERN_HUBS } from "@/lib/data/eastern-hubs";
+import { EASTERN_HUBS as EP_HUBS } from "@/lib/data/eastern-hubs";
+import { SECONDARY_HUBS } from "@/lib/data/secondary-hubs";
+const EASTERN_HUBS = { ...EP_HUBS, ...SECONDARY_HUBS };
 
 // Real distances/times pulled from the same ROUTES_DATA source the route
 // pages read from (CLAUDE.md single-source-of-truth rule) — a compact
@@ -493,10 +497,10 @@ const CITY_META_DESCRIPTION: Record<string, string> = {
   alkhobar: "Private taxi & chauffeur in Al Khobar — Bahrain over the King Fahd Causeway, DMM airport pickups, Corniche and Dhahran rides, Doha and Riyadh by road. Fare agreed first.",
   dhahran: "Private transfers in Dhahran — DMM airport (25 km), visitor pickups at offices and campuses, Ithra, hourly drivers and trips to Al Khobar, Dammam and Bahrain. Fare agreed first.",
   jubail: "Private transfers for Jubail — DMM airport (90 km), Industrial City site visits, crew vans and coasters, hourly drivers and Kuwait by road. Fare agreed before booking.",
-  yanbu: "Taxi in Yanbu — Red Sea diving trips, and intercity rides to Madinah (~240 km) or Jeddah (~330 km). Industrial City covered.",
-  neom: "Executive taxi across NEOM & Tabuk — Tabuk (TUU) and NEOM Bay (NUM) airport transfers, site access trips, and Gulf of Aqaba coast rides.",
-  abha: "Taxi in Abha — Soudah Peak & cable car trips, AHB airport transfers (~25 km), and rides across the misty Asir mountains.",
-  tabuk: "Taxi in Tabuk — TUU airport transfers, NEOM business trips (~120 km), and cross-border rides to Aqaba, Jordan via Haql (~270 km).",
+  yanbu: "Private car with driver in Yanbu — airport pickups, Yanbu Al-Bahr and Industrial City, Madinah (240 km) and Jeddah (330 km) by road. Not self-drive rental.",
+  neom: "Private transfers for NEOM — Tabuk Airport (120 km) and Red Sea Airport arrivals, Sharma, Magna and Oxagon, site visits and Aqaba in Jordan. Fare agreed first.",
+  abha: "Private car with driver in Abha — Soudah Peak and cable car days, AHB airport pickups, Khamis Mushait, and trips to Jizan, Najran or Jeddah. Fare agreed first.",
+  tabuk: "Private car from Tabuk — TUU airport pickups, NEOM transfers, and Jordan by the shortest crossing: Aqaba (270 km), Petra, Wadi Rum and Amman. Border fees included.",
   abudhabi: "Private, pre-booked car between Saudi Arabia and Abu Dhabi — Riyadh corridor (~850 km), executive sedan/SUV/van, fare confirmed on WhatsApp. Not a local UAE taxi.",
   amman: "Pre-booked private cars in Jordan through our partner: Queen Alia Airport (AMM), Amman, Petra, Wadi Rum and Aqaba, plus Saudi–Jordan legs. Fixed fare on WhatsApp.",
 };
@@ -554,7 +558,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const t = CITY_META_TITLE[cityKeyLower] ?? `Taxi in ${cityData.name} | Airport & Intercity — Taxi Saudi Arabia`;
     const d = CITY_META_DESCRIPTION[cityKeyLower];
     const url = `https://taxisaudiarabia.com/locations/${cityKeyLower}`;
-    const img = cityKeyLower === "alkhobar" ? "https://taxisaudiarabia.com/locations/alkhobar-og.webp" : "https://taxisaudiarabia.com/opengraph-image";
+    const og = `${cityKeyLower}-og.webp`;
+    const img = existsSync(join(process.cwd(), "public", "locations", og)) ? `https://taxisaudiarabia.com/locations/${og}` : "https://taxisaudiarabia.com/opengraph-image";
     return {
       title: t,
       description: d,
@@ -564,31 +569,33 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
+  // G1 (2026-11-21): OG/Twitter now mirror the page's own title and
+  // description instead of a generic "Taxi Service in X" line, and the OG image
+  // falls back to the site default when no /locations/<city>-og.webp exists.
+  const fallbackTitle = CITY_META_TITLE[cityKeyLower] ?? `Taxi in ${cityData.name} | Airport & Intercity — Taxi Saudi Arabia`;
+  const fallbackDesc = CITY_META_DESCRIPTION[cityKeyLower] ?? `Book a pre-booked private car in ${cityData.name}, Saudi Arabia — airport transfers and intercity trips with professional drivers. Fare agreed before booking.`;
+  const ogFile = `${cityKeyLower}-og.webp`;
+  const ogImg = existsSync(join(process.cwd(), "public", "locations", ogFile))
+    ? `https://taxisaudiarabia.com/locations/${ogFile}`
+    : "https://taxisaudiarabia.com/opengraph-image";
   return {
-    title: CITY_META_TITLE[cityKeyLower] ?? `Taxi in ${cityData.name} | Airport & Intercity — Taxi Saudi Arabia`,
-    description: CITY_META_DESCRIPTION[cityKeyLower] ?? `Book a private transfer in ${cityData.name}, Saudi Arabia — airport transfers, Umrah rides, and 24/7 intercity trips with professional drivers. No surge, quoted on WhatsApp.`,
+    title: fallbackTitle,
+    description: fallbackDesc,
     alternates: {
       canonical: `https://taxisaudiarabia.com/locations/${city}`,
     },
     openGraph: {
-      title: `Taxi Service in ${cityData.name} | Taxi Saudi Arabia`,
-      description: `Book a private transfer in ${cityData.name}, quoted on WhatsApp. Airport transfers, Umrah rides, and intercity taxi service. Available 24/7 with professional drivers.`,
+      title: fallbackTitle,
+      description: fallbackDesc,
       type: "website",
       url: `https://taxisaudiarabia.com/locations/${city}`,
-      images: [
-        {
-          url: `https://taxisaudiarabia.com/locations/${city.toLowerCase()}-og.webp`,
-          width: 1200,
-          height: 630,
-          alt: `Taxi service in ${cityData.name}, Saudi Arabia`,
-        },
-      ],
+      images: [{ url: ogImg, width: 1200, height: 630, alt: `Private transport in ${cityData.name}, Saudi Arabia` }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `Taxi Service in ${cityData.name} | Taxi Saudi Arabia`,
-      description: `Taxi in ${cityData.name} — airport transfers, Umrah rides, and 24/7 intercity trips.`,
-      images: [`https://taxisaudiarabia.com/locations/${city.toLowerCase()}-og.webp`],
+      title: fallbackTitle,
+      description: fallbackDesc,
+      images: [ogImg],
     },
   };
 }

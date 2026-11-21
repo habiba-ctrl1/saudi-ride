@@ -33,14 +33,18 @@ export interface RegionalHubConfig {
   corridors: { slug: string; label: string; note: string }[];
   routesFootnote?: string;
   compare: { heading: string; intro: string; options: { title: string; when: string[] }[] };
-  hourly: { heading: string; body: string; linkLabel: string; waPrefill: string };
+  hourly: { heading: string; body: string; linkLabel: string; waPrefill: string; href?: string };
+  /** Breadcrumb parent between Locations and this city. */
+  parent?: { name: string; href: string };
+  /** Optional link to a fuller RFQ form elsewhere. */
+  rfqHref?: string;
   vehicleHeading: string;
   vehicleIntro: string;
   vehicleFit: { id: string; label: string; fleetSlug: string; forWho: string }[];
   timingHeading: string;
   timing: { title: string; body: string }[];
   corporate: { heading: string; body: string; emailSubject: string; emailBody: string };
-  rfqCity: "Al Khobar" | "Dhahran" | "Jubail";
+  rfqCity?: string;
   quote: { heading: string; body: string };
   faqHeading: string;
   faqs: { question: string; answer: string }[];
@@ -52,6 +56,7 @@ export interface RegionalHubConfig {
 }
 
 const FREE_WAIT = "15–30 minutes";
+const EP_PARENT = { name: "Dammam & Eastern Province", href: "/locations/dammam" };
 const KH_MANAMA = routeFact("alkhobar-to-manama")!;
 const KH_DOHA = routeFact("alkhobar-to-doha")!;
 const KH_RIYADH = routeFact("alkhobar-to-riyadh")!;
@@ -128,7 +133,7 @@ export const ALKHOBAR_HUB: RegionalHubConfig = {
       { title: "A pre-booked car", when: ["Crossing fee already in the agreed fare", "Return booked at the same time if you want it", "Luggage and the whole family in one vehicle"] },
     ],
   },
-  hourly: { heading: "A driver for a Khobar working day", body: "Hotel on the Corniche, a meeting in Dhahran, lunch back in Khobar, an evening flight from DMM — one car and driver for the hours you need, with the fare for the whole block agreed first.", linkLabel: "Private Driver in Al Khobar", waPrefill: "Salam! Private driver from Al Khobar (hourly / full day).\n• Date & start time: \n• Hours needed: \n• Stops: \n• Passengers: \n(ref: dammam-private-driver)" },
+  hourly: { heading: "A driver for a Khobar working day", body: "Hotel on the Corniche, a meeting in Dhahran, lunch back in Khobar, an evening flight from DMM — one car and driver for the hours you need, with the fare for the whole block agreed first.", linkLabel: "Private Driver in Al Khobar", waPrefill: "Salam! Private driver from Al Khobar (hourly / full day).\n• Date & start time: \n• Hours needed: \n• Stops: \n• Passengers: \n(ref: dammam-private-driver)", href: "/locations/dammam/private-driver" },
   vehicleHeading: "Which car for your Al Khobar trip?",
   vehicleIntro: "Set the passengers and bags. Families crossing to Bahrain usually need the SUV or van; the luxury option is for occasions. The car available on your date is confirmed with the quote.",
   vehicleFit: [
@@ -146,6 +151,8 @@ export const ALKHOBAR_HUB: RegionalHubConfig = {
     { title: "Summer humidity", body: "The coast is hot and humid in summer — plan beach days and outdoor stops for early or late in the day." },
   ],
   corporate: { heading: "Al Khobar business travel, quoted in writing", body: "Visitors staying in Khobar and working in Dhahran or Dammam can have every airport run, office trip and Bahrain crossing on one written quote.", emailSubject: "Corporate transportation RFQ — Al Khobar", emailBody: rfqBody("Al Khobar", "DMM / Khobar / Dhahran / Bahrain") },
+  parent: EP_PARENT,
+  rfqHref: "/locations/dammam#corporate-rfq",
   rfqCity: "Al Khobar",
   quote: { heading: "Get your Al Khobar transfer quote", body: "Send both addresses, the date, passengers and luggage — and the flight number for airport trips. We reply on WhatsApp with the car and one fixed fare, usually within 1–2 hours." },
   faqHeading: "Al Khobar transport questions",
@@ -233,7 +240,7 @@ export const DHAHRAN_HUB: RegionalHubConfig = {
       { title: "One driver for the day", when: ["Several buildings or gates", "Meetings that may run late", "Airport at the end with bags in the car"] },
     ],
   },
-  hourly: { heading: "A driver for your Dhahran visit", body: "Morning at one building, afternoon at another, dinner in Al Khobar and the airport after — the driver waits at each stop and the fare for the hours is agreed before you book.", linkLabel: "Private Driver in Dhahran", waPrefill: "Salam! Private driver for a Dhahran visit.\n• Date & start time: \n• Hours needed: \n• Buildings / stops: \n• Passengers: \n(ref: dammam-private-driver)" },
+  hourly: { heading: "A driver for your Dhahran visit", body: "Morning at one building, afternoon at another, dinner in Al Khobar and the airport after — the driver waits at each stop and the fare for the hours is agreed before you book.", linkLabel: "Private Driver in Dhahran", waPrefill: "Salam! Private driver for a Dhahran visit.\n• Date & start time: \n• Hours needed: \n• Buildings / stops: \n• Passengers: \n(ref: dammam-private-driver)", href: "/locations/dammam/private-driver" },
   vehicleHeading: "Which car for a Dhahran visit?",
   vehicleIntro: "One or two visitors usually take an executive sedan; teams take an SUV or van. Availability is confirmed for your date with the quote.",
   vehicleFit: [
@@ -250,6 +257,8 @@ export const DHAHRAN_HUB: RegionalHubConfig = {
     { title: "Airport is close — but plan it", body: `DMM is about ${DMM_DHAHRAN.km} km away. It is the shortest airport run in the region, but it still needs to be worked back from the flight.` },
   ],
   corporate: { heading: "Dhahran visitor transport, quoted in writing", body: "Visiting engineers, auditors and delegations get one written quote for all their airport legs and site days.", emailSubject: "Corporate transportation RFQ — Dhahran", emailBody: rfqBody("Dhahran", "DMM / buildings / Khobar hotel / Bahrain") },
+  parent: EP_PARENT,
+  rfqHref: "/locations/dammam#corporate-rfq",
   rfqCity: "Dhahran",
   quote: { heading: "Get your Dhahran transfer quote", body: "Send the pickup, the building or gate, the date, passengers and your flight number if it is an airport leg. We reply with the car and one fixed fare before anything is booked." },
   faqHeading: "Dhahran transport questions",
@@ -336,7 +345,7 @@ export const JUBAIL_HUB: RegionalHubConfig = {
       { title: "Driver by the hour or day", when: ["Several sites in one day", "Finish times that change", "Meetings in Dammam or Al Khobar as well"] },
     ],
   },
-  hourly: { heading: "A driver for a Jubail site day", body: "From a hotel in Dammam or Al Khobar up to Jubail and back, with stops at more than one site — one car and driver, waiting while you are inside, with the fare for the whole day agreed first.", linkLabel: "Private Driver for Jubail", waPrefill: "Salam! Private driver for a Jubail site day.\n• Date & start time: \n• Hours needed: \n• Sites: \n• Passengers: \n(ref: dammam-private-driver)" },
+  hourly: { heading: "A driver for a Jubail site day", body: "From a hotel in Dammam or Al Khobar up to Jubail and back, with stops at more than one site — one car and driver, waiting while you are inside, with the fare for the whole day agreed first.", linkLabel: "Private Driver for Jubail", waPrefill: "Salam! Private driver for a Jubail site day.\n• Date & start time: \n• Hours needed: \n• Sites: \n• Passengers: \n(ref: dammam-private-driver)", href: "/locations/dammam/private-driver" },
   vehicleHeading: "Which vehicle for Jubail?",
   vehicleIntro: "Crews with tools usually need a Hiace or Coaster; visiting managers a sedan or SUV. Confirmed for your date with the quote.",
   vehicleFit: [
@@ -353,6 +362,8 @@ export const JUBAIL_HUB: RegionalHubConfig = {
     { title: "Summer heat", body: "Site visits in summer are best early in the day; the car waits close by between buildings if you book by the hour." },
   ],
   corporate: { heading: "Jubail contractor transport, quoted in writing", body: "Site weeks, rotations and visiting teams can run on one written quote for every airport leg and daily trip.", emailSubject: "Corporate transportation RFQ — Jubail", emailBody: rfqBody("Jubail", "DMM / sites / hotel / Dammam") },
+  parent: EP_PARENT,
+  rfqHref: "/locations/dammam#corporate-rfq",
   rfqCity: "Jubail",
   quote: { heading: "Get your Jubail transfer quote", body: "Send the pickup, the company and site, the date, headcount and any equipment — and the flight number for airport trips. We reply with the vehicle and one fixed fare." },
   faqHeading: "Jubail transport questions",

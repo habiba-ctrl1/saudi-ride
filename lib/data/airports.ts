@@ -3,6 +3,8 @@ import { routeFact } from "@/lib/data/cluster";
 const DMM_DHAHRAN = routeFact("dammam-airport-to-dhahran")!;
 const DMM_JUBAIL = routeFact("dammam-airport-to-jubail")!;
 const DMM_BAHRAIN = routeFact("dammam-airport-to-bahrain")!;
+const TUU_NEOM = routeFact("tabuk-airport-to-neom")!;
+const TB_AQABA = routeFact("tabuk-to-aqaba")!;
 
 // Static content for airport landing pages — single source of truth for
 // app/(marketing)/airports/[slug]/page.tsx AND app/sitemap.ts (AIRPORTS).
@@ -256,30 +258,50 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
       { href: "/fleet/toyota-camry", label: "Toyota Camry — Executive Sedan" },
     ]
   },
+  // TUU — reworked 2026-11-21 (Sprint 3). Removed: "NEOM roughly 2.5 hours"
+  // (contradicted routes.ts 120 km / ~80 min), "bottled water and Wi-Fi on all
+  // long-distance transfers" (not in facts.md), "Amaala" from TUU (AMAALA is
+  // served from Red Sea Airport). Distances via routeFact only.
   "tabuk-regional": {
     name: "Tabuk Regional Airport",
     code: "TUU",
     nameAr: "مطار تبوك الإقليمي",
     image: "/airports/tabuk-airport.webp",
-    tagline: "Gateway to the North",
-    description: "Book a taxi from Tabuk Regional Airport for seamless transfers to NEOM, Amaala, and surrounding northern destinations. Comfortable SUVs available.",
+    tagline: "Gateway to NEOM and Jordan",
+    description: `Pre-book a private car from Tabuk Regional Airport (TUU) to your Tabuk hotel, to NEOM (about ${TUU_NEOM.km} km) or across the border to Aqaba, Petra and Amman. We track your flight and the fare is agreed before you land.`,
+    tldr: `A pre-booked private car from Tabuk Airport (TUU) meets you at arrivals and drives you to Tabuk city, to NEOM — about ${TUU_NEOM.km} km (${TUU_NEOM.time}) — or on to Jordan. We track the flight, the first 15–30 minutes of waiting are free, and the fare is agreed before you land.`,
+    tldrFacts: [
+      { label: "TUU → NEOM", value: `${TUU_NEOM.km} km · ${TUU_NEOM.time}` },
+      { label: "Tabuk → Aqaba", value: `${TB_AQABA.km} km · ${TB_AQABA.time}` },
+      { label: "Meet & greet", value: "Included" },
+      { label: "Hours", value: "24/7" },
+    ],
     terminals: [
-      { name: "Main Terminal", desc: "Single terminal serving domestic and limited regional flights." }
+      { name: "Passenger terminal", desc: "Arrivals and departures. We confirm the meeting point with you before you land." }
     ],
     tips: [
-      "The drive to NEOM basecamps is roughly 2.5 hours. Pre-booking an SUV is highly recommended.",
-      "Bottled water and Wi-Fi are provided on all long-distance transfers."
+      "Send your flight number when you book — we track the flight and move the pickup if it is delayed.",
+      `NEOM is about ${TUU_NEOM.km} km from the airport. Name the exact place (NEOM Bay / Sharma, Magna, Oxagon or another site) so the drop-off is planned; site access is arranged by your host.`,
+      "Going on to Jordan? Aqaba uses the Al Durrah crossing near Haql; Petra, Wadi Rum and Amman use Halat Ammar. The vehicle's border fees are included.",
+      "We arrange a car with a driver — not self-drive car hire.",
     ],
-    priorityRoutes: ["tabuk-airport-to-neom"],
+    priorityRoutes: ["tabuk-airport-to-neom", "tabuk-to-aqaba", "tabuk-to-petra", "tabuk-to-red-sea-airport"],
     faqs: [
-      { question: "How long is the drive from Tabuk airport to NEOM?", answer: "The drive from Tabuk Regional Airport (TUU) to NEOM is roughly 2.5 hours (about 120 km). Pre-booking an SUV is recommended for comfort on this route." },
-      { question: "Where do I meet my driver at Tabuk airport?", answer: "Your driver meets you at arrivals. Share your flight number when you book and we confirm the meeting point with you before you land." },
-      { question: "What happens if my flight is delayed?", answer: "Share your flight number when you book and we check it before pickup, so the pickup time is planned around your actual arrival." }
+      { question: "How long is the drive from Tabuk airport to NEOM?", answer: `About ${TUU_NEOM.km} km — roughly ${TUU_NEOM.time} depending on where in NEOM you are going. Send the exact destination so the route and drop-off are planned.` },
+      { question: "Can I go from Tabuk airport straight to Jordan?", answer: `Yes. Aqaba is about ${TB_AQABA.km} km from Tabuk via Al Durrah; Petra and Amman go via Halat Ammar. The vehicle's border fees are included; each passenger brings a passport and visa.` },
+      { question: "Where do I meet my driver at Tabuk airport?", answer: "Your driver meets you at arrivals. Meet & greet is included, and we confirm the meeting point with you before you land." },
+      { question: "What happens if my flight is delayed?", answer: "We track your flight, so the pickup moves with your actual arrival. The first 15–30 minutes of waiting after you land are free." },
+      { question: "Is this car hire at Tabuk airport?", answer: "No — we do not rent self-drive cars. Every booking is a car with a professional driver, with the fare agreed before you travel." },
+      { question: "Can a company book transfers for visiting staff?", answer: "Yes. Email the names, flights and destinations for a written quote. Corporate invoicing can be arranged through our sister company." },
     ],
     relatedLinks: [
       { href: "/routes/tabuk-airport-to-neom", label: "Tabuk Airport to NEOM" },
       { href: "/routes/tabuk-to-aqaba", label: "Tabuk to Aqaba, Jordan" },
+      { href: "/routes/tabuk-to-petra", label: "Tabuk to Petra, Jordan" },
       { href: "/routes/tabuk-to-red-sea-airport", label: "Tabuk to Red Sea International Airport" },
+      { href: "/locations/tabuk", label: "Private transfers in Tabuk" },
+      { href: "/locations/neom", label: "NEOM transportation guide" },
+      { href: "/cross-border/saudi-to-jordan", label: "Saudi Arabia to Jordan by car" },
       { href: "/fleet/gmc-yukon-xl", label: "GMC Yukon XL — SUV for long routes" },
     ]
   },

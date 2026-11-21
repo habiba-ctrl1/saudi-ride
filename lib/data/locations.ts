@@ -389,8 +389,8 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     nameAr: "الطائف",
     image: "/locations/taif-hero.webp",
     tagline: "The City of Roses",
-    description: "Book a private chauffeur service in Taif for day trips from Makkah (~90 km, ~1 hour 10) and Jeddah (~170 km), mountain tours along the scenic Al Hada road, and visits to the famous rose farms. Taif's cool climate makes it a favourite summer escape, and our drivers know the steep, winding Sarawat mountain routes well. We provide airport transfers from Taif Regional Airport (TIF), pilgrim transfers, and full-day car hire for families touring Al Hada, Al Shafa, and the cable car — all with your fare confirmed before you book, no surge.",
-    tldr: "Taxi Saudi Arabia arranges private chauffeur and transfer service in Taif — day trips from Makkah (~90 km, ~1 hr 10) and Jeddah (~170 km), Taif Regional Airport (TIF) transfers, and mountain tours along the Al Hada and Al Shafa roads. Experienced drivers for the winding Sarawat routes.",
+    description: "Book a private chauffeur service in Taif for day trips from Makkah (~90 km, ~1 hour 10) and Jeddah (~170 km), mountain tours along the scenic Al Hada road, and visits to the famous rose farms. Taif's cool climate makes it a favourite summer escape. We provide airport transfers from Taif Regional Airport (TIF), pilgrim transfers, and full-day car hire for families touring Al Hada, Al Shafa, and the cable car — all with your fare confirmed before you book, no surge.",
+    tldr: "Taxi Saudi Arabia arranges private chauffeur and transfer service in Taif — day trips from Makkah (~90 km, ~1 hr 10) and Jeddah (~170 km), Taif Regional Airport (TIF) transfers, and mountain tours along the Al Hada and Al Shafa roads.",
     tldrFacts: [
       { label: "To Makkah", value: "~90 km · ~1 hr 10" },
       { label: "To Jeddah", value: "~170 km · ~2 hr" },
@@ -398,12 +398,12 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { label: "Pricing", value: "Quoted on WhatsApp" }
     ],
     attractions: [
-      { name: "Al Hada Mountain & Cable Car", dist: "10 km" },
+      { name: "Al Hada Mountain & Cable Car", dist: "On the Makkah road" },
       { name: "Shubra Palace", dist: "City Center" },
-      { name: "Al Rudaf Park", dist: "5 km" },
-      { name: "Al Shafa Highlands", dist: "25 km" },
-      { name: "Taif Rose Farms", dist: "20 km" },
-      { name: "Taif Regional Airport (TIF)", dist: "~25 km" }
+      { name: "Al Rudaf Park", dist: "In Taif" },
+      { name: "Al Shafa Highlands", dist: "South of the city" },
+      { name: "Taif Rose Farms", dist: "Al Hada and Al Shafa" },
+      { name: "Taif Regional Airport (TIF)", dist: "Airport" }
     ],
     tips: [
       "Taif is a popular summer escape — book early during the Taif Season festival.",
@@ -415,7 +415,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { question: "How much is a taxi from Makkah to Taif?", answer: "A taxi from Makkah to Taif is about 90 km — roughly a 1 hour 10 minute drive on the Al Hada mountain road. Fare confirmed on WhatsApp before booking, with an experienced driver for the winding route." },
       { question: "How far is Taif from Jeddah by taxi?", answer: "Taif is about 170 km from Jeddah — roughly a 2-hour drive. We offer transfers and full-day car hire for sightseeing in the Taif highlands." },
       { question: "Can I do a day trip to Taif from Makkah?", answer: "Yes. A full-day car with a driver lets you visit Al Hada, the cable car, Al Shafa, and the rose farms, then return — a cool, scenic break from the Makkah heat." },
-      { question: "Does Taif have an airport?", answer: "Yes, Taif Regional Airport (TIF) is about 25 km from the city. We provide meet & greet transfers from the airport to the city and the mountain resorts." },
+      { question: "Does Taif have an airport?", answer: "Yes, Taif Regional Airport (TIF). We provide meet & greet transfers from the airport to the city and the mountain resorts." },
       { question: "Is taxi available in Taif 24/7?", answer: "Yes, we operate around the clock in Taif for airport transfers, day trips, and mountain tours — with your fare confirmed on WhatsApp before you book." }
     ],
     relatedLinks: [
@@ -507,12 +507,12 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     nameAr: "نيوم",
     image: "/locations/neom-hero.webp",
     tagline: "Saudi Arabia's Giga-Project & Future Region",
-    description: "Book a private transfer or executive chauffeur in NEOM and the surrounding Tabuk region. We provide reliable private transport for corporate visits, contractor site travel, and airport transfers connecting Tabuk Regional Airport (TUU), NEOM Bay Airport (NUM), and Red Sea International Airport (RSI) to key destination zones including The Line, Oxagon, Trojena, Sindalah Island, and Sharma. Whether traveling for business or tourism, our professional drivers offer executive sedans and spacious SUVs at fixed, transparent fares with no surge pricing.",
-    tldr: "Taxi Saudi Arabia provides private transfer and executive chauffeur services across NEOM and the Tabuk region — serving Tabuk Airport (TUU), NEOM Bay Airport (NUM), and Red Sea International (RSI) transfers to The Line, Oxagon, Trojena, Sindalah, and Sharma.",
+    description: "Book a private transfer or executive chauffeur in NEOM and the surrounding Tabuk region. We provide reliable private transport for corporate visits, contractor site travel, and airport transfers connecting Tabuk Regional Airport (TUU), NEOM Bay Airport (NUM), and Red Sea International Airport (RSI) to NEOM Bay / Sharma, Magna and Oxagon; other NEOM sites on request, subject to access arranged by your host. Whether traveling for business or tourism, our professional drivers offer executive sedans and spacious SUVs at fixed, transparent fares with no surge pricing.",
+    tldr: "Taxi Saudi Arabia provides private transfer and executive chauffeur services across NEOM and the Tabuk region — serving Tabuk Airport (TUU), NEOM Bay Airport (NUM), and Red Sea International (RSI) transfers to NEOM Bay / Sharma, Magna and Oxagon; other NEOM sites on request, subject to access arranged by your host.",
     tldrFacts: [
       { label: "Main airports", value: "Tabuk (TUU) & RSI" },
-      { label: "Key destinations", value: "The Line, Oxagon, Trojena" },
-      { label: "Coast & islands", value: "Sindalah & Gulf of Aqaba" },
+      { label: "Key destinations", value: "Sharma, Magna, Oxagon" },
+      { label: "Coast", value: "Gulf of Aqaba" },
       { label: "Pricing", value: "Quoted on WhatsApp" }
     ],
     attractions: [
@@ -527,14 +527,14 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       "NEOM covers a vast area — provide your specific destination or gate access point when requesting a transfer.",
       "Tabuk Airport (TUU) is the primary regional air gateway (~120 km), while NEOM Bay (NUM) and Red Sea International (RSI) also serve the region.",
       "Given the long highway distances across the region, executive SUVs (e.g. GMC Yukon XL) provide optimal comfort.",
-      "Corporate invoicing is available for business accounts on request.",
+      "Corporate invoicing can be arranged through our sister company.",
       "Confirm any required site entry clearance with your host before travel."
     ],
     faqs: [
       { question: "How can I book a private transfer or executive car in NEOM?", answer: "You can book directly online via our booking page or request a customized quote on WhatsApp for executive chauffeured vehicles, airport pickups, or multi-day business transportation." },
       { question: "Do you provide airport transfers from Tabuk Airport to NEOM?", answer: "Yes, we operate private airport transfers from Tabuk Regional Airport (TUU) directly to NEOM project sites and coastal hubs (~120 km). A clear quote is provided on WhatsApp prior to booking." },
       { question: "Can I book a private car for business travel in NEOM?", answer: "Yes. We offer executive sedans and spacious SUVs with professional drivers for contractor site visits, corporate delegations, and regional business travel across NEOM and Tabuk." },
-      { question: "Which NEOM destinations do your private transfers cover?", answer: "Our private transport services cover the entire NEOM corridor, including connections toward The Line, Oxagon, Trojena, Sindalah Island, Sharma, and Tabuk City." },
+      { question: "Which NEOM destinations do your private transfers cover?", answer: "Confirmed pickup and drop-off points are NEOM Bay / Sharma, Magna, Oxagon and Tabuk city. For other NEOM sites, send the location and we confirm whether a transfer is possible — site access is arranged by your host." },
       { question: "Is private transport available in NEOM 24/7?", answer: "Yes, we provide round-the-clock private transfer and executive car services across NEOM and the Tabuk region at pre-confirmed fixed fares." }
     ],
     relatedLinks: [
@@ -558,32 +558,32 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     image: "/locations/abha-hero.webp",
     tagline: "The Misty Mountain City of Asir",
     description: "Book a private transfer in Abha for mountain tours, Soudah Peak trips, airport transfers from Abha International Airport (AHB), and rides across the Asir region including Khamis Mushait. Abha sits high in the Sarawat mountains and stays cool and misty year-round, making it Saudi Arabia's most popular summer escape. Our drivers are experienced on the steep, winding high-altitude roads and provide comfortable SUVs for families touring Soudah, the cable cars, and the heritage villages — all with your fare confirmed before you book, no surge.",
-    tldr: "Taxi Saudi Arabia arranges private transfer service in Abha — Abha International Airport (AHB) transfers, Soudah Peak and cable-car trips, and rides across the Asir region including Khamis Mushait. Experienced drivers for the cool, misty high-altitude mountain roads.",
+    tldr: "Taxi Saudi Arabia arranges private transfer service in Abha — Abha International Airport (AHB) transfers, Soudah Peak and cable-car trips, and rides across the Asir region including Khamis Mushait.",
     tldrFacts: [
       { label: "Airport", value: "AHB" },
-      { label: "Soudah Peak (from city centre)", value: "~25 km" },
-      { label: "To Khamis Mushait", value: "~25 km" },
+      { label: "AHB Airport → Soudah", value: "~45 km" },
+      { label: "Also covers", value: "Khamis Mushait" },
       { label: "Pricing", value: "Quoted on WhatsApp" }
     ],
     attractions: [
-      { name: "Soudah Peak & Cable Car", dist: "~25 km from city centre" },
+      { name: "Soudah Peak & Cable Car", dist: "~45 km from AHB airport" },
       { name: "Abha Dam Lake", dist: "City Center" },
       { name: "Green Mountain (Al Jabal Al Akhdar)", dist: "Near Abha" },
       { name: "Habala Heritage Village", dist: "Aseer highlands" },
-      { name: "Abha International Airport (AHB)", dist: "~20 km" },
-      { name: "Khamis Mushait", dist: "~25 km" }
+      { name: "Abha International Airport (AHB)", dist: "Airport" },
+      { name: "Khamis Mushait", dist: "Neighbouring city" }
     ],
     tips: [
       "Abha is cool and misty year-round — very popular in summer, so book ahead during the Asir season.",
       "Mountain roads to Soudah are steep; an SUV is the most comfortable choice.",
-      "Abha International Airport (AHB) is about 20 km from the city — pre-book your meet & greet transfer.",
+      "Pre-book your meet & greet transfer from Abha International Airport (AHB) — we track your flight.",
       "Combine Soudah, the cable car, and Habala village in a full-day car hire for the best value."
     ],
     faqs: [
-      { question: "How much is a taxi from Abha airport to the city?", answer: "A taxi from Abha International Airport (AHB) to the city centre is about 20 km — fare confirmed on WhatsApp before booking, with meet & greet at arrivals." },
+      { question: "How much is a taxi from Abha airport to the city?", answer: "A private car from Abha International Airport (AHB) to your hotel is quoted as one fixed fare — confirmed on WhatsApp before booking, with meet & greet at arrivals." },
       { question: "Can I do a Soudah Peak day trip from Abha?", answer: "Yes. A full-day car with a driver takes you to Soudah Peak, the cable car, and the viewpoints, then back — the easiest way to enjoy the highlands without driving the steep roads yourself." },
       { question: "Is an SUV better for Abha's mountain roads?", answer: "Yes. The roads to Soudah and the Asir highlands are steep and winding, so a comfortable SUV with an experienced local driver is recommended, especially for families." },
-      { question: "Does the taxi cover Khamis Mushait too?", answer: "Yes — Abha and Khamis Mushait are about 25 km apart and transfers can be arranged to both, along with the Asir heritage villages and viewpoints, with your fare confirmed on WhatsApp before you book." },
+      { question: "Does the taxi cover Khamis Mushait too?", answer: "Yes — transfers can be arranged to both Abha and Khamis Mushait, along with the Asir heritage villages and viewpoints, with your fare confirmed on WhatsApp before you book." },
       { question: "Is taxi available in Abha 24/7?", answer: "Yes — transfers can be booked 24/7 for airport arrivals, mountain tours, and rides across the Asir region, with your fare confirmed on WhatsApp before you book." },
       { question: "Can I travel from Abha to Jizan or Najran by private car?", answer: "Yes. Abha to Jizan is about 200 km by road and Najran to Abha about 247 km. Each is a fixed-fare private transfer confirmed on WhatsApp before you book." }
     ],
