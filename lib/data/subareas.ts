@@ -534,19 +534,8 @@ export const SUB_AREAS: Record<string, {
   // Dammam / Eastern Province
   // NOTE: "al-khobar" removed — it duplicated the standalone /locations/alkhobar
   // city page (same city, competing content). See next.config.ts redirect.
-  "dhahran": {
-    city: "dammam", subarea: "dhahran", name: "Dhahran", nameAr: "الظهران",
-    description: "Executive corporate transport for Saudi Aramco facilities, KFUPM, and companies based in Dhahran.",
-    airportMin: "~25 min", makkahMin: "—", airportLabel: "King Fahd Airport (DMM)", popularFor: "Aramco facilities, KFUPM, corporate visitors",
-    landmarks: ["Saudi Aramco headquarters area", "KFUPM", "Dhahran Expo"],
-    tldr: "A chauffeur in Dhahran is quoted on WhatsApp before booking and available 24/7, built for corporate and Aramco-related travel. It is about 25 minutes from King Fahd International Airport (DMM), with written quotes for companies by email.",
-    tldrFacts: [{ label: "To DMM", value: "~25 min" }, { label: "Pricing", value: "Quoted on WhatsApp / Corporate" }, { label: "Hours", value: "24/7" }, { label: "Popular for", value: "Aramco, KFUPM" }],
-    faqs: [
-      { question: "Do you provide corporate accounts for companies in Dhahran?", answer: "Yes. Companies and contractors around Dhahran can request a written quote by email. Corporate invoicing can be arranged through our sister company." },
-      { question: "How far is Dhahran from Dammam airport?", answer: "Dhahran is about 25 minutes from King Fahd International Airport (DMM), with meet & greet transfers." },
-      { question: "Can you arrange transport for KFUPM visitors or staff?", answer: "Yes. Private transfers can be booked for KFUPM visitors and conference guests — share the gate or building when booking." },
-    ],
-  },
+  // NOTE: "dhahran" removed 2026-11-21 — duplicated /locations/dhahran;
+  // 301 in next.config.ts.
   "half-moon-bay": {
     city: "dammam", subarea: "half-moon-bay", name: "Half Moon Bay", nameAr: "شاطئ نصف القمر",
     description: "Resort transfers and private transport to Half Moon Bay, a Gulf coast resort area near Dammam.",

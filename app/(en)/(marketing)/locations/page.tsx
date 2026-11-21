@@ -85,7 +85,7 @@ const LOCATIONS = [
     airports: ["King Fahd International Airport (DMM, ~90 km)"],
     popularRoutes: ["DMM Airport → Jubail", "Jubail → Dammam", "Jubail → Al Khobar"],
     startingPrice: 250,
-    note: "Corporate and contractor transport for Jubail Industrial City, SABIC, and Royal Commission (RCJY) sites — monthly billing available.",
+    note: "Transfers for visitors and crews at Jubail Industrial City sites — written quotes for companies; access is arranged by your host.",
     slug: "jubail"
   },
   {
@@ -98,7 +98,7 @@ const LOCATIONS = [
     airports: ["King Fahd International Airport (DMM, ~25 km)"],
     popularRoutes: ["DMM Airport → Dhahran", "Dhahran → Al Khobar", "Dhahran → Jubail"],
     startingPrice: 100,
-    note: "Corporate transfers to Saudi Aramco HQ, KFUPM, and Dhahran Techno Valley — monthly billing available.",
+    note: "Visitor transfers to the Saudi Aramco HQ area, KFUPM and Dhahran Techno Valley — written quotes for companies.",
     slug: "dhahran"
   },
   {

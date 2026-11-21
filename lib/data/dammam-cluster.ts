@@ -142,7 +142,6 @@ export const DAMMAM_AREAS: { href: string; name: string; nameAr: string; what: s
   { href: "/locations/jubail", name: "Jubail", nameAr: "الجبيل", what: `Industrial City I & II, about ${DMM_JUBAIL.km} km from DMM` },
   { href: "/locations/dammam/qatif", name: "Qatif", nameAr: "القطيف", what: "The coastal city north of Dammam" },
   { href: "/locations/dammam/half-moon-bay", name: "Half Moon Bay", nameAr: "شاطئ نصف القمر", what: "Beach resorts south of Al Khobar — a day trip with a timed return" },
-  { href: "/locations/dammam/dhahran", name: "Dhahran visitor pickups", nameAr: "الظهران", what: "Gate and building pickups for visitors" },
 ];
 
 /* ─── Hub: corridor board (every slug is a real route page) ─────────── */
@@ -490,7 +489,6 @@ export const DAMMAM_CHILD_NAV: { slug: string; label: string }[] = [
   { slug: "private-driver", label: "Private driver" },
   { slug: "qatif", label: "Qatif" },
   { slug: "half-moon-bay", label: "Half Moon Bay" },
-  { slug: "dhahran", label: "Dhahran visitors" },
 ];
 
 export const DAMMAM_CITY: ClusterCity = { slug: "dammam", name: "Dammam", nav: DAMMAM_CHILD_NAV };

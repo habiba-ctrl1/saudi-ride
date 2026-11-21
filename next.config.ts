@@ -36,6 +36,14 @@ const nextConfig: NextConfig = {
         destination: "/locations/alkhobar",
         permanent: true,
       },
+      // 2026-11-21 (owner-approved, Q-A in seo/eastern-province-keyword-map.md):
+      // the Dammam sub-area "dhahran" competed with the standalone
+      // /locations/dhahran for "dhahran taxi" (0 impressions, never indexed).
+      {
+        source: "/locations/dammam/dhahran",
+        destination: "/locations/dhahran",
+        permanent: true,
+      },
     ];
 
     // Business decision (2026-08-02): we don't recruit drivers — the network
