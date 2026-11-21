@@ -37,6 +37,7 @@ import { DammamHub } from "@/components/location/cluster/DammamHub";
 import { RegionalHub } from "@/components/location/cluster/RegionalHub";
 import { EASTERN_HUBS as EP_HUBS } from "@/lib/data/eastern-hubs";
 import { SECONDARY_HUBS } from "@/lib/data/secondary-hubs";
+import { AR_REGIONAL_HUBS } from "@/lib/data/regional-hubs-ar";
 const EASTERN_HUBS = { ...EP_HUBS, ...SECONDARY_HUBS };
 
 // Real distances/times pulled from the same ROUTES_DATA source the route
@@ -545,7 +546,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: d,
       alternates: {
         canonical: `https://taxisaudiarabia.com/locations/${cityKeyLower}`,
-        ...(cityKeyLower === "alula" || cityKeyLower === "jeddah" || cityKeyLower === "makkah" || cityKeyLower === "madinah"
+        ...(cityKeyLower === "alula" || cityKeyLower === "jeddah" || cityKeyLower === "makkah" || cityKeyLower === "madinah" || cityKeyLower === "dammam"
           ? { languages: { en: `https://taxisaudiarabia.com/locations/${cityKeyLower}`, ar: `https://taxisaudiarabia.com/ar/locations/${cityKeyLower}`, "x-default": `https://taxisaudiarabia.com/locations/${cityKeyLower}` } }
           : {}),
       },
@@ -563,7 +564,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {
       title: t,
       description: d,
-      alternates: { canonical: url },
+      alternates: {
+        canonical: url,
+        ...(AR_REGIONAL_HUBS[cityKeyLower]
+          ? { languages: { en: url, ar: `https://taxisaudiarabia.com/ar/locations/${cityKeyLower}`, "x-default": url } }
+          : {}),
+      },
       openGraph: { title: t, description: d, type: "website", url, images: [{ url: img, width: 1200, height: 630, alt: `Private transport in ${cityData.name}, Saudi Arabia` }] },
       twitter: { card: "summary_large_image", title: t, description: d, images: [img] },
     };

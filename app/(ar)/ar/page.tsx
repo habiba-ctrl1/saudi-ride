@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import { HomePage } from "@/components/sections/home-page";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { faqSchema } from "@/lib/schema";
+import Link from "next/link";
+import { AR_CITY_HUBS } from "@/lib/data/ar-hubs";
 
 export const metadata: Metadata = {
   title: "تاكسي السعودية — حجز توصيل المطار وسيارات العمرة | أسعار ثابتة 24/7",
   description:
-    "احجز تاكسي في السعودية — توصيل من وإلى المطار، تنقل للعمرة، ورحلات بين المدن بأسعار ثابتة. سائقون مرخصون، وحجز عبر واتساب على مدار الساعة.",
+    "احجز تاكسي في السعودية — توصيل من وإلى المطار، تنقل للعمرة، ورحلات بين المدن بأسعار ثابتة. سائقون يتحدثون العربية والإنجليزية، وحجز عبر واتساب على مدار الساعة.",
   alternates: {
     canonical: "https://taxisaudiarabia.com/ar",
     languages: {
@@ -50,7 +52,7 @@ const HOME_FAQS_AR = [
   },
   {
     question: "هل السائقون محترفون وذوو خبرة؟",
-    answer: "بالتأكيد. يتم ترتيب جميع سائقينا من خلال شركائنا في النقل، وهم يتحدثون العربية والإنجليزية والأردية.",
+    answer: "بالتأكيد. يتم ترتيب جميع سائقينا من خلال شركائنا في النقل، وهم يتحدثون العربية والإنجليزية.",
   },
   {
     question: "هل لديكم مركبات للعائلات الكبيرة؟",
@@ -63,6 +65,24 @@ export default function ArabicHome() {
     <>
       <JsonLd data={faqSchema(HOME_FAQS_AR)} />
       <HomePage />
+      {/* Arabic city hubs — added 2026-11-22 (seo/sprint4-arabic-plan.md):
+          the Arabic homepage previously linked to none of them. */}
+      <section dir="rtl" lang="ar" aria-labelledby="ar-cities-heading" className="bg-[#FAFAF7] py-16">
+        <div className="section-container max-w-6xl">
+          <h2 id="ar-cities-heading" className="font-heading text-2xl font-bold text-[#1C1C1C] md:text-3xl">النقل الخاص في مدن المملكة</h2>
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[#4B5563]">اختر مدينتك لترى خيارات النقل من المطار وداخل المدينة والرحلات إلى المدن القريبة، مع سعر ثابت يُتفق عليه قبل الحجز.</p>
+          <ul className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {AR_CITY_HUBS.map((h) => (
+              <li key={h.key}>
+                <Link href={h.href} className="flex min-h-[72px] flex-col justify-center rounded-2xl border border-[#E5E7EB] bg-white px-5 py-4 transition-colors hover:border-[#16A34A]/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16A34A]">
+                  <span className="font-heading text-base font-bold text-[#1C1C1C]">تاكسي {h.name}</span>
+                  <span className="mt-1 text-xs leading-relaxed text-[#6B7280]">{h.blurb}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
     </>
   );
 }

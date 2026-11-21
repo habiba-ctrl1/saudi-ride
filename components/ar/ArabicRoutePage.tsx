@@ -15,6 +15,7 @@ import { HolyCitySections } from "@/components/routes/HolyCitySections";
 import { JeddahMadinahSections } from "@/components/routes/JeddahMadinahSections";
 import { AR_ROUTE_CONTENT_SLUGS } from "@/lib/data/routes-content-ar";
 import { AR_XB_ROUTE_SLUGS } from "@/lib/data/cross-border-ar";
+import { arHubsForRoute } from "@/lib/data/ar-hubs";
 
 // Related Arabic routes (added 2026-11-16). The live crawl showed most
 // /ar/routes/* pages had only 0–2 internal links pointing at them (there is no
@@ -448,6 +449,24 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
       </section>
 
       {AR_ALULA_ROUTE_SLUGS.includes(content.slug) && <AlulaRouteNavAr slug={content.slug} />}
+
+      {arHubsForRoute(content.slug).length > 0 && (
+        <section className="section-container max-w-4xl py-12 border-t border-[#C9A84C]/10">
+          <h2 className="font-heading text-xl font-bold mb-6 text-center">النقل الخاص في المدينة</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {arHubsForRoute(content.slug).map((h) => (
+              <Link
+                key={h.key}
+                href={h.href}
+                className="flex min-h-[44px] flex-col justify-center rounded-xl border border-[#16A34A]/12 bg-white px-4 py-3 text-sm text-[#1C1C1C] hover:border-[#16A34A]/35 hover:text-[#16A34A] transition-colors"
+              >
+                <span className="font-bold">تاكسي ونقل خاص في {h.name}</span>
+                <span className="mt-0.5 text-xs text-[#6B7280]">{h.blurb}</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {related.length > 0 && (
         <section className="section-container max-w-4xl py-12 border-t border-[#C9A84C]/10">

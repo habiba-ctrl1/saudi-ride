@@ -97,7 +97,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // Arabic Makkah hub + Ziyarat (hreflang pairs of the English pages).
-  const arMakkahItems = ["/ar/locations/makkah", "/ar/services/makkah-ziyarat", "/ar/locations/madinah", "/ar/locations/jeddah", "/ar/services/corporate"].map((p) => ({
+  const arMakkahItems = ["/ar/locations/makkah", "/ar/services/makkah-ziyarat", "/ar/locations/madinah", "/ar/locations/jeddah", "/ar/services/corporate", "/ar/locations/dammam", "/ar/locations/jubail", "/ar/locations/yanbu"].map((p) => ({
     url: `${DOMAIN}${p}`,
     lastModified: now,
     changeFrequency: "weekly" as const,
