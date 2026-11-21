@@ -1,3 +1,9 @@
+import { routeFact } from "@/lib/data/cluster";
+
+const DMM_DHAHRAN = routeFact("dammam-airport-to-dhahran")!;
+const DMM_JUBAIL = routeFact("dammam-airport-to-jubail")!;
+const DMM_BAHRAIN = routeFact("dammam-airport-to-bahrain")!;
+
 // Static content for airport landing pages — single source of truth for
 // app/(marketing)/airports/[slug]/page.tsx AND app/sitemap.ts (AIRPORTS).
 export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameAr: string, h1Name?: string, image: string, tagline: string, description: string, terminals: { name: string, desc: string }[], tips: string[], priorityRoutes: string[], tldr?: string, tldrFacts?: { label: string, value: string }[], faqs?: { question: string, answer: string }[], relatedLinks?: { href: string, label: string }[] }> = {
@@ -167,6 +173,10 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
       { href: "/fleet/toyota-camry", label: "Toyota Camry — Executive Sedan" },
     ]
   },
+  // DMM — reworked 2026-11-21 (seo/eastern-province-keyword-map.md). Distances
+  // only via routeFact(); the old "DMM → Dammam 25–30 min", "Khobar 30–40 min",
+  // "20 km northwest" and "passport details 24 hours in advance" lines had no
+  // source / were not a confirmed policy and were removed.
   "king-fahd-dammam": {
     name: "King Fahd International Airport",
     code: "DMM",
@@ -174,31 +184,41 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     nameAr: "مطار الملك فهد الدولي",
     image: "/airports/dammam-hero.webp",
     tagline: "The Eastern Gateway",
-    description: "Pre-book your taxi from King Fahd International Airport (DMM) to Dammam, Al Khobar, Dhahran, or Jubail. Cross-border transfers to Bahrain also available upon request.",
-    tldr: "A taxi from King Fahd International Airport (DMM) to Dammam takes about 25–30 minutes. Transfers quoted on WhatsApp also available to Al Khobar, Dhahran, and cross-border to Bahrain via King Fahd Causeway.",
+    description: `Pre-book a private car from King Fahd International Airport (DMM) to Dammam, Al Khobar, Dhahran (about ${DMM_DHAHRAN.km} km), Jubail (about ${DMM_JUBAIL.km} km), Qatif or Half Moon Bay — or straight across the causeway to Bahrain (about ${DMM_BAHRAIN.km} km). We track your flight and the fare is agreed before you land.`,
+    tldr: `A pre-booked private car from Dammam airport (DMM) meets you at arrivals and drives you to Dammam, Al Khobar, Dhahran or Jubail. Dhahran is about ${DMM_DHAHRAN.km} km (${DMM_DHAHRAN.time}), Jubail about ${DMM_JUBAIL.km} km and Bahrain about ${DMM_BAHRAIN.km} km from the terminal. We track the flight, the first 15–30 minutes of waiting are free, and the fare is agreed before you land.`,
     tldrFacts: [
-      { label: "DMM → Dammam", value: "~25–30 min" },
-      { label: "DMM → Al Khobar", value: "~30–40 min" },
+      { label: "DMM → Dhahran", value: `${DMM_DHAHRAN.km} km · ${DMM_DHAHRAN.time}` },
+      { label: "DMM → Jubail", value: `${DMM_JUBAIL.km} km · ${DMM_JUBAIL.time}` },
+      { label: "DMM → Bahrain", value: `${DMM_BAHRAIN.km} km · ${DMM_BAHRAIN.time}` },
       { label: "Meet & greet", value: "Included" },
-      { label: "Hours", value: "24/7" }
     ],
     terminals: [
-      { name: "Main Terminal", desc: "Six-level terminal handling all passenger traffic." }
+      { name: "Passenger terminal", desc: "Arrivals and departures. We confirm the meeting point with you before you land." }
     ],
     tips: [
-      "DMM is the largest airport in the world by area, located 20km northwest of Dammam.",
-      "For transfers to Bahrain, please provide passport details 24 hours in advance.",
-      "Share your flight number when you book so we check it before pickup.",
+      "The airport sits north-west of the Dammam–Khobar–Dhahran metro, so every transfer is a proper drive — plan departures from your flight time.",
+      "Send your flight number when you book; we track the flight and move the pickup if it is delayed.",
+      "For Bahrain, each passenger carries their own passport and entry documents; the vehicle's causeway fee is included in the fare.",
+      "Heading to Jubail Industrial City or a Dhahran office? Send the site or building name so the drop-off point is planned in advance.",
       "Meet & greet is included — we confirm the meeting point with you before you land."
     ],
-    priorityRoutes: ["dammam-to-doha", "dammam-to-manama"],
+    priorityRoutes: ["dammam-airport-to-dhahran", "dammam-airport-to-jubail", "dammam-airport-to-bahrain", "dammam-to-doha", "dammam-to-manama"],
     faqs: [
-      { question: "How much is a taxi from Dammam airport to Al Khobar?", answer: "A taxi from King Fahd International Airport (DMM) to Al Khobar is a 30–40 minute drive. The exact fare is confirmed before you book — no surge or hidden fees." },
-      { question: "Can I get a taxi from DMM airport to Bahrain?", answer: "Yes. We offer cross-border transfers from DMM to Bahrain via the King Fahd Causeway. Each passenger completes their own border checks on the causeway and carries their own valid documents. Our Dammam Airport to Bahrain route page has the full details." },
+      { question: "How do I get from Dammam airport to my hotel?", answer: "Pre-book a private car with your flight number. We track the flight, meet you at arrivals and drive you to your hotel in Dammam, Al Khobar or Dhahran. The fare is agreed before you land — no meter and no surge." },
+      { question: "How far is Dammam airport from Dhahran and Jubail?", answer: `Dhahran is about ${DMM_DHAHRAN.km} km (${DMM_DHAHRAN.time}) and Jubail about ${DMM_JUBAIL.km} km (${DMM_JUBAIL.time}). Dammam and Al Khobar are further from the airport than Dhahran.` },
+      { question: "Can I get a taxi from DMM airport to Bahrain?", answer: `Yes — about ${DMM_BAHRAIN.km} km straight from the terminal over the King Fahd Causeway. The vehicle's crossing fee is included; each passenger carries their own valid documents and completes the border checks in person.` },
+      { question: "Can I go from DMM straight to Doha?", answer: "Yes, by road through the Salwa border. The vehicle's border fees are included in the quoted fare; visas and entry are each passenger's own." },
       { question: "Where do I meet my driver at Dammam airport?", answer: "Your driver meets you at arrivals. Meet & greet is included with every booking, and we confirm the meeting point with you before you land." },
-      { question: "What happens if my flight is delayed?", answer: "Share your flight number when you book and we check it before pickup, so the pickup time is planned around your actual arrival." }
+      { question: "What happens if my flight is delayed?", answer: "We track your flight, so the pickup moves with your actual arrival. The first 15–30 minutes of waiting after you land are free." },
+      { question: "Can a company book airport transfers for visiting staff?", answer: "Yes. Email the names, flights and destinations for a written quote. Corporate invoicing can be arranged through our sister company." },
+      { question: "Which car should I book from DMM?", answer: "A sedan for one to three people with normal bags; a GMC Yukon XL or a van for families and teams with luggage; a Hiace or Coaster for groups. The car is confirmed for your flight date when we quote." }
     ],
     relatedLinks: [
+      { href: "/locations/dammam", label: "Private transport across Dammam, Khobar and Dhahran" },
+      { href: "/routes/dammam-airport-to-dhahran", label: "DMM Airport to Dhahran" },
+      { href: "/routes/dammam-airport-to-jubail", label: "DMM Airport to Jubail" },
+      { href: "/locations/alkhobar", label: "Al Khobar hotels and the Corniche" },
+      { href: "/locations/dammam/private-driver", label: "Keep a driver for the day after you land" },
       { href: "/routes/dammam-airport-to-doha", label: "DMM straight to Doha, Qatar" },
       { href: "/routes/dammam-to-doha", label: "Dammam city to Doha" },
       { href: "/routes/dammam-to-manama", label: "DMM to Manama, Bahrain" },

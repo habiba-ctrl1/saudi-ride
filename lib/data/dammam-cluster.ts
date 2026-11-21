@@ -340,10 +340,157 @@ export const DAMMAM_PAGES: Record<string, ClusterPage> = {
   },
 };
 
+/* ─── Child pages: Qatif + Half Moon Bay (added 2026-11-21) ──────────────
+ * Both were thin old-template pages (273 / 296 words, "Discovered – not
+ * indexed", 0 impressions), so title/H1 could be improved (rule 3 applies to
+ * ranking pages only). No distances: neither trip is in routes.ts. Place
+ * facts kept to well-established geography (Tarout Island and its castle,
+ * Saihat and Safwa in Qatif governorate; Half Moon Bay on the coast south of
+ * Al Khobar). */
+DAMMAM_PAGES["qatif"] = {
+  slug: "qatif",
+  kind: "district",
+  name: "Qatif",
+  nameAr: "القطيف",
+  title: "Qatif Taxi & Private Transfers | Tarout, Dammam & DMM Airport",
+  metaDescription: "Pre-booked private car in Qatif — Tarout Island, Saihat and Safwa, rides to Dammam and Al Khobar, DMM airport pickups and Bahrain trips. Fare agreed before booking.",
+  h1: "Private Taxi & Transfers in Qatif",
+  eyebrow: "Qatif · North of Dammam · Gulf coast",
+  intro: "Qatif is the coastal governorate just north of Dammam, taking in Tarout Island, Saihat and Safwa. A pre-booked private car covers the trips people actually make from here: into Dammam or Al Khobar for work and shopping, to King Fahd Airport (DMM) for a flight, over to Bahrain, or a visit to Tarout Castle — with one fare agreed before you travel.",
+  facts: [
+    { label: "Covers", value: "Qatif city, Tarout, Saihat, Safwa" },
+    { label: "Common trips", value: "Dammam, Khobar, DMM, Bahrain" },
+    { label: "Drivers", value: "English & Arabic, 24/7" },
+    { label: "Cancellation", value: "Free up to 24h before" },
+  ],
+  blocks: [
+    {
+      type: "cards",
+      eyebrow: "Trips from Qatif",
+      heading: "Where people go from Qatif",
+      items: [
+        { title: "Into Dammam and Al Khobar", body: "Offices, hospitals, malls and the Khobar Corniche are a drive south. Give both addresses with the district and you get one fare for the car." },
+        { title: "DMM Airport", body: "Pickups for departures and arrivals at King Fahd International Airport, with flight tracking on the arrival leg and meet & greet." },
+        { title: "Tarout Island", body: "Tarout is joined to Qatif by road. Book a drive to Tarout Castle and the old quarter with a timed return, or keep the car if you are combining stops." },
+      ],
+    },
+    {
+      type: "compare",
+      heading: "From Qatif: a single trip or a driver for the day?",
+      intro: "Qatif to the Khobar side is a real drive, so a return trip often needs waiting time.",
+      options: [
+        { title: "Single trip", tone: "ink", when: ["Airport run or a one-way move", "You are staying at the destination", "No waiting needed"] },
+        { title: "Driver by the hour", tone: "green", when: ["Appointments in Dammam and back the same day", "Several stops across the metro", "Family visits with elders or children"] },
+      ],
+    },
+    {
+      type: "checklist",
+      heading: "What to send for a Qatif quote",
+      items: [
+        "Pickup area — Qatif city, Tarout, Saihat, Safwa or elsewhere",
+        "Drop-off address with the city and district",
+        "Date and time, and whether you need the return",
+        "Passengers and large bags",
+        "Flight number for airport trips",
+      ],
+    },
+  ],
+  ctaHeading: "Request a car from Qatif",
+  ctaBody: "Send the pickup area in Qatif, where you are going and when. We reply with the vehicle and one fixed fare, usually within 1–2 hours.",
+  ctaLabel: "Request a Qatif Quote",
+  waPrefill: "Salam! Private car from Qatif.\n• Pickup (Qatif / Tarout / Saihat / Safwa): \n• To: \n• Date & time: \n• Passengers & luggage: \n• Return needed?: \n(ref: dammam-qatif)",
+  form: { pickup: "Qatif", vehicle: "Sedan", tripType: "One Way" },
+  faqs: [
+    { question: "Can I book a private car from Qatif to Dammam or Al Khobar?", answer: "Yes. Send both addresses with the district and the time; you get one fixed fare for the car, agreed before booking, and the return can be added." },
+    { question: "Do you pick up from Tarout, Saihat and Safwa?", answer: "Yes — anywhere in the Qatif area. Give the district or a nearby landmark so the driver plans the pickup point." },
+    { question: "Can I get a car from Qatif to King Fahd Airport?", answer: "Yes, for departures and arrivals. On arrivals we track your flight, meet you at arrivals and the first 15–30 minutes of waiting are free." },
+    { question: "Can I go from Qatif to Bahrain?", answer: "Yes, over the King Fahd Causeway. The vehicle's crossing fee is included in the fare; each passenger carries their own passport and entry documents." },
+    { question: "How do I pay?", answer: "Cash to the driver or bank transfer, with an electronic receipt on request." },
+  ],
+  related: [
+    { href: "/locations/dammam", label: "Dammam & Eastern Province", desc: "The hub for the whole metro" },
+    { href: "/locations/alkhobar", label: "Al Khobar", desc: "Corniche and the causeway side" },
+    { href: "/locations/dammam/private-driver", label: "Private driver", desc: "Hourly hire across the metro" },
+    { href: "/airports/king-fahd-dammam", label: "DMM Airport", desc: "Arrivals and departures" },
+    { href: "/cross-border/saudi-to-bahrain", label: "Bahrain by car", desc: "Over the King Fahd Causeway" },
+    { href: "/book", label: "Book online", desc: "The full booking form" },
+  ],
+  schema: { serviceType: "Private transfer service", place: { name: "Qatif", type: "Place", description: "Coastal governorate north of Dammam in Saudi Arabia's Eastern Province, including Tarout Island, Saihat and Safwa." } },
+};
+
+DAMMAM_PAGES["half-moon-bay"] = {
+  slug: "half-moon-bay",
+  kind: "attraction",
+  name: "Half Moon Bay",
+  nameAr: "شاطئ نصف القمر",
+  title: "Half Moon Bay Transfers | Private Car from Al Khobar & Dammam",
+  metaDescription: "Private car to Half Moon Bay beach and resorts — from Al Khobar, Dammam, Dhahran or DMM Airport, with a timed return or a driver who waits. Fare agreed first.",
+  h1: "Private Car to Half Moon Bay",
+  eyebrow: "Half Moon Bay · Gulf coast south of Al Khobar",
+  intro: "Half Moon Bay is the stretch of beaches, chalets and resorts on the Gulf coast south of Al Khobar. A pre-booked private car takes you there from a hotel in Khobar, Dammam or Dhahran — or straight from DMM Airport to a resort — and brings you back at the time you choose, so nobody is left looking for a ride from the beach at sunset.",
+  facts: [
+    { label: "Where", value: "Coast south of Al Khobar" },
+    { label: "Booked as", value: "Timed return or hourly" },
+    { label: "From", value: "Khobar, Dammam, Dhahran, DMM" },
+    { label: "Free waiting", value: "15–30 min on transfers" },
+  ],
+  blocks: [
+    {
+      type: "steps",
+      heading: "How a Half Moon Bay day works",
+      items: [
+        { title: "Pick the times", desc: "Tell us when you want to leave the hotel and when you want to be collected." },
+        { title: "Name the beach or resort", desc: "Half Moon Bay has many chalets and resorts — the exact name sets the drop-off point." },
+        { title: "Agree one fare", desc: "There and back, or the car for the whole day — one fixed fare before booking." },
+        { title: "Collected on time", desc: "The driver returns at the agreed time; message on WhatsApp if your plans move." },
+      ],
+    },
+    {
+      type: "compare",
+      heading: "Timed return or keep the car for the day?",
+      intro: "Most families book a timed return. Keep the car if the day has more than one stop.",
+      options: [
+        { title: "There and back", tone: "ink", when: ["One beach or resort all day", "You know your return time", "Lowest total for a simple day"] },
+        { title: "Car for the day", tone: "green", when: ["Beach, then lunch elsewhere, then the Corniche", "Return time that depends on the weather or the children", "Bags and beach gear stay in the car"] },
+      ],
+    },
+    {
+      type: "checklist",
+      heading: "Before you go",
+      items: [
+        "From late spring to early autumn the coast is hot and humid — morning or late afternoon is easier",
+        "Weekends are busiest; book the return time in advance",
+        "Resort and chalet entry is your own booking — we provide the transport",
+        "Families with beach gear or a cool box: ask for an SUV or van",
+      ],
+    },
+  ],
+  ctaHeading: "Book a car to Half Moon Bay",
+  ctaBody: "Send the pickup, the beach or resort name, and your times there and back. We reply with the car and one fixed fare.",
+  ctaLabel: "Request a Half Moon Bay Quote",
+  waPrefill: "Salam! Private car to Half Moon Bay.\n• Pickup (hotel / area): \n• Beach / resort: \n• Date & time there: \n• Return time: \n• Passengers: \n(ref: dammam-half-moon-bay)",
+  form: { pickup: "Al Khobar", dropoff: "Half Moon Bay", vehicle: "VIP SUV", tripType: "Round Trip" },
+  faqs: [
+    { question: "Can you take us from Al Khobar to Half Moon Bay and back?", answer: "Yes. Book it as a round trip with a pickup time for the return, or keep the car for the day if you have more than one stop. The fare is agreed before booking." },
+    { question: "Can we go straight from DMM Airport to a Half Moon Bay resort?", answer: "Yes. Give us the flight number and the resort name; we track the flight, meet you at arrivals and drive you to the resort." },
+    { question: "Do you arrange the resort or chalet booking?", answer: "No — that is booked directly with the resort. We provide the private transport there and back." },
+    { question: "Which car for a family beach day?", answer: "A GMC Yukon XL or a van such as the Hyundai Staria gives room for beach gear and children; the car is confirmed for your date when we quote." },
+  ],
+  related: [
+    { href: "/locations/alkhobar", label: "Al Khobar", desc: "The closest city to Half Moon Bay" },
+    { href: "/locations/dammam", label: "Dammam & Eastern Province", desc: "All trips across the metro" },
+    { href: "/locations/dammam/private-driver", label: "Private driver", desc: "Keep the car for the day" },
+    { href: "/airports/king-fahd-dammam", label: "DMM Airport", desc: "Arrive and go straight to the beach" },
+    { href: "/book", label: "Book online", desc: "The full booking form" },
+  ],
+  schema: { serviceType: "Private transfer service", place: { name: "Half Moon Bay", type: "TouristAttraction", description: "Beaches, chalets and resorts on the Gulf coast south of Al Khobar, Eastern Province, Saudi Arabia." } },
+};
+
 export const DAMMAM_CHILD_NAV: { slug: string; label: string }[] = [
   { slug: "private-driver", label: "Private driver" },
   { slug: "qatif", label: "Qatif" },
   { slug: "half-moon-bay", label: "Half Moon Bay" },
+  { slug: "dhahran", label: "Dhahran visitors" },
 ];
 
 export const DAMMAM_CITY: ClusterCity = { slug: "dammam", name: "Dammam", nav: DAMMAM_CHILD_NAV };
