@@ -494,7 +494,7 @@ const CITY_META_DESCRIPTION: Record<string, string> = {
   jeddah: "Private taxi & chauffeur in Jeddah — JED airport transfers with flight tracking, Makkah (~80 km) and Madinah (~420 km) trips, hotel transfers, 24/7.",
   dammam: "Private taxi & chauffeur in Dammam, Al Khobar and Dhahran — DMM airport pickups with flight tracking, city rides, hourly drivers, Bahrain and Doha trips. Fare agreed first.",
   alula: "Private transfers and chauffeur service in AlUla — ULH airport, hotels, Hegra, Maraya, a private driver for multi-stop days, and Madinah or Red Sea transfers. Fare agreed first.",
-  taif: "Taxi in Taif — day trips from Makkah (~90 km) via Al Hada, rose farm visits, and TIF airport transfers. Cool mountain escape.",
+  taif: "Private car with driver in Taif — Makkah (~90 km), Jeddah, JED and TIF airport transfers, Al Hada & Al Shafa day trips, hourly drivers. Fare agreed first, 24/7.",
   alkhobar: "Private taxi & chauffeur in Al Khobar — Bahrain over the King Fahd Causeway, DMM airport pickups, Corniche and Dhahran rides, Doha and Riyadh by road. Fare agreed first.",
   dhahran: "Private transfers in Dhahran — DMM airport (25 km), visitor pickups at offices and campuses, Ithra, hourly drivers and trips to Al Khobar, Dammam and Bahrain. Fare agreed first.",
   jubail: "Private transfers for Jubail — DMM airport (90 km), Industrial City site visits, crew vans and coasters, hourly drivers and Kuwait by road. Fare agreed before booking.",
@@ -520,7 +520,8 @@ const CITY_META_TITLE: Record<string, string> = {
   alkhobar: "Al Khobar Taxi & Private Transfers | DMM Airport & Bahrain",
   alula: "AlUla Taxi & Private Car Hire | Hegra, ULH Airport & Tours",
   tabuk: "Tabuk Taxi & Private Transfers | TUU Airport, NEOM & AlUla",
-  taif: "Taif Taxi & Private Transfers | TIF Airport, Al Hada & Makkah",
+  // 2026-11-22 (approved; old title pos 52.9): hub rebuilt on RegionalHub.
+  taif: "Taif Taxi & Private Driver | Airport, Al Hada & Makkah Transfers",
   yanbu: "Yanbu Taxi & Private Transfers | Airport, Hotels & Chauffeur",
   abha: "Abha Taxi & Private Transfers | AHB Airport, Soudah & Asir",
   abudhabi: "Abu Dhabi Private Taxi & Cross-Border Car Service | Taxi Saudi Arabia",

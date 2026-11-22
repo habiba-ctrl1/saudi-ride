@@ -244,11 +244,13 @@ export const AIRPORT_DETAILS: Record<string, { name: string, code: string, nameA
     ],
     tips: [
       "Many pilgrims land in Taif to put on Ihram at Miqat Qarn al-Manazil (Al-Sail Al-Kabeer).",
-      "The drive from Taif Airport to Makkah takes approximately 1.5 to 2 hours."
+      // 2026-11-22: removed unsourced "1.5 to 2 hours". routes.ts: Taif city → Makkah ~90 km / ~1 hr 10;
+      // TIF → Taif city distance unverified (sources 25–30 km) → not stated.
+      "Taif city to Makkah is about 90 km, roughly 1 hour 10 minutes; allow extra time for the airport leg and any Miqat stop."
     ],
     priorityRoutes: ["taif-to-makkah"],
     faqs: [
-      { question: "How much is a taxi from Taif airport to Makkah?", answer: "The drive from Taif Regional Airport (TIF) to Makkah takes approximately 1.5 to 2 hours. The fare is and confirmed before you book." },
+      { question: "How much is a taxi from Taif airport to Makkah?", answer: "The fare is fixed and agreed on WhatsApp before you book; it depends on the vehicle and your Makkah drop-off. Taif city to Makkah is about 90 km, roughly 1 hour 10 minutes, plus the airport leg." },
       { question: "Can the driver stop at the Miqat for Ihram?", answer: "Yes. Many pilgrims land in Taif to enter Ihram at Miqat Qarn al-Manazil (Al-Sail Al-Kabeer). Just tell us in advance and the driver will stop there." },
       { question: "What happens if my flight is delayed?", answer: "Share your flight number when you book and we check it before pickup, so the pickup time is planned around your actual arrival." }
     ],

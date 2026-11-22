@@ -382,8 +382,144 @@ export const YANBU_HUB: RegionalHubConfig = {
   schemaDescription: "Pre-booked private cars with drivers in Yanbu: airport pickups, Yanbu Al-Bahr and Industrial City trips, and transfers to Madinah, Jeddah and Makkah, through a vetted partner network.",
 };
 
+/* ═══ TAIF ════════════════════════════════════════════════════════════ */
+// Taif hub (2026-11-22, seo/taif-keyword-map.md H1, owner-approved "P0 aur hub").
+// Old title ranked pos 52.9 (not protected); H1 is RegionalHub's fixed
+// "Private Taxi & Chauffeur Service in Taif" = unchanged.
+// Roads: Al Hada (steep escarpment) and Al Sail via As-Sail Al-Kabir — verified
+// 2026-11-21 (visitsaudi.com Al-Hada Mountain; saudipedia Aqabat al-Kurr).
+// Non-Muslims may not enter Makkah (Saudi law); a signed bypass is used — no
+// route number claimed. Qarn al-Manazil (As-Sail Al-Kabir) is the Miqat on the
+// Taif side; no rulings given. TIF → city distance unverified → not stated.
+// Rose harvest: spring (already on site; visitsaudi). "Taif Season" dates not stated.
+const TF = "\n(ref: taif-hub)";
+const MK_TF = routeFact("makkah-to-taif")!;
+const JD_TF = routeFact("jeddah-to-taif")!;
+const JED_TF = routeFact("jeddah-airport-to-taif")!;
+const RY_TF = routeFact("riyadh-to-taif")!;
+const MD_TF = routeFact("madinah-to-taif")!;
+
+export const TAIF_HUB: RegionalHubConfig = {
+  slug: "taif",
+  name: "Taif",
+  nameAr: "الطائف",
+  geo: { lat: 21.2703, lng: 40.4158 },
+  parent: { name: "Makkah region", href: "/locations/makkah" },
+  eyebrow: "Taif · Sarawat highlands · Makkah region",
+  hero: { src: "/locations/taif-hero.webp", alt: "Winding mountain road with light trails at dusk on a steep escarpment, the kind of road that climbs to Taif" },
+  lede: `Pre-booked private cars in Taif — up the mountain from Makkah (about ${MK_TF.km} km) and Jeddah (${JD_TF.km} km), straight from Jeddah Airport, the long road from Riyadh, and a driver for days in Al Hada and Al Shafa.`,
+  heroBullets: ["Fare agreed before booking", "We track your flight", "English & Arabic drivers", "24/7"],
+  ctaLabel: "Request a Taif Quote",
+  hubWa: "Salam! Taif transport enquiry.\n• From: \n• To (Taif city / Al Hada / Al Shafa / TIF): \n• Date & time: \n• Passengers & luggage: " + TF,
+  shortAnswer: `Taxi Saudi Arabia arranges pre-booked private cars to, from and around Taif through a vetted partner network. Makkah is about ${MK_TF.km} km away (${MK_TF.time}), Jeddah about ${JD_TF.km} km (${JD_TF.time}) and Jeddah Airport about ${JED_TF.km} km. The car climbs to Taif on the steep Al Hada road or the gentler Al Sail road, and the fare for the whole car is agreed on WhatsApp before you book.`,
+  facts: [
+    { label: "Makkah ↔ Taif", value: `${MK_TF.km} km · ${MK_TF.time}` },
+    { label: "Jeddah ↔ Taif", value: `${JD_TF.km} km · ${JD_TF.time}` },
+    { label: "JED Airport → Taif", value: `${JED_TF.km} km · ${JED_TF.time}` },
+    { label: "Riyadh ↔ Taif", value: `${RY_TF.km} km · ${RY_TF.time}` },
+    { label: "Roads up", value: "Al Hada or Al Sail" },
+    { label: "Not offered", value: "Self-drive car rental" },
+  ],
+  tripHeading: "Which Taif trip is yours?",
+  tripIntro: "Most Taif bookings are one of these. Pick yours to see what to send us.",
+  trips: [
+    { id: "makkah", icon: "route", label: "Makkah ↔ Taif", short: `${MK_TF.km} km`, answer: `About ${MK_TF.km} km (${MK_TF.time}) between your Makkah hotel and Taif, on Al Hada or Al Sail. One-way, or a timed return the same day.`, send: ["Makkah hotel", "Taif address", "Date and time", "Passengers and bags"], href: "/routes/makkah-to-taif", linkLabel: "Makkah to Taif private car", waPrefill: "Salam! Makkah ↔ Taif.\n• From: \n• To: \n• Date & time: \n• Passengers & luggage: " + TF },
+    { id: "jeddah", icon: "route", label: "Jeddah ↔ Taif", short: `${JD_TF.km} km`, answer: `About ${JD_TF.km} km (${JD_TF.time}) from a Jeddah hotel or home up to Taif. Non-Muslim passengers are driven on the road that bypasses Makkah — tell us when you book.`, send: ["Jeddah address", "Taif address", "Date and time", "Passengers and bags"], href: "/routes/jeddah-to-taif", linkLabel: "Jeddah to Taif private car", waPrefill: "Salam! Jeddah ↔ Taif.\n• From: \n• To: \n• Date & time: \n• Passengers & luggage: " + TF },
+    { id: "jed", icon: "plane", label: "Jeddah Airport → Taif", short: "Meet & greet", answer: `Land at JED and go straight to Taif, about ${JED_TF.km} km. We track your flight; meet & greet at arrivals and ${FREE_WAIT} free waiting.`, send: ["Flight number", "Taif address", "Passengers and bags"], href: "/routes/jeddah-airport-to-taif", linkLabel: "JED to Taif airport pickup", waPrefill: "Salam! Jeddah Airport → Taif.\n• Flight: \n• Taif address: \n• Date: \n• Passengers & luggage: " + TF },
+    { id: "tif", icon: "plane", label: "Taif Airport (TIF)", short: "Flight tracked", answer: `Arrivals and departures at Taif Regional Airport to Taif hotels, Al Hada, Al Shafa or Makkah. We track your flight; ${FREE_WAIT} free waiting.`, send: ["Flight number", "Destination", "Passengers"], href: "/airports/taif-regional", linkLabel: "Taif airport transfers", waPrefill: "Salam! Taif Airport (TIF) pickup.\n• Flight: \n• Destination: \n• Date: \n• Passengers: " + TF },
+    { id: "daytrip", icon: "landmark", label: "Day trip to Taif", short: "Timed return", answer: "From Makkah or Jeddah to Al Hada, Al Shafa and the rose farms, then back the same evening. The car waits between stops; the day is quoted as one fare.", send: ["Pickup city and hotel", "Stops you want", "Return time", "Passengers"], href: "/routes/makkah-hotels-to-taif-resorts", linkLabel: "Makkah hotels to Taif resorts", waPrefill: "Salam! Taif day trip.\n• Pickup (Makkah / Jeddah hotel): \n• Stops: \n• Return time: \n• Passengers: " + TF },
+    { id: "riyadh", icon: "route", label: "Riyadh ↔ Taif", short: `${RY_TF.km} km`, answer: `About ${RY_TF.km} km on Highway 40, roughly ${RY_TF.time} of driving before stops — the classic summer drive for Riyadh families, both ways.`, send: ["Pickup address", "Drop-off", "Date", "Passengers and bags"], href: "/routes/riyadh-to-taif", linkLabel: "Riyadh to Taif private car", waPrefill: "Salam! Riyadh ↔ Taif.\n• From: \n• To: \n• Date: \n• Passengers & luggage: " + TF },
+    { id: "hourly", icon: "clock", label: "Driver for the day", short: "Hours or full day", answer: "One car that stays with you in Taif — Shubra Palace, the souqs, Al Rudaf Park, Al Hada, Al Shafa — with the fare for the day agreed first.", send: ["Date and start time", "Hours", "Stops", "Passengers"], href: "#quote", linkLabel: "Request a driver", waPrefill: "Salam! Driver for the day in Taif.\n• Date & start time: \n• Hours / full day: \n• Stops: \n• Passengers: " + TF },
+    { id: "corporate", icon: "briefcase", label: "Companies & groups", short: "Written quote", answer: `Delegations, government visits and family groups can be quoted in writing for several cars. ${CORPORATE_INVOICE_LINE}`, send: ["Company", "Dates", "Headcount", "Trips"], href: "/services/corporate", linkLabel: "Corporate transportation", waPrefill: "Salam! Corporate / group transport in Taif.\n• Company: \n• Dates & trips: \n• Headcount: " + TF },
+  ],
+  local: {
+    eyebrow: "Taif, practically",
+    heading: "What to know before you travel to Taif",
+    intro: "Taif sits high on the Sarawat escarpment above Makkah, so the road there and the weather on arrival are different from the coast.",
+    items: [
+      { title: "Al Hada or Al Sail road?", body: "From Makkah the car climbs either the Al Hada road — steep hairpin bends with wide views — or the longer, gentler Al Sail road through As-Sail Al-Kabir. Families with children or older passengers often prefer Al Sail; say which you want. If Al Hada is closed for works, the driver uses Al Sail." },
+      { title: "Non-Muslim travellers", body: "Non-Muslims cannot enter Makkah under Saudi law. From Jeddah or Jeddah Airport the driver takes the signed road that bypasses the city, so tell us when you book and the route and timing are planned around it.", href: "/routes/jeddah-to-taif", linkLabel: "Jeddah to Taif route details" },
+      { title: "Umrah from Taif", body: "Qarn al-Manazil at As-Sail Al-Kabir is the Miqat on the Taif side. If you are heading to Makkah for Umrah, ask for a stop when you book — whether it applies to you is your own decision.", href: "/guides/meeqat-locations", linkLabel: "Miqat locations guide" },
+      { title: "Al Hada, Al Shafa and the city", body: "Al Hada is on the mountain road towards Makkah; Al Shafa is the high country south of the city with farms and resorts. Give us the resort or farm name — they are spread out and not next to each other." },
+      { title: "Cooler, and busy in summer", body: "Taif is much cooler than Makkah, Jeddah or Riyadh, which makes it a summer escape. Weekends and summer holidays are the busiest times on the roads, so book early." },
+      { title: "Looking for car rental?", body: `${NO_RENTAL} If you would rather not drive the mountain roads yourself, a pre-booked car with a driver is the alternative.` },
+    ],
+  },
+  routesHeading: "Every private route to and from Taif",
+  corridors: [
+    { slug: "makkah-to-taif", label: "Makkah → Taif", note: "Up Al Hada or Al Sail." },
+    { slug: "taif-to-makkah", label: "Taif → Makkah", note: "Hotels, resorts or TIF to Makkah." },
+    { slug: "makkah-hotels-to-taif-resorts", label: "Makkah hotels → Al Hada & Al Shafa", note: "Day trips and resort stays." },
+    { slug: "jeddah-to-taif", label: "Jeddah → Taif", note: "Coast to the highlands." },
+    { slug: "jeddah-airport-to-taif", label: "Jeddah Airport → Taif", note: "Straight from arrivals." },
+    { slug: "taif-to-albaha", label: "Taif → Al Baha", note: "South through the Sarawat." },
+    { slug: "madinah-to-taif", label: "Madinah → Taif", note: "A long day with stops." },
+    { slug: "riyadh-to-taif", label: "Riyadh → Taif", note: "Highway 40, westbound." },
+    { slug: "taif-to-riyadh", label: "Taif → Riyadh", note: "The drive home after a summer stay." },
+  ],
+  routesFootnote: "Distances and times are approximate driving figures before stops; traffic, weather and the road chosen change them.",
+  compare: {
+    heading: "Transfer, day trip or a driver by the hour?",
+    intro: "The right booking depends on whether the car needs to wait for you.",
+    options: [
+      { title: "One-way transfer", when: ["You are staying in Taif", "Hotel to hotel, or to an airport", "Cheapest when the car does not wait"] },
+      { title: "Day trip / timed return", when: ["Makkah or Jeddah and back the same day", "Two or three planned stops", "One fare for the round trip"] },
+      { title: "Driver by the hour", when: ["Several stops you want to decide on the day", "Al Hada, Al Shafa and the city in one day", "The car waits wherever you stop"] },
+    ],
+  },
+  hourly: { heading: "A driver for a Taif day", body: "Shubra Palace and the old souqs in the morning, Al Hada or Al Shafa in the afternoon, back to your hotel at night — one car that waits wherever you stop, with the fare for the day agreed first.", linkLabel: "Request a driver", waPrefill: "Salam! Driver for a Taif day.\n• Date & start time: \n• Hours / full day: \n• Stops: \n• Passengers: " + TF },
+  vehicleHeading: "Which car for the mountain roads?",
+  vehicleIntro: "On the climb to Taif, room and comfort matter more than speed. Families usually take an SUV or van. Confirmed for your date with the quote.",
+  vehicleFit: [
+    { id: "sedan", label: "Toyota Camry", fleetSlug: "toyota-camry", forWho: "One to three people" },
+    { id: "suv", label: "GMC Yukon XL", fleetSlug: "gmc-yukon-xl", forWho: "Families with luggage" },
+    { id: "van", label: "Hyundai Staria", fleetSlug: "hyundai-staria", forWho: "Larger families" },
+    { id: "hiace", label: "Toyota Hiace", fleetSlug: "toyota-hiace", forWho: "Groups" },
+    { id: "luxury", label: "Mercedes S-Class", fleetSlug: "mercedes-s-class", forWho: "VIP guests" },
+  ],
+  timingHeading: "What changes timing on the way to Taif",
+  timing: [
+    { title: "The mountain climb", body: "Al Hada is slow and winding; Al Sail is longer but gentler. Either way the last part is slower than a motorway." },
+    { title: "Summer weekends", body: "Weekend traffic between Makkah, Jeddah and Taif is heavier in summer. Leave earlier in the day." },
+    { title: "Spring rose season", body: "The rose harvest in spring is a busy time to visit the farms — book the day trip early." },
+    { title: "Long legs from Riyadh and Madinah", body: `Riyadh is about ${RY_TF.km} km and Madinah about ${MD_TF.km} km — plan most of a day, with prayer and rest stops.` },
+  ],
+  corporate: { heading: "Taif business and group transport, quoted in writing", body: "Government visits, delegations, weddings and family groups get one written quote for several cars, airport legs and day hire.", emailSubject: "Corporate transportation RFQ — Taif", emailBody: rfq("Taif", "JED / TIF / Makkah / city / day hire") },
+  quote: { heading: "Get your Taif transfer quote", body: "Send the pickup, the Taif address (city, Al Hada or Al Shafa), the date, passengers and luggage. We reply with the car and one fixed fare, usually within 1–2 hours." },
+  faqHeading: "Taif transport questions",
+  faqs: [
+    { question: "How do I get from Makkah to Taif?", answer: `By road, about ${MK_TF.km} km — roughly ${MK_TF.time} up the Al Hada road or the gentler Al Sail road. A private car collects you from your Makkah hotel and drops you at your Taif address, with the fare agreed before booking.` },
+    { question: "How far is Taif from Jeddah?", answer: `About ${JD_TF.km} km by road, roughly ${JD_TF.time}. From Jeddah Airport it is about ${JED_TF.km} km. Non-Muslim passengers are driven on the road that bypasses Makkah.` },
+    { question: "Can I book a day trip to Taif from Makkah or Jeddah?", answer: "Yes. Book a timed return, or a driver by the hour so the car waits at Al Hada, Al Shafa and the rose farms. The day is quoted as one fare before you travel." },
+    { question: "Which car is best for the Taif mountain road?", answer: "A sedan suits one to three people with normal luggage. Families usually choose a full-size SUV such as a GMC Yukon XL, and larger groups a Hyundai Staria or a Hiace. We confirm the vehicle against your passengers and bags." },
+    { question: "Is this car rental at Taif airport?", answer: `${NO_RENTAL} We meet you at arrivals at Taif Regional Airport (TIF) and drive you where you need to go.` },
+    { question: "Can the driver stop at the Miqat on the way to Makkah?", answer: "Yes, if you ask when you book. Qarn al-Manazil at As-Sail Al-Kabir is the Miqat on the Taif side; whether a stop applies to you is your own decision." },
+    { question: "Can my company or group be invoiced?", answer: `Yes. Email an RFQ for a written quote. ${CORPORATE_INVOICE_LINE}` },
+    { question: "Is transport in Taif available 24/7?", answer: "Yes. Pre-book early-morning and late-night trips so the car and driver are planned in advance. Free cancellation up to 24 hours before pickup." },
+  ],
+  relatedHeading: "More for your Taif trip",
+  related: [
+    { href: "/airports/taif-regional", label: "Taif Regional Airport (TIF) transfers" },
+    { href: "/services/taif-ziyarat", label: "Taif Ziyarat by private car" },
+    { href: "/services/makkah-ziyarat", label: "Makkah Ziyarat tours (combine with a Taif day)" },
+    { href: "/services/business-executive", label: "Executive chauffeur service" },
+    { href: "/distance/makkah-to-taif", label: "How far Makkah is from Taif" },
+    { href: "/distance/jeddah-to-taif", label: "Jeddah–Taif road distance" },
+    { href: "/distance/riyadh-to-taif", label: "Riyadh–Taif driving time" },
+    { href: "/locations/makkah", label: "Private transfers in Makkah" },
+    { href: "/locations/jeddah", label: "Private transfers in Jeddah" },
+    { href: "/guides/meeqat-locations", label: "Miqat locations explained" },
+    { href: "/services/intercity", label: "Intercity transfers" },
+    { href: "/fleet", label: "Vehicle categories" },
+  ],
+  finalLine: "Heading up to Taif?",
+  schemaName: "Private taxi, transfers & chauffeur service in Taif",
+  schemaDescription: "Pre-booked private cars with drivers to, from and around Taif: Makkah, Jeddah and Jeddah Airport transfers, Taif Regional Airport pickups, Riyadh and Madinah long-distance trips, day trips and hourly drivers, through a vetted partner network.",
+};
+
 export const SECONDARY_HUBS: Record<string, RegionalHubConfig> = {
   neom: NEOM_HUB,
   tabuk: TABUK_HUB,
   yanbu: YANBU_HUB,
+  taif: TAIF_HUB,
 };

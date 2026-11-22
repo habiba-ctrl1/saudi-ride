@@ -38,18 +38,18 @@ const SITES = [
   { name: "Al-Hada Mountain & Cable Car", desc: "Scenic mountain pass with cool weather, baboons, and panoramic views down to Makkah.", dist: "20 km" },
   { name: "Taif Rose Distilleries", desc: "Visit traditional rose oil factories and gardens (Al-Kadi, Rashid Al-Qurashi).", dist: "Shafa / Hada" },
   { name: "Shubra Palace Museum", desc: "The elegant royal palace built in 1905, former residence of King Abdulaziz.", dist: "Downtown" },
-  { name: "Al-Shafa Mountain Resort", desc: "Highest peak in Taif known for fruit orchards, juniper trees, and cool climate.", dist: "25 km" },
+  { name: "Al-Shafa Mountain Resort", desc: "High mountain area south of Taif known for fruit orchards, juniper trees and a cool climate.", dist: "25 km" },
 ];
 
 const FEATURES = [
   { icon: MapPin, title: "Makkah & Jeddah Pickup", desc: "Direct private pickup from your hotel in Makkah or Jeddah, with comfortable air-conditioned vehicles." },
   { icon: Landmark, title: "Islamic & Cultural Heritage", desc: "Explore both sacred Islamic history (Wadi Mitna, Ibn Abbas) and scenic Taif mountain attractions." },
   { icon: Clock, title: "Full-Day Flexible Tour", desc: "Enjoy a relaxed 6 to 8 hour day trip. Stop for lunch, rose shopping, and mountain photography at your pace." },
-  { icon: ShieldCheck, title: "Fixed All-Inclusive Fare", desc: "Clear upfront pricing with no hidden toll fees or fuel surcharges. Instant booking confirmation on WhatsApp." },
+  { icon: ShieldCheck, title: "Fixed All-Inclusive Fare", desc: "One fixed fare for the whole car, agreed on WhatsApp before you book — no meter, no surge. Free cancellation up to 24 hours before pickup." },
 ];
 
 const FAQS = [
-  { question: "How far is Taif from Makkah and how long does the tour take?", answer: "Taif is approximately 85 km from Makkah via the Al-Hada mountain road (~1 hour drive). A full day trip usually takes 6 to 8 hours." },
+  { question: "How far is Taif from Makkah and how long does the tour take?", answer: "Taif is about 90 km from Makkah, roughly 1 hour 10 minutes by road via Al Hada or the gentler Al Sail road. A full day trip usually takes 6 to 8 hours." },
   { question: "Which sites are included in the Taif Ziyarat tour?", answer: "Our standard tour includes Masjid Abdullah Ibn Abbas, Wadi Mitna (Addas garden), Al-Hada cable car area, Shubra Palace, and a Taif rose factory." },
   { question: "Can we get picked up from Makkah or Jeddah?", answer: "Yes! We provide hotel pickup and drop-off from any hotel in Makkah, Jeddah, or Taif." },
   { question: "Can we add a stop on the return to Makkah?", answer: "Yes. Prayer, meal and rest stops can be added on request. Whether a Miqat stop applies to you depends on your own religious circumstances, which we cannot advise on — tell us when you book if you want one." },
@@ -123,9 +123,9 @@ export default function TaifZiyaratPage() {
       {/* Main Content Container */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
         <TLDRSummary
-          answer="Taif Ziyarat is a popular day tour from Makkah (~85 km, 1 hour). Highlights include Masjid Abdullah Ibn Abbas, Wadi Mitna, Al-Hada mountain pass, and local rose farms. Prayer and rest stops on request."
+          answer="Taif Ziyarat is a popular day trip from Makkah (~90 km, ~1 hr 10 each way). Highlights include Masjid Abdullah Ibn Abbas, Wadi Mitna, Al-Hada mountain pass, and local rose farms. Prayer and rest stops on request."
           facts={[
-            { label: "Distance", value: "85 km from Makkah" },
+            { label: "Distance", value: "~90 km from Makkah" },
             { label: "Duration", value: "6–8 Hours" },
             { label: "Pickup", value: "Hotel Door-to-Door" },
             { label: "Stops", value: "Prayer & rest on request" },
