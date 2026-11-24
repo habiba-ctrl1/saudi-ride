@@ -41,6 +41,8 @@ const post: BlogPost = {
     text: "Send your travel date, pickup and drop-off addresses, passenger count, luggage and nationalities (for the border). We confirm the vehicle and a fixed fare before you book.",
   },
   content: `
+This guide covers the drive and the border. For pickup points, vehicles and a written fare, go to the [Riyadh to Abu Dhabi car with driver](/routes/riyadh-to-abudhabi) page.
+
 ## How far is Riyadh from Abu Dhabi by road?
 
 Riyadh to Abu Dhabi is about **850 km by road**, which is roughly **8 hours of driving** before border time. That puts a realistic door-to-door journey at a full day: leave in the morning and you arrive in the evening.

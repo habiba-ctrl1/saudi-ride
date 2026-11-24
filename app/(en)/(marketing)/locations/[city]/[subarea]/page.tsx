@@ -150,6 +150,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: areaKey === "diriyah" ? "Riyadh to Diriyah Taxi — Book Now" : `Taxi in ${area.name}, ${capitalizedCity} — Book Now`,
       description: area.description,
     },
+    twitter: { card: "summary_large_image", title, description: area.description },
   };
 }
 

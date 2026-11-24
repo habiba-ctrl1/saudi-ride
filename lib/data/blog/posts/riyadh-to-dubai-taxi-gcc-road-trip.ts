@@ -35,6 +35,8 @@ const post: BlogPost = {
     text: "Send your travel date, pickup and drop-off addresses, passenger count, luggage and nationalities (for the border). We confirm the vehicle and a fixed fare before you book.",
   },
   content: `
+This guide explains the road, the border and the documents. To book the trip itself, with the vehicle choice and drop-off areas, use the [Riyadh to Dubai car with driver](/routes/riyadh-to-dubai) page.
+
 ## The drive at a glance
 
 | | |

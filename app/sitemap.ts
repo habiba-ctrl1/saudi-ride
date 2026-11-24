@@ -63,18 +63,17 @@ const SUB_AREAS = Object.values(SUB_AREAS_DATA).map((s) => ({ city: s.city, suba
 const AIRPORTS = Object.keys(AIRPORT_DETAILS);
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
+  // No lastModified where the real edit date is unknown: the build time is not a
+  // modification date and makes Google ignore the field everywhere.
 
   const staticItems = STATIC_PAGES.map((page) => ({
     url: `${DOMAIN}${page.path}`,
-    lastModified: now,
     changeFrequency: "weekly" as const,
     priority: page.priority,
   }));
 
   const arItems = AR_PAGES.map((path) => ({
     url: `${DOMAIN}/ar${path}`,
-    lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.5,
   }));
@@ -83,7 +82,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // with the English routes via AR_ROUTE_SLUGS so hreflang has a crawlable pair.
   const arRouteItems = AR_ROUTE_SLUGS.map((slug) => ({
     url: `${DOMAIN}/ar/routes/${slug}`,
-    lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.7,
   }));
@@ -91,7 +89,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Arabic AlUla cluster (hub + children) — hreflang pairs of /locations/alula/*.
   const arAlulaItems = ["", "/private-driver", "/hegra", "/maraya", "/elephant-rock"].map((sub) => ({
     url: `${DOMAIN}/ar/locations/alula${sub}`,
-    lastModified: now,
     changeFrequency: "weekly" as const,
     priority: sub === "" ? 0.8 : 0.7,
   }));
@@ -99,7 +96,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Arabic Makkah hub + Ziyarat (hreflang pairs of the English pages).
   const arMakkahItems = ["/ar/locations/makkah", "/ar/services/makkah-ziyarat", "/ar/locations/madinah", "/ar/locations/jeddah", "/ar/services/corporate", "/ar/locations/dammam", "/ar/locations/jubail", "/ar/locations/yanbu"].map((p) => ({
     url: `${DOMAIN}${p}`,
-    lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.8,
   }));
@@ -109,25 +105,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${DOMAIN}/events`, priority: 0.8 },
     { url: `${DOMAIN}/riyadh-alternative-airports`, priority: 0.8 },
     ...EVENT_SLUGS.map((slug) => ({ url: `${DOMAIN}/events/${slug}`, priority: 0.7 })),
-  ].map((x) => ({ ...x, lastModified: now, changeFrequency: "weekly" as const }));
+  ].map((x) => ({ ...x, changeFrequency: "weekly" as const }));
 
   const locationItems = LOCATIONS.map((loc) => ({
     url: `${DOMAIN}/locations/${loc}`,
-    lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.8,
   }));
 
   const airportItems = AIRPORTS.map((airport) => ({
     url: `${DOMAIN}/airports/${airport}`,
-    lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.8,
   }));
 
   const subAreaItems = SUB_AREAS.map((loc) => ({
     url: `${DOMAIN}/locations/${loc.city}/${loc.subarea}`,
-    lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.6,
   }));
@@ -135,30 +128,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Cross-border corridor hubs (/cross-border/[corridor]) — from lib/data/cross-border.ts.
   const arCorridorItems = CORRIDOR_SLUGS.map((slug) => ({
     url: `${DOMAIN}/ar/cross-border/${slug}`,
-    lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.7,
   }));
 
   const corridorItems = CORRIDOR_SLUGS.map((slug) => ({
     url: `${DOMAIN}/cross-border/${slug}`,
-    lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.8,
   }));
 
   const routeItems = ROUTES_DATA.map((route) => ({
     url: `${DOMAIN}/routes/${route.slug}`,
-    lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.8,
   }));
 
   const distanceItems = [
-    { url: `${DOMAIN}/distance`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.7 },
+    { url: `${DOMAIN}/distance`, changeFrequency: "monthly" as const, priority: 0.7 },
     ...DISTANCE_GUIDES.map((g) => ({
       url: `${DOMAIN}/distance/${g.slug}`,
-      lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.7,
     })),
@@ -166,7 +155,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const fleetItems = FLEET_VEHICLES.map((vehicle) => ({
     url: `${DOMAIN}/fleet/${vehicle.slug}`,
-    lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.7,
   }));
@@ -180,7 +168,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.7,
     })),
-    ...(BLOG_POSTS_AR.length ? [{ url: `${DOMAIN}/ar/blog`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.6 }] : []),
+    ...(BLOG_POSTS_AR.length ? [{ url: `${DOMAIN}/ar/blog`, changeFrequency: "weekly" as const, priority: 0.6 }] : []),
     ...BLOG_POSTS_AR.map((post) => ({
       url: `${DOMAIN}/ar/blog/${post.slug}`,
       lastModified: new Date(blogLastModified(post)),
@@ -191,14 +179,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const recoveryItems = RECOVERY_INDEXABLE_CITIES.map((c) => ({
     url: `${DOMAIN}/services/car-recovery/${c.slug}`,
-    lastModified: now,
     changeFrequency: "weekly" as const,
     priority: c.region === "eastern" ? 0.8 : 0.7,
   }));
 
   const recoveryRouteItems = RECOVERY_ROUTES.map((r) => ({
     url: `${DOMAIN}/services/car-recovery/${r.slug}`,
-    lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.8,
   }));
@@ -208,11 +194,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${DOMAIN}/ar/services/car-recovery`, priority: 0.7 },
     ...RECOVERY_AR_CITIES.map((c) => ({ url: `${DOMAIN}/ar/services/car-recovery/${c.slug}`, priority: 0.8 })),
     ...RECOVERY_ROUTES.map((r) => ({ url: `${DOMAIN}/ar/services/car-recovery/${r.slug}`, priority: 0.8 })),
-  ].map((x) => ({ ...x, lastModified: now, changeFrequency: "weekly" as const }));
+  ].map((x) => ({ ...x, changeFrequency: "weekly" as const }));
 
   const guideItems = GUIDES.map((guide) => ({
     url: `${DOMAIN}/guides/${guide.slug}`,
-    lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));
