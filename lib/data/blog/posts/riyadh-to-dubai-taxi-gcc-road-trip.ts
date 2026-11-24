@@ -9,7 +9,7 @@ import type { BlogPost } from "../types";
 const post: BlogPost = {
   slug: "riyadh-to-dubai-taxi-gcc-road-trip",
   title: "Riyadh to Dubai by Road: Distance, Border Crossing & Private Car Guide",
-  seoTitle: "Riyadh to Dubai by Taxi: Distance, Border & Private Car",
+  seoTitle: "Riyadh to Dubai by Road: Border, Documents & Drive Time",
   excerpt:
     "Riyadh to Dubai by private car: about 990 km and roughly 9 hours plus the Al Batha–Ghuwaifat border. What the drive involves, documents, when it beats flying, and how to book.",
   category: "Routes",

@@ -2184,7 +2184,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     "madinah-to-jeddah-airport": "Taxi Madinah to Jeddah Airport — Fare Confirmed on WhatsApp",
     "jeddah-to-madinah": "Taxi Jeddah to Madinah (Madina) — Fare Confirmed on WhatsApp",
     "madinah-airport-to-city": "Madinah Airport Taxi & Car Service — Fare on WhatsApp",
-    "riyadh-to-dubai": "Riyadh to Dubai Car with Driver — 990 km by Road, Door to Door",
+    "riyadh-to-dubai": "Riyadh to Dubai Taxi — Private Car with Driver, 990 km",
     "dubai-to-riyadh": "Private Car with Driver — Dubai to Riyadh — Fare on WhatsApp",
     "jeddah-airport-to-swissotel-makkah": "Jeddah Airport to Swissotel Makkah Taxi — Fare & Booking",
     "red-sea-airport-to-neom": "Red Sea Airport (RSI) to NEOM Taxi — Fare & Transfer",
