@@ -642,3 +642,8 @@ a.chip:hover { border-color: var(--brand); background: var(--brand-50); color: v
   padding: 1.5rem;
 }
 @media (min-width: 768px) { .blog-cta { padding: 2.25rem; } }
+
+/* Lift the floating WhatsApp button above a mobile sticky CTA so it never covers "Book now". */
+@media (max-width: 1023px) {
+  body:has([data-sticky-cta]) [data-wa-fab] { bottom: 6rem; }
+}

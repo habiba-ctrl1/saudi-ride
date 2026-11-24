@@ -353,6 +353,15 @@ export default async function AirportLandingPage({ params }: PageProps) {
             </>
           )}
 
+          {/* Every other airport page: lead form (RUH, MED and Red Sea have their own). */}
+          {!["king-khalid-riyadh", "prince-mohammad-madinah", "red-sea"].includes(slug) && (
+            <section id="airport-quote" className="rounded-3xl border border-[#16A34A]/15 bg-white p-6 sm:p-7 shadow-sm">
+              <h2 className="font-heading text-2xl font-bold text-[#1C1C1C] mb-1.5">Request a {airportData.code} transfer quote</h2>
+              <p className="text-sm text-[#6B7280] leading-relaxed mb-5">Send your flight, destination, passengers and bags. We confirm one fare for the vehicle on WhatsApp, with meet &amp; greet at arrivals.</p>
+              <WhatsAppQuoteForm defaultPickup={`${airportData.name} (${airportData.code})`} />
+            </section>
+          )}
+
           {/* How your airport transfer works */}
           <section className="surface-tint rounded-3xl p-6 sm:p-8 border border-[#16A34A]/10">
             <ProcessTimeline

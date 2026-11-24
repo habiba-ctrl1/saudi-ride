@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, MapPin, Plane, BookOpen } from "lucide-react";
 import { ROUTES_DATA } from "@/lib/data/routes";
+import { UNDERLINKED_ROUTES, PRIVATE_DRIVER_CITIES } from "@/lib/data/route-answers";
 
 // City label -> /locations/[city] slug (sirf jahan location page exist karta hai)
 const CITY_TO_LOCATION: [string, string][] = [
@@ -134,7 +135,18 @@ export function RouteRelatedLinks({ slug, fromCity, toCity }: Props) {
         sharesCity(r.toCity.toLowerCase(), from)),
   ).slice(0, 5);
 
-  const routeLinks = [...(reverse ? [reverse] : []), ...related].slice(0, 6);
+  const base = [...(reverse ? [reverse] : []), ...related].slice(0, 6);
+  // The list above always surfaces the first routes in ROUTES_DATA, so some
+  // pages had ~60 inbound links and others ~5. Add up to three that Google has
+  // not indexed yet and that share a city with this page.
+  const extra = UNDERLINKED_ROUTES.filter(
+    (u) => u.slug !== slug && !base.some((r) => r.slug === u.slug) && u.match.some((m) => from.includes(m) || to.includes(m)),
+  )
+    .map((u) => ROUTES_DATA.find((r) => r.slug === u.slug))
+    .filter((r): r is (typeof ROUTES_DATA)[number] => Boolean(r))
+    .slice(0, 3);
+  const routeLinks = [...base, ...extra];
+  const driverLinks = PRIVATE_DRIVER_CITIES.filter(([c]) => from.includes(c) || to.includes(c));
 
   // City guide links (unique, sirf existing location pages)
   const citySlugs = Array.from(
@@ -168,6 +180,7 @@ export function RouteRelatedLinks({ slug, fromCity, toCity }: Props) {
   const chipGroups = [
     { label: "Cities", items: citySlugs.map((c) => ({ key: c, href: `/locations/${c}`, icon: MapPin, text: `Taxi service in ${c.charAt(0).toUpperCase() + c.slice(1)}` })) },
     { label: "Airports", items: airportLinks.map((a) => ({ key: a.slug, href: `/airports/${a.slug}`, icon: Plane, text: `${a.label} taxi` })) },
+    { label: "Hourly hire", items: driverLinks.map(([c, name]) => ({ key: c, href: `/locations/${c}/private-driver`, icon: ArrowRight, text: `Private driver in ${name}` })) },
     { label: "Services", items: serviceLinks.map((sv) => ({ key: sv.href, href: sv.href, icon: ArrowRight, text: sv.label })) },
     { label: "Travel guides", items: guideLinks.map((g) => ({ key: g.slug, href: `/guides/${g.slug}`, icon: BookOpen, text: g.label })) },
   ].filter((g) => g.items.length > 0);

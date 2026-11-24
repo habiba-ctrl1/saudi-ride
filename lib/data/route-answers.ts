@@ -1,0 +1,229 @@
+// Page-specific answers for domestic routes whose Search Console queries
+// (28 days to 22 Nov 2026) the generic template did not answer. Added 2026-11-25.
+//
+// Truth sources:
+// - First row of every table = the route's own distance in lib/data/routes.ts.
+//   Other rows = OSRM road distance between the named points, measured
+//   2026-11-25 and rounded to 5 km.
+// - Service facts: seo/facts.md. No prices, visa rules or fixed drive promises.
+
+export interface RouteAnswers {
+  heading: string;
+  intro: string;
+  table?: { caption: string; rows: { label: string; km: number }[] };
+  qa: { q: string; a: string }[];
+  links: { href: string; label: string }[];
+}
+
+export const ROUTE_ANSWERS: Record<string, RouteAnswers> = {
+  // Queries: "riyadh to jeddah taxi", "taxi price", "by car how many hours"
+  "riyadh-to-jeddah": {
+    heading: "Planning Riyadh to Jeddah by car",
+    intro:
+      "This is a full day on the road across the Kingdom, so the pickup hour matters more than on a short transfer. Most of the drive is open highway; the slow parts are leaving Riyadh and the last stretch past Taif or into Jeddah.",
+    table: {
+      caption: "Riyadh to Jeddah road distance by pickup and drop-off",
+      rows: [
+        { label: "Riyadh city to Jeddah city", km: 950 },
+        { label: "Riyadh Airport (RUH) to Jeddah Airport (JED)", km: 995 },
+      ],
+    },
+    qa: [
+      { q: "What decides the price of a Riyadh to Jeddah taxi?", a: "Vehicle size, one way or return, the exact pickup and drop-off, and any overnight waiting. You receive one written fare on WhatsApp before booking, and it does not change with traffic." },
+      { q: "Can one car take a family with Umrah luggage?", a: "Yes. A family SUV or a 7-seat van is the usual choice. Send the passenger and bag count so the vehicle is sized for both." },
+      { q: "Can the same car continue to Makkah?", a: "Yes, but Makkah is closer from Riyadh than Jeddah is, so going to Makkah first is normally the shorter plan. Tell us if you are performing Umrah so the Miqat stop is planned." },
+    ],
+    links: [
+      { href: "/routes/jeddah-to-riyadh", label: "Return leg: Jeddah to Riyadh" },
+      { href: "/locations/jeddah/private-driver", label: "Keep a driver by the hour in Jeddah" },
+      { href: "/locations/riyadh/private-driver", label: "Hourly private driver in Riyadh" },
+    ],
+  },
+
+  // Queries: "jeddah to riyadh taxi" (60 impr, 0 clicks), "taxi number", "by land"
+  "jeddah-to-riyadh": {
+    heading: "Booking a car from Jeddah to Riyadh",
+    intro:
+      "The road climbs away from the Red Sea coast past Taif before the long, flat run east to Riyadh. Pickups in north Jeddah and at the airport add city driving before the highway starts.",
+    table: {
+      caption: "Jeddah to Riyadh road distance by pickup and drop-off",
+      rows: [
+        { label: "Jeddah city to Riyadh city", km: 950 },
+        { label: "Jeddah Airport (JED) to Riyadh Airport (RUH)", km: 995 },
+      ],
+    },
+    qa: [
+      { q: "How do I reach someone for a Jeddah to Riyadh taxi?", a: "Use the quote form or the WhatsApp button on this page. Send the pickup location, date and time, passengers and bags, and you get a written fare to confirm." },
+      { q: "Can I travel overnight from Jeddah to Riyadh?", a: "Yes, pickups are available 24/7. On a drive this long the driver needs rest stops, so agree the departure hour and planned breaks when you book." },
+      { q: "Do you collect from Jeddah hotels, the Corniche and the airport?", a: "Yes. Any Jeddah address, hotel or airport terminal can be the pickup. For a flight, send the flight number with the request." },
+    ],
+    links: [
+      { href: "/routes/riyadh-to-jeddah", label: "Opposite direction: Riyadh to Jeddah" },
+      { href: "/locations/jeddah/corniche", label: "Pickups on Jeddah Corniche" },
+      { href: "/locations/riyadh/olaya", label: "Arriving in Olaya, Riyadh" },
+    ],
+  },
+
+  // Queries: "jeddah to abha distance by road" (68), "abha to jeddah distance", "jeddah airport to abha airport distance"
+  "jeddah-to-abha": {
+    heading: "How far is Abha from Jeddah by road?",
+    intro:
+      "The answer depends on which end of Jeddah you leave from and whether you stop in Abha, at its airport or in Khamis Mushait. The last part climbs into the Asir highlands, so it is slower than the coastal highway.",
+    table: {
+      caption: "Jeddah to Abha road distance by point",
+      rows: [
+        { label: "Jeddah city to Abha", km: 690 },
+        { label: "Jeddah Airport (JED) to Abha", km: 700 },
+        { label: "Jeddah to Khamis Mushait", km: 705 },
+        { label: "Jeddah Airport (JED) to Abha Airport (AHB)", km: 715 },
+      ],
+    },
+    qa: [
+      { q: "Is the Abha to Jeddah distance the same in the other direction?", a: "Yes, practically. Abha to Jeddah is also about 690 km by road; only the exact pickup and drop-off change the figure slightly." },
+      { q: "Should I drive to Abha in daylight?", a: "A morning start is the comfortable choice, because it puts the mountain section in daylight. Fog and rain can slow the Asir roads, so leave margin if you have a fixed appointment." },
+      { q: "Which vehicle suits the Asir mountains?", a: "A sedan handles the main highway. Families with luggage, or anyone continuing to mountain viewpoints, usually prefer a full-size SUV." },
+    ],
+    links: [
+      { href: "/routes/abha-to-jizan", label: "Continue from Abha to Jizan" },
+      { href: "/routes/abha-to-jeddah", label: "Abha to Jeddah transfer" },
+      { href: "/locations/jizan", label: "Private cars in Jizan" },
+    ],
+  },
+
+  // Queries: "jeddah to yanbu distance by road" (64), "jeddah airport to yanbu distance", "yanbu to jeddah distance by car"
+  "jeddah-to-yanbu": {
+    heading: "Jeddah to Yanbu distance by road",
+    intro:
+      "Yanbu is two places for a driver: the old port city, Yanbu Al-Bahr, and Yanbu Industrial City to its south. Coming from Jeddah you reach the industrial city first, so name the right one when you book.",
+    table: {
+      caption: "Jeddah to Yanbu road distance by point",
+      rows: [
+        { label: "Jeddah city to Yanbu Al-Bahr", km: 330 },
+        { label: "Jeddah Airport (JED) to Yanbu Al-Bahr", km: 325 },
+        { label: "Jeddah city to Yanbu Industrial City", km: 320 },
+        { label: "Jeddah Airport (JED) to Yanbu Industrial City", km: 310 },
+      ],
+    },
+    qa: [
+      { q: "Why is Jeddah Airport closer to Yanbu than the city?", a: "King Abdulaziz International Airport sits on the north side of Jeddah, on the Yanbu side, so an airport pickup skips the drive across the city." },
+      { q: "How far is Yanbu to Jeddah by car?", a: "About 330 km from Yanbu Al-Bahr to Jeddah city, the same coastal highway in reverse. For a flight from JED, plan the pickup around check-in, not departure." },
+      { q: "Can you collect a work crew for the industrial city?", a: "Yes. Vans and larger vehicles are arranged through partner operators. Send the headcount, gate or camp name and shift time for a written quote." },
+    ],
+    links: [
+      { href: "/routes/makkah-to-yanbu", label: "Makkah to Yanbu by private car" },
+      { href: "/routes/madinah-to-yanbu", label: "Madinah to Yanbu" },
+      { href: "/services/group-transport", label: "Crew vans and group transport" },
+    ],
+  },
+
+  // Queries: "madinah to alula distance" (26), "madina to alula distance" (22), "al ula to madinah distance"
+  "madinah-to-alula": {
+    heading: "Madinah to AlUla distance, city and airport",
+    intro:
+      "People ask this with two different starting points: a hotel near the Prophet's Mosque, or the arrivals hall at Madinah Airport. The destination matters too, because AlUla Airport lies outside the old town.",
+    table: {
+      caption: "Madinah to AlUla road distance by point",
+      rows: [
+        { label: "Madinah city to AlUla", km: 330 },
+        { label: "Madinah Airport (MED) to AlUla", km: 350 },
+        { label: "Madinah Airport (MED) to AlUla Airport (ULH)", km: 335 },
+      ],
+    },
+    qa: [
+      { q: "Is AlUla to Madinah the same distance?", a: "Yes, about 330 km between the two cities in either direction." },
+      { q: "Can I visit AlUla from Madinah as a day trip?", a: "It is possible with an early start and a car that waits, but it is a long day. Hegra is visited on booked tours, so fix the tour time first and plan the pickup backwards from it." },
+      { q: "Does the car wait in AlUla or is it one way?", a: "Both can be arranged. A one-way drop suits travellers staying overnight; a round trip with waiting is quoted as one fare." },
+    ],
+    links: [
+      { href: "/routes/alula-to-madinah", label: "AlUla back to Madinah" },
+      { href: "/routes/alula-to-neom", label: "Onward from AlUla to NEOM" },
+      { href: "/locations/madinah/private-driver", label: "Private driver in Madinah" },
+    ],
+  },
+
+  // Crawled, not indexed. 832 km OSRM vs 840 in routes.ts — same figure rounded.
+  "madinah-to-riyadh": {
+    heading: "Who takes a car from Madinah to Riyadh?",
+    intro:
+      "It suits families going home after Ziyarah, pilgrims flying out of Riyadh, and groups with a lot of luggage. The road runs east through the Qassim region before turning down to the capital.",
+    table: {
+      caption: "Madinah to Riyadh road distance",
+      rows: [{ label: "Madinah city to Riyadh city", km: 840 }],
+    },
+    qa: [
+      { q: "Is there a natural halfway stop between Madinah and Riyadh?", a: "The Qassim region, around Buraydah, is the usual place for a longer meal or prayer break. Ask for the stop when you book so it is included in the plan." },
+      { q: "Should I fly instead?", a: "For one or two people with light bags, flying is quicker. A car is simpler for larger families, elderly travellers who want one seat from hotel to home, or heavy luggage." },
+      { q: "Can you drop me at King Khalid International Airport?", a: "Yes. Share the flight time and choose a departure from Madinah with a wide margin, since this is a long road day before a flight." },
+    ],
+    links: [
+      { href: "/routes/riyadh-to-madinah", label: "Riyadh to Madinah" },
+      { href: "/routes/riyadh-to-al-qassim-airport", label: "Riyadh and Al Qassim Airport" },
+      { href: "/locations/madinah/private-driver", label: "Ziyarah by private car in Madinah" },
+    ],
+  },
+
+  // Crawled, not indexed.
+  "riyadh-to-alahsa": {
+    heading: "Riyadh to Al Ahsa: Hofuf, the oasis or the Qatar road?",
+    intro:
+      "Al Ahsa is both a destination and a junction. Some passengers stop in Hofuf or Al Mubarraz; others break the journey here before the Salwa border and Doha. Tell us which, because it changes the drop-off and the plan.",
+    table: {
+      caption: "Riyadh to Al Ahsa road distance",
+      rows: [{ label: "Riyadh city to Hofuf (Al Ahsa)", km: 330 }],
+    },
+    qa: [
+      { q: "Is Hofuf the same place as Al Ahsa?", a: "Hofuf is the main city inside the Al Ahsa governorate. Al Mubarraz and the oasis villages are separate stops, so send a map pin for the exact address." },
+      { q: "Can I do Riyadh to Al Ahsa and back in one day?", a: "Yes. A return car that waits works well for Jabal Al Qarah, the old souq area and the palm groves. Give the hours you want on the ground so waiting is in the quote." },
+      { q: "Can the same car continue to Doha?", a: "Yes, through the Salwa border. Book it as Riyadh to Doha with an Al Ahsa stop; each passenger presents their own passport and entry documents." },
+    ],
+    links: [
+      { href: "/routes/alahsa-to-doha", label: "Al Ahsa to Doha" },
+      { href: "/routes/riyadh-to-doha", label: "Riyadh to Doha in one trip" },
+      { href: "/cross-border/saudi-to-qatar", label: "How the Qatar road works" },
+    ],
+  },
+
+  // Discovered, not indexed. Distance from routes.ts only.
+  "makkah-to-yanbu": {
+    heading: "Makkah to Yanbu without going through Madinah",
+    intro:
+      "The direct road goes west towards the coast and then north beside the Red Sea, passing the Jeddah area on the way. It suits residents of Yanbu returning after Umrah and families adding beach days to a pilgrimage.",
+    qa: [
+      { q: "Can we stop in Jeddah on the way to Yanbu?", a: "Yes. Jeddah is on the way to the coastal highway, so a meal stop or a short visit can be added. Mention it in the request so it is priced once." },
+      { q: "Can we go Makkah to Yanbu and then on to Madinah?", a: "Yes. Yanbu to Madinah is a common second leg. Booking both legs together lets you keep one plan for luggage and timing." },
+      { q: "Where in Yanbu do you drop off?", a: "Yanbu Al-Bahr, Yanbu Industrial City, hotels on the coast or the airport. The city and the industrial area are apart, so send a pin." },
+    ],
+    links: [
+      { href: "/routes/jeddah-to-yanbu", label: "Jeddah to Yanbu distance and car" },
+      { href: "/routes/madinah-to-yanbu", label: "Madinah to Yanbu" },
+      { href: "/locations/makkah/private-driver", label: "Private driver in Makkah" },
+    ],
+  },
+};
+
+// Pages Search Console reported as "Discovered / Crawled - currently not
+// indexed" (16 Nov 2026) that share a city with many indexed routes. RouteRelatedLinks adds up
+// to three matching ones, so they get contextual links instead of only the hub list.
+export const UNDERLINKED_ROUTES: { slug: string; match: string[] }[] = [
+  { slug: "madinah-to-riyadh", match: ["madinah", "riyadh"] },
+  { slug: "riyadh-to-alahsa", match: ["riyadh", "ahsa", "hofuf"] },
+  { slug: "makkah-to-yanbu", match: ["yanbu", "makkah"] },
+  { slug: "jeddah-to-neom", match: ["neom", "jeddah"] },
+  { slug: "abha-to-jizan", match: ["abha", "jizan", "jazan"] },
+  { slug: "alula-to-neom", match: ["alula", "neom"] },
+  { slug: "amman-to-tabuk", match: ["tabuk", "amman"] },
+  { slug: "amman-to-neom", match: ["neom", "amman"] },
+  { slug: "amman-to-alula", match: ["alula", "amman"] },
+  { slug: "medinah-to-amman", match: ["madinah", "amman"] },
+  { slug: "dammam-airport-to-jubail", match: ["jubail", "dammam"] },
+  { slug: "bahrain-to-dammam-airport", match: ["dammam", "khobar"] },
+  { slug: "jeddah-airport-to-makkah-clock-tower", match: ["jeddah airport"] },
+];
+
+export const PRIVATE_DRIVER_CITIES: [string, string][] = [
+  ["riyadh", "Riyadh"],
+  ["jeddah", "Jeddah"],
+  ["makkah", "Makkah"],
+  ["madinah", "Madinah"],
+  ["dammam", "Dammam"],
+];

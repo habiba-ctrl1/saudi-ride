@@ -46,7 +46,7 @@ export function WhatsAppButton() {
   const whatsappUrl = `https://wa.me/${formattedNumber}?text=${encodedText}`;
 
   return (
-    <div className="fixed bottom-6 end-6 z-50 flex flex-col items-end gap-2">
+    <div data-wa-fab className="fixed bottom-6 end-6 z-50 flex flex-col items-end gap-2">
       {/* Speech Bubble Prompt */}
       <AnimatePresence>
         {showBubble && (

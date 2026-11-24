@@ -15,6 +15,7 @@ import Image from "next/image";
 import { RouteJourney } from "@/components/visual/RouteJourney";
 import { breadcrumbSchema, faqSchema, speakableSchema, SITE } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
+import { RouteAnswersSection } from "@/components/routes/RouteAnswersSection";
 import { RouteFromPrice } from "@/components/routes/RouteFromPrice";
 import { withPriceFact, withPriceFaq } from "@/lib/data/route-from-prices";
 import { RouteRelatedLinks } from "@/components/seo/RouteRelatedLinks";
@@ -2442,7 +2443,14 @@ export default async function RouteDetailsPage({ params }: PageProps) {
   // Routes that get the full lead-conversion pass (on-page form + easy
   // structured prefills + mobile sticky CTA). Add a slug here to switch a route
   // to the enhanced treatment; every other route keeps its existing behaviour.
-  const leadForm = LEAD_FORM_CONFIG[slug];
+  // Every route page gets the form; before 2026-11-25 routes without a config
+  // entry only had WhatsApp buttons and captured no lead.
+  const leadForm = LEAD_FORM_CONFIG[slug] ?? {
+    heading: `Get a ${route.fromCity} to ${route.toCity} quote`,
+    blurb: "Send your date, pickup address, passengers and luggage. We confirm one fare for the whole vehicle on WhatsApp before you book.",
+    pickup: route.fromCity,
+    dropoff: route.toCity,
+  };
   const corporate = CORPORATE_CONFIG[slug];
   const umrahGroup = UMRAH_GROUP_CONFIG[slug];
   // Cross-border corridor (lib/data/cross-border.ts) — drives the hub link,
@@ -3498,6 +3506,8 @@ export default async function RouteDetailsPage({ params }: PageProps) {
 
           {airportIntent && <AirportTransferSection data={airportIntent} path={`/routes/${slug}`} quoteAnchor="#route-quote" />}
 
+          <RouteAnswersSection slug={slug} />
+
           {/* FAQs */}
           <section>
             <h2 className="font-heading text-2xl font-bold mb-6 flex items-center gap-3">
@@ -3693,7 +3703,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
 
       {/* ─── MOBILE STICKY BOOKING BAR (JED -> Makkah) ─────────────── */}
       {slug === "jeddah-airport-to-makkah" && (
-        <div className="fixed bottom-0 inset-x-0 z-50 lg:hidden bg-white/95 backdrop-blur-md border-t border-[#16A34A]/20 p-3 px-4 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+        <div data-sticky-cta className="fixed bottom-0 inset-x-0 z-50 lg:hidden bg-white/95 backdrop-blur-md border-t border-[#16A34A]/20 p-3 px-4 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] pb-[max(0.75rem,env(safe-area-inset-bottom))]">
           <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
             <div>
               <p className="text-[0.65rem] font-bold text-[#1C1C1C] uppercase tracking-wider">JED ➔ Makkah</p>
@@ -3725,7 +3735,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
 
       {/* ─── MOBILE STICKY BOOKING BAR (Makkah -> Madinah) ─────────────── */}
       {slug === "makkah-to-madinah" && (
-        <div className="fixed bottom-0 inset-x-0 z-50 lg:hidden bg-white/95 backdrop-blur-md border-t border-[#16A34A]/20 p-3 px-4 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+        <div data-sticky-cta className="fixed bottom-0 inset-x-0 z-50 lg:hidden bg-white/95 backdrop-blur-md border-t border-[#16A34A]/20 p-3 px-4 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] pb-[max(0.75rem,env(safe-area-inset-bottom))]">
           <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
             <div>
               <p className="text-[0.65rem] font-bold text-[#1C1C1C] uppercase tracking-wider">Makkah ➔ Madinah</p>
@@ -3758,7 +3768,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
       {/* ─── MOBILE STICKY BOOKING BAR (enhanced lead-pass routes) ──────── */}
       {/* makkah-to-madinah & jeddah-airport-to-makkah are excluded — they render their own sticky bars above. */}
       {leadForm && slug !== "makkah-to-madinah" && slug !== "jeddah-airport-to-makkah" && (
-        <div className="fixed bottom-0 inset-x-0 z-50 lg:hidden bg-white/95 backdrop-blur-md border-t border-[#16A34A]/20 p-3 px-4 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+        <div data-sticky-cta className="fixed bottom-0 inset-x-0 z-50 lg:hidden bg-white/95 backdrop-blur-md border-t border-[#16A34A]/20 p-3 px-4 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] pb-[max(0.75rem,env(safe-area-inset-bottom))]">
           <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
             <div>
               <p className="text-[0.65rem] font-bold text-[#1C1C1C] uppercase tracking-wider">{route.fromCity} ➔ {route.toCity}</p>

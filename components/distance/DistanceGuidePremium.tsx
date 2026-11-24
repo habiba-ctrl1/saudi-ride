@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { faqSchema } from "@/lib/schema";
+import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { contactConfig } from "@/lib/config/contact";
 import type { DistanceGuide, Tip } from "@/lib/data/distances";
 import {
@@ -67,6 +68,9 @@ export function DistanceGuidePremium({ g }: { g: DistanceGuide }) {
             <a href={WA} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-8 py-4 text-sm font-bold uppercase text-white shadow-lg hover:brightness-110 transition-all">
               <MessageCircle className="h-5 w-5" /> Get a Quote on WhatsApp
             </a>
+            <Link href="#route-quote" className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 backdrop-blur px-8 py-4 text-sm font-bold uppercase text-white hover:bg-white/15 transition-all">
+              Request a fare by form
+            </Link>
             <Link href="#vehicles" className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 backdrop-blur px-8 py-4 text-sm font-bold uppercase text-white hover:bg-white/15 transition-all">
               See vehicles &amp; route
             </Link>
@@ -116,6 +120,13 @@ export function DistanceGuidePremium({ g }: { g: DistanceGuide }) {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* ─── QUOTE FORM ─── */}
+      <section id="route-quote" className="section-container max-w-3xl pt-12 scroll-mt-24" aria-labelledby="quote-heading">
+        <h2 id="quote-heading" className="font-heading text-2xl md:text-3xl font-bold mb-2">Get a written {g.fromCity} to {g.toCity} fare</h2>
+        <p className="text-sm text-[#374151] leading-relaxed mb-6">Send your date and group size. The reply comes on WhatsApp with one fare to confirm before you book.</p>
+        <WhatsAppQuoteForm defaultPickup={g.fromCity} defaultDropoff={g.toCity} />
       </section>
 
       {/* ─── WHO / WHY ─── */}

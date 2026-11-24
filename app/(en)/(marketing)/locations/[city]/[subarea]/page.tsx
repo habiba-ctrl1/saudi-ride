@@ -391,6 +391,15 @@ export default async function SubAreaPage({ params }: PageProps) {
         </section>
       )}
 
+      {/* ─── QUOTE FORM (district pages) ──────────────── */}
+      {area.kind !== "service" && (
+        <section id="area-quote" className="section-container max-w-3xl pb-12">
+          <h2 className="font-heading text-2xl font-bold text-[#1C1C1C] mb-2">Request a car in {area.name}</h2>
+          <p className="text-sm text-[#6B7280] leading-relaxed mb-5">Tell us the hotel or gate, where you are going and how many passengers. We confirm one fare on WhatsApp before you book.</p>
+          <WhatsAppQuoteForm defaultPickup={`${area.name}, ${capitalizedCity}`} />
+        </section>
+      )}
+
       {/* ─── RELATED LINKS (ontology internal linking, city cluster) ───── */}
       {RELATED_LINKS[city] && (
         <section className="section-container max-w-5xl pb-8">
