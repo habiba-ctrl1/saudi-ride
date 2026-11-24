@@ -8,6 +8,8 @@ import {
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
+import { RouteFromPrice } from "@/components/routes/RouteFromPrice";
+import { withPriceFaq } from "@/lib/data/route-from-prices";
 import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { formatDrive } from "@/components/cross-border/CorridorRouteCards";
 import { TripModes } from "@/components/cross-border/TripModes";
@@ -142,7 +144,7 @@ export function CrossBorderRoutePage({ data, locale = "en" }: { data: CrossBorde
   const hero = routeHeroImage(route.fromCity, route.toCity);
   // Airport-intent section (EN + AR) for Riyadh → DOH / KWI / BAH — added 2026-10-09.
   const airport = airportView(data.slug, locale);
-  const faqs = [...data.faqs, ...(airport?.faqs ?? [])];
+  const faqs = withPriceFaq(data.slug, [...data.faqs, ...(airport?.faqs ?? [])], ar ? `من ${from} إلى ${to}` : `${from} to ${to}`, ar);
 
   return (
     <div className="min-h-screen bg-[#FAFAF7] pb-28 text-[#1C1C1C] lg:pb-16">
@@ -228,6 +230,7 @@ export function CrossBorderRoutePage({ data, locale = "en" }: { data: CrossBorde
             { label: t.bestFor, value: data.bestFor },
           ]}
         />
+        <RouteFromPrice slug={data.slug} from={from} to={to} locale={locale} />
 
         {/* ─── JOURNEY TIMELINE ─── */}
         <section aria-labelledby="rt-journey" className="rounded-3xl border border-[#16A34A]/15 bg-white p-6 sm:p-8">

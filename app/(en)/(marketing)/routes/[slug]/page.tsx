@@ -15,6 +15,8 @@ import Image from "next/image";
 import { RouteJourney } from "@/components/visual/RouteJourney";
 import { breadcrumbSchema, faqSchema, speakableSchema, SITE } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
+import { RouteFromPrice } from "@/components/routes/RouteFromPrice";
+import { withPriceFact, withPriceFaq } from "@/lib/data/route-from-prices";
 import { RouteRelatedLinks } from "@/components/seo/RouteRelatedLinks";
 import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { fleetCapacity } from "@/lib/fleet-data";
@@ -2379,7 +2381,7 @@ export default async function RouteDetailsPage({ params }: PageProps) {
   const isMk = MAKKAH_CLUSTER_ROUTE_SLUGS.includes(slug);
   const isMd = MADINAH_CLUSTER_ROUTE_SLUGS.includes(slug);
   const airportIntent = slug === "riyadh-to-dammam" ? airportView(slug, "en") : undefined;
-  const faqs = [...(content?.faqs ?? DEFAULT_FAQS), ...(airportIntent?.faqs ?? [])];
+  const faqs = withPriceFaq(slug, [...(content?.faqs ?? DEFAULT_FAQS), ...(airportIntent?.faqs ?? [])], `${route.fromCity} to ${route.toCity}`);
 
   const distanceGuide = DISTANCE_GUIDES.find((d) => d.routeSlug === slug);
 
@@ -2726,8 +2728,9 @@ export default async function RouteDetailsPage({ params }: PageProps) {
 
           {/* Quick Answer (above-the-fold AI/snippet signal) */}
           {content?.tldr && (
-            <TLDRSummary answer={content.tldr} facts={content.tldrFacts} />
+            <TLDRSummary answer={content.tldr} facts={withPriceFact(slug, content.tldrFacts)} />
           )}
+          <RouteFromPrice slug={slug} from={route.fromCity} to={route.toCity} />
 
           {/* Stylized route diagram — real distance/time from route data only. */}
           <RouteJourney

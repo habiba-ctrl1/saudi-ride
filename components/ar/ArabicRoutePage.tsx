@@ -3,6 +3,8 @@ import { faqSchema, speakableSchema, serviceSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
+import { RouteFromPrice } from "@/components/routes/RouteFromPrice";
+import { withPriceFact, withPriceFaq } from "@/lib/data/route-from-prices";
 import { contactConfig } from "@/lib/config/contact";
 import { ROUTES_DATA } from "@/lib/data/routes";
 import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
@@ -199,7 +201,7 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
 
   // Airport-intent section + FAQs (Riyadh → DOH / DMM), added 2026-10-09.
   const airport = airportView(content.slug, "ar");
-  const faqs = [...content.faqs, ...(airport?.faqs ?? [])];
+  const faqs = withPriceFaq(content.slug, [...content.faqs, ...(airport?.faqs ?? [])], `من ${route.fromCityAr} إلى ${route.toCityAr}`, true);
   const related = relatedArRoutes(content.slug);
 
   return (
@@ -237,7 +239,10 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
         </p>
 
         <div id="speakable-summary" className="max-w-2xl mx-auto mb-10 text-right">
-          <TLDRSummary answer={content.tldrAnswer} facts={content.tldrFacts} />
+          <TLDRSummary answer={content.tldrAnswer} facts={withPriceFact(content.slug, content.tldrFacts, true)} />
+        </div>
+        <div className="mx-auto mb-10 max-w-2xl empty:hidden">
+          <RouteFromPrice slug={content.slug} from={route.fromCityAr} to={route.toCityAr} locale="ar" />
         </div>
 
         <div className="flex flex-wrap justify-center gap-4">
