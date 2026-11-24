@@ -1,5 +1,3 @@
-import { track } from "@vercel/analytics";
-
 type EventName =
   | "booking_started"
   | "booking_completed"
@@ -10,6 +8,7 @@ type EventName =
   | "phone_click"
   | "email_click"
   | "lead_captured"
+  | "rfq_opened"
   | "quote_form_started"
   | "quote_form_validation_error"
   | "lead_submit_failed";
@@ -112,14 +111,28 @@ type EventPropsMap = {
   phone_click: PhoneClickProps;
   email_click: EmailClickProps;
   lead_captured: LeadCapturedProps;
+  rfq_opened: LeadCapturedProps;
   quote_form_started: QuoteFormEventProps;
   quote_form_validation_error: QuoteFormEventProps;
   lead_submit_failed: QuoteFormEventProps;
 };
 
+// Event meanings (keep them separate):
+//   whatsapp_click / phone_click / email_click  = contact button clicked
+//   rfq_opened                                  = RFQ text handed to WhatsApp/mail app, delivery unknown
+//   quote_form_started                          = visitor began the form
+//   lead_captured                               = server accepted the enquiry (2xx) — the only "lead"
+// Qualified leads and bookings live in the admin panel, not here.
+
+// Pickup/drop-off are free text (can be a home address) and flight numbers are
+// personal, so none of these may reach GA4, GTM or Clarity.
+const PRIVATE_KEYS = ["fromCity", "toCity", "flightNumber", "returnDateTime"];
+
+let lastContactEventAt = 0;
+
 /**
- * Capture and record key client interaction events across Vercel Analytics
- * with fallbacks to developer console log traces in development mode.
+ * Record key client interaction events in GA4 / GTM / Clarity,
+ * with console traces in development mode.
  */
 export function trackEvent<E extends EventName>(
   eventName: E,
@@ -132,19 +145,21 @@ export function trackEvent<E extends EventName>(
       console.log(`📊 [Analytics Event Logged]: "${eventName}"`, properties);
     }
 
-    // Safely execute Vercel Analytics tracking call
-    track(eventName, properties as Record<string, string | number | boolean | null | undefined>);
-
     // Forward to GA4 / GTM (dataLayer) + Microsoft Clarity when present.
     if (typeof window !== "undefined") {
+      if (/^(whatsapp|phone|email)_click$/.test(eventName)) lastContactEventAt = Date.now();
+      const safe: Record<string, unknown> = { path: window.location.pathname };
+      for (const [k, v] of Object.entries(properties ?? {})) {
+        if (v !== undefined && !PRIVATE_KEYS.includes(k)) safe[k] = v;
+      }
       const w = window as unknown as {
         dataLayer?: Record<string, unknown>[];
         gtag?: (...args: unknown[]) => void;
         clarity?: (...args: unknown[]) => void;
       };
       w.dataLayer = w.dataLayer || [];
-      w.dataLayer.push({ event: eventName, ...(properties as Record<string, unknown>) });
-      if (typeof w.gtag === "function") w.gtag("event", eventName, properties ?? {});
+      w.dataLayer.push({ event: eventName, ...safe });
+      if (typeof w.gtag === "function") w.gtag("event", eventName, safe);
       if (typeof w.clarity === "function") {
         try {
           w.clarity("event", eventName);
@@ -156,4 +171,29 @@ export function trackEvent<E extends EventName>(
   } catch (error) {
     console.error("❌ Analytics tracking execution failure:", error);
   }
+}
+
+/**
+ * Counts clicks on any WhatsApp / tel / mailto link that does not already call
+ * trackEvent itself (most server-rendered pages). Runs after the link's own
+ * handler and skips when that handler just reported, so nothing is counted twice.
+ */
+export function installContactClickTracking(): () => void {
+  const onClick = (e: MouseEvent) => {
+    const href = (e.target as Element | null)?.closest?.("a[href]")?.getAttribute("href") ?? "";
+    const kind = /^(https?:)?\/\/(wa\.me|api\.whatsapp\.com)\//.test(href) ? "whatsapp" : href.startsWith("tel:") ? "phone" : href.startsWith("mailto:") ? "email" : null;
+    if (!kind) return;
+    const path = window.location.pathname;
+    const locale = path === "/ar" || path.startsWith("/ar/") ? "ar" : "en";
+    const clickedAt = Date.now();
+    setTimeout(() => {
+      if (lastContactEventAt >= clickedAt - 50) return;
+      const sourceLocation = "page_link";
+      if (kind === "whatsapp") trackEvent("whatsapp_click", { sourceLocation, phoneUsed: "", locale, path });
+      else if (kind === "phone") trackEvent("phone_click", { sourceLocation, phoneUsed: "", locale, path });
+      else trackEvent("email_click", { sourceLocation, emailUsed: "", locale, path });
+    }, 0);
+  };
+  document.addEventListener("click", onClick, true);
+  return () => document.removeEventListener("click", onClick, true);
 }

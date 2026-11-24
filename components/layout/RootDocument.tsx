@@ -5,7 +5,6 @@ import "@/app/design-system.css";
 import { cn } from "@/lib/utils";
 import { Providers } from "@/components/providers";
 import { SiteShell } from "@/components/layout/SiteShell";
-import { Analytics } from "@vercel/analytics/react";
 import { AnalyticsScripts } from "@/components/analytics/AnalyticsScripts";
 import { websiteSchema, howToSchema } from "@/lib/schema";
 
@@ -203,7 +202,6 @@ export function RootDocument({
           <SiteShell>
             {children}
           </SiteShell>
-          <Analytics />
           <AnalyticsScripts />
         </Providers>
       </body>

@@ -60,7 +60,7 @@ export function CorporateRfqFormAr({ city, path }: { city: "جدة" | "مكة ا
     if (!form) return;
     const body = compose(form);
     if (!body) return;
-    trackEvent("lead_captured", { source: `corporate_rfq_${key}_${channel}`, toCity: key, locale: "ar" });
+    trackEvent("rfq_opened", { source: `corporate_rfq_${key}_${channel}`, toCity: key, locale: "ar" });
     const url =
       channel === "email"
         ? `mailto:${contactConfig.email}?subject=${encodeURIComponent(`طلب عرض سعر نقل للشركات — ${city}`)}&body=${encodeURIComponent(body)}`

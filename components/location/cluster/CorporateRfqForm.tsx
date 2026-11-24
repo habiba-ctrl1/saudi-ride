@@ -9,7 +9,7 @@ import { CORPORATE_INVOICE_LINE } from "@/lib/data/cluster";
 // Corporate / delegation RFQ. There is no corporate backend endpoint yet
 // (CLAUDE.md §13), so the form composes a structured request and hands it to
 // email or WhatsApp. Nothing is stored or sent from this page. Analytics: the
-// existing lead_captured event, with no personal data in the payload.
+// rfq_opened event (delivery is not confirmed), with no personal data in the payload.
 const VEHICLES = ["GMC Yukon XL / Denali (full-size SUV)", "Executive sedan", "Full-size SUV (other)", "VIP van", "Coaster / bus", "Not sure — advise me"];
 
 const FORMATS = [
@@ -60,7 +60,7 @@ export function CorporateRfqForm({ city, path }: { city: "Jeddah" | "Makkah" | "
     if (!form) return;
     const body = compose(form);
     if (!body) return;
-    trackEvent("lead_captured", { source: `corporate_rfq_${city.toLowerCase()}_${channel}`, toCity: city, locale: "en" });
+    trackEvent("rfq_opened", { source: `corporate_rfq_${city.toLowerCase()}_${channel}`, toCity: city, locale: "en" });
     const url =
       channel === "email"
         ? `mailto:${contactConfig.email}?subject=${encodeURIComponent(`Corporate transport RFQ — ${city}`)}&body=${encodeURIComponent(body)}`

@@ -7,14 +7,19 @@
 import Script from "next/script";
 import { useEffect } from "react";
 import { captureUtm } from "@/lib/utm";
+import { installContactClickTracking } from "@/lib/analytics";
 
-const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
-const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID;
-const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID;
+// .trim(): the CI secrets were saved with a trailing newline, which put a raw line
+// break inside the inline scripts below (SyntaxError) and stopped GA4, GTM and
+// Clarity on the whole live site (found 2026-11-24).
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID?.trim();
+const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID?.trim();
+const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID?.trim();
 
 export function AnalyticsScripts() {
   useEffect(() => {
     captureUtm();
+    return installContactClickTracking();
   }, []);
 
   return (

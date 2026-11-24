@@ -236,12 +236,11 @@ export default function PricingPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => {
-                  trackEvent("lead_captured", {
-                    source: "pricing_page",
-                    fromCity,
-                    toCity,
-                    vehicleClass,
+                  trackEvent("whatsapp_click", {
+                    sourceLocation: "pricing_page",
+                    phoneUsed: contactConfig.whatsappNumber,
                     locale: language,
+                    path: "/pricing",
                   });
                 }}
                 className="inline-flex items-center gap-2 rounded-xl bg-[#16A34A] px-6 py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#15803D] transition-colors shadow-lg"
