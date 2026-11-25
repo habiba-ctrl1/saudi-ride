@@ -1,3 +1,4 @@
+import { DEFAULT_OG_IMAGES } from "@/lib/og";
 import { Metadata } from "next";
 import { MapPin, ArrowRight, Car, Building2, CheckCircle2, PlaneLanding, HelpCircle, ExternalLink, MessageCircle, Briefcase } from "lucide-react";
 import Link from "next/link";
@@ -87,6 +88,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: `Taxi Service at ${airportData.code} Airport | Taxi Saudi Arabia`,
       description: airportData.description,
+      type: "website",
+      url: `https://taxisaudiarabia.com/airports/${slug}`,
+      images: DEFAULT_OG_IMAGES,
     },
     // G1 template fix — twitter.title otherwise falls back to the site-wide
     // default instead of this page's own title.

@@ -1,3 +1,4 @@
+import { DEFAULT_OG_IMAGES } from "@/lib/og";
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "https://taxisaudiarabia.com/distance" },
-  openGraph: { title: TITLE, description: DESCRIPTION, type: "website", url: "https://taxisaudiarabia.com/distance" },
+  openGraph: { title: TITLE, description: DESCRIPTION, type: "website", url: "https://taxisaudiarabia.com/distance", images: DEFAULT_OG_IMAGES },
   twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
 };
 

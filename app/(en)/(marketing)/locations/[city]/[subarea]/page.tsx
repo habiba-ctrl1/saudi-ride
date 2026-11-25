@@ -1,3 +1,4 @@
+import { DEFAULT_OG_IMAGES } from "@/lib/og";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -124,6 +125,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       openGraph: {
         title: area.metaTitle,
         description: area.metaDescription ?? area.description,
+        type: "website",
+        url: `https://taxisaudiarabia.com/locations/${city}/${subarea}`,
+        images: DEFAULT_OG_IMAGES,
       },
       twitter: {
         card: "summary_large_image",
@@ -149,6 +153,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: areaKey === "diriyah" ? "Riyadh to Diriyah Taxi — Book Now" : `Taxi in ${area.name}, ${capitalizedCity} — Book Now`,
       description: area.description,
+      type: "website",
+      url: `https://taxisaudiarabia.com/locations/${city}/${subarea}`,
+      images: DEFAULT_OG_IMAGES,
     },
     twitter: { card: "summary_large_image", title, description: area.description },
   };

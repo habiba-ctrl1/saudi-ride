@@ -39,6 +39,7 @@ export async function generateMetadata({
       description,
       images: [vehicle.image],
       type: "website",
+      url: `https://taxisaudiarabia.com/fleet/${slug}`,
     },
     twitter: {
       card: "summary_large_image",

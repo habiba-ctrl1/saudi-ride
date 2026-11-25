@@ -1,3 +1,4 @@
+import { DEFAULT_OG_IMAGES } from "@/lib/og";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -89,7 +90,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
           "x-default": url,
         },
       },
-      openGraph: { title, description, url, siteName: "Taxi Saudi Arabia", type: "website" },
+      openGraph: { title, description, url, siteName: "Taxi Saudi Arabia", type: "website", images: DEFAULT_OG_IMAGES },
       // G1 template fix — twitter.title otherwise falls back to the site-wide default.
       twitter: { card: "summary_large_image", title, description },
     };
@@ -124,7 +125,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
           }
         : {}),
     },
-    openGraph: { title, description, url, siteName: "Taxi Saudi Arabia", type: "website" },
+    openGraph: { title, description, url, siteName: "Taxi Saudi Arabia", type: "website", images: DEFAULT_OG_IMAGES },
     // G1 template fix — twitter.title otherwise falls back to the site-wide default.
     twitter: { card: "summary_large_image", title, description },
   };

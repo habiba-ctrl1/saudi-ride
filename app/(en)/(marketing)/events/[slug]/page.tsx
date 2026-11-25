@@ -1,3 +1,4 @@
+import { DEFAULT_OG_IMAGES } from "@/lib/og";
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -35,7 +36,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: ev.description,
       type: "website",
       url: `https://taxisaudiarabia.com/events/${slug}`,
-      ...(ev.heroImage ? { images: [{ url: `https://taxisaudiarabia.com${ev.heroImage}`, width: 1376, height: 768, alt: ev.heroAlt ?? ev.h1 }] } : {}),
+      ...(ev.heroImage ? { images: [{ url: `https://taxisaudiarabia.com${ev.heroImage}`, width: 1376, height: 768, alt: ev.heroAlt ?? ev.h1 }] } : { images: DEFAULT_OG_IMAGES }),
     },
     // Explicit twitter block so the card title/description/image match this page
     // instead of inheriting the site-wide default from the root layout.

@@ -1,3 +1,4 @@
+import { DEFAULT_OG_IMAGES } from "@/lib/og";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { GUIDES } from "@/lib/data/guides";
@@ -82,6 +83,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: `${metaTitle} | Taxi Saudi Arabia`,
       description: guide.summary,
+      type: "article",
+      url: `https://taxisaudiarabia.com/guides/${slug}`,
+      images: DEFAULT_OG_IMAGES,
     },
     twitter: {
       card: "summary_large_image",

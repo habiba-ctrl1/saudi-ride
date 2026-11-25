@@ -1,5 +1,6 @@
 export const revalidate = 86400; // static + refresh daily (was force-dynamic = ~16s server render on every request)
 
+import { DEFAULT_OG_IMAGES } from "@/lib/og";
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { ROUTES_DATA } from "@/lib/data/routes";
@@ -2111,7 +2112,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
           ? { languages: { en: `https://taxisaudiarabia.com/routes/${slug}`, ar: `https://taxisaudiarabia.com/ar/routes/${slug}`, "x-default": `https://taxisaudiarabia.com/routes/${slug}` } }
           : {}),
       },
-      openGraph: { title: south.metaTitle, description: south.metaDescription, type: "website", url: `https://taxisaudiarabia.com/routes/${slug}` },
+      openGraph: { title: south.metaTitle, description: south.metaDescription, type: "website", url: `https://taxisaudiarabia.com/routes/${slug}`, images: DEFAULT_OG_IMAGES },
       twitter: { card: "summary_large_image", title: south.metaTitle, description: south.metaDescription },
     };
   }
@@ -2322,6 +2323,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: mkMeta?.title ?? `Taxi from ${route.fromCity} to ${route.toCity}`,
       description: mkMeta?.description ?? (route.description || `Book a taxi from ${route.fromCity} to ${route.toCity} with a clear price confirmed on WhatsApp. No surge, no hidden fees.`),
       type: "website",
+      url: `https://taxisaudiarabia.com/routes/${slug}`,
+      images: DEFAULT_OG_IMAGES,
     },
     // Explicit twitter card so twitter.title uses THIS page's title instead of
     // falling back to the site-wide default (G1 template fix — applies to every

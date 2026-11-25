@@ -1,3 +1,4 @@
+import { DEFAULT_OG_IMAGES } from "@/lib/og";
 import type { Metadata } from "next";
 import { Manrope, Geist, Cairo, Playfair_Display } from "next/font/google";
 import "@/app/globals.css";
@@ -54,6 +55,10 @@ export const rootMetadata: Metadata = {
     type: "website",
     locale: "en_SA",
     siteName: "Taxi Saudi Arabia",
+    // "./" resolves to the current page path; pages without their own openGraph
+    // previously had no og:url.
+    url: "./",
+    images: DEFAULT_OG_IMAGES,
   },
   twitter: {
     card: "summary_large_image",

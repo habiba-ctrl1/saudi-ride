@@ -1,3 +1,4 @@
+import { DEFAULT_OG_IMAGES } from "@/lib/og";
 import type { Metadata } from "next";
 import { HomePage } from "@/components/sections/home-page";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -25,6 +26,7 @@ export const metadata: Metadata = {
     siteName: "Taxi Saudi Arabia",
     locale: "ar_SA",
     type: "website",
+    images: DEFAULT_OG_IMAGES,
   },
   twitter: {
     card: "summary_large_image",
