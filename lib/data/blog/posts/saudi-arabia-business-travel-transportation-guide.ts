@@ -58,7 +58,7 @@ The commercial capital of the west coast. The city is about 20 km from the airpo
 
 ### Dammam (DMM)
 
-Gateway to the energy industry: Dhahran is about 25 km from the airport, Jubail about 90 km. Industrial sites have controlled gates — share the gate name and host contact. See our [Eastern Province guide](/blog/eastern-province-corporate-visitor-transport-guide).
+Gateway to the energy industry: Dhahran is about 50 km from the airport, Jubail about 90 km. Industrial sites have controlled gates — share the gate name and host contact. See our [Eastern Province guide](/blog/eastern-province-corporate-visitor-transport-guide).
 
 Whichever airport: share your **flight number** when you book — we check it before pickup.
 

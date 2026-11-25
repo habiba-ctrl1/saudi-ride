@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Calendar, MapPin, Building2, CheckCircle2, MessageCircle, CalendarDays, ArrowRight } from "lucide-react";
+import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { contactConfig } from "@/lib/config/contact";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { TrackedLink } from "@/components/analytics/TrackedLink";
@@ -543,6 +544,13 @@ export default async function EventPage({ params }: PageProps) {
           </div>
         </section>
       )}
+
+      {/* QUOTE FORM */}
+      <section id="event-quote" className="section-container max-w-3xl py-12 border-t border-[#C9A84C]/10 scroll-mt-24">
+        <h2 className="font-heading text-2xl md:text-3xl font-bold mb-2 text-center">Request event transport</h2>
+        <p className="text-sm text-[#6B7280] leading-relaxed mb-6 text-center">Send your hotel or airport, event days and passengers. We reply on WhatsApp with one fare to confirm before you book.</p>
+        <WhatsAppQuoteForm defaultDropoff={ev.about?.venueName ?? ""} pickupPlaceholder="Pickup: hotel or airport" dropoffPlaceholder="Event venue" showNotes />
+      </section>
 
       {/* FAQ */}
       <section className="section-container max-w-4xl py-16 border-t border-[#C9A84C]/10">

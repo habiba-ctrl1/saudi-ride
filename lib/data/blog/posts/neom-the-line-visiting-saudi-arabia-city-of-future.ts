@@ -4,8 +4,8 @@ import type { BlogPost } from "../types";
 // (budget figure, "Sindalah nearing completion", NEOM Bay airport flight
 // status, "we offer dedicated transfers to operational zones"). Kept to what a
 // traveller can act on; project status deferred to official NEOM channels.
-// Distances: routes.ts (TUU→NEOM 120 km/80 min, Jeddah→NEOM 1,000 km/540 min,
-// Riyadh→NEOM 1,300 km/720 min).
+// Distances: routes.ts (TUU→NEOM 180 km/165 min, Jeddah→NEOM 910 km/660 min,
+// Riyadh→NEOM 1,530 km/960 min).
 const post: BlogPost = {
   slug: "neom-the-line-visiting-saudi-arabia-city-of-future",
   title: "Travelling to NEOM and the Tabuk Region: Airports, Road Distances and Transfers",
@@ -18,7 +18,7 @@ const post: BlogPost = {
   publishedAt: "2026-08-28",
   updatedAt: "2026-10-02",
   quickAnswer:
-    "NEOM is a development region in Tabuk province, in Saudi Arabia's far north-west on the Red Sea and the Gulf of Aqaba. Most visitors fly into Tabuk Regional Airport (TUU) and continue by road — about 120 km, around 80 minutes, to the NEOM area. By road from Jeddah it is about 1,000 km, and from Riyadh about 1,300 km. Many locations are active project sites, so access usually needs to be arranged with your host in advance.",
+    "NEOM is a development region in Tabuk province, in Saudi Arabia's far north-west on the Red Sea and the Gulf of Aqaba. Most visitors fly into Tabuk Regional Airport (TUU) and continue by road — about 180 km, around 165 minutes, to the NEOM area. By road from Jeddah it is about 910 km, and from Riyadh about 1,530 km. Many locations are active project sites, so access usually needs to be arranged with your host in advance.",
   related: ["saudi-arabia-business-travel-transportation-guide", "saudi-arabia-intercity-transfer-guide", "alula-travel-guide-hegra-dadan-transport"],
   links: [
     { label: "Tabuk Airport to NEOM", href: "/routes/tabuk-airport-to-neom" },
@@ -46,9 +46,9 @@ Most people travelling to the area today are **business visitors**: consultants,
 
 | From | Mode | Distance / time | Notes |
 |---|---|---|---|
-| **Tabuk Regional Airport (TUU)** | [Private transfer](/routes/tabuk-airport-to-neom) | ~120 km · ~80 min | The usual gateway |
-| **Jeddah** | [Road](/routes/jeddah-to-neom) | ~1,000 km · ~9 hr | A full day on the coast road |
-| **Riyadh** | [Road](/routes/riyadh-to-neom) | ~1,300 km · ~12 hr | Most travellers fly instead |
+| **Tabuk Regional Airport (TUU)** | [Private transfer](/routes/tabuk-airport-to-neom) | ~180 km · ~165 min | The usual gateway |
+| **Jeddah** | [Road](/routes/jeddah-to-neom) | ~910 km · ~11 hr | A full day on the coast road |
+| **Riyadh** | [Road](/routes/riyadh-to-neom) | ~1,530 km · ~16 hr | Most travellers fly instead |
 | **Madinah** | Road via Tabuk | Long — plan an overnight | Combine with AlUla if sightseeing |
 
 Check current flight schedules into Tabuk and any airports serving the NEOM area before you plan.
@@ -82,7 +82,7 @@ The Tabuk region also has historic sites, a long Red Sea coastline and mountain 
 
 ### How far is NEOM from Tabuk Airport?
 
-About 120 km — around 80 minutes by road.
+About 180 km — around 165 minutes by road.
 
 ### Can I visit NEOM as a tourist?
 

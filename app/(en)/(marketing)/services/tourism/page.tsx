@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
+import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
@@ -248,6 +249,11 @@ export default function TourismChartersPage() {
           </>
         );
       })()}
+      <section id="service-quote" className="section-container max-w-3xl py-12 scroll-mt-24">
+        <h2 className="font-heading text-2xl font-bold mb-2 text-[#1C1C1C]">Request a car for your trip</h2>
+        <p className="text-sm text-[#374151] leading-relaxed mb-6">Send the date, places, passengers and bags. We reply on WhatsApp with one fare to confirm before you book.</p>
+        <WhatsAppQuoteForm />
+      </section>
       <ServiceRelatedLinks currentPath="/services/tourism" />
     </div>
   );

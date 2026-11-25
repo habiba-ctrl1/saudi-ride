@@ -264,15 +264,13 @@ export function ArabicRoutePage({ content }: { content: ArabicRouteContent }) {
       </section>
 
       {/* نموذج طلب عرض سعر — سهل التعبئة، يُحوّل إلى واتساب مع تعبئة الرحلة مسبقاً */}
-      {(["riyadh-to-dammam", "madinah-to-alula", "jeddah-to-kaec", "jeddah-airport-to-swissotel-makkah", "dammam-to-doha", "riyadh-to-dubai", "jeddah-to-madinah", "makkah-to-madinah", "jeddah-airport-to-makkah", "riyadh-to-makkah", "riyadh-to-doha", "doha-to-dammam", "doha-to-riyadh", "alahsa-to-doha"].includes(content.slug) || AR_ALULA_ROUTE_SLUGS.includes(content.slug)) && (
-        <section className="section-container max-w-2xl pb-4 text-right">
+        <section id="route-quote" className="section-container max-w-2xl pb-4 text-right">
           <h2 className="font-heading text-2xl font-bold mb-2 text-center">احصل على عرض سعر رحلتك الخاصة</h2>
           <p className="text-center text-xs sm:text-sm text-[#6B7280] leading-relaxed mb-6">
             أدخل بعض التفاصيل ونؤكد لك سعراً ثابتاً عبر واتساب — نقل خاص من الباب إلى الباب مع سائق محترف. بدون عدّاد وبدون تسعير متغيّر.
           </p>
           <WhatsAppQuoteForm defaultPickup={route.fromCityAr} defaultDropoff={route.toCityAr} forceLocale="ar" />
         </section>
-      )}
 
       {/* VEHICLES */}
       <section className="section-container max-w-5xl py-16 border-t border-[#C9A84C]/10">

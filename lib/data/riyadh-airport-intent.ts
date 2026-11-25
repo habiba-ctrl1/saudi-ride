@@ -213,7 +213,7 @@ const RAW: AirportIntent[] = [
       { name: "Dammam city", desc: "Hotels, homes and offices in Dammam itself." },
       { name: "King Fahd International Airport (DMM)", desc: "The airport serving Dammam, Al Khobar and Dhahran. Choose this as the drop-off when you are catching a flight." },
       { name: "Al Khobar", desc: "The Corniche, hotels and compounds, with its own Riyadh to Al Khobar page; the Eastern Province drop-off if your final stop is Khobar and not the airport." },
-      { name: "Dhahran", desc: "Aramco, KFUPM and Techno Valley. Dhahran is about 25 km from the airport on our Dhahran airport route, so a Dhahran hotel stay and a DMM flight are not the same drop-off." },
+      { name: "Dhahran", desc: "Aramco, KFUPM and Techno Valley. Dhahran is about 50 km from the airport on our Dhahran airport route, so a Dhahran hotel stay and a DMM flight are not the same drop-off." },
     ],
     askFor: [
       "Your pickup address in Riyadh and your travel date",

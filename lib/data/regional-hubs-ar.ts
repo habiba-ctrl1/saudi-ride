@@ -128,7 +128,7 @@ export const AR_DAMMAM_HUB: ArHubConfig = {
   },
   routesHeading: "أشهر المسارات من الدمام",
   corridors: [
-    { slug: "dammam-airport-to-dhahran", label: "مطار الملك فهد ← الظهران", note: "أقصر رحلة مطار في المنطقة الشرقية." },
+    { slug: "dammam-airport-to-dhahran", label: "مطار الملك فهد ← الظهران", note: "إلى أرامكو وجامعة الملك فهد وفنادق الظهران." },
     { slug: "dammam-airport-to-jubail", label: "مطار الملك فهد ← الجبيل", note: "للمتجهين إلى المدينة الصناعية." },
     { slug: "dammam-airport-to-bahrain", label: "مطار الملك فهد ← البحرين", note: "من المطار مباشرة عبر الجسر." },
     { slug: "dammam-to-manama", label: "الدمام ← المنامة", note: "رسوم عبور السيارة مشمولة." },

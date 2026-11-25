@@ -591,6 +591,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
     ],
     faqs: [
       { question: "How far is Riyadh from Al Khobar?", answer: "Riyadh to Al Khobar is about 400 km by road on Highway 40, on the Gulf coast beside Dammam." },
+      { question: "How far is Khobar to Riyadh?", answer: "Al Khobar to Riyadh is the same distance in reverse, about 400 km by road, with the last part spent crossing Riyadh to your district." },
       { question: "How long is the drive from Riyadh to Al Khobar?", answer: "The drive takes roughly 3.5 to 4 hours on the expressway, depending on traffic and stops." },
       { question: "Can the taxi continue from Al Khobar to Bahrain?", answer: "Yes — Al Khobar is the gateway to the King Fahd Causeway. Ask for a through booking and we take you across to Manama." },
       { question: "Do you serve the whole Khobar–Dammam–Dhahran area?", answer: "Yes — the three cities form one metropolitan area and we cover all of it, including Aramco, the corniche, and business hotels. Confirm your district when booking." },
@@ -865,6 +866,7 @@ export const DISTANCE_GUIDES: DistanceGuide[] = [
     ],
     faqs: [
       { question: "How far is Riyadh from Taif?", answer: "About 785 km by road, mostly on Highway 40." },
+      { question: "What is the Taif to Riyadh distance by road?", answer: "Taif to Riyadh is also about 785 km by road. Starting from Taif Regional Airport is roughly 25 km shorter, because the airport is on the Riyadh side of the city." },
       { question: "How long is the drive from Riyadh to Taif?", answer: "Roughly 7 hours 50 minutes of driving — plan for 8 to 9 hours with prayer, meal and rest stops." },
       { question: "Which road goes from Riyadh to Taif?", answer: "Highway 40, heading west from Riyadh past Al Quway'iyah towards Taif and Makkah." },
       { question: "Is there a train from Riyadh to Taif?", answer: "No. There is no passenger rail line to Taif, so travellers drive or fly." },

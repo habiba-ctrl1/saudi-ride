@@ -199,6 +199,96 @@ export const ROUTE_ANSWERS: Record<string, RouteAnswers> = {
       { href: "/locations/makkah/private-driver", label: "Private driver in Makkah" },
     ],
   },
+  // Queries (3 months): "riyadh to khobar distance" 150, "khobar to riyadh distance" 95, "riyadh to khobar by car".
+  "riyadh-to-alkhobar": {
+    heading: "Riyadh to Khobar by car: what changes the trip",
+    intro:
+      "Riyadh and Al Khobar are about 400 km apart in either direction. The highway part is steady; the time you lose or gain is at the two ends, crossing Riyadh to reach the eastern exit and reaching the right side of the Khobar, Dhahran and Dammam area.",
+    qa: [
+      { q: "Is the Khobar to Riyadh distance the same?", a: "Yes, about 400 km. The return follows the same highway west, so only your exact addresses change the figure." },
+      { q: "Can the same car go on from Khobar to Bahrain?", a: "Yes. Al Khobar is where the King Fahd Causeway starts, so a through booking from Riyadh to Bahrain avoids changing cars. The causeway toll for the vehicle is included in the fare." },
+      { q: "Is a same-day return from Khobar possible?", a: "Yes, for a meeting day. Book the car with waiting so the driver and vehicle stay with you, and give the meeting address and finish time." },
+    ],
+    links: [
+      { href: "/routes/alkhobar-to-riyadh", label: "Khobar back to Riyadh" },
+      { href: "/routes/riyadh-to-manama", label: "Riyadh through to Bahrain" },
+      { href: "/locations/dammam/private-driver", label: "Private driver in Dammam and Khobar" },
+    ],
+  },
+
+  // Queries: "jubail to dammam airport" 53, "taxi price" 26, "jubail to dammam" 20. Page had no bespoke content.
+  "jubail-to-dammam-airport": {
+    heading: "Jubail to Dammam Airport (DMM) by private car",
+    intro:
+      "King Fahd International Airport lies between Jubail and Dammam, so you do not drive into Dammam first. Jubail city and Jubail Industrial City are separate pickup areas with different distances, and gate procedures can take longer than the road.",
+    table: {
+      caption: "Jubail to King Fahd International Airport road distance",
+      rows: [
+        { label: "Jubail Industrial City to DMM", km: 90 },
+        { label: "Jubail city to DMM", km: 80 },
+      ],
+    },
+    qa: [
+      { q: "How is the Jubail to Dammam Airport taxi price set?", a: "By vehicle size, the exact pickup point and any waiting. Send them on WhatsApp with the flight time and you receive one written fare before booking, with no meter." },
+      { q: "When should I leave Jubail for a flight?", a: "Work back from your airline's check-in time, then add the drive and a margin for shift traffic around the industrial city. Share the flight number and we suggest a pickup time." },
+      { q: "Can you collect a crew from a camp or plant gate?", a: "Yes, with vans or a coaster through partner operators. Send the company, gate or camp name, headcount and bags. Site access is arranged by your host." },
+      { q: "Do you also drive Jubail to Dammam city or Khobar?", a: "Yes. Those are separate city trips rather than airport transfers; name the drop-off address in the request and the fare follows it." },
+    ],
+    links: [
+      { href: "/routes/dammam-airport-to-jubail", label: "Arriving: Dammam Airport to Jubail" },
+      { href: "/locations/jubail", label: "Private cars in Jubail" },
+      { href: "/routes/jubail-to-kuwait", label: "Jubail to Kuwait City" },
+    ],
+  },
+
+  // Queries: "dammam airport to jubail taxi fare" 16; discovered, not indexed.
+  "dammam-airport-to-jubail": {
+    heading: "Landing at DMM for Jubail",
+    intro:
+      "The drop-off needs more detail here than the road does. Jubail city, the Royal Commission residential areas and the industrial plants are different destinations, so put the building or gate in the booking.",
+    qa: [
+      { q: "Does the driver go to Jubail directly from the terminal?", a: "Yes. The driver meets you at arrivals and leaves north for Jubail without going through Dammam city." },
+      { q: "What happens if several colleagues land on different flights?", a: "Send all the flight numbers. The plan is either one van that waits for the last arrival or separate cars; both are quoted so the company can choose." },
+    ],
+    links: [
+      { href: "/routes/jubail-to-dammam-airport", label: "Departing: Jubail to DMM" },
+      { href: "/airports/king-fahd-dammam", label: "Dammam Airport pickups" },
+    ],
+  },
+
+
+  // Queries: "madina to tabuk distance" 58, "madinah to tabuk distance" 31. No figures here:
+  // public sources give 623-626 km (routes.ts 620), routing engines 688.
+  "madinah-to-tabuk": {
+    heading: "Madinah to Tabuk: one long drive or a stop in AlUla?",
+    intro:
+      "The direct road north is a long single day. Travellers with time often break it at AlUla, which turns the transfer into a two-day trip with Hegra in the middle.",
+    qa: [
+      { q: "Can we visit AlUla between Madinah and Tabuk?", a: "Yes, with an overnight stay in AlUla and a second leg the next day. Both legs can be quoted together; book your Hegra visit time first." },
+      { q: "Can the trip continue into Jordan?", a: "Yes. From Tabuk the road goes to Halat Ammar for Petra and Amman, or to Haql for Aqaba. Each passenger needs their own travel documents; we do not arrange visas." },
+      { q: "Where in Tabuk do you drop off?", a: "Any hotel, home, company site or Tabuk Airport (TUU). For NEOM, name the site, because it is a separate drive beyond the city." },
+    ],
+    links: [
+      { href: "/routes/madinah-to-alula", label: "First leg: Madinah to AlUla" },
+      { href: "/routes/tabuk-to-aqaba", label: "Onward: Tabuk to Aqaba" },
+      { href: "/routes/medinah-to-amman", label: "Madinah to Amman by road" },
+    ],
+  },
+
+  // Query: "tabuk to red sea distance" 11. Page had no bespoke content.
+  "tabuk-to-red-sea-airport": {
+    heading: "Tabuk to the Red Sea resorts",
+    intro:
+      "Red Sea International Airport (RSI) is on the coast well south of Tabuk, so this is an intercity drive rather than a local airport run. It suits travellers combining Tabuk or Jordan with a Red Sea stay.",
+    qa: [
+      { q: "Is Red Sea Airport near Tabuk?", a: "No. They share the same region on the map, but the airport is several hours by road from Tabuk city. Check which airport your ticket uses before booking a car." },
+      { q: "Can you take me directly to a resort instead of the airport?", a: "Give the resort name. Some resorts are reached by road and others need the resort's own boat or transfer, so the drop-off point is confirmed with you first." },
+    ],
+    links: [
+      { href: "/airports/red-sea", label: "Red Sea Airport (RSI) transfers" },
+      { href: "/locations/tabuk", label: "Private cars in Tabuk" },
+    ],
+  },
 };
 
 // Pages Search Console reported as "Discovered / Crawled - currently not

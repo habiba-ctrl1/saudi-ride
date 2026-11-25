@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
+import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
 };
 
 const FEATURES = [
-  { icon: Compass, title: "Hajj Permits", desc: "All our vehicles and drivers hold the necessary permits to operate within Makkah during Hajj." },
+  { icon: Compass, title: "Hajj Access Rules", desc: "Entry to Makkah and the holy sites is controlled in Hajj season, so we confirm what can be arranged for your dates first." },
   { icon: Clock, title: "24/7 Availability", desc: "Round-the-clock transfers to accommodate your flight arrivals and departure times." },
   { icon: ShieldCheck, title: "Safe & Reliable", desc: "Maintained vehicles with experienced drivers who know alternative routes during heavy traffic." },
   { icon: Heart, title: "Pilgrim Focused", desc: "We provide dedicated support, wheelchair accessible options, and understand the needs of Hujjaj." },
@@ -46,7 +47,7 @@ export default function HajjTransportPage() {
           serviceSchema({
             name: "Hajj Transport Service",
             description:
-              "Dedicated Hajj transport service in Saudi Arabia with permitted vehicles and experienced drivers for transfers between Jeddah, Makkah, Madinah, Mina, and Arafat.",
+              "Dedicated Hajj transport service in Saudi Arabia with private vehicles and professional drivers for transfers between Jeddah, Makkah, Madinah, Mina, and Arafat.",
             path: "/services/hajj-transport",
             serviceType: "Hajj Transport",
             areaServed: ["Makkah", "Madinah", "Mina", "Arafat"],
@@ -83,14 +84,14 @@ export default function HajjTransportPage() {
             <span className="text-[#16A34A]">Services</span>
           </h1>
           <p className="max-w-2xl mx-auto text-sm md:text-base text-[#6B7280] leading-relaxed mb-8">
-            Secure, reliable, and permitted transport for Hajj pilgrims. Avoid the crowds and travel in comfort between Jeddah Airport, Makkah, and Madinah.
+            Pre-booked private transport for Hajj pilgrims, subject to season access rules. Avoid the crowds and travel in comfort between Jeddah Airport, Makkah, and Madinah.
           </p>
           <div className="max-w-2xl mx-auto mb-10 text-left">
             <TLDRSummary
-              answer="Hajj transport in Saudi Arabia uses permitted vehicles and experienced drivers for transfers between Jeddah Airport, Makkah, Madinah, Mina, and Arafat, available 24/7 during the pilgrimage season."
+              answer="Hajj transport in Saudi Arabia is arranged as pre-booked private transfers between Jeddah Airport, Makkah, Madinah, Mina, and Arafat, available 24/7 and subject to the access rules of the season."
               facts={[
                 { label: "Coverage", value: "Jeddah / Makkah / Madinah" },
-                { label: "Permits", value: "Makkah-cleared vehicles" },
+                { label: "Access", value: "Confirmed per season rules" },
                 { label: "Availability", value: "24/7" },
               ]}
             />
@@ -119,7 +120,7 @@ export default function HajjTransportPage() {
       </section>
       {(() => {
         const faqs = [
-          { question: "Are your vehicles permitted to operate during Hajj?", answer: "Yes. Our Hajj vehicles and drivers hold the required permits to operate within Makkah and the holy sites during the Hajj season." },
+          { question: "Are vehicles allowed into the holy sites during Hajj?", answer: "Access to Makkah and the holy sites in Hajj season is controlled by the authorities and limited to vehicles and passengers with the right permits. Tell us your Hajj package and locations first, and we confirm what can be arranged before you book." },
           { question: "Do you cover transfers between Mina, Arafat, and Muzdalifah?", answer: "Yes. We provide transfers across all Hajj locations including Mina, Arafat, and Muzdalifah, subject to seasonal route regulations." },
           { question: "Should I book Hajj transport in advance?", answer: "Strongly recommended. Demand peaks sharply during Hajj, so early booking secures your vehicle and driver." },
         ];
@@ -140,6 +141,11 @@ export default function HajjTransportPage() {
           </>
         );
       })()}
+      <section id="service-quote" className="section-container max-w-3xl py-12 scroll-mt-24">
+        <h2 className="font-heading text-2xl font-bold mb-2 text-[#1C1C1C]">Ask about Hajj season transport</h2>
+        <p className="text-sm text-[#374151] leading-relaxed mb-6">Send the date, places, passengers and bags. We reply on WhatsApp with one fare to confirm before you book.</p>
+        <WhatsAppQuoteForm defaultPickup="Makkah" />
+      </section>
       <ServiceRelatedLinks currentPath="/services/hajj-transport" />
     </div>
   );

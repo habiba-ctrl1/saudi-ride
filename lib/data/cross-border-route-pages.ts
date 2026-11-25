@@ -354,6 +354,7 @@ export const CROSS_BORDER_ROUTE_PAGES: Record<string, CrossBorderRoutePageData> 
     ],
     faqs: [
       { question: "How far is Tabuk from Amman by car?", answer: "About 455 km by the shortest road — roughly 5 hours 35 minutes of driving via the Halat Ammar–Al Mudawwara crossing and the Desert Highway, plus border time." },
+      { question: "How far is the Jordan border from Tabuk?", answer: "The Halat Ammar crossing is about 110 km north of Tabuk. For Aqaba, the coastal Al Durrah crossing beyond Haql is used instead, which is a longer drive from Tabuk city." },
       { question: "Which border crossing is used from Tabuk to Amman?", answer: "Halat Ammar on the Saudi side and Al Mudawwara on the Jordanian side. It is the direct inland crossing; going via Al Durrah and Aqaba is about 130 km longer." },
       { question: "Can you stop at Petra on the way?", answer: "Yes, as a multi-day or extended booking. Petra (Wadi Musa) is close to Ma'an on this route. Tell us how long you want there and we quote it." },
       { question: "Are border crossing fees included?", answer: "Yes. Border crossing fees for the vehicle are included in the fixed fare. Personal visa or entry fees are the passenger's." },
@@ -1393,6 +1394,8 @@ export const CROSS_BORDER_ROUTE_PAGES: Record<string, CrossBorderRoutePageData> 
     },
     faqs: [
       { question: "How far is Riyadh from Bahrain by car?", answer: "About 450 km — roughly 4 hours 20 minutes of driving to Manama via the Eastern Province and the King Fahd Causeway, plus border time." },
+      { question: "How do I travel from Riyadh to Bahrain by road?", answer: "Drive east to the Eastern Province and cross the King Fahd Causeway, about 450 km to Manama. With a private car you stay in one vehicle from your Riyadh address to your Bahrain address, and each passenger clears the causeway checks with their own documents." },
+      { question: "Can the car take me to Bahrain International Airport?", answer: "Yes. Give the airline and departure time, and the Riyadh pickup is planned back from it with margin for the causeway." },
       { question: "Is there a train from Riyadh to Bahrain?", answer: "No. There is no train between Riyadh and Bahrain. The train goes from Riyadh to Dammam, and the last leg across the causeway is by road." },
       { question: "Is the causeway toll included?", answer: "Yes, the King Fahd Causeway toll for the vehicle is included in the fixed fare." },
       { question: "What do I need to enter Bahrain?", answer: "A valid passport or accepted ID and the right to enter Bahrain for every passenger; Saudi residents generally also need a valid exit and re-entry visa. Check official sources before travel." },
@@ -1400,6 +1403,7 @@ export const CROSS_BORDER_ROUTE_PAGES: Record<string, CrossBorderRoutePageData> 
     ],
     related: [
       { href: "/guides/riyadh-to-bahrain-taxi-vs-train", label: "Riyadh to Bahrain: taxi vs train" },
+      { href: "/cross-border/saudi-to-bahrain", label: "Saudi–Bahrain crossing guide" },
       { href: "/routes/manama-to-riyadh", label: "Return: Bahrain to Riyadh" },
       { href: "/routes/riyadh-to-doha", label: "Riyadh to Doha" },
       { href: "/locations/riyadh", label: "Riyadh chauffeur service" },

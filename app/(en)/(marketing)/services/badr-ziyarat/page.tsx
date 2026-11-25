@@ -5,6 +5,7 @@ import { Landmark, MapPin, Clock, ShieldCheck, CheckCircle2, MessageCircle } fro
 import { contactConfig } from "@/lib/config/contact";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
+import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
@@ -181,6 +182,11 @@ export default function BadrZiyaratPage() {
         <p className="mb-10 text-sm text-[#525252]">
           Staying in Madinah? See <Link href="/services/madinah-ziyarat" className="font-semibold text-[#006C35] hover:underline">Madinah Ziyarat by private car</Link>, <Link href="/locations/madinah/private-driver" className="font-semibold text-[#006C35] hover:underline">a private driver by the hour</Link> and <Link href="/locations/madinah" className="font-semibold text-[#006C35] hover:underline">all Madinah transfers</Link>.
         </p>
+      <section id="service-quote" className="section-container max-w-3xl py-12 scroll-mt-24">
+        <h2 className="font-heading text-2xl font-bold mb-2 text-[#1C1C1C]">Request a Badr Ziyarat fare</h2>
+        <p className="text-sm text-[#374151] leading-relaxed mb-6">Send the date, places, passengers and bags. We reply on WhatsApp with one fare to confirm before you book.</p>
+        <WhatsAppQuoteForm defaultPickup="Madinah" />
+      </section>
         <ServiceRelatedLinks currentPath="/services/badr-ziyarat" />
       </div>
     </div>

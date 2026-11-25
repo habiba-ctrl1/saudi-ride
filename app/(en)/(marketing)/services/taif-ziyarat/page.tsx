@@ -5,6 +5,7 @@ import { Landmark, MapPin, Clock, ShieldCheck, CheckCircle2, MessageCircle } fro
 import { contactConfig } from "@/lib/config/contact";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
+import WhatsAppQuoteForm from "@/components/booking/WhatsAppQuoteForm";
 import { ServiceRelatedLinks } from "@/components/seo/ServiceRelatedLinks";
 import { serviceSchema, faqSchema, speakableSchema } from "@/lib/schema";
 import { TLDRSummary } from "@/components/seo/TLDRSummary";
@@ -179,6 +180,11 @@ export default function TaifZiyaratPage() {
           </div>
         </section>
 
+      <section id="service-quote" className="section-container max-w-3xl py-12 scroll-mt-24">
+        <h2 className="font-heading text-2xl font-bold mb-2 text-[#1C1C1C]">Request a Taif Ziyarat fare</h2>
+        <p className="text-sm text-[#374151] leading-relaxed mb-6">Send the date, places, passengers and bags. We reply on WhatsApp with one fare to confirm before you book.</p>
+        <WhatsAppQuoteForm defaultPickup="Taif" />
+      </section>
         <ServiceRelatedLinks currentPath="/services/taif-ziyarat" />
       </div>
     </div>

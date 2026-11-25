@@ -1,6 +1,6 @@
 import type { BlogPost } from "../types";
 
-// Rewritten 2026-10-02. Figures from routes.ts only: DMM→Dhahran 25 km/25 min,
+// Rewritten 2026-10-02. Figures from routes.ts only: DMM→Dhahran 50 km/40 min,
 // DMM→Jubail 90 km/65 min, Riyadh→Dammam 410 km/210 min, Riyadh→Al Khobar
 // 400 km/220 min, Dammam→Manama 70 km/60 min (via the King Fahd Causeway route
 // page). The old "~35 km from DMM to Dammam/Al Khobar" had no source — removed.
@@ -16,7 +16,7 @@ const post: BlogPost = {
   publishedAt: "2026-09-29",
   updatedAt: "2026-10-02",
   quickAnswer:
-    "Most business visitors to the Eastern Province land at King Fahd International Airport (DMM), about 25 km from Dhahran, and then move between Dammam, Al Khobar, Dhahran and Jubail (about 90 km from the airport). A pre-booked car per trip suits a simple visit; for several site visits a day or a multi-day project, an hourly or day booking — quoted in writing for companies — is usually simpler.",
+    "Most business visitors to the Eastern Province land at King Fahd International Airport (DMM), about 50 km from Dhahran, and then move between Dammam, Al Khobar, Dhahran and Jubail (about 90 km from the airport). A pre-booked car per trip suits a simple visit; for several site visits a day or a multi-day project, an hourly or day booking — quoted in writing for companies — is usually simpler.",
   related: ["saudi-arabia-business-travel-transportation-guide", "corporate-travel-saudi-arabia-business-etiquette", "riyadh-to-dubai-taxi-gcc-road-trip"],
   links: [
     { label: "Dammam Airport (DMM) transfers", href: "/airports/king-fahd-dammam" },
@@ -42,7 +42,7 @@ Dammam, Al Khobar and Dhahran form one continuous urban area on the Gulf coast, 
 
 | Route | Distance | Typical drive |
 |---|---|---|
-| [DMM airport → Dhahran](/routes/dammam-airport-to-dhahran) | ~25 km | ~25 min |
+| [DMM airport → Dhahran](/routes/dammam-airport-to-dhahran) | ~50 km | ~40 min |
 | [DMM airport → Jubail](/routes/dammam-airport-to-jubail) | ~90 km | ~65 min |
 | [Riyadh → Dammam](/routes/riyadh-to-dammam) | ~410 km | ~4 hr |
 | [Riyadh → Al Khobar](/routes/riyadh-to-alkhobar) | ~400 km | ~3 hr 40 min |

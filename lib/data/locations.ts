@@ -267,8 +267,8 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     nameAr: "الظهران",
     image: "/locations/dammam-hero.webp",
     tagline: "Home of Saudi Aramco & KFUPM",
-    description: "Book a private transfer in Dhahran for transfers to and from King Fahd International Airport (DMM) (~25 km, ~25 min), corporate travel to Saudi Aramco headquarters, Dhahran Techno Valley, and King Fahd University of Petroleum & Minerals (KFUPM), plus connections to Dammam, Al Khobar, and Jubail. Visitors share the host company and gate name when booking so the driver plans the right entry point, and companies can request a written quote by email. Corporate invoicing can be arranged through our sister company. Fares are fixed in advance with no surge pricing.",
-    tldr: "Taxi Saudi Arabia arranges 24/7 private transfer service in Dhahran — King Fahd International Airport (DMM) transfers (~25 km, ~25 min), corporate transport to Saudi Aramco HQ and KFUPM, and connections to Dammam, Al Khobar, and Jubail. Written quotes for companies; corporate invoicing can be arranged through our sister company.",
+    description: "Book a private transfer in Dhahran for transfers to and from King Fahd International Airport (DMM) (~50 km, ~40 min), corporate travel to Saudi Aramco headquarters, Dhahran Techno Valley, and King Fahd University of Petroleum & Minerals (KFUPM), plus connections to Dammam, Al Khobar, and Jubail. Visitors share the host company and gate name when booking so the driver plans the right entry point, and companies can request a written quote by email. Corporate invoicing can be arranged through our sister company. Fares are fixed in advance with no surge pricing.",
+    tldr: "Taxi Saudi Arabia arranges 24/7 private transfer service in Dhahran — King Fahd International Airport (DMM) transfers (~50 km, ~40 min), corporate transport to Saudi Aramco HQ and KFUPM, and connections to Dammam, Al Khobar, and Jubail. Written quotes for companies; corporate invoicing can be arranged through our sister company.",
     tldrFacts: [
       { label: "Airport (DMM)", value: "~25 km · ~25 min" },
       { label: "To Al Khobar", value: "~15 km · ~15 min" },
@@ -285,12 +285,12 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     ],
     tips: [
       "Aramco and KFUPM sites require visitor badges or gate clearance — share your host company and gate name when booking so the driver can plan the correct entry point and waiting area.",
-      "King Fahd International Airport (DMM) is about 25 minutes from Dhahran — one of the shortest airport transfers in the Eastern Province.",
+      "King Fahd International Airport (DMM) is about 40 minutes from Dhahran.",
       "Companies can request a written quote by email. Corporate invoicing can be arranged through our sister company.",
       "Dhahran, Al Khobar, Dammam, and Jubail are all served by the same Eastern Province driver network for same-day bookings."
     ],
     faqs: [
-      { question: "How much is a taxi from Dhahran to Dammam airport?", answer: "A taxi from Dhahran to King Fahd International Airport (DMM) is about 25 km — roughly a 25-minute drive. Sedans, SUVs and vans are available, fare confirmed on WhatsApp before booking." },
+      { question: "How much is a taxi from Dhahran to Dammam airport?", answer: "A taxi from Dhahran to King Fahd International Airport (DMM) is about 50 km — roughly a 40-minute drive. Sedans, SUVs and vans are available, fare confirmed on WhatsApp before booking." },
       { question: "Do you offer corporate accounts for Saudi Aramco contractors?", answer: "Companies, contractors and consultants visiting Aramco, KFUPM or Dhahran Techno Valley can request a written quote by email for the trips and dates they need. Corporate invoicing can be arranged through our sister company." },
       { question: "Can you pick up visitors from inside Aramco or KFUPM gates?", answer: "Share your host company, badge type, and gate name when booking so the driver can plan the correct visitor entry point and waiting area — some Aramco facilities have restricted access requiring advance notice." },
       { question: "How far is Dhahran from Al Khobar and Jubail?", answer: "Dhahran is about 15 km from Al Khobar (roughly 15 minutes) and 85 km from Jubail (roughly an hour). We serve all three cities with the same Eastern Province driver network." },
@@ -521,18 +521,18 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { name: "Trojena", dist: "Mountain Zone" },
       { name: "Sindalah Island", dist: "Luxury Island" },
       { name: "NEOM Bay & Sharma", dist: "Coastal Hub" },
-      { name: "Tabuk Airport (TUU)", dist: "Regional Hub (~120 km)" }
+      { name: "Tabuk Airport (TUU)", dist: "Regional Hub (~180 km)" }
     ],
     tips: [
       "NEOM covers a vast area — provide your specific destination or gate access point when requesting a transfer.",
-      "Tabuk Airport (TUU) is the primary regional air gateway (~120 km), while NEOM Bay (NUM) and Red Sea International (RSI) also serve the region.",
+      "Tabuk Airport (TUU) is the primary regional air gateway (~180 km), while NEOM Bay (NUM) and Red Sea International (RSI) also serve the region.",
       "Given the long highway distances across the region, executive SUVs (e.g. GMC Yukon XL) provide optimal comfort.",
       "Corporate invoicing can be arranged through our sister company.",
       "Confirm any required site entry clearance with your host before travel."
     ],
     faqs: [
       { question: "How can I book a private transfer or executive car in NEOM?", answer: "You can book directly online via our booking page or request a customized quote on WhatsApp for executive chauffeured vehicles, airport pickups, or multi-day business transportation." },
-      { question: "Do you provide airport transfers from Tabuk Airport to NEOM?", answer: "Yes, we operate private airport transfers from Tabuk Regional Airport (TUU) directly to NEOM project sites and coastal hubs (~120 km). A clear quote is provided on WhatsApp prior to booking." },
+      { question: "Do you provide airport transfers from Tabuk Airport to NEOM?", answer: "Yes, we operate private airport transfers from Tabuk Regional Airport (TUU) directly to NEOM project sites and coastal hubs (~180 km). A clear quote is provided on WhatsApp prior to booking." },
       { question: "Can I book a private car for business travel in NEOM?", answer: "Yes. We offer executive sedans and spacious SUVs with professional drivers for contractor site visits, corporate delegations, and regional business travel across NEOM and Tabuk." },
       { question: "Which NEOM destinations do your private transfers cover?", answer: "Confirmed pickup and drop-off points are NEOM Bay / Sharma, Magna, Oxagon and Tabuk city. For other NEOM sites, send the location and we confirm whether a transfer is possible — site access is arranged by your host." },
       { question: "Is private transport available in NEOM 24/7?", answer: "Yes, we provide round-the-clock private transfer and executive car services across NEOM and the Tabuk region at pre-confirmed fixed fares." }
@@ -645,10 +645,10 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
     image: "/locations/tabuk-hero.webp",
     tagline: "Gateway to NEOM, the Red Sea & the Jordan Border",
     description: "Book a taxi or executive chauffeur service in Tabuk for airport transfers, business trips to NEOM, and cross-border journeys to Jordan via the Halat Ammar or Al Durrah crossing. Tabuk is the main air and road gateway to the NEOM giga-project, the Red Sea coast, and AlUla, making it a key hub for contractors, investors, and tourists heading north. Our drivers cover Tabuk Regional Airport (TUU), the historic Old Town and Tabuk Castle, Wadi Disah, Tayma, and the coastal towns of Haql and Duba — all with your fare confirmed before you book, no surge, day or night.",
-    tldr: "Taxi Saudi Arabia arranges private transfer and executive chauffeur service in Tabuk — Tabuk Regional Airport (TUU) transfers, business trips to NEOM (~120 km), Red Sea coast runs to Duba and Haql, and cross-border transfers to the Jordan (Aqaba) border.",
+    tldr: "Taxi Saudi Arabia arranges private transfer and executive chauffeur service in Tabuk — Tabuk Regional Airport (TUU) transfers, business trips to NEOM (~180 km), Red Sea coast runs to Duba and Haql, and cross-border transfers to the Jordan (Aqaba) border.",
     tldrFacts: [
       { label: "Airport", value: "TUU" },
-      { label: "To NEOM", value: "~120 km" },
+      { label: "To NEOM", value: "~180 km" },
       { label: "To Aqaba, Jordan", value: "~270 km" },
       { label: "Pricing", value: "Quoted on WhatsApp" }
     ],
@@ -658,7 +658,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       { name: "Tayma Oasis", dist: "~90 km" },
       { name: "Haql & Gulf of Aqaba Coast", dist: "~230 km" },
       { name: "Tabuk Regional Airport (TUU)", dist: "~7 km" },
-      { name: "NEOM Bay", dist: "~120 km" }
+      { name: "NEOM Bay", dist: "~180 km" }
     ],
     tips: [
       "Tabuk Regional Airport (TUU) is the main air gateway for NEOM and the northern Red Sea coast — pre-book your meet & greet transfer.",
@@ -667,7 +667,7 @@ export const CITY_DETAILS: Record<string, { name: string, nameAr: string, image:
       "Business and NEOM site visits are common — share your exact site or gate access details in advance."
     ],
     faqs: [
-      { question: "How do I get from Tabuk Airport to NEOM?", answer: "We run transfers from Tabuk Regional Airport (TUU) directly to NEOM and NEOM Bay, about 120 km away — the main route used by contractors, investors, and visitors reaching the project." },
+      { question: "How do I get from Tabuk Airport to NEOM?", answer: "We run transfers from Tabuk Regional Airport (TUU) directly to NEOM and NEOM Bay, about 180 km away — the main route used by contractors, investors, and visitors reaching the project." },
       { question: "Can I cross the border to Jordan from Tabuk?", answer: "Yes, we offer cross-border transfers from Tabuk to the Jordan border near Haql (Al Durrah crossing) and onward toward Aqaba, with Aqaba about 270 km from Tabuk city by road. Valid travel documents are required." },
       { question: "Is Tabuk a good base for visiting the Red Sea and AlUla?", answer: "Yes — Tabuk is the closest major airport hub to the Red Sea coast (Duba, Haql) and within reach of AlUla, making it a common stop for premium tourism and NEOM-related travel." },
       { question: "How much is a taxi from Tabuk Airport to the city?", answer: "A taxi from Tabuk Regional Airport (TUU) to the city centre is about 7 km, with meet & greet at arrivals and no surge pricing." },

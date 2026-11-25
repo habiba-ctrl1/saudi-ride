@@ -54,9 +54,9 @@ Bookings run **24/7**, drivers speak **English or Arabic**, and you can **cancel
 | [King Abdulaziz International, Jeddah](/airports/king-abdulaziz-jeddah) | JED | Makkah · Jeddah city · Madinah · Taif | Makkah ~80 km / ~1 hr; city ~20 km / ~30 min |
 | [King Khalid International, Riyadh](/airports/king-khalid-riyadh) | RUH | Central Riyadh · KAFD · Olaya | City ~35 km / ~30 min; KAFD ~40 km / ~35 min |
 | [Prince Mohammad bin Abdulaziz, Madinah](/airports/prince-mohammad-madinah) | MED | Haram hotels · Makkah · AlUla | Markaziyah ~22 km / ~25 min; Makkah ~450 km |
-| [King Fahd International, Dammam](/airports/king-fahd-dammam) | DMM | Dhahran · Al Khobar · Dammam · Jubail | Dhahran ~25 km / ~25 min; Jubail ~90 km / ~65 min |
+| [King Fahd International, Dammam](/airports/king-fahd-dammam) | DMM | Dhahran · Al Khobar · Dammam · Jubail | Dhahran ~50 km / ~40 min; Jubail ~90 km / ~65 min |
 | [AlUla International](/airports/alula) | ULH | AlUla resorts · Hegra tour points | Resort area ~30 km / ~30 min |
-| [Tabuk Regional](/airports/tabuk-regional) | TUU | NEOM area · Tabuk | NEOM ~120 km / ~80 min |
+| [Tabuk Regional](/airports/tabuk-regional) | TUU | NEOM area · Tabuk | NEOM ~180 km / ~165 min |
 | [Red Sea International](/airports/red-sea) | RSI | Red Sea resorts · AMAALA | AMAALA ~35 km / ~30 min |
 | [Taif Regional](/airports/taif-regional) | TIF | Taif · Makkah | — |
 | [Abha International](/airports/abha-regional) | AHB | Abha · Al Soudah | Al Soudah ~45 km / ~50 min |
@@ -83,7 +83,7 @@ DMM serves Dammam, Al Khobar, Dhahran and Jubail. Distances across the region va
 
 ## AlUla, Tabuk, the Red Sea and the south
 
-Smaller airports have **few on-demand taxis**, so a pre-booked transfer is essential rather than optional. At [AlUla (ULH)](/blog/alula-travel-guide-hegra-dadan-transport), resorts are spread through the valley; at Tabuk, the NEOM area is about 120 km away; at Red Sea International, resorts are reached by road from the terminal.
+Smaller airports have **few on-demand taxis**, so a pre-booked transfer is essential rather than optional. At [AlUla (ULH)](/blog/alula-travel-guide-hegra-dadan-transport), resorts are spread through the valley; at Tabuk, the NEOM area is about 180 km away; at Red Sea International, resorts are reached by road from the terminal.
 
 ## Choosing the vehicle
 

@@ -147,7 +147,7 @@ export const DAMMAM_AREAS: { href: string; name: string; nameAr: string; what: s
 /* ─── Hub: corridor board (every slug is a real route page) ─────────── */
 
 export const DAMMAM_CORRIDORS: { slug: string; label: string; note: string }[] = [
-  { slug: "dammam-airport-to-dhahran", label: "DMM Airport → Dhahran", note: "The shortest airport run in the Eastern Province." },
+  { slug: "dammam-airport-to-dhahran", label: "DMM Airport → Dhahran", note: "To Aramco, KFUPM and Dhahran hotels." },
   { slug: "dammam-airport-to-jubail", label: "DMM Airport → Jubail", note: "Arrivals heading straight to Jubail Industrial City." },
   { slug: "jubail-to-dammam-airport", label: "Jubail → DMM Airport", note: "Departure leg, worked back from your flight time." },
   { slug: "dammam-to-manama", label: "Dammam → Manama, Bahrain", note: "Over the King Fahd Causeway; vehicle crossing fee included." },
@@ -217,6 +217,7 @@ export const DAMMAM_BOOKING_STEPS = [
 export const DAMMAM_HUB_FAQS: { question: string; answer: string; category: string }[] = [
   { category: "Booking", question: "How do I book a private taxi in Dammam?", answer: "Send the pickup, drop-off, date, passengers and luggage by the form or on WhatsApp. We reply with the vehicle and one fixed fare, usually within 1–2 hours, before anything is booked — no meter and no surge." },
   { category: "In the city", question: "Can I book a single ride inside Dammam or to Al Khobar?", answer: "Yes. A one-way or return trip between any two addresses in Dammam, Al Khobar or Dhahran — hotel, office, mall, the Corniche or Ithra — is booked the same way, with one fare for the whole car." },
+  { category: "Booking", question: "Is there a Dammam taxi number I can message?", answer: "Yes. Use the WhatsApp button or the form on this page; both reach our booking team 24 hours a day. This is a pre-booked private car service, not a street taxi rank, so send the time and addresses ahead." },
   { category: "Airport", question: "Do you do King Fahd Airport (DMM) pickups?", answer: `Yes, 24/7. We track your flight, meet you at arrivals and the first ${FREE_WAIT} of waiting are free. Dhahran is about ${DMM_DHAHRAN.km} km from DMM and Jubail about ${DMM_JUBAIL.km} km.` },
   { category: "Hourly", question: "Can I hire a driver by the hour in Dammam or Al Khobar?", answer: "Yes. Book a car and driver for a block of hours or a full day — the driver waits between stops. Send the date, start time, hours and rough stops, and the fare is agreed before booking." },
   { category: "Bahrain", question: "Can you take us from Dammam or Al Khobar to Bahrain?", answer: `Yes. Dammam to Manama is about ${D_MANAMA.km} km and Al Khobar to Manama about ${KH_MANAMA.km} km over the King Fahd Causeway. The vehicle's crossing fee is included; passengers bring their own passports and entry documents.` },
