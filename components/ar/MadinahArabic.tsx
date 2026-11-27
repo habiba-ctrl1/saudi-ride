@@ -15,10 +15,12 @@ import { Head, Facts, Faqs, Quote, wa, BTN_PRIMARY, BTN_GHOST } from "@/componen
 import {
   AR_MADINAH_HUB, AR_MADINAH_FACTS, AR_MADINAH_TRIPS, AR_MED_FLOW, AR_MADINAH_CORRIDORS, AR_ZIYARAT_STOPS,
   AR_MADINAH_VEHICLES, AR_MADINAH_TIMING, AR_MADINAH_STEPS, AR_MADINAH_FAQS, AR_MADINAH_GUIDES, AR_FREE_WAIT, CORP_AR, dur,
+  AR_MED_ZIYARAT,
 } from "@/lib/data/madinah-cluster-ar";
 
 const SITE = "https://taxisaudiarabia.com";
 const HUB_PATH = "/ar/locations/madinah";
+const ZIY_PATH = "/ar/services/madinah-ziyarat";
 const HUB_WA = "السلام عليكم، استفسار عن النقل في المدينة المنورة.\n• من: \n• إلى: \n• التاريخ والوقت: \n• عدد الركاب والحقائب: \n• السيارة (سيدان / دفع رباعي / ستاريا / فان / كوستر): \n• رقم الرحلة (للمطار): ";
 const GREEN = "inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-[#16A34A] px-6 text-xs font-bold text-[#FFFFFF] hover:bg-[#15803D]";
 const OUTLINE = "inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-[#16A34A]/30 px-6 text-xs font-bold text-[#15803D] hover:bg-[#F0FDF4]";
@@ -192,7 +194,7 @@ export function MadinahHubAr() {
           </ol>
           <div className="mt-6 flex flex-wrap gap-3">
             <a href={wa(AR_MADINAH_TRIPS[2].waPrefill)} target="_blank" rel="noopener noreferrer" className={GREEN}><MessageCircle className="h-4 w-4" aria-hidden="true" /> احجز سيارة زيارات المدينة</a>
-            <Link href="/services/madinah-ziyarat" className={OUTLINE}>مخطط الزيارات والمسار (بالإنجليزية) <ArrowLeft className="h-4 w-4" aria-hidden="true" /></Link>
+            <Link href={ZIY_PATH} className={OUTLINE}>دليل مزارات المدينة بالسيارة <ArrowLeft className="h-4 w-4" aria-hidden="true" /></Link>
           </div>
         </section>
 
@@ -256,6 +258,89 @@ export function MadinahHubAr() {
           </ul>
           <p className="mt-6 text-sm text-[#4B5563]">تسافر إلى مكة أيضاً؟ راجع <Link href="/ar/locations/makkah" className="font-semibold text-[#15803D] hover:underline">النقل الخاص في مكة المكرمة</Link> أو <Link href="/ar/locations/alula" className="font-semibold text-[#15803D] hover:underline">العلا</Link>.</p>
         </section>
+      </div>
+    </div>
+  );
+}
+
+/* ═══ مزارات المدينة المنورة ═══ */
+// Added 2026-11-28 (Batch 4). Data: AR_MED_ZIYARAT + AR_ZIYARAT_STOPS.
+export function MadinahZiyaratAr() {
+  const zWa = AR_MADINAH_TRIPS[2].waPrefill + "\n(ref: ar-madinah-ziyarat)";
+  const schema = [
+    {
+      "@context": "https://schema.org", "@type": "Service", "@id": `${SITE}${ZIY_PATH}#service`, inLanguage: "ar",
+      name: "مزارات المدينة المنورة بالسيارة", serviceType: "نقل الزيارات",
+      description: "سيارة خاصة مع سائق بين مسجد قباء ومسجد القبلتين والمساجد السبعة وجبل أحد، مع انتظار عند كل موقع. خدمة نقل فقط عبر شبكة شركاء.",
+      url: `${SITE}${ZIY_PATH}`, provider: { "@type": "Organization", name: "تاكسي السعودية", url: SITE },
+      areaServed: { "@type": "City", name: "المدينة المنورة" },
+    },
+    speakableSchema({ path: ZIY_PATH }),
+    faqSchema(AR_MED_ZIYARAT.faqs),
+  ];
+  return (
+    <div dir="rtl" lang="ar" className="min-h-screen bg-[#FAFAF7] text-[#1C1C1C]">
+      <JsonLd data={schema} />
+      <section className="relative isolate overflow-hidden bg-[#0B1F14]">
+        <Image src="/services/madinah-ziyarat-hero.webp" alt="مسجد أبيض بمآذن وقباب بين النخيل وفان أبيض في الموقف عند الغروب" fill priority sizes="100vw" className="-z-10 object-cover object-[50%_45%]" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-l from-[#0B1F14] via-[#0B1F14]/85 to-[#0B1F14]/30" aria-hidden="true" />
+        <Breadcrumbs className="relative [&_a]:text-white/70 [&_a:hover]:text-white [&_span]:text-[#FACC15]" items={[{ name: "الرئيسية", href: "/ar" }, { name: "المدينة المنورة", href: HUB_PATH }, { name: "مزارات المدينة", href: ZIY_PATH }]} />
+        <div className="section-container relative max-w-6xl pb-16 pt-6 md:pb-24 md:pt-10">
+          <div className="max-w-2xl">
+            <h1 className="font-heading text-[2.1rem] font-bold leading-[1.15] text-[#FFFFFF] sm:text-5xl">{AR_MED_ZIYARAT.h1}</h1>
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-white/85 md:text-lg">{AR_MED_ZIYARAT.intro}</p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <a href="#quote" className={BTN_PRIMARY}>اطلب سعر جولة المزارات <ArrowLeft className="h-4 w-4" aria-hidden="true" /></a>
+              <a href={wa(zWa)} target="_blank" rel="noopener noreferrer" className={BTN_GHOST}><MessageCircle className="h-4 w-4" aria-hidden="true" /> احجز عبر واتساب</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="answer-heading" className="section-container relative z-10 -mt-8 max-w-6xl">
+        <div className="rounded-[2rem] border border-[#16A34A]/15 bg-white p-6 md:p-9">
+          <h2 id="answer-heading" className="sr-only">الجواب المختصر</h2>
+          <p id="speakable-summary" className="text-[1.05rem] leading-relaxed text-[#1F2937] md:text-lg">{AR_MED_ZIYARAT.answer}</p>
+        </div>
+      </section>
+
+      <div className="section-container max-w-6xl space-y-20 py-20 md:space-y-28 md:py-28">
+        <section aria-labelledby="sites-heading">
+          <Head id="sites-heading" eyebrow="المواقع" title="مزارات المدينة التي تمر بها السيارة" intro="المسافات تقريبية بالطريق من المسجد النبوي، والأوقات دون ازدحام." />
+          <ol className="grid gap-3 sm:grid-cols-2">
+            {AR_ZIYARAT_STOPS.map((s) => (
+              <li key={s.name} className="rounded-2xl border border-[#E5E7EB] bg-white p-5"><p className="font-heading text-base font-bold">{s.name}</p><p className="mt-2 text-sm leading-relaxed text-[#4B5563]">{s.note}</p></li>
+            ))}
+          </ol>
+        </section>
+
+        <section aria-labelledby="options-heading">
+          <Head id="options-heading" eyebrow="مدة الجولة" title="نصف يوم يكفي أم يوم كامل؟" intro="المواقع قريبة من بعضها، فنصف يوم يكفي أغلب الزوار. اليوم الكامل لمن يريد التمهل أو معه كبار سن." />
+          <div className="grid gap-4 md:grid-cols-3">
+            {AR_MED_ZIYARAT.options.map((o) => (
+              <article key={o.option} className="rounded-3xl border border-[#E5E7EB] bg-white p-6"><h3 className="font-heading text-lg font-bold">{o.option}</h3><p className="mt-2 text-sm text-[#1F2937]">{o.best}</p><p className="mt-2 text-sm text-[#4B5563]">{o.how}</p></article>
+            ))}
+          </div>
+        </section>
+
+        <section aria-labelledby="vehicle-heading">
+          <Head id="vehicle-heading" eyebrow="السيارة" title="أي سيارة تناسب جولتك؟" intro={`نؤكد السيارة حسب التاريخ وعدد الركاب. الانتظار المجاني عند الاستلام ${AR_FREE_WAIT}.`} />
+          <VehicleGrid />
+        </section>
+
+        <Quote heading="اطلب سعر جولة مزارات المدينة" body="أرسل فندقك والتاريخ وعدد الركاب والمواقع التي تريدها، ونصف يوم أم يوماً كاملاً. نرد بالسيارة وسعر ثابت واحد قبل الحجز." label="اطلب سعر الجولة" waPrefill={zWa} pickup="فندق في المدينة المنورة" dropoff="مزارات المدينة" pathB={{ heading: "مجموعة عمرة أو منظم رحلات؟", body: `أرسل التفاصيل بالبريد لعرض سعر مكتوب. ${CORP_AR}`, emailSubject: "طلب نقل مزارات المدينة", emailBody: "السلام عليكم فريق تاكسي السعودية،\n\nنرغب بعرض سعر لجولة مزارات المدينة المنورة.\n\n• المجموعة: \n• اسم المسؤول: \n• الفندق: \n• التاريخ: \n• عدد الركاب: \n• المواقع: \n• نصف يوم أم يوم كامل؟: \n\nنرجو تأكيد السعر الثابت قبل الحجز.\n\nشكراً." }} />
+
+        <section aria-labelledby="faq-heading" className="grid grid-cols-1 gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+          <div><Head id="faq-heading" eyebrow="أسئلة شائعة" title="أسئلة عن مزارات المدينة بالسيارة" /></div>
+          <Faqs faqs={AR_MED_ZIYARAT.faqs} />
+        </section>
+
+        <p className="text-sm text-[#4B5563]">
+          هذه الصفحة جزء من <Link href={HUB_PATH} className="font-semibold text-[#15803D] hover:underline">النقل الخاص في المدينة المنورة</Link>. بعد الزيارات متجه إلى مكة؟ راجع{" "}
+          <Link href={routeHref("madinah-to-makkah")} className="font-semibold text-[#15803D] hover:underline">التاكسي من المدينة إلى مكة</Link>، أو{" "}
+          <Link href="/ar/services/makkah-ziyarat" className="font-semibold text-[#15803D] hover:underline">زيارات مكة بالسيارة</Link>، أو{" "}
+          <Link href="/services/badr-ziyarat" className="font-semibold text-[#15803D] hover:underline">رحلة بدر (بالإنجليزية)</Link>.
+        </p>
       </div>
     </div>
   );

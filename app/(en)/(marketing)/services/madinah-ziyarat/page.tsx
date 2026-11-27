@@ -17,7 +17,11 @@ const DESCRIPTION = "Private car for Madinah Ziyarat — Quba Mosque, Masjid al-
 const OG_IMAGE = "https://taxisaudiarabia.com/locations/madinah-og.webp";
 
 export const metadata: Metadata = {
-  alternates: { canonical: "https://taxisaudiarabia.com/services/madinah-ziyarat" },
+  alternates: {
+    canonical: "https://taxisaudiarabia.com/services/madinah-ziyarat",
+    // Arabic twin added 2026-11-28.
+    languages: { en: "https://taxisaudiarabia.com/services/madinah-ziyarat", ar: "https://taxisaudiarabia.com/ar/services/madinah-ziyarat", "x-default": "https://taxisaudiarabia.com/services/madinah-ziyarat" },
+  },
   title: TITLE,
   description: DESCRIPTION,
   openGraph: {

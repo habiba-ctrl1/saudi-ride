@@ -41,6 +41,8 @@ export const AR_REAL_ROUTES = [
   // Arabic Makkah hub + Ziyarat (app/(ar)/ar/locations/makkah, app/(ar)/ar/services/makkah-ziyarat).
   "/locations/makkah",
   "/services/makkah-ziyarat",
+  // Arabic Madinah Ziyarat (app/(ar)/ar/services/madinah-ziyarat, 2026-11-28).
+  "/services/madinah-ziyarat",
   // Arabic corporate page (app/(ar)/ar/services/corporate).
   "/services/corporate",
   // Arabic Madinah hub (app/(ar)/ar/locations/madinah).
