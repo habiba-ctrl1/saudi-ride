@@ -162,7 +162,7 @@ export function Footer() {
         { label: "مكة المكرمة", href: "/ar/locations/makkah" },
         { label: "المدينة المنورة", href: "/ar/locations/madinah" },
         { label: "جدة", href: "/ar/locations/jeddah" },
-        { label: "الرياض", href: "/locations/riyadh" },
+        { label: "الرياض", href: "/ar/locations/riyadh" },
         { label: "الدمام", href: "/ar/locations/dammam" },
         { label: "العلا", href: "/ar/locations/alula" },
         { label: "نيوم", href: "/locations/neom" },

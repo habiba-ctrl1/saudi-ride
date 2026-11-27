@@ -13,6 +13,7 @@ export interface ArCityHub {
 }
 
 export const AR_CITY_HUBS: ArCityHub[] = [
+  { key: "riyadh", href: "/ar/locations/riyadh", name: "الرياض", blurb: "مطار الملك خالد، المركز المالي والعليا، وليموزين بالساعة", match: /riyadh/ },
   { key: "makkah", href: "/ar/locations/makkah", name: "مكة المكرمة", blurb: "من مطار جدة إلى فندقك، وزيارات مكة، وسيارة مع سائق بالساعة", match: /makkah/ },
   { key: "madinah", href: "/ar/locations/madinah", name: "المدينة المنورة", blurb: "مطار المدينة، فنادق المنطقة المركزية، والزيارات", match: /madinah/ },
   { key: "jeddah", href: "/ar/locations/jeddah", name: "جدة", blurb: "مطار الملك عبدالعزيز، الكورنيش، والرحلات إلى مكة", match: /jeddah/ },

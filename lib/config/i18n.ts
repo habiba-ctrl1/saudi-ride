@@ -51,6 +51,8 @@ export const AR_REAL_ROUTES = [
   "/locations/dammam",
   "/locations/jubail",
   "/locations/yanbu",
+  // Arabic Riyadh hub (app/(ar)/ar/locations/riyadh, 2026-11-27).
+  "/locations/riyadh",
   // Kept as a literal list (not imported from the data module) so middleware stays lean.
   ...["private-driver", "hegra", "maraya", "elephant-rock"].map((s) => `/locations/alula/${s}`),
   ...AR_CROSS_BORDER_PATHS,
