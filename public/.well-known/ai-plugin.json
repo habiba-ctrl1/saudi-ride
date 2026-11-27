@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Taxi Saudi Arabia VIP Transport",
+  "name_for_model": "taxi_saudi_arabia",
+  "description_for_human": "Book private chauffeur services, airport transfers, Umrah transport, and luxury rides across Saudi Arabia.",
+  "description_for_model": "Plugin for searching taxi fares, fleet availability, airport pickups, Umrah transport (Jeddah, Makkah, Madinah, Riyadh, Dammam), and booking private chauffeur rides in Saudi Arabia.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://taxisaudiarabia.com/llms.txt"
+  },
+  "logo_url": "https://taxisaudiarabia.com/icon.png",
+  "contact_email": "infotaxisaudiarabia@gmail.com",
+  "legal_info_url": "https://taxisaudiarabia.com/terms-conditions"
+}

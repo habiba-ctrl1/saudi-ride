@@ -1,0 +1,318 @@
+﻿// Shared fleet vehicle data — used by both the listing page and dynamic detail pages.
+
+export type VehicleCategory = "sedan" | "suv" | "van" | "luxury" | "bus";
+
+export interface FleetVehicle {
+  slug: string;
+  name: string;
+  subtitle: string;
+  category: VehicleCategory;
+  passengers: number;
+  luggage: number;
+  startingPrice: number;
+  badge: string;
+  image: string;
+  features: string[];
+  description: string;
+  /** Optional: a specific high-value route this vehicle is arranged for most often. */
+  popularRoute?: {
+    routeSlug: string;
+    title: string;
+    description: string;
+    faqs: { question: string; answer: string }[];
+  };
+}
+
+export const FLEET_VEHICLES: FleetVehicle[] = [
+  {
+    slug: "toyota-camry",
+    name: "Toyota Camry",
+    subtitle: "Executive Sedan",
+    category: "sedan",
+    passengers: 4,
+    luggage: 2,
+    startingPrice: 80,
+    badge: "Best Value",
+    image: "/fleet/toyota-camry.webp",
+    features: ["Professional Chauffeur", "Climate Controlled", "Efficient Transfer"],
+    description: "Our most booked executive sedan for private airport transfers and city rides. Clean, comfortable, and driven by a professional chauffeur.",
+  },
+  {
+    slug: "toyota-veloz",
+    name: "Toyota Veloz 2024",
+    subtitle: "Economy Cross-Border Car",
+    category: "sedan",
+    passengers: 5,
+    luggage: 3,
+    startingPrice: 70,
+    badge: "Bahrain Causeway",
+    image: "/fleet/toyota-veloz.webp",
+    features: ["Great Value", "Fuel Efficient", "Causeway Ready"],
+    description: "A clean, fuel-efficient 5-seater — our best-value pick for Dammam, Khobar, and Jubail transfers and the King Fahd Causeway run to Bahrain. Comfortable for a small family with luggage at an economy fare.",
+    popularRoute: {
+      routeSlug: "alkhobar-to-manama",
+      title: "Toyota Veloz — Khobar to Bahrain (King Fahd Causeway)",
+      description: "The Toyota Veloz is our most-booked economy car for the King Fahd Causeway crossing between the Eastern Province and Bahrain — comfortable for up to 5 with luggage, arranged door-to-door from Khobar, Dammam, or Dhahran to Manama with a driver who knows the causeway checkpoints and paperwork.",
+      faqs: [
+        { question: "How much is a Veloz from Khobar to Bahrain?", answer: "The Toyota Veloz on the Khobar to Manama causeway route is arranged at an economy fare, confirmed on WhatsApp based on your exact pickup point, passenger count, and timing — message us for a clear quote before you book." },
+        { question: "Does the driver handle the causeway crossing?", answer: "Yes. Your driver knows the King Fahd Causeway checkpoints and keeps the crossing smooth — you just need your valid passport and any required Bahrain entry documents." },
+        { question: "How many passengers and bags fit in the Veloz?", answer: "Up to 5 passengers with 3 suitcases — a practical, economical choice for a small family or a business trip across the causeway." },
+      ],
+    },
+  },
+  {
+    slug: "gmc-yukon-xl",
+    name: "GMC Yukon XL / Denali",
+    subtitle: "Premium SUV",
+    category: "suv",
+    passengers: 7,
+    luggage: 5,
+    startingPrice: 150,
+    badge: "Most Popular",
+    image: "/fleet/gmc-yukon-xl.webp",
+    features: ["VIP Executive SUV", "Extra Legroom", "Luxury Interior"],
+    description: "Spacious executive SUV for families and VIP groups — extra legroom, big luggage space, and a smooth ride.",
+    popularRoute: {
+      routeSlug: "jeddah-airport-to-makkah",
+      title: "GMC Yukon Chauffeur — Jeddah Airport to Makkah",
+      description: "The GMC Yukon XL / Denali is a full-size SUV option for the Jeddah Airport to Makkah corridor — suited to families and small Umrah groups travelling with luggage, subject to availability, arranged with a professional chauffeur door-to-door from King Abdulaziz International Airport to your Makkah hotel or the Haram, with a stop at the Miqat on request.",
+      faqs: [
+        { question: "How much does a GMC Yukon cost from Jeddah Airport to Makkah?", answer: "The fare is quoted individually on WhatsApp based on your exact pickup time, passenger count and luggage, and agreed before you book — message us for a clear quote." },
+        { question: "Is the GMC Yukon a private vehicle or shared?", answer: "Private — one GMC Yukon and one chauffeur exclusively for your party, not a shared shuttle, for the full Jeddah Airport to Makkah journey." },
+        { question: "How many passengers and bags fit in the Yukon for this route?", answer: "Seating and luggage space are confirmed against your party when we quote. Tell us how many passengers and large suitcases you have and we confirm whether one GMC fits, or recommend a van or a second vehicle." },
+      ],
+    },
+  },
+  {
+    slug: "hyundai-staria",
+    name: "Hyundai Staria VIP",
+    subtitle: "VIP Van",
+    category: "van",
+    passengers: 7,
+    luggage: 4,
+    startingPrice: 130,
+    badge: "Family Pick",
+    image: "/fleet/real/hyundai-staria-exterior.webp",
+    features: ["VIP Family Van", "Spacious Interior", "Group Excellence"],
+    description: "Modern VIP van for families and groups. Roomy cabin, comfortable seats, and plenty of luggage space.",
+  },
+  {
+    slug: "executive-vip-van",
+    name: "Executive VIP Van",
+    subtitle: "Partner Network",
+    category: "van",
+    passengers: 7,
+    luggage: 5,
+    startingPrice: 0,
+    badge: "Partner Network",
+    image: "/gallery/partner-vip-van-4.webp",
+    features: ["Quilted Leather Cabin", "Executive VIP Seating", "Delegations & Events"],
+    description: "A premium executive VIP van available through our vetted partner network — quilted leather seating and a refined, business-class cabin for VIP guests, delegations, and event transfers. Ideal when a group wants to travel together in comfort. Confirmed on WhatsApp.",
+  },
+  {
+    slug: "cadillac-escalade",
+    name: "Cadillac Escalade",
+    subtitle: "Elite SUV",
+    category: "suv",
+    passengers: 7,
+    luggage: 4,
+    startingPrice: 200,
+    badge: "Elite Choice",
+    image: "/fleet/cadillac-escalade.webp",
+    features: ["Elite Audio", "Extra Comfort", "VIP Chauffeur"],
+    description: "American luxury SUV for VIP arrivals. Premium audio, extra comfort, and a professional chauffeur.",
+  },
+  {
+    slug: "mercedes-s-class",
+    name: "Mercedes S-Class",
+    subtitle: "Ultra Luxury",
+    category: "luxury",
+    passengers: 3,
+    luggage: 2,
+    startingPrice: 250,
+    badge: "VIP Choice",
+    image: "/fleet/real/mercedes-s-class-exterior-night.webp",
+    features: ["VIP Experience", "Leather Interior", "Discreet Service"],
+    description: "The benchmark luxury sedan for executives and VIPs. Quiet, refined, and discreet.",
+  },
+  {
+    slug: "mercedes-maybach-s-class",
+    name: "Mercedes-Maybach S-Class",
+    subtitle: "Riyadh VIP Chauffeur",
+    category: "luxury",
+    passengers: 3,
+    luggage: 2,
+    startingPrice: 0,
+    badge: "Riyadh VIP Only",
+    image: "/fleet/mercedes-maybach.webp",
+    features: ["Riyadh to Riyadh only", "First-class rear cabin", "Discreet VIP chauffeur"],
+    description: "The flagship Maybach for VIP movement within Riyadh — reclining first-class rear seats, total privacy, and an executive chauffeur. Arranged for Riyadh city VIP transport only (Riyadh to Riyadh).",
+  },
+  {
+    slug: "range-rover-autobiography",
+    name: "Range Rover Autobiography",
+    subtitle: "Riyadh VIP SUV",
+    category: "luxury",
+    passengers: 4,
+    luggage: 4,
+    startingPrice: 0,
+    badge: "Riyadh VIP Only",
+    image: "/fleet/range-rover-autobiography.webp",
+    features: ["Riyadh to Riyadh only", "Elevated commanding ride", "Premium leather cabin"],
+    description: "The Range Rover Autobiography — a commanding luxury SUV for VIP arrivals, hotel transfers, and weddings inside Riyadh. Spacious, refined, and discreet, with a professional chauffeur. Riyadh city VIP transport only.",
+  },
+  {
+    slug: "lexus-lx-600",
+    name: "Lexus LX 600",
+    subtitle: "Riyadh VIP SUV",
+    category: "luxury",
+    passengers: 5,
+    luggage: 4,
+    startingPrice: 0,
+    badge: "Riyadh VIP Only",
+    image: "/fleet/lexus-lx-600.webp",
+    features: ["Riyadh to Riyadh only", "Whisper-quiet cabin", "Executive comfort"],
+    description: "The Lexus LX 600 — a whisper-quiet, ultra-reliable luxury SUV favoured for corporate and family VIP transport within Riyadh. Plush comfort with a professional chauffeur. Riyadh city VIP transport only.",
+  },
+  {
+    slug: "bmw-7-series",
+    name: "BMW 7 Series",
+    subtitle: "Executive Luxury",
+    category: "luxury",
+    passengers: 3,
+    luggage: 2,
+    startingPrice: 230,
+    badge: "Executive Class",
+    image: "/fleet/bmw-7-series.webp",
+    features: ["Performance", "Luxury Comfort", "Prestige"],
+    description: "Executive luxury sedan with a smooth, powerful ride — perfect for business travel.",
+  },
+  {
+    slug: "genesis-g80",
+    name: "Genesis G80 VIP",
+    subtitle: "Premium Sedan",
+    category: "sedan",
+    passengers: 3,
+    luggage: 2,
+    startingPrice: 180,
+    badge: "Premium Value",
+    image: "/fleet/genesis-g80.webp",
+    features: ["Silent Cabin", "VIP Rear Seat", "Modern Luxury"],
+    description: "Refined VIP sedan with a silent cabin and comfortable rear seats — understated luxury.",
+  },
+  {
+    slug: "ford-taurus",
+    name: "Ford Taurus 2025",
+    subtitle: "Business Sedan",
+    category: "sedan",
+    passengers: 3,
+    luggage: 2,
+    startingPrice: 100,
+    badge: "Business Class",
+    image: "/fleet/ford-taurus.webp",
+    features: ["Executive Sedan", "Smooth Ride", "Modern Tech"],
+    description: "Reliable executive sedan with modern tech and a smooth ride for corporate travel.",
+  },
+  {
+    slug: "mercedes-v-class",
+    name: "Mercedes V-Class VIP",
+    subtitle: "VIP Chauffeur Van",
+    category: "luxury",
+    passengers: 6,
+    luggage: 5,
+    startingPrice: 280,
+    badge: "VIP Luxury",
+    image: "/fleet/real/mercedes-v-class-fleet-lineup.webp",
+    features: ["Maybach Front", "Custom Leather Cabin", "Smart TV & Wifi"],
+    description: "Ultra-luxury VIP V-Class with Maybach trim, custom leather recliners, smart TV, and ambient lighting.",
+  },
+  {
+    slug: "mercedes-sprinter",
+    name: "Mercedes Sprinter VIP",
+    subtitle: "Executive VIP Van",
+    category: "luxury",
+    passengers: 9,
+    luggage: 8,
+    startingPrice: 400,
+    badge: "Royal Luxury",
+    image: "/fleet/real/mercedes-sprinter-vip-exterior.webp",
+    features: ["First-Class Cabin", "Custom Lounge", "Executive Privacy"],
+    description: "Royal luxury Sprinter with custom leather seats, marble tables, entertainment screen, and full privacy.",
+  },
+  {
+    slug: "hyundai-starex",
+    name: "Hyundai Starex",
+    subtitle: "Family Van",
+    category: "van",
+    passengers: 7,
+    luggage: 10,
+    startingPrice: 140,
+    badge: "Pilgrim Favorite",
+    image: "/fleet/hyundai-starex.webp",
+    features: ["Family Hospitality", "Professional Driver", "Airport Specialist"],
+    description: "Family-friendly van with huge luggage space — a favourite for airport transfers and Umrah trips.",
+  },
+  {
+    slug: "toyota-hiace",
+    name: "Toyota Hiace",
+    subtitle: "Group Transport",
+    category: "bus",
+    passengers: 11,
+    luggage: 16,
+    startingPrice: 280,
+    badge: "Reliable Workhorse",
+    image: "/fleet/toyota-hiace.webp",
+    features: ["Group VIP Transport", "Pilgrim Logistics", "Large Capacity"],
+    description: "Trusted group transport for up to 11 with large luggage capacity — ideal for Umrah pilgrim groups.",
+  },
+  {
+    slug: "toyota-coaster",
+    name: "Toyota Coaster",
+    subtitle: "Corporate Bus",
+    category: "bus",
+    passengers: 17,
+    luggage: 20,
+    startingPrice: 500,
+    badge: "Fleet Standard",
+    image: "/fleet/toyota-coaster.webp",
+    features: ["Corporate Bus", "Delegate Transport", "Large Groups"],
+    description: "Corporate bus for up to 17 — perfect for delegations, large groups, and Umrah operators.",
+  },
+  {
+    slug: "luxury-bus",
+    name: "Luxurious Bus",
+    subtitle: "Large Groups",
+    category: "bus",
+    passengers: 25,
+    luggage: 30,
+    startingPrice: 800,
+    badge: "Grand Fleet",
+    image: "/fleet/luxury-bus.webp",
+    features: ["On-board Comfort", "Large Groups", "Executive Seating"],
+    description: "Our largest coach for up to 25. On-board comfort and executive seating for big groups.",
+  },
+];
+
+/**
+ * Listing-page image for a vehicle: a 16:10, consistently framed,
+ * number-plate-obscured version generated by scripts/build-fleet-showcase.py
+ * into /public/fleet/showcase/. Falls back to the raw image for any vehicle
+ * that has not been processed yet (re-run the script after adding one).
+ */
+const SHOWCASE_SLUGS = new Set([
+  "toyota-camry", "toyota-veloz", "gmc-yukon-xl", "hyundai-staria", "executive-vip-van",
+  "cadillac-escalade", "mercedes-s-class", "mercedes-maybach-s-class", "range-rover-autobiography",
+  "lexus-lx-600", "bmw-7-series", "genesis-g80", "ford-taurus", "mercedes-v-class",
+  "mercedes-sprinter", "hyundai-starex", "toyota-hiace", "toyota-coaster", "luxury-bus",
+]);
+
+export function fleetShowcaseImage(v: FleetVehicle): string {
+  return SHOWCASE_SLUGS.has(v.slug) ? `/fleet/showcase/${v.slug}.webp` : v.image;
+}
+
+/** Single source for passenger/luggage capacity — pages must read this, never hardcode. */
+export function fleetCapacity(slug: string): { passengers: number; luggage: number } {
+  const v = FLEET_VEHICLES.find((x) => x.slug === slug);
+  if (!v) throw new Error(`fleetCapacity: unknown fleet slug "${slug}"`);
+  return { passengers: v.passengers, luggage: v.luggage };
+}

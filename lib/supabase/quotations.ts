@@ -1,0 +1,458 @@
+import { getSupabaseAnonClient, getSupabaseServerClient } from "./server";
+import type { DriverRow, DriverVehicleType } from "./drivers";
+
+export type QuotationStatus = "new" | "quoted" | "confirmed" | "assigned" | "completed" | "cancelled";
+export type QuotationPaymentStatus = "unpaid" | "partial" | "paid";
+export type TripType = "one_way" | "round_trip" | "event" | "multi_day" | "airport_transfer" | "hourly";
+export type QuoteStage = "draft" | "ready" | "sent" | "follow_up" | "accepted" | "rejected" | "expired";
+export type LeadSource = "website" | "whatsapp" | "referral" | "event_management";
+
+export type QuotationRow = {
+  id: string;
+  quote_reference: string;
+  customer_name: string;
+  customer_phone: string;
+  customer_email: string | null;
+  pickup_location: string;
+  drop_location: string;
+  trip_type: TripType;
+  trip_date: string;
+  trip_time: string | null;
+  return_date: string | null;
+  passengers_count: number | null;
+  luggage_notes: string | null;
+  vehicle_type_requested: DriverVehicleType | null;
+  quoted_price: number | null;
+  currency: string;
+  price_notes: string | null;
+  status: QuotationStatus;
+  assigned_driver_id: string | null;
+  payment_status: QuotationPaymentStatus;
+  source: LeadSource;
+  followup_flagged: boolean;
+  admin_notes: string | null;
+  created_at: string;
+  updated_at: string;
+  confirmed_at: string | null;
+  is_test: boolean;
+  profit: number | null;
+  receipt_sent_at: string | null;
+  review_invited_at: string | null;
+  actual_amount_paid: number | null;
+  payment_method_used: string | null;
+  // Ops backend (migrations 0019/0021)
+  client_id?: string | null;
+  quote_stage?: QuoteStage;
+  sent_at?: string | null;
+  sent_via?: string | null;
+  valid_until?: string | null;
+  followup_at?: string | null;
+  est_driver_cost?: number | null;
+  pricing_rule_id?: string | null;
+  driver_cost?: number | null;
+  extra_cost?: number;
+  partner_id?: string | null;
+  partner_share_pct?: number | null;
+  financial_status?: "n/a" | "required" | "confirmed";
+  financial_note?: string | null;
+  driver_name?: string | null;
+  driver_phone?: string | null;
+  vehicle_plate?: string | null;
+  vehicle_detail?: string | null;
+  /** Only present when fetched via getQuotationWithDriver (embedded select) —
+   *  plain getQuotationById/listQuotations rows leave this undefined. */
+  drivers?: QuotationDriverJoin | null;
+};
+
+export type QuotationDriverJoin = Pick<
+  DriverRow,
+  "full_name" | "phone" | "vehicle_type" | "vehicle_model" | "vehicle_plate_number"
+>;
+
+export type QuotationFilters = {
+  status?: QuotationStatus | QuotationStatus[];
+  tripType?: TripType;
+  dateFrom?: string;        // trip_date >= (YYYY-MM-DD)
+  dateTo?: string;          // trip_date <=
+  paymentStatus?: QuotationPaymentStatus;
+  source?: LeadSource;
+  search?: string;          // customer name / phone / quote_reference
+  sort?: "newest" | "oldest";
+  page?: number;
+  limit?: number;
+};
+
+export type NewQuotationInput = {
+  customer_name: string;
+  customer_phone: string;
+  customer_email?: string | null;
+  pickup_location: string;
+  drop_location: string;
+  trip_type?: TripType;
+  trip_date: string;            // YYYY-MM-DD
+  trip_time?: string | null;    // HH:MM
+  return_date?: string | null;
+  passengers_count?: number | null;
+  luggage_notes?: string | null;
+  vehicle_type_requested?: DriverVehicleType | null;
+  source?: LeadSource;
+};
+
+/** Public quotation request — security-definer RPC (0009). Anon key cannot
+ *  SELECT rows back, so the RPC inserts (forced status='new', source='website')
+ *  and returns only the id + TSA-YYYY-NNNN quote_reference. */
+export async function createQuotation(input: NewQuotationInput) {
+  const supabase = getSupabaseAnonClient();
+  if (!supabase) return { row: null, error: "Supabase not configured" };
+
+  const { data, error } = await supabase
+    .rpc("request_quotation", {
+      p_customer_name: input.customer_name,
+      p_customer_phone: input.customer_phone,
+      p_customer_email: input.customer_email ?? null,
+      p_pickup: input.pickup_location,
+      p_drop: input.drop_location,
+      p_trip_type: input.trip_type ?? "one_way",
+      p_trip_date: input.trip_date,
+      p_trip_time: input.trip_time ?? null,
+      p_return_date: input.return_date ?? null,
+      p_passengers: input.passengers_count ?? null,
+      p_luggage_notes: input.luggage_notes ?? null,
+      p_vehicle_type: input.vehicle_type_requested ?? null,
+    })
+    .single();
+
+  return { row: data as Pick<QuotationRow, "id" | "quote_reference"> | null, error: error?.message ?? null };
+}
+
+export type ManualQuotationInput = {
+  customer_name: string;
+  customer_phone: string;
+  customer_email?: string | null;
+  pickup_location: string;
+  drop_location: string;
+  trip_type?: TripType;
+  trip_date: string;
+  trip_time?: string | null;
+  return_date?: string | null;
+  passengers_count?: number | null;
+  luggage_notes?: string | null;
+  vehicle_type_requested?: DriverVehicleType | null;
+  quoted_price?: number | null;
+  currency?: string;
+  source?: LeadSource;
+};
+
+/**
+ * Admin manually typing in a lead that never went through the public form or
+ * the /book bridge — a WhatsApp-only conversation being entered directly.
+ * Service-role insert (authenticated admin action, bypasses the anon
+ * `request_quotation` RPC). Status auto-derives from whether a price was
+ * given: 'quoted' if so, 'new' otherwise — same convention as every other
+ * quotation in the system.
+ */
+export async function createManualQuotation(input: ManualQuotationInput) {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return { row: null, error: "Supabase not configured" };
+  const { data, error } = await supabase
+    .from("quotations")
+    .insert({
+      customer_name: input.customer_name,
+      customer_phone: input.customer_phone,
+      customer_email: input.customer_email ?? null,
+      pickup_location: input.pickup_location,
+      drop_location: input.drop_location,
+      trip_type: input.trip_type ?? "one_way",
+      trip_date: input.trip_date,
+      trip_time: input.trip_time ?? null,
+      return_date: input.return_date ?? null,
+      passengers_count: input.passengers_count ?? null,
+      luggage_notes: input.luggage_notes ?? null,
+      vehicle_type_requested: input.vehicle_type_requested ?? null,
+      quoted_price: input.quoted_price ?? null,
+      currency: input.currency ?? "SAR",
+      status: input.quoted_price != null ? "quoted" : "new",
+      source: input.source ?? "whatsapp",
+    })
+    .select()
+    .single();
+  return { row: (data ?? null) as QuotationRow | null, error: error?.message ?? null };
+}
+
+/**
+ * Admin-side bridge from a Prisma Booking to the real Supabase quotations
+ * system (reused as-is, not a second quotation implementation). Service-role
+ * insert — this is an authenticated admin action, not a public form
+ * submission, so it bypasses the anon `request_quotation` RPC and writes
+ * directly with a real `quoted` status. The DB trigger still generates the
+ * usual TSA-YYYY-NNNN reference.
+ */
+export async function createQuotationFromBooking(input: {
+  customer_name: string;
+  customer_phone: string;
+  customer_email?: string | null;
+  pickup_location: string;
+  drop_location: string;
+  trip_type: TripType;
+  trip_date: string;
+  trip_time?: string | null;
+  passengers_count?: number | null;
+  vehicle_type_requested?: DriverVehicleType | null;
+  quoted_price: number;
+  currency?: string;
+  luggage_notes?: string | null;
+}) {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return { row: null, error: "Supabase not configured" };
+  const { data, error } = await supabase
+    .from("quotations")
+    .insert({
+      customer_name: input.customer_name,
+      customer_phone: input.customer_phone,
+      customer_email: input.customer_email ?? null,
+      pickup_location: input.pickup_location,
+      drop_location: input.drop_location,
+      trip_type: input.trip_type,
+      trip_date: input.trip_date,
+      trip_time: input.trip_time ?? null,
+      passengers_count: input.passengers_count ?? null,
+      vehicle_type_requested: input.vehicle_type_requested ?? null,
+      quoted_price: input.quoted_price,
+      currency: input.currency ?? "SAR",
+      luggage_notes: input.luggage_notes ?? null,
+      status: "quoted",
+      source: "website",
+    })
+    .select()
+    .single();
+  return { row: (data ?? null) as QuotationRow | null, error: error?.message ?? null };
+}
+
+export async function getQuotationById(id: string) {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return { row: null as QuotationRow | null, error: "Supabase not configured" };
+  const { data, error } = await supabase.from("quotations").select("*").eq("id", id).single();
+  return { row: (data ?? null) as QuotationRow | null, error: error?.message ?? null };
+}
+
+/** Same as getQuotationById but embeds the assigned driver's name/phone/vehicle
+ *  via the `assigned_driver_id` FK — needed for the receipt PDF/email, which
+ *  (unlike the pre-completion quotation) shows who actually drove the trip. */
+export async function getQuotationWithDriver(id: string) {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return { row: null as QuotationRow | null, error: "Supabase not configured" };
+  const { data, error } = await supabase
+    .from("quotations")
+    .select("*, drivers(full_name, phone, vehicle_type, vehicle_model, vehicle_plate_number)")
+    .eq("id", id)
+    .single();
+  return { row: (data ?? null) as QuotationRow | null, error: error?.message ?? null };
+}
+
+export async function listQuotations(filters: QuotationFilters = {}) {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return { rows: [] as QuotationRow[], total: 0, error: "Supabase not configured" };
+
+  const page = Math.max(1, filters.page ?? 1);
+  const limit = Math.min(100, filters.limit ?? 25);
+
+  let q = supabase.from("quotations").select("*", { count: "exact" });
+
+  if (filters.status) {
+    q = Array.isArray(filters.status) ? q.in("status", filters.status) : q.eq("status", filters.status);
+  }
+  if (filters.tripType) q = q.eq("trip_type", filters.tripType);
+  if (filters.paymentStatus) q = q.eq("payment_status", filters.paymentStatus);
+  if (filters.source) q = q.eq("source", filters.source);
+  if (filters.dateFrom) q = q.gte("trip_date", filters.dateFrom);
+  if (filters.dateTo) q = q.lte("trip_date", filters.dateTo);
+  if (filters.search) {
+    const s = filters.search.replace(/[%,()]/g, "");
+    q = q.or(`customer_name.ilike.%${s}%,customer_phone.ilike.%${s}%,quote_reference.ilike.%${s}%`);
+  }
+
+  // needs-follow-up rows always float to the top
+  q = q
+    .order("followup_flagged", { ascending: false })
+    .order("created_at", { ascending: filters.sort === "oldest" });
+
+  const { data, count, error } = await q.range((page - 1) * limit, page * limit - 1);
+  return { rows: (data ?? []) as QuotationRow[], total: count ?? 0, error: error?.message ?? null };
+}
+
+/** Toggle the is_test flag — a lightweight admin/meta field, not a business
+ *  record change, so it's a direct update rather than going through the
+ *  audit-logged status/details RPCs. */
+export async function setQuotationTestFlag(id: string, isTest: boolean) {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return { row: null, error: "Supabase not configured" };
+  const { data, error } = await supabase
+    .from("quotations")
+    .update({ is_test: isTest })
+    .eq("id", id)
+    .select()
+    .single();
+  return { row: (data ?? null) as QuotationRow | null, error: error?.message ?? null };
+}
+
+/** Manual profit entry — a bookkeeping field the admin fills in by hand per
+ *  ride (this business's real fare/cost isn't computed anywhere in the
+ *  system), not a business-status change, so it's a direct update like
+ *  is_test rather than going through the audit-logged RPCs. */
+export async function setQuotationProfit(id: string, profit: number | null) {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return { row: null, error: "Supabase not configured" };
+  const { data, error } = await supabase
+    .from("quotations")
+    .update({ profit })
+    .eq("id", id)
+    .select()
+    .single();
+  return { row: (data ?? null) as QuotationRow | null, error: error?.message ?? null };
+}
+
+/** Stamps receipt_sent_at after the receipt email actually went out. Amount, method and payment status are NOT touched here —
+ *  they are derived from the payments ledger (lib/ops/payments.ts). Called from POST /api/quotations/[id]/receipt. */
+export async function setQuotationReceiptSent(id: string) {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return { row: null, error: "Supabase not configured" };
+  const { data, error } = await supabase
+    .from("quotations")
+    .update({ receipt_sent_at: new Date().toISOString() })
+    .eq("id", id)
+    .select()
+    .single();
+  return { row: (data ?? null) as QuotationRow | null, error: error?.message ?? null };
+}
+
+/** Marks that a review-request nudge (WhatsApp) was sent to the customer. */
+export async function setQuotationReviewInvited(id: string) {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return { row: null, error: "Supabase not configured" };
+  const { data, error } = await supabase
+    .from("quotations")
+    .update({ review_invited_at: new Date().toISOString() })
+    .eq("id", id)
+    .select()
+    .single();
+  return { row: (data ?? null) as QuotationRow | null, error: error?.message ?? null };
+}
+
+/** Permanently deletes a quotation. Callers MUST verify is_test=true
+ *  themselves first (see DELETE /api/quotations/[id]) — this function does
+ *  not re-check, so it must never be called directly from user input. */
+export async function deleteQuotation(id: string) {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return { error: "Supabase not configured" };
+  const { error } = await supabase.from("quotations").delete().eq("id", id);
+  return { error: error?.message ?? null };
+}
+
+/** Status change through the audit-logged RPC. Triggers enforce double-booking
+ *  checks (confirmed/assigned) and bump total_trips_completed on 'completed'. */
+export async function updateQuotationStatus(
+  id: string,
+  status: QuotationStatus,
+  adminId: string,
+  opts: { driverId?: string; quotedPrice?: number } = {}
+) {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return { row: null, error: "Supabase not configured" };
+  const { data, error } = await supabase.rpc("admin_update_quotation_status", {
+    p_id: id, p_status: status, p_admin: adminId,
+    p_driver: opts.driverId ?? null, p_price: opts.quotedPrice ?? null,
+  });
+  return { row: (data ?? null) as QuotationRow | null, error: error?.message ?? null };
+}
+
+export type QuotationDetailsInput = Partial<{
+  customer_name: string;
+  customer_phone: string;
+  customer_email: string | null;
+  pickup_location: string;
+  drop_location: string;
+  trip_type: TripType;
+  trip_date: string;
+  trip_time: string | null;
+  return_date: string | null;
+  passengers_count: number | null;
+  luggage_notes: string | null;
+  vehicle_type_requested: DriverVehicleType | null;
+  admin_notes: string | null;
+  followup_flagged: boolean;
+}>;
+
+/** Edit customer/trip details through the audit-logged, lock-enforcing RPC
+ *  (0010). Locked once status is completed/cancelled — only admin_notes and
+ *  followup_flagged are still accepted then; the RPC raises otherwise. */
+export async function updateQuotationDetails(id: string, adminId: string, details: QuotationDetailsInput) {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return { row: null, error: "Supabase not configured" };
+  const { data, error } = await supabase.rpc("admin_update_quotation_details", {
+    p_id: id,
+    p_admin: adminId,
+    p_customer_name: details.customer_name ?? null,
+    p_customer_phone: details.customer_phone ?? null,
+    p_customer_email: details.customer_email ?? null,
+    p_pickup: details.pickup_location ?? null,
+    p_drop: details.drop_location ?? null,
+    p_trip_type: details.trip_type ?? null,
+    p_trip_date: details.trip_date ?? null,
+    p_trip_time: details.trip_time ?? null,
+    p_return_date: details.return_date ?? null,
+    p_passengers: details.passengers_count ?? null,
+    p_luggage_notes: details.luggage_notes ?? null,
+    p_vehicle_type: details.vehicle_type_requested ?? null,
+    p_admin_notes: details.admin_notes ?? null,
+    p_followup_flagged: details.followup_flagged ?? null,
+  });
+  return { row: (data ?? null) as QuotationRow | null, error: error?.message ?? null };
+}
+
+export type DashboardSummary = {
+  pending_driver_approvals: number;
+  new_quotations: number;
+  expiring_documents: number;
+  todays_confirmed_trips: number;
+  needs_followup: number;
+};
+
+/** Rides in a date window, oldest-first by trip date/time — the "schedule"
+ *  view (today / tomorrow / this week / this month), not the paginated
+ *  admin list. Cancelled rides are excluded; everything else (including
+ *  'new'/unquoted leads with a trip_date) shows up so nothing slips through. */
+export async function listScheduleQuotations(fromDate: string, toDate: string) {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return { rows: [] as QuotationRow[], error: "Supabase not configured" };
+  const { data, error } = await supabase
+    .from("quotations")
+    .select("*")
+    .neq("status", "cancelled")
+    .gte("trip_date", fromDate)
+    .lte("trip_date", toDate)
+    .order("trip_date", { ascending: true })
+    .order("trip_time", { ascending: true, nullsFirst: true });
+  return { rows: (data ?? []) as QuotationRow[], error: error?.message ?? null };
+}
+
+/** Completed rides still owed money, oldest trip first — surfaces cases like
+ *  a cash pickup that was never actually collected (easy to lose track of
+ *  once a ride is marked "completed" and scrolls off the main list). */
+export async function listOutstandingPayments() {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return { rows: [] as QuotationRow[], error: "Supabase not configured" };
+  const { data, error } = await supabase
+    .from("quotations")
+    .select("*")
+    .eq("status", "completed")
+    .neq("payment_status", "paid")
+    .order("trip_date", { ascending: true });
+  return { rows: (data ?? []) as QuotationRow[], error: error?.message ?? null };
+}
+
+export async function getDashboardSummary() {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return { summary: null, error: "Supabase not configured" };
+  const { data, error } = await supabase.from("admin_dashboard_summary").select("*").single();
+  return { summary: (data ?? null) as DashboardSummary | null, error: error?.message ?? null };
+}
