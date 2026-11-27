@@ -5,7 +5,8 @@ import { RelatedGuides } from "@/components/blog/RelatedGuides";
 export const metadata: Metadata = seo({
   title: "Taxi Fleet for Hire — Sedans, SUVs, Vans & Buses",
   description:
-    "Browse our Saudi Arabia taxi fleet: GMC Yukon XL, Hyundai Staria, Toyota Camry, & Mercedes S-Class. Clear prices confirmed on WhatsApp for airport, Umrah & intercity transfers 24/7.",
+    // 2026-11-28: "our fleet" removed (CLAUDE.md §14 partner-network wording).
+    "Vehicles through our partner network — executive sedans, full-size SUVs, vans and coasters, from Toyota Camry to Mercedes S-Class. Fixed fare on WhatsApp.",
   path: "/fleet",
 });
 

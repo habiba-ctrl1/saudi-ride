@@ -23,6 +23,11 @@ const TITLE_OVERRIDES: Record<string, string> = {
 const DESCRIPTION_OVERRIDES: Record<string, string> = {
   "madinah-to-alula": "Madinah to AlUla is 330 km — about 3 hours by road. See the route, driving time, and book a private door-to-door car with a professional driver, fare confirmed on WhatsApp, 24/7.",
   "riyadh-to-makkah": "Riyadh to Makkah is about 870 km, 8–9 hours by road via Highway 40. Route, driving time and a private door-to-door car, fare confirmed on WhatsApp.",
+  // 2026-11-28 CTR pass (seo/CTR-BATCH-2026-11-28.md): description only; title/H1 unchanged.
+  "riyadh-to-jeddah": "Riyadh to Jeddah is about 950 km — 9–10 hours on Highway 40. Drive or fly? Where to stop, and a private car door to door at one fixed fare, 24/7.",
+  "riyadh-to-alkhobar": "Riyadh to Al Khobar is about 400 km — 3.5–4 hours by road. Car or train? Compare them, then book a private car door to door at one fixed fare.",
+  "riyadh-to-taif": "Riyadh to Taif is about 785 km — around 8 hours on Highway 40. Rest stops, drive vs fly, and a private car to your Taif hotel at one fixed fare.",
+  "riyadh-to-dammam": "Riyadh to Dammam: about 410 km, roughly 4 hours on Highway 40. Train vs private car compared, plus door-to-door booking with a fixed fare, 24/7.",
 };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

@@ -2142,6 +2142,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // impressions but ~0 clicks — titles now mirror GSC queries ("by road",
   // "car with driver", "riyadh to bahrain") + the distance.
   const TITLE_OVERRIDES: Record<string, string> = {
+    // 2026-11-28 owner-approved title (seo/CTR-BATCH-2026-11-28.md) T2/T3. Were the generic "Taxi X to Y | Taxi Saudi Arabia".
+    "jubail-to-dammam-airport": "Jubail to Dammam Airport Taxi — 90 km, Private Car, 24/7",
+    "jeddah-to-abha": "Jeddah to Abha Taxi — 690 km Private Car to Abha & Khamis Mushait",
     "riyadh-to-al-qassim-airport": "Riyadh to Al Qassim Airport Taxi | Private Transfer to ELQ",
     "red-sea-airport-to-alula": "Red Sea Airport (RSI) to AlUla Private Transfer | ~260 km",
     "alula-to-madinah": "AlUla to Madinah Private Transfer | ~330 km, Door to Door",
@@ -2224,7 +2227,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     // 2026-11-14: generic template snippet replaced (titles untouched — both rank pos ~7). Figures from routes.ts.
     "jeddah-to-riyadh": "Private car with driver from Jeddah to Riyadh — about 950 km, roughly 9 hours, door to door with rest and prayer stops. Sedan, SUV or van; one fare agreed on WhatsApp before booking.",
     "jeddah-to-abha": "Private car with driver from Jeddah or JED airport to Abha and Khamis Mushait — about 690 km, 7–8 hours into the Asir highlands. One fixed fare agreed on WhatsApp before booking.",
-    "riyadh-to-al-qassim-airport": "Book a private transfer from Riyadh to Al Qassim Airport (ELQ). Request a sedan, SUV or GMC and check availability and pricing through WhatsApp.",
+    // 2026-11-28 CTR pass (seo/CTR-BATCH-2026-11-28.md): description only; title/H1 unchanged.
+    "riyadh-to-al-qassim-airport": "Riyadh to Al Qassim Airport (ELQ): about 375 km, around 3 hours 36 minutes. Private car timed to your flight — sedan, SUV or van, one fixed fare, 24/7.",
+    "jubail-to-dammam-airport": "Jubail to Dammam Airport (DMM): about 90 km, roughly 1 hour 5 minutes. Pickup from your home, hotel or site gate in Jubail, fixed fare, 24/7.",
     "alula-to-madinah": "Private car from AlUla to Madinah — about 330 km, roughly 3 hours, to your hotel or Madinah Airport. One fixed fare agreed on WhatsApp before booking.",
     "alula-to-riyadh": "Private car from AlUla to Riyadh — about 1,050 km, a full day on the road, door to door with rest and prayer stops. Fare agreed before booking.",
     "alula-to-jeddah": "Private car from AlUla to Jeddah — about 700 km, to your hotel or JED airport. One fixed fare agreed on WhatsApp before booking.",
